@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class OptionButton extends StatefulWidget {
   final Widget icon;
   final Widget? selectedIcon, bottomIcon, leadingIcon;
-  final VoidCallback? onPressed, onSecondaryPressed, onLongPressed;
+  final VoidCallback? onPressed, onSecondaryPressed, onLongPressed, onDoubleTap;
   final bool selected, highlighted, focussed, showBottom;
   final String tooltip;
 
@@ -18,6 +18,7 @@ class OptionButton extends StatefulWidget {
     this.onPressed,
     this.onSecondaryPressed,
     this.onLongPressed,
+    this.onDoubleTap,
     this.selected = false,
     this.highlighted = false,
     this.focussed = false,
@@ -88,8 +89,9 @@ class _OptionButtonState extends State<OptionButton>
         aspectRatio: 1,
         child: InkWell(
           radius: 12,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           onTap: widget.onPressed,
+          onDoubleTap: widget.onDoubleTap,
           onSecondaryTap: widget.onSecondaryPressed,
           onLongPress: widget.onLongPressed == null
               ? null
@@ -108,7 +110,9 @@ class _OptionButtonState extends State<OptionButton>
                           color: ColorScheme.of(context).primary,
                           width: 2 * _animation.value,
                         ),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
                       )
                     : (widget.focussed
                           ? BoxDecoration(
@@ -117,7 +121,9 @@ class _OptionButtonState extends State<OptionButton>
                                 color: ColorScheme.of(context).outlineVariant,
                                 width: 2 * _animation.value,
                               ),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
                             )
                           : null),
                 margin: (widget.highlighted || widget.focussed)
@@ -151,7 +157,6 @@ class _OptionButtonState extends State<OptionButton>
                       ],
                     ),
                     SizeTransition(
-                      axisAlignment: -1,
                       axis: Axis.vertical,
                       sizeFactor: _animation,
                       child: Column(

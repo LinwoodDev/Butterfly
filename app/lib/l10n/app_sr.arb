@@ -10,6 +10,11 @@
   "lightTheme": "Svetla tema",
   "systemTheme": "Koristi podrazumevanu sistemsku temu",
   "view": "Prikaz",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Umanji",
   "resetZoom": "Resetuj zumiranje",
   "strokeWidth": "Debljina linije",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Uključi gumicu?",
   "thinning": "Tanjanje",
   "pen": "Olovka",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Gumica za putanje",
+  "stroke": "Stroke",
   "label": "Oznaka",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Pozadina",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Kutija",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Podrazumevana paleta",
   "highlighter": "Marker",
+  "combinePaths": "Combine paths",
   "add": "Dodaj",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Puna",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dvostruka",
   "dotted": "Tačkasta",
+  "dottedDark": "Dotted dark",
   "dashed": "Isprekidana",
   "wavy": "Talasasta",
   "fontWeight": "Debljina fonta",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Ponašanja",
   "dataDirectory": "Direktorijum sa podacima",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "Podrazumevana putanja",
   "dateFormat": "Format datuma",
   "updatedAt": "Ažurirano: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Nije postavljeno",
   "enterLayer": "Unesite naziv sloja",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Izaberi elemente",
   "deleteElements": "Obriši elemente",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Da li zaista želite da obrišete izabrane elemente?",
   "selectCustomCollection": "Izaberite prilagođenu kolekciju",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Tamno",
-  "plainDark": "Tamno",
+  "plainDark": "Plain dark",
   "ruledDark": "Tamne linije",
   "quadDark": "Tamni kvadrati",
   "musicDark": "Tamna muzika",
@@ -545,6 +576,7 @@
   "topRight": "Gore desno",
   "bottomLeft": "Dole levo",
   "bottomRight": "Dole desno",
+  "zoomPosition": "Zoom control position",
   "caches": "Keš memorije",
   "manage": "Upravljaj",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Fascikla sinhronizovana",
   "syncRootDirectory": "Sinhronizuj korenski direktorijum",
   "penOnlyInput": "Unos samo olovkom",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Pokreti unosa",
   "nativeTitleBar": "Nativna naslovna traka",
+  "mode": "Mode",
   "syncMode": "Režim sinhronizacije",
   "connection": "Konekcija",
   "always": "Uvek",
@@ -893,6 +939,7 @@
   "bringForward": "Pomeri napred",
   "sendBackward": "Pomeri nazad",
   "rotation": "Rotacija",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Dostupno samo na većim ekranima",
   "toolbarPosition": "Pozicija trake sa alatkama",
   "rotate": "Rotiraj",
@@ -919,6 +966,9 @@
   "ascending": "Uzlazno",
   "descending": "Silazno",
   "imageScale": "Skala slike",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Izaberi",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Kvalitet PDF-a",
   "surface": "Površina",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Nastavi svejedno",
   "zoomControl": "Kontrola zumiranja",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Visok kontrast",
   "shouldANumber": "Ova vrednost treba da bude važeći broj",
   "createAreas": "Kreiraj oblasti",
@@ -1081,6 +1134,8 @@
   "addAll": "Dodaj sve",
   "onlyCurrentPage": "Samo trenutna stranica",
   "smoothNavigation": "Glatka navigacija",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Tačno",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Promeni kolekciju",
   "collections": "Kolekcije",
   "fullSelection": "Potpuna selekcija",
-  "fullSelectionDescription": "Zahteva da elementi budu u potpunosti unutar okvira za selekciju da bi bili izabrani.",
   "collection": "Kolekcija",
   "defaultCollection": "Podrazumevana kolekcija",
   "scroll": "Skroluj",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Početni ekran",
   "lastNote": "Poslednja beleška",
   "newNote": "Nova beleška",
-  "convertToLayer": "Pretvori u sloj",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Spoji",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Zavisno od pozicije",
   "flipHorizontal": "Okreni horizontalno",
   "flipVertical": "Okreni vertikalno",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

@@ -9,7 +9,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
             LabelTool e => LabelToolSelection([e]),
             PenTool e => PenToolSelection([e]),
             EraserTool e => EraserToolSelection([e]),
-            PathEraserTool e => PathEraserToolSelection([e]),
+            SelectTool e => SelectToolSelection([e]),
             AreaTool e => AreaToolSelection([e]),
             GridTool e => GridToolSelection([e]),
             LaserTool e => LaserToolSelection([e]),
@@ -18,7 +18,9 @@ class ToolSelection<T extends Tool> extends Selection<T> {
             StampTool e => StampToolSelection([e]),
             TextureTool e => TextureToolSelection([e]),
             BarcodeTool e => BarcodeToolSelection([e]),
+            AssetTool e => AssetToolSelection([e]),
             PolygonTool e => PolygonToolSelection([e]),
+            SpacerTool e => SpacerToolSelection([e]),
             _ => ToolSelection<T>([selected]),
           }
           as ToolSelection<T>;
@@ -43,20 +45,10 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedTools = <int, Tool>{};
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final oldTools = state.info.tools;
-    for (var i = 0; i < selected.length; i++) {
-      final tool = selected[i];
-      final oldTool = this.selected[i];
-      final toolIndex = oldTools.indexOf(oldTool);
-      if (tool != oldTool && toolIndex >= 0) {
-        updatedTools[toolIndex] = tool;
-      }
-    }
-    bloc.add(ToolsChanged(updatedTools));
+    bloc.add(ToolsChanged(selected));
     super.update(context, selected);
   }
 
@@ -68,9 +60,8 @@ class ToolSelection<T extends Tool> extends Selection<T> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final painters = state.info.tools;
     context.read<DocumentBloc>().add(
-      ToolsRemoved(selected.map((p) => painters.indexOf(p)).toList()),
+      ToolsRemoved(selected.map((p) => p.id).nonNulls.toList()),
     );
   }
 

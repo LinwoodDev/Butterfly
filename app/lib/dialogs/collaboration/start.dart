@@ -34,8 +34,10 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
     if (kIsWeb) return;
     switch (_connectionTechnology) {
       case ConnectionTechnology.swamp:
-        final swamp = _swampAddressController.text;
-        widget.service.createSwampServer(Uri.parse(swamp));
+        final swamp = _swampAddressController.text.trim();
+        final uri = Uri.tryParse(swamp);
+        if (uri == null) return;
+        widget.service.createSwampServer(uri);
         if (swamp != _defaultSwamp) {
           _settingsCubit.changeSwamp(swamp);
         }

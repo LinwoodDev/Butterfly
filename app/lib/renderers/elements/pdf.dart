@@ -3,14 +3,15 @@ part of '../renderer.dart';
 class PdfRenderer extends Renderer<PdfElement> {
   ui.Image? image;
   double? renderedScale;
-  Rect? _lastRenderedRect;
+  bool ownsImage;
+  int _renderId = 0;
 
   PdfRenderer(
     super.element, [
     super.layer,
     this.image,
     this.renderedScale,
-    this._lastRenderedRect,
+    this.ownsImage = true,
   ]);
 
   @override
@@ -20,9 +21,10 @@ class PdfRenderer extends Renderer<PdfElement> {
     DocumentPage page,
     String path,
   ) {
-    final uri = Uri.parse(element.source);
-    if (uri.hasScheme && !uri.isScheme('file')) return false;
-    final shouldUpdate = uri.path == path;
+    final uri = Uri.tryParse(element.source);
+    if (uri != null && uri.hasScheme && !uri.isScheme('file')) return false;
+    final sourcePath = uri?.path ?? element.source;
+    final shouldUpdate = sourcePath == path;
     return shouldUpdate;
   }
 
@@ -37,7 +39,9 @@ class PdfRenderer extends Renderer<PdfElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (this.image == null || element.background.a > 0) {
+    final image = this.image;
+
+    if (image == null) {
       // Render placeholder
       final paint = Paint()
         ..color = element.background.a > 0
@@ -45,24 +49,15 @@ class PdfRenderer extends Renderer<PdfElement> {
             : Colors.grey
         ..style = PaintingStyle.fill;
       canvas.drawRect(rect, paint);
-    }
-    final image = this.image;
-    final renderRect = _lastRenderedRect;
-    if (image != null && renderRect != null && !renderRect.isEmpty) {
+    } else {
       final paint = Paint()
         ..filterQuality = FilterQuality.high
         ..isAntiAlias = true;
       canvas.drawImageRect(
         image,
         Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        renderRect,
-        paint,
-      );
-      canvas.drawRect(
         rect,
-        paint
-          ..strokeWidth = 5
-          ..style = PaintingStyle.stroke,
+        paint,
       );
     }
   }
@@ -99,21 +94,13 @@ class PdfRenderer extends Renderer<PdfElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) {
-    image?.dispose();
+    _renderId++;
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
     renderedScale = null;
-    _lastRenderedRect = null;
   }
-
-  Rect _getRenderRect(Rect viewportRect) => rect.intersect(viewportRect);
-
-  Rect _getViewportRect(CameraTransform renderTransform, Size size) =>
-      Rect.fromLTWH(
-        renderTransform.position.dx,
-        renderTransform.position.dy,
-        size.width / renderTransform.size,
-        size.height / renderTransform.size,
-      );
 
   @override
   Future<void> onVisible(
@@ -123,7 +110,6 @@ class PdfRenderer extends Renderer<PdfElement> {
     ui.Size size,
   ) async {
     return _renderImage(
-      _getRenderRect(_getViewportRect(renderTransform, size)),
       blocState.assetService,
       blocState.data,
       renderTransform.size * renderTransform.pixelRatio,
@@ -137,64 +123,98 @@ class PdfRenderer extends Renderer<PdfElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) async {
-    return _renderImage(
-      _getRenderRect(_getViewportRect(renderTransform, size)),
-      blocState.assetService,
-      blocState.data,
-      renderTransform.size * renderTransform.pixelRatio,
-    );
+    final scale = renderTransform.size * renderTransform.pixelRatio;
+    if (renderedScale != null && (renderedScale! - scale).abs() < 0.001) {
+      return;
+    }
+    return _renderImage(blocState.assetService, blocState.data, scale);
   }
 
   Future<void> _renderImage(
-    Rect renderRect,
     AssetService assetService,
     NoteData document,
     double scale,
   ) async {
-    if (renderRect.isEmpty) {
-      image?.dispose();
-      image = null;
-      renderedScale = null;
-      _lastRenderedRect = null;
-      return;
-    }
     if (image != null &&
-        _lastRenderedRect == renderRect &&
         renderedScale != null &&
         (renderedScale! - scale).abs() < 0.001) {
       return;
     }
-    final data = await assetService.getPdfDocument(element.source, document);
-    if (data == null) return;
-    final relativeRect = renderRect.translate(
-      -element.position.x,
-      -element.position.y,
-    );
+
+    final currentRenderId = ++_renderId;
     try {
+      final data = await assetService.getPdfDocument(element.source, document);
+      if (data == null || currentRenderId != _renderId) return;
+
+      var renderScale = scale;
+      const double maxDimension = 2048.0;
+      final renderRect = rect;
+      if (renderRect.width * renderScale > maxDimension) {
+        renderScale = maxDimension / renderRect.width;
+      }
+      if (renderRect.height * renderScale > maxDimension) {
+        renderScale = maxDimension / renderRect.height;
+      }
+
+      final width = (renderRect.width * renderScale).toInt();
+      final height = (renderRect.height * renderScale).toInt();
+      if (width <= 0 || height <= 0) return;
+
       final raster = await data.pages
           .elementAtOrNull(element.page)
           ?.render(
-            x: (relativeRect.left * scale).toInt(),
-            y: (relativeRect.top * scale).toInt(),
-            width: (relativeRect.width * scale).toInt(),
-            height: (relativeRect.height * scale).toInt(),
-            fullWidth: element.width * scale,
-            fullHeight: element.height * scale,
+            x: 0,
+            y: 0,
+            width: width,
+            height: height,
+            fullWidth: width.toDouble(),
+            fullHeight: height.toDouble(),
           );
-      if (raster == null) return;
-      var imgImage = raster.createImageNF();
+      if (raster == null || currentRenderId != _renderId) {
+        raster?.dispose();
+        return;
+      }
+
+      ui.Image uiImage;
       if (element.invert) {
+        var imgImage = raster.createImageNF();
+        raster.dispose();
         final cmd = img.Command()
           ..image(imgImage)
           ..invert();
         final converted = await cmd.getImage();
         if (converted != null) imgImage = converted;
+        uiImage = await convertImageToFlutterUi(imgImage);
+      } else {
+        uiImage = await raster.createImage();
+        raster.dispose();
       }
-      image?.dispose();
-      image = await convertImageToFlutterUi(imgImage);
+
+      if (currentRenderId != _renderId) {
+        uiImage.dispose();
+        return;
+      }
+
+      if (ownsImage) {
+        image?.dispose();
+      }
+      image = uiImage;
       renderedScale = scale;
-      _lastRenderedRect = renderRect;
-    } catch (_) {}
+      ownsImage = true;
+    } catch (error, stackTrace) {
+      talker.error(
+        'Failed to render PDF element ${element.source}',
+        error,
+        stackTrace,
+      );
+      if (currentRenderId == _renderId) {
+        if (ownsImage) {
+          image?.dispose();
+        }
+        image = null;
+        renderedScale = null;
+      }
+    }
   }
 
   @override
@@ -271,15 +291,17 @@ class PdfRenderer extends Renderer<PdfElement> {
       layer,
       image,
       renderedScale,
-      _lastRenderedRect,
+      false,
     );
   }
 
   @override
   void dispose() {
-    image?.dispose();
+    _renderId++;
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
     renderedScale = null;
-    _lastRenderedRect = null;
   }
 }

@@ -10,6 +10,11 @@
   "lightTheme": "Φωτεινό θέμα",
   "systemTheme": "Χρήση προεπιλεγμένου θέματος συστήματος",
   "view": "Προβολή",
+  "contentViewport": "Προβολή Περιεχομένου",
+  "limitViewportToPositiveCoordinates": "Περιορισμός της προβολής στις θετικές συντεταγμένες",
+  "off": "Ανενεργό",
+  "canvas": "Καμβάς",
+  "interface": "Διεπαφή",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Σμίκρυνση",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Πλάτος περιγράμματος",
+  "strokeStyle": "Στυλ πινελιάς",
+  "dashLength": "Μήκος παύλας",
+  "gapLength": "Μήκος κενού",
   "includeEraser": "Συμπεριλάβετε γόμα?",
   "thinning": "Λέπτυνση",
   "pen": "Πένα",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Διαδρομή γόμας",
+  "stroke": "Stroke",
   "label": "Ετικέτα",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Φόντο",
+  "applyBackground": "Εφαρμογή φόντου",
+  "applyAreas": "Εφαρμογή περιοχών",
+  "currentPage": "Τρέχουσα σελίδα",
+  "allPages": "Όλες οι σελίδες",
   "box": "Κουτί",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Προεπιλεγμένη παλέτα",
   "highlighter": "Επισήμανση",
+  "combinePaths": "Συνδυάστε διαδρομές",
   "add": "Προσθήκη",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Συμπαγές χρώμα",
+  "gradient": "Διαβάθμιση",
+  "gradientType": "Τύπος διαβάθμισης",
+  "linear": "Γραμμικό",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Διπλό",
   "dotted": "Διακεκομμένη",
+  "dottedDark": "Διακεκομμένο σκούρο",
   "dashed": "Διακεκομμένη",
   "wavy": "Κυματιστό",
   "fontWeight": "Βάρος γραμματοσειράς",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Συμπεριφορές",
   "dataDirectory": "Κατάλογος δεδομένων",
+  "warning": "Προειδοποίηση",
+  "platformExperimentalWarning": "Προειδοποίηση: Αυτή η ρύθμιση είναι πειραματική και μπορεί να έχει προβλήματα σε αυτήν την πλατφόρμα.",
+  "changeDataDirectoryWarningContent": "Είστε βέβαιοι ότι θέλετε να αλλάξετε το φάκελο δεδομένων? Θα πρέπει να κάνετε ένα αντίγραφο ασφαλείας των δεδομένων σας πριν προχωρήσετε.",
   "defaultPath": "Προεπιλεγμένη διαδρομή",
   "dateFormat": "Μορφή ημερομηνίας",
   "updatedAt": "Ενημερώθηκε στο: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Δεν έχει οριστεί",
   "enterLayer": "Εισάγετε το όνομα του επιπέδου",
+  "eraseShapes": "Διαγραφή σχημάτων",
+  "eraseShapeModeNone": "Να μην διαγράφονται σχήματα",
+  "eraseShapeModeTouchEdges": "Διαγραφή κατά την αφή ακμών",
+  "eraseShapeModeTouchAnywhere": "Διαγραφή όταν αγγίζετε οπουδήποτε",
+  "selectElementModeTouchEdges": "Επιλέξτε όταν αγγίζετε τις ακμές",
+  "selectElementModeTouchAnywhere": "Επιλέξτε όταν αγγίζετε οπουδήποτε",
   "selectElements": "Επιλογή στοιχείων",
   "deleteElements": "Διαγραφή στοιχείων",
+  "eraseAllElements": "Διαγραφή όλων των στοιχείων",
   "deleteElementsConfirm": "Θέλετε πραγματικά να διαγράψετε τα επιλεγμένα στοιχεία?",
   "selectCustomCollection": "Επιλέξτε μια προσαρμοσμένη συλλογή",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Σκοτεινό",
-  "plainDark": "Σκοτεινό",
+  "plainDark": "Απλό σκοτεινό",
   "ruledDark": "Τυχόν σκούρο",
   "quadDark": "Τετραπλή σκοτεινή",
   "musicDark": "Σκοτεινή μουσική",
@@ -545,6 +576,7 @@
   "topRight": "Πάνω δεξιά",
   "bottomLeft": "Κάτω αριστερά",
   "bottomRight": "Κάτω δεξιά",
+  "zoomPosition": "Θέση ελέγχου εστίασης",
   "caches": "Κρύπτες",
   "manage": "Διαχείριση",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Ο φάκελος συγχρονίστηκε",
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
   "penOnlyInput": "Είσοδος μόνο πένας",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Αυτόματη ενεργοποίηση λειτουργίας μόνο στυλό όταν εντοπιστεί μια γραφίδα. Αυτή η ρύθμιση διαρκεί μόνο για την τρέχουσα συνεδρία.",
+  "penOnlyInputOnDescription": "Πάντα απορρίπτει την είσοδο αφής και ποντικιού, δέχεται μόνο γραφίδα εισόδου.",
+  "penOnlyInputOffDescription": "Αποδεχτείτε όλους τους τύπους εισόδου, συμπεριλαμβανομένης της αφής, του ποντικιού και της γραφίδας.",
+  "automatic": "Αυτόματο",
+  "alwaysOn": "Πάντα ενεργό",
+  "alwaysOff": "Πάντα ανενεργό",
+  "showPenOnlyToggle": "Εμφάνιση εναλλαγής μόνο πένας",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Εγγενής γραμμή τίτλου",
+  "mode": "Mode",
   "syncMode": "Λειτουργία συγχρονισμού",
   "connection": "Σύνδεση",
   "always": "Πάντα",
@@ -893,6 +939,7 @@
   "bringForward": "Φέρτε μπροστά",
   "sendBackward": "Αποστολή πίσω",
   "rotation": "Περιστροφή",
+  "direction": "Κατεύθυνση",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
   "rotate": "Περιστροφή",
@@ -919,6 +966,9 @@
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
   "imageScale": "Κλίμακα εικόνας",
+  "svgScale": "Κλίμακα SVG",
+  "noImageSelected": "Δεν επιλέχθηκε εικόνα",
+  "noSvgSelected": "Δεν επιλέχθηκε SVG",
   "select": "Επιλογή",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Ποιότητα PDF",
   "surface": "Επιφάνεια",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Συνεχίστε οπωσδήποτε",
   "zoomControl": "Έλεγχος εστίασης",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Υψηλή αντίθεση",
   "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός",
   "createAreas": "Δημιουργία περιοχών",
@@ -1081,6 +1134,8 @@
   "addAll": "Προσθήκη όλων",
   "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
   "smoothNavigation": "Ομαλή πλοήγηση",
+  "edgePanAreaSwitching": "Εναλλαγή περιοχής pan άκρης",
+  "useAndroidSaf": "Χρήση Android SAF",
   "exact": "Ακριβής",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Αλλαγή συλλογής",
   "collections": "Συλλογές",
   "fullSelection": "Πλήρης επιλογή",
-  "fullSelectionDescription": "Απαιτεί στοιχεία να είναι πλήρως εντός του πλαισίου επιλογής για την επιλογή.",
   "collection": "Συλλογή",
   "defaultCollection": "Προεπιλεγμένη συλλογή",
   "scroll": "Κύλιση",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Αρχική οθόνη",
   "lastNote": "Τελευταία σημείωση",
   "newNote": "Νέα σημείωση",
-  "convertToLayer": "Μετατροπή σε επίπεδο",
+  "moveToLayer": "Μετακίνηση στο στρώμα",
+  "createLayer": "Δημιουργία στρώματος",
   "merge": "Συγχώνευση",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Τέλος",
+  "radius": "Radius",
+  "focalPoint": "Εστιακό σημείο",
+  "useOffCenterStartPoint": "Χρήση ενός εκτός κέντρου σημείου εκκίνησης",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Σταμάτημα χρώματος",
+  "addStop": "Προσθήκη στάσης",
   "positionDependent": "Εξάρτηση από τη θέση",
   "flipHorizontal": "Οριζόντια αναστροφή",
   "flipVertical": "Κάθετη αναστροφή",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Προσαρμογή συντομεύσεων",
+  "clickToSave": "Κλικ για αποθήκευση",
+  "toolbars": "Γραμμές Εργαλείων",
+  "logs": "Καταγραφή",
+  "ruledSimple": "Απλό τυποποιημένο",
+  "ruledSimpleDark": "Τυχόν απλό σκούρο",
+  "quadSimple": "Quad απλό",
+  "quadSimpleDark": "Quad απλό σκούρο",
+  "redLinedRuled": "Κόκκινη επένδυση κυβερνάται",
+  "redLinedRuledDark": "Κόκκινο επενδεδυμένο κυβερνώντα σκούρο",
+  "redLinedQuad": "Κόκκινο τεταρτημόριο",
+  "redLinedQuadDark": "Κόκκινο επενδεδυμένο τετράγωνο σκούρο",
+  "noItemSelected": "Δεν επιλέχθηκε στοιχείο",
+  "areaAsInitial": "Άνοιγμα περιοχής ως αρχική προβολή",
+  "swap": "Εναλλαγή",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Απόκρυψη επέκτασης αρχείου",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Νέο από πρότυπο",
+  "exportAsTextShortcut": "Εξαγωγή ως κείμενο",
+  "exportAsImageShortcut": "Εξαγωγή ως εικόνα",
+  "exportAsPdfShortcut": "Εξαγωγή ως PDF",
+  "exportAsSvgShortcut": "Εξαγωγή ως SVG",
+  "changePathShortcut": "Αλλαγή διαδρομής",
+  "fullScreenShortcut": "Πλήρης οθόνη",
+  "doublePressAction": "Ενέργεια διπλού πατήματος",
+  "triplePressAction": "Ενέργεια τριπλού πατήματος",
+  "longPress": "Παρατεταμένο πάτημα",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Αναμονή Συντομεύσεων",
+  "holdShortcutsDescription": "Κρατήστε ένα κλειδί για να μεταβείτε προσωρινά σε ένα άλλο εργαλείο.",
+  "key": "Κλειδί",
+  "bringMovedElementsToFront": "Φέρτε τα μετακινούμενα στοιχεία μπροστά",
+  "addTool": "Προσθήκη εργαλείου",
+  "nextPage": "Επόμενη σελίδα",
+  "previousPage": "Προηγούμενη σελίδα"
 }

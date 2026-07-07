@@ -1,10 +1,10 @@
 ---
-title: Redo tool
+title: Wiederholen-Werkzeug
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Aktionswerkzeug]
 
-This is a special tool.
+Dies ist ein spezielles Werkzeug.
 Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
 
 :::

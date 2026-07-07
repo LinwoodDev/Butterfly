@@ -31,6 +31,67 @@ sealed class LabelContext with _$LabelContext {
     @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
   }) = MarkdownContext;
 
+  LabelContext toMode(LabelMode mode) {
+    if (tool.mode == mode) return this;
+    final newTool = tool.copyWith(mode: mode);
+    switch (mode) {
+      case LabelMode.text:
+        return TextContext(
+          tool: newTool,
+          textPainter: textPainter,
+          zoom: zoom,
+          selection: selection,
+          element: switch (this) {
+            TextContext e => e.element,
+            MarkdownContext e =>
+              e.element == null
+                  ? null
+                  : TextElement(
+                      id: e.element!.id,
+                      position: e.element!.position,
+                      scale: e.element!.scale,
+                      foreground: e.element!.foreground,
+                      styleSheet: e.element!.styleSheet,
+                      constraint: e.element!.constraint,
+                      extra: e.element!.extra,
+                      area: txt.TextArea(
+                        paragraph: txt.TextParagraph(
+                          textSpans: [
+                            txt.InlineSpan.text(text: e.element!.text),
+                          ],
+                        ),
+                        areaProperty: e.element!.areaProperty,
+                      ),
+                    ),
+          },
+        );
+      case LabelMode.markdown:
+        return MarkdownContext(
+          tool: newTool,
+          textPainter: textPainter,
+          zoom: zoom,
+          selection: selection,
+          element: switch (this) {
+            MarkdownContext e => e.element,
+            TextContext e =>
+              e.element == null
+                  ? null
+                  : MarkdownElement(
+                      id: e.element!.id,
+                      position: e.element!.position,
+                      scale: e.element!.scale,
+                      foreground: e.element!.foreground,
+                      styleSheet: e.element!.styleSheet,
+                      constraint: e.element!.constraint,
+                      extra: e.element!.extra,
+                      text: e.element!.area.paragraph.text,
+                      areaProperty: e.element!.area.areaProperty,
+                    ),
+          },
+        );
+    }
+  }
+
   bool get isCreating => true;
 
   String? get text => labelElement?.text;

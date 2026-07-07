@@ -1,57 +1,20 @@
 part of 'handler.dart';
 
 class StampHandler extends PastingHandler<StampTool> {
-  ButterflyComponent? _component;
-  Offset _position = Offset.zero;
   Rect rect = Rect.zero;
   List<Renderer<PadElement>>? _elements;
   StampHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
-    NoteData document,
-    DocumentPage page,
-    DocumentInfo info, [
-    Area? currentArea,
-  ]) => [
-    ...super.createForegrounds(
-      currentIndexCubit,
-      document,
-      page,
-      info,
-      currentArea,
-    ),
-    if (!currentlyPasting)
-      ...transformElements(
-        Rect.fromPoints(_position, _position),
-        '',
-        currentIndexCubit,
-      ).map(Renderer.fromInstance),
-  ];
-
-  void _update(PointerEvent event, EventContext context) {
+  Future<void> preparePaste(EventContext context) async {
     final state = context.getState();
-    if (state != null) {
-      _loadComponent(
-        state.transformCubit,
-        state.data,
-        state.assetService,
-        state.page,
-      );
-    }
-    _position = context.getCameraTransform().localToGlobal(event.localPosition);
-    context.refresh();
-  }
-
-  @override
-  void onPointerHover(PointerHoverEvent event, EventContext context) =>
-      _update(event, context);
-
-  @override
-  void onPointerDown(PointerDownEvent event, EventContext context) {
-    _update(event, context);
-    super.onPointerDown(event, context);
+    if (state == null) return;
+    await _loadComponent(
+      context.getCurrentIndexCubit().transformCubit,
+      state.data,
+      state.assetService,
+      state.page,
+    );
   }
 
   ButterflyComponent? getComponent() => data.component?.item;
@@ -60,22 +23,19 @@ class StampHandler extends PastingHandler<StampTool> {
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
-    DocumentPage page, [
-    bool force = false,
-  ]) async {
-    _position = Offset.zero;
-    _component = getComponent();
-    if ((!force && _elements != null) || _component == null) return;
+    DocumentPage page,
+  ) async {
+    final component = getComponent();
+    if (component == null) return;
     final elements = _elements = await Future.wait(
-      _component?.elements.map(Renderer.fromInstance).map((e) async {
-            await e.setup(transformCubit, document, assetService, page);
-            return e;
-          }) ??
-          [],
+      component.elements.map(Renderer.fromInstance).map((e) async {
+        await e.setup(transformCubit, document, assetService, page);
+        return e;
+      }),
     );
     rect =
         elements
-            .map((e) => e.rect)
+            .map((e) => e.expandedRect ?? e.rect)
             .nonNulls
             .fold<Rect?>(
               null,
@@ -90,15 +50,13 @@ class StampHandler extends PastingHandler<StampTool> {
     onChanged: (value) {
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
-      bloc.add(
-        ToolsChanged({
-          state.info.tools.indexOf(data): data.copyWith(component: value),
-        }),
-      );
+      bloc.add(ToolsChanged([data.copyWith(component: value)]));
     },
   );
   @override
   MouseCursor get cursor => SystemMouseCursors.click;
+  @override
+  bool get showHoverPreview => true;
 
   @override
   List<PadElement> transformElements(
@@ -106,26 +64,40 @@ class StampHandler extends PastingHandler<StampTool> {
     String collection,
     CurrentIndexCubit cubit,
   ) {
+    final elements = _elements;
+    if (elements == null || elements.isEmpty) return [];
+
+    final sourceRect = this.rect;
     var scaleX = 1.0, scaleY = 1.0;
-    if (!rect.isEmpty && !this.rect.isEmpty) {
-      scaleX = rect.width / this.rect.width;
-      scaleY = rect.height / this.rect.height;
+    if (!rect.isEmpty && !sourceRect.isEmpty) {
+      scaleX = rect.width / sourceRect.width;
+      scaleY = rect.height / sourceRect.height;
     }
-    return _elements
-            ?.map(
-              (e) =>
-                  e
-                      .transform(
-                        position: rect.topLeft,
-                        scaleX: scaleX,
-                        scaleY: scaleY,
-                        relative: true,
-                      )
-                      ?.element ??
-                  e.element,
-            )
-            .map((e) => e.copyWith(id: createUniqueId()))
-            .toList() ??
-        [];
+
+    Offset applyScaleAndTranslate(Offset original) {
+      final relative = original - sourceRect.topLeft;
+      return Offset(relative.dx * scaleX, relative.dy * scaleY) + rect.topLeft;
+    }
+
+    return elements
+        .map((renderer) {
+          final elementExpandedRect =
+              renderer.expandedRect ?? renderer.rect ?? Rect.zero;
+          final originalTopLeft = elementExpandedRect.topLeft;
+          final translatedTopLeft = applyScaleAndTranslate(originalTopLeft);
+          final delta = translatedTopLeft - originalTopLeft;
+
+          return renderer
+                  .transform(
+                    position: delta,
+                    scaleX: scaleX,
+                    scaleY: scaleY,
+                    relative: true,
+                  )
+                  ?.element ??
+              renderer.element;
+        })
+        .map((element) => element.copyWith(id: createUniqueId()))
+        .toList();
   }
 }

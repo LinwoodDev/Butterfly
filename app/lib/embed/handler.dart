@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'action.dart';
+import 'embedding.dart';
 
 class EmbedHandler {
   EmbedHandler();
@@ -14,18 +17,119 @@ class EmbedHandler {
       setDataListener,
       renderListener,
       renderSVGListener;
+  StreamSubscription? _blocSubscription;
+  Timer? _changeDebounceTimer;
+
+  Map<String, dynamic>? _messageToMap(Object? message) {
+    if (message is Map<String, dynamic>) return message;
+    if (message is Map) return message.cast<String, dynamic>();
+    if (message is String) {
+      try {
+        final decoded = json.decode(message);
+        if (decoded is Map<String, dynamic>) return decoded;
+        if (decoded is Map) return decoded.cast<String, dynamic>();
+      } catch (_) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  double _mapDouble(Map<String, dynamic> map, String key, double fallback) =>
+      (map[key] as num?)?.toDouble() ?? fallback;
+
+  bool _mapBool(Map<String, dynamic> map, String key, bool fallback) =>
+      map[key] is bool ? map[key] as bool : fallback;
+
+  Uint8List? _messageToBytes(Object? message) {
+    if (message is Uint8List) return message;
+    if (message is ByteBuffer) return message.asUint8List();
+    if (message is ByteData) {
+      return message.buffer.asUint8List(
+        message.offsetInBytes,
+        message.lengthInBytes,
+      );
+    }
+    if (message is List) {
+      try {
+        return Uint8List.fromList(
+          message.cast<num>().map((e) => e.toInt()).toList(),
+        );
+      } catch (_) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  bool _isValidDocumentData(Uint8List bytes) {
+    try {
+      return NoteData.fromData(bytes).isValid;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Uri _buildEmbedUri(Embedding embedding) => Uri(
+    path: '/embed',
+    queryParameters: {
+      if (!embedding.save) 'save': 'false',
+      if (!embedding.editable) 'editable': 'false',
+      if (embedding.language.isNotEmpty) 'language': embedding.language,
+      if (embedding.theme.isNotEmpty) 'theme': embedding.theme,
+    },
+  );
 
   void register(BuildContext context, DocumentBloc bloc) {
+    _blocSubscription ??= bloc.stream.listen((state) {
+      if (state is DocumentLoadSuccess &&
+          bloc.currentIndexCubit.state.saved == SaveState.unsaved) {
+        _changeDebounceTimer?.cancel();
+        _changeDebounceTimer = Timer(
+          const Duration(milliseconds: 500),
+          () async {
+            final currentState = bloc.state;
+            if (currentState is DocumentLoadSuccess) {
+              sendEmbedMessage(
+                'change',
+                (await currentState.saveData(
+                  null,
+                  bloc.currentIndexCubit.state.viewOption,
+                )).exportAsBytes(),
+              );
+            }
+          },
+        );
+      }
+    });
+
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage('getData', (await state.saveData()).exportAsBytes());
+        sendEmbedMessage(
+          'getData',
+          (await state.saveData(
+            null,
+            bloc.currentIndexCubit.state.viewOption,
+          )).exportAsBytes(),
+        );
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
-      if (message is! List<int>) return;
-      final data = NoteData.fromData(Uint8List.fromList(message));
-      GoRouter.of(context).go('/new', extra: data);
+      final bytes = _messageToBytes(message);
+      if (bytes == null) return;
+      if (!_isValidDocumentData(bytes)) {
+        sendEmbedMessage('error', {
+          'method': 'setData',
+          'message': 'Invalid Butterfly document data',
+        });
+        return;
+      }
+      final embedding = bloc.currentIndexCubit.state.embedding;
+      if (embedding == null) return;
+      GoRouter.of(
+        context,
+      ).go(_buildEmbedUri(embedding).toString(), extra: bytes);
     });
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;
@@ -33,23 +137,16 @@ class EmbedHandler {
         double x = 0, y = 0, scale = 1;
         double width = 100, height = 100;
         bool renderBackground = true;
-        if (message is Map) {
-          x = message['x'] ?? 0;
-          y = message['y'] ?? 0;
-          width = message['width'] ?? 100;
-          height = message['height'] ?? 100;
-          scale = message['scale'] ?? 1;
-          renderBackground = message['renderBackground'] ?? true;
-        } else if (message is String) {
-          final map = json.decode(message);
-          x = map['x'] ?? 0;
-          y = map['y'] ?? 0;
-          width = map['width'] ?? 100;
-          height = map['height'] ?? 100;
-          scale = map['scale'] ?? 1;
-          renderBackground = map['renderBackground'] ?? true;
+        final map = _messageToMap(message);
+        if (map != null) {
+          x = _mapDouble(map, 'x', 0);
+          y = _mapDouble(map, 'y', 0);
+          width = _mapDouble(map, 'width', 100);
+          height = _mapDouble(map, 'height', 100);
+          scale = _mapDouble(map, 'scale', 1);
+          renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await state.currentIndexCubit.render(
+        final data = await bloc.currentIndexCubit.render(
           state.data,
           state.page,
           state.info,
@@ -61,6 +158,7 @@ class EmbedHandler {
             scale: scale,
             renderBackground: renderBackground,
           ),
+          docState: state,
         );
         sendEmbedMessage(
           'render',
@@ -74,23 +172,17 @@ class EmbedHandler {
         double x = 0, y = 0;
         double width = 100, height = 100;
         bool renderBackground = true;
-        if (message is Map) {
-          x = message['x'] ?? 0;
-          y = message['y'] ?? 0;
-          width = message['width'] ?? 100;
-          height = message['height'] ?? 100;
-          renderBackground = message['renderBackground'] ?? true;
-        } else if (message is String) {
-          final map = json.decode(message);
-          x = map['x'] ?? 0;
-          y = map['y'] ?? 0;
-          width = map['width'] ?? 100;
-          height = map['height'] ?? 100;
-          renderBackground = map['renderBackground'] ?? true;
+        final map = _messageToMap(message);
+        if (map != null) {
+          x = _mapDouble(map, 'x', 0);
+          y = _mapDouble(map, 'y', 0);
+          width = _mapDouble(map, 'width', 100);
+          height = _mapDouble(map, 'height', 100);
+          renderBackground = _mapBool(map, 'renderBackground', true);
         }
         sendEmbedMessage(
           'renderSVG',
-          state.currentIndexCubit
+          bloc.currentIndexCubit
               .renderSVG(
                 state.data,
                 state.page,
@@ -109,6 +201,10 @@ class EmbedHandler {
   }
 
   void unregister() {
+    _blocSubscription?.cancel();
+    _blocSubscription = null;
+    _changeDebounceTimer?.cancel();
+    _changeDebounceTimer = null;
     if (getDataListener != null) {
       removeEmbedMessageListener(getDataListener!);
       getDataListener = null;

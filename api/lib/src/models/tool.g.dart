@@ -9,9 +9,13 @@ part of 'tool.dart';
 SelectTool _$SelectToolFromJson(Map json) => SelectTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   mode:
       $enumDecodeNullable(_$SelectModeEnumMap, json['mode']) ??
       SelectMode.rectangle,
+  hitElementMode:
+      $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
+      HitElementMode.touchAnywhere,
   $type: json['type'] as String?,
 );
 
@@ -19,7 +23,9 @@ Map<String, dynamic> _$SelectToolToJson(SelectTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'mode': _$SelectModeEnumMap[instance.mode]!,
+      'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
       'type': instance.$type,
     };
 
@@ -28,21 +34,31 @@ const _$SelectModeEnumMap = {
   SelectMode.lasso: 'lasso',
 };
 
+const _$HitElementModeEnumMap = {
+  HitElementMode.none: 'none',
+  HitElementMode.full: 'full',
+  HitElementMode.touchEdges: 'touchEdges',
+  HitElementMode.touchAnywhere: 'touchAnywhere',
+};
+
 HandTool _$HandToolFromJson(Map json) => HandTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$HandToolToJson(HandTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'type': instance.$type,
 };
 
 ImportTool _$ImportToolFromJson(Map json) => ImportTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   elements: (json['elements'] as List<dynamic>)
       .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
       .toList(),
@@ -64,6 +80,7 @@ Map<String, dynamic> _$ImportToolToJson(ImportTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'elements': instance.elements.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'assets': instance.assets.map(
@@ -75,30 +92,35 @@ Map<String, dynamic> _$ImportToolToJson(ImportTool instance) =>
 UndoTool _$UndoToolFromJson(Map json) => UndoTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$UndoToolToJson(UndoTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'type': instance.$type,
 };
 
 RedoTool _$RedoToolFromJson(Map json) => RedoTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$RedoToolToJson(RedoTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'type': instance.$type,
 };
 
 LabelTool _$LabelToolFromJson(Map json) => LabelTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ?? LabelMode.text,
   zoomDependent: json['zoomDependent'] as bool? ?? false,
   foreground: json['foreground'] == null
@@ -120,6 +142,7 @@ LabelTool _$LabelToolFromJson(Map json) => LabelTool(
 Map<String, dynamic> _$LabelToolToJson(LabelTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'mode': _$LabelModeEnumMap[instance.mode]!,
   'zoomDependent': instance.zoomDependent,
   'foreground': const ColorJsonConverter().toJson(instance.foreground),
@@ -136,9 +159,11 @@ const _$LabelModeEnumMap = {
 PenTool _$PenToolFromJson(Map json) => PenTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   zoomDependent: json['zoomDependent'] as bool? ?? false,
   shapeDetectionTime: (json['shapeDetectionTime'] as num?)?.toDouble() ?? 0.5,
   shapeDetectionEnabled: json['shapeDetectionEnabled'] as bool? ?? false,
+  combinePaths: json['combinePaths'] as bool? ?? false,
   property: json['property'] == null
       ? const PenProperty()
       : PenProperty.fromJson(
@@ -150,9 +175,11 @@ PenTool _$PenToolFromJson(Map json) => PenTool(
 Map<String, dynamic> _$PenToolToJson(PenTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'zoomDependent': instance.zoomDependent,
   'shapeDetectionTime': instance.shapeDetectionTime,
   'shapeDetectionEnabled': instance.shapeDetectionEnabled,
+  'combinePaths': instance.combinePaths,
   'property': instance.property.toJson(),
   'type': instance.$type,
 };
@@ -160,7 +187,14 @@ Map<String, dynamic> _$PenToolToJson(PenTool instance) => <String, dynamic>{
 EraserTool _$EraserToolFromJson(Map json) => EraserTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
+  mode:
+      $enumDecodeNullable(_$EraserModeEnumMap, json['mode']) ??
+      EraserMode.stroke,
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+  hitElementMode:
+      $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
+      HitElementMode.touchAnywhere,
   eraseElements: json['eraseElements'] as bool? ?? false,
   $type: json['type'] as String?,
 );
@@ -169,31 +203,23 @@ Map<String, dynamic> _$EraserToolToJson(EraserTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
+      'mode': _$EraserModeEnumMap[instance.mode]!,
       'strokeWidth': instance.strokeWidth,
+      'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
       'eraseElements': instance.eraseElements,
       'type': instance.$type,
     };
 
-PathEraserTool _$PathEraserToolFromJson(Map json) => PathEraserTool(
-  name: json['name'] as String? ?? '',
-  displayIcon: json['displayIcon'] as String? ?? '',
-  strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-  eraseElements: json['eraseElements'] as bool? ?? false,
-  $type: json['type'] as String?,
-);
-
-Map<String, dynamic> _$PathEraserToolToJson(PathEraserTool instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'displayIcon': instance.displayIcon,
-      'strokeWidth': instance.strokeWidth,
-      'eraseElements': instance.eraseElements,
-      'type': instance.$type,
-    };
+const _$EraserModeEnumMap = {
+  EraserMode.stroke: 'stroke',
+  EraserMode.path: 'path',
+};
 
 CollectionTool _$CollectionToolFromJson(Map json) => CollectionTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
   $type: json['type'] as String?,
 );
@@ -202,6 +228,7 @@ Map<String, dynamic> _$CollectionToolToJson(CollectionTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'strokeWidth': instance.strokeWidth,
       'type': instance.$type,
     };
@@ -209,6 +236,7 @@ Map<String, dynamic> _$CollectionToolToJson(CollectionTool instance) =>
 AreaTool _$AreaToolFromJson(Map json) => AreaTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
   constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
   constrainedAspectRatio:
@@ -220,6 +248,7 @@ AreaTool _$AreaToolFromJson(Map json) => AreaTool(
 Map<String, dynamic> _$AreaToolToJson(AreaTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'constrainedWidth': instance.constrainedWidth,
   'constrainedHeight': instance.constrainedHeight,
   'constrainedAspectRatio': instance.constrainedAspectRatio,
@@ -230,6 +259,7 @@ Map<String, dynamic> _$AreaToolToJson(AreaTool instance) => <String, dynamic>{
 LaserTool _$LaserToolFromJson(Map json) => LaserTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   duration: (json['duration'] as num?)?.toDouble() ?? 5,
   hideDuration: (json['hideDuration'] as num?)?.toDouble() ?? 0.5,
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
@@ -246,6 +276,7 @@ LaserTool _$LaserToolFromJson(Map json) => LaserTool(
 Map<String, dynamic> _$LaserToolToJson(LaserTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'duration': instance.duration,
   'hideDuration': instance.hideDuration,
   'strokeWidth': instance.strokeWidth,
@@ -263,6 +294,7 @@ const _$LaserAnimationEnumMap = {
 ShapeTool _$ShapeToolFromJson(Map json) => ShapeTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   zoomDependent: json['zoomDependent'] as bool? ?? false,
   constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
   constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
@@ -280,6 +312,7 @@ ShapeTool _$ShapeToolFromJson(Map json) => ShapeTool(
 Map<String, dynamic> _$ShapeToolToJson(ShapeTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'zoomDependent': instance.zoomDependent,
   'constrainedWidth': instance.constrainedWidth,
   'constrainedHeight': instance.constrainedHeight,
@@ -292,6 +325,7 @@ Map<String, dynamic> _$ShapeToolToJson(ShapeTool instance) => <String, dynamic>{
 StampTool _$StampToolFromJson(Map json) => StampTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   component: json['component'] == null
       ? null
       : NamedItem<ButterflyComponent>.fromJson(
@@ -306,6 +340,7 @@ StampTool _$StampToolFromJson(Map json) => StampTool(
 Map<String, dynamic> _$StampToolToJson(StampTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'component': instance.component?.toJson((value) => value.toJson()),
   'type': instance.$type,
 };
@@ -313,6 +348,7 @@ Map<String, dynamic> _$StampToolToJson(StampTool instance) => <String, dynamic>{
 PresentationTool _$PresentationToolFromJson(Map json) => PresentationTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   $type: json['type'] as String?,
 );
 
@@ -320,12 +356,14 @@ Map<String, dynamic> _$PresentationToolToJson(PresentationTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'type': instance.$type,
     };
 
 SpacerTool _$SpacerToolFromJson(Map json) => SpacerTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   axis: $enumDecodeNullable(_$Axis2DEnumMap, json['axis']) ?? Axis2D.horizontal,
   $type: json['type'] as String?,
 );
@@ -334,6 +372,7 @@ Map<String, dynamic> _$SpacerToolToJson(SpacerTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'axis': _$Axis2DEnumMap[instance.axis]!,
       'type': instance.$type,
     };
@@ -346,6 +385,7 @@ const _$Axis2DEnumMap = {
 FullScreenTool _$FullScreenToolFromJson(Map json) => FullScreenTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   $type: json['type'] as String?,
 );
 
@@ -353,15 +393,17 @@ Map<String, dynamic> _$FullScreenToolToJson(FullScreenTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'type': instance.$type,
     };
 
 AssetTool _$AssetToolFromJson(Map json) => AssetTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   importType:
       $enumDecodeNullable(_$ImportTypeEnumMap, json['importType']) ??
-      ImportType.document,
+      ImportType.file,
   advanced: json['advanced'] as bool? ?? true,
   $type: json['type'] as String?,
 );
@@ -369,12 +411,15 @@ AssetTool _$AssetToolFromJson(Map json) => AssetTool(
 Map<String, dynamic> _$AssetToolToJson(AssetTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'importType': _$ImportTypeEnumMap[instance.importType]!,
   'advanced': instance.advanced,
   'type': instance.$type,
 };
 
 const _$ImportTypeEnumMap = {
+  ImportType.file: 'file',
+  ImportType.oneNote: 'oneNote',
   ImportType.image: 'image',
   ImportType.camera: 'camera',
   ImportType.svg: 'svg',
@@ -388,6 +433,7 @@ const _$ImportTypeEnumMap = {
 ExportTool _$ExportToolFromJson(Map json) => ExportTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   options: ExportOptions.fromJson(
     Map<String, dynamic>.from(json['options'] as Map),
   ),
@@ -398,6 +444,7 @@ Map<String, dynamic> _$ExportToolToJson(ExportTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'options': instance.options.toJson(),
       'type': instance.$type,
     };
@@ -405,6 +452,7 @@ Map<String, dynamic> _$ExportToolToJson(ExportTool instance) =>
 TextureTool _$TextureToolFromJson(Map json) => TextureTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   zoomDependent: json['zoomDependent'] as bool? ?? false,
   constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
   constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
@@ -422,6 +470,7 @@ Map<String, dynamic> _$TextureToolToJson(TextureTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'zoomDependent': instance.zoomDependent,
       'constrainedWidth': instance.constrainedWidth,
       'constrainedHeight': instance.constrainedHeight,
@@ -433,6 +482,7 @@ Map<String, dynamic> _$TextureToolToJson(TextureTool instance) =>
 RulerTool _$RulerToolFromJson(Map json) => RulerTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   color: _$JsonConverterFromJson<int, SRGBColor>(
     json['color'],
     const ColorJsonConverter().fromJson,
@@ -444,6 +494,7 @@ RulerTool _$RulerToolFromJson(Map json) => RulerTool(
 Map<String, dynamic> _$RulerToolToJson(RulerTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'color': _$JsonConverterToJson<int, SRGBColor>(
     instance.color,
     const ColorJsonConverter().toJson,
@@ -465,6 +516,7 @@ Json? _$JsonConverterToJson<Json, Value>(
 GridTool _$GridToolFromJson(Map json) => GridTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   color: json['color'] == null
       ? SRGBColor.black
       : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
@@ -481,6 +533,7 @@ GridTool _$GridToolFromJson(Map json) => GridTool(
 Map<String, dynamic> _$GridToolToJson(GridTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
   'color': const ColorJsonConverter().toJson(instance.color),
   'xSize': instance.xSize,
   'ySize': instance.ySize,
@@ -495,6 +548,7 @@ Map<String, dynamic> _$GridToolToJson(GridTool instance) => <String, dynamic>{
 EyeDropperTool _$EyeDropperToolFromJson(Map json) => EyeDropperTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   $type: json['type'] as String?,
 );
 
@@ -502,12 +556,14 @@ Map<String, dynamic> _$EyeDropperToolToJson(EyeDropperTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'type': instance.$type,
     };
 
 BarcodeTool _$BarcodeToolFromJson(Map json) => BarcodeTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   barcodeType:
       $enumDecodeNullable(_$BarcodeTypeEnumMap, json['barcodeType']) ??
       BarcodeType.qrCode,
@@ -521,6 +577,7 @@ Map<String, dynamic> _$BarcodeToolToJson(BarcodeTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'barcodeType': _$BarcodeTypeEnumMap[instance.barcodeType]!,
       'color': const ColorJsonConverter().toJson(instance.color),
       'type': instance.$type,
@@ -535,6 +592,7 @@ const _$BarcodeTypeEnumMap = {
 PolygonTool _$PolygonToolFromJson(Map json) => PolygonTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
   zoomDependent: json['zoomDependent'] as bool? ?? false,
   property: json['property'] == null
       ? const PolygonProperty()
@@ -548,6 +606,7 @@ Map<String, dynamic> _$PolygonToolToJson(PolygonTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
       'zoomDependent': instance.zoomDependent,
       'property': instance.property.toJson(),
       'type': instance.$type,

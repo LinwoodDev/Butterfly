@@ -5,15 +5,13 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   flutter_secure_storage_linux
-  irondash_engine_context
   screen_retriever_linux
-  super_native_extensions
   url_launcher_linux
   window_manager
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
-  pdfium_flutter
+  jni
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

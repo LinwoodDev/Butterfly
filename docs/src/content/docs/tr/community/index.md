@@ -18,5 +18,5 @@ Diğer tüm lisansları ayarlar bölümünde bulabilirsiniz.
 ## Faydalı bağlantılar
 
 - [GitHub](https://github.com/LinwoodDev/Butterfly)
+- [Matrix](https://go.linwood.dev/matrix) (Recommended)
 - [Discord](https://go.linwood.dev/discord)
-- [Matrix](https://go.linwood.dev/matrix)

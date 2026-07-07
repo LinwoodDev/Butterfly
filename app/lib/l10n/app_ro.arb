@@ -10,6 +10,11 @@
   "lightTheme": "Temă luminoasă",
   "systemTheme": "Foloseste tema de sistem implicita",
   "view": "Vizualizare",
+  "contentViewport": "Vizualizare conținut",
+  "limitViewportToPositiveCoordinates": "Vizualizare Limită la coordonate pozitive",
+  "off": "Dezactivat",
+  "canvas": "Pânză",
+  "interface": "Interfață",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Lățimea conturului",
+  "strokeStyle": "Stil stâlp",
+  "dashLength": "Lungime defrișare",
+  "gapLength": "Lungimea decalajului",
   "includeEraser": "Includeți ștergerea?",
   "thinning": "Thinning",
   "pen": "Stiloul",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Ștergere cale",
+  "stroke": "Stroke",
   "label": "Etichetă",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Context",
+  "applyBackground": "Aplică fundal",
+  "applyAreas": "Aplică zone",
+  "currentPage": "Pagina curentă",
+  "allPages": "Toate paginile",
   "box": "Cutie",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Paletă implicită",
   "highlighter": "Evidențiere",
+  "combinePaths": "Combinați căile",
   "add": "Adăugare",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Culoare solidă",
+  "gradient": "Gradient",
+  "gradientType": "Tip Gradient",
+  "linear": "Liniară",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dublu",
   "dotted": "Punctat",
+  "dottedDark": "Punctat întunecat",
   "dashed": "Oprită",
   "wavy": "Vrăjitor",
   "fontWeight": "Greutate font",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Comportamente",
   "dataDirectory": "Director de date",
+  "warning": "Avertizare",
+  "platformExperimentalWarning": "Atenție: Această setare este experimentală și poate avea probleme pe această platformă.",
+  "changeDataDirectoryWarningContent": "Sigur doriți să schimbați dosarul de date? Ar trebui să faceți o copie de rezervă a datelor dumneavoastră înainte de a continua.",
   "defaultPath": "Calea implicită",
   "dateFormat": "Formatul datei",
   "updatedAt": "Actualizat la: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Nu este setat",
   "enterLayer": "Introduceți numele stratului",
+  "eraseShapes": "Șterge forme",
+  "eraseShapeModeNone": "Nu șterge formele",
+  "eraseShapeModeTouchEdges": "Ștergeți când atingeți marginile",
+  "eraseShapeModeTouchAnywhere": "Ștergeți când atingeți oriunde",
+  "selectElementModeTouchEdges": "Selectați când atingeți marginile",
+  "selectElementModeTouchAnywhere": "Selectați când atingeți oriunde",
   "selectElements": "Selectare elemente",
   "deleteElements": "Ștergere elemente",
+  "eraseAllElements": "Şterge toate elementele",
   "deleteElementsConfirm": "Eşti sigur că vrei să ştergi elementele selectate?",
   "selectCustomCollection": "Selectează o colecție personalizată",
   "svg": "VSG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Întunecat",
-  "plainDark": "Întunecat",
+  "plainDark": "Inchis intunecat",
   "ruledDark": "Normal întunecat",
   "quadDark": "Quad întunecat",
   "musicDark": "Muzică întunecată",
@@ -545,6 +576,7 @@
   "topRight": "Dreapta sus",
   "bottomLeft": "Stânga jos",
   "bottomRight": "Jos dreapta",
+  "zoomPosition": "Poziție control zoom",
   "caches": "Geocutii",
   "manage": "Gestionează",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Dosar sincronizat",
   "syncRootDirectory": "Sincronizare director rădăcină",
   "penOnlyInput": "Numai introducerea stiloului injector",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Activează automat modul pen-only atunci când un stylus este detectat. Această setare durează numai pentru sesiunea curentă.",
+  "penOnlyInputOnDescription": "Respingeți întotdeauna intrarea tactilei și a mouse-ului, acceptă doar input de stylus.",
+  "penOnlyInputOffDescription": "Acceptă toate tipurile de intrare, inclusiv atingerea, mouse-ul și stylusul.",
+  "automatic": "Automat",
+  "alwaysOn": "Mereu activ",
+  "alwaysOff": "Întotdeauna oprit",
+  "showPenOnlyToggle": "Arată doar comutator pentru stilou",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Bară titlu nativ",
+  "mode": "Mode",
   "syncMode": "Mod sincronizare",
   "connection": "Conexiune",
   "always": "Întotdeauna",
@@ -893,6 +939,7 @@
   "bringForward": "Adu înainte",
   "sendBackward": "Trimite înapoi",
   "rotation": "Rotație",
+  "direction": "Direcție",
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
   "rotate": "Rotire",
@@ -919,6 +966,9 @@
   "ascending": "Crescător",
   "descending": "Descrescător",
   "imageScale": "Scala imaginii",
+  "svgScale": "Scala SVG",
+  "noImageSelected": "Nicio imagine selectată",
+  "noSvgSelected": "Niciun SVG selectat",
   "select": "Selectare",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Calitate PDF",
   "surface": "Suprafață",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Continuă oricum",
   "zoomControl": "Comandă mărire",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Contrast mare",
   "shouldANumber": "Această valoare trebuie să fie un număr valid",
   "createAreas": "Creează zone",
@@ -1081,6 +1134,8 @@
   "addAll": "Adaugă toate",
   "onlyCurrentPage": "Doar pagina curentă",
   "smoothNavigation": "Navigare lină",
+  "edgePanAreaSwitching": "Comutarea zonei panoului de margini",
+  "useAndroidSaf": "Folosește Android SAF",
   "exact": "Exact",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Schimbă colecția",
   "collections": "Colecții",
   "fullSelection": "Selecţie completă",
-  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție.",
   "collection": "Colectare",
   "defaultCollection": "Colectare implicită",
   "scroll": "Derulează",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Ecranul principal",
   "lastNote": "Ultima notă",
   "newNote": "Notă nouă",
-  "convertToLayer": "Convertește la nivel",
+  "moveToLayer": "Mutare în strat",
+  "createLayer": "Creare strat",
   "merge": "Îmbinare",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Sfârșit",
+  "radius": "Radius",
+  "focalPoint": "Punct focal",
+  "useOffCenterStartPoint": "Folosește un punct de pornire în afara centrului",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Oprire culoare",
+  "addStop": "Adaugă oprire",
   "positionDependent": "Depinde de poziție",
   "flipHorizontal": "Rotire orizontală",
   "flipVertical": "Întoarce vertical",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizare comenzi rapide",
+  "clickToSave": "Click pentru a salva",
+  "toolbars": "Bare de instrumente",
+  "logs": "Jurnale",
+  "ruledSimple": "Reglementat simplu",
+  "ruledSimpleDark": "Întunecată simplă",
+  "quadSimple": "Quad simplu",
+  "quadSimpleDark": "Quad simplu întunecat",
+  "redLinedRuled": "Căptușit roșu",
+  "redLinedRuledDark": "Roșu căptușit întunecat",
+  "redLinedQuad": "Quad roșu",
+  "redLinedQuadDark": "Quad roșu închis",
+  "noItemSelected": "Niciun element selectat",
+  "areaAsInitial": "Deschideți zona ca vizualizare inițială",
+  "swap": "Schimbă",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Ascunde extensia fișierului",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Nou din șablon",
+  "exportAsTextShortcut": "Exportă ca text",
+  "exportAsImageShortcut": "Exportă ca imagine",
+  "exportAsPdfShortcut": "Exportă ca PDF",
+  "exportAsSvgShortcut": "Exportă ca SVG",
+  "changePathShortcut": "Schimbă calea",
+  "fullScreenShortcut": "Ecran complet",
+  "doublePressAction": "Acțiune la apăsare dublă",
+  "triplePressAction": "Acțiune apăsare triplă",
+  "longPress": "Apăsare lungă",
+  "toolNumber": "Unelte {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Țineți apăsat Comenzile rapide",
+  "holdShortcutsDescription": "Țineți apăsată o cheie pentru a trece temporar la un alt instrument. Lansând tasta se schimbă înapoi la unealta anterioară.",
+  "key": "Cheie",
+  "bringMovedElementsToFront": "Aduce elementele mutate în față",
+  "addTool": "Adăugare unealtă",
+  "nextPage": "Pagina următoare",
+  "previousPage": "Pagina precedentă"
 }

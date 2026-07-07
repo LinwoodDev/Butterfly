@@ -10,6 +10,11 @@
   "lightTheme": "Thème clair",
   "systemTheme": "Utiliser le thème système par défaut",
   "view": "Voir",
+  "contentViewport": "Vue du contenu",
+  "limitViewportToPositiveCoordinates": "Limiter le Viewport aux coordonnées positives",
+  "off": "Désactivé",
+  "canvas": "Toile",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Zoom arrière",
   "resetZoom": "Réinitialiser le zoom",
   "strokeWidth": "Largeur du trait",
+  "strokeStyle": "Style de trait",
+  "dashLength": "Longueur du tiret",
+  "gapLength": "Longueur de l'écartement",
   "includeEraser": "Inclure la gomme ?",
   "thinning": "Amincissement",
   "pen": "Stylo",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Effacer le chemin d'accès",
+  "stroke": "Stroke",
   "label": "Étiquette",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Arrière-plan",
+  "applyBackground": "Appliquer l'arrière-plan",
+  "applyAreas": "Appliquer des zones",
+  "currentPage": "Page actuelle",
+  "allPages": "Toutes les pages",
   "box": "Boîte",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Palette par défaut",
   "highlighter": "Surligneur",
+  "combinePaths": "Combiner les chemins",
   "add": "Ajouter",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Couleur unie",
+  "gradient": "Dégradé",
+  "gradientType": "Type de dégradé",
+  "linear": "Linéaire",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Double",
   "dotted": "Pointillé",
+  "dottedDark": "Pointillé foncé",
   "dashed": "Tiret",
   "wavy": "Vague",
   "fontWeight": "Poids de la police",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Comportements",
   "dataDirectory": "Répertoire des données",
+  "warning": "Avertissement",
+  "platformExperimentalWarning": "Attention : ce paramètre est expérimental et peut avoir des problèmes sur cette plateforme.",
+  "changeDataDirectoryWarningContent": "Êtes-vous sûr de vouloir modifier le dossier de données ? Vous devriez faire une sauvegarde de vos données avant de continuer.",
   "defaultPath": "Chemin par défaut",
   "dateFormat": "Format de la date",
   "updatedAt": "Mis à jour le : {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Non défini",
   "enterLayer": "Entrez le nom de la couche",
+  "eraseShapes": "Effacer les formes",
+  "eraseShapeModeNone": "Ne pas effacer les formes",
+  "eraseShapeModeTouchEdges": "Effacer lorsque vous touchez les bords",
+  "eraseShapeModeTouchAnywhere": "Effacer lorsque vous touchez n'importe où",
+  "selectElementModeTouchEdges": "Sélectionner lorsque vous touchez les bords",
+  "selectElementModeTouchAnywhere": "Sélectionner lorsque vous touchez n'importe où",
   "selectElements": "Sélectionner les éléments",
   "deleteElements": "Supprimer les éléments",
+  "eraseAllElements": "Effacer tous les éléments",
   "deleteElementsConfirm": "Voulez-vous vraiment supprimer les éléments sélectionnés ?",
   "selectCustomCollection": "Sélectionnez une collection personnalisée",
   "svg": "SVG",
@@ -292,7 +323,7 @@
   "@plain": {
     "description": "Background pattern"
   },
-  "light": "Lumière",
+  "light": "Clair",
   "ruled": "Recommandé",
   "@ruled": {
     "description": "Background pattern"
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Sombre",
-  "plainDark": "Sombre",
+  "plainDark": "Sombre simple",
   "ruledDark": "Sombre en ruine",
   "quadDark": "Quad sombre",
   "musicDark": "Musique sombre",
@@ -365,7 +396,7 @@
   "@text": {
     "description": "Text tool"
   },
-  "welcome": "Hé, c'est le Papillon de bois de Linwood {codeName}",
+  "welcome": "Hé, voici Butterfly par Linwood {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
@@ -545,6 +576,7 @@
   "topRight": "En haut à droite",
   "bottomLeft": "En bas à gauche",
   "bottomRight": "En bas à droite",
+  "zoomPosition": "Position de contrôle du zoom",
   "caches": "Caches",
   "manage": "Gérer",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Dossier synchronisé",
   "syncRootDirectory": "Synchroniser le répertoire racine",
   "penOnlyInput": "Seules les entrées du stylet",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Active automatiquement le mode stylet uniquement quand un stylet est détecté. Ce paramètre ne dure que pour la session en cours.",
+  "penOnlyInputOnDescription": "Toujours rejeter la touche et la souris, n'accepter que l'entrée stylet.",
+  "penOnlyInputOffDescription": "Accepter tous les types d'entrée, y compris le toucher, la souris et le stylet.",
+  "automatic": "Automatique",
+  "alwaysOn": "Toujours allumé",
+  "alwaysOff": "Toujours éteint",
+  "showPenOnlyToggle": "Afficher uniquement le bouton du stylet",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Barre de titre native",
+  "mode": "Mode",
   "syncMode": "Mode de synchronisation",
   "connection": "Raccordement",
   "always": "Toujours",
@@ -893,6 +939,7 @@
   "bringForward": "Avancer",
   "sendBackward": "Envoyer vers l'arrière",
   "rotation": "Rotation",
+  "direction": "Orientation",
   "onlyAvailableLargerScreen": "Disponible uniquement sur les écrans plus grands",
   "toolbarPosition": "Position de la barre d'outils",
   "rotate": "Faire pivoter",
@@ -919,6 +966,9 @@
   "ascending": "Ascendant",
   "descending": "Descendant",
   "imageScale": "Echelle de l'image",
+  "svgScale": "Échelle SVG",
+  "noImageSelected": "Aucune image sélectionnée",
+  "noSvgSelected": "Aucun SVG sélectionné",
   "select": "Sélectionner",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Qualité PDF",
   "surface": "Surface",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Continuer quand même",
   "zoomControl": "Contrôle du zoom",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Contraste élevé",
   "shouldANumber": "Cette valeur doit être un nombre valide",
   "createAreas": "Créer des zones",
@@ -1081,6 +1134,8 @@
   "addAll": "Ajouter tout",
   "onlyCurrentPage": "Uniquement la page courante",
   "smoothNavigation": "Navigation fluide",
+  "edgePanAreaSwitching": "Changement de zone de la bordure",
+  "useAndroidSaf": "Utiliser Android SAF",
   "exact": "Exactement",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Changer de collection",
   "collections": "Collections",
   "fullSelection": "Sélection complète",
-  "fullSelectionDescription": "Nécessite que les éléments soient entièrement dans la zone de sélection pour la sélection.",
   "collection": "Collecte",
   "defaultCollection": "Collection par défaut",
   "scroll": "Défilement",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Écran d'accueil",
   "lastNote": "Dernière note",
   "newNote": "Nouvelle note",
-  "convertToLayer": "Convertir en calque",
+  "moveToLayer": "Déplacer vers le calque",
+  "createLayer": "Créer une couche",
   "merge": "Fusionner",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Fin",
+  "radius": "Radius",
+  "focalPoint": "Point focal",
+  "useOffCenterStartPoint": "Utiliser un point de départ hors centre",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Arrêts de couleur",
+  "addStop": "Ajouter un arrêt",
   "positionDependent": "Dépendant de la position",
   "flipHorizontal": "Retourner horizontale",
   "flipVertical": "Retourner verticalement",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximiser",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personnaliser les raccourcis",
+  "clickToSave": "Cliquez pour enregistrer",
+  "toolbars": "Barres d'outils",
+  "logs": "Journaux",
+  "ruledSimple": "Simplifiez-vous",
+  "ruledSimpleDark": "Noir ruiné simple",
+  "quadSimple": "Quadruple simple",
+  "quadSimpleDark": "Quad simple foncé",
+  "redLinedRuled": "Règle en ligne rouge",
+  "redLinedRuledDark": "La ligne rouge a régné sombre",
+  "redLinedQuad": "Quad en ligne rouge",
+  "redLinedQuadDark": "Quad rouge foncé",
+  "noItemSelected": "Aucun élément sélectionné",
+  "areaAsInitial": "Ouvrir la zone en vue initiale",
+  "swap": "Permuter",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Masquer l'extension de fichier",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Nouveau depuis le modèle",
+  "exportAsTextShortcut": "Exporter en tant que texte",
+  "exportAsImageShortcut": "Exporter en tant qu'image",
+  "exportAsPdfShortcut": "Exporter en PDF",
+  "exportAsSvgShortcut": "Exporter en SVG",
+  "changePathShortcut": "Changer le chemin d'accès",
+  "fullScreenShortcut": "Plein écran",
+  "doublePressAction": "Action par double appui",
+  "triplePressAction": "Action du triple appui",
+  "longPress": "Appui long",
+  "toolNumber": "Outil {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Maintenir les raccourcis",
+  "holdShortcutsDescription": "Maintenez une touche enfoncée pour basculer temporairement vers un autre outil. Relâchez les commutateurs de touches vers l'outil précédent.",
+  "key": "Clés",
+  "bringMovedElementsToFront": "Apporter les éléments déplacés à l'avant",
+  "addTool": "Ajouter un outil",
+  "nextPage": "Page suivante",
+  "previousPage": "Page précédente"
 }

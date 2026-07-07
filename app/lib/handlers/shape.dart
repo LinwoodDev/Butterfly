@@ -5,12 +5,12 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
   @override
   void _updateElement(
-    PointerEvent event,
+    Offset localPosition,
     EventContext context, [
     bool first = false,
   ]) {
     changeStartedDrawing(context);
-    super._updateElement(event, context, first);
+    super._updateElement(localPosition, context, first);
   }
 
   @override
@@ -19,17 +19,26 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
     String collection,
     CurrentIndexCubit cubit,
   ) {
-    if (rect.top == 0 &&
-        rect.left == 0 &&
-        rect.right == 0 &&
-        rect.bottom == 0) {
-      return [];
-    }
+    if (rect.topLeft == rect.bottomRight) return [];
 
     return [
       ShapeElement(
-        firstPosition: rect.topLeft.toPoint(),
-        secondPosition: rect.bottomRight.toPoint(),
+        firstPosition:
+            (data.property.shape is LineShape
+                    ? rect.topLeft
+                    : rect.topLeft.translate(
+                        min(0, rect.width),
+                        min(0, rect.height),
+                      ))
+                .toPoint(),
+        secondPosition:
+            (data.property.shape is LineShape
+                    ? rect.bottomRight
+                    : rect.bottomRight.translate(
+                        max(0, -rect.width),
+                        max(0, -rect.height),
+                      ))
+                .toPoint(),
         property: data.property.copyWith(
           strokeWidth:
               data.property.strokeWidth /
@@ -41,7 +50,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   }
 
   @override
-  bool get shouldNormalize => data.property.shape is! LineShape;
+  bool get shouldNormalize => false;
   @override
   double get constraintedAspectRatio => data.constrainedAspectRatio;
   @override
@@ -52,12 +61,12 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   bool get drawFromCenter => data.drawFromCenter;
 
   @override
-  SRGBColor getColor() => data.property.color;
+  SRGBColor getColor() => data.property.paint.previewColor;
 
   @override
   ShapeTool setColor(SRGBColor color) => data.copyWith(
     property: data.property.copyWith(
-      color: color.withValues(a: data.property.color.a),
+      paint: ElementPaint.solid(color: color.withValues(a: getColor().a)),
     ),
   );
 

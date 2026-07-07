@@ -1,10 +1,19 @@
+import 'dart:async';
+
 import 'package:butterfly/api/close_stub.dart'
     if (dart.library.io) 'package:butterfly/api/close_io.dart'
     if (dart.library.js) 'package:butterfly/api/close_html.dart'
     as close;
 import 'package:flutter/material.dart';
 
-typedef OnCloseCallback = String? Function();
+typedef OnCloseCallback = FutureOr<CloseRequest?> Function();
+
+class CloseRequest {
+  final String message;
+  final FutureOr<bool> Function()? onSave;
+
+  const CloseRequest({required this.message, this.onSave});
+}
 
 CloseSubscription onPreventClose(
   BuildContext context,

@@ -2,10 +2,10 @@
 title: Ruler tool
 ---
 
-:::note[🔘 Toggleable tool]
+:::note[🔘 Herramienta conmutable
 
-This is a special tool.
-You can't select it and it gets toggled if you click on it.
+Esta es una herramienta especial.
+No puedes seleccionarla y se activa al presionarse.
 
 :::
 

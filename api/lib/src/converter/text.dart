@@ -8,11 +8,11 @@ import '../models/data.dart';
 import '../models/meta.dart';
 
 Archive convertTextDataToArchive(Map<String, dynamic> data) {
-  data = {'fileVersion': kFileVersion, ...legacyNoteDataJsonMigrator(data)};
+  data = {...legacyNoteDataJsonMigrator(data)};
   var reader = NoteData(Archive());
   reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
   for (final palette in Map<String, dynamic>.from(
-    data['palettes'] ?? {},
+    data['palettes'] is Map ? data['palettes'] : {},
   ).entries) {
     reader = reader.setAsset(
       '$kPalettesArchiveDirectory/${palette.key}.json',

@@ -8,15 +8,15 @@ Willkommen im Community-Abschnitt.
 
 Ein besonderer Dank geht an:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) für die Bereitstellung dieses nützlichen plattformübergreifenden UI-Frameworks
+- [window_manager](https://github.com/leanflutter/window_manager) für all diese nützlichen Desktop-Fensterfunktionen
+- [Starlight](https://github.com/withabenro/starlight) für ein einfach zu verwendendes statisches React-Dokumentationsframework
+- [Phosphor Icons](https://phosphoricons.com/) für die schönen Icons
 
 Alle anderen Lizenzen finden Sie in den Einstellungen.
 
 ## Nützliche Links
 
 - [GitHub](https://github.com/LinwoodDev/Butterfly)
+- [Matrix](https://go.linwood.dev/matrix) (empfohlen)
 - [Discord](https://go.linwood.dev/discord)
-- [Matrix](https://go.linwood.dev/matrix)

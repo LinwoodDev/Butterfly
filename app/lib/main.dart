@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
@@ -23,6 +24,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:keybinder/keybinder.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
@@ -41,11 +44,16 @@ import 'theme.dart';
 import 'views/error.dart';
 import 'views/home/page.dart';
 import 'views/main.dart';
+import 'settings/logs.dart';
+import 'services/logger.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
+  initLogger();
+  await rotatePersistedLogs();
+  talker.info('App started');
   usePathUrlStrategy();
 
   await setup();
@@ -124,6 +132,7 @@ class ButterflyApp extends StatelessWidget {
   final SettingsCubit settingsCubit;
   final Object? initialExtra;
   final bool fullScreen;
+  final bool debugShowCheckedModeBanner;
 
   ButterflyApp({
     super.key,
@@ -131,12 +140,14 @@ class ButterflyApp extends StatelessWidget {
     this.fullScreen = false,
     this.initialLocation = '/',
     this.initialExtra,
+    this.debugShowCheckedModeBanner = true,
   });
 
   late final GoRouter _router = GoRouter(
     initialLocation: initialLocation,
     initialExtra: initialExtra,
     restorationScopeId: 'router',
+    observers: [TalkerRouteObserver(talker)],
     errorBuilder: (context, state) =>
         ErrorPage(message: state.error.toString()),
     routes: [
@@ -210,6 +221,10 @@ class ButterflyApp extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              GoRoute(
+                path: 'logs',
+                builder: (context, state) => const LogsSettingsPage(),
               ),
             ],
           ),
@@ -285,7 +300,12 @@ class ButterflyApp extends StatelessWidget {
             name: 'native-path',
             builder: (context, state) {
               final path = state.pathParameters['path'] ?? '';
-              return ProjectPage(location: AssetLocation.local(path, true));
+              return ProjectPage(
+                location: AssetLocation.local(
+                  path.startsWith('/') ? path : '/$path',
+                ),
+                absolute: true,
+              );
             },
           ),
         ],
@@ -296,6 +316,7 @@ class ButterflyApp extends StatelessWidget {
         builder: (context, state) {
           return ProjectPage(
             embedding: Embedding.fromQuery(state.uri.queryParameters),
+            data: state.extra,
           );
         },
       ),
@@ -331,8 +352,6 @@ class ButterflyApp extends StatelessWidget {
         },
       ),
     ],
-    redirect: (context, state) =>
-        (state.uri.scheme == 'content') ? '/intent' : null,
   );
 
   // This widget is the root of your application.
@@ -345,7 +364,7 @@ class ButterflyApp extends StatelessWidget {
             create: (context) {
               if (!kIsWeb && isWindow) {
                 windowManager.waitUntilReadyToShow(null, () async {
-                  settingsCubit.setTheme(MediaQuery.of(context));
+                  settingsCubit.setTheme(context);
                   settingsCubit.setNativeTitleBar();
                   await windowManager.show();
                 });
@@ -372,6 +391,7 @@ class ButterflyApp extends StatelessWidget {
           previous.density != current.density ||
           previous.highContrast != current.highContrast,
       builder: (context, state) => MaterialApp.router(
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         locale: state.locale,
         title: applicationName,
         restorationScopeId: 'app',
@@ -382,6 +402,7 @@ class ButterflyApp extends StatelessWidget {
           ...AppLocalizations.localizationsDelegates,
           LocaleNamesLocalizationsDelegate(),
           LeapLocalizations.delegate,
+          KeybinderLocalizations.delegate,
         ],
         builder: (context, child) {
           if (!state.nativeTitleBar) {
@@ -389,11 +410,13 @@ class ButterflyApp extends StatelessWidget {
           }
           return RepositoryProvider(
             create: ButterflyFileSystem.build,
+            dispose: (fileSystem) => fileSystem.dispose(),
             child: RepositoryProvider(
               create: (context) =>
                   SyncService(context, context.read<ButterflyFileSystem>()),
+              dispose: (service) => service.dispose(),
               lazy: false,
-              child: child ?? Container(),
+              child: _WindowCloseGuard(child: child ?? Container()),
             ),
           );
         },
@@ -418,13 +441,43 @@ class ButterflyApp extends StatelessWidget {
   }
 }
 
+class _WindowCloseGuard extends StatefulWidget {
+  final Widget child;
+
+  const _WindowCloseGuard({required this.child});
+
+  @override
+  State<_WindowCloseGuard> createState() => _WindowCloseGuardState();
+}
+
+class _WindowCloseGuardState extends State<_WindowCloseGuard> {
+  late final CloseSubscription _closeSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _closeSubscription = onPreventClose(context, () => null);
+  }
+
+  @override
+  void dispose() {
+    _closeSubscription.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationVersionName = 'Black Hairstreak';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
-const applicationMinorVersion = '2.4';
+const logoAsset = isNightly ? 'images/nightly.png' : 'images/logo.png';
+
+const applicationVersionName = 'Dreamy Duskywing';
+const applicationMinorVersion = '2.6';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');

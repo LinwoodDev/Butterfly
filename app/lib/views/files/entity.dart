@@ -8,9 +8,7 @@ import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly/visualizer/asset.dart';
-import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -135,19 +133,24 @@ class _FileEntityItemState extends State<FileEntityItem> {
     final entity = widget.entity;
     try {
       if (entity is FileSystemFile<NoteFile>) {
-        final data = entity.data?.load();
+        final data = context.read<SettingsCubit>().state.showThumbnails
+            ? entity.data?.display()
+            : null;
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
         if (entity.data?.isEncrypted() ?? false) {
           icon = PhosphorIconsLight.lock;
         }
-        thumbnail = data?.getThumbnail();
-        if (thumbnail?.isEmpty ?? false) thumbnail = null;
-        metadata = data?.getMetadata();
+        if (data != null) {
+          thumbnail = data.getThumbnail();
+          if (thumbnail?.isEmpty ?? false) thumbnail = null;
+          metadata = data.getMetadata();
+        }
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
-        modifiedText = metadata?.updatedAt != null
-            ? '${dateFormatter.format(metadata!.updatedAt!)} ${timeFormatter.format(metadata.updatedAt!)}'
+        final updatedAt = metadata?.updatedAt ?? entity.lastModified;
+        modifiedText = updatedAt != null
+            ? '${dateFormatter.format(updatedAt)} ${timeFormatter.format(updatedAt)}'
             : null;
         createdText = metadata?.createdAt != null
             ? '${dateFormatter.format(metadata!.createdAt!)} ${timeFormatter.format(metadata.createdAt!)}'
@@ -240,9 +243,20 @@ class _FileEntityItemState extends State<FileEntityItem> {
           return data.data != widget.entity.location.path;
         },
         onAcceptWithDetails: (data) async {
-          await documentSystem.moveAsset(
-            data.data,
-            '${widget.entity.location.path}/${data.data.split('/').last}',
+          final source = await documentSystem.getAsset(data.data);
+          final destination =
+              '${widget.entity.location.path}/${data.data.split('/').last}';
+          await documentSystem.moveAsset(data.data, destination);
+          await fileSystem.settingsCubit.moveAssetReferences(
+            AssetLocation(
+              path: data.data,
+              remote: documentSystem.storage?.identifier ?? '',
+            ),
+            AssetLocation(
+              path: destination,
+              remote: documentSystem.storage?.identifier ?? '',
+            ),
+            directory: source is FileSystemDirectory<NoteFile>,
           );
           widget.onReload();
         },
@@ -294,27 +308,13 @@ class ContextFileRegion extends StatelessWidget {
             child: Text(AppLocalizations.of(context).open),
           ),
         if (remote is RemoteStorage)
-          StreamBuilder<List<SyncFile>>(
-            stream: syncService.getSync(remote!.identifier)?.filesStream,
-            builder: (context, snapshot) {
-              final currentStatus = snapshot.data
-                  ?.lastWhereOrNull(
-                    (element) =>
-                        entity.location.path.startsWith(element.location.path),
-                  )
-                  ?.status;
-              return MenuItemButton(
-                leadingIcon: PhosphorIcon(
-                  currentStatus.getIcon(),
-                  textDirection: TextDirection.ltr,
-                  color: currentStatus.getColor(ColorScheme.of(context)),
-                ),
-                child: Text(currentStatus.getLocalizedName(context)),
-                onPressed: () {
-                  syncService.getSync(remote!.identifier)?.sync();
-                },
-              );
-            },
+          FileSyncStatusButton(
+            remote: remote! as RemoteStorage,
+            location: entity.location,
+            directory: entity is FileSystemDirectory,
+            menu: true,
+            syncService: syncService,
+            settingsCubit: settingsCubit,
           ),
         BlocBuilder<SettingsCubit, ButterflySettings>(
           builder: (context, state) {
@@ -368,9 +368,13 @@ class ContextFileRegion extends StatelessWidget {
           ),
         if (entity is FileSystemFile<NoteFile>)
           MenuItemButton(
-            onPressed: () {
+            onPressed: () async {
               try {
-                final data = (entity as FileSystemFile<NoteFile>).data?.load();
+                final data = await loadFileSystemNoteData(
+                  documentSystem,
+                  entity as FileSystemFile<NoteFile>,
+                );
+                if (!context.mounted) return;
                 if (data == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(AppLocalizations.of(context).error)),

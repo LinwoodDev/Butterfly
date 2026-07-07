@@ -14,6 +14,144 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/file_name_display.dart';
+
+String renamedAssetPath(String path, String name) {
+  final index = path.lastIndexOf('/');
+  final parent = path.substring(0, index < 0 ? 0 : index);
+  return '$parent/$name';
+}
+
+class FileSyncStatusButton extends StatelessWidget {
+  final RemoteStorage remote;
+  final AssetLocation location;
+  final bool directory;
+  final bool menu;
+  final SyncService? syncService;
+  final SettingsCubit? settingsCubit;
+
+  const FileSyncStatusButton({
+    super.key,
+    required this.remote,
+    required this.location,
+    this.directory = false,
+    this.menu = false,
+    this.syncService,
+    this.settingsCubit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final syncService = this.syncService ?? context.read<SyncService>();
+    final settingsCubit = this.settingsCubit ?? context.read<SettingsCubit>();
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+      bloc: settingsCubit,
+      buildWhen: (previous, current) =>
+          previous.getRemote(remote.identifier) !=
+          current.getRemote(remote.identifier),
+      builder: (context, settings) {
+        final currentRemote = settings.getRemote(remote.identifier);
+        if (currentRemote is! RemoteStorage) return const SizedBox.shrink();
+        final cached = currentRemote.isPathPinned(
+          location.path,
+          variant: SyncFileSystemType.documents.cacheVariant,
+        );
+        final sync = syncService.getSync(remote.identifier);
+        if (sync == null) return const SizedBox.shrink();
+
+        return StreamBuilder<RemoteSyncState>(
+          stream: sync.stateStream,
+          builder: (context, snapshot) {
+            final syncFile = snapshot.data?.visibleFiles.values
+                .expand((files) => files)
+                .lastWhereOrNull((file) => _matches(file.location.path));
+            final status =
+                syncFile?.status ??
+                (directory && cached && snapshot.hasData
+                    ? FileSyncStatus.synced
+                    : null);
+            final loading = cached && status == null;
+            final colorScheme = ColorScheme.of(context);
+            final icon = loading
+                ? PhosphorIconsLight.arrowClockwise
+                : status?.getIcon() ?? PhosphorIconsLight.cloudSlash;
+            final color =
+                status?.getColor(colorScheme) ??
+                colorScheme.onSurfaceVariant.withAlpha(184);
+            final label = !cached
+                ? AppLocalizations.of(context).notSynced
+                : loading
+                ? AppLocalizations.of(context).loading
+                : status.getLocalizedName(context);
+            final tooltip = !cached
+                ? label
+                : '${AppLocalizations.of(context).caches} · $label';
+            final onPressed = sync.status == SyncStatus.syncing
+                ? null
+                : () => _toggleSync(syncService, settingsCubit, cached);
+
+            if (menu) {
+              return MenuItemButton(
+                leadingIcon: PhosphorIcon(
+                  icon,
+                  textDirection: TextDirection.ltr,
+                  color: color,
+                ),
+                onPressed: onPressed,
+                child: Text(tooltip),
+              );
+            }
+
+            final button = IconButton(
+              icon: PhosphorIcon(
+                icon,
+                textDirection: TextDirection.ltr,
+                color: color,
+              ),
+              tooltip: tooltip,
+              onPressed: onPressed,
+            );
+            if (!cached || status?.needsSync != true) return button;
+            return Badge(smallSize: 8, child: button);
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _toggleSync(
+    SyncService syncService,
+    SettingsCubit settingsCubit,
+    bool cached,
+  ) async {
+    if (cached) {
+      final sync = syncService.getSync(remote.identifier);
+      await sync?.documentSystem.remoteSystem?.deleteCachedContent(
+        location.path,
+      );
+      await sync?.refreshFiles();
+      await settingsCubit.removeCache(remote.identifier, location.path);
+      return;
+    }
+    await settingsCubit.addCache(remote.identifier, location.path);
+    await syncService.syncRemote(remote.identifier);
+  }
+
+  bool _matches(String syncPath) {
+    final path = location.path;
+    if (path == syncPath) return true;
+    if (!directory) return false;
+    final normalizedPath = path.endsWith('/') ? path : '$path/';
+    return syncPath.startsWith(normalizedPath);
+  }
+}
+
+extension on FileSyncStatus {
+  bool get needsSync =>
+      this == FileSyncStatus.localLatest ||
+      this == FileSyncStatus.remoteLatest ||
+      this == FileSyncStatus.conflict;
+}
 
 class FileEntityListTile extends StatelessWidget {
   final String? modifiedText, createdText;
@@ -51,7 +189,6 @@ class FileEntityListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
     final fileSystem = context.read<ButterflyFileSystem>();
-    final syncService = context.read<SyncService>();
     final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
     return LayoutBuilder(
@@ -65,7 +202,7 @@ class FileEntityListTile extends StatelessWidget {
                 elevation: 5,
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
                   side: active
                       ? BorderSide(
                           color: colorScheme.primaryContainer,
@@ -143,10 +280,13 @@ class FileEntityListTile extends StatelessWidget {
                                   ? AspectRatio(
                                       aspectRatio: kThumbnailRatio,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
                                         child: Image.memory(
                                           thumbnail!,
                                           fit: BoxFit.cover,
+                                          gaplessPlayback: true,
                                           cacheHeight: kThumbnailHeight,
                                           cacheWidth: kThumbnailWidth,
                                         ),
@@ -166,6 +306,22 @@ class FileEntityListTile extends StatelessWidget {
                                           entity.location.path,
                                           value,
                                         );
+                                        await fileSystem.settingsCubit
+                                            .moveAssetReferences(
+                                              entity.location,
+                                              AssetLocation(
+                                                remote: entity.location.remote,
+                                                path: renamedAssetPath(
+                                                  entity.location.path,
+                                                  value,
+                                                ),
+                                              ),
+                                              directory:
+                                                  entity
+                                                      is FileSystemDirectory<
+                                                        NoteFile
+                                                      >,
+                                            );
                                         onEdit(false);
                                         onReload();
                                       },
@@ -192,6 +348,23 @@ class FileEntityListTile extends StatelessWidget {
                                               entity.location.path,
                                               nameController.text,
                                             );
+                                            await fileSystem.settingsCubit
+                                                .moveAssetReferences(
+                                                  entity.location,
+                                                  AssetLocation(
+                                                    remote:
+                                                        entity.location.remote,
+                                                    path: renamedAssetPath(
+                                                      entity.location.path,
+                                                      nameController.text,
+                                                    ),
+                                                  ),
+                                                  directory:
+                                                      entity
+                                                          is FileSystemDirectory<
+                                                            NoteFile
+                                                          >,
+                                                );
                                             onEdit(false);
                                             onReload();
                                           },
@@ -217,10 +390,8 @@ class FileEntityListTile extends StatelessWidget {
                                         children: [
                                           Tooltip(
                                             message: entity.fileName,
-                                            child: Text(
-                                              entity.fileName,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
+                                            child: FileNameDisplay(
+                                              entity: entity,
                                               style: TextTheme.of(
                                                 context,
                                               ).labelLarge,
@@ -260,35 +431,10 @@ class FileEntityListTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             if (remote is RemoteStorage)
-                              StreamBuilder<List<SyncFile>>(
-                                stream: syncService
-                                    .getSync(remote.identifier)
-                                    ?.filesStream,
-                                builder: (context, snapshot) {
-                                  final currentStatus = snapshot.data
-                                      ?.lastWhereOrNull(
-                                        (element) => entity.location.path
-                                            .startsWith(element.location.path),
-                                      )
-                                      ?.status;
-                                  return IconButton(
-                                    icon: PhosphorIcon(
-                                      currentStatus.getIcon(),
-                                      textDirection: TextDirection.ltr,
-                                      color: currentStatus.getColor(
-                                        ColorScheme.of(context),
-                                      ),
-                                    ),
-                                    tooltip: currentStatus.getLocalizedName(
-                                      context,
-                                    ),
-                                    onPressed: () {
-                                      syncService
-                                          .getSync(remote.identifier)
-                                          ?.sync();
-                                    },
-                                  );
-                                },
+                              FileSyncStatusButton(
+                                remote: remote,
+                                location: entity.location,
+                                directory: entity is FileSystemDirectory,
                               ),
                             BlocBuilder<SettingsCubit, ButterflySettings>(
                               builder: (context, state) {
@@ -412,11 +558,13 @@ class FileEntityListTile extends StatelessWidget {
                   children: [
                     if (entity is FileSystemFile<NoteFile>)
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           try {
-                            final data = (entity as FileSystemFile<NoteFile>)
-                                .data
-                                ?.load();
+                            final data = await loadFileSystemNoteData(
+                              documentSystem,
+                              entity as FileSystemFile<NoteFile>,
+                            );
+                            if (!context.mounted) return;
                             if (data == null) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

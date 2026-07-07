@@ -10,7 +10,27 @@ class AreaHandler extends Handler<AreaTool> {
   AreaHandler(super.data);
 
   Rect? getSelectionRect() => _currentArea?.rect;
+  void _setCurrentArea(Area? area) {
+    _currentArea = area;
+    _selectionManager.select(area?.rect);
+  }
+
   void _updateSelectionRect() => _selectionManager.select(getSelectionRect());
+
+  @override
+  void onDocumentUpdated(
+    DocumentLoadSuccess state,
+    DocumentLoadSuccess? oldState,
+  ) {
+    final area = _currentArea;
+    if (area == null) return;
+    final updatedArea = state.page.getAreaByName(area.name);
+    final oldArea = oldState?.page.getAreaByName(area.name);
+    if (oldState != null && oldArea == updatedArea && area == updatedArea) {
+      return;
+    }
+    _setCurrentArea(updatedArea);
+  }
 
   Rect? get currentRect {
     if (_start == null || _end == null) return null;
@@ -48,27 +68,31 @@ class AreaHandler extends Handler<AreaTool> {
     Area? currentArea,
   ]) {
     final rect = currentRect;
+    final visibleAreas = currentArea == null
+        ? page.areas
+        : page.areas.where((area) => area.rect.overlaps(currentArea.rect));
     return [
-      if (currentArea == null) ...[
-        if (rect != null)
-          AreaForegroundRenderer(
-            Area(
-              width: rect.width,
-              height: rect.height,
-              position: rect.topLeft.toPoint(),
-            ),
+      ...visibleAreas
+          .where((element) => element.name != _currentArea?.name)
+          .map((e) => AreaForegroundRenderer(e)),
+      if (_currentArea != null) AreaForegroundRenderer(_currentArea!),
+      if (rect != null)
+        AreaForegroundRenderer(
+          Area(
+            width: rect.width,
+            height: rect.height,
+            position: rect.topLeft.toPoint(),
           ),
-        ...[
-          _currentArea,
-          ...page.areas.where((element) => element.name != _currentArea?.name),
-        ].nonNulls.map((e) => AreaForegroundRenderer(e)),
-      ],
+        ),
       _selectionManager.renderer,
     ];
   }
 
   @override
-  void resetInput(DocumentBloc bloc) => currentRect = null;
+  void resetInput(DocumentBloc bloc) {
+    currentRect = null;
+    _setCurrentArea(null);
+  }
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
@@ -80,13 +104,13 @@ class AreaHandler extends Handler<AreaTool> {
       transform.size,
       context.getSettings().touchSensitivity,
     );
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
     _start = null;
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
@@ -106,12 +130,16 @@ class AreaHandler extends Handler<AreaTool> {
     );
     final globalPos = transform.localToGlobal(localPos);
     if (_selectionManager.isValid) {
-      _selectionManager.startTransform(
+      final startedTransform = _selectionManager.startTransform(
         globalPos,
         transform.size,
         context.getSettings().touchSensitivity,
       );
-      context.refresh();
+      if (!startedTransform) {
+        _setCurrentArea(null);
+        _start = globalPos;
+      }
+      context.refreshForegrounds();
       return true;
     }
 
@@ -131,43 +159,76 @@ class AreaHandler extends Handler<AreaTool> {
       transform,
     );
     var globalPos = transform.localToGlobal(localPos);
-    if (_selectionManager.isValid) {
+    if (_selectionManager.isTransforming) {
       _selectionManager.updateCurrentPosition(globalPos);
       _updateArea();
-      context.refresh();
+      context.refreshForegrounds();
       return;
     }
     final start = _start;
     if (start == null) return;
-    if (data.constrainedWidth != 0) {
-      globalPos = Offset(data.constrainedWidth + _start!.dx, globalPos.dy);
+    final hasConstrainedWidth = data.constrainedWidth != 0;
+    final hasConstrainedHeight = data.constrainedHeight != 0;
+    final hasConstrainedAspectRatio = data.constrainedAspectRatio != 0;
+    if (hasConstrainedWidth) {
+      final direction = (globalPos.dx - start.dx).sign;
+      final width = data.constrainedWidth * (direction == 0 ? 1 : direction);
+      globalPos = Offset(width + start.dx, globalPos.dy);
     }
-    if (data.constrainedHeight != 0) {
-      globalPos = Offset(globalPos.dx, data.constrainedHeight + _start!.dy);
+    if (hasConstrainedHeight) {
+      final direction = (globalPos.dy - start.dy).sign;
+      final height = data.constrainedHeight * (direction == 0 ? 1 : direction);
+      globalPos = Offset(globalPos.dx, height + start.dy);
     }
-    if (data.constrainedAspectRatio != 0) {
+    if (hasConstrainedAspectRatio) {
       final aspectRatio = data.constrainedAspectRatio;
-      final width = globalPos.dx - start.dx;
-      final height = globalPos.dy - start.dy;
-      final currentAspectRatio = width / height;
-      if (currentAspectRatio < aspectRatio) {
-        globalPos = Offset(_start!.dx + height * aspectRatio, globalPos.dy);
-      } else {
-        globalPos = Offset(globalPos.dx, _start!.dy + width / aspectRatio);
+      final width = (globalPos.dx - start.dx).abs();
+      final height = (globalPos.dy - start.dy).abs();
+      final xDirection = (globalPos.dx - start.dx).sign;
+      final yDirection = (globalPos.dy - start.dy).sign;
+      if (hasConstrainedWidth && !hasConstrainedHeight) {
+        globalPos = Offset(
+          globalPos.dx,
+          start.dy + width / aspectRatio * (yDirection == 0 ? 1 : yDirection),
+        );
+      } else if (hasConstrainedHeight && !hasConstrainedWidth) {
+        globalPos = Offset(
+          start.dx + height * aspectRatio * (xDirection == 0 ? 1 : xDirection),
+          globalPos.dy,
+        );
+      } else if (!hasConstrainedWidth && !hasConstrainedHeight) {
+        final currentAspectRatio = width / height;
+        if (currentAspectRatio < aspectRatio) {
+          globalPos = Offset(
+            start.dx +
+                height * aspectRatio * (xDirection == 0 ? 1 : xDirection),
+            globalPos.dy,
+          );
+        } else {
+          globalPos = Offset(
+            globalPos.dx,
+            start.dy + width / aspectRatio * (yDirection == 0 ? 1 : yDirection),
+          );
+        }
       }
     }
     _end = globalPos;
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final rect = currentRect;
     if (_selectionManager.isValid) {
+      final transform = _selectionManager.getTransform();
+      final moved =
+          _selectionManager.isMoving &&
+          transform != null &&
+          transform.position != Offset.zero;
       _updateArea();
       final area = _currentArea;
       if (area != null) {
-        context.getDocumentBloc().add(AreaChanged(area.name, area));
+        context.getDocumentBloc().add(AreaChanged(area.name, area, moved));
       }
       _selectionManager.resetTransform();
       _updateSelectionRect();
@@ -182,40 +243,43 @@ class AreaHandler extends Handler<AreaTool> {
       state.page,
       data.askForName,
     );
-    if (name == null) return;
+    if (name == null || name.isEmpty) return;
     currentRect = null;
     context.getDocumentBloc().add(
       AreasCreated([
-        Area(
-          width: rect.width,
-          height: rect.height,
-          position: rect.topLeft.toPoint(),
-          name: name,
+        AreaPreset(
+          area: Area(
+            width: rect.width,
+            height: rect.height,
+            position: rect.topLeft.toPoint(),
+            name: name,
+          ),
         ),
       ]),
     );
     context.refresh();
   }
 
-  Offset? _contextMenuOffset;
+  bool _startLongPress = false;
 
   @override
-  void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    _contextMenuOffset = details.localPosition;
+  void onLongPressDown(LongPressDownDetails details, EventContext context) {
+    _startLongPress = details.kind != PointerDeviceKind.mouse;
   }
 
   @override
-  void onDoubleTap(EventContext context) {
-    if (_contextMenuOffset == null) return;
-    _inspectArea(_contextMenuOffset!, context);
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    if (!_startLongPress) return;
+    _inspectArea(details.localPosition, context);
   }
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
-    _currentArea = context.getPage()?.getArea(
-      context.getCameraTransform().localToGlobal(details.localPosition),
+    _setCurrentArea(
+      context.getPage()?.getArea(
+        context.getCameraTransform().localToGlobal(details.localPosition),
+      ),
     );
-    _updateSelectionRect();
     context.refresh();
   }
 
@@ -237,8 +301,7 @@ class AreaHandler extends Handler<AreaTool> {
       if (_selectionManager.selection.contains(globalPosition)) {
         area = _currentArea;
       }
-      _selectionManager.deselect();
-      _currentArea = null;
+      _setCurrentArea(null);
     }
     if (area == null) return;
     if (areas.length > 1) {

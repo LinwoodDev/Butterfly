@@ -8,7 +8,7 @@ hero:
     file: /public/img/logo.svg
   actions:
     - text: التنزيل
-      link: ""
+      link: /downloads/
       icon: download
       variant: primary
     - text: الخطوات الأولى
@@ -31,38 +31,32 @@ import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
   <Card title="منصة متقاطعة" icon="laptop">
     يمكنك استخدام التطبيق على الهاتف أو الجهاز اللوحي أو الكمبيوتر المحمول أو سطح المكتب. التطبيق متوفر على لينوكس، وأندرويد، وويندوز. يمكنك أيضا استخدام التطبيق على الويب.
   </Card>
-
   <Card title="بسيط وبديهي" icon="puzzle">
-    كل أداة موجودة في المكان الصحيح. Open the app and start drawing. Change your tools by clicking on it.
+    كل أداة موجودة في المكان الصحيح. افتح التطبيق وابدأ الرسم. قم بتغيير أدواتك بالنقر عليها.
   </Card>
-
   <Card title="قابل للتخصيص" icon="pencil">
-    غير كل شيء حسب احتياجاتك أنت. اختر لونك المخصص، وأنشئ لوحة ألوان وأضف صفحاتك إلى الورق. The paper has an infinite size, perfect for your ideas and notes.
+    غير كل شيء حسب احتياجاتك أنت. اختر لونك المخصص، وأنشئ لوحة ألوان وأضف صفحاتك إلى الورق. لا حدود لحجم اللوحه، مثالي لأفكارك وملاحظاتك.
   </Card>
-
   <Card title="اختر مكان تخزين بياناتك" icon="open-book">
-    خزّن بياناتك محليا أو في السحابة المفضلة لديك (webDav). You can also export your data to a file and import it again.
+    خزّن بياناتك محليا أو في السحابة المفضلة لديك (webDav). يمكنك أيضا تصدير بياناتك إلى ملف واستيرادها مرة أخرى.
   </Card>
 </CardGrid>
 
 ## الميزات
 
 <div class="dark:sl-hidden">
-  ![Main view](@assets/img/main.png)
+![Main view](@assets/img/main.png)
 </div>
 
 <div class="light:sl-hidden">
-  ![Main view](@assets/img/main_dark.png)
+![Main view](@assets/img/main_dark.png)
 </div>
 
 <CardGrid stagger>
   <Card title="دع أفكارك تتدفق على لوحه لا حدود لها" />
-
   <Card title="استخدم قلمك أو Markdown أو النص المنسق لإطلاق العنان لأفكارك" />
-
   <Card title="قم بإضافة ملفات PDF و SVG و PNG وغيرها إلى ملاحظاتك أو التقط صورًا من الكاميرا" />
-
   <Card title="نظِّم ملاحظاتك بإضافة مناطق ونقاط توجيه أو باستخدام صفحات متعددة" />
 </CardGrid>
 
-<LinkCard title="حمّل التطبيق الآن!" href="" />
+<LinkCard title="حمّل التطبيق الآن!" href="/downloads/" />

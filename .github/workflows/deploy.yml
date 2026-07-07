@@ -16,13 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           package_json_file: docs/package.json
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 26
           cache: "pnpm"
           cache-dependency-path: docs/pnpm-lock.yaml
       - name: Install dependencies
@@ -50,13 +50,20 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: Install dependencies
         run: |
           flutter pub get
+      - name: Install OneNote web toolchain
+        run: |
+          rustup toolchain install nightly --component rust-src
+          cargo install wasm-pack --locked
+      - name: Build OneNote web library
+        working-directory: .
+        run: dart run tools/build_onenote_web.dart
       - name: Get Git Commit Hash
         run: echo "GIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: Set flavor
@@ -64,6 +71,7 @@ jobs:
         run: |
           echo "SETONIX_FLAVOR=nightly" >> $GITHUB_ENV
           echo "WEB_DIR=preview" >> $GITHUB_ENV
+          cp -rf web_nightly/* web/
       - name: Set flavor
         if: github.ref == 'refs/heads/main'
         run: |

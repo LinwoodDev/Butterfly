@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element_parameter
+
 import 'dart:math';
 import 'dart:ui' as ui;
 
@@ -7,61 +9,63 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class CameraViewport extends Equatable {
-  final ui.Image? image, belowLayerImage, aboveLayerImage;
-  final List<Renderer<Background>> backgrounds;
-  final List<Renderer<PadElement>> bakedElements,
-      unbakedElements,
-      visibleElements;
-  final double? width, height;
-  final double pixelRatio;
-  final double scale;
-  final double x, y;
-  final RenderResolution resolution;
-  final Map<String, RendererState> rendererStates;
-  final Set<String> invisibleLayers;
+part 'viewport.freezed.dart';
 
-  const CameraViewport.unbaked({
-    this.backgrounds = const [],
-    this.unbakedElements = const [],
-    List<Renderer<PadElement>>? visibleElements,
-    this.width,
-    this.height,
-    this.pixelRatio = 1,
-    this.rendererStates = const {},
-    this.invisibleLayers = const {},
-  }) : image = null,
-       belowLayerImage = null,
-       aboveLayerImage = null,
-       scale = 1,
-       bakedElements = const [],
-       x = 0,
-       y = 0,
-       visibleElements = visibleElements ?? unbakedElements,
-       resolution = RenderResolution.performance;
+@freezed
+sealed class CameraViewport with _$CameraViewport {
+  const CameraViewport._();
 
-  const CameraViewport.baked({
-    this.backgrounds = const [],
-    required this.image,
-    this.belowLayerImage,
-    this.aboveLayerImage,
-    required this.width,
-    required this.height,
-    required this.pixelRatio,
-    this.bakedElements = const [],
-    this.unbakedElements = const [],
-    required this.visibleElements,
-    this.scale = 1,
-    this.x = 0,
-    required this.resolution,
-    this.y = 0,
-    this.rendererStates = const {},
-    this.invisibleLayers = const {},
-  });
+  const factory CameraViewport.unbaked({
+    @Default([]) List<Renderer<Background>> backgrounds,
+    @Default([]) List<Renderer<PadElement>> bakedElements,
+    @Default([]) List<Renderer<PadElement>> unbakedElements,
+    @Default([]) List<Renderer<PadElement>> visibleElements,
+    @Default([]) List<Renderer<PadElement>> visibleUnbakedElements,
+    double? width,
+    double? height,
+    @Default(1) double pixelRatio,
+    @Default(1) double scale,
+    @Default(0) double x,
+    @Default(0) double y,
+    @Default(RenderResolution.performance) RenderResolution resolution,
+    @Default({}) Map<String, RendererState> rendererStates,
+    @Default({}) Set<String> invisibleLayers,
+    @Default(null) ui.Image? image,
+    @Default(null) ui.Image? belowLayerImage,
+    @Default(null) ui.Image? aboveLayerImage,
+  }) = CameraViewportUnbaked;
+
+  const factory CameraViewport.baked({
+    @Default([]) List<Renderer<Background>> backgrounds,
+    ui.Image? image,
+    ui.Image? belowLayerImage,
+    ui.Image? aboveLayerImage,
+    required double? width,
+    required double? height,
+    required double pixelRatio,
+    @Default([]) List<Renderer<PadElement>> bakedElements,
+    @Default([]) List<Renderer<PadElement>> unbakedElements,
+    required List<Renderer<PadElement>> visibleElements,
+    required List<Renderer<PadElement>> visibleUnbakedElements,
+    @Default(1) double scale,
+    @Default(0) double x,
+    required RenderResolution resolution,
+    @Default(0) double y,
+    @Default({}) Map<String, RendererState> rendererStates,
+    @Default({}) Set<String> invisibleLayers,
+  }) = CameraViewportBaked;
+
+  static List<Renderer<PadElement>> _filterVisibleUnbaked(
+    List<Renderer<PadElement>> visibleElements,
+    List<Renderer<PadElement>> unbakedElements,
+  ) {
+    if (visibleElements.isEmpty || unbakedElements.isEmpty) return const [];
+    if (identical(visibleElements, unbakedElements)) return visibleElements;
+    final unbakedSet = unbakedElements.toSet();
+    return visibleElements.where(unbakedSet.contains).toList(growable: false);
+  }
 
   static Future<CameraViewport> build(
     TransformCubit transformCubit,
@@ -83,6 +87,8 @@ class CameraViewport extends Equatable {
     return CameraViewport.unbaked(
       backgrounds: backgrounds,
       unbakedElements: renderers,
+      visibleElements: renderers,
+      visibleUnbakedElements: renderers,
     );
   }
 
@@ -115,6 +121,7 @@ class CameraViewport extends Equatable {
     position: toPoint(),
     width: (width?.toDouble() ?? 0) / scale,
     height: (height?.toDouble() ?? 0) / scale,
+    isInitial: false,
   );
 
   bool hasSameViewport(CameraViewport other) {
@@ -126,49 +133,75 @@ class CameraViewport extends Equatable {
   }
 
   CameraViewport withUnbaked(
-    List<Renderer<PadElement>> unbakedElements,
-    List<Renderer<PadElement>> visibleElements, [
+    List<Renderer<PadElement>> unbakedElements, {
+    List<Renderer<PadElement>>? visibleElements,
+    List<Renderer<PadElement>>? visibleUnbakedElements,
     List<Renderer<Background>>? backgrounds,
-  ]) => CameraViewport.baked(
-    backgrounds: backgrounds ?? this.backgrounds,
-    image: image,
-    width: width,
-    height: height,
-    scale: scale,
-    unbakedElements: unbakedElements,
-    bakedElements: bakedElements,
-    pixelRatio: pixelRatio,
-    visibleElements: visibleElements,
-    x: x,
-    y: y,
-    aboveLayerImage: aboveLayerImage,
-    belowLayerImage: belowLayerImage,
-    resolution: resolution,
-    invisibleLayers: invisibleLayers,
-  );
+  }) {
+    final nextVisibleElements = visibleElements ?? this.visibleElements;
+    final nextVisibleUnbakedElements =
+        visibleUnbakedElements ??
+        _filterVisibleUnbaked(nextVisibleElements, unbakedElements);
+    return copyWith(
+      backgrounds: backgrounds ?? this.backgrounds,
+      unbakedElements: unbakedElements,
+      visibleElements: nextVisibleElements,
+      visibleUnbakedElements: nextVisibleUnbakedElements,
+    );
+  }
+
+  CameraViewport replaceUnbaked(
+    List<Renderer<PadElement>> unbakedElements, {
+    List<Renderer<PadElement>>? visibleElements,
+    List<Renderer<PadElement>>? visibleUnbakedElements,
+    List<Renderer<Background>>? backgrounds,
+    Map<String, RendererState>? rendererStates,
+  }) {
+    final nextVisibleElements = visibleElements ?? unbakedElements;
+    final nextVisibleUnbakedElements =
+        visibleUnbakedElements ??
+        _filterVisibleUnbaked(nextVisibleElements, unbakedElements);
+    return copyWith(
+      backgrounds: backgrounds ?? this.backgrounds,
+      bakedElements: const [],
+      unbakedElements: unbakedElements,
+      visibleElements: nextVisibleElements,
+      visibleUnbakedElements: nextVisibleUnbakedElements,
+      rendererStates: rendererStates ?? this.rendererStates,
+    );
+  }
 
   CameraViewport unbake({
     List<Renderer<Background>>? backgrounds,
     List<Renderer<PadElement>>? unbakedElements,
     List<Renderer<PadElement>>? visibleElements,
+    List<Renderer<PadElement>>? visibleUnbakedElements,
     Map<String, RendererState>? rendererStates,
-  }) => CameraViewport.unbaked(
-    backgrounds: backgrounds ?? this.backgrounds,
-    unbakedElements:
+  }) {
+    final nextUnbakedElements =
         unbakedElements ??
         (List<Renderer<PadElement>>.from(this.unbakedElements)
-          ..addAll(bakedElements)),
-    visibleElements:
-        visibleElements ??
-        unbakedElements ??
-        (List<Renderer<PadElement>>.from(this.unbakedElements)
-          ..addAll(bakedElements)),
-    rendererStates: rendererStates ?? this.rendererStates,
-    width: width,
-    height: height,
-    pixelRatio: pixelRatio,
-    invisibleLayers: invisibleLayers,
-  );
+          ..addAll(bakedElements));
+    final nextVisibleElements =
+        visibleElements ?? unbakedElements ?? nextUnbakedElements;
+    return CameraViewport.unbaked(
+      backgrounds: backgrounds ?? this.backgrounds,
+      unbakedElements: nextUnbakedElements,
+      visibleElements: nextVisibleElements,
+      visibleUnbakedElements:
+          visibleUnbakedElements ??
+          _filterVisibleUnbaked(nextVisibleElements, nextUnbakedElements),
+      rendererStates: rendererStates ?? this.rendererStates,
+      width: width,
+      height: height,
+      pixelRatio: pixelRatio,
+      scale: scale,
+      x: x,
+      y: y,
+      resolution: resolution,
+      invisibleLayers: invisibleLayers,
+    );
+  }
 
   CameraViewport bake({
     required ui.Image image,
@@ -180,6 +213,7 @@ class CameraViewport extends Equatable {
     List<Renderer<PadElement>> bakedElements = const [],
     List<Renderer<PadElement>> unbakedElements = const [],
     required List<Renderer<PadElement>> visibleElements,
+    List<Renderer<PadElement>>? visibleUnbakedElements,
     double scale = 1,
     double x = 0,
     double y = 0,
@@ -198,6 +232,9 @@ class CameraViewport extends Equatable {
     x: x,
     y: y,
     visibleElements: visibleElements,
+    visibleUnbakedElements:
+        visibleUnbakedElements ??
+        _filterVisibleUnbaked(visibleElements, unbakedElements),
     aboveLayerImage: aboveLayerImage,
     belowLayerImage: belowLayerImage,
     resolution: resolution,
@@ -205,64 +242,27 @@ class CameraViewport extends Equatable {
     invisibleLayers: invisibleLayers ?? this.invisibleLayers,
   );
 
-  CameraViewport withoutLayers() => CameraViewport.baked(
-    backgrounds: backgrounds,
-    image: image,
-    width: width,
-    height: height,
-    scale: scale,
-    pixelRatio: pixelRatio,
-    bakedElements: bakedElements,
-    unbakedElements: unbakedElements,
-    x: x,
-    y: y,
-    visibleElements: visibleElements,
-    aboveLayerImage: null,
-    belowLayerImage: null,
-    resolution: resolution,
-    rendererStates: rendererStates,
-    invisibleLayers: invisibleLayers,
-  );
+  CameraViewport withoutLayers() =>
+      copyWith(belowLayerImage: null, aboveLayerImage: null);
 
   CameraViewport withBackgrounds(List<Renderer<Background>> backgrounds) =>
-      CameraViewport.baked(
-        backgrounds: backgrounds,
-        pixelRatio: pixelRatio,
-        image: image,
-        width: width,
-        height: height,
-        scale: scale,
-        bakedElements: bakedElements,
-        unbakedElements: unbakedElements,
-        x: x,
-        y: y,
-        visibleElements: visibleElements,
-        aboveLayerImage: aboveLayerImage,
-        belowLayerImage: belowLayerImage,
-        resolution: resolution,
-        rendererStates: rendererStates,
-        invisibleLayers: invisibleLayers,
-      );
+      copyWith(backgrounds: backgrounds);
 
-  @override
-  List<Object?> get props => [
-    image,
-    backgrounds,
-    bakedElements,
-    unbakedElements,
-    width,
-    height,
-    scale,
-    x,
-    y,
-    pixelRatio,
-    visibleElements,
-    aboveLayerImage,
-    belowLayerImage,
-    resolution,
-    rendererStates,
-    invisibleLayers,
-  ];
+  bool get baked => this is CameraViewportBaked;
 
-  bool get baked => image != null;
+  void disposeImages({CameraViewport? except}) {
+    try {
+      if (!identical(image, except?.image)) image?.dispose();
+    } catch (_) {}
+    try {
+      if (!identical(belowLayerImage, except?.belowLayerImage)) {
+        belowLayerImage?.dispose();
+      }
+    } catch (_) {}
+    try {
+      if (!identical(aboveLayerImage, except?.aboveLayerImage)) {
+        aboveLayerImage?.dispose();
+      }
+    } catch (_) {}
+  }
 }

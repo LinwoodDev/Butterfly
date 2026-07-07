@@ -8,6 +8,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
+import '../../widgets/multi_select.dart';
+import '../../widgets/reorderable_list_item.dart';
+
+int _documentLayerIndexFromViewIndex(int index, int layerCount) =>
+    layerCount - index - 1;
 
 class LayersView extends StatelessWidget {
   const LayersView({super.key});
@@ -20,54 +25,127 @@ class LayersView extends StatelessWidget {
           current is DocumentLoadSuccess &&
           (previous.currentLayer != current.currentLayer ||
               previous.invisibleLayers != current.invisibleLayers ||
+              previous.page.layers != current.page.layers ||
               previous.page.content != current.page.content),
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentIndex = state.currentLayer;
         final layers = state.page.layers.reversed.toList();
         final currentLayer = state.page.getLayer(currentIndex);
-        return Stack(
-          children: [
-            ReorderableListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: layers.length,
-              buildDefaultDragHandles: false,
-              itemBuilder: (BuildContext context, int index) {
-                final layer = layers[index];
-                final id = layer.id ?? '';
-                final visible = state.isLayerVisible(id);
-                final contentPadding =
-                    ListTileTheme.of(context).contentPadding ?? EdgeInsets.zero;
-                return Stack(
-                  key: ValueKey(id),
-                  children: [
-                    EditableListTile(
+        return MultiSelectRegion<String>(
+          toolbarBuilder: (context, controller) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: OverflowBar(
+              spacing: 8,
+              children: [
+                ActionChip(
+                  label: Text(AppLocalizations.of(context).delete),
+                  avatar: const PhosphorIcon(PhosphorIconsLight.trash),
+                  onPressed: () async {
+                    if (controller.selectedIds.isEmpty) return;
+                    final result = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => const DeleteDialog(),
+                    );
+                    if (result != true) return;
+                    final bloc = context.read<DocumentBloc>();
+                    for (final id in controller.selectedIds) {
+                      bloc.add(LayerRemoved(id));
+                    }
+                    controller.clear();
+                  },
+                ),
+                ActionChip(
+                  label: Text(AppLocalizations.of(context).duplicate),
+                  avatar: const PhosphorIcon(PhosphorIconsLight.copySimple),
+                  onPressed: () {
+                    final selectedIds = controller.selectedIds.toList();
+                    if (selectedIds.isNotEmpty) {
+                      context.read<DocumentBloc>().add(
+                        LayersMerged(selectedIds, true),
+                      );
+                    }
+                    controller.clear();
+                  },
+                ),
+                ActionChip(
+                  label: Text(AppLocalizations.of(context).merge),
+                  avatar: const PhosphorIcon(PhosphorIconsLight.stack),
+                  onPressed: () {
+                    final selectedIds = controller.selectedIds.toList();
+                    if (selectedIds.length > 1) {
+                      context.read<DocumentBloc>().add(
+                        LayersMerged(selectedIds),
+                      );
+                    }
+                    controller.clear();
+                  },
+                ),
+              ],
+            ),
+          ),
+          builder: (context, controller, child) => Stack(
+            children: [
+              ReorderableListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: layers.length,
+                buildDefaultDragHandles: false,
+                itemBuilder: (BuildContext context, int index) {
+                  final layer = layers[index];
+                  final id = layer.id ?? '';
+                  final visible = state.isLayerVisible(id);
+                  final contentPadding =
+                      ListTileTheme.of(context).contentPadding ??
+                      EdgeInsets.zero;
+                  return ReorderableListItem(
+                    key: ValueKey(id),
+                    index: index,
+                    child: EditableListTile(
                       initialValue: layer.name,
-                      selected: id == state.currentLayer,
-                      onTap: () => context.read<DocumentBloc>().add(
-                        CurrentLayerChanged(id),
-                      ),
+                      selected: controller.selectionMode
+                          ? controller.selectedIds.contains(id)
+                          : (id == state.currentLayer),
+                      onTap: () {
+                        if (controller.selectionMode) {
+                          controller.toggle(id);
+                        } else {
+                          context.read<DocumentBloc>().add(
+                            CurrentLayerChanged(id),
+                          );
+                        }
+                      },
+                      onLongPress: () {
+                        if (!controller.selectionMode) {
+                          controller.enableSelectionMode();
+                          controller.select(id);
+                        }
+                      },
                       subtitle: Text(
                         AppLocalizations.of(
                           context,
                         ).countElements(layer.content.length),
                       ),
-                      leading: IconButton(
-                        icon: PhosphorIcon(
-                          visible
-                              ? PhosphorIconsLight.eye
-                              : PhosphorIconsLight.eyeSlash,
-                        ),
-                        tooltip: visible
-                            ? AppLocalizations.of(context).hide
-                            : AppLocalizations.of(context).show,
-                        onPressed: () {
-                          context.read<DocumentBloc>().add(
-                            LayerVisibilityChanged(id, !visible),
-                          );
-                        },
-                      ),
+                      leading: controller.selectionMode
+                          ? Checkbox(
+                              value: controller.selectedIds.contains(id),
+                              onChanged: (value) => controller.toggle(id),
+                            )
+                          : IconButton(
+                              icon: PhosphorIcon(
+                                visible
+                                    ? PhosphorIconsLight.eye
+                                    : PhosphorIconsLight.eyeSlash,
+                              ),
+                              tooltip: visible
+                                  ? AppLocalizations.of(context).hide
+                                  : AppLocalizations.of(context).show,
+                              onPressed: () {
+                                context.read<DocumentBloc>().add(
+                                  LayerVisibilityChanged(id, !visible),
+                                );
+                              },
+                            ),
                       textFormatter: (e) =>
                           e.isEmpty ? AppLocalizations.of(context).layer : e,
                       onSaved: (value) => context.read<DocumentBloc>().add(
@@ -160,57 +238,44 @@ class LayersView extends StatelessWidget {
                         ),
                       ],
                       contentPadding: contentPadding.add(
-                        const EdgeInsets.only(right: 32),
+                        const EdgeInsetsDirectional.only(end: 32),
                       ),
                     ),
-                    Positioned(
-                      top: 0,
-                      bottom: 0,
-                      right: 4,
-                      child: ReorderableDragStartListener(
-                        index: index,
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.grab,
-                          child: const Icon(PhosphorIconsLight.dotsSix),
-                        ),
-                      ),
+                  );
+                },
+                onReorderItem: (int oldIndex, int newIndex) {
+                  final layer = layers[oldIndex];
+                  context.read<DocumentBloc>().add(
+                    LayerOrderChanged(
+                      layer.id ?? '',
+                      _documentLayerIndexFromViewIndex(newIndex, layers.length),
                     ),
-                  ],
-                );
-              },
-              onReorder: (int oldIndex, int newIndex) {
-                final layer = layers[oldIndex];
-                if (oldIndex < newIndex) {
-                  newIndex -= 1;
-                }
-                newIndex = layers.length - 1 - newIndex;
-                context.read<DocumentBloc>().add(
-                  LayerOrderChanged(layer.id ?? '', newIndex),
-                );
-              },
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FloatingActionButton.extended(
-                  label: Text(LeapLocalizations.of(context).create),
-                  icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                  backgroundColor: ColorScheme.of(context).secondary,
-                  foregroundColor: ColorScheme.of(context).onSecondary,
-                  onPressed: () async {
-                    final bloc = context.read<DocumentBloc>();
-                    final state = bloc.state;
-                    if (state is! DocumentLoadSuccess) return;
-                    final id = createUniqueId();
-                    bloc
-                      ..add(LayerCreated(id: id))
-                      ..add(CurrentLayerChanged(id));
-                  },
+                  );
+                },
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton.extended(
+                    label: Text(LeapLocalizations.of(context).create),
+                    icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                    backgroundColor: ColorScheme.of(context).secondary,
+                    foregroundColor: ColorScheme.of(context).onSecondary,
+                    onPressed: () async {
+                      final bloc = context.read<DocumentBloc>();
+                      final state = bloc.state;
+                      if (state is! DocumentLoadSuccess) return;
+                      final id = createUniqueId();
+                      bloc
+                        ..add(LayerCreated(id: id))
+                        ..add(CurrentLayerChanged(id));
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

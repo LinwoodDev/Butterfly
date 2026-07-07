@@ -34,6 +34,7 @@ import '../cubits/transform.dart';
 import '../helpers/xml.dart';
 import '../models/label.dart';
 import '../services/asset.dart';
+import '../services/logger.dart';
 import 'textures/texture.dart';
 
 part 'backgrounds/texture.dart';
@@ -49,47 +50,167 @@ part 'elements/polygon.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
+class ElementPaintRenderer {
+  ui.Image? _image;
+  String? _source;
+
+  Future<void> setup(
+    ElementPaint paint,
+    NoteData document,
+    AssetService assets,
+  ) async {
+    final source = switch (paint) {
+      ImageElementPaint(:final source) => source,
+      SvgElementPaint(:final source) => source,
+      _ => null,
+    };
+    if (_source == source && _image != null) return;
+    _image?.dispose();
+    _image = null;
+    _source = source;
+    if (source != null) {
+      _image = await assets.getImage(source, document);
+    }
+  }
+
+  bool uses(String path) => _source == path;
+
+  void dispose() {
+    _image?.dispose();
+    _image = null;
+  }
+
+  Paint build(ElementPaint paint, Rect bounds, {PaintingStyle? style}) {
+    final preview = paint.previewColor;
+    final result = Paint()
+      ..color = preview.toColor()
+      ..style = style ?? PaintingStyle.fill;
+    if (paint.blur > 0) {
+      result.maskFilter = ui.MaskFilter.blur(ui.BlurStyle.normal, paint.blur);
+    }
+    switch (paint) {
+      case ImageElementPaint(:final scale, :final tint):
+        if (!_applyImageShader(result, scale, tint)) return result;
+      case SvgElementPaint(:final scale, :final tint):
+        if (!_applyImageShader(result, scale, tint)) return result;
+      case GradientElementPaint(:final gradient):
+        final tileMode = TileMode.clamp;
+        late final ui.Shader shader;
+        switch (gradient) {
+          case LinearElementGradient(:final start, :final end, :final stops):
+            final startOffset = Offset(
+              bounds.left + start.x * bounds.width,
+              bounds.top + start.y * bounds.height,
+            );
+            final endOffset = Offset(
+              bounds.left + end.x * bounds.width,
+              bounds.top + end.y * bounds.height,
+            );
+            final centerOffset = Offset(
+              bounds.left + bounds.width / 2,
+              bounds.top + bounds.height / 2,
+            );
+            final scaledStart = centerOffset + (startOffset - centerOffset);
+            final scaledEnd = centerOffset + (endOffset - centerOffset);
+            shader = ui.Gradient.linear(
+              scaledStart,
+              scaledEnd,
+              stops.map((s) => s.color.toColor()).toList(),
+              stops.map((s) => s.offset).toList(),
+              tileMode,
+            );
+          case RadialElementGradient(
+            :final center,
+            :final radius,
+            :final stops,
+          ):
+            shader = ui.Gradient.radial(
+              Offset(
+                bounds.left + center.x * bounds.width,
+                bounds.top + center.y * bounds.height,
+              ),
+              radius * sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2,
+              stops.map((s) => s.color.toColor()).toList(),
+              stops.map((s) => s.offset).toList(),
+              tileMode,
+            );
+        }
+        result.shader = shader;
+      case SolidElementPaint():
+    }
+    return result;
+  }
+
+  bool _applyImageShader(Paint paint, double scale, SRGBColor tint) {
+    final image = _image;
+    if (image == null) return false;
+    final matrix = Matrix4.diagonal3Values(scale, scale, 1);
+    paint
+      ..shader = ui.ImageShader(
+        image,
+        TileMode.repeated,
+        TileMode.repeated,
+        matrix.storage,
+      )
+      ..colorFilter = ui.ColorFilter.mode(tint.toColor(), BlendMode.modulate);
+    return true;
+  }
+}
+
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
+  final Rect? boundsRect;
   final double rotation;
 
-  DefaultHitCalculator(this.rect, this.rotation);
+  DefaultHitCalculator(this.rect, this.boundsRect, this.rotation);
 
-  @override
-  bool hit(Rect rect, {bool full = false}) {
-    final element = this.rect;
-    if (element == null) return false;
-    if (full) {
-      return element.top >= rect.top &&
-          element.left >= rect.left &&
-          element.right <= rect.right &&
-          element.bottom <= rect.bottom;
-    }
-    return element.overlaps(rect);
+  List<Offset> _rotatedCorners(Rect rect) {
+    final center = rect.center;
+    return [
+      rect.topLeft.rotate(center, rotation),
+      rect.topRight.rotate(center, rotation),
+      rect.bottomRight.rotate(center, rotation),
+      rect.bottomLeft.rotate(center, rotation),
+    ];
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    final element = this.rect;
+    if (element == null) return false;
+    if (!(boundsRect ?? element).overlaps(rect)) return false;
+    final rotated = _rotatedCorners(element);
+    if (hitElementMode == HitElementMode.full) {
+      return rotated.every(rect.contains);
+    }
+    if (!isFiniteRect(rect)) {
+      return rotated.any(rect.contains);
+    }
+    return isPolygonInPolygon(rotated, [
+      rect.topLeft,
+      rect.topRight,
+      rect.bottomRight,
+      rect.bottomLeft,
+    ]);
+  }
+
+  @override
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (rect == null) return false;
+    final rotated = _rotatedCorners(rect!);
     final center = rect!.center;
     final isCenter = isPointInPolygon(polygon, center);
-    final isTopLeft = isPointInPolygon(
-      polygon,
-      rect!.topLeft.rotate(center, rotation),
-    );
-    final isTopRight = isPointInPolygon(
-      polygon,
-      rect!.topRight.rotate(center, rotation),
-    );
-    final isBottomLeft = isPointInPolygon(
-      polygon,
-      rect!.bottomLeft.rotate(center, rotation),
-    );
-    final isBottomRight = isPointInPolygon(
-      polygon,
-      rect!.bottomRight.rotate(center, rotation),
-    );
-    if (full) {
+    final isTopLeft = isPointInPolygon(polygon, rotated[0]);
+    final isTopRight = isPointInPolygon(polygon, rotated[1]);
+    final isBottomRight = isPointInPolygon(polygon, rotated[2]);
+    final isBottomLeft = isPointInPolygon(polygon, rotated[3]);
+    if (hitElementMode == HitElementMode.full) {
       return isCenter &&
           isTopLeft &&
           isTopRight &&
@@ -127,10 +248,18 @@ Projection projectPolygon(Offset axis, List<Offset> polygon) {
 }
 
 abstract class HitCalculator {
-  bool hit(Rect rect, {bool full = false});
-  bool hitPolygon(List<Offset> polygon, {bool full = false});
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  });
+
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  });
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
+    if (!_isFiniteOffset(testPoint) || !isFinitePolygon(polygon)) return false;
     bool result = false;
     int j = polygon.length - 1;
     for (int i = 0; i < polygon.length; i++) {
@@ -147,6 +276,31 @@ abstract class HitCalculator {
       j = i;
     }
     return result;
+  }
+
+  bool _isFiniteOffset(Offset point) => point.dx.isFinite && point.dy.isFinite;
+
+  bool isFinitePolygon(List<Offset> polygon) => polygon.every(_isFiniteOffset);
+
+  bool isFiniteRect(Rect rect) =>
+      rect.left.isFinite &&
+      rect.top.isFinite &&
+      rect.right.isFinite &&
+      rect.bottom.isFinite;
+
+  List<Offset> rectToPolygon(Rect rect) => [
+    rect.topLeft,
+    rect.topRight,
+    rect.bottomRight,
+    rect.bottomLeft,
+  ];
+
+  bool hitRectPolygon(Rect rect, List<Offset> polygon) {
+    if (polygon.isEmpty) return false;
+    if (!isFiniteRect(rect)) {
+      return polygon.any(rect.contains);
+    }
+    return isPolygonInPolygon(rectToPolygon(rect), polygon);
   }
 
   List<Offset> getAxesOfPolygon(List<Offset> polygon) {
@@ -168,24 +322,71 @@ abstract class HitCalculator {
     return axes;
   }
 
+  bool _isPointOnSegment(Offset point, Offset a, Offset b) {
+    const epsilon = 1e-10;
+    final cross =
+        (point.dy - a.dy) * (b.dx - a.dx) - (point.dx - a.dx) * (b.dy - a.dy);
+    if (cross.abs() > epsilon) return false;
+
+    final dot =
+        (point.dx - a.dx) * (b.dx - a.dx) + (point.dy - a.dy) * (b.dy - a.dy);
+    if (dot < -epsilon) return false;
+
+    final lengthSquared =
+        (b.dx - a.dx) * (b.dx - a.dx) + (b.dy - a.dy) * (b.dy - a.dy);
+    return dot <= lengthSquared + epsilon;
+  }
+
+  int _orientation(Offset a, Offset b, Offset c) {
+    const epsilon = 1e-10;
+    final value = (b.dy - a.dy) * (c.dx - b.dx) - (b.dx - a.dx) * (c.dy - b.dy);
+    if (value.abs() <= epsilon) return 0;
+    return value > 0 ? 1 : 2;
+  }
+
+  bool _segmentsIntersect(Offset a, Offset b, Offset c, Offset d) {
+    final o1 = _orientation(a, b, c);
+    final o2 = _orientation(a, b, d);
+    final o3 = _orientation(c, d, a);
+    final o4 = _orientation(c, d, b);
+
+    if (o1 != o2 && o3 != o4) return true;
+    if (o1 == 0 && _isPointOnSegment(c, a, b)) return true;
+    if (o2 == 0 && _isPointOnSegment(d, a, b)) return true;
+    if (o3 == 0 && _isPointOnSegment(a, c, d)) return true;
+    if (o4 == 0 && _isPointOnSegment(b, c, d)) return true;
+    return false;
+  }
+
+  Iterable<(Offset, Offset)> _edgesOf(List<Offset> polygon) sync* {
+    if (polygon.length < 2) return;
+    for (var i = 0; i < polygon.length - 1; i++) {
+      yield (polygon[i], polygon[i + 1]);
+    }
+    if (polygon.length > 2) {
+      yield (polygon.last, polygon.first);
+    }
+  }
+
   bool isPolygonInPolygon(List<Offset> poly1, List<Offset> poly2) {
-    // Get the axes from both polygons.
-    final List<Offset> axes = [
-      ...getAxesOfPolygon(poly1),
-      ...getAxesOfPolygon(poly2),
-    ];
+    if (poly1.isEmpty || poly2.isEmpty) return false;
+    if (!isFinitePolygon(poly1) || !isFinitePolygon(poly2)) return false;
 
-    // For each axis, project both polygons.
-    for (final axis in axes) {
-      final Projection proj1 = projectPolygon(axis, poly1);
-      final Projection proj2 = projectPolygon(axis, poly2);
-
-      // If there is a gap on this axis, then there is a separating axis.
-      if (proj1.max < proj2.min || proj2.max < proj1.min) {
-        return false;
+    for (final (a, b) in _edgesOf(poly1)) {
+      for (final (c, d) in _edgesOf(poly2)) {
+        if (_segmentsIntersect(a, b, c, d)) return true;
       }
     }
-    return true;
+
+    if (poly2.length > 2 &&
+        poly1.any((point) => isPointInPolygon(poly2, point))) {
+      return true;
+    }
+    if (poly1.length > 2 &&
+        poly2.any((point) => isPointInPolygon(poly1, point))) {
+      return true;
+    }
+    return false;
   }
 }
 
@@ -331,7 +532,7 @@ abstract class Renderer<T> {
   ]);
 
   HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, rotation * (pi / 180));
+      DefaultHitCalculator(rect, expandedRect, rotation * (pi / 180));
 
   void buildSvg(
     XmlDocument xml,
@@ -356,7 +557,6 @@ abstract class Renderer<T> {
     // Determine position (absolute for _transform)
     position ??= relative ? Offset.zero : rect.topLeft;
     var nextPosition = relative ? position + rect.topLeft : position;
-    final expandedRect = this.expandedRect ?? rect;
 
     final radians = (this.rotation % 360) * (pi / 180);
     // Keep original rotatePosition behavior (rotate relative movement by current rotation)
@@ -366,30 +566,70 @@ abstract class Renderer<T> {
       nextPosition = relativePosition + rect.topLeft;
     }
 
-    // Convert world axis-aligned scaling (expandedRect-based) into local axes
-    // using the diagonal of R^-1 * S_world * R (ignore shear off-diagonals).
+    // Convert world axis-aligned scaling into local-space scaling.
+    // The expanded (AABB) rect is what gets scaled in world space, so we solve
+    // for the local scale factors that produce the desired AABB dimensions.
+    //
+    // The AABB dimensions of a rect (w, h) rotated by θ are:
+    //   EW = w·|cosθ| + h·|sinθ|
+    //   EH = w·|sinθ| + h·|cosθ|
+    //
+    // After applying local scales (sx, sy), the new AABB must satisfy:
+    //   sx·w·|cosθ| + sy·h·|sinθ| = scaleX · EW
+    //   sx·w·|sinθ| + sy·h·|cosθ| = scaleY · EH
+    //
+    // This 2×2 system has determinant w·h·cos(2θ). When cos(2θ) ≈ 0
+    // (rotation near 45°/135°) or the exact solution yields negative local
+    // scales, we fall back to the diagonal projection of the world-space
+    // scale matrix onto the local axes.
     double sx = scaleX;
     double sy = scaleY;
-    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
-      final c = cos(radians);
-      final s = sin(radians);
-      // Use column norms as effective local scales.
-      final sxLocal = sqrt((sx * c) * (sx * c) + (sy * s) * (sy * s));
-      final syLocal = sqrt((sx * s) * (sx * s) + (sy * c) * (sy * c));
+    if ((scaleX != 1 || scaleY != 1) && (this.rotation % 360) != 0) {
+      final w = rect.width;
+      final h = rect.height;
+      final expandedRect = _expandedAabbFor(rect, radians);
 
-      sx = sxLocal;
-      sy = syLocal;
-    }
+      if (w > 0 && h > 0) {
+        final absC = cos(radians).abs();
+        final absS = sin(radians).abs();
+        final cos2theta = absC * absC - absS * absS; // cos(2θ)
 
-    // Position compensation for scaling rotated elements so that the element's
-    // expanded AABB appears to move as expected when scaling around its top-left.
-    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
-      final double w = rect.width;
-      final double h = rect.height;
+        if (cos2theta.abs() > 1e-10) {
+          // Expanded AABB dimensions of the current (unscaled) element.
+          final ew = w * absC + h * absS;
+          final eh = w * absS + h * absC;
 
+          // Solve the 2×2 linear system for exact local scales.
+          final exactSx =
+              (absC * scaleX * ew - absS * scaleY * eh) / (w * cos2theta);
+          final exactSy =
+              (absC * scaleY * eh - absS * scaleX * ew) / (h * cos2theta);
+
+          if (exactSx > 0 && exactSy > 0) {
+            sx = exactSx;
+            sy = exactSy;
+          } else {
+            // Exact solution requires a negative local scale (not
+            // representable). Fall back to diagonal projection.
+            final c2 = cos(radians) * cos(radians);
+            final s2 = sin(radians) * sin(radians);
+            sx = scaleX * c2 + scaleY * s2;
+            sy = scaleX * s2 + scaleY * c2;
+          }
+        } else {
+          // Near 45°/135°: system is ill-conditioned. Use diagonal
+          // projection (weighted average of world scales).
+          final c2 = cos(radians) * cos(radians);
+          final s2 = sin(radians) * sin(radians);
+          sx = scaleX * c2 + scaleY * s2;
+          sy = scaleX * s2 + scaleY * c2;
+        }
+      }
+
+      // Position compensation: the offset between rect.topLeft and its
+      // expanded AABB changes when local scales change. Adjust so the
+      // expanded AABB stays anchored correctly.
       final Offset fOld = expandedRect.topLeft - rect.topLeft;
-
-      // New offset computed from the expanded AABB of the scaled rect.
       final Rect scaledRect = Rect.fromLTWH(
         rect.left,
         rect.top,
@@ -413,7 +653,9 @@ abstract class Renderer<T> {
   Renderer<T>? _transform({
     required Offset position,
     required double rotation,
+    // ignore: unused_element_parameter
     double scaleX = 1,
+    // ignore: unused_element_parameter
     double scaleY = 1,
   }) => null;
 
@@ -470,7 +712,10 @@ Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
     renderView.prepareInitialFrame();
     final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
       container: repaintBoundary,
-      child: Directionality(textDirection: TextDirection.ltr, child: widget),
+      child: MediaQuery(
+        data: MediaQueryData(),
+        child: Directionality(textDirection: TextDirection.ltr, child: widget),
+      ),
     ).attachToRenderTree(buildOwner);
     buildOwner.buildScope(rootElement);
     buildOwner.finalizeTree();

@@ -2,26 +2,35 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keybinder/keybinder.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 
 import '../cubits/settings.dart';
 
 class ChangePathIntent extends Intent {
-  final BuildContext context;
-
-  const ChangePathIntent(this.context);
+  const ChangePathIntent();
 }
 
+const changePathShortcut = ShortcutDefinition(
+  id: 'change_path',
+  intent: ChangePathIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyS, alt: true),
+);
+
 class ChangePathAction extends Action<ChangePathIntent> {
-  ChangePathAction();
+  final BuildContext context;
+
+  ChangePathAction(this.context);
 
   @override
   Future<void> invoke(ChangePathIntent intent) async {
-    final context = intent.context;
     final bloc = context.read<DocumentBloc>();
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess || state.location.path == '') return;
-    final location = state.location;
+    final cubit = bloc.currentIndexCubit;
+    final cubitState = cubit.state;
+    if (cubitState.location.path == '') return;
+    final location = cubitState.location;
     final settings = context.read<SettingsCubit>().state;
     final fileSystem = context.read<ButterflyFileSystem>().buildDocumentSystem(
       settings.getRemote(location.remote),
@@ -29,18 +38,15 @@ class ChangePathAction extends Action<ChangePathIntent> {
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {
-      var newPaths = await showDialog<List<String>>(
+      var newLocations = await showDialog<List<AssetLocation>>(
         context: context,
         builder: (context) => FileSystemAssetMoveDialog(
           assets: [asset.location],
           fileSystem: fileSystem,
         ),
       );
-      if (newPaths == null) return;
-      state.currentIndexCubit.setSaveState(
-        location: location.copyWith(path: newPaths.first),
-        isCreating: false,
-      );
+      if (newLocations == null) return;
+      cubit.setSaveState(location: newLocations.first, isCreating: false);
       bloc.save();
     }
   }

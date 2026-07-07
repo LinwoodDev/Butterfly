@@ -91,6 +91,46 @@
                     android:pathPattern=".*\\.tbfly" />
             </intent-filter>
 
+            <!-- Microsoft OneNote section and package files -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.onepkg" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.onepkg" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.onepkg" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.onepkg" />
+            </intent-filter>
+
             <!-- ZIP files -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -190,20 +230,27 @@
                     android:mimeType="application/octet-stream"
                     android:pathPattern=".*\\.txt" />
             </intent-filter>
+
+            <!-- Shared files/text -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/x-butterfly" />
+                <data android:mimeType="application/x-text-butterfly" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/zip" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="text/markdown" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
         </activity>
 
         <!-- Flutter plugin registrant -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
-        <!-- DataProvider for SuperClipboard -->
-        <provider
-            android:name="com.superlist.super_native_extensions.DataProvider"
-            android:authorities="${applicationId}.SuperClipboardDataProvider"
-            android:exported="true"
-            android:grantUriPermissions="true" />
-
     </application>
 
     <!-- Required for text processing plugins -->

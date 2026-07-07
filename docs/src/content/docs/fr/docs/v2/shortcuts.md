@@ -34,7 +34,7 @@ Certaines d'entre elles sont écrites sous les boutons.
 
 ## Stylo
 
-Par défaut, le stylo est configuré pour fonctionner comme suit :
+By default, the pen is configured to function as the following:
 
 - `Stylo`: configuré comme stylo.
 - `Premier` (Bouton primaire, si supporté) : Changer pour l'outil main pendant qu'il est pressé.

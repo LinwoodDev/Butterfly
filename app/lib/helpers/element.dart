@@ -5,7 +5,10 @@ Uint8List? getDataFromSource(NoteData document, String source) {
   if (source.isEmpty) {
     return null;
   }
-  final uri = Uri.parse(source);
+  final uri = Uri.tryParse(source);
+  if (uri == null) {
+    return null;
+  }
   if (!uri.hasScheme || uri.isScheme('file')) {
     final data = document.getAsset(uri.path);
     if (data == null) {

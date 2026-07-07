@@ -1,8 +1,8 @@
 ---
-title: 页 次
+title: 页面
 ---
 
-Pages are a way to organize your notes by allowing separate infinte canvases to be contained in a single document.
+Pages are a way to organize your notes by allowing separate infinite canvases to be contained in a single document.
 
 :::note
 

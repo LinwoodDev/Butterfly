@@ -23,6 +23,8 @@ Essayez de mettre à jour votre navigateur vers la dernière version.
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 J'utilise l'entrée fournie par le cadre flutter.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -35,7 +37,7 @@ Butterfly is optimized every update, but sometimes the problem could be from you
 
 This allows Butterfly to refresh faster and feel more responsive.
 
-If these steps dont help, please dont hesitate to complain in Discord, Matrix, or in Github.
+If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
 
 ### Butterfly restarts in the background
 
@@ -58,9 +60,10 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
+
 J'utilise l'entrée fournie par le cadre flutter.
 There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Ces questions sont un peu plus anciennes. La version web devrait fonctionner correctement pour le moment.

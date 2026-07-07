@@ -61,13 +61,18 @@ parts:
       - curl
       - libsecret-1-dev
       - libjsoncpp-dev
+      - clang
+      - ninja-build
+      - rustup
+      - pkg-config
+      - lld
+      - llvm
     override-build: |
       craftctl default
       set -eux
       cd $CRAFT_PART_SRC_WORK
       cd app
       flutter pub get || true
-      dart run pdfrx:remove_wasm_modules
       flutter build linux --release --verbose --target lib/main.dart
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
       mkdir -p $CRAFT_PART_INSTALL/metainfo

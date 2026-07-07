@@ -13,6 +13,7 @@ class EditableListTile extends StatefulWidget {
   final Widget? leading, subtitle;
   final TextStyle? textStyle;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final String Function(String)? textFormatter;
   final EdgeInsetsGeometry? contentPadding;
 
@@ -29,6 +30,7 @@ class EditableListTile extends StatefulWidget {
     this.subtitle,
     this.textStyle,
     this.onTap,
+    this.onLongPress,
     this.textFormatter,
     this.contentPadding,
   });
@@ -38,51 +40,44 @@ class EditableListTile extends StatefulWidget {
 }
 
 class _EditableListTileState extends State<EditableListTile> {
-  late final TextEditingController _controller;
-  final FocusNode _focusNode = FocusScopeNode();
+  TextEditingController? _internalController;
+  final FocusNode _focusNode = FocusNode();
   bool _isEditing = false;
+
+  TextEditingController get _controller =>
+      widget.controller ?? _internalController!;
 
   @override
   void initState() {
     super.initState();
-    _controller =
-        widget.controller ?? TextEditingController(text: widget.initialValue);
+    if (widget.controller == null) {
+      _internalController = TextEditingController(text: widget.initialValue);
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
     _focusNode.dispose();
-    if (widget.controller == null) _controller.dispose();
+    _internalController?.dispose();
   }
 
-  @override
-  void didUpdateWidget(covariant EditableListTile oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.controller == oldWidget.controller) {
-      return;
-    }
-    setState(() {
-      _controller =
-          widget.controller ?? TextEditingController(text: widget.initialValue);
-    });
-  }
-
-  void _onSaved([String? value]) {
+  void _saveAndClose([String? value]) {
+    if (!_isEditing) return;
     widget.onSaved?.call(value ?? _controller.text);
     setState(() {
       _isEditing = false;
     });
   }
 
-  void _edit() {
-    if (widget.onSaved != null) {
+  void _startEditing() {
+    if (widget.onSaved == null) return;
+    setState(() {
+      _isEditing = true;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusNode.requestFocus();
-      setState(() {
-        _isEditing = true;
-      });
-    }
+    });
   }
 
   @override
@@ -92,11 +87,12 @@ class _EditableListTileState extends State<EditableListTile> {
         tooltip: AppLocalizations.of(context).actions,
         builder: (context, button, controller) => _buildWidget(context, button),
         menuChildren: [
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
-            onPressed: _edit,
-            child: Text(AppLocalizations.of(context).rename),
-          ),
+          if (widget.onSaved != null)
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+              onPressed: _startEditing,
+              child: Text(AppLocalizations.of(context).rename),
+            ),
           ...widget.actions!,
         ],
       );
@@ -106,97 +102,104 @@ class _EditableListTileState extends State<EditableListTile> {
 
   Widget _buildWidget(BuildContext context, Widget? actionButton) {
     final currentStyle = widget.textStyle;
-    final isEditing = _isEditing;
-    return GestureDetector(
-      onDoubleTap: _edit,
-      child: FocusScope(
-        onFocusChange: (value) {
-          if (!value) {
-            _onSaved();
-          }
-        },
-        child: ListTile(
-          onTap: widget.onTap,
-          selected: widget.selected,
-          leading: widget.leading,
-          subtitle: widget.subtitle == null
-              ? null
-              : Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: widget.subtitle,
+    final title = SizedBox(
+      height: 40,
+      child: _isEditing
+          ? TextField(
+              controller: _controller,
+              focusNode: _focusNode,
+              autofocus: true,
+              onChanged: widget.onChanged,
+              onSubmitted: _saveAndClose,
+              onEditingComplete: _saveAndClose,
+              onTapOutside: (_) {
+                _saveAndClose();
+                _focusNode.unfocus();
+              },
+              textInputAction: TextInputAction.done,
+              style: currentStyle,
+              decoration: InputDecoration(
+                filled: true,
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 4,
+                  vertical: 0,
                 ),
-          minVerticalPadding: 0,
-          contentPadding: widget.contentPadding,
-          title: SizedBox(
-            height: 40,
-            child: isEditing
-                ? TextFormField(
-                    controller: _controller,
-                    onChanged: widget.onChanged,
-                    onSaved: _onSaved,
-                    autofocus: true,
-                    onFieldSubmitted: _onSaved,
-                    style: currentStyle,
-                    decoration: InputDecoration(
-                      filled: true,
-                      border: const OutlineInputBorder(),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 0,
-                      ),
-                      hintText: AppLocalizations.of(context).enterText,
+                hintText: AppLocalizations.of(context).enterText,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: ListenableBuilder(
+                listenable: _controller,
+                builder: (context, _) {
+                  final text =
+                      widget.textFormatter?.call(_controller.text) ??
+                      _controller.text;
+                  return Tooltip(
+                    message: text,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          text,
+                          style: currentStyle,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: ListenableBuilder(
-                      listenable: _controller,
-                      builder: (context, _) {
-                        final text =
-                            widget.textFormatter?.call(_controller.text) ??
-                            _controller.text;
-                        return Tooltip(
-                          message: text,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                text,
-                                style: currentStyle,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                  );
+                },
+              ),
+            ),
+    );
+
+    final tile = ListTile(
+      onTap: widget.onTap,
+      selected: widget.selected,
+      leading: widget.leading,
+      subtitle: widget.subtitle == null
+          ? null
+          : Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: widget.subtitle,
+            ),
+      minVerticalPadding: 0,
+      contentPadding: widget.contentPadding,
+      title: title,
+      trailing:
+          actionButton ??
+          (widget.onSaved == null || !widget.showEditIcon
+              ? null
+              : IconButton(
+                  icon: PhosphorIcon(
+                    _isEditing
+                        ? PhosphorIconsLight.check
+                        : PhosphorIconsLight.pencil,
+                    textDirection: TextDirection.ltr,
                   ),
-          ),
-          trailing:
-              actionButton ??
-              (widget.onSaved == null || !widget.showEditIcon
-                  ? null
-                  : IconButton(
-                      icon: PhosphorIcon(
-                        _isEditing
-                            ? PhosphorIconsLight.check
-                            : PhosphorIconsLight.pencil,
-                        textDirection: TextDirection.ltr,
-                      ),
-                      tooltip: _isEditing
-                          ? AppLocalizations.of(context).save
-                          : AppLocalizations.of(context).edit,
-                      onPressed: () {
-                        if (isEditing) {
-                          _onSaved();
-                        } else {
-                          _edit();
-                        }
-                      },
-                    )),
-        ),
-      ),
+                  tooltip: _isEditing
+                      ? AppLocalizations.of(context).save
+                      : AppLocalizations.of(context).edit,
+                  onPressed: () {
+                    if (_isEditing) {
+                      _saveAndClose();
+                    } else {
+                      _startEditing();
+                    }
+                  },
+                )),
+    );
+
+    if (_isEditing) {
+      return tile;
+    }
+
+    return GestureDetector(
+      onDoubleTap: _startEditing,
+      onLongPress: widget.onLongPress,
+      child: tile,
     );
   }
 }

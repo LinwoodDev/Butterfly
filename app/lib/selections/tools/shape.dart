@@ -108,41 +108,21 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
               .toList(),
         ),
       ),
-      ColorField(
-        value: property.color.withValues(a: 255),
-        onChanged: (color) => update(
+      _StrokeStyleSection(
+        property: property,
+        onPropertyChanged: updateProperty,
+      ),
+      TexturePaintField(
+        value: property.paint,
+        onChanged: (paint) => update(
           context,
           selected
               .map(
-                (e) => e.copyWith(
-                  property: e.property.copyWith(
-                    color: color.withValues(a: property.color.a),
-                  ),
-                ),
+                (e) => e.copyWith(property: e.property.copyWith(paint: paint)),
               )
               .toList(),
         ),
         title: Text(LeapLocalizations.of(context).color),
-      ),
-      ExactSlider(
-        value: property.color.a.toDouble(),
-        header: Text(AppLocalizations.of(context).alpha),
-        fractionDigits: 0,
-        max: 255,
-        min: 0,
-        defaultValue: 255,
-        onChangeEnd: (value) => update(
-          context,
-          selected
-              .map(
-                (e) => e.copyWith(
-                  property: e.property.copyWith(
-                    color: property.color.withValues(a: value.toInt()),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
       ),
       ShapeView(
         shape: property.shape,
@@ -195,6 +175,14 @@ class _ShapeViewState extends State<ShapeView> {
     _currentShape = widget.shape;
   }
 
+  @override
+  void didUpdateWidget(covariant ShapeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.shape != oldWidget.shape) {
+      _currentShape = widget.shape;
+    }
+  }
+
   void _onShapeChanged(PathShape shape) {
     setState(() {
       _currentShape = shape;
@@ -243,6 +231,7 @@ class _ShapeViewState extends State<ShapeView> {
           headerBuilder: (context, expanded) => ListTile(
             title: Text(AppLocalizations.of(context).shape),
             trailing: DropdownMenu<String>(
+              key: ValueKey(_currentShape.runtimeType),
               initialSelection: _currentShape.getLocalizedName(context),
               dropdownMenuEntries: shapes.entries
                   .map(
@@ -277,27 +266,10 @@ class _CircleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ColorField(
-          value: shape.fillColor.withValues(a: 255),
+        TexturePaintField(
+          value: shape.fillPaint,
           title: Text(AppLocalizations.of(context).fill),
-          leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-          defaultColor: SRGBColor.transparent,
-          onChanged: (color) => onChanged(
-            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a)),
-          ),
-        ),
-        ExactSlider(
-          value: shape.fillColor.a.toDouble(),
-          header: Text(AppLocalizations.of(context).alpha),
-          fractionDigits: 0,
-          max: 255,
-          min: 0,
-          defaultValue: 255,
-          onChangeEnd: (value) => onChanged(
-            shape.copyWith(
-              fillColor: shape.fillColor.withValues(a: value.toInt()),
-            ),
-          ),
+          onChanged: (paint) => onChanged(shape.copyWith(fillPaint: paint)),
         ),
       ],
     );
@@ -313,27 +285,10 @@ class _TriangleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ColorField(
-          value: shape.fillColor.withValues(a: 255),
+        TexturePaintField(
+          value: shape.fillPaint,
           title: Text(AppLocalizations.of(context).fill),
-          leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-          defaultColor: SRGBColor.transparent,
-          onChanged: (color) => onChanged(
-            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a)),
-          ),
-        ),
-        ExactSlider(
-          value: shape.fillColor.a.toDouble(),
-          header: Text(AppLocalizations.of(context).alpha),
-          fractionDigits: 0,
-          max: 255,
-          min: 0,
-          defaultValue: 255,
-          onChangeEnd: (value) => onChanged(
-            shape.copyWith(
-              fillColor: shape.fillColor.withValues(a: value.toInt()),
-            ),
-          ),
+          onChanged: (paint) => onChanged(shape.copyWith(fillPaint: paint)),
         ),
       ],
     );
@@ -356,29 +311,11 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ColorField(
+        TexturePaintField(
           title: Text(AppLocalizations.of(context).fill),
-          leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-          value: widget.shape.fillColor.withValues(a: 255),
-          defaultColor: SRGBColor.transparent,
-          onChanged: (color) => widget.onChanged(
-            widget.shape.copyWith(
-              fillColor: color.withValues(a: widget.shape.fillColor.a),
-            ),
-          ),
-        ),
-        ExactSlider(
-          value: widget.shape.fillColor.a.toDouble(),
-          header: Text(AppLocalizations.of(context).alpha),
-          fractionDigits: 0,
-          max: 255,
-          min: 0,
-          defaultValue: 255,
-          onChangeEnd: (value) => widget.onChanged(
-            widget.shape.copyWith(
-              fillColor: widget.shape.fillColor.withValues(a: value.toInt()),
-            ),
-          ),
+          value: widget.shape.fillPaint,
+          onChanged: (paint) =>
+              widget.onChanged(widget.shape.copyWith(fillPaint: paint)),
         ),
         ExpansionPanelList(
           expansionCallback: (index, isExpanded) {
@@ -439,6 +376,87 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+}
+
+class _StrokeStyleSection extends StatefulWidget {
+  final ShapeProperty property;
+  final ValueChanged<ShapeProperty> onPropertyChanged;
+
+  const _StrokeStyleSection({
+    required this.property,
+    required this.onPropertyChanged,
+  });
+
+  @override
+  State<_StrokeStyleSection> createState() => _StrokeStyleSectionState();
+}
+
+class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
+  bool _advancedExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final property = widget.property;
+    final isStyled = property.strokeStyle != StrokeStyle.solid;
+
+    return ExpansionPanelList(
+      expansionCallback: (index, isExpanded) {
+        setState(() {
+          _advancedExpanded = isExpanded;
+        });
+      },
+      children: [
+        ExpansionPanel(
+          canTapOnHeader: true,
+          isExpanded: _advancedExpanded,
+          headerBuilder: (context, isExpanded) => ListTile(
+            title: Text(AppLocalizations.of(context).strokeStyle),
+            trailing: DropdownMenu<StrokeStyle>(
+              initialSelection: property.strokeStyle,
+              dropdownMenuEntries: StrokeStyle.values
+                  .map(
+                    (e) => DropdownMenuEntry(
+                      label: e.getLocalizedName(context),
+                      value: e,
+                      leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                    ),
+                  )
+                  .toList(),
+              onSelected: (value) => widget.onPropertyChanged(
+                property.copyWith(strokeStyle: value ?? StrokeStyle.solid),
+              ),
+            ),
+          ),
+          body: Column(
+            children: isStyled
+                ? [
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).dashLength),
+                      value: property.dashMultiplier,
+                      min: 0.1,
+                      max: 5,
+                      defaultValue: 1,
+                      onChangeEnd: (value) => widget.onPropertyChanged(
+                        property.copyWith(dashMultiplier: value),
+                      ),
+                    ),
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).gapLength),
+                      value: property.gapMultiplier,
+                      min: 0.1,
+                      max: 5,
+                      defaultValue: 1,
+                      onChangeEnd: (value) => widget.onPropertyChanged(
+                        property.copyWith(gapMultiplier: value),
+                      ),
+                    ),
+                  ]
+                : [],
+          ),
         ),
       ],
     );

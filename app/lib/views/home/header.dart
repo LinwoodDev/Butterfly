@@ -113,10 +113,6 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         ),
       ],
     );
-    final style = FilledButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-      textStyle: const TextStyle(fontSize: 20),
-    );
     void openNew() {
       openReleaseNotes();
       _settingsCubit.updateLastVersion();
@@ -128,12 +124,28 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         widget.hasNewerVersion
             ? FilledButton(
                 onPressed: openNew,
-                style: style,
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 20,
+                  ),
+                  textStyle: const TextStyle(fontSize: 20),
+                  backgroundColor: colorScheme.onPrimary,
+                  foregroundColor: colorScheme.primary,
+                ),
                 child: Text(AppLocalizations.of(context).whatsNew),
               )
-            : ElevatedButton(
+            : OutlinedButton(
                 onPressed: openNew,
-                style: style,
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 20,
+                  ),
+                  textStyle: const TextStyle(fontSize: 20),
+                  foregroundColor: colorScheme.onPrimary,
+                  side: BorderSide(color: colorScheme.onPrimary),
+                ),
                 child: Text(AppLocalizations.of(context).whatsNew),
               ),
         if (widget.hasNewerVersion)
@@ -141,7 +153,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
             height: 0,
             child: PhosphorIcon(
               PhosphorIconsLight.caretUp,
-              color: ColorScheme.of(context).onPrimary,
+              color: colorScheme.onPrimary,
             ),
           ),
       ],
@@ -150,7 +162,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
       mainAxisSize: MainAxisSize.min,
       spacing: 16,
       children: [
-        Image.asset('images/logo.png', width: 64),
+        Image.asset(logoAsset, width: 64),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -191,11 +203,11 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     );
     final card = Material(
       elevation: 10,
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: const BorderRadius.all(Radius.circular(24)),
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

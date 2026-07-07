@@ -6,6 +6,25 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
   @override
   List<Widget> buildProperties(BuildContext context) {
     final tool = selected.first;
+    AreaTool setAspectRatio(AreaTool tool, double aspectRatio) {
+      if (aspectRatio == 0) {
+        return tool.copyWith(constrainedAspectRatio: aspectRatio);
+      }
+      if (tool.constrainedWidth != 0) {
+        return tool.copyWith(
+          constrainedHeight: 0,
+          constrainedAspectRatio: aspectRatio,
+        );
+      }
+      if (tool.constrainedHeight != 0) {
+        return tool.copyWith(
+          constrainedWidth: 0,
+          constrainedAspectRatio: aspectRatio,
+        );
+      }
+      return tool.copyWith(constrainedAspectRatio: aspectRatio);
+    }
+
     return [
       ...super.buildProperties(context),
       CheckboxListTile(
@@ -16,71 +35,83 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
           selected.map((e) => e.copyWith(askForName: value ?? false)).toList(),
         ),
       ),
-      ExactSlider(
-        header: Text(AppLocalizations.of(context).width),
-        value: tool.constrainedWidth,
-        min: 0,
-        max: 500,
-        defaultValue: 0,
-        onChangeEnd: (value) => update(
-          context,
-          selected.map((e) => e.copyWith(constrainedWidth: value)).toList(),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: AreaSizePicker(
+          width: tool.constrainedWidth,
+          height: tool.constrainedHeight,
+          allowUnconstrainedDimensions: true,
+          onChanged: (size) => update(
+            context,
+            selected
+                .map(
+                  (e) => e.copyWith(
+                    constrainedWidth: size.width,
+                    constrainedHeight: size.height,
+                    constrainedAspectRatio:
+                        (size.width != e.constrainedWidth ||
+                                size.height != e.constrainedHeight) &&
+                            size.width > 0 &&
+                            size.height > 0
+                        ? 0
+                        : e.constrainedAspectRatio, // Reset to allow exact dimensions
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ),
-      ExactSlider(
-        header: Text(AppLocalizations.of(context).height),
-        value: tool.constrainedHeight,
-        min: 0,
-        max: 500,
-        defaultValue: 0,
-        onChangeEnd: (value) => update(
-          context,
-          selected.map((e) => e.copyWith(constrainedHeight: value)).toList(),
-        ),
-      ),
-      ExactSlider(
-        header: Row(
-          children: [
-            Expanded(child: Text(AppLocalizations.of(context).aspectRatio)),
-            MenuAnchor(
-              menuChildren: AspectRatioPreset.values
-                  .map(
-                    (preset) => MenuItemButton(
-                      leadingIcon: PhosphorIcon(
-                        preset.icon(PhosphorIconsStyle.light),
-                      ),
-                      onPressed: () => update(
-                        context,
-                        selected
-                            .map(
-                              (e) => e.copyWith(
-                                constrainedAspectRatio: preset.ratio,
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      child: Text(preset.getLocalizedName(context)),
-                    ),
-                  )
-                  .toList(),
-              builder: defaultMenuButton(
-                tooltip: AppLocalizations.of(context).presets,
-              ),
-            ),
-          ],
-        ),
-        value: tool.constrainedAspectRatio,
-        min: 0,
-        max: 10,
-        defaultValue: 0,
-        fractionDigits: 3,
-        onChangeEnd: (value) => update(
-          context,
-          selected
-              .map((e) => e.copyWith(constrainedAspectRatio: value))
+      const SizedBox(height: 8),
+      ListTile(
+        title: Text(AppLocalizations.of(context).aspectRatio),
+        trailing: SegmentedButton<double>(
+          emptySelectionAllowed: true,
+          showSelectedIcon: false,
+          segments: AspectRatioPreset.values
+              .map(
+                (preset) => ButtonSegment<double>(
+                  value: preset.ratio,
+                  icon: PhosphorIcon(preset.icon(PhosphorIconsStyle.light)),
+                  tooltip: preset.getLocalizedName(context),
+                ),
+              )
               .toList(),
+          selected: tool.constrainedAspectRatio == 0
+              ? <double>{}
+              : {
+                      AspectRatioPreset.values
+                          .firstWhere(
+                            (p) =>
+                                (p.ratio - tool.constrainedAspectRatio).abs() <
+                                0.01,
+                            orElse: () => AspectRatioPreset.square,
+                          )
+                          .ratio,
+                    }
+                    .where(
+                      (r) => (r - tool.constrainedAspectRatio).abs() < 0.01,
+                    )
+                    .toSet(),
+          onSelectionChanged: (selection) {
+            final newRatio = selection.isEmpty ? 0.0 : selection.first;
+            update(
+              context,
+              selected.map((e) => setAspectRatio(e, newRatio)).toList(),
+            );
+          },
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: AspectRatioInput(
+          aspectRatio: tool.constrainedAspectRatio,
+          onChanged: (value) => update(
+            context,
+            selected.map((e) => setAspectRatio(e, value)).toList(),
+          ),
+        ),
+      ),
+      const SizedBox(height: 8),
     ];
   }
 

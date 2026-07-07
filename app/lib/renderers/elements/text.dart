@@ -150,11 +150,13 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
       if (span is text.MathTextSpan && !_renderedLatex.containsKey(i)) {
         final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
         final pixelRatio = transform.pixelRatio * transform.size;
-        final image = await renderWidget(
-          widget,
-          pixelRatio: scale * pixelRatio,
-        );
-        _renderedLatex[i] = (image, pixelRatio);
+        try {
+          final image = await renderWidget(
+            widget,
+            pixelRatio: scale * pixelRatio,
+          );
+          _renderedLatex[i] = (image, pixelRatio);
+        } catch (_) {}
       }
     }
   }
@@ -303,6 +305,9 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     CameraTransform renderTransform,
     ui.Size size,
   ) async {
+    for (final (image, _) in _renderedLatex.values) {
+      image.dispose();
+    }
     _renderedLatex.clear();
     final paragraph = getParagraph(blocState.data);
     await _renderLatex(paragraph, renderTransform);
@@ -318,6 +323,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
+    _renderedLatex.clear();
   }
 
   @override
@@ -326,6 +332,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
+    _renderedLatex.clear();
   }
 
   InlineSpan? get span => _tp?.text;

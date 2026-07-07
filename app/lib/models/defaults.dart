@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/helpers/color.dart';
+import 'package:butterfly/visualizer/preset.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -14,6 +15,7 @@ class DocumentDefaults {
 
   DocumentDefaults._();
 
+  // ignore: unused_element
   static Future<Uint8List> _createPlainThumnail(SRGBColor color) async {
     final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
     final recorder = ui.PictureRecorder();
@@ -23,24 +25,25 @@ class DocumentDefaults {
       Paint()..color = color.toColor(),
     );
     final picture = recorder.endRecording();
-    final image = await picture.toImage(
-      size.width.toInt(),
-      size.height.toInt(),
-    );
-    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-    image.dispose();
-    picture.dispose();
-    return bytes!.buffer.asUint8List();
+    ui.Image? image;
+    try {
+      image = await picture.toImage(size.width.toInt(), size.height.toInt());
+      final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+      return bytes!.buffer.asUint8List();
+    } finally {
+      image?.dispose();
+      picture.dispose();
+    }
   }
 
   static List<Tool> createTools([SRGBColor? background]) =>
       [
-            SelectTool(mode: SelectMode.lasso),
-            PenTool(),
-            PathEraserTool(),
-            UndoTool(),
-            RedoTool(),
-            HandTool(),
+            SelectTool(mode: SelectMode.lasso, id: createUniqueId()),
+            PenTool(id: createUniqueId()),
+            EraserTool(id: createUniqueId(), mode: EraserMode.path),
+            UndoTool(id: createUniqueId()),
+            RedoTool(id: createUniqueId()),
+            HandTool(id: createUniqueId()),
           ]
           .map(
             (e) =>
@@ -48,34 +51,118 @@ class DocumentDefaults {
           )
           .toList();
 
-  static Future<List<NoteData>> getDefaults(BuildContext context) async {
-    return Future.wait(
-      [
-        (AppLocalizations.of(context).light, PatternTemplate.plain.create()),
-        (AppLocalizations.of(context).dark, PatternTemplate.plainDark.create()),
-      ].map((e) async {
-        final bg = Background.texture(texture: e.$2);
-        final color = bg.defaultColor;
-        return createTemplate(
-          name: e.$1,
-          thumbnail: await _createPlainThumnail(color),
-          backgrounds: [bg],
-        );
-      }),
-    );
+  static List<Tool> createToolPresets() => [
+    Tool.hand(),
+    ...SelectMode.values.map((e) => Tool.select(mode: e)),
+    Tool.pen(),
+    Tool.laser(),
+    Tool.label(),
+    ...EraserMode.values.map((e) => Tool.eraser(mode: e)),
+    Tool.area(),
+    Tool.presentation(),
+    Tool.polygon(),
+    ...Axis2D.values.map((e) => Tool.spacer(axis: e)),
+    Tool.stamp(),
+    ...[
+      PathShape.circle,
+      PathShape.rectangle,
+      PathShape.line,
+      PathShape.triangle,
+    ].map((e) => Tool.shape(property: ShapeProperty(shape: e()))),
+    ...[SurfaceTexture.pattern].map((e) => TextureTool(texture: e())),
+    Tool.undo(),
+    Tool.redo(),
+    Tool.fullScreen(),
+    Tool.collection(),
+    Tool.eyeDropper(),
+    Tool.ruler(),
+    Tool.grid(),
+    ...BarcodeType.values.map((e) => Tool.barcode(barcodeType: e)),
+  ];
+
+  static NoteData _addCoreToolPresets(NoteData pack) {
+    final presets = createToolPresets();
+    for (final (index, tool) in presets.indexed) {
+      pack = pack.setToolPreset('core-$index', tool);
+    }
+    return pack;
   }
 
+  static Future<List<NoteData>> getCoreTemplates(
+    BuildContext context, {
+    PatternBackground? background,
+  }) async {
+    PatternTexture createRedLinedPattern() {
+      return PatternTexture(
+        boxColor: SRGBColor.transparent,
+        boxXColor: BasicColors.red,
+        boxWidth: 1200,
+        boxXCount: 1,
+        boxXStroke: 1,
+      );
+    }
+
+    return Future.wait([
+      ...PatternTemplate.values
+          .where((e) => background == null || e.background == background)
+          .map((e) async {
+            final bg = Background.texture(texture: e.create());
+            return createTemplate(
+              name: e.getLocalizedName(context),
+              thumbnail: Uint8List.sublistView(await rootBundle.load(e.asset)),
+              backgrounds: [bg],
+            );
+          }),
+      ...[
+        (
+          PatternTemplate.ruledSimple,
+          'templates/red_lined_ruled.png',
+          AppLocalizations.of(context).redLinedRuled,
+        ),
+        (
+          PatternTemplate.ruledSimpleDark,
+          'templates/red_lined_ruled_dark.png',
+          AppLocalizations.of(context).redLinedRuledDark,
+        ),
+        (
+          PatternTemplate.quadSimple,
+          'templates/red_lined_quad.png',
+          AppLocalizations.of(context).redLinedQuad,
+        ),
+        (
+          PatternTemplate.quadSimpleDark,
+          'templates/red_lined_quad_dark.png',
+          AppLocalizations.of(context).redLinedQuadDark,
+        ),
+      ].where((e) => background == null || e.$1.background == background).map((
+        e,
+      ) async {
+        final lined = Background.texture(texture: createRedLinedPattern());
+        final bg = Background.texture(texture: e.$1.create());
+        return createTemplate(
+          name: e.$3,
+          thumbnail: Uint8List.sublistView(await rootBundle.load(e.$2)),
+          backgrounds: [bg, lined],
+        );
+      }),
+    ]);
+  }
+
+  static Future<NoteData> _loadNoteData(String name) async => NoteData.fromData(
+    Uint8List.sublistView(await rootBundle.load('defaults/$name.tbfly')),
+  );
+
   static Future<NoteData> getCorePack() async {
-    return _corePack ??= NoteData.fromData(
-      Uint8List.sublistView(await rootBundle.load('defaults/pack.tbfly')),
-    );
+    return _corePack ??= _addCoreToolPresets(await _loadNoteData('pack'));
   }
 
   static String translate(String key, Map<String, String> translations) {
     if (key.startsWith('\\/')) return key.substring(1);
-    if (!key.startsWith('\$')) return key;
-    final keyWithoutDollar = key.substring(1);
-    return translations[keyWithoutDollar] ?? keyWithoutDollar;
+    if (key.startsWith('\$')) {
+      final keyWithoutDollar = key.substring(1);
+      return translations[keyWithoutDollar] ?? keyWithoutDollar;
+    }
+    return translations[key] ?? key;
   }
 
   static Map<String, String> getParagraphTranslations(BuildContext context) => {

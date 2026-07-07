@@ -1,5 +1,5 @@
 ---
-title: "Baue dein eigenes"
+title: "Erstellen Sie Ihr eigenes"
 ---
 
 1. Installiere Git und Flutter (Beta)
@@ -12,5 +12,5 @@ title: "Baue dein eigenes"
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     Erstellen Sie danach einen Ordner namens "Payload", kopiere Runner.app hinein und zippe den Payload-Ordner. Benennen Sie anschließend „.zip“ in „.ipa“ um.
 5. Die kompilierten Dateien befinden sich im Build-Verzeichnis

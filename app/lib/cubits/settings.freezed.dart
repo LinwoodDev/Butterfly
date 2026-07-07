@@ -13,9 +13,307 @@ part of 'settings.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
+mixin _$FavoriteLocation implements DiagnosticableTreeMixin {
+
+ String? get remote; String get path;
+/// Create a copy of FavoriteLocation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FavoriteLocationCopyWith<FavoriteLocation> get copyWith => _$FavoriteLocationCopyWithImpl<FavoriteLocation>(this as FavoriteLocation, _$identity);
+
+  /// Serializes this FavoriteLocation to a JSON map.
+  Map<String, dynamic> toJson();
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'FavoriteLocation'))
+    ..add(DiagnosticsProperty('remote', remote))..add(DiagnosticsProperty('path', path));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FavoriteLocation&&(identical(other.remote, remote) || other.remote == remote)&&(identical(other.path, path) || other.path == path));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,remote,path);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'FavoriteLocation(remote: $remote, path: $path)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FavoriteLocationCopyWith<$Res>  {
+  factory $FavoriteLocationCopyWith(FavoriteLocation value, $Res Function(FavoriteLocation) _then) = _$FavoriteLocationCopyWithImpl;
+@useResult
+$Res call({
+ String? remote, String path
+});
+
+
+
+
+}
+/// @nodoc
+class _$FavoriteLocationCopyWithImpl<$Res>
+    implements $FavoriteLocationCopyWith<$Res> {
+  _$FavoriteLocationCopyWithImpl(this._self, this._then);
+
+  final FavoriteLocation _self;
+  final $Res Function(FavoriteLocation) _then;
+
+/// Create a copy of FavoriteLocation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? remote = freezed,Object? path = null,}) {
+  return _then(_self.copyWith(
+remote: freezed == remote ? _self.remote : remote // ignore: cast_nullable_to_non_nullable
+as String?,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _FavoriteLocation extends FavoriteLocation with DiagnosticableTreeMixin {
+  const _FavoriteLocation({this.remote, required this.path}): super._();
+  factory _FavoriteLocation.fromJson(Map<String, dynamic> json) => _$FavoriteLocationFromJson(json);
+
+@override final  String? remote;
+@override final  String path;
+
+/// Create a copy of FavoriteLocation
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FavoriteLocationCopyWith<_FavoriteLocation> get copyWith => __$FavoriteLocationCopyWithImpl<_FavoriteLocation>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$FavoriteLocationToJson(this, );
+}
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'FavoriteLocation'))
+    ..add(DiagnosticsProperty('remote', remote))..add(DiagnosticsProperty('path', path));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FavoriteLocation&&(identical(other.remote, remote) || other.remote == remote)&&(identical(other.path, path) || other.path == path));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,remote,path);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'FavoriteLocation(remote: $remote, path: $path)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FavoriteLocationCopyWith<$Res> implements $FavoriteLocationCopyWith<$Res> {
+  factory _$FavoriteLocationCopyWith(_FavoriteLocation value, $Res Function(_FavoriteLocation) _then) = __$FavoriteLocationCopyWithImpl;
+@override @useResult
+$Res call({
+ String? remote, String path
+});
+
+
+
+
+}
+/// @nodoc
+class __$FavoriteLocationCopyWithImpl<$Res>
+    implements _$FavoriteLocationCopyWith<$Res> {
+  __$FavoriteLocationCopyWithImpl(this._self, this._then);
+
+  final _FavoriteLocation _self;
+  final $Res Function(_FavoriteLocation) _then;
+
+/// Create a copy of FavoriteLocation
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? remote = freezed,Object? path = null,}) {
+  return _then(_FavoriteLocation(
+remote: freezed == remote ? _self.remote : remote // ignore: cast_nullable_to_non_nullable
+as String?,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$HoldShortcut implements DiagnosticableTreeMixin {
+
+ int get keyId; InputMapping get mapping;
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HoldShortcutCopyWith<HoldShortcut> get copyWith => _$HoldShortcutCopyWithImpl<HoldShortcut>(this as HoldShortcut, _$identity);
+
+  /// Serializes this HoldShortcut to a JSON map.
+  Map<String, dynamic> toJson();
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'HoldShortcut'))
+    ..add(DiagnosticsProperty('keyId', keyId))..add(DiagnosticsProperty('mapping', mapping));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HoldShortcut&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.mapping, mapping) || other.mapping == mapping));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,keyId,mapping);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'HoldShortcut(keyId: $keyId, mapping: $mapping)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $HoldShortcutCopyWith<$Res>  {
+  factory $HoldShortcutCopyWith(HoldShortcut value, $Res Function(HoldShortcut) _then) = _$HoldShortcutCopyWithImpl;
+@useResult
+$Res call({
+ int keyId, InputMapping mapping
+});
+
+
+
+
+}
+/// @nodoc
+class _$HoldShortcutCopyWithImpl<$Res>
+    implements $HoldShortcutCopyWith<$Res> {
+  _$HoldShortcutCopyWithImpl(this._self, this._then);
+
+  final HoldShortcut _self;
+  final $Res Function(HoldShortcut) _then;
+
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? keyId = null,Object? mapping = null,}) {
+  return _then(_self.copyWith(
+keyId: null == keyId ? _self.keyId : keyId // ignore: cast_nullable_to_non_nullable
+as int,mapping: null == mapping ? _self.mapping : mapping // ignore: cast_nullable_to_non_nullable
+as InputMapping,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _HoldShortcut with DiagnosticableTreeMixin implements HoldShortcut {
+  const _HoldShortcut({required this.keyId, required this.mapping});
+  factory _HoldShortcut.fromJson(Map<String, dynamic> json) => _$HoldShortcutFromJson(json);
+
+@override final  int keyId;
+@override final  InputMapping mapping;
+
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$HoldShortcutCopyWith<_HoldShortcut> get copyWith => __$HoldShortcutCopyWithImpl<_HoldShortcut>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$HoldShortcutToJson(this, );
+}
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'HoldShortcut'))
+    ..add(DiagnosticsProperty('keyId', keyId))..add(DiagnosticsProperty('mapping', mapping));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HoldShortcut&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.mapping, mapping) || other.mapping == mapping));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,keyId,mapping);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'HoldShortcut(keyId: $keyId, mapping: $mapping)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$HoldShortcutCopyWith<$Res> implements $HoldShortcutCopyWith<$Res> {
+  factory _$HoldShortcutCopyWith(_HoldShortcut value, $Res Function(_HoldShortcut) _then) = __$HoldShortcutCopyWithImpl;
+@override @useResult
+$Res call({
+ int keyId, InputMapping mapping
+});
+
+
+
+
+}
+/// @nodoc
+class __$HoldShortcutCopyWithImpl<$Res>
+    implements _$HoldShortcutCopyWith<$Res> {
+  __$HoldShortcutCopyWithImpl(this._self, this._then);
+
+  final _HoldShortcut _self;
+  final $Res Function(_HoldShortcut) _then;
+
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? keyId = null,Object? mapping = null,}) {
+  return _then(_HoldShortcut(
+keyId: null == keyId ? _self.keyId : keyId // ignore: cast_nullable_to_non_nullable
+as int,mapping: null == mapping ? _self.mapping : mapping // ignore: cast_nullable_to_non_nullable
+as InputMapping,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$InputConfiguration implements DiagnosticableTreeMixin {
 
- InputMapping get leftMouse; InputMapping get middleMouse; InputMapping get rightMouse; InputMapping get pen; InputMapping get invertedPen; InputMapping get firstPenButton; InputMapping get secondPenButton; InputMapping get touch;
+ InputMapping get leftMouse; InputMapping get middleMouse; InputMapping get rightMouse; InputMapping get pen; InputMapping get invertedPen; InputMapping get firstPenButton; InputMapping get secondPenButton; InputMapping get touch; List<HoldShortcut> get holdShortcuts; String? get doubleLeftMouseShortcut; String? get tripleLeftMouseShortcut; String? get doubleMiddleMouseShortcut; String? get tripleMiddleMouseShortcut; String? get doubleRightMouseShortcut; String? get tripleRightMouseShortcut; String? get doublePenShortcut; String? get triplePenShortcut; String? get doubleInvertedPenShortcut; String? get tripleInvertedPenShortcut; String? get doubleFirstPenButtonShortcut; String? get tripleFirstPenButtonShortcut; String? get doubleSecondPenButtonShortcut; String? get tripleSecondPenButtonShortcut; String? get doubleTouchShortcut; String? get tripleTouchShortcut;
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +327,21 @@ $InputConfigurationCopyWith<InputConfiguration> get copyWith => _$InputConfigura
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'InputConfiguration'))
-    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch));
+    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleLeftMouseShortcut', doubleLeftMouseShortcut))..add(DiagnosticsProperty('tripleLeftMouseShortcut', tripleLeftMouseShortcut))..add(DiagnosticsProperty('doubleMiddleMouseShortcut', doubleMiddleMouseShortcut))..add(DiagnosticsProperty('tripleMiddleMouseShortcut', tripleMiddleMouseShortcut))..add(DiagnosticsProperty('doubleRightMouseShortcut', doubleRightMouseShortcut))..add(DiagnosticsProperty('tripleRightMouseShortcut', tripleRightMouseShortcut))..add(DiagnosticsProperty('doublePenShortcut', doublePenShortcut))..add(DiagnosticsProperty('triplePenShortcut', triplePenShortcut))..add(DiagnosticsProperty('doubleInvertedPenShortcut', doubleInvertedPenShortcut))..add(DiagnosticsProperty('tripleInvertedPenShortcut', tripleInvertedPenShortcut))..add(DiagnosticsProperty('doubleFirstPenButtonShortcut', doubleFirstPenButtonShortcut))..add(DiagnosticsProperty('tripleFirstPenButtonShortcut', tripleFirstPenButtonShortcut))..add(DiagnosticsProperty('doubleSecondPenButtonShortcut', doubleSecondPenButtonShortcut))..add(DiagnosticsProperty('tripleSecondPenButtonShortcut', tripleSecondPenButtonShortcut))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other.holdShortcuts, holdShortcuts)&&(identical(other.doubleLeftMouseShortcut, doubleLeftMouseShortcut) || other.doubleLeftMouseShortcut == doubleLeftMouseShortcut)&&(identical(other.tripleLeftMouseShortcut, tripleLeftMouseShortcut) || other.tripleLeftMouseShortcut == tripleLeftMouseShortcut)&&(identical(other.doubleMiddleMouseShortcut, doubleMiddleMouseShortcut) || other.doubleMiddleMouseShortcut == doubleMiddleMouseShortcut)&&(identical(other.tripleMiddleMouseShortcut, tripleMiddleMouseShortcut) || other.tripleMiddleMouseShortcut == tripleMiddleMouseShortcut)&&(identical(other.doubleRightMouseShortcut, doubleRightMouseShortcut) || other.doubleRightMouseShortcut == doubleRightMouseShortcut)&&(identical(other.tripleRightMouseShortcut, tripleRightMouseShortcut) || other.tripleRightMouseShortcut == tripleRightMouseShortcut)&&(identical(other.doublePenShortcut, doublePenShortcut) || other.doublePenShortcut == doublePenShortcut)&&(identical(other.triplePenShortcut, triplePenShortcut) || other.triplePenShortcut == triplePenShortcut)&&(identical(other.doubleInvertedPenShortcut, doubleInvertedPenShortcut) || other.doubleInvertedPenShortcut == doubleInvertedPenShortcut)&&(identical(other.tripleInvertedPenShortcut, tripleInvertedPenShortcut) || other.tripleInvertedPenShortcut == tripleInvertedPenShortcut)&&(identical(other.doubleFirstPenButtonShortcut, doubleFirstPenButtonShortcut) || other.doubleFirstPenButtonShortcut == doubleFirstPenButtonShortcut)&&(identical(other.tripleFirstPenButtonShortcut, tripleFirstPenButtonShortcut) || other.tripleFirstPenButtonShortcut == tripleFirstPenButtonShortcut)&&(identical(other.doubleSecondPenButtonShortcut, doubleSecondPenButtonShortcut) || other.doubleSecondPenButtonShortcut == doubleSecondPenButtonShortcut)&&(identical(other.tripleSecondPenButtonShortcut, tripleSecondPenButtonShortcut) || other.tripleSecondPenButtonShortcut == tripleSecondPenButtonShortcut)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch);
+int get hashCode => Object.hashAll([runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,const DeepCollectionEquality().hash(holdShortcuts),doubleLeftMouseShortcut,tripleLeftMouseShortcut,doubleMiddleMouseShortcut,tripleMiddleMouseShortcut,doubleRightMouseShortcut,tripleRightMouseShortcut,doublePenShortcut,triplePenShortcut,doubleInvertedPenShortcut,tripleInvertedPenShortcut,doubleFirstPenButtonShortcut,tripleFirstPenButtonShortcut,doubleSecondPenButtonShortcut,tripleSecondPenButtonShortcut,doubleTouchShortcut,tripleTouchShortcut]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleLeftMouseShortcut: $doubleLeftMouseShortcut, tripleLeftMouseShortcut: $tripleLeftMouseShortcut, doubleMiddleMouseShortcut: $doubleMiddleMouseShortcut, tripleMiddleMouseShortcut: $tripleMiddleMouseShortcut, doubleRightMouseShortcut: $doubleRightMouseShortcut, tripleRightMouseShortcut: $tripleRightMouseShortcut, doublePenShortcut: $doublePenShortcut, triplePenShortcut: $triplePenShortcut, doubleInvertedPenShortcut: $doubleInvertedPenShortcut, tripleInvertedPenShortcut: $tripleInvertedPenShortcut, doubleFirstPenButtonShortcut: $doubleFirstPenButtonShortcut, tripleFirstPenButtonShortcut: $tripleFirstPenButtonShortcut, doubleSecondPenButtonShortcut: $doubleSecondPenButtonShortcut, tripleSecondPenButtonShortcut: $tripleSecondPenButtonShortcut, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
 }
 
 
@@ -54,7 +352,7 @@ abstract mixin class $InputConfigurationCopyWith<$Res>  {
   factory $InputConfigurationCopyWith(InputConfiguration value, $Res Function(InputConfiguration) _then) = _$InputConfigurationCopyWithImpl;
 @useResult
 $Res call({
- InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch
+ InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleLeftMouseShortcut, String? tripleLeftMouseShortcut, String? doubleMiddleMouseShortcut, String? tripleMiddleMouseShortcut, String? doubleRightMouseShortcut, String? tripleRightMouseShortcut, String? doublePenShortcut, String? triplePenShortcut, String? doubleInvertedPenShortcut, String? tripleInvertedPenShortcut, String? doubleFirstPenButtonShortcut, String? tripleFirstPenButtonShortcut, String? doubleSecondPenButtonShortcut, String? tripleSecondPenButtonShortcut, String? doubleTouchShortcut, String? tripleTouchShortcut
 });
 
 
@@ -71,7 +369,7 @@ class _$InputConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleLeftMouseShortcut = freezed,Object? tripleLeftMouseShortcut = freezed,Object? doubleMiddleMouseShortcut = freezed,Object? tripleMiddleMouseShortcut = freezed,Object? doubleRightMouseShortcut = freezed,Object? tripleRightMouseShortcut = freezed,Object? doublePenShortcut = freezed,Object? triplePenShortcut = freezed,Object? doubleInvertedPenShortcut = freezed,Object? tripleInvertedPenShortcut = freezed,Object? doubleFirstPenButtonShortcut = freezed,Object? tripleFirstPenButtonShortcut = freezed,Object? doubleSecondPenButtonShortcut = freezed,Object? tripleSecondPenButtonShortcut = freezed,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
   return _then(_self.copyWith(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
@@ -81,7 +379,24 @@ as InputMapping,invertedPen: null == invertedPen ? _self.invertedPen : invertedP
 as InputMapping,firstPenButton: null == firstPenButton ? _self.firstPenButton : firstPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,secondPenButton: null == secondPenButton ? _self.secondPenButton : secondPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,touch: null == touch ? _self.touch : touch // ignore: cast_nullable_to_non_nullable
-as InputMapping,
+as InputMapping,holdShortcuts: null == holdShortcuts ? _self.holdShortcuts : holdShortcuts // ignore: cast_nullable_to_non_nullable
+as List<HoldShortcut>,doubleLeftMouseShortcut: freezed == doubleLeftMouseShortcut ? _self.doubleLeftMouseShortcut : doubleLeftMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleLeftMouseShortcut: freezed == tripleLeftMouseShortcut ? _self.tripleLeftMouseShortcut : tripleLeftMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleMiddleMouseShortcut: freezed == doubleMiddleMouseShortcut ? _self.doubleMiddleMouseShortcut : doubleMiddleMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleMiddleMouseShortcut: freezed == tripleMiddleMouseShortcut ? _self.tripleMiddleMouseShortcut : tripleMiddleMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleRightMouseShortcut: freezed == doubleRightMouseShortcut ? _self.doubleRightMouseShortcut : doubleRightMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleRightMouseShortcut: freezed == tripleRightMouseShortcut ? _self.tripleRightMouseShortcut : tripleRightMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doublePenShortcut: freezed == doublePenShortcut ? _self.doublePenShortcut : doublePenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,triplePenShortcut: freezed == triplePenShortcut ? _self.triplePenShortcut : triplePenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleInvertedPenShortcut: freezed == doubleInvertedPenShortcut ? _self.doubleInvertedPenShortcut : doubleInvertedPenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleInvertedPenShortcut: freezed == tripleInvertedPenShortcut ? _self.tripleInvertedPenShortcut : tripleInvertedPenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleFirstPenButtonShortcut: freezed == doubleFirstPenButtonShortcut ? _self.doubleFirstPenButtonShortcut : doubleFirstPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleFirstPenButtonShortcut: freezed == tripleFirstPenButtonShortcut ? _self.tripleFirstPenButtonShortcut : tripleFirstPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleSecondPenButtonShortcut: freezed == doubleSecondPenButtonShortcut ? _self.doubleSecondPenButtonShortcut : doubleSecondPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleSecondPenButtonShortcut: freezed == tripleSecondPenButtonShortcut ? _self.tripleSecondPenButtonShortcut : tripleSecondPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleTouchShortcut: freezed == tripleTouchShortcut ? _self.tripleTouchShortcut : tripleTouchShortcut // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -93,7 +408,7 @@ as InputMapping,
 @JsonSerializable()
 
 class _InputConfiguration extends InputConfiguration with DiagnosticableTreeMixin {
-  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch}): super._();
+  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch, final  List<HoldShortcut> holdShortcuts = const [], this.doubleLeftMouseShortcut, this.tripleLeftMouseShortcut, this.doubleMiddleMouseShortcut, this.tripleMiddleMouseShortcut, this.doubleRightMouseShortcut, this.tripleRightMouseShortcut, this.doublePenShortcut, this.triplePenShortcut, this.doubleInvertedPenShortcut, this.tripleInvertedPenShortcut, this.doubleFirstPenButtonShortcut, this.tripleFirstPenButtonShortcut, this.doubleSecondPenButtonShortcut, this.tripleSecondPenButtonShortcut, this.doubleTouchShortcut, this.tripleTouchShortcut}): _holdShortcuts = holdShortcuts,super._();
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) => _$InputConfigurationFromJson(json);
 
 @override@JsonKey() final  InputMapping leftMouse;
@@ -104,6 +419,29 @@ class _InputConfiguration extends InputConfiguration with DiagnosticableTreeMixi
 @override@JsonKey() final  InputMapping firstPenButton;
 @override@JsonKey() final  InputMapping secondPenButton;
 @override@JsonKey() final  InputMapping touch;
+ final  List<HoldShortcut> _holdShortcuts;
+@override@JsonKey() List<HoldShortcut> get holdShortcuts {
+  if (_holdShortcuts is EqualUnmodifiableListView) return _holdShortcuts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_holdShortcuts);
+}
+
+@override final  String? doubleLeftMouseShortcut;
+@override final  String? tripleLeftMouseShortcut;
+@override final  String? doubleMiddleMouseShortcut;
+@override final  String? tripleMiddleMouseShortcut;
+@override final  String? doubleRightMouseShortcut;
+@override final  String? tripleRightMouseShortcut;
+@override final  String? doublePenShortcut;
+@override final  String? triplePenShortcut;
+@override final  String? doubleInvertedPenShortcut;
+@override final  String? tripleInvertedPenShortcut;
+@override final  String? doubleFirstPenButtonShortcut;
+@override final  String? tripleFirstPenButtonShortcut;
+@override final  String? doubleSecondPenButtonShortcut;
+@override final  String? tripleSecondPenButtonShortcut;
+@override final  String? doubleTouchShortcut;
+@override final  String? tripleTouchShortcut;
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
@@ -119,21 +457,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'InputConfiguration'))
-    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch));
+    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleLeftMouseShortcut', doubleLeftMouseShortcut))..add(DiagnosticsProperty('tripleLeftMouseShortcut', tripleLeftMouseShortcut))..add(DiagnosticsProperty('doubleMiddleMouseShortcut', doubleMiddleMouseShortcut))..add(DiagnosticsProperty('tripleMiddleMouseShortcut', tripleMiddleMouseShortcut))..add(DiagnosticsProperty('doubleRightMouseShortcut', doubleRightMouseShortcut))..add(DiagnosticsProperty('tripleRightMouseShortcut', tripleRightMouseShortcut))..add(DiagnosticsProperty('doublePenShortcut', doublePenShortcut))..add(DiagnosticsProperty('triplePenShortcut', triplePenShortcut))..add(DiagnosticsProperty('doubleInvertedPenShortcut', doubleInvertedPenShortcut))..add(DiagnosticsProperty('tripleInvertedPenShortcut', tripleInvertedPenShortcut))..add(DiagnosticsProperty('doubleFirstPenButtonShortcut', doubleFirstPenButtonShortcut))..add(DiagnosticsProperty('tripleFirstPenButtonShortcut', tripleFirstPenButtonShortcut))..add(DiagnosticsProperty('doubleSecondPenButtonShortcut', doubleSecondPenButtonShortcut))..add(DiagnosticsProperty('tripleSecondPenButtonShortcut', tripleSecondPenButtonShortcut))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other._holdShortcuts, _holdShortcuts)&&(identical(other.doubleLeftMouseShortcut, doubleLeftMouseShortcut) || other.doubleLeftMouseShortcut == doubleLeftMouseShortcut)&&(identical(other.tripleLeftMouseShortcut, tripleLeftMouseShortcut) || other.tripleLeftMouseShortcut == tripleLeftMouseShortcut)&&(identical(other.doubleMiddleMouseShortcut, doubleMiddleMouseShortcut) || other.doubleMiddleMouseShortcut == doubleMiddleMouseShortcut)&&(identical(other.tripleMiddleMouseShortcut, tripleMiddleMouseShortcut) || other.tripleMiddleMouseShortcut == tripleMiddleMouseShortcut)&&(identical(other.doubleRightMouseShortcut, doubleRightMouseShortcut) || other.doubleRightMouseShortcut == doubleRightMouseShortcut)&&(identical(other.tripleRightMouseShortcut, tripleRightMouseShortcut) || other.tripleRightMouseShortcut == tripleRightMouseShortcut)&&(identical(other.doublePenShortcut, doublePenShortcut) || other.doublePenShortcut == doublePenShortcut)&&(identical(other.triplePenShortcut, triplePenShortcut) || other.triplePenShortcut == triplePenShortcut)&&(identical(other.doubleInvertedPenShortcut, doubleInvertedPenShortcut) || other.doubleInvertedPenShortcut == doubleInvertedPenShortcut)&&(identical(other.tripleInvertedPenShortcut, tripleInvertedPenShortcut) || other.tripleInvertedPenShortcut == tripleInvertedPenShortcut)&&(identical(other.doubleFirstPenButtonShortcut, doubleFirstPenButtonShortcut) || other.doubleFirstPenButtonShortcut == doubleFirstPenButtonShortcut)&&(identical(other.tripleFirstPenButtonShortcut, tripleFirstPenButtonShortcut) || other.tripleFirstPenButtonShortcut == tripleFirstPenButtonShortcut)&&(identical(other.doubleSecondPenButtonShortcut, doubleSecondPenButtonShortcut) || other.doubleSecondPenButtonShortcut == doubleSecondPenButtonShortcut)&&(identical(other.tripleSecondPenButtonShortcut, tripleSecondPenButtonShortcut) || other.tripleSecondPenButtonShortcut == tripleSecondPenButtonShortcut)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch);
+int get hashCode => Object.hashAll([runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,const DeepCollectionEquality().hash(_holdShortcuts),doubleLeftMouseShortcut,tripleLeftMouseShortcut,doubleMiddleMouseShortcut,tripleMiddleMouseShortcut,doubleRightMouseShortcut,tripleRightMouseShortcut,doublePenShortcut,triplePenShortcut,doubleInvertedPenShortcut,tripleInvertedPenShortcut,doubleFirstPenButtonShortcut,tripleFirstPenButtonShortcut,doubleSecondPenButtonShortcut,tripleSecondPenButtonShortcut,doubleTouchShortcut,tripleTouchShortcut]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleLeftMouseShortcut: $doubleLeftMouseShortcut, tripleLeftMouseShortcut: $tripleLeftMouseShortcut, doubleMiddleMouseShortcut: $doubleMiddleMouseShortcut, tripleMiddleMouseShortcut: $tripleMiddleMouseShortcut, doubleRightMouseShortcut: $doubleRightMouseShortcut, tripleRightMouseShortcut: $tripleRightMouseShortcut, doublePenShortcut: $doublePenShortcut, triplePenShortcut: $triplePenShortcut, doubleInvertedPenShortcut: $doubleInvertedPenShortcut, tripleInvertedPenShortcut: $tripleInvertedPenShortcut, doubleFirstPenButtonShortcut: $doubleFirstPenButtonShortcut, tripleFirstPenButtonShortcut: $tripleFirstPenButtonShortcut, doubleSecondPenButtonShortcut: $doubleSecondPenButtonShortcut, tripleSecondPenButtonShortcut: $tripleSecondPenButtonShortcut, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
 }
 
 
@@ -144,7 +482,7 @@ abstract mixin class _$InputConfigurationCopyWith<$Res> implements $InputConfigu
   factory _$InputConfigurationCopyWith(_InputConfiguration value, $Res Function(_InputConfiguration) _then) = __$InputConfigurationCopyWithImpl;
 @override @useResult
 $Res call({
- InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch
+ InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleLeftMouseShortcut, String? tripleLeftMouseShortcut, String? doubleMiddleMouseShortcut, String? tripleMiddleMouseShortcut, String? doubleRightMouseShortcut, String? tripleRightMouseShortcut, String? doublePenShortcut, String? triplePenShortcut, String? doubleInvertedPenShortcut, String? tripleInvertedPenShortcut, String? doubleFirstPenButtonShortcut, String? tripleFirstPenButtonShortcut, String? doubleSecondPenButtonShortcut, String? tripleSecondPenButtonShortcut, String? doubleTouchShortcut, String? tripleTouchShortcut
 });
 
 
@@ -161,7 +499,7 @@ class __$InputConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleLeftMouseShortcut = freezed,Object? tripleLeftMouseShortcut = freezed,Object? doubleMiddleMouseShortcut = freezed,Object? tripleMiddleMouseShortcut = freezed,Object? doubleRightMouseShortcut = freezed,Object? tripleRightMouseShortcut = freezed,Object? doublePenShortcut = freezed,Object? triplePenShortcut = freezed,Object? doubleInvertedPenShortcut = freezed,Object? tripleInvertedPenShortcut = freezed,Object? doubleFirstPenButtonShortcut = freezed,Object? tripleFirstPenButtonShortcut = freezed,Object? doubleSecondPenButtonShortcut = freezed,Object? tripleSecondPenButtonShortcut = freezed,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
   return _then(_InputConfiguration(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
@@ -171,7 +509,24 @@ as InputMapping,invertedPen: null == invertedPen ? _self.invertedPen : invertedP
 as InputMapping,firstPenButton: null == firstPenButton ? _self.firstPenButton : firstPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,secondPenButton: null == secondPenButton ? _self.secondPenButton : secondPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,touch: null == touch ? _self.touch : touch // ignore: cast_nullable_to_non_nullable
-as InputMapping,
+as InputMapping,holdShortcuts: null == holdShortcuts ? _self._holdShortcuts : holdShortcuts // ignore: cast_nullable_to_non_nullable
+as List<HoldShortcut>,doubleLeftMouseShortcut: freezed == doubleLeftMouseShortcut ? _self.doubleLeftMouseShortcut : doubleLeftMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleLeftMouseShortcut: freezed == tripleLeftMouseShortcut ? _self.tripleLeftMouseShortcut : tripleLeftMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleMiddleMouseShortcut: freezed == doubleMiddleMouseShortcut ? _self.doubleMiddleMouseShortcut : doubleMiddleMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleMiddleMouseShortcut: freezed == tripleMiddleMouseShortcut ? _self.tripleMiddleMouseShortcut : tripleMiddleMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleRightMouseShortcut: freezed == doubleRightMouseShortcut ? _self.doubleRightMouseShortcut : doubleRightMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleRightMouseShortcut: freezed == tripleRightMouseShortcut ? _self.tripleRightMouseShortcut : tripleRightMouseShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doublePenShortcut: freezed == doublePenShortcut ? _self.doublePenShortcut : doublePenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,triplePenShortcut: freezed == triplePenShortcut ? _self.triplePenShortcut : triplePenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleInvertedPenShortcut: freezed == doubleInvertedPenShortcut ? _self.doubleInvertedPenShortcut : doubleInvertedPenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleInvertedPenShortcut: freezed == tripleInvertedPenShortcut ? _self.tripleInvertedPenShortcut : tripleInvertedPenShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleFirstPenButtonShortcut: freezed == doubleFirstPenButtonShortcut ? _self.doubleFirstPenButtonShortcut : doubleFirstPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleFirstPenButtonShortcut: freezed == tripleFirstPenButtonShortcut ? _self.tripleFirstPenButtonShortcut : tripleFirstPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleSecondPenButtonShortcut: freezed == doubleSecondPenButtonShortcut ? _self.doubleSecondPenButtonShortcut : doubleSecondPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleSecondPenButtonShortcut: freezed == tripleSecondPenButtonShortcut ? _self.tripleSecondPenButtonShortcut : tripleSecondPenButtonShortcut // ignore: cast_nullable_to_non_nullable
+as String?,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
+as String?,tripleTouchShortcut: freezed == tripleTouchShortcut ? _self.tripleTouchShortcut : tripleTouchShortcut // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -182,7 +537,7 @@ as InputMapping,
 /// @nodoc
 mixin _$ButterflySettings implements DiagnosticableTreeMixin {
 
- ThemeMode get theme; ThemeDensity get density; String get localeTag; String get documentPath; double get gestureSensitivity; double get touchSensitivity; double get selectSensitivity; double get scrollSensitivity; bool get penOnlyInput; bool get inputGestures; String get design; BannerVisibility get bannerVisibility;@JsonKey(includeFromJson: false, includeToJson: false) List<AssetLocation> get history; bool get zoomEnabled; String? get lastVersion;@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> get connections; String get defaultRemote; bool get nativeTitleBar; bool get startInFullScreen; bool get navigationRail; IgnorePressure get ignorePressure; SyncMode get syncMode; InputConfiguration get inputConfiguration; String get fallbackPack; List<String> get starred; String get defaultTemplate; NavigatorPosition get navigatorPosition; ToolbarPosition get toolbarPosition; ToolbarSize get toolbarSize; SortBy get sortBy; SortOrder get sortOrder; double get imageScale; double get pdfQuality; PlatformTheme get platformTheme;@SRGBConverter() List<SRGBColor> get recentColors; List<String> get flags; bool get spreadPages; bool get highContrast; bool get gridView; bool get autosave; bool get showSaveButton; int get toolbarRows; bool get delayedAutosave; int get autosaveDelaySeconds; bool get hideCursorWhileDrawing; UtilitiesState get utilities; StartupBehavior get onStartup; SimpleToolbarVisibility get simpleToolbarVisibility; OptionsPanelPosition get optionsPanelPosition; RenderResolution get renderResolution; bool get moveOnGesture; List<String> get swamps; PackAssetLocation? get selectedPalette;
+ ThemeMode get theme; ThemeDensity get density; double? get limitViewportMultiplier; bool get limitViewportPositive; String get localeTag; String get documentPath; double get gestureSensitivity; double get touchSensitivity; double get selectSensitivity; double get scrollSensitivity; bool? get penOnlyInput; bool get showPenOnlyToggle; bool get inputGestures; String get design; BannerVisibility get bannerVisibility;@JsonKey(includeFromJson: false, includeToJson: false) List<AssetLocation> get history; bool get zoomEnabled; ZoomPosition get zoomPosition; ZoomPosition get propertyPosition; String? get lastVersion;@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> get connections; String get defaultRemote; bool get nativeTitleBar; bool get startInFullScreen; bool get navigationRail; IgnorePressure get ignorePressure; SyncMode get syncMode; InputConfiguration get inputConfiguration; String get fallbackPack; List<String> get starred; List<FavoriteLocation> get favoriteTemplates; String get defaultTemplate; NavigatorPosition get navigatorPosition; ToolbarPosition get toolbarPosition; ToolbarSize get toolbarSize; SortBy get sortBy; SortOrder get sortOrder; double get imageScale; PlatformTheme get platformTheme;@SRGBConverter() List<SRGBColor> get recentColors; List<String> get flags; bool get spreadPages; bool get highContrast; bool get gridView; bool get hideExtension; bool get autosave; bool get showSaveButton; int get toolbarRows; bool get delayedAutosave; int get autosaveDelaySeconds; bool get hideCursorWhileDrawing; UtilitiesState get utilities; StartupBehavior get onStartup; SimpleToolbarVisibility get simpleToolbarVisibility; OptionsPanelPosition get optionsPanelPosition; RenderResolution get renderResolution; bool get moveOnGesture; List<String> get swamps; PackAssetLocation? get selectedPalette; bool get showVerboseLogs; bool get showThumbnails; bool get bringMovedElementsToFront; List<PackAssetLocation> get favoriteTools;
 /// Create a copy of ButterflySettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -196,21 +551,21 @@ $ButterflySettingsCopyWith<ButterflySettings> get copyWith => _$ButterflySetting
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'ButterflySettings'))
-    ..add(DiagnosticsProperty('theme', theme))..add(DiagnosticsProperty('density', density))..add(DiagnosticsProperty('localeTag', localeTag))..add(DiagnosticsProperty('documentPath', documentPath))..add(DiagnosticsProperty('gestureSensitivity', gestureSensitivity))..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))..add(DiagnosticsProperty('scrollSensitivity', scrollSensitivity))..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))..add(DiagnosticsProperty('inputGestures', inputGestures))..add(DiagnosticsProperty('design', design))..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))..add(DiagnosticsProperty('history', history))..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))..add(DiagnosticsProperty('lastVersion', lastVersion))..add(DiagnosticsProperty('connections', connections))..add(DiagnosticsProperty('defaultRemote', defaultRemote))..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))..add(DiagnosticsProperty('navigationRail', navigationRail))..add(DiagnosticsProperty('ignorePressure', ignorePressure))..add(DiagnosticsProperty('syncMode', syncMode))..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))..add(DiagnosticsProperty('fallbackPack', fallbackPack))..add(DiagnosticsProperty('starred', starred))..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))..add(DiagnosticsProperty('toolbarSize', toolbarSize))..add(DiagnosticsProperty('sortBy', sortBy))..add(DiagnosticsProperty('sortOrder', sortOrder))..add(DiagnosticsProperty('imageScale', imageScale))..add(DiagnosticsProperty('pdfQuality', pdfQuality))..add(DiagnosticsProperty('platformTheme', platformTheme))..add(DiagnosticsProperty('recentColors', recentColors))..add(DiagnosticsProperty('flags', flags))..add(DiagnosticsProperty('spreadPages', spreadPages))..add(DiagnosticsProperty('highContrast', highContrast))..add(DiagnosticsProperty('gridView', gridView))..add(DiagnosticsProperty('autosave', autosave))..add(DiagnosticsProperty('showSaveButton', showSaveButton))..add(DiagnosticsProperty('toolbarRows', toolbarRows))..add(DiagnosticsProperty('delayedAutosave', delayedAutosave))..add(DiagnosticsProperty('autosaveDelaySeconds', autosaveDelaySeconds))..add(DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('onStartup', onStartup))..add(DiagnosticsProperty('simpleToolbarVisibility', simpleToolbarVisibility))..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))..add(DiagnosticsProperty('renderResolution', renderResolution))..add(DiagnosticsProperty('moveOnGesture', moveOnGesture))..add(DiagnosticsProperty('swamps', swamps))..add(DiagnosticsProperty('selectedPalette', selectedPalette));
+    ..add(DiagnosticsProperty('theme', theme))..add(DiagnosticsProperty('density', density))..add(DiagnosticsProperty('limitViewportMultiplier', limitViewportMultiplier))..add(DiagnosticsProperty('limitViewportPositive', limitViewportPositive))..add(DiagnosticsProperty('localeTag', localeTag))..add(DiagnosticsProperty('documentPath', documentPath))..add(DiagnosticsProperty('gestureSensitivity', gestureSensitivity))..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))..add(DiagnosticsProperty('scrollSensitivity', scrollSensitivity))..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))..add(DiagnosticsProperty('showPenOnlyToggle', showPenOnlyToggle))..add(DiagnosticsProperty('inputGestures', inputGestures))..add(DiagnosticsProperty('design', design))..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))..add(DiagnosticsProperty('history', history))..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))..add(DiagnosticsProperty('zoomPosition', zoomPosition))..add(DiagnosticsProperty('propertyPosition', propertyPosition))..add(DiagnosticsProperty('lastVersion', lastVersion))..add(DiagnosticsProperty('connections', connections))..add(DiagnosticsProperty('defaultRemote', defaultRemote))..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))..add(DiagnosticsProperty('navigationRail', navigationRail))..add(DiagnosticsProperty('ignorePressure', ignorePressure))..add(DiagnosticsProperty('syncMode', syncMode))..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))..add(DiagnosticsProperty('fallbackPack', fallbackPack))..add(DiagnosticsProperty('starred', starred))..add(DiagnosticsProperty('favoriteTemplates', favoriteTemplates))..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))..add(DiagnosticsProperty('toolbarSize', toolbarSize))..add(DiagnosticsProperty('sortBy', sortBy))..add(DiagnosticsProperty('sortOrder', sortOrder))..add(DiagnosticsProperty('imageScale', imageScale))..add(DiagnosticsProperty('platformTheme', platformTheme))..add(DiagnosticsProperty('recentColors', recentColors))..add(DiagnosticsProperty('flags', flags))..add(DiagnosticsProperty('spreadPages', spreadPages))..add(DiagnosticsProperty('highContrast', highContrast))..add(DiagnosticsProperty('gridView', gridView))..add(DiagnosticsProperty('hideExtension', hideExtension))..add(DiagnosticsProperty('autosave', autosave))..add(DiagnosticsProperty('showSaveButton', showSaveButton))..add(DiagnosticsProperty('toolbarRows', toolbarRows))..add(DiagnosticsProperty('delayedAutosave', delayedAutosave))..add(DiagnosticsProperty('autosaveDelaySeconds', autosaveDelaySeconds))..add(DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('onStartup', onStartup))..add(DiagnosticsProperty('simpleToolbarVisibility', simpleToolbarVisibility))..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))..add(DiagnosticsProperty('renderResolution', renderResolution))..add(DiagnosticsProperty('moveOnGesture', moveOnGesture))..add(DiagnosticsProperty('swamps', swamps))..add(DiagnosticsProperty('selectedPalette', selectedPalette))..add(DiagnosticsProperty('showVerboseLogs', showVerboseLogs))..add(DiagnosticsProperty('showThumbnails', showThumbnails))..add(DiagnosticsProperty('bringMovedElementsToFront', bringMovedElementsToFront))..add(DiagnosticsProperty('favoriteTools', favoriteTools));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ButterflySettings&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.density, density) || other.density == density)&&(identical(other.localeTag, localeTag) || other.localeTag == localeTag)&&(identical(other.documentPath, documentPath) || other.documentPath == documentPath)&&(identical(other.gestureSensitivity, gestureSensitivity) || other.gestureSensitivity == gestureSensitivity)&&(identical(other.touchSensitivity, touchSensitivity) || other.touchSensitivity == touchSensitivity)&&(identical(other.selectSensitivity, selectSensitivity) || other.selectSensitivity == selectSensitivity)&&(identical(other.scrollSensitivity, scrollSensitivity) || other.scrollSensitivity == scrollSensitivity)&&(identical(other.penOnlyInput, penOnlyInput) || other.penOnlyInput == penOnlyInput)&&(identical(other.inputGestures, inputGestures) || other.inputGestures == inputGestures)&&(identical(other.design, design) || other.design == design)&&(identical(other.bannerVisibility, bannerVisibility) || other.bannerVisibility == bannerVisibility)&&const DeepCollectionEquality().equals(other.history, history)&&(identical(other.zoomEnabled, zoomEnabled) || other.zoomEnabled == zoomEnabled)&&(identical(other.lastVersion, lastVersion) || other.lastVersion == lastVersion)&&const DeepCollectionEquality().equals(other.connections, connections)&&(identical(other.defaultRemote, defaultRemote) || other.defaultRemote == defaultRemote)&&(identical(other.nativeTitleBar, nativeTitleBar) || other.nativeTitleBar == nativeTitleBar)&&(identical(other.startInFullScreen, startInFullScreen) || other.startInFullScreen == startInFullScreen)&&(identical(other.navigationRail, navigationRail) || other.navigationRail == navigationRail)&&(identical(other.ignorePressure, ignorePressure) || other.ignorePressure == ignorePressure)&&(identical(other.syncMode, syncMode) || other.syncMode == syncMode)&&(identical(other.inputConfiguration, inputConfiguration) || other.inputConfiguration == inputConfiguration)&&(identical(other.fallbackPack, fallbackPack) || other.fallbackPack == fallbackPack)&&const DeepCollectionEquality().equals(other.starred, starred)&&(identical(other.defaultTemplate, defaultTemplate) || other.defaultTemplate == defaultTemplate)&&(identical(other.navigatorPosition, navigatorPosition) || other.navigatorPosition == navigatorPosition)&&(identical(other.toolbarPosition, toolbarPosition) || other.toolbarPosition == toolbarPosition)&&(identical(other.toolbarSize, toolbarSize) || other.toolbarSize == toolbarSize)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.imageScale, imageScale) || other.imageScale == imageScale)&&(identical(other.pdfQuality, pdfQuality) || other.pdfQuality == pdfQuality)&&(identical(other.platformTheme, platformTheme) || other.platformTheme == platformTheme)&&const DeepCollectionEquality().equals(other.recentColors, recentColors)&&const DeepCollectionEquality().equals(other.flags, flags)&&(identical(other.spreadPages, spreadPages) || other.spreadPages == spreadPages)&&(identical(other.highContrast, highContrast) || other.highContrast == highContrast)&&(identical(other.gridView, gridView) || other.gridView == gridView)&&(identical(other.autosave, autosave) || other.autosave == autosave)&&(identical(other.showSaveButton, showSaveButton) || other.showSaveButton == showSaveButton)&&(identical(other.toolbarRows, toolbarRows) || other.toolbarRows == toolbarRows)&&(identical(other.delayedAutosave, delayedAutosave) || other.delayedAutosave == delayedAutosave)&&(identical(other.autosaveDelaySeconds, autosaveDelaySeconds) || other.autosaveDelaySeconds == autosaveDelaySeconds)&&(identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) || other.hideCursorWhileDrawing == hideCursorWhileDrawing)&&(identical(other.utilities, utilities) || other.utilities == utilities)&&(identical(other.onStartup, onStartup) || other.onStartup == onStartup)&&(identical(other.simpleToolbarVisibility, simpleToolbarVisibility) || other.simpleToolbarVisibility == simpleToolbarVisibility)&&(identical(other.optionsPanelPosition, optionsPanelPosition) || other.optionsPanelPosition == optionsPanelPosition)&&(identical(other.renderResolution, renderResolution) || other.renderResolution == renderResolution)&&(identical(other.moveOnGesture, moveOnGesture) || other.moveOnGesture == moveOnGesture)&&const DeepCollectionEquality().equals(other.swamps, swamps)&&(identical(other.selectedPalette, selectedPalette) || other.selectedPalette == selectedPalette));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ButterflySettings&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.density, density) || other.density == density)&&(identical(other.limitViewportMultiplier, limitViewportMultiplier) || other.limitViewportMultiplier == limitViewportMultiplier)&&(identical(other.limitViewportPositive, limitViewportPositive) || other.limitViewportPositive == limitViewportPositive)&&(identical(other.localeTag, localeTag) || other.localeTag == localeTag)&&(identical(other.documentPath, documentPath) || other.documentPath == documentPath)&&(identical(other.gestureSensitivity, gestureSensitivity) || other.gestureSensitivity == gestureSensitivity)&&(identical(other.touchSensitivity, touchSensitivity) || other.touchSensitivity == touchSensitivity)&&(identical(other.selectSensitivity, selectSensitivity) || other.selectSensitivity == selectSensitivity)&&(identical(other.scrollSensitivity, scrollSensitivity) || other.scrollSensitivity == scrollSensitivity)&&(identical(other.penOnlyInput, penOnlyInput) || other.penOnlyInput == penOnlyInput)&&(identical(other.showPenOnlyToggle, showPenOnlyToggle) || other.showPenOnlyToggle == showPenOnlyToggle)&&(identical(other.inputGestures, inputGestures) || other.inputGestures == inputGestures)&&(identical(other.design, design) || other.design == design)&&(identical(other.bannerVisibility, bannerVisibility) || other.bannerVisibility == bannerVisibility)&&const DeepCollectionEquality().equals(other.history, history)&&(identical(other.zoomEnabled, zoomEnabled) || other.zoomEnabled == zoomEnabled)&&(identical(other.zoomPosition, zoomPosition) || other.zoomPosition == zoomPosition)&&(identical(other.propertyPosition, propertyPosition) || other.propertyPosition == propertyPosition)&&(identical(other.lastVersion, lastVersion) || other.lastVersion == lastVersion)&&const DeepCollectionEquality().equals(other.connections, connections)&&(identical(other.defaultRemote, defaultRemote) || other.defaultRemote == defaultRemote)&&(identical(other.nativeTitleBar, nativeTitleBar) || other.nativeTitleBar == nativeTitleBar)&&(identical(other.startInFullScreen, startInFullScreen) || other.startInFullScreen == startInFullScreen)&&(identical(other.navigationRail, navigationRail) || other.navigationRail == navigationRail)&&(identical(other.ignorePressure, ignorePressure) || other.ignorePressure == ignorePressure)&&(identical(other.syncMode, syncMode) || other.syncMode == syncMode)&&(identical(other.inputConfiguration, inputConfiguration) || other.inputConfiguration == inputConfiguration)&&(identical(other.fallbackPack, fallbackPack) || other.fallbackPack == fallbackPack)&&const DeepCollectionEquality().equals(other.starred, starred)&&const DeepCollectionEquality().equals(other.favoriteTemplates, favoriteTemplates)&&(identical(other.defaultTemplate, defaultTemplate) || other.defaultTemplate == defaultTemplate)&&(identical(other.navigatorPosition, navigatorPosition) || other.navigatorPosition == navigatorPosition)&&(identical(other.toolbarPosition, toolbarPosition) || other.toolbarPosition == toolbarPosition)&&(identical(other.toolbarSize, toolbarSize) || other.toolbarSize == toolbarSize)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.imageScale, imageScale) || other.imageScale == imageScale)&&(identical(other.platformTheme, platformTheme) || other.platformTheme == platformTheme)&&const DeepCollectionEquality().equals(other.recentColors, recentColors)&&const DeepCollectionEquality().equals(other.flags, flags)&&(identical(other.spreadPages, spreadPages) || other.spreadPages == spreadPages)&&(identical(other.highContrast, highContrast) || other.highContrast == highContrast)&&(identical(other.gridView, gridView) || other.gridView == gridView)&&(identical(other.hideExtension, hideExtension) || other.hideExtension == hideExtension)&&(identical(other.autosave, autosave) || other.autosave == autosave)&&(identical(other.showSaveButton, showSaveButton) || other.showSaveButton == showSaveButton)&&(identical(other.toolbarRows, toolbarRows) || other.toolbarRows == toolbarRows)&&(identical(other.delayedAutosave, delayedAutosave) || other.delayedAutosave == delayedAutosave)&&(identical(other.autosaveDelaySeconds, autosaveDelaySeconds) || other.autosaveDelaySeconds == autosaveDelaySeconds)&&(identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) || other.hideCursorWhileDrawing == hideCursorWhileDrawing)&&(identical(other.utilities, utilities) || other.utilities == utilities)&&(identical(other.onStartup, onStartup) || other.onStartup == onStartup)&&(identical(other.simpleToolbarVisibility, simpleToolbarVisibility) || other.simpleToolbarVisibility == simpleToolbarVisibility)&&(identical(other.optionsPanelPosition, optionsPanelPosition) || other.optionsPanelPosition == optionsPanelPosition)&&(identical(other.renderResolution, renderResolution) || other.renderResolution == renderResolution)&&(identical(other.moveOnGesture, moveOnGesture) || other.moveOnGesture == moveOnGesture)&&const DeepCollectionEquality().equals(other.swamps, swamps)&&(identical(other.selectedPalette, selectedPalette) || other.selectedPalette == selectedPalette)&&(identical(other.showVerboseLogs, showVerboseLogs) || other.showVerboseLogs == showVerboseLogs)&&(identical(other.showThumbnails, showThumbnails) || other.showThumbnails == showThumbnails)&&(identical(other.bringMovedElementsToFront, bringMovedElementsToFront) || other.bringMovedElementsToFront == bringMovedElementsToFront)&&const DeepCollectionEquality().equals(other.favoriteTools, favoriteTools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,theme,density,localeTag,documentPath,gestureSensitivity,touchSensitivity,selectSensitivity,scrollSensitivity,penOnlyInput,inputGestures,design,bannerVisibility,const DeepCollectionEquality().hash(history),zoomEnabled,lastVersion,const DeepCollectionEquality().hash(connections),defaultRemote,nativeTitleBar,startInFullScreen,navigationRail,ignorePressure,syncMode,inputConfiguration,fallbackPack,const DeepCollectionEquality().hash(starred),defaultTemplate,navigatorPosition,toolbarPosition,toolbarSize,sortBy,sortOrder,imageScale,pdfQuality,platformTheme,const DeepCollectionEquality().hash(recentColors),const DeepCollectionEquality().hash(flags),spreadPages,highContrast,gridView,autosave,showSaveButton,toolbarRows,delayedAutosave,autosaveDelaySeconds,hideCursorWhileDrawing,utilities,onStartup,simpleToolbarVisibility,optionsPanelPosition,renderResolution,moveOnGesture,const DeepCollectionEquality().hash(swamps),selectedPalette]);
+int get hashCode => Object.hashAll([runtimeType,theme,density,limitViewportMultiplier,limitViewportPositive,localeTag,documentPath,gestureSensitivity,touchSensitivity,selectSensitivity,scrollSensitivity,penOnlyInput,showPenOnlyToggle,inputGestures,design,bannerVisibility,const DeepCollectionEquality().hash(history),zoomEnabled,zoomPosition,propertyPosition,lastVersion,const DeepCollectionEquality().hash(connections),defaultRemote,nativeTitleBar,startInFullScreen,navigationRail,ignorePressure,syncMode,inputConfiguration,fallbackPack,const DeepCollectionEquality().hash(starred),const DeepCollectionEquality().hash(favoriteTemplates),defaultTemplate,navigatorPosition,toolbarPosition,toolbarSize,sortBy,sortOrder,imageScale,platformTheme,const DeepCollectionEquality().hash(recentColors),const DeepCollectionEquality().hash(flags),spreadPages,highContrast,gridView,hideExtension,autosave,showSaveButton,toolbarRows,delayedAutosave,autosaveDelaySeconds,hideCursorWhileDrawing,utilities,onStartup,simpleToolbarVisibility,optionsPanelPosition,renderResolution,moveOnGesture,const DeepCollectionEquality().hash(swamps),selectedPalette,showVerboseLogs,showThumbnails,bringMovedElementsToFront,const DeepCollectionEquality().hash(favoriteTools)]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, ignorePressure: $ignorePressure, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, delayedAutosave: $delayedAutosave, autosaveDelaySeconds: $autosaveDelaySeconds, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, simpleToolbarVisibility: $simpleToolbarVisibility, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture, swamps: $swamps, selectedPalette: $selectedPalette)';
+  return 'ButterflySettings(theme: $theme, density: $density, limitViewportMultiplier: $limitViewportMultiplier, limitViewportPositive: $limitViewportPositive, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, showPenOnlyToggle: $showPenOnlyToggle, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, zoomPosition: $zoomPosition, propertyPosition: $propertyPosition, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, ignorePressure: $ignorePressure, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, favoriteTemplates: $favoriteTemplates, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, hideExtension: $hideExtension, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, delayedAutosave: $delayedAutosave, autosaveDelaySeconds: $autosaveDelaySeconds, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, simpleToolbarVisibility: $simpleToolbarVisibility, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture, swamps: $swamps, selectedPalette: $selectedPalette, showVerboseLogs: $showVerboseLogs, showThumbnails: $showThumbnails, bringMovedElementsToFront: $bringMovedElementsToFront, favoriteTools: $favoriteTools)';
 }
 
 
@@ -221,7 +576,7 @@ abstract mixin class $ButterflySettingsCopyWith<$Res>  {
   factory $ButterflySettingsCopyWith(ButterflySettings value, $Res Function(ButterflySettings) _then) = _$ButterflySettingsCopyWithImpl;
 @useResult
 $Res call({
- ThemeMode theme, ThemeDensity density, String localeTag, String documentPath, double gestureSensitivity, double touchSensitivity, double selectSensitivity, double scrollSensitivity, bool penOnlyInput, bool inputGestures, String design, BannerVisibility bannerVisibility,@JsonKey(includeFromJson: false, includeToJson: false) List<AssetLocation> history, bool zoomEnabled, String? lastVersion,@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> connections, String defaultRemote, bool nativeTitleBar, bool startInFullScreen, bool navigationRail, IgnorePressure ignorePressure, SyncMode syncMode, InputConfiguration inputConfiguration, String fallbackPack, List<String> starred, String defaultTemplate, NavigatorPosition navigatorPosition, ToolbarPosition toolbarPosition, ToolbarSize toolbarSize, SortBy sortBy, SortOrder sortOrder, double imageScale, double pdfQuality, PlatformTheme platformTheme,@SRGBConverter() List<SRGBColor> recentColors, List<String> flags, bool spreadPages, bool highContrast, bool gridView, bool autosave, bool showSaveButton, int toolbarRows, bool delayedAutosave, int autosaveDelaySeconds, bool hideCursorWhileDrawing, UtilitiesState utilities, StartupBehavior onStartup, SimpleToolbarVisibility simpleToolbarVisibility, OptionsPanelPosition optionsPanelPosition, RenderResolution renderResolution, bool moveOnGesture, List<String> swamps, PackAssetLocation? selectedPalette
+ ThemeMode theme, ThemeDensity density, double? limitViewportMultiplier, bool limitViewportPositive, String localeTag, String documentPath, double gestureSensitivity, double touchSensitivity, double selectSensitivity, double scrollSensitivity, bool? penOnlyInput, bool showPenOnlyToggle, bool inputGestures, String design, BannerVisibility bannerVisibility,@JsonKey(includeFromJson: false, includeToJson: false) List<AssetLocation> history, bool zoomEnabled, ZoomPosition zoomPosition, ZoomPosition propertyPosition, String? lastVersion,@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> connections, String defaultRemote, bool nativeTitleBar, bool startInFullScreen, bool navigationRail, IgnorePressure ignorePressure, SyncMode syncMode, InputConfiguration inputConfiguration, String fallbackPack, List<String> starred, List<FavoriteLocation> favoriteTemplates, String defaultTemplate, NavigatorPosition navigatorPosition, ToolbarPosition toolbarPosition, ToolbarSize toolbarSize, SortBy sortBy, SortOrder sortOrder, double imageScale, PlatformTheme platformTheme,@SRGBConverter() List<SRGBColor> recentColors, List<String> flags, bool spreadPages, bool highContrast, bool gridView, bool hideExtension, bool autosave, bool showSaveButton, int toolbarRows, bool delayedAutosave, int autosaveDelaySeconds, bool hideCursorWhileDrawing, UtilitiesState utilities, StartupBehavior onStartup, SimpleToolbarVisibility simpleToolbarVisibility, OptionsPanelPosition optionsPanelPosition, RenderResolution renderResolution, bool moveOnGesture, List<String> swamps, PackAssetLocation? selectedPalette, bool showVerboseLogs, bool showThumbnails, bool bringMovedElementsToFront, List<PackAssetLocation> favoriteTools
 });
 
 
@@ -238,23 +593,28 @@ class _$ButterflySettingsCopyWithImpl<$Res>
 
 /// Create a copy of ButterflySettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? theme = null,Object? density = null,Object? localeTag = null,Object? documentPath = null,Object? gestureSensitivity = null,Object? touchSensitivity = null,Object? selectSensitivity = null,Object? scrollSensitivity = null,Object? penOnlyInput = null,Object? inputGestures = null,Object? design = null,Object? bannerVisibility = null,Object? history = null,Object? zoomEnabled = null,Object? lastVersion = freezed,Object? connections = null,Object? defaultRemote = null,Object? nativeTitleBar = null,Object? startInFullScreen = null,Object? navigationRail = null,Object? ignorePressure = null,Object? syncMode = null,Object? inputConfiguration = null,Object? fallbackPack = null,Object? starred = null,Object? defaultTemplate = null,Object? navigatorPosition = null,Object? toolbarPosition = null,Object? toolbarSize = null,Object? sortBy = null,Object? sortOrder = null,Object? imageScale = null,Object? pdfQuality = null,Object? platformTheme = null,Object? recentColors = null,Object? flags = null,Object? spreadPages = null,Object? highContrast = null,Object? gridView = null,Object? autosave = null,Object? showSaveButton = null,Object? toolbarRows = null,Object? delayedAutosave = null,Object? autosaveDelaySeconds = null,Object? hideCursorWhileDrawing = null,Object? utilities = null,Object? onStartup = null,Object? simpleToolbarVisibility = null,Object? optionsPanelPosition = null,Object? renderResolution = null,Object? moveOnGesture = null,Object? swamps = null,Object? selectedPalette = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? theme = null,Object? density = null,Object? limitViewportMultiplier = freezed,Object? limitViewportPositive = null,Object? localeTag = null,Object? documentPath = null,Object? gestureSensitivity = null,Object? touchSensitivity = null,Object? selectSensitivity = null,Object? scrollSensitivity = null,Object? penOnlyInput = freezed,Object? showPenOnlyToggle = null,Object? inputGestures = null,Object? design = null,Object? bannerVisibility = null,Object? history = null,Object? zoomEnabled = null,Object? zoomPosition = null,Object? propertyPosition = null,Object? lastVersion = freezed,Object? connections = null,Object? defaultRemote = null,Object? nativeTitleBar = null,Object? startInFullScreen = null,Object? navigationRail = null,Object? ignorePressure = null,Object? syncMode = null,Object? inputConfiguration = null,Object? fallbackPack = null,Object? starred = null,Object? favoriteTemplates = null,Object? defaultTemplate = null,Object? navigatorPosition = null,Object? toolbarPosition = null,Object? toolbarSize = null,Object? sortBy = null,Object? sortOrder = null,Object? imageScale = null,Object? platformTheme = null,Object? recentColors = null,Object? flags = null,Object? spreadPages = null,Object? highContrast = null,Object? gridView = null,Object? hideExtension = null,Object? autosave = null,Object? showSaveButton = null,Object? toolbarRows = null,Object? delayedAutosave = null,Object? autosaveDelaySeconds = null,Object? hideCursorWhileDrawing = null,Object? utilities = null,Object? onStartup = null,Object? simpleToolbarVisibility = null,Object? optionsPanelPosition = null,Object? renderResolution = null,Object? moveOnGesture = null,Object? swamps = null,Object? selectedPalette = freezed,Object? showVerboseLogs = null,Object? showThumbnails = null,Object? bringMovedElementsToFront = null,Object? favoriteTools = null,}) {
   return _then(_self.copyWith(
 theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
 as ThemeMode,density: null == density ? _self.density : density // ignore: cast_nullable_to_non_nullable
-as ThemeDensity,localeTag: null == localeTag ? _self.localeTag : localeTag // ignore: cast_nullable_to_non_nullable
+as ThemeDensity,limitViewportMultiplier: freezed == limitViewportMultiplier ? _self.limitViewportMultiplier : limitViewportMultiplier // ignore: cast_nullable_to_non_nullable
+as double?,limitViewportPositive: null == limitViewportPositive ? _self.limitViewportPositive : limitViewportPositive // ignore: cast_nullable_to_non_nullable
+as bool,localeTag: null == localeTag ? _self.localeTag : localeTag // ignore: cast_nullable_to_non_nullable
 as String,documentPath: null == documentPath ? _self.documentPath : documentPath // ignore: cast_nullable_to_non_nullable
 as String,gestureSensitivity: null == gestureSensitivity ? _self.gestureSensitivity : gestureSensitivity // ignore: cast_nullable_to_non_nullable
 as double,touchSensitivity: null == touchSensitivity ? _self.touchSensitivity : touchSensitivity // ignore: cast_nullable_to_non_nullable
 as double,selectSensitivity: null == selectSensitivity ? _self.selectSensitivity : selectSensitivity // ignore: cast_nullable_to_non_nullable
 as double,scrollSensitivity: null == scrollSensitivity ? _self.scrollSensitivity : scrollSensitivity // ignore: cast_nullable_to_non_nullable
-as double,penOnlyInput: null == penOnlyInput ? _self.penOnlyInput : penOnlyInput // ignore: cast_nullable_to_non_nullable
+as double,penOnlyInput: freezed == penOnlyInput ? _self.penOnlyInput : penOnlyInput // ignore: cast_nullable_to_non_nullable
+as bool?,showPenOnlyToggle: null == showPenOnlyToggle ? _self.showPenOnlyToggle : showPenOnlyToggle // ignore: cast_nullable_to_non_nullable
 as bool,inputGestures: null == inputGestures ? _self.inputGestures : inputGestures // ignore: cast_nullable_to_non_nullable
 as bool,design: null == design ? _self.design : design // ignore: cast_nullable_to_non_nullable
 as String,bannerVisibility: null == bannerVisibility ? _self.bannerVisibility : bannerVisibility // ignore: cast_nullable_to_non_nullable
 as BannerVisibility,history: null == history ? _self.history : history // ignore: cast_nullable_to_non_nullable
 as List<AssetLocation>,zoomEnabled: null == zoomEnabled ? _self.zoomEnabled : zoomEnabled // ignore: cast_nullable_to_non_nullable
-as bool,lastVersion: freezed == lastVersion ? _self.lastVersion : lastVersion // ignore: cast_nullable_to_non_nullable
+as bool,zoomPosition: null == zoomPosition ? _self.zoomPosition : zoomPosition // ignore: cast_nullable_to_non_nullable
+as ZoomPosition,propertyPosition: null == propertyPosition ? _self.propertyPosition : propertyPosition // ignore: cast_nullable_to_non_nullable
+as ZoomPosition,lastVersion: freezed == lastVersion ? _self.lastVersion : lastVersion // ignore: cast_nullable_to_non_nullable
 as String?,connections: null == connections ? _self.connections : connections // ignore: cast_nullable_to_non_nullable
 as List<ExternalStorage>,defaultRemote: null == defaultRemote ? _self.defaultRemote : defaultRemote // ignore: cast_nullable_to_non_nullable
 as String,nativeTitleBar: null == nativeTitleBar ? _self.nativeTitleBar : nativeTitleBar // ignore: cast_nullable_to_non_nullable
@@ -265,20 +625,21 @@ as IgnorePressure,syncMode: null == syncMode ? _self.syncMode : syncMode // igno
 as SyncMode,inputConfiguration: null == inputConfiguration ? _self.inputConfiguration : inputConfiguration // ignore: cast_nullable_to_non_nullable
 as InputConfiguration,fallbackPack: null == fallbackPack ? _self.fallbackPack : fallbackPack // ignore: cast_nullable_to_non_nullable
 as String,starred: null == starred ? _self.starred : starred // ignore: cast_nullable_to_non_nullable
-as List<String>,defaultTemplate: null == defaultTemplate ? _self.defaultTemplate : defaultTemplate // ignore: cast_nullable_to_non_nullable
+as List<String>,favoriteTemplates: null == favoriteTemplates ? _self.favoriteTemplates : favoriteTemplates // ignore: cast_nullable_to_non_nullable
+as List<FavoriteLocation>,defaultTemplate: null == defaultTemplate ? _self.defaultTemplate : defaultTemplate // ignore: cast_nullable_to_non_nullable
 as String,navigatorPosition: null == navigatorPosition ? _self.navigatorPosition : navigatorPosition // ignore: cast_nullable_to_non_nullable
 as NavigatorPosition,toolbarPosition: null == toolbarPosition ? _self.toolbarPosition : toolbarPosition // ignore: cast_nullable_to_non_nullable
 as ToolbarPosition,toolbarSize: null == toolbarSize ? _self.toolbarSize : toolbarSize // ignore: cast_nullable_to_non_nullable
 as ToolbarSize,sortBy: null == sortBy ? _self.sortBy : sortBy // ignore: cast_nullable_to_non_nullable
 as SortBy,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
 as SortOrder,imageScale: null == imageScale ? _self.imageScale : imageScale // ignore: cast_nullable_to_non_nullable
-as double,pdfQuality: null == pdfQuality ? _self.pdfQuality : pdfQuality // ignore: cast_nullable_to_non_nullable
 as double,platformTheme: null == platformTheme ? _self.platformTheme : platformTheme // ignore: cast_nullable_to_non_nullable
 as PlatformTheme,recentColors: null == recentColors ? _self.recentColors : recentColors // ignore: cast_nullable_to_non_nullable
 as List<SRGBColor>,flags: null == flags ? _self.flags : flags // ignore: cast_nullable_to_non_nullable
 as List<String>,spreadPages: null == spreadPages ? _self.spreadPages : spreadPages // ignore: cast_nullable_to_non_nullable
 as bool,highContrast: null == highContrast ? _self.highContrast : highContrast // ignore: cast_nullable_to_non_nullable
 as bool,gridView: null == gridView ? _self.gridView : gridView // ignore: cast_nullable_to_non_nullable
+as bool,hideExtension: null == hideExtension ? _self.hideExtension : hideExtension // ignore: cast_nullable_to_non_nullable
 as bool,autosave: null == autosave ? _self.autosave : autosave // ignore: cast_nullable_to_non_nullable
 as bool,showSaveButton: null == showSaveButton ? _self.showSaveButton : showSaveButton // ignore: cast_nullable_to_non_nullable
 as bool,toolbarRows: null == toolbarRows ? _self.toolbarRows : toolbarRows // ignore: cast_nullable_to_non_nullable
@@ -293,7 +654,11 @@ as OptionsPanelPosition,renderResolution: null == renderResolution ? _self.rende
 as RenderResolution,moveOnGesture: null == moveOnGesture ? _self.moveOnGesture : moveOnGesture // ignore: cast_nullable_to_non_nullable
 as bool,swamps: null == swamps ? _self.swamps : swamps // ignore: cast_nullable_to_non_nullable
 as List<String>,selectedPalette: freezed == selectedPalette ? _self.selectedPalette : selectedPalette // ignore: cast_nullable_to_non_nullable
-as PackAssetLocation?,
+as PackAssetLocation?,showVerboseLogs: null == showVerboseLogs ? _self.showVerboseLogs : showVerboseLogs // ignore: cast_nullable_to_non_nullable
+as bool,showThumbnails: null == showThumbnails ? _self.showThumbnails : showThumbnails // ignore: cast_nullable_to_non_nullable
+as bool,bringMovedElementsToFront: null == bringMovedElementsToFront ? _self.bringMovedElementsToFront : bringMovedElementsToFront // ignore: cast_nullable_to_non_nullable
+as bool,favoriteTools: null == favoriteTools ? _self.favoriteTools : favoriteTools // ignore: cast_nullable_to_non_nullable
+as List<PackAssetLocation>,
   ));
 }
 /// Create a copy of ButterflySettings
@@ -335,18 +700,21 @@ $PackAssetLocationCopyWith<$Res>? get selectedPalette {
 @JsonSerializable()
 
 class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin {
-  const _ButterflySettings({this.theme = ThemeMode.system, this.density = ThemeDensity.system, this.localeTag = '', this.documentPath = '', this.gestureSensitivity = 1, this.touchSensitivity = 1, this.selectSensitivity = 1, this.scrollSensitivity = 1, this.penOnlyInput = false, this.inputGestures = true, this.design = '', this.bannerVisibility = BannerVisibility.always, @JsonKey(includeFromJson: false, includeToJson: false) final  List<AssetLocation> history = const [], this.zoomEnabled = true, this.lastVersion, @JsonKey(includeFromJson: false, includeToJson: false) final  List<ExternalStorage> connections = const [], this.defaultRemote = '', this.nativeTitleBar = false, this.startInFullScreen = false, this.navigationRail = true, this.ignorePressure = IgnorePressure.first, this.syncMode = SyncMode.noMobile, this.inputConfiguration = const InputConfiguration(), this.fallbackPack = '', final  List<String> starred = const [], this.defaultTemplate = '', this.navigatorPosition = NavigatorPosition.left, this.toolbarPosition = ToolbarPosition.inline, this.toolbarSize = ToolbarSize.normal, this.sortBy = SortBy.modified, this.sortOrder = SortOrder.descending, this.imageScale = 0.5, this.pdfQuality = 2, this.platformTheme = PlatformTheme.system, @SRGBConverter() final  List<SRGBColor> recentColors = const [], final  List<String> flags = const [], this.spreadPages = false, this.highContrast = false, this.gridView = false, this.autosave = true, this.showSaveButton = true, this.toolbarRows = 1, this.delayedAutosave = true, this.autosaveDelaySeconds = 3, this.hideCursorWhileDrawing = false, this.utilities = const UtilitiesState(), this.onStartup = StartupBehavior.openHomeScreen, this.simpleToolbarVisibility = SimpleToolbarVisibility.show, this.optionsPanelPosition = OptionsPanelPosition.top, this.renderResolution = RenderResolution.normal, this.moveOnGesture = true, final  List<String> swamps = const [], this.selectedPalette}): _history = history,_connections = connections,_starred = starred,_recentColors = recentColors,_flags = flags,_swamps = swamps,super._();
+  const _ButterflySettings({this.theme = ThemeMode.system, this.density = ThemeDensity.system, this.limitViewportMultiplier, this.limitViewportPositive = false, this.localeTag = '', this.documentPath = '', this.gestureSensitivity = 1, this.touchSensitivity = 1, this.selectSensitivity = 1, this.scrollSensitivity = 1, this.penOnlyInput, this.showPenOnlyToggle = true, this.inputGestures = true, this.design = '', this.bannerVisibility = BannerVisibility.always, @JsonKey(includeFromJson: false, includeToJson: false) final  List<AssetLocation> history = const [], this.zoomEnabled = true, this.zoomPosition = ZoomPosition.bottomRight, this.propertyPosition = ZoomPosition.topRight, this.lastVersion, @JsonKey(includeFromJson: false, includeToJson: false) final  List<ExternalStorage> connections = const [], this.defaultRemote = '', this.nativeTitleBar = false, this.startInFullScreen = false, this.navigationRail = true, this.ignorePressure = IgnorePressure.first, this.syncMode = SyncMode.noMobile, this.inputConfiguration = const InputConfiguration(), this.fallbackPack = '', final  List<String> starred = const [], final  List<FavoriteLocation> favoriteTemplates = const [], this.defaultTemplate = '', this.navigatorPosition = NavigatorPosition.left, this.toolbarPosition = ToolbarPosition.inline, this.toolbarSize = ToolbarSize.normal, this.sortBy = SortBy.modified, this.sortOrder = SortOrder.descending, this.imageScale = 0.5, this.platformTheme = PlatformTheme.system, @SRGBConverter() final  List<SRGBColor> recentColors = const [], final  List<String> flags = const [], this.spreadPages = false, this.highContrast = false, this.gridView = false, this.hideExtension = true, this.autosave = true, this.showSaveButton = true, this.toolbarRows = 1, this.delayedAutosave = true, this.autosaveDelaySeconds = 3, this.hideCursorWhileDrawing = false, this.utilities = const UtilitiesState(), this.onStartup = StartupBehavior.openHomeScreen, this.simpleToolbarVisibility = SimpleToolbarVisibility.show, this.optionsPanelPosition = OptionsPanelPosition.top, this.renderResolution = RenderResolution.normal, this.moveOnGesture = true, final  List<String> swamps = const [], this.selectedPalette, this.showVerboseLogs = false, this.showThumbnails = true, this.bringMovedElementsToFront = false, final  List<PackAssetLocation> favoriteTools = const []}): _history = history,_connections = connections,_starred = starred,_favoriteTemplates = favoriteTemplates,_recentColors = recentColors,_flags = flags,_swamps = swamps,_favoriteTools = favoriteTools,super._();
   factory _ButterflySettings.fromJson(Map<String, dynamic> json) => _$ButterflySettingsFromJson(json);
 
 @override@JsonKey() final  ThemeMode theme;
 @override@JsonKey() final  ThemeDensity density;
+@override final  double? limitViewportMultiplier;
+@override@JsonKey() final  bool limitViewportPositive;
 @override@JsonKey() final  String localeTag;
 @override@JsonKey() final  String documentPath;
 @override@JsonKey() final  double gestureSensitivity;
 @override@JsonKey() final  double touchSensitivity;
 @override@JsonKey() final  double selectSensitivity;
 @override@JsonKey() final  double scrollSensitivity;
-@override@JsonKey() final  bool penOnlyInput;
+@override final  bool? penOnlyInput;
+@override@JsonKey() final  bool showPenOnlyToggle;
 @override@JsonKey() final  bool inputGestures;
 @override@JsonKey() final  String design;
 @override@JsonKey() final  BannerVisibility bannerVisibility;
@@ -358,6 +726,8 @@ class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin 
 }
 
 @override@JsonKey() final  bool zoomEnabled;
+@override@JsonKey() final  ZoomPosition zoomPosition;
+@override@JsonKey() final  ZoomPosition propertyPosition;
 @override final  String? lastVersion;
  final  List<ExternalStorage> _connections;
 @override@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> get connections {
@@ -381,6 +751,13 @@ class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin 
   return EqualUnmodifiableListView(_starred);
 }
 
+ final  List<FavoriteLocation> _favoriteTemplates;
+@override@JsonKey() List<FavoriteLocation> get favoriteTemplates {
+  if (_favoriteTemplates is EqualUnmodifiableListView) return _favoriteTemplates;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_favoriteTemplates);
+}
+
 @override@JsonKey() final  String defaultTemplate;
 @override@JsonKey() final  NavigatorPosition navigatorPosition;
 @override@JsonKey() final  ToolbarPosition toolbarPosition;
@@ -388,7 +765,6 @@ class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin 
 @override@JsonKey() final  SortBy sortBy;
 @override@JsonKey() final  SortOrder sortOrder;
 @override@JsonKey() final  double imageScale;
-@override@JsonKey() final  double pdfQuality;
 @override@JsonKey() final  PlatformTheme platformTheme;
  final  List<SRGBColor> _recentColors;
 @override@JsonKey()@SRGBConverter() List<SRGBColor> get recentColors {
@@ -407,6 +783,7 @@ class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin 
 @override@JsonKey() final  bool spreadPages;
 @override@JsonKey() final  bool highContrast;
 @override@JsonKey() final  bool gridView;
+@override@JsonKey() final  bool hideExtension;
 @override@JsonKey() final  bool autosave;
 @override@JsonKey() final  bool showSaveButton;
 @override@JsonKey() final  int toolbarRows;
@@ -427,6 +804,16 @@ class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin 
 }
 
 @override final  PackAssetLocation? selectedPalette;
+@override@JsonKey() final  bool showVerboseLogs;
+@override@JsonKey() final  bool showThumbnails;
+@override@JsonKey() final  bool bringMovedElementsToFront;
+ final  List<PackAssetLocation> _favoriteTools;
+@override@JsonKey() List<PackAssetLocation> get favoriteTools {
+  if (_favoriteTools is EqualUnmodifiableListView) return _favoriteTools;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_favoriteTools);
+}
+
 
 /// Create a copy of ButterflySettings
 /// with the given fields replaced by the non-null parameter values.
@@ -442,21 +829,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'ButterflySettings'))
-    ..add(DiagnosticsProperty('theme', theme))..add(DiagnosticsProperty('density', density))..add(DiagnosticsProperty('localeTag', localeTag))..add(DiagnosticsProperty('documentPath', documentPath))..add(DiagnosticsProperty('gestureSensitivity', gestureSensitivity))..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))..add(DiagnosticsProperty('scrollSensitivity', scrollSensitivity))..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))..add(DiagnosticsProperty('inputGestures', inputGestures))..add(DiagnosticsProperty('design', design))..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))..add(DiagnosticsProperty('history', history))..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))..add(DiagnosticsProperty('lastVersion', lastVersion))..add(DiagnosticsProperty('connections', connections))..add(DiagnosticsProperty('defaultRemote', defaultRemote))..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))..add(DiagnosticsProperty('navigationRail', navigationRail))..add(DiagnosticsProperty('ignorePressure', ignorePressure))..add(DiagnosticsProperty('syncMode', syncMode))..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))..add(DiagnosticsProperty('fallbackPack', fallbackPack))..add(DiagnosticsProperty('starred', starred))..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))..add(DiagnosticsProperty('toolbarSize', toolbarSize))..add(DiagnosticsProperty('sortBy', sortBy))..add(DiagnosticsProperty('sortOrder', sortOrder))..add(DiagnosticsProperty('imageScale', imageScale))..add(DiagnosticsProperty('pdfQuality', pdfQuality))..add(DiagnosticsProperty('platformTheme', platformTheme))..add(DiagnosticsProperty('recentColors', recentColors))..add(DiagnosticsProperty('flags', flags))..add(DiagnosticsProperty('spreadPages', spreadPages))..add(DiagnosticsProperty('highContrast', highContrast))..add(DiagnosticsProperty('gridView', gridView))..add(DiagnosticsProperty('autosave', autosave))..add(DiagnosticsProperty('showSaveButton', showSaveButton))..add(DiagnosticsProperty('toolbarRows', toolbarRows))..add(DiagnosticsProperty('delayedAutosave', delayedAutosave))..add(DiagnosticsProperty('autosaveDelaySeconds', autosaveDelaySeconds))..add(DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('onStartup', onStartup))..add(DiagnosticsProperty('simpleToolbarVisibility', simpleToolbarVisibility))..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))..add(DiagnosticsProperty('renderResolution', renderResolution))..add(DiagnosticsProperty('moveOnGesture', moveOnGesture))..add(DiagnosticsProperty('swamps', swamps))..add(DiagnosticsProperty('selectedPalette', selectedPalette));
+    ..add(DiagnosticsProperty('theme', theme))..add(DiagnosticsProperty('density', density))..add(DiagnosticsProperty('limitViewportMultiplier', limitViewportMultiplier))..add(DiagnosticsProperty('limitViewportPositive', limitViewportPositive))..add(DiagnosticsProperty('localeTag', localeTag))..add(DiagnosticsProperty('documentPath', documentPath))..add(DiagnosticsProperty('gestureSensitivity', gestureSensitivity))..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))..add(DiagnosticsProperty('scrollSensitivity', scrollSensitivity))..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))..add(DiagnosticsProperty('showPenOnlyToggle', showPenOnlyToggle))..add(DiagnosticsProperty('inputGestures', inputGestures))..add(DiagnosticsProperty('design', design))..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))..add(DiagnosticsProperty('history', history))..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))..add(DiagnosticsProperty('zoomPosition', zoomPosition))..add(DiagnosticsProperty('propertyPosition', propertyPosition))..add(DiagnosticsProperty('lastVersion', lastVersion))..add(DiagnosticsProperty('connections', connections))..add(DiagnosticsProperty('defaultRemote', defaultRemote))..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))..add(DiagnosticsProperty('navigationRail', navigationRail))..add(DiagnosticsProperty('ignorePressure', ignorePressure))..add(DiagnosticsProperty('syncMode', syncMode))..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))..add(DiagnosticsProperty('fallbackPack', fallbackPack))..add(DiagnosticsProperty('starred', starred))..add(DiagnosticsProperty('favoriteTemplates', favoriteTemplates))..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))..add(DiagnosticsProperty('toolbarSize', toolbarSize))..add(DiagnosticsProperty('sortBy', sortBy))..add(DiagnosticsProperty('sortOrder', sortOrder))..add(DiagnosticsProperty('imageScale', imageScale))..add(DiagnosticsProperty('platformTheme', platformTheme))..add(DiagnosticsProperty('recentColors', recentColors))..add(DiagnosticsProperty('flags', flags))..add(DiagnosticsProperty('spreadPages', spreadPages))..add(DiagnosticsProperty('highContrast', highContrast))..add(DiagnosticsProperty('gridView', gridView))..add(DiagnosticsProperty('hideExtension', hideExtension))..add(DiagnosticsProperty('autosave', autosave))..add(DiagnosticsProperty('showSaveButton', showSaveButton))..add(DiagnosticsProperty('toolbarRows', toolbarRows))..add(DiagnosticsProperty('delayedAutosave', delayedAutosave))..add(DiagnosticsProperty('autosaveDelaySeconds', autosaveDelaySeconds))..add(DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('onStartup', onStartup))..add(DiagnosticsProperty('simpleToolbarVisibility', simpleToolbarVisibility))..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))..add(DiagnosticsProperty('renderResolution', renderResolution))..add(DiagnosticsProperty('moveOnGesture', moveOnGesture))..add(DiagnosticsProperty('swamps', swamps))..add(DiagnosticsProperty('selectedPalette', selectedPalette))..add(DiagnosticsProperty('showVerboseLogs', showVerboseLogs))..add(DiagnosticsProperty('showThumbnails', showThumbnails))..add(DiagnosticsProperty('bringMovedElementsToFront', bringMovedElementsToFront))..add(DiagnosticsProperty('favoriteTools', favoriteTools));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ButterflySettings&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.density, density) || other.density == density)&&(identical(other.localeTag, localeTag) || other.localeTag == localeTag)&&(identical(other.documentPath, documentPath) || other.documentPath == documentPath)&&(identical(other.gestureSensitivity, gestureSensitivity) || other.gestureSensitivity == gestureSensitivity)&&(identical(other.touchSensitivity, touchSensitivity) || other.touchSensitivity == touchSensitivity)&&(identical(other.selectSensitivity, selectSensitivity) || other.selectSensitivity == selectSensitivity)&&(identical(other.scrollSensitivity, scrollSensitivity) || other.scrollSensitivity == scrollSensitivity)&&(identical(other.penOnlyInput, penOnlyInput) || other.penOnlyInput == penOnlyInput)&&(identical(other.inputGestures, inputGestures) || other.inputGestures == inputGestures)&&(identical(other.design, design) || other.design == design)&&(identical(other.bannerVisibility, bannerVisibility) || other.bannerVisibility == bannerVisibility)&&const DeepCollectionEquality().equals(other._history, _history)&&(identical(other.zoomEnabled, zoomEnabled) || other.zoomEnabled == zoomEnabled)&&(identical(other.lastVersion, lastVersion) || other.lastVersion == lastVersion)&&const DeepCollectionEquality().equals(other._connections, _connections)&&(identical(other.defaultRemote, defaultRemote) || other.defaultRemote == defaultRemote)&&(identical(other.nativeTitleBar, nativeTitleBar) || other.nativeTitleBar == nativeTitleBar)&&(identical(other.startInFullScreen, startInFullScreen) || other.startInFullScreen == startInFullScreen)&&(identical(other.navigationRail, navigationRail) || other.navigationRail == navigationRail)&&(identical(other.ignorePressure, ignorePressure) || other.ignorePressure == ignorePressure)&&(identical(other.syncMode, syncMode) || other.syncMode == syncMode)&&(identical(other.inputConfiguration, inputConfiguration) || other.inputConfiguration == inputConfiguration)&&(identical(other.fallbackPack, fallbackPack) || other.fallbackPack == fallbackPack)&&const DeepCollectionEquality().equals(other._starred, _starred)&&(identical(other.defaultTemplate, defaultTemplate) || other.defaultTemplate == defaultTemplate)&&(identical(other.navigatorPosition, navigatorPosition) || other.navigatorPosition == navigatorPosition)&&(identical(other.toolbarPosition, toolbarPosition) || other.toolbarPosition == toolbarPosition)&&(identical(other.toolbarSize, toolbarSize) || other.toolbarSize == toolbarSize)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.imageScale, imageScale) || other.imageScale == imageScale)&&(identical(other.pdfQuality, pdfQuality) || other.pdfQuality == pdfQuality)&&(identical(other.platformTheme, platformTheme) || other.platformTheme == platformTheme)&&const DeepCollectionEquality().equals(other._recentColors, _recentColors)&&const DeepCollectionEquality().equals(other._flags, _flags)&&(identical(other.spreadPages, spreadPages) || other.spreadPages == spreadPages)&&(identical(other.highContrast, highContrast) || other.highContrast == highContrast)&&(identical(other.gridView, gridView) || other.gridView == gridView)&&(identical(other.autosave, autosave) || other.autosave == autosave)&&(identical(other.showSaveButton, showSaveButton) || other.showSaveButton == showSaveButton)&&(identical(other.toolbarRows, toolbarRows) || other.toolbarRows == toolbarRows)&&(identical(other.delayedAutosave, delayedAutosave) || other.delayedAutosave == delayedAutosave)&&(identical(other.autosaveDelaySeconds, autosaveDelaySeconds) || other.autosaveDelaySeconds == autosaveDelaySeconds)&&(identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) || other.hideCursorWhileDrawing == hideCursorWhileDrawing)&&(identical(other.utilities, utilities) || other.utilities == utilities)&&(identical(other.onStartup, onStartup) || other.onStartup == onStartup)&&(identical(other.simpleToolbarVisibility, simpleToolbarVisibility) || other.simpleToolbarVisibility == simpleToolbarVisibility)&&(identical(other.optionsPanelPosition, optionsPanelPosition) || other.optionsPanelPosition == optionsPanelPosition)&&(identical(other.renderResolution, renderResolution) || other.renderResolution == renderResolution)&&(identical(other.moveOnGesture, moveOnGesture) || other.moveOnGesture == moveOnGesture)&&const DeepCollectionEquality().equals(other._swamps, _swamps)&&(identical(other.selectedPalette, selectedPalette) || other.selectedPalette == selectedPalette));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ButterflySettings&&(identical(other.theme, theme) || other.theme == theme)&&(identical(other.density, density) || other.density == density)&&(identical(other.limitViewportMultiplier, limitViewportMultiplier) || other.limitViewportMultiplier == limitViewportMultiplier)&&(identical(other.limitViewportPositive, limitViewportPositive) || other.limitViewportPositive == limitViewportPositive)&&(identical(other.localeTag, localeTag) || other.localeTag == localeTag)&&(identical(other.documentPath, documentPath) || other.documentPath == documentPath)&&(identical(other.gestureSensitivity, gestureSensitivity) || other.gestureSensitivity == gestureSensitivity)&&(identical(other.touchSensitivity, touchSensitivity) || other.touchSensitivity == touchSensitivity)&&(identical(other.selectSensitivity, selectSensitivity) || other.selectSensitivity == selectSensitivity)&&(identical(other.scrollSensitivity, scrollSensitivity) || other.scrollSensitivity == scrollSensitivity)&&(identical(other.penOnlyInput, penOnlyInput) || other.penOnlyInput == penOnlyInput)&&(identical(other.showPenOnlyToggle, showPenOnlyToggle) || other.showPenOnlyToggle == showPenOnlyToggle)&&(identical(other.inputGestures, inputGestures) || other.inputGestures == inputGestures)&&(identical(other.design, design) || other.design == design)&&(identical(other.bannerVisibility, bannerVisibility) || other.bannerVisibility == bannerVisibility)&&const DeepCollectionEquality().equals(other._history, _history)&&(identical(other.zoomEnabled, zoomEnabled) || other.zoomEnabled == zoomEnabled)&&(identical(other.zoomPosition, zoomPosition) || other.zoomPosition == zoomPosition)&&(identical(other.propertyPosition, propertyPosition) || other.propertyPosition == propertyPosition)&&(identical(other.lastVersion, lastVersion) || other.lastVersion == lastVersion)&&const DeepCollectionEquality().equals(other._connections, _connections)&&(identical(other.defaultRemote, defaultRemote) || other.defaultRemote == defaultRemote)&&(identical(other.nativeTitleBar, nativeTitleBar) || other.nativeTitleBar == nativeTitleBar)&&(identical(other.startInFullScreen, startInFullScreen) || other.startInFullScreen == startInFullScreen)&&(identical(other.navigationRail, navigationRail) || other.navigationRail == navigationRail)&&(identical(other.ignorePressure, ignorePressure) || other.ignorePressure == ignorePressure)&&(identical(other.syncMode, syncMode) || other.syncMode == syncMode)&&(identical(other.inputConfiguration, inputConfiguration) || other.inputConfiguration == inputConfiguration)&&(identical(other.fallbackPack, fallbackPack) || other.fallbackPack == fallbackPack)&&const DeepCollectionEquality().equals(other._starred, _starred)&&const DeepCollectionEquality().equals(other._favoriteTemplates, _favoriteTemplates)&&(identical(other.defaultTemplate, defaultTemplate) || other.defaultTemplate == defaultTemplate)&&(identical(other.navigatorPosition, navigatorPosition) || other.navigatorPosition == navigatorPosition)&&(identical(other.toolbarPosition, toolbarPosition) || other.toolbarPosition == toolbarPosition)&&(identical(other.toolbarSize, toolbarSize) || other.toolbarSize == toolbarSize)&&(identical(other.sortBy, sortBy) || other.sortBy == sortBy)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder)&&(identical(other.imageScale, imageScale) || other.imageScale == imageScale)&&(identical(other.platformTheme, platformTheme) || other.platformTheme == platformTheme)&&const DeepCollectionEquality().equals(other._recentColors, _recentColors)&&const DeepCollectionEquality().equals(other._flags, _flags)&&(identical(other.spreadPages, spreadPages) || other.spreadPages == spreadPages)&&(identical(other.highContrast, highContrast) || other.highContrast == highContrast)&&(identical(other.gridView, gridView) || other.gridView == gridView)&&(identical(other.hideExtension, hideExtension) || other.hideExtension == hideExtension)&&(identical(other.autosave, autosave) || other.autosave == autosave)&&(identical(other.showSaveButton, showSaveButton) || other.showSaveButton == showSaveButton)&&(identical(other.toolbarRows, toolbarRows) || other.toolbarRows == toolbarRows)&&(identical(other.delayedAutosave, delayedAutosave) || other.delayedAutosave == delayedAutosave)&&(identical(other.autosaveDelaySeconds, autosaveDelaySeconds) || other.autosaveDelaySeconds == autosaveDelaySeconds)&&(identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) || other.hideCursorWhileDrawing == hideCursorWhileDrawing)&&(identical(other.utilities, utilities) || other.utilities == utilities)&&(identical(other.onStartup, onStartup) || other.onStartup == onStartup)&&(identical(other.simpleToolbarVisibility, simpleToolbarVisibility) || other.simpleToolbarVisibility == simpleToolbarVisibility)&&(identical(other.optionsPanelPosition, optionsPanelPosition) || other.optionsPanelPosition == optionsPanelPosition)&&(identical(other.renderResolution, renderResolution) || other.renderResolution == renderResolution)&&(identical(other.moveOnGesture, moveOnGesture) || other.moveOnGesture == moveOnGesture)&&const DeepCollectionEquality().equals(other._swamps, _swamps)&&(identical(other.selectedPalette, selectedPalette) || other.selectedPalette == selectedPalette)&&(identical(other.showVerboseLogs, showVerboseLogs) || other.showVerboseLogs == showVerboseLogs)&&(identical(other.showThumbnails, showThumbnails) || other.showThumbnails == showThumbnails)&&(identical(other.bringMovedElementsToFront, bringMovedElementsToFront) || other.bringMovedElementsToFront == bringMovedElementsToFront)&&const DeepCollectionEquality().equals(other._favoriteTools, _favoriteTools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,theme,density,localeTag,documentPath,gestureSensitivity,touchSensitivity,selectSensitivity,scrollSensitivity,penOnlyInput,inputGestures,design,bannerVisibility,const DeepCollectionEquality().hash(_history),zoomEnabled,lastVersion,const DeepCollectionEquality().hash(_connections),defaultRemote,nativeTitleBar,startInFullScreen,navigationRail,ignorePressure,syncMode,inputConfiguration,fallbackPack,const DeepCollectionEquality().hash(_starred),defaultTemplate,navigatorPosition,toolbarPosition,toolbarSize,sortBy,sortOrder,imageScale,pdfQuality,platformTheme,const DeepCollectionEquality().hash(_recentColors),const DeepCollectionEquality().hash(_flags),spreadPages,highContrast,gridView,autosave,showSaveButton,toolbarRows,delayedAutosave,autosaveDelaySeconds,hideCursorWhileDrawing,utilities,onStartup,simpleToolbarVisibility,optionsPanelPosition,renderResolution,moveOnGesture,const DeepCollectionEquality().hash(_swamps),selectedPalette]);
+int get hashCode => Object.hashAll([runtimeType,theme,density,limitViewportMultiplier,limitViewportPositive,localeTag,documentPath,gestureSensitivity,touchSensitivity,selectSensitivity,scrollSensitivity,penOnlyInput,showPenOnlyToggle,inputGestures,design,bannerVisibility,const DeepCollectionEquality().hash(_history),zoomEnabled,zoomPosition,propertyPosition,lastVersion,const DeepCollectionEquality().hash(_connections),defaultRemote,nativeTitleBar,startInFullScreen,navigationRail,ignorePressure,syncMode,inputConfiguration,fallbackPack,const DeepCollectionEquality().hash(_starred),const DeepCollectionEquality().hash(_favoriteTemplates),defaultTemplate,navigatorPosition,toolbarPosition,toolbarSize,sortBy,sortOrder,imageScale,platformTheme,const DeepCollectionEquality().hash(_recentColors),const DeepCollectionEquality().hash(_flags),spreadPages,highContrast,gridView,hideExtension,autosave,showSaveButton,toolbarRows,delayedAutosave,autosaveDelaySeconds,hideCursorWhileDrawing,utilities,onStartup,simpleToolbarVisibility,optionsPanelPosition,renderResolution,moveOnGesture,const DeepCollectionEquality().hash(_swamps),selectedPalette,showVerboseLogs,showThumbnails,bringMovedElementsToFront,const DeepCollectionEquality().hash(_favoriteTools)]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, ignorePressure: $ignorePressure, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, delayedAutosave: $delayedAutosave, autosaveDelaySeconds: $autosaveDelaySeconds, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, simpleToolbarVisibility: $simpleToolbarVisibility, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture, swamps: $swamps, selectedPalette: $selectedPalette)';
+  return 'ButterflySettings(theme: $theme, density: $density, limitViewportMultiplier: $limitViewportMultiplier, limitViewportPositive: $limitViewportPositive, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, showPenOnlyToggle: $showPenOnlyToggle, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, zoomPosition: $zoomPosition, propertyPosition: $propertyPosition, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, ignorePressure: $ignorePressure, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, favoriteTemplates: $favoriteTemplates, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, hideExtension: $hideExtension, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, delayedAutosave: $delayedAutosave, autosaveDelaySeconds: $autosaveDelaySeconds, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, simpleToolbarVisibility: $simpleToolbarVisibility, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture, swamps: $swamps, selectedPalette: $selectedPalette, showVerboseLogs: $showVerboseLogs, showThumbnails: $showThumbnails, bringMovedElementsToFront: $bringMovedElementsToFront, favoriteTools: $favoriteTools)';
 }
 
 
@@ -467,7 +854,7 @@ abstract mixin class _$ButterflySettingsCopyWith<$Res> implements $ButterflySett
   factory _$ButterflySettingsCopyWith(_ButterflySettings value, $Res Function(_ButterflySettings) _then) = __$ButterflySettingsCopyWithImpl;
 @override @useResult
 $Res call({
- ThemeMode theme, ThemeDensity density, String localeTag, String documentPath, double gestureSensitivity, double touchSensitivity, double selectSensitivity, double scrollSensitivity, bool penOnlyInput, bool inputGestures, String design, BannerVisibility bannerVisibility,@JsonKey(includeFromJson: false, includeToJson: false) List<AssetLocation> history, bool zoomEnabled, String? lastVersion,@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> connections, String defaultRemote, bool nativeTitleBar, bool startInFullScreen, bool navigationRail, IgnorePressure ignorePressure, SyncMode syncMode, InputConfiguration inputConfiguration, String fallbackPack, List<String> starred, String defaultTemplate, NavigatorPosition navigatorPosition, ToolbarPosition toolbarPosition, ToolbarSize toolbarSize, SortBy sortBy, SortOrder sortOrder, double imageScale, double pdfQuality, PlatformTheme platformTheme,@SRGBConverter() List<SRGBColor> recentColors, List<String> flags, bool spreadPages, bool highContrast, bool gridView, bool autosave, bool showSaveButton, int toolbarRows, bool delayedAutosave, int autosaveDelaySeconds, bool hideCursorWhileDrawing, UtilitiesState utilities, StartupBehavior onStartup, SimpleToolbarVisibility simpleToolbarVisibility, OptionsPanelPosition optionsPanelPosition, RenderResolution renderResolution, bool moveOnGesture, List<String> swamps, PackAssetLocation? selectedPalette
+ ThemeMode theme, ThemeDensity density, double? limitViewportMultiplier, bool limitViewportPositive, String localeTag, String documentPath, double gestureSensitivity, double touchSensitivity, double selectSensitivity, double scrollSensitivity, bool? penOnlyInput, bool showPenOnlyToggle, bool inputGestures, String design, BannerVisibility bannerVisibility,@JsonKey(includeFromJson: false, includeToJson: false) List<AssetLocation> history, bool zoomEnabled, ZoomPosition zoomPosition, ZoomPosition propertyPosition, String? lastVersion,@JsonKey(includeFromJson: false, includeToJson: false) List<ExternalStorage> connections, String defaultRemote, bool nativeTitleBar, bool startInFullScreen, bool navigationRail, IgnorePressure ignorePressure, SyncMode syncMode, InputConfiguration inputConfiguration, String fallbackPack, List<String> starred, List<FavoriteLocation> favoriteTemplates, String defaultTemplate, NavigatorPosition navigatorPosition, ToolbarPosition toolbarPosition, ToolbarSize toolbarSize, SortBy sortBy, SortOrder sortOrder, double imageScale, PlatformTheme platformTheme,@SRGBConverter() List<SRGBColor> recentColors, List<String> flags, bool spreadPages, bool highContrast, bool gridView, bool hideExtension, bool autosave, bool showSaveButton, int toolbarRows, bool delayedAutosave, int autosaveDelaySeconds, bool hideCursorWhileDrawing, UtilitiesState utilities, StartupBehavior onStartup, SimpleToolbarVisibility simpleToolbarVisibility, OptionsPanelPosition optionsPanelPosition, RenderResolution renderResolution, bool moveOnGesture, List<String> swamps, PackAssetLocation? selectedPalette, bool showVerboseLogs, bool showThumbnails, bool bringMovedElementsToFront, List<PackAssetLocation> favoriteTools
 });
 
 
@@ -484,23 +871,28 @@ class __$ButterflySettingsCopyWithImpl<$Res>
 
 /// Create a copy of ButterflySettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? theme = null,Object? density = null,Object? localeTag = null,Object? documentPath = null,Object? gestureSensitivity = null,Object? touchSensitivity = null,Object? selectSensitivity = null,Object? scrollSensitivity = null,Object? penOnlyInput = null,Object? inputGestures = null,Object? design = null,Object? bannerVisibility = null,Object? history = null,Object? zoomEnabled = null,Object? lastVersion = freezed,Object? connections = null,Object? defaultRemote = null,Object? nativeTitleBar = null,Object? startInFullScreen = null,Object? navigationRail = null,Object? ignorePressure = null,Object? syncMode = null,Object? inputConfiguration = null,Object? fallbackPack = null,Object? starred = null,Object? defaultTemplate = null,Object? navigatorPosition = null,Object? toolbarPosition = null,Object? toolbarSize = null,Object? sortBy = null,Object? sortOrder = null,Object? imageScale = null,Object? pdfQuality = null,Object? platformTheme = null,Object? recentColors = null,Object? flags = null,Object? spreadPages = null,Object? highContrast = null,Object? gridView = null,Object? autosave = null,Object? showSaveButton = null,Object? toolbarRows = null,Object? delayedAutosave = null,Object? autosaveDelaySeconds = null,Object? hideCursorWhileDrawing = null,Object? utilities = null,Object? onStartup = null,Object? simpleToolbarVisibility = null,Object? optionsPanelPosition = null,Object? renderResolution = null,Object? moveOnGesture = null,Object? swamps = null,Object? selectedPalette = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? theme = null,Object? density = null,Object? limitViewportMultiplier = freezed,Object? limitViewportPositive = null,Object? localeTag = null,Object? documentPath = null,Object? gestureSensitivity = null,Object? touchSensitivity = null,Object? selectSensitivity = null,Object? scrollSensitivity = null,Object? penOnlyInput = freezed,Object? showPenOnlyToggle = null,Object? inputGestures = null,Object? design = null,Object? bannerVisibility = null,Object? history = null,Object? zoomEnabled = null,Object? zoomPosition = null,Object? propertyPosition = null,Object? lastVersion = freezed,Object? connections = null,Object? defaultRemote = null,Object? nativeTitleBar = null,Object? startInFullScreen = null,Object? navigationRail = null,Object? ignorePressure = null,Object? syncMode = null,Object? inputConfiguration = null,Object? fallbackPack = null,Object? starred = null,Object? favoriteTemplates = null,Object? defaultTemplate = null,Object? navigatorPosition = null,Object? toolbarPosition = null,Object? toolbarSize = null,Object? sortBy = null,Object? sortOrder = null,Object? imageScale = null,Object? platformTheme = null,Object? recentColors = null,Object? flags = null,Object? spreadPages = null,Object? highContrast = null,Object? gridView = null,Object? hideExtension = null,Object? autosave = null,Object? showSaveButton = null,Object? toolbarRows = null,Object? delayedAutosave = null,Object? autosaveDelaySeconds = null,Object? hideCursorWhileDrawing = null,Object? utilities = null,Object? onStartup = null,Object? simpleToolbarVisibility = null,Object? optionsPanelPosition = null,Object? renderResolution = null,Object? moveOnGesture = null,Object? swamps = null,Object? selectedPalette = freezed,Object? showVerboseLogs = null,Object? showThumbnails = null,Object? bringMovedElementsToFront = null,Object? favoriteTools = null,}) {
   return _then(_ButterflySettings(
 theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
 as ThemeMode,density: null == density ? _self.density : density // ignore: cast_nullable_to_non_nullable
-as ThemeDensity,localeTag: null == localeTag ? _self.localeTag : localeTag // ignore: cast_nullable_to_non_nullable
+as ThemeDensity,limitViewportMultiplier: freezed == limitViewportMultiplier ? _self.limitViewportMultiplier : limitViewportMultiplier // ignore: cast_nullable_to_non_nullable
+as double?,limitViewportPositive: null == limitViewportPositive ? _self.limitViewportPositive : limitViewportPositive // ignore: cast_nullable_to_non_nullable
+as bool,localeTag: null == localeTag ? _self.localeTag : localeTag // ignore: cast_nullable_to_non_nullable
 as String,documentPath: null == documentPath ? _self.documentPath : documentPath // ignore: cast_nullable_to_non_nullable
 as String,gestureSensitivity: null == gestureSensitivity ? _self.gestureSensitivity : gestureSensitivity // ignore: cast_nullable_to_non_nullable
 as double,touchSensitivity: null == touchSensitivity ? _self.touchSensitivity : touchSensitivity // ignore: cast_nullable_to_non_nullable
 as double,selectSensitivity: null == selectSensitivity ? _self.selectSensitivity : selectSensitivity // ignore: cast_nullable_to_non_nullable
 as double,scrollSensitivity: null == scrollSensitivity ? _self.scrollSensitivity : scrollSensitivity // ignore: cast_nullable_to_non_nullable
-as double,penOnlyInput: null == penOnlyInput ? _self.penOnlyInput : penOnlyInput // ignore: cast_nullable_to_non_nullable
+as double,penOnlyInput: freezed == penOnlyInput ? _self.penOnlyInput : penOnlyInput // ignore: cast_nullable_to_non_nullable
+as bool?,showPenOnlyToggle: null == showPenOnlyToggle ? _self.showPenOnlyToggle : showPenOnlyToggle // ignore: cast_nullable_to_non_nullable
 as bool,inputGestures: null == inputGestures ? _self.inputGestures : inputGestures // ignore: cast_nullable_to_non_nullable
 as bool,design: null == design ? _self.design : design // ignore: cast_nullable_to_non_nullable
 as String,bannerVisibility: null == bannerVisibility ? _self.bannerVisibility : bannerVisibility // ignore: cast_nullable_to_non_nullable
 as BannerVisibility,history: null == history ? _self._history : history // ignore: cast_nullable_to_non_nullable
 as List<AssetLocation>,zoomEnabled: null == zoomEnabled ? _self.zoomEnabled : zoomEnabled // ignore: cast_nullable_to_non_nullable
-as bool,lastVersion: freezed == lastVersion ? _self.lastVersion : lastVersion // ignore: cast_nullable_to_non_nullable
+as bool,zoomPosition: null == zoomPosition ? _self.zoomPosition : zoomPosition // ignore: cast_nullable_to_non_nullable
+as ZoomPosition,propertyPosition: null == propertyPosition ? _self.propertyPosition : propertyPosition // ignore: cast_nullable_to_non_nullable
+as ZoomPosition,lastVersion: freezed == lastVersion ? _self.lastVersion : lastVersion // ignore: cast_nullable_to_non_nullable
 as String?,connections: null == connections ? _self._connections : connections // ignore: cast_nullable_to_non_nullable
 as List<ExternalStorage>,defaultRemote: null == defaultRemote ? _self.defaultRemote : defaultRemote // ignore: cast_nullable_to_non_nullable
 as String,nativeTitleBar: null == nativeTitleBar ? _self.nativeTitleBar : nativeTitleBar // ignore: cast_nullable_to_non_nullable
@@ -511,20 +903,21 @@ as IgnorePressure,syncMode: null == syncMode ? _self.syncMode : syncMode // igno
 as SyncMode,inputConfiguration: null == inputConfiguration ? _self.inputConfiguration : inputConfiguration // ignore: cast_nullable_to_non_nullable
 as InputConfiguration,fallbackPack: null == fallbackPack ? _self.fallbackPack : fallbackPack // ignore: cast_nullable_to_non_nullable
 as String,starred: null == starred ? _self._starred : starred // ignore: cast_nullable_to_non_nullable
-as List<String>,defaultTemplate: null == defaultTemplate ? _self.defaultTemplate : defaultTemplate // ignore: cast_nullable_to_non_nullable
+as List<String>,favoriteTemplates: null == favoriteTemplates ? _self._favoriteTemplates : favoriteTemplates // ignore: cast_nullable_to_non_nullable
+as List<FavoriteLocation>,defaultTemplate: null == defaultTemplate ? _self.defaultTemplate : defaultTemplate // ignore: cast_nullable_to_non_nullable
 as String,navigatorPosition: null == navigatorPosition ? _self.navigatorPosition : navigatorPosition // ignore: cast_nullable_to_non_nullable
 as NavigatorPosition,toolbarPosition: null == toolbarPosition ? _self.toolbarPosition : toolbarPosition // ignore: cast_nullable_to_non_nullable
 as ToolbarPosition,toolbarSize: null == toolbarSize ? _self.toolbarSize : toolbarSize // ignore: cast_nullable_to_non_nullable
 as ToolbarSize,sortBy: null == sortBy ? _self.sortBy : sortBy // ignore: cast_nullable_to_non_nullable
 as SortBy,sortOrder: null == sortOrder ? _self.sortOrder : sortOrder // ignore: cast_nullable_to_non_nullable
 as SortOrder,imageScale: null == imageScale ? _self.imageScale : imageScale // ignore: cast_nullable_to_non_nullable
-as double,pdfQuality: null == pdfQuality ? _self.pdfQuality : pdfQuality // ignore: cast_nullable_to_non_nullable
 as double,platformTheme: null == platformTheme ? _self.platformTheme : platformTheme // ignore: cast_nullable_to_non_nullable
 as PlatformTheme,recentColors: null == recentColors ? _self._recentColors : recentColors // ignore: cast_nullable_to_non_nullable
 as List<SRGBColor>,flags: null == flags ? _self._flags : flags // ignore: cast_nullable_to_non_nullable
 as List<String>,spreadPages: null == spreadPages ? _self.spreadPages : spreadPages // ignore: cast_nullable_to_non_nullable
 as bool,highContrast: null == highContrast ? _self.highContrast : highContrast // ignore: cast_nullable_to_non_nullable
 as bool,gridView: null == gridView ? _self.gridView : gridView // ignore: cast_nullable_to_non_nullable
+as bool,hideExtension: null == hideExtension ? _self.hideExtension : hideExtension // ignore: cast_nullable_to_non_nullable
 as bool,autosave: null == autosave ? _self.autosave : autosave // ignore: cast_nullable_to_non_nullable
 as bool,showSaveButton: null == showSaveButton ? _self.showSaveButton : showSaveButton // ignore: cast_nullable_to_non_nullable
 as bool,toolbarRows: null == toolbarRows ? _self.toolbarRows : toolbarRows // ignore: cast_nullable_to_non_nullable
@@ -539,7 +932,11 @@ as OptionsPanelPosition,renderResolution: null == renderResolution ? _self.rende
 as RenderResolution,moveOnGesture: null == moveOnGesture ? _self.moveOnGesture : moveOnGesture // ignore: cast_nullable_to_non_nullable
 as bool,swamps: null == swamps ? _self._swamps : swamps // ignore: cast_nullable_to_non_nullable
 as List<String>,selectedPalette: freezed == selectedPalette ? _self.selectedPalette : selectedPalette // ignore: cast_nullable_to_non_nullable
-as PackAssetLocation?,
+as PackAssetLocation?,showVerboseLogs: null == showVerboseLogs ? _self.showVerboseLogs : showVerboseLogs // ignore: cast_nullable_to_non_nullable
+as bool,showThumbnails: null == showThumbnails ? _self.showThumbnails : showThumbnails // ignore: cast_nullable_to_non_nullable
+as bool,bringMovedElementsToFront: null == bringMovedElementsToFront ? _self.bringMovedElementsToFront : bringMovedElementsToFront // ignore: cast_nullable_to_non_nullable
+as bool,favoriteTools: null == favoriteTools ? _self._favoriteTools : favoriteTools // ignore: cast_nullable_to_non_nullable
+as List<PackAssetLocation>,
   ));
 }
 

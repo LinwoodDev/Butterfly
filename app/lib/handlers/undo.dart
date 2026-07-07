@@ -10,7 +10,6 @@ class UndoHandler extends Handler<UndoTool> {
   ]) async {
     final bloc = context.read<DocumentBloc>();
     bloc.sendUndo();
-    await bloc.reload();
     return SelectState.none;
   }
 

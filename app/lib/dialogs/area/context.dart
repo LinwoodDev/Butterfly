@@ -1,5 +1,8 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/layers.dart';
+import 'package:butterfly/dialogs/pages.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -18,57 +21,84 @@ ContextMenuBuilder buildAreaContextMenu(
   DocumentBloc bloc,
   DocumentLoadSuccess state,
   Area area,
-  SettingsCubit settingsCubit,
-) => (context) {
-  final cubit = state.currentIndexCubit;
+  SettingsCubit settingsCubit, {
+  bool pop = true,
+  bool includeRenameAndEnterArea = true,
+  String? pageName,
+}) => (context) {
+  final cubit = bloc.currentIndexCubit;
+  final areaPageName = pageName ?? state.pageName;
   return [
-    ContextMenuItem(
-      icon: const PhosphorIcon(PhosphorIconsLight.textT),
-      label: AppLocalizations.of(context).rename,
-      onPressed: () async {
-        Navigator.of(context).pop();
-        final name = await showDialog<String>(
-          context: context,
-          builder: (context) => NameDialog(
-            value: area.name,
-            validator: defaultNameValidator(
-              context,
-              state.page.getAreaNames().toList(),
+    if (includeRenameAndEnterArea) ...[
+      ContextMenuItem(
+        icon: const PhosphorIcon(PhosphorIconsLight.textT),
+        label: AppLocalizations.of(context).rename,
+        onPressed: () async {
+          if (pop) Navigator.of(context).pop();
+          final name = await showDialog<String>(
+            context: context,
+            builder: (context) => NameDialog(
+              value: area.name,
+              validator: defaultNameValidator(
+                context,
+                state.page.getAreaNames().toList(),
+              ),
+              button: AppLocalizations.of(context).rename,
             ),
-            button: AppLocalizations.of(context).rename,
-          ),
-        );
-        if (name == null) return;
-        bloc.add(AreaChanged(area.name, area.copyWith(name: name)));
-      },
-    ),
+          );
+          if (name == null) return;
+          bloc.add(AreaChanged(area.name, area.copyWith(name: name)));
+        },
+      ),
+      ContextMenuItem(
+        icon: area.name == state.currentAreaName
+            ? const PhosphorIcon(PhosphorIconsLight.signOut)
+            : const PhosphorIcon(PhosphorIconsLight.signIn),
+        label: area.name == state.currentAreaName
+            ? AppLocalizations.of(context).exitArea
+            : AppLocalizations.of(context).enterArea,
+        onPressed: () {
+          if (pop) Navigator.of(context).pop();
+          bloc.add(
+            CurrentAreaChanged(
+              area.name == state.currentAreaName ? '' : area.name,
+            ),
+          );
+        },
+      ),
+    ],
     ContextMenuItem(
-      icon: area.name == state.currentAreaName
-          ? const PhosphorIcon(PhosphorIconsLight.signOut)
-          : const PhosphorIcon(PhosphorIconsLight.signIn),
-      label: area.name == state.currentAreaName
-          ? AppLocalizations.of(context).exitArea
-          : AppLocalizations.of(context).enterArea,
-      onPressed: () {
-        Navigator.of(context).pop();
-        bloc.add(
-          CurrentAreaChanged(
-            area.name == state.currentAreaName ? '' : area.name,
+      icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
+      label: AppLocalizations.of(context).duplicate,
+      onPressed: () async {
+        final selectedPages = await showDialog<List<String>>(
+          context: context,
+          builder: (context) => SelectPagesDialog(
+            pages: state.data
+                .getPagesWithNames()
+                .where((e) => e.$2 != state.pageName)
+                .toList(),
           ),
         );
+        if (selectedPages == null) return;
+        if (!context.mounted) return;
+        if (pop) Navigator.of(context).pop();
+        bloc.add(AreasDuplicated(area, selectedPages));
       },
     ),
     ContextMenuItem(
       icon: const PhosphorIcon(PhosphorIconsLight.trash),
       label: AppLocalizations.of(context).delete,
       onPressed: () {
-        Navigator.of(context).pop();
-        bloc.add(AreasRemoved([area.name]));
+        if (pop) Navigator.of(context).pop();
+        bloc.add(
+          AreasRemoved([AreaPreset(page: areaPageName, name: area.name)]),
+        );
       },
     ),
     ContextMenuItem(
       onPressed: () {
-        Navigator.of(context).pop(true);
+        if (pop) Navigator.of(context).pop(true);
         cubit.changeSelection(area);
       },
       icon: const PhosphorIcon(PhosphorIconsLight.faders),
@@ -78,20 +108,22 @@ ContextMenuBuilder buildAreaContextMenu(
       bloc,
       area,
       settingsCubit,
-      state.renderers
-          .where((e) => e.area == area)
-          .map(
-            (e) => e.transform(
-              position: -area.position.toOffset(),
-              relative: true,
-            ),
-          )
-          .map((e) => e?.element)
-          .nonNulls
-          .toList(),
+      _getAreaElements(cubit, area),
+      pop: pop,
     )(context),
   ];
 };
+
+List<PadElement> _getAreaElements(CurrentIndexCubit cubit, Area area) {
+  return cubit.renderers
+      .where((e) => e.area == area)
+      .map(
+        (e) => e.transform(position: -area.position.toOffset(), relative: true),
+      )
+      .map((e) => e?.element)
+      .nonNulls
+      .toList();
+}
 
 ContextMenuBuilder buildGeneralAreaContextMenu(
   DocumentBloc bloc,
@@ -123,20 +155,18 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
       ContextMenuItem(
         onPressed: () async {
           if (pop) Navigator.of(context).pop(true);
-          final result = await showDialog<String>(
-            builder: (context) => NameDialog(),
-            context: context,
-          );
-          if (result == null) return;
-          bloc.add(
-            ElementsLayerConverted(
-              elements.map((e) => e.id).nonNulls.toList(),
-              result,
+          showDialog<void>(
+            builder: (context) => BlocProvider.value(
+              value: bloc,
+              child: MoveToLayerDialog(
+                elementIds: elements.map((e) => e.id).nonNulls.toList(),
+              ),
             ),
+            context: context,
           );
         },
         icon: const PhosphorIcon(PhosphorIconsLight.stack),
-        label: AppLocalizations.of(context).convertToLayer,
+        label: AppLocalizations.of(context).moveToLayer,
       ),
       ContextMenuGroup(
         icon: const PhosphorIcon(PhosphorIconsLight.export),

@@ -1,0 +1,61 @@
+name: Update Screenshots
+
+on:
+  workflow_dispatch:
+  #schedule:
+  #  - cron: "00 22 * * 0"
+# disabled because of
+# Failed to load "/home/runner/work/Butterfly/Butterfly/app/integration_test/screenshot.dart": Unable to start the app on the device.
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-screenshots:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Install Linux Flutter dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake libgtk-3-dev liblzma-dev ninja-build pkg-config libsecret-1-dev libjsoncpp-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.23.0
+        with:
+          flutter-version-file: app/pubspec.yaml
+          cache: true
+
+      - name: Install app dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Install tools dependencies
+        working-directory: tools
+        run: dart pub get
+
+      - name: Generate screenshots
+        run: dart tools/screenshot.dart
+
+      - name: Compress generated screenshots
+        id: calibre
+        uses: calibreapp/image-actions@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          compressOnly: true
+
+      - name: Create screenshot update pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: Update screenshots
+          branch: automation/update-screenshots
+          delete-branch: true
+          commit-message: Update screenshots
+          add-paths: |
+            metadata/en-US/images
+          body: |
+            Regenerated and compressed screenshots.
+
+            ${{ steps.calibre.outputs.markdown }}

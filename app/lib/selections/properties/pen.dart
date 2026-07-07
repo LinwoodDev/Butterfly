@@ -41,45 +41,19 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       value: property.streamline,
       min: .1,
       max: 1,
-      defaultValue: .5,
+      defaultValue: 0.3,
       onChangeEnd: (value) =>
           onChanged((property as dynamic).copyWith(streamline: value)),
     ),
-    ColorField(
-      value: property.color.withValues(a: 255),
-      onChanged: (value) => onChanged(
-        property.copyWith(color: value.withValues(a: property.color.a)),
-      ),
+    TexturePaintField(
+      value: property.paint,
       title: Text(LeapLocalizations.of(context).color),
+      onChanged: (paint) => onChanged(property.copyWith(paint: paint)),
     ),
-    ExactSlider(
-      value: property.color.a.toDouble(),
-      header: Text(AppLocalizations.of(context).alpha),
-      fractionDigits: 0,
-      max: 255,
-      min: 0,
-      defaultValue: 255,
-      onChangeEnd: (value) => onChanged(
-        property.copyWith(color: property.color.withValues(a: value.toInt())),
-      ),
-    ),
-    ColorField(
-      value: property.fill.withValues(a: 255),
-      onChanged: (value) => onChanged(
-        property.copyWith(fill: value.withValues(a: property.fill.a)),
-      ),
+    TexturePaintField(
+      value: property.fillPaint,
       title: Text(AppLocalizations.of(context).fill),
-    ),
-    ExactSlider(
-      value: property.fill.a.toDouble(),
-      header: Text(AppLocalizations.of(context).fillAlpha),
-      fractionDigits: 0,
-      max: 255,
-      min: 0,
-      defaultValue: 255,
-      onChangeEnd: (value) => onChanged(
-        property.copyWith(fill: property.fill.withValues(a: value.toInt())),
-      ),
+      onChanged: (paint) => onChanged(property.copyWith(fillPaint: paint)),
     ),
   ];
 }

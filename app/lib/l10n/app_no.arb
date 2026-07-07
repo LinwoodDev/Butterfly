@@ -10,6 +10,11 @@
   "lightTheme": "Lyst tema",
   "systemTheme": "Bruk standard systemtema",
   "view": "Vis",
+  "contentViewport": "Innholdsvisnings port",
+  "limitViewportToPositiveCoordinates": "Begrens visningsporten til positive koordinater",
+  "off": "Av",
+  "canvas": "Canvas",
+  "interface": "Grensesnitt",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Zoom ut",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Bredde på slagbredde",
+  "strokeStyle": "Stil for stripe",
+  "dashLength": "Punkt lengde",
+  "gapLength": "Gap lengde",
   "includeEraser": "Inkluder eraser?",
   "thinning": "Tynn",
   "pen": "Penn",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Bane eraser",
+  "stroke": "Stroke",
   "label": "Etikett",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Bakgrunn",
+  "applyBackground": "Bruk bakgrunn",
+  "applyAreas": "Påfør områder",
+  "currentPage": "Nåværende side",
+  "allPages": "Alle sider",
   "box": "Boks",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Standard palett",
   "highlighter": "Uthever",
+  "combinePaths": "Kombiner baner",
   "add": "Legg til",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Enslig farge",
+  "gradient": "Gradert",
+  "gradientType": "Type gradient",
+  "linear": "Lineær",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dobbel",
   "dotted": "Prikket",
+  "dottedDark": "Prikket mørkt",
   "dashed": "Stiplet",
   "wavy": "Bølgefull",
   "fontWeight": "Skriftens vekt",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Oppførsler",
   "dataDirectory": "Datamaskin katalog",
+  "warning": "Advarsel",
+  "platformExperimentalWarning": "Advarsel: Denne innstillingen er eksperimentell og kan ha problemer på denne plattformen.",
+  "changeDataDirectoryWarningContent": "Er du sikker på at du vil endre datamappen? Du bør ta en sikkerhetskopi av dataene før du fortsetter.",
   "defaultPath": "Standard sti",
   "dateFormat": "Dato format",
   "updatedAt": "Oppdatert kl: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Ikke angitt",
   "enterLayer": "Angi navn på lag",
+  "eraseShapes": "Slett figurer",
+  "eraseShapeModeNone": "Ikke slett figurer",
+  "eraseShapeModeTouchEdges": "Slett når kantene berører",
+  "eraseShapeModeTouchAnywhere": "Slett under berøring hvor som helst",
+  "selectElementModeTouchEdges": "Velg når kanter berører",
+  "selectElementModeTouchAnywhere": "Velg ved berøring hvor som helst",
   "selectElements": "Velg elementer",
   "deleteElements": "Slett elementer",
+  "eraseAllElements": "Slett alle elementer",
   "deleteElementsConfirm": "Vil du virkelig slette de valgte elementene?",
   "selectCustomCollection": "Velg en egendefinert samling",
   "svg": "Svg",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Mørk",
-  "plainDark": "Mørk",
+  "plainDark": "Enkel mørk",
   "ruledDark": "Rulert mørk",
   "quadDark": "Quad dark",
   "musicDark": "Musikk mørkt",
@@ -545,6 +576,7 @@
   "topRight": "Øverst til høyre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til høyre",
+  "zoomPosition": "Zoom kontrollposisjon",
   "caches": "Cacher",
   "manage": "Administrer",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Mappe synkronisert",
   "syncRootDirectory": "Synkroniser rotkatalogen",
   "penOnlyInput": "Pennen er kun inndata",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Aktiverer pennemodus automatisk når en penn oppdages. Denne innstillingen varer bare for den gjeldende økten.",
+  "penOnlyInputOnDescription": "Alltid avvis berøring og museinngang, bare godta penneinndata.",
+  "penOnlyInputOffDescription": "Godta alle inndatatyper, inkludert berøring, mus og stil.",
+  "automatic": "Automatisk",
+  "alwaysOn": "Alltid på",
+  "alwaysOff": "Alltid av",
+  "showPenOnlyToggle": "Vis kun penn",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Native tittellinjen",
+  "mode": "Mode",
   "syncMode": "Synk modus",
   "connection": "Tilkobling",
   "always": "Alltid",
@@ -893,6 +939,7 @@
   "bringForward": "Send fremover",
   "sendBackward": "Send bakover",
   "rotation": "Rotasjon",
+  "direction": "Retning",
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
   "toolbarPosition": "Plassering av verktøylinje",
   "rotate": "Roter",
@@ -919,6 +966,9 @@
   "ascending": "Stigende",
   "descending": "Synkende",
   "imageScale": "Bilde skalering",
+  "svgScale": "SVG skala",
+  "noImageSelected": "Ingen bilde valgt",
+  "noSvgSelected": "Ingen SVG valgt",
   "select": "Velg",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF kvalitet",
   "surface": "Overflate",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Fortsett likevel",
   "zoomControl": "Zoom kontroll",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Høy kontrast",
   "shouldANumber": "Denne verdien må være et gyldig tall",
   "createAreas": "Opprett områder",
@@ -1081,6 +1134,8 @@
   "addAll": "Legg til alle",
   "onlyCurrentPage": "Bare gjeldende side",
   "smoothNavigation": "Jevn navigasjon",
+  "edgePanAreaSwitching": "Pan område område av kant",
+  "useAndroidSaf": "Bruk Android SAF",
   "exact": "Nøyaktig",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Endre samling",
   "collections": "Samlinger",
   "fullSelection": "Fullt valg",
-  "fullSelectionDescription": "Krever at elementer er fullstendig inne i avmerkingsboksen for valg.",
   "collection": "Samling",
   "defaultCollection": "Standard samling",
   "scroll": "Rull",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Hjem-skjerm",
   "lastNote": "Siste notat",
   "newNote": "Nytt notat",
-  "convertToLayer": "Konverter til lag",
+  "moveToLayer": "Flytt til lag",
+  "createLayer": "Opprett lag",
   "merge": "Flett",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Slutt",
+  "radius": "Radius",
+  "focalPoint": "Fokuspunkt",
+  "useOffCenterStartPoint": "Bruke et startpunkt i midten",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Farge stopper",
+  "addStop": "Legg til stopp",
   "positionDependent": "Posisjon avhengig",
   "flipHorizontal": "Vend horisontalt",
   "flipVertical": "Vend vertikalt",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Tilpass snarveier",
+  "clickToSave": "Klikk for å lagre",
+  "toolbars": "Verktøyfelt",
+  "logs": "Logger",
+  "ruledSimple": "Linjert enkel",
+  "ruledSimpleDark": "Regnet enkelt, mørkt",
+  "quadSimple": "Rull enkelt",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Rød påslått",
+  "redLinedRuledDark": "Rødt avrundet mørkt",
+  "redLinedQuad": "Rød tauset avslutning",
+  "redLinedQuadDark": "Rødfarget murt mørkt",
+  "noItemSelected": "Ingen elementer er valgt",
+  "areaAsInitial": "Åpne område som første visning",
+  "swap": "Bytte",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Skjul filtypen",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Ny fra mal",
+  "exportAsTextShortcut": "Eksporter som tekst",
+  "exportAsImageShortcut": "Eksporter som bilde",
+  "exportAsPdfShortcut": "Eksporter som PDF",
+  "exportAsSvgShortcut": "Eksporter som SVG",
+  "changePathShortcut": "Endre bane",
+  "fullScreenShortcut": "Full skjerm",
+  "doublePressAction": "Dobbelttrykk handling",
+  "triplePressAction": "Trippel trykk handling",
+  "longPress": "Langt trykk",
+  "toolNumber": "Verktøy {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold snarveier",
+  "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
+  "key": "Nøkkel",
+  "bringMovedElementsToFront": "Plasser flyttede elementer forsiden",
+  "addTool": "Legg til verktøy",
+  "nextPage": "Neste side",
+  "previousPage": "Forrige side"
 }

@@ -10,6 +10,11 @@
   "lightTheme": "Licht thema",
   "systemTheme": "Gebruik standaard systeemthema",
   "view": "Bekijken",
+  "contentViewport": "Weergave inhoud",
+  "limitViewportToPositiveCoordinates": "Beperk Viewport tot positieve coördinaten",
+  "off": "UIT",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Zoom uit",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke breedte",
+  "strokeStyle": "Stroke stijl",
+  "dashLength": "Dash lengte",
+  "gapLength": "Lengte afstand",
   "includeEraser": "Inclusief gum",
   "thinning": "Duiken",
   "pen": "pennen",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pad gum",
+  "stroke": "Stroke",
   "label": "Omschrijving",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Achtergrond",
+  "applyBackground": "Achtergrond toepassen",
+  "applyAreas": "Pas gebieden toe",
+  "currentPage": "Huidige pagina",
+  "allPages": "Alle pagina's",
   "box": "Vierkant",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Standaard palet",
   "highlighter": "Markeerstift",
+  "combinePaths": "Combineer paden",
   "add": "Toevoegen",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Effen kleur",
+  "gradient": "Kleurovergang",
+  "gradientType": "Kleurovergang type",
+  "linear": "Lineaire",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dubbel",
   "dotted": "Gestippeld",
+  "dottedDark": "Gestippelde donker",
   "dashed": "Onderbroken",
   "wavy": "Golf",
   "fontWeight": "Lettertype gewicht",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Gedrag",
   "dataDirectory": "Data map",
+  "warning": "Waarschuwing",
+  "platformExperimentalWarning": "Waarschuwing: Deze instelling is experimenteel en kan problemen hebben op dit platform.",
+  "changeDataDirectoryWarningContent": "Weet u zeker dat u de gegevensmap wilt wijzigen? U moet een back-up maken van uw gegevens voordat u verder gaat.",
   "defaultPath": "Standaard pad",
   "dateFormat": "Datum formaat",
   "updatedAt": "Bijgewerkt op: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Niet ingesteld",
   "enterLayer": "Voer de naam van de laag in",
+  "eraseShapes": "Wis vormen",
+  "eraseShapeModeNone": "Vormen niet wissen",
+  "eraseShapeModeTouchEdges": "Wissen bij aanraken randen",
+  "eraseShapeModeTouchAnywhere": "Wissen bij aanraken overal",
+  "selectElementModeTouchEdges": "Selecteer bij het aanraken van randen",
+  "selectElementModeTouchAnywhere": "Selecteer bij aanraken overal",
   "selectElements": "Elementen selecteren",
   "deleteElements": "Elementen verwijderen",
+  "eraseAllElements": "Alle elementen wissen",
   "deleteElementsConfirm": "Weet u zeker dat u de geselecteerde elementen wilt verwijderen?",
   "selectCustomCollection": "Selecteer een aangepaste collectie",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Donker",
-  "plainDark": "Donker",
+  "plainDark": "Eenvoudig donker",
   "ruledDark": "Geruïneerd donker",
   "quadDark": "Quad donker",
   "musicDark": "Muziek donker",
@@ -545,6 +576,7 @@
   "topRight": "Boven rechts",
   "bottomLeft": "Links onder",
   "bottomRight": "Onder rechts",
+  "zoomPosition": "Zoom bedieningspositie",
   "caches": "Caches",
   "manage": "Beheren",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Map gesynchroniseerd",
   "syncRootDirectory": "Synchroniseer hoofdmap",
   "penOnlyInput": "Alleen invoer pen",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Schakel 'Alleen pen-modus' automatisch in wanneer een stylus wordt gedetecteerd. Deze instelling geldt alleen voor de huidige sessie.",
+  "penOnlyInputOnDescription": "Aanraken en muisaanvoer altijd weigeren, alleen stylus invoeren.",
+  "penOnlyInputOffDescription": "Accepteer alle invoertypes zoals aanraken, muis en stijlus.",
+  "automatic": "Automatisch",
+  "alwaysOn": "Altijd aan",
+  "alwaysOff": "Altijd uitgeschakeld",
+  "showPenOnlyToggle": "Toon alleen penschakelaar",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Oorspronkelijke titelbalk",
+  "mode": "Mode",
   "syncMode": "Synchronisatie modus",
   "connection": "Verbindingsinstellingen",
   "always": "altijd",
@@ -893,6 +939,7 @@
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
   "rotation": "Rotatie",
+  "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
   "rotate": "Draaien",
@@ -919,6 +966,9 @@
   "ascending": "Oplopend",
   "descending": "Aflopend",
   "imageScale": "Afbeelding schaal",
+  "svgScale": "SVG schaal",
+  "noImageSelected": "Geen afbeelding geselecteerd",
+  "noSvgSelected": "Geen SVG geselecteerd",
   "select": "Selecteren",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF kwaliteit",
   "surface": "Oppervlak",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Toch doorgaan",
   "zoomControl": "Zoom beheer",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Hoog contrast",
   "shouldANumber": "Deze waarde moet een geldig nummer zijn",
   "createAreas": "Maak gebieden",
@@ -1081,6 +1134,8 @@
   "addAll": "Alles toevoegen",
   "onlyCurrentPage": "Alleen huidige pagina",
   "smoothNavigation": "Vloeiende navigatie",
+  "edgePanAreaSwitching": "Edge pan gebied wisselen",
+  "useAndroidSaf": "Gebruik Android SAF",
   "exact": "Exacte",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Verzameling wijzigen",
   "collections": "Collecties",
   "fullSelection": "Volledige selectie",
-  "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie.",
   "collection": "Collectie",
   "defaultCollection": "Standaard collectie",
   "scroll": "Scrollen",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Startscherm",
   "lastNote": "Laatste opmerking",
   "newNote": "Nieuwe notitie",
-  "convertToLayer": "Converteren naar laag",
+  "moveToLayer": "Verplaats naar laag",
+  "createLayer": "Laag aanmaken",
   "merge": "Samenvoegen",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Beëindigen",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Gebruik een off-center startpunt",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Kleur stops",
+  "addStop": "Stoppen toevoegen",
   "positionDependent": "Afhankelijke positie",
   "flipHorizontal": "Horizontaal spiegelen",
   "flipVertical": "Spiegel verticaal",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Sneltoetsen aanpassen",
+  "clickToSave": "Klik om op te slaan",
+  "toolbars": "Werkbalken",
+  "logs": "Logboeken",
+  "ruledSimple": "Gerecht simpel",
+  "ruledSimpleDark": "Geroegeld simpel donker",
+  "quadSimple": "Quad eenvoudig",
+  "quadSimpleDark": "Quad simpel donker",
+  "redLinedRuled": "Rood lijn geregeerd",
+  "redLinedRuledDark": "Rood lijnd geregeerd donker",
+  "redLinedQuad": "Rode krijt quad",
+  "redLinedQuadDark": "Rode gelederen quad donker",
+  "noItemSelected": "Geen item geselecteerd",
+  "areaAsInitial": "Open gebied als eerste weergave",
+  "swap": "Wisselen",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Bestandsextensie verbergen",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Nieuw van template",
+  "exportAsTextShortcut": "Exporteer als tekst",
+  "exportAsImageShortcut": "Exporteren als afbeelding",
+  "exportAsPdfShortcut": "Exporteren als PDF",
+  "exportAsSvgShortcut": "Exporteren als SVG",
+  "changePathShortcut": "Pad wijzigen",
+  "fullScreenShortcut": "Volledig scherm",
+  "doublePressAction": "Dubbel-klik actie",
+  "triplePressAction": "Drievoudig indrukken actie",
+  "longPress": "Lang indrukken",
+  "toolNumber": "Gereedschap {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Snelkoppelingen vasthouden",
+  "holdShortcutsDescription": "Houd een sleutel ingedrukt om tijdelijk naar een andere tool over te schakelen. Laat de toetsschakelaars terug naar de vorige tool.",
+  "key": "Sleutel",
+  "bringMovedElementsToFront": "Breng verplaatste elementen naar voren",
+  "addTool": "Functie toevoegen",
+  "nextPage": "Volgende pagina",
+  "previousPage": "Vorige pagina"
 }

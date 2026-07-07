@@ -5,14 +5,22 @@ import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:keybinder/keybinder.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SearchIntent extends Intent {
   const SearchIntent();
 }
+
+const searchShortcut = ShortcutDefinition(
+  id: 'search',
+  intent: SearchIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyK, control: true),
+);
 
 Future<List<SearchResult>> _searchIsolate(
   NoteData noteData,
@@ -98,14 +106,14 @@ class SearchButton extends StatelessWidget {
             onTap: () {
               final state = bloc.state;
               if (state is! DocumentLoaded) return;
-              final cubit = state.currentIndexCubit;
+              final cubit = bloc.currentIndexCubit;
               final position = result.getPosition();
               final page = result.getPage();
               if (page != null) {
                 bloc.add(PageChanged(page));
               }
               if (position != null) {
-                state.transformCubit.teleport(position.toOffset());
+                bloc.transformCubit.teleport(position.toOffset());
               }
               cubit.bake(state);
               if (result is ToolResult) {

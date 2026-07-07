@@ -10,6 +10,11 @@
   "lightTheme": "Jasny motyw",
   "systemTheme": "Użyj domyślnego motywu systemowego",
   "view": "Widok",
+  "contentViewport": "Podgląd treści",
+  "limitViewportToPositiveCoordinates": "Ogranicz widok do pozytywnych współrzędnych",
+  "off": "Wyłączony",
+  "canvas": "Płótno",
+  "interface": "Interfejs",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Pomniejsz",
   "resetZoom": "Resetuj powiększenie",
   "strokeWidth": "Szerokość obrysu",
+  "strokeStyle": "Styl obrysu",
+  "dashLength": "Długość kreski",
+  "gapLength": "Długość odstępu",
   "includeEraser": "Dołącz wymazywanie?",
   "thinning": "Miażdżenie",
   "pen": "Długopis",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Wymaż linię",
+  "stroke": "Stroke",
   "label": "Etykieta",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Kontekst",
+  "applyBackground": "Zastosuj tło",
+  "applyAreas": "Zastosuj obszary",
+  "currentPage": "Bieżąca strona",
+  "allPages": "Wszystkie strony",
   "box": "Pudełko",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Domyślna paleta",
   "highlighter": "Podświetlenie",
+  "combinePaths": "Połącz ścieżki",
   "add": "Dodaj",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Kolor stały",
+  "gradient": "Gradient",
+  "gradientType": "Typ gradientu",
+  "linear": "Liniowy",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Podwójny",
   "dotted": "Kropkowy",
+  "dottedDark": "Kropkowy ciemny",
   "dashed": "Kreskowane",
   "wavy": "Fala",
   "fontWeight": "Waga czcionki",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Zachowania",
   "dataDirectory": "Katalog danych",
+  "warning": "Ostrzeżenie",
+  "platformExperimentalWarning": "Ostrzeżenie: To ustawienie jest eksperymentalne i może mieć problemy na tej platformie.",
+  "changeDataDirectoryWarningContent": "Czy na pewno chcesz zmienić folder danych? Przed kontynuowaniem powinieneś wykonać kopię zapasową danych.",
   "defaultPath": "Domyślna ścieżka",
   "dateFormat": "Format daty",
   "updatedAt": "Zaktualizowano: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Nie ustawiono",
   "enterLayer": "Wprowadź nazwę warstwy",
+  "eraseShapes": "Wyczyść kształty",
+  "eraseShapeModeNone": "Nie usuwaj kształtów",
+  "eraseShapeModeTouchEdges": "Wyczyść podczas dotykania krawędzi",
+  "eraseShapeModeTouchAnywhere": "Wyczyść podczas dotykania gdziekolwiek",
+  "selectElementModeTouchEdges": "Wybierz podczas dotykania krawędzi",
+  "selectElementModeTouchAnywhere": "Zaznacz podczas dotykania gdziekolwiek",
   "selectElements": "Wybierz elementy",
   "deleteElements": "Usuń elementy",
+  "eraseAllElements": "Wyczyść wszystkie elementy",
   "deleteElementsConfirm": "Czy na pewno chcesz usunąć wybrane elementy?",
   "selectCustomCollection": "Wybierz własną kolekcję",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Ciemny",
-  "plainDark": "Ciemny",
+  "plainDark": "Zwykły ciemny",
   "ruledDark": "Ciemny wieszak",
   "quadDark": "Czterociemny",
   "musicDark": "Ciemna muzyka",
@@ -545,6 +576,7 @@
   "topRight": "Prawy górny róg",
   "bottomLeft": "Lewy dolny róg",
   "bottomRight": "Dolny prawy róg",
+  "zoomPosition": "Pozycja sterowania powiększeniem",
   "caches": "Skrzynki",
   "manage": "Zarządzaj",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Folder zsynchronizowany",
   "syncRootDirectory": "Synchronizuj główny katalog",
   "penOnlyInput": "Wprowadzanie tylko pióra",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatycznie włącza tryb tylko piór, gdy rysik jest wykryty. To ustawienie trwa tylko dla bieżącej sesji.",
+  "penOnlyInputOnDescription": "Zawsze odrzucaj dane wejściowe dotyku i myszki, akceptuj tylko dane wejściowe rysika.",
+  "penOnlyInputOffDescription": "Akceptuj wszystkie typy danych wejściowych, w tym dotyk, mysz i styl.",
+  "automatic": "Automatyczne",
+  "alwaysOn": "Zawsze włączony",
+  "alwaysOff": "Zawsze wyłączone",
+  "showPenOnlyToggle": "Pokaż tylko pióro",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Natywny pasek tytułu",
+  "mode": "Mode",
   "syncMode": "Tryb synchronizacji",
   "connection": "Połączenie",
   "always": "Zawsze",
@@ -893,6 +939,7 @@
   "bringForward": "Przenieś do przodu",
   "sendBackward": "Wyślij do tyłu",
   "rotation": "Obrót",
+  "direction": "Kierunek",
   "onlyAvailableLargerScreen": "Dostępne tylko na większych ekranach",
   "toolbarPosition": "Pozycja paska narzędzi",
   "rotate": "Obróć",
@@ -919,6 +966,9 @@
   "ascending": "Rosnąco",
   "descending": "Malejąco",
   "imageScale": "Skala obrazu",
+  "svgScale": "Skala SVG",
+  "noImageSelected": "Nie wybrano obrazu",
+  "noSvgSelected": "Nie wybrano SVG",
   "select": "Wybierz",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Jakość PDF",
   "surface": "Powierzchnia",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Kontynuuj mimo to",
   "zoomControl": "Kontrola powiększenia",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Wysoki kontrast",
   "shouldANumber": "Ta wartość powinna być poprawnym numerem",
   "createAreas": "Utwórz obszary",
@@ -1081,6 +1134,8 @@
   "addAll": "Dodaj wszystkie",
   "onlyCurrentPage": "Tylko bieżąca strona",
   "smoothNavigation": "Gładka nawigacja",
+  "edgePanAreaSwitching": "Przełącznik panewki krawędziowej",
+  "useAndroidSaf": "Użyj Android SAF",
   "exact": "Dokładny",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Zmień kolekcję",
   "collections": "Kolekcje",
   "fullSelection": "Pełny wybór",
-  "fullSelectionDescription": "Wymaga, aby elementy znajdowały się w całości w polu wyboru do wyboru.",
   "collection": "Kolekcja",
   "defaultCollection": "Domyślna kolekcja",
   "scroll": "Przewiń",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Ekran główny",
   "lastNote": "Ostatnia notatka",
   "newNote": "Nowa nota",
-  "convertToLayer": "Konwertuj na warstwę",
+  "moveToLayer": "Przenieś do warstwy",
+  "createLayer": "Utwórz warstwę",
   "merge": "Połącz",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Koniec",
+  "radius": "Radius",
+  "focalPoint": "Punkt główny",
+  "useOffCenterStartPoint": "Użyj punktu startowego poza centrum",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Przystanki kolorów",
+  "addStop": "Dodaj przystanek",
   "positionDependent": "Pozycja zależna",
   "flipHorizontal": "Odwróć poziomo",
   "flipVertical": "Odwróć w pionie",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Dostosuj skróty",
+  "clickToSave": "Kliknij, aby zapisać",
+  "toolbars": "Paski narzędzi",
+  "logs": "Logi",
+  "ruledSimple": "Obroty proste",
+  "ruledSimpleDark": "Ciemny ciemny wieszak",
+  "quadSimple": "Poczwórne proste",
+  "quadSimpleDark": "Czteroprosty ciemny",
+  "redLinedRuled": "Czerwony liniowy",
+  "redLinedRuledDark": "ciemny z prawej czerwonej linii.",
+  "redLinedQuad": "Czerwony kwadrat",
+  "redLinedQuadDark": "Czerwony kwadrat ciemny",
+  "noItemSelected": "Nie wybrano elementu",
+  "areaAsInitial": "Otwórz obszar jako widok początkowy",
+  "swap": "Zamień",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Ukryj rozszerzenie pliku",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Nowy z szablonu",
+  "exportAsTextShortcut": "Eksportuj jako tekst",
+  "exportAsImageShortcut": "Eksportuj jako obraz",
+  "exportAsPdfShortcut": "Eksportuj jako PDF",
+  "exportAsSvgShortcut": "Eksportuj jako SVG",
+  "changePathShortcut": "Zmień ścieżkę",
+  "fullScreenShortcut": "Pełny ekran",
+  "doublePressAction": "Akcja podwójnego naciśnięcia",
+  "triplePressAction": "Akcja potrójnego naciśnięcia",
+  "longPress": "Długie przytrzymanie",
+  "toolNumber": "Narzędzie {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Przytrzymaj skróty",
+  "holdShortcutsDescription": "Przytrzymaj klawisz, aby tymczasowo przełączyć się na inne narzędzie. Uruchomienie przełącznika klawisza przywróci poprzednie narzędzie.",
+  "key": "Klucz",
+  "bringMovedElementsToFront": "Przynieś elementy do przodu",
+  "addTool": "Dodaj narzędzie",
+  "nextPage": "Następna strona",
+  "previousPage": "Poprzednia strona"
 }

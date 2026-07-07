@@ -39,7 +39,7 @@ class _ComponentsViewState extends State<ComponentsView> {
       final pack = file.data!;
       final components = pack
           .getNamedComponents()
-          .map((e) => e.toPack(pack, pack.getMetadata()?.name ?? ''))
+          .map((e) => e.toPack(pack, file.pathWithoutLeadingSlash))
           .nonNulls
           .toList();
       packComponents.addAll(components);
@@ -59,7 +59,10 @@ class _ComponentsViewState extends State<ComponentsView> {
       future: _componentsFuture,
       builder: (context, snapshot) {
         final allComponents = snapshot.data ?? [];
-        final packs = allComponents.map((e) => e.namespace).toSet().toList();
+        final packs = {
+          for (final item in allComponents)
+            item.namespace: getPackDisplayName(item.pack, item.namespace),
+        };
         final components = allComponents
             .where(
               (e) =>
@@ -82,16 +85,16 @@ class _ComponentsViewState extends State<ComponentsView> {
                   trailing: [
                     MenuAnchor(
                       builder: defaultMenuButton(),
-                      menuChildren: packs
+                      menuChildren: packs.entries
                           .map(
                             (e) => CheckboxMenuButton(
-                              value: selectedPacks.contains(e),
-                              child: Text(e),
+                              value: selectedPacks.contains(e.key),
+                              child: Text(e.value),
                               onChanged: (value) => setState(() {
                                 if (value ?? true) {
-                                  selectedPacks.add(e);
+                                  selectedPacks.add(e.key);
                                 } else {
-                                  selectedPacks.remove(e);
+                                  selectedPacks.remove(e.key);
                                 }
                               }),
                             ),

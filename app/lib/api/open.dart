@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:butterfly/main.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -31,7 +32,7 @@ Uri getLaunchUri({
 
 Uri getConnectUri(String url, [String? type]) => getLaunchUri(
   pathSegments: ['connect'],
-  queryParameters: {'url': url, if (type != null) 'type': type},
+  queryParameters: {'url': url, 'type': ?type},
 );
 
 String parseConnectUri(Uri uri) {
@@ -42,6 +43,7 @@ String parseConnectUri(Uri uri) {
 }
 
 Future<bool> openReleaseNotes() {
+  talker.info('Opening release notes');
   return launchUrl(
     Uri(
       scheme: 'https',
@@ -62,37 +64,62 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   );
 }
 
-Future<(Uint8List?, String?)> importFile(
+Future<(Uint8List, String, String)> _readPlatformFile(PlatformFile file) async {
+  Uint8List data;
+  if (!kIsWeb) {
+    final stream = file.readAsByteStream();
+    final size = file.size;
+    // Allocate size
+    data = Uint8List(size);
+    int offset = 0;
+    await for (final chunk in stream) {
+      data.setRange(offset, offset + chunk.length, chunk);
+      offset += chunk.length;
+    }
+  } else {
+    data = await file.readAsBytes();
+  }
+  final fileName = file.name;
+  final nameWithoutExtension = fileName.contains('.')
+      ? fileName.substring(0, fileName.lastIndexOf('.'))
+      : fileName;
+  return (data, fileName.split('.').lastOrNull ?? '', nameWithoutExtension);
+}
+
+Future<(Uint8List?, String?, String?)> importFile(
   BuildContext context, [
   List<AssetFileType>? types,
 ]) async {
-  final result = await FilePicker.platform.pickFiles(
+  final file = await FilePicker.pickFile(
     allowedExtensions: (types ?? AssetFileType.values)
         .expand((e) => e.getFileExtensions())
         .toList(),
     type: FileType.custom,
-    withData: kIsWeb,
-    withReadStream: !kIsWeb,
   );
-  final file = result?.files.firstOrNull;
   if (file == null) {
-    return (null, null);
+    return (null, null, null);
   }
-  Uint8List? data = file.bytes;
-  if (!kIsWeb) {
-    final stream = file.readStream;
-    final size = file.size;
-    if (stream != null) {
-      // Allocate size
-      data = Uint8List(size);
-      int offset = 0;
-      await for (final chunk in stream) {
-        data.setRange(offset, offset + chunk.length, chunk);
-        offset += chunk.length;
-      }
-    }
+  return await _readPlatformFile(file);
+}
+
+Future<List<(Uint8List, String, String)>> importFiles(
+  BuildContext context, [
+  List<AssetFileType>? types,
+]) async {
+  final result = await FilePicker.pickFiles(
+    allowedExtensions: (types ?? AssetFileType.values)
+        .expand((e) => e.getFileExtensions())
+        .toList(),
+    type: FileType.custom,
+  );
+  if (result == null) {
+    return [];
   }
-  return (data, file.name.split('.').lastOrNull);
+  final files = <(Uint8List, String, String)>[];
+  for (final file in result.files) {
+    files.add(await _readPlatformFile(file));
+  }
+  return files;
 }
 
 Future<void> openFile(
@@ -101,19 +128,21 @@ Future<void> openFile(
   AssetLocation location, [
   Object? data,
 ]) {
+  final fileType = location.fileType?.name;
   if (location.isRemote) {
     final pathParams = {
       'remote': location.remote,
       'path': location.pathWithoutLeadingSlash,
     };
-    final queryParams = {'type': location.fileType?.name};
+    final queryParams = <String, String>{'type': ?fileType};
     if (replace) {
-      return GoRouter.of(context).pushReplacementNamed(
+      GoRouter.of(context).goNamed(
         'remote',
         pathParameters: pathParams,
         queryParameters: queryParams,
         extra: data,
       );
+      return Future.value();
     } else {
       return GoRouter.of(context).pushNamed(
         'remote',
@@ -124,14 +153,15 @@ Future<void> openFile(
     }
   }
   final pathParams = {'path': location.pathWithoutLeadingSlash};
-  final queryParams = {'type': location.fileType?.name};
+  final queryParams = <String, String>{'type': ?fileType};
   if (replace) {
-    return GoRouter.of(context).pushReplacementNamed(
+    GoRouter.of(context).goNamed(
       'local',
       pathParameters: pathParams,
       queryParameters: queryParams,
       extra: data,
     );
+    return Future.value();
   } else {
     return GoRouter.of(context).pushNamed(
       'local',

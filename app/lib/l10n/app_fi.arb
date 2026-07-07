@@ -10,6 +10,11 @@
   "lightTheme": "Vaalea teema",
   "systemTheme": "Käytä järjestelmän oletusteemaa",
   "view": "Näytä",
+  "contentViewport": "Sisällön Näyttöportti",
+  "limitViewportToPositiveCoordinates": "Rajoita näkymä positiivisiin koordinaatteihin",
+  "off": "Pois",
+  "canvas": "Kanava",
+  "interface": "Käyttöliittymä",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Zoomaa ulos",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Aivojen leveys",
+  "strokeStyle": "Stroke tyyli",
+  "dashLength": "Dash pituus",
+  "gapLength": "Vaaran pituus",
   "includeEraser": "Sisällytä tyhjennys?",
   "thinning": "Hehkuminen",
   "pen": "Kynä",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Polun poistaminen",
+  "stroke": "Stroke",
   "label": "Tunniste",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Tausta",
+  "applyBackground": "Käytä taustakuvaa",
+  "applyAreas": "Käytä alueita",
+  "currentPage": "Nykyinen sivu",
+  "allPages": "Kaikki sivut",
   "box": "Laatikko",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Oletus paletti",
   "highlighter": "Korostus",
+  "combinePaths": "Yhdistä polut",
   "add": "Lisää",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Kiinteä väri",
+  "gradient": "Gradientti",
+  "gradientType": "Gradientti tyyppi",
+  "linear": "Lineaarinen",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Kaksinkertainen",
   "dotted": "Pisteytetty",
+  "dottedDark": "Pilkullinen tumma",
   "dashed": "Katkoviiva",
   "wavy": "Wavy",
   "fontWeight": "Kirjasimen paino",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Käyttäytymiset",
   "dataDirectory": "Datakansio",
+  "warning": "Varoitus",
+  "platformExperimentalWarning": "Varoitus: Tämä asetus on kokeellinen ja voi olla ongelmia tällä alustalla.",
+  "changeDataDirectoryWarningContent": "Oletko varma, että haluat muuttaa tietokansiota? Sinun pitäisi tehdä varmuuskopio tiedoistasi ennen jatkamista.",
   "defaultPath": "Oletus polku",
   "dateFormat": "Päivämäärän muoto",
   "updatedAt": "Päivitetty: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Ei asetettu",
   "enterLayer": "Syötä kerroksen nimi",
+  "eraseShapes": "Pyyhi muodot",
+  "eraseShapeModeNone": "Älä poista muotoja",
+  "eraseShapeModeTouchEdges": "Pyyhi kun koskettaa reunoja",
+  "eraseShapeModeTouchAnywhere": "Pyyhi koskettaessa minne tahansa",
+  "selectElementModeTouchEdges": "Valitse kun koskettaa reunoja",
+  "selectElementModeTouchAnywhere": "Valitse koskettaessasi mihin tahansa",
   "selectElements": "Valitse elementit",
   "deleteElements": "Poista elementit",
+  "eraseAllElements": "Poista kaikki elementit",
   "deleteElementsConfirm": "Haluatko varmasti poistaa valitut elementit?",
   "selectCustomCollection": "Valitse mukautettu kokoelma",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Tumma",
-  "plainDark": "Tumma",
+  "plainDark": "Tavallinen tumma",
   "ruledDark": "Vedetty tumma",
   "quadDark": "Quad tumma",
   "musicDark": "Musiikki tumma",
@@ -545,6 +576,7 @@
   "topRight": "Oikea yläreuna",
   "bottomLeft": "Vasen alareuna",
   "bottomRight": "Oikea alareuna",
+  "zoomPosition": "Zoomauksen ohjauksen sijainti",
   "caches": "Kätköt",
   "manage": "Hallitse",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Kansio synkronoitu",
   "syncRootDirectory": "Synkronoi juurikansio",
   "penOnlyInput": "Vain kynä syöttö",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Ota käyttöön automaattisesti vain kynä-tila kun stylus havaitaan. Tämä asetus kestää vain nykyisen istunnon.",
+  "penOnlyInputOnDescription": "Hylkää aina kosketus ja hiiren syöte, vain hyväksy stylus syöte.",
+  "penOnlyInputOffDescription": "Hyväksy kaikki syöttötyypit, mukaan lukien kosketus, hiiri ja tyyli.",
+  "automatic": "Automaattinen",
+  "alwaysOn": "Aina päällä",
+  "alwaysOff": "Aina pois",
+  "showPenOnlyToggle": "Näytä vain kynän vaihto",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Alkuperäinen otsikkopalkki",
+  "mode": "Mode",
   "syncMode": "Synkronoinnin tila",
   "connection": "Yhteys",
   "always": "Aina",
@@ -893,6 +939,7 @@
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
   "rotation": "Kierto",
+  "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
   "rotate": "Kierrä",
@@ -919,6 +966,9 @@
   "ascending": "Nouseva",
   "descending": "Laskeva",
   "imageScale": "Kuvan mittakaava",
+  "svgScale": "SVG mittakaava",
+  "noImageSelected": "Kuvaa ei ole valittu",
+  "noSvgSelected": "SVG:tä ei ole valittu",
   "select": "Valitse",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF laatu",
   "surface": "Pinta",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Jatka joka tapauksessa",
   "zoomControl": "Zoomauksen hallinta",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Korkea kontrasti",
   "shouldANumber": "Tämän arvon on oltava kelvollinen numero",
   "createAreas": "Luo alueita",
@@ -1081,6 +1134,8 @@
   "addAll": "Lisää kaikki",
   "onlyCurrentPage": "Vain nykyinen sivu",
   "smoothNavigation": "Pehmeä navigointi",
+  "edgePanAreaSwitching": "Alueen reuna-alueen vaihtaminen",
+  "useAndroidSaf": "Käytä Android SAF",
   "exact": "Tarkka",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Vaihda kokoelmaa",
   "collections": "Kokoelmat",
   "fullSelection": "Täysi valinta",
-  "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä.",
   "collection": "Kokoelma",
   "defaultCollection": "Oletus kokoelma",
   "scroll": "Vieritä",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Kotinäyttö",
   "lastNote": "Viimeisin merkintä",
   "newNote": "Uusi muistiinpano",
-  "convertToLayer": "Muunna tasoksi",
+  "moveToLayer": "Siirrä tasoon",
+  "createLayer": "Luo taso",
   "merge": "Yhdistä",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Loppu",
+  "radius": "Radius",
+  "focalPoint": "Keskipiste",
+  "useOffCenterStartPoint": "Käytä keskeneräistä aloituspistettä",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Värien pysäytykset",
+  "addStop": "Lisää pysähdys",
   "positionDependent": "Asema riippuu",
   "flipHorizontal": "Käännä vaakasuora",
   "flipVertical": "Käännä pystysuuntainen",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Muokkaa pikakuvakkeita",
+  "clickToSave": "Tallenna napsauttamalla",
+  "toolbars": "Työkalupalkit",
+  "logs": "Lokit",
+  "ruledSimple": "Merkitty yksinkertaiseksi",
+  "ruledSimpleDark": "Riisu yksinkertainen tumma",
+  "quadSimple": "Yksinkertainen Quad",
+  "quadSimpleDark": "Quad yksinkertainen tumma",
+  "redLinedRuled": "Punainen vuorattu",
+  "redLinedRuledDark": "Punainen vuorattu hallittu tumma",
+  "redLinedQuad": "Punainen vuorattu quad",
+  "redLinedQuadDark": "Punainen vuorattu quad tumma",
+  "noItemSelected": "Kohdetta ei ole valittu",
+  "areaAsInitial": "Avaa alue alustavana näkymänä",
+  "swap": "Vaihda",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Piilota tiedostopääte",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Uusi mallista",
+  "exportAsTextShortcut": "Vie tekstinä",
+  "exportAsImageShortcut": "Vie kuvana",
+  "exportAsPdfShortcut": "Vie PDF:nä",
+  "exportAsSvgShortcut": "Vie SVG:nä",
+  "changePathShortcut": "Muuta polkua",
+  "fullScreenShortcut": "Koko näyttö",
+  "doublePressAction": "Kaksoispainalluksen tehtävä",
+  "triplePressAction": "Kolmen painalluksen tehtävä",
+  "longPress": "Pitkä painallus",
+  "toolNumber": "Työkalu {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Pitele Pikakuvakkeita",
+  "holdShortcutsDescription": "Pidä näppäintä pohjassa vaihtaaksesi väliaikaisesti toiseen työkaluun. Avaimen vapauttaminen siirtyy takaisin edelliseen työkaluun.",
+  "key": "Avain",
+  "bringMovedElementsToFront": "Tuo siirretyt elementit eteen",
+  "addTool": "Lisää työkalu",
+  "nextPage": "Seuraava sivu",
+  "previousPage": "Edellinen sivu"
 }

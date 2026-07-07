@@ -50,10 +50,11 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   final TextEditingController _descriptionController = TextEditingController();
+  final FocusNode _descriptionFocusNode = FocusNode();
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -62,10 +63,11 @@ class _UtilitiesViewState extends State<_UtilitiesView>
 
   @override
   void dispose() {
-    super.dispose();
-
     _tabController.dispose();
     _descriptionController.dispose();
+    _descriptionFocusNode.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -84,7 +86,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     final metadata = state.metadata;
-    if (_descriptionController.text != metadata.description) {
+    if (!_descriptionFocusNode.hasFocus &&
+        _descriptionController.text != metadata.description) {
       _descriptionController.text = metadata.description;
     }
     void submitDescription(String? value) {
@@ -100,23 +103,27 @@ class _UtilitiesViewState extends State<_UtilitiesView>
           controller: _tabController,
           isScrollable: true,
           tabs:
-              <List<dynamic>>[
-                    [
+              [
+                    (
                       PhosphorIconsLight.file,
                       AppLocalizations.of(context).file,
-                    ],
-                    [
+                    ),
+                    (
+                      PhosphorIconsLight.toolbox,
+                      AppLocalizations.of(context).toolbars,
+                    ),
+                    (
                       PhosphorIconsLight.camera,
                       AppLocalizations.of(context).camera,
-                    ],
+                    ),
                   ]
                   .map(
                     (e) => HorizontalTab(
                       icon: PhosphorIcon(
-                        e[0],
+                        e.$1,
                         textDirection: TextDirection.ltr,
                       ),
-                      label: Text(e[1]),
+                      label: Text(e.$2),
                     ),
                   )
                   .toList(),
@@ -126,23 +133,32 @@ class _UtilitiesViewState extends State<_UtilitiesView>
           builder: (context) => [
             Column(
               children: [
-                TextFormField(
-                  minLines: 3,
-                  maxLines: 5,
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).description,
-                    border: const OutlineInputBorder(),
+                Focus(
+                  onFocusChange: (hasFocus) {
+                    if (!hasFocus) submitDescription(null);
+                  },
+                  child: TextFormField(
+                    minLines: 3,
+                    maxLines: 5,
+                    controller: _descriptionController,
+                    focusNode: _descriptionFocusNode,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).description,
+                      border: const OutlineInputBorder(),
+                    ),
+                    onTapOutside: (_) => submitDescription(null),
+                    onFieldSubmitted: submitDescription,
+                    onSaved: submitDescription,
                   ),
-                  onFieldSubmitted: submitDescription,
-                  onSaved: submitDescription,
                 ),
                 const SizedBox(height: 8),
                 ListTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.camera),
                   onTap: () async {
-                    final viewport =
-                        state.currentIndexCubit.state.cameraViewport;
+                    final cubit = context
+                        .read<DocumentBloc>()
+                        .currentIndexCubit;
+                    final viewport = cubit.state.cameraViewport;
                     final rect = viewport.toRealRect();
                     final targetAspectRatio =
                         kThumbnailWidth / kThumbnailHeight;
@@ -156,7 +172,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     final heightOffset = (rect.height - captureHeight) / 2;
                     final quality =
                         kThumbnailWidth / (captureWidth * viewport.scale);
-                    final thumbnail = await state.currentIndexCubit.render(
+                    final thumbnail = await cubit.render(
                       state.data,
                       state.page,
                       state.info,
@@ -168,6 +184,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         x: rect.left + widthOffset,
                         y: rect.top + heightOffset,
                       ),
+                      docState: state,
                     );
                     if (thumbnail == null) return;
                     final bytes = thumbnail.buffer.asUint8List();
@@ -195,6 +212,19 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     }
                   },
                   title: Text(AppLocalizations.of(context).captureThumbnail),
+                  trailing: IconButton(
+                    icon: const PhosphorIcon(PhosphorIconsLight.crop),
+                    tooltip: AppLocalizations.of(context).captureThumbnail,
+                    onPressed: () {
+                      showDialog<void>(
+                        context: context,
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: ThumbnailCaptureDialog(state: state),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 ListTile(
                   leading: Icon(
@@ -361,6 +391,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ),
               ],
             ),
+            const ToolbarsView(),
             Column(
               children: [
                 OffsetListTile(
@@ -381,22 +412,12 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         .state
                         .cameraViewport
                         .toSize();
-                    context.read<TransformCubit>().size(
+                    context.read<CurrentIndexCubit>().size(
                       value / 100,
                       Offset(size.width / 2, size.height / 2),
                     );
                     context.read<DocumentBloc>().bake();
                   },
-                ),
-                CheckboxListTile(
-                  value: widget.state.fullSelection,
-                  onChanged: (value) => widget.onStateChanged(
-                    widget.state.copyWith(fullSelection: value ?? false),
-                  ),
-                  title: Text(AppLocalizations.of(context).fullSelection),
-                  subtitle: Text(
-                    AppLocalizations.of(context).fullSelectionDescription,
-                  ),
                 ),
               ],
             ),

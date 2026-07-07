@@ -13,12 +13,25 @@ enum Arrangement { forward, backward, front, back }
 enum DocumentPermission { read, write, admin }
 
 @freezed
+sealed class InitialAreaDetails with _$InitialAreaDetails {
+  const factory InitialAreaDetails({
+    required double width,
+    required double height,
+    required String name,
+  }) = _InitialAreaDetails;
+
+  factory InitialAreaDetails.fromJson(Map<String, dynamic> json) =>
+      _$InitialAreaDetailsFromJson(json);
+}
+
+@freezed
 sealed class PageAddedDetails with _$PageAddedDetails {
   const factory PageAddedDetails({
     int? index,
     DocumentPage? page,
     @Default(true) bool addNumber,
     @Default('') String name,
+    InitialAreaDetails? initialArea,
   }) = _PageAddedDetails;
 
   factory PageAddedDetails.fromJson(Map<String, dynamic> json) =>
@@ -75,11 +88,13 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.toolCreated(Tool tool) = ToolCreated;
 
-  const factory DocumentEvent.toolsChanged(Map<int, Tool> tools) = ToolsChanged;
+  const factory DocumentEvent.toolsChanged(List<Tool> tools) = ToolsChanged;
 
-  const factory DocumentEvent.toolsRemoved(List<int> tools) = ToolsRemoved;
+  const factory DocumentEvent.toolsRemoved(List<String> tools) = ToolsRemoved;
 
-  const factory DocumentEvent.toolReordered(int oldIndex, int newIndex) =
+  const factory DocumentEvent.toolsReplaced(List<Tool> tools) = ToolsReplaced;
+
+  const factory DocumentEvent.toolReordered(String id, int newIndex) =
       ToolReordered;
 
   const factory DocumentEvent.documentBackgroundsChanged(
@@ -137,11 +152,20 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String collection,
   ) = ElementsCollectionChanged;
 
-  const factory DocumentEvent.areasCreated(List<Area> areas) = AreasCreated;
+  const factory DocumentEvent.areasCreated(List<AreaPreset> areas) =
+      AreasCreated;
 
-  const factory DocumentEvent.areasRemoved(List<String> areas) = AreasRemoved;
+  const factory DocumentEvent.areasDuplicated(Area area, List<String> pages) =
+      AreasDuplicated;
 
-  const factory DocumentEvent.areaChanged(String name, Area area) = AreaChanged;
+  const factory DocumentEvent.areasRemoved(List<AreaPreset> areas) =
+      AreasRemoved;
+
+  const factory DocumentEvent.areaChanged(
+    String name,
+    Area area, [
+    @Default(false) bool moveContents,
+  ]) = AreaChanged;
 
   const factory DocumentEvent.areaReordered(String name, int newIndex) =
       AreaReordered;
@@ -195,6 +219,11 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     List<String> elements, [
     @Default('') String name,
   ]) = ElementsLayerConverted;
+
+  const factory DocumentEvent.elementsLayerMoved(
+    List<String> elements,
+    String layerId,
+  ) = ElementsLayerMoved;
 
   const factory DocumentEvent.encryptionChanged(String? password) =
       EncryptionChanged;

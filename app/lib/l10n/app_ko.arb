@@ -10,6 +10,11 @@
   "lightTheme": "밝은 테마",
   "systemTheme": "시스템 기본 테마 사용",
   "view": "보기",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "축소",
   "resetZoom": "확대/축소 초기화",
   "strokeWidth": "선 굵기",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "지우개 포함?",
   "thinning": "필압 감지",
   "pen": "펜",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "경로 지우개",
+  "stroke": "Stroke",
   "label": "레이블",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "배경",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "상자",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "기본 팔레트",
   "highlighter": "형광펜",
+  "combinePaths": "Combine paths",
   "add": "추가",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "실선",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "이중선",
   "dotted": "점선",
+  "dottedDark": "Dotted dark",
   "dashed": "파선",
   "wavy": "물결선",
   "fontWeight": "글꼴 두께",
@@ -215,6 +236,9 @@
   },
   "behaviors": "동작",
   "dataDirectory": "데이터 디렉터리",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "기본 경로",
   "dateFormat": "날짜 형식",
   "updatedAt": "업데이트: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "설정 안 됨",
   "enterLayer": "레이어 이름을 입력하세요",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "요소 선택",
   "deleteElements": "요소 삭제",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "선택한 요소를 정말로 삭제하시겠습니까?",
   "selectCustomCollection": "사용자 지정 컬렉션 선택",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "어두움",
-  "plainDark": "어두운 무지",
+  "plainDark": "Plain dark",
   "ruledDark": "어두운 줄무늬",
   "quadDark": "어두운 격자",
   "musicDark": "어두운 오선지",
@@ -545,6 +576,7 @@
   "topRight": "오른쪽 위",
   "bottomLeft": "왼쪽 아래",
   "bottomRight": "오른쪽 아래",
+  "zoomPosition": "Zoom control position",
   "caches": "캐시",
   "manage": "관리",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "폴더 동기화됨",
   "syncRootDirectory": "루트 디렉터리 동기화",
   "penOnlyInput": "펜 전용 입력",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "입력 제스처",
   "nativeTitleBar": "네이티브 제목 표시줄",
+  "mode": "Mode",
   "syncMode": "동기화 모드",
   "connection": "연결",
   "always": "항상",
@@ -893,6 +939,7 @@
   "bringForward": "앞으로 가져오기",
   "sendBackward": "뒤로 보내기",
   "rotation": "회전",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "더 큰 화면에서만 사용 가능",
   "toolbarPosition": "도구 모음 위치",
   "rotate": "회전",
@@ -919,6 +966,9 @@
   "ascending": "오름차순",
   "descending": "내림차순",
   "imageScale": "이미지 배율",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "선택",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF 품질",
   "surface": "표면",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "계속하기",
   "zoomControl": "확대/축소 제어",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "고대비",
   "shouldANumber": "이 값은 유효한 숫자여야 합니다",
   "createAreas": "영역 만들기",
@@ -1081,6 +1134,8 @@
   "addAll": "모두 추가",
   "onlyCurrentPage": "현재 페이지만",
   "smoothNavigation": "부드러운 탐색",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "정확",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "컬렉션 변경",
   "collections": "컬렉션",
   "fullSelection": "전체 선택",
-  "fullSelectionDescription": "선택하려면 요소가 선택 상자 안에 완전히 포함되어야 합니다.",
   "collection": "컬렉션",
   "defaultCollection": "기본 컬렉션",
   "scroll": "스크롤",
@@ -1123,7 +1177,8 @@
   "homeScreen": "홈 화면",
   "lastNote": "마지막 노트",
   "newNote": "새 노트",
-  "convertToLayer": "레이어로 변환",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "병합",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "위치에 따라",
   "flipHorizontal": "가로로 뒤집기",
   "flipVertical": "세로로 뒤집기",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

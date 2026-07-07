@@ -1,0 +1,27 @@
+---
+title: Embedding example
+tableOfContents: false
+---
+
+import EmbedMessagingExample from "@components/EmbedMessagingExample.astro";
+
+This page demonstrates the Butterfly embed message bridge. Use the buttons to
+send `postMessage` requests to the iframe, then watch the replies from Butterfly
+appear in the message log. Document byte responses are offered as `.bfly`
+downloads instead of being printed into the page.
+
+<EmbedMessagingExample />
+
+The parent page sends messages with this shape:
+
+```javascript
+iframe.contentWindow.postMessage({ type, message }, butterflyOrigin);
+```
+
+Butterfly sends responses and events back with the same shape:
+
+```javascript
+window.addEventListener('message', (event) => {
+  const { type, message } = event.data ?? {};
+});
+```

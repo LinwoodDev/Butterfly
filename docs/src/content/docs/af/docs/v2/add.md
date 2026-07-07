@@ -6,12 +6,12 @@ Here you can add things to your notes.
 
 ## Voer in
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Here you can import existing files into your documents.
+Supported are Butterfly documents, Markdown, PNG, SVG, and PDF.
 
 ## Gereedskap
 
-To add more tools to your toolbar, click on them.
+To add tools to your toolbar, click them.
 Read more about them [here](../tools).
 
 ## Surfaces

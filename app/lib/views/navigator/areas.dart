@@ -2,13 +2,13 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/area/context.dart';
+import 'package:butterfly/dialogs/area/init.dart';
 import 'package:butterfly/handlers/handler.dart';
-import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/transform.dart';
 import '../../dialogs/delete.dart';
+import '../../widgets/multi_select.dart';
 import '../../widgets/editable_list_tile.dart';
+
+typedef _AreaEntry = ({
+  Area area,
+  String pageName,
+  String pageDisplayName,
+  bool isCurrentPage,
+});
 
 class AreasView extends StatefulWidget {
   const AreasView({super.key});
@@ -27,12 +35,184 @@ class AreasView extends StatefulWidget {
 }
 
 class _AreasViewState extends State<AreasView> {
+  String _currentGroup = '';
   final TextEditingController _searchController = TextEditingController();
+  bool _showAllPages = false;
+
+  List<Area> _getAreasInGroup(List<Area> areas) {
+    return areas.where((area) => area.group == _currentGroup).toList();
+  }
+
+  List<String> _getSubgroups(List<Area> areas) {
+    final groups = areas
+        .map((area) => area.group)
+        .where((group) => group.startsWith(_currentGroup))
+        .map((group) => group.substring(_currentGroup.length))
+        .where((sub) => sub.isNotEmpty && !sub.contains('/'))
+        .toSet()
+        .toList();
+    groups.sort();
+    return groups;
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _createArea(AreaConfig config) async {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final width = config.width;
+    final height = config.height;
+    final name = config.name;
+    if (name.isEmpty) return;
+    Offset position;
+    if (config.positionMode == AreaPositionMode.currentCenter) {
+      final center = context
+          .read<CurrentIndexCubit>()
+          .state
+          .cameraViewport
+          .toRect()
+          .center;
+      position = center - Offset(width / 2, height / 2);
+    } else {
+      position = Offset.zero;
+    }
+
+    bloc
+      ..add(
+        AreasCreated([
+          AreaPreset(
+            area: Area(
+              name: name,
+              width: width,
+              height: height,
+              position: position.toPoint(),
+              isInitial: config.areaAsInitial,
+            ),
+          ),
+        ]),
+      )
+      ..add(CurrentAreaChanged(name));
+  }
+
+  Widget buildAreaTile(
+    DocumentBloc bloc,
+    CameraViewport viewport,
+    DocumentLoadSuccess state,
+    Rect viewportRect,
+    Area? current,
+    _AreaEntry entry, {
+    required MultiSelectController<AreaPreset> controller,
+    List<String> folderPath = const [],
+  }) {
+    final area = entry.area;
+    final selectionId = AreaPreset(page: entry.pageName, name: area.name);
+    final selected = entry.isCurrentPage && current?.name == area.name;
+    final isSelectionMode = controller.selectionMode;
+    final isSelected = isSelectionMode
+        ? controller.selectedIds.contains(selectionId)
+        : selected;
+
+    void navigateToArea() {
+      if (!entry.isCurrentPage) {
+        bloc.add(PageChanged(entry.pageName));
+      }
+      context.read<TransformCubit>().teleportToArea(
+        area,
+        viewport.toSize(),
+        viewport.resolution,
+      );
+      bloc.add(CurrentAreaChanged(area.name));
+    }
+
+    return EditableListTile(
+      initialValue: area.shortName,
+      key: ValueKey(selectionId),
+      showEditIcon: !isSelectionMode,
+      leading: isSelectionMode
+          ? Checkbox(
+              value: isSelected,
+              onChanged: (value) => controller.toggle(selectionId),
+            )
+          : IconButton(
+              icon: PhosphorIcon(
+                selected
+                    ? PhosphorIconsLight.signOut
+                    : PhosphorIconsLight.signIn,
+              ),
+              onPressed: () {
+                if (selected) {
+                  bloc.add(CurrentAreaChanged(''));
+                  return;
+                }
+                navigateToArea();
+              },
+              tooltip: selected
+                  ? AppLocalizations.of(context).exitArea
+                  : AppLocalizations.of(context).enterArea,
+            ),
+      onTap: () {
+        if (isSelectionMode) {
+          controller.toggle(selectionId);
+          return;
+        }
+        navigateToArea();
+      },
+      onLongPress: () {
+        if (!isSelectionMode) {
+          controller.enableSelectionMode();
+          controller.select(selectionId);
+        }
+      },
+      onSaved: (value) {
+        final trimmed = value.trim();
+        if (trimmed.isEmpty) return;
+        if (!entry.isCurrentPage) {
+          bloc.add(PageChanged(entry.pageName));
+        }
+        final nextName = trimmed.contains('/')
+            ? trimmed
+            : folderPath.isEmpty
+            ? trimmed
+            : '${folderPath.join('/')}/$trimmed';
+        context.read<DocumentBloc>().add(
+          AreaChanged(area.name, area.copyWith(name: nextName)),
+        );
+      },
+      selected: entry.isCurrentPage && current == null && !isSelectionMode
+          ? area.rect.overlaps(viewportRect)
+          : isSelected,
+      subtitle: _showAllPages ? Text(entry.pageDisplayName) : null,
+      actions: isSelectionMode
+          ? null
+          : [
+              ...buildAreaContextMenu(
+                bloc,
+                state,
+                area,
+                context.read<SettingsCubit>(),
+                pop: false,
+                includeRenameAndEnterArea: false,
+                pageName: entry.pageName,
+              )(context).map((e) => buildMenuItem(context, e, false, false)),
+            ],
+    );
+  }
+
+  Widget buildAreaFolder(String name, String path) {
+    return ListTile(
+      title: Text(name),
+      leading: const PhosphorIcon(PhosphorIconsLight.folder),
+      onTap: () {
+        setState(() {
+          _currentGroup = path;
+        });
+      },
+    );
   }
 
   @override
@@ -50,71 +230,78 @@ class _AreasViewState extends State<AreasView> {
         return BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
               previous.page?.areas != current.page?.areas ||
-              previous.currentArea != current.currentArea,
+              previous.currentArea != current.currentArea ||
+              (_showAllPages &&
+                  previous is DocumentLoadSuccess &&
+                  current is DocumentLoadSuccess &&
+                  previous.data != current.data),
           builder: (context, state) {
             if (state is! DocumentLoadSuccess) {
               return const SizedBox.shrink();
             }
             final current = state.currentArea;
-            Rect? getRect(int dx, int dy) {
-              if (current == null) return null;
-              final rect = current.rect;
-              return rect.translate(
-                dx.toDouble() * rect.width,
-                dy.toDouble() * rect.height,
+            final pagesWithNames = state.data.getPagesWithNames();
+            final currentPageDisplayName = pagesWithNames
+                .where((page) => page.$2 == state.pageName)
+                .map((page) => page.$1)
+                .firstOrNull;
+            final allPageEntries = pagesWithNames.expand((pageNames) {
+              final realPageName = pageNames.$2;
+              final page = realPageName == state.pageName
+                  ? state.page
+                  : state.data.getPage(realPageName);
+              if (page == null) return const <_AreaEntry>[];
+              final displayName = pageNames.$1.isEmpty
+                  ? AppLocalizations.of(context).page
+                  : pageNames.$1;
+              return page.areas.map(
+                (area) => (
+                  area: area,
+                  pageName: realPageName,
+                  pageDisplayName: displayName,
+                  isCurrentPage: realPageName == state.pageName,
+                ),
+              );
+            }).toList();
+
+            final currentIndexCubit = context.read<CurrentIndexCubit>();
+
+            bool enableButton(int dx, int dy) {
+              if (current == null) return false;
+              return currentIndex.areaNavigatorCreate ||
+                  currentIndexCubit.getRelativeArea(current, dx, dy) != null;
+            }
+
+            bool selectedButton(int dx, int dy) {
+              if (current == null) return false;
+              return currentIndexCubit.getRelativeArea(current, dx, dy, true) !=
+                  null;
+            }
+
+            Future<void> navigateToRelativeArea(int dx, int dy) async {
+              await currentIndexCubit.navigateToRelativeArea(
+                dx,
+                dy,
+                createAreaName: () => createAreaName(
+                  context,
+                  state.page,
+                  currentIndex.areaNavigatorAsk,
+                ),
               );
             }
 
-            Area? overlap(Rect? rect, [bool? exact]) {
-              if (rect == null) return null;
-              return state.page.areas.firstWhereOrNull((area) {
-                // Test for equality with precision error tolerance
-                final current = area.rect;
-                if (exact ?? currentIndex.areaNavigatorExact) {
-                  return (current.top - rect.top).abs() <
-                          precisionErrorTolerance &&
-                      (current.left - rect.left).abs() <
-                          precisionErrorTolerance &&
-                      (current.width - rect.width).abs() <
-                          precisionErrorTolerance &&
-                      (current.height - rect.height).abs() <
-                          precisionErrorTolerance;
-                }
-                return current.overlaps(rect.deflate(precisionErrorTolerance));
-              });
+            if (!_showAllPages && state.page.areas.isEmpty) {
+              return AreasInitializationView(
+                onCreate: _createArea,
+                insideDocument: true,
+                initialName: state.page.createAreaName(context),
+              );
             }
 
-            bool enableButton(int dx, int dy) =>
-                currentIndex.areaNavigatorCreate ||
-                overlap(getRect(dx, dy)) != null;
-            bool selectedButton(int dx, int dy) =>
-                overlap(getRect(dx, dy), true) != null;
-
-            Future<void> move(int dx, int dy) async {
-              final rect = getRect(dx, dy);
-              if (rect == null) return;
-              var area = overlap(rect);
-              if (area != null) {
-                context.read<DocumentBloc>().add(CurrentAreaChanged(area.name));
-                return;
-              }
-              if (!currentIndex.areaNavigatorCreate) return;
-              final name = await createAreaName(
-                context,
-                state.page,
-                currentIndex.areaNavigatorAsk,
-              );
-              if (name == null) return;
-              final newArea = Area(
-                position: rect.topLeft.toPoint(),
-                height: rect.height,
-                width: rect.width,
-                name: name,
-              );
-              bloc
-                ..add(AreasCreated([newArea]))
-                ..add(CurrentAreaChanged(name));
-            }
+            final allSubgroups = _showAllPages
+                ? const <String>[]
+                : _getSubgroups(state.page.areas);
+            final areasInGroup = _getAreasInGroup(state.page.areas);
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -127,239 +314,290 @@ class _AreasViewState extends State<AreasView> {
                     leading: const PhosphorIcon(
                       PhosphorIconsLight.magnifyingGlass,
                     ),
+                    trailing: [
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.files),
+                        isSelected: _showAllPages,
+                        tooltip: AppLocalizations.of(context).pages,
+                        onPressed: () => setState(() {
+                          _showAllPages = !_showAllPages;
+                          if (_showAllPages) _currentGroup = '';
+                        }),
+                      ),
+                    ],
                   ),
                 ),
                 const Divider(),
+                if (!_showAllPages && _currentGroup.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    child: Row(
+                      spacing: 8,
+                      children: [
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.arrowLeft,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              final lastSlash = _currentGroup.lastIndexOf('/');
+                              if (lastSlash == -1) {
+                                _currentGroup = '';
+                              } else {
+                                _currentGroup = _currentGroup.substring(
+                                  0,
+                                  lastSlash,
+                                );
+                              }
+                            });
+                          },
+                          tooltip: AppLocalizations.of(context).back,
+                        ),
+                        Text(
+                          _currentGroup,
+                          style: TextTheme.of(context).titleMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(),
+                ],
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
-                    child: ListenableBuilder(
-                      listenable: _searchController,
-                      builder: (context, child) {
-                        final areas = state.page.areas
-                            .where(
-                              (area) => area.name.toLowerCase().contains(
-                                _searchController.text.toLowerCase(),
+                    child: MultiSelectRegion<AreaPreset>(
+                      toolbarBuilder: (context, controller) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 4.0,
+                        ),
+                        child: OverflowBar(
+                          spacing: 8,
+                          children: [
+                            ActionChip(
+                              label: Text(AppLocalizations.of(context).delete),
+                              avatar: const PhosphorIcon(
+                                PhosphorIconsLight.trash,
                               ),
-                            )
-                            .toList();
-                        return ReorderableListView.builder(
-                          itemCount: areas.length,
-                          onReorder: (oldIndex, newIndex) =>
-                              context.read<DocumentBloc>().add(
-                                AreaReordered(areas[oldIndex].name, newIndex),
-                              ),
-                          itemBuilder: (BuildContext context, int index) {
-                            final area = areas[index];
-                            final selected = current?.name == area.name;
-                            return EditableListTile(
-                              initialValue: area.name,
-                              key: ValueKey(area.name),
-                              leading: IconButton(
-                                icon: PhosphorIcon(
-                                  selected
-                                      ? PhosphorIconsLight.signOut
-                                      : PhosphorIconsLight.signIn,
-                                ),
-                                onPressed: () {
-                                  bloc.add(
-                                    CurrentAreaChanged(
-                                      selected ? '' : area.name,
-                                    ),
-                                  );
-                                },
-                                tooltip: selected
-                                    ? AppLocalizations.of(context).exitArea
-                                    : AppLocalizations.of(context).enterArea,
-                              ),
-                              onTap: () {
-                                final screen = context
-                                    .read<CurrentIndexCubit>()
-                                    .state
-                                    .cameraViewport
-                                    .toSize();
-                                context.read<TransformCubit>().teleportToArea(
-                                  area,
-                                  screen,
+                              onPressed: () async {
+                                if (controller.selectedIds.isEmpty) return;
+                                final result = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => const DeleteDialog(),
                                 );
-                                if (current != null) {
-                                  bloc.add(CurrentAreaChanged(area.name));
-                                } else {
-                                  bloc.bake();
-                                }
+                                if (result != true) return;
+                                if (!context.mounted) return;
+                                context.read<DocumentBloc>().add(
+                                  AreasRemoved(controller.selectedIds.toList()),
+                                );
+                                controller.clear();
                               },
-                              onSaved: (value) =>
-                                  context.read<DocumentBloc>().add(
-                                    AreaChanged(
-                                      area.name,
-                                      area.copyWith(name: value),
+                            ),
+                          ],
+                        ),
+                      ),
+                      builder: (context, controller, child) =>
+                          ListenableBuilder(
+                            listenable: _searchController,
+                            builder: (context, child) {
+                              final search = _searchController.text
+                                  .toLowerCase();
+                              final areaEntries = _showAllPages
+                                  ? allPageEntries
+                                  : areasInGroup
+                                        .map(
+                                          (area) => (
+                                            area: area,
+                                            pageName: state.pageName,
+                                            pageDisplayName:
+                                                currentPageDisplayName ??
+                                                AppLocalizations.of(
+                                                  context,
+                                                ).page,
+                                            isCurrentPage: true,
+                                          ),
+                                        )
+                                        .toList();
+                              final areas = areaEntries.where((entry) {
+                                final areaName = entry.area.name.toLowerCase();
+                                final pageName = entry.pageDisplayName
+                                    .toLowerCase();
+                                return areaName.contains(search) ||
+                                    (_showAllPages &&
+                                        pageName.contains(search));
+                              }).toList();
+                              final subgroups = allSubgroups
+                                  .where(
+                                    (group) =>
+                                        group.toLowerCase().contains(search),
+                                  )
+                                  .toList();
+                              if (areas.isEmpty && subgroups.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    AppLocalizations.of(context).none,
+                                  ),
+                                );
+                              }
+                              return ListView(
+                                primary: true,
+                                children: [
+                                  ...subgroups.map(
+                                    (group) => buildAreaFolder(
+                                      group,
+                                      '$_currentGroup$group',
                                     ),
                                   ),
-                              selected: current == null
-                                  ? area.rect.overlaps(viewportRect)
-                                  : current.name == area.name,
-                              actions: [
-                                ...buildGeneralAreaContextMenu(
-                                  bloc,
-                                  area,
-                                  context.read<SettingsCubit>(),
-                                  state.renderers
-                                      .where((e) => e.area == area)
-                                      .map(
-                                        (e) => e.transform(
-                                          position: -area.position.toOffset(),
-                                          relative: true,
-                                        ),
-                                      )
-                                      .map((e) => e?.element)
-                                      .nonNulls
-                                      .toList(),
-                                  pop: false,
-                                )(context).map(
-                                  (e) =>
-                                      buildMenuItem(context, e, false, false),
-                                ),
-                                MenuItemButton(
-                                  leadingIcon: const PhosphorIcon(
-                                    PhosphorIconsLight.trash,
+                                  ...areas.map(
+                                    (entry) => buildAreaTile(
+                                      bloc,
+                                      viewport,
+                                      state,
+                                      viewportRect,
+                                      current,
+                                      entry,
+                                      controller: controller,
+                                      folderPath: _currentGroup.isEmpty
+                                          ? []
+                                          : _currentGroup.split('/'),
+                                    ),
                                   ),
-                                  onPressed: () async {
-                                    final result = await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) =>
-                                          const DeleteDialog(),
-                                    );
-                                    if (result != true) return;
-                                    if (context.mounted) {
-                                      bloc.add(AreasRemoved([area.name]));
-                                    }
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context).delete,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                                ],
+                              );
+                            },
+                          ),
                     ),
                   ),
                 ),
                 if (current != null)
-                  BottomAppBar(
-                    height: 120,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              isSelected: currentIndex.areaNavigatorCreate,
-                              onPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAreaNavigatorCreate(
-                                    !currentIndex.areaNavigatorCreate,
-                                  ),
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.plusCircle,
-                              ),
-                              tooltip: LeapLocalizations.of(context).create,
-                            ),
-                            IconButton(
-                              isSelected: currentIndex.areaNavigatorExact,
-                              onPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAreaNavigatorExact(
-                                    !currentIndex.areaNavigatorExact,
-                                  ),
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.square,
-                              ),
-                              tooltip: AppLocalizations.of(context).exact,
-                            ),
-                            IconButton(
-                              isSelected: currentIndex.areaNavigatorAsk,
-                              onPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAreaNavigatorAsk(
-                                    !currentIndex.areaNavigatorAsk,
-                                  ),
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.textT,
-                              ),
-                              tooltip: AppLocalizations.of(context).askForName,
-                            ),
-                          ],
+                  Card.filled(
+                    child: SizedBox(
+                      height: 64,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 8,
                         ),
-                        Row(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Expanded(
-                              child: Row(
-                                children: [
-                                  const PhosphorIcon(
-                                    PhosphorIconsLight.arrowsOutCardinal,
+                              child: MenuAnchor(
+                                menuChildren: [
+                                  CheckboxMenuButton(
+                                    value: currentIndex.areaNavigatorCreate,
+                                    onChanged: (value) => context
+                                        .read<CurrentIndexCubit>()
+                                        .setAreaNavigatorCreate(value ?? false),
+                                    child: Text(
+                                      LeapLocalizations.of(context).create,
+                                    ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  Text(AppLocalizations.of(context).move),
+                                  CheckboxMenuButton(
+                                    value: currentIndex.areaNavigatorExact,
+                                    onChanged: (value) => context
+                                        .read<CurrentIndexCubit>()
+                                        .setAreaNavigatorExact(value ?? false),
+                                    child: Text(
+                                      AppLocalizations.of(context).exact,
+                                    ),
+                                  ),
+                                  CheckboxMenuButton(
+                                    value: currentIndex.areaNavigatorAsk,
+                                    onChanged: (value) => context
+                                        .read<CurrentIndexCubit>()
+                                        .setAreaNavigatorAsk(value ?? false),
+                                    child: Text(
+                                      AppLocalizations.of(context).askForName,
+                                    ),
+                                  ),
                                 ],
+                                builder: (context, controller, child) =>
+                                    InkWell(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
+                                      onTap: controller.toggle,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          spacing: 8,
+                                          children: [
+                                            PhosphorIcon(
+                                              PhosphorIconsLight.compass,
+                                              color: controller.isOpen
+                                                  ? ColorScheme.of(
+                                                      context,
+                                                    ).primary
+                                                  : null,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).navigator,
+                                              style: TextTheme.of(context)
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                    color: controller.isOpen
+                                                        ? ColorScheme.of(
+                                                            context,
+                                                          ).primary
+                                                        : null,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                               ),
                             ),
-                            Wrap(
-                              spacing: 8,
-                              children:
-                                  [
-                                        (
-                                          (-1, 0),
-                                          AppLocalizations.of(context).left,
-                                          PhosphorIcons.arrowLeft,
-                                        ),
-                                        (
-                                          (0, -1),
-                                          AppLocalizations.of(context).top,
-                                          PhosphorIcons.arrowUp,
-                                        ),
-                                        (
-                                          (0, 1),
-                                          AppLocalizations.of(context).bottom,
-                                          PhosphorIcons.arrowDown,
-                                        ),
-                                        (
-                                          (1, 0),
-                                          AppLocalizations.of(context).right,
-                                          PhosphorIcons.arrowRight,
-                                        ),
-                                      ]
-                                      .map(
-                                        (data) => IconButton.filledTonal(
-                                          icon: PhosphorIcon(
-                                            data.$3(PhosphorIconsStyle.light),
-                                          ),
-                                          tooltip: data.$2,
-                                          onPressed:
-                                              enableButton(
-                                                data.$1.$1,
-                                                data.$1.$2,
-                                              )
-                                              ? () =>
-                                                    move(data.$1.$1, data.$1.$2)
-                                              : null,
-                                          selectedIcon: PhosphorIcon(
-                                            data.$3(PhosphorIconsStyle.light),
-                                          ),
-                                          isSelected: selectedButton(
-                                            data.$1.$1,
-                                            data.$1.$2,
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
+                            Row(
+                              children: [
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowLeft,
+                                  tooltip: AppLocalizations.of(context).left,
+                                  enabled: enableButton(-1, 0),
+                                  selected: selectedButton(-1, 0),
+                                  onPressed: () =>
+                                      navigateToRelativeArea(-1, 0),
+                                ),
+                                const SizedBox(width: 2),
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowUp,
+                                  tooltip: AppLocalizations.of(context).top,
+                                  enabled: enableButton(0, -1),
+                                  selected: selectedButton(0, -1),
+                                  onPressed: () =>
+                                      navigateToRelativeArea(0, -1),
+                                ),
+                                const SizedBox(width: 2),
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowDown,
+                                  tooltip: AppLocalizations.of(context).bottom,
+                                  enabled: enableButton(0, 1),
+                                  selected: selectedButton(0, 1),
+                                  onPressed: () => navigateToRelativeArea(0, 1),
+                                ),
+                                const SizedBox(width: 2),
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowRight,
+                                  tooltip: AppLocalizations.of(context).right,
+                                  enabled: enableButton(1, 0),
+                                  selected: selectedButton(1, 0),
+                                  onPressed: () => navigateToRelativeArea(1, 0),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
               ],
@@ -367,6 +605,33 @@ class _AreasViewState extends State<AreasView> {
           },
         );
       },
+    );
+  }
+}
+
+class _AreaDirectionButton extends StatelessWidget {
+  final IconData Function(PhosphorIconsStyle) icon;
+  final String tooltip;
+  final bool enabled;
+  final bool selected;
+  final VoidCallback onPressed;
+
+  const _AreaDirectionButton({
+    required this.icon,
+    required this.tooltip,
+    required this.enabled,
+    required this.selected,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton.filledTonal(
+      icon: PhosphorIcon(icon(PhosphorIconsStyle.light)),
+      tooltip: tooltip,
+      onPressed: enabled ? onPressed : null,
+      selectedIcon: PhosphorIcon(icon(PhosphorIconsStyle.light)),
+      isSelected: selected,
     );
   }
 }

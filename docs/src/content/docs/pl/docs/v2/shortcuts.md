@@ -34,7 +34,7 @@ Niektóre z nich są napisane pod przyciskami.
 
 ## Długopis
 
-Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
+By default, the pen is configured to function as the following:
 
 - `Pióro`: skonfigurowany jako długopis.
 - `First` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.

@@ -12,6 +12,8 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.markdown => ['public.plain-text'],
     AssetFileType.page => [],
     AssetFileType.xopp => ['dev.linwood.butterfly.xopp'],
+    AssetFileType.oneNote => ['com.microsoft.onenote.one'],
+    AssetFileType.oneNotePackage => ['com.microsoft.onenote.onepkg'],
     AssetFileType.rawText => ['public.plain-text'],
     AssetFileType.archive => ['public.archive'],
   };
@@ -25,6 +27,8 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.markdown => ['md', 'markdown'],
     AssetFileType.page => [],
     AssetFileType.xopp => ['xopp'],
+    AssetFileType.oneNote => ['one'],
+    AssetFileType.oneNotePackage => ['onepkg'],
     AssetFileType.rawText => ['txt'],
     AssetFileType.archive => ['zip'],
   };
@@ -39,12 +43,28 @@ extension AssetFileTypeHelper on AssetFileType {
       'application/x-text-butterfly',
       'application/json',
     ],
-    AssetFileType.image => ['image/*'],
+    AssetFileType.image => [
+      'image/png',
+      'image/jpeg',
+      'image/gif',
+      'image/bmp',
+      'image/x-icon',
+    ],
     AssetFileType.markdown => ['text/markdown'],
     AssetFileType.pdf => ['application/pdf'],
     AssetFileType.svg => ['image/svg+xml'],
-    AssetFileType.page => ['application/json'],
+    AssetFileType.page => ['application/x-butterfly-page', 'application/json'],
     AssetFileType.xopp => ['application/zip'],
+    AssetFileType.oneNote => [
+      'application/onenote',
+      'application/msonenote',
+      'application/x-onenote',
+    ],
+    AssetFileType.oneNotePackage => [
+      'application/onenote',
+      'application/msonenote',
+      'application/x-onenote',
+    ],
     AssetFileType.archive => [
       'application/zip',
       'application/x-tar',
@@ -55,12 +75,7 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.rawText => ['text/plain'],
   };
 
-  bool isMimeType(String mimeType) {
-    final mime = getMimeTypes();
-    return mime.any((m) {
-      return RegExp(m).hasMatch(mimeType);
-    });
-  }
+  bool isMimeType(String mimeType) => getMimeTypes().contains(mimeType);
 
   bool isNote() => this == AssetFileType.note || this == AssetFileType.textNote;
 
@@ -68,6 +83,7 @@ extension AssetFileTypeHelper on AssetFileType {
     if (ext?.startsWith('.') ?? false) {
       ext = ext?.substring(1);
     }
+    ext = ext?.toLowerCase();
     return AssetFileType.values.firstWhereOrNull(
       (type) => type.getFileExtensions().contains(ext),
     );

@@ -34,7 +34,7 @@ Nogle af dem er skrevet under knapperne.
 
 ## Pen
 
-Som standard er pennen konfigureret til at fungere som følgende:
+By default, the pen is configured to function as the following:
 
 - `Pen`: konfigureret som pen.
 - `Først` (Primær knap, hvis understøttet): Skift til håndværktøj under tryk.

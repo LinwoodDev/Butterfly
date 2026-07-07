@@ -1,16 +1,16 @@
-Butterfly is a note taking app where your ideas come first. You can paint, add texts, and export them easily on every device. This app works on android, windows, linux, and in the web.
+Butterfly is a note-taking app where your ideas come first. يمكنك الرسم وإضافة نصوص وتصديرها بسهولة على أي جهاز. This app works on Android, Windows, Linux, and in the web.
 
-* Simple and intuitive: Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on it.
-* Customizable: Change everything to your needs. Choose your custom color, create a palette, and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
-* Support your favorite formats: Import and export are supported for images, pdf and svg. Register the app to open these files to edit them.
-* Works on every device: The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.
-* Choose where your data is stored: You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
-* Available in many languages: The app is available in many languages. Help us to translate this app to your language.
-* FOSS: The app is open source and free. You can contribute to the project and help to make it better.
-* Use it offline: You can use the app offline. You can draw, paint, and export your notes without an internet connection.
-* Use your favorite stylus: The app supports stylus and touch devices. You can draw and paint with your favorite stylus.
-* Write text: You can write text on your notes. You can change the font, size, and color.
-* Take photos: You can take photos and add them to your notes. You can also import photos from your gallery.
-* Editable: You can change the size, color, and position of every element after you added it to your note.
-* Add shapes: You can add shapes to your notes. You can choose between a rectangle, circle and line.
-* Structure your notes: Add areas and waypoints to your notes to keep them organized.
+* سهل الاستخدام ومنطقي: كل أداة في مكانها الصحيح. افتح التطبيق وابدأ الرسم. Change your tools by clicking on them.
+* يمكن تخصيصه: قم بتغيير كل شيء حسب احتياجاتك. اختر لونك المخصص، وأنشئ لوحة ألوان، وأضف صفحاتك إلى اللوحة. لا حدود لحجم اللوحه، مثالي لأفكارك وملاحظاتك.
+* Supports your favorite formats: Import and export are supported for images, PDF and SVG. Open these files directly to edit them.
+* Works on every device: The app is available for Android, Windows, Linux, and in the web. يمكنك استخدامه على هاتفك أو جهازك اللوحي أو الحاسوب.
+* Choose where your data is stored: You can choose to store your data locally or in your favorite cloud (WebDAV). يمكنك أيضا تصدير بياناتك إلى ملف واستيرادها مرة أخرى.
+* متوفر في العديد من اللغات: التطبيق متاح في العديد من اللغات. ساعدنا في ترجمة هذا التطبيق إلى لغتك.
+* البرمجيات الحرة والمفتوحة المصدر: التطبيق مفتوح المصدر ومجاني. يمكنك المساهمة في المشروع والمساعدة في تحسينه.
+* استخدمه دون اتصال: يمكنك استخدام التطبيق دون اتصال. يمكنك رسم وتصدير ملاحظاتك بدون اتصال بالإنترنت.
+استخدم قلمك المفضل: يدعم العديد من الأقلام و أجهزة اللمس يمكنك الرسم والطلاء باستخدام قلم الجهاز المفضل لديك.
+* كتابة نص: يمكنك كتابة نص على ملاحظاتك. يمكنك تغيير الخط والحجم واللون.
+* التقاط صور: يمكنك التقاط الصور وإضافتها إلى ملاحظاتك. يمكنك أيضا استيراد الصور من مَعْرِض الصور الخاص بك.
+* قابل للتحرير: يمكنك تغيير الحجم واللون والموقع لكل عنصر بعد إضافته إلى ملاحظتك.
+* إضافة أشكال: يمكنك إضافة أشكال إلى ملاحظاتك. يمكنك الاختيار بين مستطيل ودائرة وخط.
+* تنظيم ملاحظاتك: أضف مناطق ونقاط مرجعية إلى ملاحظاتك لتنظيمها.

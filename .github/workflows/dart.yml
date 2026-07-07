@@ -14,11 +14,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - uses: actions/checkout@v6
       - name: Print Dart SDK version
         run: |
           dart --version
@@ -46,8 +45,9 @@ jobs:
         run: dart format .
       - name: Test for git changes
         run: git diff --exit-code
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      # - name: Run tests
-      #   run: flutter test
+      - name: Run Flutter tests
+        if: matrix.projects == 'app'
+        run: flutter test
+      - name: Run Dart tests
+        if: matrix.projects == 'api'
+        run: dart test

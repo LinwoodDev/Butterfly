@@ -10,6 +10,11 @@
   "lightTheme": "Světlý motiv",
   "systemTheme": "Použít výchozí motiv systému",
   "view": "Zobrazit",
+  "contentViewport": "Zobrazení obsahu",
+  "limitViewportToPositiveCoordinates": "Omezit zobrazení na kladné souřadnice",
+  "off": "Vypnuto",
+  "canvas": "Plátno",
+  "interface": "Rozhraní",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Oddálit",
   "resetZoom": "Resetovat zoom",
   "strokeWidth": "Šířka",
+  "strokeStyle": "Styl tahů",
+  "dashLength": "Délka pomlčky",
+  "gapLength": "Délka mezery",
   "includeEraser": "Zahrnout gumu?",
   "thinning": "Ztenčování",
   "pen": "Tužka",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Vymazání tahem",
+  "stroke": "Stroke",
   "label": "Štítek",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Pozadí",
+  "applyBackground": "Použít pozadí",
+  "applyAreas": "Aplikovat oblasti",
+  "currentPage": "Aktuální stránka",
+  "allPages": "Všechny stránky",
   "box": "Krabice",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Výchozí paleta",
   "highlighter": "Zvýrazňovač",
+  "combinePaths": "Kombinovat cesty",
   "add": "Přidat",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Pevný",
+  "solidColor": "Plná barva",
+  "gradient": "Sklon",
+  "gradientType": "Typ přechodu",
+  "linear": "Lineární",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dvojitý",
   "dotted": "Tečkovaný",
+  "dottedDark": "Tečkovaná tmavá",
   "dashed": "Přerušovaný",
   "wavy": "Zvlněný",
   "fontWeight": "Tloušťka písma",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Chování",
   "dataDirectory": "Datový adresář",
+  "warning": "Varování",
+  "platformExperimentalWarning": "Upozornění: Toto nastavení je experimentální a může mít problémy na této platformě.",
+  "changeDataDirectoryWarningContent": "Jste si jisti, že chcete změnit datovou složku? Před pokračováním byste měli vytvořit zálohu svých dat.",
   "defaultPath": "Výchozí cesta",
   "dateFormat": "Formát data",
   "updatedAt": "Aktualizováno na: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Nenastaveno",
   "enterLayer": "Zadejte název vrstvy",
+  "eraseShapes": "Vymazat tvary",
+  "eraseShapeModeNone": "Nesmazat tvary",
+  "eraseShapeModeTouchEdges": "Vymazat při dotyku na hrany",
+  "eraseShapeModeTouchAnywhere": "Vymazat při dotyku kdekoliv",
+  "selectElementModeTouchEdges": "Vybrat při dotyku hrany",
+  "selectElementModeTouchAnywhere": "Vyberte, když se dotknete kdekoliv",
   "selectElements": "Vybrat prvky",
   "deleteElements": "Odstranit prvky",
+  "eraseAllElements": "Vymazat všechny prvky",
   "deleteElementsConfirm": "Opravdu chcete odstranit vybrané prvky?",
   "selectCustomCollection": "Vybrat vlastní kolekci",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Tmavý",
-  "plainDark": "Tmavý",
+  "plainDark": "Jednoduché tmavé",
   "ruledDark": "Rušeno tmavé",
   "quadDark": "Čtyřnásobně tmavé",
   "musicDark": "Hudební tmavý",
@@ -545,6 +576,7 @@
   "topRight": "Vpravo nahoře",
   "bottomLeft": "Vlevo dole",
   "bottomRight": "Vpravo dole",
+  "zoomPosition": "Poloha ovládání přiblížení",
   "caches": "Cache",
   "manage": "Spravovat",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Složka synchronizována",
   "syncRootDirectory": "Synchronizovat kořenový adresář",
   "penOnlyInput": "Používat pouze tužku",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automaticky povolit režim pouze pro pen-only pokud je rozpoznán perus. Toto nastavení trvá pouze pro aktuální relaci.",
+  "penOnlyInputOnDescription": "Vždy odmítnout dotyk a vstup myši, přijmout pouze stylus vstupu.",
+  "penOnlyInputOffDescription": "Přijmout všechny typy vstupů včetně dotyku, myši a stylu.",
+  "automatic": "Automaticky",
+  "alwaysOn": "Vždy zapnuto",
+  "alwaysOff": "Vždy vypnuto",
+  "showPenOnlyToggle": "Zobrazit pouze přepínač pera",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Gesta",
   "nativeTitleBar": "Nativní titulek",
+  "mode": "Mode",
   "syncMode": "Režim synchronizace",
   "connection": "Připojení",
   "always": "Vždy",
@@ -893,6 +939,7 @@
   "bringForward": "Posunout vpřed",
   "sendBackward": "Poslat zpět",
   "rotation": "Otáčení",
+  "direction": "Směr",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
   "rotate": "Otočit",
@@ -919,6 +966,9 @@
   "ascending": "Vzestupně",
   "descending": "Sestupně",
   "imageScale": "Měřítko obrázku",
+  "svgScale": "SVG měřítko",
+  "noImageSelected": "Nebyl vybrán žádný obrázek",
+  "noSvgSelected": "Není vybrána žádná SVG",
   "select": "Vybrat",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Kvalita PDF",
   "surface": "Povrch",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Přesto pokračovat",
   "zoomControl": "Ovládání přiblížení",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Vysoký kontrast",
   "shouldANumber": "Tato hodnota by měla být platné číslo",
   "createAreas": "Vytvořit oblasti",
@@ -1081,6 +1134,8 @@
   "addAll": "Přidat vše",
   "onlyCurrentPage": "Pouze aktuální stránka",
   "smoothNavigation": "Hladká navigace",
+  "edgePanAreaSwitching": "Přepínání prostoru skořepiny hrany",
+  "useAndroidSaf": "Použít Android SAF",
   "exact": "Přesné",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Změnit kolekci",
   "collections": "Sbírky",
   "fullSelection": "Plný výběr",
-  "fullSelectionDescription": "Vyžaduje, aby prvky byly plně ve výběrovém poli pro výběr.",
   "collection": "Sbírka",
   "defaultCollection": "Výchozí kolekce",
   "scroll": "Posunout",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Domovská stránka",
   "lastNote": "Poslední poznámka",
   "newNote": "Nová poznámka",
-  "convertToLayer": "Převést na vrstvu",
+  "moveToLayer": "Přesunout do vrstvy",
+  "createLayer": "Vytvořit vrstvu",
   "merge": "Sloučit",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Ukončit",
+  "radius": "Radius",
+  "focalPoint": "Fokální bod",
+  "useOffCenterStartPoint": "Použít počáteční bod mimo střed",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Barevné zastávky",
+  "addStop": "Přidat zastávku",
   "positionDependent": "Závislost na poloze",
   "flipHorizontal": "Překlopit vodorovně",
   "flipVertical": "Překlopit svisle",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Přizpůsobit zástupce",
+  "clickToSave": "Klikněte pro uložení",
+  "toolbars": "Lišty nástrojů",
+  "logs": "Logy",
+  "ruledSimple": "Jednoduchá pravidla",
+  "ruledSimpleDark": "Rušen jednoduchý tmavý",
+  "quadSimple": "Jednoduchý",
+  "quadSimpleDark": "Často jednoduchý tmavý",
+  "redLinedRuled": "Červená šipka řízená",
+  "redLinedRuledDark": "Červená podšívaná tmavá",
+  "redLinedQuad": "Červená čtyřkolka",
+  "redLinedQuadDark": "Červená čtyřvrstvá tmavá",
+  "noItemSelected": "Nebyla vybrána žádná položka",
+  "areaAsInitial": "Otevřená oblast jako počáteční zobrazení",
+  "swap": "Prohodit",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Skrýt příponu souboru",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Nový ze šablony",
+  "exportAsTextShortcut": "Exportovat jako text",
+  "exportAsImageShortcut": "Exportovat jako obrázek",
+  "exportAsPdfShortcut": "Exportovat do PDF",
+  "exportAsSvgShortcut": "Exportovat jako SVG",
+  "changePathShortcut": "Změnit cestu",
+  "fullScreenShortcut": "Celá obrazovka",
+  "doublePressAction": "Akce dvojím stisknutím",
+  "triplePressAction": "Akce trojím stisknutím",
+  "longPress": "Dlouhý stisk",
+  "toolNumber": "Nástroj {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Podržet zkratky",
+  "holdShortcutsDescription": "Podržte klávesu pro dočasné přepnutí na jiný nástroj. Zmáčkněte klávesu zpět na předchozí nástroj.",
+  "key": "Klíč",
+  "bringMovedElementsToFront": "Přeneste přesunuté prvky do předku",
+  "addTool": "Přidat nástroj",
+  "nextPage": "Další stránka",
+  "previousPage": "Předchozí stránka"
 }

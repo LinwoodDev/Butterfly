@@ -119,7 +119,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
           ),
           SizedBox(
             // This adds space at the bottom of the fly-out to account for the keyboard appearing
-            height: MediaQuery.of(context).viewInsets.bottom,
+            height: MediaQuery.viewInsetsOf(context).bottom,
           ),
         ],
       ),

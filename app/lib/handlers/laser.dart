@@ -25,7 +25,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
         _stopTimer();
       }
       // Fade out the elements
-      bloc.refresh();
+      bloc.refreshForegrounds();
     });
   }
 
@@ -47,7 +47,11 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final toolAlpha = color.a;
     final alpha = ((1 - delta) * toolAlpha).clamp(0, 255).round();
     color = color.withValues(a: alpha);
-    return element.copyWith(property: element.property.copyWith(color: color));
+    return element.copyWith(
+      property: element.property.copyWith(
+        paint: ElementPaint.solid(color: color),
+      ),
+    );
   }
 
   List<PenElement> _getSubmitted() {
@@ -90,11 +94,16 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     _stopTimer();
   }
 
+  @override
+  void dispose(DocumentBloc bloc) {
+    _stopTimer();
+  }
+
   void _submit(DocumentBloc bloc, List<int> indexes) {
     final elements = indexes.map((e) => _elements.remove(e)).nonNulls.toList();
     if (elements.isEmpty) return;
     _submittedElements.addAll(elements);
-    bloc.refresh();
+    bloc.refreshForegrounds();
   }
 
   @override
@@ -123,8 +132,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final settings = context.read<SettingsCubit>().state;
-    final penOnlyInput = settings.penOnlyInput;
+    final penOnlyInput = currentIndexCubit.effectivePenOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
       currentIndexCubit.state,
       localPosition,
@@ -146,7 +154,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
           property: PenProperty(
             strokeWidth: data.strokeWidth / transform.size,
             thinning: data.thinning,
-            color: data.color,
+            paint: ElementPaint.solid(color: data.color),
           ),
         );
 
@@ -159,7 +167,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
           ),
         ),
     );
-    bloc.refresh();
+    bloc.refreshForegrounds();
     _startTimer(bloc);
   }
 
@@ -167,9 +175,9 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   void onPointerDown(PointerDownEvent event, EventContext context) {
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    context.refresh();
-    final currentIndex = context.getCurrentIndex();
-    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    context.refreshForegrounds();
+    final cubit = context.getCurrentIndexCubit();
+    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       _elements.clear();
       return;
     }

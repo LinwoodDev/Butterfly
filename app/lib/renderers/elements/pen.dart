@@ -14,6 +14,58 @@ class PenRenderer extends Renderer<PenElement> {
   @override
   Rect expandedRect;
 
+  Path? _cachedFillPath;
+  Path? _cachedStrokePath;
+  PathHitCalculator? _cachedHitCalculator;
+  final _strokePaint = ElementPaintRenderer();
+  final _fillPaint = ElementPaintRenderer();
+
+  void _clearCachedPaths() {
+    _cachedFillPath = null;
+    _cachedStrokePath = null;
+    _cachedHitCalculator = null;
+  }
+
+  void _computePaths() {
+    final points = element.points;
+    if (points.isEmpty) return;
+    final property = element.property;
+
+    if (property.fillPaint.previewColor.a > 0) {
+      _cachedFillPath = Path();
+      final first = points.first;
+      _cachedFillPath!.moveTo(first.x, first.y);
+      for (final point in points.sublist(1)) {
+        _cachedFillPath!.lineTo(point.x, point.y);
+      }
+    }
+
+    if (property.paint.previewColor.a > 0) {
+      final outlinePoints = _getOutlinePoints();
+      if (outlinePoints.isNotEmpty) {
+        final strokePath = Path();
+        if (outlinePoints.length < 2) {
+          strokePath.addOval(
+            Rect.fromCircle(center: outlinePoints[0], radius: 1),
+          );
+        } else {
+          strokePath.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
+          for (int i = 1; i < outlinePoints.length - 1; ++i) {
+            final p0 = outlinePoints[i];
+            final p1 = outlinePoints[i + 1];
+            strokePath.quadraticBezierTo(
+              p0.dx,
+              p0.dy,
+              (p0.dx + p1.dx) / 2,
+              (p0.dy + p1.dy) / 2,
+            );
+          }
+        }
+        _cachedStrokePath = strokePath;
+      }
+    }
+  }
+
   bool shouldSimulatePressure() {
     final points = element.points.sublist(1);
     var pressure = points.firstOrNull?.pressure ?? 0;
@@ -21,12 +73,12 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   @override
-  void setup(
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
-  ) {
+  ) async {
     final points = element.points;
     if (points.isEmpty) return;
     final property = element.property;
@@ -71,7 +123,37 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    super.setup(transformCubit, document, assetService, page);
+    await Future.wait([
+      _strokePaint.setup(property.paint, document, assetService),
+      _fillPaint.setup(property.fillPaint, document, assetService),
+    ]);
+    await super.setup(transformCubit, document, assetService, page);
+  }
+
+  @override
+  void dispose() {
+    _strokePaint.dispose();
+    _fillPaint.dispose();
+    _clearCachedPaths();
+    super.dispose();
+  }
+
+  @override
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) => _strokePaint.uses(path) || _fillPaint.uses(path);
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    _clearCachedPaths();
   }
 
   @override
@@ -85,59 +167,39 @@ class PenRenderer extends Renderer<PenElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
+    _build(canvas);
+  }
+
+  void buildCombined(Canvas canvas) {
+    _build(canvas, BlendMode.src);
+  }
+
+  void _build(Canvas canvas, [BlendMode? blendMode]) {
     final points = element.points;
     if (points.isEmpty) return;
     final property = element.property;
-    if (property.fill.a > 0) {
-      final paint = Paint()
-        ..color = property.fill.toColor()
-        ..style = PaintingStyle.fill
-        ..strokeCap = StrokeCap.round;
-      final path = Path();
-      final first = points.first;
-      path.moveTo(first.x, first.y);
-      points.sublist(1).forEach((point) => path.lineTo(point.x, point.y));
-      canvas.drawPath(path, paint);
+
+    if (_cachedFillPath == null && _cachedStrokePath == null) {
+      _computePaths();
     }
-    if (property.color.a > 0) {
-      final paint = Paint()
-        ..color = property.color.toColor()
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round;
-      final outlinePoints = _getOutlinePoints();
 
-      // 2. Render the points as a path
-      final path = Path();
-
-      if (outlinePoints.isEmpty) {
-        // If the list is empty, don't do anything.
-        return;
-      } else if (outlinePoints.length < 2) {
-        // If the list only has one point, draw a dot.
-        path.addOval(
-          Rect.fromCircle(
-            center: Offset(outlinePoints[0].dx, outlinePoints[0].dy),
-            radius: 1,
-          ),
-        );
-      } else {
-        // Otherwise, draw a line that connects each point with a bezier curve segment.
-        path.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
-
-        for (int i = 1; i < outlinePoints.length - 1; ++i) {
-          final p0 = outlinePoints[i];
-          final p1 = outlinePoints[i + 1];
-          path.quadraticBezierTo(
-            p0.dx,
-            p0.dy,
-            (p0.dx + p1.dx) / 2,
-            (p0.dy + p1.dy) / 2,
-          );
-        }
-      }
-
-      // 3. Draw the path to the canvas
-      canvas.drawPath(path, paint..style = PaintingStyle.fill);
+    if (property.fillPaint.previewColor.a > 0 && _cachedFillPath != null) {
+      final paint =
+          _fillPaint.build(property.fillPaint, rect, style: PaintingStyle.fill)
+            ..strokeCap = StrokeCap.round
+            ..blendMode = blendMode ?? BlendMode.srcOver;
+      canvas.drawPath(_cachedFillPath!, paint);
+    }
+    if (property.paint.previewColor.a > 0 && _cachedStrokePath != null) {
+      final paint =
+          _strokePaint.build(
+              property.paint,
+              expandedRect,
+              style: PaintingStyle.fill,
+            )
+            ..strokeCap = StrokeCap.round
+            ..blendMode = blendMode ?? BlendMode.srcOver;
+      canvas.drawPath(_cachedStrokePath!, paint);
     }
   }
 
@@ -145,7 +207,6 @@ class PenRenderer extends Renderer<PenElement> {
     final currentZoom = element.zoom ?? kMaxZoom;
     final property = element.property;
     final center = rect.center;
-    // 1. Get the outline points from the input points
     var outlinePoints = freehand.getStroke(
       element.points
           .map((e) => e.scale(currentZoom, center))
@@ -160,11 +221,9 @@ class PenRenderer extends Renderer<PenElement> {
       ),
     );
 
-    // Unscale the points
-    outlinePoints = outlinePoints
+    return outlinePoints
         .map((e) => e.scaleFromCenter(1 / currentZoom, center))
         .toList();
-    return outlinePoints;
   }
 
   @override
@@ -177,18 +236,21 @@ class PenRenderer extends Renderer<PenElement> {
     final points = element.points;
     final property = element.property;
     if (points.isEmpty) return;
-    if (property.fill.a > 0) {
+    final fill = property.fillPaint.previewColor;
+    final color = property.paint.previewColor;
+    if (fill.a > 0) {
       final first = points.first;
       var path = 'M ${first.x} ${first.y}';
       points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)
-        ..setAttribute('fill', property.fill.toHexString())
+        ..setAttribute('fill', fill.toHexString(alpha: false))
+        ..setAttribute('fill-opacity', '${fill.a / 255}')
         ..setAttribute('stroke', 'none')
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');
     }
-    if (property.color.a > 0) {
+    if (color.a > 0) {
       var path = '';
 
       // 1. Get the outline points from the input points
@@ -202,16 +264,15 @@ class PenRenderer extends Renderer<PenElement> {
 
       final first = outlinePoints.first;
       path += 'M ${first.roundedX()} ${first.roundedY()}';
-      for (int i = 1; i < outlinePoints.length - 1; ++i) {
-        final p0 = outlinePoints[i];
-        final p1 = outlinePoints[i + 1];
-        path +=
-            ' Q ${p0.roundedX()} ${p0.roundedY()} ${p0.roundedBetweenX(p1)} ${p0.roundedBetweenY(p1)}';
+      for (final point in outlinePoints.sublist(1)) {
+        path += ' L ${point.roundedX()} ${point.roundedY()}';
       }
+      path += ' Z';
 
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)
-        ..setAttribute('fill', property.color.toHexString())
+        ..setAttribute('fill', color.toHexString(alpha: false))
+        ..setAttribute('fill-opacity', '${color.a / 255}')
         ..setAttribute('stroke', 'none')
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');
@@ -263,77 +324,185 @@ class PenRenderer extends Renderer<PenElement> {
   );
 
   @override
-  PathHitCalculator getHitCalculator() =>
-      PathHitCalculator(rect, element.points, rotation * pi / 180);
+  PathHitCalculator getHitCalculator() {
+    _cachedHitCalculator ??= PathHitCalculator(
+      rect,
+      expandedRect,
+      element.points,
+      rotation * pi / 180,
+    );
+    return _cachedHitCalculator!;
+  }
 }
 
 class PathHitCalculator extends HitCalculator {
   final Rect elementRect;
+  final Rect boundsRect;
   final List<PathPoint> points;
   final double rotation;
+  final double _cos;
+  final double _sin;
 
-  PathHitCalculator(this.elementRect, this.points, this.rotation);
+  PathHitCalculator(
+    this.elementRect,
+    this.boundsRect,
+    this.points,
+    this.rotation,
+  ) : _cos = rotation == 0 ? 1 : cos(rotation),
+      _sin = rotation == 0 ? 0 : sin(rotation);
 
-  List<PathPoint> _interpolate(PathPoint a, PathPoint b) {
-    final result = <PathPoint>[];
-
-    final distanceX = b.x - a.x;
-    final distanceY = b.y - a.y;
-    final distance = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
-
-    result.add(a.rotate(elementRect.center, rotation));
-
-    for (int i = 1; i <= distance; i++) {
-      result.add(
-        PathPoint(
-          a.x + (distanceX / distance * i).floor(),
-          a.y + (distanceY / distance * i).floor(),
-        ).rotate(elementRect.center, rotation),
-      );
-    }
-
-    result.add(b.rotate(elementRect.center, rotation));
-    return result;
-  }
-
-  List<PathPoint> _getInterpolatedPoints(List<PathPoint> points) {
-    final result = <PathPoint>[];
-
-    for (int i = 0; i < points.length - 1; i++) {
-      result.addAll(_interpolate(points[i], points[i + 1]));
-    }
-    if (points.length == 1) {
-      result.add(points.first);
-    }
-
-    return result;
-  }
-
-  @override
-  bool hit(Rect rect, {bool full = false}) {
-    if (!elementRect.overlaps(rect)) {
+  /// Check if a line segment intersects with a rectangle
+  bool _lineIntersectsRect(Offset p1, Offset p2, Rect rect) {
+    // Quick check: if both points are on the same side of any edge, no intersection
+    if ((p1.dx < rect.left && p2.dx < rect.left) ||
+        (p1.dx > rect.right && p2.dx > rect.right) ||
+        (p1.dy < rect.top && p2.dy < rect.top) ||
+        (p1.dy > rect.bottom && p2.dy > rect.bottom)) {
       return false;
     }
-    if (points.length == 1) {
-      return rect.contains(points.first.toOffset());
+
+    // Check if either endpoint is inside the rect
+    if (rect.contains(p1) || rect.contains(p2)) {
+      return true;
     }
-    final interpolated = _getInterpolatedPoints(points);
-    if (full) {
-      return interpolated.every((point) => rect.contains(point.toOffset()));
+
+    // Check intersection with each edge of the rectangle
+    // Using parametric line intersection
+    final dx = p2.dx - p1.dx;
+    final dy = p2.dy - p1.dy;
+
+    // Check left edge (x = rect.left)
+    if (dx != 0) {
+      final t = (rect.left - p1.dx) / dx;
+      if (t >= 0 && t <= 1) {
+        final y = p1.dy + t * dy;
+        if (y >= rect.top && y <= rect.bottom) return true;
+      }
+      // Check right edge (x = rect.right)
+      final t2 = (rect.right - p1.dx) / dx;
+      if (t2 >= 0 && t2 <= 1) {
+        final y = p1.dy + t2 * dy;
+        if (y >= rect.top && y <= rect.bottom) return true;
+      }
     }
-    return interpolated.any((point) => rect.contains(point.toOffset()));
+
+    // Check top edge (y = rect.top)
+    if (dy != 0) {
+      final t = (rect.top - p1.dy) / dy;
+      if (t >= 0 && t <= 1) {
+        final x = p1.dx + t * dx;
+        if (x >= rect.left && x <= rect.right) return true;
+      }
+      // Check bottom edge (y = rect.bottom)
+      final t2 = (rect.bottom - p1.dy) / dy;
+      if (t2 >= 0 && t2 <= 1) {
+        final x = p1.dx + t2 * dx;
+        if (x >= rect.left && x <= rect.right) return true;
+      }
+    }
+
+    return false;
+  }
+
+  Offset _rotatePoint(PathPoint point) {
+    if (rotation == 0) return point.toOffset();
+    final center = elementRect.center;
+    final dx = point.x - center.dx;
+    final dy = point.y - center.dy;
+    return Offset(
+      center.dx + dx * _cos - dy * _sin,
+      center.dy + dx * _sin + dy * _cos,
+    );
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
-    final interpolated = _getInterpolatedPoints(points);
-    if (full) {
-      return interpolated.every(
-        (point) => isPointInPolygon(polygon, point.toOffset()),
-      );
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    // Quick bounds check first
+    if (!boundsRect.overlaps(rect)) {
+      return false;
     }
-    return interpolated.any(
-      (point) => isPointInPolygon(polygon, point.toOffset()),
-    );
+
+    if (points.isEmpty) return false;
+
+    if (points.length == 1) {
+      final rotated = _rotatePoint(points.first);
+      return rect.contains(rotated);
+    }
+
+    var p1 = _rotatePoint(points[0]);
+
+    if (hitElementMode == HitElementMode.full) {
+      if (!rect.contains(p1)) return false;
+
+      // All segments must be fully inside the rect
+      for (int i = 0; i < points.length - 1; i++) {
+        final p2 = _rotatePoint(points[i + 1]);
+        if (!rect.contains(p2)) {
+          return false;
+        }
+        p1 = p2;
+      }
+      return true;
+    } else {
+      // Any segment intersects the rect
+      for (int i = 0; i < points.length - 1; i++) {
+        final p2 = _rotatePoint(points[i + 1]);
+        if (_lineIntersectsRect(p1, p2, rect)) {
+          return true;
+        }
+        p1 = p2;
+      }
+      return false;
+    }
+  }
+
+  @override
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (points.isEmpty) return false;
+    if (!_rectIntersectsPolygonBounds(boundsRect, polygon)) return false;
+
+    if (hitElementMode == HitElementMode.full) {
+      // All points must be inside the polygon
+      for (final point in points) {
+        final rotated = _rotatePoint(point);
+        if (!isPointInPolygon(polygon, rotated)) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      // Any point inside the polygon is a hit
+      for (final point in points) {
+        final rotated = _rotatePoint(point);
+        if (isPointInPolygon(polygon, rotated)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  bool _rectIntersectsPolygonBounds(Rect rect, List<ui.Offset> polygon) {
+    if (polygon.isEmpty) return false;
+    double minX = polygon[0].dx;
+    double maxX = polygon[0].dx;
+    double minY = polygon[0].dy;
+    double maxY = polygon[0].dy;
+
+    for (int i = 1; i < polygon.length; i++) {
+      final p = polygon[i];
+      if (p.dx < minX) minX = p.dx;
+      if (p.dx > maxX) maxX = p.dx;
+      if (p.dy < minY) minY = p.dy;
+      if (p.dy > maxY) maxY = p.dy;
+    }
+
+    return rect.overlaps(Rect.fromLTRB(minX, minY, maxX, maxY));
   }
 }

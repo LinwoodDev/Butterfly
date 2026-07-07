@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+minimumReleaseAgeExclude:
+  - '@astrojs/markdown-satteri@0.3.2'
+  - '@astrojs/starlight@0.41.0'
+  - astro@7.0.2

@@ -34,7 +34,7 @@ Osa niistä on kirjoitettu painikkeiden alle.
 
 ## Kynä
 
-Kynä on oletusarvoisesti määritetty toimimaan seuraavasti:
+By default, the pen is configured to function as the following:
 
 - `Pen`: määritetty kynäksi.
 - `First` (Valinnainen painike, jos tuettu): Vaihda käsityökalua painettuna.

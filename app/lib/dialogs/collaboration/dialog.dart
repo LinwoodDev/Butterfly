@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
@@ -18,7 +16,6 @@ import 'package:networker/networker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:barcode/barcode.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:super_clipboard/super_clipboard.dart';
 
 part 'start.dart';
 part 'view.dart';
@@ -45,7 +42,7 @@ class CollaborationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CurrentIndexCubit>();
-    final service = cubit.state.networkingService;
+    final service = cubit.networkingService;
     return BlocBuilder<NetworkingService, NetworkState?>(
       bloc: service,
       builder: (context, state) {

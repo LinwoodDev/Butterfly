@@ -19,14 +19,6 @@ import 'package:network_info_plus/network_info_plus.dart';
 part 'network.freezed.dart';
 part 'network.g.dart';
 
-enum NetworkingType {
-  webSocket;
-
-  Future<bool> isCompatible() async => switch (this) {
-    NetworkingType.webSocket => !kIsWeb,
-  };
-}
-
 const kDefaultPort = 28005;
 const kBroadcastPort = kDefaultPort + 1;
 const kTimeout = Duration(minutes: 5);
@@ -234,13 +226,15 @@ class NetworkingService extends Cubit<NetworkState?> {
     return completer.future
         .timeout(kTimeout)
         .then((e) {
-          listener.cancel();
           _setupReset(rpc);
           return e;
         })
         .catchError((_) {
           emit(DisconnectedNetworkState(connection: client, pipe: rpc));
           return null;
+        })
+        .whenComplete(() {
+          listener.cancel();
         });
   }
 
@@ -332,10 +326,7 @@ class NetworkingService extends Cubit<NetworkState?> {
               final users = Map<Channel, NetworkingUser>.from(_users.value)
                 ..[message.channel] = user;
               _emitUsers(users);
-              _bloc?.state.currentIndexCubit?.updateNetworkingState(
-                _bloc!,
-                users,
-              );
+              _bloc?.currentIndexCubit.updateNetworkingState(_bloc!, users);
             }),
         );
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {
@@ -465,5 +456,17 @@ class NetworkingService extends Cubit<NetworkState?> {
   void setName(String name) {
     _userName = name;
     sendUser(NetworkingUser(name: name));
+  }
+
+  @override
+  Future<void> close() async {
+    _bloc = null;
+    _resetSubscription?.cancel();
+    _resetSubscription = null;
+    await closeNetworking();
+    await _connections.close();
+    await _users.close();
+    await _resetController.close();
+    return super.close();
   }
 }

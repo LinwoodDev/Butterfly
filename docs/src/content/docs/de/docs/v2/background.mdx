@@ -15,47 +15,47 @@ import {Wrench,
 } from "@phosphor-icons/react";
 import logo from '/public/img/logo.svg';
 
-To edit the background of a page, click on the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly button and then select <Image className="inline-icon"/> Background. On a computer, you can also use the shortcut `Ctrl+B`.
+Um den Hintergrund einer Seite zu bearbeiten, klicken Sie auf die <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly-Schaltfläche und wählen Sie dann <Image className="inline-icon"/> Hintergrund aus. Auf einem Computer können Sie auch die Tastenkombination `Strg+B` verwenden.
 
-Backgrounds can be composed of multiple background layers, which are drawn on top of each other.
+Hintergründe können aus mehreren Hintergrundebenen bestehen, die übereinander gezeichnet werden.
 
-## Configuring Background Layers
+## Hintergrundebenen konfigurieren
 
-On the Background screen, the first set of tabs shows the layers of the background.
+Auf dem Hintergrundbildschirm zeigt die erste Gruppe von Tabs die Ebenen des Hintergrunds.
 
-To add a new layer, use the <Plus className="inline-icon"/> button.
+Verwende die Schaltfläche <Plus className="inline-icon"/>, um eine neue Ebene hinzuzufügen.
 
-To delete the selected layer, use the <Trash className="inline-icon"/> button.
+Verwende die Schaltfläche <Trash className="inline-icon"/>, um die ausgewählte Ebene zu löschen.
 
-To reorder the layers, use the <ArrowLeft className="inline-icon"/> and <ArrowRight className="inline-icon"/> buttons. Layers are drawn from left to right, so layers on the right will appear on top of layers on the left.
+Verwende die Schaltflächen <ArrowLeft className="inline-icon"/> und <ArrowRight className="inline-icon"/>, um die Ebenen neu anzuordnen. Ebenen werden von links nach rechts gezeichnet; Ebenen rechts erscheinen daher über den Ebenen links.
 
-## Background Layer Types
+## Arten von Hintergrundebenen
 
-There are two types of background layers: Patterns and Images/SVGs.
+Es gibt zwei Arten von Hintergrundebenen: Muster und Bilder/SVGs.
 
-### Pattern Layers
+### Musterebenen
 
-There are many different pattern templates available that you can choose from. After selecting a pattern template, you can configure the following:
+Es stehen viele verschiedene Mustervorlagen zur Auswahl. Nach Auswahl einer Mustervorlage können Sie Folgendes konfigurieren:
 
 #### Hintergrund
 
-- Color - The color of the background of the pattern.
-- Alpha - The alpha/opacity of the background of the pattern.
+- Farbe – Die Hintergrundfarbe des Musters.
+- Alpha – Die Alpha-/Deckkraft des Musterhintergrunds.
 
-#### Horizontal / Vertical
+#### Horizontal / Vertikal
 
-These sections allow you to configure the appearance of grid lines.
+In diesen Abschnitten können Sie das Aussehen der Rasterlinien konfigurieren.
 
-- Color - The color of the grid lines.
-- Alpha - The alpha/opacity of the grid lines.
-- Width - The distance between grid lines.
-- Count - The number of grid lines in a group. To prevent grouping, use `1`.
-- Space - The distance between each group of grid lines.
-- Stroke Width - The thickness/weight of the grid lines.
+- Farbe – Die Farbe der Rasterlinien.
+- Alpha – Die Alpha-/Deckkraft der Rasterlinien.
+- Breite – Der Abstand zwischen den Rasterlinien.
+- Anzahl – Die Anzahl der Rasterlinien in einer Gruppe. Verwende `1`, um eine Gruppierung zu verhindern.
+- Abstand – Der Abstand zwischen den Gruppen von Rasterlinien.
+- Strichbreite – Die Stärke der Rasterlinien.
 
-For example, to create sheet music staffs, you can use the following configuration:
-`Width: 40`, `Count: 5`, `Space: 80`
+Um zum Beispiel Notenlinien zu erstellen, können Sie die folgende Konfiguration verwenden:
+`Breite: 40`, `Anzahl: 5`, `Abstand: 80`
 
-### Image & SVG Layers
+### Bild- und SVG-Ebenen
 
-These background layer types allow you to upload an image and use it as background for the page. Images will be tiled on the canvas, and you can configure the scale of the image to make the tiles larger or smaller.
+Mit diesen Hintergrundebenentypen können Sie ein Bild hochladen und als Seitenhintergrund verwenden. Bilder werden auf der Leinwand gekachelt; über die Skalierung können Sie die Kacheln größer oder kleiner machen.

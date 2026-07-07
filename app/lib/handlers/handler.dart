@@ -72,7 +72,6 @@ part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'collection.dart';
-part 'path_eraser.dart';
 part 'pen.dart';
 part 'eye_dropper.dart';
 part 'presentation.dart';
@@ -131,7 +130,16 @@ class EventContext {
 
   CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
 
-  Future<void> refresh() => getDocumentBloc().refresh();
+  Future<void> refresh({bool allowBake = true}) =>
+      getDocumentBloc().refresh(allowBake: allowBake);
+
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds() => getDocumentBloc().refreshForegrounds();
+
+  /// Ultra-lightweight update for cursor changes only.
+  void updateCursor(MouseCursor cursor) =>
+      getDocumentBloc().updateCursor(cursor);
 
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);
@@ -218,9 +226,14 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
-  void onPointerDown(PointerDownEvent event, EventContext context) {}
+  void onDocumentUpdated(
+    DocumentLoadSuccess state,
+    DocumentLoadSuccess? oldState,
+  ) {}
 
-  void onPointerMove(PointerMoveEvent event, EventContext context) {}
+  FutureOr<void> onPointerDown(PointerDownEvent event, EventContext context) {}
+
+  FutureOr<void> onPointerMove(PointerMoveEvent event, EventContext context) {}
 
   FutureOr<void> onPointerUp(PointerUpEvent event, EventContext context) {}
 
@@ -243,10 +256,6 @@ abstract class Handler<T> {
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {}
 
   void onScaleEnd(ScaleEndDetails details, EventContext context) {}
-
-  void onDoubleTapDown(TapDownDetails details, EventContext context) {}
-
-  void onDoubleTap(EventContext context) {}
 
   void onLongPressStart(
     LongPressStartDetails details,
@@ -283,7 +292,6 @@ abstract class Handler<T> {
           LabelTool() => LabelHandler(tool),
           PenTool() => PenHandler(tool),
           EraserTool() => EraserHandler(tool),
-          PathEraserTool() => PathEraserHandler(tool),
           CollectionTool() => CollectionHandler(tool),
           AreaTool() => AreaHandler(tool),
           LaserTool() => LaserHandler(tool),
@@ -313,11 +321,10 @@ abstract class Handler<T> {
   @mustCallSuper
   Map<Type, Action<Intent>> getActions(BuildContext context) => {
     PasteTextIntent: CallbackAction<PasteTextIntent>(
-      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent(context)),
+      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent()),
     ),
     SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
-      onInvoke: (intent) =>
-          Actions.maybeInvoke(context, SelectAllIntent(context)),
+      onInvoke: (intent) => Actions.maybeInvoke(context, SelectAllIntent()),
     ),
   };
 
@@ -327,7 +334,9 @@ abstract class Handler<T> {
 double getPressureOfEvent(PointerEvent event) {
   var range = event.pressureMax - event.pressureMin;
   if (range <= 0) range = 1;
-  final pressure = event.kind == PointerDeviceKind.stylus
+  final pressure =
+      event.kind == PointerDeviceKind.stylus ||
+          event.kind == PointerDeviceKind.invertedStylus
       ? (event.pressure - event.pressureMin) / range
       : 0.5;
   if (pressure.isNaN || pressure <= 0) return 0.5;
@@ -338,7 +347,6 @@ extension ToolHandler<T extends Tool> on Handler<T> {
   void changeTool(DocumentBloc bloc, T newTool) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final index = state.info.tools.indexOf(data);
-    bloc.add(ToolsChanged({index: newTool}));
+    bloc.add(ToolsChanged([newTool]));
   }
 }

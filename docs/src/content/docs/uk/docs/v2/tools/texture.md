@@ -2,17 +2,26 @@
 title: Текстура
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+The texture tool allows you to add a background texture to a small area of the canvas.
+Use it when only a part of the canvas should have a background pattern. To change the background of the whole page, use the [background settings](../../background) instead.
+
+## Usage
+
+1. Select the texture tool.
+2. Choose the texture and its constraints in the tool configuration.
+3. Drag on the canvas to create the textured area.
+
+The created texture behaves like a surface element. You can move, resize, arrange, or delete it like other elements.
 
 ## Конфігурація
 
-|         Властивість |     Типово     | Опис                                                                                                                                                                                                                         |
-| ------------------: | :------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Залежність масштабу |    хибність    | Це змінить ширину штриха в залежності від рівня збільшення.                                                                                                                                                  |
-|            Текстура | Графічний ключ | The pattern that should be added                                                                                                                                                                                             |
-|               Width |        0       | Фіксована ширина площі. Якщо встановлено значення 0, ширина буде розрахована автоматично.                                                                                                    |
-|              Висота |        0       | Фіксована висота зони. Якщо встановити значення 0, висота буде розрахована автоматично.                                                                                                      |
-|   Відношення сторін |        0       | Постійне співвідношення сторін області. Якщо встановити значення 0, співвідношення сторін буде розраховано автоматично. Співвідношення сторін визначається як ширина/висота. |
+|         Властивість |     Типово     | Опис                                                                                                                                                                                                    |
+| ------------------: | :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Залежність масштабу |    хибність    | Це змінить ширину штриха в залежності від рівня збільшення.                                                                                                                             |
+|            Текстура | Графічний ключ | The pattern that should be added.                                                                                                                                                       |
+|               Width |        0       | Фіксована ширина площі. If set to `0`, the width will be calculated automatically.                                                                                      |
+|              Висота |        0       | Фіксована висота зони. If set to `0`, the height will be calculated automatically.                                                                                      |
+|   Відношення сторін |        0       | Постійне співвідношення сторін області. If set to `0`, the aspect ratio will be calculated automatically. An aspect ratio is defined as width / height. |
 
 Valid types for texture are:
 

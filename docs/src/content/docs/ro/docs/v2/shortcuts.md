@@ -34,7 +34,7 @@ Unele dintre ele sunt scrise sub butoane.
 
 ## Stiloul
 
-În mod implicit, stiloul este configurat pentru a funcţiona astfel:
+By default, the pen is configured to function as the following:
 
 - `Stilu`: configurat ca stilou injector (pen).
 - `First` (buton principal, dacă este suportat): Schimbă cu unealta de mână în timp ce este apăsată.

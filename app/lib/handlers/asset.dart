@@ -27,7 +27,11 @@ Future<void> showImportAssetWizard(
   Offset? position,
   bool advanced = true,
 }) async {
-  Future<void> importAsset(AssetFileType type, Uint8List bytes) async {
+  Future<void> importAsset(
+    AssetFileType type,
+    Uint8List bytes, {
+    String? name,
+  }) async {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     await service
@@ -37,23 +41,32 @@ Future<void> showImportAssetWizard(
           document: state.data,
           position: position,
           advanced: advanced,
+          name: name,
         )
         .then((e) => e?.submit());
   }
 
   Future<void> importWithDialog(List<AssetFileType> type) async {
-    final (result, fileExtension) = await importFile(context, type);
+    final (result, fileExtension, name) = await importFile(context, type);
     if (result == null) return;
     return importAsset(
       AssetFileTypeHelper.fromFileExtension(fileExtension) ??
           AssetFileType.note,
       result,
+      name: name,
     );
   }
 
   if (!await type.isAvailable()) return;
 
   switch (type) {
+    case ImportType.file:
+      return importWithDialog(AssetFileType.values);
+    case ImportType.oneNote:
+      return importWithDialog([
+        AssetFileType.oneNote,
+        AssetFileType.oneNotePackage,
+      ]);
     case ImportType.image:
       return importWithDialog([AssetFileType.image]);
     case ImportType.camera:
@@ -110,7 +123,12 @@ Future<void> showImportAssetWizard(
     case ImportType.pdf:
       return importWithDialog([AssetFileType.pdf]);
     case ImportType.document:
-      return importWithDialog([AssetFileType.note, AssetFileType.textNote]);
+      return importWithDialog([
+        AssetFileType.note,
+        AssetFileType.textNote,
+        AssetFileType.oneNote,
+        AssetFileType.oneNotePackage,
+      ]);
     case ImportType.markdown:
       return importWithDialog([AssetFileType.markdown]);
     case ImportType.xopp:

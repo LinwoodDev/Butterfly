@@ -10,6 +10,11 @@
   "lightTheme": "ହଳୁଦ ଆଲୋକିତ ଥୀମ୍",
   "systemTheme": "ଡିଫଲ୍ଟ ସିଷ୍ଟମ୍ ଥୀମ୍ ବ୍ୟବହାର କରନ୍ତୁ",
   "view": "ଦେଖନ୍ତୁ",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "ଜୁମ୍ ଛୋଟ କରନ୍ତୁ",
   "resetZoom": "ଜୁମ୍ ପୁନଃସ୍ଥାପନ",
   "strokeWidth": "ଲାଇନ୍ ପ୍ରସ୍ଥ",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "ଇରେଜର୍ ସମ୍ମିଳିତ କରିବେ?",
   "thinning": "ଚିରକରଣ",
   "pen": "କଳମ",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "ପଥ ଇରେଜର୍",
+  "stroke": "Stroke",
   "label": "ଲେବେଲ୍",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "ପୃଷ୍ଠଭୂମି",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "ପେଟିକା",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "ଡିଫଲ୍ଟ ପ୍ୟାଲେଟ୍",
   "highlighter": "ହାଇଲାଇଟର୍",
+  "combinePaths": "Combine paths",
   "add": "ଯୋଗ କରନ୍ତୁ",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "ଦୃଢ",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "ଦ୍ୱିତୀୟ",
   "dotted": "ଛିଇଆ",
+  "dottedDark": "Dotted dark",
   "dashed": "ଲାଇଆ",
   "wavy": "ତରଙ୍ଗାକାର",
   "fontWeight": "ଫଣ୍ଟ ଓଜନ",
@@ -215,6 +236,9 @@
   },
   "behaviors": "ଆଚରଣ",
   "dataDirectory": "ଡାଟା ଡିରେକ୍ଟୋରି",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "ଡିଫଲ୍ଟ ପଥ",
   "dateFormat": "ତାରିଖ ଫର୍ମାଟ୍",
   "updatedAt": "ଅଦ୍ୟତିତ: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "ସଜିତ ନୁହେଁ",
   "enterLayer": "ସ୍ତରର ନାମ ପ୍ରବେଶ କରନ୍ତୁ",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "ଉପାଦାନଗୁଡିକ ଚୟନ କରନ୍ତୁ",
   "deleteElements": "ଉପାଦାନଗୁଡିକ ମୁଚାନ୍ତୁ",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "ତୁମେ ଚୟିତ ଉପାଦାନଗୁଡିକ ବାସ୍ତବରେ ଡିଲିଟ୍ କରିବାକୁ ଚାହୁଁଛ?",
   "selectCustomCollection": "କଷ୍ଟମ୍ ସଂଗ୍ରହ ଚୟନ କରନ୍ତୁ",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "ଅନ୍ଧକାର",
-  "plainDark": "ସାଧାରଣ ଅନ୍ଧକାର",
+  "plainDark": "Plain dark",
   "ruledDark": "ରୂଲ୍ଡ ଅନ୍ଧକାର",
   "quadDark": "ଚତୁର୍ଭୁଜ ଅନ୍ଧକାର",
   "musicDark": "ସଙ୍ଗୀତ ଅନ୍ଧକାର",
@@ -545,6 +576,7 @@
   "topRight": "ଉପର ଦକ୍ଷିଣ",
   "bottomLeft": "ତଳ ବାମ",
   "bottomRight": "ତଳ ଦକ୍ଷିଣ",
+  "zoomPosition": "Zoom control position",
   "caches": "କ୍ୟାଶଗୁଡିକ",
   "manage": "ପରିଚାଳନା",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "ଫୋଲ୍ଡର୍ ସିଙ୍କ୍ ହୋଇଛି",
   "syncRootDirectory": "ରୁଟ୍ ସିଙ୍କ୍ ଡିରେକ୍ଟୋରି",
   "penOnlyInput": "କଳମ ମାତ୍ର ଇନ୍ପୁଟ୍",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "ଇନ୍ପୁଟ୍ ଇଶାରାଗୁଡିକ",
   "nativeTitleBar": "ନେଟିଭ୍ ଟାଇଟେଲ୍ ବାର୍",
+  "mode": "Mode",
   "syncMode": "ସିଙ୍କ୍ ମୋଡ୍",
   "connection": "ସଂଯୋଗ",
   "always": "ସମୟ ସମୟ",
@@ -893,6 +939,7 @@
   "bringForward": "ଆଗକୁ ଆଣନ୍ତୁ",
   "sendBackward": "ପଛକୁ ପଠାନ୍ତୁ",
   "rotation": "ଘୁର୍ଣ୍ଣନ",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "ମାତ୍ର ବଡ଼ ସ୍କ୍ରିନ୍ ଉପଲବ୍ଧ",
   "toolbarPosition": "ଟୁଲ୍ବାର ସ୍ଥାନ",
   "rotate": "ଘୁରାନ୍ତୁ",
@@ -919,6 +966,9 @@
   "ascending": "ଉର୍ଦ୍ଧ୍ୱଗତ",
   "descending": "ଅବରୋହଣ",
   "imageScale": "ଛବି ପ୍ରମାଣ",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "ଚୟନ କରନ୍ତୁ",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF ଗୁଣତ୍ତା",
   "surface": "ପୃଷ୍ଠତଳ",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "ତଥାପି ଆଗକୁ ବଢ଼ନ୍ତୁ",
   "zoomControl": "ଜୁମ୍ ନିୟନ୍ତ୍ରଣ",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "ଉଚ୍ଚ ବିପରୀତତା",
   "shouldANumber": "ଏହି ମୂଲ୍ୟଟି ବୈଧ ସଂଖ୍ୟା ହେବା ଉଚିତ",
   "createAreas": "ଅଞ୍ଚଳ ତିଆରି କରନ୍ତୁ",
@@ -1081,6 +1134,8 @@
   "addAll": "ସବୁଯୋଗ କରନ୍ତୁ",
   "onlyCurrentPage": "କେବଳ ଚଳୁ ପୃଷ୍ଠା",
   "smoothNavigation": "ସ୍ମୂଥ୍ ନାଭିଗେସନ୍",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "ଖୋଲ୍",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "ସଂଗ୍ରହ ପରିବର୍ତ୍ତନ",
   "collections": "ସଂଗ୍ରହ",
   "fullSelection": "ସମ୍ପୂର୍ଣ୍ଣ ଚୟନ",
-  "fullSelectionDescription": "ଚୟନ ପେଟିକା ମଧ୍ୟରେ ଅନ୍ତର୍ଗତ ଉପାଦାନକୁ ମାତ୍ର ଚୟନ କରନ୍ତୁ।",
   "collection": "ସଂଗ୍ରହ",
   "defaultCollection": "ଡିଫଲ୍ଟ ସଂଗ୍ରହ",
   "scroll": "ସ୍କ୍ରୋଲ୍",
@@ -1123,7 +1177,8 @@
   "homeScreen": "ହୋମ୍ ସ୍କ୍ରିନ୍",
   "lastNote": "ଶେଷ ଟିପ୍ପଣୀ",
   "newNote": "ନୂତନ ଟିପ୍ପଣୀ",
-  "convertToLayer": "ସ୍ତରକୁ ପରିବର୍ତ୍ତନ",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "ମିଶାନ୍ତୁ",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "ସ୍ଥିତି ନିର୍ଭର",
   "flipHorizontal": "ଆଡ଼ ଫ୍ଲିପ୍",
   "flipVertical": "ଉର୍ଧ୍ୱା ଫ୍ଲିପ୍",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

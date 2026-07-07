@@ -7,9 +7,14 @@
   "personalization": "Personalisierung",
   "theme": "Thema",
   "darkTheme": "Dunkles Design",
-  "lightTheme": "Helles Theme",
-  "systemTheme": "Standard-System-Theme verwenden",
+  "lightTheme": "Helles Design",
+  "systemTheme": "Systemdesign verwenden",
   "view": "Ansicht",
+  "contentViewport": "Inhalts-Viewport",
+  "limitViewportToPositiveCoordinates": "Viewport auf positive Koordinaten beschränken",
+  "off": "Aus",
+  "canvas": "Leinwand",
+  "interface": "Schnittstelle",
   "@view": {
     "description": "View mode or menu"
   },
@@ -28,21 +33,24 @@
   },
   "zoomIn": "Vergrößern",
   "zoomOut": "Verkleinern",
-  "resetZoom": "Vergrößerung zurücksetzen",
+  "resetZoom": "Zoom zurücksetzen",
   "strokeWidth": "Strichbreite",
-  "includeEraser": "Löschvorrichtung einbeziehen?",
-  "thinning": "Dünnheit",
+  "strokeStyle": "Strichstil",
+  "dashLength": "Strichlänge",
+  "gapLength": "Lückenlänge",
+  "includeEraser": "Radierer einbeziehen?",
+  "thinning": "Ausdünnung",
   "pen": "Stift",
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Invertiertes Pen",
-  "eraser": "Eraser",
+  "invertedPen": "Invertierter Stift",
+  "eraser": "Radierer",
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pfadlöscher",
-  "label": "Label",
+  "stroke": "Stroke",
+  "label": "Beschriftung",
   "@label": {
     "description": "Label tool"
   },
@@ -50,7 +58,7 @@
   "@delete": {
     "description": "Delete action"
   },
-  "areYouSure": "Bist du sicher?",
+  "areYouSure": "Sind Sie sicher?",
   "reallyDelete": "Möchten Sie dieses Element wirklich löschen?",
   "no": "Nein",
   "yes": "Ja",
@@ -90,7 +98,11 @@
     "description": "Spacing property"
   },
   "background": "Hintergrund",
-  "box": "Box",
+  "applyBackground": "Hintergrund anwenden",
+  "applyAreas": "Bereiche anwenden",
+  "currentPage": "Aktuelle Seite",
+  "allPages": "Alle Seiten",
+  "box": "Kasten",
   "@box": {
     "description": "Box shape"
   },
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Standardpalette",
   "highlighter": "Hervorhebung",
+  "combinePaths": "Pfade kombinieren",
   "add": "Neu",
   "@add": {
     "description": "Add action"
@@ -135,15 +148,23 @@
   "@style": {
     "description": "Style property"
   },
-  "solid": "Solid",
+  "solid": "Durchgehend",
+  "solidColor": "Solide Farbe",
+  "gradient": "Farbverlauf",
+  "gradientType": "Verlaufstyp",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Doppelt",
   "dotted": "Gepunktet",
-  "dashed": "Gestattet",
-  "wavy": "Wellen",
+  "dottedDark": "Gepunktet dunkel",
+  "dashed": "Gestrichelt",
+  "wavy": "Gewellt",
   "fontWeight": "Schriftgewicht",
   "normal": "Normal",
-  "bold": "Bold",
-  "italic": "Italic",
+  "bold": "Fett",
+  "italic": "Kursiv",
   "clipboard": "Zwischenablage",
   "file": "Datei",
   "@file": {
@@ -172,7 +193,7 @@
     "description": "Help action"
   },
   "reallyReset": "Wollen Sie wirklich zurücksetzen?",
-  "whatToDo": "Was möchtest du tun?",
+  "whatToDo": "Was möchten Sie tun?",
   "ignore": "Ignorieren",
   "@ignore": {
     "description": "Ignore action"
@@ -209,12 +230,15 @@
   "shiftKey": "Umschalt",
   "altKey": "Alt",
   "copyVersion": "Version kopieren",
-  "input": "Input",
+  "input": "Eingabe",
   "@input": {
     "description": "Input settings"
   },
   "behaviors": "Verhalten",
   "dataDirectory": "Datenverzeichnis",
+  "warning": "Warnung",
+  "platformExperimentalWarning": "Warnung: Diese Einstellung ist experimentell und kann auf dieser Plattform Probleme verursachen.",
+  "changeDataDirectoryWarningContent": "Sind Sie sicher, dass Sie den Datenordner ändern möchten? Sie sollten ein Backup Ihrer Daten erstellen, bevor Sie fortfahren.",
   "defaultPath": "Standardpfad",
   "dateFormat": "Datumsformat",
   "updatedAt": "Aktualisiert am: {dateTime}",
@@ -265,7 +289,7 @@
   "@delay": {
     "description": "Delay property"
   },
-  "defaultLayer": "Standard Ebene",
+  "defaultLayer": "Standardebene",
   "layer": "Ebene",
   "@layer": {
     "description": "Layer object"
@@ -276,10 +300,17 @@
   },
   "notSet": "Nicht gesetzt",
   "enterLayer": "Ebenenname eingeben",
+  "eraseShapes": "Formen löschen",
+  "eraseShapeModeNone": "Formen nicht löschen",
+  "eraseShapeModeTouchEdges": "Beim Berühren von Kanten löschen",
+  "eraseShapeModeTouchAnywhere": "Beim Berühren irgendwo löschen",
+  "selectElementModeTouchEdges": "Beim Berühren von Kanten auswählen",
+  "selectElementModeTouchAnywhere": "Beim Berühren irgendwo auswählen",
   "selectElements": "Elemente auswählen",
   "deleteElements": "Elemente löschen",
+  "eraseAllElements": "Alle Elemente löschen",
   "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
-  "selectCustomCollection": "Wähle eine eigene Sammlung",
+  "selectCustomCollection": "Wählen Sie eine eigene Sammlung",
   "svg": "SVG",
   "@svg": {
     "description": "SVG format"
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Dunkel",
-  "plainDark": "Dunkel",
+  "plainDark": "Schlicht dunkel",
   "ruledDark": "Liniert dunkel",
   "quadDark": "Kariert dunkel",
   "musicDark": "Musik dunkel",
@@ -329,7 +360,7 @@
   "@camera": {
     "description": "Camera tool"
   },
-  "printout": "Drucken",
+  "printout": "Ausdruck",
   "selectCamera": "Kamera auswählen",
   "changeDocumentPath": "Dokumentpfad ändern",
   "deleteWholeStroke": "Den ganzen Strich löschen",
@@ -341,11 +372,11 @@
   "@area": {
     "description": "Area object"
   },
-  "selectArea": "Wählen Sie einen Bereich",
+  "selectArea": "Wählen Sie einen Bereich aus",
   "aspectRatio": "Seitenverhältnis",
   "presets": "Vorlagen",
-  "pagePortrait": "Seitenportrait",
-  "pageLandscape": "Seitenlandschaft",
+  "pagePortrait": "Hochformat",
+  "pageLandscape": "Querformat",
   "square": "Quadrat",
   "@square": {
     "description": "Square shape"
@@ -517,7 +548,7 @@
   "checkForUpdates": "Nach Updates suchen",
   "checkForUpdatesWarning": "Wenn Sie nach Updates suchen, werden Sie sich mit der Butterfly-Website verbinden, um die Informationen zu erhalten.",
   "usingLatestStable": "Sie verwenden die neueste stabile Version",
-  "usingLatestNightly": "Sie verwenden die neueste Nightly Version",
+  "usingLatestNightly": "Sie verwenden die neueste Nightly-Version",
   "currentVersion": "Aktuelle Version",
   "updateNow": "Jetzt aktualisieren",
   "shape": "Form",
@@ -545,6 +576,7 @@
   "topRight": "Oben rechts",
   "bottomLeft": "Unten links",
   "bottomRight": "Unten rechts",
+  "zoomPosition": "Position der Zoomkontrolle",
   "caches": "Caches",
   "manage": "Verwalten",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
   "penOnlyInput": "Nur-Pen-Eingabe",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatisch aktivieren, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
+  "penOnlyInputOnDescription": "Tipp- und Mauseingabe immer ablehnen, nur Stift-Eingaben akzeptieren.",
+  "penOnlyInputOffDescription": "Akzeptieren Sie alle Eingabetypen, einschließlich Berührung, Maus und Stil.",
+  "automatic": "Automatisch",
+  "alwaysOn": "Immer an",
+  "alwaysOff": "Immer aus",
+  "showPenOnlyToggle": "Nur Stift anzeigen",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Eingabegesten",
   "nativeTitleBar": "Native Titelleiste",
+  "mode": "Modus",
   "syncMode": "Sync-Modus",
   "connection": "Verbindung",
   "always": "Immer",
@@ -690,7 +736,7 @@
   "handToolDescription": "Ziehen, um die Leinwand zu bewegen",
   "toolOnToolbar": "Spezifisches Werkzeug in der Symbolleiste",
   "toolOnToolbarDescription": "Verwende das Werkzeug an der angegebenen Position in der Werkzeugleiste, beginnend von links",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "toolOnToolbarShort": "Symbolleistenposition: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -772,7 +818,7 @@
   "paragraph": "Absatz",
   "fontFamily": "Schriftfamilie",
   "smoothing": "Glättung",
-  "streamline": "Streamline",
+  "streamline": "Glätten",
   "presentation": "Präsentation",
   "selectAsset": "Asset auswählen",
   "clearStyle": "Stil löschen",
@@ -799,12 +845,12 @@
   "nextSlide": "Nächste Folie",
   "nextSlideDescription": "Nach rechts wischen oder die rechte Pfeiltaste drücken, um zur nächsten Folie zu gehen",
   "previousSlide": "Vorherige Folie",
-  "previousSlideDescription": "Wische nach links oder drücke die linke Pfeiltaste um zur vorherigen Folie zu gehen",
+  "previousSlideDescription": "Wischen Sie nach links oder drücken Sie die linke Pfeiltaste, um zur vorherigen Folie zu gehen",
   "exitPresentation": "Präsentation beenden",
   "exitPresentationDescription": "Drücken Sie die Esc-Taste oder wischen Sie nach unten, um die Präsentation zu beenden",
   "pausePresentation": "Präsentation pausieren",
   "pausePresentationDescription": "Tippen Sie auf den Bildschirm oder drücken Sie die Leertaste um die Präsentation zu pausieren oder fortsetzen",
-  "keyframe": "Keyframe",
+  "keyframe": "Schlüsselbild",
   "endOfPresentation": "Sie haben das Ende der Präsentation erreicht",
   "startOfPresentation": "Sie haben den Beginn der Präsentation erreicht",
   "palettes": "Paletten",
@@ -872,7 +918,7 @@
   "visibility": "Sichtbarkeit",
   "captureThumbnail": "Thumbnail aufnehmen",
   "capturedThumbnail": "Thumbnail erfolgreich erfasst",
-  "chooseLabelMode": "Labelmodus wählen",
+  "chooseLabelMode": "Beschriftungsmodus wählen",
   "foreground": "Vordergrund",
   "version": "Version",
   "@version": {
@@ -893,6 +939,7 @@
   "bringForward": "Vorwärts bringen",
   "sendBackward": "Rückwärts senden",
   "rotation": "Drehung",
+  "direction": "Richtung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
   "rotate": "Drehen",
@@ -919,6 +966,9 @@
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
   "imageScale": "Bildskala",
+  "svgScale": "SVG-Skala",
+  "noImageSelected": "Kein Bild ausgewählt",
+  "noSvgSelected": "Keine SVG ausgewählt",
   "select": "Auswählen",
   "@select": {
     "description": "Select action"
@@ -931,7 +981,7 @@
   "@texture": {
     "description": "Texture property"
   },
-  "platformTheme": "Plattform-Theme",
+  "platformTheme": "Plattformdesign",
   "desktop": "Desktop",
   "@desktop": {
     "description": "Platform"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF-Qualität",
   "surface": "Oberfläche",
   "@surface": {
     "description": "Surface tool"
@@ -957,7 +1006,7 @@
   },
   "iceServers": "ICE-Server",
   "collaboration": "Zusammenarbeit",
-  "webRtc": "Web RTC",
+  "webRtc": "WebRTC",
   "webSocket": "Web-Socket",
   "iceServer": "ICE-Server",
   "port": "Port",
@@ -1004,7 +1053,7 @@
     "description": "Lock action"
   },
   "addElement": "Element hinzufügen",
-  "notDefaultConnection": "Keine Standard-Verbindung",
+  "notDefaultConnection": "Keine Standardverbindung",
   "defaultConnection": "Standardverbindung",
   "hide": "Verstecken",
   "@hide": {
@@ -1060,11 +1109,15 @@
   },
   "continueAnyway": "Trotzdem fortfahren",
   "zoomControl": "Zoom-Steuerung",
+  "showThumbnails": "Thumbnails anzeigen",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Hoher Kontrast",
   "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein",
   "createAreas": "Bereiche erstellen",
-  "autosave": "Autosave",
-  "invert": "Invert",
+  "autosave": "Automatisches Speichern",
+  "invert": "Umkehren",
   "@invert": {
     "description": "Invert action"
   },
@@ -1081,6 +1134,8 @@
   "addAll": "Alle hinzufügen",
   "onlyCurrentPage": "Nur aktuelle Seite",
   "smoothNavigation": "Glatte Navigation",
+  "edgePanAreaSwitching": "Kantenschaltfläche umschalten",
+  "useAndroidSaf": "Android SAF verwenden",
   "exact": "Exakt",
   "@exact": {
     "description": "Exact match"
@@ -1112,9 +1167,8 @@
   "changeCollection": "Sammlung ändern",
   "collections": "Sammlungen",
   "fullSelection": "Vollständige Auswahl",
-  "fullSelectionDescription": "Erfordert die vollständige Auswahl der Elemente innerhalb des Auswahlfeldes.",
   "collection": "Sammlung",
-  "defaultCollection": "Standard-Sammlung",
+  "defaultCollection": "Standardsammlung",
   "scroll": "Scrollen",
   "@scroll": {
     "description": "Scroll action"
@@ -1123,7 +1177,8 @@
   "homeScreen": "Startbildschirm",
   "lastNote": "Letzte Notiz",
   "newNote": "Neue Notiz",
-  "convertToLayer": "In Ebene konvertieren",
+  "moveToLayer": "In Ebene verschieben",
+  "createLayer": "Ebene erstellen",
   "merge": "Zusammenführen",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Ende",
+  "radius": "Radius",
+  "focalPoint": "Brennpunkt",
+  "useOffCenterStartPoint": "Off-Center-Startpunkt verwenden",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Farbstopps",
+  "addStop": "Stopp hinzufügen",
   "positionDependent": "Positionsabhängig",
   "flipHorizontal": "Horizontal spiegeln",
   "flipVertical": "Vertikal spiegeln",
@@ -1196,7 +1259,7 @@
     "description": "Barcode object"
   },
   "barcodeType": "Barcode-Typ",
-  "qrCode": "QR Code",
+  "qrCode": "QR-Code",
   "dataMatrix": "Datenmatrix",
   "code128": "Code 128",
   "defaultUserName": "Benutzer {index}",
@@ -1223,7 +1286,7 @@
   "rawFile": "Rohdatei",
   "webSocketDescription": "Ihr Gerät beherbergt den Server, so dass Mitarbeiter nur über dasselbe Netzwerk oder von überall aus beitreten können, wenn Sie den Port auf Ihrem Router weiterleiten.",
   "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen.",
-  "createRawNote": "Erstelle Rohnotiz",
+  "createRawNote": "Erstellen Sie Rohnotiz",
   "polygon": "Polygon",
   "@polygon": {
     "description": "Polygon shape"
@@ -1241,7 +1304,7 @@
   "ignoreFirstPressureDescription": "Bei einigen Geräten ist der erste Druckwert nicht korrekt. Diese Einstellung ignoriert den ersten Druckwert und verwendet stattdessen den Druck des zweiten Ereignisses.",
   "temporary": "Temporär",
   "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
-  "autosaveDelay": "Autosave-Verzögerung",
+  "autosaveDelay": "Verzögerung für automatisches Speichern",
   "saved": "Gespeichert",
   "@saved": {
     "description": "Save status"
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximieren",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Verknüpfungen anpassen",
+  "clickToSave": "Zum Speichern klicken",
+  "toolbars": "Werkzeugleisten",
+  "logs": "Protokolle",
+  "ruledSimple": "Einfaches Rudern",
+  "ruledSimpleDark": "Beherrschtes einfaches Dunkel",
+  "quadSimple": "Einfach quad",
+  "quadSimpleDark": "Vierfache Dunkelheit",
+  "redLinedRuled": "Rot gesäumt",
+  "redLinedRuledDark": "Rot gestreift beherrscht dunkel",
+  "redLinedQuad": "Rot gesäumtes Quadrat",
+  "redLinedQuadDark": "Rot gesäumtes Viertel dunkel",
+  "noItemSelected": "Kein Element ausgewählt",
+  "areaAsInitial": "Bereich als Ausgangsansicht öffnen",
+  "swap": "Tausch",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Dateiendung ausblenden",
+  "aspectRatioHint": "z. B. 16:9 oder 1,5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Neu aus Vorlage",
+  "exportAsTextShortcut": "Als Text exportieren",
+  "exportAsImageShortcut": "Als Bild exportieren",
+  "exportAsPdfShortcut": "Als PDF exportieren",
+  "exportAsSvgShortcut": "Als SVG exportieren",
+  "changePathShortcut": "Pfad ändern",
+  "fullScreenShortcut": "Vollbild",
+  "doublePressAction": "Doppeltes Drücken",
+  "triplePressAction": "Dreifach Drücken Aktion",
+  "longPress": "Lange drücken",
+  "toolNumber": "{number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Tastenkürzel halten",
+  "holdShortcutsDescription": "Halte eine Taste um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn die Taste losgelassen wird, schaltet er zurück zum vorherigen Werkzeug.",
+  "key": "Schlüssel",
+  "bringMovedElementsToFront": "Bewege Elemente nach vorne",
+  "addTool": "Werkzeug hinzufügen",
+  "nextPage": "Nächste Seite",
+  "previousPage": "Vorherige Seite"
 }

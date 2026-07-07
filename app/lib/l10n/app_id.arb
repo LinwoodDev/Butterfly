@@ -1,0 +1,1375 @@
+{
+  "open": "Buka",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
+  "settings": "Pengaturan",
+  "personalization": "Personalisasi",
+  "theme": "Tema",
+  "darkTheme": "Tema gelap",
+  "lightTheme": "Tema terang",
+  "systemTheme": "Gunakan tema sistem bawaan",
+  "view": "Tampilan",
+  "contentViewport": "Area pandang konten",
+  "limitViewportToPositiveCoordinates": "Batasi area pandang ke koordinat positif",
+  "off": "Mati",
+  "canvas": "Kanvas",
+  "interface": "Antarmuka",
+  "@view": {
+    "description": "View mode or menu"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
+  "export": "Ekspor",
+  "save": "Simpan",
+  "@save": {
+    "description": "Save action"
+  },
+  "zoom": "Perbesar ",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
+  "zoomIn": "Perbesar",
+  "zoomOut": "Perkecil",
+  "resetZoom": "Atur ulang zoom",
+  "strokeWidth": "Lebar goresan",
+  "strokeStyle": "Gaya goresan",
+  "dashLength": "Panjang garis putus",
+  "gapLength": "Panjang celah",
+  "includeEraser": "Sertakan penghapus?",
+  "thinning": "Penipisan",
+  "pen": "Pena",
+  "@pen": {
+    "description": "Pen tool"
+  },
+  "invertedPen": "Pena terbalik",
+  "eraser": "Penghapus",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
+  "stroke": "Stroke",
+  "label": "Label",
+  "@label": {
+    "description": "Label tool"
+  },
+  "delete": "Hapus",
+  "@delete": {
+    "description": "Delete action"
+  },
+  "areYouSure": "Apakah Anda yakin?",
+  "reallyDelete": "Apakah Anda benar-benar ingin menghapus item ini?",
+  "no": "Tidak",
+  "yes": "Ya",
+  "undo": "Urungkan",
+  "@undo": {
+    "description": "Undo action"
+  },
+  "redo": "Ulangi",
+  "@redo": {
+    "description": "Redo action"
+  },
+  "general": "Umum",
+  "@general": {
+    "description": "General settings"
+  },
+  "copyTitle": "Disalin ke papan klip",
+  "loading": "Memuat...",
+  "enterText": "Masukkan teks",
+  "size": "Ukuran",
+  "@size": {
+    "description": "Size property"
+  },
+  "width": "Lebar",
+  "@width": {
+    "description": "Width property"
+  },
+  "height": "Tinggi",
+  "@height": {
+    "description": "Height property"
+  },
+  "count": "Jumlah",
+  "@count": {
+    "description": "Count property"
+  },
+  "space": "Spasi",
+  "@space": {
+    "description": "Spacing property"
+  },
+  "background": "Latar belakang",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
+  "box": "Kotak",
+  "@box": {
+    "description": "Box shape"
+  },
+  "locale": "Lokal",
+  "systemLocale": "Lokal sistem",
+  "information": "Informasi",
+  "license": "Lisensi",
+  "imprint": "Sekilas ",
+  "privacypolicy": "Kebijakan privasi",
+  "sourceCode": "Kode sumber",
+  "documentation": "Dokumentasi",
+  "changelog": "Catatan perubahan",
+  "source": "Sumber",
+  "existOverride": "Elemen ini sudah ada. Timpa?",
+  "description": "Deskripsi",
+  "fill": "Isi",
+  "@fill": {
+    "description": "Fill property"
+  },
+  "defaultPalette": "Palet bawaan",
+  "highlighter": "Penyorot",
+  "combinePaths": "Combine paths",
+  "add": "Tambah",
+  "@add": {
+    "description": "Add action"
+  },
+  "remove": "Hapus",
+  "@remove": {
+    "description": "Remove action"
+  },
+  "removeConfirm": "Apakah Anda benar-benar ingin menghapus ini?",
+  "resetPalette": "Atur ulang palet",
+  "custom": "Kustom",
+  "@custom": {
+    "description": "Custom value"
+  },
+  "decoration": "Dekorasi",
+  "underline": "Garis bawah",
+  "overline": "Garis atas",
+  "strikethrough": "Coret",
+  "thickness": "Ketebalan",
+  "style": "Gaya",
+  "@style": {
+    "description": "Style property"
+  },
+  "solid": "Padat",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
+  "double": "Ganda",
+  "dotted": "Bertitik",
+  "dottedDark": "Bertitik gelap",
+  "dashed": "Putus-putus",
+  "wavy": "Bergelombang",
+  "fontWeight": "Ketebalan huruf",
+  "normal": "Biasa",
+  "bold": "Tebal",
+  "italic": "Miring",
+  "clipboard": "Papan klip",
+  "file": "Berkas",
+  "@file": {
+    "description": "File menu or object"
+  },
+  "data": "Data",
+  "@data": {
+    "description": "Data settings"
+  },
+  "share": "Bagikan",
+  "@share": {
+    "description": "Share action"
+  },
+  "spacing": "Jarak",
+  "image": "Gambar",
+  "@image": {
+    "description": "Image object or tool"
+  },
+  "enterUrl": "Masukkan URL",
+  "scale": "Skala",
+  "@scale": {
+    "description": "Scale property"
+  },
+  "help": "Bantuan",
+  "@help": {
+    "description": "Help action"
+  },
+  "reallyReset": "Apakah Anda benar-benar ingin mengatur ulang?",
+  "whatToDo": "Apa yang ingin Anda lakukan?",
+  "ignore": "Abaikan",
+  "@ignore": {
+    "description": "Ignore action"
+  },
+  "backup": "Cadangan",
+  "@backup": {
+    "description": "Backup action"
+  },
+  "createdInNewerVersion": "Berkas {fileName} dibuat dengan versi yang lebih baru ({fileVersion}). Apa yang harus dilakukan dengan berkas ini?",
+  "@createdInNewerVersion": {
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "example": "Document"
+      },
+      "fileVersion": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "waypoints": "Titik arah",
+  "origin": "Asal",
+  "@origin": {
+    "description": "Origin point"
+  },
+  "import": "Impor",
+  "@import": {
+    "description": "Import action"
+  },
+  "newContent": "Baru",
+  "selectElement": "Pilih elemen",
+  "ctrlKey": "Kontrol",
+  "shiftKey": "Geser",
+  "altKey": "Alternatif",
+  "copyVersion": "Salin versi",
+  "input": "Masukan",
+  "@input": {
+    "description": "Input settings"
+  },
+  "behaviors": "Perilaku",
+  "dataDirectory": "Direktori data",
+  "warning": "Peringatan",
+  "platformExperimentalWarning": "Peringatan: Pengaturan ini bersifat eksperimental dan dapat bermasalah di platform ini.",
+  "changeDataDirectoryWarningContent": "Apakah Anda yakin ingin mengubah folder data? Sebaiknya buat cadangan data Anda sebelum melanjutkan.",
+  "defaultPath": "Jalur bawaan",
+  "dateFormat": "Format tanggal",
+  "updatedAt": "Diperbarui pada: {dateTime}",
+  "@updatedAt": {
+    "placeholders": {
+      "dateTime": {
+        "type": "DateTime",
+        "isCustomDateFormat": "true",
+        "format": "yy-MM-dd H:mm"
+      }
+    }
+  },
+  "createdAt": "Dibuat pada: {dateTime}",
+  "@createdAt": {
+    "placeholders": {
+      "dateTime": {
+        "type": "DateTime",
+        "isCustomDateFormat": "true",
+        "format": "yy-MM-dd H:mm"
+      }
+    }
+  },
+  "rename": "Ganti nama",
+  "duplicate": "Duplikat",
+  "hand": "Tangan",
+  "@hand": {
+    "description": "Hand tool"
+  },
+  "folder": "Folder",
+  "@folder": {
+    "description": "Folder object"
+  },
+  "move": "Pindahkan",
+  "@move": {
+    "description": "Move action"
+  },
+  "copy": "Salin",
+  "@copy": {
+    "description": "Copy action"
+  },
+  "back": "Kembali",
+  "@back": {
+    "description": "Back action"
+  },
+  "zoomDependent": "Bergantung pada zoom",
+  "shapeDetection": "Deteksi bentuk",
+  "delay": "Penundaan",
+  "@delay": {
+    "description": "Delay property"
+  },
+  "defaultLayer": "Lapisan bawaan",
+  "layer": "Lapisan",
+  "@layer": {
+    "description": "Layer object"
+  },
+  "layers": "Lapisan",
+  "@layers": {
+    "description": "Layers list"
+  },
+  "notSet": "Belum diatur",
+  "enterLayer": "Masukkan nama lapisan",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
+  "selectElements": "Pilih elemen",
+  "deleteElements": "Hapus elemen",
+  "eraseAllElements": "Erase all elements",
+  "deleteElementsConfirm": "Apakah Anda benar-benar ingin menghapus elemen yang dipilih?",
+  "selectCustomCollection": "Pilih koleksi kustom",
+  "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
+  "sensitivity": "Sensitivitas",
+  "sensitivityHint": "Semakin tinggi nilainya, semakin sensitif masukannya",
+  "horizontal": "Horizontal",
+  "vertical": "Vertikal",
+  "plain": "Polos",
+  "@plain": {
+    "description": "Background pattern"
+  },
+  "light": "Terang",
+  "ruled": "Bergaris",
+  "@ruled": {
+    "description": "Background pattern"
+  },
+  "quad": "Kotak-kotak",
+  "@quad": {
+    "description": "Background pattern"
+  },
+  "music": "Musik",
+  "@music": {
+    "description": "Background pattern"
+  },
+  "dark": "Gelap",
+  "plainDark": "Polos gelap",
+  "ruledDark": "Bergaris gelap",
+  "quadDark": "Kotak-kotak gelap",
+  "musicDark": "Musik gelap",
+  "templates": "Templat",
+  "untitled": "Tanpa judul",
+  "createTemplate": "Buat templat",
+  "createTemplateContent": "Apakah Anda benar-benar ingin membuat templat dari dokumen ini? Dokumen asli akan dihapus.",
+  "replace": "Ganti",
+  "@replace": {
+    "description": "Replace action"
+  },
+  "reallyReplace": "Apakah Anda benar-benar ingin mengganti templat? Operasi ini tidak dapat dibatalkan!",
+  "defaultTemplate": "Templat bawaan",
+  "insert": "Sisipkan",
+  "@insert": {
+    "description": "Insert action"
+  },
+  "document": "Dokumen",
+  "camera": "Kamera",
+  "@camera": {
+    "description": "Camera tool"
+  },
+  "printout": "Cetakan",
+  "selectCamera": "Pilih kamera",
+  "changeDocumentPath": "Ubah jalur dokumen",
+  "deleteWholeStroke": "Hapus seluruh goresan",
+  "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
+  "area": "Area",
+  "@area": {
+    "description": "Area object"
+  },
+  "selectArea": "Pilih area",
+  "aspectRatio": "Rasio aspek",
+  "presets": "Preset",
+  "pagePortrait": "Halaman potret",
+  "pageLandscape": "Halaman lanskap",
+  "square": "Persegi",
+  "@square": {
+    "description": "Square shape"
+  },
+  "areas": "Area",
+  "@areas": {
+    "description": "Areas list"
+  },
+  "enterArea": "Masukkan area",
+  "exitArea": "Keluar dari area",
+  "currentArea": "Area saat ini",
+  "design": "Desain",
+  "@design": {
+    "description": "Design mode"
+  },
+  "text": "Teks",
+  "@text": {
+    "description": "Text tool"
+  },
+  "welcome": "Hai, ini Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
+  "welcomeContent": "Ruang menggambar gratis dan sumber terbuka!",
+  "updated": "Aplikasi diperbarui ke versi {version}",
+  "@updated": {
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    },
+    "description": "This message is shown when the app is updated"
+  },
+  "releaseNotes": "Catatan rilis",
+  "constraints": "Batasan",
+  "scaled": "Diskalakan",
+  "fixed": "Tetap",
+  "dynamicContent": "Dinamis",
+  "none": "Tidak ada",
+  "@none": {
+    "description": "None value"
+  },
+  "includeArea": "Sertakan area",
+  "verticalAlignment": "Perataan vertikal",
+  "horizontalAlignment": "Perataan horizontal",
+  "top": "Atas",
+  "@top": {
+    "description": "Alignment"
+  },
+  "center": "Tengah",
+  "@center": {
+    "description": "Alignment"
+  },
+  "bottom": "Bawah",
+  "@bottom": {
+    "description": "Alignment"
+  },
+  "left": "Kiri",
+  "@left": {
+    "description": "Alignment"
+  },
+  "right": "Kanan",
+  "@right": {
+    "description": "Alignment"
+  },
+  "justify": "Rata kanan-kiri",
+  "@justify": {
+    "description": "Alignment"
+  },
+  "constraint": "Batasan",
+  "length": "Panjang",
+  "@length": {
+    "description": "Length property"
+  },
+  "exportSvg": "Ekspor SVG",
+  "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
+  "selectPages": "Pilih halaman",
+  "recentFiles": "Berkas terbaru",
+  "start": "Mulai",
+  "@start": {
+    "description": "Start action"
+  },
+  "noRecentFiles": "Tidak ada berkas terbaru",
+  "countPages": "{count,plural, =0{Tidak ada halaman} =1{1 halaman} other{{count} halaman}}",
+  "@countPages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "pageIndex": "Halaman {index}",
+  "@pageIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "exit": "Keluar",
+  "@exit": {
+    "description": "Exit action"
+  },
+  "noElements": "Tidak ada elemen",
+  "invertSelection": "Balik pilihan",
+  "errorWhileImporting": "Kesalahan saat mengimpor",
+  "errorWhileImportingContent": "Terjadi kesalahan saat mengimpor berkas",
+  "showDetails": "Tampilkan detail",
+  "hideDetails": "Sembunyikan detail",
+  "error": "Kesalahan",
+  "stackTrace": "Jejak tumpukan",
+  "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
+  "duration": "Durasi",
+  "quality": "Kualitas",
+  "exportPdf": "Ekspor PDF",
+  "local": "Lokal",
+  "@local": {
+    "description": "Local storage"
+  },
+  "addConnection": "Tambah koneksi",
+  "connections": "Koneksi",
+  "noConnections": "Tidak ada koneksi",
+  "url": "Jaringan",
+  "@url": {
+    "description": "URL field"
+  },
+  "connect": "Hubungkan",
+  "username": "Nama pengguna",
+  "password": "Kata sandi",
+  "webNotSupported": "Web tidak didukung",
+  "advanced": "Lanjutan",
+  "directory": "Direktori",
+  "documentsDirectory": "Direktori dokumen",
+  "templatesDirectory": "Direktori templat",
+  "errorWhileCreatingConnection": "Kesalahan saat membuat koneksi",
+  "cannotConnect": "Tidak dapat terhubung",
+  "urlNotValid": "URL tidak valid",
+  "icon": "Ikon",
+  "@icon": {
+    "description": "Icon property"
+  },
+  "update": "Perbarui",
+  "@update": {
+    "description": "Update action"
+  },
+  "updateAvailable": "Pembaruan tersedia",
+  "stable": "Stabil",
+  "@stable": {
+    "description": "Release channel"
+  },
+  "nightly": "Nightly",
+  "@nightly": {
+    "description": "Release channel"
+  },
+  "checkForUpdates": "Periksa pembaruan",
+  "checkForUpdatesWarning": "Memeriksa pembaruan akan terhubung ke situs web Butterfly untuk mendapatkan informasi.",
+  "usingLatestStable": "Anda menggunakan versi stabil terbaru",
+  "usingLatestNightly": "Anda menggunakan versi nightly terbaru",
+  "currentVersion": "Versi saat ini",
+  "updateNow": "Perbarui sekarang",
+  "shape": "Bentuk",
+  "@shape": {
+    "description": "Shape tool"
+  },
+  "circle": "Lingkaran",
+  "@circle": {
+    "description": "Shape type"
+  },
+  "rectangle": "Persegi panjang",
+  "@rectangle": {
+    "description": "Shape type"
+  },
+  "triangle": "Segitiga",
+  "@triangle": {
+    "description": "Shape type"
+  },
+  "line": "Garis",
+  "@line": {
+    "description": "Shape type"
+  },
+  "cornerRadius": "Radius sudut",
+  "topLeft": "Kiri atas",
+  "topRight": "Kanan atas",
+  "bottomLeft": "Kiri bawah",
+  "bottomRight": "Kanan bawah",
+  "zoomPosition": "Posisi kontrol zoom",
+  "caches": "Cache",
+  "manage": "Kelola",
+  "@manage": {
+    "description": "Manage action"
+  },
+  "clearCaches": "Bersihkan cache",
+  "createCache": "Buat cache",
+  "thirdPartyLicenses": "Lisensi pihak ketiga",
+  "syncing": "Menyinkronkan...",
+  "synced": "Tersinkron",
+  "notSynced": "Belum tersinkron",
+  "conflict": "Konflik",
+  "@conflict": {
+    "description": "Conflict status"
+  },
+  "keepLocal": "Simpan lokal",
+  "keepConnection": "Simpan koneksi",
+  "keepBoth": "Simpan keduanya",
+  "forAll": "Untuk semua",
+  "fileConflict": "{file} di {connection} memiliki konflik",
+  "@fileConflict": {
+    "placeholders": {
+      "file": {
+        "type": "String",
+        "example": "file.txt"
+      },
+      "connection": {
+        "type": "String",
+        "example": "localhost"
+      }
+    }
+  },
+  "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
+  "localLatest": "Lokal terbaru",
+  "connectionLatest": "Koneksi terbaru",
+  "path": "Jalur",
+  "@path": {
+    "description": "Path property"
+  },
+  "folderSynced": "Folder tersinkron",
+  "syncRootDirectory": "Direktori akar sinkronisasi",
+  "penOnlyInput": "Masukan pena saja",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Secara otomatis mengaktifkan mode pena saja ketika stylus terdeteksi. Pengaturan ini hanya berlaku untuk sesi saat ini.",
+  "penOnlyInputOnDescription": "Selalu tolak masukan sentuh dan mouse, hanya terima masukan stylus.",
+  "penOnlyInputOffDescription": "Terima semua jenis masukan termasuk sentuh, mouse, dan stylus.",
+  "automatic": "Otomatis",
+  "alwaysOn": "Selalu aktif",
+  "alwaysOff": "Selalu mati",
+  "showPenOnlyToggle": "Tampilkan tombol pena saja",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
+  "inputGestures": "Gestur masukan",
+  "nativeTitleBar": "Bilah judul asli",
+  "mode": "Mode",
+  "syncMode": "Mode sinkronisasi",
+  "connection": "Koneksi",
+  "always": "Selalu",
+  "@always": {
+    "description": "Frequency"
+  },
+  "noMobile": "Tanpa seluler",
+  "manual": "Manual",
+  "@manual": {
+    "description": "Manual mode"
+  },
+  "search": "Cari",
+  "@search": {
+    "description": "Search action"
+  },
+  "properties": "Properti",
+  "pin": "Sematkan",
+  "@pin": {
+    "description": "Pin action"
+  },
+  "unpin": "Lepas sematan",
+  "@unpin": {
+    "description": "Pin action"
+  },
+  "element": "Elemen",
+  "@element": {
+    "description": "Element object"
+  },
+  "painter": "Pelukis",
+  "@painter": {
+    "description": "Painter object"
+  },
+  "position": "Posisi",
+  "@position": {
+    "description": "Position property"
+  },
+  "note": "Catatan",
+  "@note": {
+    "description": "Note object"
+  },
+  "packs": "Paket",
+  "@packs": {
+    "description": "Asset pack"
+  },
+  "pack": "Paket",
+  "@pack": {
+    "description": "Asset pack"
+  },
+  "more": "Lainnya",
+  "@more": {
+    "description": "More options"
+  },
+  "askForName": "Minta nama",
+  "areaIndex": "Area {index}",
+  "@areaIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "startInFullScreen": "Mulai dalam layar penuh",
+  "inputs": "Masukan",
+  "@inputs": {
+    "description": "Input settings"
+  },
+  "mouse": "Mouse",
+  "@mouse": {
+    "description": "Input device"
+  },
+  "touch": "Sentuh",
+  "@touch": {
+    "description": "Input device"
+  },
+  "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
+  "shortcuts": "Pintasan",
+  "middle": "Tengah",
+  "@middle": {
+    "description": "Mouse button"
+  },
+  "first": "Pertama",
+  "@first": {
+    "description": "Mouse button"
+  },
+  "second": "Kedua",
+  "@second": {
+    "description": "Mouse button"
+  },
+  "activeTool": "Alat aktif",
+  "activeToolDescription": "Gunakan alat yang saat ini dipilih di bilah alat",
+  "handTool": "Alat tangan",
+  "handToolDescription": "Seret untuk bergerak di sekitar kanvas",
+  "toolOnToolbar": "Alat tertentu di bilah alat",
+  "toolOnToolbarDescription": "Gunakan alat pada posisi tertentu di bilah alat, dimulai dari kiri",
+  "toolOnToolbarShort": "Posisi bilah alat: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "tools": "Alat",
+  "@tools": {
+    "description": "Tools list"
+  },
+  "showGrid": "Tampilkan kisi",
+  "grid": "Kisi",
+  "@grid": {
+    "description": "Helper tool"
+  },
+  "ruler": "Penggaris",
+  "@ruler": {
+    "description": "Helper tool"
+  },
+  "angle": "Sudut",
+  "@angle": {
+    "description": "Helper tool"
+  },
+  "report": "Laporkan",
+  "@report": {
+    "description": "Report action"
+  },
+  "newFolder": "Folder baru",
+  "createPack": "Buat paket",
+  "editPack": "Edit paket",
+  "packsDirectory": "Direktori paket",
+  "stamp": "Stempel",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
+  "addToPack": "Tambahkan ke paket",
+  "sureImportPack": "Apakah Anda yakin ingin mengimpor paket?",
+  "byAuthor": "oleh {author}",
+  "@byAuthor": {
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "author"
+      }
+    }
+  },
+  "author": "Penulis",
+  "addAsset": "Tambah aset",
+  "editAsset": "Edit aset",
+  "scope": "Cakupan",
+  "@scope": {
+    "description": "Scope property"
+  },
+  "noPacks": "Saat ini tidak ada paket yang tersedia",
+  "components": "Komponen",
+  "waypoint": "Titik arah",
+  "actions": "Tindakan",
+  "painters": "Pelukis",
+  "breakingChangesTitle": "Perubahan yang merusak kompatibilitas",
+  "breakingChangesMessage": "Ada perubahan yang merusak kompatibilitas dalam versi ini. Harap baca catatan perubahan sebelum memperbarui. Versi berkas saat ini adalah {version}, versi baru adalah {newVersion}.",
+  "@breakingChangesMessage": {
+    "placeholders": {
+      "version": {
+        "type": "int",
+        "example": "1"
+      },
+      "newVersion": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "styles": "Gaya",
+  "@styles": {
+    "description": "Styles list"
+  },
+  "paragraph": "Paragraf",
+  "fontFamily": "Keluarga font",
+  "smoothing": "Penghalusan",
+  "streamline": "Streamline",
+  "presentation": "Presentasi",
+  "selectAsset": "Pilih aset",
+  "clearStyle": "Bersihkan gaya",
+  "unknownImportType": "Jenis impor tidak dikenal",
+  "sureImportTemplate": "Apakah Anda yakin ingin mengimpor templat?",
+  "frame": "Bingkai",
+  "@frame": {
+    "description": "Frame object"
+  },
+  "play": "Putar",
+  "@play": {
+    "description": "Play action"
+  },
+  "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
+  "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
+  "breakpoint": "Breakpoint",
+  "presentationControls": "Kontrol presentasi",
+  "nextSlide": "Slide berikutnya",
+  "nextSlideDescription": "Geser ke kanan atau tekan tombol panah kanan untuk membuka slide berikutnya",
+  "previousSlide": "Slide sebelumnya",
+  "previousSlideDescription": "Geser ke kiri atau tekan tombol panah kiri untuk membuka slide sebelumnya",
+  "exitPresentation": "Keluar dari presentasi",
+  "exitPresentationDescription": "Tekan tombol escape atau geser ke bawah untuk keluar dari presentasi",
+  "pausePresentation": "Jeda presentasi",
+  "pausePresentationDescription": "Ketuk layar atau tekan bilah spasi untuk menjeda atau melanjutkan presentasi",
+  "keyframe": "Keyframe",
+  "endOfPresentation": "Anda telah mencapai akhir presentasi",
+  "startOfPresentation": "Anda telah mencapai awal presentasi",
+  "palettes": "Palet",
+  "headline": "Judul {index}",
+  "@headline": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "code": "Kode",
+  "@code": {
+    "description": "Code block"
+  },
+  "quote": "Kutipan",
+  "@quote": {
+    "description": "Quote block"
+  },
+  "link": "Tautan",
+  "@link": {
+    "description": "Link object"
+  },
+  "checkbox": "Kotak centang",
+  "deleted": "Dihapus",
+  "emphasis": "Penekanan",
+  "listBullet": "Daftar berpoin",
+  "strong": "Kuat",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
+  "markdown": "Markdown",
+  "home": "Beranda",
+  "@home": {
+    "description": "Home screen"
+  },
+  "files": "Berkas",
+  "@files": {
+    "description": "Files list"
+  },
+  "sortBy": "Urutkan berdasarkan",
+  "location": "Lokasi",
+  "whatsNew": "Apa yang baru?",
+  "unstar": "Hapus bintang",
+  "star": "Beri bintang",
+  "goUp": "Naik",
+  "created": "Dibuat",
+  "@created": {
+    "description": "Date property"
+  },
+  "modified": "Diubah",
+  "@modified": {
+    "description": "Date property"
+  },
+  "quickstart": "Mulai cepat",
+  "noTemplates": "Saat ini tidak ada templat yang tersedia",
+  "importCorePack": "Impor paket inti",
+  "importCorePackDescription": "Impor paket inti yang berisi semua aset dasar untuk memulai. Ini akan menimpa paket inti saat ini.",
+  "never": "Tidak pernah",
+  "@never": {
+    "description": "Frequency"
+  },
+  "onlyOnUpdates": "Hanya saat pembaruan",
+  "visibility": "Visibilitas",
+  "captureThumbnail": "Ambil thumbnail",
+  "capturedThumbnail": "Thumbnail berhasil diambil",
+  "chooseLabelMode": "Pilih mode label",
+  "foreground": "Latar depan",
+  "version": "Versi",
+  "@version": {
+    "description": "Version property"
+  },
+  "repository": "Repositori",
+  "pages": "Halaman",
+  "@pages": {
+    "description": "Pages list"
+  },
+  "navigator": "Navigator",
+  "arrange": "Atur",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
+  "bringToFront": "Bawa ke depan",
+  "sendToBack": "Kirim ke belakang",
+  "bringForward": "Bawa maju",
+  "sendBackward": "Kirim mundur",
+  "rotation": "Rotasi",
+  "direction": "Direction",
+  "onlyAvailableLargerScreen": "Hanya tersedia di layar yang lebih besar",
+  "toolbarPosition": "Posisi bilah alat",
+  "rotate": "Putar",
+  "@rotate": {
+    "description": "Rotate action"
+  },
+  "spacer": "Spasi",
+  "@spacer": {
+    "description": "Spacer element"
+  },
+  "navigationRail": "Rel navigasi",
+  "cut": "Potong",
+  "@cut": {
+    "description": "Clipboard action"
+  },
+  "insertBefore": "Sisipkan sebelum",
+  "insertAfter": "Sisipkan setelah",
+  "insertFirst": "Sisipkan pertama",
+  "insertLast": "Sisipkan terakhir",
+  "paste": "Tempel",
+  "@paste": {
+    "description": "Clipboard action"
+  },
+  "ascending": "Naik",
+  "descending": "Turun",
+  "imageScale": "Skala gambar",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
+  "select": "Pilih",
+  "@select": {
+    "description": "Select action"
+  },
+  "tool": "Alat",
+  "@tool": {
+    "description": "Tool object"
+  },
+  "texture": "Tekstur",
+  "@texture": {
+    "description": "Texture property"
+  },
+  "platformTheme": "Tema platform",
+  "desktop": "Desktop",
+  "@desktop": {
+    "description": "Platform"
+  },
+  "mobile": "Seluler",
+  "@mobile": {
+    "description": "Platform"
+  },
+  "surface": "Permukaan",
+  "@surface": {
+    "description": "Surface tool"
+  },
+  "pattern": "Pola",
+  "@pattern": {
+    "description": "Pattern property"
+  },
+  "sureClose": "Apakah Anda yakin ingin menutup dokumen?",
+  "thereAreUnsavedChanges": "Ada perubahan yang belum disimpan",
+  "page": "Halaman",
+  "@page": {
+    "description": "Page object"
+  },
+  "iceServers": "Server ICE",
+  "collaboration": "Kolaborasi",
+  "webRtc": "WebRTC",
+  "webSocket": "WebSocket",
+  "iceServer": "Server ICE",
+  "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
+  "type": "Jenis",
+  "@type": {
+    "description": "Type property"
+  },
+  "side": "Sisi",
+  "@side": {
+    "description": "Side property"
+  },
+  "client": "Klien",
+  "@client": {
+    "description": "Role"
+  },
+  "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
+  "switchView": "Ganti tampilan",
+  "lasso": "Laso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
+  "hideUI": "Sembunyikan UI",
+  "density": "Kepadatan",
+  "@density": {
+    "description": "Density property"
+  },
+  "compact": "Ringkas",
+  "@compact": {
+    "description": "Density value"
+  },
+  "comfortable": "Nyaman",
+  "standard": "Standar",
+  "@standard": {
+    "description": "Density value"
+  },
+  "lock": "Kunci",
+  "@lock": {
+    "description": "Lock action"
+  },
+  "addElement": "Tambah elemen",
+  "notDefaultConnection": "Bukan koneksi bawaan",
+  "defaultConnection": "Koneksi bawaan",
+  "hide": "Sembunyikan",
+  "@hide": {
+    "description": "Visibility action"
+  },
+  "show": "Tampilkan",
+  "@show": {
+    "description": "Visibility action"
+  },
+  "pause": "Jeda",
+  "@pause": {
+    "description": "Media action"
+  },
+  "stop": "Berhenti",
+  "@stop": {
+    "description": "Media action"
+  },
+  "refresh": "Segarkan",
+  "@refresh": {
+    "description": "Refresh action"
+  },
+  "print": "Cetak",
+  "@print": {
+    "description": "Print action"
+  },
+  "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
+  "eyeDropper": "Pipet warna",
+  "users": "Pengguna",
+  "@users": {
+    "description": "Users list"
+  },
+  "experiments": "Eksperimen",
+  "experimentsWarning": "Fitur-fitur ini bersifat eksperimental dan dapat berubah, rusak, atau hilang kapan saja. Mengaktifkannya dapat menyebabkan ketidakstabilan atau kehilangan data. Lanjutkan dengan hati-hati. Harap laporkan bug apa pun.",
+  "address": "Alamat",
+  "@address": {
+    "description": "Address property"
+  },
+  "spreadToPages": "Sebarkan ke halaman",
+  "rootDirectorySpecifiedDescription": "Direktori akar telah ditentukan. Semua jalur direktori lanjutan akan relatif terhadap direktori ini. Kosongkan untuk menonaktifkan jenis direktori ini.",
+  "rootDirectoryNotSpecifiedDescription": "Direktori akar belum ditentukan. Nama diperlukan. Semua jalur direktori lanjutan akan absolut. Kosongkan untuk menonaktifkan jenis direktori ini.",
+  "unsecureConnectionTitle": "Koneksi tidak aman",
+  "unsecureConnectionMessage": "Koneksi tidak aman. Ini dapat menjadi risiko keamanan. Lanjutkan hanya jika Anda memercayai koneksi ini. Sidik jari sha1 adalah {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Tetap lanjutkan",
+  "zoomControl": "Kontrol zoom",
+  "showThumbnails": "Tampilkan thumbnail",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
+  "highContrast": "Kontras tinggi",
+  "shouldANumber": "Nilai ini harus berupa angka yang valid",
+  "createAreas": "Buat area",
+  "autosave": "Simpan otomatis",
+  "invert": "Balik",
+  "@invert": {
+    "description": "Invert action"
+  },
+  "operations": "Operasi",
+  "medium": "Sedang",
+  "@medium": {
+    "description": "Size value"
+  },
+  "large": "Besar",
+  "@large": {
+    "description": "Size value"
+  },
+  "toolbarSize": "Ukuran bilah alat",
+  "addAll": "Tambahkan semua",
+  "onlyCurrentPage": "Hanya halaman saat ini",
+  "smoothNavigation": "Navigasi halus",
+  "edgePanAreaSwitching": "Pergantian area dengan pan tepi",
+  "useAndroidSaf": "Gunakan Android SAF",
+  "exact": "Tepat",
+  "@exact": {
+    "description": "Exact match"
+  },
+  "inline": "Sebaris",
+  "@inline": {
+    "description": "Inline position"
+  },
+  "toolbarRows": "Baris bilah alat",
+  "pointerTest": "Tes penunjuk",
+  "pressure": "Tekanan",
+  "small": "Kecil",
+  "@small": {
+    "description": "Size value"
+  },
+  "tiny": "Sangat kecil",
+  "@tiny": {
+    "description": "Size value"
+  },
+  "selectAll": "Pilih semua",
+  "overrideTools": "Timpa alat",
+  "hideCursorWhileDrawing": "Sembunyikan kursor saat menggambar",
+  "installed": "Terpasang",
+  "install": "Pasang",
+  "@install": {
+    "description": "Install action"
+  },
+  "deselect": "Batalkan pilihan",
+  "changeCollection": "Ubah koleksi",
+  "collections": "Koleksi",
+  "fullSelection": "Pilihan penuh",
+  "collection": "Koleksi",
+  "defaultCollection": "Koleksi bawaan",
+  "scroll": "Gulir",
+  "@scroll": {
+    "description": "Scroll action"
+  },
+  "onStartup": "Saat mulai",
+  "homeScreen": "Layar beranda",
+  "lastNote": "Catatan terakhir",
+  "newNote": "Catatan baru",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
+  "merge": "Gabungkan",
+  "@merge": {
+    "description": "Merge action"
+  },
+  "up": "Atas",
+  "@up": {
+    "description": "Direction"
+  },
+  "down": "Bawah",
+  "@down": {
+    "description": "Direction"
+  },
+  "other": "Lainnya",
+  "@other": {
+    "description": "Other category"
+  },
+  "countElements": "{count,plural, =0{Tidak ada elemen} =1{1 elemen} other{{count} elemen}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "colorToolbar": "Bilah alat warna",
+  "yesButShowButtons": "Ya, tetapi tampilkan tombol",
+  "optionsPanelPosition": "Posisi panel opsi",
+  "hideDuration": "Durasi sembunyi",
+  "animation": "Animasi",
+  "performance": "Performa",
+  "performanceDescription": "Dioptimalkan untuk kecepatan dan penggunaan memori. Hanya bagian catatan yang terlihat yang dipanggang ke dalam gambar.",
+  "normalDescription": "Menyeimbangkan kualitas dan performa. Memanggang gambar yang mencakup 1,5 kali area yang terlihat, sehingga transisi saat menggulir menjadi lebih halus.",
+  "high": "Tinggi",
+  "highDescription": "Memaksimalkan kualitas dengan mengorbankan performa. Memanggang gambar yang mencakup 2 kali area yang terlihat, memastikan rendering mulus bahkan saat menggulir atau memperbesar dengan cepat.",
+  "renderResolution": "Resolusi render",
+  "translate": "Terjemahkan",
+  "@translate": {
+    "description": "Translate action"
+  },
+  "unencrypted": "Tidak terenkripsi",
+  "encrypted": "Terenkripsi",
+  "encryptDocumentMessage": "Klik untuk mengenkripsi dokumen",
+  "unencryptDocumentMessage": "Klik untuk mendekripsi dokumen",
+  "unencrypt": "Dekripsi",
+  "encrypt": "Enkripsi",
+  "encryptWarning": "Ini akan mengenkripsi dokumen. Anda perlu mengingat kata sandi untuk mendekripsinya.",
+  "unencryptWarning": "Ini akan mendekripsi dokumen. Kata sandi akan dihapus dan semua orang yang memiliki akses dapat membukanya.",
+  "confirmPassword": "Konfirmasi kata sandi",
+  "passwordMismatch": "Kata sandi tidak cocok",
+  "action": "Tindakan",
+  "@action": {
+    "description": "Action property"
+  },
+  "svgText": "Teks SVG",
+  "offset": "Offset",
+  "@offset": {
+    "description": "Offset property"
+  },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
+  "positionDependent": "Bergantung pada posisi",
+  "flipHorizontal": "Balik horizontal",
+  "flipVertical": "Balik vertikal",
+  "grayscale": "Skala abu-abu",
+  "moveOnGesture": "Pindah saat gestur",
+  "exportAllFiles": "Ekspor semua berkas",
+  "restoreSettingsFromFile": "Pulihkan pengaturan dari berkas",
+  "exportSettingsToFile": "Ekspor pengaturan ke berkas",
+  "barcode": "Kode batang",
+  "@barcode": {
+    "description": "Barcode object"
+  },
+  "barcodeType": "Jenis kode batang",
+  "qrCode": "Kode QR",
+  "dataMatrix": "Data Matrix",
+  "code128": "Code 128",
+  "defaultUserName": "Pengguna {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Pindah ke kiri",
+  "moveRight": "Pindah ke kanan",
+  "bundledPacks": "Paket yang disertakan",
+  "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
+  "selectComponent": "Pilih komponen",
+  "bundlePackInDocument": "Sertakan paket dalam dokumen",
+  "bundledPacksDescription": "Paket yang disertakan berada di dalam dokumen dan hanya digunakan untuk dibagikan bersama dokumen. Aset hanya dapat digunakan dalam dokumen jika paketnya terpasang. Paket dapat dipasang dengan mengekliknya.",
+  "fillAlpha": "Alfa isi",
+  "packagedFile": "Berkas terpaket",
+  "rawFile": "Berkas mentah",
+  "webSocketDescription": "Perangkat Anda menjadi host server, sehingga kolaborator hanya dapat bergabung melalui jaringan yang sama atau dari mana saja jika Anda meneruskan port di router.",
+  "swampDescription": "Pesan Anda dirutekan melalui server relai aman dengan enkripsi end-to-end. Alamat server swamp diperlukan untuk membuat sesi.",
+  "createRawNote": "Buat catatan mentah",
+  "polygon": "Poligon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
+  "finishShape": "Selesaikan bentuk",
+  "submit": "Kirim",
+  "@submit": {
+    "description": "Submit action"
+  },
+  "math": "Matematika",
+  "@math": {
+    "description": "Math tool"
+  },
+  "ignorePressure": "Abaikan tekanan",
+  "ignoreFirstPressureDescription": "Pada beberapa perangkat, nilai tekanan pertama tidak akurat. Pengaturan ini akan mengabaikan nilai tekanan pertama dan menggunakan tekanan dari peristiwa kedua.",
+  "temporary": "Sementara",
+  "simpleToolbarVisibility": "Visibilitas bilah alat sederhana",
+  "autosaveDelay": "Penundaan simpan otomatis",
+  "saved": "Tersimpan",
+  "@saved": {
+    "description": "Save status"
+  },
+  "saving": "Menyimpan...",
+  "@saving": {
+    "description": "Save status"
+  },
+  "readOnly": "Hanya baca",
+  "saveDelayed": "Penyimpanan tertunda",
+  "unsaved": "Belum disimpan",
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Saat ini tidak ada area untuk diekspor. Pilih setidaknya satu area menggunakan tombol plus di sudut kanan atas atau tambahkan semua area dari halaman saat ini atau dari seluruh dokumen di bawah.",
+  "densityMaximize": "Maksimalkan",
+  "@densityMaximize": {
+    "description": "Density value"
+  },
+  "customizeShortcuts": "Sesuaikan pintasan",
+  "clickToSave": "Klik untuk menyimpan",
+  "toolbars": "Bilah alat",
+  "logs": "Log",
+  "ruledSimple": "Garis sederhana",
+  "ruledSimpleDark": "Garis sederhana gelap",
+  "quadSimple": "Kotak-kotak sederhana",
+  "quadSimpleDark": "Kotak-kotak sederhana gelap",
+  "redLinedRuled": "Bergaris dengan garis merah",
+  "redLinedRuledDark": "Bergaris dengan garis merah gelap",
+  "redLinedQuad": "Kotak-kotak dengan garis merah",
+  "redLinedQuadDark": "Kotak-kotak dengan garis merah gelap",
+  "noItemSelected": "Tidak ada item yang dipilih",
+  "areaAsInitial": "Buka area sebagai tampilan awal",
+  "swap": "Tukar",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Sembunyikan ekstensi berkas",
+  "aspectRatioHint": "mis. 16:9 atau 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Baru dari templat",
+  "exportAsTextShortcut": "Ekspor sebagai teks",
+  "exportAsImageShortcut": "Ekspor sebagai gambar",
+  "exportAsPdfShortcut": "Ekspor sebagai PDF",
+  "exportAsSvgShortcut": "Ekspor sebagai SVG",
+  "changePathShortcut": "Ubah jalur",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Tindakan tekan dua kali",
+  "triplePressAction": "Tindakan tekan tiga kali",
+  "longPress": "Tekan lama",
+  "toolNumber": "Alat {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Pintasan tahan",
+  "holdShortcutsDescription": "Tahan tombol untuk sementara beralih ke alat lain. Melepas tombol akan kembali ke alat sebelumnya.",
+  "key": "Tombol",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
+}

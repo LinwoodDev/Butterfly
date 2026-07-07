@@ -1,0 +1,11 @@
+* Improve thumbnail cropping logic to better fit the viewport
+* Fix ghost pages creation when reordering current page
+* Fix number field text changes while inputting text
+* Fix bounds calculation when using areas and enabling positive coordinates
+* Only trigger bake when viewport size differs (fix always-bake bug)
+* Refactor MediaQuery.of(context).X usage to MediaQuery.XOf(context) for performance
+* Fix app crashes during heavy scrolling by optimizing PDF rendering lifecycle
+* Fix partial content rendering issues after panning by ensuring viewports bake correctly
+* Fix incorrect default values across settings pages and sliders to properly match their underlying models (e.g. delayed autosave, pen properties, fill alphas, and shape scales)
+
+Read more here: https://linwood.dev/butterfly/2.5.1-rc.2

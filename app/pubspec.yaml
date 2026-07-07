@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.2-rc.3+161
+version: 2.6.0-beta.2+188
 
 environment:
-  sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.35.7
+  sdk: ">=3.12.2 <4.0.0"
+  flutter: 3.44.4
 
 dependencies:
   flutter:
@@ -36,21 +36,21 @@ dependencies:
   url_launcher: ^6.2.6
   phosphor_flutter: ^2.1.0
   replay_bloc: ^0.3.0
-  share_plus: ^12.0.0
-  package_info_plus: ^9.0.0
+  share_plus: ^13.0.0
+  package_info_plus: ^10.1.0
   idb_shim: ^2.4.1+1
   go_router: ^17.0.0
-  xml: ^6.5.0
+  xml: ^7.0.1
   collection: ^1.18.0
   bloc_concurrency: ^0.3.0
-  camera: ^0.11.0
+  camera: ^0.12.0
   camera_windows: ^0.2.1+9
   window_manager: ^0.5.0
   flex_color_scheme: ^8.0.0
-  json_annotation: ^4.9.0
+  json_annotation: ^4.12.0
+  freezed_annotation: ^3.0.0
   http: ^1.2.1
-  flutter_secure_storage: ^10.0.0-beta.2
-  equatable: ^2.0.5
+  flutter_secure_storage: ^10.3.1
   rxdart: ^0.28.0
   archive: ^4.0.0
   animations: ^2.0.11
@@ -62,65 +62,73 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 7d58db18bf9f420236009d9519769ec13f9404b0
+      ref: bc69ad6ef16c6730ba52dfd466ae7d0c0af2e082
       path: packages/material_leap
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 38fd0a6df52bf4115a6926271734d36e601af9cf
+      ref: 6d43be062401fafdd956448c59dea8c1df69198b
       path: packages/lw_sysapi
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 4f221c5943ceb786eb7bd427eb71a8cc1346b9b8
+      ref: 4e2219e6b447edbd793a692116e41362ea0954c9
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      ref: db4a5c69a6928031155add4b42374be584b8e24a
       path: packages/networker/networker_socket
   networker_crypto:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      ref: db4a5c69a6928031155add4b42374be584b8e24a
       path: packages/networker/networker_crypto
   swamp_api:
     git:
       url: https://github.com/LinwoodDev/Swamp.git
-      ref: 1c15259fc8c5e043997ffcaafbf45348a77e3003
+      ref: 49dcf870f0c0861b3422cae3ea8e037eacf48575
       path: api
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 42bd9fde81a3692711862cdb0c60f05f648241a9
+      ref: 064aed61c361194bf0eb3cb599e62bdd3c111d7c
       path: packages/lw_file_system
+  keybinder:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 81eed1f96a53956b10f3ccfe4bc573bc17da5979
+      path: packages/keybinder
   flutter_localized_locales: ^2.0.5
-  cryptography_flutter_plus: ^2.3.4
+  cryptography_flutter_plus: ^3.0.0
   dynamic_color: ^1.7.0
   popover: ^0.4.0
   markdown: ^7.2.2
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
-  super_clipboard: ^0.9.0-dev.4
+  onenote_parser:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: d7d00d81291d6a2716da40b9f1d004ac4973771d
+      path: packages/onenote_parser
   web: ^1.0.0
-  cryptography_plus: ^2.7.1
+  cryptography_plus: ^3.0.0
   barcode: ^2.2.9
-  network_info_plus: ^7.0.0
+  network_info_plus: ^8.1.0
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
-  file_picker: ^10.3.3
-  pdfrx: ^2.2.9
+  file_picker: ^12.0.0-beta.4
+  pdfrx: ^2.4.1
+  talker_flutter: ^5.1.6
+  talker: ^5.1.6
+  talker_bloc_logger: ^5.1.6
+  html: ^0.15.6
+  #flutter_native_splash: ^2.4.7
 dependency_overrides:
-  irondash_engine_context:
+  phosphor_flutter:
     git:
-      url: https://github.com/CodeDoctorDE/irondash
-      ref: 06272db8cf132d89f9e93ce71a5af75251a98e16
-      path: engine_context/dart
-  super_native_extensions:
-    git:
-      url: https://github.com/CodeDoctorDE/super_native_extensions
-      ref: 1055873bac1dcfa859d306b825eecf23b7587d23
-      path: super_native_extensions
+      url: https://github.com/CodeDoctorDE/phosphor-flutter.git
+      ref: f7479596c67239e755ab1fe3bade84895bfd6222
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0
@@ -132,6 +140,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   freezed: ^3.0.2
   msix: ^3.16.9
+  mocktail: ^1.0.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
@@ -142,6 +151,18 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
+    - family: NotoSansArabic
+      fonts:
+        - asset: fonts/NotoSansArabic-Light.ttf
+          weight: 300
+        - asset: fonts/NotoSansArabic-Regular.ttf
+          weight: 400
+        - asset: fonts/NotoSansArabic-Medium.ttf
+          weight: 500
+        - asset: fonts/NotoSansArabic-SemiBold.ttf
+          weight: 600
+        - asset: fonts/NotoSansArabic-Bold.ttf
+          weight: 700
     - family: Comfortaa
       fonts:
         - asset: fonts/Comfortaa-Light.ttf
@@ -192,6 +213,7 @@ flutter:
     - defaults/
     - fonts/Comfortaa-LICENSE.txt
     - fonts/Roboto-LICENSE.txt
+    - fonts/NotoSansArabic-LICENSE.txt
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -225,6 +247,6 @@ msix_config:
   identity_name: LinwoodDevelopment.linwood-butterfly
   logo_path: images/logo.png
   capabilities: internetClientServer, webcam, documentsLibrary
-  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
-  file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
+  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, id, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
+  file_extension: .bfly, .tbfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md, .one, .onepkg
   install_certificate: false

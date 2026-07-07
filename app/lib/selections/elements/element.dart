@@ -52,12 +52,13 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         value: position,
         title: Text(AppLocalizations.of(context).position),
         onChanged: (value) {
+          final delta = value - position;
           updateElements(
             context,
             selected
                 .map(
                   (e) =>
-                      e.transform(position: value, relative: false)?.element ??
+                      e.transform(position: delta, relative: true)?.element ??
                       e.element,
                 )
                 .whereType<T>()
@@ -72,14 +73,30 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         max: 360,
         header: Text(AppLocalizations.of(context).rotation),
         onChangeEnd: (value) {
+          final rect = selected
+              .map((e) => e.expandedRect ?? e.rect)
+              .nonNulls
+              .fold<Rect?>(
+                null,
+                (previous, current) =>
+                    previous?.expandToInclude(current) ?? current,
+              );
+          final pivot = rect?.center ?? Offset.zero;
+          final rotation = value - elements.first.rotation;
+          final rotationRad = rotation * pi / 180;
           updateElements(
             context,
             selected
-                .map(
-                  (e) =>
-                      e.transform(rotation: value, relative: false)?.element ??
-                      e.element,
-                )
+                .map((e) {
+                  final center = e.rect?.center;
+                  final position = center == null
+                      ? null
+                      : center.rotate(pivot, rotationRad) - center;
+                  return e
+                          .transform(position: position, rotation: rotation)
+                          ?.element ??
+                      e.element;
+                })
                 .whereType<T>()
                 .toList(),
           );
@@ -112,12 +129,13 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   bool get showDeleteButton => true;
 
   Future<void> updateElements(BuildContext context, List<T> elements) async {
-    final state = context.read<DocumentBloc>().state;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final page = state.page;
     final document = state.data;
     final assetService = state.assetService;
-    final transformCubit = state.transformCubit;
+    final transformCubit = bloc.transformCubit;
     final renderers = await Future.wait(
       elements.map((e) async {
         final renderer = Renderer.fromInstance(e);
@@ -133,16 +151,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   Rect? get expandedRect =>
       _expandRects(selected.map((e) => e.expandedRect).nonNulls.toList());
 
-  Rect? _expandRects(List<Rect> rects) {
-    var rect = rects.firstOrNull;
-    for (final current in selected.sublist(1)) {
-      final currentRect = current.rect;
-      if (currentRect != null) {
-        rect = rect?.expandToInclude(currentRect);
-      }
-    }
-    return rect;
-  }
+  Rect? _expandRects(List<Rect> rects) =>
+      rects.fold<Rect?>(null, (rect, current) {
+        return rect?.expandToInclude(current) ?? current;
+      });
 
   @override
   void onDelete(BuildContext context) {

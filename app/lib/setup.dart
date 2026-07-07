@@ -35,5 +35,8 @@ void setupLicenses() {
     yield LicenseEntryWithLineBreaks([
       'Roboto',
     ], await rootBundle.loadString('fonts/Roboto-LICENSE.txt'));
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansArabic',
+    ], await rootBundle.loadString('fonts/NotoSansArabic-LICENSE.txt'));
   });
 }

@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Konfiguration
 
-| Egenskap |           Standard          | Beskrivning            |
-| -------: | :-------------------------: | :--------------------- |
-|  Storlek | (20, 20) | The size of grid cells |
-|   Offset |  (0, 0)  | The offset of the grid |
-|     Färg |            Svart            | The color of the grid  |
+|             Egenskap |           Standard          | Beskrivning                                                                                            |
+| -------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|              Storlek | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|               Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|                 Färg |            Svart            | The color of the grid.                                                                 |
+|               Stroke |              1              | The width of the grid lines.                                                           |
+|       Zooma beroende |            falskt           | Changes the grid stroke width based on the zoom level.                                 |
+| Beroende på position |            falskt           | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

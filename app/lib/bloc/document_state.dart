@@ -2,14 +2,11 @@ part of 'document_bloc.dart';
 
 enum StorageType { local, cloud }
 
-abstract class DocumentState extends Equatable {
+abstract class DocumentState {
   final WindowCubit windowCubit;
   final ButterflyFileSystem fileSystem;
 
   const DocumentState({required this.windowCubit, required this.fileSystem});
-
-  @override
-  List<Object?> get props => [];
 
   NoteData? get data => null;
   DocumentPage? get page => null;
@@ -17,19 +14,16 @@ abstract class DocumentState extends Equatable {
   String? get pageName => null;
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
-  CurrentIndexCubit? get currentIndexCubit => null;
-  NetworkingService? get networkingService =>
-      currentIndexCubit?.state.networkingService;
-  Embedding? get embedding => currentIndexCubit?.state.embedding;
   SettingsCubit get settingsCubit => fileSystem.settingsCubit;
   Area? get currentArea => null;
   String? get currentCollection => null;
 
   String? get currentLayer => null;
 
-  Future<NoteData?> saveData([NoteData? current]) => Future.value(data);
-  Future<Uint8List?> saveBytes([NoteData? current]) =>
-      saveData().then((e) => e?.exportAsBytes());
+  Future<NoteData?> saveData([NoteData? current, ViewOption? viewOption]) =>
+      Future.value(data);
+  Future<Uint8List?> saveBytes([NoteData? current, ViewOption? viewOption]) =>
+      saveData(current, viewOption).then((e) => e?.exportAsBytes());
 }
 
 class DocumentLoadInProgress extends DocumentState {
@@ -49,9 +43,6 @@ class DocumentLoadFailure extends DocumentState {
     required this.message,
     this.stackTrace,
   });
-
-  @override
-  List<Object?> get props => [message, stackTrace];
 }
 
 Uint8List _encodePage(DocumentPage page) =>
@@ -70,13 +61,14 @@ abstract class DocumentLoaded extends DocumentState {
   final FileMetadata metadata;
   @override
   final AssetService assetService;
+  final bool absolute;
 
   Future<NoteData> _updatePage(NoteData current) async =>
       current.setRawPage(await compute(_encodePage, page), pageName).$1;
   NoteData _updateMetadata(NoteData current) =>
       current.setMetadata(metadata.copyWith(updatedAt: DateTime.now().toUtc()));
-  NoteData _updateInfo(NoteData current) =>
-      current.setInfo(info.copyWith(view: currentIndexCubit.state.viewOption));
+  NoteData _updateInfo(NoteData current, ViewOption viewOption) =>
+      current.setInfo(info.copyWith(view: viewOption));
 
   DocumentLoaded(
     this.data, {
@@ -87,6 +79,7 @@ abstract class DocumentLoaded extends DocumentState {
     AssetService? assetService,
     FileMetadata? metadata,
     DocumentInfo? info,
+    required this.absolute,
   }) : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
        assetService = assetService ?? AssetService(),
        metadata =
@@ -98,55 +91,19 @@ abstract class DocumentLoaded extends DocumentState {
   @override
   Area? get currentArea => null;
 
-  AssetLocation get location => currentIndexCubit.state.location;
-  bool get absolute => currentIndexCubit.state.absolute;
-  SaveState get saved =>
-      absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
-
   @override
-  CurrentIndexCubit get currentIndexCubit;
-  @override
-  NetworkingService get networkingService =>
-      currentIndexCubit.state.networkingService;
-
-  TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
-
-  @override
-  Future<NoteData> saveData([NoteData? current]) async {
+  Future<NoteData> saveData([NoteData? current, ViewOption? viewOption]) async {
     current ??= data;
+    viewOption ??= const ViewOption();
     current = await _updatePage(current);
     current = _updateMetadata(current);
-    current = _updateInfo(current);
+    current = _updateInfo(current, viewOption);
     return current;
   }
 
-  Future<void> bake({
-    Size? viewportSize,
-    double? pixelRatio,
-    bool reset = false,
-  }) => currentIndexCubit.bake(
-    this,
-    viewportSize: viewportSize,
-    pixelRatio: pixelRatio,
-    reset: reset,
-  );
-
-  Future<void> delayedBake({
-    Size? viewportSize,
-    double? pixelRatio,
-    bool reset = false,
-    bool testTransform = false,
-  }) => currentIndexCubit.delayedBake(
-    this,
-    viewportSize: viewportSize,
-    pixelRatio: pixelRatio,
-    reset: reset,
-    testTransform: testTransform,
-  );
-
   @override
-  Future<Uint8List> saveBytes([NoteData? current]) =>
-      saveData().then((e) => e.exportAsBytes());
+  Future<Uint8List> saveBytes([NoteData? current, ViewOption? viewOption]) =>
+      saveData(current, viewOption).then((e) => e.exportAsBytes());
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {
@@ -158,9 +115,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
   final String currentLayer;
   @override
   final Set<String> invisibleLayers;
-  @override
-  final CurrentIndexCubit currentIndexCubit;
-
   DocumentLoadSuccess(
     super.data, {
     super.page,
@@ -170,46 +124,27 @@ class DocumentLoadSuccess extends DocumentLoaded {
     required super.pageName,
     super.metadata,
     super.info,
-    AssetLocation? location,
-    bool absolute = false,
+    super.absolute = false,
     this.storageType = StorageType.local,
-    required this.currentIndexCubit,
-    this.currentAreaName = '',
+    String? currentAreaName,
     this.currentCollection = '',
     String? currentLayer,
     this.invisibleLayers = const {},
-  }) : currentLayer =
+  }) : currentAreaName =
+           currentAreaName ??
+           (page ?? data.getPage(pageName))?.areas
+               .firstWhereOrNull((e) => e.isInitial)
+               ?.name ??
+           '',
+       currentLayer =
            currentLayer ??
            (page ?? data.getPage(pageName))?.layers.lastOrNull?.id ??
-           createUniqueId() {
-    if (location != null) {
-      currentIndexCubit.setSaveState(location: location, absolute: absolute);
-    }
-  }
-
-  @override
-  List<Object?> get props => [
-    invisibleLayers,
-    data,
-    info,
-    page,
-    pageName,
-    metadata,
-    currentCollection,
-    currentAreaName,
-    settingsCubit,
-    currentIndexCubit,
-    currentLayer,
-  ];
+           createUniqueId();
 
   @override
   Area? get currentArea {
     return page.getAreaByName(currentAreaName);
   }
-
-  CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
-
-  List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
   DocumentLoadSuccess copyWith({
     NoteData? data,
@@ -235,36 +170,13 @@ class DocumentLoadSuccess extends DocumentLoaded {
     currentAreaName: currentAreaName ?? this.currentAreaName,
     fileSystem: fileSystem,
     windowCubit: windowCubit,
-    currentIndexCubit: currentIndexCubit,
-    location: location,
     absolute: absolute,
   );
 
   bool isLayerVisible(String? layer) => !invisibleLayers.contains(layer);
 
-  bool hasAutosave() =>
-      settingsCubit.state.autosave &&
-      (networkingService.isActive ||
-          !(embedding?.save ?? true) ||
-          (!kIsWeb &&
-              !absolute &&
-              (location.fileType?.isNote() ?? false) &&
-              (location.remote.isEmpty ||
-                  (settingsCubit.state
-                          .getRemote(location.remote)
-                          ?.hasDocumentCached(location.path) ??
-                      false))));
-
-  ExternalStorage? getRemoteStorage() => currentIndexCubit.getRemoteStorage();
-
-  Tool? get tool => currentIndexCubit.state.handler.data;
-
-  AreaPreset get areaPreset => AreaPreset(
-    name: pageName,
-    area: cameraViewport.toArea(),
-    page: pageName,
-    quality: settingsCubit.state.pdfQuality,
-  );
+  AreaPreset areaPreset(CameraViewport cameraViewport) =>
+      AreaPreset(name: pageName, area: cameraViewport.toArea(), page: pageName);
 
   DocumentLayer getLayer() => page.getLayer(currentLayer);
 
@@ -291,6 +203,7 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.windowCubit,
     required super.pageName,
     required super.assetService,
+    required super.absolute,
   }) : handler = PresentationStateHandler(track, bloc),
        super(oldState.data);
 
@@ -306,10 +219,8 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.windowCubit,
     required super.pageName,
     required super.assetService,
+    required super.absolute,
   }) : super(oldState.data);
-
-  @override
-  List<Object?> get props => [oldState, frame, track];
 
   @override
   NoteData get data => oldState.data;
@@ -327,11 +238,6 @@ class DocumentPresentationState extends DocumentLoaded {
         pageName: pageName,
         fileSystem: fileSystem,
         windowCubit: windowCubit,
+        absolute: absolute,
       );
-
-  @override
-  CurrentIndexCubit get currentIndexCubit => oldState.currentIndexCubit;
-
-  @override
-  SettingsCubit get settingsCubit => oldState.settingsCubit;
 }

@@ -10,6 +10,11 @@
   "lightTheme": "Giao diện sáng",
   "systemTheme": "Dùng giao diện mặc định của máy",
   "view": "Hiển thị",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Thu nhỏ",
   "resetZoom": "Đặt lại",
   "strokeWidth": "Độ dày nét",
+  "strokeStyle": "Kiểu gạch",
+  "dashLength": "Độ dài dấu gạch ngang",
+  "gapLength": "Chiều dài khoảng trống",
   "includeEraser": "Bao gồm công cụ tẩy?",
   "thinning": "Làm mảnh",
   "pen": "Bút vẽ",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Bút xóa đường",
+  "stroke": "Stroke",
   "label": "Nhãn",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Nền",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Hộp",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Bảng màu mặc định",
   "highlighter": "Bút đánh dấu",
+  "combinePaths": "Combine paths",
   "add": "Thêm",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Khối",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Đường kẻ đôi",
   "dotted": "Chấm chấm",
+  "dottedDark": "Chấm đen",
   "dashed": "Cắt khúc",
   "wavy": "Dợn sóng",
   "fontWeight": "Kích cỡ phông chữ",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Hành vi",
   "dataDirectory": "Thư mục dữ liệu",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "Đường dẫn mặc định",
   "dateFormat": "Định dạng ngày tháng",
   "updatedAt": "Đã được cập nhật lúc: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Chưa đặt",
   "enterLayer": "Nhập tên lớp",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Chọn các phần tử",
   "deleteElements": "Xóa các phần tử",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Bạn có thực sự muốn xóa các phần tử đã chọn không?",
   "selectCustomCollection": "Chọn bộ sưu tập tùy chỉnh",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Tối",
-  "plainDark": "Trơn tối",
+  "plainDark": "Máu tối trơn",
   "ruledDark": "Dòng tối",
   "quadDark": "Lưới tối",
   "musicDark": "Âm nhạc tối",
@@ -325,7 +356,7 @@
     "description": "Insert action"
   },
   "document": "Tài liệu",
-  "camera": "Camera",
+  "camera": "Máy ảnh",
   "@camera": {
     "description": "Camera tool"
   },
@@ -545,6 +576,7 @@
   "topRight": "Trên phải",
   "bottomLeft": "Dưới trái",
   "bottomRight": "Dưới phải",
+  "zoomPosition": "Vị trí điều khiển thu phóng",
   "caches": "Bộ nhớ đệm",
   "manage": "Quản lý",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Thư mục đã đồng bộ",
   "syncRootDirectory": "Thư mục gốc đồng bộ",
   "penOnlyInput": "Chỉ nhận đầu vào bằng bút",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Tự động bật chế độ chỉ dùng bút khi phát hiện thấy bút cảm ứng. Cài đặt này chỉ kéo dài cho phiên hiện tại.",
+  "penOnlyInputOnDescription": "Luôn từ chối đầu vào bằng cảm ứng và chuột, chỉ chấp nhận đầu vào bằng bút cảm ứng.",
+  "penOnlyInputOffDescription": "Chấp nhận tất cả các loại đầu vào bao gồm cảm ứng, chuột và bút cảm ứng.",
+  "automatic": "Tự động",
+  "alwaysOn": "Luôn bật",
+  "alwaysOff": "Luôn tắt",
+  "showPenOnlyToggle": "Chỉ hiển thị bút khi chuyển đổi",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Cử chỉ đầu vào",
   "nativeTitleBar": "Thanh tiêu đề gốc",
+  "mode": "Mode",
   "syncMode": "Chế độ đồng bộ",
   "connection": "Kết nối",
   "always": "Luôn luôn",
@@ -893,6 +939,7 @@
   "bringForward": "Đưa lên trước",
   "sendBackward": "Đưa xuống sau",
   "rotation": "Xoay",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Chỉ khả dụng trên màn hình lớn hơn",
   "toolbarPosition": "Vị trí thanh công cụ",
   "rotate": "Xoay",
@@ -919,6 +966,9 @@
   "ascending": "Tăng dần",
   "descending": "Giảm dần",
   "imageScale": "Tỷ lệ hình ảnh",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Chọn",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Chất lượng PDF",
   "surface": "Bề mặt",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Tiếp tục",
   "zoomControl": "Điều khiển thu phóng",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Độ tương phản cao",
   "shouldANumber": "Giá trị này phải là số hợp lệ",
   "createAreas": "Tạo khu vực",
@@ -1081,6 +1134,8 @@
   "addAll": "Thêm tất cả",
   "onlyCurrentPage": "Chỉ trang hiện tại",
   "smoothNavigation": "Điều hướng mượt",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Chính xác",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Đổi bộ sưu tập",
   "collections": "Các bộ sưu tập",
   "fullSelection": "Chọn toàn bộ",
-  "fullSelectionDescription": "Yêu cầu phần tử nằm hoàn toàn trong hộp chọn để chọn.",
   "collection": "Bộ sưu tập",
   "defaultCollection": "Bộ sưu tập mặc định",
   "scroll": "Cuộn",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Màn hình chính",
   "lastNote": "Ghi chú cuối",
   "newNote": "Ghi chú mới",
-  "convertToLayer": "Chuyển thành lớp",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Gộp",
   "@merge": {
     "description": "Merge action"
@@ -1158,7 +1213,7 @@
   "performanceDescription": "Tối ưu cho tốc độ và bộ nhớ. Chỉ phần hiển thị được nướng thành hình ảnh.",
   "normalDescription": "Cân bằng chất lượng và hiệu năng. Nướng hình ảnh phủ 1.5 lần vùng hiển thị, mượt hơn khi cuộn.",
   "high": "Cao",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Tối đa hóa chất lượng với chi phí hiệu suất. Nướng một hình ảnh bao phủ gấp 2 lần vùng hiển thị, đảm bảo hiển thị liền mạch ngay cả khi cuộn hoặc thu phóng nhanh.",
   "renderResolution": "Độ phân giải render",
   "translate": "Dịch",
   "@translate": {
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Phụ thuộc vị trí",
   "flipHorizontal": "Lật ngang",
   "flipVertical": "Lật dọc",
@@ -1197,7 +1260,7 @@
   },
   "barcodeType": "Loại mã vạch",
   "qrCode": "Mã QR",
-  "dataMatrix": "Data Matrix",
+  "dataMatrix": "Ma trận dữ liệu",
   "code128": "Code 128",
   "defaultUserName": "Người dùng {index}",
   "@defaultUserName": {
@@ -1233,32 +1296,80 @@
   "@submit": {
     "description": "Submit action"
   },
-  "math": "Math",
+  "math": "Toán học",
   "@math": {
     "description": "Math tool"
   },
-  "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
-  "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
+  "ignorePressure": "Bỏ qua áp lực",
+  "ignoreFirstPressureDescription": "Trên một số thiết bị, giá trị áp suất đầu tiên không chính xác. Cài đặt này sẽ bỏ qua giá trị áp suất đầu tiên và thay vào đó sử dụng áp suất của sự kiện thứ hai.",
+  "temporary": "Tạm thời",
+  "simpleToolbarVisibility": "Khả năng hiển thị thanh công cụ đơn giản",
+  "autosaveDelay": "Độ trễ tự động lưu",
+  "saved": "Đã lưu",
   "@saved": {
     "description": "Save status"
   },
-  "saving": "Saving...",
+  "saving": "Đang lưu...",
   "@saving": {
     "description": "Save status"
   },
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved",
+  "readOnly": "Chỉ đọc",
+  "saveDelayed": "Lưu bị trì hoãn",
+  "unsaved": "Chưa lưu",
   "@unsaved": {
     "description": "Save status"
   },
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
-  "densityMaximize": "Maximize",
+  "pdfEmptyDescription": "Hiện tại không có khu vực nào để xuất. Vui lòng chọn ít nhất một khu vực bằng nút dấu cộng ở góc trên bên phải hoặc thêm tất cả các khu vực từ trang hiện tại hoặc từ toàn bộ tài liệu bên dưới.",
+  "densityMaximize": "Phóng to",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Toàn màn hình",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

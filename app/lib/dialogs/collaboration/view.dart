@@ -31,13 +31,13 @@ class ViewCollaborationDialog extends StatelessWidget {
               child: Stack(
                 children: [
                   InkWell(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                     radius: 12,
                     onTap: () {
                       exportSvg(context, svg, true);
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Stack(
                         alignment: Alignment.center,
                         fit: StackFit.expand,
@@ -56,32 +56,7 @@ class ViewCollaborationDialog extends StatelessWidget {
                     child: IconButton.filledTonal(
                       icon: const Icon(PhosphorIconsLight.copy),
                       onPressed: () async {
-                        final clipboard = SystemClipboard.instance;
-                        if (clipboard == null) {
-                          exportSvg(context, svg, false);
-                        } else {
-                          final item = DataWriterItem();
-                          item.add(Formats.svg.lazy(() => utf8.encode(svg)));
-                          item.add(
-                            Formats.png.lazy(() async {
-                              final PictureInfo pictureInfo = await vg
-                                  .loadPicture(SvgStringLoader(svg), null);
-                              final image = await pictureInfo.picture.toImage(
-                                256,
-                                256,
-                              );
-                              final byteData = await image.toByteData(
-                                format: ui.ImageByteFormat.png,
-                              );
-                              pictureInfo.picture.dispose();
-                              image.dispose();
-                              return byteData!.buffer.asUint8List();
-                            }),
-                          );
-                          item.add(Formats.uri(NamedUri(uri)));
-                          item.add(Formats.plainText(connect));
-                          await clipboard.write([item]);
-                        }
+                        exportSvg(context, svg, false);
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

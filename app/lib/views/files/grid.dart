@@ -1,12 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/file_name_display.dart';
 
 class FileEntityGridItem extends StatelessWidget {
   final String? modifiedText, createdText;
@@ -54,7 +56,7 @@ class FileEntityGridItem extends StatelessWidget {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
         side: active
             ? BorderSide(color: colorScheme.primaryContainer, width: 1)
             : BorderSide.none,
@@ -87,10 +89,13 @@ class FileEntityGridItem extends StatelessWidget {
                           ? AspectRatio(
                               aspectRatio: kThumbnailRatio,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
                                 child: Image.memory(
                                   thumbnail!,
                                   fit: BoxFit.cover,
+                                  gaplessPlayback: true,
                                   cacheHeight: kThumbnailHeight,
                                   cacheWidth: kThumbnailWidth,
                                   errorBuilder: (context, error, stackTrace) =>
@@ -102,6 +107,15 @@ class FileEntityGridItem extends StatelessWidget {
                     ),
                   ),
                   Align(alignment: Alignment.topRight, child: actionButton),
+                  if (remote is RemoteStorage)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: FileSyncStatusButton(
+                        remote: remote,
+                        location: entity.location,
+                        directory: entity is FileSystemDirectory,
+                      ),
+                    ),
                   if (selected != null)
                     Align(
                       alignment: Alignment.topLeft,
@@ -190,6 +204,19 @@ class FileEntityGridItem extends StatelessWidget {
                                       entity.location.path,
                                       value,
                                     );
+                                    await settingsCubit.moveAssetReferences(
+                                      entity.location,
+                                      AssetLocation(
+                                        remote: entity.location.remote,
+                                        path: renamedAssetPath(
+                                          entity.location.path,
+                                          value,
+                                        ),
+                                      ),
+                                      directory:
+                                          entity
+                                              is FileSystemDirectory<NoteFile>,
+                                    );
                                     onEdit(false);
                                     onReload();
                                   },
@@ -203,6 +230,21 @@ class FileEntityGridItem extends StatelessWidget {
                                         await documentSystem.renameAsset(
                                           entity.location.path,
                                           nameController.text,
+                                        );
+                                        await settingsCubit.moveAssetReferences(
+                                          entity.location,
+                                          AssetLocation(
+                                            remote: entity.location.remote,
+                                            path: renamedAssetPath(
+                                              entity.location.path,
+                                              nameController.text,
+                                            ),
+                                          ),
+                                          directory:
+                                              entity
+                                                  is FileSystemDirectory<
+                                                    NoteFile
+                                                  >,
                                         );
                                         onEdit(false);
                                         onReload();
@@ -223,16 +265,14 @@ class FileEntityGridItem extends StatelessWidget {
                                 child: Tooltip(
                                   message: entity.fileName,
                                   child: GestureDetector(
-                                    child: Text(
-                                      entity.fileName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextTheme.of(context).labelLarge,
-                                    ),
                                     onDoubleTap: () {
                                       onEdit(true);
                                       nameController.text = entity.fileName;
                                     },
+                                    child: FileNameDisplay(
+                                      entity: entity,
+                                      style: TextTheme.of(context).labelLarge,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -10,7 +10,6 @@ class RedoHandler extends Handler<RedoTool> {
   ]) async {
     final bloc = context.read<DocumentBloc>();
     bloc.sendRedo();
-    await bloc.reload();
     return SelectState.none;
   }
 

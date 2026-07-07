@@ -2,9 +2,9 @@
 title: Paket
 ---
 
-A pack is a collection of components that can be used in the stamp tool. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicken Sie dazu auf die linke obere Ecke und klicken Sie auf "Paket".
+Ein Pack ist eine Sammlung von Komponenten, die im Stempelwerkzeug verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicken Sie dazu oben links und wählen Sie „Packs“.
 
-Packs are saved globally, so you can use them in any document. If you want to share the pack in a document, you can bundle it with the document.
+Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden können. Wenn Sie das Pack in einem Dokument teilen möchten, können Sie es mit dem Dokument bündeln.
 
 ## Eigenschaften
 
@@ -12,7 +12,7 @@ Packs are saved globally, so you can use them in any document. If you want to sh
 | -----------: | :--------------------------- |
 |         Name | Der Name des Pakets          |
 |        Autor | Der Autor des Pakets         |
-|      Version | The version of the pack      |
+|      Version | Die Version des Packs        |
 | Beschreibung | Eine Beschreibung des Pakets |
 
 ## Komponenten
@@ -21,23 +21,22 @@ Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden
 
 Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.
 
-### Adding a component into a pack
+### Komponente zu einem Pack hinzufügen
 
-To add a component:
+So fügen Sie eine Komponente hinzu:
 
-1. Select the elements on the infinite canvas
-2. Double tap or right click to summon the context menu
-3. Press the plus icon (Add to pack)
-4. Choose the pack
-5. Give a name to the new component, it can be anything.
+1. Wählen Sie die Elemente auf der unendlichen Leinwand aus
+2. Tippen Sie doppelt oder klicken Sie mit der rechten Maustaste, um das Kontextmenü zu öffnen
+3. Drücke das Plus-Symbol (Zu Pack hinzufügen)
+4. Wählen Sie das Pack aus
+5. Gib der neuen Komponente einen Namen; er kann beliebig sein.
 
-You can use these components using the [stamp tool](/docs/v2/pack)
+Sie können diese Komponenten mit dem [Stempelwerkzeug](../tools/stamp) verwenden.
 
 ## Stile
 
-Styles are used to customize the appearance of the text. The paragraph styles can be used to format a whole paragraph (like a heading), while the text styles can be used to format only a part of the text (like a bold word).
+Stile werden verwendet, um das Aussehen des Textes anzupassen. Absatzstile können verwendet werden, um einen ganzen Absatz zu formatieren (z. B. eine Überschrift), während Textstile nur einen Teil des Textes formatieren (z. B. ein fettes Wort).
 
 ## Paletten
 
-The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (like mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color picker.
-
+Mit Farbpaletten können Sie schnell Farben für einfärbbare Werkzeuge auswählen. Wenn Sie eine Farbe bearbeiten, sehen Sie ein Farbauswahl-Overlay (wie in der [Farbauswahl-Dokumentation](../color_picker) erwähnt).

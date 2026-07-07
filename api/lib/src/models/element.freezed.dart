@@ -564,13 +564,14 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class PenElement extends PadElement implements PathElement {
-   PenElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, this.zoom, final  List<PathPoint> points = const [], this.property = const PenProperty(), final  Map<String, dynamic> extra = const {}, final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'pen',super._();
+   PenElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, this.zoom, this.combineId, final  List<PathPoint> points = const [], this.property = const PenProperty(), final  Map<String, dynamic> extra = const {}, final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'pen',super._();
   factory PenElement.fromJson(Map<String, dynamic> json) => _$PenElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
  final  double? zoom;
+ final  String? combineId;
  final  List<PathPoint> _points;
 @JsonKey() List<PathPoint> get points {
   if (_points is EqualUnmodifiableListView) return _points;
@@ -604,16 +605,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.combineId, combineId) || other.combineId == combineId)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,zoom,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,zoom,combineId,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.pen(rotation: $rotation, collection: $collection, id: $id, zoom: $zoom, points: $points, property: $property, extra: $extra)';
+  return 'PadElement.pen(rotation: $rotation, collection: $collection, id: $id, zoom: $zoom, combineId: $combineId, points: $points, property: $property, extra: $extra)';
 }
 
 
@@ -624,7 +625,7 @@ abstract mixin class $PenElementCopyWith<$Res> implements $PadElementCopyWith<$R
   factory $PenElementCopyWith(PenElement value, $Res Function(PenElement) _then) = _$PenElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id, double? zoom, List<PathPoint> points, PenProperty property, Map<String, dynamic> extra
+ double rotation, String collection,@IdJsonConverter() String? id, double? zoom, String? combineId, List<PathPoint> points, PenProperty property, Map<String, dynamic> extra
 });
 
 
@@ -641,13 +642,14 @@ class _$PenElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? zoom = freezed,Object? points = null,Object? property = freezed,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? zoom = freezed,Object? combineId = freezed,Object? points = null,Object? property = freezed,Object? extra = null,}) {
   return _then(PenElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,zoom: freezed == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
-as double?,points: null == points ? _self._points : points // ignore: cast_nullable_to_non_nullable
+as double?,combineId: freezed == combineId ? _self.combineId : combineId // ignore: cast_nullable_to_non_nullable
+as String?,points: null == points ? _self._points : points // ignore: cast_nullable_to_non_nullable
 as List<PathPoint>,property: freezed == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as PenProperty,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,

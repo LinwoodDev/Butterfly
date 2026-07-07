@@ -29,19 +29,92 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   @override
   Rect rect;
 
+  ui.Path? _cachedPath;
+  PolygonHitCalculator? _cachedHitCalculator;
+  final _strokePaint = ElementPaintRenderer();
+  final _fillPaint = ElementPaintRenderer();
+
   PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
 
   @override
-  void setup(
+  Rect get expandedRect => Renderer._expandedAabbFor(
+    rect.inflate(
+      element.property.paint.previewColor.a > 0 &&
+              element.property.strokeWidth > 0
+          ? element.property.strokeWidth / 2
+          : 0,
+    ),
+    rotation * pi / 180,
+  );
+
+  void _computePath() {
+    final points = element.points;
+    if (points.isEmpty) {
+      _cachedPath = null;
+      return;
+    }
+    _cachedPath = ui.Path();
+    final first = points.first;
+    _cachedPath!.moveTo(first.x, first.y);
+    for (var i = 1; i < points.length; i++) {
+      final point = points[i];
+      final prev = points[i - 1];
+
+      if (prev.handleOut != null || point.handleIn != null) {
+        _cachedPath!.cubicTo(
+          prev.handleOut?.x ?? prev.x,
+          prev.handleOut?.y ?? prev.y,
+          point.handleIn?.x ?? point.x,
+          point.handleIn?.y ?? point.y,
+          point.x,
+          point.y,
+        );
+      } else {
+        _cachedPath!.lineTo(point.x, point.y);
+      }
+    }
+
+    if (points.length > 2) {
+      final last = points.last;
+      if ((first.toPoint().toOffset() - last.toPoint().toOffset()).distance <
+          1.0) {
+        _cachedPath!.close();
+      }
+    }
+  }
+
+  @override
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
     rect = calculatePolygonRect(element.points);
+    _computePath();
+    _cachedHitCalculator = null;
 
-    super.setup(transformCubit, document, assetService, page);
+    await Future.wait([
+      _strokePaint.setup(element.property.paint, document, assetService),
+      _fillPaint.setup(element.property.fillPaint, document, assetService),
+    ]);
+    await super.setup(transformCubit, document, assetService, page);
   }
+
+  @override
+  void dispose() {
+    _strokePaint.dispose();
+    _fillPaint.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) => _strokePaint.uses(path) || _fillPaint.uses(path);
 
   @override
   void build(
@@ -54,44 +127,36 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    final points = element.points;
-    if (points.isEmpty) return;
-    final path = ui.Path();
-    final first = points.first;
-    path.moveTo(first.x, first.y);
-    for (var i = 1; i < points.length; i++) {
-      final point = points[i];
-      final prev = points[i - 1];
+    if (element.points.isEmpty) return;
 
-      if (prev.handleOut != null || point.handleIn != null) {
-        path.cubicTo(
-          prev.handleOut?.x ?? prev.x,
-          prev.handleOut?.y ?? prev.y,
-          point.handleIn?.x ?? point.x,
-          point.handleIn?.y ?? point.y,
-          point.x,
-          point.y,
-        );
-      } else {
-        path.lineTo(point.x, point.y);
-      }
+    // Compute path if not cached (e.g., for foreground renderers)
+    if (_cachedPath == null) {
+      _computePath();
     }
+    final path = _cachedPath;
+    if (path == null) return;
+
     final property = element.property;
 
-    if (property.color.a > 0) {
-      final paint = Paint()
-        ..color = property.color.toColor()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = property.strokeWidth
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round;
-      canvas.drawPath(path, paint);
-    }
-    if (property.fill.a > 0) {
-      final fillPaint = Paint()
-        ..color = property.fill.toColor()
-        ..style = PaintingStyle.fill;
+    if (property.fillPaint.previewColor.a > 0) {
+      final fillPaint = _fillPaint.build(
+        property.fillPaint,
+        rect,
+        style: PaintingStyle.fill,
+      );
       canvas.drawPath(path, fillPaint);
+    }
+    if (property.paint.previewColor.a > 0) {
+      final paint =
+          _strokePaint.build(
+              property.paint,
+              expandedRect,
+              style: PaintingStyle.stroke,
+            )
+            ..strokeWidth = property.strokeWidth
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round;
+      canvas.drawPath(path, paint);
     }
   }
 
@@ -99,14 +164,19 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   ContextMenuItem? getContextMenuItem(DocumentBloc bloc, BuildContext context) {
     return ContextMenuItem(
       onPressed: () async {
+        bloc.currentIndexCubit.fetchHandler<SelectHandler>()?.clearSelection(
+          bloc,
+        );
         final polygon =
-            await bloc.state.currentIndexCubit?.changeTemporaryHandler(
+            await bloc.currentIndexCubit.changeTemporaryHandler(
                   context,
                   PolygonTool(property: element.property),
                   bloc: bloc,
                 )
                 as PolygonHandler;
         polygon.editElement(element);
+        await bloc.refreshForegrounds();
+        await bloc.refreshToolbar();
         Navigator.of(context).pop();
       },
       icon: const PhosphorIcon(PhosphorIconsLight.polygon),
@@ -153,6 +223,17 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   }
 
   @override
+  PolygonHitCalculator getHitCalculator() {
+    _cachedHitCalculator ??= PolygonHitCalculator(
+      rect,
+      element.points,
+      rotation * pi / 180,
+      element.property,
+    );
+    return _cachedHitCalculator!;
+  }
+
+  @override
   PolygonRenderer _transform({
     required Offset position,
     required double rotation,
@@ -166,4 +247,156 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     layer,
     moveRect(position, scaleX, scaleY),
   );
+}
+
+class PolygonHitCalculator extends HitCalculator {
+  final Rect elementRect;
+  final double rotation;
+  final PolygonProperty property;
+  final List<Offset> _points;
+  final Rect _bounds;
+
+  PolygonHitCalculator(
+    this.elementRect,
+    List<PolygonPoint> points,
+    this.rotation,
+    this.property,
+  ) : _points = _rotatePoints(
+        _collectPoints(points),
+        elementRect.center,
+        rotation,
+      ),
+      _bounds = Renderer._expandedAabbFor(
+        elementRect.inflate(
+          property.paint.previewColor.a > 0 && property.strokeWidth > 0
+              ? property.strokeWidth / 2
+              : 0,
+        ),
+        rotation,
+      );
+
+  static List<Offset> _collectPoints(List<PolygonPoint> points) {
+    if (points.isEmpty) return const [];
+
+    final collected = <Offset>[];
+    collected.add(Offset(points.first.x, points.first.y));
+
+    for (int i = 1; i < points.length; i++) {
+      final prev = points[i - 1];
+      final curr = points[i];
+
+      if (prev.handleOut != null || curr.handleIn != null) {
+        final previous = Offset(prev.x, prev.y);
+        final handleOut = Offset(
+          prev.handleOut?.x ?? prev.x,
+          prev.handleOut?.y ?? prev.y,
+        );
+        final handleIn = Offset(
+          curr.handleIn?.x ?? curr.x,
+          curr.handleIn?.y ?? curr.y,
+        );
+        final current = Offset(curr.x, curr.y);
+
+        const int steps = 10;
+        for (int step = 1; step <= steps; step++) {
+          final double t = step / steps;
+          final double mt = 1 - t;
+
+          final double x =
+              (mt * mt * mt * previous.dx) +
+              (3 * mt * mt * t * handleOut.dx) +
+              (3 * mt * t * t * handleIn.dx) +
+              (t * t * t * current.dx);
+
+          final double y =
+              (mt * mt * mt * previous.dy) +
+              (3 * mt * mt * t * handleOut.dy) +
+              (3 * mt * t * t * handleIn.dy) +
+              (t * t * t * current.dy);
+
+          collected.add(Offset(x, y));
+        }
+      } else {
+        collected.add(Offset(curr.x, curr.y));
+      }
+    }
+    return collected;
+  }
+
+  static List<Offset> _rotatePoints(
+    List<Offset> points,
+    Offset center,
+    double rotation,
+  ) {
+    if (points.isEmpty || rotation == 0) return points;
+    final cosRotation = cos(rotation);
+    final sinRotation = sin(rotation);
+    return points
+        .map((point) {
+          final dx = point.dx - center.dx;
+          final dy = point.dy - center.dy;
+          return Offset(
+            center.dx + dx * cosRotation - dy * sinRotation,
+            center.dy + dx * sinRotation + dy * cosRotation,
+          );
+        })
+        .toList(growable: false);
+  }
+
+  Rect _selectionBounds(List<Offset> polygon) {
+    if (polygon.isEmpty) return Rect.zero;
+    var minX = polygon.first.dx;
+    var maxX = polygon.first.dx;
+    var minY = polygon.first.dy;
+    var maxY = polygon.first.dy;
+    for (var index = 1; index < polygon.length; index++) {
+      final point = polygon[index];
+      if (point.dx < minX) minX = point.dx;
+      if (point.dx > maxX) maxX = point.dx;
+      if (point.dy < minY) minY = point.dy;
+      if (point.dy > maxY) maxY = point.dy;
+    }
+    return Rect.fromLTRB(minX, minY, maxX, maxY);
+  }
+
+  @override
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (hitElementMode == HitElementMode.none) return false;
+    if (_points.isEmpty) return false;
+    if (!_bounds.overlaps(rect)) return false;
+    return switch (hitElementMode) {
+      HitElementMode.full => _points.every((p) => rect.contains(p)),
+      HitElementMode.touchEdges =>
+        hitRectPolygon(rect, _points) &&
+            (isFiniteRect(rect)
+                ? !rectToPolygon(
+                    rect,
+                  ).every((p) => isPointInPolygon(_points, p))
+                : true),
+      HitElementMode.touchAnywhere => hitRectPolygon(rect, _points),
+      _ => false, // this shouldn't happen
+    };
+  }
+
+  @override
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (hitElementMode == HitElementMode.none) return false;
+    if (polygon.isEmpty || _points.isEmpty) return false;
+    if (!_bounds.overlaps(_selectionBounds(polygon))) return false;
+
+    return switch (hitElementMode) {
+      HitElementMode.full => _points.every((p) => isPointInPolygon(polygon, p)),
+      HitElementMode.touchEdges =>
+        isPolygonInPolygon(polygon, _points) &&
+            !polygon.every((p) => isPointInPolygon(_points, p)),
+      HitElementMode.touchAnywhere => isPolygonInPolygon(polygon, _points),
+      _ => false, // this shouldn't happen
+    };
+  }
 }

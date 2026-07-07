@@ -64,9 +64,18 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
-            final url = parseConnectUri(Uri.parse(_urlConntroller.text));
+            final uri = Uri.tryParse(_urlConntroller.text.trim());
+            if (uri == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalizations.of(context).urlNotValid),
+                ),
+              );
+              return;
+            }
+            final url = parseConnectUri(uri);
             if (url.isEmpty) return;
+            Navigator.of(context).pop();
             GoRouter.of(
               context,
             ).pushNamed('connect', queryParameters: {'url': url});

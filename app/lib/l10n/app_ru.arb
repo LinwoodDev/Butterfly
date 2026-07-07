@@ -10,6 +10,11 @@
   "lightTheme": "Светлая тема",
   "systemTheme": "Использовать системную тему по умолчанию",
   "view": "Вид",
+  "contentViewport": "Вид контента",
+  "limitViewportToPositiveCoordinates": "Ограничить видовые координаты",
+  "off": "Выкл",
+  "canvas": "Холст",
+  "interface": "Интерфейс",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Уменьшить",
   "resetZoom": "Сбросить",
   "strokeWidth": "Толщина линии",
+  "strokeStyle": "Стиль обводки",
+  "dashLength": "Длина тире",
+  "gapLength": "Длина разрыва",
   "includeEraser": "Включить ластик?",
   "thinning": "Утончение",
   "pen": "Перо",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Контурный ластик",
+  "stroke": "Stroke",
   "label": "Подпись",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Фон",
+  "applyBackground": "Применить фон",
+  "applyAreas": "Применить области",
+  "currentPage": "Текущая страница",
+  "allPages": "Все страницы",
   "box": "Блок",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Стандартная палитра",
   "highlighter": "Выделение",
+  "combinePaths": "Комбинировать пути",
   "add": "Добавить",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Сплошной",
+  "solidColor": "Сплошной цвет",
+  "gradient": "Градиент",
+  "gradientType": "Тип градиента",
+  "linear": "Линейный",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Двойной",
   "dotted": "Точечный",
+  "dottedDark": "Точечная темнота",
   "dashed": "Пунктирный",
   "wavy": "Волнистый",
   "fontWeight": "Насыщенность шрифта",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Поведение",
   "dataDirectory": "Каталог данных",
+  "warning": "Предупреждение",
+  "platformExperimentalWarning": "Предупреждение: Эта настройка экспериментальна и может иметь проблемы на этой платформе.",
+  "changeDataDirectoryWarningContent": "Вы уверены, что хотите изменить папку данных? Прежде чем продолжить, вы должны сделать резервную копию ваших данных.",
   "defaultPath": "Путь по умолчанию",
   "dateFormat": "Формат даты",
   "updatedAt": "Обновлено: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Не задано",
   "enterLayer": "Введите имя слоя",
+  "eraseShapes": "Удалить фигуры",
+  "eraseShapeModeNone": "Не стереть фигуры",
+  "eraseShapeModeTouchEdges": "Стереть при касании краев",
+  "eraseShapeModeTouchAnywhere": "Стереть при касании в любом месте",
+  "selectElementModeTouchEdges": "Выделить при касании краев",
+  "selectElementModeTouchAnywhere": "Выберите, когда касаетесь в любом месте",
   "selectElements": "Выберите элементы",
   "deleteElements": "Удалить элементы",
+  "eraseAllElements": "Удалить все элементы",
   "deleteElementsConfirm": "Вы действительно хотите удалить выбранные элементы?",
   "selectCustomCollection": "Выберите свою коллекцию",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Тёмная",
-  "plainDark": "Тёмная",
+  "plainDark": "Тёмный",
   "ruledDark": "В линейку тёмный",
   "quadDark": "В клетку тёмный",
   "musicDark": "Нотный стан тёмный",
@@ -545,6 +576,7 @@
   "topRight": "Сверху справа",
   "bottomLeft": "Снизу слева",
   "bottomRight": "Снизу справа",
+  "zoomPosition": "Управлять масштабом",
   "caches": "Кеш",
   "manage": "Управлять",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Автоматически включать режим \"только ручкой\" при обнаружении стилуса. Этот параметр длится только для текущей сессии.",
+  "penOnlyInputOnDescription": "Всегда отклонять ввод касания и мыши, принимать только ввод стилуса.",
+  "penOnlyInputOffDescription": "Принимать все типы ввода, включая касание, мышь и стиль.",
+  "automatic": "Автоматически",
+  "alwaysOn": "Всегда включен",
+  "alwaysOff": "Всегда выкл",
+  "showPenOnlyToggle": "Показывать переключатель только пера",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Жесты ввода",
   "nativeTitleBar": "Родной заголовок",
+  "mode": "Mode",
   "syncMode": "Режим синхронизации",
   "connection": "Подключение",
   "always": "Всегда",
@@ -893,6 +939,7 @@
   "bringForward": "Перенос вперед",
   "sendBackward": "Отправить назад",
   "rotation": "Поворот",
+  "direction": "Направление",
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
   "rotate": "Повернуть",
@@ -919,6 +966,9 @@
   "ascending": "По возрастанию",
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
+  "svgScale": "SVG масштаб",
+  "noImageSelected": "Изображение не выбрано",
+  "noSvgSelected": "Не выбран SVG",
   "select": "Выбрать",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Качество PDF",
   "surface": "Поверхность",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Все равно продолжить",
   "zoomControl": "Управление масштабом",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Высокий контраст",
   "shouldANumber": "Это значение должно быть действительным числом",
   "createAreas": "Создать области",
@@ -1081,6 +1134,8 @@
   "addAll": "Добавить все",
   "onlyCurrentPage": "Только текущая страница",
   "smoothNavigation": "Гладкая навигация",
+  "edgePanAreaSwitching": "Переключение области края пружины",
+  "useAndroidSaf": "Использовать Android SAF",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Изменить коллекцию",
   "collections": "Коллекции",
   "fullSelection": "Полная выборка",
-  "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора.",
   "collection": "Коллекция",
   "defaultCollection": "Коллекция по умолчанию",
   "scroll": "Прокрутка",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Домашний экран",
   "lastNote": "Последняя заметка",
   "newNote": "Новая заметка",
-  "convertToLayer": "Преобразовать в слой",
+  "moveToLayer": "Переместить в слой",
+  "createLayer": "Создать слой",
   "merge": "Объединить",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Конец",
+  "radius": "Radius",
+  "focalPoint": "Точка фокуса",
+  "useOffCenterStartPoint": "Использовать стартовую точку вне центра",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Остановки цвета",
+  "addStop": "Добавить остановку",
   "positionDependent": "Зависит от позиции",
   "flipHorizontal": "Отразить по горизонтали",
   "flipVertical": "Отразить вертикально",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Развернуть",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Настроить ярлыки",
+  "clickToSave": "Нажмите, чтобы сохранить",
+  "toolbars": "Панели инструментов",
+  "logs": "Логи",
+  "ruledSimple": "Простые правила",
+  "ruledSimpleDark": "Простая темнота",
+  "quadSimple": "Простой квад",
+  "quadSimpleDark": "Простой квадрат темный",
+  "redLinedRuled": "Красный выдержанный",
+  "redLinedRuledDark": "Красный выложенный цвет - тёмный",
+  "redLinedQuad": "Красный квадрат",
+  "redLinedQuadDark": "Темный красный квадрат",
+  "noItemSelected": "Не выбрано ни одного элемента",
+  "areaAsInitial": "Открыть область как начальный вид",
+  "swap": "Поменять",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Скрыть расширение файла",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Новый из шаблона",
+  "exportAsTextShortcut": "Экспортировать как текст",
+  "exportAsImageShortcut": "Экспортировать как изображение",
+  "exportAsPdfShortcut": "Экспорт в PDF",
+  "exportAsSvgShortcut": "Экспорт в SVG",
+  "changePathShortcut": "Изменить путь",
+  "fullScreenShortcut": "На весь экран",
+  "doublePressAction": "Действие двойного нажатия",
+  "triplePressAction": "Действие с тройным нажатием",
+  "longPress": "Долгое нажатие",
+  "toolNumber": "Инструмент {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Запустить ярлыки",
+  "holdShortcutsDescription": "Удерживайте клавишу для временного переключения на другой инструмент. Отпустите клавишу обратно на предыдущий инструмент.",
+  "key": "Спецификация",
+  "bringMovedElementsToFront": "Принести перемещенные элементы на передний план",
+  "addTool": "Добавить инструмент",
+  "nextPage": "Следующая страница",
+  "previousPage": "Предыдущая страница"
 }

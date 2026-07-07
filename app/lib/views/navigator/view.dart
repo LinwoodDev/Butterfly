@@ -11,10 +11,9 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'constants.dart';
 import 'layers.dart';
 import 'pages.dart';
-
-const drawerWidth = 350.0;
 
 enum NavigatorPage {
   waypoints,
@@ -58,8 +57,6 @@ class NavigatorView extends StatefulWidget {
   @override
   State<NavigatorView> createState() => _NavigatorViewState();
 }
-
-const kNavigationRailWidth = 72.0;
 
 class _NavigatorViewState extends State<NavigatorView>
     with TickerProviderStateMixin {
@@ -117,11 +114,11 @@ class _NavigatorViewState extends State<NavigatorView>
                   SizeTransition(
                     sizeFactor: _animation,
                     axis: Axis.horizontal,
-                    axisAlignment: 1,
+                    alignment: Alignment.centerLeft,
                     child: AnimatedBuilder(
                       animation: _animation,
                       child: SizedBox(
-                        width: drawerWidth,
+                        width: kNavigatorDrawerWidth,
                         child: Card(child: DocumentNavigator(asDialog: false)),
                       ),
                       builder: (context, child) {
@@ -224,10 +221,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             ],
           ),
           body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(alignment: Alignment.topCenter, child: body),
-            ),
+            child: Align(alignment: Alignment.topCenter, child: body),
           ),
         );
         if (widget.asDialog) {

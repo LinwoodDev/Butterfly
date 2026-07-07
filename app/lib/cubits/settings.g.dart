@@ -6,33 +6,78 @@ part of 'settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_InputConfiguration _$InputConfigurationFromJson(Map json) =>
-    _InputConfiguration(
-      leftMouse: json['leftMouse'] == null
-          ? InputMappingDefault.leftMouse
-          : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
-      middleMouse: json['middleMouse'] == null
-          ? InputMappingDefault.middleMouse
-          : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
-      rightMouse: json['rightMouse'] == null
-          ? InputMappingDefault.rightMouse
-          : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
-      pen: json['pen'] == null
-          ? InputMappingDefault.pen
-          : InputMapping.fromJson((json['pen'] as num).toInt()),
-      invertedPen: json['invertedPen'] == null
-          ? InputMappingDefault.invertedPen
-          : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
-      firstPenButton: json['firstPenButton'] == null
-          ? InputMappingDefault.firstPenButton
-          : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
-      secondPenButton: json['secondPenButton'] == null
-          ? InputMappingDefault.secondPenButton
-          : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
-      touch: json['touch'] == null
-          ? InputMappingDefault.touch
-          : InputMapping.fromJson((json['touch'] as num).toInt()),
-    );
+_FavoriteLocation _$FavoriteLocationFromJson(Map json) => _FavoriteLocation(
+  remote: json['remote'] as String?,
+  path: json['path'] as String,
+);
+
+Map<String, dynamic> _$FavoriteLocationToJson(_FavoriteLocation instance) =>
+    <String, dynamic>{'remote': instance.remote, 'path': instance.path};
+
+_HoldShortcut _$HoldShortcutFromJson(Map json) => _HoldShortcut(
+  keyId: (json['keyId'] as num).toInt(),
+  mapping: InputMapping.fromJson((json['mapping'] as num).toInt()),
+);
+
+Map<String, dynamic> _$HoldShortcutToJson(_HoldShortcut instance) =>
+    <String, dynamic>{
+      'keyId': instance.keyId,
+      'mapping': instance.mapping.toJson(),
+    };
+
+_InputConfiguration _$InputConfigurationFromJson(
+  Map json,
+) => _InputConfiguration(
+  leftMouse: json['leftMouse'] == null
+      ? InputMappingDefault.leftMouse
+      : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
+  middleMouse: json['middleMouse'] == null
+      ? InputMappingDefault.middleMouse
+      : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
+  rightMouse: json['rightMouse'] == null
+      ? InputMappingDefault.rightMouse
+      : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
+  pen: json['pen'] == null
+      ? InputMappingDefault.pen
+      : InputMapping.fromJson((json['pen'] as num).toInt()),
+  invertedPen: json['invertedPen'] == null
+      ? InputMappingDefault.invertedPen
+      : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
+  firstPenButton: json['firstPenButton'] == null
+      ? InputMappingDefault.firstPenButton
+      : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
+  secondPenButton: json['secondPenButton'] == null
+      ? InputMappingDefault.secondPenButton
+      : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
+  touch: json['touch'] == null
+      ? InputMappingDefault.touch
+      : InputMapping.fromJson((json['touch'] as num).toInt()),
+  holdShortcuts:
+      (json['holdShortcuts'] as List<dynamic>?)
+          ?.map(
+            (e) => HoldShortcut.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  doubleLeftMouseShortcut: json['doubleLeftMouseShortcut'] as String?,
+  tripleLeftMouseShortcut: json['tripleLeftMouseShortcut'] as String?,
+  doubleMiddleMouseShortcut: json['doubleMiddleMouseShortcut'] as String?,
+  tripleMiddleMouseShortcut: json['tripleMiddleMouseShortcut'] as String?,
+  doubleRightMouseShortcut: json['doubleRightMouseShortcut'] as String?,
+  tripleRightMouseShortcut: json['tripleRightMouseShortcut'] as String?,
+  doublePenShortcut: json['doublePenShortcut'] as String?,
+  triplePenShortcut: json['triplePenShortcut'] as String?,
+  doubleInvertedPenShortcut: json['doubleInvertedPenShortcut'] as String?,
+  tripleInvertedPenShortcut: json['tripleInvertedPenShortcut'] as String?,
+  doubleFirstPenButtonShortcut: json['doubleFirstPenButtonShortcut'] as String?,
+  tripleFirstPenButtonShortcut: json['tripleFirstPenButtonShortcut'] as String?,
+  doubleSecondPenButtonShortcut:
+      json['doubleSecondPenButtonShortcut'] as String?,
+  tripleSecondPenButtonShortcut:
+      json['tripleSecondPenButtonShortcut'] as String?,
+  doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
+  tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
+);
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
     <String, dynamic>{
@@ -44,6 +89,23 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'firstPenButton': instance.firstPenButton.toJson(),
       'secondPenButton': instance.secondPenButton.toJson(),
       'touch': instance.touch.toJson(),
+      'holdShortcuts': instance.holdShortcuts.map((e) => e.toJson()).toList(),
+      'doubleLeftMouseShortcut': instance.doubleLeftMouseShortcut,
+      'tripleLeftMouseShortcut': instance.tripleLeftMouseShortcut,
+      'doubleMiddleMouseShortcut': instance.doubleMiddleMouseShortcut,
+      'tripleMiddleMouseShortcut': instance.tripleMiddleMouseShortcut,
+      'doubleRightMouseShortcut': instance.doubleRightMouseShortcut,
+      'tripleRightMouseShortcut': instance.tripleRightMouseShortcut,
+      'doublePenShortcut': instance.doublePenShortcut,
+      'triplePenShortcut': instance.triplePenShortcut,
+      'doubleInvertedPenShortcut': instance.doubleInvertedPenShortcut,
+      'tripleInvertedPenShortcut': instance.tripleInvertedPenShortcut,
+      'doubleFirstPenButtonShortcut': instance.doubleFirstPenButtonShortcut,
+      'tripleFirstPenButtonShortcut': instance.tripleFirstPenButtonShortcut,
+      'doubleSecondPenButtonShortcut': instance.doubleSecondPenButtonShortcut,
+      'tripleSecondPenButtonShortcut': instance.tripleSecondPenButtonShortcut,
+      'doubleTouchShortcut': instance.doubleTouchShortcut,
+      'tripleTouchShortcut': instance.tripleTouchShortcut,
     };
 
 _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
@@ -53,13 +115,17 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   density:
       $enumDecodeNullable(_$ThemeDensityEnumMap, json['density']) ??
       ThemeDensity.system,
+  limitViewportMultiplier: (json['limitViewportMultiplier'] as num?)
+      ?.toDouble(),
+  limitViewportPositive: json['limitViewportPositive'] as bool? ?? false,
   localeTag: json['localeTag'] as String? ?? '',
   documentPath: json['documentPath'] as String? ?? '',
   gestureSensitivity: (json['gestureSensitivity'] as num?)?.toDouble() ?? 1,
   touchSensitivity: (json['touchSensitivity'] as num?)?.toDouble() ?? 1,
   selectSensitivity: (json['selectSensitivity'] as num?)?.toDouble() ?? 1,
   scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
-  penOnlyInput: json['penOnlyInput'] as bool? ?? false,
+  penOnlyInput: json['penOnlyInput'] as bool?,
+  showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
   inputGestures: json['inputGestures'] as bool? ?? true,
   design: json['design'] as String? ?? '',
   bannerVisibility:
@@ -69,6 +135,12 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       ) ??
       BannerVisibility.always,
   zoomEnabled: json['zoomEnabled'] as bool? ?? true,
+  zoomPosition:
+      $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
+      ZoomPosition.bottomRight,
+  propertyPosition:
+      $enumDecodeNullable(_$ZoomPositionEnumMap, json['propertyPosition']) ??
+      ZoomPosition.topRight,
   lastVersion: json['lastVersion'] as String?,
   defaultRemote: json['defaultRemote'] as String? ?? '',
   nativeTitleBar: json['nativeTitleBar'] as bool? ?? false,
@@ -89,6 +161,14 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   starred:
       (json['starred'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
+  favoriteTemplates:
+      (json['favoriteTemplates'] as List<dynamic>?)
+          ?.map(
+            (e) =>
+                FavoriteLocation.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
   defaultTemplate: json['defaultTemplate'] as String? ?? '',
   navigatorPosition:
       $enumDecodeNullable(
@@ -108,7 +188,6 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       $enumDecodeNullable(_$SortOrderEnumMap, json['sortOrder']) ??
       SortOrder.descending,
   imageScale: (json['imageScale'] as num?)?.toDouble() ?? 0.5,
-  pdfQuality: (json['pdfQuality'] as num?)?.toDouble() ?? 2,
   platformTheme:
       $enumDecodeNullable(_$PlatformThemeEnumMap, json['platformTheme']) ??
       PlatformTheme.system,
@@ -123,6 +202,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   spreadPages: json['spreadPages'] as bool? ?? false,
   highContrast: json['highContrast'] as bool? ?? false,
   gridView: json['gridView'] as bool? ?? false,
+  hideExtension: json['hideExtension'] as bool? ?? true,
   autosave: json['autosave'] as bool? ?? true,
   showSaveButton: json['showSaveButton'] as bool? ?? true,
   toolbarRows: (json['toolbarRows'] as num?)?.toInt() ?? 1,
@@ -164,6 +244,18 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       : PackAssetLocation.fromJson(
           Map<String, dynamic>.from(json['selectedPalette'] as Map),
         ),
+  showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
+  showThumbnails: json['showThumbnails'] as bool? ?? true,
+  bringMovedElementsToFront:
+      json['bringMovedElementsToFront'] as bool? ?? false,
+  favoriteTools:
+      (json['favoriteTools'] as List<dynamic>?)
+          ?.map(
+            (e) =>
+                PackAssetLocation.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -171,6 +263,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
 ) => <String, dynamic>{
   'theme': _$ThemeModeEnumMap[instance.theme]!,
   'density': _$ThemeDensityEnumMap[instance.density]!,
+  'limitViewportMultiplier': instance.limitViewportMultiplier,
+  'limitViewportPositive': instance.limitViewportPositive,
   'localeTag': instance.localeTag,
   'documentPath': instance.documentPath,
   'gestureSensitivity': instance.gestureSensitivity,
@@ -178,10 +272,13 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectSensitivity': instance.selectSensitivity,
   'scrollSensitivity': instance.scrollSensitivity,
   'penOnlyInput': instance.penOnlyInput,
+  'showPenOnlyToggle': instance.showPenOnlyToggle,
   'inputGestures': instance.inputGestures,
   'design': instance.design,
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
   'zoomEnabled': instance.zoomEnabled,
+  'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
+  'propertyPosition': _$ZoomPositionEnumMap[instance.propertyPosition]!,
   'lastVersion': instance.lastVersion,
   'defaultRemote': instance.defaultRemote,
   'nativeTitleBar': instance.nativeTitleBar,
@@ -192,6 +289,9 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'inputConfiguration': instance.inputConfiguration.toJson(),
   'fallbackPack': instance.fallbackPack,
   'starred': instance.starred,
+  'favoriteTemplates': instance.favoriteTemplates
+      .map((e) => e.toJson())
+      .toList(),
   'defaultTemplate': instance.defaultTemplate,
   'navigatorPosition': _$NavigatorPositionEnumMap[instance.navigatorPosition]!,
   'toolbarPosition': _$ToolbarPositionEnumMap[instance.toolbarPosition]!,
@@ -199,7 +299,6 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'sortBy': _$SortByEnumMap[instance.sortBy]!,
   'sortOrder': _$SortOrderEnumMap[instance.sortOrder]!,
   'imageScale': instance.imageScale,
-  'pdfQuality': instance.pdfQuality,
   'platformTheme': _$PlatformThemeEnumMap[instance.platformTheme]!,
   'recentColors': instance.recentColors
       .map(const SRGBConverter().toJson)
@@ -208,6 +307,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'spreadPages': instance.spreadPages,
   'highContrast': instance.highContrast,
   'gridView': instance.gridView,
+  'hideExtension': instance.hideExtension,
   'autosave': instance.autosave,
   'showSaveButton': instance.showSaveButton,
   'toolbarRows': instance.toolbarRows,
@@ -224,6 +324,10 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'moveOnGesture': instance.moveOnGesture,
   'swamps': instance.swamps,
   'selectedPalette': instance.selectedPalette?.toJson(),
+  'showVerboseLogs': instance.showVerboseLogs,
+  'showThumbnails': instance.showThumbnails,
+  'bringMovedElementsToFront': instance.bringMovedElementsToFront,
+  'favoriteTools': instance.favoriteTools.map((e) => e.toJson()).toList(),
 };
 
 const _$ThemeModeEnumMap = {
@@ -245,6 +349,13 @@ const _$BannerVisibilityEnumMap = {
   BannerVisibility.always: 'always',
   BannerVisibility.never: 'never',
   BannerVisibility.onlyOnUpdates: 'onlyOnUpdates',
+};
+
+const _$ZoomPositionEnumMap = {
+  ZoomPosition.topRight: 'topRight',
+  ZoomPosition.topLeft: 'topLeft',
+  ZoomPosition.bottomRight: 'bottomRight',
+  ZoomPosition.bottomLeft: 'bottomLeft',
 };
 
 const _$IgnorePressureEnumMap = {

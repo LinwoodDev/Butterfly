@@ -11,8 +11,6 @@ class EraserInfo {
 
   EraserInfo(this.strokeWidth);
   EraserInfo.fromEraser(EraserTool tool) : strokeWidth = tool.strokeWidth;
-  EraserInfo.fromPathEraser(PathEraserTool tool)
-    : strokeWidth = tool.strokeWidth;
 }
 
 class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {

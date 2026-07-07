@@ -10,6 +10,11 @@
   "lightTheme": "Aydınlık Tema",
   "systemTheme": "Varsayılan sistem temasını kullan",
   "view": "Görüntüle",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Uzaklaştır",
   "resetZoom": "Yakınlaştırmayı sıfırla",
   "strokeWidth": "Kontur genişliği",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Dahili silgi?",
   "thinning": "Kalinlik",
   "pen": "Kalem",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Yol silici",
+  "stroke": "Stroke",
   "label": "Etiket",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Arkaplan",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Kutu",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Varsayılan palet",
   "highlighter": "Fosforlu kalem",
+  "combinePaths": "Combine paths",
   "add": "Ekle",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Katı",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Çift",
   "dotted": "Noktalı",
+  "dottedDark": "Dotted dark",
   "dashed": "Kesik çizgili",
   "wavy": "Dalgalı",
   "fontWeight": "Yazı tipi kalınlığı",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Davranışlar",
   "dataDirectory": "Veri dizini",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "Varsayılan yol",
   "dateFormat": "Tarih biçimi",
   "updatedAt": "Güncellenme tarihi: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Ayarlanmamış",
   "enterLayer": "Katman adı gir",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Ögeleri seçin",
   "deleteElements": "Ögeleri sil",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Seçili ögeleri gerçekten silmek istiyor musunuz?",
   "selectCustomCollection": "Özel koleksiyon seç",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Koyu",
-  "plainDark": "Koyu",
+  "plainDark": "Sade koyu",
   "ruledDark": "Çizgili koyu",
   "quadDark": "Kareli koyu",
   "musicDark": "Müzik koyu",
@@ -545,6 +576,7 @@
   "topRight": "Sağ üst",
   "bottomLeft": "Sol alt",
   "bottomRight": "Sağ alt",
+  "zoomPosition": "Zoom control position",
   "caches": "Önbellek",
   "manage": "Yönet",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Klasör eşitlendi",
   "syncRootDirectory": "Kök dizini eşitle",
   "penOnlyInput": "Sadece kalem girişi",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Giriş hareketleri",
   "nativeTitleBar": "Yerel başlık çubuğu",
+  "mode": "Mode",
   "syncMode": "Eşitleme kipi",
   "connection": "Bağlantı",
   "always": "Her zaman",
@@ -893,6 +939,7 @@
   "bringForward": "Bir adım öne getir",
   "sendBackward": "Bir adım geriye gönder",
   "rotation": "Döndürme",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Sadece daha büyük ekranlarda kullanılabilir",
   "toolbarPosition": "Araç çubuğu konumu",
   "rotate": "Döndür",
@@ -919,6 +966,9 @@
   "ascending": "Artan",
   "descending": "Azalan",
   "imageScale": "Görsel ölçeği",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Seç",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF kalitesi",
   "surface": "Yüzey",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Yine de devam et",
   "zoomControl": "Yakınlaştırma kontrolü",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Yüksek kontrast",
   "shouldANumber": "Bu değer geçerli bir sayı olmalıdır",
   "createAreas": "Alanlar oluştur",
@@ -1081,6 +1134,8 @@
   "addAll": "Tümünü ekle",
   "onlyCurrentPage": "Sadece geçerli sayfa",
   "smoothNavigation": "Akıcı gezinme",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Tam",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Koleksiyonu değiştir",
   "collections": "Koleksiyonlar",
   "fullSelection": "Tam seçim",
-  "fullSelectionDescription": "Seçim için ögelerin seçim kutusunun içinde tamamen olmasını gerektirir.",
   "collection": "Koleksiyon",
   "defaultCollection": "Varsayılan koleksiyon",
   "scroll": "Kaydır",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Ana ekran",
   "lastNote": "Son not",
   "newNote": "Yeni not",
-  "convertToLayer": "Katmana dönüştür",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Birleştir",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Bitiş",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Konuma bağlı",
   "flipHorizontal": "Yatay çevir",
   "flipVertical": "Dikey çevir",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Büyüt",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Tam ekran",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

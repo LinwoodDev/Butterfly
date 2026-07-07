@@ -10,6 +10,11 @@
   "lightTheme": "淺色主題",
   "systemTheme": "使用系統預設主題",
   "view": "查看",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "縮小",
   "resetZoom": "重設縮放",
   "strokeWidth": "筆劃寬度",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "包含橡皮擦？",
   "thinning": "稀薄化",
   "pen": "筆",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "路徑橡皮擦",
+  "stroke": "Stroke",
   "label": "標記",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "背景",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "盒子",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "預設調色板",
   "highlighter": "螢光筆",
+  "combinePaths": "Combine paths",
   "add": "新增",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "實線",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "雙線",
   "dotted": "點線",
+  "dottedDark": "Dotted dark",
   "dashed": "虛線",
   "wavy": "波浪線",
   "fontWeight": "字重",
@@ -215,6 +236,9 @@
   },
   "behaviors": "行爲",
   "dataDirectory": "資料夾",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "預設路徑",
   "dateFormat": "日期格式",
   "updatedAt": "更新於：{dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "未設",
   "enterLayer": "輸入圖層名稱",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "選取元素",
   "deleteElements": "刪除元素",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "確定要刪除所選元素嗎？",
   "selectCustomCollection": "選擇自訂集合",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "暗",
-  "plainDark": "暗",
+  "plainDark": "Plain dark",
   "ruledDark": "直紋 - 暗",
   "quadDark": "方格 - 暗",
   "musicDark": "樂譜 - 暗",
@@ -545,6 +576,7 @@
   "topRight": "右上角",
   "bottomLeft": "左下角",
   "bottomRight": "右下角",
+  "zoomPosition": "Zoom control position",
   "caches": "快取",
   "manage": "管理",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "已同步資料夾",
   "syncRootDirectory": "同步根目錄",
   "penOnlyInput": "只讓筆輸入",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "手勢輸入",
   "nativeTitleBar": "原生標題列",
+  "mode": "Mode",
   "syncMode": "同步模式",
   "connection": "連線",
   "always": "一律",
@@ -893,6 +939,7 @@
   "bringForward": "上提一層",
   "sendBackward": "下推一層",
   "rotation": "旋轉",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "工具列位置",
   "rotate": "旋轉",
@@ -919,6 +966,9 @@
   "ascending": "遞增",
   "descending": "遞減",
   "imageScale": "圖片縮放",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "選擇",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF 品質",
   "surface": "表面",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "仍然繼續",
   "zoomControl": "縮放控制",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "高對比",
   "shouldANumber": "此值應為有效數字",
   "createAreas": "建立分區",
@@ -1081,6 +1134,8 @@
   "addAll": "全部新增",
   "onlyCurrentPage": "僅本頁",
   "smoothNavigation": "流暢導覽",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "精確",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "變更集合",
   "collections": "集合",
   "fullSelection": "全選範圍",
-  "fullSelectionDescription": "僅選取完全位於選取框內的元素。",
   "collection": "集合",
   "defaultCollection": "預設集合",
   "scroll": "捲動",
@@ -1123,7 +1177,8 @@
   "homeScreen": "主畫面",
   "lastNote": "上一則筆記",
   "newNote": "新筆記",
-  "convertToLayer": "轉換為圖層",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "合併",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "依位置而定",
   "flipHorizontal": "水平翻轉",
   "flipVertical": "垂直翻轉",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "最大化",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "全螢幕",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

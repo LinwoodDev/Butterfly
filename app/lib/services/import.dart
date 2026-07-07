@@ -5,8 +5,8 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
@@ -18,6 +18,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,15 +27,19 @@ import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:pdfrx/pdfrx.dart';
-import 'package:super_clipboard/super_clipboard.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 
 import '../api/save.dart';
-import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
+import 'onenote.dart';
+
+enum _OneNoteXpsFallback { manual, skipAll }
+
+enum _OneNoteManualXpsAction { selectPdf, exportAgain, skipFile, skipAll }
 
 class ImportResult {
   final ImportService service;
@@ -46,6 +51,7 @@ class ImportResult {
   final List<NoteData> packs;
   final bool choosePosition;
   final bool documentReady;
+  final List<ExportPreset> exportPresets;
 
   ImportResult({
     required this.service,
@@ -55,16 +61,41 @@ class ImportResult {
     this.pages = const [],
     this.areas = const [],
     this.packs = const [],
+    this.exportPresets = const [],
     this.choosePosition = false,
   }) : documentReady = false;
-  ImportResult.ready({required this.service, required this.document})
+  ImportResult.ready({required this.service, required NoteData this.document})
     : elements = const [],
-      assets = const {},
-      pages = const [],
+      assets = document.getAllAssets(),
+      pages = document
+          .getPages(true)
+          .map((e) {
+            final page = document.getPage(e);
+            if (page == null) return null;
+            return (e, page);
+          })
+          .nonNulls
+          .toList(),
+      packs = document
+          .getBundledPacks()
+          .map((e) => document.getBundledPack(e))
+          .nonNulls
+          .toList(),
       areas = const [],
-      packs = const [],
+      exportPresets = const [],
       choosePosition = false,
       documentReady = true;
+
+  bool _isArchiveAssetPath(String path) =>
+      validAssetPaths.any((e) => path.startsWith('$e/'));
+
+  Map<String, Uint8List> get _archiveAssets => Map.fromEntries(
+    assets.entries.where((entry) => _isArchiveAssetPath(entry.key)),
+  );
+
+  Map<String, Uint8List> get _importAssets => Map.fromEntries(
+    assets.entries.where((entry) => !_isArchiveAssetPath(entry.key)),
+  );
 
   Future<NoteData> export() async {
     final currentDocument = this.document;
@@ -74,6 +105,10 @@ class ImportResult {
     var document =
         currentDocument ??
         DocumentDefaults.createDocument(createDefaultPage: false);
+    for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
+      document = document.setAsset(path, data);
+    }
+    final importAssets = _importAssets;
     final state = service._getState();
     DocumentPage page =
         state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
@@ -81,7 +116,7 @@ class ImportResult {
     (document, imported) = await importAssetsAsync(
       document,
       elements,
-      assets: assets,
+      assets: importAssets,
     );
     if (imported.isNotEmpty) {
       page = page.copyWith(
@@ -95,7 +130,20 @@ class ImportResult {
       document = document.setPage(page).$1;
     }
     for (final (name, page) in pages) {
-      (document, _) = document.addPage(page, name ?? '');
+      final layers = <DocumentLayer>[];
+      for (final layer in page.layers) {
+        List<PadElement> imported;
+        (document, imported) = await importAssetsAsync(
+          document,
+          layer.content,
+          assets: importAssets,
+        );
+        layers.add(layer.copyWith(content: imported));
+      }
+      (document, _) = document.addPage(
+        page.copyWith(layers: layers),
+        name ?? '',
+      );
     }
     for (final pack in packs) {
       document = document.setBundledPack(pack);
@@ -111,16 +159,19 @@ class ImportResult {
     if (choosePosition &&
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
-      state.currentIndexCubit.changeTemporaryHandler(
+      service.currentIndexCubit?.changeTemporaryHandler(
         context,
         ImportTool(elements: elements, areas: areas, assets: assets),
         bloc: bloc!,
         temporaryState: TemporaryState.removeAfterRelease,
       );
     } else {
+      for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
+        bloc?.add(AssetUpdated(path, data));
+      }
       bloc
-        ?..add(AreasCreated(areas))
-        ..add(ElementsCreated(elements));
+        ?..add(AreasCreated(areas.map((e) => AreaPreset(area: e)).toList()))
+        ..add(ElementsCreated(elements, assets: _importAssets));
     }
     bloc?.add(
       PagesAdded(
@@ -132,6 +183,9 @@ class ImportResult {
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
     }
+    for (final preset in exportPresets) {
+      bloc?.add(ExportPresetCreated(preset.name, preset.areas));
+    }
   }
 }
 
@@ -139,19 +193,21 @@ class ImportService {
   final DocumentBloc? bloc;
   final BuildContext context;
   final ExternalStorage? storage;
+  final String? path;
   final bool useDefaultStorage;
 
   ImportService(
     this.context, {
     this.bloc,
     this.storage,
+    this.path,
     this.useDefaultStorage = true,
   });
 
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
-  CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
+  CurrentIndexCubit? get currentIndexCubit => bloc?.currentIndexCubit;
   SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
   ButterflySettings getSettings() => getSettingsCubit().state;
   ButterflyFileSystem getFileSystem() => context.read<ButterflyFileSystem>();
@@ -181,7 +237,7 @@ class ImportService {
     Object? data,
     NoteData? document,
   }) async {
-    final location = bloc?.state.currentIndexCubit?.state.location;
+    final location = bloc?.currentIndexCubit.state.location;
     Uint8List? bytes;
     final fs = getDocumentSystem();
     if (data is Uint8List) {
@@ -202,11 +258,12 @@ class ImportService {
       bytes = data.data;
     }
     if (type.isEmpty) type = 'note';
+    final normalizedType = type.toLowerCase();
     final fileType = AssetFileType.values.firstWhereOrNull(
       (element) =>
-          element.isMimeType(type) ||
-          element.getFileExtensions().contains(type) ||
-          element.name == type,
+          element.isMimeType(normalizedType) ||
+          element.getFileExtensions().contains(normalizedType) ||
+          element.name == normalizedType,
     );
     if (fileType == null) {
       await showDialog(
@@ -231,6 +288,7 @@ class ImportService {
     DocumentFileSystem? fileSystem,
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
+    String? name,
   }) async {
     final realDocument =
         document ?? bloc?.state.data ?? DocumentDefaults.createDocument();
@@ -242,6 +300,7 @@ class ImportService {
         advanced: advanced,
         templateSystem: templateSystem,
         packSystem: packSystem,
+        name: name,
       ),
       AssetFileType.image => importImage(
         bytes,
@@ -260,9 +319,24 @@ class ImportService {
         realDocument,
         position: position,
         advanced: advanced,
+        name: name,
       ),
       AssetFileType.page => importPage(bytes, realDocument, position: position),
       AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
+      AssetFileType.oneNote => importOneNote(
+        bytes,
+        isPackage: false,
+        document: document,
+        advanced: advanced,
+        name: name,
+      ),
+      AssetFileType.oneNotePackage => importOneNote(
+        bytes,
+        isPackage: true,
+        document: document,
+        advanced: advanced,
+        name: name,
+      ),
       AssetFileType.archive => importArchive(
         bytes,
         fileSystem: fileSystem,
@@ -276,31 +350,6 @@ class ImportService {
     };
   }
 
-  Future<Uint8List?>? _readFileFromClipboard(
-    DataReader reader,
-    FileFormat format,
-  ) {
-    final c = Completer<Uint8List?>();
-    final progress = reader.getFile(
-      format,
-      (file) async {
-        try {
-          final all = await file.readAll();
-          c.complete(all);
-        } catch (e) {
-          c.completeError(e);
-        }
-      },
-      onError: (e) {
-        c.completeError(e);
-      },
-    );
-    if (progress == null) {
-      c.complete(null);
-    }
-    return c.future;
-  }
-
   @useResult
   Future<ImportResult?> importClipboard(
     NoteData document, {
@@ -309,38 +358,21 @@ class ImportService {
   }) async {
     Uint8List? data;
     AssetFileType? type;
-    final clipboard = SystemClipboard.instance;
-    if (clipboard != null) {
-      final reader = await clipboard.read();
-      final result = AssetFileType.values
-          .map((e) {
-            final format = e.getClipboardFormats().firstWhereOrNull(
-              (f) => reader.canProvide(f),
-            );
-            return format == null ? null : (e, format);
-          })
-          .nonNulls
-          .firstOrNull;
-      if (result == null) return null;
-      if (result.$2 is FileFormat) {
-        data = await _readFileFromClipboard(reader, result.$2 as FileFormat);
-      } else if (result.$2 is ValueFormat<Uint8List>) {
-        data = await reader.readValue(result.$2 as ValueFormat<Uint8List>);
-      }
-      type = result.$1;
-    } else {
-      final clipboard = context.read<ClipboardManager>();
-      final content = clipboard.getContent();
-      data = content?.data;
-      try {
-        type = AssetFileType.values.byName(content?.type ?? '');
-      } catch (e) {
-        await showDialog(
-          context: context,
-          builder: (context) =>
-              UnknownImportConfirmationDialog(message: e.toString()),
-        );
-      }
+    final clipboard = context.read<ClipboardManager>();
+    final content = await clipboard.getContent(
+      types: AssetFileType.values.expand((e) => e.getMimeTypes()).toList(),
+    );
+    data = content?.data;
+    try {
+      type = AssetFileType.values.firstWhereOrNull(
+        (element) => element.isMimeType(content?.type ?? ''),
+      );
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
     }
     if (data == null || type == null) return null;
     return import(
@@ -360,6 +392,7 @@ class ImportService {
     bool advanced = true,
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
+    String? name,
   }) async {
     try {
       final file = NoteFile(bytes);
@@ -402,6 +435,7 @@ class ImportService {
           data,
           document,
           packSystem,
+          name,
         ).then((value) => null),
         _ => showDialog(
           context: context,
@@ -435,22 +469,8 @@ class ImportService {
       if (callback == null) return null;
       pages = callback.pages;
       packs = callback.packs;
-    } else if (document == null) {
-      return ImportResult.ready(service: this, document: data);
     }
-    return ImportResult(
-      service: this,
-      document: document,
-      pages: pages
-          .map((e) {
-            final page = data.getPage(e);
-            if (page == null) return null;
-            return (e, page);
-          })
-          .nonNulls
-          .toList(),
-      packs: packs.map((e) => data.getBundledPack(e)).nonNulls.toList(),
-    );
+    return ImportResult.ready(service: this, document: data);
   }
 
   @useResult
@@ -534,6 +554,7 @@ class ImportService {
     NoteData pack, [
     NoteData? document,
     PackFileSystem? packSystem,
+    String? name,
   ]) async {
     packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
@@ -547,7 +568,14 @@ class ImportService {
       if (document != null) {
         document = document.setBundledPack(pack);
       } else {
-        packSystem.createFile(pack.name ?? '', pack);
+        final fallback = pack.name?.trim().isNotEmpty == true
+            ? pack.name!
+            : 'pack';
+        var fileName = name?.trim().isNotEmpty == true ? name! : fallback;
+        if (!fileName.endsWith('.bfly')) {
+          fileName = '$fileName.bfly';
+        }
+        packSystem.createFile(fileName, pack);
       }
     }
     return true;
@@ -560,11 +588,12 @@ class ImportService {
     Offset? position,
   }) async {
     try {
-      final screen = MediaQuery.of(context).size;
+      final screen = MediaQuery.sizeOf(context);
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
       final frame = await codec.getNextFrame();
       final image = frame.image;
+      codec.dispose();
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
@@ -632,61 +661,295 @@ class ImportService {
   }
 
   @useResult
+  Future<ImportResult?> importOneNote(
+    Uint8List bytes, {
+    required bool isPackage,
+    NoteData? document,
+    bool advanced = true,
+    String? name,
+  }) async {
+    LoadingDialogHandler? loadingDialog;
+
+    Future<void> showLoading() async {
+      if (!context.mounted || loadingDialog != null) return;
+      loadingDialog = showLoadingDialog(context);
+      await Future<void>.delayed(Duration.zero);
+    }
+
+    void hideLoading() {
+      loadingDialog?.close();
+      loadingDialog = null;
+    }
+
+    try {
+      await showLoading();
+      var manuallyConvertXps = false;
+      var skipRemainingXps = false;
+
+      Future<Uint8List?> convertXps(Uint8List data, String fileName) async {
+        if (skipRemainingXps) return null;
+        if (!manuallyConvertXps) {
+          late Object conversionError;
+          try {
+            return await convertXpsToPdf(data);
+          } catch (error) {
+            conversionError = error;
+          }
+          if (!context.mounted) return null;
+          final executableMissing =
+              conversionError is XpsToPdfNotInstalledException;
+          hideLoading();
+          final fallback = await showDialog<_OneNoteXpsFallback>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(
+                executableMissing
+                    ? 'XPS converter not found'
+                    : 'Automatic XPS conversion failed',
+              ),
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 520),
+                child: Text(
+                  '${executableMissing ? 'The xpstopdf command is not installed or cannot be started.' : 'xpstopdf could not convert “$fileName”.'}\n\n'
+                  'OneNote stores printed documents as XPS files. Butterfly '
+                  'needs a PDF version to display these printouts.\n\n'
+                  'Choose “Convert manually” to:\n'
+                  '1. Export the original XPS file.\n'
+                  '2. Convert it to PDF with an application of your choice.\n'
+                  '3. Select the converted PDF and continue importing.\n\n'
+                  'You can also skip every XPS printout and import the rest '
+                  'of the notebook.',
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteXpsFallback.skipAll),
+                  child: const Text('Skip all XPS files'),
+                ),
+                FilledButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteXpsFallback.manual),
+                  child: const Text('Convert manually'),
+                ),
+              ],
+            ),
+          );
+          await showLoading();
+          manuallyConvertXps = fallback == _OneNoteXpsFallback.manual;
+          if (!manuallyConvertXps) {
+            skipRemainingXps = true;
+            return null;
+          }
+        }
+
+        final baseName = p
+            .basenameWithoutExtension(fileName)
+            .replaceAll(RegExp(r'[^\w.-]'), '_');
+        final safeName = baseName.isEmpty ? 'printout' : baseName;
+        var exported = false;
+        String? message;
+        while (context.mounted) {
+          hideLoading();
+          final action = await showDialog<_OneNoteManualXpsAction>(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: Text('Convert “$fileName” to PDF'),
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 520),
+                child: Text(
+                  '${message == null ? '' : '$message\n\n'}'
+                  '${exported ? 'The XPS export has been opened.' : 'Start by exporting the original XPS file.'}\n\n'
+                  '1. Save “$safeName.xps” somewhere you can find it.\n'
+                  '2. Convert that file to PDF outside Butterfly.\n'
+                  '3. Return here and choose “Select converted PDF”.\n\n'
+                  'Canceling a file picker returns you to this dialog. '
+                  'Skipping this file does not cancel the rest of the '
+                  'OneNote import.',
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteManualXpsAction.skipAll),
+                  child: const Text('Skip all XPS files'),
+                ),
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteManualXpsAction.skipFile),
+                  child: const Text('Skip this file'),
+                ),
+                OutlinedButton(
+                  onPressed: () => Navigator.pop(
+                    context,
+                    _OneNoteManualXpsAction.exportAgain,
+                  ),
+                  child: Text(exported ? 'Export XPS again' : 'Export XPS'),
+                ),
+                FilledButton(
+                  onPressed: exported
+                      ? () => Navigator.pop(
+                          context,
+                          _OneNoteManualXpsAction.selectPdf,
+                        )
+                      : null,
+                  child: const Text('Select converted PDF'),
+                ),
+              ],
+            ),
+          );
+          switch (action) {
+            case _OneNoteManualXpsAction.exportAgain:
+              await exportFile(
+                context: context,
+                bytes: data,
+                fileName: safeName,
+                fileExtension: 'xps',
+                mimeType: 'application/oxps',
+                uniformTypeIdentifier: 'com.microsoft.xps',
+                label: 'Export XPS for manual conversion',
+              );
+              exported = true;
+              message = null;
+              continue;
+            case _OneNoteManualXpsAction.selectPdf:
+              final converted = await FilePicker.pickFile(
+                dialogTitle: 'Select the PDF converted from $fileName',
+                type: FileType.custom,
+                allowedExtensions: const ['pdf'],
+              );
+              if (converted == null) {
+                message = 'No PDF was selected.';
+                continue;
+              }
+              Uint8List convertedData;
+              try {
+                convertedData = await converted.readAsBytes();
+              } catch (error) {
+                message =
+                    'Butterfly could not read “${converted.name}”: $error';
+                continue;
+              }
+              if (!isPdfData(convertedData)) {
+                message =
+                    'The selected file does not appear to be a valid PDF. '
+                    'A PDF header was not found in the first 1024 bytes. '
+                    'Please choose the converted PDF file.';
+                continue;
+              }
+              await showLoading();
+              return convertedData;
+            case _OneNoteManualXpsAction.skipFile:
+              await showLoading();
+              return null;
+            case _OneNoteManualXpsAction.skipAll:
+            case null:
+              skipRemainingXps = true;
+              await showLoading();
+              return null;
+          }
+        }
+        return null;
+      }
+
+      isPackage =
+          isPackage ||
+          (bytes.length >= 4 &&
+              bytes[0] == 0x4D &&
+              bytes[1] == 0x53 &&
+              bytes[2] == 0x43 &&
+              bytes[3] == 0x46);
+      final data = await parseOneNoteData(
+        bytes,
+        name: name?.trim().isNotEmpty == true ? name!.trim() : 'OneNote',
+        isPackage: isPackage,
+        convertXps: convertXps,
+      );
+      hideLoading();
+      return await _importDocument(
+        data,
+        document: document,
+        advanced: advanced,
+      );
+    } catch (e) {
+      hideLoading();
+      if (context.mounted) {
+        await showDialog<void>(
+          context: context,
+          builder: (context) =>
+              UnknownImportConfirmationDialog(message: e.toString()),
+        );
+      }
+    } finally {
+      hideLoading();
+    }
+    return null;
+  }
+
+  @useResult
   Future<ImportResult?> importSvg(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
   }) async {
     try {
-      final screen = MediaQuery.of(context).size;
+      final screen = MediaQuery.sizeOf(context);
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
       try {
         var info = await vg.loadPicture(SvgStringLoader(contentString), null);
-        final size = info.size;
-        var height = size.height, width = size.width;
-        if (!height.isFinite) height = 0;
-        if (!width.isFinite) width = 0;
-        final state = _getState();
-        String dataPath;
-        if (state != null) {
-          dataPath = Uri.dataFromBytes(
-            bytes,
-            mimeType: 'image/svg+xml',
-          ).toString();
-        } else {
-          dataPath = UriData.fromBytes(
-            bytes,
-            mimeType: 'image/svg+xml',
-          ).toString();
+        try {
+          final size = info.size;
+          var height = size.height, width = size.width;
+          if (!height.isFinite) height = 0;
+          if (!width.isFinite) width = 0;
+          final state = _getState();
+          String dataPath;
+          if (state != null) {
+            dataPath = Uri.dataFromBytes(
+              bytes,
+              mimeType: 'image/svg+xml',
+            ).toString();
+          } else {
+            dataPath = UriData.fromBytes(
+              bytes,
+              mimeType: 'image/svg+xml',
+            ).toString();
+          }
+          final settingsScale = getSettingsCubit().state.imageScale;
+          ElementConstraints? constraints;
+          if (position == null &&
+              currentIndexCubit != null &&
+              settingsScale > 0) {
+            final scale =
+                min(
+                  (screen.width * settingsScale) / width,
+                  (screen.height * settingsScale) / height,
+                ) /
+                currentIndexCubit!.state.cameraViewport.scale;
+            constraints = ElementConstraints.scaled(
+              scaleX: scale,
+              scaleY: scale,
+            );
+          }
+          return ImportResult(
+            service: this,
+            document: document,
+            elements: [
+              SvgElement(
+                width: width,
+                height: height,
+                source: dataPath,
+                constraints: constraints,
+                position: firstPos.toPoint(),
+              ),
+            ],
+            choosePosition: position == null,
+          );
+        } finally {
+          info.picture.dispose();
         }
-        final settingsScale = getSettingsCubit().state.imageScale;
-        ElementConstraints? constraints;
-        if (position == null &&
-            currentIndexCubit != null &&
-            settingsScale > 0) {
-          final scale =
-              min(
-                (screen.width * settingsScale) / width,
-                (screen.height * settingsScale) / height,
-              ) /
-              currentIndexCubit!.state.cameraViewport.scale;
-          constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
-        }
-        return ImportResult(
-          service: this,
-          document: document,
-          elements: [
-            SvgElement(
-              width: width,
-              height: height,
-              source: dataPath,
-              constraints: constraints,
-              position: firstPos.toPoint(),
-            ),
-          ],
-          choosePosition: position == null,
-        );
       } catch (e) {
         showDialog<void>(
           context: context,
@@ -761,6 +1024,7 @@ class ImportService {
     Uint8List bytes,
     NoteData document, {
     Offset? position,
+    String? name,
     bool advanced = true,
   }) async {
     LoadingDialogHandler? dialog;
@@ -772,9 +1036,11 @@ class ImportService {
       final elements = pdfDocument.pages;
       if (!context.mounted) return null;
       List<int> pages = List.generate(elements.length, (index) => index);
-      bool spreadToPages = false, createAreas = false, invert = false;
+      bool spreadToPages = getSettingsCubit().state.spreadPages,
+          createAreas = true,
+          createExportPreset = true,
+          invert = false;
       SRGBColor background = BasicColors.whiteTransparent;
-      String name = '';
       if (advanced) {
         List<ui.Image> images = [];
         final dialog = showLoadingDialog(context);
@@ -785,11 +1051,12 @@ class ImportService {
           final pdfImage = await raster.render();
           if (pdfImage == null) continue;
           images.add(await pdfImage.createImage());
+          pdfImage.dispose();
         }
         dialog?.close();
         final callback = await showDialog<PageDialogCallback>(
           context: context,
-          builder: (context) => PagesDialog(pages: images),
+          builder: (context) => ImportPagesDialog(pages: images, name: name),
         );
         for (var image in images) {
           try {
@@ -800,21 +1067,30 @@ class ImportService {
         pages = callback.pages;
         spreadToPages = callback.spreadToPages;
         createAreas = callback.createAreas;
+        createExportPreset = callback.createExportPreset;
         invert = callback.invert;
         background = callback.background;
         name = callback.name;
       }
       String getPageName(int index) {
-        if (name.isEmpty) return localizations.pageIndex(index + 1);
-        return '$name $index';
+        if (name?.isEmpty ?? true) return localizations.pageIndex(index + 1);
+        return '$name ${index + 1}';
       }
 
       dialog = showLoadingDialog(context);
       final selectedElements = <PdfElement>[];
       final areas = <Area>[];
       final documentPages = <(String?, DocumentPage)>[];
+      final exportPresetAreas = <AreaPreset>[];
       var y = firstPos.dy;
       var current = 0;
+      final state = bloc?.state;
+      final backgrounds = state is DocumentLoadSuccess
+          ? state.page.backgrounds
+          : (document.getPage()?.backgrounds ?? const <Background>[]);
+      final pdfSource = spreadToPages
+          ? document.importPdf(bytes).$2
+          : _pdfImportSource;
 
       for (var i = 0; i < pages.length; i++) {
         var raster = elements[pages[i]];
@@ -828,8 +1104,8 @@ class ImportService {
           final element = PdfElement(
             height: height,
             width: width,
-            source: _pdfImportSource,
-            page: i,
+            source: pdfSource,
+            page: pages[i],
             position: Point(firstPos.dx, y),
             invert: invert,
             background: background,
@@ -848,11 +1124,24 @@ class ImportService {
                   DocumentLayer(content: [element], id: createUniqueId()),
                 ],
                 areas: [if (createAreas) area],
+                backgrounds: backgrounds,
               ),
             ));
+            exportPresetAreas.add(
+              AreaPreset(name: createAreas ? pageName : '', page: pageName),
+            );
           } else {
             selectedElements.add(element);
             areas.add(area);
+            exportPresetAreas.add(
+              AreaPreset(
+                name: pageName,
+                page:
+                    (state as DocumentLoadSuccess?)?.pageName ??
+                    document.getPages(true).firstOrNull ??
+                    '',
+              ),
+            );
             y += height;
           }
         } catch (e) {
@@ -871,7 +1160,14 @@ class ImportService {
         pages: documentPages,
         areas: spreadToPages ? [] : areas,
         choosePosition: position == null,
-        assets: {_pdfImportSource: bytes},
+        assets: {pdfSource: bytes},
+        exportPresets: [
+          if (exportPresetAreas.isNotEmpty && createExportPreset)
+            ExportPreset(
+              name: (name?.isEmpty ?? true) ? localizations.pdf : name!,
+              areas: exportPresetAreas,
+            ),
+        ],
       );
     } catch (e) {
       dialog?.close();
@@ -887,22 +1183,28 @@ class ImportService {
   }
 
   Future<void> export() async {
-    final state = _getState();
-    if (state == null) return;
-    final location = state.location;
-    final fileType = location.fileType;
-    final currentIndexCubit = state.currentIndexCubit;
+    final bloc = this.bloc;
+    final state = bloc?.state;
+    if (state is! DocumentLoadSuccess) return;
+    final fileType = bloc?.currentIndexCubit.state.location.fileType;
+    final currentIndexCubit = bloc!.currentIndexCubit;
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
       case AssetFileType.textNote:
-        exportData(context, await state.saveData());
+        exportData(
+          context,
+          await state.saveData(
+            null,
+            context.read<CurrentIndexCubit>().state.viewOption,
+          ),
+        );
         break;
       case AssetFileType.image:
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
-            value: bloc!,
+            value: bloc,
             child: GeneralExportDialog(
               options: ImageExportOptions(
                 height: viewport.height?.toDouble() ?? 1000.0,
@@ -918,7 +1220,7 @@ class ImportService {
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
-            value: bloc!,
+            value: bloc,
             child: PdfExportDialog(
               areas: state.page.areas
                   .map((e) => AreaPreset(name: e.name, area: e))
@@ -930,7 +1232,7 @@ class ImportService {
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
-            value: bloc!,
+            value: bloc,
             child: GeneralExportDialog(
               options: SvgExportOptions(
                 width: (viewport.width ?? 1000) / viewport.scale,
@@ -956,7 +1258,10 @@ class ImportService {
       fileSystem ??= getDocumentSystem();
       final document = await (await importBfly(bytes))?.export();
       if (document != null) {
-        fileSystem.createFile(document.name ?? '', document.toFile());
+        fileSystem.createFile(
+          p.join(path ?? '', document.name ?? ''),
+          document.toFile(),
+        );
       }
       return document != null;
     }
@@ -979,7 +1284,10 @@ class ImportService {
           advanced: false,
         ))?.export();
         if (document != null) {
-          fileSystem.createFile(file.name, document.toFile());
+          fileSystem.createFile(
+            p.join(path ?? '', file.name),
+            document.toFile(),
+          );
         }
       }
       return true;

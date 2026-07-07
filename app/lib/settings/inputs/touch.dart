@@ -8,12 +8,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
+import 'shortcut.dart';
 
 class TouchInputSettings extends StatelessWidget {
   const TouchInputSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final availableShortcuts = getInputShortcutOptions(context);
+
     return Scaffold(
       appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
         title: Text(AppLocalizations.of(context).touch),
@@ -102,6 +105,40 @@ class TouchInputSettings extends StatelessWidget {
                               cubit.changeInputConfiguration(
                                 config.copyWith(touch: value),
                               );
+                            },
+                          ),
+                          InputShortcutListTile(
+                            inputName: AppLocalizations.of(
+                              context,
+                            ).doublePressAction,
+                            currentValue: config.doubleTouchShortcut,
+                            availableShortcuts: availableShortcuts,
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.handTap,
+                            ),
+                            onChanged: (value) {
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeInputConfiguration(
+                                    config.copyWith(doubleTouchShortcut: value),
+                                  );
+                            },
+                          ),
+                          InputShortcutListTile(
+                            inputName: AppLocalizations.of(
+                              context,
+                            ).triplePressAction,
+                            currentValue: config.tripleTouchShortcut,
+                            availableShortcuts: availableShortcuts,
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.handTap,
+                            ),
+                            onChanged: (value) {
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeInputConfiguration(
+                                    config.copyWith(tripleTouchShortcut: value),
+                                  );
                             },
                           ),
                         ],

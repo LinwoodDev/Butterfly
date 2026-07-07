@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:idb_shim/idb.dart';
@@ -14,11 +15,12 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Uint8List _encode(NoteData data) => Uint8List.fromList(data.exportAsBytes());
-NoteData _decode(Uint8List data) => NoteData.fromData(data);
+Uint8List encodeNoteData(NoteData data) =>
+    Uint8List.fromList(data.exportAsBytes());
+NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
 
-Uint8List _encodeFile(NoteFile file) => file.data;
-NoteFile _decodeFile(Uint8List data) => NoteFile(data);
+Uint8List encodeNoteFile(NoteFile file) => file.data;
+NoteFile decodeNoteFile(Uint8List data) => NoteFile(data);
 
 const butterflySubDirectory = '/Linwood/Butterfly';
 
@@ -55,7 +57,12 @@ Future<String> getButterflyDirectory({bool usePrefs = true}) async {
 Future<String> Function(ExternalStorage? storage) _getRemoteDirectory(
   String subDirectory,
 ) => (storage) async {
-  var path = await getButterflyDirectory();
+  var path = await getButterflyDirectory(
+    usePrefs:
+        kIsWeb ||
+        (!Platform.isAndroid && !Platform.isIOS) ||
+        storage is! RemoteStorage,
+  );
   if (storage != null) {
     final bytes = utf8.encode(storage.identifier);
     final directory = base64.encode(bytes);
@@ -71,18 +78,45 @@ typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteFile>;
 typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 
+const kCorePackFileName = 'Core.bfly';
+
+String getPackDisplayName(NoteData pack, String fileName) {
+  final displayName = pack.name ?? pack.getMetadata()?.name;
+  if (displayName?.trim().isNotEmpty ?? false) return displayName!.trim();
+  final normalized = fileName.split('/').last;
+  return normalized.endsWith('.bfly')
+      ? normalized.substring(0, normalized.length - '.bfly'.length)
+      : normalized;
+}
+
 final PasswordStorage passwordStorage = SecureStoragePasswordStorage();
 
+Future<NoteData?> loadFileSystemNoteData(
+  DocumentFileSystem documentSystem,
+  FileSystemFile<NoteFile> file,
+) async {
+  try {
+    final asset = await documentSystem.getAsset(file.location.path);
+    if (asset is FileSystemFile<NoteFile>) {
+      final data = asset.data?.load();
+      if (data != null) return data;
+    }
+  } catch (_) {}
+  return file.data?.load();
+}
+
 class ButterflyFileSystem {
-  final BuildContext context;
+  // ignore: unused_field
+  final BuildContext _context;
   final SettingsCubit settingsCubit;
   final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
 
   final _documentCache = <String, DocumentFileSystem>{};
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
+  StreamSubscription<ButterflySettings>? _settingsSubscription;
 
-  ButterflyFileSystem(this.context, this.settingsCubit)
+  ButterflyFileSystem(this._context, this.settingsCubit)
     : _documentConfig = FileSystemConfig(
         passwordStorage: passwordStorage,
         storeName: 'documents',
@@ -117,7 +151,7 @@ class ButterflyFileSystem {
 
   void _listenSettings() {
     var previousState = settingsCubit.state;
-    settingsCubit.stream.listen((state) {
+    _settingsSubscription = settingsCubit.stream.listen((state) {
       if (state == previousState) return;
       final previousRemotes = previousState.connections.toSet();
       final currentRemotes = state.connections.toSet();
@@ -130,6 +164,14 @@ class ButterflyFileSystem {
       }
       previousState = state;
     });
+  }
+
+  void dispose() {
+    _settingsSubscription?.cancel();
+    _settingsSubscription = null;
+    _documentCache.clear();
+    _templateCache.clear();
+    _packCache.clear();
   }
 
   factory ButterflyFileSystem.build(BuildContext context) =>
@@ -192,18 +234,6 @@ class ButterflyFileSystem {
     }
   }
 
-  Future<void> _createDefaultTemplates(TemplateFileSystem fs) async =>
-      Future.wait(
-        (await DocumentDefaults.getDefaults(
-          context,
-        )).map((e) => fs.createFile('${e.name}.bfly', e)),
-      );
-
-  Future<void> _createDefaultPacks(PackFileSystem fs) async {
-    final pack = await DocumentDefaults.getCorePack();
-    await fs.createFile('${pack.name}.bfly', pack);
-  }
-
   String _cacheKey(ExternalStorage? storage) => storage?.identifier ?? 'local';
 
   TypedDirectoryFileSystem<NoteFile> buildDocumentSystem([
@@ -217,13 +247,21 @@ class ButterflyFileSystem {
     }
     final system = TypedDirectoryFileSystem.build(
       _documentConfig,
-      onEncode: _encodeFile,
-      onDecode: _decodeFile,
+      onEncode: encodeNoteFile,
+      onDecode: decodeNoteFile,
       storage: storage,
       useIsolates: true,
+      useAndroidSaf: true,
     );
     _documentCache[key] = system;
     return system;
+  }
+
+  ExternalStorage? _cacheAllStorage(ExternalStorage? storage, String variant) {
+    if (storage is! RemoteStorage) {
+      return storage;
+    }
+    return storage.copyWith.pinnedPaths.put(variant, ['/']);
   }
 
   TypedKeyFileSystem<NoteData> buildTemplateSystem([
@@ -237,10 +275,10 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _templateConfig,
-      onEncode: _encode,
-      onDecode: _decode,
-      storage: storage,
-      createDefault: _createDefaultTemplates,
+      onEncode: encodeNoteData,
+      onDecode: decodeNoteData,
+      storage: _cacheAllStorage(storage, _templateConfig.variant),
+      useAndroidSaf: true,
     );
     _templateCache[key] = system;
     return system;
@@ -257,10 +295,10 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _packConfig,
-      onEncode: _encode,
-      onDecode: _decode,
-      storage: storage,
-      createDefault: _createDefaultPacks,
+      onEncode: encodeNoteData,
+      onDecode: decodeNoteData,
+      storage: _cacheAllStorage(storage, _packConfig.variant),
+      useAndroidSaf: true,
     );
     _packCache[key] = system;
     return system;
@@ -299,17 +337,45 @@ class ButterflyFileSystem {
     NamedItem<T>? Function(NoteData) test, [
     ExternalStorage? storage,
   ]) async {
-    final system = buildPackSystem(storage);
-    await system.initialize();
-    final files = await system.getFiles();
-    for (final file in files) {
-      final pack = file.data!;
+    for (final (name, pack) in await getCoreAndUserPacks(storage)) {
       final palette = test(pack);
       if (palette == null) continue;
-      final name = file.pathWithoutLeadingSlash;
       return palette.toPack(pack, name);
     }
     return null;
+  }
+
+  Future<List<(String, NoteData)>> getCoreAndUserPacks([
+    ExternalStorage? storage,
+  ]) async {
+    final corePack = await DocumentDefaults.getCorePack();
+    NoteData createUserCorePack() {
+      var pack = NoteData(Archive(), parent: corePack);
+      final metadata = corePack.getMetadata();
+      if (metadata != null) {
+        pack = pack.setMetadata(metadata);
+      }
+      return pack;
+    }
+
+    final system = buildPackSystem(storage);
+    await system.initialize();
+    final files = await system.getFiles();
+    final packs = <(String, NoteData)>[];
+    (String, NoteData)? userCorePack;
+    for (final file in files) {
+      final pack = file.data!;
+      final item = (file.pathWithoutLeadingSlash, pack);
+      if (item.$1 == kCorePackFileName) {
+        userCorePack = (item.$1, NoteData(pack.archive, parent: corePack));
+      } else {
+        packs.add(item);
+      }
+    }
+    return [
+      userCorePack ?? (kCorePackFileName, createUserCorePack()),
+      ...packs,
+    ];
   }
 
   Future<PackItem<text.TextStyleSheet>?> findDefaultStyleSheet([
@@ -319,12 +385,16 @@ class ButterflyFileSystem {
     ExternalStorage? storage,
   ]) => findPack((pack) => pack.getNamedPalettes().firstOrNull, storage);
 
-  Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
-      buildPackSystem(
-        location.namespace.isEmpty
-            ? null
-            : settingsCubit.state.getRemote(location.namespace),
-      ).updateFile(location.key, newPack);
+  Future<void> updatePack(PackAssetLocation location, NoteData newPack) async {
+    final system = buildDefaultPackSystem();
+    await system.initialize();
+    final existing = await system.getFile(location.namespace);
+    if (existing == null) {
+      await system.createFile(location.namespace, newPack);
+      return;
+    }
+    await system.updateFile(location.namespace, newPack);
+  }
 
   void removeCachedDocumentSystem(ExternalStorage? storage) {
     final key = _cacheKey(storage);

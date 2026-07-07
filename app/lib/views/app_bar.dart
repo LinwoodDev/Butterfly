@@ -4,11 +4,12 @@ import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
@@ -80,9 +81,8 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final isLarge =
-                    MediaQuery.of(context).size.width <
-                    LeapBreakpoints.expanded;
-                return _MainPopupMenu(
+                    MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded;
+                return MainPopupMenu(
                   viewportKey: viewportKey,
                   isLarge: isLarge,
                   padding: padding,
@@ -96,7 +96,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isMobile =
-                  MediaQuery.of(context).size.width < LeapBreakpoints.compact;
+                  MediaQuery.sizeOf(context).width < LeapBreakpoints.compact;
               return _AppBarTitle(
                 isMobile: isMobile,
                 searchController: searchController,
@@ -124,12 +124,15 @@ class _AppBarTitle extends StatefulWidget {
 class _AppBarTitleState extends State<_AppBarTitle> {
   final TextEditingController _nameController = TextEditingController(),
       _areaController = TextEditingController();
+  final FocusNode _nameFocusNode = FocusNode(), _areaFocusNode = FocusNode();
 
   @override
   void dispose() {
-    super.dispose();
     _nameController.dispose();
     _areaController.dispose();
+    _nameFocusNode.dispose();
+    _areaFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -138,9 +141,12 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
       buildWhen: (previous, current) =>
           previous.location != current.location ||
+          previous.absolute != current.absolute ||
           previous.saved != current.saved ||
           previous.isCreating != current.isCreating ||
-          previous.isSaveDelayed != current.isSaveDelayed,
+          previous.isSaveDelayed != current.isSaveDelayed ||
+          previous.embedding?.save != current.embedding?.save ||
+          previous.embedding?.editable != current.embedding?.editable,
       builder: (context, currentIndex) =>
           BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) {
@@ -153,10 +159,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 return true;
               }
               return previous.currentAreaName != current.currentAreaName ||
-                  previous.hasAutosave() != current.hasAutosave() ||
-                  previous.metadata != current.metadata ||
-                  previous.networkingService.isActive !=
-                      current.networkingService.isActive;
+                  previous.metadata != current.metadata;
             },
             builder: (context, state) {
               final area = state is DocumentLoadSuccess
@@ -166,10 +169,14 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   ? state.currentAreaName
                   : null;
               if (state is DocumentLoaded &&
+                  !_nameFocusNode.hasFocus &&
                   state.metadata.name != _nameController.text) {
                 _nameController.text = state.metadata.name;
               }
-              _areaController.text = area?.name ?? '';
+              if (!_areaFocusNode.hasFocus &&
+                  _areaController.text != (area?.name ?? '')) {
+                _areaController.text = area?.name ?? '';
+              }
               return BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.flags != current.flags ||
@@ -237,206 +244,242 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     CurrentIndex currentIndex,
     BuildContext context,
     ButterflySettings settings,
-  ) => Row(
-    textDirection: TextDirection.ltr,
-    children: [
-      Flexible(
-        child: StreamBuilder<NetworkState?>(
-          stream: state.networkingService?.stream,
-          builder: (context, snapshot) {
-            return StatefulBuilder(
-              builder: (context, setState) {
-                String toFilePath(String name) {
-                  if (state is! DocumentLoaded) return name;
-                  final location = state.location;
-                  return state.fileSystem
-                      .buildDocumentSystem(settings.getRemote(location.remote))
-                      .convertNameToFileSystem(
-                        name: name,
-                        suffix: '.bfly',
-                        directory: location.parent,
-                      );
-                }
-
-                Future<void> submit(String? value) async {
-                  value ??= area == null
-                      ? _nameController.text
-                      : _areaController.text;
-                  if (area == null || areaName == null) {
-                    final cubit = context.read<CurrentIndexCubit>();
-                    final fileSystem = context.read<ButterflyFileSystem>();
-                    final location = cubit.state.location;
-                    final documentSystem = fileSystem.buildDocumentSystem(
-                      settings.getRemote(location.remote),
-                    );
-                    if (!location.isEmpty) {
-                      await documentSystem.deleteAsset(location.path);
-                      await fileSystem.settingsCubit.removeRecentHistory(
-                        location,
-                      );
-                    }
-                    if (state is DocumentLoadSuccess &&
-                        currentIndex.isCreating) {
-                      await bloc.save(
-                        location: location.copyWith(path: toFilePath(value)),
-                        force: true,
-                      );
-                    }
-                    bloc.add(DocumentDescriptionChanged(name: value));
-                  } else {
-                    bloc.add(AreaChanged(areaName, area.copyWith(name: value)));
+  ) {
+    final cubit = context.read<CurrentIndexCubit>();
+    return Row(
+      textDirection: TextDirection.ltr,
+      children: [
+        Flexible(
+          child: StreamBuilder<NetworkState?>(
+            stream: context.read<CurrentIndexCubit>().networkingService.stream,
+            builder: (context, snapshot) {
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  String toFilePath(String name) {
+                    if (state is! DocumentLoaded) return name;
+                    final location = currentIndex.location;
+                    return state.fileSystem
+                        .buildDocumentSystem(
+                          settings.getRemote(location.remote),
+                        )
+                        .convertNameToFileSystem(
+                          name: name,
+                          suffix: '.bfly',
+                          directory: location.parent,
+                        );
                   }
-                }
 
-                Widget title = Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Focus(
-                      child: TextFormField(
-                        controller: area == null
-                            ? _nameController
-                            : _areaController,
-                        onFieldSubmitted: submit,
-                        onSaved: submit,
-                        readOnly: state.embedding?.editable == false,
-                        decoration: InputDecoration(
-                          filled: true,
-                          hintText: AppLocalizations.of(context).untitled,
+                  Future<void> submit(String? value) async {
+                    value ??= area == null
+                        ? _nameController.text
+                        : _areaController.text;
+                    if (area == null || areaName == null) {
+                      final cubit = context.read<CurrentIndexCubit>();
+                      final location = cubit.state.location;
+                      if (state is DocumentLoadSuccess &&
+                          currentIndex.isCreating) {
+                        final newLocation = location.copyWith(
+                          path: toFilePath(value),
+                        );
+                        final savedLocation = await cubit.save(
+                          bloc,
+                          location: newLocation,
+                          force: true,
+                        );
+                        if (!location.isEmpty &&
+                            !savedLocation.isEmpty &&
+                            (location.path != savedLocation.path ||
+                                location.remote != savedLocation.remote)) {
+                          final documentSystem = state.fileSystem
+                              .buildDocumentSystem(
+                                settings.getRemote(location.remote),
+                              );
+                          await documentSystem.deleteAsset(location.path);
+                          await context
+                              .read<SettingsCubit>()
+                              .moveAssetReferences(location, savedLocation);
+                        }
+                      }
+                      bloc.add(DocumentDescriptionChanged(name: value));
+                    } else {
+                      bloc.add(
+                        AreaChanged(areaName, area.copyWith(name: value)),
+                      );
+                    }
+                  }
+
+                  Widget title = Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Focus(
+                        onFocusChange: (hasFocus) {
+                          if (!hasFocus) submit(null);
+                        },
+                        child: TextFormField(
+                          controller: area == null
+                              ? _nameController
+                              : _areaController,
+                          focusNode: area == null
+                              ? _nameFocusNode
+                              : _areaFocusNode,
+                          onFieldSubmitted: submit,
+                          onSaved: submit,
+                          readOnly: currentIndex.embedding?.editable == false,
+                          decoration: InputDecoration(
+                            filled: true,
+                            hintText: AppLocalizations.of(context).untitled,
+                          ),
                         ),
                       ),
-                    ),
-                    if (snapshot.data?.connection is NetworkerClient) ...[
-                      Text(
-                        AppLocalizations.of(context).collaboration,
-                        style: TextTheme.of(context).bodySmall,
-                      ),
-                    ] else
-                      ListenableBuilder(
-                        listenable: _nameController,
-                        builder: (context, child) {
-                          final currentNameFilePath = toFilePath(
-                            _nameController.text,
-                          );
-                          var showCurrentNameFilePath =
-                              currentIndex.isCreating &&
-                              currentNameFilePath != currentIndex.location.path;
-                          if (currentIndex.location.isEmpty && area == null) {
-                            return SizedBox();
-                          }
-                          return Tooltip(
-                            message: currentIndex.location.identifier,
-                            child: Text(
-                              showCurrentNameFilePath
-                                  ? currentNameFilePath
-                                  : ((currentIndex.absolute &&
-                                                currentIndex
+                      if (snapshot.data?.connection is NetworkerClient) ...[
+                        Text(
+                          AppLocalizations.of(context).collaboration,
+                          style: TextTheme.of(context).bodySmall,
+                        ),
+                      ] else
+                        ListenableBuilder(
+                          listenable: Listenable.merge([
+                            _nameController,
+                            _nameFocusNode,
+                          ]),
+                          builder: (context, child) {
+                            final currentNameFilePath = toFilePath(
+                              _nameController.text,
+                            );
+                            var showCurrentNameFilePath =
+                                area == null &&
+                                _nameFocusNode.hasFocus &&
+                                currentNameFilePath !=
+                                    currentIndex.location.path;
+                            if (currentIndex.location.isEmpty &&
+                                area == null &&
+                                !showCurrentNameFilePath) {
+                              return SizedBox();
+                            }
+                            return Tooltip(
+                              message: currentIndex.location.identifier,
+                              child: Text(
+                                showCurrentNameFilePath
+                                    ? currentNameFilePath
+                                    : ((currentIndex.absolute &&
+                                                  currentIndex
+                                                      .location
+                                                      .path
+                                                      .isEmpty)
+                                              ? currentIndex.location.fileType
+                                                    ?.getLocalizedName(context)
+                                              : currentIndex
                                                     .location
-                                                    .path
-                                                    .isEmpty)
-                                            ? currentIndex.location.fileType
-                                                  ?.getLocalizedName(context)
-                                            : currentIndex
-                                                  .location
-                                                  .pathWithoutLeadingSlash) ??
-                                        AppLocalizations.of(context).document,
-                              style: TextTheme.of(context).bodySmall?.copyWith(
-                                fontStyle: showCurrentNameFilePath
-                                    ? FontStyle.italic
-                                    : FontStyle.normal,
+                                                    .pathWithoutLeadingSlash) ??
+                                          AppLocalizations.of(context).document,
+                                style: TextTheme.of(context).bodySmall
+                                    ?.copyWith(
+                                      fontStyle: showCurrentNameFilePath
+                                          ? FontStyle.italic
+                                          : FontStyle.normal,
+                                    ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                  ],
-                );
-                return title;
-              },
-            );
-          },
-        ),
-      ),
-      const SizedBox(width: 8),
-      if (state is DocumentLoadSuccess) ...[
-        if ((!state.hasAutosave() || settings.showSaveButton) &&
-            state.embedding?.save != false)
-          SizedBox(
-            width: 42,
-            child: Builder(
-              builder: (context) {
-                Widget icon = PhosphorIcon(switch (currentIndex.saved) {
-                  SaveState.saving => PhosphorIconsLight.download,
-                  _ when currentIndex.isSaveDelayed => PhosphorIconsLight.clock,
-                  SaveState.saved => PhosphorIconsFill.floppyDisk,
-                  SaveState.unsaved ||
-                  SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
-                });
-                String tooltip = switch (currentIndex.saved) {
-                  SaveState.saving => AppLocalizations.of(context).saving,
-                  _ when currentIndex.isSaveDelayed => AppLocalizations.of(
-                    context,
-                  ).saveDelayed,
-                  SaveState.saved => AppLocalizations.of(context).saved,
-                  SaveState.unsaved => AppLocalizations.of(context).unsaved,
-                  SaveState.absoluteRead => AppLocalizations.of(
-                    context,
-                  ).readOnly,
-                };
-                return IconButton(
-                  icon: icon,
-                  tooltip: tooltip,
-                  onPressed: () {
-                    Actions.maybeInvoke<SaveIntent>(
-                      context,
-                      SaveIntent(context),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        if (state.currentAreaName.isNotEmpty)
-          IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.signOut),
-            tooltip: AppLocalizations.of(context).exitArea,
-            onPressed: () {
-              context.read<DocumentBloc>().add(const CurrentAreaChanged(''));
-            },
-          ),
-        if (state.absolute)
-          IconButton(
-            icon: PhosphorIcon(
-              state.location.fileType.icon(PhosphorIconsStyle.light),
-            ),
-            tooltip: AppLocalizations.of(context).export,
-            onPressed: () => context.read<ImportService>().export(),
-          ),
-        SearchButton(controller: widget.searchController),
-        if (state.location.path != '' && state.embedding == null) ...[
-          IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.folder),
-            onPressed: () {
-              Actions.maybeInvoke<ChangePathIntent>(
-                context,
-                ChangePathIntent(context),
+                            );
+                          },
+                        ),
+                    ],
+                  );
+                  return title;
+                },
               );
             },
-            tooltip: AppLocalizations.of(context).changeDocumentPath,
           ),
+        ),
+        const SizedBox(width: 8),
+        if (state is DocumentLoadSuccess) ...[
+          if ((!cubit.hasAutosave() || settings.showSaveButton) &&
+              currentIndex.embedding?.save != false)
+            SizedBox(
+              width: 42,
+              child: Builder(
+                builder: (context) {
+                  Widget icon = PhosphorIcon(switch (currentIndex.saved) {
+                    SaveState.saving => PhosphorIconsLight.download,
+                    _ when currentIndex.isSaveDelayed =>
+                      PhosphorIconsLight.clock,
+                    SaveState.saved => PhosphorIconsFill.floppyDisk,
+                    SaveState.unsaved ||
+                    SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
+                  });
+                  String tooltip = switch (currentIndex.saved) {
+                    SaveState.saving => AppLocalizations.of(context).saving,
+                    _ when currentIndex.isSaveDelayed => AppLocalizations.of(
+                      context,
+                    ).saveDelayed,
+                    SaveState.saved => AppLocalizations.of(context).saved,
+                    SaveState.unsaved => AppLocalizations.of(context).unsaved,
+                    SaveState.absoluteRead => AppLocalizations.of(
+                      context,
+                    ).readOnly,
+                  };
+                  final canSave =
+                      currentIndex.saved == SaveState.unsaved ||
+                      currentIndex.isSaveDelayed;
+                  return IconButton(
+                    icon: icon,
+                    tooltip: tooltip,
+                    onPressed: canSave
+                        ? () {
+                            Actions.maybeInvoke<SaveIntent>(
+                              context,
+                              SaveIntent(),
+                            );
+                          }
+                        : null,
+                  );
+                },
+              ),
+            ),
+          if (state.currentAreaName.isNotEmpty)
+            IconButton(
+              icon: const PhosphorIcon(PhosphorIconsLight.signOut),
+              tooltip: AppLocalizations.of(context).exitArea,
+              onPressed: () {
+                context.read<DocumentBloc>().add(const CurrentAreaChanged(''));
+              },
+            ),
+          if (state.absolute)
+            IconButton(
+              icon: PhosphorIcon(
+                currentIndex.location.fileType.icon(PhosphorIconsStyle.light),
+              ),
+              tooltip: AppLocalizations.of(context).export,
+              onPressed: () => context.read<ImportService>().export(),
+            ),
+          SearchButton(controller: widget.searchController),
+          if (currentIndex.location.path != '' &&
+              currentIndex.embedding == null) ...[
+            IconButton(
+              icon: const PhosphorIcon(PhosphorIconsLight.folder),
+              onPressed: () {
+                Actions.maybeInvoke<ChangePathIntent>(
+                  context,
+                  ChangePathIntent(),
+                );
+              },
+              tooltip: AppLocalizations.of(context).changeDocumentPath,
+            ),
+          ],
         ],
       ],
-    ],
-  );
+    );
+  }
 }
 
-class _MainPopupMenu extends StatelessWidget {
+class MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
   final bool isLarge;
   final EdgeInsets? padding;
 
-  const _MainPopupMenu({
+  const MainPopupMenu({
+    super.key,
     required this.viewportKey,
     required this.isLarge,
     this.padding,
@@ -451,338 +494,409 @@ class _MainPopupMenu extends StatelessWidget {
           previous.navigationRail != current.navigationRail ||
           previous.flags != current.flags,
       builder: (context, settings) {
-        final state = context.read<CurrentIndexCubit>().state;
-        final size = MediaQuery.sizeOf(context);
-        final currentX =
-            (context.findRenderObject() as RenderBox?)
-                ?.localToGlobal(Offset.zero)
-                .dx ??
-            0;
-        return MenuAnchor(
-          menuChildren: [
-            if (state.embedding == null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.house),
-                child: Text(AppLocalizations.of(context).home),
-                onPressed: () async {
-                  final router = GoRouter.of(context);
-                  final bloc = context.read<DocumentBloc>();
-                  await bloc.save();
-                  if (router.canPop()) {
-                    router.pop();
-                  } else {
-                    router.go('/');
-                  }
-                },
-              ),
-              if (MediaQuery.of(context).size.width <
-                      LeapBreakpoints.expanded ||
-                  !settings.navigationRail)
-                ...NavigatorPage.values.map(
-                  (e) => MenuItemButton(
-                    leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                    child: Text(e.getLocalizedName(context)),
-                    onPressed: () {
-                      cubit.setNavigatorPage(e);
-                      final bloc = context.read<DocumentBloc>();
-                      final transformCubit = context.read<TransformCubit>();
-                      showDialog(
-                        context: context,
-                        builder: (context) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider.value(value: bloc),
-                            BlocProvider.value(value: cubit),
-                            BlocProvider.value(value: transformCubit),
-                          ],
-                          child: DocumentNavigator(asDialog: true),
+        return BlocBuilder<WindowCubit, WindowState>(
+          buildWhen: (previous, current) =>
+              previous.fullScreen != current.fullScreen,
+          builder: (context, windowState) {
+            return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+              buildWhen: (previous, current) =>
+                  previous.embedding != current.embedding ||
+                  previous.hideUi != current.hideUi ||
+                  previous.saved != current.saved,
+              builder: (context, state) {
+                final size = MediaQuery.sizeOf(context);
+                final navigatorRailEnabled =
+                    settings.navigationRail || state.embedding != null;
+                final showNavigatorDialog =
+                    MediaQuery.sizeOf(context).width <
+                        LeapBreakpoints.expanded ||
+                    !navigatorRailEnabled ||
+                    windowState.fullScreen ||
+                    state.hideUi != HideState.visible;
+                return MenuAnchor(
+                  menuChildren: [
+                    if (showNavigatorDialog)
+                      ...NavigatorPage.values.map(
+                        (e) => MenuItemButton(
+                          leadingIcon: PhosphorIcon(
+                            e.icon(PhosphorIconsStyle.light),
+                          ),
+                          child: Text(e.getLocalizedName(context)),
+                          onPressed: () {
+                            cubit.setNavigatorPage(e);
+                            final bloc = context.read<DocumentBloc>();
+                            final transformCubit = context
+                                .read<TransformCubit>();
+                            showDialog(
+                              context: context,
+                              builder: (context) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(value: bloc),
+                                  BlocProvider.value(value: cubit),
+                                  BlocProvider.value(value: transformCubit),
+                                ],
+                                child: DocumentNavigator(asDialog: true),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
-              const Divider(),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyB,
-                  control: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<BackgroundIntent>(
-                    context,
-                    BackgroundIntent(context),
-                  );
-                },
-                child: Text(AppLocalizations.of(context).background),
-              ),
-              SubmenuButton(
-                menuChildren: [
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      control: true,
-                    ),
-                    onPressed: () async {
-                      Actions.maybeInvoke<ExportIntent>(
-                        context,
-                        ExportIntent(context),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).packagedFile),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.file,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      control: true,
-                      shift: true,
-                    ),
-                    onPressed: () async {
-                      Actions.maybeInvoke<ExportIntent>(
-                        context,
-                        ExportIntent(context, isText: true),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).rawFile),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.fileSvg,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      alt: true,
-                      control: true,
-                    ),
-                    onPressed: () async {
-                      Actions.maybeInvoke<SvgExportIntent>(
-                        context,
-                        SvgExportIntent(context),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).svg),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.fileImage,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      alt: true,
-                      control: true,
-                      shift: true,
-                    ),
-                    onPressed: () {
-                      Actions.maybeInvoke<ImageExportIntent>(
-                        context,
-                        ImageExportIntent(context),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).image),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.filePdf,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyP,
-                      shift: true,
-                      control: true,
-                    ),
-                    onPressed: () {
-                      Actions.maybeInvoke<PdfExportIntent>(
-                        context,
-                        PdfExportIntent(context),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).pdf),
-                  ),
-                  /*MenuItemButton(
-                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.notebook),
-                      onPressed: () => exportXopp(context),
-                      child: const Text('Xournal++'),
-                    ),*/
-                ],
-                leadingIcon: const PhosphorIcon(
-                  PhosphorIconsLight.paperPlaneRight,
-                ),
-                child: Text(AppLocalizations.of(context).export),
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.package),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyP,
-                  control: true,
-                  alt: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<PacksIntent>(
-                    context,
-                    PacksIntent(context),
-                  );
-                },
-                child: Text(AppLocalizations.of(context).packs),
-              ),
-              const Divider(),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(
-                  PhosphorIconsLight.filePlus,
-                  textDirection: TextDirection.ltr,
-                ),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyN,
-                  control: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
-                },
-                child: Text(AppLocalizations.of(context).newContent),
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(
-                  PhosphorIconsLight.file,
-                  textDirection: TextDirection.ltr,
-                ),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyN,
-                  shift: true,
-                  control: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<NewIntent>(
-                    context,
-                    NewIntent(context, fromTemplate: true),
-                  );
-                },
-                child: Text(AppLocalizations.of(context).templates),
-              ),
-              SubmenuButton(
-                menuChildren: settings.history
-                    .map(
-                      (e) => MenuItemButton(
-                        child: Text(e.identifier),
-                        onPressed: () => openFile(context, true, e),
                       ),
-                    )
-                    .toList(),
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
-                child: Text(AppLocalizations.of(context).recentFiles),
-              ),
-            ],
-            if (state.embedding == null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.gear),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyS,
-                  alt: true,
-                  control: true,
-                ),
-                onPressed: () => openSettings(context),
-                child: Text(AppLocalizations.of(context).settings),
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.eyeSlash),
-                shortcut: const SingleActivator(LogicalKeyboardKey.f12),
-                onPressed: () {
-                  context.read<CurrentIndexCubit>().enterTouchHideUI();
-                },
-                child: Text(AppLocalizations.of(context).hideUI),
-              ),
-              BlocBuilder<WindowCubit, WindowState>(
-                buildWhen: (previous, current) =>
-                    previous.fullScreen != current.fullScreen,
-                builder: (context, windowState) => MenuItemButton(
-                  leadingIcon: windowState.fullScreen
-                      ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
-                      : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-                  shortcut: const SingleActivator(LogicalKeyboardKey.f11),
-                  onPressed: () async {
-                    windowCubit.toggleFullScreen();
-                  },
-                  child: Text(LeapLocalizations.of(context).fullScreen),
-                ),
-              ),
-            ],
-            if (state.embedding == null && settings.hasFlag('collaboration'))
-              BlocBuilder<NetworkingService, NetworkState?>(
-                bloc: state.networkingService,
-                builder: (_, state) {
-                  final isOpen = state?.connection.isOpen ?? false;
-                  return MenuItemButton(
-                    leadingIcon: isOpen
-                        ? Icon(
-                            PhosphorIconsFill.users,
-                            color: ColorScheme.of(context).primary,
-                          )
-                        : Icon(PhosphorIconsLight.users),
-                    onPressed: () => showCollaborationDialog(context),
-                    child: Text(
-                      AppLocalizations.of(context).collaboration,
-                      style: TextStyle(
-                        color: isOpen ? ColorScheme.of(context).primary : null,
+                    if (showNavigatorDialog) const Divider(),
+                    if (state.embedding == null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.house,
+                        ),
+                        child: Text(AppLocalizations.of(context).home),
+                        onPressed: () async {
+                          final router = GoRouter.of(context);
+                          final bloc = context.read<DocumentBloc>();
+                          await bloc.save();
+                          router.go('/');
+                        },
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.image,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyB,
+                          control: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<BackgroundIntent>(
+                            context,
+                            BackgroundIntent(),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).background),
+                      ),
+                      SubmenuButton(
+                        menuChildren: [
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.archive,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              control: true,
+                            ),
+                            onPressed: () async {
+                              Actions.maybeInvoke<ExportIntent>(
+                                context,
+                                ExportIntent(),
+                              );
+                            },
+                            child: Text(
+                              AppLocalizations.of(context).packagedFile,
+                            ),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.file,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              control: true,
+                              shift: true,
+                            ),
+                            onPressed: () async {
+                              Actions.maybeInvoke<ExportIntent>(
+                                context,
+                                ExportIntent(isText: true),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).rawFile),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.fileSvg,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              alt: true,
+                              control: true,
+                            ),
+                            onPressed: () async {
+                              Actions.maybeInvoke<SvgExportIntent>(
+                                context,
+                                SvgExportIntent(),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).svg),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.fileImage,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              alt: true,
+                              control: true,
+                              shift: true,
+                            ),
+                            onPressed: () {
+                              Actions.maybeInvoke<ImageExportIntent>(
+                                context,
+                                ImageExportIntent(),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).image),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.filePdf,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyP,
+                              shift: true,
+                              control: true,
+                            ),
+                            onPressed: () {
+                              Actions.maybeInvoke<PdfExportIntent>(
+                                context,
+                                PdfExportIntent(),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).pdf),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.notebook,
+                            ),
+                            onPressed: () async {
+                              final bloc = context.read<DocumentBloc>();
+                              final state = bloc.state;
+                              if (state is! DocumentLoadSuccess) return;
+                              final data = await state.saveData(
+                                null,
+                                bloc.currentIndexCubit.state.viewOption,
+                              );
+                              if (!context.mounted) return;
+                              exportXopp(
+                                context,
+                                xoppExporter(data),
+                                fileName: state.metadata.name,
+                              );
+                            },
+                            child: const Text('Xournal++'),
+                          ),
+                        ],
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.paperPlaneRight,
+                        ),
+                        child: Text(AppLocalizations.of(context).export),
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.package,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyP,
+                          control: true,
+                          alt: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<PacksIntent>(
+                            context,
+                            PacksIntent(),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).packs),
+                      ),
+                      const Divider(),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.filePlus,
+                          textDirection: TextDirection.ltr,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyN,
+                          control: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<NewIntent>(context, NewIntent());
+                        },
+                        child: Text(AppLocalizations.of(context).newContent),
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.file,
+                          textDirection: TextDirection.ltr,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyN,
+                          shift: true,
+                          control: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<NewIntent>(
+                            context,
+                            NewIntent(fromTemplate: true),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).templates),
+                      ),
+                      SubmenuButton(
+                        menuChildren: settings.history
+                            .map(
+                              (e) => MenuItemButton(
+                                child: Text(e.identifier),
+                                onPressed: () => openFile(context, true, e),
+                              ),
+                            )
+                            .toList(),
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.clock,
+                        ),
+                        child: Text(AppLocalizations.of(context).recentFiles),
+                      ),
+                    ],
+                    if (state.embedding == null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.gear,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyS,
+                          alt: true,
+                          control: true,
+                        ),
+                        onPressed: () => openSettings(context),
+                        child: Text(AppLocalizations.of(context).settings),
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.eyeSlash,
+                        ),
+                        shortcut: const SingleActivator(LogicalKeyboardKey.f12),
+                        onPressed: () {
+                          context.read<CurrentIndexCubit>().enterTouchHideUI();
+                        },
+                        child: Text(AppLocalizations.of(context).hideUI),
+                      ),
+                      BlocBuilder<WindowCubit, WindowState>(
+                        buildWhen: (previous, current) =>
+                            previous.fullScreen != current.fullScreen,
+                        builder: (context, windowState) => MenuItemButton(
+                          leadingIcon: windowState.fullScreen
+                              ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
+                              : const PhosphorIcon(
+                                  PhosphorIconsLight.arrowsOut,
+                                ),
+                          shortcut: const SingleActivator(
+                            LogicalKeyboardKey.f11,
+                          ),
+                          onPressed: () async {
+                            windowCubit.toggleFullScreen();
+                          },
+                          child: Text(LeapLocalizations.of(context).fullScreen),
+                        ),
+                      ),
+                    ],
+                    if (state.embedding == null &&
+                        settings.hasFlag('collaboration'))
+                      BlocBuilder<NetworkingService, NetworkState?>(
+                        bloc: context
+                            .read<CurrentIndexCubit>()
+                            .networkingService,
+                        builder: (_, state) {
+                          final isOpen = state?.connection.isOpen ?? false;
+                          return MenuItemButton(
+                            leadingIcon: isOpen
+                                ? Icon(
+                                    PhosphorIconsFill.users,
+                                    color: ColorScheme.of(context).primary,
+                                  )
+                                : Icon(PhosphorIconsLight.users),
+                            onPressed: () => showCollaborationDialog(context),
+                            child: Text(
+                              AppLocalizations.of(context).collaboration,
+                              style: TextStyle(
+                                color: isOpen
+                                    ? ColorScheme.of(context).primary
+                                    : null,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    if (state.embedding?.onOpen != null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.folder,
+                        ),
+                        onPressed: state.embedding?.onOpen,
+                        child: Text(AppLocalizations.of(context).open),
+                      ),
+                    ],
+                    if (state.embedding != null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.door,
+                        ),
+                        child: Text(AppLocalizations.of(context).exit),
+                        onPressed: () async {
+                          final embedding = state.embedding!;
+                          if (embedding.isInternal) {
+                            embedding.onExit?.call();
+                            return;
+                          }
+                          final bloc = context.read<DocumentBloc>();
+                          final documentState = bloc.state;
+                          if (documentState is! DocumentLoaded) return;
+                          sendEmbedMessage(
+                            'exit',
+                            await documentState.saveBytes(
+                              null,
+                              bloc.currentIndexCubit.state.viewOption,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ],
+                  style: MenuStyle(
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(16),
+                        ),
                       ),
                     ),
-                  );
-                },
-              ),
-            if (state.embedding?.onOpen != null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                onPressed: state.embedding?.onOpen,
-                child: Text(AppLocalizations.of(context).open),
-              ),
-            ],
-            if (state.embedding != null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
-                child: Text(AppLocalizations.of(context).exit),
-                onPressed: () {
-                  final embedding = state.embedding!;
-                  if (embedding.isInternal) {
-                    embedding.onExit?.call();
-                    return;
-                  }
-                  sendEmbedMessage(
-                    'exit',
-                    context.read<DocumentBloc>().state.saveBytes(),
-                  );
-                },
-              ),
-            ],
-          ],
-          style: MenuStyle(
-            shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            ),
-            maximumSize: WidgetStateProperty.all(
-              Size(
-                min(size.width - 32, 300),
-                size.height - 70 - (padding?.bottom ?? 0) * 1.5 - currentX * 2,
-              ),
-            ),
-          ),
-          builder: (context, controller, child) => Align(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: IconButton(
-                icon: Image.asset('images/logo.png'),
-                style: IconButton.styleFrom(
-                  backgroundColor: controller.isOpen
-                      ? ColorScheme.of(context).surfaceContainerHighest
-                      : null,
-                ),
-                tooltip: AppLocalizations.of(context).actions,
-                onPressed: controller.toggle,
-              ),
-            ),
-          ),
+                    maximumSize: WidgetStateProperty.all(
+                      Size(
+                        (size.width - 32).clamp(100.0, 300.0),
+                        (size.height - 70 - (padding?.bottom ?? 0) * 1.5).clamp(
+                          100.0,
+                          double.infinity,
+                        ),
+                      ),
+                    ),
+                  ),
+                  builder: (context, controller, child) => Align(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: IconButton(
+                        icon: Image.asset(logoAsset),
+                        style: IconButton.styleFrom(
+                          backgroundColor: controller.isOpen
+                              ? ColorScheme.of(context).surfaceContainerHighest
+                              : null,
+                        ),
+                        tooltip: AppLocalizations.of(context).actions,
+                        onPressed: controller.toggle,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         );
       },
     );

@@ -15,9 +15,11 @@ import 'info.dart';
 import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
+import 'tool.dart';
 
 final Set<String> validAssetPaths = {
   kImagesArchiveDirectory,
+  kTexturesArchiveDirectory,
   kPdfArchiveDirectory,
 };
 
@@ -35,6 +37,7 @@ final class NoteFile {
   bool isEncrypted() => isZipEncrypted(data);
 
   (String?, NoteData)? _data;
+  (String?, NoteDisplay)? _display;
 
   NoteData? load({String? password}) {
     if (_data != null && _data?.$1 == password) {
@@ -48,50 +51,119 @@ final class NoteFile {
       return null;
     }
   }
+
+  NoteDisplay? display({String? password}) {
+    if (_display != null && _display?.$1 == password) {
+      return _display?.$2;
+    }
+    if (_data != null && _data?.$1 == password) {
+      return _data?.$2;
+    }
+    try {
+      final display = SimpleNoteDisplay.fromData(data, password: password);
+      _display = (password, display);
+      return display;
+    } catch (_) {
+      return null;
+    }
+  }
 }
 
-final class NoteData extends ArchiveData<NoteData> {
-  NoteData(super.archive, {super.state});
-  NoteData.build(super.archive, {super.password}) : super.build();
-
-  factory NoteData.fromData(
-    Uint8List data, {
-    bool disableMigrations = false,
-    String? password,
-  }) {
-    if (disableMigrations) {
-      final archive = ZipDecoder().decodeBytes(data, password: password);
-      return NoteData.build(archive, password: password);
-    }
-    return noteDataMigrator(data, password: password);
-  }
-
-  factory NoteData.fromArchive(
-    Archive archive, {
-    bool disableMigrations = false,
-    String? password,
-  }) {
-    if (disableMigrations) {
-      return NoteData.build(archive, password: password);
-    }
-    return archiveNoteDataMigrator(archive);
-  }
-
-  factory NoteData.fromJson(
-    dynamic json, {
-    bool disableMigrations = false,
-    String? password,
-  }) => NoteData.fromData(
-    base64Decode(json as String),
-    disableMigrations: disableMigrations,
-    password: password,
-  );
+abstract class NoteDisplay<T> extends ArchiveData<T> {
+  NoteDisplay(super.archive, {super.state});
+  NoteDisplay.build(super.archive, {super.password}) : super.build();
 
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
 
-  bool get isValid => getAsset(kMetaArchiveFile) != null;
+  bool get isValid {
+    try {
+      return getAsset(kMetaArchiveFile) != null;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Uint8List? _thumbnail;
+  bool _thumbnailLoaded = false;
+
+  @useResult
+  Uint8List? getThumbnail() {
+    if (_thumbnailLoaded) return _thumbnail;
+    try {
+      _thumbnail = getAsset(kThumbnailArchiveFile);
+      _thumbnailLoaded = true;
+      return _thumbnail;
+    } catch (_) {
+      _thumbnailLoaded = true;
+      return null;
+    }
+  }
+
+  FileMetadata? _metadata;
+  bool _metadataLoaded = false;
+
+  @useResult
+  FileMetadata? getMetadata() {
+    if (_metadataLoaded) return _metadata;
+    try {
+      final data = getAsset(kMetaArchiveFile);
+      if (data == null) {
+        _metadataLoaded = true;
+        return null;
+      }
+      final content = utf8.decode(data);
+      if (content.isEmpty) {
+        _metadataLoaded = true;
+        return null;
+      }
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      _metadata = FileMetadata.fromJson(json);
+      _metadataLoaded = true;
+      return _metadata;
+    } catch (_) {
+      _metadataLoaded = true;
+      return null;
+    }
+  }
+}
+
+class SimpleNoteDisplay extends NoteDisplay<SimpleNoteDisplay> {
+  SimpleNoteDisplay(super.archive, {super.state});
+  SimpleNoteDisplay.build(super.archive, {super.password}) : super.build();
+
+  factory SimpleNoteDisplay.fromData(Uint8List data, {String? password}) {
+    final archive = data.isNotEmpty && data[0] != kArchiveSignature
+        ? convertTextDataToArchive(
+            json.decode(utf8.decode(data)) as Map<String, dynamic>,
+          )
+        : ZipDecoder().decodeBytes(data, password: password);
+    return SimpleNoteDisplay.build(archive, password: password);
+  }
+
+  @override
+  @useResult
+  SimpleNoteDisplay updateState(ArchiveState state) =>
+      SimpleNoteDisplay(archive, state: state);
+}
+
+final class NoteData extends NoteDisplay<NoteData> {
+  final NoteData? parent;
+
+  NoteData(super.archive, {super.state, this.parent});
+  NoteData.build(super.archive, {super.password, this.parent}) : super.build();
+
+  factory NoteData.fromData(Uint8List data, {String? password}) {
+    return noteDataMigrator(data, password: password);
+  }
+
+  factory NoteData.fromArchive(Archive archive, {String? password}) {
+    return archiveNoteDataMigrator(archive);
+  }
+
+  factory NoteData.fromJson(dynamic json, {String? password}) =>
+      NoteData.fromData(base64Decode(json as String), password: password);
 
   NoteData setName(String? value) {
     final meta = getMetadata();
@@ -101,7 +173,8 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @override
   @useResult
-  NoteData updateState(ArchiveState state) => NoteData(archive, state: state);
+  NoteData updateState(ArchiveState state) =>
+      NoteData(archive, state: state, parent: parent);
 
   @useResult
   (NoteData, String) importAsset(
@@ -139,21 +212,8 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
-
-  @useResult
   NoteData setThumbnail(Uint8List data) =>
       setAsset(kThumbnailArchiveFile, data);
-
-  @useResult
-  FileMetadata? getMetadata() {
-    final data = getAsset(kMetaArchiveFile);
-    if (data == null) return null;
-    final content = utf8.decode(data);
-    if (content.isEmpty) return null;
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return FileMetadata.fromJson(json);
-  }
 
   @useResult
   NoteData setMetadata(FileMetadata metadata) =>
@@ -229,7 +289,12 @@ final class NoteData extends ArchiveData<NoteData> {
     if (pages.contains(name)) {
       return name;
     }
-    return getPageNameFromRealName(name);
+    for (final page in pages) {
+      if (getPageNameFromRealName(page) == name) {
+        return page;
+      }
+    }
+    return null;
   }
 
   @useResult
@@ -254,8 +319,14 @@ final class NoteData extends ArchiveData<NoteData> {
     DocumentPage page, [
     String name = '',
     int? index,
+    void Function(String oldName, String newName)? onPageRenamed,
   ]) {
-    return setRawPage(utf8.encode(jsonEncode(page.toJson())), name, index);
+    return setRawPage(
+      utf8.encode(jsonEncode(page.toJson())),
+      name,
+      index,
+      onPageRenamed,
+    );
   }
 
   @useResult
@@ -263,12 +334,13 @@ final class NoteData extends ArchiveData<NoteData> {
     Uint8List content, [
     String name = '',
     int? index,
+    void Function(String oldName, String newName)? onPageRenamed,
   ]) {
     final pages = getPages();
     final newIndex = index ?? pages.length;
     var noteData = this;
     if (index != null) {
-      noteData = _realignPages(index);
+      noteData = _realignPages(index, onPageRenamed: onPageRenamed);
     }
     final pageName = _getPageFileName(name) ?? '$newIndex.$name';
     return (
@@ -278,7 +350,10 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData _realignPages(int index) {
+  NoteData _realignPages(
+    int index, {
+    void Function(String oldName, String newName)? onPageRenamed,
+  }) {
     final pagesOrder = _getPagesOrder();
     final nextPages = pagesOrder
         .where((element) => element.$1 >= index)
@@ -290,18 +365,26 @@ final class NoteData extends ArchiveData<NoteData> {
       nextPages.map((e) => '$kPagesArchiveDirectory/${e.$3}.json').toList(),
     );
     var nextIndex = index + 1;
-    for (final ((_, lastName, _), data) in nextPagesData) {
+    for (final ((_, lastName, oldFullName), data) in nextPagesData) {
+      final newName = '$nextIndex.$lastName';
       noteData = noteData.setAsset(
-        '$kPagesArchiveDirectory/$nextIndex.$lastName.json',
+        '$kPagesArchiveDirectory/$newName.json',
         utf8.encode(jsonEncode(data?.toJson())),
       );
+      if (onPageRenamed != null && oldFullName != newName) {
+        onPageRenamed(oldFullName, newName);
+      }
       nextIndex++;
     }
     return noteData;
   }
 
   @useResult
-  NoteData reorderPage(String page, [int? newIndex]) {
+  NoteData reorderPage(
+    String page, [
+    int? newIndex,
+    void Function(String oldName, String newName)? onPageRenamed,
+  ]) {
     newIndex ??= getPages().length;
     final pageName = _getPageFileName(page);
     final index = getPageIndex(page);
@@ -312,10 +395,14 @@ final class NoteData extends ArchiveData<NoteData> {
         index == newIndex) {
       return this;
     }
+    final displayName = getPageNameFromRealName(pageName);
     var noteData = removeAsset('$kPagesArchiveDirectory/$pageName.json');
-    noteData = noteData._realignPages(newIndex);
-    // ignore: unused_result
-    (noteData, _) = noteData.setPage(data, page, newIndex);
+    noteData = noteData._realignPages(newIndex, onPageRenamed: onPageRenamed);
+    final result = noteData.setPage(data, displayName, newIndex, onPageRenamed);
+    noteData = result.$1;
+    if (onPageRenamed != null && pageName != result.$2) {
+      onPageRenamed(pageName, result.$2);
+    }
     return noteData;
   }
 
@@ -355,13 +442,32 @@ final class NoteData extends ArchiveData<NoteData> {
         .toList(),
   );
 
+  String _findUniquePageName(String name, {String? excludeName}) {
+    final existingNames = getPages().where((e) => e != excludeName).toSet();
+    if (!existingNames.contains(name)) return name;
+    var i = 2;
+    var current = '$name $i';
+    while (existingNames.contains(current)) {
+      i++;
+      current = '$name $i';
+    }
+    return current;
+  }
+
   @useResult
   (NoteData, String) renamePage(String oldName, String newName) {
-    final page = getPage(oldName);
-    final index = getPageIndex(oldName);
-    if (page == null) return (this, oldName);
-    final noteData = removePage(oldName);
-    return noteData.setPage(page, newName, index);
+    final oldPageName = _getPageFileName(oldName);
+    if (oldPageName == null) return (this, oldName);
+    final page = getPage(oldPageName);
+    final index = getPageIndex(oldPageName);
+    if (page == null) return (this, oldPageName);
+    final oldDisplayName = getPageNameFromRealName(oldPageName);
+    final uniqueName = _findUniquePageName(
+      newName,
+      excludeName: oldDisplayName,
+    );
+    final noteData = removePage(oldPageName);
+    return noteData.setPage(page, uniqueName, index);
   }
 
   @useResult
@@ -385,14 +491,35 @@ final class NoteData extends ArchiveData<NoteData> {
     return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
-  Iterable<String> getValidAssets() =>
-      validAssetPaths.expand((e) => getAssets(e)).toList();
+  Iterable<String> getValidAssets() => validAssetPaths
+      .expand((e) => getAssets(e).map((asset) => '$e/$asset'))
+      .toList();
+
+  Map<String, Uint8List> getAllAssets() {
+    final Map<String, Uint8List> assets = {};
+    for (final path in validAssetPaths) {
+      for (final assetName in getAssets(path)) {
+        final fullPath = '$path/$assetName';
+        final data = getAsset(fullPath);
+        if (data != null) {
+          assets[fullPath] = data;
+        }
+      }
+    }
+    return assets;
+  }
 
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
 
   bool containsImage(Uint8List data, String fileExtension) =>
       containsAsset(kImagesArchiveDirectory, data, fileExtension);
+
+  (NoteData, String) importTexture(Uint8List data, String fileExtension) =>
+      importAsset(kTexturesArchiveDirectory, data, fileExtension);
+
+  bool containsTexture(Uint8List data, String fileExtension) =>
+      containsAsset(kTexturesArchiveDirectory, data, fileExtension);
 
   (NoteData, String) importPdf(Uint8List data) =>
       importAsset(kPdfArchiveDirectory, data, 'pdf');
@@ -438,8 +565,14 @@ final class NoteData extends ArchiveData<NoteData> {
   // Pack specific
 
   @useResult
+  Iterable<String> _getPackAssets(String path, [bool recursive = true]) => {
+    ...?parent?._getPackAssets(path, recursive),
+    ...getAssets(path, recursive),
+  };
+
+  @useResult
   Iterable<String> getComponents() =>
-      getAssets('$kComponentsArchiveDirectory/', true);
+      _getPackAssets('$kComponentsArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<ButterflyComponent>> getNamedComponents() =>
@@ -452,15 +585,13 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getComponent(componentName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return ButterflyComponent.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getComponent(componentName);
     }
   }
 
@@ -475,7 +606,24 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kComponentsArchiveDirectory/$name.json');
 
   @useResult
-  Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
+  Iterable<String> getTextures() =>
+      _getPackAssets('$kTexturesArchiveDirectory/', false);
+
+  @useResult
+  Uint8List? getTexture(String textureName) =>
+      getAsset('$kTexturesArchiveDirectory/$textureName') ??
+      parent?.getTexture(textureName);
+
+  @useResult
+  NoteData setTexture(String name, Uint8List texture) =>
+      setAsset('$kTexturesArchiveDirectory/$name', texture);
+
+  @useResult
+  NoteData removeTexture(String name) =>
+      removeAsset('$kTexturesArchiveDirectory/$name');
+
+  @useResult
+  Iterable<String> getStyles() => _getPackAssets('$kStylesArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<TextStyleSheet>> getNamedStyles() => getStyles().map((e) {
@@ -487,15 +635,13 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   TextStyleSheet? getStyle(String styleName) {
     final data = getAsset('$kStylesArchiveDirectory/$styleName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getStyle(styleName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return TextStyleSheet.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getStyle(styleName);
     }
   }
 
@@ -514,7 +660,7 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @useResult
   Iterable<String> getPalettes() =>
-      getAssets('$kPalettesArchiveDirectory/', true);
+      _getPackAssets('$kPalettesArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<ColorPalette>> getNamedPalettes() =>
@@ -527,15 +673,13 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   ColorPalette? getPalette(String paletteName) {
     final data = getAsset('$kPalettesArchiveDirectory/$paletteName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getPalette(paletteName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return ColorPalette.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getPalette(paletteName);
     }
   }
 
@@ -553,6 +697,87 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   @useResult
+  Iterable<String> getToolbars() =>
+      _getPackAssets('$kToolbarsArchiveDirectory/');
+
+  @useResult
+  Iterable<NamedItem<Toolbar>> getNamedToolbars() => getToolbars().map((e) {
+    final toolbar = getToolbar(e);
+    if (toolbar == null) return null;
+    return NamedItem<Toolbar>(name: e, item: toolbar);
+  }).nonNulls;
+
+  @useResult
+  Toolbar? getToolbar(String toolbarName) {
+    final data = getAsset('$kToolbarsArchiveDirectory/$toolbarName.json');
+    if (data == null) return parent?.getToolbar(toolbarName);
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return Toolbar.fromJson(json);
+    } catch (e) {
+      return parent?.getToolbar(toolbarName);
+    }
+  }
+
+  @useResult
+  NoteData setToolbar(String name, Toolbar toolbar) {
+    final content = jsonEncode(toolbar.toJson());
+    return setAsset(
+      '$kToolbarsArchiveDirectory/$name.json',
+      utf8.encode(content),
+    );
+  }
+
+  @useResult
+  NoteData removeToolbar(String name) =>
+      removeAsset('$kToolbarsArchiveDirectory/$name.json');
+
+  @useResult
+  Iterable<String> getToolPresets() =>
+      _getPackAssets('$kToolPresetsArchiveDirectory/');
+
+  @useResult
+  Iterable<NamedItem<Tool>> getNamedToolPresets() => getToolPresets().map((e) {
+    final tool = getToolPreset(e);
+    if (tool == null) return null;
+    return NamedItem<Tool>(name: e, item: tool);
+  }).nonNulls;
+
+  @useResult
+  Tool? getToolPreset(String presetName) {
+    final parentTool = parent?.getToolPreset(presetName);
+    final data = getAsset('$kToolPresetsArchiveDirectory/$presetName.json');
+    if (data == null) {
+      return parentTool;
+    }
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      final tool = Tool.fromJson(json);
+      if (parentTool != null && tool.runtimeType != parentTool.runtimeType) {
+        return parentTool;
+      }
+      return tool;
+    } catch (e) {
+      return parentTool;
+    }
+  }
+
+  @useResult
+  NoteData setToolPreset(String name, Tool tool) {
+    final content = jsonEncode(tool.toJson());
+    return setAsset(
+      '$kToolPresetsArchiveDirectory/$name.json',
+      utf8.encode(content),
+    );
+  }
+
+  @useResult
+  NoteData removeToolPreset(String name) =>
+      removeAsset('$kToolPresetsArchiveDirectory/$name.json');
+
+  @useResult
   String toJson() {
     return base64Encode(exportAsBytes());
   }
@@ -563,21 +788,31 @@ final class NoteData extends ArchiveData<NoteData> {
     int? index,
     bool addNumber = true,
   }) {
-    var i = 1;
-    String getName(int i) {
-      if (i == 1 && !addNumber) {
-        return name;
+    final existingNames = getPages().toSet();
+    late String current;
+
+    if (name.isEmpty) {
+      var i = 1;
+      current = i.toString();
+      while (existingNames.contains(current)) {
+        i++;
+        current = i.toString();
       }
-      if (name.isEmpty) return i.toString();
-      return '$name $i';
+      return setPage(page, current, index);
     }
 
-    var current = getName(i);
-
-    while (getPages().contains(current)) {
-      current = 'Page ${i++}';
+    if (!existingNames.contains(name)) {
+      return setPage(page, name, index);
     }
-    return setPage(page, name, index);
+
+    var i = addNumber ? 1 : 2;
+    current = '$name $i';
+    while (existingNames.contains(current)) {
+      i++;
+      current = '$name $i';
+    }
+
+    return setPage(page, current, index);
   }
 
   NoteData undoDelete(String path) {

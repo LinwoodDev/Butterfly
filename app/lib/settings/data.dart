@@ -5,8 +5,11 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/template.dart';
+import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_picker/file_picker.dart';
@@ -67,47 +70,62 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ),
                           onTap: () => _openSyncModeModal(context),
                         ),
-                        if (!Platform.isIOS)
-                          ListTile(
-                            title: Text(
-                              AppLocalizations.of(context).dataDirectory,
-                            ),
-                            leading: const PhosphorIcon(
-                              PhosphorIconsLight.folder,
-                            ),
-                            subtitle: state.documentPath.isNotEmpty
-                                ? FutureBuilder<String>(
-                                    future: getButterflyDirectory(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Text(snapshot.data!);
-                                      }
-                                      return const SizedBox(
-                                        height: 16,
-                                        width: 16,
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    },
-                                  )
-                                : Text(
-                                    AppLocalizations.of(context).defaultPath,
-                                  ),
-                            onTap: _changeDataDirectory,
-                            trailing: state.documentPath.isNotEmpty
-                                ? IconButton(
-                                    icon: const PhosphorIcon(
-                                      PhosphorIconsLight.clockClockwise,
-                                    ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).defaultPath,
-                                    onPressed: () => _changePath(
-                                      context.read<SettingsCubit>(),
-                                      '',
-                                    ),
-                                  )
-                                : null,
+                        ListTile(
+                          title: Text(
+                            AppLocalizations.of(context).dataDirectory,
                           ),
+                          leading: const PhosphorIcon(
+                            PhosphorIconsLight.folder,
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              state.documentPath.isNotEmpty
+                                  ? FutureBuilder<String>(
+                                      future: getButterflyDirectory(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Text(snapshot.data!);
+                                        }
+                                        return const SizedBox(
+                                          height: 16,
+                                          width: 16,
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                    )
+                                  : Text(
+                                      AppLocalizations.of(context).defaultPath,
+                                    ),
+                              if (Platform.isAndroid || Platform.isIOS)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4.0),
+                                  child: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    ).platformExperimentalWarning,
+                                    style: const TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          onTap: _changeDataDirectory,
+                          trailing: state.documentPath.isNotEmpty
+                              ? IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.clockClockwise,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).defaultPath,
+                                  onPressed: () => _changePath(
+                                    context,
+                                    context.read<SettingsCubit>(),
+                                    '',
+                                  ),
+                                )
+                              : null,
+                        ),
                       ],
                       ListTile(
                         title: Text(AppLocalizations.of(context).templates),
@@ -129,10 +147,20 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             providers: [
                               BlocProvider(
                                 lazy: false,
-                                create: (ctx) => DocumentBloc.placeholder(
-                                  context.read<ButterflyFileSystem>(),
-                                  context.read<WindowCubit>(),
-                                ),
+                                create: (ctx) {
+                                  final transformCubit = TransformCubit(
+                                    MediaQuery.devicePixelRatioOf(context),
+                                  );
+                                  return DocumentBloc.placeholder(
+                                    context.read<ButterflyFileSystem>(),
+                                    CurrentIndexCubit(
+                                      context.read<SettingsCubit>(),
+                                      transformCubit,
+                                      CameraViewport.unbaked(),
+                                    ),
+                                    context.read<WindowCubit>(),
+                                  );
+                                },
                               ),
                             ],
                             child: const PacksDialog(globalOnly: true),
@@ -144,14 +172,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           AppLocalizations.of(context).exportAllFiles,
                         ),
                         leading: const PhosphorIcon(PhosphorIconsLight.export),
-                        onTap: () async {
-                          final directory = await _documentSystem.fileSystem
-                              .getRootDirectory(listLevel: allListLevel);
-                          final archive = exportDirectory(directory);
-                          final encoder = ZipEncoder();
-                          final bytes = encoder.encodeBytes(archive);
-                          exportZip(context, bytes);
-                        },
+                        onTap: () => _exportData(context),
                       ),
                     ],
                   ),
@@ -192,11 +213,15 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Future<void> _changeDataDirectory() async {
     try {
       final settingsCubit = context.read<SettingsCubit>();
-      final selectedDir = await FilePicker.platform.getDirectoryPath();
+      final selectedDir = Platform.isAndroid
+          ? await AndroidSafDirectoryFileSystem.pickDirectory()
+          : await FilePicker.getDirectoryPath();
       if (selectedDir != null) {
-        _changePath(settingsCubit, selectedDir);
+        if (!context.mounted) return;
+        await _changePath(context, settingsCubit, selectedDir);
       }
     } catch (e) {
+      if (!context.mounted) return;
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -207,7 +232,11 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     }
   }
 
-  Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
+  Future<void> _changePath(
+    BuildContext context,
+    SettingsCubit settingsCubit,
+    String newPath,
+  ) async {
     var oldPath = settingsCubit.state.documentPath;
     final defaultPath = await getButterflyDirectory(usePrefs: false);
     if (oldPath.isEmpty) {
@@ -217,6 +246,59 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     if (movedPath.isEmpty) {
       movedPath = defaultPath;
     }
+
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).warning),
+        scrollable: true,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              AppLocalizations.of(context).changeDataDirectoryWarningContent,
+            ),
+            const SizedBox(height: 16),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      oldPath,
+                      style: TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      movedPath,
+                      style: const TextStyle(fontFamily: 'monospace'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(MaterialLocalizations.of(context).continueButtonLabel),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) return;
+
     if (!(await _documentSystem.moveAbsolute(oldPath, movedPath)) &&
         newPath.isNotEmpty) {
       return;
@@ -304,17 +386,227 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
         });
   } */
 
+  Future<void> _exportData(BuildContext context) async {
+    final localizations = AppLocalizations.of(context);
+    bool exportDocuments = true;
+    bool exportPacks = true;
+    bool exportTemplates = true;
+    double? exportProgress;
+
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            final isExporting = exportProgress != null;
+            return AlertDialog(
+              title: Text(localizations.exportAllFiles),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CheckboxListTile(
+                    title: Text(localizations.files),
+                    value: exportDocuments,
+                    onChanged: isExporting
+                        ? null
+                        : (value) =>
+                              setState(() => exportDocuments = value ?? false),
+                  ),
+                  CheckboxListTile(
+                    title: Text(localizations.packs),
+                    value: exportPacks,
+                    onChanged: isExporting
+                        ? null
+                        : (value) =>
+                              setState(() => exportPacks = value ?? false),
+                  ),
+                  CheckboxListTile(
+                    title: Text(localizations.templates),
+                    value: exportTemplates,
+                    onChanged: isExporting
+                        ? null
+                        : (value) =>
+                              setState(() => exportTemplates = value ?? false),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isExporting
+                      ? null
+                      : () => Navigator.of(context).pop(),
+                  child: Text(
+                    MaterialLocalizations.of(context).cancelButtonLabel,
+                  ),
+                ),
+                TextButton(
+                  onPressed: isExporting
+                      ? null
+                      : () async {
+                          if (!exportDocuments &&
+                              !exportPacks &&
+                              !exportTemplates) {
+                            return;
+                          }
+
+                          setState(() => exportProgress = -1.0);
+
+                          try {
+                            final fs = context.read<ButterflyFileSystem>();
+                            final archive = Archive();
+                            final multiple =
+                                [
+                                  exportDocuments,
+                                  exportPacks,
+                                  exportTemplates,
+                                ].where((e) => e).length >
+                                1;
+
+                            List<String> packKeys = [];
+                            List<String> templateKeys = [];
+
+                            if (exportPacks) {
+                              packKeys = await fs.buildPackSystem().getKeys();
+                            }
+                            if (exportTemplates) {
+                              templateKeys = await fs
+                                  .buildTemplateSystem()
+                                  .getKeys();
+                            }
+
+                            int totalTasks =
+                                (exportDocuments ? 1 : 0) +
+                                packKeys.length +
+                                templateKeys.length +
+                                1; // +1 for zip
+                            int completedTasks = 0;
+
+                            void updateProgress() {
+                              if (totalTasks > 0) {
+                                setState(
+                                  () => exportProgress =
+                                      completedTasks / totalTasks,
+                                );
+                              }
+                            }
+
+                            updateProgress();
+
+                            if (exportDocuments) {
+                              final directory = await _documentSystem.fileSystem
+                                  .getRootDirectory(listLevel: allListLevel);
+                              final docArchive = exportDirectory(directory);
+                              for (final file in docArchive.files) {
+                                archive.addFile(
+                                  ArchiveFile.bytes(
+                                    multiple
+                                        ? 'Documents/${file.name}'
+                                        : file.name,
+                                    file.content as List<int>,
+                                  ),
+                                );
+                              }
+                              completedTasks++;
+                              updateProgress();
+                            }
+
+                            if (exportPacks) {
+                              final packSystem = fs.buildPackSystem();
+                              for (final key in packKeys) {
+                                final data = await packSystem.fileSystem
+                                    .getFile(key);
+                                if (data != null) {
+                                  archive.addFile(
+                                    ArchiveFile.bytes(
+                                      multiple ? 'Packs/$key' : key,
+                                      data,
+                                    ),
+                                  );
+                                }
+                                completedTasks++;
+                                updateProgress();
+                              }
+                            }
+
+                            if (exportTemplates) {
+                              final templateSystem = fs.buildTemplateSystem();
+                              for (final key in templateKeys) {
+                                final data = await templateSystem.fileSystem
+                                    .getFile(key);
+                                if (data != null) {
+                                  archive.addFile(
+                                    ArchiveFile.bytes(
+                                      multiple ? 'Templates/$key' : key,
+                                      data,
+                                    ),
+                                  );
+                                }
+                                completedTasks++;
+                                updateProgress();
+                              }
+                            }
+
+                            // Small delay to allow UI to render the 99% progress
+                            // before ZipEncoder blocks the thread synchronously.
+                            await Future.delayed(
+                              const Duration(milliseconds: 50),
+                            );
+
+                            final encoder = ZipEncoder();
+                            final bytes = encoder.encodeBytes(archive);
+                            completedTasks++;
+                            updateProgress();
+
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                              exportZip(context, bytes);
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              setState(() => exportProgress = null);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())),
+                              );
+                            }
+                          }
+                        },
+                  child: isExporting
+                      ? SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            value: exportProgress! < 0 ? null : exportProgress,
+                          ),
+                        )
+                      : Text(localizations.export),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFile(
       type: FileType.custom,
       allowedExtensions: ['json'],
-      withData: true,
     );
-    final bytes = result?.files.firstOrNull?.bytes;
+    final bytes = await result?.readAsBytes();
     if (bytes == null) return;
     final data = utf8.decode(bytes);
-    settingsCubit.importSettings(data);
+    try {
+      await settingsCubit.importSettings(data);
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   void _exportSettings(BuildContext context) async {

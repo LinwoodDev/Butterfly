@@ -23,6 +23,8 @@ title: 常见问题
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 我使用流体框架提供的输入。
 查看相关issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
 
@@ -35,7 +37,7 @@ Butterfly is optimized every update, but sometimes the problem could be from you
 
 This allows Butterfly to refresh faster and feel more responsive.
 
-If these steps dont help, please dont hesitate to complain in Discord, Matrix, or in Github.
+If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
 
 ### Butterfly restarts in the background
 
@@ -58,8 +60,9 @@ Butterfly在iOS下有预览版。 点击此[链接](https://butterfly.linwood.de
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
+
 我使用流体框架提供的输入。
-查看相关issue: Windows[flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) 以及 [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 这些问题比以前更长。 网络版本现在应该很好。

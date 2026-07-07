@@ -2,8 +2,14 @@ part of '../renderer.dart';
 
 class ImageRenderer extends Renderer<ImageElement> {
   ui.Image? image;
+  bool ownsImage;
 
-  ImageRenderer(super.element, [super.layer, this.image]);
+  ImageRenderer(
+    super.element, [
+    super.layer,
+    this.image,
+    this.ownsImage = true,
+  ]);
 
   @override
   bool onAssetUpdate(
@@ -12,11 +18,14 @@ class ImageRenderer extends Renderer<ImageElement> {
     DocumentPage page,
     String path,
   ) {
-    final uri = Uri.parse(element.source);
-    if (uri.hasScheme && !uri.isScheme('file')) return false;
-    final shouldUpdate = uri.path == path;
+    final uri = Uri.tryParse(element.source);
+    if (uri != null && uri.hasScheme && !uri.isScheme('file')) return false;
+    final sourcePath = uri?.path ?? element.source;
+    final shouldUpdate = sourcePath == path;
     if (shouldUpdate) {
-      image?.dispose();
+      if (ownsImage) {
+        image?.dispose();
+      }
       image = null;
     }
     return shouldUpdate;
@@ -42,7 +51,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       return;
     }
     var paint = Paint()
-      ..filterQuality = FilterQuality.high
+      ..filterQuality = FilterQuality.medium
       ..isAntiAlias = true;
 
     canvas.drawImageRect(
@@ -91,6 +100,7 @@ class ImageRenderer extends Renderer<ImageElement> {
         element.source,
         blocState.data,
       );
+      ownsImage = true;
     } catch (_) {}
   }
 
@@ -101,7 +111,9 @@ class ImageRenderer extends Renderer<ImageElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) {
-    image?.dispose();
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
   }
 
@@ -177,12 +189,16 @@ class ImageRenderer extends Renderer<ImageElement> {
         constraints: element.constraints.scale(scaleX, scaleY),
       ),
       layer,
+      image,
+      false,
     );
   }
 
   @override
   void dispose() {
-    image?.dispose();
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
   }
 
@@ -192,8 +208,9 @@ class ImageRenderer extends Renderer<ImageElement> {
       DocumentBloc bloc,
       void Function(img.Command) update,
     ) async {
-      final asset = Uri.parse(element.source);
-      if ((!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
+      final asset = Uri.tryParse(element.source);
+      if (asset == null ||
+          (!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
           image == null) {
         return;
       }
@@ -201,7 +218,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       var cmd = img.Command()..image(imgImage);
       update(cmd);
       cmd.encodePng();
-      final converted = await cmd.getBytes();
+      final converted = await cmd.getBytesThread();
       if (converted == null) return;
       bloc.add(AssetUpdated(asset.path, converted));
     }

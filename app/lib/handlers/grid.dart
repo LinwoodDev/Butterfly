@@ -65,6 +65,9 @@ class GridRenderer extends Renderer<GridTool> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
+    final xPaint = Paint()
+      ..strokeWidth = element.stroke / transform.size
+      ..color = element.color.toColor();
     if (element.xSize > 0) {
       double x = -element.xSize + element.xOffset % element.xSize;
       var cap = size.width;
@@ -90,13 +93,14 @@ class GridRenderer extends Renderer<GridTool> {
             localX + transform.position.dx,
             size.height / transform.size + transform.position.dy,
           ),
-          Paint()
-            ..strokeWidth = element.stroke / transform.size
-            ..color = element.color.toColor(),
+          xPaint,
         );
         x += element.xSize;
       }
     }
+    final yPaint = Paint()
+      ..strokeWidth = element.stroke / transform.size
+      ..color = element.color.toColor();
     if (element.ySize > 0) {
       double y = -element.ySize + element.yOffset % element.ySize;
       var cap = size.height;
@@ -122,9 +126,7 @@ class GridRenderer extends Renderer<GridTool> {
             transform.position.dx + size.width / transform.size,
             transform.position.dy + localY,
           ),
-          Paint()
-            ..strokeWidth = element.stroke / transform.size
-            ..color = element.color.toColor(),
+          yPaint,
         );
         y += element.ySize;
       }

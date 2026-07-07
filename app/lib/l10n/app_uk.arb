@@ -10,6 +10,11 @@
   "lightTheme": "Світла тема",
   "systemTheme": "Використовувати типову системну тему",
   "view": "Дивитись",
+  "contentViewport": "Перегляд вмісту",
+  "limitViewportToPositiveCoordinates": "Обмежити Перегляд порту до позитивних координат",
+  "off": "Вимкнено",
+  "canvas": "Полотно",
+  "interface": "Інтерфейс",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Зменшити масштаб",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Ширина штриха",
+  "strokeStyle": "Стиль обведення",
+  "dashLength": "Довжина тире",
+  "gapLength": "Довжина прогалини",
   "includeEraser": "Включати гущаду?",
   "thinning": "Думки",
   "pen": "Ручка",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Лінійка шляху",
+  "stroke": "Stroke",
   "label": "Мітка",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Фон",
+  "applyBackground": "Застосувати тло",
+  "applyAreas": "Застосувати області",
+  "currentPage": "Поточна сторінка",
+  "allPages": "Усі сторінки",
   "box": "Ящик",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Стандартна палітра",
   "highlighter": "Маркер",
+  "combinePaths": "Комбайнові шляхи",
   "add": "Додати",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Суцільний колір",
+  "gradient": "Градієнт",
+  "gradientType": "Градієнт",
+  "linear": "Лінійна",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Подвійний",
   "dotted": "Пунктирна",
+  "dottedDark": "Пунктирна темна",
   "dashed": "Пунктирна",
   "wavy": "Хвилі",
   "fontWeight": "Вага Шрифту",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Поведінка",
   "dataDirectory": "Каталог даних",
+  "warning": "Застереження",
+  "platformExperimentalWarning": "Увага: це експериментальне налаштування може мати проблеми на цій платформі.",
+  "changeDataDirectoryWarningContent": "Ви впевнені, що хочете змінити теку з даними? Створіть резервну копію даних перед продовженням.",
   "defaultPath": "Типовий шлях",
   "dateFormat": "Формат дати",
   "updatedAt": "Оновлено на: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Не задано",
   "enterLayer": "Введіть назву шару",
+  "eraseShapes": "Стерти фігури",
+  "eraseShapeModeNone": "Не стирайте фігури",
+  "eraseShapeModeTouchEdges": "Стерти при торканні ребер",
+  "eraseShapeModeTouchAnywhere": "Стерти при торканні будь-де",
+  "selectElementModeTouchEdges": "Вибрати при дотику до ребер",
+  "selectElementModeTouchAnywhere": "Вибрати торкання будь-де",
   "selectElements": "Обрати елементи",
   "deleteElements": "Видалити елементи",
+  "eraseAllElements": "Стерти всі елементи",
   "deleteElementsConfirm": "Ви дійсно бажаєте видалити вибрані елементи?",
   "selectCustomCollection": "Обрати користувацьку колекцію",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Темна",
-  "plainDark": "Темна",
+  "plainDark": "Просто темна",
   "ruledDark": "Лінійчата темна",
   "quadDark": "Квад темний",
   "musicDark": "Музика темна",
@@ -545,6 +576,7 @@
   "topRight": "Зверху праворуч",
   "bottomLeft": "Внизу ліворуч",
   "bottomRight": "Нижній правий",
+  "zoomPosition": "Позиція керування масштабом",
   "caches": "Кеш",
   "manage": "Керування",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Папку синхронізовано",
   "syncRootDirectory": "Синхронізація кореневого каталогу",
   "penOnlyInput": "Тільки введення Pen",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Автоматично вмикати режим тільки, коли виявлено стиль. Це налаштування триває лише для поточного сесії.",
+  "penOnlyInputOnDescription": "Завжди відхиляти дотик та мишу, приймати лише перус введення.",
+  "penOnlyInputOffDescription": "Приймати всі типи вводу, включаючи дотик, мишу та стилюс.",
+  "automatic": "Автоматично",
+  "alwaysOn": "Завжди увімкнено",
+  "alwaysOff": "Завжди вимкнено",
+  "showPenOnlyToggle": "Показати тільки переключити ручку",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Область заголовка",
+  "mode": "Mode",
   "syncMode": "Режим синхронізації",
   "connection": "З'єднання",
   "always": "Завжди",
@@ -893,6 +939,7 @@
   "bringForward": "Поверніть вперед",
   "sendBackward": "Відправити назад",
   "rotation": "Поворот екрану",
+  "direction": "Напрямок",
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
   "toolbarPosition": "Позиція панелі інструментів",
   "rotate": "Обертати",
@@ -919,6 +966,9 @@
   "ascending": "За зростанням",
   "descending": "За спаданням",
   "imageScale": "Масштаб зображення",
+  "svgScale": "Шкала SVG",
+  "noImageSelected": "Не вибрано зображення",
+  "noSvgSelected": "Не вибрано SVG",
   "select": "Вибрати",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Якість PDF",
   "surface": "Поверхня",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Все одно продовжити",
   "zoomControl": "Управління масштабуванням",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Високий контраст",
   "shouldANumber": "Це значення має бути дійсним числом",
   "createAreas": "Створення області",
@@ -1081,6 +1134,8 @@
   "addAll": "Додати всі",
   "onlyCurrentPage": "Тільки поточна сторінка",
   "smoothNavigation": "Плавна навігація",
+  "edgePanAreaSwitching": "Вимикання області pan",
+  "useAndroidSaf": "Використовувати Android SAF",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Змінити збірку",
   "collections": "Колекції",
   "fullSelection": "Повний вибір",
-  "fullSelectionDescription": "Для вибору потрібні елементи.",
   "collection": "Колекція",
   "defaultCollection": "Типова збірка",
   "scroll": "Прокрутка",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Домашній екран",
   "lastNote": "Остання примітка",
   "newNote": "Нова нотатка",
-  "convertToLayer": "Конвертувати в шар",
+  "moveToLayer": "Перемістити до шару",
+  "createLayer": "Створити шар",
   "merge": "Об'єднати",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Кінець",
+  "radius": "Radius",
+  "focalPoint": "Фокусна точка",
+  "useOffCenterStartPoint": "Використовувати початкову точку зміщеного центру",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Зупинка кольору",
+  "addStop": "Додати зупинку",
   "positionDependent": "Залежність від позиції",
   "flipHorizontal": "Віддзеркалити горизонтально",
   "flipVertical": "Віддзеркалити вертикально",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Налаштування поєднання клавіш",
+  "clickToSave": "Натисніть, щоб зберегти",
+  "toolbars": "Панелі інструментів",
+  "logs": "Логи",
+  "ruledSimple": "Простий",
+  "ruledSimpleDark": "Звичайна темна",
+  "quadSimple": "Простий квадрат",
+  "quadSimpleDark": "Чотирикратна темна",
+  "redLinedRuled": "Рудий вистелений",
+  "redLinedRuledDark": "Червоний колір",
+  "redLinedQuad": "Червоний квад",
+  "redLinedQuadDark": "Темно-червоний квад",
+  "noItemSelected": "Жоден елемент не вибрано",
+  "areaAsInitial": "Відкрити область як початковий вигляд",
+  "swap": "Поміняти",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Сховати розширення файлу",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Нова з шаблону",
+  "exportAsTextShortcut": "Експортувати як текст",
+  "exportAsImageShortcut": "Експортувати як зображення",
+  "exportAsPdfShortcut": "Експорт в PDF",
+  "exportAsSvgShortcut": "Експортувати як SVG",
+  "changePathShortcut": "Змінити шлях",
+  "fullScreenShortcut": "На весь екран",
+  "doublePressAction": "Дії подвійного натискання",
+  "triplePressAction": "Дія потрійного натискання",
+  "longPress": "Тривале натискання",
+  "toolNumber": "Інструмент {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Утримуйте комбінації клавіш",
+  "holdShortcutsDescription": "Утримуйте клавішу, щоб тимчасово переключитися на інший інструмент. Звільнення перемикачів ключів знову до попереднього інструменту.",
+  "key": "Ключ",
+  "bringMovedElementsToFront": "Принести переміщені елементи на передній план",
+  "addTool": "Додати інструмент",
+  "nextPage": "Наступна сторінка",
+  "previousPage": "Попередня сторінка"
 }

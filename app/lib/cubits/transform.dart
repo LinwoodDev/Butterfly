@@ -2,48 +2,41 @@ import 'dart:math';
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'transform.freezed.dart';
 
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
 const kRoundPrecision = 3;
 const kDrag = 0.001;
+const kBoundsSnapBackDuration = 0.18;
 
-@immutable
-class FrictionState extends Equatable {
-  final Offset beginOffset;
-  final double beginSize;
-  final DateTime lastUpdate;
-  final double duration;
-
-  const FrictionState(
-    this.beginOffset,
-    this.beginSize,
-    this.lastUpdate,
-    this.duration,
-  );
-
-  @override
-  List<Object?> get props => [beginOffset, beginSize, lastUpdate];
+@freezed
+sealed class FrictionState with _$FrictionState {
+  const factory FrictionState(
+    Offset beginOffset,
+    double beginSize,
+    DateTime lastUpdate,
+    double duration,
+  ) = _FrictionState;
 }
 
-@immutable
-class CameraTransform extends Equatable {
-  final Offset position;
-  final double size;
-  final FrictionState? friction;
-  final double pixelRatio;
+@freezed
+sealed class CameraTransform with _$CameraTransform {
+  const CameraTransform._();
 
-  const CameraTransform([
-    this.pixelRatio = 1,
-    this.position = Offset.zero,
-    this.size = 1,
-    this.friction,
-  ]);
+  const factory CameraTransform([
+    @Default(1) double pixelRatio,
+    @Default(Offset.zero) Offset position,
+    @Default(1) double size,
+    FrictionState? friction,
+  ]) = _CameraTransform;
 
   CameraTransform withPosition(Offset position) =>
       CameraTransform(pixelRatio, position, size);
@@ -67,18 +60,31 @@ class CameraTransform extends Equatable {
   Offset localToGlobal(Offset local) => local / size + position;
   Offset globalToLocal(Offset global) => (global - position) * size;
 
-  @override
-  List<Object?> get props => [position, size];
-
   double _getFinalTime(
     double velocity,
     double drag, {
     double effectivelyMotionless = 10,
-  }) => log(effectivelyMotionless / velocity) / log(drag);
+  }) {
+    final speed = velocity.abs();
+    if (speed <= effectivelyMotionless) {
+      return 0;
+    }
+    return log(effectivelyMotionless / speed) / log(drag);
+  }
 
   FrictionSimulation _getSimulation(double velocity) =>
       FrictionSimulation(kDrag, 0, velocity);
-  CameraTransform withFriction(Offset velocityPosition, double velocitySize) {
+
+  Offset _clampPosition(Offset position, Rect bounds) => Offset(
+    position.dx.clamp(bounds.left, bounds.right),
+    position.dy.clamp(bounds.top, bounds.bottom),
+  );
+
+  CameraTransform withFriction(
+    Offset velocityPosition,
+    double velocitySize, {
+    Rect? positionBounds,
+  }) {
     final simX = _getSimulation(velocityPosition.dx);
     final finalX = simX.finalX;
     final simY = _getSimulation(velocityPosition.dy);
@@ -88,22 +94,31 @@ class CameraTransform extends Equatable {
     final simScale = _getSimulation(velocitySize);
     final finalSize = simScale.finalX;
     final durationSize = _getFinalTime(velocitySize, kDrag);
-    final duration = max(durationPosition, durationSize);
+    final finalPosition = positionBounds == null
+        ? position - finalPos
+        : _clampPosition(position - finalPos, positionBounds);
+    final finalScale = (size + finalSize).clamp(kMinZoom, kMaxZoom);
+    var duration = max(durationPosition, durationSize);
     if (!duration.isFinite) {
-      return this;
+      duration = 0;
     }
-
+    if (duration <= 0) {
+      if (finalPosition == position && finalScale == size) {
+        return this;
+      }
+      duration = kBoundsSnapBackDuration;
+    }
     final frictionState = FrictionState(
-      -finalPos,
-      1 / velocitySize,
+      finalPosition - position,
+      velocitySize == 0 ? 0 : 1 / velocitySize,
       DateTime.now(),
       duration,
     );
 
     return CameraTransform(
       pixelRatio,
-      position - finalPos,
-      size + finalSize,
+      finalPosition,
+      finalScale,
       frictionState,
     );
   }
@@ -144,21 +159,34 @@ class TransformCubit extends Cubit<CameraTransform> {
   void teleportToWaypoint(Waypoint waypoint) =>
       teleport(waypoint.position.toOffset(), waypoint.scale ?? state.size);
 
-  void teleportToArea(Area area, [Size? screen]) {
-    double? size;
-    var position = area.position.toOffset();
-    if (screen != null) {
-      final width = screen.width / area.width;
-      final height = screen.height / area.height;
-      size = min(width, height).clamp(kMinZoom, kMaxZoom);
-      position += Offset(
-        (area.width - screen.width / size) / 2,
-        (area.height - screen.height / size) / 2,
-      );
+  void teleportToArea(
+    Area area, [
+    Size? screen,
+    RenderResolution resolution = RenderResolution.performance,
+  ]) {
+    if (screen == null || area.width <= 0 || area.height <= 0) {
+      teleport(area.position.toOffset(), state.size);
+      return;
     }
+
+    final effectiveScreen = screen / resolution.multiplier;
+    final width = effectiveScreen.width / area.width;
+    final height = effectiveScreen.height / area.height;
+    final size = min(width, height).clamp(kMinZoom, kMaxZoom);
+    final position =
+        area.rect.center - effectiveScreen.center(Offset.zero) / size;
     teleport(position, size);
   }
 
-  void slide(Offset velocityPosition, double velocitySize) =>
-      emit(state.withFriction(velocityPosition, velocitySize));
+  void slide(
+    Offset velocityPosition,
+    double velocitySize, {
+    Rect? positionBounds,
+  }) => emit(
+    state.withFriction(
+      velocityPosition,
+      velocitySize,
+      positionBounds: positionBounds,
+    ),
+  );
 }

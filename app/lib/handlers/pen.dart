@@ -5,9 +5,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   bool _hideCursorWhileDrawing = false;
   // Map to store the PenElements.
   final Map<int, PenElement> elements = {};
+  final Map<int, List<PathPoint>> _elementPoints = {};
   final List<PenElement> _submittedElements = [];
-  // Map to store the starting positions of each element.
-  final Map<int, Offset> startPosition = {};
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
   // List for shapeDetection
@@ -31,12 +30,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     DocumentInfo info, [
     Area? currentArea,
   ]) => [...elements.values, ..._submittedElements]
-      .map((e) {
-        if (e.points.length > 1) {
-          return PenRenderer(e.copyWith(id: createUniqueId()));
-        }
-        return null;
-      })
+      .map(
+        (e) => e.points.length > 1
+            ? PenRenderer(e.copyWith(id: createUniqueId()))
+            : null,
+      )
       .whereType<Renderer>()
       .toList();
 
@@ -44,8 +42,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   @override
   void resetInput(DocumentBloc bloc) {
     submitElements(bloc, elements.keys.toList());
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
     elements.clear();
+    _elementPoints.clear();
     lastPosition.clear();
+    points.clear();
+    lastPosit = null;
   }
 
   // Handle the pointer release event.
@@ -64,8 +67,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       event.kind,
       refresh: false,
     );
+    lastPosition.remove(event.pointer);
     submitElements(context.getDocumentBloc(), [event.pointer]);
     points.clear();
+    lastPosit = null;
   }
 
   // Flag to check if elements are being submitted.
@@ -76,7 +81,14 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
     _bloc = bloc;
     final elements = indexes
-        .map((e) => this.elements.remove(e))
+        .map((e) {
+          final element = this.elements.remove(e);
+          final points = _elementPoints.remove(e);
+          if (element == null) return null;
+          return points == null
+              ? element
+              : element.copyWith(points: List<PathPoint>.of(points));
+        })
         .nonNulls
         .toList();
     if (elements.isEmpty) return;
@@ -84,6 +96,25 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     lastPosition.removeWhere((key, value) => indexes.contains(key));
     bloc.add(ElementsCreated(elements));
     bloc.refresh(allowBake: false);
+  }
+
+  @override
+  bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) {
+    if (_submittedElements.isEmpty) return false;
+    final createdIds = renderers
+        .map((renderer) => renderer.element)
+        .whereType<PenElement>()
+        .map((element) => element.id)
+        .nonNulls
+        .toSet();
+    if (createdIds.isEmpty) return false;
+    final previousLength = _submittedElements.length;
+    _submittedElements.removeWhere((e) => createdIds.contains(e.id));
+    final changed = previousLength != _submittedElements.length;
+    if (changed && _submittedElements.isEmpty && elements.isEmpty) {
+      unawaited(_bloc?.delayedBake());
+    }
+    return changed;
   }
 
   @override
@@ -96,7 +127,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _currentlyBaking = true;
     _submittedElements.clear();
     await _bloc?.refresh(allowBake: false);
-    await _bloc?.delayedBake();
+    // If already started a new element, we don't bake yet
+    if (elements.isEmpty) {
+      await _bloc?.delayedBake();
+    }
     _currentlyBaking = false;
   }
 
@@ -124,7 +158,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
-    final penOnlyInput = settings.penOnlyInput;
+    final penOnlyInput = currentIndexCubit.effectivePenOnlyInput;
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
     if (penOnlyInput &&
@@ -138,40 +172,48 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     double zoom = data.zoomDependent ? transform.size : 1;
     final createNew = !elements.containsKey(pointer);
     if (createNew && !shouldCreate) return;
-    final element =
-        elements[pointer] ??
-        PenElement(
-          id: createUniqueId(),
-          zoom: transform.size,
-          collection: state.currentCollection,
-          property: data.property.copyWith(
-            strokeWidth: data.property.strokeWidth / zoom,
-          ),
-        );
-    final points = List<PathPoint>.from(element.points);
-    points.add(PathPoint.fromPoint(globalPos.toPoint(), pressure));
-    if (points.length == 2 && settings.ignorePressure == IgnorePressure.first) {
-      points[0] = points[0].copyWith(pressure: pressure);
+    final element = elements[pointer];
+    final point = PathPoint.fromPoint(globalPos.toPoint(), pressure);
+    if (element != null) {
+      final points = _elementPoints[pointer] ?? element.points.toList();
+      points.add(point);
+      if (points.length == 2 &&
+          settings.ignorePressure == IgnorePressure.first) {
+        points[0] = points[0].copyWith(pressure: pressure);
+      }
+      _elementPoints[pointer] = points;
+    } else {
+      final points = [point];
+      _elementPoints[pointer] = points;
+      elements[pointer] = PenElement(
+        id: createUniqueId(),
+        zoom: transform.size,
+        combineId: data.combinePaths ? data.id : null,
+        collection: state.currentCollection,
+        property: data.property.copyWith(
+          strokeWidth: data.property.strokeWidth / zoom,
+        ),
+        points: points,
+      );
     }
-    elements[pointer] = element.copyWith(points: points);
-    if (refresh) bloc.refresh();
+    if (refresh) bloc.refreshForegrounds();
   }
 
   // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    final cubit = context.getCurrentIndexCubit();
+    cubit.cancelDelayedBake();
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    final currentIndex = context.getCurrentIndex();
-    // Save initial position
-    startPosition[event.pointer] = event.localPosition;
-    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
-      context.refresh();
+      context.refreshForegrounds();
       return;
     }
     elements.remove(event.pointer);
+    _elementPoints.remove(event.pointer);
     addPoint(
       context.buildContext,
       event.pointer,
@@ -215,7 +257,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // show SnackBar with recognized shape
     ScaffoldMessenger.of(context.buildContext).showSnackBar(
       SnackBar(
-        width: MediaQuery.of(context.buildContext).size.width * 0.1,
+        width: MediaQuery.sizeOf(context.buildContext).width * 0.1,
         behavior: SnackBarBehavior.floating,
         content: Text(textAlign: TextAlign.center, recognizedShape),
         duration: const Duration(milliseconds: 300),
@@ -230,14 +272,18 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     Offset localPosition,
   ) {
     if (!data.shapeDetectionEnabled) return;
+    final element = elements[pointer];
+    if (element == null || points.length > 600 || points.isEmpty) {
+      return;
+    }
+
     final transform = context.getCameraTransform();
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
-    final element = elements[pointer];
     final state = context.getState();
     final currentCollection = state!.currentCollection;
 
-    if (recognized == null || points.length > 600 || element == null) {
+    if (recognized == null) {
       return;
     }
     PadElement? shapeElement;
@@ -266,7 +312,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const LineShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -311,7 +357,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const CircleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -343,7 +389,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const RectangleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -372,7 +418,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const TriangleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -392,17 +438,35 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
     elements.clear();
+    points.clear();
+    lastPosition.clear();
+    lastPosit = null;
     context.refresh();
   }
 
   @override
-  SRGBColor getColor() => data.property.color;
+  void dispose(DocumentBloc bloc) {
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
+    elements.clear();
+    _submittedElements.clear();
+    lastPosition.clear();
+    points.clear();
+    isDrawing = false;
+    lastPosit = null;
+    _bloc = null;
+  }
+
+  @override
+  SRGBColor getColor() => data.property.paint.previewColor;
 
   @override
   PenTool setColor(SRGBColor color) => data.copyWith(
     property: data.property.copyWith(
-      color: color.withValues(a: data.property.color.a),
+      paint: ElementPaint.solid(color: color.withValues(a: getColor().a)),
     ),
   );
 

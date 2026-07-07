@@ -106,6 +106,16 @@ class PenToolSelection extends ToolSelection<PenTool> {
               .toList(),
         ),
       ),
+      CheckboxListTile(
+        value: selected.first.combinePaths,
+        title: Text(AppLocalizations.of(context).combinePaths),
+        onChanged: (value) => update(
+          context,
+          selected
+              .map((e) => e.copyWith(combinePaths: value ?? false))
+              .toList(),
+        ),
+      ),
       const SizedBox(height: 16),
       _ShapeDetectionView(selected: selected, update: update),
       const SizedBox(height: 16),

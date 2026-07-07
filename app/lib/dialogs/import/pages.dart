@@ -9,10 +9,12 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../pages.dart';
+
 @immutable
 class PageDialogCallback {
   final List<int> pages;
-  final bool spreadToPages, createAreas, invert;
+  final bool spreadToPages, createAreas, createExportPreset, invert;
   final SRGBColor background;
   final String name;
 
@@ -20,23 +22,29 @@ class PageDialogCallback {
     this.pages,
     this.spreadToPages,
     this.createAreas,
+    this.createExportPreset,
     this.background,
     this.invert,
     this.name,
   );
 }
 
-class PagesDialog extends StatefulWidget {
+class ImportPagesDialog extends StatefulWidget {
   final List<ui.Image> pages;
-  const PagesDialog({super.key, required this.pages});
+  final String? name;
+
+  const ImportPagesDialog({super.key, required this.pages, this.name});
 
   @override
-  State<PagesDialog> createState() => _PagesDialogState();
+  State<ImportPagesDialog> createState() => _ImportPagesDialogState();
 }
 
-class _PagesDialogState extends State<PagesDialog> {
+class _ImportPagesDialogState extends State<ImportPagesDialog> {
   List<int> _selected = const [];
-  bool _spreadToPages = false, _createAreas = true, _invert = false;
+  bool _spreadToPages = false,
+      _createAreas = true,
+      _createExportPreset = true,
+      _invert = false;
   SRGBColor _background = BasicColors.whiteTransparent;
   String _name = '';
 
@@ -44,6 +52,7 @@ class _PagesDialogState extends State<PagesDialog> {
   void initState() {
     super.initState();
     _selected = List.generate(widget.pages.length, (i) => i);
+    _name = widget.name ?? '';
     final settings = context.read<SettingsCubit>().state;
     _spreadToPages = settings.spreadPages;
   }
@@ -71,6 +80,29 @@ class _PagesDialogState extends State<PagesDialog> {
                         widget.pages.length,
                         (i) => i,
                       ).toSet().difference(_selected.toSet()).toList();
+                    });
+                  },
+                ),
+                IconButton(
+                  tooltip: AppLocalizations.of(context).selectPages,
+                  icon: const PhosphorIcon(PhosphorIconsLight.listNumbers),
+                  onPressed: () async {
+                    final selected = await showDialog<List<String>>(
+                      context: context,
+                      builder: (context) => SelectPagesDialog(
+                        pages: List.generate(
+                          widget.pages.length,
+                          (index) => (
+                            AppLocalizations.of(context).pageIndex(index + 1),
+                            '$index',
+                          ),
+                        ),
+                        initialSelected: _selected.map((e) => '$e'),
+                      ),
+                    );
+                    if (selected == null) return;
+                    setState(() {
+                      _selected = selected.map(int.parse).toList()..sort();
                     });
                   },
                 ),
@@ -130,6 +162,11 @@ class _PagesDialogState extends State<PagesDialog> {
               title: Text(AppLocalizations.of(context).createAreas),
             ),
             SwitchListTile(
+              value: _createExportPreset,
+              onChanged: (value) => setState(() => _createExportPreset = value),
+              title: Text(AppLocalizations.of(context).presets),
+            ),
+            SwitchListTile(
               value: _spreadToPages,
               onChanged: (value) => setState(() => _spreadToPages = value),
               title: Text(AppLocalizations.of(context).spreadToPages),
@@ -178,6 +215,7 @@ class _PagesDialogState extends State<PagesDialog> {
                         _selected,
                         _spreadToPages,
                         _createAreas,
+                        _createExportPreset,
                         _background,
                         _invert,
                         _name,

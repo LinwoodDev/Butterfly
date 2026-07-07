@@ -4,7 +4,7 @@ title: Zone
 
 Les outils de zone permettent de créer, d'éditer et de supprimer des zones.
 
-Pour un aperçu dont les zones fonctionnent, voir [Zones](../areas).
+For an overview of how areas work, see [Areas](../../areas).
 
 ## Actions
 

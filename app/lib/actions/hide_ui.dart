@@ -1,18 +1,26 @@
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keybinder/keybinder.dart';
 
 class HideUIIntent extends Intent {
-  final BuildContext context;
-
-  const HideUIIntent(this.context);
+  const HideUIIntent();
 }
 
+const hideUIShortcut = ShortcutDefinition(
+  id: 'hide_ui',
+  intent: HideUIIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.f12),
+);
+
 class HideUIAction extends Action<HideUIIntent> {
-  HideUIAction();
+  final BuildContext context;
+
+  HideUIAction(this.context);
 
   @override
   void invoke(HideUIIntent intent) {
-    intent.context.read<CurrentIndexCubit>().toggleKeyboardHideUI();
+    context.read<CurrentIndexCubit>().toggleKeyboardHideUI();
   }
 }

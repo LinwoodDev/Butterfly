@@ -6,6 +6,20 @@ part of 'event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_InitialAreaDetails _$InitialAreaDetailsFromJson(Map json) =>
+    _InitialAreaDetails(
+      width: (json['width'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$InitialAreaDetailsToJson(_InitialAreaDetails instance) =>
+    <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
+      'name': instance.name,
+    };
+
 _PageAddedDetails _$PageAddedDetailsFromJson(Map json) => _PageAddedDetails(
   index: (json['index'] as num?)?.toInt(),
   page: json['page'] == null
@@ -13,6 +27,11 @@ _PageAddedDetails _$PageAddedDetailsFromJson(Map json) => _PageAddedDetails(
       : DocumentPage.fromJson(Map<String, dynamic>.from(json['page'] as Map)),
   addNumber: json['addNumber'] as bool? ?? true,
   name: json['name'] as String? ?? '',
+  initialArea: json['initialArea'] == null
+      ? null
+      : InitialAreaDetails.fromJson(
+          Map<String, dynamic>.from(json['initialArea'] as Map),
+        ),
 );
 
 Map<String, dynamic> _$PageAddedDetailsToJson(_PageAddedDetails instance) =>
@@ -21,6 +40,7 @@ Map<String, dynamic> _$PageAddedDetailsToJson(_PageAddedDetails instance) =>
       'page': instance.page?.toJson(),
       'addNumber': instance.addNumber,
       'name': instance.name,
+      'initialArea': instance.initialArea?.toJson(),
     };
 
 PagesAdded _$PagesAddedFromJson(Map json) => PagesAdded(
@@ -199,38 +219,48 @@ Map<String, dynamic> _$ToolCreatedToJson(ToolCreated instance) =>
     <String, dynamic>{'tool': instance.tool.toJson(), 'type': instance.$type};
 
 ToolsChanged _$ToolsChangedFromJson(Map json) => ToolsChanged(
-  (json['tools'] as Map).map(
-    (k, e) => MapEntry(
-      int.parse(k as String),
-      Tool.fromJson(Map<String, dynamic>.from(e as Map)),
-    ),
-  ),
+  (json['tools'] as List<dynamic>)
+      .map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ToolsChangedToJson(ToolsChanged instance) =>
     <String, dynamic>{
-      'tools': instance.tools.map((k, e) => MapEntry(k.toString(), e.toJson())),
+      'tools': instance.tools.map((e) => e.toJson()).toList(),
       'type': instance.$type,
     };
 
 ToolsRemoved _$ToolsRemovedFromJson(Map json) => ToolsRemoved(
-  (json['tools'] as List<dynamic>).map((e) => (e as num).toInt()).toList(),
+  (json['tools'] as List<dynamic>).map((e) => e as String).toList(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ToolsRemovedToJson(ToolsRemoved instance) =>
     <String, dynamic>{'tools': instance.tools, 'type': instance.$type};
 
+ToolsReplaced _$ToolsReplacedFromJson(Map json) => ToolsReplaced(
+  (json['tools'] as List<dynamic>)
+      .map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ToolsReplacedToJson(ToolsReplaced instance) =>
+    <String, dynamic>{
+      'tools': instance.tools.map((e) => e.toJson()).toList(),
+      'type': instance.$type,
+    };
+
 ToolReordered _$ToolReorderedFromJson(Map json) => ToolReordered(
-  (json['oldIndex'] as num).toInt(),
+  json['id'] as String,
   (json['newIndex'] as num).toInt(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ToolReorderedToJson(ToolReordered instance) =>
     <String, dynamic>{
-      'oldIndex': instance.oldIndex,
+      'id': instance.id,
       'newIndex': instance.newIndex,
       'type': instance.$type,
     };
@@ -423,7 +453,7 @@ Map<String, dynamic> _$ElementsCollectionChangedToJson(
 
 AreasCreated _$AreasCreatedFromJson(Map json) => AreasCreated(
   (json['areas'] as List<dynamic>)
-      .map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+      .map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
       .toList(),
   $type: json['type'] as String?,
 );
@@ -434,24 +464,44 @@ Map<String, dynamic> _$AreasCreatedToJson(AreasCreated instance) =>
       'type': instance.$type,
     };
 
+AreasDuplicated _$AreasDuplicatedFromJson(Map json) => AreasDuplicated(
+  Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+  (json['pages'] as List<dynamic>).map((e) => e as String).toList(),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$AreasDuplicatedToJson(AreasDuplicated instance) =>
+    <String, dynamic>{
+      'area': instance.area.toJson(),
+      'pages': instance.pages,
+      'type': instance.$type,
+    };
+
 AreasRemoved _$AreasRemovedFromJson(Map json) => AreasRemoved(
-  (json['areas'] as List<dynamic>).map((e) => e as String).toList(),
+  (json['areas'] as List<dynamic>)
+      .map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$AreasRemovedToJson(AreasRemoved instance) =>
-    <String, dynamic>{'areas': instance.areas, 'type': instance.$type};
+    <String, dynamic>{
+      'areas': instance.areas.map((e) => e.toJson()).toList(),
+      'type': instance.$type,
+    };
 
 AreaChanged _$AreaChangedFromJson(Map json) => AreaChanged(
   json['name'] as String,
   Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
-  $type: json['type'] as String?,
+  json['moveContents'] as bool? ?? false,
+  json['type'] as String?,
 );
 
 Map<String, dynamic> _$AreaChangedToJson(AreaChanged instance) =>
     <String, dynamic>{
       'name': instance.name,
       'area': instance.area.toJson(),
+      'moveContents': instance.moveContents,
       'type': instance.$type,
     };
 
@@ -632,6 +682,19 @@ Map<String, dynamic> _$ElementsLayerConvertedToJson(
   'name': instance.name,
   'type': instance.$type,
 };
+
+ElementsLayerMoved _$ElementsLayerMovedFromJson(Map json) => ElementsLayerMoved(
+  (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+  json['layerId'] as String,
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ElementsLayerMovedToJson(ElementsLayerMoved instance) =>
+    <String, dynamic>{
+      'elements': instance.elements,
+      'layerId': instance.layerId,
+      'type': instance.$type,
+    };
 
 EncryptionChanged _$EncryptionChangedFromJson(Map json) => EncryptionChanged(
   json['password'] as String?,

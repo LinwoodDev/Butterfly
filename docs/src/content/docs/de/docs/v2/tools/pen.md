@@ -1,65 +1,65 @@
 ---
-title: Pen tool
+title: Stiftwerkzeug
 ---
 
-With this tool you can draw strokes on the infinite canvas!
+Mit diesem Werkzeug können Sie Striche auf der unendlichen Leinwand zeichnen!
 
-Strokes are the lines that you draw using the pen.
+Striche sind die Linien, die Sie mit dem Stift zeichnest.
 
-This tool has many properties, as you can make a highlighter using the pen tool!
+Dieses Werkzeug hat viele Eigenschaften, sodass Sie mit dem Stiftwerkzeug auch einen Textmarker erstellen können!
 
-## How to ~~Pen~~ Highlighter
+## So wird aus dem ~~Stift~~ ein Textmarker
 
-The pen tool can be used as a highlighter if you want!
+Das Stiftwerkzeug kann auf Wunsch als Textmarker verwendet werden!
 
-### Follow these steps or the video below
+### Folge diesen Schritten oder dem Video unten
 
-First, add a new pen tool into the toolbar
+Fügen Sie zuerst ein neues Stiftwerkzeug zur Symbolleiste hinzu
 
-1. Press the + button in the toolbar!
-2. Add a pen
-3. Hold the new pen icon to move it
-   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure the correct tool is activated for each input
+1. Drücke die +-Schaltfläche in der Symbolleiste!
+2. Stift hinzufügen
+3. Halte das neue Stiftsymbol gedrückt, um es zu verschieben
+   - Hinweis: Wenn Sie ein Werkzeug verschiebst, passe die Einstellungen im Tab „Verhalten“ an, damit für jede Eingabe das richtige Werkzeug aktiviert wird.
 
-Then, modify the new pen
+Ändern Sie anschließend den neuen Stift
 
-1. Open the properties panel of the new pen by pressing it again
-2. Rename the pen by double tapping the tool's name.
-3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
+1. Öffnen Sie das Eigenschaftenfeld des neuen Stifts, indem Sie erneut darauf drücken
+2. Benennen Sie den Stift um, indem Sie doppelt auf den Werkzeugnamen tippen.
+3. Nachdem Sie den Stift in Textmarker umbenannt haben, ändern Sie das Symbol passend zum Textmarker, indem Sie auf das Symbol drücken
 
-Finally, after modifying the tool's appearance. It's time to modify the properties!
+Schließlich, nachdem Sie das Aussehen des Werkzeugs angepasst haben. Jetzt ist es Zeit, die Eigenschaften anzupassen!
 
-1. Change the stroke width to a big number, for example, 50.
-   Highlighters have big strokes after all
-2. Set thinning to 0.  
-   Highlighters don't have variable stroke width.
-3. Also set the smoothing to 0.  
-   Smoothing is something that highlighters never make.
-4. Set the streamline to MAX (1)  
-   to make the highlighter's strokes look more like lines :]
-5. Change the alpha to 50 or similar,  
-   this makes sure the strokes under the highlighting are visible.
+1. Ändern Sie die Strichbreite auf eine große Zahl, zum Beispiel 50.
+   Textmarker haben schließlich breite Striche
+2. Setze die Ausdünnung auf 0.  
+   Textmarker haben keine variable Strichbreite.
+3. Setze auch die Glättung auf 0.  
+   Glättung ist nichts, was Textmarker verwenden.
+4. Setze die Glättung auf MAX (1),  
+   damit die Striche des Textmarkers eher wie Linien aussehen :]
+5. Setze den Alpha-Wert auf 50 oder ähnlich,  
+   damit die Striche unter der Hervorhebung sichtbar bleiben.
 
-### This video demonstrates how to apply the guide above
+### Dieses Video zeigt, wie Sie die obige Anleitung anwendest
 
 <video controls width="600">
   <source src="/vid/How2Highlighter.mp4" type="video/mp4" />
   
-  Your browser does not support the video tag.
+  Ihr Browser unterstützt das Video-Tag nicht.
 </video>
 
-**Congratulations, you now have a highlighter!**
+**Glückwunsch, Sie haben jetzt einen Textmarker!**
 
 ## Konfiguration
 
-|        Objekt |                                Standard                                | Beschreibung                                                                                                                            |
-| ------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|         Farbe |                                 Schwarz                                | Die Farbe, die gezeichnet wird                                                                                                          |
-|  Strichbreite |                                    5                                   | Die Breite des Strichs                                                                                                                  |
-|  Zoomabhängig |                                 falsch                                 | Dies ändert die Pinselbreite basierend auf der Zoomstufe.                                                               |
-| Formerkennung | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
-|      Dünnheit |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
-|      Glättung |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
-|    Streamline |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
-|         Farbe |                                 Schwarz                                | Die Farbe, die gezeichnet wird                                                                                                          |
-|        Füllen |                               Transparent                              | The color that will be drawn inside the shape                                                                                           |
+|        Objekt |                            Standard                           | Beschreibung                                                                                                                                                   |
+| ------------: | :-----------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|         Farbe |                            Schwarz                            | Die Farbe, die gezeichnet wird                                                                                                                                 |
+|  Strichbreite |                               5                               | Die Breite des Strichs                                                                                                                                         |
+|  Zoomabhängig |                             falsch                            | Dies ändert die Pinselbreite basierend auf der Zoomstufe.                                                                                      |
+| Formerkennung | false (Verzögerung: 0,5 s) | Dadurch wird versucht, Formen während des Zeichnens zu erkennen. Wenn eine Form erkannt wird, wird sie durch die Form ersetzt. |
+|    Ausdünnung |                      0.4                      | Dies ist der Einfluss des Drucks auf die Strichgröße                                                                                                           |
+|      Glättung |                      0.5                      | Dadurch werden die Kanten des Strichs geglättet.                                                                                               |
+|       Glätten |                      0.5                      | Wie stark der Stift der Mausbewegung folgt.                                                                                                    |
+|         Farbe |                            Schwarz                            | Die Farbe, die gezeichnet wird                                                                                                                                 |
+|        Füllen |                          Transparent                          | Die Farbe, die innerhalb der Form gezeichnet wird.                                                                                             |

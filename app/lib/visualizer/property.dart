@@ -22,3 +22,39 @@ extension PathShapeVisualizer on PathShape {
     };
   }
 }
+
+extension StrokeStyleVisualizer on StrokeStyle {
+  String getLocalizedName(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    return switch (this) {
+      StrokeStyle.solid => loc.solid,
+      StrokeStyle.dotted => loc.dotted,
+    };
+  }
+
+  IconGetter get icon => switch (this) {
+    StrokeStyle.solid => PhosphorIcons.minus,
+    StrokeStyle.dotted => PhosphorIcons.dotsSix,
+  };
+}
+
+extension HitElementModeVisualizer on HitElementMode {
+  String getLocalizedName(BuildContext context, {required bool isEraser}) {
+    final loc = AppLocalizations.of(context);
+    if (isEraser) {
+      return switch (this) {
+        HitElementMode.none => loc.eraseShapeModeNone,
+        HitElementMode.touchEdges => loc.eraseShapeModeTouchEdges,
+        HitElementMode.touchAnywhere => loc.eraseShapeModeTouchAnywhere,
+        _ => loc.notSet, // this shouldn't happen
+      };
+    } else {
+      return switch (this) {
+        HitElementMode.full => loc.fullSelection,
+        HitElementMode.touchEdges => loc.selectElementModeTouchEdges,
+        HitElementMode.touchAnywhere => loc.selectElementModeTouchAnywhere,
+        _ => loc.notSet, // this shouldn't happen
+      };
+    }
+  }
+}

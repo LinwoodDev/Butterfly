@@ -10,6 +10,11 @@
   "lightTheme": "लाइट थीम",
   "systemTheme": "सिस्टम की डिफ़ॉल्ट थीम का उपयोग करें",
   "view": "देखें",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "ज़ूम आउट करें",
   "resetZoom": "ज़ूम रीसेट करें",
   "strokeWidth": "स्ट्रोक की चौड़ाई",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "इरेज़र शामिल करें?",
   "thinning": "पतलापन",
   "pen": "पेन",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "पथ इरेज़र",
+  "stroke": "Stroke",
   "label": "लेबल",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "पृष्ठभूमि",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "बॉक्स",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "डिफ़ॉल्ट पैलेट",
   "highlighter": "हाइलाइटर",
+  "combinePaths": "Combine paths",
   "add": "जोड़ें",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "ठोस",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "दोहरा",
   "dotted": "बिंदीदार",
+  "dottedDark": "Dotted dark",
   "dashed": "डैशयुक्त",
   "wavy": "लहरदार",
   "fontWeight": "फ़ॉन्ट का वज़न",
@@ -215,6 +236,9 @@
   },
   "behaviors": "व्यवहार",
   "dataDirectory": "डेटा डायरेक्टरी",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "डिफ़ॉल्ट पथ",
   "dateFormat": "दिनांक प्रारूप",
   "updatedAt": "इस पर अपडेट किया गया: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "सेट नहीं है",
   "enterLayer": "लेयर का नाम दर्ज करें",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "तत्व चुनें",
   "deleteElements": "तत्व हटाएं",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "क्या आप वाकई चयनित तत्वों को हटाना चाहते हैं?",
   "selectCustomCollection": "एक कस्टम संग्रह चुनें",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "डार्क",
-  "plainDark": "डार्क",
+  "plainDark": "Plain dark",
   "ruledDark": "रेखित डार्क",
   "quadDark": "क्वाड डार्क",
   "musicDark": "संगीत डार्क",
@@ -545,6 +576,7 @@
   "topRight": "ऊपर दाएँ",
   "bottomLeft": "नीचे बाएँ",
   "bottomRight": "नीचे दाएँ",
+  "zoomPosition": "Zoom control position",
   "caches": "कैश",
   "manage": "प्रबंधित करें",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "फ़ोल्डर सिंक हो गया",
   "syncRootDirectory": "रूट डायरेक्टरी सिंक करें",
   "penOnlyInput": "केवल पेन इनपुट",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "इनपुट जेस्चर",
   "nativeTitleBar": "नेटिव टाइटल बार",
+  "mode": "Mode",
   "syncMode": "सिंक मोड",
   "connection": "कनेक्शन",
   "always": "हमेशा",
@@ -893,6 +939,7 @@
   "bringForward": "आगे लाएं",
   "sendBackward": "पीछे भेजें",
   "rotation": "घूर्णन",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "केवल बड़ी स्क्रीन पर उपलब्ध है",
   "toolbarPosition": "टूलबार की स्थिति",
   "rotate": "घुमाएं",
@@ -919,6 +966,9 @@
   "ascending": "आरोही",
   "descending": "अवरोही",
   "imageScale": "छवि स्केल",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "चुनें",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF गुणवत्ता",
   "surface": "सतह",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "फिर भी जारी रखें",
   "zoomControl": "ज़ूम नियंत्रण",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "उच्च कंट्रास्ट",
   "shouldANumber": "यह मान एक मान्य संख्या होनी चाहिए",
   "createAreas": "क्षेत्र बनाएं",
@@ -1081,6 +1134,8 @@
   "addAll": "सभी जोड़ें",
   "onlyCurrentPage": "केवल वर्तमान पेज",
   "smoothNavigation": "सहज नेविगेशन",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "सटीक",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "संग्रह बदलें",
   "collections": "संग्रह",
   "fullSelection": "पूर्ण चयन",
-  "fullSelectionDescription": "चयन के लिए तत्वों को पूरी तरह से चयन बॉक्स के भीतर होना आवश्यक है।",
   "collection": "संग्रह",
   "defaultCollection": "डिफ़ॉल्ट संग्रह",
   "scroll": "स्क्रॉल",
@@ -1123,7 +1177,8 @@
   "homeScreen": "होम स्क्रीन",
   "lastNote": "अंतिम नोट",
   "newNote": "नया नोट",
-  "convertToLayer": "लेयर में बदलें",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "विलय करें",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "स्थिति पर निर्भर",
   "flipHorizontal": "क्षैतिज रूप से पलटें",
   "flipVertical": "लंबवत रूप से पलटें",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

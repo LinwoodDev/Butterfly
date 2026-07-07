@@ -1,10 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:butterfly_api/butterfly_api.dart';
-import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../converter/color.dart';
+import '../converter/core.dart';
+import 'data.dart';
+import 'element.dart';
+import 'tool.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
@@ -72,6 +76,16 @@ sealed class ButterflyParameter with _$ButterflyParameter {
 
   factory ButterflyParameter.fromJson(Map<String, dynamic> json) =>
       _$ButterflyParameterFromJson(json);
+}
+
+@freezed
+sealed class Toolbar extends PackAsset with _$Toolbar {
+  const Toolbar._();
+
+  const factory Toolbar({@Default([]) List<Tool> tools}) = _Toolbar;
+
+  factory Toolbar.fromJson(Map<String, dynamic> json) =>
+      _$ToolbarFromJson(json);
 }
 
 @freezed

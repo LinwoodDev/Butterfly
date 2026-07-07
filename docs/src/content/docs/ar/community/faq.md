@@ -23,6 +23,8 @@ title: الأسئلة المتكررة
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 أنا أستخدم المدخل الذي يوفره إطار التردد.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -35,7 +37,7 @@ This is the issue to track it: [flutter/flutter#42846](https://github.com/flutte
 
 وهذا يتيح لـ باترفلاي التحديث بشكل أسرع والاستجابة بشكل أفضل.
 
-إذا لم تساعد هذه الخطوات، يرجى عدم التردد في تقديم الشكوى في ديسكورد أو ماتركس أو في جيت هب.
+If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
 
 ### يتم إعادة تشغيل باترفلاي في الخلفية
 
@@ -58,9 +60,10 @@ This is the issue to track it: [flutter/flutter#42846](https://github.com/flutte
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
+
 أنا أستخدم المدخل الذي يوفره إطار التردد.
 هناك بالفعل مشاكل لتعقبها:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) و [flutter#102836](https://github.com/flutter/flutter/issues/102836).
 لينوكس: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 وهذه المسائل قديمة إلى حد ما. يجب أن تعمل نسخة الويب بشكل جيد في الوقت الحالي.

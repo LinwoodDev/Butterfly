@@ -30,6 +30,7 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
       state.page,
       state.info,
       ImageExportOptions(width: 1, height: 1, x: globalPos.dx, y: globalPos.dy),
+      docState: state,
     );
     if (data == null) return;
     final image = img.decodePng(data.buffer.asUint8List());

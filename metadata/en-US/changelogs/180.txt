@@ -1,0 +1,14 @@
+* Add a not synced filter to the sync dialog ([#1087](https://github.com/LinwoodDev/Butterfly/issues/1087))
+* Fix nested synced file discovery
+* Fix cached folders showing cache loading forever ([#1087](https://github.com/LinwoodDev/Butterfly/issues/1087))
+* Fix spacer tool not affecting circle shapes correctly
+* Fix shape type dropdowns keeping the first opened shape selected
+* Fix shape tools only drawing constrained shapes from top left to bottom right
+* Fix rectangular selection only working reliably from top left to bottom right
+* Fix drawing, erasing, and undo/redo lag on large documents
+* Fix PDF pages failing to render after switching pages or retrying failed PDF loads
+* Fix exporting cached remote files while offline ([#1085](https://github.com/LinwoodDev/Butterfly/issues/1085))
+* Fix major memory leak when opening and closing documents with many pages
+* Fix file list not refreshing after changing show thumbnails setting
+
+Read more here: https://linwood.dev/butterfly/2.5.2-rc.2

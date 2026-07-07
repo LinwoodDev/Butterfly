@@ -9,6 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 const cornerSize = 40.0;
 const visibleSize = cornerSize / 2.5;
+const _targetTransformSpacing = cornerSize * 2;
+const _rotationButtonDistance = cornerSize * 1.5;
 
 class LassoSelectionForegroundRenderer extends Renderer<List<Offset>> {
   final ColorScheme scheme;
@@ -74,6 +76,15 @@ class RectSelectionForegroundManager {
     _corner = getCornerHit(_currentPosition!, scale, sensitivity);
   }
 
+  Rect getHitRect(double scale, double sensitivity) {
+    final targetSize = cornerSize / scale * sensitivity;
+    return Rect.fromCenter(
+      center: _selection.center,
+      width: max(_selection.width, targetSize),
+      height: max(_selection.height, targetSize),
+    );
+  }
+
   void reset() {
     resetTransform();
     _scaleMode = SelectionScaleMode.scale;
@@ -98,19 +109,29 @@ class RectSelectionForegroundManager {
     double sensitivity,
   ) {
     if (!isValid) return null;
-    final hits = SelectionTransformCorner.values.where((element) {
-      final corner = element.getFromRect(_selection);
-      if (element == SelectionTransformCorner.center && !enableRotation) {
+    final hits = SelectionTransformCorner.values.where((corner) {
+      final cornerPosition = corner.getFromRect(_selection, scale: scale);
+      if (corner == SelectionTransformCorner.center && !enableRotation) {
         return false;
       }
       return Rect.fromCenter(
-        center: corner,
+        center: cornerPosition,
         width: cornerSize / scale * sensitivity,
         height: cornerSize / scale * sensitivity,
       ).contains(position);
     }).toList();
+    if (hits.isEmpty) return null;
     if (hits.length == SelectionTransformCorner.values.length) return null;
-    return hits.firstOrNull;
+    double distance(SelectionTransformCorner corner) {
+      final cornerPosition = corner.getFromRect(_selection, scale: scale);
+      final delta = cornerPosition - position;
+      return delta.dx * delta.dx + delta.dy * delta.dy;
+    }
+
+    return hits.reduce(
+      (closest, corner) =>
+          distance(corner) < distance(closest) ? corner : closest,
+    );
   }
 
   void toggleTransformMode() =>
@@ -119,13 +140,17 @@ class RectSelectionForegroundManager {
       : SelectionScaleMode.scale);
 
   bool shouldTransform(Offset position, double scale, double sensitivity) {
-    return _selection.contains(position) ||
+    if (!isValid) return false;
+    return getHitRect(scale, sensitivity).contains(position) ||
         getCornerHit(position, scale, sensitivity) != null;
   }
 
   bool startTransform(Offset position, double scale, double sensitivity) {
+    if (!isValid) return false;
     final hit = getCornerHit(position, scale, sensitivity);
-    if (!_selection.contains(position) && hit == null) return false;
+    if (!getHitRect(scale, sensitivity).contains(position) && hit == null) {
+      return false;
+    }
     _startPosition = position;
     _currentPosition = position;
     _corner = hit;
@@ -270,7 +295,13 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (element.isEmpty || isTransforming) return;
+    final rect = Rect.fromLTRB(
+      min(element.left, element.right),
+      min(element.top, element.bottom),
+      max(element.left, element.right),
+      max(element.top, element.bottom),
+    );
+    if (rect.isEmpty || isTransforming) return;
     final paint = Paint()
       ..color = colorScheme?.primaryContainer ?? Colors.blueAccent
       ..style = PaintingStyle.stroke
@@ -278,12 +309,16 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
-    canvas.drawRect(element, paint);
+    canvas.drawRect(rect, paint);
     if (transformMode == null) return;
+    final realSize = visibleSize / transform.size;
     if (enableRotation) {
       canvas.drawLine(
         element.topCenter,
-        SelectionTransformCorner.center.getFromRect(element),
+        SelectionTransformCorner.center.getFromRect(
+          element,
+          scale: transform.size,
+        ),
         paint,
       );
     }
@@ -297,14 +332,12 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
-    final realSize = visibleSize / transform.size;
-    if (element.width < 2 * realSize || element.height < 2 * realSize) return;
     final showCenter =
         element.width > 3 * realSize && element.height > 3 * realSize;
     SelectionTransformCorner.values
         .where((element) => !element.isCenter() || showCenter)
         .forEach((corner) {
-          final position = corner.getFromRect(element);
+          final position = corner.getFromRect(element, scale: transform.size);
           if (corner == SelectionTransformCorner.center) {
             if (!enableRotation) return;
             canvas.drawCircle(
@@ -378,15 +411,53 @@ extension SelectionTransformCornerExtension on SelectionTransformCorner? {
     _ => false,
   };
 
-  Offset getFromRect(Rect rect) => switch (this) {
-    SelectionTransformCorner.topLeft => rect.topLeft,
-    SelectionTransformCorner.topCenter => rect.topCenter,
-    SelectionTransformCorner.topRight => rect.topRight,
-    SelectionTransformCorner.centerLeft => rect.centerLeft,
-    SelectionTransformCorner.centerRight => rect.centerRight,
-    SelectionTransformCorner.bottomLeft => rect.bottomLeft,
-    SelectionTransformCorner.bottomCenter => rect.bottomCenter,
-    SelectionTransformCorner.bottomRight => rect.bottomRight,
-    _ => rect.topCenter + const Offset(0, -100),
-  };
+  Offset getFromRect(Rect rect, {double? scale}) {
+    if (scale == null) {
+      return switch (this) {
+        SelectionTransformCorner.topLeft => rect.topLeft,
+        SelectionTransformCorner.topCenter => rect.topCenter,
+        SelectionTransformCorner.topRight => rect.topRight,
+        SelectionTransformCorner.centerLeft => rect.centerLeft,
+        SelectionTransformCorner.centerRight => rect.centerRight,
+        SelectionTransformCorner.bottomLeft => rect.bottomLeft,
+        SelectionTransformCorner.bottomCenter => rect.bottomCenter,
+        SelectionTransformCorner.bottomRight => rect.bottomRight,
+        _ => rect.topCenter + const Offset(0, -100),
+      };
+    }
+
+    final spacing = rect.transformHandleSpacing(scale);
+    final handlePosition = switch (this) {
+      SelectionTransformCorner.topLeft =>
+        rect.topLeft + Offset(-spacing.dx, -spacing.dy),
+      SelectionTransformCorner.topCenter =>
+        rect.topCenter + Offset(0, -spacing.dy),
+      SelectionTransformCorner.topRight =>
+        rect.topRight + Offset(spacing.dx, -spacing.dy),
+      SelectionTransformCorner.centerLeft =>
+        rect.centerLeft + Offset(-spacing.dx, 0),
+      SelectionTransformCorner.centerRight =>
+        rect.centerRight + Offset(spacing.dx, 0),
+      SelectionTransformCorner.bottomLeft =>
+        rect.bottomLeft + Offset(-spacing.dx, spacing.dy),
+      SelectionTransformCorner.bottomCenter =>
+        rect.bottomCenter + Offset(0, spacing.dy),
+      SelectionTransformCorner.bottomRight =>
+        rect.bottomRight + Offset(spacing.dx, spacing.dy),
+      _ =>
+        rect.topCenter +
+            Offset(0, -(_rotationButtonDistance / scale + spacing.dy)),
+    };
+    return handlePosition;
+  }
+}
+
+extension _TransformRectExtension on Rect {
+  Offset transformHandleSpacing(double scale) {
+    final targetSpacing = _targetTransformSpacing / scale;
+    return Offset(
+      max(0, (targetSpacing - width) / 2),
+      max(0, (targetSpacing - height) / 2),
+    );
+  }
 }

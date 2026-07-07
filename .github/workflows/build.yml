@@ -25,7 +25,11 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.21.0
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
@@ -33,7 +37,6 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
@@ -66,12 +69,12 @@ jobs:
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-build
           path: app/linwood-butterfly-android.apk
       - name: Archive (legacy)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-build-legacy
           path: app/linwood-butterfly-android-legacy.apk
@@ -104,37 +107,47 @@ jobs:
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64-legacy.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-arm-build
           path: app/linwood-butterfly-android-arm.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-arm64-build
           path: app/linwood-butterfly-android-arm64.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-x86_64-build
           path: app/linwood-butterfly-android-x86_64.apk
       - name: Archive (legacy arm)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-arm-build-legacy
           path: app/linwood-butterfly-android-arm-legacy.apk
       - name: Archive (legacy arm64)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-arm64-build-legacy
           path: app/linwood-butterfly-android-arm64-legacy.apk
       - name: Archive (legacy x86_64)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: apk-x86_64-build-legacy
           path: app/linwood-butterfly-android-x86_64-legacy.apk
   build-windows:
-    runs-on: windows-2025
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - image: windows-2025
+            name: x86_64
+            dir: x64
+          - image: windows-11-arm
+            name: arm64
+            dir: arm64
+    runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
         working-directory: app
@@ -145,17 +158,23 @@ jobs:
         run: |
           choco install yq
           choco install innosetup
-      - uses: subosito/flutter-action@v2.21.0
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
+          channel: "master"
           cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
           flutter clean
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
@@ -169,24 +188,23 @@ jobs:
         shell: pwsh
         run: |
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
-        # flutter pub run msix:create
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION /DMyAppArch=${{ matrix.arch.dir }} ButterflySetup.iss
       - name: Copy portable start script
         run: |
-          cp scripts/start.bat build/windows/x64/runner/Release/
-          cp build/windows/x64/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-x86_64.exe
+          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/runner/Release/
+          cp build/windows/${{ matrix.arch.dir }}/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
-          name: windows-build
+          name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/x64/runner/Release/**
+            app/build/windows/${{ matrix.arch.dir }}/runner/Release/**
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
-          name: windows-setup
+          name: windows-${{ matrix.arch.name }}-setup
           path: |
-            app/linwood-butterfly-windows-setup-x86_64.exe
+            app/linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
   build-msix:
     name: build-msix
     runs-on: windows-2025
@@ -196,7 +214,11 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
@@ -204,13 +226,12 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build MSIX
         run: |
           dart run msix:create
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: msix-build
           path: app/build/windows/x64/runner/Release/butterfly.msix
@@ -266,7 +287,11 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
-      - uses: subosito/flutter-action@v2.21.0
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           channel: "master"
@@ -281,7 +306,6 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
@@ -326,7 +350,11 @@ jobs:
           ln -s usr/bin/butterfly AppDir/AppRun
           ln -s usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png AppDir/dev.linwood.butterfly.png
           # Build AppImage
-          ./appimagetool.AppImage AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
+          UPDATE_INFO="gh-releases-zsync|LinwoodDev|butterfly|stable|linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync"
+          if [[ "${{ github.ref }}" == "refs/tags/nightly" ]]; then
+            UPDATE_INFO="gh-releases-zsync|LinwoodDev|butterfly|nightly|linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync"
+          fi
+          ./appimagetool.AppImage -u "$UPDATE_INFO" AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
@@ -337,29 +365,30 @@ jobs:
           chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/release/bundle
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-build
           path: |
             app/build/linux/${{ matrix.arch.dir }}/release/bundle/**
       - name: Archive .deb
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-deb
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Archive .rpm
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-rpm
           path: |
             app/build/linwood-butterfly-linux-${{ matrix.arch.name }}.rpm
       - name: Archive .AppImage
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-appimage
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync
   build-snap:
     name: build-snap
     strategy:
@@ -385,6 +414,7 @@ jobs:
       - uses: snapcore/action-build@v1
         id: build
       - uses: snapcore/action-publish@v1
+        continue-on-error: true
         name: Publish Snap to Store
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
         env:
@@ -392,19 +422,23 @@ jobs:
         with:
           snap: ${{ steps.build.outputs.snap }}
           release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-snap
           path: ${{ steps.build.outputs.snap }}
   build-macos:
-    runs-on: macos-14
+    runs-on: macos-26
     defaults:
       run:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v6
@@ -416,7 +450,6 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build
         run: |
@@ -427,7 +460,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 26
       - name: Install appdmg
         run: |
           python3 -m pip install setuptools
@@ -436,13 +469,13 @@ jobs:
         run: |
           appdmg DmgSetup.json linwood-butterfly-macos.dmg
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: macos-build
           path: |
             app/build/macos/Build/Products/Release/linwood-butterfly-macos.zip
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: macos-dmg
           path: |
@@ -450,14 +483,18 @@ jobs:
 
   build-ipa:
     name: build-ipa (iOS)
-    runs-on: macos-14
+    runs-on: macos-26
     defaults:
       run:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2.21.0
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           #cache: true
@@ -465,7 +502,6 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build
         run: |
@@ -480,7 +516,7 @@ jobs:
           zip -vr linwood-butterfly-ios.ipa Payload/
       #          ls -l linwood-butterfly-ios.ipa
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: ipa-build
           path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
@@ -506,16 +542,16 @@ jobs:
       - name: Log Docker tag
         run: echo "Docker tag is ${{ env.tag }}"
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         if: ${{ env.tag != 'unknown' }}
         with:
           context: .
@@ -554,102 +590,111 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-arm-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-arm64-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-x86_64-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-arm-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-arm64-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: apk-x86_64-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
-          name: windows-build
-          path: windows-build/
-      - uses: actions/download-artifact@v6
+          name: windows-arm64-build
+          path: windows-arm64-build/
+      - uses: actions/download-artifact@v8
+        with:
+          name: windows-x86_64-build
+          path: windows-x86_64-build/
+      - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-build
           path: linux-x86_64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-build
           path: linux-arm64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-x86_64-build
           path: linux-alternative-x86_64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-x86_64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-x86_64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-x86_64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-arm64-build
           path: linux-alternative-arm64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-arm64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-arm64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: linux-alternative-arm64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
-          name: windows-setup
-      - uses: actions/download-artifact@v6
+          name: windows-x86_64-setup
+      - uses: actions/download-artifact@v8
+        with:
+          name: windows-arm64-setup
+      - uses: actions/download-artifact@v8
         with:
           name: macos-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: macos-dmg
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v8
         with:
           name: ipa-build
       - name: 📦 Zip artifacts
         run: |
-          cd windows-build
+          cd windows-x86_64-build
           zip -r ../linwood-butterfly-windows-x86_64.zip *
+          cd ../windows-arm64-build
+          zip -r ../linwood-butterfly-windows-arm64.zip *
           cd ..
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
@@ -681,7 +726,7 @@ jobs:
           echo "SHA256 hashes for files starting with 'linwood-butterfly' saved to $output_file"
       - name: 🚀 Deploy stable
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         continue-on-error: true
         with:
           prerelease: true
@@ -689,22 +734,28 @@ jobs:
           files: |
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-windows-setup-arm64.exe
+            linwood-butterfly-windows-arm64.zip
             linwood-butterfly-linux-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-x86_64.AppImage.zsync
             linwood-butterfly-linux-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.deb
             linwood-butterfly-linux-alternative-x86_64.rpm
             linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-alternative-arm64.deb
             linwood-butterfly-linux-alternative-arm64.rpm
             linwood-butterfly-linux-alternative-arm64.AppImage
+            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -721,7 +772,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
         if: ${{ github.ref == 'refs/tags/nightly' }}
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         continue-on-error: true
         with:
           prerelease: true
@@ -729,22 +780,28 @@ jobs:
           files: |
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-windows-setup-arm64.exe
+            linwood-butterfly-windows-arm64.zip
             linwood-butterfly-linux-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-x86_64.AppImage.zsync
             linwood-butterfly-linux-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.deb
             linwood-butterfly-linux-alternative-x86_64.rpm
             linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-alternative-arm64.deb
             linwood-butterfly-linux-alternative-arm64.rpm
             linwood-butterfly-linux-alternative-arm64.AppImage
+            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -760,29 +817,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         continue-on-error: true
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-windows-setup-arm64.exe
+            linwood-butterfly-windows-arm64.zip
             linwood-butterfly-linux-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-x86_64.AppImage.zsync
             linwood-butterfly-linux-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.deb
             linwood-butterfly-linux-alternative-x86_64.rpm
             linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-alternative-arm64.deb
             linwood-butterfly-linux-alternative-arm64.rpm
             linwood-butterfly-linux-alternative-arm64.AppImage
+            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -830,19 +893,18 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.21.0
+      - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
       - name: 📦 Get dependencies
         run: |
           flutter pub get
-          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.7"
+          ruby-version: "4.0.5"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

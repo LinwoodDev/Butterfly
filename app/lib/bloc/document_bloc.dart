@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
+import 'dart:math';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/async.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -59,7 +60,8 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   ReceivePort? port;
   StreamSubscription? subscription;
   try {
-    if (kIsWeb) {
+    final hasHeavyElements = elements.any((e) => e is SourcedElement);
+    if (kIsWeb || !hasHeavyElements) {
       return importAssets((
         data,
         elements,
@@ -89,26 +91,112 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   }
 }
 
+List<Renderer<PadElement>> orderRenderersByPage(
+  DocumentPage page,
+  Iterable<Renderer<PadElement>> renderers,
+) {
+  final renderersById = {
+    for (final renderer in renderers)
+      if (renderer.element.id != null)
+        (renderer.element.id, renderer.layer): renderer,
+  };
+  return page.layers
+      .expand(
+        (layer) => layer.content.map(
+          (element) => renderersById[(element.id, layer.id)],
+        ),
+      )
+      .nonNulls
+      .toList();
+}
+
+Selection? _updateSelection(
+  Selection? selection,
+  dynamic oldElement,
+  dynamic newElement,
+) {
+  var newSelection = selection?.remove(oldElement);
+  if (newSelection != selection && selection != null) {
+    if (newSelection == null) {
+      newSelection = Selection.from(newElement);
+    } else {
+      newSelection = newSelection.insert(newElement);
+    }
+  }
+  return newSelection;
+}
+
+String getInitialArea(DocumentPage? page) {
+  return page?.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '';
+}
+
+Area _createDuplicatedArea(Area area, List<Area> existingAreas) {
+  final baseName = area.name.isEmpty ? 'Area' : area.name;
+  final existingNames = existingAreas.map((e) => e.name).toSet();
+  var name = baseName;
+  var count = 1;
+  while (existingNames.contains(name)) {
+    name = '$baseName (${count++})';
+  }
+  return area.copyWith(name: name);
+}
+
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
-  DocumentBloc(
+  final _historyReloadRunner = CoalescedAsyncRunner(
+    delay: const Duration(milliseconds: 50),
+  );
+  CurrentIndexCubit? _currentIndexCubit;
+  AssetService? _assetService;
+
+  CurrentIndexCubit get currentIndexCubit => _currentIndexCubit!;
+  TransformCubit get transformCubit => currentIndexCubit.transformCubit;
+  NetworkingService? get networkingService =>
+      _currentIndexCubit?.networkingService;
+  Embedding? get embedding => _currentIndexCubit?.state.embedding;
+
+  factory DocumentBloc(
     ButterflyFileSystem fileSystem,
     CurrentIndexCubit currentIndexCubit,
     WindowCubit windowCubit,
     NoteData initial,
-    AssetLocation location,
-    List<Renderer<PadElement>> renderer, [
+    AssetLocation location, [
     AssetService? assetService,
     DocumentPage? page,
     String? pageName,
     bool absolute = false,
-  ]) : super(
+  ]) {
+    final resolvedAssetService = assetService ?? AssetService();
+    currentIndexCubit.setSaveState(location: location, absolute: absolute);
+    return DocumentBloc._(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      initial,
+      resolvedAssetService,
+      page,
+      pageName,
+      absolute,
+    );
+  }
+
+  DocumentBloc._(
+    ButterflyFileSystem fileSystem,
+    CurrentIndexCubit currentIndexCubit,
+    WindowCubit windowCubit,
+    NoteData initial,
+    AssetService assetService, [
+    DocumentPage? page,
+    String? pageName,
+    bool absolute = false,
+  ]) : _currentIndexCubit = currentIndexCubit,
+       _assetService = assetService,
+       super(
          DocumentLoadSuccess(
            initial,
            page: page,
            assetService: assetService,
            windowCubit: windowCubit,
-           currentIndexCubit: currentIndexCubit,
-           location: location,
+           absolute: absolute,
            fileSystem: fileSystem,
            pageName: pageName ?? initial.getPages(true).firstOrNull ?? '',
          ),
@@ -118,10 +206,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   DocumentBloc.error(
     ButterflyFileSystem fileSystem,
+    CurrentIndexCubit currentIndexCubit,
     WindowCubit windowCubit,
     String message, [
     StackTrace? stackTrace,
-  ]) : super(
+  ]) : _currentIndexCubit = currentIndexCubit,
+       _assetService = null,
+       super(
          DocumentLoadFailure(
            fileSystem: fileSystem,
            windowCubit: windowCubit,
@@ -132,8 +223,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   DocumentBloc.placeholder(
     ButterflyFileSystem fileSystem,
+    CurrentIndexCubit currentIndexCubit,
     WindowCubit windowCubit,
-  ) : super(
+  ) : _currentIndexCubit = currentIndexCubit,
+      _assetService = null,
+      super(
         DocumentLoadFailure(
           fileSystem: fileSystem,
           windowCubit: windowCubit,
@@ -146,12 +240,28 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       var data = current.data;
+      data = data.setPage(current.page, current.pageName).$1;
       Map<String, String> imported = {};
       String? pageName;
       DocumentPage? page;
       for (final details in event.pages) {
+        final initialArea = details.initialArea;
         page =
-            details.page ?? DocumentPage(backgrounds: current.page.backgrounds);
+            details.page ??
+            DocumentPage(
+              backgrounds: current.page.backgrounds,
+              areas: initialArea != null
+                  ? [
+                      Area(
+                        name: initialArea.name,
+                        width: initialArea.width,
+                        height: initialArea.height,
+                        position: const Point(0, 0),
+                        isInitial: true,
+                      ),
+                    ]
+                  : const [],
+            );
         final layers = await Future.wait(
           page.layers.map((layer) async {
             List<PadElement> elements;
@@ -172,26 +282,31 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           addNumber: details.addNumber,
         );
       }
-      data = data.setPage(current.page, current.pageName).$1;
       _saveState(
         emit,
-        state: current.copyWith(data: data, page: page, pageName: pageName),
+        state: current.copyWith(
+          data: data,
+          page: page,
+          pageName: pageName,
+          currentAreaName: getInitialArea(page),
+        ),
         reset: true,
       );
     });
-    on<PageChanged>((event, emit) {
+    on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       current.assetService.dispose();
       final data = current.data.setPage(current.page, current.pageName).$1;
       final page = data.getPage(event.pageName);
       if (page == null) return;
-      _saveState(
+      await _saveState(
         emit,
         state: current.copyWith(
           page: page,
           data: data,
           pageName: event.pageName,
+          currentAreaName: getInitialArea(page),
         ),
         reset: true,
       );
@@ -199,8 +314,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final newData = current.data.reorderPage(event.page, event.newIndex);
-      _saveState(emit, state: current.copyWith(data: newData));
+      var newPageName = current.pageName;
+      final newData = current.data.reorderPage(event.page, event.newIndex, (
+        oldName,
+        newName,
+      ) {
+        if (newPageName == oldName) {
+          newPageName = newName;
+        }
+      });
+      _saveState(
+        emit,
+        state: current.copyWith(data: newData, pageName: newPageName),
+      );
     });
     on<PageRenamed>((event, emit) {
       final current = state;
@@ -209,16 +335,51 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         event.oldName,
         event.newName,
       );
+      final updatedCurrentPageName = current.pageName == event.oldName
+          ? newPageName
+          : current.pageName;
       _saveState(
         emit,
-        state: current.copyWith(data: newData, pageName: newPageName),
+        state: current.copyWith(
+          data: newData,
+          pageName: updatedCurrentPageName,
+        ),
       );
     });
     on<PageRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final newData = current.data.removePage(event.page);
-      _saveState(emit, state: current.copyWith(data: newData));
+
+      String newPageName = current.pageName;
+      DocumentPage? newPage = current.page;
+      String? currentAreaName = current.currentAreaName;
+      bool pageChanged = false;
+
+      if (current.pageName == event.page) {
+        pageChanged = true;
+        final remainingPages = newData.getPages(true);
+        if (remainingPages.isNotEmpty) {
+          newPageName = remainingPages.first;
+          newPage = newData.getPage(newPageName);
+          currentAreaName = getInitialArea(newPage);
+        } else {
+          newPageName = '';
+          newPage = DocumentPage();
+          currentAreaName = '';
+        }
+      }
+
+      _saveState(
+        emit,
+        state: current.copyWith(
+          data: newData,
+          pageName: newPageName,
+          page: newPage,
+          currentAreaName: currentAreaName,
+        ),
+        reset: pageChanged,
+      );
     });
     on<ThumbnailCaptured>((event, emit) {
       final current = state;
@@ -229,7 +390,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       final assetService = current.assetService;
       final (data, elements) = await importAssetsAsync(
         current.data,
@@ -252,26 +413,37 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ),
         ),
         addedElements: renderers,
-        shouldRefresh: () => current.currentIndexCubit
-            .getHandler()
-            .onRenderersCreated(current.page, renderers),
+        shouldRefresh: () => currentIndexCubit.getHandler().onRenderersCreated(
+          current.page,
+          renderers,
+        ),
       );
     });
-    on<ElementsChanged>((event, emit) {
+    on<ElementsChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      final cubit = current.currentIndexCubit;
+      if (!(embedding?.editable ?? true)) return;
+      final cubit = currentIndexCubit;
       final renderers = <Renderer<PadElement>>[];
       final selected = cubit.state.selection?.selected.toList();
       final page = current.page;
-      final oldRenderers = current.renderers;
-      final elements = event.elements.map(
-        (key, value) => MapEntry(
-          key,
-          value.map((e) => e.copyWith(id: e.id ?? createUniqueId())).toList(),
-        ),
-      );
+      final oldRenderers = cubit.renderers;
+      var data = current.data;
+      final imported = <String, String>{};
+      final elements = <String, List<PadElement>>{};
+      for (final entry in event.elements.entries) {
+        final sourceElements = entry.value
+            .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
+            .toList();
+        List<PadElement> importedElements;
+        (data, importedElements) = await importAssetsAsync(
+          data,
+          sourceElements,
+          alreadyImported: imported,
+          onInvalidate: current.assetService.invalidate,
+        );
+        elements[entry.key] = importedElements;
+      }
       final replacedRenderers =
           <Renderer<PadElement>, List<Renderer<PadElement>>>{};
       for (final renderer in oldRenderers) {
@@ -281,10 +453,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderer.dispose();
           final updatedRenderers = <Renderer<PadElement>>[];
           for (var element in updated) {
-            final newRenderer = Renderer.fromInstance(
-              element,
-              current.currentLayer,
-            );
+            final newRenderer = Renderer.fromInstance(element, renderer.layer);
             renderers.add(newRenderer);
             updatedRenderers.add(newRenderer);
             final exists = selected?.remove(renderer);
@@ -308,11 +477,30 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }).toList(),
         ),
       );
+
+      final unusedAssets = <String>{};
+      for (final renderer in oldRenderers) {
+        final id = renderer.element.id;
+        final updated = elements[id];
+        if (updated != null) {
+          final oldElement = renderer.element;
+          if (oldElement is SourcedElement) {
+            final source = (oldElement as SourcedElement).source;
+            final uri = Uri.tryParse(source);
+            if (uri?.scheme == '' && !newPage.usesSource(source)) {
+              unusedAssets.add(source);
+              current.assetService.invalidate(source);
+            }
+          }
+        }
+      }
+      data = data.removeAssets(unusedAssets.toList());
+
       cubit.changeSelection(Selection.fromList(selected), false);
-      _saveState(
+      return _saveState(
         emit,
-        state: current.copyWith(page: newPage),
-        replacedElements: renderers,
+        state: current.copyWith(page: newPage, data: data),
+        replacedElements: orderRenderersByPage(newPage, renderers),
         shouldRefresh: () => replacedRenderers.entries
             .map(
               (element) => cubit.getHandler().onRendererUpdated(
@@ -328,7 +516,59 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsArranged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final renderers = List<Renderer<PadElement>>.from(current.renderers);
+      final renderers = List<Renderer<PadElement>>.from(
+        currentIndexCubit.renderers,
+      );
+      void insertElement(
+        List<PadElement> content,
+        PadElement element,
+        int index,
+      ) {
+        if (index >= 0) {
+          content.insert(index, element);
+        } else {
+          content.add(element);
+        }
+      }
+
+      void insertRenderer(Renderer<PadElement>? renderer, int index) {
+        if (renderer == null) return;
+        if (index >= 0) {
+          renderers.insert(index, renderer);
+        } else {
+          renderers.add(renderer);
+        }
+      }
+
+      if (event.arrangement == Arrangement.front ||
+          event.arrangement == Arrangement.back) {
+        final moveToFront = event.arrangement == Arrangement.front;
+        final newPage = current.page.mapLayers((e) {
+          final content = List<PadElement>.from(e.content);
+          for (final id in event.elements) {
+            final index = content.indexWhere((element) => element.id == id);
+            if (index == -1) continue;
+            final element = content.removeAt(index);
+            var newRendererIndex = renderers.indexWhere(
+              (e) => e.element == element,
+            );
+            final renderer = newRendererIndex >= 0
+                ? renderers.removeAt(newRendererIndex)
+                : null;
+            final newIndex = moveToFront ? content.length : 0;
+            newRendererIndex = moveToFront ? renderers.length : 0;
+            insertElement(content, element, newIndex);
+            insertRenderer(renderer, newRendererIndex);
+          }
+          return e.copyWith(content: content);
+        });
+        return _saveState(
+          emit,
+          state: current.copyWith(page: newPage),
+          replacedElements: renderers,
+        );
+      }
+
       final newPage = await current.page.mapLayersAsync((e) async {
         final content = List<PadElement>.from(e.content);
         for (final id in event.elements) {
@@ -342,64 +582,44 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           final renderer = newRendererIndex >= 0
               ? renderers.removeAt(newRendererIndex)
               : null;
-          if (event.arrangement == Arrangement.front) {
-            newIndex = content.length;
-            newRendererIndex = renderers.length;
-          } else if (event.arrangement == Arrangement.back) {
-            newIndex = 0;
-            newRendererIndex = 0;
-          } else {
-            final rect = renderer?.rect;
-            if (rect != null) {
-              final hits = (await rayCastRect(
-                rect,
-                full: false,
-              )).map((e) => e.element).toList();
-              final hitIndex = hits.indexOf(renderer!.element);
-              if (hitIndex != -1) {
-                if (event.arrangement == Arrangement.backward &&
-                    hitIndex != 0) {
-                  newIndex = content.indexOf(hits[hitIndex - 1]);
-                } else if (event.arrangement == Arrangement.forward &&
-                    hitIndex != hits.length - 1) {
-                  newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
-                }
-                if (newIndex >= 0) {
-                  final element = newIndex < content.length
-                      ? content[newIndex]
-                      : null;
-                  newRendererIndex = element == null
-                      ? renderers.length
-                      : renderers.indexWhere((e) => e.element == element);
-                }
-              }
+          final rect = renderer?.rect;
+          if (rect != null) {
+            final hits = (await rayCastRect(
+              rect,
+              hitElementMode: HitElementMode.touchAnywhere,
+            )).map((e) => e.element).toList();
+            final hitIndex = hits.indexOf(renderer!.element);
+            if (event.arrangement == Arrangement.backward && hitIndex > 0) {
+              newIndex = content.indexOf(hits[hitIndex - 1]);
+            } else if (event.arrangement == Arrangement.forward &&
+                hitIndex >= 0 &&
+                hitIndex < hits.length - 1) {
+              newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
+            }
+            if (newIndex >= 0) {
+              final element = newIndex < content.length
+                  ? content[newIndex]
+                  : null;
+              newRendererIndex = element == null
+                  ? renderers.length
+                  : renderers.indexWhere((e) => e.element == element);
             }
           }
-          if (newIndex >= 0) {
-            content.insert(newIndex, element);
-          } else {
-            content.add(element);
-          }
-          if (renderer != null) {
-            if (newRendererIndex >= 0) {
-              renderers.insert(newRendererIndex, renderer);
-            } else {
-              renderers.add(renderer);
-            }
-          }
+          insertElement(content, element, newIndex);
+          insertRenderer(renderer, newRendererIndex);
         }
         return e.copyWith(content: content);
       });
-      _saveState(
+      return _saveState(
         emit,
         state: current.copyWith(page: newPage),
         replacedElements: renderers,
       );
-    });
+    }, transformer: sequential());
     on<ElementsRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       if (event.elements.isEmpty) return;
       final newPage = current.page.mapLayers(
         (e) => e.copyWith(
@@ -408,20 +628,28 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               .toList(),
         ),
       );
-      current.currentIndexCubit.removeSelection(event.elements);
-      // Remove unused assets
+      currentIndexCubit.removeSelection(event.elements);
       final unusedAssets = <String>{};
-      event.elements.whereType<SourcedElement>().forEach((element) {
-        final uri = Uri.tryParse(element.source);
-        if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
-          unusedAssets.add(element.source);
+      final removedRenderers = currentIndexCubit.renderers
+          .where((e) => event.elements.contains(e.element.id))
+          .toList();
+      for (final renderer in removedRenderers) {
+        final element = renderer.element;
+        if (element is SourcedElement) {
+          final source = (element as SourcedElement).source;
+          final uri = Uri.tryParse(source);
+          if (uri?.scheme == '' && !newPage.usesSource(source)) {
+            unusedAssets.add(source);
+            current.assetService.invalidate(source);
+          }
         }
-      });
+        renderer.dispose();
+      }
       final data = current.data.removeAssets(unusedAssets.toList());
       return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
-        replacedElements: current.renderers
+        replacedElements: currentIndexCubit.renderers
             .where((e) => !event.elements.contains(e.element.id))
             .toList(),
       );
@@ -429,7 +657,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentDescriptionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
@@ -443,12 +671,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolCreated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List.from(current.info.tools)..add(event.tool),
+            tools: List.from(current.info.tools)
+              ..add(event.tool.copyWith(id: event.tool.id ?? createUniqueId())),
           ),
         ),
       );
@@ -456,67 +685,97 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolsChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      final oldTools = current.info.tools;
-      var selection = current.currentIndexCubit.state.selection;
+      if (!(embedding?.editable ?? true)) return;
+      var selection = currentIndexCubit.state.selection;
+      final changedTools = event.tools
+          .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
+          .toList();
+      final changedToolsById = {
+        for (final tool in changedTools)
+          if (tool.id != null) tool.id!: tool,
+      };
+      Tool? updatedCurrent;
+      Tool? updatedTemporary;
       _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List<Tool>.from(current.info.tools).mapIndexed((i, e) {
-              final updated = event.tools[i];
-              if (updated != null) {
-                var newSelection = selection?.remove(e);
-                if (newSelection != selection && selection != null) {
-                  if (newSelection == null) {
-                    newSelection = Selection.from(updated);
-                  } else {
-                    newSelection.insert(updated);
-                  }
-                  selection = newSelection;
+            tools: List<Tool>.from(current.info.tools).mapIndexed((
+              index,
+              tool,
+            ) {
+              var updated = tool.id == null ? null : changedToolsById[tool.id];
+              if (updated == null) {
+                final selectionIndex = selection?.selected.indexWhere(
+                  (selected) => identical(selected, tool),
+                );
+                if (selectionIndex != null &&
+                    selectionIndex >= 0 &&
+                    selectionIndex < changedTools.length) {
+                  updated = changedTools[selectionIndex];
                 }
-                return updated;
-              } else {
-                return e;
               }
+              if (updated == null) {
+                return tool;
+              }
+              selection = _updateSelection(selection, tool, updated);
+              final currentTool = currentIndexCubit.state.handler.data;
+              if (currentTool is Tool &&
+                  (currentTool.id != null && currentTool.id == tool.id ||
+                      identical(currentTool, tool) ||
+                      currentIndexCubit.state.index == index)) {
+                updatedCurrent = updated;
+              }
+              final tempHandler = currentIndexCubit.state.temporaryHandler;
+              if (tempHandler != null &&
+                  (tempHandler.data.id != null &&
+                          tempHandler.data.id == tool.id ||
+                      identical(tempHandler.data, tool) ||
+                      currentIndexCubit.state.temporaryIndex == index)) {
+                updatedTemporary = updated;
+              }
+              return updated;
             }).toList(),
           ),
         ),
       );
-      final updatedCurrent = event.tools.entries.firstWhereOrNull(
-        (element) =>
-            oldTools.elementAtOrNull(element.key) ==
-            current.currentIndexCubit.state.handler.data,
-      );
       if (updatedCurrent != null) {
-        current.currentIndexCubit.updateTool(this, updatedCurrent.value);
+        currentIndexCubit.updateTool(this, updatedCurrent!);
       }
-      current.currentIndexCubit.updateTogglingTools(this, event.tools);
-      final updatedTempCurrent = event.tools.entries.firstWhereOrNull(
-        (element) =>
-            oldTools.elementAtOrNull(element.key) ==
-            current.currentIndexCubit.state.temporaryHandler?.data,
-      );
-      if (updatedTempCurrent != null) {
-        current.currentIndexCubit.updateTemporaryTool(
-          this,
-          updatedTempCurrent.value,
-        );
+      currentIndexCubit.updateTogglingTools(this, changedTools);
+      if (updatedTemporary != null) {
+        currentIndexCubit.updateTemporaryTool(this, updatedTemporary!);
       }
       if (selection != null) {
-        current.currentIndexCubit.changeSelection(selection);
+        currentIndexCubit.changeSelection(selection);
       }
     });
     on<ToolsRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
             tools: current.info.tools
-                .whereIndexed((index, _) => !event.tools.contains(index))
+                .where((element) => !event.tools.contains(element.id))
+                .toList(),
+          ),
+        ),
+        updateIndex: true,
+      );
+    });
+    on<ToolsReplaced>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(embedding?.editable ?? true)) return;
+      _saveState(
+        emit,
+        state: current.copyWith(
+          info: current.info.copyWith(
+            tools: event.tools
+                .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
                 .toList(),
           ),
         ),
@@ -526,9 +785,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       var tools = List<Tool>.from(current.info.tools);
-      var oldIndex = event.oldIndex;
+      var oldIndex = tools.indexWhere((element) => element.id == event.id);
+      if (oldIndex == -1) return;
       var newIndex = event.newIndex;
       if (oldIndex < 0 ||
           newIndex < 0 ||
@@ -539,7 +799,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       final item = tools.removeAt(oldIndex);
       tools.insert(newIndex, item);
-      final cubit = current.currentIndexCubit;
+      final cubit = currentIndexCubit;
       var nextCurrentIndex = cubit.state.index;
       if (nextCurrentIndex != null) {
         if (nextCurrentIndex == oldIndex) {
@@ -561,7 +821,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<DocumentBackgroundsChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       final List<Renderer<Background>> backgrounds = event.backgrounds
           .map(Renderer.fromInstance)
           .toList();
@@ -572,9 +832,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final uri = Uri.tryParse(element.source);
         if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
           unusedAssets.add(element.source);
+          current.assetService.invalidate(element.source);
         }
       });
       final data = current.data.removeAssets(unusedAssets.toList());
+      for (final bg in currentIndexCubit.state.cameraViewport.backgrounds) {
+        bg.dispose();
+      }
       _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
@@ -584,7 +848,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointCreated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
@@ -598,7 +862,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       if (current.page.getWaypointByName(event.name) == null) {
         // Waypoint doesn't exist yet, create it instead
         _saveState(
@@ -629,7 +893,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       return _saveState(
         emit,
         state: current.copyWith(
@@ -643,7 +907,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<WaypointReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       final waypoints = List<Waypoint>.from(current.page.waypoints);
       final waypoint = waypoints.firstWhereOrNull(
         (element) => element.name == event.name,
@@ -659,7 +923,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<CollectionRenamed>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
@@ -686,7 +950,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<CollectionElementsRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
@@ -727,14 +991,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       } else {
         invisibleLayers.add(event.id);
       }
-      emit(current.copyWith(invisibleLayers: invisibleLayers));
-      current.currentIndexCubit.unbake(current);
+      final newState = current.copyWith(invisibleLayers: invisibleLayers);
+      emit(newState);
+      currentIndexCubit.unbake(newState);
     });
 
     on<LayerCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       return _saveState(
         emit,
         state: current.copyWith(
@@ -751,7 +1016,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       return _saveState(
         emit,
         state: current.copyWith(
@@ -771,7 +1036,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       return _saveState(
         emit,
         state: current.copyWith(
@@ -785,25 +1050,61 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayersMerged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      if (event.layers.length < 2) return;
+      if (!(embedding?.editable ?? true)) return;
       final layers = current.page.layers;
-      final mainLayer = event.layers.first;
-      final mainLayerIndex = layers.indexWhere(
-        (element) => element.id == mainLayer,
-      );
-      if (mainLayerIndex == -1) return;
-      final mergedLayers = event.layers.skip(1).toList()
-        ..sort(
-          (a, b) => layers
-              .indexWhere((e) => e.id == a)
-              .compareTo(layers.indexWhere((e) => e.id == b)),
+      if (event.duplicate) {
+        final ids = event.layers.toSet();
+        final duplicatedIds = <String, String>{};
+        final newLayers = <DocumentLayer>[];
+        final addedRenderers = <Renderer<PadElement>>[];
+        for (final layer in layers) {
+          newLayers.add(layer);
+          final id = layer.id;
+          if (id == null || !ids.contains(id)) continue;
+          final newId = createUniqueId();
+          final content = layer.content
+              .map((element) => element.copyWith(id: createUniqueId()))
+              .toList();
+          duplicatedIds[id] = newId;
+          newLayers.add(layer.copyWith(id: newId, content: content));
+          addedRenderers.addAll(
+            content.map((element) => Renderer.fromInstance(element, newId)),
+          );
+        }
+        if (duplicatedIds.isEmpty) return;
+        final invisibleLayers = Set<String>.from(current.invisibleLayers);
+        for (final entry in duplicatedIds.entries) {
+          if (invisibleLayers.contains(entry.key)) {
+            invisibleLayers.add(entry.value);
+          }
+        }
+        return _saveState(
+          emit,
+          state: current.copyWith(
+            page: current.page.copyWith(layers: newLayers),
+            currentLayer:
+                duplicatedIds[current.currentLayer] ??
+                duplicatedIds.values.last,
+            invisibleLayers: invisibleLayers,
+          ),
+          addedElements: addedRenderers,
         );
+      }
+      if (event.layers.length < 2) return;
+      final mainLayer = event.layers.first;
+      final layerIndexes = {
+        for (final entry in layers.asMap().entries) entry.value.id: entry.key,
+      };
+      final mainLayerIndex = layerIndexes[mainLayer];
+      if (mainLayerIndex == null) return;
+      final mergedLayers =
+          event.layers.skip(1).where(layerIndexes.containsKey).toList()
+            ..sort((a, b) => layerIndexes[a]!.compareTo(layerIndexes[b]!));
       final belowLayers = mergedLayers.where(
-        (element) => layers.indexWhere((e) => e.id == element) < mainLayerIndex,
+        (element) => (layerIndexes[element] ?? -1) < mainLayerIndex,
       );
       final aboveLayers = mergedLayers.where(
-        (element) => layers.indexWhere((e) => e.id == element) > mainLayerIndex,
+        (element) => (layerIndexes[element] ?? -1) > mainLayerIndex,
       );
       var layer = current.page.getLayer(mainLayer);
       layer = layer.copyWith(
@@ -814,7 +1115,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ],
       );
       final newLayers = layers
-          .where((e) => event.duplicate || !mergedLayers.contains(e.id))
+          .where((e) => !mergedLayers.contains(e.id))
           .map((e) => e.id == mainLayer ? layer : e)
           .toList();
       return _saveState(
@@ -831,21 +1132,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<CurrentLayerChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       emit(current.copyWith(currentLayer: event.name));
     });
 
     on<CurrentCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       emit(current.copyWith(currentCollection: event.name));
     });
 
     on<ElementsCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
@@ -866,80 +1167,222 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AreasCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final areas = event.areas.map((e) {
-        var name = e.name;
-        var count = 1;
-        while (current.page.areas.any((element) => element.name == name)) {
-          name = '${e.name} (${count++})';
-        }
-        return e.copyWith(name: name);
-      }).toList();
+      final areasByPage = groupBy<AreaPreset, String>(
+        event.areas,
+        (area) => area.page.isEmpty ? current.pageName : area.page,
+      );
+      var data = current.data;
+      var activePage = current.page;
       var shouldRepaint = false;
-      for (var element in current.renderers) {
-        final needRepaint = areas.any(
-          (area) => element.onAreaUpdate(current.data, current.page, area),
-        );
-        if (needRepaint) {
-          shouldRepaint = true;
+      for (final entry in areasByPage.entries) {
+        final pageName = entry.key;
+        final page = pageName == current.pageName
+            ? activePage
+            : data.getPage(pageName);
+        if (page == null) continue;
+        final existingNames = page.areas.map((e) => e.name).toSet();
+        final areas = entry.value
+            .map((preset) {
+              final area = preset.area;
+              if (area == null) return null;
+              final baseName = area.name.isEmpty ? 'Area' : area.name;
+              var name = baseName;
+              var count = 1;
+              while (existingNames.contains(name)) {
+                name = '$baseName (${count++})';
+              }
+              existingNames.add(name);
+              return area.copyWith(name: name);
+            })
+            .nonNulls
+            .toList();
+        if (areas.isEmpty) continue;
+        if (pageName == current.pageName) {
+          for (var element in currentIndexCubit.renderers) {
+            final needRepaint = areas.any(
+              (area) => element.onAreaUpdate(data, page, area),
+            );
+            if (needRepaint) {
+              shouldRepaint = true;
+            }
+          }
+        }
+
+        final hasInitial = areas.any((e) => e.isInitial);
+        final existingAreas = page.areas.map((e) {
+          if (hasInitial && e.isInitial) {
+            return e.copyWith(isInitial: false);
+          }
+          return e;
+        }).toList();
+
+        final updatedPage = page.copyWith(areas: [...existingAreas, ...areas]);
+        if (pageName == current.pageName) {
+          activePage = updatedPage;
+        } else {
+          data = data.setPage(updatedPage, pageName).$1;
         }
       }
-      final currentDocument = current.page.copyWith(
-        areas: [...current.page.areas, ...areas],
-      );
       return _saveState(
         emit,
-        state: current.copyWith(page: currentDocument),
+        state: current.copyWith(data: data, page: activePage),
         shouldRefresh: () => true,
         reset: shouldRepaint,
+      );
+    }, transformer: sequential());
+    on<AreasDuplicated>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(embedding?.editable ?? true)) return;
+      final selectedPages = event.pages.toSet();
+      var data = current.data.setPage(current.page, current.pageName).$1;
+      var currentPage = current.page;
+      var currentPageChanged = false;
+      for (final (pageName, realPageName) in data.getPagesWithNames()) {
+        if (!selectedPages.contains(pageName) &&
+            !selectedPages.contains(realPageName)) {
+          continue;
+        }
+        final page = data.getPage(realPageName);
+        if (page == null) continue;
+        final duplicatedArea = _createDuplicatedArea(event.area, page.areas);
+        final areas = [
+          ...page.areas.map((e) {
+            if (duplicatedArea.isInitial && e.isInitial) {
+              return e.copyWith(isInitial: false);
+            }
+            return e;
+          }),
+          duplicatedArea,
+        ];
+        final updatedPage = page.copyWith(areas: areas);
+        data = data.setPage(updatedPage, realPageName).$1;
+        if (realPageName == current.pageName) {
+          currentPage = updatedPage;
+          currentPageChanged = true;
+        }
+      }
+      _saveState(
+        emit,
+        state: current.copyWith(data: data, page: currentPage),
+        shouldRefresh: () => currentPageChanged,
+        reset: currentPageChanged,
       );
     }, transformer: sequential());
     on<AreasRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      final areas = List<Area>.from(current.page.areas)
-        ..removeWhere((e) => event.areas.contains(e.name));
-      final currentPage = current.page.copyWith(areas: areas);
+      if (!(embedding?.editable ?? true)) return;
+      var data = current.data.setPage(current.page, current.pageName).$1;
+      var currentPage = current.page;
+      var currentAreaName = current.currentAreaName;
+      var currentPageChanged = false;
       var shouldRepaint = false;
-      for (var element in current.renderers) {
-        if (areas.contains(element.area) &&
-            element.onAreaUpdate(current.data, currentPage, null)) {
-          shouldRepaint = true;
+      final areasByPage = <String, Set<String>>{};
+      for (final area in event.areas) {
+        areasByPage.putIfAbsent(area.page, () => {}).add(area.name);
+      }
+      for (final entry in areasByPage.entries) {
+        final page = data.getPage(entry.key);
+        if (page == null) continue;
+        final areas = List<Area>.from(page.areas)
+          ..removeWhere((e) => entry.value.contains(e.name));
+        final updatedPage = page.copyWith(areas: areas);
+        data = data.setPage(updatedPage, entry.key).$1;
+        if (entry.key == current.pageName) {
+          currentPage = updatedPage;
+          currentPageChanged = true;
+          if (entry.value.contains(currentAreaName)) currentAreaName = '';
+          for (var element in currentIndexCubit.renderers) {
+            if (areas.contains(element.area) &&
+                element.onAreaUpdate(current.data, currentPage, null)) {
+              shouldRepaint = true;
+            }
+          }
         }
       }
       _saveState(
         emit,
-        state: current.copyWith(page: currentPage),
-        shouldRefresh: () => true,
+        state: current.copyWith(
+          data: data,
+          page: currentPage,
+          currentAreaName: currentAreaName,
+        ),
+        shouldRefresh: () => currentPageChanged,
         reset: shouldRepaint,
       );
     });
     on<AreaChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
+      final oldSelection = currentIndexCubit.state.selection;
+      var selection = oldSelection;
+      final hasInitial = event.area.isInitial;
+      Area? previousArea;
       final areas = current.page.areas.map((e) {
         if (e.name == event.name) {
-          return event.area;
+          final updated = event.area;
+          previousArea = e;
+          selection = _updateSelection(selection, e, updated);
+          return updated;
+        }
+        if (hasInitial && e.isInitial) {
+          final updated = e.copyWith(isInitial: false);
+          selection = _updateSelection(selection, e, updated);
+          return updated;
         }
         return e;
       }).toList();
-      final currentDocument = current.page.copyWith(areas: areas);
-      final shouldRepaint = current.renderers.any(
+      var currentDocument = current.page.copyWith(areas: areas);
+      final oldArea = previousArea;
+      final movedElements = <String, PadElement>{};
+      if (event.moveContents && oldArea != null) {
+        final delta = Offset(
+          event.area.position.x - oldArea.position.x,
+          event.area.position.y - oldArea.position.y,
+        );
+        if (delta != Offset.zero) {
+          for (final renderer in currentIndexCubit.renderers) {
+            final id = renderer.element.id;
+            final rect = renderer.expandedRect ?? renderer.rect;
+            if (id == null || rect == null || !oldArea.rect.overlaps(rect)) {
+              continue;
+            }
+            final transformed = renderer.transform(position: delta);
+            if (transformed != null) {
+              movedElements[id] = transformed.element;
+            }
+          }
+          if (movedElements.isNotEmpty) {
+            currentDocument = currentDocument.mapLayers(
+              (layer) => layer.copyWith(
+                content: layer.content
+                    .map((element) => movedElements[element.id] ?? element)
+                    .toList(),
+              ),
+            );
+          }
+        }
+      }
+      final shouldRepaint = currentIndexCubit.renderers.any(
         (element) =>
             element.area?.name == event.name &&
             element.onAreaUpdate(current.data, currentDocument, event.area),
       );
+      if (selection != null && selection != oldSelection) {
+        currentIndexCubit.changeSelection(selection);
+      }
       _saveState(
         emit,
         state: current.copyWith(page: currentDocument),
-        reset: shouldRepaint,
+        reset: shouldRepaint || movedElements.isNotEmpty,
       );
     });
     on<AreaReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       final areas = List<Area>.from(current.page.areas);
       final area = areas.firstWhereOrNull(
         (element) => element.name == event.name,
@@ -990,14 +1433,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<CurrentAreaChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaName: event.name));
-      current.delayedBake();
+      delayedBake();
     });
     on<PackAdded>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       var name = event.pack.name ?? '';
       var i = 1;
       while (current.data.getBundledPack(name) != null) {
@@ -1013,7 +1456,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PackUpdated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(data: current.data.setBundledPack(event.pack)),
@@ -1022,7 +1465,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PackRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
@@ -1033,7 +1476,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AnimationAdded>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       if (current.page.getAnimation(event.animation.name) != null) return;
       final currentDocument = current.page.copyWith(
         animations: List<AnimationTrack>.from(current.page.animations)
@@ -1044,7 +1487,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AnimationUpdated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       final currentDocument = current.page.copyWith(
         animations: current.page.animations.map((e) {
           if (e.name == event.name) {
@@ -1058,7 +1501,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AnimationRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
+      if (!(embedding?.editable ?? true)) return;
       final currentDocument = current.page.copyWith(
         animations: current.page.animations
             .where((element) => element.name != event.name)
@@ -1080,15 +1523,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         metadata: current.metadata,
         fileSystem: current.fileSystem,
         windowCubit: current.windowCubit,
+        absolute: current.absolute,
       );
-      current.currentIndexCubit.updateHandler(this, newState.handler);
+      currentIndexCubit.updateHandler(this, newState.handler);
       emit(newState);
     });
     on<PresentationModeExited>((event, emit) {
       final current = state;
       if (current is! DocumentPresentationState) return;
       emit(current.oldState);
-      current.currentIndexCubit.changeTool(this);
+      currentIndexCubit.changeTool(this);
       setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {
@@ -1103,25 +1547,27 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!validAssetPaths.any((e) => event.path.startsWith('$e/'))) return;
       data = data.setAsset(event.path, Uint8List.fromList(event.data));
       current.assetService.invalidate(event.path);
-      final shouldRepaint = current.renderers.any(
-        (e) => e.onAssetUpdate(
-          current.data,
-          current.assetService,
-          current.page,
-          event.path,
-        ),
-      );
+      final updatedRenderers = currentIndexCubit.renderers
+          .where(
+            (e) => e.onAssetUpdate(
+              data,
+              current.assetService,
+              current.page,
+              event.path,
+            ),
+          )
+          .toList();
+      currentIndexCubit.invalidateRenderers(updatedRenderers);
       _saveState(
         emit,
         state: current.copyWith(data: data),
-        reset: shouldRepaint,
+        reset: updatedRenderers.isNotEmpty,
       );
     });
     on<ElementsLayerConverted>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final layer = current.getLayer();
-      final elements = layer.content
+      final elements = current.page.content
           .where((element) => event.elements.contains(element.id))
           .toList();
       final newLayer = DocumentLayer(
@@ -1137,6 +1583,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
       newPage = newPage.copyWith(layers: [...newPage.layers, newLayer]);
+      _saveState(emit, state: current.copyWith(page: newPage), reset: true);
+    });
+    on<ElementsLayerMoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final elements = current.page.content
+          .where((element) => event.elements.contains(element.id))
+          .toList();
+      var newPage = current.page.mapLayers((e) {
+        if (e.id == event.layerId) {
+          return e.copyWith(content: [...e.content, ...elements]);
+        }
+        return e.copyWith(
+          content: e.content
+              .where((element) => !event.elements.contains(element.id))
+              .toList(),
+        );
+      });
       _saveState(emit, state: current.copyWith(page: newPage), reset: true);
     });
     on<EncryptionChanged>((event, emit) {
@@ -1155,7 +1619,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final metadata = data.getMetadata();
       _saveState(
         emit,
-        state: state.copyWith(page: page, data: data, metadata: metadata),
+        state: state.copyWith(
+          page: page,
+          data: data,
+          metadata: metadata,
+          currentAreaName: getInitialArea(page),
+        ),
         resetAll: true,
       );
     });
@@ -1166,7 +1635,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     covariant Transition<ReplayEvent, DocumentState> transition,
   ) {
     if (transition.event is! DocumentEvent) {
-      state.networkingService?.testForInits(transition.nextState);
+      networkingService?.testForInits(transition.nextState);
     }
     super.onTransition(transition);
   }
@@ -1188,11 +1657,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       reset = resetAll;
       unbake = resetAll;
     }
+    final oldState = this.state is DocumentLoadSuccess
+        ? this.state as DocumentLoadSuccess
+        : null;
     state ??= this.state as DocumentLoadSuccess;
     emit(state);
-    return state.currentIndexCubit.stateChanged(
+    return currentIndexCubit.stateChanged(
       state,
       this,
+      oldState: oldState,
       addedElements: addedElements,
       replacedElements: replacedElements,
       backgrounds: backgrounds,
@@ -1208,18 +1681,33 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     super.onEvent(event);
 
     if (event is DocumentEvent) {
-      state.networkingService?.onEvent(event);
+      networkingService?.onEvent(event);
     }
   }
 
   Future<void> refresh({bool allowBake = true}) async {
     final current = state;
-    if (current is! DocumentLoadSuccess) return;
-    return current.currentIndexCubit.refresh(current, allowBake: allowBake);
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoadSuccess || cubit == null) return;
+    return cubit.refresh(current, allowBake: allowBake);
+  }
+
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds() async {
+    final current = state;
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoadSuccess || cubit == null) return;
+    return cubit.refreshForegrounds(current);
+  }
+
+  /// Ultra-lightweight update for cursor changes only.
+  void updateCursor(MouseCursor cursor) {
+    _currentIndexCubit?.updateCursor(cursor);
   }
 
   Future<void> refreshToolbar() =>
-      state.currentIndexCubit?.refreshToolbar(this) ?? Future.value();
+      _currentIndexCubit?.refreshToolbar(this) ?? Future.value();
 
   Future<void> bake({
     Size? viewportSize,
@@ -1227,8 +1715,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     bool reset = false,
   }) async {
     final current = state;
-    if (current is! DocumentLoaded) return;
-    return current.bake(
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoaded || cubit == null) return;
+    return cubit.bake(
+      current,
       viewportSize: viewportSize,
       pixelRatio: pixelRatio,
       reset: reset,
@@ -1242,8 +1732,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     bool testTransform = false,
   }) {
     final current = state;
-    if (current is! DocumentLoaded) return Future.value();
-    return current.delayedBake(
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoaded || cubit == null) return Future.value();
+    return cubit.delayedBake(
+      current,
       viewportSize: viewportSize,
       pixelRatio: pixelRatio,
       reset: reset,
@@ -1251,11 +1743,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     );
   }
 
+  void cancelDelayedBake() {
+    _currentIndexCubit?.cancelDelayedBake();
+  }
+
   Future<void> load() async {
     final current = state;
-    if (current is! DocumentLoaded) return;
-    final cubit = current.currentIndexCubit;
-    if (!current.location.isEmpty) {
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoaded || cubit == null) return;
+    if (!cubit.state.location.isEmpty) {
       cubit.setSaveState(
         saved: SaveState.saved,
         isCreating: false,
@@ -1264,13 +1760,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     } else {
       cubit.setSaveState(isCreating: true);
     }
-    cubit.loadElements(current);
+    await cubit.loadElements(current);
     cubit.init(this);
   }
 
   Future<void> reload() async {
-    return state.currentIndexCubit?.reload(this);
+    return _currentIndexCubit?.reload(this);
   }
+
+  void _scheduleHistoryReload() =>
+      unawaited(_historyReloadRunner.schedule(reload));
 
   Future<void> createTemplate(
     String? remote, {
@@ -1278,9 +1777,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     String? name,
   }) async {
     final current = state;
-    if (current is! DocumentLoadSuccess) return;
-    final data = await current.saveData();
-    final render = await current.currentIndexCubit.render(
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoadSuccess || cubit == null) return;
+    final data = await current.saveData(null, cubit.state.viewOption);
+    final render = await cubit.render(
       current.data,
       current.page,
       current.info,
@@ -1288,6 +1788,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         width: kThumbnailWidth.toDouble(),
         height: kThumbnailHeight.toDouble(),
       ),
+      docState: current,
     );
     final thumbnail = render?.buffer.asUint8List();
     final settings = current.settingsCubit.state;
@@ -1304,14 +1805,50 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         );
   }
 
+  Future<void> replaceTemplate(
+    TemplateFileSystem templateSystem,
+    String path,
+    FileMetadata metadata,
+  ) async {
+    final current = state;
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoadSuccess || cubit == null) return;
+    final data = await current.saveData(null, cubit.state.viewOption);
+    await templateSystem.updateFile(
+      path,
+      data.createTemplate(
+        name: metadata.name,
+        description: metadata.description,
+        directory: metadata.directory,
+      ),
+    );
+  }
+
   @override
   Future<void> close() async {
+    await _historyReloadRunner.disposeAndWait();
+    clearHistory();
     final currentState = state;
-    final cubit = currentState.currentIndexCubit;
-    if (cubit != null && !cubit.isClosed) {
-      await cubit.close();
+    final currentIndexCubit = _currentIndexCubit;
+    final transformCubit = currentIndexCubit?.transformCubit;
+    final assetService = _assetService;
+    if (currentIndexCubit != null && !currentIndexCubit.isClosed) {
+      await currentIndexCubit.close();
     }
-    currentState.assetService?.dispose();
+    if (transformCubit != null && !transformCubit.isClosed) {
+      await transformCubit.close();
+    }
+    await assetService?.dispose();
+    _currentIndexCubit = null;
+    _assetService = null;
+    if (currentState is DocumentLoaded && !isClosed) {
+      emit(
+        DocumentLoadInProgress(
+          fileSystem: currentState.fileSystem,
+          windowCubit: currentState.windowCubit,
+        ),
+      );
+    }
     return super.close();
   }
 
@@ -1319,7 +1856,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     AssetLocation? location,
     bool force = false,
     bool isAutosave = false,
-  }) async => await state.currentIndexCubit?.save(
+  }) async => await _currentIndexCubit?.save(
     this,
     location: location,
     force: force,
@@ -1340,12 +1877,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
+    HitElementMode? hitElementMode,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
       useCollection: useCollection,
       useLayer: useLayer,
+      hitElementMode: hitElementMode,
     );
   }
 
@@ -1354,25 +1893,34 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
-    bool? full,
+    HitElementMode? hitElementMode,
   }) async {
     final state = this.state;
-    if (state is! DocumentLoadSuccess) return {};
-    transform ??= state.currentIndexCubit.state.transformCubit.state;
-    final renderers = state.cameraViewport.visibleElements;
-    full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    return compute(
-      _executeRayCast,
-      _RayCastParams(
-        state.invisibleLayers,
-        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-        rect,
-        transform.size,
-        useCollection ? state.currentCollection : null,
-        useLayer ? state.currentLayer : null,
-        full,
-      ),
-    ).then((value) => value.map((e) => renderers[e]).toSet());
+    final cubit = _currentIndexCubit;
+    if (state is! DocumentLoadSuccess || cubit == null) return {};
+    transform ??= cubit.transformCubit.state;
+    final renderers = cubit.state.cameraViewport.visibleElements;
+    if (renderers.isEmpty) return {};
+    hitElementMode ??= HitElementMode.touchAnywhere;
+
+    final params = _RayCastParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      rect,
+      transform.size,
+      useCollection ? state.currentCollection : null,
+      useLayer ? state.currentLayer : null,
+      hitElementMode,
+    );
+
+    // Use synchronous execution for small element counts to avoid isolate overhead
+    final Set<int> result;
+    if (renderers.length < 100) {
+      result = _executeRayCast(params);
+    } else {
+      result = await compute(_executeRayCast, params);
+    }
+    return result.map((e) => renderers[e]).toSet();
   }
 
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
@@ -1380,41 +1928,50 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
-    bool? full,
+    HitElementMode? hitElementMode,
   }) async {
     final state = this.state;
-    if (state is! DocumentLoadSuccess) return {};
-    final renderers = state.cameraViewport.visibleElements;
-    transform ??= state.currentIndexCubit.state.transformCubit.state;
-    full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    return compute(
-      _executeRayCastPolygon,
-      _RayCastPolygonParams(
-        state.invisibleLayers,
-        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-        points,
-        transform.size,
-        useCollection ? state.currentCollection : null,
-        useLayer ? state.currentLayer : null,
-        full,
-      ),
-    ).then((value) => value.map((e) => renderers[e]).toSet());
+    final cubit = _currentIndexCubit;
+    if (state is! DocumentLoadSuccess || cubit == null) return {};
+    final renderers = cubit.state.cameraViewport.visibleElements;
+    if (renderers.isEmpty) return {};
+    transform ??= cubit.transformCubit.state;
+    hitElementMode ??= HitElementMode.touchAnywhere;
+
+    final params = _RayCastPolygonParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      points,
+      transform.size,
+      useCollection ? state.currentCollection : null,
+      useLayer ? state.currentLayer : null,
+      hitElementMode,
+    );
+
+    // Use synchronous execution for small element counts to avoid isolate overhead
+    final Set<int> result;
+    if (renderers.length < 100) {
+      result = _executeRayCastPolygon(params);
+    } else {
+      result = await compute(_executeRayCastPolygon, params);
+    }
+    return result.map((e) => renderers[e]).toSet();
   }
 
   void sendUndo() {
-    if (!(state.networkingService?.sendUndo() ?? false)) {
+    if (!(networkingService?.sendUndo() ?? false)) {
       undo();
+      _scheduleHistoryReload();
     }
   }
 
   void sendRedo() {
-    if (!(state.networkingService?.sendRedo() ?? false)) {
+    if (!(networkingService?.sendRedo() ?? false)) {
       redo();
+      _scheduleHistoryReload();
     }
   }
 }
-
-typedef HitRequest = bool Function(Offset position, [double radius]);
 
 class _SmallRenderer {
   final HitCalculator hitCalc;
@@ -1432,7 +1989,7 @@ class _RayCastParams {
   final Rect rect;
   final double size;
   final String? collection, layer;
-  final bool full;
+  final HitElementMode hitElementMode;
 
   const _RayCastParams(
     this.invisibleLayers,
@@ -1441,7 +1998,7 @@ class _RayCastParams {
     this.size,
     this.collection,
     this.layer,
-    this.full,
+    this.hitElementMode,
   );
 }
 
@@ -1453,7 +2010,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where(
         (e) =>
-            e.value.hitCalc.hit(rect, full: params.full) &&
+            e.value.hitCalc.hit(rect, hitElementMode: params.hitElementMode) &&
             (params.collection == null ||
                 e.value.element.collection == params.collection) &&
             (params.layer == null || e.value.layer == params.layer),
@@ -1468,7 +2025,7 @@ class _RayCastPolygonParams {
   final List<Offset> polygon;
   final double size;
   final String? collection, layer;
-  final bool full;
+  final HitElementMode hitElementMode;
 
   const _RayCastPolygonParams(
     this.invisibleLayers,
@@ -1477,7 +2034,7 @@ class _RayCastPolygonParams {
     this.size,
     this.collection,
     this.layer,
-    this.full,
+    this.hitElementMode,
   );
 }
 
@@ -1488,7 +2045,10 @@ Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
       .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where(
         (e) =>
-            e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
+            e.value.hitCalc.hitPolygon(
+              params.polygon,
+              hitElementMode: params.hitElementMode,
+            ) &&
             (params.collection == null ||
                 e.value.element.collection == params.collection) &&
             (params.layer == null || e.value.layer == params.layer),

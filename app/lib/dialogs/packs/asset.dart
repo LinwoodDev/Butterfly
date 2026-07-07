@@ -16,19 +16,20 @@ import 'pack.dart';
 
 class AssetDialog extends StatelessWidget {
   final PackAssetLocation? value;
+  final String initialName;
 
-  const AssetDialog({super.key, this.value});
+  const AssetDialog({super.key, this.value, this.initialName = ''});
 
   @override
   Widget build(BuildContext context) {
     String? pack = value?.namespace;
-    String name = value?.key ?? '';
+    String name = value?.key ?? initialName;
     final bloc = context.read<DocumentBloc>();
+    final packSystem = context
+        .read<ButterflyFileSystem>()
+        .buildDefaultPackSystem();
     return FutureBuilder<List<FileSystemFile<NoteData>>>(
-      future: context
-          .read<ButterflyFileSystem>()
-          .buildDefaultPackSystem()
-          .getFiles(),
+      future: packSystem.initialize().then((_) => packSystem.getFiles()),
       builder: (context, snapshot) => BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) => previous.data != current.data,
         builder: (context, state) {
@@ -55,7 +56,10 @@ class AssetDialog extends StatelessWidget {
                         dropdownMenuEntries: packs.map((e) {
                           return DropdownMenuEntry<String>(
                             value: e.path,
-                            label: e.data!.getMetadata()?.name ?? e.path,
+                            label: getPackDisplayName(
+                              e.data!,
+                              e.pathWithoutLeadingSlash,
+                            ),
                           );
                         }).toList(),
                         onSelected: (value) {
@@ -142,7 +146,7 @@ Future<void> addToPack(
   if (result == null) return;
   var pack = await packSystem.getFile(result.namespace);
   if (pack == null) return;
-  final screenshot = await state.currentIndexCubit.render(
+  final screenshot = await bloc.currentIndexCubit.render(
     state.data,
     state.page,
     state.info,
@@ -154,6 +158,7 @@ Future<void> addToPack(
       y: rect.top,
       quality: kThumbnailWidth / rect.width,
     ),
+    docState: state,
   );
   Uint8List? thumbnail;
   if (screenshot != null) {
@@ -163,7 +168,7 @@ Future<void> addToPack(
   await Future.wait(
     renderers.map(
       (e) async => e.setup(
-        state.transformCubit,
+        bloc.transformCubit,
         state.data,
         state.assetService,
         state.page,

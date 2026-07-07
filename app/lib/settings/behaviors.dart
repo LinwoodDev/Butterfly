@@ -87,7 +87,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           value: state.autosaveDelaySeconds.toDouble(),
                           min: 1,
                           max: 10,
-                          defaultValue: 5,
+                          defaultValue: 3,
                           fractionDigits: 0,
                           onChangeEnd: (value) => context
                               .read<SettingsCubit>()
@@ -101,6 +101,46 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         onTap: () => _openStartupModal(context),
                         leading: const Icon(PhosphorIconsLight.arrowFatLineUp),
                       ),
+                      SwitchListTile(
+                        value: state.startInFullScreen,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeStartInFullScreen(value),
+                        title: Text(
+                          AppLocalizations.of(context).startInFullScreen,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.arrowsOut,
+                        ),
+                      ),
+                      ListTile(
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.appWindow,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context).contentViewport,
+                        ),
+                        subtitle: Text(
+                          state.limitViewportMultiplier == null
+                              ? AppLocalizations.of(context).off
+                              : '${state.limitViewportMultiplier}x',
+                        ),
+                        onTap: () => _openContentViewportModal(context),
+                      ),
+                      SwitchListTile(
+                        value: state.limitViewportPositive,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeLimitViewportPositive(value),
+                        title: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).limitViewportToPositiveCoordinates,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.plusSquare,
+                        ),
+                      ),
                       ListTile(
                         title: Text(
                           AppLocalizations.of(context).renderResolution,
@@ -113,6 +153,18 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         ),
                         onTap: () => _openRenderResolutionModal(context),
                         leading: const Icon(PhosphorIconsLight.sparkle),
+                      ),
+                      SwitchListTile(
+                        title: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).bringMovedElementsToFront,
+                        ),
+                        value: state.bringMovedElementsToFront,
+                        secondary: const PhosphorIcon(PhosphorIconsLight.stack),
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeBringMovedElementsToFront(value),
                       ),
                     ],
                   ),
@@ -157,19 +209,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                             .read<SettingsCubit>()
                             .changeImageScale(value / 100),
                       ),
-                      ExactSlider(
-                        leading: const PhosphorIcon(
-                          PhosphorIconsLight.flowerLotus,
-                        ),
-                        header: Text(AppLocalizations.of(context).pdfQuality),
-                        value: state.pdfQuality,
-                        min: 0.5,
-                        max: 10,
-                        defaultValue: 2,
-                        onChangeEnd: (value) => context
-                            .read<SettingsCubit>()
-                            .changePdfQuality(value),
-                      ),
                     ],
                   ),
                 ),
@@ -178,6 +217,37 @@ class BehaviorsSettingsPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _openContentViewportModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentMultiplier = cubit.state.limitViewportMultiplier;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) =>
+          Text(AppLocalizations.of(context).contentViewport),
+      childrenBuilder: (context) {
+        final options = [
+          (null, AppLocalizations.of(context).off),
+          (1.0, '1x'),
+          (1.5, '1.5x'),
+          (2.0, '2x'),
+          (3.0, '3x'),
+        ];
+        return options
+            .map(
+              (e) => ListTile(
+                title: Text(e.$2),
+                selected: currentMultiplier == e.$1,
+                onTap: () {
+                  cubit.changeLimitViewportMultiplier(e.$1);
+                  Navigator.of(context).pop();
+                },
+              ),
+            )
+            .toList();
+      },
     );
   }
 

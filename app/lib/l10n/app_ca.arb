@@ -10,6 +10,11 @@
   "lightTheme": "Tema clar",
   "systemTheme": "Utilitzar tema del sistema per defecte",
   "view": "Veure",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Redueix",
   "resetZoom": "Reinicia zoom",
   "strokeWidth": "Amplada del traç",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Incloure esborrador?",
   "thinning": "Afinament",
   "pen": "Bolígraf",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Esborrador de trajectes",
+  "stroke": "Stroke",
   "label": "Etiqueta",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Fons",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Quadre",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Paleta per defecte",
   "highlighter": "Marcador",
+  "combinePaths": "Combine paths",
   "add": "Afegeix",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Sòlid",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Doble",
   "dotted": "Puntejat",
+  "dottedDark": "Dotted dark",
   "dashed": "Guionet",
   "wavy": "Ondulat",
   "fontWeight": "Gruix de la font",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Comportaments",
   "dataDirectory": "Directori de dades",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "Ruta per defecte",
   "dateFormat": "Format de data",
   "updatedAt": "Actualitzat a: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "No establert",
   "enterLayer": "Introdueix el nom de la capa",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Selecciona elements",
   "deleteElements": "Suprimeix elements",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Realment vols suprimir els elements seleccionats?",
   "selectCustomCollection": "Selecciona una col·lecció personalitzada",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Fosc",
-  "plainDark": "Pla fosc",
+  "plainDark": "Plain dark",
   "ruledDark": "Ratllat fosc",
   "quadDark": "Quadrícula fosca",
   "musicDark": "Música fosca",
@@ -545,6 +576,7 @@
   "topRight": "Superior dreta",
   "bottomLeft": "Inferior esquerra",
   "bottomRight": "Inferior dreta",
+  "zoomPosition": "Zoom control position",
   "caches": "Cachés",
   "manage": "Gestiona",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Carpeta sincronitzada",
   "syncRootDirectory": "Directori arrel de sincronització",
   "penOnlyInput": "Entrada només bolígraf",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Gestos d'entrada",
   "nativeTitleBar": "Barra de títol nativa",
+  "mode": "Mode",
   "syncMode": "Mode de sincronització",
   "connection": "Connexió",
   "always": "Sempre",
@@ -893,6 +939,7 @@
   "bringForward": "Porta endavant",
   "sendBackward": "Envia enrere",
   "rotation": "Rotació",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Només disponible en pantalles grans",
   "toolbarPosition": "Posició de la barra d'eines",
   "rotate": "Rota",
@@ -919,6 +966,9 @@
   "ascending": "Ascendent",
   "descending": "Descendent",
   "imageScale": "Escala d'imatge",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Selecciona",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Qualitat PDF",
   "surface": "Superfície",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Continua igualment",
   "zoomControl": "Control de zoom",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Alt contrast",
   "shouldANumber": "Aquest valor ha de ser un nombre vàlid",
   "createAreas": "Crea àrees",
@@ -1081,6 +1134,8 @@
   "addAll": "Afegeix-ho tot",
   "onlyCurrentPage": "Només pàgina actual",
   "smoothNavigation": "Navegació fluida",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Exacte",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Canvia col·lecció",
   "collections": "Col·leccions",
   "fullSelection": "Selecció completa",
-  "fullSelectionDescription": "Requereix que els elements estiguin totalment dins del quadre de selecció per seleccionar-los.",
   "collection": "Col·lecció",
   "defaultCollection": "Col·lecció per defecte",
   "scroll": "Desplaça",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Pantalla d'inici",
   "lastNote": "Darrera nota",
   "newNote": "Nova nota",
-  "convertToLayer": "Converteix a capa",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Fusiona",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Depend de la posició",
   "flipHorizontal": "Gira horitzontalment",
   "flipVertical": "Gira verticalment",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

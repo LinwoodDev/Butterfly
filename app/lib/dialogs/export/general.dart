@@ -11,6 +11,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:synchronized/synchronized.dart';
 
 enum ExportTransformPreset { page, view }
 
@@ -19,7 +20,7 @@ ImageExportOptions getDefaultImageExportOptions(
   CameraTransform? transform,
 }) {
   transform ??= context.read<TransformCubit>().state;
-  final size = MediaQuery.of(context).size;
+  final size = MediaQuery.sizeOf(context);
   return ImageExportOptions(
     width: size.width,
     height: size.height,
@@ -34,7 +35,7 @@ SvgExportOptions getDefaultSvgExportOptions(
   CameraTransform? transform,
 }) {
   transform ??= context.read<TransformCubit>().state;
-  final size = MediaQuery.of(context).size;
+  final size = MediaQuery.sizeOf(context);
   final scale = transform.size;
   return SvgExportOptions(
     width: size.width / scale,
@@ -60,7 +61,9 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   late ExportOptions _options;
 
   ByteData? _previewImage;
-  Future<ByteData?>? _regeneratingFuture;
+  final _previewLock = Lock();
+  int _previewGeneration = 0;
+  bool? _exportingShare;
 
   @override
   void initState() {
@@ -72,13 +75,13 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   }
 
   Future<void> _regeneratePreviewImage() async {
-    if (_regeneratingFuture != null) return;
-    var imageFuture = generateImage();
-    _regeneratingFuture =
-        _regeneratingFuture?.then((value) => imageFuture) ?? imageFuture;
-    var image = await _regeneratingFuture;
-    _regeneratingFuture = null;
-    if (mounted) setState(() => _previewImage = image);
+    final generation = ++_previewGeneration;
+    await _previewLock.synchronized(() async {
+      if (generation != _previewGeneration) return;
+      final image = await generateImage();
+      if (!mounted || generation != _previewGeneration) return;
+      setState(() => _previewImage = image);
+    });
   }
 
   Future<ByteData?> generateImage([bool optimize = true]) async {
@@ -95,12 +98,13 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         );
       }
     }
-    return state.currentIndexCubit.render(
+    return bloc.currentIndexCubit.render(
       state.data,
       state.page,
       state.info,
       imageOptions,
       invisibleLayers: state.invisibleLayers,
+      docState: state,
     );
   }
 
@@ -108,7 +112,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
-    return state.currentIndexCubit
+    return bloc.currentIndexCubit
         .renderSVG(
           state.data,
           state.page,
@@ -119,25 +123,31 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   }
 
   Future<void> export(bool share) async {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) {
-      return;
+    if (_exportingShare != null) return;
+    setState(() => _exportingShare = share);
+    try {
+      final state = context.read<DocumentBloc>().state;
+      if (state is! DocumentLoadSuccess) {
+        return;
+      }
+      switch (_options) {
+        case ImageExportOptions():
+          final data = await generateImage(false);
+          if (data == null) {
+            return;
+          }
+          await exportImage(context, data.buffer.asUint8List(), share);
+        case final SvgExportOptions options:
+          final data = await generateSVG(options);
+          if (data == null) {
+            return;
+          }
+          await exportSvg(context, data, share);
+      }
+      if (mounted) Navigator.of(context).pop();
+    } finally {
+      if (mounted) setState(() => _exportingShare = null);
     }
-    switch (_options) {
-      case ImageExportOptions():
-        final data = await generateImage(false);
-        if (data == null) {
-          return;
-        }
-        await exportImage(context, data.buffer.asUint8List(), share);
-      case final SvgExportOptions options:
-        final data = await generateSVG(options);
-        if (data == null) {
-          return;
-        }
-        await exportSvg(context, data, share);
-    }
-    if (mounted) Navigator.of(context).pop();
   }
 
   @override
@@ -217,12 +227,32 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                             ),
                             if (supportsShare())
                               ElevatedButton(
-                                child: Text(AppLocalizations.of(context).share),
-                                onPressed: () => export(true),
+                                onPressed: _exportingShare != null
+                                    ? null
+                                    : () => export(true),
+                                child: _exportingShare == true
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Text(AppLocalizations.of(context).share),
                               ),
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context).export),
-                              onPressed: () => export(false),
+                              onPressed: _exportingShare != null
+                                  ? null
+                                  : () => export(false),
+                              child: _exportingShare == false
+                                  ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Text(AppLocalizations.of(context).export),
                             ),
                           ],
                         ),
@@ -249,9 +279,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               onPressed: () {
                 final transform = context
                     .read<DocumentBloc>()
-                    .state
                     .currentIndexCubit
-                    ?.state
                     .transformCubit
                     .state;
 
@@ -280,7 +308,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 final bloc = context.read<DocumentBloc>();
                 final state = bloc.state;
                 if (state is! DocumentLoaded) return;
-                final cubit = state.currentIndexCubit;
+                final cubit = bloc.currentIndexCubit;
                 final rect = cubit.getPageRect(
                   invisibleLayers: state.invisibleLayers,
                 );

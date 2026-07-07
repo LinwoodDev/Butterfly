@@ -13,6 +13,8 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
+import '../delete.dart';
+import '../../widgets/reorderable_list_item.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;
@@ -27,6 +29,7 @@ class PdfExportDialog extends StatefulWidget {
 class _PdfExportDialogState extends State<PdfExportDialog> {
   final List<({Key key, AreaPreset preset})> _areas = [];
   int quality = 1;
+  bool? _exportingShare;
 
   @override
   void initState() {
@@ -41,14 +44,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 700),
         child: BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
-              previous.currentIndexCubit != current.currentIndexCubit ||
               previous.page != current.page ||
               previous.pageName != current.pageName,
           builder: (context, state) {
             if (state is! DocumentLoadSuccess) {
               return const Center(child: CircularProgressIndicator());
             }
-            final currentIndex = state.currentIndexCubit;
+            final currentIndex = context.read<DocumentBloc>().currentIndexCubit;
             return Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,11 +58,40 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                 Header(
                   title: Text(AppLocalizations.of(context).exportPdf),
                   actions: [
+                    if (_areas.isNotEmpty)
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
+                        tooltip: AppLocalizations.of(context).save,
+                        onPressed: () async {
+                          final bloc = context.read<DocumentBloc>();
+                          final currentState = bloc.state;
+                          if (currentState is! DocumentLoadSuccess) return;
+                          final name = await showDialog<String>(
+                            context: context,
+                            builder: (context) => NameDialog(
+                              validator: defaultNameValidator(
+                                context,
+                                currentState.info.exportPresets
+                                    .map((e) => e.name)
+                                    .toList(),
+                              ),
+                            ),
+                          );
+                          if (name != null) {
+                            bloc.add(
+                              ExportPresetCreated(
+                                name,
+                                _areas.map((e) => e.preset).toList(),
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.list),
                       tooltip: AppLocalizations.of(context).presets,
+                      icon: const PhosphorIcon(PhosphorIconsLight.bookmark),
                       onPressed: () async {
-                        final preset = await showDialog<ExportPreset>(
+                        final result = await showDialog<ExportPreset>(
                           context: context,
                           builder: (ctx) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
@@ -69,11 +100,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                             ),
                           ),
                         );
-                        if (preset != null) {
+                        if (result != null) {
                           setState(() {
                             _areas.clear();
                             _areas.addAll(
-                              preset.areas.map(
+                              result.areas.map(
                                 (e) => (key: UniqueKey(), preset: e),
                               ),
                             );
@@ -83,7 +114,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     ),
                     IconButton(
                       onPressed: () async {
-                        final result = await showDialog<(String, Area)>(
+                        final result = await showDialog<List<(String, Area)>>(
                           context: context,
                           builder: (_) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
@@ -91,12 +122,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           ),
                         );
                         if (result != null) {
-                          final (page, area) = result;
                           setState(() {
-                            _areas.add((
-                              key: UniqueKey(),
-                              preset: AreaPreset(name: area.name, page: page),
-                            ));
+                            for (final (page, area) in result) {
+                              _areas.add((
+                                key: UniqueKey(),
+                                preset: AreaPreset(name: area.name, page: page),
+                              ));
+                            }
                           });
                         }
                       },
@@ -121,9 +153,12 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                               : _buildAreasList(state, currentIndex),
                         ),
                         const Divider(),
-                        Row(
+                        Wrap(
+                          alignment: WrapAlignment.end,
+                          spacing: 8,
+                          runSpacing: 8,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Expanded(child: Container()),
                             TextButton(
                               child: Text(
                                 MaterialLocalizations.of(
@@ -133,37 +168,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             if (widget.print) ...[
-                              ElevatedButton(
-                                child: Text(
-                                  widget.print
-                                      ? AppLocalizations.of(context).share
-                                      : AppLocalizations.of(context).export,
-                                ),
-                                onPressed: () async {
-                                  await _export(true);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
+                              _buildExportButton(true),
                             ] else ...[
-                              if (supportsShare())
-                                ElevatedButton(
-                                  child: Text(
-                                    AppLocalizations.of(context).share,
-                                  ),
-                                  onPressed: () async {
-                                    await _export(true);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ElevatedButton(
-                                child: Text(
-                                  AppLocalizations.of(context).export,
-                                ),
-                                onPressed: () async {
-                                  await _export(false);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
+                              if (supportsShare()) _buildExportButton(true),
+                              _buildExportButton(false),
                             ],
                           ],
                         ),
@@ -179,17 +187,46 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     );
   }
 
+  Widget _buildExportButton(bool share) {
+    return ElevatedButton(
+      onPressed: _exportingShare != null
+          ? null
+          : () async {
+              await _export(share);
+              if (mounted) {
+                Navigator.of(context).pop();
+              }
+            },
+      child: _exportingShare == share
+          ? const SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : Text(
+              share
+                  ? AppLocalizations.of(context).share
+                  : AppLocalizations.of(context).export,
+            ),
+    );
+  }
+
   Future<void> _export(bool share) async {
+    if (_exportingShare != null) return;
+    setState(() => _exportingShare = share);
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final loading = showLoadingDialog(context);
     try {
-      final pdf = await state.currentIndexCubit.renderPDF(
-        state,
-        areas: _areas.map((e) => e.preset).toList(),
-        onProgress: (progress) => loading?.setProgress(progress),
-      );
+      final pdf = await context
+          .read<DocumentBloc>()
+          .currentIndexCubit
+          .renderPDF(
+            state,
+            areas: _areas.map((e) => e.preset).toList(),
+            onProgress: (progress) => loading?.setProgress(progress),
+          );
       if (pdf == null) {
         throw Exception('Failed to generate PDF.');
       }
@@ -210,6 +247,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
       );
     } finally {
       loading?.close();
+      if (mounted) setState(() => _exportingShare = null);
     }
   }
 
@@ -291,11 +329,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
           textAlign: TextAlign.center,
           style: TextTheme.of(context).bodyMedium,
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 4,
-          children: [pageButton, documentButton],
+          children: [pageButton, const SizedBox(width: 8), documentButton],
         ),
       ],
     );
@@ -303,12 +340,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
 
   Widget _buildAreasList(DocumentLoaded state, CurrentIndexCubit currentIndex) {
     return ReorderableListView.builder(
+      buildDefaultDragHandles: false,
       itemCount: _areas.length,
-      onReorder: (oldIndex, newIndex) {
+      onReorderItem: (oldIndex, newIndex) {
         setState(() {
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
           final item = _areas.removeAt(oldIndex);
           _areas.insert(newIndex, item);
         });
@@ -323,185 +358,247 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         if (area == null) {
           return Container(key: wrapper.key);
         }
-        const maxImageDimension = 1000;
-        final maxSide = max(area.width, area.height);
-        final imageFuture = currentIndex.render(
-          state.data,
-          page,
-          state.info,
-          ImageExportOptions(
-            width: area.width,
-            height: area.height,
-            quality: min(e.quality, maxImageDimension / maxSide),
-            x: area.position.x,
-            y: area.position.y,
-          ),
-        );
-        return FutureBuilder<ByteData?>(
+        return _AreaPreview(
           key: wrapper.key,
-          future: imageFuture,
-          builder: (context, snapshot) => _AreaPreview(
-            area: area,
-            page: e.page,
-            quality: e.quality,
-            isCurrentPage: e.page == state.pageName,
-            onRemove: () {
-              setState(() {
-                _areas.removeAt(i);
-              });
-            },
-            onQualityChanged: (value) {
-              setState(() {
-                _areas[i] = (
-                  key: wrapper.key,
-                  preset: e.copyWith(quality: value),
-                );
-              });
-            },
-            image: snapshot.data?.buffer.asUint8List(),
-          ),
+          index: i,
+          area: area,
+          preset: e,
+          page: page,
+          state: state,
+          currentIndex: currentIndex,
+          onRemove: () {
+            setState(() {
+              _areas.removeAt(i);
+            });
+          },
+          onQualityChanged: (value) {
+            setState(() {
+              _areas[i] = (
+                key: wrapper.key,
+                preset: e.copyWith(quality: value),
+              );
+            });
+          },
         );
       },
     );
   }
 }
 
-class _AreaPreview extends StatelessWidget {
+class _AreaPreview extends StatefulWidget {
+  final int index;
   final Area area;
-  final Uint8List? image;
-  final String page;
+  final AreaPreset preset;
+  final DocumentPage page;
+  final DocumentLoaded state;
+  final CurrentIndexCubit currentIndex;
   final VoidCallback onRemove;
-  final double quality;
-  final bool isCurrentPage;
   final ValueChanged<double> onQualityChanged;
 
   const _AreaPreview({
+    super.key,
+    required this.index,
     required this.area,
-    this.image,
+    required this.preset,
     required this.page,
+    required this.state,
+    required this.currentIndex,
     required this.onRemove,
-    required this.quality,
-    required this.isCurrentPage,
     required this.onQualityChanged,
   });
 
   @override
+  State<_AreaPreview> createState() => _AreaPreviewState();
+}
+
+class _AreaPreviewState extends State<_AreaPreview> {
+  late Future<ByteData?> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void didUpdateWidget(covariant _AreaPreview oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.area != widget.area ||
+        oldWidget.preset.quality != widget.preset.quality) {
+      _load();
+    }
+  }
+
+  void _load() {
+    const maxImageDimension = 1000;
+    final maxSide = max(widget.area.width, widget.area.height);
+    _future = widget.currentIndex.render(
+      widget.state.data,
+      widget.page,
+      widget.state.info,
+      ImageExportOptions(
+        width: widget.area.width,
+        height: widget.area.height,
+        quality: min(widget.preset.quality, maxImageDimension / maxSide),
+        x: widget.area.position.x,
+        y: widget.area.position.y,
+      ),
+      docState: widget.state,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var pageName = NoteData.getPageNameFromRealName(page);
+    var pageName = NoteData.getPageNameFromRealName(widget.preset.page);
     if (pageName.isEmpty) {
       pageName = AppLocalizations.of(context).untitled;
     }
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isSmall = constraints.maxWidth < 500;
-        return Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: isSmall
-                ? Column(
+    final isCurrentPage = widget.preset.page == widget.state.pageName;
+    return FutureBuilder<ByteData?>(
+      future: _future,
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+        final image = data?.buffer.asUint8List(
+          data.offsetInBytes,
+          data.lengthInBytes,
+        );
+
+        return ReorderableListItem(
+          index: widget.index,
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isSmall = constraints.maxWidth < 450;
+                  return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         children: [
-                          Expanded(
+                          Container(
+                            width: 80,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              border: Border.all(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            clipBehavior: Clip.antiAlias,
                             child: image == null
                                 ? const Center(
-                                    child: CircularProgressIndicator(),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
                                   )
-                                : Image.memory(image!, fit: BoxFit.contain),
+                                : Image.memory(image, fit: BoxFit.contain),
                           ),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  area.name.isEmpty
+                                  widget.area.name.isEmpty
                                       ? AppLocalizations.of(context).untitled
-                                      : area.name,
-                                  style: TextTheme.of(context).titleMedium,
+                                      : widget.area.name,
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
                                   pageName,
-                                  style: TextTheme.of(context).bodySmall
+                                  style: Theme.of(context).textTheme.bodySmall
                                       ?.copyWith(
                                         color: isCurrentPage
-                                            ? ColorScheme.of(context).primary
-                                            : null,
+                                            ? Theme.of(
+                                                context,
+                                              ).colorScheme.primary
+                                            : Theme.of(
+                                                context,
+                                              ).colorScheme.onSurfaceVariant,
                                       ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
                           ),
-                          IconButton(
-                            onPressed: onRemove,
-                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                            tooltip: AppLocalizations.of(context).remove,
-                          ),
-                          const SizedBox(width: 32),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      ExactSlider(
-                        value: quality,
-                        min: 1,
-                        max: 10,
-                        onChanged: onQualityChanged,
-                        contentPadding: EdgeInsets.zero,
-                        header: Text(AppLocalizations.of(context).quality),
-                      ),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      SizedBox(
-                        width: 192,
-                        height: 108,
-                        child: image == null
-                            ? const Center(child: CircularProgressIndicator())
-                            : Image.memory(image!, fit: BoxFit.contain),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              area.name.isEmpty
-                                  ? AppLocalizations.of(context).untitled
-                                  : area.name,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              pageName,
-                              style: TextTheme.of(context).bodySmall?.copyWith(
-                                color: isCurrentPage
-                                    ? ColorScheme.of(context).primary
-                                    : null,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            ExactSlider(
-                              value: quality,
-                              min: 1,
-                              max: 10,
-                              onChanged: onQualityChanged,
-                              contentPadding: EdgeInsets.zero,
-                              header: Text(
-                                AppLocalizations.of(context).quality,
+                          if (!isSmall) ...[
+                            const SizedBox(width: 16),
+                            SizedBox(
+                              width: 150,
+                              child: ExactSlider(
+                                value: widget.preset.quality,
+                                min: 1,
+                                max: 10,
+                                onChangeEnd: widget.onQualityChanged,
+                                contentPadding: EdgeInsets.zero,
+                                header: Text(
+                                  AppLocalizations.of(context).quality,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
                               ),
                             ),
                           ],
+                          const SizedBox(width: 8),
+                          IconButton(
+                            onPressed: widget.onRemove,
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            tooltip: AppLocalizations.of(context).remove,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          const SizedBox(width: 48),
+                        ],
+                      ),
+                      if (isSmall)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 32 + 80 + 16),
+                              Expanded(
+                                child: ExactSlider(
+                                  value: widget.preset.quality,
+                                  min: 1,
+                                  max: 10,
+                                  onChangeEnd: widget.onQualityChanged,
+                                  contentPadding: EdgeInsets.zero,
+                                  header: Text(
+                                    AppLocalizations.of(context).quality,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 48),
+                            ],
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: onRemove,
-                        icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                        tooltip: AppLocalizations.of(context).remove,
-                      ),
-                      const SizedBox(width: 16),
                     ],
-                  ),
+                  );
+                },
+              ),
+            ),
           ),
         );
       },
@@ -521,6 +618,7 @@ class _AreaSelectionDialog extends StatefulWidget {
 class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
   String _searchQuery = '';
   bool _onlyCurrentPage = false;
+  final Set<(String, Area)> _selected = {};
 
   @override
   Widget build(BuildContext context) {
@@ -567,66 +665,122 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                   buildWhen: (previous, current) =>
                       previous.page != current.page ||
                       previous.pageName != current.pageName,
-                  builder: (context, state) => ListView(
-                    shrinkWrap: true,
-                    children:
-                        (_onlyCurrentPage
-                                ? [state.pageName ?? '']
-                                : widget.document.getPages(true))
-                            .expand(
-                              (page) =>
-                                  (page == state.pageName
-                                          ? state.page
-                                          : widget.document.getPage(page))
-                                      ?.areas
-                                      .where(
-                                        (element) =>
-                                            element.name.contains(_searchQuery),
-                                      )
-                                      .map((e) {
-                                        final pageName =
-                                            NoteData.getPageNameFromRealName(
-                                              page,
-                                            );
-                                        return ListTile(
-                                          title: Text(e.name),
-                                          subtitle: Text(
-                                            pageName.isEmpty
-                                                ? AppLocalizations.of(
-                                                    context,
-                                                  ).untitled
-                                                : pageName,
-                                            style: TextTheme.of(context)
-                                                .bodySmall
-                                                ?.copyWith(
-                                                  color: page == state.pageName
-                                                      ? ColorScheme.of(
-                                                          context,
-                                                        ).primary
-                                                      : null,
-                                                ),
-                                          ),
-                                          key: ObjectKey(e.name),
-                                          onTap: () => Navigator.of(
-                                            context,
-                                          ).pop((page, e)),
-                                        );
-                                      })
-                                      .toList() ??
-                                  <Widget>[],
-                            )
-                            .toList(),
-                  ),
+                  builder: (context, state) {
+                    final pages = _onlyCurrentPage
+                        ? [state.pageName ?? '']
+                        : widget.document.getPages(true);
+                    final children = <Widget>[];
+
+                    for (final page in pages) {
+                      final p = page == state.pageName
+                          ? state.page
+                          : widget.document.getPage(page);
+                      final areas =
+                          p?.areas
+                              .where((e) => e.name.contains(_searchQuery))
+                              .toList() ??
+                          [];
+                      if (areas.isEmpty) continue;
+
+                      final pageName = NoteData.getPageNameFromRealName(page);
+                      final isCurrent = page == state.pageName;
+                      final allSelected = areas.every(
+                        (e) => _selected.contains((page, e)),
+                      );
+                      final anySelected = areas.any(
+                        (e) => _selected.contains((page, e)),
+                      );
+
+                      if (children.isNotEmpty) {
+                        children.add(const Divider(height: 1));
+                      }
+
+                      children.add(
+                        Container(
+                          color: ColorScheme.of(
+                            context,
+                          ).surfaceContainerHighest.withValues(alpha: 0.3),
+                          child: CheckboxListTile(
+                            title: Text(
+                              pageName.isEmpty
+                                  ? AppLocalizations.of(context).untitled
+                                  : pageName,
+                              style: TextTheme.of(context).titleMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: isCurrent
+                                        ? Theme.of(context).colorScheme.primary
+                                        : null,
+                                  ),
+                            ),
+                            value: allSelected
+                                ? true
+                                : (anySelected ? null : false),
+                            tristate: true,
+                            onChanged: (value) {
+                              setState(() {
+                                if (allSelected) {
+                                  _selected.removeAll(
+                                    areas.map((e) => (page, e)),
+                                  );
+                                } else {
+                                  _selected.addAll(areas.map((e) => (page, e)));
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      );
+
+                      for (final e in areas) {
+                        final item = (page, e);
+                        children.add(
+                          CheckboxListTile(
+                            contentPadding: const EdgeInsets.only(
+                              left: 32,
+                              right: 16,
+                            ),
+                            title: Text(e.name),
+                            key: ObjectKey(item),
+                            value: _selected.contains(item),
+                            onChanged: (value) {
+                              setState(() {
+                                if (value == true) {
+                                  _selected.add(item);
+                                } else {
+                                  _selected.remove(item);
+                                }
+                              });
+                            },
+                          ),
+                        );
+                      }
+                    }
+
+                    return ListView(shrinkWrap: true, children: children);
+                  },
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                child: Text(
-                  MaterialLocalizations.of(context).cancelButtonLabel,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    child: Text(
+                      MaterialLocalizations.of(context).cancelButtonLabel,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: _selected.isEmpty
+                        ? null
+                        : () => Navigator.of(context).pop(_selected.toList()),
+                    child: Text(AppLocalizations.of(context).add),
+                  ),
+                ],
               ),
             ),
           ],
@@ -717,6 +871,12 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                             .map(
                               (e) => Dismissible(
                                 key: ObjectKey(e.name),
+                                confirmDismiss: (direction) async {
+                                  return await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) => const DeleteDialog(),
+                                  );
+                                },
                                 onDismissed: (direction) {
                                   context.read<DocumentBloc>().add(
                                     ExportPresetRemoved(e.name),
@@ -725,6 +885,29 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                 child: ListTile(
                                   title: Text(e.name),
                                   onTap: () => Navigator.of(context).pop(e),
+                                  trailing: IconButton(
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.trash,
+                                    ),
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).remove,
+                                    color: Theme.of(context).colorScheme.error,
+                                    onPressed: () async {
+                                      if (await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeleteDialog(),
+                                          ) ==
+                                          true) {
+                                        if (context.mounted) {
+                                          context.read<DocumentBloc>().add(
+                                            ExportPresetRemoved(e.name),
+                                          );
+                                        }
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

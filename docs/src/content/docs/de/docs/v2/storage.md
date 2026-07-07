@@ -3,10 +3,13 @@ title: Speicher
 sidebar_position: 2
 ---
 
+Es gibt mehrere Möglichkeiten, Notizen in Butterfly zu speichern.
+Entweder über den Speicher Ihres Geräts oder über Cloud-Speicher (WebDAV).
+
 ## Datenverzeichnis
 
-Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Pakete gespeichert werden.
-Auf dem Desktop können Sie es in `~/Documents/Linwood/Butterfly` finden.
+Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Packs gespeichert werden.
+Auf dem Desktop finden Sie es unter `~/Documents/Linwood/Butterfly`.
 Auf dem Handy ist es in `getExternalFilesDir(null)/Linwood/Butterfly`.
 Sie können es auch in den Einstellungen unter "Data" ändern.
 
@@ -19,7 +22,7 @@ Die Anwendungsdaten werden in Ihrem Browser gespeichert. Es wird in einem lokale
 
 ## Native Plattformen
 
-Standardmäßig speichert die Anwendung die Daten in Ihrem Dokumentenordner in einem Unterordner namens "Linwood/Butterfly". Dieser Ordner wird beim Speichern der ersten Daten erstellt. Dieser Ordner kann in den Einstellungen geändert werden.
+Standardmäßig speichert die Anwendung die Daten in Ihrem Dokumente-Ordner in einem Unterordner namens „Linwood/Butterfly“. Dieser Ordner wird erstellt, wenn Sie zum ersten Mal Daten speichern. Dieser Ordner kann in den Einstellungen geändert werden.
 
 ## Entfernter Speicher {#remote}
 
@@ -29,12 +32,12 @@ Diese Funktion ist im Web nicht verfügbar.
 
 :::
 
-Die Anwendung kann auf einem entfernten Server gespeichert werden. Dies ist nützlich, wenn Sie die Daten mit anderen Personen teilen möchten oder wenn Sie mehrere Computer haben. Derzeit wird nur das `WebDAV` Protokoll unterstützt.
+Die Anwendungsdaten können auf einem Remote-Server gespeichert werden. Dies ist nützlich, wenn Sie die Daten mit anderen Personen teilen möchten oder wenn Sie mehrere Computer haben. Derzeit wird nur das `WebDAV` Protokoll unterstützt.
 
 Um einen entfernten Server hinzuzufügen, gehen Sie zu den Einstellungen und klicken Sie auf `Remotes`. Dann klicken Sie auf `Add remote`.
 Fügen Sie die URL des entfernten Servers und den Benutzernamen und das Passwort hinzu. Danach können Sie den Ordner angeben, in dem die Daten gespeichert werden.
 
-Um die webdav URL zu erhalten, besuchen Sie bitte die Dokumentation:
+Um die WebDAV-URL zu erhalten, besuche bitte die Dokumentation:
 
 - [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (es sollte so aussehen: `https://nextcloud.example.com/remote.php/dav/files/username/`, ersetzen Sie `username` und `nextcloud.example.com` mit den korrekten Werten)
 
@@ -52,5 +55,30 @@ Es gibt ein paar Einschränkungen:
 ## Andere Speichermethoden
 
 Wenn Sie auf einem nativen Gerät sind, können Sie auch das Anwendungsverzeichnis mit Ihrer Lieblingsplattform synchronisieren.
-Google Drive hat [eine offizielle App](https://www.google.com/drive/download/) auf Windows und es gibt inoffizielle Einsendungen im Play Store.
-Auf Linux können Sie auch das native Remotespeicher System verwenden und Ihr Datenverzeichnis ändern oder einen neuen externen Speicher hinzufügen, wenn Sie auf die Schaltfläche Verbindung hinzufügen klicken.
+Google Drive hat unter Windows [eine offizielle App](https://www.google.com/drive/download/), und im Play Store gibt es inoffizielle Apps.
+Unter Linux können Sie auch das native Remote-Speichersystem verwenden und Ihr Datenverzeichnis dorthin ändern oder über die Schaltfläche zum Hinzufügen einer Verbindung einen neuen externen Speicher hinzufügen.
+
+## Unterstützte Dateitypen
+
+Butterfly unterstützt den Import von SVG, Butterfly-Notiz (.bfly) und Butterfly-Rohnotiz (.tbfly).
+
+### Butterfly-Notiz (.bfly)
+
+Dieser Dateityp ist das empfohlene Format zum Speichern von Notizen.
+
+Es ist ein ZIP-Archiv, das Informationen über die Notiz enthält, größtenteils in JSON-Dateien.
+Diese enthaltenen JSON-Dateien sind nicht für gute Lesbarkeit durch Menschen optimiert.
+
+### Butterfly-Rohnotiz (.tbfly)
+
+Diese Datei wird für die Verwendung mit Versionsverwaltungssoftware wie Git empfohlen.
+
+Diese Datei ist **kein** ZIP-Archiv, sondern eine _JSON_-Datei.
+Sie enthält alle Informationen zur Notiz in einer einzelnen JSON-Datei, die für Lesbarkeit und saubere Formatierung optimiert ist. Sie lädt langsamer als die normale Butterfly-Notiz.
+
+### SVG
+
+Dieser Dateityp speichert keine Informationen über die Notiz!
+Wenn diese Datei in Butterfly importiert wird, wird sie als einzelnes Bild behandelt.
+
+Verwende dies _NUR_, wenn die Notiz nicht von Butterfly verändert werden soll.

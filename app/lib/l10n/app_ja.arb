@@ -10,6 +10,11 @@
   "lightTheme": "ライトテーマ",
   "systemTheme": "デフォルトのシステムテーマを使用する",
   "view": "表示",
+  "contentViewport": "コンテンツビュー",
+  "limitViewportToPositiveCoordinates": "ビューポートを正座標に制限する",
+  "off": "オフ",
+  "canvas": "Canvas",
+  "interface": "インターフェイス",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "ズームアウト",
   "resetZoom": "Reset zoom",
   "strokeWidth": "ストロークの幅",
+  "strokeStyle": "ストロークのスタイル",
+  "dashLength": "ダッシュの長さ",
+  "gapLength": "ギャップの長さ",
   "includeEraser": "消去を含めますか？",
   "thinning": "薄肉化",
   "pen": "ペン",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "パスの消去",
+  "stroke": "Stroke",
   "label": "ラベル",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "背景",
+  "applyBackground": "背景を適用",
+  "applyAreas": "エリアを適用",
+  "currentPage": "現在のページ",
+  "allPages": "すべてのページ",
   "box": "Box",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "デフォルトのパレット",
   "highlighter": "ハイライト",
+  "combinePaths": "パスを結合",
   "add": "追加",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "単色",
+  "gradient": "Gradient",
+  "gradientType": "グラデーションの種類",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "倍精度",
   "dotted": "点線",
+  "dottedDark": "Dotted dark",
   "dashed": "破線",
   "wavy": "Wavy",
   "fontWeight": "フォントの重量",
@@ -215,6 +236,9 @@
   },
   "behaviors": "ビヘイビア",
   "dataDirectory": "データディレクトリ",
+  "warning": "警告",
+  "platformExperimentalWarning": "警告：この設定は実験的であり、このプラットフォームで問題が発生する可能性があります。",
+  "changeDataDirectoryWarningContent": "データフォルダを変更してもよろしいですか？続行する前にデータのバックアップを作成してください。",
   "defaultPath": "デフォルトのパス",
   "dateFormat": "日付の形式",
   "updatedAt": "更新日時: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "未設定",
   "enterLayer": "レイヤー名を入力してください",
+  "eraseShapes": "図形を消去",
+  "eraseShapeModeNone": "シェイプを消去しない",
+  "eraseShapeModeTouchEdges": "エッジに触れたときに消去する",
+  "eraseShapeModeTouchAnywhere": "どこに触れても消去する",
+  "selectElementModeTouchEdges": "エッジに触れたときに選択する",
+  "selectElementModeTouchAnywhere": "任意の場所に触れたときに選択します",
   "selectElements": "要素を選択",
   "deleteElements": "要素を削除",
+  "eraseAllElements": "すべての要素を消去",
   "deleteElementsConfirm": "選択した要素を本当に削除しますか？",
   "selectCustomCollection": "カスタムコレクションを選択",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "ダーク",
-  "plainDark": "ダーク",
+  "plainDark": "真っ暗な",
   "ruledDark": "規則のあるダーク",
   "quadDark": "クワッドダーク",
   "musicDark": "暗い音楽",
@@ -545,6 +576,7 @@
   "topRight": "右上へ",
   "bottomLeft": "左下",
   "bottomRight": "右下",
+  "zoomPosition": "ズーム制御位置",
   "caches": "キャッシュ",
   "manage": "管理",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "フォルダを同期しました",
   "syncRootDirectory": "ルートディレクトリを同期",
   "penOnlyInput": "ペンのみ入力",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "スタイラスが検出されたときにペンオンリーモードを自動的に有効にします。この設定は現在のセッションでのみ有効です。",
+  "penOnlyInputOnDescription": "タッチとマウスの入力を常に拒否し、スタイラスの入力のみを受け付けます。",
+  "penOnlyInputOffDescription": "タッチ、マウス、スタイラスを含むすべての入力タイプを受け入れます。",
+  "automatic": "自動",
+  "alwaysOn": "常にオン",
+  "alwaysOff": "常にオフ",
+  "showPenOnlyToggle": "ペンのみのトグル表示",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "ネイティブのタイトルバー",
+  "mode": "Mode",
   "syncMode": "同期モード",
   "connection": "接続",
   "always": "常に表示",
@@ -893,6 +939,7 @@
   "bringForward": "前方へ移動",
   "sendBackward": "後方に送る",
   "rotation": "回転",
+  "direction": "方向",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
   "rotate": "回転",
@@ -919,6 +966,9 @@
   "ascending": "昇順",
   "descending": "降順",
   "imageScale": "画像の大きさ",
+  "svgScale": "SVGスケール",
+  "noImageSelected": "画像が選択されていません",
+  "noSvgSelected": "SVGが選択されていません",
   "select": "選択",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDFの品質",
   "surface": "Surface",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "それでも続ける",
   "zoomControl": "ズームコントロール",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "高コントラストformat@@0",
   "shouldANumber": "この値は有効な数字でなければなりません",
   "createAreas": "エリアを作成",
@@ -1081,6 +1134,8 @@
   "addAll": "すべて追加",
   "onlyCurrentPage": "現在のページのみ",
   "smoothNavigation": "スムーズなナビゲーション",
+  "edgePanAreaSwitching": "エッジパンエリアの切り替え",
+  "useAndroidSaf": "Android SAFを使用する",
   "exact": "正確な",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "コレクションを変更",
   "collections": "コレクション",
   "fullSelection": "完全な選択",
-  "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。",
   "collection": "コレクション",
   "defaultCollection": "デフォルトのコレクション",
   "scroll": "スクロール",
@@ -1123,7 +1177,8 @@
   "homeScreen": "ホーム画面",
   "lastNote": "最後のメモ",
   "newNote": "新規ノート",
-  "convertToLayer": "レイヤーに変換",
+  "moveToLayer": "レイヤーに移動",
+  "createLayer": "レイヤーを作成",
   "merge": "結合",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "終了",
+  "radius": "Radius",
+  "focalPoint": "焦点点",
+  "useOffCenterStartPoint": "中心外の開始点を使用する",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "色の停止",
+  "addStop": "停止を追加",
   "positionDependent": "依存する位置",
   "flipHorizontal": "水平方向に反転",
   "flipVertical": "垂直方向に反転",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "ショートカットのカスタマイズ",
+  "clickToSave": "クリックして保存",
+  "toolbars": "ツールバー",
+  "logs": "ログ",
+  "ruledSimple": "簡単なルール",
+  "ruledSimpleDark": "ルール化されたシンプルなダーク",
+  "quadSimple": "シンプルなクワッド",
+  "quadSimpleDark": "クワッド単純なダーク",
+  "redLinedRuled": "赤色の線が引かれた",
+  "redLinedRuledDark": "赤色の線が暗くなっています",
+  "redLinedQuad": "赤色のラインナップクワッド",
+  "redLinedQuadDark": "赤色のクワッドダーク",
+  "noItemSelected": "アイテムが選択されていません",
+  "areaAsInitial": "初期ビューとして領域を開く",
+  "swap": "入れ替え",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "ファイル拡張子を非表示",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "テンプレートから新規作成",
+  "exportAsTextShortcut": "テキストとしてエクスポート",
+  "exportAsImageShortcut": "画像としてエクスポート",
+  "exportAsPdfShortcut": "PDF としてエクスポート",
+  "exportAsSvgShortcut": "SVGとしてエクスポート",
+  "changePathShortcut": "パスの変更",
+  "fullScreenShortcut": "全画面",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "トリプルプレスアクション",
+  "longPress": "長押しする",
+  "toolNumber": "ツール {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "ショートカットを長押しする",
+  "holdShortcutsDescription": "キーを押して別のツールに一時的に切り替えます。キースイッチを前のツールに戻します。",
+  "key": "キー",
+  "bringMovedElementsToFront": "移動した要素を前面に移動",
+  "addTool": "ツールを追加",
+  "nextPage": "次のページ",
+  "previousPage": "前のページ"
 }

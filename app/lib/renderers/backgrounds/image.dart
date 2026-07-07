@@ -30,8 +30,8 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
 
     var paint = Paint();
 
-    for (var x = offsetX; x < size.width; x += sizeX) {
-      for (var y = offsetY; y < size.height; y += sizeY) {
+    for (var x = offsetX - sizeX; x < size.width + sizeX; x += sizeX) {
+      for (var y = offsetY - sizeY; y < size.height + sizeY; y += sizeY) {
         canvas.drawImageRect(
           image!,
           Rect.fromLTWH(

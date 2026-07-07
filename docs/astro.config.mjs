@@ -2,16 +2,36 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
-import remarkHeadingID from "remark-heading-id";
-import remarkGemoji from "remark-gemoji";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
+import { fileURLToPath } from "node:url";
+import { satteri } from '@astrojs/markdown-satteri';
+import katex from "katex";
+
+const renderMath = (value, displayMode = false) =>
+  katex.renderToString(value, {
+    displayMode,
+    throwOnError: false,
+  });
+
+const renderMathPlugin = {
+  name: "render-math",
+  inlineMath(node) {
+    return { rawHtml: renderMath(node.value) };
+  },
+  math(node) {
+    return { rawHtml: renderMath(node.value, true) };
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
   markdown: {
-    remarkPlugins: [remarkHeadingID, remarkGemoji],
+    processor: satteri({
+      features: { math: true },
+      mdastPlugins: [renderMathPlugin],
+    }),
   },
   integrations: [
     starlight({
@@ -20,6 +40,7 @@ export default defineConfig({
         // Relative path to your custom CSS file
         "./src/styles/linwood-style.scss",
         "./src/styles/custom.scss",
+        "katex/dist/katex.min.css",
       ],
       editLink: {
         baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',
@@ -109,6 +130,10 @@ export default defineConfig({
               link: "/docs/v2/migrating/",
             },
             {
+              label: "OneNote",
+              link: "/docs/v2/onenote/",
+            },
+            {
               ...getSidebarTranslatedLabel("Tools"),
               items: [
                 {
@@ -148,6 +173,10 @@ export default defineConfig({
                   link: "/docs/v2/tools/shape/",
                 },
                 {
+                  ...getSidebarTranslatedLabel("Polygon"),
+                  link: "/docs/v2/tools/polygon/",
+                },
+                {
                   ...getSidebarTranslatedLabel("Spacer"),
                   link: "/docs/v2/tools/spacer/",
                 },
@@ -170,6 +199,14 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Texture"),
                   link: "/docs/v2/tools/texture/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Barcode"),
+                  link: "/docs/v2/tools/barcode/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Eye dropper"),
+                  link: "/docs/v2/tools/eye_dropper/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Stamp"),
@@ -227,8 +264,16 @@ export default defineConfig({
               link: "/community/embed/",
             },
             {
+              label: "Embedding example",
+              link: "/community/embed-example/",
+            },
+            {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Stylus support"),
+              link: "/community/stylus-support/",
             },
             {
               ...getSidebarTranslatedLabel("Comparison"),
@@ -292,6 +337,9 @@ export default defineConfig({
         },
         hu: {
           label: "Hungarian",
+        },
+        id: {
+          label: "Indonesian",
         },
         it: {
           label: "Italian",

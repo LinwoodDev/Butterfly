@@ -2,14 +2,14 @@
 title: Seiten
 ---
 
-Pages are a way to organize your notes by allowing separate infinte canvases to be contained in a single document.
+Seiten sind eine Möglichkeit, Ihre Notizen zu organisieren, indem mehrere separate unendliche Leinwände in einem Dokument enthalten sein können.
 
 :::note
 
-Pages are **not** used to create regions on the infinite canvas. To create canvas regions, use [Areas](../areas).
+Seiten werden **nicht** verwendet, um Bereiche auf der unendlichen Leinwand zu erstellen. Verwende [Bereiche](../areas), um Leinwandbereiche zu erstellen.
 
 :::
 
-Use the page navigator to create and manage pages.
+Verwende den Seitennavigator, um Seiten zu erstellen und zu verwalten.
 
-To create folders of pages, add a `/` in the name of a page.
+Fügen Sie dem Namen einer Seite ein `/` hinzu, um Seitenordner zu erstellen.

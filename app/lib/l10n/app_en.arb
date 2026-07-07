@@ -10,6 +10,11 @@
   "lightTheme": "Light theme",
   "systemTheme": "Use default system theme",
   "view": "View",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -30,6 +35,9 @@
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke width",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "Pen",
@@ -41,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Path eraser",
+  "stroke": "Stroke",
   "label": "Label",
   "@label": {
     "description": "Label tool"
@@ -90,6 +98,10 @@
     "description": "Spacing property"
   },
   "background": "Background",
+  "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Box",
   "@box": {
     "description": "Box shape"
@@ -112,6 +124,7 @@
   },
   "defaultPalette": "Default palette",
   "highlighter": "Highlighter",
+  "combinePaths": "Combine paths",
   "add": "Add",
   "@add": {
     "description": "Add action"
@@ -136,8 +149,16 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Double",
   "dotted": "Dotted",
+  "dottedDark": "Dotted dark",
   "dashed": "Dashed",
   "wavy": "Wavy",
   "fontWeight": "Font weight",
@@ -215,6 +236,9 @@
   },
   "behaviors": "Behaviors",
   "dataDirectory": "Data directory",
+  "warning": "Warning",
+  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
+  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
   "defaultPath": "Default path",
   "dateFormat": "Date format",
   "updatedAt": "Updated at: {dateTime}",
@@ -276,8 +300,15 @@
   },
   "notSet": "Not set",
   "enterLayer": "Enter the layer name",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Select elements",
   "deleteElements": "Delete elements",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Do you really want to delete the selected elements?",
   "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
@@ -306,7 +337,7 @@
     "description": "Background pattern"
   },
   "dark": "Dark",
-  "plainDark": "Dark",
+  "plainDark": "Plain dark",
   "ruledDark": "Ruled dark",
   "quadDark": "Quad dark",
   "musicDark": "Music dark",
@@ -545,6 +576,7 @@
   "topRight": "Top right",
   "bottomLeft": "Bottom left",
   "bottomRight": "Bottom right",
+  "zoomPosition": "Zoom control position",
   "caches": "Caches",
   "manage": "Manage",
   "@manage": {
@@ -590,8 +622,22 @@
   "folderSynced": "Folder synced",
   "syncRootDirectory": "Sync root directory",
   "penOnlyInput": "Pen only input",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Native title bar",
+  "mode": "Mode",
   "syncMode": "Sync mode",
   "connection": "Connection",
   "always": "Always",
@@ -893,6 +939,7 @@
   "bringForward": "Bring forward",
   "sendBackward": "Send backward",
   "rotation": "Rotation",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Only available on larger screens",
   "toolbarPosition": "Toolbar position",
   "rotate": "Rotate",
@@ -919,6 +966,9 @@
   "ascending": "Ascending",
   "descending": "Descending",
   "imageScale": "Image scale",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Select",
   "@select": {
     "description": "Select action"
@@ -940,7 +990,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF quality",
   "surface": "Surface",
   "@surface": {
     "description": "Surface tool"
@@ -1060,6 +1109,10 @@
   },
   "continueAnyway": "Continue anyway",
   "zoomControl": "Zoom control",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "High contrast",
   "shouldANumber": "This value should be valid number",
   "createAreas": "Create areas",
@@ -1081,6 +1134,8 @@
   "addAll": "Add all",
   "onlyCurrentPage": "Only current page",
   "smoothNavigation": "Smooth navigation",
+  "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Exact",
   "@exact": {
     "description": "Exact match"
@@ -1112,7 +1167,6 @@
   "changeCollection": "Change collection",
   "collections": "Collections",
   "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
   "collection": "Collection",
   "defaultCollection": "Default collection",
   "scroll": "Scroll",
@@ -1123,7 +1177,8 @@
   "homeScreen": "Home screen",
   "lastNote": "Last note",
   "newNote": "New note",
-  "convertToLayer": "Convert to layer",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Merge",
   "@merge": {
     "description": "Merge action"
@@ -1183,6 +1238,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Position dependent",
   "flipHorizontal": "Flip horizontal",
   "flipVertical": "Flip vertical",
@@ -1260,5 +1323,53 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Full screen",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "longPress": "Long press",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

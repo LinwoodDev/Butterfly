@@ -5,10 +5,13 @@
 #ifndef MyAppVersion
 #define MyAppVersion "1.0"
 #endif
+#ifndef MyAppArch
+#define MyAppArch "x64"
+#endif
 #define MyAppPublisher "Linwood"
 #define MyAppURL "https://www.linwood.dev"
 #define MyAppExeName "butterfly.exe" 
-#define BaseDirRelease "build\windows\x64\runner\Release"
+#define BaseDirRelease "build\windows\" + MyAppArch + "\runner\Release"
 #define RunnerSourceDir "windows\runner"
 
 
@@ -30,12 +33,14 @@ LicenseFile=..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=build\windows\x64
+OutputDir=build\windows\{#MyAppArch}
 OutputBaseFilename=linwood-butterfly-windows-setup
 SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
+ArchitecturesAllowed={#MyAppArch}
+ArchitecturesInstallIn64BitMode={#MyAppArch}
 WizardStyle=modern
 Uninstallable=not WizardIsTaskSelected('portablemode')
 ChangesAssociations=yes
@@ -63,10 +68,12 @@ Source: "{#BaseDirRelease}\*"; DestDir: "{app}"; Flags: ignoreversion recursesub
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\.bfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
+Root: HKA; Subkey: "Software\Classes\.tbfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".bfly"; ValueData: ""
+Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".tbfly"; ValueData: ""
 
 Root: HKA; Subkey: "Software\Classes\.pdf\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppName}-PDF"; ValueData: ""; Tasks: pdf; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-PDF"; Tasks: pdf; Flags: uninsdeletekey

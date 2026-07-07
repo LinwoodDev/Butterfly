@@ -88,6 +88,7 @@ sealed class PadElement with _$PadElement {
     @Default('') String collection,
     @IdJsonConverter() String? id,
     double? zoom,
+    String? combineId,
     @Default([]) List<PathPoint> points,
     @Default(PenProperty()) PenProperty property,
     @Default({}) Map<String, dynamic> extra,
@@ -220,6 +221,7 @@ sealed class PadElement with _$PadElement {
   bool isStroke() => switch (this) {
     PenElement _ => true,
     ShapeElement _ => true,
+    PolygonElement _ => true,
     _ => false,
   };
 }

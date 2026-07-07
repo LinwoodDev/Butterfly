@@ -1,8 +1,8 @@
 ---
-title: Eraser tool
+title: Herramienta de borrador
 ---
 
-With this tool you can erase the elements on the paper.
+Con esta herramienta puedes borrar los elementos en el papel.
 
 ## Configuración
 

@@ -14,8 +14,12 @@ class TextureToolSelection extends ToolSelection<TextureTool> {
       ...super.buildProperties(context),
       const SizedBox(height: 8),
       ...[
-        PatternTemplate.values.where((element) => !element.dark),
-        PatternTemplate.values.where((element) => element.dark),
+        PatternTemplate.values.where(
+          (element) => element.background != PatternBackground.dark,
+        ),
+        PatternTemplate.values.where(
+          (element) => element.background == PatternBackground.dark,
+        ),
       ].map(
         (e) => Wrap(
           alignment: WrapAlignment.center,
@@ -37,9 +41,10 @@ class TextureToolSelection extends ToolSelection<TextureTool> {
         ),
       ),
       const SizedBox(height: 16),
-      SizedBox(
-        height: 500,
-        child: TextureView(value: tool.texture, onChanged: changeTexture),
+      TextureView(
+        value: tool.texture,
+        onChanged: changeTexture,
+        scrollable: false,
       ),
     ];
   }

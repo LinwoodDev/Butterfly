@@ -1,7 +1,14 @@
 ---
-title: Eye dropper tool
+title: Herramienta de soltador de ojos
 ---
 
-When clicking on this tool you can find the color of the part you clicked on. The color will be copied to the clipboard.
+:::note[⚡ Herramienta de acción
 
-If used as a temporary tool, the color will be applied to the primary selected tool.
+This is a special action tool.
+It can't be selected permanently and will run the action immediately when you click on it.
+
+:::
+
+Al hacer clic con esta herramienta puedes encontrar el color de la parte en la que hiciste clic. El color será copiado al portapapeles.
+
+If used as a [temporary tool](../#temporary-tools), the color will be applied to the primary selected tool.

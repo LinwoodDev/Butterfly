@@ -1,16 +1,18 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/files/entity.dart';
-import 'package:butterfly/views/files/recently.dart';
+import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -25,6 +27,7 @@ class FilesView extends StatefulWidget {
   final ExternalStorage? remote;
   final ValueChanged<ExternalStorage?>? onRemoteChanged;
   final ValueChanged<FileSystemFile<NoteFile>>? onPreview;
+  final void Function(FileSystemEntity<NoteFile>)? onTap;
   final bool collapsed;
   final bool isMobile, isPage;
   final String? initialPath;
@@ -36,6 +39,7 @@ class FilesView extends StatefulWidget {
     this.remote,
     this.onRemoteChanged,
     this.onPreview,
+    this.onTap,
     this.collapsed = false,
     this.isMobile = false,
     this.isPage = false,
@@ -104,10 +108,14 @@ class FilesViewState extends State<FilesView> {
   };
 
   void _setFilesStream() {
-    _templateSystem = _fileSystem.buildTemplateSystem(_remote);
+    _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
     _filesStream = ValueConnectableStream(
-      _documentSystem.fetchAsset(_locationController.text),
+      _documentSystem.fetchAsset(
+        _locationController.text,
+        readData:
+            widget.onPreview != null || _settingsCubit.state.showThumbnails,
+      ),
     ).autoConnect();
     _templatesFuture = _templateSystem.initialize().then(
       (_) => _templateSystem.getFiles(),
@@ -163,362 +171,371 @@ class FilesViewState extends State<FilesView> {
     final index = _locationController.text.lastIndexOf('/');
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isDesktop = constraints.maxWidth > LeapBreakpoints.medium;
-        final isTablet = constraints.maxWidth > LeapBreakpoints.compact;
-        return BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) =>
-              previous.gridView != current.gridView,
-          builder: (context, state) {
-            final text = Text(
-              AppLocalizations.of(context).files,
-              style: TextTheme.of(context).headlineMedium,
-              textAlign: TextAlign.start,
-            );
-            final orderButton = IconButton(
-              icon: PhosphorIcon(
-                _sortOrder == SortOrder.ascending
-                    ? PhosphorIconsLight.sortAscending
-                    : PhosphorIconsLight.sortDescending,
-              ),
-              tooltip: _sortOrder == SortOrder.ascending
-                  ? AppLocalizations.of(context).ascending
-                  : AppLocalizations.of(context).descending,
-              onPressed: () => setState(() {
-                _sortOrder = _sortOrder == SortOrder.ascending
-                    ? SortOrder.descending
-                    : SortOrder.ascending;
-                _settingsCubit.changeSortOrder(_sortOrder);
-              }),
-            );
-            final desktopActions = OverflowBar(
-              spacing: 8,
-              overflowSpacing: 8,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(AppLocalizations.of(context).switchView),
-                    const SizedBox(width: 8),
-                    IconButton.filledTonal(
-                      onPressed: () =>
-                          context.read<SettingsCubit>().toggleGridView(),
-                      icon: state.gridView
-                          ? const PhosphorIcon(PhosphorIconsLight.list)
-                          : const PhosphorIcon(PhosphorIconsLight.gridFour),
-                    ),
-                  ],
+    return BlocListener<SettingsCubit, ButterflySettings>(
+      listenWhen: (previous, current) =>
+          previous.showThumbnails != current.showThumbnails,
+      listener: (_, _) => reloadFileSystem(),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth > LeapBreakpoints.medium;
+          final isTablet = constraints.maxWidth > LeapBreakpoints.compact;
+          return BlocBuilder<SettingsCubit, ButterflySettings>(
+            buildWhen: (previous, current) =>
+                previous.gridView != current.gridView,
+            builder: (context, state) {
+              final text = Text(
+                AppLocalizations.of(context).files,
+                style: TextTheme.of(context).headlineMedium,
+                textAlign: TextAlign.start,
+              );
+              final orderButton = IconButton(
+                icon: PhosphorIcon(
+                  _sortOrder == SortOrder.ascending
+                      ? PhosphorIconsLight.sortAscending
+                      : PhosphorIconsLight.sortDescending,
                 ),
-                BlocBuilder<SettingsCubit, ButterflySettings>(
-                  buildWhen: (previous, current) =>
-                      previous.connections != current.connections,
-                  builder: (context, state) => Row(
+                tooltip: _sortOrder == SortOrder.ascending
+                    ? AppLocalizations.of(context).ascending
+                    : AppLocalizations.of(context).descending,
+                onPressed: () => setState(() {
+                  _sortOrder = _sortOrder == SortOrder.ascending
+                      ? SortOrder.descending
+                      : SortOrder.ascending;
+                  _settingsCubit.changeSortOrder(_sortOrder);
+                }),
+              );
+              final desktopActions = OverflowBar(
+                spacing: 8,
+                overflowSpacing: 8,
+                children: [
+                  Row(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      DropdownMenu<String?>(
-                        label: Text(AppLocalizations.of(context).source),
-                        width: 225,
-                        dropdownMenuEntries: [
-                          DropdownMenuEntry(
-                            value: null,
-                            label: AppLocalizations.of(context).local,
-                          ),
-                          ...state.connections.map(
-                            (e) => DropdownMenuEntry(
-                              value: e.identifier,
-                              label: e.label,
-                            ),
-                          ),
-                        ],
-                        initialSelection: _remote?.identifier,
-                        onSelected: (value) => _setRemote(
-                          value == null ? null : state.getRemote(value),
-                        ),
+                      Text(AppLocalizations.of(context).switchView),
+                      const SizedBox(width: 8),
+                      IconButton.filledTonal(
+                        onPressed: () =>
+                            context.read<SettingsCubit>().toggleGridView(),
+                        icon: state.gridView
+                            ? const PhosphorIcon(PhosphorIconsLight.list)
+                            : const PhosphorIcon(PhosphorIconsLight.gridFour),
                       ),
-                      const SizedBox(width: 2),
-                      state.connections.any((e) => e is RemoteStorage)
-                          ? const SyncButton()
-                          : const SizedBox.shrink(),
                     ],
                   ),
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                    buildWhen: (previous, current) =>
+                        previous.connections != current.connections,
+                    builder: (context, state) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        DropdownMenu<String?>(
+                          label: Text(AppLocalizations.of(context).source),
+                          width: 225,
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(
+                              value: null,
+                              label: AppLocalizations.of(context).local,
+                            ),
+                            ...state.connections.map(
+                              (e) => DropdownMenuEntry(
+                                value: e.identifier,
+                                label: e.label,
+                              ),
+                            ),
+                          ],
+                          initialSelection: _remote?.identifier,
+                          onSelected: (value) => _setRemote(
+                            value == null ? null : state.getRemote(value),
+                          ),
+                        ),
+                        const SizedBox(width: 2),
+                        state.connections.any((e) => e is RemoteStorage)
+                            ? const SyncButton()
+                            : const SizedBox.shrink(),
+                      ],
+                    ),
+                  ),
+                  DropdownMenu<SortBy>(
+                    leadingIcon: orderButton,
+                    label: Text(AppLocalizations.of(context).sortBy),
+                    width: 225,
+                    dropdownMenuEntries: SortBy.values
+                        .map(
+                          (e) => DropdownMenuEntry(
+                            value: e,
+                            label: getLocalizedNameOfSortBy(e),
+                            leadingIcon: PhosphorIcon(
+                              getIconOfSortBy(e)(PhosphorIconsStyle.light),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    initialSelection: _sortBy,
+                    onSelected: (value) => setState(() {
+                      _sortBy = value ?? _sortBy;
+                      _settingsCubit.changeSortBy(_sortBy);
+                    }),
+                  ),
+                ],
+              );
+              final primary = ColorScheme.of(context).primary;
+              final actionsChildren = [
+                if (!widget.collapsed)
+                  IconButton(
+                    onPressed: () =>
+                        context.read<SettingsCubit>().toggleGridView(),
+                    tooltip: AppLocalizations.of(context).switchView,
+                    icon: state.gridView
+                        ? const PhosphorIcon(PhosphorIconsLight.list)
+                        : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                  ),
+                ConnectionButton(
+                  currentRemote: _remote?.identifier ?? '',
+                  onChanged: _setRemote,
                 ),
-                DropdownMenu<SortBy>(
-                  leadingIcon: orderButton,
-                  label: Text(AppLocalizations.of(context).sortBy),
-                  width: 225,
-                  dropdownMenuEntries: SortBy.values
+                MenuAnchor(
+                  builder: defaultMenuButton(
+                    tooltip: AppLocalizations.of(context).sortBy,
+                    icon: PhosphorIcon(
+                      getIconOfSortBy(_sortBy)(PhosphorIconsStyle.light),
+                    ),
+                  ),
+                  menuChildren: SortBy.values
                       .map(
-                        (e) => DropdownMenuEntry(
-                          value: e,
-                          label: getLocalizedNameOfSortBy(e),
+                        (e) => MenuItemButton(
                           leadingIcon: PhosphorIcon(
                             getIconOfSortBy(e)(PhosphorIconsStyle.light),
+                            color: e == _sortBy ? primary : null,
                           ),
+                          child: Text(
+                            getLocalizedNameOfSortBy(e),
+                            style: e == _sortBy
+                                ? TextStyle(color: primary)
+                                : null,
+                          ),
+                          onPressed: () => setState(() {
+                            _sortBy = e;
+                            _settingsCubit.changeSortBy(_sortBy);
+                          }),
                         ),
                       )
                       .toList(),
-                  initialSelection: _sortBy,
-                  onSelected: (value) => setState(() {
-                    _sortBy = value ?? _sortBy;
-                    _settingsCubit.changeSortBy(_sortBy);
-                  }),
                 ),
-              ],
-            );
-            final primary = ColorScheme.of(context).primary;
-            final actionsChildren = [
-              if (!widget.collapsed)
-                IconButton(
-                  onPressed: () =>
-                      context.read<SettingsCubit>().toggleGridView(),
-                  tooltip: AppLocalizations.of(context).switchView,
-                  icon: state.gridView
-                      ? const PhosphorIcon(PhosphorIconsLight.list)
-                      : const PhosphorIcon(PhosphorIconsLight.gridFour),
-                ),
-              ConnectionButton(
-                currentRemote: _remote?.identifier ?? '',
-                onChanged: _setRemote,
-              ),
-              MenuAnchor(
-                builder: defaultMenuButton(
-                  tooltip: AppLocalizations.of(context).sortBy,
-                  icon: PhosphorIcon(
-                    getIconOfSortBy(_sortBy)(PhosphorIconsStyle.light),
-                  ),
-                ),
-                menuChildren: SortBy.values
-                    .map(
-                      (e) => MenuItemButton(
-                        leadingIcon: PhosphorIcon(
-                          getIconOfSortBy(e)(PhosphorIconsStyle.light),
-                          color: e == _sortBy ? primary : null,
-                        ),
-                        child: Text(
-                          getLocalizedNameOfSortBy(e),
-                          style: e == _sortBy
-                              ? TextStyle(color: primary)
-                              : null,
-                        ),
-                        onPressed: () => setState(() {
-                          _sortBy = e;
-                          _settingsCubit.changeSortBy(_sortBy);
-                        }),
+                orderButton,
+                if (state.connections.any((e) => e is RemoteStorage))
+                  const SyncButton(),
+              ];
+              final mobileActions = OverflowBar(
+                spacing: 4,
+                overflowSpacing: 4,
+                children: actionsChildren,
+              );
+              final searchBar = Row(
+                children: [
+                  Expanded(
+                    child: SearchBar(
+                      onChanged: (value) => setState(() => _search = value),
+                      hintText: AppLocalizations.of(context).search,
+                      leading: const PhosphorIcon(
+                        PhosphorIconsLight.magnifyingGlass,
                       ),
-                    )
-                    .toList(),
-              ),
-              orderButton,
-            ];
-            final mobileActions = OverflowBar(
-              spacing: 4,
-              overflowSpacing: 4,
-              children: actionsChildren,
-            );
-            final searchBar = Row(
-              children: [
-                Expanded(
-                  child: SearchBar(
-                    onChanged: (value) => setState(() => _search = value),
-                    hintText: AppLocalizations.of(context).search,
-                    leading: const PhosphorIcon(
-                      PhosphorIconsLight.magnifyingGlass,
                     ),
                   ),
-                ),
-              ],
-            );
-            final locationBar = _buildLocationBar(parent);
-            final content = Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (!widget.isPage) ...[
-                  widget.collapsed
-                      ? Center(child: mobileActions)
-                      : OverflowBar(
-                          alignment: MainAxisAlignment.spaceBetween,
+                ],
+              );
+              final locationBar = _buildLocationBar(parent);
+              final content = Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (!widget.isPage) ...[
+                    widget.collapsed
+                        ? Center(child: mobileActions)
+                        : OverflowBar(
+                            alignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              text,
+                              isDesktop ? desktopActions : mobileActions,
+                            ],
+                          ),
+                    if (!widget.collapsed) ...[
+                      const SizedBox(height: 8),
+                      RecentFilesView(
+                        key: _recentFilesKey,
+                        replace: widget.collapsed,
+                        onFileTap: widget.onPreview == null
+                            ? _onFileTap
+                            : (e) {
+                                if (e is FileSystemFile<NoteFile>) {
+                                  widget.onPreview!(e);
+                                  return;
+                                }
+                                _onFileTap(e);
+                              },
+                      ),
+                    ],
+                  ],
+                  const SizedBox(height: 16),
+                  isTablet
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          spacing: 8,
                           children: [
-                            text,
-                            isDesktop ? desktopActions : mobileActions,
+                            Expanded(child: locationBar),
+                            if (isDesktop)
+                              IconButton(
+                                onPressed: reloadFileSystem,
+                                tooltip: AppLocalizations.of(context).refresh,
+                                icon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowClockwise,
+                                ),
+                              ),
+                            SizedBox(width: 250, child: searchBar),
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            searchBar,
+                            const SizedBox(height: 16),
+                            locationBar,
                           ],
                         ),
-                  if (!widget.collapsed) ...[
-                    const SizedBox(height: 8),
-                    RecentFilesView(
-                      key: _recentFilesKey,
-                      replace: widget.collapsed,
-                      onFileTap: widget.onPreview == null
-                          ? _onFileTap
-                          : (e) {
-                              if (e is FileSystemFile<NoteFile>) {
-                                widget.onPreview!(e);
-                                return;
-                              }
-                              _onFileTap(e);
-                            },
-                    ),
-                  ],
-                ],
-                const SizedBox(height: 16),
-                isTablet
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        spacing: 8,
-                        children: [
-                          Expanded(child: locationBar),
-                          if (isDesktop)
-                            IconButton(
-                              onPressed: reloadFileSystem,
-                              tooltip: AppLocalizations.of(context).refresh,
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowClockwise,
-                              ),
-                            ),
-                          SizedBox(width: 250, child: searchBar),
-                        ],
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          searchBar,
-                          const SizedBox(height: 16),
-                          locationBar,
-                        ],
-                      ),
-                const SizedBox(height: 8),
-                BlocBuilder<SettingsCubit, ButterflySettings>(
-                  buildWhen: (previous, current) =>
-                      previous.starred != current.starred,
-                  builder: (context, settings) =>
-                      StreamBuilder<FileSystemEntity<NoteFile>?>(
-                        stream: _filesStream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: Text(
-                                AppLocalizations.of(context).noElements,
-                              ),
-                            );
-                          }
-                          final entity = snapshot.data;
-                          if (entity is! FileSystemDirectory<NoteFile>) {
-                            return Container();
-                          }
-                          final assets = entity.assets.where((e) {
-                            if (_search.isNotEmpty) {
-                              return e.fileName.toLowerCase().contains(
-                                _search.toLowerCase(),
+                  const SizedBox(height: 8),
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                    buildWhen: (previous, current) =>
+                        previous.starred != current.starred,
+                    builder: (context, settings) =>
+                        StreamBuilder<FileSystemEntity<NoteFile>?>(
+                          stream: _filesStream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return Text(snapshot.error.toString());
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
                             }
-                            return true;
-                          }).toList()..sort(_sortAssets);
-                          if (assets.isEmpty) {
-                            return Center(
-                              child: Text(
-                                AppLocalizations.of(context).noElements,
-                              ),
-                            );
-                          }
-
-                          generateOnPreview(FileSystemEntity<NoteFile> e) =>
-                              widget.onPreview != null
-                              ? () {
-                                  if (e is! FileSystemFile<NoteFile>) {
-                                    _onFileTap(e);
-                                    return;
-                                  }
-                                  widget.onPreview!(e);
-                                }
-                              : null;
-                          if (state.gridView && !widget.collapsed) {
-                            return Center(
-                              child: Wrap(
-                                spacing: 4,
-                                runSpacing: 4,
-                                crossAxisAlignment: WrapCrossAlignment.start,
-                                children: assets.map((e) {
-                                  final active =
-                                      widget.activeAsset == e.location;
-                                  return FileEntityItem(
-                                    entity: e,
-                                    isMobile: widget.isMobile,
-                                    active: active,
-                                    collapsed: widget.collapsed,
-                                    onTap: () => _onFileTap(e),
-                                    onPreview: generateOnPreview(e),
-                                    selected: _selectedFiles.isEmpty
-                                        ? null
-                                        : _selectedFiles.contains(
-                                            e.location.path,
-                                          ),
-                                    onSelected: _updateSelection(
-                                      e.location.path,
-                                    ),
-                                    onReload: reloadFileSystem,
-                                    gridView: true,
-                                  );
-                                }).toList(),
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: assets.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final e = assets[index];
-                              final active = widget.activeAsset == e.location;
-                              return FileEntityItem(
-                                entity: e,
-                                active: active,
-                                collapsed: widget.collapsed,
-                                onPreview: generateOnPreview(e),
-                                selected: _selectedFiles.isEmpty
-                                    ? null
-                                    : _selectedFiles.contains(e.location.path),
-                                onTap: () => _onFileTap(e),
-                                onSelected: _updateSelection(e.location.path),
-                                onReload: reloadFileSystem,
-                                gridView: false,
-                                isMobile: widget.isMobile,
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: Text(
+                                  AppLocalizations.of(context).noElements,
+                                ),
                               );
-                            },
-                          );
-                        },
-                      ),
-                ),
-                const SizedBox(height: 32),
-              ],
-            );
-            if (widget.isPage) {
-              return Scaffold(
-                appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-                  title: Text(AppLocalizations.of(context).files),
-                  actions: actionsChildren,
-                ),
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: content,
+                            }
+                            final entity = snapshot.data;
+                            if (entity is! FileSystemDirectory<NoteFile>) {
+                              return Container();
+                            }
+                            final assets = entity.assets.where((e) {
+                              if (_search.isNotEmpty) {
+                                return e.fileName.toLowerCase().contains(
+                                  _search.toLowerCase(),
+                                );
+                              }
+                              return true;
+                            }).toList()..sort(_sortAssets);
+                            if (assets.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  AppLocalizations.of(context).noElements,
+                                ),
+                              );
+                            }
+
+                            generateOnPreview(FileSystemEntity<NoteFile> e) =>
+                                widget.onPreview != null
+                                ? () {
+                                    if (e is! FileSystemFile<NoteFile>) {
+                                      _onFileTap(e);
+                                      return;
+                                    }
+                                    widget.onPreview!(e);
+                                  }
+                                : null;
+                            if (state.gridView && !widget.collapsed) {
+                              return Center(
+                                child: Wrap(
+                                  spacing: 4,
+                                  runSpacing: 4,
+                                  crossAxisAlignment: WrapCrossAlignment.start,
+                                  children: assets.map((e) {
+                                    final active =
+                                        widget.activeAsset == e.location;
+                                    return FileEntityItem(
+                                      entity: e,
+                                      isMobile: widget.isMobile,
+                                      active: active,
+                                      collapsed: widget.collapsed,
+                                      onTap: () => _onFileTap(e),
+                                      onPreview: generateOnPreview(e),
+                                      selected: _selectedFiles.isEmpty
+                                          ? null
+                                          : _selectedFiles.contains(
+                                              e.location.path,
+                                            ),
+                                      onSelected: _updateSelection(
+                                        e.location.path,
+                                      ),
+                                      onReload: reloadFileSystem,
+                                      gridView: true,
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: assets.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final e = assets[index];
+                                final active = widget.activeAsset == e.location;
+                                return FileEntityItem(
+                                  entity: e,
+                                  active: active,
+                                  collapsed: widget.collapsed,
+                                  onPreview: generateOnPreview(e),
+                                  selected: _selectedFiles.isEmpty
+                                      ? null
+                                      : _selectedFiles.contains(
+                                          e.location.path,
+                                        ),
+                                  onTap: () => _onFileTap(e),
+                                  onSelected: _updateSelection(e.location.path),
+                                  onReload: reloadFileSystem,
+                                  gridView: false,
+                                  isMobile: widget.isMobile,
+                                );
+                              },
+                            );
+                          },
+                        ),
                   ),
-                ),
+                  const SizedBox(height: 32),
+                ],
               );
-            }
-            return content;
-          },
-        );
-      },
+              if (widget.isPage) {
+                return Scaffold(
+                  appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+                    title: Text(AppLocalizations.of(context).files),
+                    actions: actionsChildren,
+                  ),
+                  body: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: content,
+                    ),
+                  ),
+                );
+              }
+              return content;
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -576,7 +593,13 @@ class FilesViewState extends State<FilesView> {
                               snapshot.data?.map((e) {
                                 final data = e.data!;
                                 final metadata = data.getMetadata();
-                                final thumbnail = data.getThumbnail();
+                                final thumbnail =
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .showThumbnails
+                                    ? data.getThumbnail()
+                                    : null;
                                 return MenuItemButton(
                                   leadingIcon: thumbnail == null
                                       ? null
@@ -584,6 +607,7 @@ class FilesViewState extends State<FilesView> {
                                           thumbnail,
                                           width: 32,
                                           height: 18,
+                                          gaplessPlayback: true,
                                           cacheWidth: 32,
                                           cacheHeight: 18,
                                         ),
@@ -606,7 +630,13 @@ class FilesViewState extends State<FilesView> {
                               snapshot.data?.map((e) {
                                 final data = e.data!;
                                 final metadata = data.getMetadata();
-                                final thumbnail = data.getThumbnail();
+                                final thumbnail =
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .showThumbnails
+                                    ? data.getThumbnail()
+                                    : null;
                                 return MenuItemButton(
                                   leadingIcon: thumbnail == null
                                       ? null
@@ -614,6 +644,7 @@ class FilesViewState extends State<FilesView> {
                                           thumbnail,
                                           width: 32,
                                           height: 18,
+                                          gaplessPlayback: true,
                                           cacheWidth: 32,
                                           cacheHeight: 18,
                                         ),
@@ -633,29 +664,68 @@ class FilesViewState extends State<FilesView> {
                           PhosphorIconsLight.arrowSquareIn,
                         ),
                         onPressed: () async {
-                          final router = GoRouter.of(context);
-                          var (result, fileExtension) = await importFile(
-                            context,
-                          );
-                          if (result == null) return;
-                          if (fileExtension == 'bin') {
-                            // see https://github.com/LinwoodDev/Butterfly/issues/839
-                            fileExtension = null;
-                          }
-                          setNativeData(result, fileExtension);
-                          router.goNamed(
-                            'native',
-                            queryParameters: {
-                              'name': 'document.bfly',
-                              'path': AssetLocation(
-                                path: _locationController.text,
-                                remote: _remote?.identifier ?? '',
-                              ).identifier,
-                              'type': fileExtension ?? 'note',
-                            },
-                          );
-                          if (!widget.collapsed) {
-                            reloadFileSystem();
+                          final files = await importFiles(context);
+                          if (files.isEmpty) return;
+
+                          final defaultTemplate =
+                              _settingsCubit.state.defaultTemplate;
+                          final templateFile = await _templateSystem
+                              .getDefaultFile(defaultTemplate);
+
+                          for (final file in files) {
+                            var result = file.$1;
+                            var fileExtension = file.$2;
+                            final nameWithoutExtension = file.$3;
+
+                            if (fileExtension == 'bin') {
+                              // see https://github.com/LinwoodDev/Butterfly/issues/839
+                              fileExtension = '';
+                            }
+
+                            final importService = ImportService(
+                              context,
+                              storage: _remote,
+                              path: _locationController.text,
+                              useDefaultStorage: false,
+                            );
+                            final importResult = await importService.load(
+                              data: result,
+                              type: fileExtension,
+                              document:
+                                  templateFile?.createDocument(
+                                    name: nameWithoutExtension,
+                                  ) ??
+                                  DocumentDefaults.createDocument(
+                                    name: nameWithoutExtension,
+                                  ),
+                            );
+                            if (importResult == null) {
+                              continue;
+                            }
+                            final document = await importResult.export();
+                            setNativeData(result, fileExtension);
+
+                            var docName = document.getMetadata()?.name;
+                            if (docName == null || docName.trim().isEmpty) {
+                              docName = nameWithoutExtension;
+                            }
+                            if (docName.trim().isEmpty) {
+                              docName = null;
+                            } else {
+                              docName = sanitizeExportFileName(docName);
+                            }
+
+                            final newFile = await _documentSystem
+                                .createFileWithName(
+                                  directory: _locationController.text,
+                                  name: docName,
+                                  suffix: '.bfly',
+                                  document.toFile(),
+                                );
+
+                            if (files.length == 1 && context.mounted) {
+                              _onFileTap(newFile);
+                            }
                           }
                         },
                         child: Text(AppLocalizations.of(context).import),
@@ -694,9 +764,20 @@ class FilesViewState extends State<FilesView> {
                         ),
                     onWillAcceptWithDetails: (data) => true,
                     onAcceptWithDetails: (data) async {
-                      await _documentSystem.moveAsset(
-                        data.data,
-                        '$parent/${data.data.split('/').last}',
+                      final source = await _documentSystem.getAsset(data.data);
+                      final destination =
+                          '$parent/${data.data.split('/').last}';
+                      await _documentSystem.moveAsset(data.data, destination);
+                      await _settingsCubit.moveAssetReferences(
+                        AssetLocation(
+                          path: data.data,
+                          remote: _documentSystem.storage?.identifier ?? '',
+                        ),
+                        AssetLocation(
+                          path: destination,
+                          remote: _documentSystem.storage?.identifier ?? '',
+                        ),
+                        directory: source is FileSystemDirectory<NoteFile>,
                       );
                       reloadFileSystem();
                     },
@@ -774,6 +855,13 @@ class FilesViewState extends State<FilesView> {
                         children: [
                           IconButton(
                             icon: const PhosphorIcon(
+                              PhosphorIconsLight.paperPlaneRight,
+                            ),
+                            tooltip: AppLocalizations.of(context).export,
+                            onPressed: _exportSelectedFiles,
+                          ),
+                          IconButton(
+                            icon: const PhosphorIcon(
                               PhosphorIconsLight.arrowsDownUp,
                             ),
                             tooltip: AppLocalizations.of(context).move,
@@ -823,6 +911,78 @@ class FilesViewState extends State<FilesView> {
     );
   }
 
+  Future<void> _exportSelectedFiles() async {
+    final selected = _selectedFiles.toList()..sort();
+    if (selected.isEmpty) return;
+
+    try {
+      final archive = Archive();
+      final archivePaths = <String>{};
+      for (final path in selected) {
+        final entity = await _documentSystem.getAsset(path, listLevel: 0);
+        if (entity == null) continue;
+        await _addEntityToArchive(
+          archive,
+          archivePaths,
+          entity,
+          entity.fileName,
+        );
+      }
+      if (archive.isEmpty) return;
+      final bytes = ZipEncoder().encodeBytes(archive);
+      if (!mounted) return;
+      await exportZip(context, bytes);
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).error)),
+      );
+    }
+  }
+
+  Future<void> _addEntityToArchive(
+    Archive archive,
+    Set<String> archivePaths,
+    FileSystemEntity<NoteFile> entity,
+    String archivePath,
+  ) async {
+    final normalizedPath = archivePath.replaceAll('\\', '/');
+    if (normalizedPath.isEmpty) return;
+    if (entity is FileSystemFile<NoteFile>) {
+      final file = entity.hasData
+          ? entity
+          : await _documentSystem.getAsset(entity.path, listLevel: 0);
+      if (file is! FileSystemFile<NoteFile>) return;
+      final data = file.data?.data;
+      if (data == null || !archivePaths.add(normalizedPath)) return;
+      archive.addFile(ArchiveFile.bytes(normalizedPath, data));
+      return;
+    }
+
+    if (entity is FileSystemDirectory<NoteFile>) {
+      final directory = await _documentSystem.getAsset(
+        entity.path,
+        listLevel: oneListLevel,
+        readData: false,
+      );
+      if (directory is! FileSystemDirectory<NoteFile>) return;
+      final directoryPath = normalizedPath.endsWith('/')
+          ? normalizedPath
+          : '$normalizedPath/';
+      if (archivePaths.add(directoryPath)) {
+        archive.addFile(ArchiveFile.directory(directoryPath));
+      }
+      for (final child in directory.assets) {
+        await _addEntityToArchive(
+          archive,
+          archivePaths,
+          child,
+          '$directoryPath${child.fileName}',
+        );
+      }
+    }
+  }
+
   Future<void> _onFileTap(FileSystemEntity<NoteFile> entity) async {
     if (entity is! FileSystemFile<NoteFile>) {
       setState(() {
@@ -832,7 +992,11 @@ class FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
-    await openFile(context, widget.collapsed, location);
+    if (widget.onTap != null) {
+      widget.onTap!(entity);
+    } else {
+      await openFile(context, widget.collapsed, location);
+    }
     if (!widget.collapsed) {
       reloadFileSystem();
     }
@@ -858,29 +1022,20 @@ class FilesViewState extends State<FilesView> {
       }
       final aFile = a as FileSystemFile<NoteFile>;
       final bFile = b as FileSystemFile<NoteFile>;
-      FileMetadata? aInfo, bInfo;
-      try {
-        aInfo = aFile.data?.load()?.getMetadata();
-      } catch (_) {}
-      try {
-        bInfo = bFile.data?.load()?.getMetadata();
-      } catch (_) {}
-      if (aInfo == null) {
-        if (bInfo == null) {
-          return aFile.fileName.compareTo(bFile.fileName);
-        }
-        return 1;
-      }
-      if (bInfo == null) {
-        return -1;
-      }
       switch (_sortBy) {
         case SortBy.name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.created:
-          final aCreatedAt = aInfo.createdAt;
-          final bCreatedAt = bInfo.createdAt;
+          final aCreatedAt =
+              aFile.data?.display()?.getMetadata()?.createdAt ??
+              aFile.creationTime;
+          final bCreatedAt =
+              bFile.data?.display()?.getMetadata()?.createdAt ??
+              bFile.creationTime;
+          if (aCreatedAt == null && bCreatedAt == null) {
+            return aFile.fileName.compareTo(bFile.fileName);
+          }
           if (aCreatedAt == null) {
             return 1;
           }
@@ -890,8 +1045,15 @@ class FilesViewState extends State<FilesView> {
           final compared = bCreatedAt.compareTo(aCreatedAt);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.modified:
-          final aModifiedAt = aInfo.updatedAt;
-          final bModifiedAt = bInfo.updatedAt;
+          final aModifiedAt =
+              aFile.data?.display()?.getMetadata()?.updatedAt ??
+              aFile.lastModified;
+          final bModifiedAt =
+              bFile.data?.display()?.getMetadata()?.updatedAt ??
+              bFile.lastModified;
+          if (aModifiedAt == null && bModifiedAt == null) {
+            return aFile.fileName.compareTo(bFile.fileName);
+          }
           if (aModifiedAt == null) {
             return 1;
           }

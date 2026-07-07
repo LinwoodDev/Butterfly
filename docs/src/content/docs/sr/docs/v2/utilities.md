@@ -16,7 +16,7 @@ Some features have recently moved to different locations. Please visit their pag
 
 ## Datoteka
 
-Here are all globally properties that you can set like description and encryption settings.
+Here are all global properties that you can set, like description and encryption settings.
 Additionally, you can capture a thumbnail from the current viewport to see it in the home page.
 
 ## Kamera

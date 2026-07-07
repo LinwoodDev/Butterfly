@@ -92,7 +92,10 @@ class _BackgroundDialogState extends State<BackgroundDialog>
       ),
     };
     return ResponsiveAlertDialog(
-      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      constraints: const BoxConstraints(
+        maxWidth: LeapBreakpoints.medium,
+        maxHeight: 800,
+      ),
       title: Text(AppLocalizations.of(context).background),
       leading: const PhosphorIcon(PhosphorIconsLight.image),
       headerActions: [
