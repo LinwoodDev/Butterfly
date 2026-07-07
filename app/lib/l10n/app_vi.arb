@@ -9,9 +9,16 @@
   "darkTheme": "Giao diện tối",
   "lightTheme": "Giao diện sáng",
   "systemTheme": "Dùng giao diện mặc định của máy",
+  "designDescription": "Choose the visual theme design",
   "view": "Hiển thị",
   "contentViewport": "Content Viewport",
+  "@contentViewport": {
+    "description": "Limit how far the viewport can move beyond the content"
+  },
   "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "@limitViewportToPositiveCoordinates": {
+    "description": "Prevent the viewport from moving into negative coordinates"
+  },
   "off": "Off",
   "canvas": "Canvas",
   "interface": "Interface",
@@ -108,6 +115,7 @@
   },
   "locale": "Ngôn ngữ",
   "systemLocale": "Ngôn ngữ hệ thống",
+  "localeDescription": "Choose the app language",
   "information": "Thông tin",
   "license": "Giấy phép",
   "imprint": "Thông tin pháp lý",
@@ -577,6 +585,9 @@
   "bottomLeft": "Dưới trái",
   "bottomRight": "Dưới phải",
   "zoomPosition": "Vị trí điều khiển thu phóng",
+  "@zoomPosition": {
+    "description": "Choose where the zoom controls appear"
+  },
   "caches": "Bộ nhớ đệm",
   "manage": "Quản lý",
   "@manage": {
@@ -636,24 +647,37 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "Cử chỉ đầu vào",
+  "inputGesturesDescription": "Enable touch gestures for moving and zooming the canvas",
+  "gestureSensitivityDescription": "Adjust how fast two-finger pan and zoom gestures move the canvas",
+  "touchSensitivityDescription": "Increase this to make touch targets easier to hit",
+  "selectSensitivityDescription": "Increase this to make element selection easier",
+  "scrollSensitivityDescription": "Adjust how fast mouse wheel scrolling moves or zooms the canvas",
   "nativeTitleBar": "Thanh tiêu đề gốc",
+  "nativeTitleBarDescription": "Use the operating system title bar on desktop",
   "mode": "Mode",
   "syncMode": "Chế độ đồng bộ",
+  "syncModeDescription": "Choose when remote files sync",
   "connection": "Kết nối",
   "always": "Luôn luôn",
   "@always": {
     "description": "Frequency"
   },
   "noMobile": "Không dùng dữ liệu di động",
+  "syncModeAlwaysDescription": "Sync automatically whenever files change",
+  "syncModeNoMobileDescription": "Sync automatically except on mobile devices",
   "manual": "Thủ công",
   "@manual": {
     "description": "Manual mode"
   },
+  "syncModeManualDescription": "Only sync when you trigger it manually",
   "search": "Tìm kiếm",
   "@search": {
     "description": "Search action"
   },
   "properties": "Thuộc tính",
+  "@properties": {
+    "description": "Choose where the properties panel appears"
+  },
   "pin": "Ghim",
   "@pin": {
     "description": "Pin action"
@@ -942,6 +966,9 @@
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Chỉ khả dụng trên màn hình lớn hơn",
   "toolbarPosition": "Vị trí thanh công cụ",
+  "@toolbarPosition": {
+    "description": "Choose where the main toolbar appears"
+  },
   "rotate": "Xoay",
   "@rotate": {
     "description": "Rotate action"
@@ -951,6 +978,9 @@
     "description": "Spacer element"
   },
   "navigationRail": "Thanh điều hướng",
+  "@navigationRail": {
+    "description": "Show a navigation rail on wider screens"
+  },
   "cut": "Cắt",
   "@cut": {
     "description": "Clipboard action"
@@ -966,6 +996,7 @@
   "ascending": "Tăng dần",
   "descending": "Giảm dần",
   "imageScale": "Tỷ lệ hình ảnh",
+  "imageScaleDescription": "Scale imported images when their size is detected automatically",
   "svgScale": "SVG scale",
   "noImageSelected": "No image selected",
   "noSvgSelected": "No SVG selected",
@@ -982,6 +1013,9 @@
     "description": "Texture property"
   },
   "platformTheme": "Giao diện nền tảng",
+  "@platformTheme": {
+    "description": "Choose whether the app follows the system, desktop, or mobile layout"
+  },
   "desktop": "Máy tính",
   "@desktop": {
     "description": "Platform"
@@ -1006,6 +1040,9 @@
   },
   "iceServers": "Máy chủ ICE",
   "collaboration": "Cộng tác",
+  "@collaboration": {
+    "description": "Allow multiple people to edit the same note together"
+  },
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "Máy chủ ICE",
@@ -1037,7 +1074,7 @@
   "hideUI": "Ẩn giao diện",
   "density": "Mật độ",
   "@density": {
-    "description": "Density property"
+    "description": "Choose how compact the interface should be"
   },
   "compact": "Gọn",
   "@compact": {
@@ -1109,14 +1146,23 @@
   },
   "continueAnyway": "Tiếp tục",
   "zoomControl": "Điều khiển thu phóng",
+  "@zoomControl": {
+    "description": "Show zoom controls in the canvas view"
+  },
   "showThumbnails": "Show thumbnails",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
   "highContrast": "Độ tương phản cao",
+  "@highContrast": {
+    "description": "Use stronger contrast in the app theme"
+  },
   "shouldANumber": "Giá trị này phải là số hợp lệ",
   "createAreas": "Tạo khu vực",
   "autosave": "Tự động lưu",
+  "@autosave": {
+    "description": "Choose how changes are saved"
+  },
   "invert": "Đảo ngược",
   "@invert": {
     "description": "Invert action"
@@ -1131,10 +1177,19 @@
     "description": "Size value"
   },
   "toolbarSize": "Kích thước thanh công cụ",
+  "@toolbarSize": {
+    "description": "Choose how large the toolbar buttons are"
+  },
   "addAll": "Thêm tất cả",
   "onlyCurrentPage": "Chỉ trang hiện tại",
   "smoothNavigation": "Điều hướng mượt",
+  "@smoothNavigation": {
+    "description": "Reduce the amount of rendering work while navigating"
+  },
   "edgePanAreaSwitching": "Edge pan area switching",
+  "@edgePanAreaSwitching": {
+    "description": "Switch areas when you pan near the edge of the canvas"
+  },
   "useAndroidSaf": "Use Android SAF",
   "exact": "Chính xác",
   "@exact": {
@@ -1145,6 +1200,9 @@
     "description": "Inline position"
   },
   "toolbarRows": "Số hàng thanh công cụ",
+  "@toolbarRows": {
+    "description": "Set how many rows the toolbar can use"
+  },
   "pointerTest": "Kiểm tra con trỏ",
   "pressure": "Áp lực",
   "small": "Nhỏ",
@@ -1158,6 +1216,9 @@
   "selectAll": "Chọn tất cả",
   "overrideTools": "Ghi đè công cụ",
   "hideCursorWhileDrawing": "Ẩn con trỏ khi vẽ",
+  "@hideCursorWhileDrawing": {
+    "description": "Hide the mouse cursor while drawing"
+  },
   "installed": "Đã cài",
   "install": "Cài đặt",
   "@install": {
@@ -1174,6 +1235,9 @@
     "description": "Scroll action"
   },
   "onStartup": "Khi khởi động",
+  "@onStartup": {
+    "description": "Choose what opens when the app starts"
+  },
   "homeScreen": "Màn hình chính",
   "lastNote": "Ghi chú cuối",
   "newNote": "Ghi chú mới",
@@ -1301,10 +1365,21 @@
     "description": "Math tool"
   },
   "ignorePressure": "Bỏ qua áp lực",
+  "@ignorePressure": {
+    "description": "Choose how stylus pressure is handled"
+  },
   "ignoreFirstPressureDescription": "Trên một số thiết bị, giá trị áp suất đầu tiên không chính xác. Cài đặt này sẽ bỏ qua giá trị áp suất đầu tiên và thay vào đó sử dụng áp suất của sự kiện thứ hai.",
+  "ignorePressureNeverDescription": "Use every pressure value from the device",
+  "ignorePressureAlwaysDescription": "Ignore pressure and treat the pen as fully pressed",
   "temporary": "Tạm thời",
   "simpleToolbarVisibility": "Khả năng hiển thị thanh công cụ đơn giản",
+  "@simpleToolbarVisibility": {
+    "description": "Choose when the simplified toolbar is shown"
+  },
   "autosaveDelay": "Độ trễ tự động lưu",
+  "@autosaveDelay": {
+    "description": "Wait time before delayed autosave runs"
+  },
   "saved": "Đã lưu",
   "@saved": {
     "description": "Save status"
@@ -1371,5 +1446,76 @@
   "bringMovedElementsToFront": "Bring moved elements to front",
   "addTool": "Add tool",
   "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "previousPage": "Previous page",
+  "persistenceDocumentStates": "Persistent document states",
+  "persistentStatesEnabled": "Enable persistent document states",
+  "persistentStateCurrentPage": "Current page",
+  "persistentStateViewport": "Viewport position and zoom",
+  "persistentStateSelectedTool": "Selected tool",
+  "persistentStateMaxRecords": "Maximum stored records",
+  "persistentStateDeleteOlderThanDays": "Delete records older than days",
+  "persistentStateCleanup": "Clean up stored states",
+  "persistentStateCleanupDescription": "Delete records older than the limits above",
+  "persistentStateCleanupInProgress": "Cleaning up...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "@persistentStateCleanupFeedback": {
+    "placeholders": {
+      "locations": {
+        "type": "int"
+      },
+      "records": {
+        "type": "int"
+      }
+    }
+  },
+  "zoomControlDescription": "Show zoom controls in the canvas view",
+  "zoomPositionDescription": "Choose where the zoom controls appear",
+  "propertiesDescription": "Choose where the properties panel appears",
+  "toolbarPositionDescription": "Choose where the main toolbar appears",
+  "toolbarSizeDescription": "Choose how large the toolbar buttons are",
+  "toolbarRowsDescription": "Set how many rows the toolbar can use",
+  "navigationRailDescription": "Show a navigation rail on wider screens",
+  "navigatorPositionDescription": "Choose which side the navigator appears on",
+  "optionsPanelPositionDescription": "Choose whether the options panel appears above or below the canvas",
+  "simpleToolbarVisibilityDescription": "Choose when the simplified toolbar is shown",
+  "showThumbnailsDescription": "Show thumbnails for notes in the file list",
+  "hideFileExtensionDescription": "Hide file extensions in file names",
+  "highContrastDescription": "Use stronger contrast in the app theme",
+  "autosaveDescription": "Choose how changes are saved",
+  "autosaveEnabledDescription": "Save changes automatically as you work",
+  "autosaveDelayedDescription": "Save changes automatically after a short delay",
+  "autosaveShowButtonDescription": "Show a save button and save manually",
+  "autosaveDisabledDescription": "Turn off automatic saving",
+  "autosaveDelayDescription": "Wait time before delayed autosave runs",
+  "hideCursorWhileDrawingDescription": "Hide the mouse cursor while drawing",
+  "onStartupDescription": "Choose what opens when the app starts",
+  "onStartupHomeScreenDescription": "Open the home screen when the app starts",
+  "onStartupLastNoteDescription": "Reopen the most recent note when the app starts",
+  "onStartupNewNoteDescription": "Create a new note when the app starts",
+  "smoothNavigationDescription": "Reduce the amount of rendering work while navigating",
+  "edgePanAreaSwitchingDescription": "Switch areas when you pan near the edge of the canvas",
+  "collaborationDescription": "Allow multiple people to edit the same note together",
+  "densityDescription": "Choose how compact the interface should be",
+  "showVerboseLogsDescription": "Include debug and verbose logs in the log view and console",
+  "bringMovedElementsToFrontDescription": "Move dragged elements in front of other elements",
+  "persistenceDocumentStatesDescription": "Choose which document state details are stored between sessions",
+  "persistentStatesEnabledDescription": "Store document state information between app sessions",
+  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
+  "persistentStateViewportDescription": "Remember the viewport position and zoom",
+  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
+  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
+  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
+  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
+  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
+  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
+  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
+  "contentViewportDescription": "Limit how far the viewport can move beyond the content",
+  "limitViewportPositiveDescription": "Prevent the viewport from moving into negative coordinates",
+  "startInFullScreenDescription": "Open the app in full screen",
+  "platformThemeDescription": "Choose whether the app follows the system, desktop, or mobile layout",
+  "penOnlyInputDescription": "Choose when the app should ignore touch and mouse input",
+  "showPenOnlyToggleDescription": "Show the pen only toggle button when a stylus is detected",
+  "ignorePressureDescription": "Choose how stylus pressure is handled",
+  "moveOnGestureDescription": "Move the canvas when multi-touch gestures are used",
+  "spreadPagesDescription": "Split imported content across multiple pages"
 }
