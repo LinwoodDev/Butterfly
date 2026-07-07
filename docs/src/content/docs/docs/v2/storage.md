@@ -43,29 +43,31 @@ To get the WebDAV URL, please visit the documentation:
 
 [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
 
+### Instructions for NextCloud
+
 #### How to get the URL
 1. Go to 'Files'
-![](@assets/img/webDAV/URLstep1.png)
+  ![](@assets/img/webDAV/URLstep1.png)
 2. Open the 'Files settings'
-![](@assets/img/webDAV/URLstep2.png)
+  ![](@assets/img/webDAV/URLstep2.png)
 3. Choose the 'WebDAV' section in the sidebar, then Copy the URL
-![](@assets/img/webDAV/URLstep3and4.png)
+  ![](@assets/img/webDAV/URLstep3and4.png)
 4. Paste the URL in the URL input box in Butterfly
-![](@assets/img/webDAV/URLstep5.png)
+  ![](@assets/img/webDAV/URLstep5.png)
 
 #### How to get the password and username
 1. Go to your Nextcloud account info by pressing the profile picture on the corner
-2. Then, press 'Settings'
-![](@assets/img/webDAV/Name1.png)
-3. In the Security tab, scroll down to 'Devices & sessions'
+2. Then, press `Settings`
+  ![](@assets/img/webDAV/Name1.png)
+3. In the Security tab, scroll down to `Devices & sessions`
 4. Enter any name for the app name input box
     - "Butterfly Connection" is a good name to use, as it is identifiable and clear.
-5. Press the button called 'Create new app password'
-![](@assets/img/webDAV/Name2.png)
-7. After authenticating, copy the email and paste it in the username input box in Butterfly
-![](@assets/img/webDAV/Name3.png)
-8. Finally, copy the password and paste it in the password input box in Butterfly
-![](@assets/img/webDAV/Name4.png)
+5. Press the button called `Create new app password`
+  ![](@assets/img/webDAV/Name2.png)
+6. After authenticating, copy the email and paste it in the username input box in Butterfly
+  ![](@assets/img/webDAV/Name3.png)
+7. Finally, copy the password and paste it in the password input box in Butterfly
+  ![](@assets/img/webDAV/Name4.png)
 
 
 ### Offline sync
