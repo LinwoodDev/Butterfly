@@ -4,6 +4,7 @@ sidebar_position: 2
 ---
 
 
+
 There are multiple ways of storing notes in Butterfly.
 Either by using your device storage, or by using the cloud storage (WebDAV). 
 
@@ -25,7 +26,7 @@ Open the developer tools in your browser and you will see the data.
 
 By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. This folder can be changed in the settings.
 
-## Remote storage {#remote}
+## Remote storage
 
 :::note
 
@@ -44,26 +45,30 @@ To get the WebDAV URL, please visit the documentation:
 
 #### How to get the URL
 1. Go to 'Files'
-![](@assets/img/webDAV/URLstep1)
+![](@assets/img/webDAV/URLstep1.png)
 2. Open the 'Files settings'
-![](@assets/img/webDAV/URLstep2)
-3. Choose the 'WebDAV' section in the sidebar
-4. Copy the URL
-![](@assets/img/webDAV/URLstep3and4)
-5. Paste the URL in the URL input box in Butterfly
-![](@assets/img/webDAV/URLstep5)
+![](@assets/img/webDAV/URLstep2.png)
+3. Choose the 'WebDAV' section in the sidebar, then Copy the URL
+![](@assets/img/webDAV/URLstep3and4.png)
+4. Paste the URL in the URL input box in Butterfly
+![](@assets/img/webDAV/URLstep5.png)
 
 #### How to get the password and username
 1. Go to your Nextcloud account info by pressing the profile picture on the corner
-2. Press 'Settings'
-3. In the security info tab, scroll down to 'Devices & sessions'
+2. Then, press 'Settings'
+![](@assets/img/webDAV/Name1.png)
+3. In the Security tab, scroll down to 'Devices & sessions'
 4. Enter any name for the app name input box
     - "Butterfly Connection" is a good name to use, as it is identifiable and clear.
 5. Press the button called 'Create new app password'
-6. Authenticate
-7. Copy the email/login text and paste it in the username input box in Butterfly
-8. Copy the password and paste it in the password input box in Butterfly
-### Offline sync {#offline}
+![](@assets/img/webDAV/Name2.png)
+7. After authenticating, copy the email and paste it in the username input box in Butterfly
+![](@assets/img/webDAV/Name3.png)
+8. Finally, copy the password and paste it in the password input box in Butterfly
+![](@assets/img/webDAV/Name4.png)
+
+
+### Offline sync
 
 This feature allows you to edit your files on remote servers while you are offline.
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
@@ -89,7 +94,7 @@ Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.t
 This file type is the recommended format for saving notes.
 
 It is a zip archive containing the information (mostly in JSON files) about the note.
-These included JSON files aren't optimized for human readability.
+These included JSON files aren't optimized to be readable by a human in its raw form.
 
 ### Butterfly Raw Note (.tbfly)
 
