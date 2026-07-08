@@ -534,37 +534,6 @@ class MainPopupMenu extends StatelessWidget {
                         hideUi != HideState.visible;
                     return MenuAnchor(
                       menuChildren: [
-                        if (showNavigatorDialog)
-                          ...NavigatorPage.values.map(
-                            (e) => MenuItemButton(
-                              leadingIcon: PhosphorIcon(
-                                e.icon(PhosphorIconsStyle.light),
-                              ),
-                              child: Text(e.getLocalizedName(context)),
-                              onPressed: () {
-                                context.read<EditorViewCubit>().setNavigator(
-                                  page: e,
-                                );
-                                final bloc = context.read<DocumentBloc>();
-                                final transformCubit = context
-                                    .read<TransformCubit>();
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => MultiBlocProvider(
-                                    providers: [
-                                      BlocProvider.value(value: bloc),
-                                      BlocProvider.value(value: transformCubit),
-                                    ],
-                                    child: RepositoryProvider.value(
-                                      value: cubit,
-                                      child: DocumentNavigator(asDialog: true),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        if (showNavigatorDialog) const Divider(),
                         if (saveState.embedding == null) ...[
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
@@ -733,6 +702,40 @@ class MainPopupMenu extends StatelessWidget {
                             child: Text(AppLocalizations.of(context).packs),
                           ),
                           const Divider(),
+                        ],
+                        if (showNavigatorDialog) ...[
+                          ...NavigatorPage.values.map(
+                            (e) => MenuItemButton(
+                              leadingIcon: PhosphorIcon(
+                                e.icon(PhosphorIconsStyle.light),
+                              ),
+                              child: Text(e.getLocalizedName(context)),
+                              onPressed: () {
+                                context.read<EditorViewCubit>().setNavigator(
+                                  page: e,
+                                );
+                                final bloc = context.read<DocumentBloc>();
+                                final transformCubit = context
+                                    .read<TransformCubit>();
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider.value(value: bloc),
+                                      BlocProvider.value(value: transformCubit),
+                                    ],
+                                    child: RepositoryProvider.value(
+                                      value: cubit,
+                                      child: DocumentNavigator(asDialog: true),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const Divider(),
+                        ],
+                        if (saveState.embedding == null)
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.filePlus,
@@ -752,41 +755,38 @@ class MainPopupMenu extends StatelessWidget {
                               AppLocalizations.of(context).newContent,
                             ),
                           ),
-                          MenuItemButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.file,
-                              textDirection: TextDirection.ltr,
-                            ),
-                            shortcut: const SingleActivator(
-                              LogicalKeyboardKey.keyN,
-                              shift: true,
-                              control: true,
-                            ),
-                            onPressed: () {
-                              Actions.maybeInvoke<NewIntent>(
-                                context,
-                                NewIntent(fromTemplate: true),
-                              );
-                            },
-                            child: Text(AppLocalizations.of(context).templates),
+                        MenuItemButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.file,
+                            textDirection: TextDirection.ltr,
                           ),
-                          SubmenuButton(
-                            menuChildren: settings.history
-                                .map(
-                                  (e) => MenuItemButton(
-                                    child: Text(e.identifier),
-                                    onPressed: () => openFile(context, true, e),
-                                  ),
-                                )
-                                .toList(),
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.clock,
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context).recentFiles,
-                            ),
+                          shortcut: const SingleActivator(
+                            LogicalKeyboardKey.keyN,
+                            shift: true,
+                            control: true,
                           ),
-                        ],
+                          onPressed: () {
+                            Actions.maybeInvoke<NewIntent>(
+                              context,
+                              NewIntent(fromTemplate: true),
+                            );
+                          },
+                          child: Text(AppLocalizations.of(context).templates),
+                        ),
+                        SubmenuButton(
+                          menuChildren: settings.history
+                              .map(
+                                (e) => MenuItemButton(
+                                  child: Text(e.identifier),
+                                  onPressed: () => openFile(context, true, e),
+                                ),
+                              )
+                              .toList(),
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.clock,
+                          ),
+                          child: Text(AppLocalizations.of(context).recentFiles),
+                        ),
                         if (saveState.embedding == null) ...[
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
