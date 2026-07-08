@@ -325,6 +325,9 @@ class PolygonHitCalculator extends HitCalculator {
         collected.add(Offset(curr.x, curr.y));
       }
     }
+    if (collected.length > 1 && collected.first == collected.last) {
+      collected.removeLast();
+    }
     return collected;
   }
 
