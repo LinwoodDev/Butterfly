@@ -226,6 +226,7 @@ final class NoteData extends NoteDisplay<NoteData> {
     String? name,
     String? description,
     String? directory,
+    String? fileName,
     Uint8List? thumbnail,
   }) {
     // Copy archive
@@ -241,6 +242,7 @@ final class NoteData extends NoteDisplay<NoteData> {
       description: description ?? metadata?.description ?? '',
       fileVersion: kFileVersion,
       directory: directory ?? metadata?.directory ?? '',
+      fileName: fileName ?? metadata?.fileName ?? '',
     );
     template = template.setMetadata(newMetadata);
     if (thumbnail != null) template = template.setThumbnail(thumbnail);
@@ -256,10 +258,25 @@ final class NoteData extends NoteDisplay<NoteData> {
     final archive = export();
     var document = NoteData(archive);
     final metadata = getMetadata();
-    createdAt ??= DateTime.now().toUtc();
+    final now = DateTime.now();
+    final fileNameDate = createdAt?.toLocal() ?? now;
+    createdAt ??= now.toUtc();
+    var documentName = name;
+    if (documentName.isEmpty && metadata?.type == NoteFileType.template) {
+      try {
+        documentName = resolveTemplateFileName(
+          metadata?.fileName ?? '',
+          fileNameDate,
+        );
+      } on FormatException {
+        // Invalid formatters from imported templates should keep the document
+        // unsaved instead of preventing it from opening.
+        documentName = '';
+      }
+    }
     final newMetadata = FileMetadata(
       type: NoteFileType.document,
-      name: name,
+      name: documentName,
       createdAt: createdAt,
       updatedAt: createdAt,
       description: metadata?.description ?? '',

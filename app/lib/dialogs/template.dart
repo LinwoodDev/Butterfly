@@ -24,6 +24,69 @@ import 'area/init.dart';
 import 'delete.dart';
 import 'pages.dart';
 
+String? _validateOptionalTemplateFileName(BuildContext context, String? value) {
+  final fileName = value?.trim() ?? '';
+  if (fileName.isEmpty) return null;
+  try {
+    final resolved = resolveTemplateFileName(
+      fileName,
+      DateTime(2000, 12, 31, 23, 59, 58),
+    );
+    return defaultFileNameValidator(context)(null)(resolved);
+  } on FormatException {
+    return LeapLocalizations.of(context).invalidName;
+  }
+}
+
+String _templateFileNameDescription(BuildContext context) =>
+    AppLocalizations.of(context).templateFileNameDescription(
+      templateDateFormatExample,
+      templateTimeFormatExample,
+    );
+
+Future<String?> _showTemplateFileNameDialog(
+  BuildContext context,
+  String initialValue,
+) {
+  final formKey = GlobalKey<FormState>();
+  var fileName = initialValue;
+  return showDialog<String>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(AppLocalizations.of(context).fileName),
+      content: Form(
+        key: formKey,
+        child: TextFormField(
+          initialValue: fileName,
+          autofocus: true,
+          onChanged: (value) => fileName = value,
+          validator: (value) =>
+              _validateOptionalTemplateFileName(context, value),
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).fileName,
+            helperText: _templateFileNameDescription(context),
+            helperMaxLines: 3,
+            filled: true,
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            if (!(formKey.currentState?.validate() ?? false)) return;
+            Navigator.of(context).pop(fileName.trim());
+          },
+          child: Text(MaterialLocalizations.of(context).saveButtonLabel),
+        ),
+      ],
+    ),
+  );
+}
+
 Future<void> _overrideTools(
   TemplateFileSystem templateSystem,
   DocumentBloc bloc,
@@ -669,42 +732,59 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
   Future<void> _showCreateDialog(DocumentBloc bloc) {
     final state = bloc.state;
+    final formKey = GlobalKey<FormState>();
     var initialName = '';
     if (state is DocumentLoaded) {
       initialName = state.metadata.name;
     }
-    String name = initialName, directory = '';
+    String name = initialName, directory = '', fileName = '';
     return showDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(AppLocalizations.of(context).createTemplate),
           scrollable: true,
-          content: SizedBox(
-            width: 500,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(AppLocalizations.of(context).createTemplateContent),
-                const SizedBox(height: 16),
-                TextFormField(
-                  initialValue: name,
-                  onChanged: (e) => name = e,
-                  decoration: InputDecoration(
-                    labelText: LeapLocalizations.of(context).name,
-                    filled: true,
+          content: Form(
+            key: formKey,
+            child: SizedBox(
+              width: 500,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context).createTemplateContent),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    initialValue: name,
+                    onChanged: (e) => name = e,
+                    decoration: InputDecoration(
+                      labelText: LeapLocalizations.of(context).name,
+                      filled: true,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  initialValue: directory,
-                  onChanged: (e) => directory = e,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).directory,
-                    filled: true,
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    initialValue: fileName,
+                    onChanged: (e) => fileName = e,
+                    validator: (value) =>
+                        _validateOptionalTemplateFileName(context, value),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).fileName,
+                      helperText: _templateFileNameDescription(context),
+                      helperMaxLines: 3,
+                      filled: true,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    initialValue: directory,
+                    onChanged: (e) => directory = e,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).directory,
+                      filled: true,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           actions: <Widget>[
@@ -715,11 +795,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
             ElevatedButton(
               child: Text(LeapLocalizations.of(context).create),
               onPressed: () async {
+                if (!(formKey.currentState?.validate() ?? false)) return;
                 Navigator.of(context).pop();
                 await bloc.createTemplate(
                   _templateSystem.storage?.identifier,
                   name: name,
                   directory: directory,
+                  fileName: fileName.trim(),
                 );
                 load();
               },
@@ -817,6 +899,11 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
         ListTile(
           title: Text(AppLocalizations.of(context).directory),
           subtitle: Text(metadata.directory),
+        ),
+      if (metadata.fileName.isNotEmpty)
+        ListTile(
+          title: Text(AppLocalizations.of(context).fileName),
+          subtitle: Text(metadata.fileName),
         ),
       ListTile(
         title: Text(AppLocalizations.of(context).tools),
@@ -1378,6 +1465,23 @@ List<Widget> _buildTemplateMenuChildren(
           );
           if (selectedPageNames == null) return;
           _applyTemplateAreasToPages(bloc, template, selectedPageNames);
+        },
+      ),
+    if (!isCore)
+      MenuItemButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileText),
+        child: Text(AppLocalizations.of(context).fileName),
+        onPressed: () async {
+          final result = await _showTemplateFileNameDialog(
+            context,
+            metadata.fileName,
+          );
+          if (result == null) return;
+          await fileSystem.updateFile(
+            file.path,
+            template.setMetadata(metadata.copyWith(fileName: result)),
+          );
+          onChanged();
         },
       ),
     MenuItemButton(

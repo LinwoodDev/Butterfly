@@ -21,6 +21,7 @@ _FileMetadata _$FileMetadataFromJson(Map json) => _FileMetadata(
   description: json['description'] as String? ?? '',
   author: json['author'] as String? ?? '',
   directory: json['directory'] as String? ?? '',
+  fileName: json['fileName'] as String? ?? '',
   version: json['version'] as String? ?? '',
 );
 
@@ -40,6 +41,7 @@ Map<String, dynamic> _$FileMetadataToJson(_FileMetadata instance) =>
       'description': instance.description,
       'author': instance.author,
       'directory': instance.directory,
+      'fileName': instance.fileName,
       'version': instance.version,
     };
 
