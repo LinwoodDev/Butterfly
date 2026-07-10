@@ -350,6 +350,20 @@
   "untitled": "Untitled",
   "createTemplate": "Create template",
   "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
+  "fileName": "File name",
+  "templateFileNameDescription": "Set a name to save new documents immediately. Use a custom date or time formatter, for example {dateExample} or {timeExample}.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date:dd.MM.yyyy}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time:HH-mm}"
+      }
+    }
+  },
   "replace": "Replace",
   "@replace": {
     "description": "Replace action"

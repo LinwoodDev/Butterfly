@@ -56,7 +56,7 @@ class NewAction extends Action<NewIntent> {
     final template = await templateSystem.getDefaultFile(
       templateSystem.storage?.defaults['template'] ?? settings.defaultTemplate,
     );
-    openNewDocument(context, true, template);
+    await openNewDocument(context, true, template);
   }
 }
 
@@ -66,9 +66,10 @@ Future<void> openNewDocument(
   NoteData? template,
   String? remote,
   Area? initialArea,
-]) {
+]) async {
   NoteData? document;
   String? path;
+  var targetRemote = remote;
   if (template != null) {
     document = template.createDocument();
     if (initialArea != null) {
@@ -80,16 +81,34 @@ Future<void> openNewDocument(
     final metadata = document.getMetadata();
     if (metadata != null) {
       path = metadata.directory;
+      final templateMetadata = template.getMetadata();
+      if ((templateMetadata?.fileName.trim().isNotEmpty ?? false) &&
+          metadata.name.isNotEmpty) {
+        final settings = context.read<SettingsCubit>().state;
+        final storage = settings.getRemote(targetRemote);
+        final fileSystem = context
+            .read<ButterflyFileSystem>()
+            .buildDocumentSystem(storage);
+        final created = await fileSystem.createFileWithName(
+          directory: path,
+          name: metadata.name,
+          suffix: '.bfly',
+          document.toFile(),
+        );
+        path = created.path;
+        targetRemote = created.remote;
+      }
     }
   }
-  final queryParams = <String, String>{'path': ?path, 'remote': ?remote};
+  if (!context.mounted) return;
+  final queryParams = <String, String>{'path': ?path, 'remote': ?targetRemote};
   if (replace) {
     GoRouter.of(
       context,
     ).goNamed('new', queryParameters: queryParams, extra: document);
-    return Future.value();
+    return;
   } else {
-    return GoRouter.of(
+    await GoRouter.of(
       context,
     ).pushNamed('new', queryParameters: queryParams, extra: document);
   }

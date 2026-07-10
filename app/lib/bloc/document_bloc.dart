@@ -1822,6 +1822,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     String? remote, {
     String? directory,
     String? name,
+    String? fileName,
   }) async {
     final current = state;
     final cubit = _editorController;
@@ -1849,6 +1850,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             name: name,
             thumbnail: thumbnail,
             directory: directory,
+            fileName: fileName,
           ),
         );
   }
@@ -1868,6 +1870,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         name: metadata.name,
         description: metadata.description,
         directory: metadata.directory,
+        fileName: metadata.fileName,
       ),
     );
   }
