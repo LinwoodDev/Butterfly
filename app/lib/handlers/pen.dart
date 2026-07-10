@@ -1,5 +1,20 @@
 part of 'handler.dart';
 
+@visibleForTesting
+List<PathPoint> limitPenPreviewPoints(
+  List<PathPoint> points, [
+  int maxPoints = 512,
+]) {
+  if (points.length <= maxPoints || maxPoints < 2) return points;
+  final result = <PathPoint>[points.first];
+  final step = (points.length - 1) / (maxPoints - 1);
+  for (var i = 1; i < maxPoints - 1; i++) {
+    result.add(points[(i * step).round()]);
+  }
+  result.add(points.last);
+  return result;
+}
+
 // This class represents the handler for the PenTool.
 class PenHandler extends Handler<PenTool> with ColoredHandler {
   bool _hideCursorWhileDrawing = false;
@@ -32,7 +47,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   ]) => [...elements.values, ..._submittedElements]
       .map(
         (e) => e.points.length > 1
-            ? PenRenderer(e.copyWith(id: createUniqueId()))
+            ? PenRenderer(
+                e.copyWith(
+                  id: createUniqueId(),
+                  points: limitPenPreviewPoints(e.points),
+                ),
+              )
             : null,
       )
       .whereType<Renderer>()

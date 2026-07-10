@@ -790,6 +790,8 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     DocumentLoaded blocState, {
     bool allowBake = true,
   }) async {
+    // A full refresh supersedes any frame-delayed drawing preview.
+    delayedForegroundRefreshRunner.cancel();
     talker.verbose('Refreshing tools');
     final document = blocState.data;
     final page = blocState.page;
