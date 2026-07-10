@@ -204,7 +204,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         points: points,
       );
     }
-    if (refresh) bloc.refreshForegrounds();
+    if (refresh) unawaited(bloc.delayedRefreshForegrounds());
   }
 
   // This function is called when the pointer is pressed down.

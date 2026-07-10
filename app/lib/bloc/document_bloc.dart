@@ -1746,6 +1746,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return cubit.toolCubit.refreshForegrounds(cubit, current);
   }
 
+  /// Coalesces high-frequency foreground updates to at most once per frame.
+  Future<void> delayedRefreshForegrounds() async {
+    final current = state;
+    final cubit = _editorController;
+    if (current is! DocumentLoadSuccess || cubit == null) return;
+    return cubit.toolCubit.delayedRefreshForegrounds(cubit, current);
+  }
+
   /// Ultra-lightweight update for cursor changes only.
   void updateCursor(MouseCursor cursor) {
     _editorController?.toolCubit.setCursor(cursor);

@@ -38,6 +38,9 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     : super(initial ?? ToolRuntimeState(handler: HandHandler()));
 
   final foregroundRefreshRunner = CoalescedAsyncRunner(delay: Duration.zero);
+  final delayedForegroundRefreshRunner = CoalescedAsyncRunner(
+    delay: const Duration(milliseconds: 16),
+  );
   EditorController? _controller;
   Timer? _networkingDebounceTimer;
 
@@ -929,7 +932,17 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   Future<void> refreshForegrounds(
     EditorController controller,
     DocumentLoaded blocState,
-  ) => foregroundRefreshRunner.schedule(
+  ) {
+    delayedForegroundRefreshRunner.cancel();
+    return foregroundRefreshRunner.schedule(
+      () => _refreshForegrounds(controller, blocState),
+    );
+  }
+
+  Future<void> delayedRefreshForegrounds(
+    EditorController controller,
+    DocumentLoaded blocState,
+  ) => delayedForegroundRefreshRunner.schedule(
     () => _refreshForegrounds(controller, blocState),
   );
 
@@ -1072,6 +1085,8 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     }
     foregroundRefreshRunner.cancel();
     await foregroundRefreshRunner.disposeAndWait();
+    delayedForegroundRefreshRunner.cancel();
+    await delayedForegroundRefreshRunner.disposeAndWait();
     _networkingDebounceTimer?.cancel();
     _networkingDebounceTimer = null;
     _controller = null;
