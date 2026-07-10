@@ -33,24 +33,16 @@ static void my_application_activate(GApplication* application) {
   // in case the window manager does more exotic layout, e.g. tiling.
   // If running on Wayland assume the header bar will work (may need changing
   // if future cases occur).
-  gboolean use_header_bar = FALSE;
+  gboolean use_header_bar = TRUE;
 #ifdef GDK_WINDOWING_X11
-  GdkScreen* screen = gtk_window_get_screen(GTK_WINDOW(window));
+  GdkScreen* screen = gtk_window_get_screen(window);
   if (GDK_IS_X11_SCREEN(screen)) {
     const gchar* wm_name = gdk_x11_screen_get_window_manager_name(screen);
-    if (g_strcmp0(wm_name, "GNOME Shell") == 0) {
-      use_header_bar = TRUE;
-    }
-  } else
-#endif
-  {
-    const gchar* current_desktop = g_getenv("XDG_CURRENT_DESKTOP");
-    if (current_desktop != nullptr) {
-      g_auto(GStrv) desktops = g_strsplit(current_desktop, ":", -1);
-      use_header_bar = g_strv_contains(
-          reinterpret_cast<const gchar* const*>(desktops), "GNOME");
+    if (g_strcmp0(wm_name, "GNOME Shell") != 0) {
+      use_header_bar = FALSE;
     }
   }
+#endif
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));

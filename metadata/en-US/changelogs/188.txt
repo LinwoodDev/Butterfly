@@ -6,6 +6,5 @@
   * Add settings descriptions
 * Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
 * Remove unused view options
-* Fix wrong title bar on wayland on non gnome desktops
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.2
