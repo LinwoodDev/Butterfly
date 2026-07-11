@@ -131,39 +131,39 @@ class ButterflyApp extends StatelessWidget {
     this.debugShowCheckedModeBanner = true,
   });
 
-  List<RouteBase> _buildSettingsRoute(
+  List<RouteBase> _buildSettingsRoutes(
     SettingsLeapTree<ButterflySettings> tree,
   ) {
-    List<RouteBase> buildEntries(
+    Iterable<RouteBase> buildEntries(
       Map<String, SettingsLeapPage<ButterflySettings>> entries, [
+      String? parentPath,
       String? parentId,
-    ]) {
-      return entries.entries.map((entry) {
+    ]) sync* {
+      for (final entry in entries.entries) {
         final id = entry.key;
+        final path = parentPath == null ? id : '$parentPath/$id';
         final fullId = parentId == null ? id : '$parentId.$id';
         final page = entry.value;
-        final children = page.children;
-        return GoRoute(
-          path: id,
+        yield GoRoute(
+          path: 'settings/$path',
           builder: (context, state) => SettingsDetailsPage(
             id: fullId,
             focusedId: state.extra is String ? state.extra as String : null,
           ),
-          routes: [
-            ...buildEntries(children, fullId),
-            if (id == 'connections')
-              GoRoute(
-                path: ':id',
-                name: 'connection',
-                builder: (context, state) =>
-                    ConnectionSettingsPage(remote: state.pathParameters['id']!),
-              ),
-          ],
         );
-      }).toList();
+        yield* buildEntries(page.children, path, fullId);
+        if (id == 'connections') {
+          yield GoRoute(
+            path: 'settings/$path/:id',
+            name: 'connection',
+            builder: (context, state) =>
+                ConnectionSettingsPage(remote: state.pathParameters['id']!),
+          );
+        }
+      }
     }
 
-    return buildEntries(tree.pages);
+    return buildEntries(tree.pages).toList();
   }
 
   late final GoRouter _router = GoRouter(
@@ -184,8 +184,8 @@ class ButterflyApp extends StatelessWidget {
           GoRoute(
             path: 'settings',
             builder: (context, state) => const SettingsPage(),
-            routes: _buildSettingsRoute(settingsTree),
           ),
+          ..._buildSettingsRoutes(settingsTree),
           GoRoute(
             name: 'new',
             path: 'new',
