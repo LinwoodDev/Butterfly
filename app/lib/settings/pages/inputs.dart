@@ -41,31 +41,21 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
     'sensitivity': SettingsLeapSection(
       displayName: (context) => AppLocalizations.of(context).sensitivity,
-      descriptionBuilder: (context) =>
-          AppLocalizations.of(context).sensitivityHint,
       settings: [
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).select,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).selectSensitivityDescription,
           builder: _selectSensitivitySetting,
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).touch,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).touchSensitivityDescription,
           builder: _touchSensitivitySetting,
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).inputGestures,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).gestureSensitivityDescription,
           builder: _gestureSensitivitySetting,
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).scroll,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).scrollSensitivityDescription,
           builder: _scrollSensitivitySetting,
         ),
       ],
@@ -88,7 +78,7 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           id: 'hideCursorWhileDrawing',
           displayName: (context) =>
               AppLocalizations.of(context).hideCursorWhileDrawing,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).hideCursorWhileDrawingDescription,
           icon: PhosphorIconsLight.cursorClick,
           read: (state) => state.hideCursorWhileDrawing,
@@ -191,7 +181,7 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           id: 'inputGestures',
           displayName: (context) => AppLocalizations.of(context).inputGestures,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).inputGesturesDescription,
           icon: PhosphorIconsLight.handTap,
           read: (state) => state.inputGestures,
@@ -201,7 +191,7 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           id: 'moveOnGesture',
           displayName: (context) => AppLocalizations.of(context).moveOnGesture,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).moveOnGestureDescription,
           icon: PhosphorIconsLight.arrowsOutCardinal,
           read: (state) => state.moveOnGesture,
@@ -318,7 +308,7 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapListSetting<ButterflySettings, bool?>(
           id: 'penOnlyInput',
           displayName: (context) => AppLocalizations.of(context).penOnlyInput,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).penOnlyInputDescription,
           icon: PhosphorIconsLight.pencilSimpleLine,
           options: [
@@ -352,7 +342,7 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
           id: 'showPenOnlyToggle',
           displayName: (context) =>
               AppLocalizations.of(context).showPenOnlyToggle,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).showPenOnlyToggleDescription,
           icon: PhosphorIconsLight.toggleRight,
           read: (state) => state.showPenOnlyToggle,
@@ -362,7 +352,7 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapListSetting<ButterflySettings, IgnorePressure>(
           id: 'ignorePressure',
           displayName: (context) => AppLocalizations.of(context).ignorePressure,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).ignorePressureDescription,
           icon: PhosphorIconsLight.lineSegments,
           options: [

@@ -9,8 +9,6 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).syncMode,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).syncModeDescription,
           icon: PhosphorIconsLight.cloudArrowDown,
           enabled: (context, state) => !kIsWeb,
           values: SyncMode.values,

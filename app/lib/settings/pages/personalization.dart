@@ -23,7 +23,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapListSetting<ButterflySettings, String>(
           id: 'design',
           displayName: (context) => AppLocalizations.of(context).design,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).designDescription,
           icon: PhosphorIconsLight.palette,
           options: [
@@ -47,8 +47,6 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapListSetting<ButterflySettings, String>(
           id: 'locale',
           displayName: (context) => AppLocalizations.of(context).locale,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).localeDescription,
           icon: PhosphorIconsLight.translate,
           options: [
             SettingsLeapOption(
@@ -77,7 +75,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).platformTheme,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).platformThemeDescription,
           icon: PhosphorIconsLight.cursor,
           values: PlatformTheme.values,
@@ -92,7 +90,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).density,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).densityDescription,
           icon: PhosphorIconsLight.gridNine,
           values: ThemeDensity.values,
@@ -114,7 +112,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).highContrast,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).highContrastDescription,
           icon: PhosphorIconsLight.circleHalf,
           read: (state) => state.highContrast,
@@ -123,7 +121,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).nativeTitleBar,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).nativeTitleBarDescription,
           icon: PhosphorIconsLight.appWindow,
           enabled: (context, state) => !kIsWeb && isWindow,

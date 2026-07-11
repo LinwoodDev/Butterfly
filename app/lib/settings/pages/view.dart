@@ -7,32 +7,28 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   sections: {
     'interface': SettingsLeapSection(
       settings: [
-        SettingsLeapBoolSetting(
+        SettingsLeapAdvancedSwitchSetting<ButterflySettings, ZoomPosition>(
           id: 'zoomControl',
           displayName: (context) => AppLocalizations.of(context).zoomControl,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).zoomControlDescription,
           icon: PhosphorIconsLight.magnifyingGlass,
-          read: (state) => state.zoomEnabled,
-          write: (context, value) =>
+          options: [
+            for (final value in ZoomPosition.values)
+              SettingsLeapOption(
+                id: value.name,
+                value: value,
+                displayName: (context) => value.getLocalizedName(context),
+              ),
+          ],
+          readEnabled: (state) => state.zoomEnabled,
+          writeEnabled: (context, value) =>
               context.read<SettingsCubit>().changeZoomEnabled(value),
-        ),
-        SettingsLeapEnumSetting(
-          id: 'zoomPosition',
-          displayName: (context) => AppLocalizations.of(context).zoomPosition,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).zoomPositionDescription,
-          icon: PhosphorIconsLight.arrowsOut,
-          enabled: (context, state) => state.zoomEnabled,
-          values: ZoomPosition.values,
           read: (state) => state.zoomPosition,
           write: (context, value) =>
               context.read<SettingsCubit>().changeZoomPosition(value),
-          valueLabel: (context, value) => value.getLocalizedName(context),
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).properties,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).propertiesDescription,
           icon: PhosphorIconsLight.sliders,
           values: ZoomPosition.values,
@@ -44,8 +40,6 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapEnumSetting(
           displayName: (context) =>
               AppLocalizations.of(context).toolbarPosition,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).toolbarPositionDescription,
           icon: PhosphorIconsLight.toolbox,
           values: ToolbarPosition.values,
           read: (state) => state.toolbarPosition,
@@ -55,8 +49,6 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).toolbarSize,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).toolbarSizeDescription,
           icon: PhosphorIconsLight.toolbox,
           values: ToolbarSize.values,
           read: (state) => state.toolbarSize,
@@ -66,37 +58,34 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).toolbarRows,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).toolbarRowsDescription,
           builder: _toolbarRowsSetting,
         ),
-        SettingsLeapBoolSetting(
+        SettingsLeapAdvancedSwitchSetting<ButterflySettings, NavigatorPosition>(
           id: 'navigationRail',
           displayName: (context) => AppLocalizations.of(context).navigationRail,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).navigationRailDescription,
           icon: PhosphorIconsLight.sidebar,
-          read: (state) => state.navigationRail,
-          write: (context, value) =>
+          options: [
+            for (final value in NavigatorPosition.values)
+              SettingsLeapOption(
+                id: value.name,
+                value: value,
+                displayName: (context) =>
+                    _navigatorPositionName(context, value),
+              ),
+          ],
+          readEnabled: (state) => state.navigationRail,
+          writeEnabled: (context, value) =>
               context.read<SettingsCubit>().changeNavigationRail(value),
-        ),
-        SettingsLeapEnumSetting(
-          id: 'navigatorPosition',
-          displayName: (context) => AppLocalizations.of(context).position,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).navigatorPositionDescription,
-          icon: PhosphorIconsLight.sidebar,
-          enabled: (context, state) => state.navigationRail,
-          values: NavigatorPosition.values,
           read: (state) => state.navigatorPosition,
           write: (context, value) =>
               context.read<SettingsCubit>().changeNavigatorPosition(value),
-          valueLabel: _navigatorPositionName,
         ),
         SettingsLeapEnumSetting(
           displayName: (context) =>
               AppLocalizations.of(context).optionsPanelPosition,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).optionsPanelPositionDescription,
           icon: PhosphorIconsLight.archive,
           values: OptionsPanelPosition.values,
@@ -108,7 +97,7 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapEnumSetting(
           displayName: (context) =>
               AppLocalizations.of(context).simpleToolbarVisibility,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).simpleToolbarVisibilityDescription,
           icon: PhosphorIconsLight.cursorText,
           values: SimpleToolbarVisibility.values,
@@ -125,8 +114,6 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).showThumbnails,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).showThumbnailsDescription,
           icon: PhosphorIconsLight.image,
           read: (state) => state.showThumbnails,
           write: (context, value) =>
@@ -135,8 +122,6 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).hideFileExtension,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).hideFileExtensionDescription,
           icon: PhosphorIconsLight.fileText,
           read: (state) => state.hideExtension,
           write: (context, value) =>

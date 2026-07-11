@@ -9,7 +9,7 @@ final _logsSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).logs,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).showVerboseLogsDescription,
           read: (state) => state.showVerboseLogs,
           write: (context, value) =>
@@ -27,7 +27,12 @@ Widget _logsSection(
   BuildContext context,
   ButterflySettings state,
   Widget child,
-) => const LogsSettingsContent();
+) => Column(
+  children: [
+    child,
+    const Expanded(child: LogsSettingsContent()),
+  ],
+);
 
 class LogsSettingsContent extends StatefulWidget {
   const LogsSettingsContent({super.key});
@@ -167,13 +172,6 @@ class _LogsSettingsContentState extends State<LogsSettingsContent> {
                   ),
                 ],
               ),
-            SwitchListTile(
-              title: const Text('Show verbose logs'),
-              value: state.showVerboseLogs,
-              onChanged: (value) {
-                context.read<SettingsCubit>().changeShowVerboseLogs(value);
-              },
-            ),
             Expanded(
               child: _selectedFile == null
                   ? StreamBuilder(

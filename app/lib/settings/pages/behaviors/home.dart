@@ -11,8 +11,6 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapListSetting<ButterflySettings, _AutosaveMode>(
           id: 'autosave',
           displayName: (context) => AppLocalizations.of(context).autosave,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).autosaveDescription,
           icon: PhosphorIconsLight.floppyDisk,
           keywordsBuilder: (context) => [AppLocalizations.of(context).save],
           options: [
@@ -60,15 +58,11 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).autosaveDelay,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).autosaveDelayDescription,
           enabled: (context, state) => state.autosave && state.delayedAutosave,
           builder: _autosaveDelaySetting,
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).onStartup,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).onStartupDescription,
           icon: PhosphorIconsLight.arrowFatLineUp,
           values: StartupBehavior.values,
           read: (state) => state.onStartup,
@@ -90,7 +84,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapActionSetting(
           displayName: (context) =>
               AppLocalizations.of(context).persistenceDocumentStates,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).persistenceDocumentStatesDescription,
           icon: PhosphorIconsLight.database,
           onTap: _openPersistenceSettings,
@@ -98,7 +92,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).startInFullScreen,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).startInFullScreenDescription,
           icon: PhosphorIconsLight.arrowsOut,
           read: (state) => state.startInFullScreen,
@@ -109,7 +103,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
           id: 'contentViewport',
           displayName: (context) =>
               AppLocalizations.of(context).contentViewport,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).contentViewportDescription,
           icon: PhosphorIconsLight.appWindow,
           options: [
@@ -147,7 +141,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).limitViewportToPositiveCoordinates,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).limitViewportPositiveDescription,
           icon: PhosphorIconsLight.plusSquare,
           read: (state) => state.limitViewportPositive,
@@ -178,7 +172,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).bringMovedElementsToFront,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).bringMovedElementsToFrontDescription,
           icon: PhosphorIconsLight.stack,
           read: (state) => state.bringMovedElementsToFront,
@@ -193,7 +187,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).spreadToPages,
-          descriptionBuilder: (context) =>
+          hintBuilder: (context) =>
               AppLocalizations.of(context).spreadPagesDescription,
           icon: PhosphorIconsLight.arrowsOutSimple,
           read: (state) => state.spreadPages,
@@ -202,8 +196,6 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).imageScale,
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).imageScaleDescription,
           builder: _imageScaleSetting,
         ),
       ],
