@@ -180,10 +180,10 @@ packages:
     dependency: transitive
     description:
       name: camera_platform_interface
-      sha256: "7ac852d77699acee79f0d438b793feee26721841e50973576419ff5c6d95e9b7"
+      sha256: "4524ca6eb4176b066864036ad4fe02c3e4863e63b77eadc21a5bf56824f43498"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0"
+    version: "2.13.1"
   camera_web:
     dependency: transitive
     description:
@@ -484,18 +484,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_rust_bridge
-      sha256: "20861a4148ebb72f547366b2dd575ef803e32ff1cb6dc5aa0c9ffdbc774f2799"
+      sha256: d9d819e3f39efe08a68309ff7cadc9d8bcfd65d86319e0c5735cd4f4fee16c4a
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.4"
+    version: "2.13.0-beta.5"
   flutter_rust_bridge_hooks:
     dependency: transitive
     description:
       name: flutter_rust_bridge_hooks
-      sha256: "0ae752d541b6878ac1baac7827502ea21cb3ac81bf57362895a6df2929707ac7"
+      sha256: "33f96e930af9016405f519696574f6fcb96ec37a515188d1da484fa81f9a90f7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.4"
+    version: "2.13.0-beta.5"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -785,8 +785,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "064aed61c361194bf0eb3cb599e62bdd3c111d7c"
-      resolved-ref: "064aed61c361194bf0eb3cb599e62bdd3c111d7c"
+      ref: "18711cf5297f9679701536255dfe3d650b72fd25"
+      resolved-ref: "18711cf5297f9679701536255dfe3d650b72fd25"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1065,26 +1065,26 @@ packages:
     dependency: transitive
     description:
       name: pdfium_flutter
-      sha256: "420ba8e7673b54da387ceeeb18a72c8bc6e4452128dbb391dca900c748f9e9ba"
+      sha256: "0b115c0917aef9cf6bb9c4d47d0efc61d97f44844cd76287c921f997c26cf15d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   pdfrx:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: e0ca318004c3f32144db8e74fa612abb80ebe79004677293af74ed9af119f47f
+      sha256: acce61944c31bd36f0c3031b1bbf41f59d0b0d4e5e27614fbdc74ff093d55464
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.7"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: "89865e158ced818690ab207a13a34a65803cd67ee1bec9f5f87838eb5a79600b"
+      sha256: ef8f8cfa64255bfc91a559dd2d32d7cfe7a0f8003bac297bbf9a0aed1182fae5
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.6"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1727,4 +1727,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.12.2 <4.0.0"
-  flutter: "3.44.5"
+  flutter: "3.44.6"

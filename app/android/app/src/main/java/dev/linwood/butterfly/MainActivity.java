@@ -65,6 +65,7 @@ public class MainActivity extends FlutterActivity {
                         return true;
                     }
                 } catch (IOException e) {
+                    //noinspection CallToPrintStackTrace
                     e.printStackTrace();
                     intentData = null;
                     intentType = null;

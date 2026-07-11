@@ -17,7 +17,7 @@ version: 2.6.0-beta.2+188
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
-  flutter: 3.44.5
+  flutter: 3.44.6
 
 dependencies:
   flutter:
@@ -98,7 +98,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 064aed61c361194bf0eb3cb599e62bdd3c111d7c
+      ref: 18711cf5297f9679701536255dfe3d650b72fd25
       path: packages/lw_file_system
   keybinder:
     git:
