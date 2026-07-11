@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CameraViewport {
 
- List<Renderer<Background>> get backgrounds; List<Renderer<PadElement>> get bakedElements; List<Renderer<PadElement>> get unbakedElements; List<Renderer<PadElement>> get visibleElements; List<Renderer<PadElement>> get visibleUnbakedElements; double? get width; double? get height; double get pixelRatio; double get scale; double get x; double get y; RenderResolution get resolution; Map<String, RendererState> get rendererStates; Set<String> get invisibleLayers; ui.Image? get image; ui.Image? get belowLayerImage; ui.Image? get aboveLayerImage;
+ List<Renderer<Background>> get backgrounds; List<Renderer<PadElement>> get bakedElements; List<Renderer<PadElement>> get unbakedElements; List<Renderer<PadElement>> get visibleElements; List<Renderer<PadElement>> get visibleUnbakedElements; double? get width; double? get height; ui.Size? get viewportSize; double get pixelRatio; double get scale; double get x; double get y; RenderResolution get resolution; Map<String, RendererState> get rendererStates; Set<String> get invisibleLayers; ui.Image? get image; ui.Image? get belowLayerImage; ui.Image? get aboveLayerImage;
 /// Create a copy of CameraViewport
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CameraViewportCopyWith<CameraViewport> get copyWith => _$CameraViewportCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewport&&const DeepCollectionEquality().equals(other.backgrounds, backgrounds)&&const DeepCollectionEquality().equals(other.bakedElements, bakedElements)&&const DeepCollectionEquality().equals(other.unbakedElements, unbakedElements)&&const DeepCollectionEquality().equals(other.visibleElements, visibleElements)&&const DeepCollectionEquality().equals(other.visibleUnbakedElements, visibleUnbakedElements)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&const DeepCollectionEquality().equals(other.rendererStates, rendererStates)&&const DeepCollectionEquality().equals(other.invisibleLayers, invisibleLayers)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewport&&const DeepCollectionEquality().equals(other.backgrounds, backgrounds)&&const DeepCollectionEquality().equals(other.bakedElements, bakedElements)&&const DeepCollectionEquality().equals(other.unbakedElements, unbakedElements)&&const DeepCollectionEquality().equals(other.visibleElements, visibleElements)&&const DeepCollectionEquality().equals(other.visibleUnbakedElements, visibleUnbakedElements)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.viewportSize, viewportSize) || other.viewportSize == viewportSize)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&const DeepCollectionEquality().equals(other.rendererStates, rendererStates)&&const DeepCollectionEquality().equals(other.invisibleLayers, invisibleLayers)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(backgrounds),const DeepCollectionEquality().hash(bakedElements),const DeepCollectionEquality().hash(unbakedElements),const DeepCollectionEquality().hash(visibleElements),const DeepCollectionEquality().hash(visibleUnbakedElements),width,height,pixelRatio,scale,x,y,resolution,const DeepCollectionEquality().hash(rendererStates),const DeepCollectionEquality().hash(invisibleLayers),image,belowLayerImage,aboveLayerImage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(backgrounds),const DeepCollectionEquality().hash(bakedElements),const DeepCollectionEquality().hash(unbakedElements),const DeepCollectionEquality().hash(visibleElements),const DeepCollectionEquality().hash(visibleUnbakedElements),width,height,viewportSize,pixelRatio,scale,x,y,resolution,const DeepCollectionEquality().hash(rendererStates),const DeepCollectionEquality().hash(invisibleLayers),image,belowLayerImage,aboveLayerImage);
 
 @override
 String toString() {
-  return 'CameraViewport(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
+  return 'CameraViewport(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CameraViewportCopyWith<$Res>  {
   factory $CameraViewportCopyWith(CameraViewport value, $Res Function(CameraViewport) _then) = _$CameraViewportCopyWithImpl;
 @useResult
 $Res call({
- List<Renderer<Background>> backgrounds, List<Renderer<PadElement>> bakedElements, List<Renderer<PadElement>> unbakedElements, List<Renderer<PadElement>> visibleElements, List<Renderer<PadElement>> visibleUnbakedElements, double? width, double? height, double pixelRatio, double scale, double x, double y, RenderResolution resolution, Map<String, RendererState> rendererStates, Set<String> invisibleLayers, ui.Image? image, ui.Image? belowLayerImage, ui.Image? aboveLayerImage
+ List<Renderer<Background>> backgrounds, List<Renderer<PadElement>> bakedElements, List<Renderer<PadElement>> unbakedElements, List<Renderer<PadElement>> visibleElements, List<Renderer<PadElement>> visibleUnbakedElements, double? width, double? height, ui.Size? viewportSize, double pixelRatio, double scale, double x, double y, RenderResolution resolution, Map<String, RendererState> rendererStates, Set<String> invisibleLayers, ui.Image? image, ui.Image? belowLayerImage, ui.Image? aboveLayerImage
 });
 
 
@@ -62,7 +62,7 @@ class _$CameraViewportCopyWithImpl<$Res>
 
 /// Create a copy of CameraViewport
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? backgrounds = null,Object? bakedElements = null,Object? unbakedElements = null,Object? visibleElements = null,Object? visibleUnbakedElements = null,Object? width = freezed,Object? height = freezed,Object? pixelRatio = null,Object? scale = null,Object? x = null,Object? y = null,Object? resolution = null,Object? rendererStates = null,Object? invisibleLayers = null,Object? image = freezed,Object? belowLayerImage = freezed,Object? aboveLayerImage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? backgrounds = null,Object? bakedElements = null,Object? unbakedElements = null,Object? visibleElements = null,Object? visibleUnbakedElements = null,Object? width = freezed,Object? height = freezed,Object? viewportSize = freezed,Object? pixelRatio = null,Object? scale = null,Object? x = null,Object? y = null,Object? resolution = null,Object? rendererStates = null,Object? invisibleLayers = null,Object? image = freezed,Object? belowLayerImage = freezed,Object? aboveLayerImage = freezed,}) {
   return _then(_self.copyWith(
 backgrounds: null == backgrounds ? _self.backgrounds : backgrounds // ignore: cast_nullable_to_non_nullable
 as List<Renderer<Background>>,bakedElements: null == bakedElements ? _self.bakedElements : bakedElements // ignore: cast_nullable_to_non_nullable
@@ -71,7 +71,8 @@ as List<Renderer<PadElement>>,visibleElements: null == visibleElements ? _self.v
 as List<Renderer<PadElement>>,visibleUnbakedElements: null == visibleUnbakedElements ? _self.visibleUnbakedElements : visibleUnbakedElements // ignore: cast_nullable_to_non_nullable
 as List<Renderer<PadElement>>,width: freezed == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double?,height: freezed == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double?,pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
+as double?,viewportSize: freezed == viewportSize ? _self.viewportSize : viewportSize // ignore: cast_nullable_to_non_nullable
+as ui.Size?,pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
 as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
@@ -93,7 +94,7 @@ as ui.Image?,
 
 
 class CameraViewportUnbaked extends CameraViewport {
-  const CameraViewportUnbaked({final  List<Renderer<Background>> backgrounds = const [], final  List<Renderer<PadElement>> bakedElements = const [], final  List<Renderer<PadElement>> unbakedElements = const [], final  List<Renderer<PadElement>> visibleElements = const [], final  List<Renderer<PadElement>> visibleUnbakedElements = const [], this.width, this.height, this.pixelRatio = 1, this.scale = 1, this.x = 0, this.y = 0, this.resolution = RenderResolution.performance, final  Map<String, RendererState> rendererStates = const {}, final  Set<String> invisibleLayers = const {}, this.image = null, this.belowLayerImage = null, this.aboveLayerImage = null}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
+  const CameraViewportUnbaked({final  List<Renderer<Background>> backgrounds = const [], final  List<Renderer<PadElement>> bakedElements = const [], final  List<Renderer<PadElement>> unbakedElements = const [], final  List<Renderer<PadElement>> visibleElements = const [], final  List<Renderer<PadElement>> visibleUnbakedElements = const [], this.width, this.height, this.viewportSize, this.pixelRatio = 1, this.scale = 1, this.x = 0, this.y = 0, this.resolution = RenderResolution.performance, final  Map<String, RendererState> rendererStates = const {}, final  Set<String> invisibleLayers = const {}, this.image = null, this.belowLayerImage = null, this.aboveLayerImage = null}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
   
 
  final  List<Renderer<Background>> _backgrounds;
@@ -133,6 +134,7 @@ class CameraViewportUnbaked extends CameraViewport {
 
 @override final  double? width;
 @override final  double? height;
+@override final  ui.Size? viewportSize;
 @override@JsonKey() final  double pixelRatio;
 @override@JsonKey() final  double scale;
 @override@JsonKey() final  double x;
@@ -166,16 +168,16 @@ $CameraViewportUnbakedCopyWith<CameraViewportUnbaked> get copyWith => _$CameraVi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewportUnbaked&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&const DeepCollectionEquality().equals(other._bakedElements, _bakedElements)&&const DeepCollectionEquality().equals(other._unbakedElements, _unbakedElements)&&const DeepCollectionEquality().equals(other._visibleElements, _visibleElements)&&const DeepCollectionEquality().equals(other._visibleUnbakedElements, _visibleUnbakedElements)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&const DeepCollectionEquality().equals(other._rendererStates, _rendererStates)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewportUnbaked&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&const DeepCollectionEquality().equals(other._bakedElements, _bakedElements)&&const DeepCollectionEquality().equals(other._unbakedElements, _unbakedElements)&&const DeepCollectionEquality().equals(other._visibleElements, _visibleElements)&&const DeepCollectionEquality().equals(other._visibleUnbakedElements, _visibleUnbakedElements)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.viewportSize, viewportSize) || other.viewportSize == viewportSize)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&const DeepCollectionEquality().equals(other._rendererStates, _rendererStates)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds),const DeepCollectionEquality().hash(_bakedElements),const DeepCollectionEquality().hash(_unbakedElements),const DeepCollectionEquality().hash(_visibleElements),const DeepCollectionEquality().hash(_visibleUnbakedElements),width,height,pixelRatio,scale,x,y,resolution,const DeepCollectionEquality().hash(_rendererStates),const DeepCollectionEquality().hash(_invisibleLayers),image,belowLayerImage,aboveLayerImage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds),const DeepCollectionEquality().hash(_bakedElements),const DeepCollectionEquality().hash(_unbakedElements),const DeepCollectionEquality().hash(_visibleElements),const DeepCollectionEquality().hash(_visibleUnbakedElements),width,height,viewportSize,pixelRatio,scale,x,y,resolution,const DeepCollectionEquality().hash(_rendererStates),const DeepCollectionEquality().hash(_invisibleLayers),image,belowLayerImage,aboveLayerImage);
 
 @override
 String toString() {
-  return 'CameraViewport.unbaked(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
+  return 'CameraViewport.unbaked(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
 }
 
 
@@ -186,7 +188,7 @@ abstract mixin class $CameraViewportUnbakedCopyWith<$Res> implements $CameraView
   factory $CameraViewportUnbakedCopyWith(CameraViewportUnbaked value, $Res Function(CameraViewportUnbaked) _then) = _$CameraViewportUnbakedCopyWithImpl;
 @override @useResult
 $Res call({
- List<Renderer<Background>> backgrounds, List<Renderer<PadElement>> bakedElements, List<Renderer<PadElement>> unbakedElements, List<Renderer<PadElement>> visibleElements, List<Renderer<PadElement>> visibleUnbakedElements, double? width, double? height, double pixelRatio, double scale, double x, double y, RenderResolution resolution, Map<String, RendererState> rendererStates, Set<String> invisibleLayers, ui.Image? image, ui.Image? belowLayerImage, ui.Image? aboveLayerImage
+ List<Renderer<Background>> backgrounds, List<Renderer<PadElement>> bakedElements, List<Renderer<PadElement>> unbakedElements, List<Renderer<PadElement>> visibleElements, List<Renderer<PadElement>> visibleUnbakedElements, double? width, double? height, ui.Size? viewportSize, double pixelRatio, double scale, double x, double y, RenderResolution resolution, Map<String, RendererState> rendererStates, Set<String> invisibleLayers, ui.Image? image, ui.Image? belowLayerImage, ui.Image? aboveLayerImage
 });
 
 
@@ -203,7 +205,7 @@ class _$CameraViewportUnbakedCopyWithImpl<$Res>
 
 /// Create a copy of CameraViewport
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? backgrounds = null,Object? bakedElements = null,Object? unbakedElements = null,Object? visibleElements = null,Object? visibleUnbakedElements = null,Object? width = freezed,Object? height = freezed,Object? pixelRatio = null,Object? scale = null,Object? x = null,Object? y = null,Object? resolution = null,Object? rendererStates = null,Object? invisibleLayers = null,Object? image = freezed,Object? belowLayerImage = freezed,Object? aboveLayerImage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? backgrounds = null,Object? bakedElements = null,Object? unbakedElements = null,Object? visibleElements = null,Object? visibleUnbakedElements = null,Object? width = freezed,Object? height = freezed,Object? viewportSize = freezed,Object? pixelRatio = null,Object? scale = null,Object? x = null,Object? y = null,Object? resolution = null,Object? rendererStates = null,Object? invisibleLayers = null,Object? image = freezed,Object? belowLayerImage = freezed,Object? aboveLayerImage = freezed,}) {
   return _then(CameraViewportUnbaked(
 backgrounds: null == backgrounds ? _self._backgrounds : backgrounds // ignore: cast_nullable_to_non_nullable
 as List<Renderer<Background>>,bakedElements: null == bakedElements ? _self._bakedElements : bakedElements // ignore: cast_nullable_to_non_nullable
@@ -212,7 +214,8 @@ as List<Renderer<PadElement>>,visibleElements: null == visibleElements ? _self._
 as List<Renderer<PadElement>>,visibleUnbakedElements: null == visibleUnbakedElements ? _self._visibleUnbakedElements : visibleUnbakedElements // ignore: cast_nullable_to_non_nullable
 as List<Renderer<PadElement>>,width: freezed == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double?,height: freezed == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double?,pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
+as double?,viewportSize: freezed == viewportSize ? _self.viewportSize : viewportSize // ignore: cast_nullable_to_non_nullable
+as ui.Size?,pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
 as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
@@ -233,7 +236,7 @@ as ui.Image?,
 
 
 class CameraViewportBaked extends CameraViewport {
-  const CameraViewportBaked({final  List<Renderer<Background>> backgrounds = const [], this.image, this.belowLayerImage, this.aboveLayerImage, required this.width, required this.height, required this.pixelRatio, final  List<Renderer<PadElement>> bakedElements = const [], final  List<Renderer<PadElement>> unbakedElements = const [], required final  List<Renderer<PadElement>> visibleElements, required final  List<Renderer<PadElement>> visibleUnbakedElements, this.scale = 1, this.x = 0, required this.resolution, this.y = 0, final  Map<String, RendererState> rendererStates = const {}, final  Set<String> invisibleLayers = const {}}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
+  const CameraViewportBaked({final  List<Renderer<Background>> backgrounds = const [], this.image, this.belowLayerImage, this.aboveLayerImage, required this.width, required this.height, this.viewportSize, required this.pixelRatio, final  List<Renderer<PadElement>> bakedElements = const [], final  List<Renderer<PadElement>> unbakedElements = const [], required final  List<Renderer<PadElement>> visibleElements, required final  List<Renderer<PadElement>> visibleUnbakedElements, this.scale = 1, this.x = 0, required this.resolution, this.y = 0, final  Map<String, RendererState> rendererStates = const {}, final  Set<String> invisibleLayers = const {}}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
   
 
  final  List<Renderer<Background>> _backgrounds;
@@ -248,6 +251,7 @@ class CameraViewportBaked extends CameraViewport {
 @override final  ui.Image? aboveLayerImage;
 @override final  double? width;
 @override final  double? height;
+@override final  ui.Size? viewportSize;
 @override final  double pixelRatio;
  final  List<Renderer<PadElement>> _bakedElements;
 @override@JsonKey() List<Renderer<PadElement>> get bakedElements {
@@ -306,16 +310,16 @@ $CameraViewportBakedCopyWith<CameraViewportBaked> get copyWith => _$CameraViewpo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewportBaked&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&const DeepCollectionEquality().equals(other._bakedElements, _bakedElements)&&const DeepCollectionEquality().equals(other._unbakedElements, _unbakedElements)&&const DeepCollectionEquality().equals(other._visibleElements, _visibleElements)&&const DeepCollectionEquality().equals(other._visibleUnbakedElements, _visibleUnbakedElements)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&(identical(other.y, y) || other.y == y)&&const DeepCollectionEquality().equals(other._rendererStates, _rendererStates)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewportBaked&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.viewportSize, viewportSize) || other.viewportSize == viewportSize)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&const DeepCollectionEquality().equals(other._bakedElements, _bakedElements)&&const DeepCollectionEquality().equals(other._unbakedElements, _unbakedElements)&&const DeepCollectionEquality().equals(other._visibleElements, _visibleElements)&&const DeepCollectionEquality().equals(other._visibleUnbakedElements, _visibleUnbakedElements)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&(identical(other.y, y) || other.y == y)&&const DeepCollectionEquality().equals(other._rendererStates, _rendererStates)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds),image,belowLayerImage,aboveLayerImage,width,height,pixelRatio,const DeepCollectionEquality().hash(_bakedElements),const DeepCollectionEquality().hash(_unbakedElements),const DeepCollectionEquality().hash(_visibleElements),const DeepCollectionEquality().hash(_visibleUnbakedElements),scale,x,resolution,y,const DeepCollectionEquality().hash(_rendererStates),const DeepCollectionEquality().hash(_invisibleLayers));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds),image,belowLayerImage,aboveLayerImage,width,height,viewportSize,pixelRatio,const DeepCollectionEquality().hash(_bakedElements),const DeepCollectionEquality().hash(_unbakedElements),const DeepCollectionEquality().hash(_visibleElements),const DeepCollectionEquality().hash(_visibleUnbakedElements),scale,x,resolution,y,const DeepCollectionEquality().hash(_rendererStates),const DeepCollectionEquality().hash(_invisibleLayers));
 
 @override
 String toString() {
-  return 'CameraViewport.baked(backgrounds: $backgrounds, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage, width: $width, height: $height, pixelRatio: $pixelRatio, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, scale: $scale, x: $x, resolution: $resolution, y: $y, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers)';
+  return 'CameraViewport.baked(backgrounds: $backgrounds, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, scale: $scale, x: $x, resolution: $resolution, y: $y, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers)';
 }
 
 
@@ -326,7 +330,7 @@ abstract mixin class $CameraViewportBakedCopyWith<$Res> implements $CameraViewpo
   factory $CameraViewportBakedCopyWith(CameraViewportBaked value, $Res Function(CameraViewportBaked) _then) = _$CameraViewportBakedCopyWithImpl;
 @override @useResult
 $Res call({
- List<Renderer<Background>> backgrounds, ui.Image? image, ui.Image? belowLayerImage, ui.Image? aboveLayerImage, double? width, double? height, double pixelRatio, List<Renderer<PadElement>> bakedElements, List<Renderer<PadElement>> unbakedElements, List<Renderer<PadElement>> visibleElements, List<Renderer<PadElement>> visibleUnbakedElements, double scale, double x, RenderResolution resolution, double y, Map<String, RendererState> rendererStates, Set<String> invisibleLayers
+ List<Renderer<Background>> backgrounds, ui.Image? image, ui.Image? belowLayerImage, ui.Image? aboveLayerImage, double? width, double? height, ui.Size? viewportSize, double pixelRatio, List<Renderer<PadElement>> bakedElements, List<Renderer<PadElement>> unbakedElements, List<Renderer<PadElement>> visibleElements, List<Renderer<PadElement>> visibleUnbakedElements, double scale, double x, RenderResolution resolution, double y, Map<String, RendererState> rendererStates, Set<String> invisibleLayers
 });
 
 
@@ -343,7 +347,7 @@ class _$CameraViewportBakedCopyWithImpl<$Res>
 
 /// Create a copy of CameraViewport
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? backgrounds = null,Object? image = freezed,Object? belowLayerImage = freezed,Object? aboveLayerImage = freezed,Object? width = freezed,Object? height = freezed,Object? pixelRatio = null,Object? bakedElements = null,Object? unbakedElements = null,Object? visibleElements = null,Object? visibleUnbakedElements = null,Object? scale = null,Object? x = null,Object? resolution = null,Object? y = null,Object? rendererStates = null,Object? invisibleLayers = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? backgrounds = null,Object? image = freezed,Object? belowLayerImage = freezed,Object? aboveLayerImage = freezed,Object? width = freezed,Object? height = freezed,Object? viewportSize = freezed,Object? pixelRatio = null,Object? bakedElements = null,Object? unbakedElements = null,Object? visibleElements = null,Object? visibleUnbakedElements = null,Object? scale = null,Object? x = null,Object? resolution = null,Object? y = null,Object? rendererStates = null,Object? invisibleLayers = null,}) {
   return _then(CameraViewportBaked(
 backgrounds: null == backgrounds ? _self._backgrounds : backgrounds // ignore: cast_nullable_to_non_nullable
 as List<Renderer<Background>>,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
@@ -351,7 +355,8 @@ as ui.Image?,belowLayerImage: freezed == belowLayerImage ? _self.belowLayerImage
 as ui.Image?,aboveLayerImage: freezed == aboveLayerImage ? _self.aboveLayerImage : aboveLayerImage // ignore: cast_nullable_to_non_nullable
 as ui.Image?,width: freezed == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double?,height: freezed == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double?,pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
+as double?,viewportSize: freezed == viewportSize ? _self.viewportSize : viewportSize // ignore: cast_nullable_to_non_nullable
+as ui.Size?,pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
 as double,bakedElements: null == bakedElements ? _self._bakedElements : bakedElements // ignore: cast_nullable_to_non_nullable
 as List<Renderer<PadElement>>,unbakedElements: null == unbakedElements ? _self._unbakedElements : unbakedElements // ignore: cast_nullable_to_non_nullable
 as List<Renderer<PadElement>>,visibleElements: null == visibleElements ? _self._visibleElements : visibleElements // ignore: cast_nullable_to_non_nullable

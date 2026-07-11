@@ -427,12 +427,13 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final startTransform = transformCubit.state;
     final startViewport = cameraViewport;
     final resolution = settingsCubit.state.renderResolution;
-    var size = viewportSize ?? cameraViewport.toSize();
+    final measuredViewportSize = viewportSize ?? cameraViewport.viewportSize;
+    var size = measuredViewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    if (viewportSize == null) {
+    if (measuredViewportSize == null) {
       size /= resolution.multiplier;
     }
     var transform = transformCubit.state;
@@ -682,6 +683,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final newViewport = cameraViewport.bake(
       height: size.height,
       width: size.width,
+      viewportSize: measuredViewportSize,
       pixelRatio: ratio,
       resolution: resolution,
       scale: transform.size,
