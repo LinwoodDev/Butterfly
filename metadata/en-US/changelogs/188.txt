@@ -7,6 +7,7 @@
 * Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
 * Remove unused view options
 * Fix crash with android saf on folders with many files
+* Fix blur resetting on color change
 * Upgrade to agb 9
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.2

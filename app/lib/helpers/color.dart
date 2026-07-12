@@ -22,7 +22,7 @@ ElementPaint _updatePaintDefaultColor(
     SolidElementPaint e => e.copyWith(
       color: _updateColor(e.color, defaultColor, force: force),
     ),
-    _ when force => ElementPaint.solid(color: defaultColor),
+    _ when force => ElementPaint.solid(color: defaultColor, blur: paint.blur),
     _ => paint,
   };
 }

@@ -49,7 +49,10 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     color = color.withValues(a: alpha);
     return element.copyWith(
       property: element.property.copyWith(
-        paint: ElementPaint.solid(color: color),
+        paint: ElementPaint.solid(
+          color: color,
+          blur: element.property.paint.blur,
+        ),
       ),
     );
   }

@@ -475,7 +475,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   @override
   PenTool setColor(SRGBColor color) => data.copyWith(
     property: data.property.copyWith(
-      paint: ElementPaint.solid(color: color.withValues(a: getColor().a)),
+      paint: ElementPaint.solid(
+        color: color.withValues(a: getColor().a),
+        blur: data.property.paint.blur,
+      ),
     ),
   );
 

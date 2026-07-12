@@ -32,7 +32,10 @@ class PolygonToolbarView extends StatelessWidget
       onChanged: (value) => onToolChanged.call(
         tool.copyWith(
           property: tool.property.copyWith(
-            paint: ElementPaint.solid(color: value),
+            paint: ElementPaint.solid(
+              color: value,
+              blur: tool.property.paint.blur,
+            ),
           ),
         ),
       ),

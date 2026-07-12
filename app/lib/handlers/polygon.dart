@@ -105,7 +105,9 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   @override
   PolygonTool setColor(SRGBColor color) => data.copyWith(
-    property: data.property.copyWith(paint: ElementPaint.solid(color: color)),
+    property: data.property.copyWith(
+      paint: ElementPaint.solid(color: color, blur: data.property.paint.blur),
+    ),
   );
 
   @override
