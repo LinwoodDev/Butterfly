@@ -142,13 +142,25 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   void setRendererStates({
     Map<String, RendererState>? rendererStates,
     Map<String, RendererState>? temporaryRendererStates,
-  }) => emit(
-    state.copyWith(
-      rendererStates: rendererStates ?? state.rendererStates,
-      temporaryRendererStates:
-          temporaryRendererStates ?? state.temporaryRendererStates,
-    ),
-  );
+  }) {
+    final nextRendererStates = rendererStates ?? state.rendererStates;
+    final nextTemporaryRendererStates =
+        temporaryRendererStates ?? state.temporaryRendererStates;
+    const equality = MapEquality<String, RendererState>();
+    if (equality.equals(state.rendererStates, nextRendererStates) &&
+        equality.equals(
+          state.temporaryRendererStates,
+          nextTemporaryRendererStates,
+        )) {
+      return;
+    }
+    emit(
+      state.copyWith(
+        rendererStates: nextRendererStates,
+        temporaryRendererStates: nextTemporaryRendererStates,
+      ),
+    );
+  }
 
   List<Renderer<PadElement>> get renderers =>
       List<Renderer<PadElement>>.from(state.cameraViewport.bakedElements)

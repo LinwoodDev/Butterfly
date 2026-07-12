@@ -67,9 +67,13 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   bool shouldSimulatePressure() {
-    final points = element.points.sublist(1);
-    var pressure = points.firstOrNull?.pressure ?? 0;
-    return points.every((element) => element.pressure == pressure);
+    final points = element.points;
+    if (points.length < 2) return true;
+    final pressure = points[1].pressure;
+    for (var i = 2; i < points.length; i++) {
+      if (points[i].pressure != pressure) return false;
+    }
+    return true;
   }
 
   @override
@@ -100,13 +104,18 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    final center = Rect.fromPoints(topLeftCorner, bottomRightCorner).center;
-    final rotatedPoints = points
-        .map((e) => e.rotate(center, rotation / 180 * pi))
-        .toList();
-    topLeftCorner = rotatedPoints.first.toOffset();
-    bottomRightCorner = rotatedPoints.first.toOffset();
-    for (final element in rotatedPoints) {
+    final rotationCenter = Rect.fromPoints(
+      topLeftCorner,
+      bottomRightCorner,
+    ).center;
+    final pointsForBounds = rotation == 0
+        ? points
+        : points
+              .map((e) => e.rotate(rotationCenter, rotation / 180 * pi))
+              .toList();
+    topLeftCorner = pointsForBounds.first.toOffset();
+    bottomRightCorner = pointsForBounds.first.toOffset();
+    for (final element in pointsForBounds) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(
         min(topLeftCorner.dx, element.x - width),

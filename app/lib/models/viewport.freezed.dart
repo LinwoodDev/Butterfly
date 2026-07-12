@@ -23,14 +23,7 @@ $CameraViewportCopyWith<CameraViewport> get copyWith => _$CameraViewportCopyWith
 
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewport&&const DeepCollectionEquality().equals(other.backgrounds, backgrounds)&&const DeepCollectionEquality().equals(other.bakedElements, bakedElements)&&const DeepCollectionEquality().equals(other.unbakedElements, unbakedElements)&&const DeepCollectionEquality().equals(other.visibleElements, visibleElements)&&const DeepCollectionEquality().equals(other.visibleUnbakedElements, visibleUnbakedElements)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.viewportSize, viewportSize) || other.viewportSize == viewportSize)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&const DeepCollectionEquality().equals(other.rendererStates, rendererStates)&&const DeepCollectionEquality().equals(other.invisibleLayers, invisibleLayers)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage));
-}
 
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(backgrounds),const DeepCollectionEquality().hash(bakedElements),const DeepCollectionEquality().hash(unbakedElements),const DeepCollectionEquality().hash(visibleElements),const DeepCollectionEquality().hash(visibleUnbakedElements),width,height,viewportSize,pixelRatio,scale,x,y,resolution,const DeepCollectionEquality().hash(rendererStates),const DeepCollectionEquality().hash(invisibleLayers),image,belowLayerImage,aboveLayerImage);
 
 @override
 String toString() {
@@ -166,14 +159,7 @@ $CameraViewportUnbakedCopyWith<CameraViewportUnbaked> get copyWith => _$CameraVi
 
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewportUnbaked&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&const DeepCollectionEquality().equals(other._bakedElements, _bakedElements)&&const DeepCollectionEquality().equals(other._unbakedElements, _unbakedElements)&&const DeepCollectionEquality().equals(other._visibleElements, _visibleElements)&&const DeepCollectionEquality().equals(other._visibleUnbakedElements, _visibleUnbakedElements)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.viewportSize, viewportSize) || other.viewportSize == viewportSize)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&const DeepCollectionEquality().equals(other._rendererStates, _rendererStates)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage));
-}
 
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds),const DeepCollectionEquality().hash(_bakedElements),const DeepCollectionEquality().hash(_unbakedElements),const DeepCollectionEquality().hash(_visibleElements),const DeepCollectionEquality().hash(_visibleUnbakedElements),width,height,viewportSize,pixelRatio,scale,x,y,resolution,const DeepCollectionEquality().hash(_rendererStates),const DeepCollectionEquality().hash(_invisibleLayers),image,belowLayerImage,aboveLayerImage);
 
 @override
 String toString() {
@@ -308,14 +294,7 @@ $CameraViewportBakedCopyWith<CameraViewportBaked> get copyWith => _$CameraViewpo
 
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraViewportBaked&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&(identical(other.image, image) || other.image == image)&&(identical(other.belowLayerImage, belowLayerImage) || other.belowLayerImage == belowLayerImage)&&(identical(other.aboveLayerImage, aboveLayerImage) || other.aboveLayerImage == aboveLayerImage)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.viewportSize, viewportSize) || other.viewportSize == viewportSize)&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&const DeepCollectionEquality().equals(other._bakedElements, _bakedElements)&&const DeepCollectionEquality().equals(other._unbakedElements, _unbakedElements)&&const DeepCollectionEquality().equals(other._visibleElements, _visibleElements)&&const DeepCollectionEquality().equals(other._visibleUnbakedElements, _visibleUnbakedElements)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.x, x) || other.x == x)&&(identical(other.resolution, resolution) || other.resolution == resolution)&&(identical(other.y, y) || other.y == y)&&const DeepCollectionEquality().equals(other._rendererStates, _rendererStates)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers));
-}
 
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds),image,belowLayerImage,aboveLayerImage,width,height,viewportSize,pixelRatio,const DeepCollectionEquality().hash(_bakedElements),const DeepCollectionEquality().hash(_unbakedElements),const DeepCollectionEquality().hash(_visibleElements),const DeepCollectionEquality().hash(_visibleUnbakedElements),scale,x,resolution,y,const DeepCollectionEquality().hash(_rendererStates),const DeepCollectionEquality().hash(_invisibleLayers));
 
 @override
 String toString() {

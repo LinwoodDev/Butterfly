@@ -1957,7 +1957,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final cubit = _editorController;
     if (state is! DocumentLoadSuccess || cubit == null) return {};
     transform ??= cubit.transformCubit.state;
-    final renderers = cubit.rendererCubit.state.cameraViewport.visibleElements;
+    final renderers = cubit.rendererCubit.visibleRenderers(rect);
     if (renderers.isEmpty) return {};
     hitElementMode ??= HitElementMode.touchAnywhere;
 
@@ -1991,7 +1991,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final state = this.state;
     final cubit = _editorController;
     if (state is! DocumentLoadSuccess || cubit == null) return {};
-    final renderers = cubit.rendererCubit.state.cameraViewport.visibleElements;
+    if (points.isEmpty) return {};
+    var bounds = Rect.fromPoints(points.first, points.first);
+    for (final point in points.skip(1)) {
+      bounds = bounds.expandToInclude(Rect.fromPoints(point, point));
+    }
+    final renderers = cubit.rendererCubit.visibleRenderers(bounds);
     if (renderers.isEmpty) return {};
     transform ??= cubit.transformCubit.state;
     hitElementMode ??= HitElementMode.touchAnywhere;

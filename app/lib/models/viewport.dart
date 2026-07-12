@@ -13,7 +13,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'viewport.freezed.dart';
 
-@freezed
+@Freezed(equal: false)
 sealed class CameraViewport with _$CameraViewport {
   const CameraViewport._();
 
