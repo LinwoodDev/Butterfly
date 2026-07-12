@@ -74,6 +74,49 @@ void main() {
       );
     });
 
+    test('closed concave polygon does not use its bounding box for hits', () {
+      final points = [
+        PolygonPoint(0, 0),
+        PolygonPoint(10, 0),
+        PolygonPoint(10, 2),
+        PolygonPoint(2, 2),
+        PolygonPoint(2, 8),
+        PolygonPoint(10, 8),
+        PolygonPoint(10, 10),
+        PolygonPoint(0, 10),
+        PolygonPoint(0, 0),
+      ];
+      const property = PolygonProperty();
+      final openCalculator = PolygonHitCalculator(
+        calculatePolygonRect(points.sublist(0, points.length - 1)),
+        points.sublist(0, points.length - 1),
+        0,
+        property,
+      );
+      final closedCalculator = PolygonHitCalculator(
+        calculatePolygonRect(points),
+        points,
+        0,
+        property,
+      );
+      const selection = Rect.fromLTWH(5, 4, 2, 2);
+
+      expect(
+        openCalculator.hit(
+          selection,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isFalse,
+      );
+      expect(
+        closedCalculator.hit(
+          selection,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isFalse,
+      );
+    });
+
     test('handles unbounded spacer rectangles', () {
       final rightSpacerRect = const Rect.fromLTRB(
         50,

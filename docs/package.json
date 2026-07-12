@@ -24,7 +24,7 @@
     "react-dom": "^19.2.7",
     "typescript": "^7.0.2"
   },
-  "packageManager": "pnpm@11.12.0",
+  "packageManager": "pnpm@11.11.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
     "sass": "^1.101.0",
