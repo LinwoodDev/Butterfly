@@ -361,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "Tài liệu",
+  "documentStates": "Document states",
   "camera": "Máy ảnh",
   "@camera": {
     "description": "Camera tool"
