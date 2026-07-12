@@ -361,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "מסמך",
+  "documentStates": "Document states",
   "camera": "מצלמה",
   "@camera": {
     "description": "Camera tool"
