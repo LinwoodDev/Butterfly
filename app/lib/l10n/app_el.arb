@@ -361,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "Έγγραφο",
+  "documentStates": "Document states",
   "camera": "Κάμερα",
   "@camera": {
     "description": "Camera tool"
