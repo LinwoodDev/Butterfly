@@ -361,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "Documento",
+  "documentStates": "Document states",
   "camera": "Fotocamera",
   "@camera": {
     "description": "Camera tool"
