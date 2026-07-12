@@ -9,8 +9,12 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../helpers/mocks.dart';
+
+class _MockDocumentStateFileSystem extends Mock
+    implements DocumentStateFileSystem {}
 
 void main() {
   group('PersistedDocumentState', () {
@@ -98,6 +102,24 @@ void main() {
       ).load(contentHash: 'missing', pathKey: 'path/missing');
 
       expect(loaded, isNull);
+    });
+
+    test('ignores unavailable remote state when opening offline', () async {
+      final offlineFileSystem = _MockDocumentStateFileSystem();
+      when(() => offlineFileSystem.initialize()).thenAnswer((_) async {});
+      when(() => offlineFileSystem.getFile(any())).thenThrow(
+        const NetworkException('Offline', type: NetworkErrorType.connection),
+      );
+
+      final loaded = await DocumentStateRepository(
+        offlineFileSystem,
+      ).load(contentHash: 'hash-a', pathKey: 'path/a');
+
+      expect(loaded, isNull);
+      verify(() => offlineFileSystem.getFile('path/a')).called(1);
+      verifyNever(
+        () => offlineFileSystem.getFile(documentStateContentKey('hash-a')),
+      );
     });
 
     test('does not load or save when persistence is disabled', () async {

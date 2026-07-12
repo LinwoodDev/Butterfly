@@ -14,13 +14,15 @@ import '../cubits/settings.dart';
 ///
 /// Each type corresponds to a different data category in the application:
 /// - [documents]: User-created documents and notes
+/// - [documentStates]: Persisted editor state cached for offline use
 /// - [templates]: Reusable document templates
 /// - [packs]: Asset packs and resources
-enum SyncFileSystemType { documents, templates, packs }
+enum SyncFileSystemType { documents, documentStates, templates, packs }
 
 extension SyncFileSystemTypeHelper on SyncFileSystemType {
   String get cacheVariant => switch (this) {
     SyncFileSystemType.documents => 'documents',
+    SyncFileSystemType.documentStates => 'documentstates',
     SyncFileSystemType.templates => 'templates',
     SyncFileSystemType.packs => 'packs',
   };
@@ -168,12 +170,14 @@ class RemoteSync {
   final DocumentFileSystem documentSystem;
   final TemplateFileSystem templateSystem;
   final PackFileSystem packSystem;
+  final DocumentStateFileSystem documentStateSystem;
 
   RemoteSync(this.fileSystem, this.storage)
     : _stateSubject = BehaviorSubject.seeded(RemoteSyncState(storage: storage)),
       documentSystem = fileSystem.buildDocumentSystem(storage),
       templateSystem = fileSystem.buildTemplateSystem(storage),
-      packSystem = fileSystem.buildPackSystem(storage) {
+      packSystem = fileSystem.buildPackSystem(storage),
+      documentStateSystem = fileSystem.buildDocumentStateSystem(storage) {
     _initFileSystems();
     unawaited(refreshFiles());
   }
@@ -181,6 +185,7 @@ class RemoteSync {
   void _initFileSystems() {
     // Subscribe to progress streams from remote file systems
     _subscribeToRemoteSystem(SyncFileSystemType.documents);
+    _subscribeToRemoteSystem(SyncFileSystemType.documentStates);
     _subscribeToRemoteSystem(SyncFileSystemType.templates);
     _subscribeToRemoteSystem(SyncFileSystemType.packs);
   }
@@ -228,6 +233,7 @@ class RemoteSync {
   RemoteFileSystem? _getRemoteSystem(SyncFileSystemType type) {
     final system = switch (type) {
       SyncFileSystemType.documents => documentSystem.remoteSystem,
+      SyncFileSystemType.documentStates => documentStateSystem.remoteSystem,
       SyncFileSystemType.templates => templateSystem.remoteSystem,
       SyncFileSystemType.packs => packSystem.remoteSystem,
     };

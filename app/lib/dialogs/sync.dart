@@ -471,6 +471,9 @@ class _ProgressTile extends StatelessWidget {
   String _getFileSystemTypeLabel(BuildContext context) {
     return switch (type) {
       SyncFileSystemType.documents => AppLocalizations.of(context).document,
+      SyncFileSystemType.documentStates => AppLocalizations.of(
+        context,
+      ).documentStates,
       SyncFileSystemType.templates => AppLocalizations.of(context).templates,
       SyncFileSystemType.packs => AppLocalizations.of(context).packs,
     };
@@ -542,6 +545,7 @@ class _ProgressTile extends StatelessWidget {
 
   PhosphorIconData _getIcon() => switch (type) {
     SyncFileSystemType.documents => PhosphorIconsLight.file,
+    SyncFileSystemType.documentStates => PhosphorIconsLight.database,
     SyncFileSystemType.templates => PhosphorIconsLight.fileDashed,
     SyncFileSystemType.packs => PhosphorIconsLight.package,
   };
@@ -578,6 +582,9 @@ class _SyncFileCard extends StatelessWidget {
   String _getFileSystemTypeLabel(BuildContext context) {
     return switch (fileSystemType) {
       SyncFileSystemType.documents => AppLocalizations.of(context).document,
+      SyncFileSystemType.documentStates => AppLocalizations.of(
+        context,
+      ).documentStates,
       SyncFileSystemType.templates => AppLocalizations.of(context).templates,
       SyncFileSystemType.packs => AppLocalizations.of(context).packs,
     };

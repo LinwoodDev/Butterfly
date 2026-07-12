@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/services/logger.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:synchronized/synchronized.dart';
 
 class DocumentStateRepository {
@@ -26,16 +27,22 @@ class DocumentStateRepository {
   }) => _lock.synchronized(() async {
     final settings = _settings;
     if (!settings.enabled) return null;
-    await fileSystem.initialize();
-    if (pathKey != null) {
-      final byPath = await _getFileOrNull(pathKey);
-      if (byPath != null) return _applySettings(byPath, settings);
-    }
-    if (allowContentHash && contentHash != null) {
-      final byContent = await _getFileOrNull(
-        documentStateContentKey(contentHash),
-      );
-      if (byContent != null) return _applySettings(byContent, settings);
+    try {
+      await fileSystem.initialize();
+      if (pathKey != null) {
+        final byPath = await _getFileOrNull(pathKey);
+        if (byPath != null) return _applySettings(byPath, settings);
+      }
+      if (allowContentHash && contentHash != null) {
+        final byContent = await _getFileOrNull(
+          documentStateContentKey(contentHash),
+        );
+        if (byContent != null) return _applySettings(byContent, settings);
+      }
+    } on NetworkException catch (e, stackTrace) {
+      // Document state is optional. A cached remote document must still open
+      // when its separate state record is unavailable offline.
+      talker.warning('Failed to load document state', e, stackTrace);
     }
     return null;
   });
@@ -215,8 +222,8 @@ class DocumentStateRepository {
   Future<PersistedDocumentState?> _getFileOrNull(String key) async {
     try {
       return await fileSystem.getFile(key);
-    } on FormatException catch (e) {
-      debugPrint('Failed to parse document state at $key: $e');
+    } on FormatException catch (e, stackTrace) {
+      talker.warning('Failed to parse document state at $key', e, stackTrace);
       return null;
     }
   }
