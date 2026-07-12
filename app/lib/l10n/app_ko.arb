@@ -361,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "문서",
+  "documentStates": "Document states",
   "camera": "카메라",
   "@camera": {
     "description": "Camera tool"
