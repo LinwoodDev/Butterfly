@@ -361,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "文件",
+  "documentStates": "Document states",
   "camera": "鏡頭",
   "@camera": {
     "description": "Camera tool"
