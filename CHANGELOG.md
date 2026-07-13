@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-beta.2 (2026-07-13)
+
+* Add persistent document states ([#1077](https://github.com/LinwoodDev/Butterfly/issues/1077))
+* Reorder top corner menu to have home on top ([#1161](https://github.com/LinwoodDev/Butterfly/issues/1161))
+* Rebuild internal settings pages
+  * Add search bar to settings pages ([#1158](https://github.com/LinwoodDev/Butterfly/issues/1158))
+  * Always have settings value on the right side
+  * Add settings descriptions
+* Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
+* Remove unused view options
+* Fix crash with android saf on folders with many files
+* Fix blur resetting on color change
+* Fix polygon collision aabb tests if closed ([#1162](https://github.com/LinwoodDev/Butterfly/pull/1162)) 
+* Upgrade to agb 9
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.2
+
 ## 2.6.0-beta.1 (2026-07-06)
 
 * Add pages selector with range input ([#1151](https://github.com/LinwoodDev/Butterfly/issues/1151))
