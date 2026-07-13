@@ -842,6 +842,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     }
     await prefs.setBool('show_verbose_logs', showVerboseLogs);
     await prefs.setBool('hide_extension', hideExtension);
+    await prefs.setBool('show_thumbnails', showThumbnails);
   }
 
   ExternalStorage? getRemote(String? identifier) {
