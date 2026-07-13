@@ -158,7 +158,7 @@ class _TextureViewState extends State<TextureView> {
               ExactSlider(
                 onChanged: (value) =>
                     widget.onChanged(widget.value.copyWith(boxHeight: value)),
-                header: Text(AppLocalizations.of(context).width),
+                header: Text(AppLocalizations.of(context).height),
                 value: widget.value.boxHeight,
                 defaultValue: 0,
                 min: 0,
