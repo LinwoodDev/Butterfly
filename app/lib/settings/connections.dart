@@ -257,14 +257,15 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         _showCreatingError(loc.urlNotValid);
         return;
       }
-      final request = await _httpClient.getUrl(url);
-      request.headers.add('Accept', 'application/json');
-      request.headers.add(
-        'Authorization',
-        'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
+      final storage = _buildDavRemoteStorage(url: url.toString());
+      final passwordStorage = InMemoryPasswordStorage()
+        ..write(storage, _passwordController.text);
+      final isConnected = await DavRemoteDirectoryFileSystem.checkConnectivity(
+        storage: storage,
+        passwordStorage: passwordStorage,
+        certificateSha1: _certificateSha1,
       );
-      final response = await request.close();
-      if (response.statusCode != 200) {
+      if (!isConnected) {
         _showCreatingError(loc.cannotConnect);
         return;
       }
@@ -388,22 +389,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final settingsCubit = context.read<SettingsCubit>();
     final icon = await _getIcon();
     final remoteStorage = switch (widget.storage) {
-      DavRemoteStorage() => DavRemoteStorage(
-        name: _nameController.text,
-        username: _usernameController.text,
-        url: _urlController.text,
-        paths: {
-          '': _directoryController.text,
-          'documents': _documentsDirectoryController.text,
-          'templates': _templatesDirectoryController.text,
-          'packs': _packsDirectoryController.text,
-        },
-        certificateSha1: _certificateSha1,
-        icon: icon,
-        pinnedPaths: {
-          'documents': [if (_syncRootDirectory) '/'],
-        },
-      ),
+      DavRemoteStorage() => _buildDavRemoteStorage(icon: icon),
       LocalStorage() => LocalStorage(
         name: _nameController.text,
         paths: {
@@ -420,6 +406,25 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       password: _passwordController.text,
     );
     navigator.pop();
+  }
+
+  DavRemoteStorage _buildDavRemoteStorage({String? url, Uint8List? icon}) {
+    return DavRemoteStorage(
+      name: _nameController.text,
+      username: _usernameController.text,
+      url: url ?? _urlController.text,
+      paths: {
+        '': _directoryController.text,
+        'documents': _documentsDirectoryController.text,
+        'templates': _templatesDirectoryController.text,
+        'packs': _packsDirectoryController.text,
+      },
+      certificateSha1: _certificateSha1,
+      icon: icon,
+      pinnedPaths: {
+        'documents': [if (_syncRootDirectory) '/'],
+      },
+    );
   }
 
   Future<void> _showCreatingError(String error, [dynamic e]) {
