@@ -118,8 +118,9 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final element = _element;
     if (element != null) {
       _element = element.copyWith(property: tool.property);
-      bloc.refreshForegrounds();
-      bloc.refreshToolbar();
+      unawaited(bloc.currentIndexCubit.refreshToolbar(bloc));
+      unawaited(bloc.refreshForegrounds());
+      return;
     }
     changeTool(bloc, tool);
   }
@@ -381,7 +382,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
     _selectedPointIndex = null;
     _dragTarget = _PolygonDragTarget.newHandle;
-    await bloc.refreshForegrounds();
+    unawaited(bloc.refreshForegrounds());
     _submitElement(bloc);
   }
 
