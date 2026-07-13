@@ -4,7 +4,6 @@ import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -272,23 +271,31 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                       : _areaController.text;
                   if (area == null || areaName == null) {
                     final cubit = context.read<CurrentIndexCubit>();
-                    final fileSystem = context.read<ButterflyFileSystem>();
                     final location = cubit.state.location;
-                    final documentSystem = fileSystem.buildDocumentSystem(
-                      settings.getRemote(location.remote),
-                    );
-                    if (!location.isEmpty) {
-                      await documentSystem.deleteAsset(location.path);
-                      await fileSystem.settingsCubit.removeRecentHistory(
-                        location,
-                      );
-                    }
                     if (state is DocumentLoadSuccess &&
                         currentIndex.isCreating) {
-                      await bloc.save(
-                        location: location.copyWith(path: toFilePath(value)),
+                      final newLocation = location.copyWith(
+                        path: toFilePath(value),
+                      );
+                      final savedLocation = await cubit.save(
+                        bloc,
+                        location: newLocation,
                         force: true,
                       );
+                      if (!location.isEmpty &&
+                          !savedLocation.isEmpty &&
+                          (location.path != savedLocation.path ||
+                              location.remote != savedLocation.remote)) {
+                        final documentSystem = state.fileSystem
+                            .buildDocumentSystem(
+                              settings.getRemote(location.remote),
+                            );
+                        await documentSystem.deleteAsset(location.path);
+                        await cubit.state.settingsCubit.moveAssetReferences(
+                          location,
+                          savedLocation,
+                        );
+                      }
                     }
                     bloc.add(DocumentDescriptionChanged(name: value));
                   } else {
