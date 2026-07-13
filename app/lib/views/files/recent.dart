@@ -49,19 +49,20 @@ class RecentFilesViewState extends State<RecentFilesView> {
       );
 
   Widget _getItem(FileSystemEntity<NoteFile> entity) {
+    final settings = context.read<SettingsCubit>().state;
     FileMetadata? metadata;
     Uint8List? thumbnail;
     if (entity is FileSystemFile<NoteFile>) {
       final data = entity.data?.display();
       metadata = data?.getMetadata();
-      if (context.read<SettingsCubit>().state.showThumbnails) {
+      if (settings.showThumbnails) {
         thumbnail = data?.getThumbnail();
       }
     }
     return AssetCard(
       metadata: metadata,
       thumbnail: thumbnail,
-      name: entity.location.pathWithoutLeadingSlash,
+      name: _getDisplayName(entity.location, settings.hideExtension),
       tooltip: entity.identifier,
       height: double.infinity,
       onTap: () => widget.onFileTap == null
@@ -77,7 +78,9 @@ class RecentFilesViewState extends State<RecentFilesView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SettingsCubit, ButterflySettings>(
-      listenWhen: (previous, current) => previous.history != current.history,
+      listenWhen: (previous, current) =>
+          previous.history != current.history ||
+          previous.hideExtension != current.hideExtension,
       listener: (_, state) => reload(state),
       child: StreamBuilder<List<FileSystemEntity<NoteFile>>>(
         stream: _stream,
@@ -111,6 +114,21 @@ class RecentFilesViewState extends State<RecentFilesView> {
                 );
         },
       ),
+    );
+  }
+
+  String _getDisplayName(AssetLocation location, bool hideExtension) {
+    final path = location.pathWithoutLeadingSlash;
+    if (!hideExtension) return path;
+
+    final fileName = location.fileName;
+    final fileNameWithoutExtension = location.fileNameWithoutExtension;
+    if (fileName == fileNameWithoutExtension) return path;
+
+    return path.replaceRange(
+      path.length - fileName.length,
+      path.length,
+      fileNameWithoutExtension,
     );
   }
 }
