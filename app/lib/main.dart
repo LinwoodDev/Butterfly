@@ -44,13 +44,13 @@ Future<void> main([List<String> args = const []]) async {
   talker.info('App started');
   usePathUrlStrategy();
 
-  await setup();
+  final prefs = await SharedPreferences.getInstance();
+  final settingsCubit = SettingsCubit(prefs);
+  await setup(nativeTitleBar: settingsCubit.state.nativeTitleBar);
   var initialLocation = '/';
   final argParser = ArgParser();
   argParser.addOption('path', abbr: 'p');
   final result = argParser.parse(args);
-  final prefs = await SharedPreferences.getInstance();
-  final settingsCubit = SettingsCubit(prefs);
   Object? initialExtra;
   if (result.arguments.isNotEmpty && !kIsWeb) {
     var path = result.arguments[0].replaceAll('\\', '/');
@@ -323,7 +323,6 @@ class ButterflyApp extends StatelessWidget {
               if (!kIsWeb && isWindow) {
                 windowManager.waitUntilReadyToShow(null, () async {
                   settingsCubit.setTheme(context);
-                  settingsCubit.setNativeTitleBar();
                   await windowManager.show();
                 });
               }

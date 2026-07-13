@@ -1,3 +1,4 @@
+import 'package:butterfly/api/window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,21 +8,21 @@ import 'package:window_manager/window_manager.dart';
 
 import 'main.dart';
 
-Future<void> setup() async {
+Future<void> setup({required bool nativeTitleBar}) async {
   pdfrxFlutterInitialize();
   if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
-    const kWindowOptions = WindowOptions(
+    const windowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: applicationName,
       backgroundColor: Colors.transparent,
     );
 
-    // Use it only after calling `hiddenWindowAtLaunch`
-    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
-      await windowManager.setResizable(true);
-      await windowManager.setPreventClose(false);
-    });
+    await windowManager.waitUntilReadyToShow(windowOptions);
+
+    await windowManager.setResizable(true);
+    await windowManager.setPreventClose(false);
+    await applyNativeTitleBar(nativeTitleBar);
   }
   setupFullScreen();
   setupLicenses();

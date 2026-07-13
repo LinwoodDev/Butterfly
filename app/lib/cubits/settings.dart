@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -1352,20 +1353,15 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  void setNativeTitleBar([bool? value]) {
+  Future<void> setNativeTitleBar([bool? value]) async {
     if (kIsWeb || !isWindow) return;
-    windowManager.setTitleBarStyle(
-      (value ?? state.nativeTitleBar)
-          ? TitleBarStyle.normal
-          : TitleBarStyle.hidden,
-      windowButtonVisibility: state.nativeTitleBar,
-    );
+    await applyNativeTitleBar(value ?? state.nativeTitleBar);
   }
 
-  Future<void> changeNativeTitleBar(bool value, [bool modify = true]) {
-    if (modify) setNativeTitleBar(value);
+  Future<void> changeNativeTitleBar(bool value, [bool modify = true]) async {
+    if (modify) await setNativeTitleBar(value);
     emit(state.copyWith(nativeTitleBar: value));
-    return save();
+    await save();
   }
 
   Future<void> changeSyncMode(SyncMode syncMode) {

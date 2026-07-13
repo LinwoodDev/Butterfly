@@ -4,15 +4,74 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #include "flutter/generated_plugin_registrant.h"
 
 struct _MyApplication {
   GtkApplication parent_instance;
   char** dart_entrypoint_arguments;
+  FlMethodChannel* window_channel;
 };
 
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
+
+static FlMethodResponse* set_native_title_bar(GtkWindow* window,
+                                              FlValue* args) {
+  if (args == nullptr || fl_value_get_type(args) != FL_VALUE_TYPE_BOOL) {
+    return FL_METHOD_RESPONSE(fl_method_error_response_new(
+        "invalid-argument", "Expected a boolean nativeTitleBar value.",
+        nullptr));
+  }
+  GdkWindow* gdk_window = gtk_widget_get_window(GTK_WIDGET(window));
+  if (gdk_window == nullptr) {
+    return FL_METHOD_RESPONSE(fl_method_error_response_new(
+        "window-not-realized", "The GTK window has not been realized.",
+        nullptr));
+  }
+#ifdef GDK_WINDOWING_WAYLAND
+  if (GDK_IS_WAYLAND_WINDOW(gdk_window)) {
+    const gboolean native_title_bar = fl_value_get_bool(args);
+    if (native_title_bar) {
+      gdk_wayland_window_announce_ssd(gdk_window);
+    } else {
+      gdk_wayland_window_announce_csd(gdk_window);
+    }
+  }
+#endif
+  return FL_METHOD_RESPONSE(fl_method_success_response_new(nullptr));
+}
+
+static void window_method_call_cb(FlMethodChannel* channel,
+                                  FlMethodCall* method_call,
+                                  gpointer user_data) {
+  GtkWindow* window = GTK_WINDOW(user_data);
+  g_autoptr(FlMethodResponse) response = nullptr;
+  if (g_strcmp0(fl_method_call_get_name(method_call), "setNativeTitleBar") ==
+      0) {
+    response = set_native_title_bar(window, fl_method_call_get_args(method_call));
+  } else {
+    response = FL_METHOD_RESPONSE(fl_method_not_implemented_response_new());
+  }
+  g_autoptr(GError) error = nullptr;
+  if (!fl_method_call_respond(method_call, response, &error)) {
+    g_warning("Failed to send window method response: %s", error->message);
+  }
+}
+
+static void create_window_channel(MyApplication* self,
+                                  FlView* view,
+                                  GtkWindow* window) {
+  FlEngine* engine = fl_view_get_engine(view);
+  FlBinaryMessenger* messenger = fl_engine_get_binary_messenger(engine);
+  g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
+  self->window_channel = fl_method_channel_new(
+      messenger, "linwood.dev/butterfly/window", FL_METHOD_CODEC(codec));
+  fl_method_channel_set_method_call_handler(
+      self->window_channel, window_method_call_cb, window, nullptr);
+}
 
 // Called when first Flutter frame received.
 static void first_frame_cb(MyApplication* self, FlView *view)
@@ -33,16 +92,24 @@ static void my_application_activate(GApplication* application) {
   // in case the window manager does more exotic layout, e.g. tiling.
   // If running on Wayland assume the header bar will work (may need changing
   // if future cases occur).
-  gboolean use_header_bar = TRUE;
+  gboolean use_header_bar = FALSE;
 #ifdef GDK_WINDOWING_X11
-  GdkScreen* screen = gtk_window_get_screen(window);
+  GdkScreen* screen = gtk_window_get_screen(GTK_WINDOW(window));
   if (GDK_IS_X11_SCREEN(screen)) {
     const gchar* wm_name = gdk_x11_screen_get_window_manager_name(screen);
-    if (g_strcmp0(wm_name, "GNOME Shell") != 0) {
-      use_header_bar = FALSE;
+    if (g_strcmp0(wm_name, "GNOME Shell") == 0) {
+      use_header_bar = TRUE;
+    }
+  } else
+#endif
+  {
+    const gchar* current_desktop = g_getenv("XDG_CURRENT_DESKTOP");
+    if (current_desktop != nullptr) {
+      g_auto(GStrv) desktops = g_strsplit(current_desktop, ":", -1);
+      use_header_bar = g_strv_contains(
+          reinterpret_cast<const gchar* const*>(desktops), "GNOME");
     }
   }
-#endif
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
@@ -73,6 +140,7 @@ static void my_application_activate(GApplication* application) {
 
   fl_register_plugins(FL_PLUGIN_REGISTRY(view));
 
+  create_window_channel(self, view, window);
   gtk_widget_grab_focus(GTK_WIDGET(view));
 }
 
@@ -116,6 +184,7 @@ static void my_application_shutdown(GApplication* application) {
 // Implements GObject::dispose.
 static void my_application_dispose(GObject* object) {
   MyApplication* self = MY_APPLICATION(object);
+  g_clear_object(&self->window_channel);
   g_clear_pointer(&self->dart_entrypoint_arguments, g_strfreev);
   G_OBJECT_CLASS(my_application_parent_class)->dispose(object);
 }
