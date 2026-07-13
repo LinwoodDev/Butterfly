@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.5.3+189
+version: 2.5.4+189
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
@@ -92,7 +92,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 687c9a21fbb45fe33aff6872838183af71e3c9c7
+      ref: 18711cf5297f9679701536255dfe3d650b72fd25
       path: packages/lw_file_system
   keybinder:
     git:
