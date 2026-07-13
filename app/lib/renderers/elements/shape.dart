@@ -347,6 +347,16 @@ class ShapeHitCalculator extends HitCalculator {
     final center = this.rect.center;
 
     bool hitCircle() {
+      if (!isFiniteRect(rect)) {
+        return full
+            ? [
+                this.rect.topLeft,
+                this.rect.topRight,
+                this.rect.bottomRight,
+                this.rect.bottomLeft,
+              ].every(rect.contains)
+            : boundsRect.overlaps(rect);
+      }
       final circleCenter = this.rect.center;
       final rectCenter = rect.center;
       final dx = (circleCenter.dx - rectCenter.dx).abs();
@@ -369,6 +379,14 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitRect() {
+      if (!isFiniteRect(rect)) {
+        return [
+          this.rect.topLeft,
+          this.rect.topRight,
+          this.rect.bottomRight,
+          this.rect.bottomLeft,
+        ].any(rect.contains);
+      }
       final topLeft = rect.topLeft.rotate(center, rotation);
       final topRight = rect.topRight.rotate(center, rotation);
       final bottomLeft = rect.bottomLeft.rotate(center, rotation);
@@ -443,10 +461,7 @@ class ShapeHitCalculator extends HitCalculator {
         ], this.rect.bottomRight);
         return isTopCenter && isBottomLeft && isBottomRight;
       }
-      return isPolygonInPolygon(
-        [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-        [topCenter, bottomLeft, bottomRight],
-      );
+      return hitRectPolygon(rect, [topCenter, bottomLeft, bottomRight]);
     }
 
     return switch (shape) {
