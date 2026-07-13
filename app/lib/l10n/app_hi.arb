@@ -11,7 +11,13 @@
   "systemTheme": "सिस्टम की डिफ़ॉल्ट थीम का उपयोग करें",
   "view": "देखें",
   "contentViewport": "Content Viewport",
+  "@contentViewport": {
+    "description": "Limit how far the viewport can move beyond the content"
+  },
   "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "@limitViewportToPositiveCoordinates": {
+    "description": "Prevent the viewport from moving into negative coordinates"
+  },
   "off": "Off",
   "canvas": "Canvas",
   "interface": "Interface",
@@ -316,7 +322,6 @@
     "description": "SVG format"
   },
   "sensitivity": "संवेदनशीलता",
-  "sensitivityHint": "मान जितना अधिक होगा, इनपुट उतना ही संवेदनशील होगा",
   "horizontal": "क्षैतिज",
   "vertical": "लंबवत",
   "plain": "सादा",
@@ -356,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "दस्तावेज़",
+  "documentStates": "Document states",
   "camera": "कैमरा",
   "@camera": {
     "description": "Camera tool"
@@ -577,6 +583,9 @@
   "bottomLeft": "नीचे बाएँ",
   "bottomRight": "नीचे दाएँ",
   "zoomPosition": "Zoom control position",
+  "@zoomPosition": {
+    "description": "Choose where the zoom controls appear"
+  },
   "caches": "कैश",
   "manage": "प्रबंधित करें",
   "@manage": {
@@ -636,6 +645,7 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "इनपुट जेस्चर",
+  "inputGesturesDescription": "Lets you move and zoom the canvas with touch gestures, even while a drawing tool is selected.",
   "nativeTitleBar": "नेटिव टाइटल बार",
   "mode": "Mode",
   "syncMode": "सिंक मोड",
@@ -645,15 +655,21 @@
     "description": "Frequency"
   },
   "noMobile": "कोई मोबाइल नहीं",
+  "syncModeAlwaysDescription": "Syncs remote files automatically whenever they change.",
+  "syncModeNoMobileDescription": "Syncs automatically except on mobile devices, which can reduce mobile data usage.",
   "manual": "मैनुअल",
   "@manual": {
     "description": "Manual mode"
   },
+  "syncModeManualDescription": "Only syncs when you start it yourself.",
   "search": "खोजें",
   "@search": {
     "description": "Search action"
   },
   "properties": "गुण",
+  "@properties": {
+    "description": "Choose where the properties panel appears"
+  },
   "pin": "पिन करें",
   "@pin": {
     "description": "Pin action"
@@ -942,6 +958,9 @@
   "direction": "Direction",
   "onlyAvailableLargerScreen": "केवल बड़ी स्क्रीन पर उपलब्ध है",
   "toolbarPosition": "टूलबार की स्थिति",
+  "@toolbarPosition": {
+    "description": "Choose where the main toolbar appears"
+  },
   "rotate": "घुमाएं",
   "@rotate": {
     "description": "Rotate action"
@@ -951,6 +970,9 @@
     "description": "Spacer element"
   },
   "navigationRail": "नेविगेशन रेल",
+  "@navigationRail": {
+    "description": "Show a navigation rail on wider screens"
+  },
   "cut": "काटें",
   "@cut": {
     "description": "Clipboard action"
@@ -982,6 +1004,9 @@
     "description": "Texture property"
   },
   "platformTheme": "प्लेटफ़ॉर्म थीम",
+  "@platformTheme": {
+    "description": "Choose whether the app follows the system, desktop, or mobile layout"
+  },
   "desktop": "डेस्कटॉप",
   "@desktop": {
     "description": "Platform"
@@ -1006,6 +1031,9 @@
   },
   "iceServers": "ICE सर्वर्स",
   "collaboration": "सहयोग",
+  "@collaboration": {
+    "description": "Allow multiple people to edit the same note together"
+  },
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "ICE सर्वर",
@@ -1037,7 +1065,7 @@
   "hideUI": "UI छिपाएं",
   "density": "घनत्व",
   "@density": {
-    "description": "Density property"
+    "description": "Choose how compact the interface should be"
   },
   "compact": "कॉम्पैक्ट",
   "@compact": {
@@ -1109,14 +1137,23 @@
   },
   "continueAnyway": "फिर भी जारी रखें",
   "zoomControl": "ज़ूम नियंत्रण",
+  "@zoomControl": {
+    "description": "Show zoom controls in the canvas view"
+  },
   "showThumbnails": "Show thumbnails",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
   "highContrast": "उच्च कंट्रास्ट",
+  "@highContrast": {
+    "description": "Use stronger contrast in the app theme"
+  },
   "shouldANumber": "यह मान एक मान्य संख्या होनी चाहिए",
   "createAreas": "क्षेत्र बनाएं",
   "autosave": "ऑटोसेव",
+  "@autosave": {
+    "description": "Choose how changes are saved"
+  },
   "invert": "उलट दें",
   "@invert": {
     "description": "Invert action"
@@ -1131,10 +1168,19 @@
     "description": "Size value"
   },
   "toolbarSize": "टूलबार का आकार",
+  "@toolbarSize": {
+    "description": "Choose how large the toolbar buttons are"
+  },
   "addAll": "सभी जोड़ें",
   "onlyCurrentPage": "केवल वर्तमान पेज",
   "smoothNavigation": "सहज नेविगेशन",
+  "@smoothNavigation": {
+    "description": "Reduce the amount of rendering work while navigating"
+  },
   "edgePanAreaSwitching": "Edge pan area switching",
+  "@edgePanAreaSwitching": {
+    "description": "Switch areas when you pan near the edge of the canvas"
+  },
   "useAndroidSaf": "Use Android SAF",
   "exact": "सटीक",
   "@exact": {
@@ -1145,6 +1191,9 @@
     "description": "Inline position"
   },
   "toolbarRows": "टूलबार पंक्तियाँ",
+  "@toolbarRows": {
+    "description": "Set how many rows the toolbar can use"
+  },
   "pointerTest": "पॉइंटर टेस्ट",
   "pressure": "दबाव",
   "small": "छोटा",
@@ -1158,6 +1207,9 @@
   "selectAll": "सभी चुनें",
   "overrideTools": "टूल्स ओवरराइड करें",
   "hideCursorWhileDrawing": "ड्राइंग करते समय कर्सर छिपाएं",
+  "@hideCursorWhileDrawing": {
+    "description": "Hide the mouse cursor while drawing"
+  },
   "installed": "स्थापित",
   "install": "इंस्टॉल करें",
   "@install": {
@@ -1174,6 +1226,9 @@
     "description": "Scroll action"
   },
   "onStartup": "स्टार्टअप पर",
+  "@onStartup": {
+    "description": "Choose what opens when the app starts"
+  },
   "homeScreen": "होम स्क्रीन",
   "lastNote": "अंतिम नोट",
   "newNote": "नया नोट",
@@ -1301,10 +1356,21 @@
     "description": "Math tool"
   },
   "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
+  "@ignorePressure": {
+    "description": "Choose how stylus pressure is handled"
+  },
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some pens.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the pen.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the pen as fully pressed.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
+  "@simpleToolbarVisibility": {
+    "description": "Choose when the simplified toolbar is shown"
+  },
   "autosaveDelay": "Autosave delay",
+  "@autosaveDelay": {
+    "description": "Wait time before delayed autosave runs"
+  },
   "saved": "Saved",
   "@saved": {
     "description": "Save status"
@@ -1371,5 +1437,67 @@
   "bringMovedElementsToFront": "Bring moved elements to front",
   "addTool": "Add tool",
   "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "previousPage": "Previous page",
+  "persistenceDocumentStates": "Persistent document states",
+  "persistentStatesEnabled": "Enable persistent document states",
+  "persistentStateCurrentPage": "Current page",
+  "persistentStateViewport": "Viewport position and zoom",
+  "persistentStateSelectedTool": "Selected tool",
+  "persistentStateMaxRecords": "Maximum stored records",
+  "persistentStateDeleteOlderThanDays": "Delete records older than days",
+  "persistentStateCleanup": "Clean up stored states",
+  "persistentStateCleanupDescription": "Delete records older than the limits above",
+  "persistentStateCleanupInProgress": "Cleaning up...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "@persistentStateCleanupFeedback": {
+    "placeholders": {
+      "locations": {
+        "type": "int"
+      },
+      "records": {
+        "type": "int"
+      }
+    }
+  },
+  "autosaveEnabledDescription": "Saves changes automatically as you work.",
+  "autosaveDelayedDescription": "Saves changes automatically after the selected delay.",
+  "autosaveShowButtonDescription": "Saves automatically and also keeps the save button visible.",
+  "autosaveDisabledDescription": "Only saves when you use the save command.",
+  "hideCursorWhileDrawingDescription": "Hides the mouse pointer while you draw, so it does not cover your stroke.",
+  "onStartupHomeScreenDescription": "Opens the home screen when Butterfly starts.",
+  "onStartupLastNoteDescription": "Reopens your most recently used note when Butterfly starts.",
+  "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
+  "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
+  "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
+  "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
+  "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
+  "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
+  "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
+  "persistentStatesEnabledDescription": "Store document state information between app sessions",
+  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
+  "persistentStateViewportDescription": "Remember the viewport position and zoom",
+  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
+  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
+  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
+  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
+  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
+  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
+  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
+  "contentViewportDescription": "Limits how far you can pan away from the content of your note.",
+  "limitViewportPositiveDescription": "Keeps the canvas within the area to the right and below its starting point.",
+  "startInFullScreenDescription": "Opens Butterfly in full-screen mode when supported.",
+  "designDescription": "Changes the overall visual style of Butterfly without changing whether the app uses light or dark colors.",
+  "platformThemeDescription": "Lets you use the desktop or mobile layout instead of the layout Butterfly normally chooses for your device.",
+  "densityDescription": "Changes the spacing and size of interface elements. It does not change the size of your note content.",
+  "highContrastDescription": "Uses stronger color differences to make controls and text easier to distinguish.",
+  "nativeTitleBarDescription": "Uses your operating system's standard window title bar instead of Butterfly's custom title bar.",
+  "propertiesDescription": "Chooses where the panel for editing the selected tool or element appears.",
+  "navigationRailDescription": "Shows a permanent navigation bar on wide screens for quicker access to app sections.",
+  "optionsPanelPositionDescription": "Chooses whether tool options appear above or below the canvas.",
+  "simpleToolbarVisibilityDescription": "Controls when the smaller, simplified toolbar appears while editing a note.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only pen input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick pen-only switch in the editor after Butterfly detects a pen.",
+  "ignorePressureDescription": "Controls whether pen pressure changes the stroke and works around inaccurate pressure readings from some pens.",
+  "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
+  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page."
 }

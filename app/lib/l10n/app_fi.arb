@@ -11,7 +11,13 @@
   "systemTheme": "Käytä järjestelmän oletusteemaa",
   "view": "Näytä",
   "contentViewport": "Sisällön Näyttöportti",
+  "@contentViewport": {
+    "description": "Limit how far the viewport can move beyond the content"
+  },
   "limitViewportToPositiveCoordinates": "Rajoita näkymä positiivisiin koordinaatteihin",
+  "@limitViewportToPositiveCoordinates": {
+    "description": "Prevent the viewport from moving into negative coordinates"
+  },
   "off": "Pois",
   "canvas": "Kanava",
   "interface": "Käyttöliittymä",
@@ -316,7 +322,6 @@
     "description": "SVG format"
   },
   "sensitivity": "Herkkyys",
-  "sensitivityHint": "Mitä suurempi arvo on, sitä herkempiä syöte",
   "horizontal": "Vaakasuora",
   "vertical": "Pystysuora",
   "plain": "Tavallinen",
@@ -356,6 +361,7 @@
     "description": "Insert action"
   },
   "document": "Asiakirja",
+  "documentStates": "Document states",
   "camera": "Kamera",
   "@camera": {
     "description": "Camera tool"
@@ -577,6 +583,9 @@
   "bottomLeft": "Vasen alareuna",
   "bottomRight": "Oikea alareuna",
   "zoomPosition": "Zoomauksen ohjauksen sijainti",
+  "@zoomPosition": {
+    "description": "Choose where the zoom controls appear"
+  },
   "caches": "Kätköt",
   "manage": "Hallitse",
   "@manage": {
@@ -636,6 +645,7 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "Input gestures",
+  "inputGesturesDescription": "Lets you move and zoom the canvas with touch gestures, even while a drawing tool is selected.",
   "nativeTitleBar": "Alkuperäinen otsikkopalkki",
   "mode": "Mode",
   "syncMode": "Synkronoinnin tila",
@@ -645,15 +655,21 @@
     "description": "Frequency"
   },
   "noMobile": "Ei matkapuhelinta",
+  "syncModeAlwaysDescription": "Syncs remote files automatically whenever they change.",
+  "syncModeNoMobileDescription": "Syncs automatically except on mobile devices, which can reduce mobile data usage.",
   "manual": "Manuaalinen",
   "@manual": {
     "description": "Manual mode"
   },
+  "syncModeManualDescription": "Only syncs when you start it yourself.",
   "search": "Etsi",
   "@search": {
     "description": "Search action"
   },
   "properties": "Ominaisuudet",
+  "@properties": {
+    "description": "Choose where the properties panel appears"
+  },
   "pin": "Kiinnitä",
   "@pin": {
     "description": "Pin action"
@@ -942,6 +958,9 @@
   "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
+  "@toolbarPosition": {
+    "description": "Choose where the main toolbar appears"
+  },
   "rotate": "Kierrä",
   "@rotate": {
     "description": "Rotate action"
@@ -951,6 +970,9 @@
     "description": "Spacer element"
   },
   "navigationRail": "Navigointi rautatie",
+  "@navigationRail": {
+    "description": "Show a navigation rail on wider screens"
+  },
   "cut": "Leikkaa",
   "@cut": {
     "description": "Clipboard action"
@@ -982,6 +1004,9 @@
     "description": "Texture property"
   },
   "platformTheme": "Alustan teema",
+  "@platformTheme": {
+    "description": "Choose whether the app follows the system, desktop, or mobile layout"
+  },
   "desktop": "Työpöytä",
   "@desktop": {
     "description": "Platform"
@@ -1006,6 +1031,9 @@
   },
   "iceServers": "Ice- Palvelimet",
   "collaboration": "Yhteistyö",
+  "@collaboration": {
+    "description": "Allow multiple people to edit the same note together"
+  },
   "webRtc": "Web RTC",
   "webSocket": "Web- Socket",
   "iceServer": "Ice- Palvelin",
@@ -1037,7 +1065,7 @@
   "hideUI": "Piilota Käyttöliittymä",
   "density": "Tiheys",
   "@density": {
-    "description": "Density property"
+    "description": "Choose how compact the interface should be"
   },
   "compact": "Kompakti",
   "@compact": {
@@ -1109,14 +1137,23 @@
   },
   "continueAnyway": "Jatka joka tapauksessa",
   "zoomControl": "Zoomauksen hallinta",
+  "@zoomControl": {
+    "description": "Show zoom controls in the canvas view"
+  },
   "showThumbnails": "Show thumbnails",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
   "highContrast": "Korkea kontrasti",
+  "@highContrast": {
+    "description": "Use stronger contrast in the app theme"
+  },
   "shouldANumber": "Tämän arvon on oltava kelvollinen numero",
   "createAreas": "Luo alueita",
   "autosave": "Autosave",
+  "@autosave": {
+    "description": "Choose how changes are saved"
+  },
   "invert": "Invert",
   "@invert": {
     "description": "Invert action"
@@ -1131,10 +1168,19 @@
     "description": "Size value"
   },
   "toolbarSize": "Työkalupalkin koko",
+  "@toolbarSize": {
+    "description": "Choose how large the toolbar buttons are"
+  },
   "addAll": "Lisää kaikki",
   "onlyCurrentPage": "Vain nykyinen sivu",
   "smoothNavigation": "Pehmeä navigointi",
+  "@smoothNavigation": {
+    "description": "Reduce the amount of rendering work while navigating"
+  },
   "edgePanAreaSwitching": "Alueen reuna-alueen vaihtaminen",
+  "@edgePanAreaSwitching": {
+    "description": "Switch areas when you pan near the edge of the canvas"
+  },
   "useAndroidSaf": "Käytä Android SAF",
   "exact": "Tarkka",
   "@exact": {
@@ -1145,6 +1191,9 @@
     "description": "Inline position"
   },
   "toolbarRows": "Työkalupalkin rivit",
+  "@toolbarRows": {
+    "description": "Set how many rows the toolbar can use"
+  },
   "pointerTest": "Osoittimen testi",
   "pressure": "Paine",
   "small": "Pieni",
@@ -1158,6 +1207,9 @@
   "selectAll": "Valitse kaikki",
   "overrideTools": "Ohita työkalut",
   "hideCursorWhileDrawing": "Piilota kohdistin piirroksen aikana",
+  "@hideCursorWhileDrawing": {
+    "description": "Hide the mouse cursor while drawing"
+  },
   "installed": "Asennettu",
   "install": "Asenna",
   "@install": {
@@ -1174,6 +1226,9 @@
     "description": "Scroll action"
   },
   "onStartup": "Käynnistyksessä",
+  "@onStartup": {
+    "description": "Choose what opens when the app starts"
+  },
   "homeScreen": "Kotinäyttö",
   "lastNote": "Viimeisin merkintä",
   "newNote": "Uusi muistiinpano",
@@ -1301,10 +1356,21 @@
     "description": "Math tool"
   },
   "ignorePressure": "Ohita paine",
-  "ignoreFirstPressureDescription": "Joissain laitteissa ensimmäinen paineen arvo ei ole tarkka. Tämä asetus jättää huomiotta ensimmäisen paineen arvon ja käyttää sen sijaan toisen tapahtuman painetta.",
+  "@ignorePressure": {
+    "description": "Choose how stylus pressure is handled"
+  },
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some pens.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the pen.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the pen as fully pressed.",
   "temporary": "Väliaikainen",
   "simpleToolbarVisibility": "Yksinkertainen työkalupalkin näkyvyys",
+  "@simpleToolbarVisibility": {
+    "description": "Choose when the simplified toolbar is shown"
+  },
   "autosaveDelay": "Automaattisen tallennuksen viive",
+  "@autosaveDelay": {
+    "description": "Wait time before delayed autosave runs"
+  },
   "saved": "Tallennettu",
   "@saved": {
     "description": "Save status"
@@ -1371,5 +1437,67 @@
   "bringMovedElementsToFront": "Tuo siirretyt elementit eteen",
   "addTool": "Lisää työkalu",
   "nextPage": "Seuraava sivu",
-  "previousPage": "Edellinen sivu"
+  "previousPage": "Edellinen sivu",
+  "persistenceDocumentStates": "Persistent document states",
+  "persistentStatesEnabled": "Enable persistent document states",
+  "persistentStateCurrentPage": "Nykyinen sivu",
+  "persistentStateViewport": "Viewport position and zoom",
+  "persistentStateSelectedTool": "Selected tool",
+  "persistentStateMaxRecords": "Maximum stored records",
+  "persistentStateDeleteOlderThanDays": "Delete records older than days",
+  "persistentStateCleanup": "Clean up stored states",
+  "persistentStateCleanupDescription": "Delete records older than the limits above",
+  "persistentStateCleanupInProgress": "Cleaning up...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "@persistentStateCleanupFeedback": {
+    "placeholders": {
+      "locations": {
+        "type": "int"
+      },
+      "records": {
+        "type": "int"
+      }
+    }
+  },
+  "autosaveEnabledDescription": "Saves changes automatically as you work.",
+  "autosaveDelayedDescription": "Saves changes automatically after the selected delay.",
+  "autosaveShowButtonDescription": "Saves automatically and also keeps the save button visible.",
+  "autosaveDisabledDescription": "Only saves when you use the save command.",
+  "hideCursorWhileDrawingDescription": "Hides the mouse pointer while you draw, so it does not cover your stroke.",
+  "onStartupHomeScreenDescription": "Opens the home screen when Butterfly starts.",
+  "onStartupLastNoteDescription": "Reopens your most recently used note when Butterfly starts.",
+  "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
+  "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
+  "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
+  "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
+  "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
+  "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
+  "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
+  "persistentStatesEnabledDescription": "Store document state information between app sessions",
+  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
+  "persistentStateViewportDescription": "Remember the viewport position and zoom",
+  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
+  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
+  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
+  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
+  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
+  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
+  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
+  "contentViewportDescription": "Limits how far you can pan away from the content of your note.",
+  "limitViewportPositiveDescription": "Keeps the canvas within the area to the right and below its starting point.",
+  "startInFullScreenDescription": "Opens Butterfly in full-screen mode when supported.",
+  "designDescription": "Changes the overall visual style of Butterfly without changing whether the app uses light or dark colors.",
+  "platformThemeDescription": "Lets you use the desktop or mobile layout instead of the layout Butterfly normally chooses for your device.",
+  "densityDescription": "Changes the spacing and size of interface elements. It does not change the size of your note content.",
+  "highContrastDescription": "Uses stronger color differences to make controls and text easier to distinguish.",
+  "nativeTitleBarDescription": "Uses your operating system's standard window title bar instead of Butterfly's custom title bar.",
+  "propertiesDescription": "Chooses where the panel for editing the selected tool or element appears.",
+  "navigationRailDescription": "Shows a permanent navigation bar on wide screens for quicker access to app sections.",
+  "optionsPanelPositionDescription": "Chooses whether tool options appear above or below the canvas.",
+  "simpleToolbarVisibilityDescription": "Controls when the smaller, simplified toolbar appears while editing a note.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only pen input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick pen-only switch in the editor after Butterfly detects a pen.",
+  "ignorePressureDescription": "Controls whether pen pressure changes the stroke and works around inaccurate pressure readings from some pens.",
+  "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
+  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page."
 }
