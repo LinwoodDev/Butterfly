@@ -357,6 +357,11 @@ class _ProjectPageState extends State<ProjectPage> {
           page,
           pageName,
         );
+        final isImportedDocument =
+            documentOpened && !(location.fileType?.isNote() ?? false);
+        if (!absolute && isImportedDocument) {
+          _currentIndexCubit!.setSaveState(saved: SaveState.unsaved);
+        }
         networkingService.setup(_bloc!);
         _importService = ImportService(context, bloc: _bloc);
         _exportService = ExportService(context, _bloc);

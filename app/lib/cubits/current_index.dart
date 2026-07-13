@@ -2417,7 +2417,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool isAutosave = false,
   }) async {
     final absolute = state.absolute;
-    if (!force &&
+    if (location == null &&
         (state.saved == SaveState.saved ||
             state.saved == SaveState.absoluteRead)) {
       return state.location;
@@ -2440,6 +2440,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
     }
     return _savingLock.synchronized(() async {
+      if (location == null &&
+          (state.saved == SaveState.saved ||
+              state.saved == SaveState.absoluteRead)) {
+        return state.location;
+      }
       var current = location ?? state.location;
       if (isClosed) {
         return current;
