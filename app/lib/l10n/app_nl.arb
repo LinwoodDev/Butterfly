@@ -350,6 +350,22 @@
   "untitled": "Naamloos",
   "createTemplate": "Sjabloon aanmaken",
   "createTemplateContent": "Wilt u echt een template van dit document aanmaken? Het oorspronkelijke document zal worden verwijderd.",
+  "fileName": "File name",
+  "defaultFileName": "Default file name",
+  "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Preview",
   "replace": "Vervangen",
   "@replace": {
     "description": "Replace action"
