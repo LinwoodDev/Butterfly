@@ -258,25 +258,10 @@ final class NoteData extends NoteDisplay<NoteData> {
     final archive = export();
     var document = NoteData(archive);
     final metadata = getMetadata();
-    final now = DateTime.now();
-    final fileNameDate = createdAt?.toLocal() ?? now;
-    createdAt ??= now.toUtc();
-    var documentName = name;
-    if (documentName.isEmpty && metadata?.type == NoteFileType.template) {
-      try {
-        documentName = resolveTemplateFileName(
-          metadata?.fileName ?? '',
-          fileNameDate,
-        );
-      } on FormatException {
-        // Invalid formatters from imported templates should keep the document
-        // unsaved instead of preventing it from opening.
-        documentName = '';
-      }
-    }
+    createdAt ??= DateTime.now().toUtc();
     final newMetadata = FileMetadata(
       type: NoteFileType.document,
-      name: documentName,
+      name: name,
       createdAt: createdAt,
       updatedAt: createdAt,
       description: metadata?.description ?? '',

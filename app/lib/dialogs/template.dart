@@ -8,6 +8,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/connection_button.dart';
+import 'package:butterfly/widgets/file_name_pattern_field.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -23,69 +24,6 @@ import '../widgets/editable_list_tile.dart';
 import 'area/init.dart';
 import 'delete.dart';
 import 'pages.dart';
-
-String? _validateOptionalTemplateFileName(BuildContext context, String? value) {
-  final fileName = value?.trim() ?? '';
-  if (fileName.isEmpty) return null;
-  try {
-    final resolved = resolveTemplateFileName(
-      fileName,
-      DateTime(2000, 12, 31, 23, 59, 58),
-    );
-    return defaultFileNameValidator(context)(null)(resolved);
-  } on FormatException {
-    return LeapLocalizations.of(context).invalidName;
-  }
-}
-
-String _templateFileNameDescription(BuildContext context) =>
-    AppLocalizations.of(context).templateFileNameDescription(
-      templateDateFormatExample,
-      templateTimeFormatExample,
-    );
-
-Future<String?> _showTemplateFileNameDialog(
-  BuildContext context,
-  String initialValue,
-) {
-  final formKey = GlobalKey<FormState>();
-  var fileName = initialValue;
-  return showDialog<String>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(AppLocalizations.of(context).fileName),
-      content: Form(
-        key: formKey,
-        child: TextFormField(
-          initialValue: fileName,
-          autofocus: true,
-          onChanged: (value) => fileName = value,
-          validator: (value) =>
-              _validateOptionalTemplateFileName(context, value),
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).fileName,
-            helperText: _templateFileNameDescription(context),
-            helperMaxLines: 3,
-            filled: true,
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (!(formKey.currentState?.validate() ?? false)) return;
-            Navigator.of(context).pop(fileName.trim());
-          },
-          child: Text(MaterialLocalizations.of(context).saveButtonLabel),
-        ),
-      ],
-    ),
-  );
-}
 
 Future<void> _overrideTools(
   TemplateFileSystem templateSystem,
@@ -762,17 +700,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  TextFormField(
+                  FileNamePatternField(
                     initialValue: fileName,
+                    label: AppLocalizations.of(context).fileName,
                     onChanged: (e) => fileName = e,
-                    validator: (value) =>
-                        _validateOptionalTemplateFileName(context, value),
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).fileName,
-                      helperText: _templateFileNameDescription(context),
-                      helperMaxLines: 3,
-                      filled: true,
-                    ),
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
@@ -1472,9 +1403,10 @@ List<Widget> _buildTemplateMenuChildren(
         leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileText),
         child: Text(AppLocalizations.of(context).fileName),
         onPressed: () async {
-          final result = await _showTemplateFileNameDialog(
+          final result = await showFileNamePatternDialog(
             context,
-            metadata.fileName,
+            initialValue: metadata.fileName,
+            label: AppLocalizations.of(context).fileName,
           );
           if (result == null) return;
           await fileSystem.updateFile(

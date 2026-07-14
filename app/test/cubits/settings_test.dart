@@ -6,6 +6,41 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('uses a visible default file name pattern', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+
+    expect(
+      ButterflySettings.fromPrefs(prefs).defaultFileName,
+      kDefaultFileName,
+    );
+    expect(const ButterflySettings().defaultFileName, kDefaultFileName);
+  });
+
+  test('persists the default file name pattern', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+
+    await cubit.changeDefaultFileName('  Notes {date}  ');
+
+    expect(cubit.state.defaultFileName, 'Notes {date}');
+    expect(prefs.getString('default_file_name'), 'Notes {date}');
+    expect(ButterflySettings.fromPrefs(prefs).defaultFileName, 'Notes {date}');
+  });
+
+  test('resetting an empty file name restores the default pattern', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+
+    await cubit.changeDefaultFileName('Custom');
+    await cubit.changeDefaultFileName('  ');
+
+    expect(cubit.state.defaultFileName, kDefaultFileName);
+    expect(prefs.getString('default_file_name'), kDefaultFileName);
+  });
+
   group('SettingsCubit recent history', () {
     test(
       'deduplicates matching locations with and without leading slash',
