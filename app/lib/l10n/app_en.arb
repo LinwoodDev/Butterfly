@@ -351,19 +351,21 @@
   "createTemplate": "Create template",
   "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
   "fileName": "File name",
-  "templateFileNameDescription": "Set a name to save new documents immediately. Use a custom date or time formatter, for example {dateExample} or {timeExample}.",
+  "defaultFileName": "Default file name",
+  "templateFileNameDescription": "New documents are saved automatically with this name. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
   "@templateFileNameDescription": {
     "placeholders": {
       "dateExample": {
         "type": "String",
-        "example": "{date:dd.MM.yyyy}"
+        "example": "{date}"
       },
       "timeExample": {
         "type": "String",
-        "example": "{time:HH-mm}"
+        "example": "{time}"
       }
     }
   },
+  "preview": "Preview",
   "replace": "Replace",
   "@replace": {
     "description": "Replace action"

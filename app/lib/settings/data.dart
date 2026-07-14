@@ -11,6 +11,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/visualizer/connection.dart';
+import 'package:butterfly/widgets/file_name_pattern_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,6 +66,41 @@ Widget buildDataDirectorySetting(
           )
         : null,
   );
+}
+
+Widget buildDefaultFileNameSetting(
+  BuildContext context,
+  ButterflySettings state,
+) {
+  return ListTile(
+    leading: const PhosphorIcon(PhosphorIconsLight.fileText),
+    title: Text(AppLocalizations.of(context).defaultFileName),
+    subtitle: Text(state.defaultFileName),
+    onTap: () => _changeDefaultFileName(context, state.defaultFileName),
+    trailing: state.defaultFileName == kDefaultFileName
+        ? null
+        : IconButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.arrowCounterClockwise),
+            tooltip: LeapLocalizations.of(context).reset,
+            onPressed: () => context
+                .read<SettingsCubit>()
+                .changeDefaultFileName(kDefaultFileName),
+          ),
+  );
+}
+
+Future<void> _changeDefaultFileName(
+  BuildContext context,
+  String initialValue,
+) async {
+  final result = await showFileNamePatternDialog(
+    context,
+    initialValue: initialValue,
+    label: AppLocalizations.of(context).defaultFileName,
+  );
+  if (result != null && context.mounted) {
+    await context.read<SettingsCubit>().changeDefaultFileName(result);
+  }
 }
 
 Future<void> changeDataDirectory(BuildContext context) async {

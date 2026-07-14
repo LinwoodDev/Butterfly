@@ -33,6 +33,11 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
           enabled: (context, state) => !kIsWeb,
           builder: buildDataDirectorySetting,
         ),
+        SettingsLeapCustomSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).defaultFileName,
+          builder: buildDefaultFileNameSetting,
+        ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).templates,
           icon: PhosphorIconsLight.file,

@@ -1,4 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -71,7 +72,20 @@ Future<void> openNewDocument(
   String? path;
   var targetRemote = remote;
   if (template != null) {
-    document = template.createDocument();
+    final settings = context.read<SettingsCubit>().state;
+    final templatePattern = template.getMetadata()?.fileName.trim() ?? '';
+    final fileNamePattern = templatePattern.isNotEmpty
+        ? templatePattern
+        : settings.defaultFileName.trim();
+    var documentName = '';
+    if (fileNamePattern.isNotEmpty) {
+      try {
+        documentName = resolveTemplateFileName(fileNamePattern, DateTime.now());
+      } on FormatException {
+        // Invalid patterns from imported templates should still open unsaved.
+      }
+    }
+    document = template.createDocument(name: documentName);
     if (initialArea != null) {
       final page = document.getPage() ?? DocumentDefaults.createPage();
       document = document
@@ -81,10 +95,7 @@ Future<void> openNewDocument(
     final metadata = document.getMetadata();
     if (metadata != null) {
       path = metadata.directory;
-      final templateMetadata = template.getMetadata();
-      if ((templateMetadata?.fileName.trim().isNotEmpty ?? false) &&
-          metadata.name.isNotEmpty) {
-        final settings = context.read<SettingsCubit>().state;
+      if (fileNamePattern.isNotEmpty && metadata.name.isNotEmpty) {
         final storage = settings.getRemote(targetRemote);
         final fileSystem = context
             .read<ButterflyFileSystem>()

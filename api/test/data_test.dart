@@ -236,49 +236,6 @@ void main() {
       expect(template.getThumbnail(), equals(thumbnail));
     });
 
-    test('createDocument resolves template file name placeholders', () {
-      var data = NoteData(Archive());
-      data = data.setMetadata(
-        FileMetadata(
-          type: NoteFileType.template,
-          fileName: 'Daily {date:dd.MM.yyyy} {time:HH-mm-ss}',
-        ),
-      );
-      final createdAt = DateTime(2026, 7, 10, 9, 8, 7);
-
-      final document = data.createDocument(createdAt: createdAt);
-
-      expect(document.getMetadata()?.name, 'Daily 10.07.2026 09-08-07');
-    });
-
-    test('explicit document name overrides template file name', () {
-      var data = NoteData(Archive());
-      data = data.setMetadata(
-        const FileMetadata(
-          type: NoteFileType.template,
-          fileName: 'Daily {date:yyyy-MM-dd}',
-        ),
-      );
-
-      final document = data.createDocument(name: 'Custom name');
-
-      expect(document.getMetadata()?.name, 'Custom name');
-    });
-
-    test('invalid template date format keeps the document unnamed', () {
-      var data = NoteData(Archive());
-      data = data.setMetadata(
-        const FileMetadata(
-          type: NoteFileType.template,
-          fileName: 'Daily {date:}',
-        ),
-      );
-
-      final document = data.createDocument();
-
-      expect(document.getMetadata()?.name, isEmpty);
-    });
-
     test('createDocument with disablePages removes all pages', () {
       var data = NoteData(Archive());
       (data, _) = data.setPage(_pageWithLayer('one'), 'Page 1');

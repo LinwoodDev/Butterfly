@@ -7,6 +7,33 @@ import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:intl/intl.dart';
+
+const templateDateFormatExample = '{date}';
+const templateTimeFormatExample = '{time}';
+final _templateDateTimePattern = RegExp(r'\{(?:date|time):([^{}]+)\}');
+
+String resolveTemplateFileName(String pattern, DateTime dateTime) {
+  final simple = pattern
+      .replaceAll('{date}', DateFormat('yyyy-MM-dd').format(dateTime))
+      .replaceAll('{time}', DateFormat('HH-mm').format(dateTime));
+  final resolved = simple.replaceAllMapped(_templateDateTimePattern, (match) {
+    return DateFormat(match.group(1)!).format(dateTime);
+  });
+  if (resolved.contains('{date:') || resolved.contains('{time:')) {
+    throw FormatException('Invalid template date or time formatter', pattern);
+  }
+  return resolved.trim();
+}
+
+String? previewTemplateFileName(String pattern, [DateTime? dateTime]) {
+  if (pattern.trim().isEmpty) return null;
+  try {
+    return resolveTemplateFileName(pattern, dateTime ?? DateTime.now());
+  } on FormatException {
+    return null;
+  }
+}
 
 String sanitizeExportFileName(String? name) => convertNameToFile(
   name: name?.trim(),

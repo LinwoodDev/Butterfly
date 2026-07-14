@@ -20,6 +20,7 @@ part 'settings.g.dart';
 
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
+const kDefaultFileName = '{date}';
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -497,6 +498,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default([]) List<String> starred,
     @Default([]) List<FavoriteLocation> favoriteTemplates,
     @Default('') String defaultTemplate,
+    @Default(kDefaultFileName) String defaultFileName,
     @Default(NavigatorPosition.left) NavigatorPosition navigatorPosition,
     @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
     @Default(ToolbarSize.normal) ToolbarSize toolbarSize,
@@ -636,6 +638,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               .toList() ??
           [],
       defaultTemplate: prefs.getString('default_template') ?? '',
+      defaultFileName: prefs.getString('default_file_name') ?? kDefaultFileName,
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? _enumByNameOr(
               ToolbarPosition.values,
@@ -847,6 +850,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     );
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
+    await prefs.setString('default_file_name', defaultFileName);
     await prefs.setString('toolbar_position', toolbarPosition.name);
     await prefs.setBool('navigation_rail', navigationRail);
     await prefs.setString('sort_by', sortBy.name);
@@ -1410,6 +1414,17 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeDefaultTemplate(String name) {
     emit(state.copyWith(defaultTemplate: name));
+    return save();
+  }
+
+  Future<void> changeDefaultFileName(String pattern) {
+    emit(
+      state.copyWith(
+        defaultFileName: pattern.trim().isEmpty
+            ? kDefaultFileName
+            : pattern.trim(),
+      ),
+    );
     return save();
   }
 

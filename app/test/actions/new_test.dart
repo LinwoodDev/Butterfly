@@ -96,9 +96,12 @@ void main() {
     expect(saved?.getMetadata()?.name, 'Journal entry');
   });
 
-  testWidgets('template without a file name keeps the document unsaved', (
+  testWidgets('settings file name is used when template has none', (
     tester,
   ) async {
+    when(
+      () => settingsCubit.state,
+    ).thenReturn(const ButterflySettings(defaultFileName: 'Default note'));
     var template = NoteData(Archive());
     template = template.setMetadata(
       const FileMetadata(
@@ -113,8 +116,30 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Opened'), findsOneWidget);
-    expect(openedPath, 'journals');
-    expect((openedData as NoteData).getMetadata()?.name, isEmpty);
-    expect(await fileSystem.buildDocumentSystem().getAsset('journals'), isNull);
+    expect(openedPath, endsWith('journals/Default note.bfly'));
+    expect((openedData as NoteData).getMetadata()?.name, 'Default note');
+  });
+
+  testWidgets('template file name overrides the settings default', (
+    tester,
+  ) async {
+    when(
+      () => settingsCubit.state,
+    ).thenReturn(const ButterflySettings(defaultFileName: 'Default note'));
+    var template = NoteData(Archive());
+    template = template.setMetadata(
+      const FileMetadata(
+        type: NoteFileType.template,
+        directory: 'journals',
+        fileName: 'Template note',
+      ),
+    );
+
+    await tester.pumpWidget(buildApp(template));
+    await tester.tap(find.text('Create'));
+    await tester.pumpAndSettle();
+
+    expect(openedPath, endsWith('journals/Template note.bfly'));
+    expect((openedData as NoteData).getMetadata()?.name, 'Template note');
   });
 }

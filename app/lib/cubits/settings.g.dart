@@ -200,6 +200,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
           .toList() ??
       const [],
   defaultTemplate: json['defaultTemplate'] as String? ?? '',
+  defaultFileName: json['defaultFileName'] as String? ?? kDefaultFileName,
   navigatorPosition:
       $enumDecodeNullable(
         _$NavigatorPositionEnumMap,
@@ -323,6 +324,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
       .map((e) => e.toJson())
       .toList(),
   'defaultTemplate': instance.defaultTemplate,
+  'defaultFileName': instance.defaultFileName,
   'navigatorPosition': _$NavigatorPositionEnumMap[instance.navigatorPosition]!,
   'toolbarPosition': _$ToolbarPositionEnumMap[instance.toolbarPosition]!,
   'toolbarSize': _$ToolbarSizeEnumMap[instance.toolbarSize]!,
