@@ -221,9 +221,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             openNewDocument(
                               context,
                               widget.bloc != null,
-                              detailsTemplate,
-                              _templateSystem.storage?.identifier,
-                              area,
+                              template: detailsTemplate,
+                              remote: _templateSystem.storage?.identifier,
+                              initialArea: area,
                             );
                           },
                         ),
@@ -317,9 +317,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   openNewDocument(
                     context,
                     widget.bloc != null,
-                    template.data!,
-                    _templateSystem.storage?.identifier,
-                    area,
+                    template: template.data!,
+                    remote: _templateSystem.storage?.identifier,
+                    initialArea: area,
                   );
                 },
               ),
@@ -1113,8 +1113,8 @@ class _TemplateItem extends StatelessWidget {
           () => openNewDocument(
             context,
             bloc != null,
-            template,
-            fileSystem.storage?.identifier,
+            template: template,
+            remote: fileSystem.storage?.identifier,
           ),
     );
   }
@@ -1204,8 +1204,8 @@ class _TemplateCard extends StatelessWidget {
               () => openNewDocument(
                 context,
                 bloc != null,
-                template,
-                fileSystem.storage?.identifier,
+                template: template,
+                remote: fileSystem.storage?.identifier,
               ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

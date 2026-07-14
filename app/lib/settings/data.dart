@@ -97,6 +97,7 @@ Future<void> _changeDefaultFileName(
     context,
     initialValue: initialValue,
     label: AppLocalizations.of(context).defaultFileName,
+    allowEmpty: false,
   );
   if (result != null && context.mounted) {
     await context.read<SettingsCubit>().changeDefaultFileName(result);

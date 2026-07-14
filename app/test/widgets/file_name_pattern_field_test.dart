@@ -30,7 +30,7 @@ void main() {
     await tester.pumpAndSettle();
 
     final helpFinder = find.textContaining(
-      'New documents are saved automatically with this name.',
+      'Documents opened from the template picker are saved automatically',
     );
     expect(helpFinder, findsOneWidget);
     final help = tester.widget<Text>(helpFinder);

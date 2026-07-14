@@ -539,6 +539,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       _$ButterflySettingsFromJson(json);
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+    final storedDefaultFileName = prefs.getString('default_file_name')?.trim();
     final connections =
         prefs
             .getStringList('connections')
@@ -638,7 +639,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               .toList() ??
           [],
       defaultTemplate: prefs.getString('default_template') ?? '',
-      defaultFileName: prefs.getString('default_file_name') ?? kDefaultFileName,
+      defaultFileName: storedDefaultFileName?.isNotEmpty ?? false
+          ? storedDefaultFileName!
+          : kDefaultFileName,
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? _enumByNameOr(
               ToolbarPosition.values,
@@ -1418,11 +1421,10 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> changeDefaultFileName(String pattern) {
+    final normalized = pattern.trim();
     emit(
       state.copyWith(
-        defaultFileName: pattern.trim().isEmpty
-            ? kDefaultFileName
-            : pattern.trim(),
+        defaultFileName: normalized.isEmpty ? kDefaultFileName : normalized,
       ),
     );
     return save();
