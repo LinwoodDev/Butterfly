@@ -26,7 +26,7 @@ Open the developer tools in your browser and you will see the data.
 
 By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. This folder can be changed in the settings.
 
-## Remote storage
+## Remote storage {#remote}
 
 :::note
 
@@ -46,16 +46,18 @@ To get the WebDAV URL, please visit the documentation:
 ### Instructions for NextCloud
 
 #### How to get the URL
-1. Go to 'Files'
+
+1. Go to `Files`
   ![](@assets/img/webDAV/URLstep1.png)
-2. Open the 'Files settings'
+2. Press the button on the bottom of the sidebar `Files settings`
   ![](@assets/img/webDAV/URLstep2.png)
-3. Choose the 'WebDAV' section in the sidebar, then Copy the URL
+3. Scroll down to the `WebDAV` section, then copy the URL
   ![](@assets/img/webDAV/URLstep3and4.png)
-4. Paste the URL in the URL input box in Butterfly
+4. Switch to Butterfly, and paste the URL in the URL input box in Butterfly
   ![](@assets/img/webDAV/URLstep5.png)
 
 #### How to get the password and username
+
 1. Go to your Nextcloud account info by pressing the profile picture on the corner
 2. Then, press `Settings`
   ![](@assets/img/webDAV/Name1.png)
@@ -64,13 +66,12 @@ To get the WebDAV URL, please visit the documentation:
     - "Butterfly Connection" is a good name to use, as it is identifiable and clear.
 5. Press the button called `Create new app password`
   ![](@assets/img/webDAV/Name2.png)
-6. After authenticating, copy the email and paste it in the username input box in Butterfly
+6. After authenticating, copy the username and paste it in the username input box in Butterfly
   ![](@assets/img/webDAV/Name3.png)
 7. Finally, copy the password and paste it in the password input box in Butterfly
   ![](@assets/img/webDAV/Name4.png)
 
-
-### Offline sync
+### Offline sync {#offline}
 
 This feature allows you to edit your files on remote servers while you are offline.
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.

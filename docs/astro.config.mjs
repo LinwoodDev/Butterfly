@@ -7,6 +7,7 @@ import manifest from "./webmanifest.json";
 import { fileURLToPath } from "node:url";
 import { satteri } from '@astrojs/markdown-satteri';
 import katex from "katex";
+import { satteri, satteriHeadingIdsPlugin } from '@astrojs/markdown-satteri';
 
 const renderMath = (value, displayMode = false) =>
   katex.renderToString(value, {
@@ -29,7 +30,7 @@ export default defineConfig({
   site: "https://butterfly.linwood.dev",
   markdown: {
     processor: satteri({
-      features: { math: true },
+      features: { math: true, headingAttributes: true },
       mdastPlugins: [renderMathPlugin],
     }),
   },
