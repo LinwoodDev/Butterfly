@@ -1396,7 +1396,7 @@ $TextParagraphCopyWith<$Res> get paragraph {
 /// @nodoc
 mixin _$TextStyleSheet {
 
- Map<String, DefinedSpanProperty> get spanProperties; Map<String, DefinedParagraphProperty> get paragraphProperties;
+ String get fontFamily; List<String> get fontFamilyFallback; Map<String, DefinedSpanProperty> get spanProperties; Map<String, DefinedParagraphProperty> get paragraphProperties;
 /// Create a copy of TextStyleSheet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1409,16 +1409,16 @@ $TextStyleSheetCopyWith<TextStyleSheet> get copyWith => _$TextStyleSheetCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextStyleSheet&&const DeepCollectionEquality().equals(other.spanProperties, spanProperties)&&const DeepCollectionEquality().equals(other.paragraphProperties, paragraphProperties));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextStyleSheet&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&const DeepCollectionEquality().equals(other.fontFamilyFallback, fontFamilyFallback)&&const DeepCollectionEquality().equals(other.spanProperties, spanProperties)&&const DeepCollectionEquality().equals(other.paragraphProperties, paragraphProperties));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(spanProperties),const DeepCollectionEquality().hash(paragraphProperties));
+int get hashCode => Object.hash(runtimeType,fontFamily,const DeepCollectionEquality().hash(fontFamilyFallback),const DeepCollectionEquality().hash(spanProperties),const DeepCollectionEquality().hash(paragraphProperties));
 
 @override
 String toString() {
-  return 'TextStyleSheet(spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
+  return 'TextStyleSheet(fontFamily: $fontFamily, fontFamilyFallback: $fontFamilyFallback, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
 }
 
 
@@ -1429,7 +1429,7 @@ abstract mixin class $TextStyleSheetCopyWith<$Res>  {
   factory $TextStyleSheetCopyWith(TextStyleSheet value, $Res Function(TextStyleSheet) _then) = _$TextStyleSheetCopyWithImpl;
 @useResult
 $Res call({
- Map<String, DefinedSpanProperty> spanProperties, Map<String, DefinedParagraphProperty> paragraphProperties
+ String fontFamily, List<String> fontFamilyFallback, Map<String, DefinedSpanProperty> spanProperties, Map<String, DefinedParagraphProperty> paragraphProperties
 });
 
 
@@ -1446,9 +1446,11 @@ class _$TextStyleSheetCopyWithImpl<$Res>
 
 /// Create a copy of TextStyleSheet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? spanProperties = null,Object? paragraphProperties = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? fontFamily = null,Object? fontFamilyFallback = null,Object? spanProperties = null,Object? paragraphProperties = null,}) {
   return _then(_self.copyWith(
-spanProperties: null == spanProperties ? _self.spanProperties : spanProperties // ignore: cast_nullable_to_non_nullable
+fontFamily: null == fontFamily ? _self.fontFamily : fontFamily // ignore: cast_nullable_to_non_nullable
+as String,fontFamilyFallback: null == fontFamilyFallback ? _self.fontFamilyFallback : fontFamilyFallback // ignore: cast_nullable_to_non_nullable
+as List<String>,spanProperties: null == spanProperties ? _self.spanProperties : spanProperties // ignore: cast_nullable_to_non_nullable
 as Map<String, DefinedSpanProperty>,paragraphProperties: null == paragraphProperties ? _self.paragraphProperties : paragraphProperties // ignore: cast_nullable_to_non_nullable
 as Map<String, DefinedParagraphProperty>,
   ));
@@ -1462,8 +1464,16 @@ as Map<String, DefinedParagraphProperty>,
 @JsonSerializable()
 
 class _TextStyleSheet extends TextStyleSheet {
-  const _TextStyleSheet({final  Map<String, DefinedSpanProperty> spanProperties = const {}, final  Map<String, DefinedParagraphProperty> paragraphProperties = const {}}): _spanProperties = spanProperties,_paragraphProperties = paragraphProperties,super._();
+  const _TextStyleSheet({this.fontFamily = 'Roboto', final  List<String> fontFamilyFallback = const [], final  Map<String, DefinedSpanProperty> spanProperties = const {}, final  Map<String, DefinedParagraphProperty> paragraphProperties = const {}}): _fontFamilyFallback = fontFamilyFallback,_spanProperties = spanProperties,_paragraphProperties = paragraphProperties,super._();
   factory _TextStyleSheet.fromJson(Map<String, dynamic> json) => _$TextStyleSheetFromJson(json);
+
+@override@JsonKey() final  String fontFamily;
+ final  List<String> _fontFamilyFallback;
+@override@JsonKey() List<String> get fontFamilyFallback {
+  if (_fontFamilyFallback is EqualUnmodifiableListView) return _fontFamilyFallback;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_fontFamilyFallback);
+}
 
  final  Map<String, DefinedSpanProperty> _spanProperties;
 @override@JsonKey() Map<String, DefinedSpanProperty> get spanProperties {
@@ -1493,16 +1503,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextStyleSheet&&const DeepCollectionEquality().equals(other._spanProperties, _spanProperties)&&const DeepCollectionEquality().equals(other._paragraphProperties, _paragraphProperties));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextStyleSheet&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&const DeepCollectionEquality().equals(other._fontFamilyFallback, _fontFamilyFallback)&&const DeepCollectionEquality().equals(other._spanProperties, _spanProperties)&&const DeepCollectionEquality().equals(other._paragraphProperties, _paragraphProperties));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_spanProperties),const DeepCollectionEquality().hash(_paragraphProperties));
+int get hashCode => Object.hash(runtimeType,fontFamily,const DeepCollectionEquality().hash(_fontFamilyFallback),const DeepCollectionEquality().hash(_spanProperties),const DeepCollectionEquality().hash(_paragraphProperties));
 
 @override
 String toString() {
-  return 'TextStyleSheet(spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
+  return 'TextStyleSheet(fontFamily: $fontFamily, fontFamilyFallback: $fontFamilyFallback, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
 }
 
 
@@ -1513,7 +1523,7 @@ abstract mixin class _$TextStyleSheetCopyWith<$Res> implements $TextStyleSheetCo
   factory _$TextStyleSheetCopyWith(_TextStyleSheet value, $Res Function(_TextStyleSheet) _then) = __$TextStyleSheetCopyWithImpl;
 @override @useResult
 $Res call({
- Map<String, DefinedSpanProperty> spanProperties, Map<String, DefinedParagraphProperty> paragraphProperties
+ String fontFamily, List<String> fontFamilyFallback, Map<String, DefinedSpanProperty> spanProperties, Map<String, DefinedParagraphProperty> paragraphProperties
 });
 
 
@@ -1530,9 +1540,11 @@ class __$TextStyleSheetCopyWithImpl<$Res>
 
 /// Create a copy of TextStyleSheet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? spanProperties = null,Object? paragraphProperties = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? fontFamily = null,Object? fontFamilyFallback = null,Object? spanProperties = null,Object? paragraphProperties = null,}) {
   return _then(_TextStyleSheet(
-spanProperties: null == spanProperties ? _self._spanProperties : spanProperties // ignore: cast_nullable_to_non_nullable
+fontFamily: null == fontFamily ? _self.fontFamily : fontFamily // ignore: cast_nullable_to_non_nullable
+as String,fontFamilyFallback: null == fontFamilyFallback ? _self._fontFamilyFallback : fontFamilyFallback // ignore: cast_nullable_to_non_nullable
+as List<String>,spanProperties: null == spanProperties ? _self._spanProperties : spanProperties // ignore: cast_nullable_to_non_nullable
 as Map<String, DefinedSpanProperty>,paragraphProperties: null == paragraphProperties ? _self._paragraphProperties : paragraphProperties // ignore: cast_nullable_to_non_nullable
 as Map<String, DefinedParagraphProperty>,
   ));

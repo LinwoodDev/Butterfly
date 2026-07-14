@@ -157,7 +157,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
-    - family: NotoSansArabic
+    - family: Noto Sans Arabic
       fonts:
         - asset: fonts/NotoSansArabic-Light.ttf
           weight: 300

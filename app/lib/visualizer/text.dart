@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 
+import '../services/font.dart';
+
+String _fontFamilyToCss(String family) => "'${family.replaceAll("'", "\\'")}'";
+
+String _fontFamiliesToCss(String family, List<String> fallback) =>
+    [family, ...fallback].map(_fontFamilyToCss).join(', ');
+
 extension HorizontalTextAlignmentFlutterConverter on text.HorizontalAlignment {
   TextAlign toFlutter() => switch (this) {
     text.HorizontalAlignment.left => TextAlign.left,
@@ -28,11 +35,14 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
   TextStyle toFlutter([
     text.DefinedParagraphProperty? parent,
     SRGBColor? foreground,
+    String fontFamily = kDefaultFontFamily,
+    List<String> fontFamilyFallback = const [],
   ]) {
     return TextStyle(
       fontSize: getSize(parent),
       color: getColor(parent, foreground).toColor(),
-      fontFamily: 'Roboto',
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontStyle: getItalic(parent) ? FontStyle.italic : FontStyle.normal,
       fontWeight: FontWeight.values[getFontWeight(parent)],
       letterSpacing: getLetterSpacing(parent),
@@ -48,8 +58,13 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
     );
   }
 
-  String toCss([text.DefinedParagraphProperty? parent]) =>
+  String toCss([
+    text.DefinedParagraphProperty? parent,
+    String fontFamily = kDefaultFontFamily,
+    List<String> fontFamilyFallback = const [],
+  ]) =>
       """
+      font-family: ${_fontFamiliesToCss(fontFamily, fontFamilyFallback)};
       font-weight: ${getFontWeight(parent)};
       font-style: ${getItalic(parent) ? 'italic' : 'normal'};
       font-size: ${getSize(parent)}px;
@@ -64,9 +79,12 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
 }
 
 extension DefinedParagraphPropertyVisualizer on text.DefinedParagraphProperty {
-  String toCss() =>
+  String toCss([
+    String fontFamily = kDefaultFontFamily,
+    List<String> fontFamilyFallback = const [],
+  ]) =>
       """
-${span.toCss(this)}
+${span.toCss(this, fontFamily, fontFamilyFallback)}
 text-align: ${alignment.toFlutter().toString().split('.').last};
 """;
 }
@@ -80,10 +98,12 @@ extension StyleSheetVisualizer on text.TextStyleSheet {
     String spanPrefix = kStyleSpanPrefix,
   }) => [
     ...paragraphProperties.entries.map(
-      (e) => '$paragraphPrefix${e.key}{\n${e.value.toCss()}}',
+      (e) =>
+          '$paragraphPrefix${e.key}{\n${e.value.toCss(fontFamily, fontFamilyFallback)}}',
     ),
     ...spanProperties.entries.map(
-      (e) => '$spanPrefix${e.key}{\n${e.value.toCss()}}',
+      (e) =>
+          '$spanPrefix${e.key}{\n${e.value.toCss(null, fontFamily, fontFamilyFallback)}}',
     ),
   ].join('\n');
 }

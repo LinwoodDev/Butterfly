@@ -15,6 +15,7 @@ import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/services/export.dart';
+import 'package:butterfly/services/font.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -332,6 +333,11 @@ class _ProjectPageState extends State<ProjectPage> {
           name: name,
           createdAt: DateTime.now(),
         );
+      }
+      await context.read<FontService>().loadFonts(document);
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
+        return;
       }
       location ??= AssetLocation(
         path: widget.location?.path ?? '',

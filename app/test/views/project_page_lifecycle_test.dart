@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -143,6 +144,9 @@ void main() {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<ButterflyFileSystem>.value(value: fileSystem),
+        RepositoryProvider<FontService>(
+          create: (context) => FontService(fileSystem),
+        ),
         RepositoryProvider<ClipboardManager>.value(
           value: UnsupportedClipboardManager(),
         ),

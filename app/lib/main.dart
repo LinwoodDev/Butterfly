@@ -34,6 +34,7 @@ import 'views/error.dart';
 import 'views/home/page.dart';
 import 'views/main.dart';
 import 'services/logger.dart';
+import 'services/font.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');
 
@@ -370,10 +371,14 @@ class ButterflyApp extends StatelessWidget {
             dispose: (fileSystem) => fileSystem.dispose(),
             child: RepositoryProvider(
               create: (context) =>
-                  SyncService(context, context.read<ButterflyFileSystem>()),
-              dispose: (service) => service.dispose(),
-              lazy: false,
-              child: _WindowCloseGuard(child: child ?? Container()),
+                  FontService(context.read<ButterflyFileSystem>()),
+              child: RepositoryProvider(
+                create: (context) =>
+                    SyncService(context, context.read<ButterflyFileSystem>()),
+                dispose: (service) => service.dispose(),
+                lazy: false,
+                child: _WindowCloseGuard(child: child ?? Container()),
+              ),
             ),
           );
         },

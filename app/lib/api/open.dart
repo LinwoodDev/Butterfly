@@ -122,6 +122,21 @@ Future<List<(Uint8List, String, String)>> importFiles(
   return files;
 }
 
+Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
+  List<String> extensions,
+) async {
+  final result = await FilePicker.pickFiles(
+    allowedExtensions: extensions,
+    type: FileType.custom,
+  );
+  if (result == null) return [];
+  final files = <(Uint8List, String, String)>[];
+  for (final file in result.files) {
+    files.add(await _readPlatformFile(file));
+  }
+  return files;
+}
+
 Future<void> openFile(
   BuildContext context,
   bool replace,

@@ -34,6 +34,7 @@ import '../cubits/transform.dart';
 import '../helpers/xml.dart';
 import '../models/label.dart';
 import '../services/asset.dart';
+import '../services/font.dart';
 import '../services/logger.dart';
 import 'textures/texture.dart';
 

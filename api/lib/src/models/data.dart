@@ -528,7 +528,8 @@ final class NoteData extends NoteDisplay<NoteData> {
 
   @useResult
   Uint8List? getFont(String fontName) =>
-      getAsset('$kFontsArchiveDirectory/$fontName');
+      getAsset('$kFontsArchiveDirectory/$fontName') ??
+      parent?.getFont(fontName);
 
   @useResult
   Uint8List? getBundledPackData(String packName) =>
@@ -571,6 +572,18 @@ final class NoteData extends NoteDisplay<NoteData> {
     ...?parent?._getPackAssets(path, recursive),
     ...getAssets(path, recursive),
   };
+
+  @useResult
+  Iterable<String> getFonts() =>
+      _getPackAssets('$kFontsArchiveDirectory/', false);
+
+  @useResult
+  NoteData setFont(String name, Uint8List font) =>
+      setAsset('$kFontsArchiveDirectory/$name', font);
+
+  @useResult
+  NoteData removeFont(String name) =>
+      removeAsset('$kFontsArchiveDirectory/$name');
 
   @useResult
   Iterable<String> getComponents() =>
