@@ -350,6 +350,22 @@
   "untitled": "शीर्षकहीन",
   "createTemplate": "टेम्पलेट बनाएं",
   "createTemplateContent": "क्या आप वाकई इस दस्तावेज़ से एक टेम्पलेट बनाना चाहते हैं? मूल दस्तावेज़ हटा दिया जाएगा।",
+  "fileName": "File name",
+  "defaultFileName": "Default file name",
+  "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Preview",
   "replace": "बदलें",
   "@replace": {
     "description": "Replace action"
