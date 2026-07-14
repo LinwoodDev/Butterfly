@@ -350,6 +350,22 @@
   "untitled": "Senza titolo",
   "createTemplate": "Crea template",
   "createTemplateContent": "Vuoi davvero creare un template da questo documento? Il documento originale verrà eliminato.",
+  "fileName": "File name",
+  "defaultFileName": "Default file name",
+  "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Preview",
   "replace": "Sostituisci",
   "@replace": {
     "description": "Replace action"
