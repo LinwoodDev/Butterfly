@@ -6,15 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('uses a visible default file name pattern', () async {
+  test('uses the date placeholder as the default file name', () async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
 
-    expect(
-      ButterflySettings.fromPrefs(prefs).defaultFileName,
-      kDefaultFileName,
-    );
-    expect(const ButterflySettings().defaultFileName, kDefaultFileName);
+    expect(ButterflySettings.fromPrefs(prefs).defaultFileName, '{date}');
+    expect(const ButterflySettings().defaultFileName, '{date}');
   });
 
   test('persists the default file name pattern', () async {
@@ -29,7 +26,7 @@ void main() {
     expect(ButterflySettings.fromPrefs(prefs).defaultFileName, 'Notes {date}');
   });
 
-  test('resetting an empty file name restores the default pattern', () async {
+  test('an empty file name restores the default pattern', () async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
     final cubit = SettingsCubit(prefs);
@@ -39,6 +36,16 @@ void main() {
 
     expect(cubit.state.defaultFileName, kDefaultFileName);
     expect(prefs.getString('default_file_name'), kDefaultFileName);
+  });
+
+  test('normalizes an empty persisted file name to the default', () async {
+    SharedPreferences.setMockInitialValues({'default_file_name': '  '});
+    final prefs = await SharedPreferences.getInstance();
+
+    expect(
+      ButterflySettings.fromPrefs(prefs).defaultFileName,
+      kDefaultFileName,
+    );
   });
 
   group('SettingsCubit recent history', () {

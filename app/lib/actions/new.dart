@@ -3,6 +3,7 @@ import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,32 +58,31 @@ class NewAction extends Action<NewIntent> {
     final template = await templateSystem.getDefaultFile(
       templateSystem.storage?.defaults['template'] ?? settings.defaultTemplate,
     );
-    await openNewDocument(context, true, template);
+    await openNewDocument(context, true, template: template, autoSave: false);
   }
 }
 
 Future<void> openNewDocument(
   BuildContext context,
-  bool replace, [
+  bool replace, {
   NoteData? template,
   String? remote,
   Area? initialArea,
-]) async {
+  bool autoSave = true,
+}) async {
   NoteData? document;
   String? path;
   var targetRemote = remote;
   if (template != null) {
     final settings = context.read<SettingsCubit>().state;
     final templatePattern = template.getMetadata()?.fileName.trim() ?? '';
-    final fileNamePattern = templatePattern.isNotEmpty
-        ? templatePattern
-        : settings.defaultFileName.trim();
     var documentName = '';
-    if (fileNamePattern.isNotEmpty) {
+    var shouldAutoSave = autoSave;
+    if (shouldAutoSave && templatePattern.isNotEmpty) {
       try {
-        documentName = resolveTemplateFileName(fileNamePattern, DateTime.now());
+        documentName = resolveTemplateFileName(templatePattern, DateTime.now());
       } on FormatException {
-        // Invalid patterns from imported templates should still open unsaved.
+        shouldAutoSave = false;
       }
     }
     document = template.createDocument(name: documentName);
@@ -95,19 +95,27 @@ Future<void> openNewDocument(
     final metadata = document.getMetadata();
     if (metadata != null) {
       path = metadata.directory;
-      if (fileNamePattern.isNotEmpty && metadata.name.isNotEmpty) {
+      if (shouldAutoSave) {
         final storage = settings.getRemote(targetRemote);
         final fileSystem = context
             .read<ButterflyFileSystem>()
             .buildDocumentSystem(storage);
-        final created = await fileSystem.createFileWithName(
-          directory: path,
-          name: metadata.name,
-          suffix: '.bfly',
-          document.toFile(),
-        );
-        path = created.path;
-        targetRemote = created.remote;
+        try {
+          final created = await fileSystem.createFileWithName(
+            directory: path,
+            name: metadata.name,
+            suffix: '.bfly',
+            document.toFile(),
+          );
+          path = created.path;
+          targetRemote = storage?.identifier ?? '';
+        } catch (error, stackTrace) {
+          talker.warning(
+            'Failed to create document from filename pattern',
+            error,
+            stackTrace,
+          );
+        }
       }
     }
   }

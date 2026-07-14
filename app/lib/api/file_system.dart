@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
@@ -131,6 +132,18 @@ class ButterflyFileSystem {
         database: _database,
         databaseVersion: _databaseVersion,
         onDatabaseUpgrade: _upgradeDatabase,
+        getUnnamed: () {
+          final pattern = settingsCubit.state.defaultFileName.trim();
+          try {
+            final resolved = resolveTemplateFileName(
+              pattern.isEmpty ? kDefaultFileName : pattern,
+              DateTime.now(),
+            );
+            return resolved.isEmpty ? FileSystemConfig.unnamedDate() : resolved;
+          } on FormatException {
+            return FileSystemConfig.unnamedDate();
+          }
+        },
       ),
       _templateConfig = FileSystemConfig(
         passwordStorage: passwordStorage,

@@ -182,7 +182,13 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     metadata: metadata,
                     thumbnail: thumbnail,
                     onTap: () async {
-                      await openNewDocument(context, false, data, e.remote);
+                      await openNewDocument(
+                        context,
+                        false,
+                        template: data,
+                        remote: e.remote,
+                        autoSave: false,
+                      );
                       widget.onReload();
                     },
                   );

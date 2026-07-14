@@ -8,6 +8,7 @@ Future<String?> showFileNamePatternDialog(
   BuildContext context, {
   required String initialValue,
   required String label,
+  bool allowEmpty = true,
 }) {
   final formKey = GlobalKey<FormState>();
   var value = initialValue;
@@ -23,6 +24,7 @@ Future<String?> showFileNamePatternDialog(
           initialValue: initialValue,
           label: label,
           autofocus: true,
+          allowEmpty: allowEmpty,
           onChanged: (newValue) => value = newValue,
         ),
       ),
@@ -50,12 +52,14 @@ class FileNamePatternField extends StatefulWidget {
     required this.label,
     required this.onChanged,
     this.autofocus = false,
+    this.allowEmpty = true,
   });
 
   final String initialValue;
   final String label;
   final ValueChanged<String> onChanged;
   final bool autofocus;
+  final bool allowEmpty;
 
   @override
   State<FileNamePatternField> createState() => _FileNamePatternFieldState();
@@ -66,7 +70,11 @@ class _FileNamePatternFieldState extends State<FileNamePatternField> {
 
   String? _validate(String? value) {
     final pattern = value?.trim() ?? '';
-    if (pattern.isEmpty) return null;
+    if (pattern.isEmpty) {
+      return widget.allowEmpty
+          ? null
+          : LeapLocalizations.of(context).invalidName;
+    }
     try {
       final resolved = resolveTemplateFileName(
         pattern,
