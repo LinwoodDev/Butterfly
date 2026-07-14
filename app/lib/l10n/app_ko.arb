@@ -350,6 +350,22 @@
   "untitled": "제목 없음",
   "createTemplate": "템플릿 만들기",
   "createTemplateContent": "이 문서로 템플릿을 만드시겠습니까? 원본 문서는 삭제됩니다.",
+  "fileName": "File name",
+  "defaultFileName": "Default file name",
+  "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Preview",
   "replace": "바꾸기",
   "@replace": {
     "description": "Replace action"
