@@ -343,8 +343,11 @@ class _ProjectPageState extends State<ProjectPage> {
         path: widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
-      final pathKey = documentStatePathKeyOrNull(location);
-      final contentHash = loadedDocumentBytes == null
+      final persistDocumentState = embedding == null;
+      final pathKey = persistDocumentState
+          ? documentStatePathKeyOrNull(location)
+          : null;
+      final contentHash = !persistDocumentState || loadedDocumentBytes == null
           ? null
           : documentStateContentHash(loadedDocumentBytes);
       final documentStateRepository = DocumentStateRepository(

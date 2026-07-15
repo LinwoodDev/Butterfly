@@ -208,24 +208,10 @@ class ButterflyFileSystem {
 
   static const _database = 'butterfly.db';
   static const _databaseVersion = 5;
-
   static Future<void> _upgradeDatabase(VersionChangeEvent event) async {
     final db = event.database;
     if (event.oldVersion < 1) {
       db.createObjectStore('documents');
-    }
-    if (event.oldVersion < 2) {
-      var txn = event.transaction;
-      var store = txn.objectStore('documents');
-      var cursor = store.openCursor();
-      await Future.wait(
-        await cursor.map<Future<dynamic>>((cursor) async {
-          // Add type to each document
-          var doc = cursor.value as Map<dynamic, dynamic>;
-          doc['type'] = 'document';
-          await store.put(doc);
-        }).toList(),
-      );
     }
     if (event.oldVersion < 3) {
       db.createObjectStore('templates');
@@ -233,7 +219,27 @@ class ButterflyFileSystem {
     if (event.oldVersion < 4) {
       db.createObjectStore('packs');
       db.createObjectStore('documents-data');
-      var txn = event.transaction;
+    }
+    if (event.oldVersion < 5) {
+      db.createObjectStore('documentstates');
+      db.createObjectStore('documentstates-data');
+    }
+    if (event.oldVersion < 2) {
+      final txn = event.transaction;
+      final store = txn.objectStore('documents');
+      final cursor = store.openCursor();
+
+      await Future.wait(
+        await cursor.map<Future<dynamic>>((cursor) async {
+          final doc = cursor.value as Map<dynamic, dynamic>;
+          doc['type'] = 'document';
+          await store.put(doc);
+        }).toList(),
+      );
+    }
+
+    if (event.oldVersion < 4) {
+      final txn = event.transaction;
       var store = txn.objectStore('templates');
       var cursor = store.openCursor();
       await Future.wait(
@@ -260,10 +266,6 @@ class ButterflyFileSystem {
         }).toList(),
       );
       await txn.completed;
-    }
-    if (event.oldVersion < 5) {
-      db.createObjectStore('documentstates');
-      db.createObjectStore('documentstates-data');
     }
   }
 
