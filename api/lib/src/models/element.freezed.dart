@@ -496,7 +496,7 @@ PadElement _$PadElementFromJson(
 /// @nodoc
 mixin _$PadElement {
 
- double get rotation; String get collection;@IdJsonConverter() String? get id; Map<String, dynamic> get extra;
+ double get rotation; double get shear; String get collection;@IdJsonConverter() String? get id; Map<String, dynamic> get extra;
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -509,16 +509,16 @@ $PadElementCopyWith<PadElement> get copyWith => _$PadElementCopyWithImpl<PadElem
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PadElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.extra, extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PadElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.extra, extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,const DeepCollectionEquality().hash(extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,const DeepCollectionEquality().hash(extra));
 
 @override
 String toString() {
-  return 'PadElement(rotation: $rotation, collection: $collection, id: $id, extra: $extra)';
+  return 'PadElement(rotation: $rotation, shear: $shear, collection: $collection, id: $id, extra: $extra)';
 }
 
 
@@ -529,7 +529,7 @@ abstract mixin class $PadElementCopyWith<$Res>  {
   factory $PadElementCopyWith(PadElement value, $Res Function(PadElement) _then) = _$PadElementCopyWithImpl;
 @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id, Map<String, dynamic> extra
 });
 
 
@@ -546,9 +546,10 @@ class _$PadElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? extra = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? extra = null,}) {
   return _then(_self.copyWith(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,extra: null == extra ? _self.extra : extra // ignore: cast_nullable_to_non_nullable
@@ -564,10 +565,11 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class PenElement extends PadElement implements PathElement {
-   PenElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, this.zoom, this.combineId, final  List<PathPoint> points = const [], this.property = const PenProperty(), final  Map<String, dynamic> extra = const {}, final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'pen',super._();
+   PenElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, this.zoom, this.combineId, final  List<PathPoint> points = const [], this.property = const PenProperty(), final  Map<String, dynamic> extra = const {}, final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'pen',super._();
   factory PenElement.fromJson(Map<String, dynamic> json) => _$PenElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
  final  double? zoom;
@@ -605,16 +607,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.combineId, combineId) || other.combineId == combineId)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.combineId, combineId) || other.combineId == combineId)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,zoom,combineId,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,zoom,combineId,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.pen(rotation: $rotation, collection: $collection, id: $id, zoom: $zoom, combineId: $combineId, points: $points, property: $property, extra: $extra)';
+  return 'PadElement.pen(rotation: $rotation, shear: $shear, collection: $collection, id: $id, zoom: $zoom, combineId: $combineId, points: $points, property: $property, extra: $extra)';
 }
 
 
@@ -625,7 +627,7 @@ abstract mixin class $PenElementCopyWith<$Res> implements $PadElementCopyWith<$R
   factory $PenElementCopyWith(PenElement value, $Res Function(PenElement) _then) = _$PenElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id, double? zoom, String? combineId, List<PathPoint> points, PenProperty property, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id, double? zoom, String? combineId, List<PathPoint> points, PenProperty property, Map<String, dynamic> extra
 });
 
 
@@ -642,9 +644,10 @@ class _$PenElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? zoom = freezed,Object? combineId = freezed,Object? points = null,Object? property = freezed,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? zoom = freezed,Object? combineId = freezed,Object? points = null,Object? property = freezed,Object? extra = null,}) {
   return _then(PenElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,zoom: freezed == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
@@ -663,10 +666,11 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class TextElement extends PadElement with LabelElement {
-   TextElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, required this.area, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'text',super._();
+   TextElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, required this.area, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'text',super._();
   factory TextElement.fromJson(Map<String, dynamic> json) => _$TextElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey()@DoublePointJsonConverter() final  Point<double> position;
@@ -700,16 +704,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.area, area) || other.area == area)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.area, area) || other.area == area)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,scale,styleSheet,area,constraint,foreground,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,scale,styleSheet,area,constraint,foreground,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.text(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
+  return 'PadElement.text(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
 }
 
 
@@ -720,7 +724,7 @@ abstract mixin class $TextElementCopyWith<$Res> implements $PadElementCopyWith<$
   factory $TextElementCopyWith(TextElement value, $Res Function(TextElement) _then) = _$TextElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, double scale, NamedItem<TextStyleSheet>? styleSheet, TextArea area, ElementConstraint constraint,@ColorJsonConverter() SRGBColor foreground, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, double scale, NamedItem<TextStyleSheet>? styleSheet, TextArea area, ElementConstraint constraint,@ColorJsonConverter() SRGBColor foreground, Map<String, dynamic> extra
 });
 
 
@@ -737,9 +741,10 @@ class _$TextElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? scale = null,Object? styleSheet = freezed,Object? area = null,Object? constraint = null,Object? foreground = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? scale = null,Object? styleSheet = freezed,Object? area = null,Object? constraint = null,Object? foreground = null,Object? extra = null,}) {
   return _then(TextElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
@@ -790,10 +795,11 @@ $ElementConstraintCopyWith<$Res> get constraint {
 @JsonSerializable()
 
 class MarkdownElement extends PadElement with LabelElement {
-   MarkdownElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, this.areaProperty = const AreaProperty(), required this.text, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'markdown',super._();
+   MarkdownElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, this.areaProperty = const AreaProperty(), required this.text, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'markdown',super._();
   factory MarkdownElement.fromJson(Map<String, dynamic> json) => _$MarkdownElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey()@DoublePointJsonConverter() final  Point<double> position;
@@ -828,16 +834,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.text, text) || other.text == text)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.text, text) || other.text == text)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,scale,styleSheet,areaProperty,text,constraint,foreground,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,scale,styleSheet,areaProperty,text,constraint,foreground,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.markdown(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
+  return 'PadElement.markdown(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
 }
 
 
@@ -848,7 +854,7 @@ abstract mixin class $MarkdownElementCopyWith<$Res> implements $PadElementCopyWi
   factory $MarkdownElementCopyWith(MarkdownElement value, $Res Function(MarkdownElement) _then) = _$MarkdownElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, double scale, NamedItem<TextStyleSheet>? styleSheet, AreaProperty areaProperty, String text, ElementConstraint constraint,@ColorJsonConverter() SRGBColor foreground, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, double scale, NamedItem<TextStyleSheet>? styleSheet, AreaProperty areaProperty, String text, ElementConstraint constraint,@ColorJsonConverter() SRGBColor foreground, Map<String, dynamic> extra
 });
 
 
@@ -865,9 +871,10 @@ class _$MarkdownElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? scale = null,Object? styleSheet = freezed,Object? areaProperty = null,Object? text = null,Object? constraint = null,Object? foreground = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? scale = null,Object? styleSheet = freezed,Object? areaProperty = null,Object? text = null,Object? constraint = null,Object? foreground = null,Object? extra = null,}) {
   return _then(MarkdownElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
@@ -919,10 +926,11 @@ $ElementConstraintCopyWith<$Res> get constraint {
 @JsonSerializable()
 
 class ImageElement extends PadElement implements SourcedElement {
-   ImageElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'image',super._();
+   ImageElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'image',super._();
   factory ImageElement.fromJson(Map<String, dynamic> json) => _$ImageElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey()@DoublePointJsonConverter() final  Point<double> position;
@@ -955,16 +963,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.image(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
+  return 'PadElement.image(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
 }
 
 
@@ -975,7 +983,7 @@ abstract mixin class $ImageElementCopyWith<$Res> implements $PadElementCopyWith<
   factory $ImageElementCopyWith(ImageElement value, $Res Function(ImageElement) _then) = _$ImageElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, double width, double height, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, double width, double height, Map<String, dynamic> extra
 });
 
 
@@ -992,9 +1000,10 @@ class _$ImageElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? width = null,Object? height = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? width = null,Object? height = null,Object? extra = null,}) {
   return _then(ImageElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
@@ -1026,10 +1035,11 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class PdfElement extends PadElement implements SourcedElement {
-   PdfElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, this.invert = false, @ColorJsonConverter() this.background = SRGBColor.transparent, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
+   PdfElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, this.invert = false, @ColorJsonConverter() this.background = SRGBColor.transparent, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
   factory PdfElement.fromJson(Map<String, dynamic> json) => _$PdfElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey()@DoublePointJsonConverter() final  Point<double> position;
@@ -1065,16 +1075,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PdfElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.page, page) || other.page == page)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.invert, invert) || other.invert == invert)&&(identical(other.background, background) || other.background == background)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PdfElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.page, page) || other.page == page)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.invert, invert) || other.invert == invert)&&(identical(other.background, background) || other.background == background)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,constraints,source,page,width,height,invert,background,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,page,width,height,invert,background,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.pdf(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, invert: $invert, background: $background, extra: $extra)';
+  return 'PadElement.pdf(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, invert: $invert, background: $background, extra: $extra)';
 }
 
 
@@ -1085,7 +1095,7 @@ abstract mixin class $PdfElementCopyWith<$Res> implements $PadElementCopyWith<$R
   factory $PdfElementCopyWith(PdfElement value, $Res Function(PdfElement) _then) = _$PdfElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, int page, double width, double height, bool invert,@ColorJsonConverter() SRGBColor background, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, int page, double width, double height, bool invert,@ColorJsonConverter() SRGBColor background, Map<String, dynamic> extra
 });
 
 
@@ -1102,9 +1112,10 @@ class _$PdfElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? page = null,Object? width = null,Object? height = null,Object? invert = null,Object? background = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? page = null,Object? width = null,Object? height = null,Object? invert = null,Object? background = null,Object? extra = null,}) {
   return _then(PdfElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
@@ -1139,10 +1150,11 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class SvgElement extends PadElement implements SourcedElement {
-   SvgElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'svg',super._();
+   SvgElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'svg',super._();
   factory SvgElement.fromJson(Map<String, dynamic> json) => _$SvgElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey()@DoublePointJsonConverter() final  Point<double> position;
@@ -1175,16 +1187,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.svg(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
+  return 'PadElement.svg(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
 }
 
 
@@ -1195,7 +1207,7 @@ abstract mixin class $SvgElementCopyWith<$Res> implements $PadElementCopyWith<$R
   factory $SvgElementCopyWith(SvgElement value, $Res Function(SvgElement) _then) = _$SvgElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, double width, double height, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, double width, double height, Map<String, dynamic> extra
 });
 
 
@@ -1212,9 +1224,10 @@ class _$SvgElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? width = null,Object? height = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? width = null,Object? height = null,Object? extra = null,}) {
   return _then(SvgElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
@@ -1246,10 +1259,11 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class ShapeElement extends PadElement {
-   ShapeElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.property = const ShapeProperty(shape: RectangleShape()), final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'shape',super._();
+   ShapeElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.property = const ShapeProperty(shape: RectangleShape()), final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'shape',super._();
   factory ShapeElement.fromJson(Map<String, dynamic> json) => _$ShapeElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey()@DoublePointJsonConverter() final  Point<double> firstPosition;
@@ -1280,16 +1294,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,firstPosition,secondPosition,const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,firstPosition,secondPosition,const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.shape(rotation: $rotation, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
+  return 'PadElement.shape(rotation: $rotation, shear: $shear, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
 }
 
 
@@ -1300,7 +1314,7 @@ abstract mixin class $ShapeElementCopyWith<$Res> implements $PadElementCopyWith<
   factory $ShapeElementCopyWith(ShapeElement value, $Res Function(ShapeElement) _then) = _$ShapeElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> firstPosition,@DoublePointJsonConverter() Point<double> secondPosition, ShapeProperty property, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> firstPosition,@DoublePointJsonConverter() Point<double> secondPosition, ShapeProperty property, Map<String, dynamic> extra
 });
 
 
@@ -1317,9 +1331,10 @@ class _$ShapeElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? firstPosition = null,Object? secondPosition = null,Object? property = freezed,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? firstPosition = null,Object? secondPosition = null,Object? property = freezed,Object? extra = null,}) {
   return _then(ShapeElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,firstPosition: null == firstPosition ? _self.firstPosition : firstPosition // ignore: cast_nullable_to_non_nullable
@@ -1337,10 +1352,11 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class TextureElement extends PadElement {
-   TextureElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, this.texture = const SurfaceTexture.pattern(), @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'texture',super._();
+   TextureElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, this.texture = const SurfaceTexture.pattern(), @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'texture',super._();
   factory TextureElement.fromJson(Map<String, dynamic> json) => _$TextureElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
 @JsonKey() final  SurfaceTexture texture;
@@ -1371,16 +1387,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextureElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.texture, texture) || other.texture == texture)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextureElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.texture, texture) || other.texture == texture)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,texture,firstPosition,secondPosition,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,texture,firstPosition,secondPosition,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'PadElement.texture(rotation: $rotation, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
+  return 'PadElement.texture(rotation: $rotation, shear: $shear, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
 }
 
 
@@ -1391,7 +1407,7 @@ abstract mixin class $TextureElementCopyWith<$Res> implements $PadElementCopyWit
   factory $TextureElementCopyWith(TextureElement value, $Res Function(TextureElement) _then) = _$TextureElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id, SurfaceTexture texture,@DoublePointJsonConverter() Point<double> firstPosition,@DoublePointJsonConverter() Point<double> secondPosition, Map<String, dynamic> extra
+ double rotation, double shear, String collection,@IdJsonConverter() String? id, SurfaceTexture texture,@DoublePointJsonConverter() Point<double> firstPosition,@DoublePointJsonConverter() Point<double> secondPosition, Map<String, dynamic> extra
 });
 
 
@@ -1408,9 +1424,10 @@ class _$TextureElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? texture = null,Object? firstPosition = null,Object? secondPosition = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? texture = null,Object? firstPosition = null,Object? secondPosition = null,Object? extra = null,}) {
   return _then(TextureElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,texture: null == texture ? _self.texture : texture // ignore: cast_nullable_to_non_nullable
@@ -1437,10 +1454,11 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class PolygonElement extends PadElement {
-   PolygonElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, final  List<PolygonPoint> points = const [], final  Map<String, dynamic> extra = const {}, this.property = const PolygonProperty(), final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'polygon',super._();
+   PolygonElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, final  List<PolygonPoint> points = const [], final  Map<String, dynamic> extra = const {}, this.property = const PolygonProperty(), final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'polygon',super._();
   factory PolygonElement.fromJson(Map<String, dynamic> json) => _$PolygonElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
 @override@JsonKey() final  String collection;
 @override@IdJsonConverter() final  String? id;
  final  List<PolygonPoint> _points;
@@ -1476,16 +1494,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other._extra, _extra)&&const DeepCollectionEquality().equals(other.property, property));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other._extra, _extra)&&const DeepCollectionEquality().equals(other.property, property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,collection,id,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(_extra),const DeepCollectionEquality().hash(property));
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(_extra),const DeepCollectionEquality().hash(property));
 
 @override
 String toString() {
-  return 'PadElement.polygon(rotation: $rotation, collection: $collection, id: $id, points: $points, extra: $extra, property: $property)';
+  return 'PadElement.polygon(rotation: $rotation, shear: $shear, collection: $collection, id: $id, points: $points, extra: $extra, property: $property)';
 }
 
 
@@ -1496,7 +1514,7 @@ abstract mixin class $PolygonElementCopyWith<$Res> implements $PadElementCopyWit
   factory $PolygonElementCopyWith(PolygonElement value, $Res Function(PolygonElement) _then) = _$PolygonElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id, List<PolygonPoint> points, Map<String, dynamic> extra, PolygonProperty property
+ double rotation, double shear, String collection,@IdJsonConverter() String? id, List<PolygonPoint> points, Map<String, dynamic> extra, PolygonProperty property
 });
 
 
@@ -1513,9 +1531,10 @@ class _$PolygonElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? points = null,Object? extra = null,Object? property = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? points = null,Object? extra = null,Object? property = freezed,}) {
   return _then(PolygonElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,points: null == points ? _self._points : points // ignore: cast_nullable_to_non_nullable

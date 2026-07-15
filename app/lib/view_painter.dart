@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/rect.dart';
@@ -26,18 +24,7 @@ void _paintRenderer(
   bool foreground = false,
   bool combined = false,
 }) {
-  final rotation = renderer.rotation;
-  if (rotation != 0) {
-    canvas.save();
-    final center = renderer.rect?.center;
-    if (center != null) {
-      canvas.translate(center.dx, center.dy);
-    }
-    canvas.rotate(rotation * (pi / 180));
-    if (center != null) {
-      canvas.translate(-center.dx, -center.dy);
-    }
-  }
+  final transformed = renderer.transformCanvas(canvas);
   if (combined && renderer is PenRenderer) {
     renderer.buildCombined(canvas);
   } else {
@@ -52,9 +39,7 @@ void _paintRenderer(
       foreground,
     );
   }
-  if (rotation != 0) {
-    canvas.restore();
-  }
+  if (transformed) canvas.restore();
 }
 
 Rect? _rendererBounds(Renderer renderer) => renderer.expandedRect;

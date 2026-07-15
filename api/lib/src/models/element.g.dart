@@ -70,6 +70,7 @@ Map<String, dynamic> _$DynamicElementConstraintsToJson(
 
 PenElement _$PenElementFromJson(Map json) => PenElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   zoom: (json['zoom'] as num?)?.toDouble(),
@@ -93,6 +94,7 @@ PenElement _$PenElementFromJson(Map json) => PenElement(
 Map<String, dynamic> _$PenElementToJson(PenElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'zoom': instance.zoom,
@@ -105,6 +107,7 @@ Map<String, dynamic> _$PenElementToJson(PenElement instance) =>
 
 TextElement _$TextElementFromJson(Map json) => TextElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   position: json['position'] == null
@@ -138,6 +141,7 @@ TextElement _$TextElementFromJson(Map json) => TextElement(
 Map<String, dynamic> _$TextElementToJson(TextElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
@@ -152,6 +156,7 @@ Map<String, dynamic> _$TextElementToJson(TextElement instance) =>
 
 MarkdownElement _$MarkdownElementFromJson(Map json) => MarkdownElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   position: json['position'] == null
@@ -190,6 +195,7 @@ MarkdownElement _$MarkdownElementFromJson(Map json) => MarkdownElement(
 Map<String, dynamic> _$MarkdownElementToJson(MarkdownElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
@@ -205,6 +211,7 @@ Map<String, dynamic> _$MarkdownElementToJson(MarkdownElement instance) =>
 
 ImageElement _$ImageElementFromJson(Map json) => ImageElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   position: json['position'] == null
@@ -227,6 +234,7 @@ ImageElement _$ImageElementFromJson(Map json) => ImageElement(
 Map<String, dynamic> _$ImageElementToJson(ImageElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
@@ -240,6 +248,7 @@ Map<String, dynamic> _$ImageElementToJson(ImageElement instance) =>
 
 PdfElement _$PdfElementFromJson(Map json) => PdfElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   position: json['position'] == null
@@ -269,6 +278,7 @@ PdfElement _$PdfElementFromJson(Map json) => PdfElement(
 Map<String, dynamic> _$PdfElementToJson(PdfElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
@@ -285,6 +295,7 @@ Map<String, dynamic> _$PdfElementToJson(PdfElement instance) =>
 
 SvgElement _$SvgElementFromJson(Map json) => SvgElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   position: json['position'] == null
@@ -307,6 +318,7 @@ SvgElement _$SvgElementFromJson(Map json) => SvgElement(
 Map<String, dynamic> _$SvgElementToJson(SvgElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
@@ -320,6 +332,7 @@ Map<String, dynamic> _$SvgElementToJson(SvgElement instance) =>
 
 ShapeElement _$ShapeElementFromJson(Map json) => ShapeElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   firstPosition: json['firstPosition'] == null
@@ -344,6 +357,7 @@ ShapeElement _$ShapeElementFromJson(Map json) => ShapeElement(
 Map<String, dynamic> _$ShapeElementToJson(ShapeElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'firstPosition': const DoublePointJsonConverter().toJson(
@@ -359,6 +373,7 @@ Map<String, dynamic> _$ShapeElementToJson(ShapeElement instance) =>
 
 TextureElement _$TextureElementFromJson(Map json) => TextureElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   texture: json['texture'] == null
@@ -383,6 +398,7 @@ TextureElement _$TextureElementFromJson(Map json) => TextureElement(
 Map<String, dynamic> _$TextureElementToJson(TextureElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'texture': instance.texture.toJson(),
@@ -398,6 +414,7 @@ Map<String, dynamic> _$TextureElementToJson(TextureElement instance) =>
 
 PolygonElement _$PolygonElementFromJson(Map json) => PolygonElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   points:
@@ -421,6 +438,7 @@ PolygonElement _$PolygonElementFromJson(Map json) => PolygonElement(
 Map<String, dynamic> _$PolygonElementToJson(PolygonElement instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
+      'shear': instance.shear,
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'points': instance.points.map((e) => e.toJson()).toList(),

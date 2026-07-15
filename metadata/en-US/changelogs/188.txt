@@ -1,4 +1,5 @@
 * Add persistent document states ([#1077](https://github.com/LinwoodDev/Butterfly/issues/1077))
+* Add shear property for elements
 * Reorder top corner menu to have home on top ([#1161](https://github.com/LinwoodDev/Butterfly/issues/1161))
 * Rebuild internal settings pages
   * Add search bar to settings pages ([#1158](https://github.com/LinwoodDev/Butterfly/issues/1158))
@@ -6,6 +7,7 @@
   * Add settings descriptions
 * Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
 * Remove unused view options
+* Improve rotated elements transformtion ([#1099](https://github.com/LinwoodDev/Butterfly/issues/1099))
 * Fix crash with android saf on folders with many files
 * Fix blur resetting on color change
 * Fix polygon collision aabb tests if closed ([#1162](https://github.com/LinwoodDev/Butterfly/pull/1162)) 

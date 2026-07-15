@@ -370,12 +370,14 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
   TextRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) => TextRenderer(
     element.copyWith(
       position: position.toPoint(),
       rotation: rotation,
+      shear: shear,
       scale: element.scale * max(scaleX, scaleY),
     ),
     layer,

@@ -8,11 +8,22 @@ class PenRenderer extends Renderer<PenElement> {
     super.element, [
     super.layer,
     this.rect = Rect.zero,
-    this.expandedRect = Rect.zero,
-  ]);
+    Rect expandedRect = Rect.zero,
+  ]) : expandedRect = expandedRect,
+       _localExpandedRect = expandedRect {
+    if (rotation != 0 || shear != 0) {
+      _localExpandedRect = Renderer._inverseAabbFor(
+        expandedRect,
+        rect.center,
+        rotation * pi / 180,
+        shear,
+      );
+    }
+  }
 
   @override
   Rect expandedRect;
+  Rect _localExpandedRect;
 
   Path? _cachedFillPath;
   Path? _cachedStrokePath;
@@ -100,13 +111,7 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    final center = Rect.fromPoints(topLeftCorner, bottomRightCorner).center;
-    final rotatedPoints = points
-        .map((e) => e.rotate(center, rotation / 180 * pi))
-        .toList();
-    topLeftCorner = rotatedPoints.first.toOffset();
-    bottomRightCorner = rotatedPoints.first.toOffset();
-    for (final element in rotatedPoints) {
+    for (final element in points) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(
         min(topLeftCorner.dx, element.x - width),
@@ -117,11 +122,16 @@ class PenRenderer extends Renderer<PenElement> {
         max(bottomRightCorner.dy, element.y + width),
       );
     }
-    expandedRect = Rect.fromLTRB(
+    _localExpandedRect = Rect.fromLTRB(
       topLeftCorner.dx,
       topLeftCorner.dy,
       bottomRightCorner.dx,
       bottomRightCorner.dy,
+    );
+    expandedRect = Renderer._expandedAabbFor(
+      _localExpandedRect,
+      rotation / 180 * pi,
+      shear,
     );
     await Future.wait([
       _strokePaint.setup(property.paint, document, assetService),
@@ -311,11 +321,13 @@ class PenRenderer extends Renderer<PenElement> {
   PenRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) => PenRenderer(
     element.copyWith(
       rotation: rotation,
+      shear: shear,
       points: movePoints(position, scaleX, scaleY),
     ),
     layer,
@@ -324,12 +336,12 @@ class PenRenderer extends Renderer<PenElement> {
   );
 
   @override
-  PathHitCalculator getHitCalculator() {
+  PathHitCalculator createHitCalculator() {
     _cachedHitCalculator ??= PathHitCalculator(
       rect,
-      expandedRect,
+      _localExpandedRect,
       element.points,
-      rotation * pi / 180,
+      0,
     );
     return _cachedHitCalculator!;
   }

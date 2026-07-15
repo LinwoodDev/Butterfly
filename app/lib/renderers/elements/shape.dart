@@ -54,7 +54,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final expanded = rect.isEmpty
         ? rect.inflate(max(element.property.strokeWidth / 2, 1))
         : rect;
-    return Renderer._expandedAabbFor(expanded, rotation * pi / 180);
+    return Renderer._expandedAabbFor(expanded, rotation * pi / 180, shear);
   }
 
   /// Creates a dotted path from the source path based on stroke style
@@ -346,6 +346,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) {
@@ -355,6 +356,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final localSecond = element.secondPosition.toOffset() - previous;
     return ShapeRenderer(
       element.copyWith(
+        shear: shear,
         firstPosition: (localFirst.scale(scaleX, scaleY) + position).toPoint(),
         secondPosition: (localSecond.scale(scaleX, scaleY) + position)
             .toPoint(),
@@ -365,8 +367,12 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  HitCalculator getHitCalculator() =>
-      ShapeHitCalculator(element, rect, expandedRect, rotation * pi / 180);
+  HitCalculator createHitCalculator() {
+    final bounds = rect.isEmpty
+        ? rect.inflate(max(element.property.strokeWidth / 2, 1))
+        : rect;
+    return ShapeHitCalculator(element, rect, bounds, 0);
+  }
 }
 
 class ShapeHitCalculator extends HitCalculator {

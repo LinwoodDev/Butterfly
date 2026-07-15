@@ -147,6 +147,7 @@ class SvgRenderer extends Renderer<SvgElement> {
   SvgRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) {
@@ -154,6 +155,7 @@ class SvgRenderer extends Renderer<SvgElement> {
       element.copyWith(
         position: position.toPoint(),
         rotation: rotation,
+        shear: shear,
         width: element.width * scaleX,
         height: element.height * scaleY,
       ),
