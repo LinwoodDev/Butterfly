@@ -46,7 +46,8 @@ class PenRenderer extends Renderer<PenElement> {
       _cachedFillPath = Path();
       final first = points.first;
       _cachedFillPath!.moveTo(first.x, first.y);
-      for (final point in points.sublist(1)) {
+      for (var i = 1; i < points.length; i++) {
+        final point = points[i];
         _cachedFillPath!.lineTo(point.x, point.y);
       }
     }
@@ -222,10 +223,10 @@ class PenRenderer extends Renderer<PenElement> {
     final property = element.property;
     final center = rect.center;
     var outlinePoints = freehand.getStroke(
-      element.points
-          .map((e) => e.scale(currentZoom, center))
-          .map((e) => e.toFreehandPoint())
-          .toList(),
+      [
+        for (final point in element.points)
+          point.scale(currentZoom, center).toFreehandPoint(),
+      ],
       options: freehand.StrokeOptions(
         size: property.strokeWidth * currentZoom,
         thinning: property.thinning.clamp(0, 1),
@@ -235,9 +236,10 @@ class PenRenderer extends Renderer<PenElement> {
       ),
     );
 
-    return outlinePoints
-        .map((e) => e.scaleFromCenter(1 / currentZoom, center))
-        .toList();
+    return [
+      for (final point in outlinePoints)
+        point.scaleFromCenter(1 / currentZoom, center),
+    ];
   }
 
   @override
@@ -254,10 +256,13 @@ class PenRenderer extends Renderer<PenElement> {
     final color = property.paint.previewColor;
     if (fill.a > 0) {
       final first = points.first;
-      var path = 'M ${first.x} ${first.y}';
-      points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
+      final path = StringBuffer('M ${first.x} ${first.y}');
+      for (var i = 1; i < points.length; i++) {
+        final point = points[i];
+        path.write(' L ${point.x} ${point.y}');
+      }
       xml.getElement('svg')?.createElement('path')
-        ?..setAttribute('d', path)
+        ?..setAttribute('d', path.toString())
         ..setAttribute('fill', fill.toHexString(alpha: false))
         ..setAttribute('fill-opacity', '${fill.a / 255}')
         ..setAttribute('stroke', 'none')
@@ -265,8 +270,6 @@ class PenRenderer extends Renderer<PenElement> {
         ..setAttribute('stroke-linejoin', 'round');
     }
     if (color.a > 0) {
-      var path = '';
-
       // 1. Get the outline points from the input points
       var outlinePoints = _getOutlinePoints();
 
@@ -277,14 +280,15 @@ class PenRenderer extends Renderer<PenElement> {
       }
 
       final first = outlinePoints.first;
-      path += 'M ${first.roundedX()} ${first.roundedY()}';
-      for (final point in outlinePoints.sublist(1)) {
-        path += ' L ${point.roundedX()} ${point.roundedY()}';
+      final path = StringBuffer('M ${first.roundedX()} ${first.roundedY()}');
+      for (var i = 1; i < outlinePoints.length; i++) {
+        final point = outlinePoints[i];
+        path.write(' L ${point.roundedX()} ${point.roundedY()}');
       }
-      path += ' Z';
+      path.write(' Z');
 
       xml.getElement('svg')?.createElement('path')
-        ?..setAttribute('d', path)
+        ?..setAttribute('d', path.toString())
         ..setAttribute('fill', color.toHexString(alpha: false))
         ..setAttribute('fill-opacity', '${color.a / 255}')
         ..setAttribute('stroke', 'none')
@@ -294,20 +298,21 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   List<PathPoint> movePoints(Offset position, double scaleX, double scaleY) {
-    var topLeft = element.points
-        .map((e) => e.toOffset())
-        .reduce(
-          (value, element) =>
-              Offset(min(value.dx, element.dx), min(value.dy, element.dy)),
-        );
-    return element.points
-        .map(
-          (point) => point.copyWith(
-            x: (point.x - topLeft.dx) * scaleX + position.dx,
-            y: (point.y - topLeft.dy) * scaleY + position.dy,
-          ),
-        )
-        .toList();
+    final points = element.points;
+    if (points.isEmpty) return const [];
+    var left = points.first.x;
+    var top = points.first.y;
+    for (var i = 1; i < points.length; i++) {
+      left = min(left, points[i].x);
+      top = min(top, points[i].y);
+    }
+    return [
+      for (final point in points)
+        point.copyWith(
+          x: (point.x - left) * scaleX + position.dx,
+          y: (point.y - top) * scaleY + position.dy,
+        ),
+    ];
   }
 
   Rect moveRect(

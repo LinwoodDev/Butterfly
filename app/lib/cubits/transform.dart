@@ -86,17 +86,15 @@ sealed class CameraTransform with _$CameraTransform {
   Rect globalToLocalRect(Rect rect) => _transformRect(rect, globalToLocal);
 
   Rect _transformRect(Rect rect, Offset Function(Offset) transform) {
-    final points = [
-      transform(rect.topLeft),
-      transform(rect.topRight),
-      transform(rect.bottomLeft),
-      transform(rect.bottomRight),
-    ];
+    final topLeft = transform(rect.topLeft);
+    final topRight = transform(rect.topRight);
+    final bottomLeft = transform(rect.bottomLeft);
+    final bottomRight = transform(rect.bottomRight);
     return Rect.fromLTRB(
-      points.map((point) => point.dx).reduce(min),
-      points.map((point) => point.dy).reduce(min),
-      points.map((point) => point.dx).reduce(max),
-      points.map((point) => point.dy).reduce(max),
+      min(min(topLeft.dx, topRight.dx), min(bottomLeft.dx, bottomRight.dx)),
+      min(min(topLeft.dy, topRight.dy), min(bottomLeft.dy, bottomRight.dy)),
+      max(max(topLeft.dx, topRight.dx), max(bottomLeft.dx, bottomRight.dx)),
+      max(max(topLeft.dy, topRight.dy), max(bottomLeft.dy, bottomRight.dy)),
     );
   }
 

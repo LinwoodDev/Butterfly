@@ -591,14 +591,12 @@ abstract class Renderer<T> {
     final topRight = _transformPoint(r.topRight, center, radians, shear);
     final bottomLeft = _transformPoint(r.bottomLeft, center, radians, shear);
     final bottomRight = _transformPoint(r.bottomRight, center, radians, shear);
-    final all = [topLeft, topRight, bottomLeft, bottomRight];
-    final xs = all.map((p) => p.dx);
-    final ys = all.map((p) => p.dy);
-    final left = xs.reduce(min);
-    final right = xs.reduce(max);
-    final top = ys.reduce(min);
-    final bottom = ys.reduce(max);
-    return Rect.fromLTRB(left, top, right, bottom);
+    return Rect.fromLTRB(
+      min(min(topLeft.dx, topRight.dx), min(bottomLeft.dx, bottomRight.dx)),
+      min(min(topLeft.dy, topRight.dy), min(bottomLeft.dy, bottomRight.dy)),
+      max(max(topLeft.dx, topRight.dx), max(bottomLeft.dx, bottomRight.dx)),
+      max(max(topLeft.dy, topRight.dy), max(bottomLeft.dy, bottomRight.dy)),
+    );
   }
 
   static Rect _inverseAabbFor(
@@ -612,17 +610,15 @@ abstract class Renderer<T> {
       return center + Offset(rotated.dx - rotated.dy * shear, rotated.dy);
     }
 
-    final points = [
-      inverse(r.topLeft),
-      inverse(r.topRight),
-      inverse(r.bottomRight),
-      inverse(r.bottomLeft),
-    ];
+    final topLeft = inverse(r.topLeft);
+    final topRight = inverse(r.topRight);
+    final bottomRight = inverse(r.bottomRight);
+    final bottomLeft = inverse(r.bottomLeft);
     return Rect.fromLTRB(
-      points.map((point) => point.dx).reduce(min),
-      points.map((point) => point.dy).reduce(min),
-      points.map((point) => point.dx).reduce(max),
-      points.map((point) => point.dy).reduce(max),
+      min(min(topLeft.dx, topRight.dx), min(bottomLeft.dx, bottomRight.dx)),
+      min(min(topLeft.dy, topRight.dy), min(bottomLeft.dy, bottomRight.dy)),
+      max(max(topLeft.dx, topRight.dx), max(bottomLeft.dx, bottomRight.dx)),
+      max(max(topLeft.dy, topRight.dy), max(bottomLeft.dy, bottomRight.dy)),
     );
   }
 
