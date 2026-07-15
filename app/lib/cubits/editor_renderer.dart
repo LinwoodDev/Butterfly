@@ -250,20 +250,32 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     CameraTransform transform,
     RenderResolution resolution,
   ) {
-    final screenRect = transform.globalToLocalRect(rect);
+    final position = transform.position;
+    final scale = transform.size;
+    final scaledRect = Rect.fromLTRB(
+      (rect.left - position.dx) * scale,
+      (rect.top - position.dy) * scale,
+      (rect.right - position.dx) * scale,
+      (rect.bottom - position.dy) * scale,
+    );
     final snappedRect = _expandScreenRect(
       Rect.fromLTRB(
-        screenRect.left.floorToDouble(),
-        screenRect.top.floorToDouble(),
-        screenRect.right.ceilToDouble(),
-        screenRect.bottom.ceilToDouble(),
+        scaledRect.left.floorToDouble(),
+        scaledRect.top.floorToDouble(),
+        scaledRect.right.ceilToDouble(),
+        scaledRect.bottom.ceilToDouble(),
       ),
       Size(
         (size.width * resolution.multiplier).ceilToDouble(),
         (size.height * resolution.multiplier).ceilToDouble(),
       ),
     );
-    return transform.localToGlobalRect(snappedRect);
+    return Rect.fromLTRB(
+      snappedRect.left / scale + position.dx,
+      snappedRect.top / scale + position.dy,
+      snappedRect.right / scale + position.dx,
+      snappedRect.bottom / scale + position.dy,
+    );
   }
 
   Rect _expandScreenRect(Rect rect, Size minimumSize) {

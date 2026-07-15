@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -79,6 +81,42 @@ void main() {
     ]);
     expect(renderer.boundsReads, 1);
 
+    await cubit.close();
+    await settings.close();
+  });
+
+  test('rotated viewport snapping does not amplify its bounds', () async {
+    SharedPreferences.setMockInitialValues({});
+    final preferences = await SharedPreferences.getInstance();
+    final settings = SettingsCubit(preferences);
+    final cubit = RendererCubit(settings);
+    final transformCubit = TransformCubit(1)..teleport(Offset.zero, 1, pi / 4);
+    const viewportSize = Size(1000, 600);
+
+    final rawBounds = transformCubit.state.localToGlobalRect(
+      Offset.zero & viewportSize,
+    );
+    final snappedBounds = cubit.getViewportRect(
+      transformCubit,
+      viewportSize: viewportSize,
+    );
+    final resolution = settings.state.renderResolution.multiplier;
+
+    expect(cubit.rectContains(snappedBounds, rawBounds), isTrue);
+    expect(
+      snappedBounds.width,
+      lessThanOrEqualTo(
+        max(rawBounds.width, viewportSize.width * resolution) + 2,
+      ),
+    );
+    expect(
+      snappedBounds.height,
+      lessThanOrEqualTo(
+        max(rawBounds.height, viewportSize.height * resolution) + 2,
+      ),
+    );
+
+    await transformCubit.close();
     await cubit.close();
     await settings.close();
   });
