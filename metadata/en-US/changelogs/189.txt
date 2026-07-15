@@ -10,6 +10,7 @@
   * Add settings descriptions
 * Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
 * Remove unused view options
+* Improve negative scaling
 * Improve rotated elements transformtion ([#1099](https://github.com/LinwoodDev/Butterfly/issues/1099))
 * Fix crash with android saf on folders with many files
 * Fix blur resetting on color change

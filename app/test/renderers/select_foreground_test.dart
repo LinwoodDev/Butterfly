@@ -54,6 +54,43 @@ void main() {
       SelectionTransformCorner.center,
     );
   });
+
+  test('dragging a handle across an axis keeps a valid mirrored selection', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 50))
+      ..startTransformWithCorner(
+        SelectionTransformCorner.bottomRight,
+        const Offset(100, 50),
+      )
+      ..updateCurrentPosition(const Offset(-50, 100));
+
+    final transform = manager.getTransform()!;
+    expect(transform.scaleX, -0.5);
+    expect(transform.scaleY, 2);
+    expectRectCloseTo(
+      manager.getTransformedSelection(),
+      const Rect.fromLTWH(-50, 0, 50, 100),
+    );
+  });
+
+  test('proportional negative scale keeps the opposite corner anchored', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 50))
+      ..transform(
+        SelectionScaleMode.scaleProp,
+        SelectionTransformCorner.topLeft,
+      )
+      ..startTransformWithCorner(SelectionTransformCorner.topLeft, Offset.zero)
+      ..updateCurrentPosition(const Offset(150, 0));
+
+    final transform = manager.getTransform()!;
+    expect(transform.scaleX, -0.5);
+    expect(transform.scaleY, -0.5);
+    expectRectCloseTo(
+      manager.getTransformedSelection(),
+      const Rect.fromLTWH(100, 50, 50, 25),
+    );
+  });
 }
 
 void expectRectCloseTo(Rect actual, Rect expected) {

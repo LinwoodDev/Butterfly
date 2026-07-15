@@ -233,9 +233,26 @@ class RectSelectionForegroundManager {
         moved = delta;
     }
     if (_scaleMode == SelectionScaleMode.scaleProp) {
-      final scale = max(scaleX, scaleY);
+      final scale = (scaleX - 1).abs() > (scaleY - 1).abs() ? scaleX : scaleY;
       scaleX = scale;
       scaleY = scale;
+      moved = switch (_corner) {
+        SelectionTransformCorner.topLeft => Offset(
+          _selection.width * (1 - scale),
+          _selection.height * (1 - scale),
+        ),
+        SelectionTransformCorner.topCenter ||
+        SelectionTransformCorner.topRight => Offset(
+          0,
+          _selection.height * (1 - scale),
+        ),
+        SelectionTransformCorner.centerLeft ||
+        SelectionTransformCorner.bottomLeft => Offset(
+          _selection.width * (1 - scale),
+          0,
+        ),
+        _ => Offset.zero,
+      };
     }
     return (
       scaleX: scaleX,
@@ -253,11 +270,14 @@ class RectSelectionForegroundManager {
   Rect getTransformedSelection() {
     final transform = getTransform();
     if (transform == null) return _selection;
-    return Rect.fromLTWH(
-      _selection.left + transform.position.dx,
-      _selection.top + transform.position.dy,
-      _selection.width * transform.scaleX,
-      _selection.height * transform.scaleY,
+    final topLeft = _selection.topLeft + transform.position;
+    return Rect.fromPoints(
+      topLeft,
+      topLeft +
+          Offset(
+            _selection.width * transform.scaleX,
+            _selection.height * transform.scaleY,
+          ),
     );
   }
 

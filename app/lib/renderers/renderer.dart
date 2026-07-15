@@ -694,8 +694,8 @@ abstract class Renderer<T> {
     }
 
     // Compose the requested world transform with the current local transform.
-    // QR decomposition then gives a rotation, an X shear and local scales,
-    // which together can represent every non-reflecting affine transform.
+    // QR decomposition then gives a rotation, an X shear and signed local
+    // scales. Keeping those scales signed lets _transform preserve reflections.
     final currentShear = shear;
     final c = cos(radians), s = sin(radians);
     final a = c;
@@ -704,13 +704,27 @@ abstract class Renderer<T> {
     final e = s * currentShear + c;
     final deltaRadians = rotationDelta * pi / 180;
     final dc = cos(deltaRadians), ds = sin(deltaRadians);
-    final m00 = dc * scaleX * a - ds * scaleY * d;
-    final m01 = dc * scaleX * b - ds * scaleY * e;
-    final m10 = ds * scaleX * a + dc * scaleY * d;
-    final m11 = ds * scaleX * b + dc * scaleY * e;
+    // Keep the transform decomposable at the exact instant a resize handle
+    // crosses an axis. Visually this is indistinguishable from zero size, but
+    // avoids briefly restoring the original element because of a singular
+    // matrix.
+    const minimumScale = 1e-9;
+    final effectiveScaleX = scaleX.abs() < minimumScale
+        ? (scaleX.isNegative ? -minimumScale : minimumScale)
+        : scaleX;
+    final effectiveScaleY = scaleY.abs() < minimumScale
+        ? (scaleY.isNegative ? -minimumScale : minimumScale)
+        : scaleY;
+    final m00 = dc * effectiveScaleX * a - ds * effectiveScaleY * d;
+    final m01 = dc * effectiveScaleX * b - ds * effectiveScaleY * e;
+    final m10 = ds * effectiveScaleX * a + dc * effectiveScaleY * d;
+    final m11 = ds * effectiveScaleX * b + dc * effectiveScaleY * e;
 
-    final r00 = sqrt(m00 * m00 + m10 * m10);
-    if (r00 <= 1e-12) return null;
+    final r00Magnitude = sqrt(m00 * m00 + m10 * m10);
+    if (r00Magnitude <= 1e-12) return null;
+    // Choose the QR sign nearest the element's current X axis. This preserves
+    // horizontal mirrors as a negative X scale instead of a 180° rotation.
+    final r00 = m00 * c + m10 * s < 0 ? -r00Magnitude : r00Magnitude;
     final q00 = m00 / r00, q10 = m10 / r00;
     final r01 = q00 * m01 + q10 * m11;
     final determinant = m00 * m11 - m01 * m10;
@@ -719,15 +733,14 @@ abstract class Renderer<T> {
 
     final nextRotation = atan2(q10, q00) * 180 / pi % 360;
     final geometryScaleX = r00;
-    final geometryScaleY = r11.abs();
+    final geometryScaleY = r11;
     final nextShear = r01 / r11;
 
     final oldExpanded = _expandedAabbFor(rect, radians, currentShear);
-    final scaledRect = Rect.fromLTWH(
-      rect.left,
-      rect.top,
-      rect.width * geometryScaleX,
-      rect.height * geometryScaleY,
+    final scaledRect = Rect.fromPoints(
+      rect.topLeft,
+      rect.topLeft +
+          Offset(rect.width * geometryScaleX, rect.height * geometryScaleY),
     );
     final newExpanded = _expandedAabbFor(
       scaledRect,

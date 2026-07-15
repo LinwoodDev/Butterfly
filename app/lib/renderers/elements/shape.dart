@@ -354,13 +354,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final previous = rect.topLeft;
     final localFirst = element.firstPosition.toOffset() - previous;
     final localSecond = element.secondPosition.toOffset() - previous;
+    final nextRotation = element.property.shape is TriangleShape && scaleY < 0
+        ? (rotation + 180) % 360
+        : rotation;
     return ShapeRenderer(
       element.copyWith(
         shear: shear,
         firstPosition: (localFirst.scale(scaleX, scaleY) + position).toPoint(),
         secondPosition: (localSecond.scale(scaleX, scaleY) + position)
             .toPoint(),
-        rotation: rotation,
+        rotation: nextRotation,
       ),
       layer,
     );

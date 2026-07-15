@@ -96,6 +96,64 @@ void main() {
       expect(PadElement.fromJson(json).shear, 0);
     });
 
+    test('negative horizontal scale mirrors the element', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(0, 0),
+          secondPosition: const Point(100, 50),
+        ),
+      );
+
+      final mirrored = renderer.transform(scaleX: -1)!;
+      final mirroredElement = mirrored.element;
+      expect(
+        mirroredElement.firstPosition.x,
+        greaterThan(mirroredElement.secondPosition.x),
+      );
+
+      final restored = mirrored.transform(scaleX: -1)!;
+      final restoredElement = restored.element;
+      expect(
+        restoredElement.firstPosition.x,
+        lessThan(restoredElement.secondPosition.x),
+      );
+    });
+
+    test('negative scale positions from the original transformed origin', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(10, 0),
+          secondPosition: const Point(30, 50),
+        ),
+      );
+
+      // Mirroring around x = 0 maps the original left edge (10) to -5 and
+      // the original right edge (30) to -15 at a scale of -0.5.
+      final mirrored = renderer.transform(
+        position: const Offset(-15, 0),
+        scaleX: -0.5,
+      )!;
+
+      expect(mirrored.element.firstPosition.x, closeTo(-5, 1e-9));
+      expect(mirrored.element.secondPosition.x, closeTo(-15, 1e-9));
+    });
+
+    test('negative vertical scale mirrors a triangle', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(0, 0),
+          secondPosition: const Point(100, 50),
+          property: const ShapeProperty(shape: TriangleShape()),
+        ),
+      );
+
+      final mirrored = renderer.transform(scaleY: -1)!;
+      expect(mirrored.rotation, closeTo(180, 1e-9));
+
+      final restored = mirrored.transform(scaleY: -1)!;
+      expect(restored.rotation, closeTo(0, 1e-9));
+    });
+
     test('rotated pen stroke is hit outside its original bounds', () {
       final hitCalculator = PenRenderer(
         PenElement(
