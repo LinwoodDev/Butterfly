@@ -16,6 +16,74 @@ sealed class RendererRuntimeState with _$RendererRuntimeState {
   };
 }
 
+class _RendererSpatialIndex {
+  _RendererSpatialIndex(List<Renderer<PadElement>> renderers)
+    : _bounds = List.filled(renderers.length, null) {
+    for (var index = 0; index < renderers.length; index++) {
+      final bounds = renderers[index].expandedRect;
+      _bounds[index] = bounds;
+      if (bounds == null) {
+        _unbounded.add(index);
+        continue;
+      }
+      final left = (bounds.left / _cellSize).floor();
+      final top = (bounds.top / _cellSize).floor();
+      final right = (bounds.right / _cellSize).floor();
+      final bottom = (bounds.bottom / _cellSize).floor();
+      final cellCount = (right - left + 1) * (bottom - top + 1);
+      if (cellCount > _maxCellsPerRenderer) {
+        _large.add(index);
+        continue;
+      }
+      for (var x = left; x <= right; x++) {
+        for (var y = top; y <= bottom; y++) {
+          (_cells[(x, y)] ??= <int>[]).add(index);
+        }
+      }
+    }
+  }
+
+  static const double _cellSize = 1024;
+  static const int _maxCellsPerRenderer = 64;
+  static const int _maxQueryCells = 4096;
+  final Map<(int, int), List<int>> _cells = {};
+  final List<int> _large = [];
+  final List<int> _unbounded = [];
+  final List<Rect?> _bounds;
+
+  bool _isVisible(int index, Rect rect) =>
+      _bounds[index]?.overlaps(rect) ?? true;
+
+  List<Renderer<PadElement>> query(
+    List<Renderer<PadElement>> renderers,
+    Rect rect,
+  ) {
+    final indices = <int>{..._large, ..._unbounded};
+    final left = (rect.left / _cellSize).floor();
+    final top = (rect.top / _cellSize).floor();
+    final right = (rect.right / _cellSize).floor();
+    final bottom = (rect.bottom / _cellSize).floor();
+    final queryCellCount = (right - left + 1) * (bottom - top + 1);
+    if (queryCellCount > _maxQueryCells) {
+      return [
+        for (var index = 0; index < renderers.length; index++)
+          if (_isVisible(index, rect)) renderers[index],
+      ];
+    }
+    for (var x = left; x <= right; x++) {
+      for (var y = top; y <= bottom; y++) {
+        final cell = _cells[(x, y)];
+        if (cell != null) indices.addAll(cell);
+      }
+    }
+    final ordered = indices.toList()..sort();
+    return ordered
+        .where((index) => _isVisible(index, rect))
+        .map((index) => renderers[index])
+        .toList(growable: false);
+  }
+}
+
 class RendererCubit extends Cubit<RendererRuntimeState> {
   RendererCubit(
     this.settingsCubit, [
@@ -32,6 +100,9 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   EditorController? _controller;
   StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _transformDebounceTimer;
+  _RendererSpatialIndex? _spatialIndex;
+  List<Renderer<PadElement>>? _indexedRenderers;
+  Set<Renderer<PadElement>>? _indexedUnbaked;
 
   void bindController(EditorController controller) {
     _controller = controller;
@@ -81,17 +152,46 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   void setRendererStates({
     Map<String, RendererState>? rendererStates,
     Map<String, RendererState>? temporaryRendererStates,
-  }) => emit(
-    state.copyWith(
-      rendererStates: rendererStates ?? state.rendererStates,
-      temporaryRendererStates:
-          temporaryRendererStates ?? state.temporaryRendererStates,
-    ),
-  );
+  }) {
+    final nextRendererStates = rendererStates ?? state.rendererStates;
+    final nextTemporaryRendererStates =
+        temporaryRendererStates ?? state.temporaryRendererStates;
+    const equality = MapEquality<String, RendererState>();
+    if (equality.equals(state.rendererStates, nextRendererStates) &&
+        equality.equals(
+          state.temporaryRendererStates,
+          nextTemporaryRendererStates,
+        )) {
+      return;
+    }
+    emit(
+      state.copyWith(
+        rendererStates: nextRendererStates,
+        temporaryRendererStates: nextTemporaryRendererStates,
+      ),
+    );
+  }
 
   List<Renderer<PadElement>> get renderers =>
       List<Renderer<PadElement>>.from(state.cameraViewport.bakedElements)
         ..addAll(state.cameraViewport.unbakedElements);
+
+  void _invalidateSpatialIndex() {
+    _spatialIndex = null;
+    _indexedRenderers = null;
+    _indexedUnbaked = null;
+  }
+
+  List<Renderer<PadElement>> visibleRenderers(Rect rect) {
+    var all = _indexedRenderers;
+    if (all == null) {
+      all = renderers;
+      _indexedRenderers = all;
+      _indexedUnbaked = state.cameraViewport.unbakedElements.toSet();
+      _spatialIndex = _RendererSpatialIndex(all);
+    }
+    return _spatialIndex!.query(all, rect);
+  }
 
   Renderer? getRenderer(PadElement element) =>
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
@@ -132,25 +232,14 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final transform = transformCubit.state;
     final resolution = settingsCubit.state.renderResolution;
     final friction = transform.friction;
-    final realWidth = size.width / transform.size;
-    final realHeight = size.height / transform.size;
-    Rect rect = Rect.fromLTWH(
-      transform.position.dx,
-      transform.position.dy,
-      realWidth,
-      realHeight,
-    );
+    Rect rect = transform.localToGlobalRect(Offset.zero & size);
     if (friction != null) {
       final beginPosition = transform.position - friction.beginOffset;
-      final topLeft = Offset(
-        min(transform.position.dx, beginPosition.dx),
-        min(transform.position.dy, beginPosition.dy),
+      rect = rect.expandToInclude(
+        transform
+            .withPosition(beginPosition)
+            .localToGlobalRect(Offset.zero & size),
       );
-      final frictionSize = Size(
-        realWidth + (friction.beginOffset.dx * transform.size).abs(),
-        realHeight + (friction.beginOffset.dy * transform.size).abs(),
-      );
-      rect = topLeft & frictionSize;
     }
     return _snapViewportRect(rect, size, transform, resolution);
   }
@@ -161,25 +250,31 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     CameraTransform transform,
     RenderResolution resolution,
   ) {
-    final screenRect = Rect.fromPoints(
-      transform.globalToLocal(rect.topLeft),
-      transform.globalToLocal(rect.bottomRight),
+    final position = transform.position;
+    final scale = transform.size;
+    final scaledRect = Rect.fromLTRB(
+      (rect.left - position.dx) * scale,
+      (rect.top - position.dy) * scale,
+      (rect.right - position.dx) * scale,
+      (rect.bottom - position.dy) * scale,
     );
     final snappedRect = _expandScreenRect(
       Rect.fromLTRB(
-        screenRect.left.floorToDouble(),
-        screenRect.top.floorToDouble(),
-        screenRect.right.ceilToDouble(),
-        screenRect.bottom.ceilToDouble(),
+        scaledRect.left.floorToDouble(),
+        scaledRect.top.floorToDouble(),
+        scaledRect.right.ceilToDouble(),
+        scaledRect.bottom.ceilToDouble(),
       ),
       Size(
         (size.width * resolution.multiplier).ceilToDouble(),
         (size.height * resolution.multiplier).ceilToDouble(),
       ),
     );
-    return Rect.fromPoints(
-      transform.localToGlobal(snappedRect.topLeft),
-      transform.localToGlobal(snappedRect.bottomRight),
+    return Rect.fromLTRB(
+      snappedRect.left / scale + position.dx,
+      snappedRect.top / scale + position.dy,
+      snappedRect.right / scale + position.dx,
+      snappedRect.bottom / scale + position.dy,
     );
   }
 
@@ -219,17 +314,13 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   ) async {
     if (controller.isClosed) return;
     final unbaked = state.cameraViewport.unbakedElements;
-    final baked = state.cameraViewport.bakedElements;
 
     final rect = getViewportRect(controller.transformCubit);
     final currentVisible = state.cameraViewport.visibleElements;
     final currentVisibleUnbaked = state.cameraViewport.visibleUnbakedElements;
 
-    final visibleUnbaked = unbaked.where((e) => e.isVisible(rect)).toList();
-    final visible = <Renderer<PadElement>>[
-      ...baked.where((e) => e.isVisible(rect)),
-      ...visibleUnbaked,
-    ];
+    final visible = visibleRenderers(rect);
+    final visibleUnbaked = visible.where(_indexedUnbaked!.contains).toList();
 
     if (sameRendererList(visible, currentVisible) &&
         sameRendererList(visibleUnbaked, currentVisibleUnbaked)) {
@@ -354,12 +445,13 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final startTransform = transformCubit.state;
     final startViewport = cameraViewport;
     final resolution = settingsCubit.state.renderResolution;
-    var size = viewportSize ?? cameraViewport.toSize();
+    final measuredViewportSize = viewportSize ?? cameraViewport.viewportSize;
+    var size = measuredViewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    if (viewportSize == null) {
+    if (measuredViewportSize == null) {
       size /= resolution.multiplier;
     }
     var transform = transformCubit.state;
@@ -417,9 +509,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     );
 
     if (reset) {
-      visibleElements = renderers
-          .where((renderer) => renderer.isVisible(rect))
-          .toList();
+      visibleElements = rendererCubit.visibleRenderers(rect);
     } else {
       final oldVisibleSet = oldVisible.toSet();
       visibleElements = List.from(oldVisible)
@@ -611,6 +701,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final newViewport = cameraViewport.bake(
       height: size.height,
       width: size.width,
+      viewportSize: measuredViewportSize,
       pixelRatio: ratio,
       resolution: resolution,
       scale: transform.size,
@@ -626,6 +717,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       rendererStates: allRendererStates,
       invisibleLayers: invisibleLayers,
     );
+    rendererCubit._invalidateSpatialIndex();
     rendererCubit.setViewport(newViewport);
   });
 
@@ -781,6 +873,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   }) async {
     final rendererCubit = this;
     final transformCubit = controller.transformCubit;
+    rendererCubit._invalidateSpatialIndex();
     final elementsToCheck = unbakedElements ?? rendererCubit.renderers;
     final oldViewport = rendererCubit.state.cameraViewport;
     final newViewport = oldViewport.unbake(
@@ -803,6 +896,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     List<Renderer<Background>>? backgrounds,
   }) async {
     final rendererCubit = this;
+    rendererCubit._invalidateSpatialIndex();
     final transformCubit = controller.transformCubit;
     final visibleElements = unbakedElements
         .where(
@@ -825,6 +919,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     bool reset = false,
   }) async {
     final rendererCubit = this;
+    rendererCubit._invalidateSpatialIndex();
     final transformCubit = controller.transformCubit;
     if (docState is! DocumentLoaded) return;
     final document = docState.data;
@@ -932,6 +1027,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     List<Renderer<PadElement>>? visibleElements,
   ]) async {
     final rendererCubit = this;
+    rendererCubit._invalidateSpatialIndex();
     final transformCubit = controller.transformCubit;
     final rect = rendererCubit.getViewportRect(transformCubit);
     visibleElements ??= unbakedElements
@@ -1044,6 +1140,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     delayedBakeRunner.cancel();
     await delayedBakeRunner.disposeAndWait();
     initializedElements.clear();
+    _invalidateSpatialIndex();
     state.cameraViewport.disposeImages();
     for (final renderer in renderers) {
       renderer.dispose();

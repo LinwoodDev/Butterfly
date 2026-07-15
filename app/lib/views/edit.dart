@@ -485,6 +485,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                 AppLocalizations.of(context).zoom,
                               ),
                               buildButton(
+                                locks.lockRotation,
+                                () => locks.copyWith(
+                                  lockRotation: !locks.lockRotation,
+                                ),
+                                PhosphorIconsLight.arrowClockwise,
+                                AppLocalizations.of(context).rotation,
+                              ),
+                              buildButton(
                                 locks.lockHorizontal,
                                 () => locks.copyWith(
                                   lockHorizontal: !locks.lockHorizontal,

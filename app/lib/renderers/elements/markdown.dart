@@ -81,12 +81,14 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   MarkdownRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) => MarkdownRenderer(
     element.copyWith(
       position: position.toPoint(),
       rotation: rotation,
+      shear: shear,
       scale: element.scale * max(scaleX, scaleY),
     ),
     layer,

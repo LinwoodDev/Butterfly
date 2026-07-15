@@ -940,3 +940,211 @@ jobs:
           version: ${{ needs.deploy.outputs.version }}
           release-tag: v${{ needs.deploy.outputs.version }}
           token: ${{ secrets.CI_PAT }}
+  update-flathub-beta:
+    name: Update Flathub beta
+    needs:
+      - deploy
+    if: >-
+      ${{
+        github.event_name == 'release' &&
+        github.event.action == 'published' &&
+        github.event.release.prerelease == true
+      }}
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+
+    concurrency:
+      group: flathub-beta-${{ github.event.release.tag_name }}
+      cancel-in-progress: false
+
+    env:
+      FLATHUB_REPOSITORY: flathub/dev.linwood.butterfly
+      FLATHUB_MANIFEST: dev.linwood.butterfly.json
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+
+    steps:
+      - name: Download release checksums
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p release
+
+          for attempt in {1..12}; do
+            rm -f release/checksums.txt
+
+            if gh release download "$RELEASE_TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --pattern checksums.txt \
+              --dir release; then
+              break
+            fi
+
+            echo "Release assets are not available yet, retrying..."
+            sleep 10
+          done
+
+          test -s release/checksums.txt
+
+      - name: Read Linux checksums
+        id: checksums
+        run: |
+          X86_64_SHA="$(
+            awk '$2 == "linwood-butterfly-linux-x86_64.tar.gz" {
+              print $1
+            }' release/checksums.txt
+          )"
+
+          ARM64_SHA="$(
+            awk '$2 == "linwood-butterfly-linux-arm64.tar.gz" {
+              print $1
+            }' release/checksums.txt
+          )"
+
+          if [[ ! "$X86_64_SHA" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "Invalid or missing x86_64 checksum"
+            exit 1
+          fi
+
+          if [[ ! "$ARM64_SHA" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "Invalid or missing arm64 checksum"
+            exit 1
+          fi
+
+          echo "x86_64=$X86_64_SHA" >> "$GITHUB_OUTPUT"
+          echo "arm64=$ARM64_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout Flathub beta branch
+        uses: actions/checkout@v6
+        with:
+          repository: flathub/dev.linwood.butterfly
+          ref: beta
+          token: ${{ secrets.CI_PAT }}
+          fetch-depth: 0
+          path: flathub
+
+      - name: Update Flathub manifest
+        env:
+          X86_64_SHA: ${{ steps.checksums.outputs.x86_64 }}
+          ARM64_SHA: ${{ steps.checksums.outputs.arm64 }}
+        run: |
+          python3 <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          manifest = Path("flathub") / os.environ["FLATHUB_MANIFEST"]
+          release_tag = os.environ["RELEASE_TAG"]
+
+          files = {
+              "linwood-butterfly-linux-x86_64.tar.gz": os.environ["X86_64_SHA"],
+              "linwood-butterfly-linux-arm64.tar.gz": os.environ["ARM64_SHA"],
+          }
+
+          lines = manifest.read_text(encoding="utf-8").splitlines()
+          updated = set()
+
+          for index, line in enumerate(lines):
+              for filename, checksum in files.items():
+                  if '"url":' not in line or filename not in line:
+                      continue
+
+                  indent = line[: len(line) - len(line.lstrip())]
+                  lines[index] = (
+                      f'{indent}"url": '
+                      f'"https://github.com/LinwoodDev/Butterfly/'
+                      f'releases/download/{release_tag}/{filename}",'
+                  )
+
+                  for checksum_index in range(
+                      index + 1,
+                      min(index + 6, len(lines)),
+                  ):
+                      if '"sha256":' not in lines[checksum_index]:
+                          continue
+
+                      lines[checksum_index] = re.sub(
+                          r'"sha256":\s*"[^"]+"',
+                          f'"sha256": "{checksum}"',
+                          lines[checksum_index],
+                      )
+                      updated.add(filename)
+                      break
+
+          missing = set(files) - updated
+          if missing:
+              raise RuntimeError(
+                  f"Could not update manifest entries: {sorted(missing)}"
+              )
+
+          manifest.write_text(
+              "\n".join(lines) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Commit and push update branch
+        id: push
+        working-directory: flathub
+        run: |
+          VERSION="${RELEASE_TAG#v}"
+          BRANCH="automation/butterfly-$VERSION"
+
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+          if git diff --quiet -- "$FLATHUB_MANIFEST"; then
+            echo "Manifest already contains this release"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "Linwood CI"
+          git config user.email "ci@linwood.dev"
+
+          git checkout -B "$BRANCH"
+          git add "$FLATHUB_MANIFEST"
+          git commit -m "Update Butterfly to $VERSION"
+          git push --force origin "HEAD:refs/heads/$BRANCH"
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create Flathub beta pull request
+        if: steps.push.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.CI_PAT }}
+          BRANCH: ${{ steps.push.outputs.branch }}
+        run: |
+          EXISTING_PR="$(
+            gh pr list \
+              --repo "$FLATHUB_REPOSITORY" \
+              --base beta \
+              --head "$BRANCH" \
+              --state open \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [[ -n "$EXISTING_PR" ]]; then
+            echo "Pull request #$EXISTING_PR already exists"
+            exit 0
+          fi
+
+          VERSION="${RELEASE_TAG#v}"
+
+          cat > /tmp/flathub-pr.md <<EOF
+          Automated update for Butterfly $VERSION.
+
+          Release:
+          $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tag/$RELEASE_TAG
+
+          The download URLs and SHA256 checksums for the x86_64 and arm64
+          Linux archives were generated from the published release assets.
+          EOF
+
+          gh pr create \
+            --repo "$FLATHUB_REPOSITORY" \
+            --base beta \
+            --head "$BRANCH" \
+            --title "Update Butterfly to $VERSION" \
+            --body-file /tmp/flathub-pr.md

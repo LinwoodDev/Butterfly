@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../widgets/font_style_field.dart';
+
 class GeneralStyleView extends StatelessWidget {
   final TextStyleSheet value;
   final ValueChanged<TextStyleSheet> onChanged;
@@ -30,6 +32,21 @@ class GeneralStyleView extends StatelessWidget {
           ),
           initialValue: name,
           onChanged: onNameChanged,
+        ),
+        const SizedBox(height: 16),
+        FontStyleField(
+          fontFamily: value.fontFamily,
+          fontFamilyFallback: value.fontFamilyFallback,
+          onFontFamilyChanged: (fontFamily) => onChanged(
+            value.copyWith(
+              fontFamily: fontFamily,
+              fontFamilyFallback: value.fontFamilyFallback
+                  .where((fallback) => fallback != fontFamily)
+                  .toList(),
+            ),
+          ),
+          onFontFamilyFallbackChanged: (fontFamilyFallback) =>
+              onChanged(value.copyWith(fontFamilyFallback: fontFamilyFallback)),
         ),
       ],
     );

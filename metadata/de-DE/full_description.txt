@@ -1,16 +1,16 @@
-Butterfly ist eine Notiz-App, bei der Ihre Ideen an erster Stellen Sie stehen. Sie können zeichnen, Texte hinzufügen und Ihre Notizen auf jedem Gerät ganz einfach exportieren. Diese App funktioniert auf Android, Windows, Linux und im Web.
+Butterfly ist eine Notiz-App, bei der Ihre Ideen an erster Stelle stehen. Sie können zeichnen, Texte hinzufügen und Ihre Notizen ganz einfach exportieren. Die App ist für Android, Windows, Linux und das Web verfügbar.
 
-* Einfach und intuitiv: Jedes Werkzeug ist genau dort, wo Sie es erwartest. Öffnen Sie die App und starte. Ändern Sie Ihre Werkzeuge, indem Sie auf sie klicken.
-* Anpassbar: Passen Sie alles an Ihre Bedürfnisse an. Wählen Sie eine individuelle Farbe, erstellen Sie Ihre eigene Farbpalette und fügen Sie diese den Seiten hinzu. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.
-* Unterstützt Ihre bevorzugten Formate: Import und Export werden für Bilder, PDF und SVG unterstützt. Öffnen Sie diese Dateien direkt, um sie zu bearbeiten.
-* Funktioniert auf jedem Gerät: Die App ist für Android, Windows, Linux und im Web verfügbar. Sie können es auf Ihrem Smartphone, Tablet oder Computer verwenden.
-* Wählen Sie, wo Ihre Daten gespeichert werden: Sie können Ihre Daten lokal oder in Ihrer bevorzugten Cloud (WebDAV) speichern. Alternativ können Sie Ihre Daten in eine Datei exportieren und später wieder importieren.
-* **In vielen Sprachen verfügbar:** Die App ist mehrsprachig. Helfen Sie uns, diese App in Ihre Sprache zu übersetzen.
-* **FOSS (Open Source & kostenlos):** Der Quellcode ist offen, und die Nutzung ist gratis. Sie können aktiv zum Projekt beitragen und es weiter verbessern.
-* **Offline nutzbar:** Sie können die App offline benutzen. Auch ohne Internetverbindung können Sie zeichnen, malen und Ihre Notizen exportieren.
-* **Unterstützt Stylus & Touch:** Egal ob mit dem Finger oder Ihrem Lieblings-Stylus – Butterfly funktioniert auf allen Touch-Geräten. Sie können mit Ihrem bevorzugten Stil zeichnen und malen.
-* **Texte schreiben:** Füge Texte ein und passe Schriftart, Größe und Farbe nach Belieben an. Sie können Schriftart, Größe und Farbe ändern.
-* **Fotos aufnehmen:** Erstellen Sie direkt Fotos und fügen Sie sie Ihren Notizen hinzu oder importieren Sie Bilder aus Ihrer Galerie. Sie können auch Fotos aus Ihrer Galerie importieren.
-* **Voll bearbeitbar:** Nachträgliche Änderungen an Größe, Farbe und Position jedes Elements sind jederzeit möglich.
-* **Formen hinzufügen:** Wählen Sie zwischen Rechtecken, Kreisen und Linien, um Ihre Notizen visuell zu strukturieren. Sie können zwischen Rechteck, Kreis und Linie wählen.
-* **Notizen strukturieren:** Lege Bereiche und Wegpunkte an, um Ihre Inhalte übersichtlich zu organisieren.
+* **Einfach und intuitiv:** Jedes Werkzeug befindet sich dort, wo Sie es erwarten. Öffnen Sie die App und legen Sie direkt los. Werkzeuge lassen sich einfach auswählen und anpassen.
+* **Individuell anpassbar:** Passen Sie die App an Ihre Bedürfnisse an. Wählen Sie eigene Farben, erstellen Sie individuelle Farbpaletten und verwenden Sie diese in Ihren Notizen. Die Zeichenfläche ist unbegrenzt und bietet ausreichend Platz für all Ihre Ideen.
+* **Unterstützt gängige Dateiformate:** Importieren und exportieren Sie Bilder, PDF- und SVG-Dateien. Unterstützte Dateien können direkt geöffnet und weiterbearbeitet werden.
+* **Auf vielen Geräten verfügbar:** Nutzen Sie Butterfly auf Android, Windows, Linux oder direkt im Web – auf Ihrem Smartphone, Tablet oder Computer.
+* **Freie Wahl des Speicherorts:** Speichern Sie Ihre Daten lokal oder in Ihrer bevorzugten Cloud über WebDAV. Alternativ können Sie Ihre Notizen als Datei exportieren und später wieder importieren.
+* **In vielen Sprachen verfügbar:** Butterfly ist mehrsprachig. Helfen Sie uns dabei, die App in weitere Sprachen zu übersetzen.
+* **FOSS – quelloffen und kostenlos:** Der Quellcode ist öffentlich zugänglich und die Nutzung der App ist kostenlos. Sie können aktiv zum Projekt beitragen und Butterfly gemeinsam mit uns verbessern.
+* **Offline nutzbar:** Verwenden Sie die App auch ohne Internetverbindung. Sie können jederzeit zeichnen, malen, schreiben und Ihre Notizen exportieren.
+* **Unterstützt Stylus und Touch:** Zeichnen Sie mit dem Finger oder Ihrem bevorzugten Eingabestift. Butterfly funktioniert auf einer Vielzahl von Touch-Geräten.
+* **Texte hinzufügen:** Fügen Sie Texte ein und passen Sie Schriftart, Größe und Farbe nach Ihren Wünschen an.
+* **Fotos und Bilder einfügen:** Nehmen Sie direkt ein Foto auf und fügen Sie es Ihrer Notiz hinzu oder importieren Sie Bilder aus Ihrer Galerie.
+* **Vollständig bearbeitbar:** Ändern Sie Größe, Farbe und Position Ihrer Elemente jederzeit nachträglich.
+* **Formen hinzufügen:** Verwenden Sie Rechtecke, Kreise und Linien, um Ihre Notizen visuell zu gestalten und zu strukturieren.
+* **Notizen organisieren:** Erstellen Sie Bereiche und Wegpunkte, um auch umfangreiche Inhalte übersichtlich zu organisieren.

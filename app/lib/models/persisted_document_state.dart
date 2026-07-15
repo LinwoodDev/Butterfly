@@ -55,6 +55,7 @@ sealed class PersistedCameraState with _$PersistedCameraState {
     @Default(0) double positionX,
     @Default(0) double positionY,
     @Default(1) double zoom,
+    @Default(0) double rotation,
   }) = _PersistedCameraState;
 
   factory PersistedCameraState.fromJson(Map<String, dynamic> json) =>
@@ -71,6 +72,7 @@ sealed class PersistentLockState with _$PersistentLockState {
     @Default(false) bool lockZoom,
     @Default(false) bool lockHorizontal,
     @Default(false) bool lockVertical,
+    @Default(false) bool lockRotation,
   }) = _PersistentLockState;
 
   factory PersistentLockState.fromJson(Map<String, dynamic> json) =>

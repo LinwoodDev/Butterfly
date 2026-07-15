@@ -7,6 +7,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'components.dart';
+import 'fonts.dart';
 import 'general.dart';
 import 'palettes.dart';
 import 'styles/view.dart';
@@ -50,7 +51,7 @@ class _PackDialogState extends State<PackDialog> {
       ),
       constraints: const BoxConstraints(maxWidth: 700, maxHeight: 800),
       content: DefaultTabController(
-        length: widget.pack == null ? 1 : 7,
+        length: widget.pack == null ? 1 : 8,
         child: Column(
           children: [
             if (widget.pack != null)
@@ -75,6 +76,7 @@ class _PackDialogState extends State<PackDialog> {
                             AppLocalizations.of(context).palettes,
                           ),
                           (PhosphorIconsLight.imageSquare, 'Textures'),
+                          (PhosphorIconsLight.textAa, 'Fonts'),
                           (
                             PhosphorIconsLight.toolbox,
                             AppLocalizations.of(context).toolbars,
@@ -102,6 +104,7 @@ class _PackDialogState extends State<PackDialog> {
                     StylesPackView(value: pack, onChanged: _onChanged),
                     PalettesPackView(value: pack, onChanged: _onChanged),
                     TexturesPackView(value: pack, onChanged: _onChanged),
+                    FontsPackView(value: pack, onChanged: _onChanged),
                     ToolbarsPackView(value: pack, onChanged: _onChanged),
                     ToolPresetsPackView(value: pack, onChanged: _onChanged),
                   ],

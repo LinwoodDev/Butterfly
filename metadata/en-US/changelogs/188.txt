@@ -1,4 +1,8 @@
 * Add persistent document states ([#1077](https://github.com/LinwoodDev/Butterfly/issues/1077))
+* Add shear property for elements
+* Add camera rotation support ([#977](https://github.com/LinwoodDev/Butterfly/issues/977))
+* Add custom fonts to label ([#1011](https://github.com/LinwoodDev/Butterfly/issues/1011))
+* Add option to customize default file name globally and in template ([#1041](https://github.com/LinwoodDev/Butterfly/issues/1041))
 * Reorder top corner menu to have home on top ([#1161](https://github.com/LinwoodDev/Butterfly/issues/1161))
 * Rebuild internal settings pages
   * Add search bar to settings pages ([#1158](https://github.com/LinwoodDev/Butterfly/issues/1158))
@@ -6,9 +10,11 @@
   * Add settings descriptions
 * Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
 * Remove unused view options
+* Improve rotated elements transformtion ([#1099](https://github.com/LinwoodDev/Butterfly/issues/1099))
 * Fix crash with android saf on folders with many files
 * Fix blur resetting on color change
 * Fix polygon collision aabb tests if closed ([#1162](https://github.com/LinwoodDev/Butterfly/pull/1162)) 
+* Fix embed/web loading errors ([#1167](https://github.com/LinwoodDev/Butterfly/issues/1167))
 * Upgrade to agb 9
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.2

@@ -43,6 +43,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   double size = 1.0;
+  double gestureRotation = 0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
@@ -342,7 +343,7 @@ class _MainViewViewportState extends State<MainViewViewport>
       if (event.pointer == inputState.pointers.first) {
         final transform = context.read<TransformCubit>().state;
         cubit.transformCubit.moveConstrained(
-          -event.delta / transform.size,
+          transform.localToGlobalDelta(-event.delta),
           runtime: cubit,
           bloc: context.read<DocumentBloc>(),
           currentArea: state.currentArea,
@@ -549,16 +550,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                   builder: (context, rendererState) {
                     return BlocBuilder<ToolCubit, ToolRuntimeState>(
                       buildWhen: (previous, current) =>
-                          previous.foregrounds != current.foregrounds ||
                           previous.handler != current.handler ||
                           previous.temporaryHandler !=
                               current.temporaryHandler ||
-                          previous.toggleableForegrounds !=
-                              current.toggleableForegrounds ||
-                          previous.temporaryForegrounds !=
-                              current.temporaryForegrounds ||
-                          previous.networkingForegrounds !=
-                              current.networkingForegrounds ||
                           previous.cursor != current.cursor ||
                           previous.temporaryCursor != current.temporaryCursor,
                       builder: (context, toolState) {
@@ -655,11 +649,21 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             .read<SettingsCubit>()
                                             .state
                                             .gestureSensitivity;
+                                        final rotationDelta =
+                                            details.rotation - gestureRotation;
+                                        gestureRotation = details.rotation;
+                                        cubit.transformCubit.rotateConstrained(
+                                          rotationDelta / sensitivity,
+                                          cursor: details.localFocalPoint,
+                                          runtime: cubit,
+                                        );
                                         if (details.scale == 1) {
                                           cubit.transformCubit.moveConstrained(
-                                            -details.focalPointDelta /
-                                                sensitivity /
-                                                cubit.transformCubit.state.size,
+                                            cubit.transformCubit.state
+                                                    .localToGlobalDelta(
+                                                      -details.focalPointDelta,
+                                                    ) /
+                                                sensitivity,
                                             runtime: cubit,
                                             bloc: bloc,
                                             currentArea: state.currentArea,
@@ -703,9 +707,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           cubit.rendererCubit
                                               .cancelDelayedBake();
                                           cubit.transformCubit.slideConstrained(
-                                            details.velocity.pixelsPerSecond /
-                                                sensitivity /
-                                                cubit.transformCubit.state.size,
+                                            cubit.transformCubit.state
+                                                    .localToGlobalDelta(
+                                                      details
+                                                          .velocity
+                                                          .pixelsPerSecond,
+                                                    ) /
+                                                sensitivity,
                                             details.scaleVelocity,
                                             runtime: cubit,
                                             currentArea: state.currentArea,
@@ -782,6 +790,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         }
                                         point = details.localFocalPoint;
                                         size = 1;
+                                        gestureRotation = 0;
                                       },
                                       onLongPressStart: (details) =>
                                           getHandler().onLongPressStart(
@@ -835,12 +844,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             } else {
                                               cubit.transformCubit
                                                   .moveConstrained(
-                                                    (_mouseState ==
-                                                                _MouseState
-                                                                    .inverse
-                                                            ? Offset(dy, dx)
-                                                            : Offset(dx, dy)) /
-                                                        transform.size,
+                                                    transform
+                                                        .localToGlobalDelta(
+                                                          _mouseState ==
+                                                                  _MouseState
+                                                                      .inverse
+                                                              ? Offset(dy, dx)
+                                                              : Offset(dx, dy),
+                                                        ),
                                                     runtime: cubit,
                                                     bloc: bloc,
                                                     currentArea:
@@ -902,8 +913,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             _handlePointerCancel(event, cubit),
                                         child: _buildCanvas(
                                           rendererState,
-                                          toolState,
-                                          cubit,
                                           state,
                                           delayBake,
                                         ),
@@ -929,8 +938,6 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Widget _buildCanvas(
     RendererRuntimeState rendererState,
-    ToolRuntimeState toolState,
-    EditorController cubit,
     DocumentLoaded state,
     VoidCallback delayBake,
   ) {
@@ -984,30 +991,48 @@ class _MainViewViewportState extends State<MainViewViewport>
             return Stack(
               children: [
                 Container(color: ColorScheme.of(context).surfaceDim),
-                CustomPaint(
-                  size: Size.infinite,
-                  foregroundPainter: ForegroundPainter(
-                    toolState.getAllForegrounds(),
-                    state.data,
-                    state.page,
-                    state.info,
-                    ColorScheme.of(context),
-                    frictionTransform,
-                    toolState.selection,
-                    state.settingsCubit.state.navigatorPosition,
+                RepaintBoundary(
+                  child: CustomPaint(
+                    size: Size.infinite,
+                    painter: ViewPainter(
+                      state.data,
+                      state.page,
+                      state.info,
+                      cameraViewport: rendererState.cameraViewport,
+                      transform: frictionTransform,
+                      invisibleLayers: state.invisibleLayers,
+                      currentArea: state.currentArea,
+                      colorScheme: ColorScheme.of(context),
+                    ),
+                    isComplex: true,
                   ),
-                  painter: ViewPainter(
-                    state.data,
-                    state.page,
-                    state.info,
-                    cameraViewport: rendererState.cameraViewport,
-                    transform: frictionTransform,
-                    invisibleLayers: state.invisibleLayers,
-                    currentArea: state.currentArea,
-                    colorScheme: ColorScheme.of(context),
+                ),
+                BlocBuilder<ToolCubit, ToolRuntimeState>(
+                  buildWhen: (previous, current) =>
+                      previous.foregrounds != current.foregrounds ||
+                      previous.temporaryForegrounds !=
+                          current.temporaryForegrounds ||
+                      previous.toggleableForegrounds !=
+                          current.toggleableForegrounds ||
+                      previous.networkingForegrounds !=
+                          current.networkingForegrounds ||
+                      previous.selection != current.selection,
+                  builder: (context, toolState) => RepaintBoundary(
+                    child: CustomPaint(
+                      size: Size.infinite,
+                      painter: ForegroundPainter(
+                        toolState.getAllForegrounds(),
+                        state.data,
+                        state.page,
+                        state.info,
+                        ColorScheme.of(context),
+                        frictionTransform,
+                        toolState.selection,
+                        state.settingsCubit.state.navigatorPosition,
+                      ),
+                      willChange: true,
+                    ),
                   ),
-                  isComplex: true,
-                  willChange: true,
                 ),
               ],
             );

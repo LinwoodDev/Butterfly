@@ -412,6 +412,29 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     context.read<DocumentBloc>().bake();
                   },
                 ),
+                ExactSlider(
+                  header: Text(AppLocalizations.of(context).rotation),
+                  value:
+                      context.read<TransformCubit>().state.rotation * 180 / pi,
+                  defaultValue: 0,
+                  min: -180,
+                  max: 180,
+                  fractionDigits: 0,
+                  onChanged: (value) {
+                    final editorController = context.read<EditorController>();
+                    final size = editorController
+                        .rendererCubit
+                        .state
+                        .cameraViewport
+                        .toSize();
+                    final transform = editorController.transformCubit;
+                    transform.rotateConstrained(
+                      value * pi / 180 - transform.state.rotation,
+                      cursor: size.center(Offset.zero),
+                      runtime: editorController,
+                    );
+                  },
+                ),
               ],
             ),
           ][_tabController.index],

@@ -27,8 +27,9 @@ void main() {
           positionX: 10,
           positionY: 20,
           zoom: 2,
+          rotation: 0.5,
         ),
-        locks: const PersistentLockState(lockZoom: true),
+        locks: const PersistentLockState(lockZoom: true, lockRotation: true),
         selectedTool: const PersistedToolSelection(
           toolId: 'tool-a',
           toolIndex: 3,
@@ -58,6 +59,7 @@ void main() {
 
       expect(state.version, kPersistedDocumentStateVersion);
       expect(state.camera.zoom, 1);
+      expect(state.camera.rotation, 0);
       expect(state.locks, const PersistentLockState());
       expect(state.navigator.page, NavigatorPage.waypoints.name);
     });
@@ -340,7 +342,7 @@ void main() {
         contentHash: 'hash-a',
       );
 
-      transformCubit.teleport(const Offset(10, 20), 2);
+      transformCubit.teleport(const Offset(10, 20), 2, 0.5);
       await Future<void>.delayed(const Duration(milliseconds: 300));
 
       expect(await fileSystem.getFile('path/a'), isNull);
@@ -350,6 +352,7 @@ void main() {
       expect(saved?.camera.positionX, 10);
       expect(saved?.camera.positionY, 20);
       expect(saved?.camera.zoom, 2);
+      expect(saved?.camera.rotation, 0.5);
 
       await cubit.close();
       await transformCubit.close();

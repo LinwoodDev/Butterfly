@@ -17,21 +17,17 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
     bool foreground = false,
   ]) {
     if (image == null) return;
-    final sizeX = element.width * element.scaleX * transform.size;
-    final sizeY = element.height * element.scaleY * transform.size;
-    var offsetX = (transform.position.dx * -transform.size) % sizeX;
-    if (offsetX > 0) {
-      offsetX -= sizeX;
-    }
-    var offsetY = (transform.position.dy * -transform.size) % sizeY;
-    if (offsetY > 0) {
-      offsetY -= sizeY;
-    }
+    final sizeX = element.width * element.scaleX;
+    final sizeY = element.height * element.scaleY;
+    if (sizeX <= 0 || sizeY <= 0) return;
+    final viewport = transform.localToGlobalRect(Offset.zero & size);
+    final offsetX = (viewport.left / sizeX).floor() * sizeX;
+    final offsetY = (viewport.top / sizeY).floor() * sizeY;
 
     var paint = Paint();
 
-    for (var x = offsetX - sizeX; x < size.width + sizeX; x += sizeX) {
-      for (var y = offsetY - sizeY; y < size.height + sizeY; y += sizeY) {
+    for (var x = offsetX; x < viewport.right; x += sizeX) {
+      for (var y = offsetY; y < viewport.bottom; y += sizeY) {
         canvas.drawImageRect(
           image!,
           Rect.fromLTWH(

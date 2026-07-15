@@ -15,6 +15,7 @@ import '../../bloc/document_bloc.dart';
 import '../../dialogs/packs/select.dart';
 import '../../models/defaults.dart';
 import '../../models/label.dart';
+import '../../widgets/font_style_field.dart';
 import 'view.dart';
 
 class LabelToolbarView extends StatefulWidget implements PreferredSizeWidget {
@@ -107,6 +108,25 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     };
     final named = value.getNamedStyleSheet(document);
     final styleSheet = named?.item;
+    void updateStyleSheet(text.TextStyleSheet style) {
+      final updated = NamedItem<text.TextStyleSheet>(
+        name: named?.name ?? '',
+        item: style,
+      );
+      var newValue = value.copyWith(
+        tool: value.tool.copyWith(styleSheet: updated),
+      );
+      newValue = switch (value) {
+        TextContext e => e.copyWith(
+          element: e.element?.copyWith(styleSheet: updated),
+        ),
+        MarkdownContext e => e.copyWith(
+          element: e.element?.copyWith(styleSheet: updated),
+        ),
+      };
+      widget.onChanged(newValue);
+    }
+
     _scaleController.text = (value.labelElement?.scale ?? value.tool.scale)
         .toString();
     _sizeController.text = property?.getSize(paragraph).toString() ?? '';
@@ -579,32 +599,32 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        /*FutureBuilder<List<String>?>(
-                          future: Future.value(SysInfo.getFonts()),
-                          builder: (context, snapshot) {
-                            return DropdownMenu<String>(
-                              dropdownMenuEntries: snapshot.data
-                                      ?.map((e) => DropdownMenuEntry<String>(
-                                            value: e,
-                                            label: e,
-                                          ))
-                                      .toList() ??
-                                  [],
-                              enableFilter: true,
-                              onSelected: (value) {
-                                if (kDebugMode) {
-                                  print(value);
-                                }
-                              },
-                              width: 200,
-                              label:
-                                  Text(AppLocalizations.of(context).fontFamily),
-                              inputDecorationTheme:
-                                  const InputDecorationTheme(filled: true),
-                            );
-                          },
+                        FontStyleField(
+                          fontFamily: styleSheet?.fontFamily ?? 'Roboto',
+                          fontFamilyFallback:
+                              styleSheet?.fontFamilyFallback ?? const [],
+                          onFontFamilyChanged: (fontFamily) => updateStyleSheet(
+                            (styleSheet ?? const text.TextStyleSheet())
+                                .copyWith(
+                                  fontFamily: fontFamily,
+                                  fontFamilyFallback:
+                                      styleSheet?.fontFamilyFallback
+                                          .where(
+                                            (fallback) =>
+                                                fallback != fontFamily,
+                                          )
+                                          .toList() ??
+                                      const [],
+                                ),
+                          ),
+                          onFontFamilyFallbackChanged: (fallback) =>
+                              updateStyleSheet(
+                                (styleSheet ?? const text.TextStyleSheet())
+                                    .copyWith(fontFamilyFallback: fallback),
+                              ),
+                          compact: true,
                         ),
-                        const SizedBox(width: 8),*/
+                        const SizedBox(width: 8),
                         SizedBox(
                           width: 100,
                           child: TextFormField(

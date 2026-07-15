@@ -1,12 +1,10 @@
 import 'dart:math';
-
 import 'package:butterfly_api/src/converter/color.dart';
 import 'package:collection/collection.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'pack.dart';
-
 part 'text.freezed.dart';
 part 'text.g.dart';
 
@@ -344,6 +342,8 @@ sealed class TextStyleSheet extends PackAsset with _$TextStyleSheet {
   const TextStyleSheet._();
 
   const factory TextStyleSheet({
+    @Default('Roboto') String fontFamily,
+    @Default([]) List<String> fontFamilyFallback,
     @Default({}) Map<String, DefinedSpanProperty> spanProperties,
     @Default({}) Map<String, DefinedParagraphProperty> paragraphProperties,
   }) = _TextStyleSheet;

@@ -8,11 +8,22 @@ class PenRenderer extends Renderer<PenElement> {
     super.element, [
     super.layer,
     this.rect = Rect.zero,
-    this.expandedRect = Rect.zero,
-  ]);
+    Rect expandedRect = Rect.zero,
+  ]) : expandedRect = expandedRect,
+       _localExpandedRect = expandedRect {
+    if (rotation != 0 || shear != 0) {
+      _localExpandedRect = Renderer._inverseAabbFor(
+        expandedRect,
+        rect.center,
+        rotation * pi / 180,
+        shear,
+      );
+    }
+  }
 
   @override
   Rect expandedRect;
+  Rect _localExpandedRect;
 
   Path? _cachedFillPath;
   Path? _cachedStrokePath;
@@ -35,7 +46,8 @@ class PenRenderer extends Renderer<PenElement> {
       _cachedFillPath = Path();
       final first = points.first;
       _cachedFillPath!.moveTo(first.x, first.y);
-      for (final point in points.sublist(1)) {
+      for (var i = 1; i < points.length; i++) {
+        final point = points[i];
         _cachedFillPath!.lineTo(point.x, point.y);
       }
     }
@@ -67,9 +79,13 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   bool shouldSimulatePressure() {
-    final points = element.points.sublist(1);
-    var pressure = points.firstOrNull?.pressure ?? 0;
-    return points.every((element) => element.pressure == pressure);
+    final points = element.points;
+    if (points.length < 2) return true;
+    final pressure = points[1].pressure;
+    for (var i = 2; i < points.length; i++) {
+      if (points[i].pressure != pressure) return false;
+    }
+    return true;
   }
 
   @override
@@ -100,13 +116,7 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    final center = Rect.fromPoints(topLeftCorner, bottomRightCorner).center;
-    final rotatedPoints = points
-        .map((e) => e.rotate(center, rotation / 180 * pi))
-        .toList();
-    topLeftCorner = rotatedPoints.first.toOffset();
-    bottomRightCorner = rotatedPoints.first.toOffset();
-    for (final element in rotatedPoints) {
+    for (final element in points) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(
         min(topLeftCorner.dx, element.x - width),
@@ -117,11 +127,16 @@ class PenRenderer extends Renderer<PenElement> {
         max(bottomRightCorner.dy, element.y + width),
       );
     }
-    expandedRect = Rect.fromLTRB(
+    _localExpandedRect = Rect.fromLTRB(
       topLeftCorner.dx,
       topLeftCorner.dy,
       bottomRightCorner.dx,
       bottomRightCorner.dy,
+    );
+    expandedRect = Renderer._expandedAabbFor(
+      _localExpandedRect,
+      rotation / 180 * pi,
+      shear,
     );
     await Future.wait([
       _strokePaint.setup(property.paint, document, assetService),
@@ -208,10 +223,10 @@ class PenRenderer extends Renderer<PenElement> {
     final property = element.property;
     final center = rect.center;
     var outlinePoints = freehand.getStroke(
-      element.points
-          .map((e) => e.scale(currentZoom, center))
-          .map((e) => e.toFreehandPoint())
-          .toList(),
+      [
+        for (final point in element.points)
+          point.scale(currentZoom, center).toFreehandPoint(),
+      ],
       options: freehand.StrokeOptions(
         size: property.strokeWidth * currentZoom,
         thinning: property.thinning.clamp(0, 1),
@@ -221,9 +236,10 @@ class PenRenderer extends Renderer<PenElement> {
       ),
     );
 
-    return outlinePoints
-        .map((e) => e.scaleFromCenter(1 / currentZoom, center))
-        .toList();
+    return [
+      for (final point in outlinePoints)
+        point.scaleFromCenter(1 / currentZoom, center),
+    ];
   }
 
   @override
@@ -240,10 +256,13 @@ class PenRenderer extends Renderer<PenElement> {
     final color = property.paint.previewColor;
     if (fill.a > 0) {
       final first = points.first;
-      var path = 'M ${first.x} ${first.y}';
-      points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
+      final path = StringBuffer('M ${first.x} ${first.y}');
+      for (var i = 1; i < points.length; i++) {
+        final point = points[i];
+        path.write(' L ${point.x} ${point.y}');
+      }
       xml.getElement('svg')?.createElement('path')
-        ?..setAttribute('d', path)
+        ?..setAttribute('d', path.toString())
         ..setAttribute('fill', fill.toHexString(alpha: false))
         ..setAttribute('fill-opacity', '${fill.a / 255}')
         ..setAttribute('stroke', 'none')
@@ -251,8 +270,6 @@ class PenRenderer extends Renderer<PenElement> {
         ..setAttribute('stroke-linejoin', 'round');
     }
     if (color.a > 0) {
-      var path = '';
-
       // 1. Get the outline points from the input points
       var outlinePoints = _getOutlinePoints();
 
@@ -263,14 +280,15 @@ class PenRenderer extends Renderer<PenElement> {
       }
 
       final first = outlinePoints.first;
-      path += 'M ${first.roundedX()} ${first.roundedY()}';
-      for (final point in outlinePoints.sublist(1)) {
-        path += ' L ${point.roundedX()} ${point.roundedY()}';
+      final path = StringBuffer('M ${first.roundedX()} ${first.roundedY()}');
+      for (var i = 1; i < outlinePoints.length; i++) {
+        final point = outlinePoints[i];
+        path.write(' L ${point.roundedX()} ${point.roundedY()}');
       }
-      path += ' Z';
+      path.write(' Z');
 
       xml.getElement('svg')?.createElement('path')
-        ?..setAttribute('d', path)
+        ?..setAttribute('d', path.toString())
         ..setAttribute('fill', color.toHexString(alpha: false))
         ..setAttribute('fill-opacity', '${color.a / 255}')
         ..setAttribute('stroke', 'none')
@@ -280,20 +298,21 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   List<PathPoint> movePoints(Offset position, double scaleX, double scaleY) {
-    var topLeft = element.points
-        .map((e) => e.toOffset())
-        .reduce(
-          (value, element) =>
-              Offset(min(value.dx, element.dx), min(value.dy, element.dy)),
-        );
-    return element.points
-        .map(
-          (point) => point.copyWith(
-            x: (point.x - topLeft.dx) * scaleX + position.dx,
-            y: (point.y - topLeft.dy) * scaleY + position.dy,
-          ),
-        )
-        .toList();
+    final points = element.points;
+    if (points.isEmpty) return const [];
+    var left = points.first.x;
+    var top = points.first.y;
+    for (var i = 1; i < points.length; i++) {
+      left = min(left, points[i].x);
+      top = min(top, points[i].y);
+    }
+    return [
+      for (final point in points)
+        point.copyWith(
+          x: (point.x - left) * scaleX + position.dx,
+          y: (point.y - top) * scaleY + position.dy,
+        ),
+    ];
   }
 
   Rect moveRect(
@@ -311,11 +330,13 @@ class PenRenderer extends Renderer<PenElement> {
   PenRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) => PenRenderer(
     element.copyWith(
       rotation: rotation,
+      shear: shear,
       points: movePoints(position, scaleX, scaleY),
     ),
     layer,
@@ -324,12 +345,12 @@ class PenRenderer extends Renderer<PenElement> {
   );
 
   @override
-  PathHitCalculator getHitCalculator() {
+  PathHitCalculator createHitCalculator() {
     _cachedHitCalculator ??= PathHitCalculator(
       rect,
-      expandedRect,
+      _localExpandedRect,
       element.points,
-      rotation * pi / 180,
+      0,
     );
     return _cachedHitCalculator!;
   }

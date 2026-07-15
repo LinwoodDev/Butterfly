@@ -41,30 +41,68 @@ sealed class CameraTransform with _$CameraTransform {
     @Default(1) double pixelRatio,
     @Default(Offset.zero) Offset position,
     @Default(1) double size,
+    @Default(0) double rotation,
     FrictionState? friction,
   ]) = _CameraTransform;
 
   CameraTransform withPosition(Offset position) =>
-      CameraTransform(pixelRatio, position, size);
+      CameraTransform(pixelRatio, position, size, rotation);
 
   CameraTransform withPointPosition(Point<double> position) =>
-      CameraTransform(pixelRatio, position.toOffset(), size);
+      CameraTransform(pixelRatio, position.toOffset(), size, rotation);
 
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
     final double newSize = size.clamp(kMinZoom, kMaxZoom);
-    var mx = localToGlobal(cursor);
-    mx = (mx - position) * newSize;
-
     return CameraTransform(
       pixelRatio,
-      position + (mx - cursor) / newSize,
+      localToGlobal(cursor) - cursor.rotate(Offset.zero, -rotation) / newSize,
       newSize,
+      rotation,
     );
   }
 
-  Offset localToGlobal(Offset local) => local / size + position;
-  Offset globalToLocal(Offset global) => (global - position) * size;
+  CameraTransform withRotation(double rotation, [Offset cursor = Offset.zero]) {
+    final normalized = (rotation + pi) % (2 * pi) - pi;
+    return CameraTransform(
+      pixelRatio,
+      localToGlobal(cursor) - cursor.rotate(Offset.zero, -normalized) / size,
+      size,
+      normalized,
+    );
+  }
+
+  Offset localToGlobal(Offset local) =>
+      local.rotate(Offset.zero, -rotation) / size + position;
+
+  Offset globalToLocal(Offset global) =>
+      ((global - position) * size).rotate(Offset.zero, rotation);
+
+  Offset localToGlobalDelta(Offset delta) =>
+      delta.rotate(Offset.zero, -rotation) / size;
+
+  Rect localToGlobalRect(Rect rect) => _transformRect(rect, localToGlobal);
+
+  Rect globalToLocalRect(Rect rect) => _transformRect(rect, globalToLocal);
+
+  Rect _transformRect(Rect rect, Offset Function(Offset) transform) {
+    final topLeft = transform(rect.topLeft);
+    final topRight = transform(rect.topRight);
+    final bottomLeft = transform(rect.bottomLeft);
+    final bottomRight = transform(rect.bottomRight);
+    return Rect.fromLTRB(
+      min(min(topLeft.dx, topRight.dx), min(bottomLeft.dx, bottomRight.dx)),
+      min(min(topLeft.dy, topRight.dy), min(bottomLeft.dy, bottomRight.dy)),
+      max(max(topLeft.dx, topRight.dx), max(bottomLeft.dx, bottomRight.dx)),
+      max(max(topLeft.dy, topRight.dy), max(bottomLeft.dy, bottomRight.dy)),
+    );
+  }
+
+  void applyToCanvas(Canvas canvas) {
+    canvas.rotate(rotation);
+    canvas.scale(size);
+    canvas.translate(-position.dx, -position.dy);
+  }
 
   double _getFinalTime(
     double velocity,
@@ -125,6 +163,7 @@ sealed class CameraTransform with _$CameraTransform {
       pixelRatio,
       finalPosition,
       finalScale,
+      rotation,
       frictionState,
     );
   }
@@ -134,12 +173,13 @@ sealed class CameraTransform with _$CameraTransform {
       pixelRatio,
       this.position - position,
       this.size - size,
+      rotation,
       null,
     );
   }
 
   CameraTransform improve(RenderResolution resolution, Rect rect) {
-    return CameraTransform(pixelRatio, rect.topLeft, size, friction);
+    return CameraTransform(pixelRatio, rect.topLeft, size, 0, friction);
   }
 }
 
@@ -149,13 +189,20 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
-  void teleport(Offset position, [double? scale]) =>
-      emit(state.withPosition(position).withSize(scale ?? state.size));
+  void teleport(Offset position, [double? scale, double? rotation]) => emit(
+    state
+        .withPosition(position)
+        .withSize(scale ?? state.size)
+        .withRotation(rotation ?? state.rotation),
+  );
 
   void zoom(double delta, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(state.size * delta, cursor));
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
+
+  void rotate(double delta, [Offset cursor = Offset.zero]) =>
+      emit(state.withRotation(state.rotation + delta, cursor));
 
   void reset() => emit(CameraTransform(state.pixelRatio));
 
@@ -517,6 +564,18 @@ class TransformCubit extends Cubit<CameraTransform> {
     final transform = state.withSize(state.size * delta, cursor);
     final clamped = _clampTransform(transform: transform, runtime: runtime);
     teleport(clamped.position, clamped.size);
+  }
+
+  void rotateConstrained(
+    double delta, {
+    required EditorRuntimeContext runtime,
+    Offset cursor = Offset.zero,
+    bool force = false,
+  }) {
+    if (delta == 0 || (runtime.viewCubit.state.locks.lockRotation && !force)) {
+      return;
+    }
+    rotate(delta, cursor);
   }
 
   void sizeConstrained(

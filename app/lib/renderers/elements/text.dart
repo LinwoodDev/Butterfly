@@ -38,7 +38,12 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
               (i, e) => _createSpan(document, dimensions, i, e, style),
             )
             .toList(),
-        style: style.span.toFlutter(null, element.foreground),
+        style: style.span.toFlutter(
+          null,
+          element.foreground,
+          styleSheet?.fontFamily ?? kDefaultFontFamily,
+          styleSheet?.fontFamilyFallback ?? const [],
+        ),
       ),
     };
     _tp?.setPlaceholderDimensions(dimensions);
@@ -58,7 +63,12 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     final styleSheet = _getStyle();
     final style = styleSheet
         .resolveSpanProperty(span.property)
-        ?.toFlutter(parent, element.foreground);
+        ?.toFlutter(
+          parent,
+          element.foreground,
+          styleSheet?.fontFamily ?? kDefaultFontFamily,
+          styleSheet?.fontFamilyFallback ?? const [],
+        );
     switch (span) {
       case text.TextSpan():
         return TextSpan(text: span.text, style: style);
@@ -133,7 +143,12 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
       textStyle:
           (styleSheet.resolveSpanProperty(span.property) ??
                   const text.DefinedSpanProperty())
-              .toFlutter(paragraphStyle, element.foreground),
+              .toFlutter(
+                paragraphStyle,
+                element.foreground,
+                styleSheet?.fontFamily ?? kDefaultFontFamily,
+                styleSheet?.fontFamilyFallback ?? const [],
+              ),
     ),
   );
 
@@ -278,7 +293,14 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final span in paragraph.textSpans) {
       final style = styles.resolveSpanProperty(span.property);
       textElement.createElement('tspan')
-        ..setAttribute('style', style?.toCss())
+        ..setAttribute(
+          'style',
+          style?.toCss(
+            null,
+            styles?.fontFamily ?? kDefaultFontFamily,
+            styles?.fontFamilyFallback ?? const [],
+          ),
+        )
         ..innerText = _convertTextToHtml(span.text);
     }
   }
@@ -348,12 +370,14 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
   TextRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) => TextRenderer(
     element.copyWith(
       position: position.toPoint(),
       rotation: rotation,
+      shear: shear,
       scale: element.scale * max(scaleX, scaleY),
     ),
     layer,

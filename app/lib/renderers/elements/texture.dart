@@ -46,6 +46,7 @@ class TextureRenderer extends Renderer<TextureElement> {
   TextureRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) {
@@ -55,6 +56,7 @@ class TextureRenderer extends Renderer<TextureElement> {
         (element.firstPosition.y - element.secondPosition.y).abs() * scaleY;
     return TextureRenderer(
       element.copyWith(
+        shear: shear,
         firstPosition: position.toPoint(),
         secondPosition: position.translate(sizeX, sizeY).toPoint(),
         rotation: rotation,

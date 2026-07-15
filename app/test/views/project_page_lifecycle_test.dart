@@ -3,7 +3,10 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -94,11 +97,13 @@ void main() {
     );
   }
 
-  Widget buildApp() {
-    final document = DocumentDefaults.createDocument(
-      name: 'Lifecycle test',
-      page: const DocumentPage(backgrounds: []),
-    );
+  Widget buildApp({NoteData? embedDocument}) {
+    final document =
+        embedDocument ??
+        DocumentDefaults.createDocument(
+          name: 'Lifecycle test',
+          page: const DocumentPage(backgrounds: []),
+        );
     fileSystem.buildTemplateSystem().updateFile('default', document);
     router = GoRouter(
       initialLocation: '/',
@@ -135,6 +140,13 @@ void main() {
               path: 'import',
               builder: (context, state) => ProjectPage(data: document),
             ),
+            GoRoute(
+              path: 'embed',
+              builder: (context, state) => ProjectPage(
+                data: document.toFile(),
+                embedding: Embedding(internal: true),
+              ),
+            ),
           ],
         ),
       ],
@@ -143,6 +155,9 @@ void main() {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<ButterflyFileSystem>.value(value: fileSystem),
+        RepositoryProvider<FontService>(
+          create: (context) => FontService(fileSystem),
+        ),
         RepositoryProvider<ClipboardManager>.value(
           value: UnsupportedClipboardManager(),
         ),
@@ -218,6 +233,51 @@ void main() {
       'imported document close',
     );
   });
+
+  testWidgets('embed does not load or save persistent document state', (
+    tester,
+  ) async {
+    final document = DocumentDefaults.createDocument(
+      name: 'Embed lifecycle test',
+      page: const DocumentPage(backgrounds: []),
+    );
+    final contentKey = documentStateContentKey(
+      documentStateContentHash(document.exportAsBytes()),
+    );
+    final documentStateSystem = fileSystem.buildDocumentStateSystem();
+    await documentStateSystem.initialize();
+    await documentStateSystem.createFile(
+      contentKey,
+      const PersistedDocumentState(
+        camera: PersistedCameraState(positionX: 100, positionY: 200, zoom: 3),
+      ),
+    );
+    await tester.pumpWidget(buildApp(embedDocument: document));
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'embedded document open',
+    );
+
+    final editorController = observer.lastDocumentBloc!.editorController;
+    expect(editorController.transformCubit.state.position, Offset.zero);
+    expect(editorController.transformCubit.state.size, 1);
+    editorController.transformCubit.teleport(const Offset(10, 20), 2);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'embedded document close',
+    );
+
+    final stored = await documentStateSystem.getFile(contentKey);
+    expect(stored?.camera.positionX, 100);
+    expect(stored?.camera.positionY, 200);
+    expect(stored?.camera.zoom, 3);
+  });
 }
 
 class _LifecycleObserver extends BlocObserver {
@@ -225,6 +285,7 @@ class _LifecycleObserver extends BlocObserver {
   int documentBlocCloses = 0;
   int saveCubitCreates = 0;
   int saveCubitCloses = 0;
+  DocumentBloc? lastDocumentBloc;
   DocumentSaveCubit? lastSaveCubit;
   final events = <String>[];
 
@@ -233,6 +294,7 @@ class _LifecycleObserver extends BlocObserver {
     super.onCreate(bloc);
     if (bloc is DocumentBloc) {
       documentBlocCreates++;
+      lastDocumentBloc = bloc;
     } else if (bloc is DocumentSaveCubit) {
       saveCubitCreates++;
       lastSaveCubit = bloc;

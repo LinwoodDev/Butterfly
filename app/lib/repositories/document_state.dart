@@ -24,28 +24,36 @@ class DocumentStateRepository {
     String? contentHash,
     String? pathKey,
     bool allowContentHash = true,
-  }) => _lock.synchronized(() async {
-    final settings = _settings;
-    if (!settings.enabled) return null;
-    try {
-      await fileSystem.initialize();
-      if (pathKey != null) {
-        final byPath = await _getFileOrNull(pathKey);
-        if (byPath != null) return _applySettings(byPath, settings);
-      }
-      if (allowContentHash && contentHash != null) {
-        final byContent = await _getFileOrNull(
-          documentStateContentKey(contentHash),
-        );
-        if (byContent != null) return _applySettings(byContent, settings);
-      }
-    } on NetworkException catch (e, stackTrace) {
-      // Document state is optional. A cached remote document must still open
-      // when its separate state record is unavailable offline.
-      talker.warning('Failed to load document state', e, stackTrace);
+  }) {
+    final canLoadByPath = pathKey != null;
+    final canLoadByContent = allowContentHash && contentHash != null;
+
+    if (!canLoadByPath && !canLoadByContent) {
+      return Future.value(null);
     }
-    return null;
-  });
+    return _lock.synchronized(() async {
+      final settings = _settings;
+      if (!settings.enabled) return null;
+      try {
+        await fileSystem.initialize();
+        if (pathKey != null) {
+          final byPath = await _getFileOrNull(pathKey);
+          if (byPath != null) return _applySettings(byPath, settings);
+        }
+        if (allowContentHash && contentHash != null) {
+          final byContent = await _getFileOrNull(
+            documentStateContentKey(contentHash),
+          );
+          if (byContent != null) return _applySettings(byContent, settings);
+        }
+      } on NetworkException catch (e, stackTrace) {
+        // Document state is optional. A cached remote document must still open
+        // when its separate state record is unavailable offline.
+        talker.warning('Failed to load document state', e, stackTrace);
+      }
+      return null;
+    });
+  }
 
   Future<void> save(
     PersistedDocumentState state, {
@@ -54,17 +62,33 @@ class DocumentStateRepository {
     String? previousContentKey,
     String? previousPathKey,
     required bool persistentChanged,
-  }) => _lock.synchronized(() async {
-    final settings = _settings;
-    if (!settings.enabled) return;
-    await fileSystem.initialize();
-    await _updateFile(previousPathKey, pathKey, state, persistentChanged);
-    await _updateFile(previousContentKey, contentKey, state, persistentChanged);
-    _scheduleCleanupAfterSave(
-      contentHash: state.contentHash,
-      pathKey: state.pathKey,
-    );
-  });
+  }) {
+    final hasAnyKey =
+        contentKey != null ||
+        pathKey != null ||
+        previousContentKey != null ||
+        previousPathKey != null;
+
+    if (!hasAnyKey) {
+      return Future.value();
+    }
+    return _lock.synchronized(() async {
+      final settings = _settings;
+      if (!settings.enabled) return;
+      await fileSystem.initialize();
+      await _updateFile(previousPathKey, pathKey, state, persistentChanged);
+      await _updateFile(
+        previousContentKey,
+        contentKey,
+        state,
+        persistentChanged,
+      );
+      _scheduleCleanupAfterSave(
+        contentHash: state.contentHash,
+        pathKey: state.pathKey,
+      );
+    });
+  }
 
   Future<int> cleanup({String? contentHash, String? pathKey, DateTime? now}) =>
       _lock.synchronized(() async {

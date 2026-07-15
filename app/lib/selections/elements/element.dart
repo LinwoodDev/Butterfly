@@ -102,6 +102,23 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
           );
         },
       ),
+      ExactSlider(
+        value: atan(elements.first.shear) * 180 / pi,
+        defaultValue: 0,
+        min: -90,
+        max: 90,
+        header: Text(AppLocalizations.of(context).shear),
+        onChangeEnd: (value) => updateElements(
+          context,
+          selected
+              .map(
+                (renderer) =>
+                    renderer.element.copyWith(shear: tan(value * pi / 180)),
+              )
+              .whereType<T>()
+              .toList(),
+        ),
+      ),
     ];
   }
 

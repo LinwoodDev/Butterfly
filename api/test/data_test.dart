@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:test/test.dart';
 
@@ -11,6 +12,43 @@ DocumentPage _pageWithLayer(String layerId) =>
     DocumentPage(layers: [DocumentLayer(id: layerId)]);
 
 void main() {
+  group('Pack fonts', () {
+    test('font assets can be listed, inherited, and removed', () {
+      final bytes = Uint8List.fromList([1, 2, 3]);
+      final parent = NoteData(Archive()).setFont('Example.ttf', bytes);
+      var pack = NoteData(Archive(), parent: parent);
+
+      expect(pack.getFonts(), contains('Example.ttf'));
+      expect(pack.getFont('Example.ttf'), bytes);
+
+      pack = pack.setFont('Local.otf', bytes);
+      expect(pack.getFonts(), containsAll(['Example.ttf', 'Local.otf']));
+      pack = pack.removeFont('Local.otf');
+      expect(pack.getFonts(), isNot(contains('Local.otf')));
+    });
+  });
+
+  group('Text style fonts', () {
+    test('old styles default to Roboto without fallbacks', () {
+      final style = TextStyleSheet.fromJson(const {});
+
+      expect(style.fontFamily, 'Roboto');
+      expect(style.fontFamilyFallback, isEmpty);
+    });
+
+    test('font families round-trip through JSON', () {
+      const style = TextStyleSheet(
+        fontFamily: 'Custom-Example.ttf',
+        fontFamilyFallback: ['Noto Sans', 'Roboto'],
+      );
+
+      final decoded = TextStyleSheet.fromJson(style.toJson());
+
+      expect(decoded.fontFamily, style.fontFamily);
+      expect(decoded.fontFamilyFallback, style.fontFamilyFallback);
+    });
+  });
+
   group('Highlighter options', () {
     test('pen tool options round-trip through JSON', () {
       final tool = PenTool(id: 'highlighter', combinePaths: true);

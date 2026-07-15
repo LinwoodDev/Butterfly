@@ -34,6 +34,7 @@ import '../cubits/transform.dart';
 import '../helpers/xml.dart';
 import '../models/label.dart';
 import '../services/asset.dart';
+import '../services/font.dart';
 import '../services/logger.dart';
 import 'textures/texture.dart';
 
@@ -219,6 +220,64 @@ class DefaultHitCalculator extends HitCalculator {
     }
     return isCenter || isTopLeft || isTopRight || isBottomLeft || isBottomRight;
   }
+}
+
+class TransformedHitCalculator extends HitCalculator {
+  final HitCalculator delegate;
+  final Rect? bounds;
+  final Offset center;
+  final double rotation;
+  final double shear;
+
+  TransformedHitCalculator(
+    this.delegate,
+    this.bounds,
+    this.center,
+    this.rotation,
+    this.shear,
+  );
+
+  Offset _inverse(Offset point) {
+    final rotated = (point - center).rotate(Offset.zero, -rotation);
+    return center + Offset(rotated.dx - rotated.dy * shear, rotated.dy);
+  }
+
+  @override
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (!isFiniteRect(rect)) {
+      final bounds = this.bounds;
+      if (bounds == null) return false;
+      return hitElementMode == HitElementMode.full
+          ? [
+              bounds.topLeft,
+              bounds.topRight,
+              bounds.bottomRight,
+              bounds.bottomLeft,
+            ].every(rect.contains)
+          : bounds.overlaps(rect);
+    }
+    return delegate.hitPolygon(
+      [
+        rect.topLeft,
+        rect.topRight,
+        rect.bottomRight,
+        rect.bottomLeft,
+      ].map(_inverse).toList(),
+      hitElementMode: hitElementMode,
+    );
+  }
+
+  @override
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) => delegate.hitPolygon(
+    polygon.map(_inverse).toList(),
+    hitElementMode: hitElementMode,
+  );
 }
 
 /// A helper class to represent the projection of a polygon onto an axis.
@@ -460,6 +519,8 @@ abstract class Renderer<T> {
   double get rotation =>
       element is PadElement ? (element as PadElement).rotation : 0.0;
 
+  double get shear => element is PadElement ? (element as PadElement).shear : 0;
+
   String get id =>
       (element is PadElement ? (element as PadElement).id : null) ??
       createUniqueId();
@@ -499,25 +560,80 @@ abstract class Renderer<T> {
     final current = rect;
     if (current == null) return null;
     final rotation = this.rotation * (pi / 180);
-    return _expandedAabbFor(current, rotation);
+    return _expandedAabbFor(current, rotation, shear);
   }
 
-  // Computes the axis-aligned bounding box of a rotated rect.
-  static Rect _expandedAabbFor(Rect r, double radians) {
-    if (radians == 0) return r;
+  static Offset _transformPoint(
+    Offset point,
+    Offset center,
+    double radians,
+    double shear,
+  ) {
+    final local = point - center;
+    final sheared = Offset(local.dx + local.dy * shear, local.dy);
+    return center + sheared.rotate(Offset.zero, radians);
+  }
+
+  Offset transformPoint(Offset point, [Rect? bounds]) => _transformPoint(
+    point,
+    (bounds ?? rect ?? Rect.zero).center,
+    rotation * pi / 180,
+    shear,
+  );
+
+  // Computes the axis-aligned bounding box of an affine-transformed rect.
+  static Rect _expandedAabbFor(Rect r, double radians, [double shear = 0]) {
+    if (radians == 0 && shear == 0) {
+      return r;
+    }
     final center = r.center;
-    final topLeft = r.topLeft.rotate(center, radians);
-    final topRight = r.topRight.rotate(center, radians);
-    final bottomLeft = r.bottomLeft.rotate(center, radians);
-    final bottomRight = r.bottomRight.rotate(center, radians);
-    final all = [topLeft, topRight, bottomLeft, bottomRight];
-    final xs = all.map((p) => p.dx);
-    final ys = all.map((p) => p.dy);
-    final left = xs.reduce(min);
-    final right = xs.reduce(max);
-    final top = ys.reduce(min);
-    final bottom = ys.reduce(max);
-    return Rect.fromLTRB(left, top, right, bottom);
+    final topLeft = _transformPoint(r.topLeft, center, radians, shear);
+    final topRight = _transformPoint(r.topRight, center, radians, shear);
+    final bottomLeft = _transformPoint(r.bottomLeft, center, radians, shear);
+    final bottomRight = _transformPoint(r.bottomRight, center, radians, shear);
+    return Rect.fromLTRB(
+      min(min(topLeft.dx, topRight.dx), min(bottomLeft.dx, bottomRight.dx)),
+      min(min(topLeft.dy, topRight.dy), min(bottomLeft.dy, bottomRight.dy)),
+      max(max(topLeft.dx, topRight.dx), max(bottomLeft.dx, bottomRight.dx)),
+      max(max(topLeft.dy, topRight.dy), max(bottomLeft.dy, bottomRight.dy)),
+    );
+  }
+
+  static Rect _inverseAabbFor(
+    Rect r,
+    Offset center,
+    double radians,
+    double shear,
+  ) {
+    Offset inverse(Offset point) {
+      final rotated = (point - center).rotate(Offset.zero, -radians);
+      return center + Offset(rotated.dx - rotated.dy * shear, rotated.dy);
+    }
+
+    final topLeft = inverse(r.topLeft);
+    final topRight = inverse(r.topRight);
+    final bottomRight = inverse(r.bottomRight);
+    final bottomLeft = inverse(r.bottomLeft);
+    return Rect.fromLTRB(
+      min(min(topLeft.dx, topRight.dx), min(bottomLeft.dx, bottomRight.dx)),
+      min(min(topLeft.dy, topRight.dy), min(bottomLeft.dy, bottomRight.dy)),
+      max(max(topLeft.dx, topRight.dx), max(bottomLeft.dx, bottomRight.dx)),
+      max(max(topLeft.dy, topRight.dy), max(bottomLeft.dy, bottomRight.dy)),
+    );
+  }
+
+  bool transformCanvas(Canvas canvas) {
+    final radians = rotation * pi / 180;
+    if (radians == 0 && shear == 0) {
+      return false;
+    }
+    final center = rect?.center;
+    canvas.save();
+    if (center != null) canvas.translate(center.dx, center.dy);
+    canvas.rotate(radians);
+    canvas.transform((Matrix4.identity()..setEntry(0, 1, shear)).storage);
+    if (center != null) canvas.translate(-center.dx, -center.dy);
+    return true;
   }
 
   void build(
@@ -531,8 +647,20 @@ abstract class Renderer<T> {
     bool foreground = false,
   ]);
 
-  HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, expandedRect, rotation * (pi / 180));
+  HitCalculator getHitCalculator() {
+    final calculator = createHitCalculator();
+    if (rotation == 0 && shear == 0) return calculator;
+    return TransformedHitCalculator(
+      calculator,
+      expandedRect,
+      rect?.center ?? Offset.zero,
+      rotation * pi / 180,
+      shear,
+    );
+  }
+
+  @protected
+  HitCalculator createHitCalculator() => DefaultHitCalculator(rect, rect, 0);
 
   void buildSvg(
     XmlDocument xml,
@@ -551,8 +679,7 @@ abstract class Renderer<T> {
   }) {
     final rect = this.rect ?? Rect.zero;
     rotation ??= relative ? 0 : this.rotation;
-    final double nextRotation =
-        (relative ? rotation + this.rotation : rotation) % 360;
+    final rotationDelta = relative ? rotation : rotation - this.rotation;
 
     // Determine position (absolute for _transform)
     position ??= relative ? Offset.zero : rect.topLeft;
@@ -566,93 +693,66 @@ abstract class Renderer<T> {
       nextPosition = relativePosition + rect.topLeft;
     }
 
-    // Convert world axis-aligned scaling into local-space scaling.
-    // The expanded (AABB) rect is what gets scaled in world space, so we solve
-    // for the local scale factors that produce the desired AABB dimensions.
-    //
-    // The AABB dimensions of a rect (w, h) rotated by θ are:
-    //   EW = w·|cosθ| + h·|sinθ|
-    //   EH = w·|sinθ| + h·|cosθ|
-    //
-    // After applying local scales (sx, sy), the new AABB must satisfy:
-    //   sx·w·|cosθ| + sy·h·|sinθ| = scaleX · EW
-    //   sx·w·|sinθ| + sy·h·|cosθ| = scaleY · EH
-    //
-    // This 2×2 system has determinant w·h·cos(2θ). When cos(2θ) ≈ 0
-    // (rotation near 45°/135°) or the exact solution yields negative local
-    // scales, we fall back to the diagonal projection of the world-space
-    // scale matrix onto the local axes.
-    double sx = scaleX;
-    double sy = scaleY;
-    if ((scaleX != 1 || scaleY != 1) && (this.rotation % 360) != 0) {
-      final w = rect.width;
-      final h = rect.height;
-      final expandedRect = _expandedAabbFor(rect, radians);
+    // Compose the requested world transform with the current local transform.
+    // QR decomposition then gives a rotation, an X shear and local scales,
+    // which together can represent every non-reflecting affine transform.
+    final currentShear = shear;
+    final c = cos(radians), s = sin(radians);
+    final a = c;
+    final b = c * currentShear - s;
+    final d = s;
+    final e = s * currentShear + c;
+    final deltaRadians = rotationDelta * pi / 180;
+    final dc = cos(deltaRadians), ds = sin(deltaRadians);
+    final m00 = dc * scaleX * a - ds * scaleY * d;
+    final m01 = dc * scaleX * b - ds * scaleY * e;
+    final m10 = ds * scaleX * a + dc * scaleY * d;
+    final m11 = ds * scaleX * b + dc * scaleY * e;
 
-      if (w > 0 && h > 0) {
-        final absC = cos(radians).abs();
-        final absS = sin(radians).abs();
-        final cos2theta = absC * absC - absS * absS; // cos(2θ)
+    final r00 = sqrt(m00 * m00 + m10 * m10);
+    if (r00 <= 1e-12) return null;
+    final q00 = m00 / r00, q10 = m10 / r00;
+    final r01 = q00 * m01 + q10 * m11;
+    final determinant = m00 * m11 - m01 * m10;
+    final r11 = determinant / r00;
+    if (r11.abs() <= 1e-12) return null;
 
-        if (cos2theta.abs() > 1e-10) {
-          // Expanded AABB dimensions of the current (unscaled) element.
-          final ew = w * absC + h * absS;
-          final eh = w * absS + h * absC;
+    final nextRotation = atan2(q10, q00) * 180 / pi % 360;
+    final geometryScaleX = r00;
+    final geometryScaleY = r11.abs();
+    final nextShear = r01 / r11;
 
-          // Solve the 2×2 linear system for exact local scales.
-          final exactSx =
-              (absC * scaleX * ew - absS * scaleY * eh) / (w * cos2theta);
-          final exactSy =
-              (absC * scaleY * eh - absS * scaleX * ew) / (h * cos2theta);
-
-          if (exactSx > 0 && exactSy > 0) {
-            sx = exactSx;
-            sy = exactSy;
-          } else {
-            // Exact solution requires a negative local scale (not
-            // representable). Fall back to diagonal projection.
-            final c2 = cos(radians) * cos(radians);
-            final s2 = sin(radians) * sin(radians);
-            sx = scaleX * c2 + scaleY * s2;
-            sy = scaleX * s2 + scaleY * c2;
-          }
-        } else {
-          // Near 45°/135°: system is ill-conditioned. Use diagonal
-          // projection (weighted average of world scales).
-          final c2 = cos(radians) * cos(radians);
-          final s2 = sin(radians) * sin(radians);
-          sx = scaleX * c2 + scaleY * s2;
-          sy = scaleX * s2 + scaleY * c2;
-        }
-      }
-
-      // Position compensation: the offset between rect.topLeft and its
-      // expanded AABB changes when local scales change. Adjust so the
-      // expanded AABB stays anchored correctly.
-      final Offset fOld = expandedRect.topLeft - rect.topLeft;
-      final Rect scaledRect = Rect.fromLTWH(
-        rect.left,
-        rect.top,
-        w * sx,
-        h * sy,
-      );
-      final Rect newExpanded = _expandedAabbFor(scaledRect, radians);
-      final Offset fNew = newExpanded.topLeft - scaledRect.topLeft;
-
-      nextPosition += (fOld - fNew);
+    final oldExpanded = _expandedAabbFor(rect, radians, currentShear);
+    final scaledRect = Rect.fromLTWH(
+      rect.left,
+      rect.top,
+      rect.width * geometryScaleX,
+      rect.height * geometryScaleY,
+    );
+    final newExpanded = _expandedAabbFor(
+      scaledRect,
+      nextRotation * pi / 180,
+      nextShear,
+    );
+    if (rotationDelta == 0) {
+      nextPosition +=
+          (oldExpanded.topLeft - rect.topLeft) -
+          (newExpanded.topLeft - scaledRect.topLeft);
     }
 
     return _transform(
       position: nextPosition,
       rotation: nextRotation,
-      scaleX: sx,
-      scaleY: sy,
+      shear: nextShear,
+      scaleX: geometryScaleX,
+      scaleY: geometryScaleY,
     );
   }
 
   Renderer<T>? _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     // ignore: unused_element_parameter
     double scaleX = 1,
     // ignore: unused_element_parameter

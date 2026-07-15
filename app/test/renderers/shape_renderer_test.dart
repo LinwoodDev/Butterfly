@@ -63,6 +63,39 @@ void main() {
   });
 
   group('rotation test', () {
+    test('non-uniform scaling preserves the affine shape of a rotation', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          rotation: 45,
+          firstPosition: const Point(0, 0),
+          secondPosition: const Point(100, 50),
+        ),
+      );
+
+      final transformed = renderer.transform(scaleX: 2, scaleY: 1)!;
+      final rect = transformed.rect!;
+      final horizontal =
+          transformed.transformPoint(rect.topRight) -
+          transformed.transformPoint(rect.topLeft);
+      final vertical =
+          transformed.transformPoint(rect.bottomLeft) -
+          transformed.transformPoint(rect.topLeft);
+      final expectedHorizontal = Offset(200 * cos(pi / 4), 100 * sin(pi / 4));
+      final expectedVertical = Offset(-100 * sin(pi / 4), 50 * cos(pi / 4));
+
+      expect(transformed.shear, isNot(0));
+      expect(horizontal.dx, closeTo(expectedHorizontal.dx, 1e-9));
+      expect(horizontal.dy, closeTo(expectedHorizontal.dy, 1e-9));
+      expect(vertical.dx, closeTo(expectedVertical.dx, 1e-9));
+      expect(vertical.dy, closeTo(expectedVertical.dy, 1e-9));
+    });
+
+    test('documents without shear keep the identity default', () {
+      final json = ShapeElement().toJson()..remove('shear');
+
+      expect(PadElement.fromJson(json).shear, 0);
+    });
+
     test('rotated pen stroke is hit outside its original bounds', () {
       final hitCalculator = PenRenderer(
         PenElement(

@@ -38,6 +38,10 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     : super(initial ?? ToolRuntimeState(handler: HandHandler()));
 
   final foregroundRefreshRunner = CoalescedAsyncRunner(delay: Duration.zero);
+  final delayedForegroundRefreshRunner = CoalescedAsyncRunner(
+    delay: const Duration(milliseconds: 16),
+    restartDelay: false,
+  );
   EditorController? _controller;
   Timer? _networkingDebounceTimer;
 
@@ -787,6 +791,8 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     DocumentLoaded blocState, {
     bool allowBake = true,
   }) async {
+    // A full refresh supersedes any frame-delayed drawing preview.
+    delayedForegroundRefreshRunner.cancel();
     talker.verbose('Refreshing tools');
     final document = blocState.data;
     final page = blocState.page;
@@ -929,7 +935,17 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   Future<void> refreshForegrounds(
     EditorController controller,
     DocumentLoaded blocState,
-  ) => foregroundRefreshRunner.schedule(
+  ) {
+    delayedForegroundRefreshRunner.cancel();
+    return foregroundRefreshRunner.schedule(
+      () => _refreshForegrounds(controller, blocState),
+    );
+  }
+
+  Future<void> delayedRefreshForegrounds(
+    EditorController controller,
+    DocumentLoaded blocState,
+  ) => delayedForegroundRefreshRunner.schedule(
     () => _refreshForegrounds(controller, blocState),
   );
 
@@ -1072,6 +1088,8 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     }
     foregroundRefreshRunner.cancel();
     await foregroundRefreshRunner.disposeAndWait();
+    delayedForegroundRefreshRunner.cancel();
+    await delayedForegroundRefreshRunner.disposeAndWait();
     _networkingDebounceTimer?.cancel();
     _networkingDebounceTimer = null;
     _controller = null;

@@ -16,26 +16,17 @@ class TextureBackgroundRenderer extends Renderer<TextureBackground> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    // Overshoot bounds to avoid 1px fractional bleeding
-    final overshoot = 20.0;
-    final oversize = Size(
-      size.width + overshoot * 2,
-      size.height + overshoot * 2,
+    final viewport = transform.localToGlobalRect(
+      (Offset.zero & size).inflate(20),
     );
-
-    // We must shift the offset that drawSurfaceTextureOnCanvas uses
-    // to keep the pattern visually anchored accurately despite our expanded canvas
-    final shiftedOffset =
-        transform.position -
-        Offset(overshoot / transform.size, overshoot / transform.size);
 
     drawSurfaceTextureOnCanvas(
       texture,
       canvas,
-      transform.size,
-      shiftedOffset,
-      oversize,
-      Offset(-overshoot, -overshoot),
+      1,
+      viewport.topLeft,
+      viewport.size,
+      viewport.topLeft,
       true,
     );
   }

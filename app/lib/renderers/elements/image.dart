@@ -179,6 +179,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) {
@@ -186,6 +187,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       element.copyWith(
         position: position.toPoint(),
         rotation: rotation,
+        shear: shear,
         constraints: element.constraints.scale(scaleX, scaleY),
       ),
       layer,

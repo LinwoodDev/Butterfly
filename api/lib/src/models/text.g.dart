@@ -227,6 +227,12 @@ Map<String, dynamic> _$TextAreaToJson(_TextArea instance) => <String, dynamic>{
 };
 
 _TextStyleSheet _$TextStyleSheetFromJson(Map json) => _TextStyleSheet(
+  fontFamily: json['fontFamily'] as String? ?? 'Roboto',
+  fontFamilyFallback:
+      (json['fontFamilyFallback'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
   spanProperties:
       (json['spanProperties'] as Map?)?.map(
         (k, e) => MapEntry(
@@ -249,6 +255,8 @@ _TextStyleSheet _$TextStyleSheetFromJson(Map json) => _TextStyleSheet(
 
 Map<String, dynamic> _$TextStyleSheetToJson(_TextStyleSheet instance) =>
     <String, dynamic>{
+      'fontFamily': instance.fontFamily,
+      'fontFamilyFallback': instance.fontFamilyFallback,
       'spanProperties': instance.spanProperties.map(
         (k, e) => MapEntry(k, e.toJson()),
       ),

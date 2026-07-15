@@ -15,6 +15,7 @@ import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/services/export.dart';
+import 'package:butterfly/services/font.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -333,12 +334,20 @@ class _ProjectPageState extends State<ProjectPage> {
           createdAt: DateTime.now(),
         );
       }
+      await context.read<FontService>().loadFonts(document);
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
+        return;
+      }
       location ??= AssetLocation(
         path: widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
-      final pathKey = documentStatePathKeyOrNull(location);
-      final contentHash = loadedDocumentBytes == null
+      final persistDocumentState = embedding == null;
+      final pathKey = persistDocumentState
+          ? documentStatePathKeyOrNull(location)
+          : null;
+      final contentHash = !persistDocumentState || loadedDocumentBytes == null
           ? null
           : documentStateContentHash(loadedDocumentBytes);
       final documentStateRepository = DocumentStateRepository(
@@ -383,6 +392,7 @@ class _ProjectPageState extends State<ProjectPage> {
           initialSession.camera.positionY,
         ),
         initialSession.camera.zoom,
+        initialSession.camera.rotation,
       );
       final editorSessionCubit = EditorSessionCubit(
         repository: documentStateRepository,

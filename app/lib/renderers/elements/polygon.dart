@@ -45,6 +45,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
           : 0,
     ),
     rotation * pi / 180,
+    shear,
   );
 
   void _computePath() {
@@ -228,11 +229,11 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   }
 
   @override
-  PolygonHitCalculator getHitCalculator() {
+  PolygonHitCalculator createHitCalculator() {
     _cachedHitCalculator ??= PolygonHitCalculator(
       rect,
       element.points,
-      rotation * pi / 180,
+      0,
       element.property,
     );
     return _cachedHitCalculator!;
@@ -242,11 +243,13 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   PolygonRenderer _transform({
     required Offset position,
     required double rotation,
+    required double shear,
     double scaleX = 1,
     double scaleY = 1,
   }) => PolygonRenderer(
     element.copyWith(
       rotation: rotation,
+      shear: shear,
       points: movePoints(position, scaleX, scaleY),
     ),
     layer,
