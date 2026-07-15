@@ -392,6 +392,7 @@ class _ProjectPageState extends State<ProjectPage> {
           initialSession.camera.positionY,
         ),
         initialSession.camera.zoom,
+        initialSession.camera.rotation,
       );
       final editorSessionCubit = EditorSessionCubit(
         repository: documentStateRepository,

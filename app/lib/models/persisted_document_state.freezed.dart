@@ -152,7 +152,7 @@ as int?,
 /// @nodoc
 mixin _$PersistedCameraState {
 
- double get positionX; double get positionY; double get zoom;
+ double get positionX; double get positionY; double get zoom; double get rotation;
 /// Create a copy of PersistedCameraState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -165,16 +165,16 @@ $PersistedCameraStateCopyWith<PersistedCameraState> get copyWith => _$PersistedC
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.rotation, rotation) || other.rotation == rotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,positionX,positionY,zoom);
+int get hashCode => Object.hash(runtimeType,positionX,positionY,zoom,rotation);
 
 @override
 String toString() {
-  return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom)';
+  return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom, rotation: $rotation)';
 }
 
 
@@ -185,7 +185,7 @@ abstract mixin class $PersistedCameraStateCopyWith<$Res>  {
   factory $PersistedCameraStateCopyWith(PersistedCameraState value, $Res Function(PersistedCameraState) _then) = _$PersistedCameraStateCopyWithImpl;
 @useResult
 $Res call({
- double positionX, double positionY, double zoom
+ double positionX, double positionY, double zoom, double rotation
 });
 
 
@@ -202,11 +202,12 @@ class _$PersistedCameraStateCopyWithImpl<$Res>
 
 /// Create a copy of PersistedCameraState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? positionX = null,Object? positionY = null,Object? zoom = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? positionX = null,Object? positionY = null,Object? zoom = null,Object? rotation = null,}) {
   return _then(_self.copyWith(
 positionX: null == positionX ? _self.positionX : positionX // ignore: cast_nullable_to_non_nullable
 as double,positionY: null == positionY ? _self.positionY : positionY // ignore: cast_nullable_to_non_nullable
 as double,zoom: null == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
+as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -219,12 +220,13 @@ as double,
 @JsonSerializable()
 
 class _PersistedCameraState implements PersistedCameraState {
-  const _PersistedCameraState({this.positionX = 0, this.positionY = 0, this.zoom = 1});
+  const _PersistedCameraState({this.positionX = 0, this.positionY = 0, this.zoom = 1, this.rotation = 0});
   factory _PersistedCameraState.fromJson(Map<String, dynamic> json) => _$PersistedCameraStateFromJson(json);
 
 @override@JsonKey() final  double positionX;
 @override@JsonKey() final  double positionY;
 @override@JsonKey() final  double zoom;
+@override@JsonKey() final  double rotation;
 
 /// Create a copy of PersistedCameraState
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.rotation, rotation) || other.rotation == rotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,positionX,positionY,zoom);
+int get hashCode => Object.hash(runtimeType,positionX,positionY,zoom,rotation);
 
 @override
 String toString() {
-  return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom)';
+  return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom, rotation: $rotation)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$PersistedCameraStateCopyWith<$Res> implements $PersistedC
   factory _$PersistedCameraStateCopyWith(_PersistedCameraState value, $Res Function(_PersistedCameraState) _then) = __$PersistedCameraStateCopyWithImpl;
 @override @useResult
 $Res call({
- double positionX, double positionY, double zoom
+ double positionX, double positionY, double zoom, double rotation
 });
 
 
@@ -276,11 +278,12 @@ class __$PersistedCameraStateCopyWithImpl<$Res>
 
 /// Create a copy of PersistedCameraState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? positionX = null,Object? positionY = null,Object? zoom = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? positionX = null,Object? positionY = null,Object? zoom = null,Object? rotation = null,}) {
   return _then(_PersistedCameraState(
 positionX: null == positionX ? _self.positionX : positionX // ignore: cast_nullable_to_non_nullable
 as double,positionY: null == positionY ? _self.positionY : positionY // ignore: cast_nullable_to_non_nullable
 as double,zoom: null == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
+as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -292,7 +295,7 @@ as double,
 /// @nodoc
 mixin _$PersistentLockState {
 
- bool get lockCollection; bool get lockLayer; bool get lockZoom; bool get lockHorizontal; bool get lockVertical;
+ bool get lockCollection; bool get lockLayer; bool get lockZoom; bool get lockHorizontal; bool get lockVertical; bool get lockRotation;
 /// Create a copy of PersistentLockState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -305,16 +308,16 @@ $PersistentLockStateCopyWith<PersistentLockState> get copyWith => _$PersistentLo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.lockRotation, lockRotation) || other.lockRotation == lockRotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical);
+int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,lockRotation);
 
 @override
 String toString() {
-  return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical)';
+  return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, lockRotation: $lockRotation)';
 }
 
 
@@ -325,7 +328,7 @@ abstract mixin class $PersistentLockStateCopyWith<$Res>  {
   factory $PersistentLockStateCopyWith(PersistentLockState value, $Res Function(PersistentLockState) _then) = _$PersistentLockStateCopyWithImpl;
 @useResult
 $Res call({
- bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical
+ bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical, bool lockRotation
 });
 
 
@@ -342,13 +345,14 @@ class _$PersistentLockStateCopyWithImpl<$Res>
 
 /// Create a copy of PersistentLockState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,Object? lockRotation = null,}) {
   return _then(_self.copyWith(
 lockCollection: null == lockCollection ? _self.lockCollection : lockCollection // ignore: cast_nullable_to_non_nullable
 as bool,lockLayer: null == lockLayer ? _self.lockLayer : lockLayer // ignore: cast_nullable_to_non_nullable
 as bool,lockZoom: null == lockZoom ? _self.lockZoom : lockZoom // ignore: cast_nullable_to_non_nullable
 as bool,lockHorizontal: null == lockHorizontal ? _self.lockHorizontal : lockHorizontal // ignore: cast_nullable_to_non_nullable
 as bool,lockVertical: null == lockVertical ? _self.lockVertical : lockVertical // ignore: cast_nullable_to_non_nullable
+as bool,lockRotation: null == lockRotation ? _self.lockRotation : lockRotation // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -361,7 +365,7 @@ as bool,
 @JsonSerializable()
 
 class _PersistentLockState extends PersistentLockState {
-  const _PersistentLockState({this.lockCollection = false, this.lockLayer = false, this.lockZoom = false, this.lockHorizontal = false, this.lockVertical = false}): super._();
+  const _PersistentLockState({this.lockCollection = false, this.lockLayer = false, this.lockZoom = false, this.lockHorizontal = false, this.lockVertical = false, this.lockRotation = false}): super._();
   factory _PersistentLockState.fromJson(Map<String, dynamic> json) => _$PersistentLockStateFromJson(json);
 
 @override@JsonKey() final  bool lockCollection;
@@ -369,6 +373,7 @@ class _PersistentLockState extends PersistentLockState {
 @override@JsonKey() final  bool lockZoom;
 @override@JsonKey() final  bool lockHorizontal;
 @override@JsonKey() final  bool lockVertical;
+@override@JsonKey() final  bool lockRotation;
 
 /// Create a copy of PersistentLockState
 /// with the given fields replaced by the non-null parameter values.
@@ -383,16 +388,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.lockRotation, lockRotation) || other.lockRotation == lockRotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical);
+int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,lockRotation);
 
 @override
 String toString() {
-  return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical)';
+  return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, lockRotation: $lockRotation)';
 }
 
 
@@ -403,7 +408,7 @@ abstract mixin class _$PersistentLockStateCopyWith<$Res> implements $PersistentL
   factory _$PersistentLockStateCopyWith(_PersistentLockState value, $Res Function(_PersistentLockState) _then) = __$PersistentLockStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical
+ bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical, bool lockRotation
 });
 
 
@@ -420,13 +425,14 @@ class __$PersistentLockStateCopyWithImpl<$Res>
 
 /// Create a copy of PersistentLockState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,Object? lockRotation = null,}) {
   return _then(_PersistentLockState(
 lockCollection: null == lockCollection ? _self.lockCollection : lockCollection // ignore: cast_nullable_to_non_nullable
 as bool,lockLayer: null == lockLayer ? _self.lockLayer : lockLayer // ignore: cast_nullable_to_non_nullable
 as bool,lockZoom: null == lockZoom ? _self.lockZoom : lockZoom // ignore: cast_nullable_to_non_nullable
 as bool,lockHorizontal: null == lockHorizontal ? _self.lockHorizontal : lockHorizontal // ignore: cast_nullable_to_non_nullable
 as bool,lockVertical: null == lockVertical ? _self.lockVertical : lockVertical // ignore: cast_nullable_to_non_nullable
+as bool,lockRotation: null == lockRotation ? _self.lockRotation : lockRotation // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

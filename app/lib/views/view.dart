@@ -43,6 +43,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   double size = 1.0;
+  double gestureRotation = 0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
@@ -342,7 +343,7 @@ class _MainViewViewportState extends State<MainViewViewport>
       if (event.pointer == inputState.pointers.first) {
         final transform = context.read<TransformCubit>().state;
         cubit.transformCubit.moveConstrained(
-          -event.delta / transform.size,
+          transform.localToGlobalDelta(-event.delta),
           runtime: cubit,
           bloc: context.read<DocumentBloc>(),
           currentArea: state.currentArea,
@@ -655,11 +656,21 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             .read<SettingsCubit>()
                                             .state
                                             .gestureSensitivity;
+                                        final rotationDelta =
+                                            details.rotation - gestureRotation;
+                                        gestureRotation = details.rotation;
+                                        cubit.transformCubit.rotateConstrained(
+                                          rotationDelta / sensitivity,
+                                          cursor: details.localFocalPoint,
+                                          runtime: cubit,
+                                        );
                                         if (details.scale == 1) {
                                           cubit.transformCubit.moveConstrained(
-                                            -details.focalPointDelta /
-                                                sensitivity /
-                                                cubit.transformCubit.state.size,
+                                            cubit.transformCubit.state
+                                                    .localToGlobalDelta(
+                                                      -details.focalPointDelta,
+                                                    ) /
+                                                sensitivity,
                                             runtime: cubit,
                                             bloc: bloc,
                                             currentArea: state.currentArea,
@@ -703,9 +714,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           cubit.rendererCubit
                                               .cancelDelayedBake();
                                           cubit.transformCubit.slideConstrained(
-                                            details.velocity.pixelsPerSecond /
-                                                sensitivity /
-                                                cubit.transformCubit.state.size,
+                                            cubit.transformCubit.state
+                                                    .localToGlobalDelta(
+                                                      details
+                                                          .velocity
+                                                          .pixelsPerSecond,
+                                                    ) /
+                                                sensitivity,
                                             details.scaleVelocity,
                                             runtime: cubit,
                                             currentArea: state.currentArea,
@@ -782,6 +797,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         }
                                         point = details.localFocalPoint;
                                         size = 1;
+                                        gestureRotation = 0;
                                       },
                                       onLongPressStart: (details) =>
                                           getHandler().onLongPressStart(
@@ -835,12 +851,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             } else {
                                               cubit.transformCubit
                                                   .moveConstrained(
-                                                    (_mouseState ==
-                                                                _MouseState
-                                                                    .inverse
-                                                            ? Offset(dy, dx)
-                                                            : Offset(dx, dy)) /
-                                                        transform.size,
+                                                    transform
+                                                        .localToGlobalDelta(
+                                                          _mouseState ==
+                                                                  _MouseState
+                                                                      .inverse
+                                                              ? Offset(dy, dx)
+                                                              : Offset(dx, dy),
+                                                        ),
                                                     runtime: cubit,
                                                     bloc: bloc,
                                                     currentArea:

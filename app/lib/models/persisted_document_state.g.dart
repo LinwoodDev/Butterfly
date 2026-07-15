@@ -24,6 +24,7 @@ _PersistedCameraState _$PersistedCameraStateFromJson(Map json) =>
       positionX: (json['positionX'] as num?)?.toDouble() ?? 0,
       positionY: (json['positionY'] as num?)?.toDouble() ?? 0,
       zoom: (json['zoom'] as num?)?.toDouble() ?? 1,
+      rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$PersistedCameraStateToJson(
@@ -32,6 +33,7 @@ Map<String, dynamic> _$PersistedCameraStateToJson(
   'positionX': instance.positionX,
   'positionY': instance.positionY,
   'zoom': instance.zoom,
+  'rotation': instance.rotation,
 };
 
 _PersistentLockState _$PersistentLockStateFromJson(Map json) =>
@@ -41,6 +43,7 @@ _PersistentLockState _$PersistentLockStateFromJson(Map json) =>
       lockZoom: json['lockZoom'] as bool? ?? false,
       lockHorizontal: json['lockHorizontal'] as bool? ?? false,
       lockVertical: json['lockVertical'] as bool? ?? false,
+      lockRotation: json['lockRotation'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$PersistentLockStateToJson(
@@ -51,6 +54,7 @@ Map<String, dynamic> _$PersistentLockStateToJson(
   'lockZoom': instance.lockZoom,
   'lockHorizontal': instance.lockHorizontal,
   'lockVertical': instance.lockVertical,
+  'lockRotation': instance.lockRotation,
 };
 
 _PersistedNavigatorState _$PersistedNavigatorStateFromJson(Map json) =>

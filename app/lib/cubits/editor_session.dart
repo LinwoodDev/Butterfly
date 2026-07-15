@@ -81,6 +81,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     _transformCubit.state.pixelRatio,
     Offset(state.camera.positionX, state.camera.positionY),
     state.camera.zoom,
+    state.camera.rotation,
   );
 
   int resolveToolIndex(DocumentInfo info) {
@@ -107,6 +108,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
       positionX: transform.position.dx,
       positionY: transform.position.dy,
       zoom: transform.size,
+      rotation: transform.rotation,
     );
     if (state.camera == camera) return;
     emit(state.copyWith(camera: camera));

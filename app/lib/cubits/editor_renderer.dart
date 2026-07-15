@@ -132,25 +132,14 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final transform = transformCubit.state;
     final resolution = settingsCubit.state.renderResolution;
     final friction = transform.friction;
-    final realWidth = size.width / transform.size;
-    final realHeight = size.height / transform.size;
-    Rect rect = Rect.fromLTWH(
-      transform.position.dx,
-      transform.position.dy,
-      realWidth,
-      realHeight,
-    );
+    Rect rect = transform.localToGlobalRect(Offset.zero & size);
     if (friction != null) {
       final beginPosition = transform.position - friction.beginOffset;
-      final topLeft = Offset(
-        min(transform.position.dx, beginPosition.dx),
-        min(transform.position.dy, beginPosition.dy),
+      rect = rect.expandToInclude(
+        transform
+            .withPosition(beginPosition)
+            .localToGlobalRect(Offset.zero & size),
       );
-      final frictionSize = Size(
-        realWidth + (friction.beginOffset.dx * transform.size).abs(),
-        realHeight + (friction.beginOffset.dy * transform.size).abs(),
-      );
-      rect = topLeft & frictionSize;
     }
     return _snapViewportRect(rect, size, transform, resolution);
   }
@@ -161,10 +150,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     CameraTransform transform,
     RenderResolution resolution,
   ) {
-    final screenRect = Rect.fromPoints(
-      transform.globalToLocal(rect.topLeft),
-      transform.globalToLocal(rect.bottomRight),
-    );
+    final screenRect = transform.globalToLocalRect(rect);
     final snappedRect = _expandScreenRect(
       Rect.fromLTRB(
         screenRect.left.floorToDouble(),
@@ -177,10 +163,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
         (size.height * resolution.multiplier).ceilToDouble(),
       ),
     );
-    return Rect.fromPoints(
-      transform.localToGlobal(snappedRect.topLeft),
-      transform.localToGlobal(snappedRect.bottomRight),
-    );
+    return transform.localToGlobalRect(snappedRect);
   }
 
   Rect _expandScreenRect(Rect rect, Size minimumSize) {

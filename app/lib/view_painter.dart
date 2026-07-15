@@ -171,8 +171,7 @@ class ForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final sel = selection;
     if (renderers.isEmpty && sel == null) return;
-    canvas.scale(transform.size);
-    canvas.translate(-transform.position.dx, -transform.position.dy);
+    transform.applyToCanvas(canvas);
     _paintRenderers(
       canvas,
       size,
@@ -193,13 +192,12 @@ class ForegroundPainter extends CustomPainter {
     final rect = selection.expandedRect;
     if (rect == null) return;
     // Don't allow drawing outside the bounds of the viewport.
-    var bounds =
-        transform.position &
-        ((Size(size.width - kNavigationRailWidth, size.height)) /
-            transform.size);
+    var viewport =
+        Offset.zero & Size(size.width - kNavigationRailWidth, size.height);
     if (navigatorPosition == NavigatorPosition.left) {
-      bounds = bounds.translate(kNavigationRailWidth / transform.size, 0);
+      viewport = viewport.translate(kNavigationRailWidth, 0);
     }
+    final bounds = transform.localToGlobalRect(viewport);
     final intersection = rect.intersect(bounds);
     if (intersection.isEmpty) return;
     canvas.drawRRect(
@@ -246,25 +244,18 @@ class ViewPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var areaRect = currentArea?.rect;
-    if (areaRect != null) {
-      areaRect = Rect.fromPoints(
-        transform.globalToLocal(areaRect.topLeft),
-        transform.globalToLocal(areaRect.bottomRight),
-      );
-    }
     if (renderBackground) {
       canvas.drawColor(Colors.white, BlendMode.src);
+    }
+    canvas.save();
+    transform.applyToCanvas(canvas);
+    if (renderBackground) {
       for (final e in cameraViewport.backgrounds) {
         e.build(canvas, size, document, page, info, transform, colorScheme);
       }
     }
     final belowLayerImage = cameraViewport.belowLayerImage;
     final bakedRect = cameraViewport.toRect();
-    final bakedDst = Rect.fromPoints(
-      transform.globalToLocal(bakedRect.topLeft),
-      transform.globalToLocal(bakedRect.bottomRight),
-    );
     if (renderBakedLayers && belowLayerImage != null) {
       canvas.drawImageRect(
         belowLayerImage,
@@ -273,14 +264,14 @@ class ViewPainter extends CustomPainter {
               belowLayerImage.width.toDouble(),
               belowLayerImage.height.toDouble(),
             ),
-        bakedDst,
+        bakedRect,
         Paint(),
       );
     }
-    final areaSelectionWidth = 5 * transform.size;
+    final areaRect = currentArea?.rect;
+    final areaSelectionWidth = 5 / transform.size;
     if (areaRect != null) {
-      final visibleRect =
-          transform.position & (Size(size.width, size.height) / transform.size);
+      final visibleRect = transform.localToGlobalRect(Offset.zero & size);
       final currentAreaColor = currentArea?.color?.toColor();
       final paint = Paint()
         ..style = PaintingStyle.stroke
@@ -290,17 +281,12 @@ class ViewPainter extends CustomPainter {
       for (final area in page.areas) {
         if (area == currentArea || !area.rect.overlaps(visibleRect)) continue;
         if (areaRect.overlaps(area.rect)) continue;
-        var rect = area.rect;
-        rect = Rect.fromPoints(
-          transform.globalToLocal(rect.topLeft),
-          transform.globalToLocal(rect.bottomRight),
-        );
         final areaPaint = Paint()
           ..style = PaintingStyle.stroke
           ..color =
               area.color?.toColor() ?? colorScheme?.secondary ?? Colors.grey
           ..strokeWidth = areaSelectionWidth;
-        canvas.drawRect(rect.inflate(areaSelectionWidth / 2), areaPaint);
+        canvas.drawRect(area.rect.inflate(areaSelectionWidth / 2), areaPaint);
       }
       canvas.clipRect(areaRect);
     }
@@ -314,14 +300,11 @@ class ViewPainter extends CustomPainter {
         canvas.drawImageRect(
           image,
           Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-          bakedDst,
+          bakedRect,
           Paint(),
         );
       } catch (_) {}
     }
-    canvas.scale(transform.size, transform.size);
-    canvas.translate(-transform.position.dx, -transform.position.dy);
-
     final renderers = cameraViewport.visibleUnbakedElements.where((renderer) {
       final state = cameraViewport.rendererStates[renderer.id];
       return !(invisibleLayers?.contains(renderer.layer) ?? false) &&
@@ -337,8 +320,6 @@ class ViewPainter extends CustomPainter {
       colorScheme,
       renderers,
     );
-    canvas.translate(transform.position.dx, transform.position.dy);
-    canvas.scale(1 / transform.size, 1 / transform.size);
     final aboveLayerImage = cameraViewport.aboveLayerImage;
     if (renderBakedLayers && aboveLayerImage != null) {
       canvas.drawImageRect(
@@ -348,10 +329,11 @@ class ViewPainter extends CustomPainter {
               aboveLayerImage.width.toDouble(),
               aboveLayerImage.height.toDouble(),
             ),
-        bakedDst,
+        bakedRect,
         Paint(),
       );
     }
+    canvas.restore();
   }
 
   @override
