@@ -1253,6 +1253,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   final _delayedBakeRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 100),
   );
+  bool _useDirectRendering = false;
 
   bool _rectContains(Rect outer, Rect inner) {
     const tolerance = precisionErrorTolerance;
@@ -1284,8 +1285,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     var transform = state.transformCubit.state;
     var renderers = List<Renderer<PadElement>>.from(this.renderers);
-    final recorder = ui.PictureRecorder();
-    final canvas = ui.Canvas(recorder);
     final rect = getViewportRect(viewportSize: size);
     size = rect.size * transform.size;
     final renderTransform = transform.improve(resolution, rect);
@@ -1357,8 +1356,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       targetSize: size,
     );
 
-    canvas.scale(ratio);
-
     if (viewChanged && visibleElements.isNotEmpty) {
       await Future.wait(
         visibleElements.map(
@@ -1370,6 +1367,41 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
+
+    void useDirectRendering() {
+      if (isClosed ||
+          !identical(state.cameraViewport, startViewport) ||
+          state.transformCubit.state != startTransform) {
+        return;
+      }
+      emit(
+        state.copyWith(
+          cameraViewport: CameraViewport.unbaked(
+            backgrounds: cameraViewport.backgrounds,
+            unbakedElements: renderers,
+            visibleElements: visibleElements,
+            visibleUnbakedElements: visibleElements,
+            width: size.width,
+            height: size.height,
+            pixelRatio: ratio,
+            resolution: resolution,
+            scale: transform.size,
+            x: renderTransform.position.dx,
+            y: renderTransform.position.dy,
+            rendererStates: allRendererStates,
+            invisibleLayers: invisibleLayers,
+          ),
+        ),
+      );
+    }
+
+    if (_useDirectRendering) {
+      useDirectRendering();
+      return;
+    }
+
+    final recorder = ui.PictureRecorder();
+    final canvas = ui.Canvas(recorder)..scale(ratio);
 
     ViewPainter(
       document,
@@ -1395,6 +1427,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ui.Image newImage;
     try {
       newImage = await picture.toImage(imageWidth, imageHeight);
+    } catch (error, stackTrace) {
+      _useDirectRendering = true;
+      talker.warning(
+        'Viewport image baking failed; using direct rendering',
+        error,
+        stackTrace,
+      );
+      useDirectRendering();
+      return;
     } finally {
       picture.dispose();
     }
