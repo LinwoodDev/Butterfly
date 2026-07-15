@@ -1,5 +1,37 @@
 part of 'handler.dart';
 
+@visibleForTesting
+List<PathPoint> samplePenPointsForEraser(
+  List<PathPoint> points,
+  double maxSpacing,
+) {
+  if (points.length < 2 || maxSpacing <= 0) return points;
+  final sampled = <PathPoint>[points.first];
+  for (var i = 1; i < points.length; i++) {
+    final start = points[i - 1];
+    final end = points[i];
+    final dx = end.x - start.x;
+    final dy = end.y - start.y;
+    final distance = sqrt(dx * dx + dy * dy);
+    final steps = min(4096, max(1, (distance / maxSpacing).ceil()));
+    for (var step = 1; step <= steps; step++) {
+      if (step == steps) {
+        sampled.add(end);
+        continue;
+      }
+      final t = step / steps;
+      sampled.add(
+        PathPoint(
+          start.x + dx * t,
+          start.y + dy * t,
+          start.pressure + (end.pressure - start.pressure) * t,
+        ),
+      );
+    }
+  }
+  return sampled;
+}
+
 class EraserHandler extends Handler<EraserTool> {
   bool _currentlyErasing = false;
   bool _submittedPathErase = false;
@@ -202,7 +234,11 @@ class EraserHandler extends Handler<EraserTool> {
     List<List<PathPoint>> paths = [[]];
     bool changed = false;
 
-    for (final point in element.points) {
+    final sampledPoints = samplePenPointsForEraser(
+      element.points,
+      max(precisionErrorTolerance, sqrt(limitSquared) / 2),
+    );
+    for (final point in sampledPoints) {
       final dx = point.x - globalPos.dx;
       final dy = point.y - globalPos.dy;
       if (dx * dx + dy * dy >= limitSquared) {

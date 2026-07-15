@@ -550,16 +550,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                   builder: (context, rendererState) {
                     return BlocBuilder<ToolCubit, ToolRuntimeState>(
                       buildWhen: (previous, current) =>
-                          previous.foregrounds != current.foregrounds ||
                           previous.handler != current.handler ||
                           previous.temporaryHandler !=
                               current.temporaryHandler ||
-                          previous.toggleableForegrounds !=
-                              current.toggleableForegrounds ||
-                          previous.temporaryForegrounds !=
-                              current.temporaryForegrounds ||
-                          previous.networkingForegrounds !=
-                              current.networkingForegrounds ||
                           previous.cursor != current.cursor ||
                           previous.temporaryCursor != current.temporaryCursor,
                       builder: (context, toolState) {
@@ -920,8 +913,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             _handlePointerCancel(event, cubit),
                                         child: _buildCanvas(
                                           rendererState,
-                                          toolState,
-                                          cubit,
                                           state,
                                           delayBake,
                                         ),
@@ -947,8 +938,6 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Widget _buildCanvas(
     RendererRuntimeState rendererState,
-    ToolRuntimeState toolState,
-    EditorController cubit,
     DocumentLoaded state,
     VoidCallback delayBake,
   ) {
@@ -1002,30 +991,48 @@ class _MainViewViewportState extends State<MainViewViewport>
             return Stack(
               children: [
                 Container(color: ColorScheme.of(context).surfaceDim),
-                CustomPaint(
-                  size: Size.infinite,
-                  foregroundPainter: ForegroundPainter(
-                    toolState.getAllForegrounds(),
-                    state.data,
-                    state.page,
-                    state.info,
-                    ColorScheme.of(context),
-                    frictionTransform,
-                    toolState.selection,
-                    state.settingsCubit.state.navigatorPosition,
+                RepaintBoundary(
+                  child: CustomPaint(
+                    size: Size.infinite,
+                    painter: ViewPainter(
+                      state.data,
+                      state.page,
+                      state.info,
+                      cameraViewport: rendererState.cameraViewport,
+                      transform: frictionTransform,
+                      invisibleLayers: state.invisibleLayers,
+                      currentArea: state.currentArea,
+                      colorScheme: ColorScheme.of(context),
+                    ),
+                    isComplex: true,
                   ),
-                  painter: ViewPainter(
-                    state.data,
-                    state.page,
-                    state.info,
-                    cameraViewport: rendererState.cameraViewport,
-                    transform: frictionTransform,
-                    invisibleLayers: state.invisibleLayers,
-                    currentArea: state.currentArea,
-                    colorScheme: ColorScheme.of(context),
+                ),
+                BlocBuilder<ToolCubit, ToolRuntimeState>(
+                  buildWhen: (previous, current) =>
+                      previous.foregrounds != current.foregrounds ||
+                      previous.temporaryForegrounds !=
+                          current.temporaryForegrounds ||
+                      previous.toggleableForegrounds !=
+                          current.toggleableForegrounds ||
+                      previous.networkingForegrounds !=
+                          current.networkingForegrounds ||
+                      previous.selection != current.selection,
+                  builder: (context, toolState) => RepaintBoundary(
+                    child: CustomPaint(
+                      size: Size.infinite,
+                      painter: ForegroundPainter(
+                        toolState.getAllForegrounds(),
+                        state.data,
+                        state.page,
+                        state.info,
+                        ColorScheme.of(context),
+                        frictionTransform,
+                        toolState.selection,
+                        state.settingsCubit.state.navigatorPosition,
+                      ),
+                      willChange: true,
+                    ),
                   ),
-                  isComplex: true,
-                  willChange: true,
                 ),
               ],
             );

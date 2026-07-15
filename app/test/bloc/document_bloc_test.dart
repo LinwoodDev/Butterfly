@@ -1214,6 +1214,43 @@ void main() {
     },
   );
 
+  test('no-argument bake reuses the measured viewport size', () async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        autosave: false,
+        renderResolution: RenderResolution.normal,
+      ),
+    );
+    const measuredSize = Size(401.25, 303.75);
+
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: measuredSize,
+      pixelRatio: 1.25,
+      reset: true,
+    );
+    final first = editorController.rendererCubit.state.cameraViewport;
+
+    await editorController.rendererCubit.unbake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+    );
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      reset: true,
+    );
+    final second = editorController.rendererCubit.state.cameraViewport;
+
+    expect(second.width, first.width);
+    expect(second.height, first.height);
+    expect(second.x, first.x);
+    expect(second.y, first.y);
+    expect(second.viewportSize, measuredSize);
+    expect(second.pixelRatio, 1.25);
+  });
+
   test('renderImage does not hide already tracked visible renderers', () async {
     await bloc.close();
     await editorController.close();
