@@ -1,9 +1,13 @@
 import 'dart:async';
 
 class CoalescedAsyncRunner {
-  CoalescedAsyncRunner({required this.delay});
+  CoalescedAsyncRunner({required this.delay, this.restartDelay = true});
 
   final Duration delay;
+
+  /// Whether a new task postpones a pending run by [delay].
+  /// Set to false to coalesce calls at a fixed maximum frame rate.
+  final bool restartDelay;
   Timer? _timer;
   Future<void>? _running;
   Future<void> Function()? _pendingTask;
@@ -14,8 +18,8 @@ class CoalescedAsyncRunner {
     if (_disposed) return Future.value();
     _pendingTask = task;
     final completer = _pendingCompleter ??= Completer<void>();
-    _timer?.cancel();
-    if (_running == null) {
+    if (_running == null && (restartDelay || _timer == null)) {
+      _timer?.cancel();
       _timer = Timer(delay, _runPending);
     }
     return completer.future;

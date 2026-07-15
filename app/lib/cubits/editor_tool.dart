@@ -40,6 +40,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   final foregroundRefreshRunner = CoalescedAsyncRunner(delay: Duration.zero);
   final delayedForegroundRefreshRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 16),
+    restartDelay: false,
   );
   EditorController? _controller;
   Timer? _networkingDebounceTimer;
