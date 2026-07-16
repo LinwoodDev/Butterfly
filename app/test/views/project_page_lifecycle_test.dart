@@ -260,6 +260,7 @@ void main() {
       () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
       'embedded document open',
     );
+    verifyNever(() => settingsCubit.changeLocaleTemporarily(any()));
 
     final editorController = observer.lastDocumentBloc!.editorController;
     expect(editorController.transformCubit.state.position, Offset.zero);
