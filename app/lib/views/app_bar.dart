@@ -353,6 +353,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                               _nameController.text,
                             );
                             var showCurrentNameFilePath =
+                                currentIndex.isCreating &&
                                 area == null &&
                                 _nameFocusNode.hasFocus &&
                                 currentNameFilePath !=
