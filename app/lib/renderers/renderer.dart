@@ -474,6 +474,12 @@ enum RendererOperation {
     RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
     RendererOperation.flipVertical => PhosphorIcons.flipVertical,
   };
+
+  Axis? get flipAxis => switch (this) {
+    RendererOperation.flipHorizontal => Axis.horizontal,
+    RendererOperation.flipVertical => Axis.vertical,
+    _ => null,
+  };
 }
 
 typedef RendererOperationCallback =
@@ -761,6 +767,27 @@ abstract class Renderer<T> {
       shear: nextShear,
       scaleX: geometryScaleX,
       scaleY: geometryScaleY,
+    );
+  }
+
+  Renderer<T>? flip({required Axis axis, required Rect selectionRect}) {
+    final bounds = expandedRect ?? rect;
+    if (bounds == null) return null;
+    final offset = switch (axis) {
+      Axis.horizontal => Offset(
+        2 * (selectionRect.center.dx - bounds.center.dx),
+        0,
+      ),
+      Axis.vertical => Offset(
+        0,
+        2 * (selectionRect.center.dy - bounds.center.dy),
+      ),
+    };
+    return transform(
+      position: offset,
+      scaleX: axis == Axis.horizontal ? -1 : 1,
+      scaleY: axis == Axis.vertical ? -1 : 1,
+      positionIsBounds: true,
     );
   }
 

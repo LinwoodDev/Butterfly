@@ -334,7 +334,6 @@ class SelectHandler extends Handler<SelectTool> {
     );
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
-    final selectionRect = getSelectionRect();
     final hitSelection = _isSelectionHit(
       position,
       context.getCameraTransform(),
@@ -358,7 +357,7 @@ class SelectHandler extends Handler<SelectTool> {
           context.getClipboardManager(),
           localPosition,
           _selected,
-          selectionRect,
+          getSelectionRect(),
         ),
       );
       if (result ?? false) {

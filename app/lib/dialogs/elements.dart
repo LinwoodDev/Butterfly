@@ -26,12 +26,14 @@ ContextMenuBuilder buildElementsContextMenu(
 ) {
   final cubit = bloc.editorController;
   final settingsCubit = state.settingsCubit;
-  final operations =
-      Map<
-        Renderer<PadElement>,
-        Map<RendererOperation, RendererOperationCallback>
-      >.fromIterable(renderers, value: (e) => e.getOperations());
-  final operationKeys = operations.values.expand((e) => e.keys).toList();
+  final operations = {
+    for (final renderer in renderers) renderer: renderer.getOperations(),
+  };
+  final operationKeys = {
+    ...operations.values.expand((e) => e.keys),
+    RendererOperation.flipHorizontal,
+    RendererOperation.flipVertical,
+  };
   return (context) {
     final rendererContextMenuItem = renderers.length == 1
         ? renderers.first.getContextMenuItem(bloc, context)
@@ -142,26 +144,30 @@ ContextMenuBuilder buildElementsContextMenu(
               .toList(),
           label: AppLocalizations.of(context).arrange,
         ),
-        if (operationKeys.isNotEmpty)
-          ContextMenuGroup(
-            label: AppLocalizations.of(context).operations,
-            icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-            children: operationKeys
-                .map(
-                  (e) => MenuItemButton(
-                    leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                    child: Text(e.getLocalizedName(context)),
-                    onPressed: () {
+        ContextMenuGroup(
+          label: AppLocalizations.of(context).operations,
+          icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+          children: operationKeys
+              .map(
+                (e) => MenuItemButton(
+                  leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  child: Text(e.getLocalizedName(context)),
+                  onPressed: () {
+                    final flipAxis = e.flipAxis;
+                    if (flipAxis == null) {
                       operations.values
                           .map((v) => v[e])
                           .nonNulls
                           .forEach((e) => e(bloc, context));
-                      if (context.mounted) Navigator.of(context).pop(true);
-                    },
-                  ),
-                )
-                .toList(),
-          ),
+                    } else {
+                      _flipElements(bloc, renderers, rect, flipAxis);
+                    }
+                    if (context.mounted) Navigator.of(context).pop(true);
+                  },
+                ),
+              )
+              .toList(),
+        ),
         ?rendererContextMenuItem,
         if (renderers.length == 1 &&
             exportService.isExportable(renderers.first.element))
@@ -198,4 +204,25 @@ ContextMenuBuilder buildElementsContextMenu(
       ],
     ];
   };
+}
+
+void _flipElements(
+  DocumentBloc bloc,
+  List<Renderer<PadElement>> renderers,
+  Rect selectionRect,
+  Axis axis,
+) {
+  final changes = Map.fromEntries(
+    renderers.map((renderer) {
+      final id = renderer.element.id;
+      if (id == null) return null;
+      final transformed = renderer.flip(
+        axis: axis,
+        selectionRect: selectionRect,
+      );
+      if (transformed == null) return null;
+      return MapEntry(id, [transformed.element]);
+    }).nonNulls,
+  );
+  if (changes.isNotEmpty) bloc.add(ElementsChanged(changes));
 }

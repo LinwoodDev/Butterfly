@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/widgets.dart' show Axis;
 
 void main() {
   group('Zero Size Shapes', () {
@@ -110,6 +111,27 @@ void main() {
         element.secondPosition.y - element.firstPosition.y,
         closeTo(50, 1e-9),
       );
+    });
+
+    test('flip mirrors the renderer inside the selection bounds', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(120, 210),
+          secondPosition: const Point(220, 260),
+        ),
+      );
+
+      final horizontal = renderer.flip(
+        axis: Axis.horizontal,
+        selectionRect: const Rect.fromLTWH(100, 200, 200, 100),
+      )!;
+      final vertical = renderer.flip(
+        axis: Axis.vertical,
+        selectionRect: const Rect.fromLTWH(100, 200, 200, 100),
+      )!;
+
+      expect(horizontal.expandedRect, const Rect.fromLTWH(180, 210, 100, 50));
+      expect(vertical.expandedRect, const Rect.fromLTWH(120, 240, 100, 50));
     });
 
     test('horizontal flip keeps a rotated element in the target bounds', () {
