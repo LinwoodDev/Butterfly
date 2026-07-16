@@ -23,22 +23,8 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
     return [
       ShapeElement(
-        firstPosition:
-            (data.property.shape is LineShape
-                    ? rect.topLeft
-                    : rect.topLeft.translate(
-                        min(0, rect.width),
-                        min(0, rect.height),
-                      ))
-                .toPoint(),
-        secondPosition:
-            (data.property.shape is LineShape
-                    ? rect.bottomRight
-                    : rect.bottomRight.translate(
-                        max(0, -rect.width),
-                        max(0, -rect.height),
-                      ))
-                .toPoint(),
+        firstPosition: rect.topLeft.toPoint(),
+        secondPosition: rect.bottomRight.toPoint(),
         property: data.property.copyWith(
           strokeWidth:
               data.property.strokeWidth /

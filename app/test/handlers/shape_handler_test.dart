@@ -38,4 +38,27 @@ void main() {
       isNotEmpty,
     );
   });
+
+  test('triangle creation preserves negative drag dimensions', () {
+    final handler = ShapeHandler(
+      ShapeTool(property: const ShapeProperty(shape: TriangleShape())),
+    );
+    final cubit = MockEditorController();
+
+    final element =
+        handler
+                .transformElements(
+                  const Rect.fromLTRB(100, 80, 10, 20),
+                  '',
+                  cubit,
+                )
+                .single
+            as ShapeElement;
+
+    expect(element.firstPosition.x, 100);
+    expect(element.firstPosition.y, 80);
+    expect(element.secondPosition.x, 10);
+    expect(element.secondPosition.y, 20);
+    expect(element.rotation, 0);
+  });
 }
