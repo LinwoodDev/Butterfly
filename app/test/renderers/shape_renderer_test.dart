@@ -90,6 +90,60 @@ void main() {
       expect(vertical.dy, closeTo(expectedVertical.dy, 1e-9));
     });
 
+    test('horizontal flip keeps signed width without adding a half turn', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(10, 20),
+          secondPosition: const Point(110, 70),
+        ),
+      );
+
+      final transformed = renderer.transform(scaleX: -1)!;
+      final element = transformed.element;
+
+      expect(transformed.rotation, closeTo(0, 1e-9));
+      expect(
+        element.secondPosition.x - element.firstPosition.x,
+        closeTo(-100, 1e-9),
+      );
+      expect(
+        element.secondPosition.y - element.firstPosition.y,
+        closeTo(50, 1e-9),
+      );
+    });
+
+    test('horizontal flip keeps a rotated element in the target bounds', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          rotation: 30,
+          firstPosition: const Point(100, 100),
+          secondPosition: const Point(200, 150),
+        ),
+      );
+      final originalBounds = renderer.expandedRect;
+      final targetBounds = originalBounds.shift(
+        Offset(-originalBounds.width, 0),
+      );
+
+      final transformed = renderer.transform(
+        position: Offset(-originalBounds.width, 0),
+        scaleX: -1,
+        positionIsBounds: true,
+      )!;
+      final element = transformed.element;
+      final transformedBounds = transformed.expandedRect!;
+
+      expect(transformed.rotation, closeTo(330, 1e-9));
+      expect(
+        element.secondPosition.x - element.firstPosition.x,
+        closeTo(-100, 1e-9),
+      );
+      expect(transformedBounds.left, closeTo(targetBounds.left, 1e-9));
+      expect(transformedBounds.top, closeTo(targetBounds.top, 1e-9));
+      expect(transformedBounds.width, closeTo(targetBounds.width, 1e-9));
+      expect(transformedBounds.height, closeTo(targetBounds.height, 1e-9));
+    });
+
     test('documents without shear keep the identity default', () {
       final json = ShapeElement().toJson()..remove('shear');
 
@@ -148,10 +202,35 @@ void main() {
       );
 
       final mirrored = renderer.transform(scaleY: -1)!;
-      expect(mirrored.rotation, closeTo(180, 1e-9));
+      expect(mirrored.rotation, closeTo(0, 1e-9));
+      expect(
+        mirrored.element.secondPosition.y - mirrored.element.firstPosition.y,
+        closeTo(-50, 1e-9),
+      );
+      final hitCalculator = mirrored.getHitCalculator();
+      expect(hitCalculator.hit(const Rect.fromLTWH(10, -48, 10, 8)), isTrue);
+      expect(hitCalculator.hit(const Rect.fromLTWH(10, -10, 10, 8)), isFalse);
 
       final restored = mirrored.transform(scaleY: -1)!;
       expect(restored.rotation, closeTo(0, 1e-9));
+      expect(
+        restored.element.secondPosition.y - restored.element.firstPosition.y,
+        closeTo(50, 1e-9),
+      );
+    });
+
+    test('negative pen scale keeps valid cached bounds', () {
+      final renderer = PenRenderer(
+        PenElement(points: const [PathPoint(0, 0), PathPoint(100, 50)]),
+        null,
+        const Rect.fromLTWH(0, 0, 100, 50),
+        const Rect.fromLTWH(0, 0, 100, 50),
+      );
+
+      final mirrored = renderer.transform(scaleX: -1)!;
+
+      expect(mirrored.rect, const Rect.fromLTWH(-100, 0, 100, 50));
+      expect(mirrored.rect!.isEmpty, isFalse);
     });
 
     test('rotated pen stroke is hit outside its original bounds', () {

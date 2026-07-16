@@ -51,6 +51,20 @@ typedef TransformResult = ({
   double scaleY,
 });
 
+extension TransformResultGeometry on TransformResult {
+  Offset scalePoint(Offset point, Rect selection) {
+    final relative = point - selection.topLeft;
+    return selection.topLeft +
+        position +
+        Offset(relative.dx * scaleX, relative.dy * scaleY);
+  }
+
+  Rect scaleRect(Rect rect, Rect selection) => Rect.fromPoints(
+    scalePoint(rect.topLeft, selection),
+    scalePoint(rect.bottomRight, selection),
+  );
+}
+
 class RectSelectionForegroundManager {
   final bool enableRotation;
   Rect _selection = Rect.zero;
@@ -270,15 +284,7 @@ class RectSelectionForegroundManager {
   Rect getTransformedSelection() {
     final transform = getTransform();
     if (transform == null) return _selection;
-    final topLeft = _selection.topLeft + transform.position;
-    return Rect.fromPoints(
-      topLeft,
-      topLeft +
-          Offset(
-            _selection.width * transform.scaleX,
-            _selection.height * transform.scaleY,
-          ),
-    );
+    return transform.scaleRect(_selection, _selection);
   }
 
   RectSelectionForegroundRenderer get renderer =>

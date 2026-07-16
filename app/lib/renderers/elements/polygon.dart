@@ -224,8 +224,10 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   }
 
   Rect moveRect(Offset position, double scaleX, double scaleY) {
-    final size = Size(rect.width * scaleX, rect.height * scaleY);
-    return position & size;
+    return Rect.fromPoints(
+      position,
+      position + Offset(rect.width * scaleX, rect.height * scaleY),
+    );
   }
 
   @override

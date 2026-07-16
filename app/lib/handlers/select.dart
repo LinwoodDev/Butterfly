@@ -114,14 +114,8 @@ class SelectHandler extends Handler<SelectTool> {
     final rotation = transform.rotation;
     final rotationRad = rotation * pi / 180;
 
-    final Offset selectionTopLeft = selectionRect.topLeft;
-    final Offset movedSelectionTopLeft = selectionTopLeft + transform.position;
-
-    Offset applyScaleAndTranslate(Offset original) {
-      final relative = original - selectionTopLeft;
-      return Offset(relative.dx * scaleX, relative.dy * scaleY) +
-          movedSelectionTopLeft;
-    }
+    Offset applyScaleAndTranslate(Offset original) =>
+        transform.scalePoint(original, selectionRect);
 
     final Offset transformedPivot = applyScaleAndTranslate(pivot);
 
@@ -134,13 +128,14 @@ class SelectHandler extends Handler<SelectTool> {
       final elementRect = renderer.rect ?? Rect.zero;
 
       final originalExpandedTopLeft = elementExpandedRect.topLeft;
-      final translatedExpandedTopLeft = applyScaleAndTranslate(
-        originalExpandedTopLeft,
+      final transformedExpandedRect = transform.scaleRect(
+        elementExpandedRect,
+        selectionRect,
       );
       // Delta relative to expandedRect.topLeft so it's zero at identity.
       // The position compensation inside transform() converts from the
       // expandedRect reference frame to the rect reference frame.
-      var delta = translatedExpandedTopLeft - originalExpandedTopLeft;
+      var delta = transformedExpandedRect.topLeft - originalExpandedTopLeft;
 
       if (rotation != 0) {
         final originalTopLeft = elementRect.topLeft;
@@ -163,6 +158,7 @@ class SelectHandler extends Handler<SelectTool> {
             rotation: rotation,
             rotatePosition: false,
             relative: true,
+            positionIsBounds: true,
           ) ??
           renderer;
     }).toList();

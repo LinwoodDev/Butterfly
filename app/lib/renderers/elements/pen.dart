@@ -322,8 +322,10 @@ class PenRenderer extends Renderer<PenElement> {
     bool expanded = false,
   ]) {
     final rect = expanded ? expandedRect : this.rect;
-    final size = Size(rect.width * scaleX, rect.height * scaleY);
-    return position & size;
+    return Rect.fromPoints(
+      position,
+      position + Offset(rect.width * scaleX, rect.height * scaleY),
+    );
   }
 
   @override

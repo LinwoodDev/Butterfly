@@ -91,6 +91,22 @@ void main() {
       const Rect.fromLTWH(100, 50, 50, 25),
     );
   });
+
+  test('negative scale uses the opposite element corner for placement', () {
+    const selection = Rect.fromLTWH(0, 0, 200, 100);
+    const element = Rect.fromLTWH(50, 20, 100, 40);
+    const transform = (
+      position: Offset.zero,
+      rotation: 0.0,
+      scaleX: -1.0,
+      scaleY: 1.0,
+    );
+
+    expectRectCloseTo(
+      transform.scaleRect(element, selection),
+      const Rect.fromLTWH(-150, 20, 100, 40),
+    );
+  });
 }
 
 void expectRectCloseTo(Rect actual, Rect expected) {

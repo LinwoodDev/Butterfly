@@ -676,6 +676,7 @@ abstract class Renderer<T> {
     double? rotation,
     bool relative = true,
     bool rotatePosition = false,
+    bool positionIsBounds = false,
   }) {
     final rect = this.rect ?? Rect.zero;
     rotation ??= relative ? 0 : this.rotation;
@@ -748,9 +749,10 @@ abstract class Renderer<T> {
       nextShear,
     );
     if (rotationDelta == 0) {
+      final scaledOrigin = positionIsBounds ? rect.topLeft : scaledRect.topLeft;
       nextPosition +=
           (oldExpanded.topLeft - rect.topLeft) -
-          (newExpanded.topLeft - scaledRect.topLeft);
+          (newExpanded.topLeft - scaledOrigin);
     }
 
     return _transform(

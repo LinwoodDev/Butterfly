@@ -1,5 +1,15 @@
 part of '../renderer.dart';
 
+({Offset tip, Offset left, Offset right}) _trianglePoints(
+  Rect rect,
+  ShapeElement element,
+) {
+  final flippedVertically = element.secondPosition.y < element.firstPosition.y;
+  return flippedVertically
+      ? (tip: rect.bottomCenter, left: rect.topLeft, right: rect.topRight)
+      : (tip: rect.topCenter, left: rect.bottomLeft, right: rect.bottomRight);
+}
+
 class ShapeRenderer extends Renderer<ShapeElement> {
   final _strokePaint = ElementPaintRenderer();
   final _fillPaint = ElementPaintRenderer();
@@ -161,11 +171,11 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ..lineTo(element.secondPosition.x, element.secondPosition.y);
       _drawStyledPath(canvas, path, paint);
     } else if (shape is TriangleShape) {
-      final topCenter = drawRect.topCenter;
+      final points = _trianglePoints(drawRect, element);
       final path = Path()
-        ..moveTo(topCenter.dx, topCenter.dy)
-        ..lineTo(drawRect.right, drawRect.bottom)
-        ..lineTo(drawRect.left, drawRect.bottom)
+        ..moveTo(points.tip.dx, points.tip.dy)
+        ..lineTo(points.right.dx, points.right.dy)
+        ..lineTo(points.left.dx, points.left.dy)
         ..close();
       canvas.drawPath(
         path,
@@ -305,11 +315,11 @@ class ShapeRenderer extends Renderer<ShapeElement> {
             },
           );
     } else if (shape is TriangleShape) {
-      final topCenter = drawRect.topCenter;
+      final points = _trianglePoints(drawRect, element);
       final d =
-          'M${topCenter.dx} ${topCenter.dy} '
-          'L${drawRect.right} ${drawRect.bottom} '
-          'L${drawRect.left} ${drawRect.bottom} Z';
+          'M${points.tip.dx} ${points.tip.dy} '
+          'L${points.right.dx} ${points.right.dy} '
+          'L${points.left.dx} ${points.left.dy} Z';
       xml
           .getElement('svg')
           ?.createElement(
@@ -320,23 +330,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'stroke': element.property.paint.previewColor.toHexString(),
               'stroke-width': '${element.property.strokeWidth}px',
               'stroke-dasharray': ?dashArray,
-            },
-          );
-    } else if (shape is TriangleShape) {
-      final topCenter = drawRect.topCenter;
-      final d =
-          'M${topCenter.dx} ${topCenter.dy} '
-          'L${drawRect.right} ${drawRect.bottom} '
-          'L${drawRect.left} ${drawRect.bottom} Z';
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'path',
-            attributes: {
-              'd': d,
-              'fill': shape.fillPaint.previewColor.toHexString(),
-              'stroke': element.property.paint.previewColor.toHexString(),
-              'stroke-width': '${element.property.strokeWidth}px',
             },
           );
     }
@@ -354,16 +347,13 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final previous = rect.topLeft;
     final localFirst = element.firstPosition.toOffset() - previous;
     final localSecond = element.secondPosition.toOffset() - previous;
-    final nextRotation = element.property.shape is TriangleShape && scaleY < 0
-        ? (rotation + 180) % 360
-        : rotation;
     return ShapeRenderer(
       element.copyWith(
         shear: shear,
         firstPosition: (localFirst.scale(scaleX, scaleY) + position).toPoint(),
         secondPosition: (localSecond.scale(scaleX, scaleY) + position)
             .toPoint(),
-        rotation: nextRotation,
+        rotation: rotation,
       ),
       layer,
     );
@@ -503,9 +493,10 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitTriangle() {
-      final triTop = this.rect.topCenter.rotate(center, rotation);
-      final triLeft = this.rect.bottomLeft.rotate(center, rotation);
-      final triRight = this.rect.bottomRight.rotate(center, rotation);
+      final points = _trianglePoints(this.rect, element);
+      final triTop = points.tip.rotate(center, rotation);
+      final triLeft = points.left.rotate(center, rotation);
+      final triRight = points.right.rotate(center, rotation);
 
       return switch (hitElementMode) {
         HitElementMode.full =>
@@ -600,9 +591,10 @@ class ShapeHitCalculator extends HitCalculator {
           _ => false, // this shouldn't happen
         };
       case TriangleShape():
-        final topCenter = rect.topCenter.rotate(center, rotation);
-        final bottomLeft = rect.bottomLeft.rotate(center, rotation);
-        final bottomRight = rect.bottomRight.rotate(center, rotation);
+        final points = _trianglePoints(rect, element);
+        final topCenter = points.tip.rotate(center, rotation);
+        final bottomLeft = points.left.rotate(center, rotation);
+        final bottomRight = points.right.rotate(center, rotation);
         var triPoints = [topCenter, bottomLeft, bottomRight];
         final inside = isPolygonInPolygon(polygon, triPoints);
         return switch (hitElementMode) {

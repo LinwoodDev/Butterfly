@@ -6,6 +6,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_leap/helpers.dart';
 
 void main() {
+  test('negative scale keeps valid polygon bounds', () {
+    final points = [
+      PolygonPoint(0, 0),
+      PolygonPoint(100, 0),
+      PolygonPoint(100, 50),
+    ];
+    final renderer = PolygonRenderer(
+      PolygonElement(points: points),
+      null,
+      calculatePolygonRect(points),
+    );
+
+    final mirrored = renderer.transform(scaleX: -1)!;
+
+    expect(mirrored.rect, const Rect.fromLTWH(-100, 0, 100, 50));
+    expect(mirrored.rect!.isEmpty, isFalse);
+  });
+
   group('No Bezier', () {
     late PolygonHitCalculator calculator;
 
