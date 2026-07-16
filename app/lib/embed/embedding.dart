@@ -15,7 +15,7 @@ class Embedding {
   Embedding({
     this.save = true,
     this.editable = true,
-    this.language = '',
+    this.language = 'user',
     this.theme = 'user',
     bool internal = false,
     this.onExit,

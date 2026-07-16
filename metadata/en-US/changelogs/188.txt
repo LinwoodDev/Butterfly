@@ -13,5 +13,6 @@ Cherry picks:
 * Respect hidden file extensions in Recent files
 * Persist the thumbnail setting
 * Correct the texture height label
+* Fix file previews resetting the language to the system locale
 
 Read more here: https://linwood.dev/butterfly/2.5.4

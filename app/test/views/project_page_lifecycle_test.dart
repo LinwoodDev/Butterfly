@@ -3,6 +3,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/main.dart';
@@ -21,6 +22,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/mocks.dart';
 
 void main() {
+  test('internal embedding preserves the user language', () {
+    expect(Embedding(internal: true).language, 'user');
+  });
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
