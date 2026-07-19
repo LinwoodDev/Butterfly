@@ -497,4 +497,67 @@ void main() {
       },
     );
   });
+
+  group('unbounded spacer rectangles', () {
+    const rightSpacerRect = Rect.fromLTRB(
+      50,
+      -double.infinity,
+      double.infinity,
+      double.infinity,
+    );
+    const leftSpacerRect = Rect.fromLTRB(
+      -double.infinity,
+      -double.infinity,
+      50,
+      double.infinity,
+    );
+
+    test('default renderers', () {
+      final calculator = DefaultHitCalculator(
+        const Rect.fromLTWH(100, 100, 40, 40),
+        const Rect.fromLTWH(100, 100, 40, 40),
+        0,
+      );
+
+      expect(calculator.hit(rightSpacerRect), isTrue);
+      expect(calculator.hit(leftSpacerRect), isFalse);
+    });
+
+    for (final entry in {
+      'circle': CircleShape(),
+      'rectangle': RectangleShape(),
+      'triangle': TriangleShape(),
+      'line': LineShape(),
+    }.entries) {
+      test('${entry.key} shapes', () {
+        final calculator = ShapeRenderer(
+          ShapeElement(
+            firstPosition: const Point(100, 100),
+            secondPosition: const Point(140, 140),
+            property: ShapeProperty(shape: entry.value, strokeWidth: 2),
+          ),
+        ).getHitCalculator();
+
+        expect(calculator.hit(rightSpacerRect), isTrue);
+        expect(calculator.hit(leftSpacerRect), isFalse);
+      });
+    }
+
+    test('polygons', () {
+      final calculator = PolygonHitCalculator(
+        const Rect.fromLTWH(100, 100, 40, 40),
+        const [
+          PolygonPoint(100, 100),
+          PolygonPoint(140, 100),
+          PolygonPoint(140, 140),
+          PolygonPoint(100, 140),
+        ],
+        0,
+        const PolygonProperty(strokeWidth: 2),
+      );
+
+      expect(calculator.hit(rightSpacerRect), isTrue);
+      expect(calculator.hit(leftSpacerRect), isFalse);
+    });
+  });
 }
