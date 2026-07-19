@@ -729,9 +729,10 @@ abstract class Renderer<T> {
 
     final r00Magnitude = sqrt(m00 * m00 + m10 * m10);
     if (r00Magnitude <= 1e-12) return null;
-    // Choose the QR sign nearest the element's current X axis. This preserves
-    // horizontal mirrors as a negative X scale instead of a 180° rotation.
-    final r00 = m00 * c + m10 * s < 0 ? -r00Magnitude : r00Magnitude;
+    // Resolve the QR sign ambiguity from the requested X scale. Comparing the
+    // transformed axis with the current axis would turn rotations beyond 90°
+    // into a reflection plus a half turn, making elements jump while rotating.
+    final r00 = effectiveScaleX.isNegative ? -r00Magnitude : r00Magnitude;
     final q00 = m00 / r00, q10 = m10 / r00;
     final r01 = q00 * m01 + q10 * m11;
     final determinant = m00 * m11 - m01 * m10;

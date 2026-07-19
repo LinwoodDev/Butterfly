@@ -14,6 +14,44 @@ class PdfRenderer extends Renderer<PdfElement> {
     this.ownsImage = true,
   ]);
 
+  Offset get _signedSize {
+    final constraints = element.constraints;
+    var width = element.width;
+    var height = element.height;
+    if (constraints is ScaledElementConstraints) {
+      width *= constraints.scaleX == 0 ? 1 : constraints.scaleX;
+      height *= constraints.scaleY == 0 ? 1 : constraints.scaleY;
+    } else if (constraints is FixedElementConstraints) {
+      width = constraints.width == 0 ? width : constraints.width;
+      height = constraints.height == 0 ? height : constraints.height;
+    } else if (constraints is DynamicElementConstraints) {
+      width = constraints.width;
+      height = constraints.height;
+      final ratio = constraints.aspectRatio;
+      if (ratio != 0) {
+        if (width == 0) width = height * ratio;
+        if (height == 0) height = width / ratio;
+      }
+      if (constraints.includeArea) {
+        final areaRect = area?.rect;
+        if (areaRect == null) {
+          width = element.width;
+          height = element.height;
+        } else {
+          final right = element.position.x + element.width;
+          final areaWidth = min(areaRect.right, right) - element.position.x;
+          width = areaWidth == 0 ? element.width : areaWidth;
+          final bottom = element.position.y + element.height;
+          final areaHeight = min(areaRect.bottom, bottom) - element.position.y;
+          height = areaHeight == 0 ? element.height : areaHeight;
+        }
+      }
+      if (width == 0) width = element.width;
+      if (height == 0) height = element.height;
+    }
+    return Offset(width, height);
+  }
+
   @override
   bool onAssetUpdate(
     NoteData document,
@@ -53,12 +91,17 @@ class PdfRenderer extends Renderer<PdfElement> {
       final paint = Paint()
         ..filterQuality = FilterQuality.high
         ..isAntiAlias = true;
+      final signedSize = _signedSize;
+      canvas.save();
+      canvas.translate(element.position.x, element.position.y);
+      canvas.scale(signedSize.dx < 0 ? -1 : 1, signedSize.dy < 0 ? -1 : 1);
       canvas.drawImageRect(
         image,
         Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        rect,
+        Rect.fromLTWH(0, 0, signedSize.dx.abs(), signedSize.dy.abs()),
         paint,
       );
+      canvas.restore();
     }
   }
 
@@ -72,6 +115,14 @@ class PdfRenderer extends Renderer<PdfElement> {
     if (!rect.overlaps(viewportRect)) return;
     // Create data url
     final data = element.getUriData(document, 'image/png').toString();
+    final signedSize = _signedSize;
+    final flipX = signedSize.dx < 0;
+    final flipY = signedSize.dy < 0;
+    final svgTransform = flipX || flipY
+        ? 'translate(${flipX ? rect.left + rect.right : 0} '
+              '${flipY ? rect.top + rect.bottom : 0}) '
+              'scale(${flipX ? -1 : 1} ${flipY ? -1 : 1})'
+        : null;
     // Create image
     xml
         .getElement('svg')
@@ -83,6 +134,7 @@ class PdfRenderer extends Renderer<PdfElement> {
             'width': '${rect.width}px',
             'height': '${rect.height}px',
             'xlink:href': data,
+            'transform': ?svgTransform,
           },
         );
   }
@@ -219,60 +271,8 @@ class PdfRenderer extends Renderer<PdfElement> {
 
   @override
   Rect get rect {
-    final constraints = element.constraints;
-    if (constraints is ScaledElementConstraints) {
-      final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
-      final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        (element.width * scaleX).toDouble(),
-        (element.height * scaleY).toDouble(),
-      );
-    } else if (constraints is FixedElementConstraints) {
-      var height = constraints.height;
-      var width = constraints.width;
-      if (height <= 0) height = element.height.toDouble();
-      if (width <= 0) width = element.width.toDouble();
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        width,
-        height,
-      );
-    } else if (constraints is DynamicElementConstraints) {
-      var width = constraints.width;
-      var height = constraints.height;
-      final ratio = constraints.aspectRatio;
-      if (ratio != 0) {
-        if (width <= 0) width = height * ratio;
-        if (height <= 0) height = width / ratio;
-      }
-      if (constraints.includeArea) {
-        final areaRect = area?.rect;
-        final rightArea = areaRect?.right ?? 0;
-        final right = element.position.x + element.width;
-        width = min(rightArea, right) - element.position.x;
-        final bottomArea = areaRect?.bottom ?? 0;
-        final bottom = element.position.y + element.height;
-        height = min(bottomArea, bottom) - element.position.y;
-      }
-      if (height <= 0) height = element.height.toDouble();
-      if (width <= 0) width = element.width.toDouble();
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        width,
-        height,
-      );
-    } else {
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        element.width.toDouble(),
-        element.height.toDouble(),
-      );
-    }
+    final position = element.position.toOffset();
+    return Rect.fromPoints(position, position + _signedSize);
   }
 
   @override

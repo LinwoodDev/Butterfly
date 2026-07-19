@@ -64,6 +64,24 @@ void main() {
   });
 
   group('rotation test', () {
+    test('rotation past a quarter turn does not introduce a reflection', () {
+      final renderer = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(0, 0),
+          secondPosition: const Point(100, 50),
+        ),
+      );
+
+      for (final rotation in [91.0, 135.0, 180.0, 269.0]) {
+        final transformed = renderer.transform(rotation: rotation)!;
+        final element = transformed.element;
+
+        expect(transformed.rotation, closeTo(rotation, 1e-9));
+        expect(element.secondPosition.x - element.firstPosition.x, 100);
+        expect(element.secondPosition.y - element.firstPosition.y, 50);
+      }
+    });
+
     test('non-uniform scaling preserves the affine shape of a rotation', () {
       final renderer = ShapeRenderer(
         ShapeElement(
