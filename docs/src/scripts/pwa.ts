@@ -1,4 +1,5 @@
 import { registerSW } from 'virtual:pwa-register'
+import './sidebar'
 
 console.log("registering SW")
 registerSW({
