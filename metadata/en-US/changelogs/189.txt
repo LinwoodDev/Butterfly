@@ -1,25 +1,19 @@
-* Add persistent document states ([#1077](https://github.com/LinwoodDev/Butterfly/issues/1077))
-* Add shear property for elements
-* Add camera rotation support ([#977](https://github.com/LinwoodDev/Butterfly/issues/977))
-* Add custom fonts to label ([#1011](https://github.com/LinwoodDev/Butterfly/issues/1011))
-* Add option to customize default file name globally and in template ([#1041](https://github.com/LinwoodDev/Butterfly/issues/1041))
-* Reorder top corner menu to have home on top ([#1161](https://github.com/LinwoodDev/Butterfly/issues/1161))
-* Add flip horizontal and vertical to all elements ([#1058](https://github.com/LinwoodDev/Butterfly/issues/1058))
-* Rebuild internal settings pages
-  * Add search bar to settings pages ([#1158](https://github.com/LinwoodDev/Butterfly/issues/1158))
-  * Always have settings value on the right side
-  * Add settings descriptions
-* Refactor whole state management structure ([#1157](https://github.com/LinwoodDev/Butterfly/pull/1157))
-* Remove unused view options
-* Improve negative scaling
-* Improve rotated elements transformtion ([#1099](https://github.com/LinwoodDev/Butterfly/issues/1099))
-* Improve rendering reliability if baking fails
-* Fix crash with android saf on folders with many files
-* Fix blur resetting on color change
-* Fix polygon collision aabb tests if closed ([#1162](https://github.com/LinwoodDev/Butterfly/pull/1162)) 
-* Fix embed/web loading errors ([#1167](https://github.com/LinwoodDev/Butterfly/issues/1167))
-* Fix file previews resetting the language to the system locale
-* Fix filename preview appearing when renaming existing documents
-* Upgrade to agb 9
+This is a hotfix update, cherry-picking important fixes from the latest 2.6.0 beta and nightly releases.
 
-Read more here: https://linwood.dev/butterfly/2.6.0-beta.2
+Cherry picks:
+* Prevent crashes when Android SAF handles large folders and files
+* Fix text labels disappearing while editing
+* Fix polygons disappearing while editing
+* Fix renamed files appearing twice in Recent files
+* Fix layers and pages being reordered to the wrong position
+* Improve WebDAV compatibility and select the correct filesystem with SAF enabled
+* Fix the spacer tool for circles, shapes, polygons, and other elements
+* Fix repeated saves and mark imported documents as unsaved
+* Fix locked zoom controls
+* Respect hidden file extensions in Recent files
+* Persist the thumbnail setting
+* Correct the texture height label
+* Fix file previews resetting the language to the system locale
+* Avoid repeated WebDAV waits while offline
+
+Read more here: https://linwood.dev/butterfly/2.5.4
