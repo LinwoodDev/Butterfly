@@ -9,6 +9,7 @@ import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -206,6 +207,49 @@ void main() {
 
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
+  });
+
+  testWidgets('mobile navigator dialogs receive the editor runtime cubits', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    for (final page in [
+      'Waypoints',
+      'Areas',
+      'Layers',
+      'Pages',
+      'Components',
+      'Files',
+    ]) {
+      await tester.tap(find.byTooltip('Actions'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(page));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(DocumentNavigator), findsOneWidget, reason: page);
+      expect(tester.takeException(), isNull, reason: page);
+
+      await tester.tap(
+        find.descendant(
+          of: find.byType(DocumentNavigator),
+          matching: find.byTooltip('Close'),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
   });
 
   testWidgets('converted imported file starts unsaved', (tester) async {

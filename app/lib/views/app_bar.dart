@@ -724,6 +724,25 @@ class MainPopupMenu extends StatelessWidget {
                                     providers: [
                                       BlocProvider.value(value: bloc),
                                       BlocProvider.value(value: transformCubit),
+                                      if (cubit.editorSessionCubit != null)
+                                        BlocProvider.value(
+                                          value: cubit.editorSessionCubit!,
+                                        ),
+                                      BlocProvider.value(
+                                        value: cubit.rendererCubit,
+                                      ),
+                                      BlocProvider.value(
+                                        value: cubit.toolCubit,
+                                      ),
+                                      BlocProvider.value(
+                                        value: cubit.inputCubit,
+                                      ),
+                                      BlocProvider.value(
+                                        value: cubit.saveCubit,
+                                      ),
+                                      BlocProvider.value(
+                                        value: cubit.viewCubit,
+                                      ),
                                     ],
                                     child: RepositoryProvider.value(
                                       value: cubit,

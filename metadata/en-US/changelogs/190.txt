@@ -9,5 +9,6 @@
 * Fix embed/web loading errors ([#1167](https://github.com/LinwoodDev/Butterfly/issues/1167))
 * Fix file previews resetting the language to the system locale
 * Fix filename preview appearing when renaming existing documents
+* Fix navigation menus broken on mobile layout ([#1177](https://github.com/LinwoodDev/Butterfly/issues/1177))
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.3
