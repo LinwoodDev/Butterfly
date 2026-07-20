@@ -44,19 +44,19 @@
   "strokeStyle": "نمط الخط",
   "dashLength": "طول الشَّرْطة",
   "gapLength": "طول الفجوة",
-  "includeEraser": "تضمين الممحاة؟",
+  "includeEraser": "هل تريد تضمين الممحاة؟",
   "thinning": "الترقيق",
   "pen": "القلم",
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "قلم معكوس",
-  "eraser": "ممحاة",
+  "invertedPen": "القلم المقلوب",
+  "eraser": "الممحاة",
   "@eraser": {
     "description": "Eraser tool"
   },
   "stroke": "Stroke",
-  "label": "علامة نصية",
+  "label": "التسمية",
   "@label": {
     "description": "Label tool"
   },
@@ -68,7 +68,7 @@
   "reallyDelete": "هل تريد حقًّا حذف هذا العنصر؟",
   "no": "لا",
   "yes": "نعم",
-  "undo": "تراجع",
+  "undo": "تراجُع",
   "@undo": {
     "description": "Undo action"
   },
