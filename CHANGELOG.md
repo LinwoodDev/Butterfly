@@ -2,6 +2,28 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.4 (2026-07-20)
+
+This is a hotfix update, cherry-picking important fixes from the latest 2.6.0 beta and nightly releases.
+
+Cherry picks:
+* Prevent crashes when Android SAF handles large folders and files
+* Fix text labels disappearing while editing
+* Fix polygons disappearing while editing
+* Fix renamed files appearing twice in Recent files
+* Fix layers and pages being reordered to the wrong position
+* Improve WebDAV compatibility and select the correct filesystem with SAF enabled
+* Fix the spacer tool for circles, shapes, polygons, and other elements
+* Fix repeated saves and mark imported documents as unsaved
+* Fix locked zoom controls
+* Respect hidden file extensions in Recent files
+* Persist the thumbnail setting
+* Correct the texture height label
+* Fix file previews resetting the language to the system locale
+* Avoid repeated WebDAV waits while offline
+
+Read more here: https://linwood.dev/butterfly/2.5.4
+
 ## 2.5.3 (2026-06-08)
 
 Changes since 2.5.3-rc.1:
