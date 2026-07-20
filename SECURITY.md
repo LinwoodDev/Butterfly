@@ -5,7 +5,7 @@
 | Version                    | Supported          |                                                                               |
 | -------------------------- | ------------------ | ----------------------------------------------------------------------------- |
 | 2.6-dev (Dreamy Duskywing) | :warning:          | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.6.0-beta.2) |
-| 2.5.3 (Crimson Red)        | :white_check_mark: | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.5.3)        |
+| 2.5.4 (Crimson Red)        | :white_check_mark: | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.5.4)        |
 | 2.4.4 (Black Hairstreak)   | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.4.4)        |
 | 2.3.4 (Adonis Blue)        | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.4)        |
 | 2.2.4                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)        |
