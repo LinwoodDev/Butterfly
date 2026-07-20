@@ -14,7 +14,7 @@
   "@contentViewport": {
     "description": "Limit how far the viewport can move beyond the content"
   },
-  "limitViewportToPositiveCoordinates": "قيّد نافذة العرض بالإحداثيات الإيجابية",
+  "limitViewportToPositiveCoordinates": "قيِّد نافذة العرض بالإحداثيات الإيجابية",
   "@limitViewportToPositiveCoordinates": {
     "description": "Prevent the viewport from moving into negative coordinates"
   },
@@ -24,7 +24,7 @@
   "@view": {
     "description": "View mode or menu"
   },
-  "edit": "تحرير",
+  "edit": "تعديل",
   "@edit": {
     "description": "Edit mode or menu"
   },
@@ -40,10 +40,10 @@
   "zoomIn": "تقريب",
   "zoomOut": "تصغير",
   "resetZoom": "إعادة ضبط التكبير",
-  "strokeWidth": "سُمك الخط",
+  "strokeWidth": "عرض الخط",
   "strokeStyle": "نمط الخط",
-  "dashLength": "طول الخط",
-  "gapLength": "طول الفاصل",
+  "dashLength": "طول الشَّرْطة",
+  "gapLength": "طول الفجوة",
   "includeEraser": "تضمين الممحاة؟",
   "thinning": "الترقيق",
   "pen": "القلم",
@@ -65,7 +65,7 @@
     "description": "Delete action"
   },
   "areYouSure": "هل أنت متأكد؟",
-  "reallyDelete": "هل تريد حقاً حذف هذا العنصر؟",
+  "reallyDelete": "هل تريد حقًّا حذف هذا العنصر؟",
   "no": "لا",
   "yes": "نعم",
   "undo": "تراجع",
