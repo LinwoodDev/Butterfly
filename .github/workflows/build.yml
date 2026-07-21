@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🔧 Setup java
         uses: actions/setup-java@v5
         with:
@@ -153,7 +153,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Make yq tool available on Windows runners
         run: |
           choco install yq
@@ -213,7 +213,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
@@ -262,7 +262,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Get dependencies
         run: |
           sudo apt-get update
@@ -406,7 +406,7 @@ jobs:
     runs-on: ${{ matrix.arch.image }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Add snapcraft directory
         run: |
           mkdir -p snap
@@ -433,7 +433,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
@@ -489,7 +489,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
@@ -526,7 +526,7 @@ jobs:
     if: github.event_name != 'pull_request'
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Set Docker tag
         id: docker_tag
         run: |
@@ -572,7 +572,7 @@ jobs:
       - build-ipa
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         env:
           CI_PAT: ${{ secrets.CI_PAT }}
         with:
@@ -870,7 +870,7 @@ jobs:
       PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Setup git
@@ -923,7 +923,7 @@ jobs:
     needs: [deploy]
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           token: ${{ secrets.CI_PAT }}
       - if: ${{ github.ref == 'refs/tags/stable' }}
@@ -1016,7 +1016,7 @@ jobs:
           echo "arm64=$ARM64_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Checkout Flathub beta branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: flathub/dev.linwood.butterfly
           ref: beta
