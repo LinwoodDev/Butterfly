@@ -66,36 +66,62 @@ Rect _fitPreviewAspectRatio(Rect bounds) {
 }
 
 class _PreviewKey {
-  const _PreviewKey({
-    required this.documentIdentity,
-    required this.page,
-    required this.info,
+  _PreviewKey({
+    required this.sessionId,
+    required this.pageName,
+    required DocumentPage page,
+    required DocumentInfo info,
     required this.areaRect,
-  });
+  }) : _page = WeakReference(page),
+       _info = WeakReference(info),
+       _hashCode = Object.hash(
+         sessionId,
+         pageName,
+         page.hashCode,
+         info.hashCode,
+         areaRect,
+       );
 
-  final int documentIdentity;
-  final DocumentPage page;
-  final DocumentInfo info;
+  final int sessionId;
+  final String pageName;
+  final WeakReference<DocumentPage> _page;
+  final WeakReference<DocumentInfo> _info;
   final Rect? areaRect;
+  final int _hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other is _PreviewKey &&
-      other.documentIdentity == documentIdentity &&
-      other.page == page &&
-      other.info == info &&
-      other.areaRect == areaRect;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! _PreviewKey ||
+        other.sessionId != sessionId ||
+        other.pageName != pageName ||
+        other.areaRect != areaRect) {
+      return false;
+    }
+    final page = _page.target;
+    final info = _info.target;
+    return page != null &&
+        info != null &&
+        other._page.target == page &&
+        other._info.target == info;
+  }
 
   @override
-  int get hashCode => Object.hash(documentIdentity, page, info, areaRect);
+  int get hashCode => _hashCode;
 }
 
 class _PreviewTask {
-  const _PreviewTask(this.key, this.loader, this.completer);
+  _PreviewTask(this.key, this.loader, this.completer);
 
   final _PreviewKey key;
   final Future<Uint8List?> Function() loader;
   final Completer<Uint8List?> completer;
+  bool canceled = false;
+
+  void cancel() {
+    canceled = true;
+    if (!completer.isCompleted) completer.complete(null);
+  }
 }
 
 class _DocumentPagePreviewCache {
@@ -105,6 +131,7 @@ class _DocumentPagePreviewCache {
   final LinkedHashMap<_PreviewKey, Future<Uint8List?>> _entries =
       LinkedHashMap();
   final Queue<_PreviewTask> _pending = Queue();
+  final Set<_PreviewTask> _active = {};
   int _activeLoads = 0;
 
   Future<Uint8List?> get(
@@ -122,24 +149,50 @@ class _DocumentPagePreviewCache {
     _entries[key] = future;
     _pending.add(_PreviewTask(key, loader, completer));
     while (_entries.length > _maximumEntries) {
-      _entries.remove(_entries.keys.first);
+      final evictedKey = _entries.keys.first;
+      _entries.remove(evictedKey);
+      _cancelTasks((task) => task.key == evictedKey);
     }
     _pump();
     return future;
+  }
+
+  void clearSession(int sessionId) {
+    _entries.removeWhere((key, _) => key.sessionId == sessionId);
+    _cancelTasks((task) => task.key.sessionId == sessionId);
+  }
+
+  int countForSession(int sessionId) =>
+      _entries.keys.where((key) => key.sessionId == sessionId).length +
+      _pending.where((task) => task.key.sessionId == sessionId).length +
+      _active.where((task) => task.key.sessionId == sessionId).length;
+
+  void _cancelTasks(bool Function(_PreviewTask task) shouldCancel) {
+    final pending = _pending.where(shouldCancel).toList();
+    _pending.removeWhere(shouldCancel);
+    for (final task in [...pending, ..._active.where(shouldCancel)]) {
+      task.cancel();
+    }
   }
 
   void _pump() {
     while (_activeLoads < _maximumConcurrentLoads && _pending.isNotEmpty) {
       final task = _pending.removeFirst();
       _activeLoads++;
+      _active.add(task);
       () async {
         try {
           final result = await task.loader();
-          if (!task.completer.isCompleted) task.completer.complete(result);
+          if (!task.canceled && !task.completer.isCompleted) {
+            task.completer.complete(result);
+          }
         } catch (_) {
-          _entries.remove(task.key);
-          if (!task.completer.isCompleted) task.completer.complete(null);
+          if (!task.canceled) {
+            _entries.remove(task.key);
+            if (!task.completer.isCompleted) task.completer.complete(null);
+          }
         } finally {
+          _active.remove(task);
           _activeLoads--;
           _pump();
         }
@@ -149,6 +202,22 @@ class _DocumentPagePreviewCache {
 }
 
 final _previewCache = _DocumentPagePreviewCache();
+final Expando<int> _previewSessionIds = Expando('document preview session');
+int _nextPreviewSessionId = 0;
+
+int _previewSessionId(DocumentBloc bloc) =>
+    _previewSessionIds[bloc] ??= _nextPreviewSessionId++;
+
+void clearDocumentPagePreviewCache(DocumentBloc bloc) {
+  final sessionId = _previewSessionIds[bloc];
+  if (sessionId != null) _previewCache.clearSession(sessionId);
+}
+
+@visibleForTesting
+int debugDocumentPagePreviewCacheRetainedCount(DocumentBloc bloc) {
+  final sessionId = _previewSessionIds[bloc];
+  return sessionId == null ? 0 : _previewCache.countForSession(sessionId);
+}
 
 class DocumentPagePreview extends StatelessWidget {
   const DocumentPagePreview({
@@ -225,9 +294,11 @@ class DocumentPagePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<DocumentBloc>().editorController;
+    final bloc = context.read<DocumentBloc>();
+    final controller = bloc.editorController;
     final key = _PreviewKey(
-      documentIdentity: identityHashCode(state.data),
+      sessionId: _previewSessionId(bloc),
+      pageName: pageName,
       page: page,
       info: state.info,
       areaRect: area?.rect,
