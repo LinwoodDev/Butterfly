@@ -1,4 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/widgets/document_page_preview.dart';
 import '../../widgets/multi_select.dart';
 import '../../widgets/reorderable_list_item.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -317,8 +319,15 @@ class _PagesViewState extends State<PagesView> {
                             },
                             itemBuilder: (BuildContext context, int index) {
                               final entity = all[index];
+                              final previewPage = entity.isFile
+                                  ? entity.path == state.pageName
+                                        ? state.page
+                                        : state.data.getPage(entity.path)
+                                  : null;
                               return _PageEntityListTile(
                                 entity: entity,
+                                state: state,
+                                previewPage: previewPage,
                                 selected: entity.path == currentName,
                                 showInternalPageNumber:
                                     _showInternalPageNumbers,
@@ -568,6 +577,8 @@ class _PagesCreateBar extends StatelessWidget {
 class _PageEntityListTile extends StatelessWidget {
   const _PageEntityListTile({
     required this.entity,
+    required this.state,
+    required this.previewPage,
     required this.selected,
     required this.showInternalPageNumber,
     required this.locationController,
@@ -579,6 +590,8 @@ class _PageEntityListTile extends StatelessWidget {
   });
 
   final PageEntity entity;
+  final DocumentLoadSuccess state;
+  final DocumentPage? previewPage;
   final bool selected;
   final bool showInternalPageNumber;
   final NoteData data;
@@ -610,11 +623,23 @@ class _PageEntityListTile extends StatelessWidget {
                   onSelectionChanged();
                 },
               )
-            : Icon(
-                editable
-                    ? PhosphorIconsLight.file
-                    : PhosphorIconsLight.folderSimple,
-                textDirection: TextDirection.ltr,
+            : BlocSelector<SettingsCubit, ButterflySettings, bool>(
+                selector: (settings) => settings.showNavigatorPreviews,
+                builder: (context, showPreview) {
+                  if (editable && showPreview && previewPage != null) {
+                    return DocumentPagePreview(
+                      state: state,
+                      pageName: entity.path,
+                      page: previewPage!,
+                    );
+                  }
+                  return Icon(
+                    editable
+                        ? PhosphorIconsLight.file
+                        : PhosphorIconsLight.folderSimple,
+                    textDirection: TextDirection.ltr,
+                  );
+                },
               ),
         textFormatter: (v) =>
             v.isEmpty ? AppLocalizations.of(context).untitled : v,

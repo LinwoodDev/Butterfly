@@ -532,6 +532,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
     @Default(true) bool showThumbnails,
+    @Default(true) bool showNavigatorPreviews,
     @Default(false) bool bringMovedElementsToFront,
     @Default([]) List<PackAssetLocation> favoriteTools,
   }) = _ButterflySettings;
@@ -761,6 +762,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
       hideExtension: prefs.getBool('hide_extension') ?? true,
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
+      showNavigatorPreviews: prefs.getBool('show_navigator_previews') ?? true,
       bringMovedElementsToFront:
           prefs.getBool('bring_moved_elements_to_front') ?? false,
       favoriteTools:
@@ -906,6 +908,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       bringMovedElementsToFront,
     );
     await prefs.setBool('show_thumbnails', showThumbnails);
+    await prefs.setBool('show_navigator_previews', showNavigatorPreviews);
     await prefs.setStringList(
       'favorite_tools',
       favoriteTools.map((e) => json.encode(e.toJson())).toList(),
@@ -1624,6 +1627,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowThumbnails(bool value) {
     emit(state.copyWith(showThumbnails: value));
+    return save();
+  }
+
+  Future<void> changeShowNavigatorPreviews(bool value) {
+    emit(state.copyWith(showNavigatorPreviews: value));
     return save();
   }
 
