@@ -237,6 +237,10 @@ AreaTool _$AreaToolFromJson(Map json) => AreaTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
+  color: _$JsonConverterFromJson<int, SRGBColor>(
+    json['color'],
+    const ColorJsonConverter().fromJson,
+  ),
   constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
   constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
   constrainedAspectRatio:
@@ -249,12 +253,26 @@ Map<String, dynamic> _$AreaToolToJson(AreaTool instance) => <String, dynamic>{
   'name': instance.name,
   'displayIcon': instance.displayIcon,
   'id': const IdJsonConverter().toJson(instance.id),
+  'color': _$JsonConverterToJson<int, SRGBColor>(
+    instance.color,
+    const ColorJsonConverter().toJson,
+  ),
   'constrainedWidth': instance.constrainedWidth,
   'constrainedHeight': instance.constrainedHeight,
   'constrainedAspectRatio': instance.constrainedAspectRatio,
   'askForName': instance.askForName,
   'type': instance.$type,
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);
 
 LaserTool _$LaserToolFromJson(Map json) => LaserTool(
   name: json['name'] as String? ?? '',
@@ -502,16 +520,6 @@ Map<String, dynamic> _$RulerToolToJson(RulerTool instance) => <String, dynamic>{
   'size': instance.size,
   'type': instance.$type,
 };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) => json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) => value == null ? null : toJson(value);
 
 GridTool _$GridToolFromJson(Map json) => GridTool(
   name: json['name'] as String? ?? '',

@@ -158,6 +158,7 @@ sealed class Tool extends PackAsset with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
+    @ColorJsonConverter() SRGBColor? color,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
