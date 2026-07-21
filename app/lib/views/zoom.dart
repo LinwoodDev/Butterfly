@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/number.dart';
+import 'package:butterfly/widgets/persistent_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
@@ -172,10 +173,11 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                       if (!widget.isMobile) ...[
                                         if (constraints.maxWidth > 200)
                                           Flexible(
-                                            child: Slider(
+                                            child: PersistentSlider(
                                               value: scale.clamp(kMinZoom, 10),
                                               min: kMinZoom,
                                               max: 10,
+                                              opacity: _animation,
                                               onChanged: (value) =>
                                                   _zoom(value, false),
                                               onChangeEnd: _zoom,
