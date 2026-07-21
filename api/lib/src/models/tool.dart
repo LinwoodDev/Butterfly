@@ -247,6 +247,7 @@ sealed class Tool extends PackAsset with _$Tool {
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
     @ColorJsonConverter() SRGBColor? color,
+    @ColorJsonConverter() SRGBColor? foreground,
     @Default(100) int size,
   }) = RulerTool;
 
