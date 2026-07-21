@@ -24,6 +24,7 @@ import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
+import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,7 @@ class _ProjectDocumentRuntime {
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
+    clearDocumentPagePreviewCache(bloc);
     embedding?.handler?.unregister();
     if (!bloc.isClosed) {
       await bloc.close();
