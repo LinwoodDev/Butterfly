@@ -14,31 +14,67 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../bloc/document_bloc.dart';
 import 'pack.dart';
 
-class AssetDialog extends StatelessWidget {
+class AssetDialog extends StatefulWidget {
   final PackAssetLocation? value;
   final String initialName;
 
   const AssetDialog({super.key, this.value, this.initialName = ''});
 
   @override
+  State<AssetDialog> createState() => _AssetDialogState();
+}
+
+class _AssetDialogState extends State<AssetDialog> {
+  late final ButterflyFileSystem _fileSystem;
+  late final PackFileSystem _packSystem;
+  late Future<List<FileSystemFile<NoteData>>> _packsFuture;
+  late String _name;
+  String? _pack;
+
+  @override
+  void initState() {
+    super.initState();
+    _fileSystem = context.read<ButterflyFileSystem>();
+    _packSystem = _fileSystem.buildDefaultPackSystem();
+    _packsFuture = _getPacks();
+    _pack = widget.value?.namespace;
+    _name = widget.value?.key ?? widget.initialName;
+  }
+
+  Future<List<FileSystemFile<NoteData>>> _getPacks() =>
+      _packSystem.initialize().then((_) => _packSystem.getFiles());
+
+  Future<void> _createPack() async {
+    final pack = await showDialog<NoteData>(
+      context: context,
+      builder: (context) => const PackDialog(),
+    );
+    if (pack == null) return;
+    final createdPath = await _fileSystem.createPack(
+      pack,
+      storage: _packSystem.storage,
+    );
+    final packs = await _packSystem.getFiles();
+    if (!mounted) return;
+    setState(() {
+      _pack = createdPath;
+      _packsFuture = Future.value(packs);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String? pack = value?.namespace;
-    String name = value?.key ?? initialName;
-    final bloc = context.read<DocumentBloc>();
-    final packSystem = context
-        .read<ButterflyFileSystem>()
-        .buildDefaultPackSystem();
     return FutureBuilder<List<FileSystemFile<NoteData>>>(
-      future: packSystem.initialize().then((_) => packSystem.getFiles()),
+      future: _packsFuture,
       builder: (context, snapshot) => BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) => previous.data != current.data,
         builder: (context, state) {
           if (state is! DocumentLoaded) return const SizedBox();
           final packs = snapshot.data ?? <FileSystemFile<NoteData>>[];
-          pack ??= packs.firstOrNull?.path;
+          _pack ??= packs.firstOrNull?.path;
           return AlertDialog(
             title: Text(
-              value == null
+              widget.value == null
                   ? AppLocalizations.of(context).addAsset
                   : AppLocalizations.of(context).editAsset,
             ),
@@ -62,24 +98,15 @@ class AssetDialog extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        onSelected: (value) {
-                          pack = value;
-                        },
-                        initialSelection: pack,
+                        onSelected: (value) => _pack = value,
+                        initialSelection: _pack,
                         expandedInsets: const EdgeInsets.all(0),
                       ),
                     ),
                     const SizedBox(width: 8),
                     IconButton(
                       icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-                      onPressed: () async {
-                        final pack = await showDialog<NoteData>(
-                          context: context,
-                          builder: (context) => const PackDialog(),
-                        );
-                        if (pack == null) return;
-                        bloc.add(PackAdded(pack));
-                      },
+                      onPressed: _createPack,
                       tooltip: AppLocalizations.of(context).createPack,
                     ),
                   ],
@@ -90,10 +117,8 @@ class AssetDialog extends StatelessWidget {
                     labelText: LeapLocalizations.of(context).name,
                     filled: true,
                   ),
-                  initialValue: name,
-                  onChanged: (value) {
-                    name = value;
-                  },
+                  initialValue: _name,
+                  onChanged: (value) => _name = value,
                 ),
               ],
             ),
@@ -108,8 +133,8 @@ class AssetDialog extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (pack == null) return;
-                  Navigator.of(context).pop(PackAssetLocation(pack!, name));
+                  if (_pack == null) return;
+                  Navigator.of(context).pop(PackAssetLocation(_pack!, _name));
                 },
                 child: Text(MaterialLocalizations.of(context).okButtonLabel),
               ),

@@ -37,6 +37,26 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
       _packFileSystem;
 
   @override
+  Future<String> createPack(
+    NoteData pack, {
+    String? name,
+    ExternalStorage? storage,
+  }) async {
+    final fallback = pack.name?.trim().isNotEmpty == true ? pack.name! : 'pack';
+    var fileName = name?.trim().isNotEmpty == true ? name! : fallback;
+    if (!fileName.endsWith('.bfly')) fileName = '$fileName.bfly';
+    final fileSystem = buildPackSystem(storage);
+    await fileSystem.initialize();
+    await fileSystem.createFile(fileName, pack);
+    final files = await fileSystem.getFiles();
+    return files
+            .where((file) => file.pathWithoutLeadingSlash == fileName)
+            .firstOrNull
+            ?.path ??
+        fileName;
+  }
+
+  @override
   TemplateFileSystem buildDefaultTemplateSystem({bool forceRecreate = false}) =>
       _templateFileSystem;
 

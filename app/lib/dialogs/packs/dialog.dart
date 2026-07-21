@@ -242,14 +242,12 @@ class _PacksDialogState extends State<PacksDialog>
     );
   }
 
-  String _normalizePackFileName(String? name, NoteData pack) {
-    final fallback = pack.name?.trim().isNotEmpty == true ? pack.name! : 'pack';
-    final fileName = name?.trim().isNotEmpty == true ? name! : fallback;
-    return fileName.endsWith('.bfly') ? fileName : '$fileName.bfly';
-  }
-
   Future<void> _addPack(NoteData pack, {String? name}) async {
-    await _packSystem.createFile(_normalizePackFileName(name, pack), pack);
+    await _fileSystem.createPack(
+      pack,
+      name: name,
+      storage: _packSystem.storage,
+    );
     _refresh();
   }
 
