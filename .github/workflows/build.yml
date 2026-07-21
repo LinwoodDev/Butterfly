@@ -458,7 +458,7 @@ jobs:
         working-directory: app/build/macos/Build/Products/Release
         run: zip --symlinks -qr linwood-butterfly-macos.zip butterfly.app
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 26
       - name: Install appdmg
