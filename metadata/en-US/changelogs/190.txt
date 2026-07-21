@@ -11,5 +11,6 @@
 * Fix filename preview appearing when renaming existing documents
 * Fix navigation menus broken on mobile layout ([#1177](https://github.com/LinwoodDev/Butterfly/issues/1177))
 * Fix creating packs from the selection menu ([#1178](https://github.com/LinwoodDev/Butterfly/issues/1178))
+* Fix moving collection elements to layers ([#1176](https://github.com/LinwoodDev/Butterfly/issues/1176))
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.3

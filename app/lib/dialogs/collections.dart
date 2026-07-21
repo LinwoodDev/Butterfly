@@ -163,7 +163,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                           .map((e) => e.id)
                           .nonNulls
                           .toList();
-                      showDialog<void>(
+                      await showDialog<void>(
                         builder: (context) => BlocProvider.value(
                           value: bloc,
                           child: MoveToLayerDialog(elementIds: elementIds),
