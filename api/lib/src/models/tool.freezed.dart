@@ -1670,13 +1670,14 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class RulerTool extends Tool {
-   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.size = 100, final  String? $type}): $type = $type ?? 'ruler',super._();
+   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, @ColorJsonConverter() this.foreground, this.size = 100, final  String? $type}): $type = $type ?? 'ruler',super._();
   factory RulerTool.fromJson(Map<String, dynamic> json) => _$RulerToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
 @ColorJsonConverter() final  SRGBColor? color;
+@ColorJsonConverter() final  SRGBColor? foreground;
 @JsonKey() final  int size;
 
 @JsonKey(name: 'type')
@@ -1698,7 +1699,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, size: $size)';
+  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, foreground: $foreground, size: $size)';
 }
 
 
@@ -1709,7 +1710,7 @@ abstract mixin class $RulerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $RulerToolCopyWith(RulerTool value, $Res Function(RulerTool) _then) = _$RulerToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color, int size
+ String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color,@ColorJsonConverter() SRGBColor? foreground, int size
 });
 
 
@@ -1726,12 +1727,13 @@ class _$RulerToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? size = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? foreground = freezed,Object? size = null,}) {
   return _then(RulerTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor?,foreground: freezed == foreground ? _self.foreground : foreground // ignore: cast_nullable_to_non_nullable
 as SRGBColor?,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
 as int,
   ));

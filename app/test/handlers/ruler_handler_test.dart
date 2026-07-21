@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:dart_leap/dart_leap.dart';
+import 'package:flutter/material.dart' show Colors;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -39,5 +41,29 @@ void main() {
     expect(snapRulerRotation(84), 84);
     expect(snapRulerRotation(96), 96);
     expect(snapRulerRotation(-6), 354);
+  });
+
+  test('ruler foreground contrasts with its background when unset', () {
+    final ruler = RulerTool();
+
+    expect(resolveRulerForegroundColor(ruler, Colors.black), Colors.white);
+    expect(resolveRulerForegroundColor(ruler, Colors.white), Colors.black);
+    expect(
+      resolveRulerForegroundColor(ruler, const Color(0xFF00695C)),
+      Colors.white,
+    );
+    expect(
+      resolveRulerForegroundColor(ruler, const Color(0xFFFFF59D)),
+      Colors.black,
+    );
+  });
+
+  test('ruler foreground uses the configured color', () {
+    final ruler = RulerTool(foreground: const SRGBColor(0xFF123456));
+
+    expect(
+      resolveRulerForegroundColor(ruler, Colors.black),
+      const Color(0xFF123456),
+    );
   });
 }
