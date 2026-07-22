@@ -886,12 +886,13 @@ as double,
 @JsonSerializable()
 
 class AreaTool extends Tool {
-   AreaTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.askForName = false, final  String? $type}): $type = $type ?? 'area',super._();
+   AreaTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.askForName = false, final  String? $type}): $type = $type ?? 'area',super._();
   factory AreaTool.fromJson(Map<String, dynamic> json) => _$AreaToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
+@ColorJsonConverter() final  SRGBColor? color;
 @JsonKey() final  double constrainedWidth;
 @JsonKey() final  double constrainedHeight;
 @JsonKey() final  double constrainedAspectRatio;
@@ -916,7 +917,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.area(name: $name, displayIcon: $displayIcon, id: $id, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
+  return 'Tool.area(name: $name, displayIcon: $displayIcon, id: $id, color: $color, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
 }
 
 
@@ -927,7 +928,7 @@ abstract mixin class $AreaToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $AreaToolCopyWith(AreaTool value, $Res Function(AreaTool) _then) = _$AreaToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, bool askForName
+ String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, bool askForName
 });
 
 
@@ -944,12 +945,13 @@ class _$AreaToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? askForName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? askForName = null,}) {
   return _then(AreaTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,constrainedWidth: null == constrainedWidth ? _self.constrainedWidth : constrainedWidth // ignore: cast_nullable_to_non_nullable
+as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor?,constrainedWidth: null == constrainedWidth ? _self.constrainedWidth : constrainedWidth // ignore: cast_nullable_to_non_nullable
 as double,constrainedHeight: null == constrainedHeight ? _self.constrainedHeight : constrainedHeight // ignore: cast_nullable_to_non_nullable
 as double,constrainedAspectRatio: null == constrainedAspectRatio ? _self.constrainedAspectRatio : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
 as double,askForName: null == askForName ? _self.askForName : askForName // ignore: cast_nullable_to_non_nullable
@@ -1668,13 +1670,14 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class RulerTool extends Tool {
-   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.size = 100, final  String? $type}): $type = $type ?? 'ruler',super._();
+   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, @ColorJsonConverter() this.foreground, this.size = 100, final  String? $type}): $type = $type ?? 'ruler',super._();
   factory RulerTool.fromJson(Map<String, dynamic> json) => _$RulerToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
 @ColorJsonConverter() final  SRGBColor? color;
+@ColorJsonConverter() final  SRGBColor? foreground;
 @JsonKey() final  int size;
 
 @JsonKey(name: 'type')
@@ -1696,7 +1699,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, size: $size)';
+  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, foreground: $foreground, size: $size)';
 }
 
 
@@ -1707,7 +1710,7 @@ abstract mixin class $RulerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $RulerToolCopyWith(RulerTool value, $Res Function(RulerTool) _then) = _$RulerToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color, int size
+ String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color,@ColorJsonConverter() SRGBColor? foreground, int size
 });
 
 
@@ -1724,12 +1727,13 @@ class _$RulerToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? size = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? foreground = freezed,Object? size = null,}) {
   return _then(RulerTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor?,foreground: freezed == foreground ? _self.foreground : foreground // ignore: cast_nullable_to_non_nullable
 as SRGBColor?,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
 as int,
   ));

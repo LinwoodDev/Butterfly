@@ -1,12 +1,16 @@
+import 'dart:math';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/pages.dart' as pages_dialog;
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/navigator/pages.dart';
+import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,6 +77,58 @@ void main() {
         resolvePageRename('section/subsection', '../../renamed'),
         'renamed',
       );
+    });
+  });
+
+  group('navigator preview bounds', () {
+    test('uses the initial area before the full page content', () {
+      const initialArea = Area(
+        name: 'Initial',
+        width: 200,
+        height: 100,
+        position: Point(10, 20),
+        isInitial: true,
+      );
+      const page = DocumentPage(areas: [initialArea]);
+
+      expect(
+        resolvePagePreviewBounds(page, [
+          const Rect.fromLTWH(-500, -500, 1000, 1000),
+        ]),
+        initialArea.rect,
+      );
+    });
+
+    test('an explicit area overrides the page initial area', () {
+      const initialArea = Area(
+        width: 200,
+        height: 100,
+        position: Point(10, 20),
+        isInitial: true,
+      );
+      const selectedArea = Area(
+        width: 80,
+        height: 60,
+        position: Point(300, 400),
+      );
+      const page = DocumentPage(areas: [initialArea, selectedArea]);
+
+      expect(
+        resolvePagePreviewBounds(page, const [], area: selectedArea),
+        selectedArea.rect,
+      );
+    });
+
+    test('fits all content when no initial area exists', () {
+      const content = Rect.fromLTWH(-50, -25, 100, 50);
+      final bounds = resolvePagePreviewBounds(const DocumentPage(), const [
+        content,
+      ]);
+
+      expect(bounds.contains(content.topLeft), isTrue);
+      expect(bounds.contains(content.bottomRight), isTrue);
+      expect(bounds.width, greaterThan(content.width));
+      expect(bounds.height, greaterThan(content.height));
     });
   });
 
@@ -158,8 +214,11 @@ void main() {
     });
 
     await tester.pumpWidget(
-      BlocProvider.value(
-        value: bloc,
+      MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: bloc),
+          BlocProvider<SettingsCubit>.value(value: settingsCubit),
+        ],
         child: MaterialApp(
           locale: const Locale('en'),
           localizationsDelegates: const [

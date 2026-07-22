@@ -30,6 +30,15 @@ double snapRulerRotation(double rotation) {
   return normalized;
 }
 
+Color resolveRulerForegroundColor(RulerTool ruler, Color background) {
+  final configured = ruler.foreground?.toColor();
+  if (configured != null) return configured;
+  final luminance = background.computeLuminance();
+  final blackContrast = (luminance + 0.05) / 0.05;
+  final whiteContrast = 1.05 / (luminance + 0.05);
+  return blackContrast >= whiteContrast ? Colors.black : Colors.white;
+}
+
 class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   Offset _position = Offset.zero;
   double _rotation = 0;
@@ -206,7 +215,10 @@ class RulerRenderer extends Renderer<RulerTool> {
     final rulerBackgroundColor =
         element.color?.toColor() ??
         (colorScheme?.primaryContainer ?? Colors.grey).withAlpha(200);
-    final rulerForegroundColor = colorScheme?.onPrimary ?? Colors.white;
+    final rulerForegroundColor = resolveRulerForegroundColor(
+      element,
+      rulerBackgroundColor,
+    );
     final rulerPaint = Paint()
       ..color = rulerColor
       ..strokeWidth = 1
