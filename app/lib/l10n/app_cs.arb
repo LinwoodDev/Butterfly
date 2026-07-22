@@ -350,6 +350,22 @@
   "untitled": "Bez názvu",
   "createTemplate": "Vytvořit šablonu",
   "createTemplateContent": "Opravdu chcete vytvořit šablonu z tohoto dokumentu? Původní dokument bude smazán.",
+  "fileName": "Název souboru",
+  "defaultFileName": "Výchozí název souboru",
+  "templateFileNameDescription": "Dokumenty otevřené ze výběru šablony jsou automaticky uloženy s tímto názvem. Šablony bez názvu používají výchozí nastavení v nastavení dat. Kombinujte svůj vlastní text s {dateExample} a {timeExample}. Znaky, které nejsou povoleny v názvech souborů, budou zamítnuty.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Náhled",
   "replace": "Nahradit",
   "@replace": {
     "description": "Replace action"
@@ -361,7 +377,7 @@
     "description": "Insert action"
   },
   "document": "Dokument",
-  "documentStates": "Document states",
+  "documentStates": "Stav dokumentu",
   "camera": "Fotoaparát",
   "@camera": {
     "description": "Camera tool"
@@ -645,7 +661,7 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "Gesta",
-  "inputGesturesDescription": "Lets you move and zoom the canvas with touch gestures, even while a drawing tool is selected.",
+  "inputGesturesDescription": "Umožňuje přesouvat a přiblížit plátno s dotykovými gesty, i když je vybrán nástroj pro kreslení.",
   "nativeTitleBar": "Nativní titulek",
   "mode": "Mode",
   "syncMode": "Režim synchronizace",
@@ -655,13 +671,13 @@
     "description": "Frequency"
   },
   "noMobile": "Žádný mobil",
-  "syncModeAlwaysDescription": "Syncs remote files automatically whenever they change.",
-  "syncModeNoMobileDescription": "Syncs automatically except on mobile devices, which can reduce mobile data usage.",
+  "syncModeAlwaysDescription": "Synchronizuje vzdálené soubory automaticky, kdykoli se změní.",
+  "syncModeNoMobileDescription": "Synchronizuje se automaticky s výjimkou mobilních zařízení, která mohou snížit využití mobilních dat.",
   "manual": "Ruční",
   "@manual": {
     "description": "Manual mode"
   },
-  "syncModeManualDescription": "Only syncs when you start it yourself.",
+  "syncModeManualDescription": "Synchronizuje se pouze tehdy, když to začnete sami.",
   "search": "Hledat",
   "@search": {
     "description": "Search action"
@@ -1359,9 +1375,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some pens.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the pen.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the pen as fully pressed.",
+  "ignoreFirstPressureDescription": "Ignorovat první čtení tlaku, které může být na některých perech nepřesné.",
+  "ignorePressureNeverDescription": "Používá každý tlak z kotce.",
+  "ignorePressureAlwaysDescription": "Ignorovat tlak a zacházet s perem jako s plně lisovaným.",
   "temporary": "Dočasné",
   "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů",
   "@simpleToolbarVisibility": {
@@ -1438,17 +1454,17 @@
   "addTool": "Přidat nástroj",
   "nextPage": "Další stránka",
   "previousPage": "Předchozí stránka",
-  "persistenceDocumentStates": "Persistent document states",
-  "persistentStatesEnabled": "Enable persistent document states",
+  "persistenceDocumentStates": "Trvalý stav dokumentu",
+  "persistentStatesEnabled": "Povolit trvalé stavy dokumentů",
   "persistentStateCurrentPage": "Aktuální stránka",
-  "persistentStateViewport": "Viewport position and zoom",
-  "persistentStateSelectedTool": "Selected tool",
-  "persistentStateMaxRecords": "Maximum stored records",
-  "persistentStateDeleteOlderThanDays": "Delete records older than days",
-  "persistentStateCleanup": "Clean up stored states",
-  "persistentStateCleanupDescription": "Delete records older than the limits above",
-  "persistentStateCleanupInProgress": "Cleaning up...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "persistentStateViewport": "Zobrazení pozice a přiblížení",
+  "persistentStateSelectedTool": "Vybraný nástroj",
+  "persistentStateMaxRecords": "Maximální počet uložených záznamů",
+  "persistentStateDeleteOlderThanDays": "Odstranit záznamy starší než dny",
+  "persistentStateCleanup": "Vyčistit uložené stavy",
+  "persistentStateCleanupDescription": "Odstranit záznamy starší než výše uvedené limity",
+  "persistentStateCleanupInProgress": "Čištění...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Vyčištěno 1 úložiště} other{Vyčištěno {locations} místa v úložišti}}; {records, plural, =1{odebral 1 záznam} other{odstranil {records} záznamy}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {
@@ -1459,45 +1475,46 @@
       }
     }
   },
-  "autosaveEnabledDescription": "Saves changes automatically as you work.",
-  "autosaveDelayedDescription": "Saves changes automatically after the selected delay.",
-  "autosaveShowButtonDescription": "Saves automatically and also keeps the save button visible.",
-  "autosaveDisabledDescription": "Only saves when you use the save command.",
-  "hideCursorWhileDrawingDescription": "Hides the mouse pointer while you draw, so it does not cover your stroke.",
-  "onStartupHomeScreenDescription": "Opens the home screen when Butterfly starts.",
-  "onStartupLastNoteDescription": "Reopens your most recently used note when Butterfly starts.",
-  "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
-  "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
-  "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
-  "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
-  "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
-  "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
-  "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
-  "persistentStatesEnabledDescription": "Store document state information between app sessions",
-  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
-  "persistentStateViewportDescription": "Remember the viewport position and zoom",
-  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
-  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
-  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
-  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
-  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
-  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
-  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
-  "contentViewportDescription": "Limits how far you can pan away from the content of your note.",
-  "limitViewportPositiveDescription": "Keeps the canvas within the area to the right and below its starting point.",
-  "startInFullScreenDescription": "Opens Butterfly in full-screen mode when supported.",
-  "designDescription": "Changes the overall visual style of Butterfly without changing whether the app uses light or dark colors.",
-  "platformThemeDescription": "Lets you use the desktop or mobile layout instead of the layout Butterfly normally chooses for your device.",
-  "densityDescription": "Changes the spacing and size of interface elements. It does not change the size of your note content.",
-  "highContrastDescription": "Uses stronger color differences to make controls and text easier to distinguish.",
-  "nativeTitleBarDescription": "Uses your operating system's standard window title bar instead of Butterfly's custom title bar.",
-  "propertiesDescription": "Chooses where the panel for editing the selected tool or element appears.",
-  "navigationRailDescription": "Shows a permanent navigation bar on wide screens for quicker access to app sections.",
-  "optionsPanelPositionDescription": "Chooses whether tool options appear above or below the canvas.",
-  "simpleToolbarVisibilityDescription": "Controls when the smaller, simplified toolbar appears while editing a note.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only pen input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick pen-only switch in the editor after Butterfly detects a pen.",
-  "ignorePressureDescription": "Controls whether pen pressure changes the stroke and works around inaccurate pressure readings from some pens.",
-  "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
-  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page."
+  "autosaveEnabledDescription": "Uloží změny automaticky, jak pracujete.",
+  "autosaveDelayedDescription": "Uloží změny automaticky po vybraném zpoždění.",
+  "autosaveShowButtonDescription": "Uloží automaticky a zobrazí se také tlačítko uložení.",
+  "autosaveDisabledDescription": "Uloží pouze pokud používáte uložený příkaz.",
+  "hideCursorWhileDrawingDescription": "Při kreslení skryje kurzor myši, takže nepokrývá tvůj tah.",
+  "onStartupHomeScreenDescription": "Otevře domovskou obrazovku při startu Butterfly",
+  "onStartupLastNoteDescription": "Znovu otevře vaši naposledy použitou poznámku při startu Butterfly",
+  "onStartupNewNoteDescription": "Vytvoří novou poznámku, když začne Butterfly",
+  "smoothNavigationDescription": "Zjednodušením plátna během pohybu panování a přiblížění se cítí plynulé.",
+  "edgePanAreaSwitchingDescription": "Přepne do sousední oblasti, když se poblíž okraje plátna.",
+  "collaborationDescription": "Umožňuje více lidí upravovat stejnou poznámku společně v reálném čase.",
+  "showVerboseLogsDescription": "Obsahuje podrobné diagnostické zprávy v zobrazení logu a konzoli. Tyto zprávy mohou pomoci při řešení problému.",
+  "bringMovedElementsToFrontDescription": "Umístí prvek nad překrývající se prvky po přesunutí prvku.",
+  "persistenceDocumentStatesDescription": "Určuje, které části vašeho pracovního prostoru Butterfly si pamatují na každou poznámku, jako je aktuální stránka, zoom a vybraný nástroj.",
+  "persistentStatesEnabledDescription": "Ukládat informace o stavu dokumentu mezi relacemi aplikací",
+  "persistentStateCurrentPageDescription": "Zapamatovat si aktuální stránku při opětovném otevření souboru",
+  "persistentStateViewportDescription": "Pamatovat si pozici zobrazení a přiblížení",
+  "persistentStateSelectedToolDescription": "Zapamatovat si vybraný nástroj při opětovném otevření souboru",
+  "persistentStateLocksDescription": "Zapamatovat si vrstvu a uzamknutí kolekce při znovuotevření souboru",
+  "persistentStateNavigatorDescription": "Zapamatovat si stav navigátoru při opětovném otevření souboru",
+  "persistentStateLayersDescription": "Zapamatovat si stav panelu vrstvy při opětovném otevření souboru",
+  "persistentStateAreasDescription": "Zapamatovat si stav oblastního panelu při opětovném otevření souboru",
+  "persistentStateMaxRecordsDescription": "Ponechat nanejvýš tolik uložených stavů v každém souboru",
+  "persistentStateDeleteOlderThanDaysDescription": "Odstranit uložené stavy starší než tento počet dní",
+  "contentViewportDescription": "Omezuje, jak daleko se dostanete od obsahu poznámky.",
+  "limitViewportPositiveDescription": "Udržuje plátno v oblasti vpravo a pod výchozím bodem.",
+  "startInFullScreenDescription": "Otevře tlačítko v režimu celé obrazovky, pokud je podporováno.",
+  "designDescription": "Změní celkový vizuální styl Butterfly bez změny, zda aplikace používá světlé nebo tmavé barvy.",
+  "platformThemeDescription": "Umožňuje používat stolní nebo mobilní rozvržení místo rozvržení Butterfly obvykle volí vaše zařízení.",
+  "densityDescription": "Změní mezery a velikost prvků rozhraní. Nemění to velikost obsahu poznámek.",
+  "highContrastDescription": "Používá silnější rozdíly v barvách pro snadnější rozlišení ovládacích prvků a textu.",
+  "nativeTitleBarDescription": "Používá hlavní lištu standardního operačního systému místo motocyklového titulkového řádku.",
+  "propertiesDescription": "Zvolte, kde se objeví panel pro úpravu vybraného nástroje nebo prvku.",
+  "navigationRailDescription": "Zobrazí stálou navigační lištu na širokých obrazovkách pro rychlejší přístup do sekcí aplikace.",
+  "optionsPanelPositionDescription": "Zvolte, zda se možnosti nástroje zobrazí nad nebo pod plátno.",
+  "simpleToolbarVisibilityDescription": "Určuje, kdy se při úpravách poznámky objeví menší, zjednodušený nástrojový řádek.",
+  "penOnlyInputDescription": "Zabraňuje náhodným značkám z vaší ruky nebo myši výběrem, kdy může kreslit pouze vstup pera.",
+  "showPenOnlyToggleDescription": "Zobrazí rychlý přepnutí v editoru poté, co Butterfly detekuje per.",
+  "ignorePressureDescription": "Určuje, zda tlak kotce mění zdvih a funguje kolem nepřesných hodnot tlaku z některých kotců.",
+  "moveOnGestureDescription": "Umožňuje vícenásobné dotykové gesta přesunout plátno místo interakce s obsahem poznámek.",
+  "spreadPagesDescription": "Rozdělí vícestránkové importy na samostatné stránky poznámek namísto umístění vše na jednu stránku.",
+  "shear": "Smyk"
 }

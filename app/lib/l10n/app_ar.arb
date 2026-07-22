@@ -14,7 +14,7 @@
   "@contentViewport": {
     "description": "Limit how far the viewport can move beyond the content"
   },
-  "limitViewportToPositiveCoordinates": "قيّد نافذة العرض بالإحداثيات الإيجابية",
+  "limitViewportToPositiveCoordinates": "قيِّد نافذة العرض بالإحداثيات الإيجابية",
   "@limitViewportToPositiveCoordinates": {
     "description": "Prevent the viewport from moving into negative coordinates"
   },
@@ -24,7 +24,7 @@
   "@view": {
     "description": "View mode or menu"
   },
-  "edit": "تحرير",
+  "edit": "تعديل",
   "@edit": {
     "description": "Edit mode or menu"
   },
@@ -40,23 +40,23 @@
   "zoomIn": "تقريب",
   "zoomOut": "تصغير",
   "resetZoom": "إعادة ضبط التكبير",
-  "strokeWidth": "سُمك الخط",
+  "strokeWidth": "عرض الخط",
   "strokeStyle": "نمط الخط",
-  "dashLength": "طول الخط",
-  "gapLength": "طول الفاصل",
-  "includeEraser": "تضمين الممحاة؟",
+  "dashLength": "طول الشَّرْطة",
+  "gapLength": "طول الفجوة",
+  "includeEraser": "هل تريد تضمين الممحاة؟",
   "thinning": "الترقيق",
   "pen": "القلم",
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "قلم معكوس",
-  "eraser": "ممحاة",
+  "invertedPen": "القلم المقلوب",
+  "eraser": "الممحاة",
   "@eraser": {
     "description": "Eraser tool"
   },
   "stroke": "Stroke",
-  "label": "علامة نصية",
+  "label": "التسمية",
   "@label": {
     "description": "Label tool"
   },
@@ -65,10 +65,10 @@
     "description": "Delete action"
   },
   "areYouSure": "هل أنت متأكد؟",
-  "reallyDelete": "هل تريد حقاً حذف هذا العنصر؟",
+  "reallyDelete": "هل تريد حقًّا حذف هذا العنصر؟",
   "no": "لا",
   "yes": "نعم",
-  "undo": "تراجع",
+  "undo": "تراجُع",
   "@undo": {
     "description": "Undo action"
   },
@@ -350,6 +350,22 @@
   "untitled": "بلا عنوان",
   "createTemplate": "إنشاء قالب",
   "createTemplateContent": "هل تريد حقاً إنشاء قالب من هذا المستند؟ سيتم حذف المستند الأصلي.",
+  "fileName": "اسم الملف",
+  "defaultFileName": "اسم الملف الافتراضي",
+  "templateFileNameDescription": "المستندات المفتوحة من منتقي القالب يتم حفظها تلقائيًا مع هذا الاسم. القوالب بدون اسم تستخدم التكوين الافتراضي في إعدادات البيانات. دمج النص الخاص بك مع {dateExample} و {timeExample}. سيتم رفض الأحرف غير المسموح بها في أسماء الملفات.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "معاينة",
   "replace": "استبدل",
   "@replace": {
     "description": "Replace action"
@@ -361,7 +377,7 @@
     "description": "Insert action"
   },
   "document": "مستند",
-  "documentStates": "Document states",
+  "documentStates": "حالة المستند",
   "camera": "كاميرا",
   "@camera": {
     "description": "Camera tool"
@@ -645,7 +661,7 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "إيماءات الإدخال",
-  "inputGesturesDescription": "Lets you move and zoom the canvas with touch gestures, even while a drawing tool is selected.",
+  "inputGesturesDescription": "يتيح لك تحريك وتكبيير القماش بإيماءات اللمس، حتى عندما يتم اختيار أداة الرسم.",
   "nativeTitleBar": "استخدم شريط عنوان النظام",
   "mode": "Mode",
   "syncMode": "وضع المزامنة",
@@ -655,13 +671,13 @@
     "description": "Frequency"
   },
   "noMobile": "لا تستخدم الاتصال الخلوي",
-  "syncModeAlwaysDescription": "Syncs remote files automatically whenever they change.",
-  "syncModeNoMobileDescription": "Syncs automatically except on mobile devices, which can reduce mobile data usage.",
+  "syncModeAlwaysDescription": "مزامنة الملفات البعيدة تلقائياً كلما تغيرت.",
+  "syncModeNoMobileDescription": "المزامنة تلقائياً باستثناء الأجهزة المحمولة، التي يمكن أن تقلل من استخدام بيانات الجوال.",
   "manual": "يدوي",
   "@manual": {
     "description": "Manual mode"
   },
-  "syncModeManualDescription": "Only syncs when you start it yourself.",
+  "syncModeManualDescription": "فقط المزامنة عند بدئها بنفسك.",
   "search": "البحث",
   "@search": {
     "description": "Search action"
@@ -1359,9 +1375,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some pens.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the pen.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the pen as fully pressed.",
+  "ignoreFirstPressureDescription": "يتجاهل قراءة الضغط الأولى، التي يمكن أن تكون غير دقيقة في بعض القلم.",
+  "ignorePressureNeverDescription": "يستخدم كل ضغط يقرأ من القلم.",
+  "ignorePressureAlwaysDescription": "يتجاهل الضغط ويتعامل مع القلم كما هو مضغوط بالكامل.",
   "temporary": "مؤقت",
   "simpleToolbarVisibility": "عرض شريط الأدوات البسيط",
   "@simpleToolbarVisibility": {
@@ -1438,17 +1454,17 @@
   "addTool": "إضافة أداة",
   "nextPage": "الصفحة التالية",
   "previousPage": "الصفحة السابقة",
-  "persistenceDocumentStates": "Persistent document states",
-  "persistentStatesEnabled": "Enable persistent document states",
+  "persistenceDocumentStates": "استمرار حالة المستند",
+  "persistentStatesEnabled": "تمكين حالات المستندات المستمرة",
   "persistentStateCurrentPage": "الصفحة الحالية",
-  "persistentStateViewport": "Viewport position and zoom",
-  "persistentStateSelectedTool": "Selected tool",
-  "persistentStateMaxRecords": "Maximum stored records",
-  "persistentStateDeleteOlderThanDays": "Delete records older than days",
-  "persistentStateCleanup": "Clean up stored states",
-  "persistentStateCleanupDescription": "Delete records older than the limits above",
-  "persistentStateCleanupInProgress": "Cleaning up...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "persistentStateViewport": "عرض الموضع وتكبيره",
+  "persistentStateSelectedTool": "أداة مختارة",
+  "persistentStateMaxRecords": "الحد الأقصى للسجلات المخزونة",
+  "persistentStateDeleteOlderThanDays": "حذف السجلات الأقدم من الأيام",
+  "persistentStateCleanup": "تنظيف الحالات المخزنة",
+  "persistentStateCleanupDescription": "حذف السجلات الأقدم من الحدود أعلاه",
+  "persistentStateCleanupInProgress": "تنظيف...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{تم تنظيف موقع تخزين واحد} other{تم تنظيفه {locations} مواقع تخزين}}; {records, plural, =1{حذف سجل واحد} other{حذف {records} سجلات}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {
@@ -1459,45 +1475,46 @@
       }
     }
   },
-  "autosaveEnabledDescription": "Saves changes automatically as you work.",
-  "autosaveDelayedDescription": "Saves changes automatically after the selected delay.",
-  "autosaveShowButtonDescription": "Saves automatically and also keeps the save button visible.",
-  "autosaveDisabledDescription": "Only saves when you use the save command.",
-  "hideCursorWhileDrawingDescription": "Hides the mouse pointer while you draw, so it does not cover your stroke.",
-  "onStartupHomeScreenDescription": "Opens the home screen when Butterfly starts.",
-  "onStartupLastNoteDescription": "Reopens your most recently used note when Butterfly starts.",
-  "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
-  "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
-  "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
-  "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
-  "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
-  "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
-  "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
-  "persistentStatesEnabledDescription": "Store document state information between app sessions",
-  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
-  "persistentStateViewportDescription": "Remember the viewport position and zoom",
-  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
-  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
-  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
-  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
-  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
-  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
-  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
-  "contentViewportDescription": "Limits how far you can pan away from the content of your note.",
-  "limitViewportPositiveDescription": "Keeps the canvas within the area to the right and below its starting point.",
-  "startInFullScreenDescription": "Opens Butterfly in full-screen mode when supported.",
-  "designDescription": "Changes the overall visual style of Butterfly without changing whether the app uses light or dark colors.",
-  "platformThemeDescription": "Lets you use the desktop or mobile layout instead of the layout Butterfly normally chooses for your device.",
-  "densityDescription": "Changes the spacing and size of interface elements. It does not change the size of your note content.",
-  "highContrastDescription": "Uses stronger color differences to make controls and text easier to distinguish.",
-  "nativeTitleBarDescription": "Uses your operating system's standard window title bar instead of Butterfly's custom title bar.",
-  "propertiesDescription": "Chooses where the panel for editing the selected tool or element appears.",
-  "navigationRailDescription": "Shows a permanent navigation bar on wide screens for quicker access to app sections.",
-  "optionsPanelPositionDescription": "Chooses whether tool options appear above or below the canvas.",
-  "simpleToolbarVisibilityDescription": "Controls when the smaller, simplified toolbar appears while editing a note.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only pen input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick pen-only switch in the editor after Butterfly detects a pen.",
-  "ignorePressureDescription": "Controls whether pen pressure changes the stroke and works around inaccurate pressure readings from some pens.",
-  "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
-  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page."
+  "autosaveEnabledDescription": "حفظ التغييرات تلقائيًا أثناء عملك.",
+  "autosaveDelayedDescription": "حفظ التغييرات تلقائياً بعد التأخير المحدد.",
+  "autosaveShowButtonDescription": "يحفظ تلقائيًا ويبقي زر الحفظ مرئيًا.",
+  "autosaveDisabledDescription": "يحفظ فقط عند استخدام أمر الحفظ.",
+  "hideCursorWhileDrawingDescription": "يخفي مؤشر الفأرة أثناء الرسم، لذلك فإنه لا يغطي جرة القلم الخاصة بك.",
+  "onStartupHomeScreenDescription": "يفتح الشاشة الرئيسية عند بدء الفراشة.",
+  "onStartupLastNoteDescription": "إعادة فتح ملاحظتك المستخدمة مؤخرا عند بدء تشغيل الفراشة.",
+  "onStartupNewNoteDescription": "ينشئ ملاحظة جديدة عند بدء تشغيل الفراشة.",
+  "smoothNavigationDescription": "يجعل الإنحناء والتصوير يشعران بالسلاسة من خلال تبسيط الكانفا أثناء تحركه.",
+  "edgePanAreaSwitchingDescription": "التبديل إلى منطقة مجاورة عندما تقرب من حافة الكانفاس.",
+  "collaborationDescription": "يسمح لأشخاص متعددين بتحرير نفس الملاحظة معا في الوقت الحقيقي.",
+  "showVerboseLogsDescription": "يتضمن رسائل تشخيصية مفصلة في طريقة عرض السجل و وحدة التحكم. يمكن أن تساعد هذه الرسائل عند اكتشاف مشكلة ما.",
+  "bringMovedElementsToFrontDescription": "يضع عنصرا فوق العناصر المتداخلة بعد نقله.",
+  "persistenceDocumentStatesDescription": "يتحكم في أجزاء من مساحة العمل الخاصة بك تتذكر الفراشة لكل ملاحظة، مثل الصفحة الحالية، وتكبير، والأداة المحددة.",
+  "persistentStatesEnabledDescription": "تخزين معلومات حالة المستند بين جلسات التطبيق",
+  "persistentStateCurrentPageDescription": "تذكر الصفحة الحالية عند إعادة فتح ملف",
+  "persistentStateViewportDescription": "تذكر موضع العرض وتكبيره",
+  "persistentStateSelectedToolDescription": "تذكر الأداة المحددة عند إعادة فتح ملف",
+  "persistentStateLocksDescription": "تذكر الطبقة وقفل الجمع عند إعادة فتح الملف",
+  "persistentStateNavigatorDescription": "تذكر حالة التنقل عند إعادة فتح الملف",
+  "persistentStateLayersDescription": "تذكر حالة لوحة الطبقة عند إعادة فتح الملف",
+  "persistentStateAreasDescription": "تذكر حالة لوحة المنطقة عند إعادة فتح الملف",
+  "persistentStateMaxRecordsDescription": "الاحتفاظ على الأكثر بهذه العديد من الحالات المخزنة لكل ملف",
+  "persistentStateDeleteOlderThanDaysDescription": "حذف الدول المخزنة الأقدم من هذه الأيام العديدة",
+  "contentViewportDescription": "يحد من المدى الذي يمكنك أن تبتعد عنه من محتوى ملاحظتك.",
+  "limitViewportPositiveDescription": "يحافظ على القماش داخل المنطقة إلى اليمين وتحت نقطة البداية.",
+  "startInFullScreenDescription": "فتح الفراشة في وضع ملء الشاشة عندما يتم دعمها.",
+  "designDescription": "يغير النمط المرئي العام للفراشة دون تغيير ما إذا كان التطبيق يستخدم ألوان خفيفة أو داكنة.",
+  "platformThemeDescription": "يتيح لك استخدام تخطيط سطح المكتب أو الجوال بدلاً من اختيار فراشة التخطيط عادةً لجهازك.",
+  "densityDescription": "يغير المسافة وحجم عناصر الواجهة. لا يغير حجم محتوى ملاحظتك.",
+  "highContrastDescription": "يستخدم اختلافات ألوان أقوى لجعل الضوابط والنص أسهل لتمييزها.",
+  "nativeTitleBarDescription": "يستخدم شريط عنوان النافذة القياسي لنظام التشغيل الخاص بك بدلاً من شريط العنوان المخصص الخاص بفرشلة.",
+  "propertiesDescription": "يحدد المكان الذي يظهر فيه اللوحة لتعديل الأداة أو العنصر المحدد.",
+  "navigationRailDescription": "يعرض شريط تنقل دائم على شاشات واسعة للوصول السريع إلى أقسام التطبيقات.",
+  "optionsPanelPositionDescription": "يحدد ما إذا كانت خيارات الأداة تظهر أعلاه أو أسفل الكانفاس.",
+  "simpleToolbarVisibilityDescription": "التحكم عندما يظهر شريط الأدوات الأصغر والمبسطة أثناء تحرير الملاحظة.",
+  "penOnlyInputDescription": "يمنع العلامات العرضية من يدك أو الفأرة عن طريق اختيار الوقت الذي يمكن فيه لمدخلات القلم فقط الرسم.",
+  "showPenOnlyToggleDescription": "يعرض تبديل سريع للقلم فقط في المحرر بعد اكتشاف الفراشة لقلم.",
+  "ignorePressureDescription": "يتحكم فيما إذا كان ضغط القلم يغير السكتة الدماغية ويعمل حول قراءات ضغط غير دقيقة من بعض الأقسام.",
+  "moveOnGestureDescription": "يتيح إيماءات اللمس المتعددة تحريك الكانفا بدلاً من التفاعل مع محتوى الملاحظة.",
+  "spreadPagesDescription": "تقسيم الواردات متعددة الصفحات عبر صفحات ملاحظات منفصلة بدلاً من وضع كل شيء على صفحة واحدة.",
+  "shear": "القصة"
 }
