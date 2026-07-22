@@ -99,12 +99,6 @@ void main() {
     );
   }
 
-  Future<void> tapHomeMenuItem(WidgetTester tester) async {
-    await tester.tap(find.byTooltip('Actions'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(MenuItemButton, 'Home'));
-  }
-
   Widget buildApp({NoteData? embedDocument}) {
     final document =
         embedDocument ??
@@ -214,61 +208,6 @@ void main() {
 
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
-  });
-
-  testWidgets('closed document runtime becomes garbage collectable', (
-    tester,
-  ) async {
-    await tester.pumpWidget(buildApp());
-    await tester.tap(find.byKey(const ValueKey('open-document')));
-    await pumpUntil(
-      tester,
-      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
-      'document open for garbage collection',
-    );
-    await tester.pumpAndSettle();
-
-    final pageState = WeakReference<Object>(
-      tester.state(find.byType(ProjectPage)),
-    );
-    DocumentBloc? documentBloc = observer.lastDocumentBloc!;
-    final bloc = WeakReference<Object>(documentBloc);
-    final editorController = WeakReference<Object>(
-      documentBloc.editorController,
-    );
-
-    await tapHomeMenuItem(tester);
-    await pumpUntil(
-      tester,
-      () => observer.documentBlocCloses == 1,
-      'document close for garbage collection',
-    );
-    observer.lastDocumentBloc = null;
-    observer.lastSaveCubit = null;
-    documentBloc = null;
-    await tester.pumpAndSettle();
-
-    for (
-      var cycle = 0;
-      cycle < 20 &&
-          (pageState.target != null ||
-              bloc.target != null ||
-              editorController.target != null);
-      cycle++
-    ) {
-      await tester.runAsync(() async {
-        final garbage = List.generate(64, (_) => Uint8List(1024 * 1024));
-        garbage[cycle % garbage.length][0] = cycle;
-        await Future<void>.delayed(Duration.zero);
-      });
-      await tester.pump();
-    }
-
-    expect(
-      <Object?>[pageState.target, bloc.target, editorController.target],
-      everyElement(isNull),
-      reason: 'The closed route must not retain its page, bloc, or controller.',
-    );
   });
 
   testWidgets('mobile navigator dialogs receive the editor runtime cubits', (

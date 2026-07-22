@@ -14,7 +14,6 @@ import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
-import 'package:butterfly/widgets/persistent_menu_anchor.dart';
 import 'package:butterfly/widgets/search.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -480,7 +479,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
   }
 }
 
-class MainPopupMenu extends StatefulWidget {
+class MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
   final bool isLarge;
   final EdgeInsets? padding;
@@ -491,17 +490,6 @@ class MainPopupMenu extends StatefulWidget {
     required this.isLarge,
     this.padding,
   });
-
-  @override
-  State<MainPopupMenu> createState() => _MainPopupMenuState();
-}
-
-class _MainPopupMenuState extends State<MainPopupMenu> {
-  final _menuController = PersistentMenuAnchorController();
-
-  GlobalKey get viewportKey => widget.viewportKey;
-  bool get isLarge => widget.isLarge;
-  EdgeInsets? get padding => widget.padding;
 
   @override
   Widget build(BuildContext context) {
@@ -545,13 +533,10 @@ class _MainPopupMenuState extends State<MainPopupMenu> {
                         !navigatorRailEnabled ||
                         fullScreen ||
                         hideUi != HideState.visible;
-                    return PersistentMenuAnchor(
-                      controller: _menuController,
-                      semanticsLabel: AppLocalizations.of(context).actions,
+                    return MenuAnchor(
                       menuChildren: [
                         if (saveState.embedding == null) ...[
                           MenuItemButton(
-                            closeOnActivate: false,
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.house,
                             ),
@@ -560,9 +545,6 @@ class _MainPopupMenuState extends State<MainPopupMenu> {
                               final router = GoRouter.of(context);
                               final bloc = context.read<DocumentBloc>();
                               await bloc.save();
-                              if (!mounted) return;
-                              await _menuController.prepareForRouteDisposal();
-                              if (!mounted) return;
                               router.go('/');
                             },
                           ),
@@ -951,22 +933,20 @@ class _MainPopupMenuState extends State<MainPopupMenu> {
                           ),
                         ),
                       ),
-                      builder: (context, controller, child) => ExcludeSemantics(
-                        child: Align(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: IconButton(
-                              icon: Image.asset(logoAsset),
-                              style: IconButton.styleFrom(
-                                backgroundColor: controller.isOpen
-                                    ? ColorScheme.of(
-                                        context,
-                                      ).surfaceContainerHighest
-                                    : null,
-                              ),
-                              tooltip: AppLocalizations.of(context).actions,
-                              onPressed: controller.toggle,
+                      builder: (context, controller, child) => Align(
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: IconButton(
+                            icon: Image.asset(logoAsset),
+                            style: IconButton.styleFrom(
+                              backgroundColor: controller.isOpen
+                                  ? ColorScheme.of(
+                                      context,
+                                    ).surfaceContainerHighest
+                                  : null,
                             ),
+                            tooltip: AppLocalizations.of(context).actions,
+                            onPressed: controller.toggle,
                           ),
                         ),
                       ),
