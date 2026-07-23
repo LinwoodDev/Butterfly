@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  reverse?: boolean;
+  portrait?: boolean;
+}
+
+const { image, alt, reverse = false, portrait = false } = Astro.props;
+---
+
+<section class:list={['landing-feature', { reverse, portrait }]}>
+  <div class="landing-feature__copy">
+    <slot />
+  </div>
+  <div class="landing-feature__visual">
+    <Image src={image} alt={alt} widths={[480, 720, 960]} sizes="(min-width: 50rem) 52vw, 100vw" />
+  </div>
+</section>
+
+<style>
+  .landing-feature {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.65fr) minmax(0, 1.55fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-block: clamp(2.5rem, 6vw, 5rem);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background: var(--sl-color-gray-6);
+  }
+
+  .landing-feature.reverse {
+    grid-template-columns: minmax(0, 1.55fr) minmax(16rem, 0.65fr);
+  }
+
+  .landing-feature.reverse .landing-feature__visual {
+    order: -1;
+  }
+
+  .landing-feature__copy :global(h3) {
+    margin-top: 0;
+    font-size: clamp(1.6rem, 3vw, 2.35rem);
+    line-height: 1.12;
+  }
+
+  .landing-feature__copy :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .landing-feature__visual {
+    display: grid;
+    place-items: center;
+  }
+
+  .landing-feature__visual :global(img) {
+    width: 100%;
+    max-height: 40rem;
+    object-fit: contain;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.65rem;
+    background: white;
+    box-shadow: var(--sl-shadow-md);
+  }
+
+  .landing-feature.portrait .landing-feature__visual :global(img) {
+    width: auto;
+    max-width: min(100%, 22rem);
+  }
+
+  .landing-feature.portrait,
+  .landing-feature.portrait.reverse {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  @media (max-width: 50rem) {
+    .landing-feature,
+    .landing-feature.reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .landing-feature.reverse .landing-feature__visual {
+      order: initial;
+    }
+  }
+
+  @keyframes landing-feature-reveal {
+    from {
+      opacity: 0.35;
+      transform: translateY(1.25rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes landing-heading-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes landing-group-reveal {
+    from {
+      opacity: 0.25;
+      transform: scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  :global(html:has(.landing-feature)) {
+    --sl-content-width: 86rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .landing-feature {
+        animation: landing-feature-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 24%;
+      }
+
+      :global(html:has(.landing-feature) .sl-markdown-content > h2) {
+        animation: landing-heading-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 20%;
+      }
+
+      :global(html:has(.landing-feature) .sl-markdown-content > .card-grid) {
+        animation: landing-group-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 18%;
+      }
+    }
+  }
+</style>
