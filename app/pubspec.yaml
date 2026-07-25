@@ -1,5 +1,5 @@
 name: butterfly
-description: Powerful, minimalistic, cross-platform, opensource note-taking app
+description: Take notes, draw freely, and organize ideas across an endless workspace
 
 publish_to: none
 
@@ -17,7 +17,7 @@ version: 2.6.0-beta.3+190
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
-  flutter: 3.44.7
+  flutter: 3.44.8
 
 dependencies:
   flutter:
