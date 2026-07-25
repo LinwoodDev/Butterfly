@@ -40,9 +40,19 @@ Butterfly is an open-source app for people who think better with space around th
 
 Use it for class notes, meeting notes, research, math, worksheets, planning, whiteboarding, storyboards, product sketches, or any project that starts messy and needs room to grow. Write by hand with a stylus, touch, or mouse, type text and Markdown, add shapes and lines, place images and photos, import PDFs, SVGs, and image files, then export your work as PDF, SVG, images, or portable Butterfly files.
 
-Butterfly tries to stay out of your way while you work. Recent files, quick-start templates, search, folders, imports, page navigation, and tool settings are close when you need them, but the document stays at the center. You can begin with a plain page, ruled paper, a grid, dotted paper, music paper, or your own template.
+## Features
 
-As your document grows, Butterfly gives you ways to keep it understandable. Split work into pages and page folders, use layers, mark important places with areas and waypoints, save reusable parts in packs, and keep palettes and text styles ready for the next document. Almost everything you add remains editable, so you can move, resize, recolor, reorder, and refine your work later instead of starting over.
+* **✍️ Tunable drawing tools:** Shape each pen around your workflow with smoothing, thinning, pressure behavior, zoom-dependent strokes, and shape detection.
+* **🧩 Mixed content:** Combine handwriting, text, Markdown, shapes, images, photos, PDFs, SVGs, rulers, grids, textures, laser pointer notes, and presentation tools.
+* **🛠️ Always editable:** Move, resize, recolor, reorder, and refine most elements later instead of starting over.
+* **🗂️ Project structure:** Organize large documents with multiple pages, page folders, layers, named areas, and waypoints.
+* **🎨 Reusable setup:** Save templates, packs, palettes, stamps, and text styles so your favorite layouts and tools follow you.
+* **🚀 Quick start:** Jump in from recent files, search, folders, imports, quick-start templates, and storage locations.
+* **🔒 Local first:** Work offline, store files locally, choose a different data directory, or connect WebDAV and Nextcloud.
+* **📤 Flexible export:** Share your work as PDF, SVG, images, or portable Butterfly files.
+* **🤝 Experimental collaboration:** Work together with end-to-end encrypted sessions through Swamp or a self-hosted WebSocket server.
+
+## Your work belongs to you
 
 Your files stay under your control. Work offline, store documents on your device, choose a different data directory, or connect WebDAV and Nextcloud if you want your own sync setup. There is no required account, no required subscription, and no required proprietary cloud.
 
@@ -66,7 +76,7 @@ Butterfly is free, community translated, available on phones, tablets, desktops,
 Try Butterfly in your browser, install it on your devices, or explore the documentation:
 
 * [Download Butterfly](https://butterfly.linwood.dev/downloads)
-* [Try the web app](https://web.butterfly.linwood.dev)
+* [Try the web app](https://web.butterfly.linwood.dev) (Chromium-based browsers are recommended)
 * [Read the documentation](https://butterfly.linwood.dev/docs/v2/intro)
 * [Join the community](https://butterfly.linwood.dev/community)
 
