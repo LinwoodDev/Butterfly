@@ -9,18 +9,20 @@ For an overview of how areas work, see [Areas](../../areas).
 ## Actions
 
 |        Mouse        |    Touch     |      Action       |
-| :-----------------: | :----------: | :---------------: |
+|:-------------------:|:------------:|:-----------------:|
 | Left click and drag | Tap and drag | Create a new area |
 |    Middle click     | Two fingers  |    Move canvas    |
 |     Right click     |   Long tap   |     Edit area     |
 
 ## Configuration
 
-|     Property | Default | Description                                                                                                                                      |
-| -----------: | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------- |
-|        Width |    `0`    | The fixed width for new areas. If set to `0`, this setting will be ignored.           |
-|       Height |    `0`    | The fixed height for new areas. If set to `0`, this setting will be ignored.           |
-| Aspect ratio |    `0`    | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
+|     Property | Default | Description                                                                                                                                                                                                                                                                                                                                            |
+|-------------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ask for name |  false  | Whether a name prompt will appear before creation.                                                                                                                                                                                                                                                                                                     |
+|      Presets |  none   | Various presets for width and heigth.                                                                                                                                                                                                                                                                                                                  |
+|        Width |   `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                            |
+|       Height |   `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                           |
+| Aspect ratio |   `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 There are three aspect ratio presets:
 

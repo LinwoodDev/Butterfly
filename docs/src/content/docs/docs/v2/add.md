@@ -7,7 +7,7 @@ Here you can add things to your notes.
 ## Import
 
 Here you can import existing files into your documents.
-Supported are Butterfly documents, Markdown, PNG, SVG, and PDF.
+Supported are Butterfly, Xournal++ and OneNote documents, Markdown, PNG, SVG, and PDF.
 
 ## Tools
 

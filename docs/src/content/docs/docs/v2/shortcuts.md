@@ -41,7 +41,7 @@ By default, the pen is configured to function as the following:
 * `First` (Primary button, if supported): Change to hand tool while pressed.
 * `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Configuring {#configure}
+## Configuring
 
 You can customize your controls by changing which tools your inputs map to.
 

@@ -70,6 +70,10 @@ export default defineConfig({
               link: "/docs/v2/intro",
             },
             {
+              ...getSidebarTranslatedLabel("Context menu"),
+              link: "/docs/v2/context_menu",
+            },
+            {
               ...getSidebarTranslatedLabel("Area"),
               link: "/docs/v2/areas/",
             },
@@ -80,6 +84,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Color picker"),
               link: "/docs/v2/color_picker/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Paint Options"),
+              link: "/docs/v2/paint_options/",
             },
             {
               ...getSidebarTranslatedLabel("Layers"),
@@ -151,10 +159,6 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Hand"),
                   link: "/docs/v2/tools/hand/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Path eraser"),
-                  link: "/docs/v2/tools/path_eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Eraser"),

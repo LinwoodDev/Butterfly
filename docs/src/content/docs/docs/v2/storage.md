@@ -25,7 +25,7 @@ Open the developer tools in your browser and you will see the data.
 
 By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. This folder can be changed in the settings.
 
-## Remote storage {#remote}
+## Remote storage
 
 :::note
 
@@ -42,7 +42,7 @@ To get the WebDAV URL, please visit the documentation:
 
 * [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
 
-### Offline sync {#offline}
+### Offline sync
 
 This feature allows you to edit your files on remote servers while you are offline.
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.

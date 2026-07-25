@@ -5,7 +5,7 @@ title: Grid tool
 :::note[🔘 Toggleable tool]
 
 This is a special tool.
-You can't select it and it gets toggled if you click on it.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
@@ -14,11 +14,12 @@ Inputs get snapped to the grid.
 
 ## Configuration
 
-| Property | Default  | Description |
-| -------: | :------: | :---------- |
-|     Size | (20, 20) | The size of the grid cells on the x and y axis. |
-|   Offset |  (0, 0)  | The offset of the grid on the x and y axis. |
-|    Color |  Black   | The color of the grid. |
-|   Stroke |    1     | The width of the grid lines. |
-| Zoom dependent | false | Changes the grid stroke width based on the zoom level. |
-| Position dependent | false | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
+|           Property | Default  | Description                                                                            |
+|-------------------:|:--------:|:---------------------------------------------------------------------------------------|
+|               Size | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|             Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|              Color |  Black   | The color of the grid.                                                                 |
+|              Alpha |   255    | The opacity of the grid liens.                                                         |
+|             Stroke |    1     | The width of the grid lines.                                                           |
+|     Zoom dependent |  false   | Changes the grid stroke width based on the zoom level.                                 |
+| Position dependent |  false   | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

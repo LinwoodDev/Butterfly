@@ -2,10 +2,10 @@
 title: Full screen tool
 ---
 
-:::note[⚡ Action tool]
+:::note[🔘 Toggleable tool]
 
 This is a special tool.
-You can't select it and it will run the action if you click on it.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 

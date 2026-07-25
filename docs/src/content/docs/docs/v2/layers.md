@@ -10,6 +10,7 @@ Layers are drawn from bottom to top, so the top layer will be shown above all ot
 
 Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are rendered.
 
+For changing the rendering order within a layer see [Arrange](../context_menu/#arrange-options)
 :::
 
 ## The Layers dialog
