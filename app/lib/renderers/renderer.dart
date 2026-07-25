@@ -22,6 +22,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
 import 'package:material_leap/material_leap.dart';
@@ -38,6 +39,8 @@ import '../services/font.dart';
 import '../services/logger.dart';
 import 'textures/texture.dart';
 
+part 'renderer.freezed.dart';
+
 part 'backgrounds/texture.dart';
 part 'backgrounds/svg.dart';
 part 'backgrounds/image.dart';
@@ -49,6 +52,7 @@ part 'elements/pdf.dart';
 part 'elements/pen.dart';
 part 'elements/polygon.dart';
 part 'elements/shape.dart';
+part 'elements/table.dart';
 part 'elements/svg.dart';
 
 class ElementPaintRenderer {
@@ -502,6 +506,7 @@ abstract class Renderer<T> {
             ImageElement() => ImageRenderer(element, layer),
             SvgElement() => SvgRenderer(element, layer),
             ShapeElement() => ShapeRenderer(element, layer),
+            TableElement() => TableRenderer(element, layer),
             MarkdownElement() => MarkdownRenderer(element, layer),
             TextureElement() => TextureRenderer(element, layer),
             PolygonElement() => PolygonRenderer(element, layer),

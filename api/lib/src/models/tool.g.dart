@@ -340,6 +340,43 @@ Map<String, dynamic> _$ShapeToolToJson(ShapeTool instance) => <String, dynamic>{
   'type': instance.$type,
 };
 
+TableTool _$TableToolFromJson(Map json) => TableTool(
+  name: json['name'] as String? ?? '',
+  displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
+  zoomDependent: json['zoomDependent'] as bool? ?? false,
+  constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
+  constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
+  constrainedAspectRatio:
+      (json['constrainedAspectRatio'] as num?)?.toDouble() ?? 0,
+  rows: (json['rows'] as num?)?.toInt() ?? 3,
+  columns: (json['columns'] as num?)?.toInt() ?? 3,
+  border: json['border'] == null
+      ? const TableBorderProperty()
+      : TableBorderProperty.fromJson(
+          Map<String, dynamic>.from(json['border'] as Map),
+        ),
+  fillColor: json['fillColor'] == null
+      ? SRGBColor.transparent
+      : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$TableToolToJson(TableTool instance) => <String, dynamic>{
+  'name': instance.name,
+  'displayIcon': instance.displayIcon,
+  'id': const IdJsonConverter().toJson(instance.id),
+  'zoomDependent': instance.zoomDependent,
+  'constrainedWidth': instance.constrainedWidth,
+  'constrainedHeight': instance.constrainedHeight,
+  'constrainedAspectRatio': instance.constrainedAspectRatio,
+  'rows': instance.rows,
+  'columns': instance.columns,
+  'border': instance.border.toJson(),
+  'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
+  'type': instance.$type,
+};
+
 StampTool _$StampToolFromJson(Map json) => StampTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',

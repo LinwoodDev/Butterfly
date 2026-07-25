@@ -68,6 +68,45 @@ Map<String, dynamic> _$DynamicElementConstraintsToJson(
   'type': instance.$type,
 };
 
+_TableBorderProperty _$TableBorderPropertyFromJson(Map json) =>
+    _TableBorderProperty(
+      width: (json['width'] as num?)?.toDouble() ?? 1,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+      strokeStyle:
+          $enumDecodeNullable(_$StrokeStyleEnumMap, json['strokeStyle']) ??
+          StrokeStyle.solid,
+      dashMultiplier: (json['dashMultiplier'] as num?)?.toDouble() ?? 1.0,
+      gapMultiplier: (json['gapMultiplier'] as num?)?.toDouble() ?? 1.0,
+    );
+
+Map<String, dynamic> _$TableBorderPropertyToJson(
+  _TableBorderProperty instance,
+) => <String, dynamic>{
+  'width': instance.width,
+  'color': const ColorJsonConverter().toJson(instance.color),
+  'strokeStyle': _$StrokeStyleEnumMap[instance.strokeStyle]!,
+  'dashMultiplier': instance.dashMultiplier,
+  'gapMultiplier': instance.gapMultiplier,
+};
+
+const _$StrokeStyleEnumMap = {
+  StrokeStyle.solid: 'solid',
+  StrokeStyle.dotted: 'dotted',
+};
+
+_TableCellProperty _$TableCellPropertyFromJson(Map json) => _TableCellProperty(
+  fillColor: json['fillColor'] == null
+      ? SRGBColor.transparent
+      : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),
+);
+
+Map<String, dynamic> _$TableCellPropertyToJson(_TableCellProperty instance) =>
+    <String, dynamic>{
+      'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
+    };
+
 PenElement _$PenElementFromJson(Map json) => PenElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
   shear: (json['shear'] as num?)?.toDouble() ?? 0,
@@ -370,6 +409,99 @@ Map<String, dynamic> _$ShapeElementToJson(ShapeElement instance) =>
       'extra': instance.extra,
       'type': instance.$type,
     };
+
+TableElement _$TableElementFromJson(Map json) => TableElement(
+  rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  shear: (json['shear'] as num?)?.toDouble() ?? 0,
+  collection: json['collection'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
+  firstPosition: json['firstPosition'] == null
+      ? const Point(0.0, 0.0)
+      : const DoublePointJsonConverter().fromJson(json['firstPosition'] as Map),
+  secondPosition: json['secondPosition'] == null
+      ? const Point(0.0, 0.0)
+      : const DoublePointJsonConverter().fromJson(
+          json['secondPosition'] as Map,
+        ),
+  rows: (json['rows'] as num?)?.toInt() ?? 3,
+  columns: (json['columns'] as num?)?.toInt() ?? 3,
+  border: json['border'] == null
+      ? const TableBorderProperty()
+      : TableBorderProperty.fromJson(
+          Map<String, dynamic>.from(json['border'] as Map),
+        ),
+  rowSizes:
+      (json['rowSizes'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList() ??
+      const [],
+  columnSizes:
+      (json['columnSizes'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toList() ??
+      const [],
+  horizontalBorders:
+      (json['horizontalBorders'] as List<dynamic>?)
+          ?.map(
+            (e) => TableBorderProperty.fromJson(
+              Map<String, dynamic>.from(e as Map),
+            ),
+          )
+          .toList() ??
+      const [],
+  verticalBorders:
+      (json['verticalBorders'] as List<dynamic>?)
+          ?.map(
+            (e) => TableBorderProperty.fromJson(
+              Map<String, dynamic>.from(e as Map),
+            ),
+          )
+          .toList() ??
+      const [],
+  cells:
+      (json['cells'] as List<dynamic>?)
+          ?.map(
+            (e) =>
+                TableCellProperty.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  fillColor: json['fillColor'] == null
+      ? SRGBColor.transparent
+      : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),
+  extra:
+      (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
+      const {},
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$TableElementToJson(
+  TableElement instance,
+) => <String, dynamic>{
+  'rotation': instance.rotation,
+  'shear': instance.shear,
+  'collection': instance.collection,
+  'id': const IdJsonConverter().toJson(instance.id),
+  'firstPosition': const DoublePointJsonConverter().toJson(
+    instance.firstPosition,
+  ),
+  'secondPosition': const DoublePointJsonConverter().toJson(
+    instance.secondPosition,
+  ),
+  'rows': instance.rows,
+  'columns': instance.columns,
+  'border': instance.border.toJson(),
+  'rowSizes': instance.rowSizes,
+  'columnSizes': instance.columnSizes,
+  'horizontalBorders': instance.horizontalBorders
+      .map((e) => e.toJson())
+      .toList(),
+  'verticalBorders': instance.verticalBorders.map((e) => e.toJson()).toList(),
+  'cells': instance.cells.map((e) => e.toJson()).toList(),
+  'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
+  'extra': instance.extra,
+  'type': instance.$type,
+};
 
 TextureElement _$TextureElementFromJson(Map json) => TextureElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,

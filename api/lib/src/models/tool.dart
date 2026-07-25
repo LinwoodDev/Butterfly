@@ -189,6 +189,20 @@ sealed class Tool extends PackAsset with _$Tool {
     @Default(false) bool drawFromCenter,
   }) = ShapeTool;
 
+  factory Tool.table({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
+    @Default(false) bool zoomDependent,
+    @Default(0) double constrainedWidth,
+    @Default(0) double constrainedHeight,
+    @Default(0) double constrainedAspectRatio,
+    @Default(3) int rows,
+    @Default(3) int columns,
+    @Default(TableBorderProperty()) TableBorderProperty border,
+    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor fillColor,
+  }) = TableTool;
+
   factory Tool.stamp({
     @Default('') String name,
     @Default('') String displayIcon,
@@ -302,6 +316,7 @@ sealed class Tool extends PackAsset with _$Tool {
     AreaTool() => ToolCategory.normal,
     LaserTool() => ToolCategory.view,
     ShapeTool() => ToolCategory.surface,
+    TableTool() => ToolCategory.surface,
     StampTool() => ToolCategory.surface,
     PresentationTool() => ToolCategory.normal,
     SpacerTool() => ToolCategory.normal,

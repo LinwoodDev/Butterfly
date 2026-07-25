@@ -442,6 +442,286 @@ as bool,
 
 }
 
+
+/// @nodoc
+mixin _$TableBorderProperty {
+
+ double get width;@ColorJsonConverter() SRGBColor get color; StrokeStyle get strokeStyle; double get dashMultiplier; double get gapMultiplier;
+/// Create a copy of TableBorderProperty
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TableBorderPropertyCopyWith<TableBorderProperty> get copyWith => _$TableBorderPropertyCopyWithImpl<TableBorderProperty>(this as TableBorderProperty, _$identity);
+
+  /// Serializes this TableBorderProperty to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableBorderProperty&&(identical(other.width, width) || other.width == width)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,width,color,strokeStyle,dashMultiplier,gapMultiplier);
+
+@override
+String toString() {
+  return 'TableBorderProperty(width: $width, color: $color, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TableBorderPropertyCopyWith<$Res>  {
+  factory $TableBorderPropertyCopyWith(TableBorderProperty value, $Res Function(TableBorderProperty) _then) = _$TableBorderPropertyCopyWithImpl;
+@useResult
+$Res call({
+ double width,@ColorJsonConverter() SRGBColor color, StrokeStyle strokeStyle, double dashMultiplier, double gapMultiplier
+});
+
+
+
+
+}
+/// @nodoc
+class _$TableBorderPropertyCopyWithImpl<$Res>
+    implements $TableBorderPropertyCopyWith<$Res> {
+  _$TableBorderPropertyCopyWithImpl(this._self, this._then);
+
+  final TableBorderProperty _self;
+  final $Res Function(TableBorderProperty) _then;
+
+/// Create a copy of TableBorderProperty
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? color = null,Object? strokeStyle = null,Object? dashMultiplier = null,Object? gapMultiplier = null,}) {
+  return _then(_self.copyWith(
+width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
+as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor,strokeStyle: null == strokeStyle ? _self.strokeStyle : strokeStyle // ignore: cast_nullable_to_non_nullable
+as StrokeStyle,dashMultiplier: null == dashMultiplier ? _self.dashMultiplier : dashMultiplier // ignore: cast_nullable_to_non_nullable
+as double,gapMultiplier: null == gapMultiplier ? _self.gapMultiplier : gapMultiplier // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _TableBorderProperty implements TableBorderProperty {
+  const _TableBorderProperty({this.width = 1, @ColorJsonConverter() this.color = SRGBColor.black, this.strokeStyle = StrokeStyle.solid, this.dashMultiplier = 1.0, this.gapMultiplier = 1.0});
+  factory _TableBorderProperty.fromJson(Map<String, dynamic> json) => _$TableBorderPropertyFromJson(json);
+
+@override@JsonKey() final  double width;
+@override@JsonKey()@ColorJsonConverter() final  SRGBColor color;
+@override@JsonKey() final  StrokeStyle strokeStyle;
+@override@JsonKey() final  double dashMultiplier;
+@override@JsonKey() final  double gapMultiplier;
+
+/// Create a copy of TableBorderProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TableBorderPropertyCopyWith<_TableBorderProperty> get copyWith => __$TableBorderPropertyCopyWithImpl<_TableBorderProperty>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TableBorderPropertyToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableBorderProperty&&(identical(other.width, width) || other.width == width)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,width,color,strokeStyle,dashMultiplier,gapMultiplier);
+
+@override
+String toString() {
+  return 'TableBorderProperty(width: $width, color: $color, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TableBorderPropertyCopyWith<$Res> implements $TableBorderPropertyCopyWith<$Res> {
+  factory _$TableBorderPropertyCopyWith(_TableBorderProperty value, $Res Function(_TableBorderProperty) _then) = __$TableBorderPropertyCopyWithImpl;
+@override @useResult
+$Res call({
+ double width,@ColorJsonConverter() SRGBColor color, StrokeStyle strokeStyle, double dashMultiplier, double gapMultiplier
+});
+
+
+
+
+}
+/// @nodoc
+class __$TableBorderPropertyCopyWithImpl<$Res>
+    implements _$TableBorderPropertyCopyWith<$Res> {
+  __$TableBorderPropertyCopyWithImpl(this._self, this._then);
+
+  final _TableBorderProperty _self;
+  final $Res Function(_TableBorderProperty) _then;
+
+/// Create a copy of TableBorderProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? color = null,Object? strokeStyle = null,Object? dashMultiplier = null,Object? gapMultiplier = null,}) {
+  return _then(_TableBorderProperty(
+width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
+as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor,strokeStyle: null == strokeStyle ? _self.strokeStyle : strokeStyle // ignore: cast_nullable_to_non_nullable
+as StrokeStyle,dashMultiplier: null == dashMultiplier ? _self.dashMultiplier : dashMultiplier // ignore: cast_nullable_to_non_nullable
+as double,gapMultiplier: null == gapMultiplier ? _self.gapMultiplier : gapMultiplier // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$TableCellProperty {
+
+@ColorJsonConverter() SRGBColor get fillColor;
+/// Create a copy of TableCellProperty
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TableCellPropertyCopyWith<TableCellProperty> get copyWith => _$TableCellPropertyCopyWithImpl<TableCellProperty>(this as TableCellProperty, _$identity);
+
+  /// Serializes this TableCellProperty to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableCellProperty&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fillColor);
+
+@override
+String toString() {
+  return 'TableCellProperty(fillColor: $fillColor)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TableCellPropertyCopyWith<$Res>  {
+  factory $TableCellPropertyCopyWith(TableCellProperty value, $Res Function(TableCellProperty) _then) = _$TableCellPropertyCopyWithImpl;
+@useResult
+$Res call({
+@ColorJsonConverter() SRGBColor fillColor
+});
+
+
+
+
+}
+/// @nodoc
+class _$TableCellPropertyCopyWithImpl<$Res>
+    implements $TableCellPropertyCopyWith<$Res> {
+  _$TableCellPropertyCopyWithImpl(this._self, this._then);
+
+  final TableCellProperty _self;
+  final $Res Function(TableCellProperty) _then;
+
+/// Create a copy of TableCellProperty
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? fillColor = null,}) {
+  return _then(_self.copyWith(
+fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _TableCellProperty implements TableCellProperty {
+  const _TableCellProperty({@ColorJsonConverter() this.fillColor = SRGBColor.transparent});
+  factory _TableCellProperty.fromJson(Map<String, dynamic> json) => _$TableCellPropertyFromJson(json);
+
+@override@JsonKey()@ColorJsonConverter() final  SRGBColor fillColor;
+
+/// Create a copy of TableCellProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TableCellPropertyCopyWith<_TableCellProperty> get copyWith => __$TableCellPropertyCopyWithImpl<_TableCellProperty>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TableCellPropertyToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableCellProperty&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fillColor);
+
+@override
+String toString() {
+  return 'TableCellProperty(fillColor: $fillColor)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TableCellPropertyCopyWith<$Res> implements $TableCellPropertyCopyWith<$Res> {
+  factory _$TableCellPropertyCopyWith(_TableCellProperty value, $Res Function(_TableCellProperty) _then) = __$TableCellPropertyCopyWithImpl;
+@override @useResult
+$Res call({
+@ColorJsonConverter() SRGBColor fillColor
+});
+
+
+
+
+}
+/// @nodoc
+class __$TableCellPropertyCopyWithImpl<$Res>
+    implements _$TableCellPropertyCopyWith<$Res> {
+  __$TableCellPropertyCopyWithImpl(this._self, this._then);
+
+  final _TableCellProperty _self;
+  final $Res Function(_TableCellProperty) _then;
+
+/// Create a copy of TableCellProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fillColor = null,}) {
+  return _then(_TableCellProperty(
+fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+
+}
+
 PadElement _$PadElementFromJson(
   Map<String, dynamic> json
 ) {
@@ -472,6 +752,10 @@ PadElement _$PadElementFromJson(
           );
                 case 'shape':
           return ShapeElement.fromJson(
+            json
+          );
+                case 'table':
+          return TableElement.fromJson(
             json
           );
                 case 'texture':
@@ -1347,6 +1631,154 @@ as Map<String, dynamic>,
 }
 
 
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class TableElement extends PadElement {
+   TableElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(), final  List<double> rowSizes = const [], final  List<double> columnSizes = const [], final  List<TableBorderProperty> horizontalBorders = const [], final  List<TableBorderProperty> verticalBorders = const [], final  List<TableCellProperty> cells = const [], @ColorJsonConverter() this.fillColor = SRGBColor.transparent, final  Map<String, dynamic> extra = const {}, final  String? $type}): _rowSizes = rowSizes,_columnSizes = columnSizes,_horizontalBorders = horizontalBorders,_verticalBorders = verticalBorders,_cells = cells,_extra = extra,$type = $type ?? 'table',super._();
+  factory TableElement.fromJson(Map<String, dynamic> json) => _$TableElementFromJson(json);
+
+@override@JsonKey() final  double rotation;
+@override@JsonKey() final  double shear;
+@override@JsonKey() final  String collection;
+@override@IdJsonConverter() final  String? id;
+@JsonKey()@DoublePointJsonConverter() final  Point<double> firstPosition;
+@JsonKey()@DoublePointJsonConverter() final  Point<double> secondPosition;
+@JsonKey() final  int rows;
+@JsonKey() final  int columns;
+@JsonKey() final  TableBorderProperty border;
+ final  List<double> _rowSizes;
+@JsonKey() List<double> get rowSizes {
+  if (_rowSizes is EqualUnmodifiableListView) return _rowSizes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_rowSizes);
+}
+
+ final  List<double> _columnSizes;
+@JsonKey() List<double> get columnSizes {
+  if (_columnSizes is EqualUnmodifiableListView) return _columnSizes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_columnSizes);
+}
+
+ final  List<TableBorderProperty> _horizontalBorders;
+@JsonKey() List<TableBorderProperty> get horizontalBorders {
+  if (_horizontalBorders is EqualUnmodifiableListView) return _horizontalBorders;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_horizontalBorders);
+}
+
+ final  List<TableBorderProperty> _verticalBorders;
+@JsonKey() List<TableBorderProperty> get verticalBorders {
+  if (_verticalBorders is EqualUnmodifiableListView) return _verticalBorders;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_verticalBorders);
+}
+
+ final  List<TableCellProperty> _cells;
+@JsonKey() List<TableCellProperty> get cells {
+  if (_cells is EqualUnmodifiableListView) return _cells;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_cells);
+}
+
+@JsonKey()@ColorJsonConverter() final  SRGBColor fillColor;
+ final  Map<String, dynamic> _extra;
+@override@JsonKey() Map<String, dynamic> get extra {
+  if (_extra is EqualUnmodifiableMapView) return _extra;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_extra);
+}
+
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of PadElement
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TableElementCopyWith<TableElement> get copyWith => _$TableElementCopyWithImpl<TableElement>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TableElementToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&(identical(other.rows, rows) || other.rows == rows)&&(identical(other.columns, columns) || other.columns == columns)&&(identical(other.border, border) || other.border == border)&&const DeepCollectionEquality().equals(other._rowSizes, _rowSizes)&&const DeepCollectionEquality().equals(other._columnSizes, _columnSizes)&&const DeepCollectionEquality().equals(other._horizontalBorders, _horizontalBorders)&&const DeepCollectionEquality().equals(other._verticalBorders, _verticalBorders)&&const DeepCollectionEquality().equals(other._cells, _cells)&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,firstPosition,secondPosition,rows,columns,border,const DeepCollectionEquality().hash(_rowSizes),const DeepCollectionEquality().hash(_columnSizes),const DeepCollectionEquality().hash(_horizontalBorders),const DeepCollectionEquality().hash(_verticalBorders),const DeepCollectionEquality().hash(_cells),fillColor,const DeepCollectionEquality().hash(_extra));
+
+@override
+String toString() {
+  return 'PadElement.table(rotation: $rotation, shear: $shear, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, rows: $rows, columns: $columns, border: $border, rowSizes: $rowSizes, columnSizes: $columnSizes, horizontalBorders: $horizontalBorders, verticalBorders: $verticalBorders, cells: $cells, fillColor: $fillColor, extra: $extra)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TableElementCopyWith<$Res> implements $PadElementCopyWith<$Res> {
+  factory $TableElementCopyWith(TableElement value, $Res Function(TableElement) _then) = _$TableElementCopyWithImpl;
+@override @useResult
+$Res call({
+ double rotation, double shear, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> firstPosition,@DoublePointJsonConverter() Point<double> secondPosition, int rows, int columns, TableBorderProperty border, List<double> rowSizes, List<double> columnSizes, List<TableBorderProperty> horizontalBorders, List<TableBorderProperty> verticalBorders, List<TableCellProperty> cells,@ColorJsonConverter() SRGBColor fillColor, Map<String, dynamic> extra
+});
+
+
+$TableBorderPropertyCopyWith<$Res> get border;
+
+}
+/// @nodoc
+class _$TableElementCopyWithImpl<$Res>
+    implements $TableElementCopyWith<$Res> {
+  _$TableElementCopyWithImpl(this._self, this._then);
+
+  final TableElement _self;
+  final $Res Function(TableElement) _then;
+
+/// Create a copy of PadElement
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? shear = null,Object? collection = null,Object? id = freezed,Object? firstPosition = null,Object? secondPosition = null,Object? rows = null,Object? columns = null,Object? border = null,Object? rowSizes = null,Object? columnSizes = null,Object? horizontalBorders = null,Object? verticalBorders = null,Object? cells = null,Object? fillColor = null,Object? extra = null,}) {
+  return _then(TableElement(
+rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,shear: null == shear ? _self.shear : shear // ignore: cast_nullable_to_non_nullable
+as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,firstPosition: null == firstPosition ? _self.firstPosition : firstPosition // ignore: cast_nullable_to_non_nullable
+as Point<double>,secondPosition: null == secondPosition ? _self.secondPosition : secondPosition // ignore: cast_nullable_to_non_nullable
+as Point<double>,rows: null == rows ? _self.rows : rows // ignore: cast_nullable_to_non_nullable
+as int,columns: null == columns ? _self.columns : columns // ignore: cast_nullable_to_non_nullable
+as int,border: null == border ? _self.border : border // ignore: cast_nullable_to_non_nullable
+as TableBorderProperty,rowSizes: null == rowSizes ? _self._rowSizes : rowSizes // ignore: cast_nullable_to_non_nullable
+as List<double>,columnSizes: null == columnSizes ? _self._columnSizes : columnSizes // ignore: cast_nullable_to_non_nullable
+as List<double>,horizontalBorders: null == horizontalBorders ? _self._horizontalBorders : horizontalBorders // ignore: cast_nullable_to_non_nullable
+as List<TableBorderProperty>,verticalBorders: null == verticalBorders ? _self._verticalBorders : verticalBorders // ignore: cast_nullable_to_non_nullable
+as List<TableBorderProperty>,cells: null == cells ? _self._cells : cells // ignore: cast_nullable_to_non_nullable
+as List<TableCellProperty>,fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
+as SRGBColor,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+/// Create a copy of PadElement
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TableBorderPropertyCopyWith<$Res> get border {
+
+  return $TableBorderPropertyCopyWith<$Res>(_self.border, (value) {
+    return _then(_self.copyWith(border: value));
+  });
+}
 }
 
 /// @nodoc

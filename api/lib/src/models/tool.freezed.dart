@@ -64,6 +64,10 @@ Tool _$ToolFromJson(
           return ShapeTool.fromJson(
             json
           );
+                case 'table':
+          return TableTool.fromJson(
+            json
+          );
                 case 'stamp':
           return StampTool.fromJson(
             json
@@ -1125,6 +1129,101 @@ as bool,
 }
 
 
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class TableTool extends Tool {
+   TableTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(), @ColorJsonConverter() this.fillColor = SRGBColor.transparent, final  String? $type}): $type = $type ?? 'table',super._();
+  factory TableTool.fromJson(Map<String, dynamic> json) => _$TableToolFromJson(json);
+
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String displayIcon;
+@override@IdJsonConverter() final  String? id;
+@JsonKey() final  bool zoomDependent;
+@JsonKey() final  double constrainedWidth;
+@JsonKey() final  double constrainedHeight;
+@JsonKey() final  double constrainedAspectRatio;
+@JsonKey() final  int rows;
+@JsonKey() final  int columns;
+@JsonKey() final  TableBorderProperty border;
+@JsonKey()@ColorJsonConverter() final  SRGBColor fillColor;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TableToolCopyWith<TableTool> get copyWith => _$TableToolCopyWithImpl<TableTool>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TableToolToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'Tool.table(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, rows: $rows, columns: $columns, border: $border, fillColor: $fillColor)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TableToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory $TableToolCopyWith(TableTool value, $Res Function(TableTool) _then) = _$TableToolCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String displayIcon,@IdJsonConverter() String? id, bool zoomDependent, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, int rows, int columns, TableBorderProperty border,@ColorJsonConverter() SRGBColor fillColor
+});
+
+
+$TableBorderPropertyCopyWith<$Res> get border;
+
+}
+/// @nodoc
+class _$TableToolCopyWithImpl<$Res>
+    implements $TableToolCopyWith<$Res> {
+  _$TableToolCopyWithImpl(this._self, this._then);
+
+  final TableTool _self;
+  final $Res Function(TableTool) _then;
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomDependent = null,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? rows = null,Object? columns = null,Object? border = null,Object? fillColor = null,}) {
+  return _then(TableTool(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,zoomDependent: null == zoomDependent ? _self.zoomDependent : zoomDependent // ignore: cast_nullable_to_non_nullable
+as bool,constrainedWidth: null == constrainedWidth ? _self.constrainedWidth : constrainedWidth // ignore: cast_nullable_to_non_nullable
+as double,constrainedHeight: null == constrainedHeight ? _self.constrainedHeight : constrainedHeight // ignore: cast_nullable_to_non_nullable
+as double,constrainedAspectRatio: null == constrainedAspectRatio ? _self.constrainedAspectRatio : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
+as double,rows: null == rows ? _self.rows : rows // ignore: cast_nullable_to_non_nullable
+as int,columns: null == columns ? _self.columns : columns // ignore: cast_nullable_to_non_nullable
+as int,border: null == border ? _self.border : border // ignore: cast_nullable_to_non_nullable
+as TableBorderProperty,fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TableBorderPropertyCopyWith<$Res> get border {
+
+  return $TableBorderPropertyCopyWith<$Res>(_self.border, (value) {
+    return _then(_self.copyWith(border: value));
+  });
+}
 }
 
 /// @nodoc
