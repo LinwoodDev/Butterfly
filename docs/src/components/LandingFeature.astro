@@ -63,8 +63,7 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
     max-height: 40rem;
     object-fit: contain;
     border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.65rem;
-    background: white;
+    border-radius: 1rem;
     box-shadow: var(--sl-shadow-md);
   }
 
@@ -127,6 +126,17 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
 
   :global(html:has(.landing-feature)) {
     --sl-content-width: 86rem;
+  }
+
+  :global(html:has(.landing-feature) .sl-markdown-content > p > img) {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    box-shadow: var(--sl-shadow-md);
+    overflow: hidden;
+  }
+
+  :global(html:has(.landing-feature) .sl-markdown-content > p:has(> img) + .card-grid) {
+    margin-top: clamp(1.5rem, 4vw, 3rem) !important;
   }
 
   @media (prefers-reduced-motion: no-preference) {
