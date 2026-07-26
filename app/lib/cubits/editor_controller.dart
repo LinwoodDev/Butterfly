@@ -12,6 +12,7 @@ import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
 import 'package:networker/networker.dart';
 
 import '../embed/embedding.dart';
@@ -37,6 +38,8 @@ export 'editor_runtime.dart'
         ToolRuntimeState;
 
 class EditorController implements EditorRuntimeContext {
+  final FocusNode focusNode = FocusNode();
+
   @override
   final SettingsCubit settingsCubit;
   final TransformCubit transformCubit;
@@ -207,6 +210,7 @@ class EditorController implements EditorRuntimeContext {
     await inputCubit.close();
     await saveCubit.close();
     await viewCubit.close();
+    focusNode.dispose();
     if (!networkingService.isClosed) {
       await networkingService.close();
     }

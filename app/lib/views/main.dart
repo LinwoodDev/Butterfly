@@ -518,6 +518,11 @@ class _ProjectPageState extends State<ProjectPage> {
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
       if (!isCurrentLoad()) return;
       _runtime?.bloc.load();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (isCurrentLoad()) {
+          _runtime?.editorController.focusNode.requestFocus();
+        }
+      });
     });
   }
 
@@ -603,17 +608,38 @@ class _ProjectPageState extends State<ProjectPage> {
                                     return ListenableBuilder(
                                       listenable: keybinder,
                                       builder: (context, child) {
-                                        final shortcuts = _buildShortcuts();
-                                        return Actions(
-                                          actions: actions,
-                                          child: Shortcuts(
-                                            shortcuts: shortcuts,
-                                            child: child!,
-                                          ),
+                                        return ListenableBuilder(
+                                          listenable: FocusManager.instance,
+                                          builder: (context, _) {
+                                            final focusContext = FocusManager
+                                                .instance
+                                                .primaryFocus
+                                                ?.context;
+                                            final isEditingText =
+                                                focusContext
+                                                        ?.findAncestorWidgetOfExactType<
+                                                          EditableText
+                                                        >() !=
+                                                    null ||
+                                                focusContext?.widget
+                                                    is EditableText;
+                                            return Actions(
+                                              actions: actions,
+                                              child: Shortcuts(
+                                                shortcuts: isEditingText
+                                                    ? const {}
+                                                    : _buildShortcuts(),
+                                                child: child!,
+                                              ),
+                                            );
+                                          },
                                         );
                                       },
                                       child: ClipRect(
                                         child: Focus(
+                                          focusNode: runtime
+                                              .editorController
+                                              .focusNode,
                                           autofocus: true,
                                           skipTraversal: true,
                                           onFocusChange: (_) => false,
