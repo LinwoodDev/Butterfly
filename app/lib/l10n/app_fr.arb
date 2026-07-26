@@ -350,6 +350,22 @@
   "untitled": "Sans titre",
   "createTemplate": "Créer un modèle",
   "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir de ce document ? Le document original sera supprimé.",
+  "fileName": "Nom du fichier",
+  "defaultFileName": "Nom du fichier par défaut",
+  "templateFileNameDescription": "Les documents ouverts depuis le sélecteur de modèle sont enregistrés automatiquement avec ce nom. Les modèles sans nom utilisent la configuration par défaut dans les paramètres de données. Combine votre propre texte avec {dateExample} et {timeExample}. Les caractères qui ne sont pas autorisés dans les noms de fichiers seront rejetés.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Aperçu",
   "replace": "Remplacer",
   "@replace": {
     "description": "Replace action"
@@ -361,7 +377,7 @@
     "description": "Insert action"
   },
   "document": "Document",
-  "documentStates": "Document states",
+  "documentStates": "États du document",
   "camera": "Appareil photo",
   "@camera": {
     "description": "Camera tool"
@@ -645,7 +661,7 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "Input gestures",
-  "inputGesturesDescription": "Lets you move and zoom the canvas with touch gestures, even while a drawing tool is selected.",
+  "inputGesturesDescription": "Vous permet de déplacer et de zoomer la toile avec des gestes tactiles, même si un outil de dessin est sélectionné.",
   "nativeTitleBar": "Barre de titre native",
   "mode": "Mode",
   "syncMode": "Mode de synchronisation",
@@ -655,13 +671,13 @@
     "description": "Frequency"
   },
   "noMobile": "Aucun mobile",
-  "syncModeAlwaysDescription": "Syncs remote files automatically whenever they change.",
-  "syncModeNoMobileDescription": "Syncs automatically except on mobile devices, which can reduce mobile data usage.",
+  "syncModeAlwaysDescription": "Synchronise automatiquement les fichiers distants chaque fois qu'ils changent.",
+  "syncModeNoMobileDescription": "Synchronise automatiquement sauf sur les appareils mobiles, ce qui peut réduire l'utilisation des données mobiles.",
   "manual": "Manuelle",
   "@manual": {
     "description": "Manual mode"
   },
-  "syncModeManualDescription": "Only syncs when you start it yourself.",
+  "syncModeManualDescription": "Ne synchronise que lorsque vous le démarrez vous-même.",
   "search": "Chercher",
   "@search": {
     "description": "Search action"
@@ -1359,9 +1375,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some pens.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the pen.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the pen as fully pressed.",
+  "ignoreFirstPressureDescription": "Ignore la première lecture de pression, qui peut être inexacte sur certains stylos.",
+  "ignorePressureNeverDescription": "Utilise chaque lecture de pression à partir du stylo.",
+  "ignorePressureAlwaysDescription": "Ignore la pression et traite le stylo comme étant entièrement pressé.",
   "temporary": "Temporaire",
   "simpleToolbarVisibility": "Visibilité simple de la barre d'outils",
   "@simpleToolbarVisibility": {
@@ -1438,17 +1454,17 @@
   "addTool": "Ajouter un outil",
   "nextPage": "Page suivante",
   "previousPage": "Page précédente",
-  "persistenceDocumentStates": "Persistent document states",
-  "persistentStatesEnabled": "Enable persistent document states",
+  "persistenceDocumentStates": "État persistant du document",
+  "persistentStatesEnabled": "Activer les états persistants du document",
   "persistentStateCurrentPage": "Page actuelle",
-  "persistentStateViewport": "Viewport position and zoom",
-  "persistentStateSelectedTool": "Selected tool",
-  "persistentStateMaxRecords": "Maximum stored records",
-  "persistentStateDeleteOlderThanDays": "Delete records older than days",
-  "persistentStateCleanup": "Clean up stored states",
-  "persistentStateCleanupDescription": "Delete records older than the limits above",
-  "persistentStateCleanupInProgress": "Cleaning up...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "persistentStateViewport": "Position de la vue et zoom",
+  "persistentStateSelectedTool": "Outil sélectionné",
+  "persistentStateMaxRecords": "Nombre maximum d'enregistrements stockés",
+  "persistentStateDeleteOlderThanDays": "Supprimer les enregistrements plus anciens que les jours",
+  "persistentStateCleanup": "Nettoyer les états stockés",
+  "persistentStateCleanupDescription": "Supprimer les enregistrements antérieurs aux limites ci-dessus",
+  "persistentStateCleanupInProgress": "Nettoyage en cours...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Nettoyé 1 emplacement de stockage} other{Nettoyé {locations} emplacements de stockage}}; {records, plural, =1{a enlevé 1 record} other{enlevé {records} records}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {
@@ -1459,45 +1475,46 @@
       }
     }
   },
-  "autosaveEnabledDescription": "Saves changes automatically as you work.",
-  "autosaveDelayedDescription": "Saves changes automatically after the selected delay.",
-  "autosaveShowButtonDescription": "Saves automatically and also keeps the save button visible.",
-  "autosaveDisabledDescription": "Only saves when you use the save command.",
-  "hideCursorWhileDrawingDescription": "Hides the mouse pointer while you draw, so it does not cover your stroke.",
-  "onStartupHomeScreenDescription": "Opens the home screen when Butterfly starts.",
-  "onStartupLastNoteDescription": "Reopens your most recently used note when Butterfly starts.",
-  "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
-  "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
-  "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
-  "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
-  "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
-  "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
-  "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
-  "persistentStatesEnabledDescription": "Store document state information between app sessions",
-  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
-  "persistentStateViewportDescription": "Remember the viewport position and zoom",
-  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
-  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
-  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
-  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
-  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
-  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
-  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
-  "contentViewportDescription": "Limits how far you can pan away from the content of your note.",
-  "limitViewportPositiveDescription": "Keeps the canvas within the area to the right and below its starting point.",
-  "startInFullScreenDescription": "Opens Butterfly in full-screen mode when supported.",
-  "designDescription": "Changes the overall visual style of Butterfly without changing whether the app uses light or dark colors.",
-  "platformThemeDescription": "Lets you use the desktop or mobile layout instead of the layout Butterfly normally chooses for your device.",
-  "densityDescription": "Changes the spacing and size of interface elements. It does not change the size of your note content.",
-  "highContrastDescription": "Uses stronger color differences to make controls and text easier to distinguish.",
-  "nativeTitleBarDescription": "Uses your operating system's standard window title bar instead of Butterfly's custom title bar.",
-  "propertiesDescription": "Chooses where the panel for editing the selected tool or element appears.",
-  "navigationRailDescription": "Shows a permanent navigation bar on wide screens for quicker access to app sections.",
-  "optionsPanelPositionDescription": "Chooses whether tool options appear above or below the canvas.",
-  "simpleToolbarVisibilityDescription": "Controls when the smaller, simplified toolbar appears while editing a note.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only pen input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick pen-only switch in the editor after Butterfly detects a pen.",
-  "ignorePressureDescription": "Controls whether pen pressure changes the stroke and works around inaccurate pressure readings from some pens.",
-  "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
-  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page."
+  "autosaveEnabledDescription": "Sauvegarde les modifications automatiquement au fur et à mesure que vous travaillez.",
+  "autosaveDelayedDescription": "Enregistre automatiquement les modifications après le délai sélectionné.",
+  "autosaveShowButtonDescription": "Sauvegarde automatiquement et garde le bouton de sauvegarde visible.",
+  "autosaveDisabledDescription": "Enregistre uniquement lorsque vous utilisez la commande de sauvegarde.",
+  "hideCursorWhileDrawingDescription": "Masque le pointeur de la souris pendant que vous dessinez, donc il ne couvre pas votre tracé.",
+  "onStartupHomeScreenDescription": "Ouvre l'écran d'accueil lorsque le papillon démarre.",
+  "onStartupLastNoteDescription": "Réouvre votre note la plus récente au démarrage du papillon.",
+  "onStartupNewNoteDescription": "Crée une nouvelle note au démarrage du papillon.",
+  "smoothNavigationDescription": "Rend la panne et le zoom plus lisse en simplifiant la toile pendant son déplacement.",
+  "edgePanAreaSwitchingDescription": "Bascule vers une zone voisine lorsque vous faites une casserole près du bord de la toile.",
+  "collaborationDescription": "Permet à plusieurs personnes de modifier la même note ensemble en temps réel.",
+  "showVerboseLogsDescription": "Inclut des messages de diagnostic détaillés dans la vue journal et la console. Ces messages peuvent aider lors du dépannage d'un problème.",
+  "bringMovedElementsToFrontDescription": "Place un élément au-dessus des éléments qui se chevauchent après le déplacer.",
+  "persistenceDocumentStatesDescription": "Contrôle quelles parties de votre espace de travail se rapportent à chaque note, comme la page courante, le zoom et l'outil sélectionné.",
+  "persistentStatesEnabledDescription": "Stocker les informations d'état du document entre les sessions de l'application",
+  "persistentStateCurrentPageDescription": "Se souvenir de la page en cours lors de la réouverture d'un fichier",
+  "persistentStateViewportDescription": "Se souvenir de la position de la vue et du zoom",
+  "persistentStateSelectedToolDescription": "Se souvenir de l'outil sélectionné lors de la réouverture d'un fichier",
+  "persistentStateLocksDescription": "Se souvenir des verrous de la couche et de la collection lors de la réouverture d'un fichier",
+  "persistentStateNavigatorDescription": "Se souvenir de l'état du navigateur lors de la réouverture d'un fichier",
+  "persistentStateLayersDescription": "Se souvenir de l'état du panneau de calque lors de la réouverture d'un fichier",
+  "persistentStateAreasDescription": "Se souvenir de l'état du panneau de zone lors de la réouverture d'un fichier",
+  "persistentStateMaxRecordsDescription": "Conserver au maximum ce nombre d’états stockés par fichier",
+  "persistentStateDeleteOlderThanDaysDescription": "Supprimer les états stockés plus anciens que ce nombre de jours",
+  "contentViewportDescription": "Limite la distance à laquelle vous pouvez vous éloigner du contenu de votre note.",
+  "limitViewportPositiveDescription": "Garde la toile dans la zone à droite et au-dessous de son point de départ.",
+  "startInFullScreenDescription": "Ouvre Butterfly en mode plein écran lorsque pris en charge.",
+  "designDescription": "Modifie le style visuel global du papillon sans changer si l'application utilise des couleurs claires ou sombres.",
+  "platformThemeDescription": "Vous permet d'utiliser la mise en page du bureau ou du mobile au lieu de la mise en page Butterfly choisit normalement pour votre appareil.",
+  "densityDescription": "Modifie l'espacement et la taille des éléments de l'interface. Cela ne modifie pas la taille du contenu de votre note.",
+  "highContrastDescription": "Utilise des différences de couleurs plus fortes pour rendre les contrôles et le texte plus facile à distinguer.",
+  "nativeTitleBarDescription": "Utilise la barre de titre standard de la fenêtre de votre système d'exploitation au lieu de la barre de titre personnalisée de Butterfly.",
+  "propertiesDescription": "Choisit où le panneau pour éditer l'outil ou l'élément sélectionné apparaît.",
+  "navigationRailDescription": "Affiche une barre de navigation permanente sur les écrans larges pour un accès plus rapide aux sections de l'application.",
+  "optionsPanelPositionDescription": "Choisir si les options de l'outil apparaissent au-dessus ou en dessous de la toile.",
+  "simpleToolbarVisibilityDescription": "Contrôle quand la petite barre d'outils simplifiée apparaît lors de l'édition d'une note.",
+  "penOnlyInputDescription": "Empêche les marques accidentelles de votre main ou de votre souris en choisissant lorsque seule l'entrée du stylet peut dessiner.",
+  "showPenOnlyToggleDescription": "Affiche un changement rapide de stylo seulement dans l'éditeur après que Butterfly ait détecté un stylo.",
+  "ignorePressureDescription": "Contrôle si la pression du stylo modifie le mouvement de course et agit autour de mesures de pression inexactes de certains stylos.",
+  "moveOnGestureDescription": "Permet aux gestes tactiles de déplacer la toile au lieu d'interagir avec le contenu de la note.",
+  "spreadPagesDescription": "Divise l'importation de plusieurs pages sur des pages distinctes au lieu de tout placer sur une seule page.",
+  "shear": "Cisaillement"
 }

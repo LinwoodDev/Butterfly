@@ -350,6 +350,22 @@
   "untitled": "無標題",
   "createTemplate": "建立模板",
   "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
+  "fileName": "File name",
+  "defaultFileName": "Default file name",
+  "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
+  "@templateFileNameDescription": {
+    "placeholders": {
+      "dateExample": {
+        "type": "String",
+        "example": "{date}"
+      },
+      "timeExample": {
+        "type": "String",
+        "example": "{time}"
+      }
+    }
+  },
+  "preview": "Preview",
   "replace": "取代",
   "@replace": {
     "description": "Replace action"
@@ -1499,5 +1515,6 @@
   "showPenOnlyToggleDescription": "Shows a quick pen-only switch in the editor after Butterfly detects a pen.",
   "ignorePressureDescription": "Controls whether pen pressure changes the stroke and works around inaccurate pressure readings from some pens.",
   "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
-  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page."
+  "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page.",
+  "shear": "Shear"
 }
