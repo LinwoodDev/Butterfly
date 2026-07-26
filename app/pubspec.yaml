@@ -144,7 +144,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.7.0
   json_serializable: ^6.7.1
-  freezed: ^3.0.2
+  freezed: ^4.0.0-dev.3
   msix: ^3.16.9
   mocktail: ^1.0.4
 # For information on the generic Dart part of this file, see the

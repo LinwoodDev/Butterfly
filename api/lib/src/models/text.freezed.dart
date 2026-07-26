@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'text.dart';
@@ -9,6 +9,7 @@ part of 'text.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 SpanProperty _$SpanPropertyFromJson(
@@ -76,7 +77,7 @@ $SpanPropertyCopyWith(SpanProperty _, $Res Function(SpanProperty) __);
 @JsonSerializable()
 
 class DefinedSpanProperty implements SpanProperty {
-  const DefinedSpanProperty({this.size, @ColorJsonConverter() this.color, this.fontWeight, this.lineThrough, this.underline, this.overline, this.italic, this.letterSpacing, @ColorJsonConverter() this.decorationColor, this.decorationStyle, this.decorationThickness, @ColorJsonConverter() this.backgroundColor, final  String? $type}): $type = $type ?? 'defined';
+  const DefinedSpanProperty({this.size, @ColorJsonConverter() this.color, this.fontWeight, this.lineThrough, this.underline, this.overline, this.italic, this.letterSpacing, @ColorJsonConverter() this.decorationColor, this.decorationStyle, this.decorationThickness, @ColorJsonConverter() this.backgroundColor,  String? $type}): $type = $type ?? 'defined';
   factory DefinedSpanProperty.fromJson(Map<String, dynamic> json) => _$DefinedSpanPropertyFromJson(json);
 
  final  double? size;
@@ -171,7 +172,7 @@ as SRGBColor?,
 @JsonSerializable()
 
 class NamedSpanProperty implements SpanProperty {
-  const NamedSpanProperty(this.name, {final  String? $type}): $type = $type ?? 'named';
+  const NamedSpanProperty(this.name, { String? $type}): $type = $type ?? 'named';
   factory NamedSpanProperty.fromJson(Map<String, dynamic> json) => _$NamedSpanPropertyFromJson(json);
 
  final  String name;
@@ -244,7 +245,7 @@ as String,
 @JsonSerializable()
 
 class UndefinedSpanProperty implements SpanProperty {
-  const UndefinedSpanProperty({final  String? $type}): $type = $type ?? 'undefined';
+  const UndefinedSpanProperty({ String? $type}): $type = $type ?? 'undefined';
   factory UndefinedSpanProperty.fromJson(Map<String, dynamic> json) => _$UndefinedSpanPropertyFromJson(json);
 
 
@@ -344,7 +345,7 @@ $ParagraphPropertyCopyWith(ParagraphProperty _, $Res Function(ParagraphProperty)
 @JsonSerializable()
 
 class DefinedParagraphProperty implements ParagraphProperty {
-  const DefinedParagraphProperty({this.span = const DefinedSpanProperty(), this.alignment = HorizontalAlignment.left, final  String? $type}): $type = $type ?? 'defined';
+  const DefinedParagraphProperty({this.span = const DefinedSpanProperty(), this.alignment = HorizontalAlignment.left,  String? $type}): $type = $type ?? 'defined';
   factory DefinedParagraphProperty.fromJson(Map<String, dynamic> json) => _$DefinedParagraphPropertyFromJson(json);
 
 @JsonKey() final  DefinedSpanProperty span;
@@ -419,7 +420,7 @@ as HorizontalAlignment,
 @JsonSerializable()
 
 class NamedParagraphProperty implements ParagraphProperty {
-  const NamedParagraphProperty(this.name, {final  String? $type}): $type = $type ?? 'named';
+  const NamedParagraphProperty(this.name, { String? $type}): $type = $type ?? 'named';
   factory NamedParagraphProperty.fromJson(Map<String, dynamic> json) => _$NamedParagraphPropertyFromJson(json);
 
  final  String name;
@@ -492,7 +493,7 @@ as String,
 @JsonSerializable()
 
 class UndefinedParagraphProperty implements ParagraphProperty {
-  const UndefinedParagraphProperty({final  String? $type}): $type = $type ?? 'undefined';
+  const UndefinedParagraphProperty({ String? $type}): $type = $type ?? 'undefined';
   factory UndefinedParagraphProperty.fromJson(Map<String, dynamic> json) => _$UndefinedParagraphPropertyFromJson(json);
 
 
@@ -582,7 +583,7 @@ class _$AreaPropertyCopyWithImpl<$Res>
 /// Create a copy of AreaProperty
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? alignment = null,}) {
-  return _then(_self.copyWith(
+  return _then(AreaProperty(
 alignment: null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
 as VerticalAlignment,
   ));
@@ -763,7 +764,7 @@ $SpanPropertyCopyWith<$Res> get property {
 @JsonSerializable()
 
 class TextSpan extends InlineSpan {
-  const TextSpan({this.text = '', this.property = const SpanProperty.undefined(), final  String? $type}): $type = $type ?? 'text',super._();
+  const TextSpan({this.text = '', this.property = const SpanProperty.undefined(),  String? $type}): $type = $type ?? 'text',super._();
   factory TextSpan.fromJson(Map<String, dynamic> json) => _$TextSpanFromJson(json);
 
 @override@JsonKey() final  String text;
@@ -847,7 +848,7 @@ $SpanPropertyCopyWith<$Res> get property {
 @JsonSerializable()
 
 class MathTextSpan extends InlineSpan {
-  const MathTextSpan({this.text = '', this.property = const SpanProperty.undefined(), final  String? $type}): $type = $type ?? 'math',super._();
+  const MathTextSpan({this.text = '', this.property = const SpanProperty.undefined(),  String? $type}): $type = $type ?? 'math',super._();
   factory MathTextSpan.fromJson(Map<String, dynamic> json) => _$MathTextSpanFromJson(json);
 
 @override@JsonKey() final  String text;
@@ -979,9 +980,9 @@ class _$IndexedModelCopyWithImpl<T,$Res>
 /// Create a copy of IndexedModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? model = freezed,}) {
-  return _then(_self.copyWith(
-index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int,model: freezed == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
+  return _then(IndexedModel(
+null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int,freezed == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
 as T,
   ));
 }
@@ -1113,7 +1114,7 @@ class _$TextParagraphCopyWithImpl<$Res>
 /// Create a copy of TextParagraph
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? property = null,Object? textSpans = null,}) {
-  return _then(_self.copyWith(
+  return _then(TextParagraph(
 property: null == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as ParagraphProperty,textSpans: null == textSpans ? _self.textSpans : textSpans // ignore: cast_nullable_to_non_nullable
 as List<InlineSpan>,
@@ -1137,7 +1138,7 @@ $ParagraphPropertyCopyWith<$Res> get property {
 @JsonSerializable()
 
 class _TextParagraph extends TextParagraph {
-  const _TextParagraph({this.property = const ParagraphProperty.undefined(), final  List<InlineSpan> textSpans = const []}): _textSpans = textSpans,super._();
+  const _TextParagraph({this.property = const ParagraphProperty.undefined(),  List<InlineSpan> textSpans = const []}): _textSpans = textSpans,super._();
   factory _TextParagraph.fromJson(Map<String, dynamic> json) => _$TextParagraphFromJson(json);
 
 @override@JsonKey() final  ParagraphProperty property;
@@ -1274,7 +1275,7 @@ class _$TextAreaCopyWithImpl<$Res>
 /// Create a copy of TextArea
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? areaProperty = null,Object? paragraph = null,}) {
-  return _then(_self.copyWith(
+  return _then(TextArea(
 areaProperty: null == areaProperty ? _self.areaProperty : areaProperty // ignore: cast_nullable_to_non_nullable
 as AreaProperty,paragraph: null == paragraph ? _self.paragraph : paragraph // ignore: cast_nullable_to_non_nullable
 as TextParagraph,
@@ -1447,7 +1448,7 @@ class _$TextStyleSheetCopyWithImpl<$Res>
 /// Create a copy of TextStyleSheet
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fontFamily = null,Object? fontFamilyFallback = null,Object? spanProperties = null,Object? paragraphProperties = null,}) {
-  return _then(_self.copyWith(
+  return _then(TextStyleSheet(
 fontFamily: null == fontFamily ? _self.fontFamily : fontFamily // ignore: cast_nullable_to_non_nullable
 as String,fontFamilyFallback: null == fontFamilyFallback ? _self.fontFamilyFallback : fontFamilyFallback // ignore: cast_nullable_to_non_nullable
 as List<String>,spanProperties: null == spanProperties ? _self.spanProperties : spanProperties // ignore: cast_nullable_to_non_nullable
@@ -1464,7 +1465,7 @@ as Map<String, DefinedParagraphProperty>,
 @JsonSerializable()
 
 class _TextStyleSheet extends TextStyleSheet {
-  const _TextStyleSheet({this.fontFamily = 'Roboto', final  List<String> fontFamilyFallback = const [], final  Map<String, DefinedSpanProperty> spanProperties = const {}, final  Map<String, DefinedParagraphProperty> paragraphProperties = const {}}): _fontFamilyFallback = fontFamilyFallback,_spanProperties = spanProperties,_paragraphProperties = paragraphProperties,super._();
+  const _TextStyleSheet({this.fontFamily = 'Roboto',  List<String> fontFamilyFallback = const [],  Map<String, DefinedSpanProperty> spanProperties = const {},  Map<String, DefinedParagraphProperty> paragraphProperties = const {}}): _fontFamilyFallback = fontFamilyFallback,_spanProperties = spanProperties,_paragraphProperties = paragraphProperties,super._();
   factory _TextStyleSheet.fromJson(Map<String, dynamic> json) => _$TextStyleSheetFromJson(json);
 
 @override@JsonKey() final  String fontFamily;

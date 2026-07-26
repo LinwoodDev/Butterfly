@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'page.dart';
@@ -9,6 +9,7 @@ part of 'page.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$DocumentPageCopyWithImpl<$Res>
 /// Create a copy of DocumentPage
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? animations = null,Object? layers = null,Object? backgrounds = null,Object? waypoints = null,Object? areas = null,Object? extra = null,}) {
-  return _then(_self.copyWith(
+  return _then(DocumentPage(
 animations: null == animations ? _self.animations : animations // ignore: cast_nullable_to_non_nullable
 as List<AnimationTrack>,layers: null == layers ? _self.layers : layers // ignore: cast_nullable_to_non_nullable
 as List<DocumentLayer>,backgrounds: null == backgrounds ? _self.backgrounds : backgrounds // ignore: cast_nullable_to_non_nullable
@@ -85,7 +86,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class _DocumentPage extends DocumentPage {
-  const _DocumentPage({final  List<AnimationTrack> animations = const [], final  List<DocumentLayer> layers = const [], final  List<Background> backgrounds = const [], final  List<Waypoint> waypoints = const [], final  List<Area> areas = const [], final  Map<String, dynamic> extra = const {}}): _animations = animations,_layers = layers,_backgrounds = backgrounds,_waypoints = waypoints,_areas = areas,_extra = extra,super._();
+  const _DocumentPage({ List<AnimationTrack> animations = const [],  List<DocumentLayer> layers = const [],  List<Background> backgrounds = const [],  List<Waypoint> waypoints = const [],  List<Area> areas = const [],  Map<String, dynamic> extra = const {}}): _animations = animations,_layers = layers,_backgrounds = backgrounds,_waypoints = waypoints,_areas = areas,_extra = extra,super._();
   factory _DocumentPage.fromJson(Map<String, dynamic> json) => _$DocumentPageFromJson(json);
 
  final  List<AnimationTrack> _animations;
@@ -251,7 +252,7 @@ class _$DocumentLayerCopyWithImpl<$Res>
 /// Create a copy of DocumentLayer
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? content = null,}) {
-  return _then(_self.copyWith(
+  return _then(DocumentLayer(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
@@ -267,7 +268,7 @@ as List<PadElement>,
 @JsonSerializable()
 
 class _DocumentLayer extends DocumentLayer {
-  const _DocumentLayer({this.id, this.name = '', final  List<PadElement> content = const []}): _content = content,super._();
+  const _DocumentLayer({this.id, this.name = '',  List<PadElement> content = const []}): _content = content,super._();
   factory _DocumentLayer.fromJson(Map<String, dynamic> json) => _$DocumentLayerFromJson(json);
 
 @override final  String? id;

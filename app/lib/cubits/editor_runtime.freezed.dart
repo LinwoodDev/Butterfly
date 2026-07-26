@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'editor_runtime.dart';
@@ -9,6 +9,7 @@ part of 'editor_runtime.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -62,7 +63,7 @@ class _$RendererRuntimeStateCopyWithImpl<$Res>
 /// Create a copy of RendererRuntimeState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? cameraViewport = null,Object? rendererStates = null,Object? temporaryRendererStates = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(RendererRuntimeState(
 cameraViewport: null == cameraViewport ? _self.cameraViewport : cameraViewport // ignore: cast_nullable_to_non_nullable
 as CameraViewport,rendererStates: null == rendererStates ? _self.rendererStates : rendererStates // ignore: cast_nullable_to_non_nullable
 as Map<String, RendererState>,temporaryRendererStates: freezed == temporaryRendererStates ? _self.temporaryRendererStates : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
@@ -87,7 +88,7 @@ $CameraViewportCopyWith<$Res> get cameraViewport {
 
 
 class _RendererRuntimeState extends RendererRuntimeState with DiagnosticableTreeMixin {
-  const _RendererRuntimeState({this.cameraViewport = const CameraViewport.unbaked(), final  Map<String, RendererState> rendererStates = const {}, final  Map<String, RendererState>? temporaryRendererStates = const {}}): _rendererStates = rendererStates,_temporaryRendererStates = temporaryRendererStates,super._();
+  const _RendererRuntimeState({this.cameraViewport = const CameraViewport.unbaked(),  Map<String, RendererState> rendererStates = const {},  Map<String, RendererState>? temporaryRendererStates = const {}}): _rendererStates = rendererStates,_temporaryRendererStates = temporaryRendererStates,super._();
   
 
 @override@JsonKey() final  CameraViewport cameraViewport;
@@ -178,7 +179,7 @@ $CameraViewportCopyWith<$Res> get cameraViewport {
 /// @nodoc
 mixin _$ToolRuntimeState implements DiagnosticableTreeMixin {
 
- int? get index; Handler get handler; Handler<Tool>? get temporaryHandler; int? get temporaryIndex; List<Renderer> get foregrounds; Selection? get selection; bool get pinned; List<Renderer>? get temporaryForegrounds; Map<int, Handler<Tool>> get toggleableHandlers; List<Renderer> get networkingForegrounds; Map<int, List<Renderer>> get toggleableForegrounds; MouseCursor get cursor; MouseCursor? get temporaryCursor; TemporaryState get temporaryState; PreferredSizeWidget? get toolbar; PreferredSizeWidget? get temporaryToolbar;
+ int? get index; Handler<dynamic> get handler; Handler<Tool>? get temporaryHandler; int? get temporaryIndex; List<Renderer<dynamic>> get foregrounds; Selection<dynamic>? get selection; bool get pinned; List<Renderer<dynamic>>? get temporaryForegrounds; Map<int, Handler<Tool>> get toggleableHandlers; List<Renderer<dynamic>> get networkingForegrounds; Map<int, List<Renderer<dynamic>>> get toggleableForegrounds; MouseCursor get cursor; MouseCursor? get temporaryCursor; TemporaryState get temporaryState; PreferredSizeWidget? get toolbar; PreferredSizeWidget? get temporaryToolbar;
 /// Create a copy of ToolRuntimeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -208,7 +209,7 @@ abstract mixin class $ToolRuntimeStateCopyWith<$Res>  {
   factory $ToolRuntimeStateCopyWith(ToolRuntimeState value, $Res Function(ToolRuntimeState) _then) = _$ToolRuntimeStateCopyWithImpl;
 @useResult
 $Res call({
- int? index, Handler handler, Handler<Tool>? temporaryHandler, int? temporaryIndex, List<Renderer> foregrounds, Selection? selection, bool pinned, List<Renderer>? temporaryForegrounds, Map<int, Handler<Tool>> toggleableHandlers, List<Renderer> networkingForegrounds, Map<int, List<Renderer>> toggleableForegrounds, MouseCursor cursor, MouseCursor? temporaryCursor, TemporaryState temporaryState, PreferredSizeWidget? toolbar, PreferredSizeWidget? temporaryToolbar
+ int? index, Handler<dynamic> handler, Handler<Tool>? temporaryHandler, int? temporaryIndex, List<Renderer<dynamic>> foregrounds, Selection<dynamic>? selection, bool pinned, List<Renderer<dynamic>>? temporaryForegrounds, Map<int, Handler<Tool>> toggleableHandlers, List<Renderer<dynamic>> networkingForegrounds, Map<int, List<Renderer<dynamic>>> toggleableForegrounds, MouseCursor cursor, MouseCursor? temporaryCursor, TemporaryState temporaryState, PreferredSizeWidget? toolbar, PreferredSizeWidget? temporaryToolbar
 });
 
 
@@ -226,19 +227,19 @@ class _$ToolRuntimeStateCopyWithImpl<$Res>
 /// Create a copy of ToolRuntimeState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? handler = null,Object? temporaryHandler = freezed,Object? temporaryIndex = freezed,Object? foregrounds = null,Object? selection = freezed,Object? pinned = null,Object? temporaryForegrounds = freezed,Object? toggleableHandlers = null,Object? networkingForegrounds = null,Object? toggleableForegrounds = null,Object? cursor = null,Object? temporaryCursor = freezed,Object? temporaryState = null,Object? toolbar = freezed,Object? temporaryToolbar = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ToolRuntimeState(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,handler: null == handler ? _self.handler : handler // ignore: cast_nullable_to_non_nullable
-as Handler,temporaryHandler: freezed == temporaryHandler ? _self.temporaryHandler : temporaryHandler // ignore: cast_nullable_to_non_nullable
+as Handler<dynamic>,temporaryHandler: freezed == temporaryHandler ? _self.temporaryHandler : temporaryHandler // ignore: cast_nullable_to_non_nullable
 as Handler<Tool>?,temporaryIndex: freezed == temporaryIndex ? _self.temporaryIndex : temporaryIndex // ignore: cast_nullable_to_non_nullable
 as int?,foregrounds: null == foregrounds ? _self.foregrounds : foregrounds // ignore: cast_nullable_to_non_nullable
-as List<Renderer>,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as Selection?,pinned: null == pinned ? _self.pinned : pinned // ignore: cast_nullable_to_non_nullable
+as List<Renderer<dynamic>>,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
+as Selection<dynamic>?,pinned: null == pinned ? _self.pinned : pinned // ignore: cast_nullable_to_non_nullable
 as bool,temporaryForegrounds: freezed == temporaryForegrounds ? _self.temporaryForegrounds : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
-as List<Renderer>?,toggleableHandlers: null == toggleableHandlers ? _self.toggleableHandlers : toggleableHandlers // ignore: cast_nullable_to_non_nullable
+as List<Renderer<dynamic>>?,toggleableHandlers: null == toggleableHandlers ? _self.toggleableHandlers : toggleableHandlers // ignore: cast_nullable_to_non_nullable
 as Map<int, Handler<Tool>>,networkingForegrounds: null == networkingForegrounds ? _self.networkingForegrounds : networkingForegrounds // ignore: cast_nullable_to_non_nullable
-as List<Renderer>,toggleableForegrounds: null == toggleableForegrounds ? _self.toggleableForegrounds : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
-as Map<int, List<Renderer>>,cursor: null == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
+as List<Renderer<dynamic>>,toggleableForegrounds: null == toggleableForegrounds ? _self.toggleableForegrounds : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
+as Map<int, List<Renderer<dynamic>>>,cursor: null == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
 as MouseCursor,temporaryCursor: freezed == temporaryCursor ? _self.temporaryCursor : temporaryCursor // ignore: cast_nullable_to_non_nullable
 as MouseCursor?,temporaryState: null == temporaryState ? _self.temporaryState : temporaryState // ignore: cast_nullable_to_non_nullable
 as TemporaryState,toolbar: freezed == toolbar ? _self.toolbar : toolbar // ignore: cast_nullable_to_non_nullable
@@ -255,24 +256,24 @@ as PreferredSizeWidget?,
 
 
 class _ToolRuntimeState extends ToolRuntimeState with DiagnosticableTreeMixin {
-  const _ToolRuntimeState({this.index, required this.handler, this.temporaryHandler, this.temporaryIndex, final  List<Renderer> foregrounds = const [], this.selection, this.pinned = false, final  List<Renderer>? temporaryForegrounds, final  Map<int, Handler<Tool>> toggleableHandlers = const {}, final  List<Renderer> networkingForegrounds = const [], final  Map<int, List<Renderer>> toggleableForegrounds = const {}, this.cursor = MouseCursor.defer, this.temporaryCursor, this.temporaryState = TemporaryState.allowClick, this.toolbar, this.temporaryToolbar}): _foregrounds = foregrounds,_temporaryForegrounds = temporaryForegrounds,_toggleableHandlers = toggleableHandlers,_networkingForegrounds = networkingForegrounds,_toggleableForegrounds = toggleableForegrounds,super._();
+  const _ToolRuntimeState({this.index, required this.handler, this.temporaryHandler, this.temporaryIndex,  List<Renderer<dynamic>> foregrounds = const [], this.selection, this.pinned = false,  List<Renderer<dynamic>>? temporaryForegrounds,  Map<int, Handler<Tool>> toggleableHandlers = const {},  List<Renderer<dynamic>> networkingForegrounds = const [],  Map<int, List<Renderer<dynamic>>> toggleableForegrounds = const {}, this.cursor = MouseCursor.defer, this.temporaryCursor, this.temporaryState = TemporaryState.allowClick, this.toolbar, this.temporaryToolbar}): _foregrounds = foregrounds,_temporaryForegrounds = temporaryForegrounds,_toggleableHandlers = toggleableHandlers,_networkingForegrounds = networkingForegrounds,_toggleableForegrounds = toggleableForegrounds,super._();
   
 
 @override final  int? index;
-@override final  Handler handler;
+@override final  Handler<dynamic> handler;
 @override final  Handler<Tool>? temporaryHandler;
 @override final  int? temporaryIndex;
- final  List<Renderer> _foregrounds;
-@override@JsonKey() List<Renderer> get foregrounds {
+ final  List<Renderer<dynamic>> _foregrounds;
+@override@JsonKey() List<Renderer<dynamic>> get foregrounds {
   if (_foregrounds is EqualUnmodifiableListView) return _foregrounds;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_foregrounds);
 }
 
-@override final  Selection? selection;
+@override final  Selection<dynamic>? selection;
 @override@JsonKey() final  bool pinned;
- final  List<Renderer>? _temporaryForegrounds;
-@override List<Renderer>? get temporaryForegrounds {
+ final  List<Renderer<dynamic>>? _temporaryForegrounds;
+@override List<Renderer<dynamic>>? get temporaryForegrounds {
   final value = _temporaryForegrounds;
   if (value == null) return null;
   if (_temporaryForegrounds is EqualUnmodifiableListView) return _temporaryForegrounds;
@@ -287,15 +288,15 @@ class _ToolRuntimeState extends ToolRuntimeState with DiagnosticableTreeMixin {
   return EqualUnmodifiableMapView(_toggleableHandlers);
 }
 
- final  List<Renderer> _networkingForegrounds;
-@override@JsonKey() List<Renderer> get networkingForegrounds {
+ final  List<Renderer<dynamic>> _networkingForegrounds;
+@override@JsonKey() List<Renderer<dynamic>> get networkingForegrounds {
   if (_networkingForegrounds is EqualUnmodifiableListView) return _networkingForegrounds;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_networkingForegrounds);
 }
 
- final  Map<int, List<Renderer>> _toggleableForegrounds;
-@override@JsonKey() Map<int, List<Renderer>> get toggleableForegrounds {
+ final  Map<int, List<Renderer<dynamic>>> _toggleableForegrounds;
+@override@JsonKey() Map<int, List<Renderer<dynamic>>> get toggleableForegrounds {
   if (_toggleableForegrounds is EqualUnmodifiableMapView) return _toggleableForegrounds;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_toggleableForegrounds);
@@ -336,7 +337,7 @@ abstract mixin class _$ToolRuntimeStateCopyWith<$Res> implements $ToolRuntimeSta
   factory _$ToolRuntimeStateCopyWith(_ToolRuntimeState value, $Res Function(_ToolRuntimeState) _then) = __$ToolRuntimeStateCopyWithImpl;
 @override @useResult
 $Res call({
- int? index, Handler handler, Handler<Tool>? temporaryHandler, int? temporaryIndex, List<Renderer> foregrounds, Selection? selection, bool pinned, List<Renderer>? temporaryForegrounds, Map<int, Handler<Tool>> toggleableHandlers, List<Renderer> networkingForegrounds, Map<int, List<Renderer>> toggleableForegrounds, MouseCursor cursor, MouseCursor? temporaryCursor, TemporaryState temporaryState, PreferredSizeWidget? toolbar, PreferredSizeWidget? temporaryToolbar
+ int? index, Handler<dynamic> handler, Handler<Tool>? temporaryHandler, int? temporaryIndex, List<Renderer<dynamic>> foregrounds, Selection<dynamic>? selection, bool pinned, List<Renderer<dynamic>>? temporaryForegrounds, Map<int, Handler<Tool>> toggleableHandlers, List<Renderer<dynamic>> networkingForegrounds, Map<int, List<Renderer<dynamic>>> toggleableForegrounds, MouseCursor cursor, MouseCursor? temporaryCursor, TemporaryState temporaryState, PreferredSizeWidget? toolbar, PreferredSizeWidget? temporaryToolbar
 });
 
 
@@ -357,16 +358,16 @@ class __$ToolRuntimeStateCopyWithImpl<$Res>
   return _then(_ToolRuntimeState(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,handler: null == handler ? _self.handler : handler // ignore: cast_nullable_to_non_nullable
-as Handler,temporaryHandler: freezed == temporaryHandler ? _self.temporaryHandler : temporaryHandler // ignore: cast_nullable_to_non_nullable
+as Handler<dynamic>,temporaryHandler: freezed == temporaryHandler ? _self.temporaryHandler : temporaryHandler // ignore: cast_nullable_to_non_nullable
 as Handler<Tool>?,temporaryIndex: freezed == temporaryIndex ? _self.temporaryIndex : temporaryIndex // ignore: cast_nullable_to_non_nullable
 as int?,foregrounds: null == foregrounds ? _self._foregrounds : foregrounds // ignore: cast_nullable_to_non_nullable
-as List<Renderer>,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
-as Selection?,pinned: null == pinned ? _self.pinned : pinned // ignore: cast_nullable_to_non_nullable
+as List<Renderer<dynamic>>,selection: freezed == selection ? _self.selection : selection // ignore: cast_nullable_to_non_nullable
+as Selection<dynamic>?,pinned: null == pinned ? _self.pinned : pinned // ignore: cast_nullable_to_non_nullable
 as bool,temporaryForegrounds: freezed == temporaryForegrounds ? _self._temporaryForegrounds : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
-as List<Renderer>?,toggleableHandlers: null == toggleableHandlers ? _self._toggleableHandlers : toggleableHandlers // ignore: cast_nullable_to_non_nullable
+as List<Renderer<dynamic>>?,toggleableHandlers: null == toggleableHandlers ? _self._toggleableHandlers : toggleableHandlers // ignore: cast_nullable_to_non_nullable
 as Map<int, Handler<Tool>>,networkingForegrounds: null == networkingForegrounds ? _self._networkingForegrounds : networkingForegrounds // ignore: cast_nullable_to_non_nullable
-as List<Renderer>,toggleableForegrounds: null == toggleableForegrounds ? _self._toggleableForegrounds : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
-as Map<int, List<Renderer>>,cursor: null == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
+as List<Renderer<dynamic>>,toggleableForegrounds: null == toggleableForegrounds ? _self._toggleableForegrounds : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
+as Map<int, List<Renderer<dynamic>>>,cursor: null == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
 as MouseCursor,temporaryCursor: freezed == temporaryCursor ? _self.temporaryCursor : temporaryCursor // ignore: cast_nullable_to_non_nullable
 as MouseCursor?,temporaryState: null == temporaryState ? _self.temporaryState : temporaryState // ignore: cast_nullable_to_non_nullable
 as TemporaryState,toolbar: freezed == toolbar ? _self.toolbar : toolbar // ignore: cast_nullable_to_non_nullable
@@ -381,7 +382,7 @@ as PreferredSizeWidget?,
 /// @nodoc
 mixin _$EditorInputState implements DiagnosticableTreeMixin {
 
- Offset? get lastPosition; List<int> get pointers; int? get buttons; bool get penDetected; bool get sessionPenOnlyInput; HideState get hideUi;
+ ui.Offset? get lastPosition; List<int> get pointers; int? get buttons; bool get penDetected; bool get sessionPenOnlyInput; HideState get hideUi;
 /// Create a copy of EditorInputState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -418,7 +419,7 @@ abstract mixin class $EditorInputStateCopyWith<$Res>  {
   factory $EditorInputStateCopyWith(EditorInputState value, $Res Function(EditorInputState) _then) = _$EditorInputStateCopyWithImpl;
 @useResult
 $Res call({
- Offset? lastPosition, List<int> pointers, int? buttons, bool penDetected, bool sessionPenOnlyInput, HideState hideUi
+ ui.Offset? lastPosition, List<int> pointers, int? buttons, bool penDetected, bool sessionPenOnlyInput, HideState hideUi
 });
 
 
@@ -436,9 +437,9 @@ class _$EditorInputStateCopyWithImpl<$Res>
 /// Create a copy of EditorInputState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? lastPosition = freezed,Object? pointers = null,Object? buttons = freezed,Object? penDetected = null,Object? sessionPenOnlyInput = null,Object? hideUi = null,}) {
-  return _then(_self.copyWith(
+  return _then(EditorInputState(
 lastPosition: freezed == lastPosition ? _self.lastPosition : lastPosition // ignore: cast_nullable_to_non_nullable
-as Offset?,pointers: null == pointers ? _self.pointers : pointers // ignore: cast_nullable_to_non_nullable
+as ui.Offset?,pointers: null == pointers ? _self.pointers : pointers // ignore: cast_nullable_to_non_nullable
 as List<int>,buttons: freezed == buttons ? _self.buttons : buttons // ignore: cast_nullable_to_non_nullable
 as int?,penDetected: null == penDetected ? _self.penDetected : penDetected // ignore: cast_nullable_to_non_nullable
 as bool,sessionPenOnlyInput: null == sessionPenOnlyInput ? _self.sessionPenOnlyInput : sessionPenOnlyInput // ignore: cast_nullable_to_non_nullable
@@ -455,10 +456,10 @@ as HideState,
 
 
 class _EditorInputState with DiagnosticableTreeMixin implements EditorInputState {
-  const _EditorInputState({this.lastPosition, final  List<int> pointers = const [], this.buttons, this.penDetected = false, this.sessionPenOnlyInput = false, this.hideUi = HideState.visible}): _pointers = pointers;
+  const _EditorInputState({this.lastPosition,  List<int> pointers = const [], this.buttons, this.penDetected = false, this.sessionPenOnlyInput = false, this.hideUi = HideState.visible}): _pointers = pointers;
   
 
-@override final  Offset? lastPosition;
+@override final  ui.Offset? lastPosition;
  final  List<int> _pointers;
 @override@JsonKey() List<int> get pointers {
   if (_pointers is EqualUnmodifiableListView) return _pointers;
@@ -507,7 +508,7 @@ abstract mixin class _$EditorInputStateCopyWith<$Res> implements $EditorInputSta
   factory _$EditorInputStateCopyWith(_EditorInputState value, $Res Function(_EditorInputState) _then) = __$EditorInputStateCopyWithImpl;
 @override @useResult
 $Res call({
- Offset? lastPosition, List<int> pointers, int? buttons, bool penDetected, bool sessionPenOnlyInput, HideState hideUi
+ ui.Offset? lastPosition, List<int> pointers, int? buttons, bool penDetected, bool sessionPenOnlyInput, HideState hideUi
 });
 
 
@@ -527,7 +528,7 @@ class __$EditorInputStateCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? lastPosition = freezed,Object? pointers = null,Object? buttons = freezed,Object? penDetected = null,Object? sessionPenOnlyInput = null,Object? hideUi = null,}) {
   return _then(_EditorInputState(
 lastPosition: freezed == lastPosition ? _self.lastPosition : lastPosition // ignore: cast_nullable_to_non_nullable
-as Offset?,pointers: null == pointers ? _self._pointers : pointers // ignore: cast_nullable_to_non_nullable
+as ui.Offset?,pointers: null == pointers ? _self._pointers : pointers // ignore: cast_nullable_to_non_nullable
 as List<int>,buttons: freezed == buttons ? _self.buttons : buttons // ignore: cast_nullable_to_non_nullable
 as int?,penDetected: null == penDetected ? _self.penDetected : penDetected // ignore: cast_nullable_to_non_nullable
 as bool,sessionPenOnlyInput: null == sessionPenOnlyInput ? _self.sessionPenOnlyInput : sessionPenOnlyInput // ignore: cast_nullable_to_non_nullable
@@ -597,7 +598,7 @@ class _$DocumentSaveStateCopyWithImpl<$Res>
 /// Create a copy of DocumentSaveState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? isSaveDelayed = null,Object? location = null,Object? embedding = freezed,Object? saved = null,Object? isCreating = null,}) {
-  return _then(_self.copyWith(
+  return _then(DocumentSaveState(
 isSaveDelayed: null == isSaveDelayed ? _self.isSaveDelayed : isSaveDelayed // ignore: cast_nullable_to_non_nullable
 as bool,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as AssetLocation,embedding: freezed == embedding ? _self.embedding : embedding // ignore: cast_nullable_to_non_nullable
@@ -749,7 +750,7 @@ class _$EditorViewStateCopyWithImpl<$Res>
 /// Create a copy of EditorViewState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? locks = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,}) {
-  return _then(_self.copyWith(
+  return _then(EditorViewState(
 locks: null == locks ? _self.locks : locks // ignore: cast_nullable_to_non_nullable
 as PersistentLockState,areaNavigatorCreate: null == areaNavigatorCreate ? _self.areaNavigatorCreate : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
 as bool,areaNavigatorExact: null == areaNavigatorExact ? _self.areaNavigatorExact : areaNavigatorExact // ignore: cast_nullable_to_non_nullable

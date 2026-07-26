@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'settings.dart';
@@ -9,6 +9,7 @@ part of 'settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -72,7 +73,7 @@ class _$FavoriteLocationCopyWithImpl<$Res>
 /// Create a copy of FavoriteLocation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? remote = freezed,Object? path = null,}) {
-  return _then(_self.copyWith(
+  return _then(FavoriteLocation(
 remote: freezed == remote ? _self.remote : remote // ignore: cast_nullable_to_non_nullable
 as String?,path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as String,
@@ -221,7 +222,7 @@ class _$HoldShortcutCopyWithImpl<$Res>
 /// Create a copy of HoldShortcut
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? keyId = null,Object? mapping = null,}) {
-  return _then(_self.copyWith(
+  return _then(HoldShortcut(
 keyId: null == keyId ? _self.keyId : keyId // ignore: cast_nullable_to_non_nullable
 as int,mapping: null == mapping ? _self.mapping : mapping // ignore: cast_nullable_to_non_nullable
 as InputMapping,
@@ -370,7 +371,7 @@ class _$InputConfigurationCopyWithImpl<$Res>
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleLeftMouseShortcut = freezed,Object? tripleLeftMouseShortcut = freezed,Object? doubleMiddleMouseShortcut = freezed,Object? tripleMiddleMouseShortcut = freezed,Object? doubleRightMouseShortcut = freezed,Object? tripleRightMouseShortcut = freezed,Object? doublePenShortcut = freezed,Object? triplePenShortcut = freezed,Object? doubleInvertedPenShortcut = freezed,Object? tripleInvertedPenShortcut = freezed,Object? doubleFirstPenButtonShortcut = freezed,Object? tripleFirstPenButtonShortcut = freezed,Object? doubleSecondPenButtonShortcut = freezed,Object? tripleSecondPenButtonShortcut = freezed,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(InputConfiguration(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,rightMouse: null == rightMouse ? _self.rightMouse : rightMouse // ignore: cast_nullable_to_non_nullable
@@ -408,7 +409,7 @@ as String?,
 @JsonSerializable()
 
 class _InputConfiguration extends InputConfiguration with DiagnosticableTreeMixin {
-  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch, final  List<HoldShortcut> holdShortcuts = const [], this.doubleLeftMouseShortcut, this.tripleLeftMouseShortcut, this.doubleMiddleMouseShortcut, this.tripleMiddleMouseShortcut, this.doubleRightMouseShortcut, this.tripleRightMouseShortcut, this.doublePenShortcut, this.triplePenShortcut, this.doubleInvertedPenShortcut, this.tripleInvertedPenShortcut, this.doubleFirstPenButtonShortcut, this.tripleFirstPenButtonShortcut, this.doubleSecondPenButtonShortcut, this.tripleSecondPenButtonShortcut, this.doubleTouchShortcut, this.tripleTouchShortcut}): _holdShortcuts = holdShortcuts,super._();
+  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch,  List<HoldShortcut> holdShortcuts = const [], this.doubleLeftMouseShortcut, this.tripleLeftMouseShortcut, this.doubleMiddleMouseShortcut, this.tripleMiddleMouseShortcut, this.doubleRightMouseShortcut, this.tripleRightMouseShortcut, this.doublePenShortcut, this.triplePenShortcut, this.doubleInvertedPenShortcut, this.tripleInvertedPenShortcut, this.doubleFirstPenButtonShortcut, this.tripleFirstPenButtonShortcut, this.doubleSecondPenButtonShortcut, this.tripleSecondPenButtonShortcut, this.doubleTouchShortcut, this.tripleTouchShortcut}): _holdShortcuts = holdShortcuts,super._();
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) => _$InputConfigurationFromJson(json);
 
 @override@JsonKey() final  InputMapping leftMouse;
@@ -594,7 +595,7 @@ class _$DocumentStatePersistenceSettingsCopyWithImpl<$Res>
 /// Create a copy of DocumentStatePersistenceSettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? page = null,Object? camera = null,Object? locks = null,Object? tool = null,Object? navigator = null,Object? layers = null,Object? areas = null,Object? maxEntries = null,Object? maxAgeDays = null,}) {
-  return _then(_self.copyWith(
+  return _then(DocumentStatePersistenceSettings(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as bool,camera: null == camera ? _self.camera : camera // ignore: cast_nullable_to_non_nullable
@@ -767,7 +768,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
 /// Create a copy of ButterflySettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? theme = null,Object? density = null,Object? limitViewportMultiplier = freezed,Object? limitViewportPositive = null,Object? localeTag = null,Object? documentPath = null,Object? gestureSensitivity = null,Object? touchSensitivity = null,Object? selectSensitivity = null,Object? scrollSensitivity = null,Object? penOnlyInput = freezed,Object? showPenOnlyToggle = null,Object? inputGestures = null,Object? design = null,Object? bannerVisibility = null,Object? history = null,Object? zoomEnabled = null,Object? zoomPosition = null,Object? propertyPosition = null,Object? lastVersion = freezed,Object? connections = null,Object? defaultRemote = null,Object? nativeTitleBar = null,Object? startInFullScreen = null,Object? navigationRail = null,Object? ignorePressure = null,Object? syncMode = null,Object? inputConfiguration = null,Object? fallbackPack = null,Object? starred = null,Object? favoriteTemplates = null,Object? defaultTemplate = null,Object? defaultFileName = null,Object? navigatorPosition = null,Object? toolbarPosition = null,Object? toolbarSize = null,Object? sortBy = null,Object? sortOrder = null,Object? imageScale = null,Object? platformTheme = null,Object? recentColors = null,Object? flags = null,Object? spreadPages = null,Object? highContrast = null,Object? gridView = null,Object? hideExtension = null,Object? autosave = null,Object? showSaveButton = null,Object? toolbarRows = null,Object? delayedAutosave = null,Object? autosaveDelaySeconds = null,Object? hideCursorWhileDrawing = null,Object? onStartup = null,Object? documentStatePersistence = null,Object? simpleToolbarVisibility = null,Object? optionsPanelPosition = null,Object? renderResolution = null,Object? moveOnGesture = null,Object? swamps = null,Object? selectedPalette = freezed,Object? showVerboseLogs = null,Object? showThumbnails = null,Object? bringMovedElementsToFront = null,Object? favoriteTools = null,}) {
-  return _then(_self.copyWith(
+  return _then(ButterflySettings(
 theme: null == theme ? _self.theme : theme // ignore: cast_nullable_to_non_nullable
 as ThemeMode,density: null == density ? _self.density : density // ignore: cast_nullable_to_non_nullable
 as ThemeDensity,limitViewportMultiplier: freezed == limitViewportMultiplier ? _self.limitViewportMultiplier : limitViewportMultiplier // ignore: cast_nullable_to_non_nullable
@@ -874,7 +875,7 @@ $PackAssetLocationCopyWith<$Res>? get selectedPalette {
 @JsonSerializable()
 
 class _ButterflySettings extends ButterflySettings with DiagnosticableTreeMixin {
-  const _ButterflySettings({this.theme = ThemeMode.system, this.density = ThemeDensity.system, this.limitViewportMultiplier, this.limitViewportPositive = false, this.localeTag = '', this.documentPath = '', this.gestureSensitivity = 1, this.touchSensitivity = 1, this.selectSensitivity = 1, this.scrollSensitivity = 1, this.penOnlyInput, this.showPenOnlyToggle = true, this.inputGestures = true, this.design = '', this.bannerVisibility = BannerVisibility.always, @JsonKey(includeFromJson: false, includeToJson: false) final  List<AssetLocation> history = const [], this.zoomEnabled = true, this.zoomPosition = ZoomPosition.bottomRight, this.propertyPosition = ZoomPosition.topRight, this.lastVersion, @JsonKey(includeFromJson: false, includeToJson: false) final  List<ExternalStorage> connections = const [], this.defaultRemote = '', this.nativeTitleBar = false, this.startInFullScreen = false, this.navigationRail = true, this.ignorePressure = IgnorePressure.first, this.syncMode = SyncMode.noMobile, this.inputConfiguration = const InputConfiguration(), this.fallbackPack = '', final  List<String> starred = const [], final  List<FavoriteLocation> favoriteTemplates = const [], this.defaultTemplate = '', this.defaultFileName = kDefaultFileName, this.navigatorPosition = NavigatorPosition.left, this.toolbarPosition = ToolbarPosition.inline, this.toolbarSize = ToolbarSize.normal, this.sortBy = SortBy.modified, this.sortOrder = SortOrder.descending, this.imageScale = 0.5, this.platformTheme = PlatformTheme.system, @SRGBConverter() final  List<SRGBColor> recentColors = const [], final  List<String> flags = const [], this.spreadPages = false, this.highContrast = false, this.gridView = false, this.hideExtension = true, this.autosave = true, this.showSaveButton = true, this.toolbarRows = 1, this.delayedAutosave = true, this.autosaveDelaySeconds = 3, this.hideCursorWhileDrawing = false, this.onStartup = StartupBehavior.openHomeScreen, this.documentStatePersistence = const DocumentStatePersistenceSettings(), this.simpleToolbarVisibility = SimpleToolbarVisibility.show, this.optionsPanelPosition = OptionsPanelPosition.top, this.renderResolution = RenderResolution.normal, this.moveOnGesture = true, final  List<String> swamps = const [], this.selectedPalette, this.showVerboseLogs = false, this.showThumbnails = true, this.bringMovedElementsToFront = false, final  List<PackAssetLocation> favoriteTools = const []}): _history = history,_connections = connections,_starred = starred,_favoriteTemplates = favoriteTemplates,_recentColors = recentColors,_flags = flags,_swamps = swamps,_favoriteTools = favoriteTools,super._();
+  const _ButterflySettings({this.theme = ThemeMode.system, this.density = ThemeDensity.system, this.limitViewportMultiplier, this.limitViewportPositive = false, this.localeTag = '', this.documentPath = '', this.gestureSensitivity = 1, this.touchSensitivity = 1, this.selectSensitivity = 1, this.scrollSensitivity = 1, this.penOnlyInput, this.showPenOnlyToggle = true, this.inputGestures = true, this.design = '', this.bannerVisibility = BannerVisibility.always, @JsonKey(includeFromJson: false, includeToJson: false)  List<AssetLocation> history = const [], this.zoomEnabled = true, this.zoomPosition = ZoomPosition.bottomRight, this.propertyPosition = ZoomPosition.topRight, this.lastVersion, @JsonKey(includeFromJson: false, includeToJson: false)  List<ExternalStorage> connections = const [], this.defaultRemote = '', this.nativeTitleBar = false, this.startInFullScreen = false, this.navigationRail = true, this.ignorePressure = IgnorePressure.first, this.syncMode = SyncMode.noMobile, this.inputConfiguration = const InputConfiguration(), this.fallbackPack = '',  List<String> starred = const [],  List<FavoriteLocation> favoriteTemplates = const [], this.defaultTemplate = '', this.defaultFileName = kDefaultFileName, this.navigatorPosition = NavigatorPosition.left, this.toolbarPosition = ToolbarPosition.inline, this.toolbarSize = ToolbarSize.normal, this.sortBy = SortBy.modified, this.sortOrder = SortOrder.descending, this.imageScale = 0.5, this.platformTheme = PlatformTheme.system, @SRGBConverter()  List<SRGBColor> recentColors = const [],  List<String> flags = const [], this.spreadPages = false, this.highContrast = false, this.gridView = false, this.hideExtension = true, this.autosave = true, this.showSaveButton = true, this.toolbarRows = 1, this.delayedAutosave = true, this.autosaveDelaySeconds = 3, this.hideCursorWhileDrawing = false, this.onStartup = StartupBehavior.openHomeScreen, this.documentStatePersistence = const DocumentStatePersistenceSettings(), this.simpleToolbarVisibility = SimpleToolbarVisibility.show, this.optionsPanelPosition = OptionsPanelPosition.top, this.renderResolution = RenderResolution.normal, this.moveOnGesture = true,  List<String> swamps = const [], this.selectedPalette, this.showVerboseLogs = false, this.showThumbnails = true, this.bringMovedElementsToFront = false,  List<PackAssetLocation> favoriteTools = const []}): _history = history,_connections = connections,_starred = starred,_favoriteTemplates = favoriteTemplates,_recentColors = recentColors,_flags = flags,_swamps = swamps,_favoriteTools = favoriteTools,super._();
   factory _ButterflySettings.fromJson(Map<String, dynamic> json) => _$ButterflySettingsFromJson(json);
 
 @override@JsonKey() final  ThemeMode theme;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'point.dart';
@@ -9,6 +9,7 @@ part of 'point.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,9 +67,9 @@ class _$SimplePointCopyWithImpl<$Res>
 /// Create a copy of SimplePoint
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? x = null,Object? y = null,}) {
-  return _then(_self.copyWith(
-x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
-as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+  return _then(SimplePoint(
+null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
+as double,null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -203,10 +204,10 @@ class _$PathPointCopyWithImpl<$Res>
 /// Create a copy of PathPoint
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? x = null,Object? y = null,Object? pressure = null,}) {
-  return _then(_self.copyWith(
-x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
-as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
-as double,pressure: null == pressure ? _self.pressure : pressure // ignore: cast_nullable_to_non_nullable
+  return _then(PathPoint(
+null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
+as double,null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+as double,null == pressure ? _self.pressure : pressure // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -343,9 +344,9 @@ class _$PolygonPointCopyWithImpl<$Res>
 /// Create a copy of PolygonPoint
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? x = null,Object? y = null,Object? handleIn = freezed,Object? handleOut = freezed,}) {
-  return _then(_self.copyWith(
-x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
-as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+  return _then(PolygonPoint(
+null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
+as double,null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
 as double,handleIn: freezed == handleIn ? _self.handleIn : handleIn // ignore: cast_nullable_to_non_nullable
 as SimplePoint?,handleOut: freezed == handleOut ? _self.handleOut : handleOut // ignore: cast_nullable_to_non_nullable
 as SimplePoint?,

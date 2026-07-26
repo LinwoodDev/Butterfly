@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'viewport.dart';
@@ -9,6 +9,7 @@ part of 'viewport.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -87,7 +88,7 @@ as ui.Image?,
 
 
 class CameraViewportUnbaked extends CameraViewport {
-  const CameraViewportUnbaked({final  List<Renderer<Background>> backgrounds = const [], final  List<Renderer<PadElement>> bakedElements = const [], final  List<Renderer<PadElement>> unbakedElements = const [], final  List<Renderer<PadElement>> visibleElements = const [], final  List<Renderer<PadElement>> visibleUnbakedElements = const [], this.width, this.height, this.viewportSize, this.pixelRatio = 1, this.scale = 1, this.x = 0, this.y = 0, this.resolution = RenderResolution.performance, final  Map<String, RendererState> rendererStates = const {}, final  Set<String> invisibleLayers = const {}, this.image = null, this.belowLayerImage = null, this.aboveLayerImage = null}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
+  const CameraViewportUnbaked({ List<Renderer<Background>> backgrounds = const [],  List<Renderer<PadElement>> bakedElements = const [],  List<Renderer<PadElement>> unbakedElements = const [],  List<Renderer<PadElement>> visibleElements = const [],  List<Renderer<PadElement>> visibleUnbakedElements = const [], this.width, this.height, this.viewportSize, this.pixelRatio = 1, this.scale = 1, this.x = 0, this.y = 0, this.resolution = RenderResolution.performance,  Map<String, RendererState> rendererStates = const {},  Set<String> invisibleLayers = const {}, this.image = null, this.belowLayerImage = null, this.aboveLayerImage = null}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
   
 
  final  List<Renderer<Background>> _backgrounds;
@@ -222,7 +223,7 @@ as ui.Image?,
 
 
 class CameraViewportBaked extends CameraViewport {
-  const CameraViewportBaked({final  List<Renderer<Background>> backgrounds = const [], this.image, this.belowLayerImage, this.aboveLayerImage, required this.width, required this.height, this.viewportSize, required this.pixelRatio, final  List<Renderer<PadElement>> bakedElements = const [], final  List<Renderer<PadElement>> unbakedElements = const [], required final  List<Renderer<PadElement>> visibleElements, required final  List<Renderer<PadElement>> visibleUnbakedElements, this.scale = 1, this.x = 0, required this.resolution, this.y = 0, final  Map<String, RendererState> rendererStates = const {}, final  Set<String> invisibleLayers = const {}}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
+  const CameraViewportBaked({ List<Renderer<Background>> backgrounds = const [], this.image, this.belowLayerImage, this.aboveLayerImage, required this.width, required this.height, this.viewportSize, required this.pixelRatio,  List<Renderer<PadElement>> bakedElements = const [],  List<Renderer<PadElement>> unbakedElements = const [], required  List<Renderer<PadElement>> visibleElements, required  List<Renderer<PadElement>> visibleUnbakedElements, this.scale = 1, this.x = 0, required this.resolution, this.y = 0,  Map<String, RendererState> rendererStates = const {},  Set<String> invisibleLayers = const {}}): _backgrounds = backgrounds,_bakedElements = bakedElements,_unbakedElements = unbakedElements,_visibleElements = visibleElements,_visibleUnbakedElements = visibleUnbakedElements,_rendererStates = rendererStates,_invisibleLayers = invisibleLayers,super._();
   
 
  final  List<Renderer<Background>> _backgrounds;

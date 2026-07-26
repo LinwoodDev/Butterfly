@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'tool.dart';
@@ -9,6 +9,7 @@ part of 'tool.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 Tool _$ToolFromJson(
@@ -186,7 +187,7 @@ as String?,
 @JsonSerializable()
 
 class SelectTool extends Tool {
-   SelectTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = SelectMode.rectangle, this.hitElementMode = HitElementMode.touchAnywhere, final  String? $type}): $type = $type ?? 'select',super._();
+   SelectTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = SelectMode.rectangle, this.hitElementMode = HitElementMode.touchAnywhere,  String? $type}): $type = $type ?? 'select',super._();
   factory SelectTool.fromJson(Map<String, dynamic> json) => _$SelectToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -260,7 +261,7 @@ as HitElementMode,
 @JsonSerializable()
 
 class HandTool extends Tool {
-   HandTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'hand',super._();
+   HandTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'hand',super._();
   factory HandTool.fromJson(Map<String, dynamic> json) => _$HandToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -330,7 +331,7 @@ as String?,
 @JsonSerializable()
 
 class ImportTool extends Tool {
-   ImportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required final  List<PadElement> elements, required final  List<Area> areas, @Uint8ListJsonConverter() final  Map<String, Uint8List> assets = const {}, final  String? $type}): _elements = elements,_areas = areas,_assets = assets,$type = $type ?? 'import',super._();
+   ImportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required  List<PadElement> elements, required  List<Area> areas, @Uint8ListJsonConverter()  Map<String, Uint8List> assets = const {},  String? $type}): _elements = elements,_areas = areas,_assets = assets,$type = $type ?? 'import',super._();
   factory ImportTool.fromJson(Map<String, dynamic> json) => _$ImportToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -424,7 +425,7 @@ as Map<String, Uint8List>,
 @JsonSerializable()
 
 class UndoTool extends Tool {
-   UndoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'undo',super._();
+   UndoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'undo',super._();
   factory UndoTool.fromJson(Map<String, dynamic> json) => _$UndoToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -494,7 +495,7 @@ as String?,
 @JsonSerializable()
 
 class RedoTool extends Tool {
-   RedoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'redo',super._();
+   RedoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'redo',super._();
   factory RedoTool.fromJson(Map<String, dynamic> json) => _$RedoToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -564,7 +565,7 @@ as String?,
 @JsonSerializable()
 
 class LabelTool extends Tool {
-   LabelTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = LabelMode.text, this.zoomDependent = false, @ColorJsonConverter() this.foreground = SRGBColor.black, this.styleSheet, this.scale = 2.0, final  String? $type}): $type = $type ?? 'label',super._();
+   LabelTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = LabelMode.text, this.zoomDependent = false, @ColorJsonConverter() this.foreground = SRGBColor.black, this.styleSheet, this.scale = 2.0,  String? $type}): $type = $type ?? 'label',super._();
   factory LabelTool.fromJson(Map<String, dynamic> json) => _$LabelToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -656,7 +657,7 @@ $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
 @JsonSerializable()
 
 class PenTool extends Tool {
-   PenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.shapeDetectionTime = 0.5, this.shapeDetectionEnabled = false, this.combinePaths = false, this.property = const PenProperty(), final  String? $type}): $type = $type ?? 'pen',super._();
+   PenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.shapeDetectionTime = 0.5, this.shapeDetectionEnabled = false, this.combinePaths = false, this.property = const PenProperty(),  String? $type}): $type = $type ?? 'pen',super._();
   factory PenTool.fromJson(Map<String, dynamic> json) => _$PenToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -736,7 +737,7 @@ as PenProperty,
 @JsonSerializable()
 
 class EraserTool extends Tool {
-   EraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = EraserMode.stroke, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false, final  String? $type}): $type = $type ?? 'eraser',super._();
+   EraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = EraserMode.stroke, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false,  String? $type}): $type = $type ?? 'eraser',super._();
   factory EraserTool.fromJson(Map<String, dynamic> json) => _$EraserToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -814,7 +815,7 @@ as bool,
 @JsonSerializable()
 
 class CollectionTool extends Tool {
-   CollectionTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.strokeWidth = 5, final  String? $type}): $type = $type ?? 'collection',super._();
+   CollectionTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.strokeWidth = 5,  String? $type}): $type = $type ?? 'collection',super._();
   factory CollectionTool.fromJson(Map<String, dynamic> json) => _$CollectionToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -886,7 +887,7 @@ as double,
 @JsonSerializable()
 
 class AreaTool extends Tool {
-   AreaTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.askForName = false, final  String? $type}): $type = $type ?? 'area',super._();
+   AreaTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.askForName = false,  String? $type}): $type = $type ?? 'area',super._();
   factory AreaTool.fromJson(Map<String, dynamic> json) => _$AreaToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -964,7 +965,7 @@ as bool,
 @JsonSerializable()
 
 class LaserTool extends Tool {
-   LaserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.duration = 5, this.hideDuration = 0.5, this.strokeWidth = 5, this.thinning = 0.4, @ColorJsonConverter() this.color = BasicColors.red, this.animation = LaserAnimation.fade, final  String? $type}): $type = $type ?? 'laser',super._();
+   LaserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.duration = 5, this.hideDuration = 0.5, this.strokeWidth = 5, this.thinning = 0.4, @ColorJsonConverter() this.color = BasicColors.red, this.animation = LaserAnimation.fade,  String? $type}): $type = $type ?? 'laser',super._();
   factory LaserTool.fromJson(Map<String, dynamic> json) => _$LaserToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1046,7 +1047,7 @@ as LaserAnimation,
 @JsonSerializable()
 
 class ShapeTool extends Tool {
-   ShapeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.property = const ShapeProperty(shape: RectangleShape()), this.drawFromCenter = false, final  String? $type}): $type = $type ?? 'shape',super._();
+   ShapeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.property = const ShapeProperty(shape: RectangleShape()), this.drawFromCenter = false,  String? $type}): $type = $type ?? 'shape',super._();
   factory ShapeTool.fromJson(Map<String, dynamic> json) => _$ShapeToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1128,7 +1129,7 @@ as bool,
 @JsonSerializable()
 
 class StampTool extends Tool {
-   StampTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.component, final  String? $type}): $type = $type ?? 'stamp',super._();
+   StampTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.component,  String? $type}): $type = $type ?? 'stamp',super._();
   factory StampTool.fromJson(Map<String, dynamic> json) => _$StampToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1212,7 +1213,7 @@ $NamedItemCopyWith<ButterflyComponent, $Res>? get component {
 @JsonSerializable()
 
 class PresentationTool extends Tool {
-   PresentationTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'presentation',super._();
+   PresentationTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'presentation',super._();
   factory PresentationTool.fromJson(Map<String, dynamic> json) => _$PresentationToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1282,7 +1283,7 @@ as String?,
 @JsonSerializable()
 
 class SpacerTool extends Tool {
-   SpacerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.axis = Axis2D.horizontal, final  String? $type}): $type = $type ?? 'spacer',super._();
+   SpacerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.axis = Axis2D.horizontal,  String? $type}): $type = $type ?? 'spacer',super._();
   factory SpacerTool.fromJson(Map<String, dynamic> json) => _$SpacerToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1354,7 +1355,7 @@ as Axis2D,
 @JsonSerializable()
 
 class FullScreenTool extends Tool {
-   FullScreenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'fullSceen',super._();
+   FullScreenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'fullSceen',super._();
   factory FullScreenTool.fromJson(Map<String, dynamic> json) => _$FullScreenToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1424,7 +1425,7 @@ as String?,
 @JsonSerializable()
 
 class AssetTool extends Tool {
-   AssetTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.importType = ImportType.file, this.advanced = true, final  String? $type}): $type = $type ?? 'asset',super._();
+   AssetTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.importType = ImportType.file, this.advanced = true,  String? $type}): $type = $type ?? 'asset',super._();
   factory AssetTool.fromJson(Map<String, dynamic> json) => _$AssetToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1498,7 +1499,7 @@ as bool,
 @JsonSerializable()
 
 class ExportTool extends Tool {
-   ExportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required this.options, final  String? $type}): $type = $type ?? 'export',super._();
+   ExportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required this.options,  String? $type}): $type = $type ?? 'export',super._();
   factory ExportTool.fromJson(Map<String, dynamic> json) => _$ExportToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1579,7 +1580,7 @@ $ExportOptionsCopyWith<$Res> get options {
 @JsonSerializable()
 
 class TextureTool extends Tool {
-   TextureTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.texture = const SurfaceTexture.pattern(), final  String? $type}): $type = $type ?? 'texture',super._();
+   TextureTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.texture = const SurfaceTexture.pattern(),  String? $type}): $type = $type ?? 'texture',super._();
   factory TextureTool.fromJson(Map<String, dynamic> json) => _$TextureToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1668,7 +1669,7 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class RulerTool extends Tool {
-   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.size = 100, final  String? $type}): $type = $type ?? 'ruler',super._();
+   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.size = 100,  String? $type}): $type = $type ?? 'ruler',super._();
   factory RulerTool.fromJson(Map<String, dynamic> json) => _$RulerToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1742,7 +1743,7 @@ as int,
 @JsonSerializable()
 
 class GridTool extends Tool {
-   GridTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color = SRGBColor.black, this.xSize = 20, this.ySize = 20, this.xOffset = 0, this.yOffset = 0, this.positionDependent = false, this.zoomDependent = false, this.stroke = 1, final  String? $type}): $type = $type ?? 'grid',super._();
+   GridTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color = SRGBColor.black, this.xSize = 20, this.ySize = 20, this.xOffset = 0, this.yOffset = 0, this.positionDependent = false, this.zoomDependent = false, this.stroke = 1,  String? $type}): $type = $type ?? 'grid',super._();
   factory GridTool.fromJson(Map<String, dynamic> json) => _$GridToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1828,7 +1829,7 @@ as double,
 @JsonSerializable()
 
 class EyeDropperTool extends Tool {
-   EyeDropperTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'eyeDropper',super._();
+   EyeDropperTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'eyeDropper',super._();
   factory EyeDropperTool.fromJson(Map<String, dynamic> json) => _$EyeDropperToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1898,7 +1899,7 @@ as String?,
 @JsonSerializable()
 
 class BarcodeTool extends Tool {
-   BarcodeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.barcodeType = BarcodeType.qrCode, @ColorJsonConverter() this.color = SRGBColor.black, final  String? $type}): $type = $type ?? 'barcode',super._();
+   BarcodeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.barcodeType = BarcodeType.qrCode, @ColorJsonConverter() this.color = SRGBColor.black,  String? $type}): $type = $type ?? 'barcode',super._();
   factory BarcodeTool.fromJson(Map<String, dynamic> json) => _$BarcodeToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1972,7 +1973,7 @@ as SRGBColor,
 @JsonSerializable()
 
 class PolygonTool extends Tool {
-   PolygonTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.property = const PolygonProperty(), final  String? $type}): $type = $type ?? 'polygon',super._();
+   PolygonTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.property = const PolygonProperty(),  String? $type}): $type = $type ?? 'polygon',super._();
   factory PolygonTool.fromJson(Map<String, dynamic> json) => _$PolygonToolFromJson(json);
 
 @override@JsonKey() final  String name;

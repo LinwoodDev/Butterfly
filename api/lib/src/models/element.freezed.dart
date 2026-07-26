@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'element.dart';
@@ -9,6 +9,7 @@ part of 'element.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$ElementConstraintCopyWithImpl<$Res>
 /// Create a copy of ElementConstraint
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? size = null,Object? length = null,Object? includeArea = null,}) {
-  return _then(_self.copyWith(
+  return _then(ElementConstraint(
 size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
 as double,length: null == length ? _self.length : length // ignore: cast_nullable_to_non_nullable
 as double,includeArea: null == includeArea ? _self.includeArea : includeArea // ignore: cast_nullable_to_non_nullable
@@ -216,7 +217,7 @@ $ElementConstraintsCopyWith(ElementConstraints _, $Res Function(ElementConstrain
 @JsonSerializable()
 
 class ScaledElementConstraints implements ElementConstraints {
-  const ScaledElementConstraints({this.scaleX = 1, this.scaleY = 1, final  String? $type}): $type = $type ?? 'scaled';
+  const ScaledElementConstraints({this.scaleX = 1, this.scaleY = 1,  String? $type}): $type = $type ?? 'scaled';
   factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) => _$ScaledElementConstraintsFromJson(json);
 
 @JsonKey() final  double scaleX;
@@ -291,7 +292,7 @@ as double,
 @JsonSerializable()
 
 class FixedElementConstraints implements ElementConstraints {
-  const FixedElementConstraints(this.height, this.width, {final  String? $type}): $type = $type ?? 'fixed';
+  const FixedElementConstraints(this.height, this.width, { String? $type}): $type = $type ?? 'fixed';
   factory FixedElementConstraints.fromJson(Map<String, dynamic> json) => _$FixedElementConstraintsFromJson(json);
 
  final  double height;
@@ -366,7 +367,7 @@ as double,
 @JsonSerializable()
 
 class DynamicElementConstraints implements ElementConstraints {
-  const DynamicElementConstraints({this.height = 0, this.width = 0, this.aspectRatio = 0, this.includeArea = true, final  String? $type}): $type = $type ?? 'dynamic';
+  const DynamicElementConstraints({this.height = 0, this.width = 0, this.aspectRatio = 0, this.includeArea = true,  String? $type}): $type = $type ?? 'dynamic';
   factory DynamicElementConstraints.fromJson(Map<String, dynamic> json) => _$DynamicElementConstraintsFromJson(json);
 
 @JsonKey() final  double height;
@@ -565,7 +566,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class PenElement extends PadElement implements PathElement {
-   PenElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, this.zoom, this.combineId, final  List<PathPoint> points = const [], this.property = const PenProperty(), final  Map<String, dynamic> extra = const {}, final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'pen',super._();
+   PenElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, this.zoom, this.combineId,  List<PathPoint> points = const [], this.property = const PenProperty(),  Map<String, dynamic> extra = const {},  String? $type}): _points = points,_extra = extra,$type = $type ?? 'pen',super._();
   factory PenElement.fromJson(Map<String, dynamic> json) => _$PenElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -666,7 +667,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class TextElement extends PadElement with LabelElement {
-   TextElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, required this.area, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'text',super._();
+   TextElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, required this.area, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'text',super._();
   factory TextElement.fromJson(Map<String, dynamic> json) => _$TextElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -795,7 +796,7 @@ $ElementConstraintCopyWith<$Res> get constraint {
 @JsonSerializable()
 
 class MarkdownElement extends PadElement with LabelElement {
-   MarkdownElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, this.areaProperty = const AreaProperty(), required this.text, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'markdown',super._();
+   MarkdownElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.scale = 1.0, this.styleSheet, this.areaProperty = const AreaProperty(), required this.text, this.constraint = const ElementConstraint(size: 1000), @ColorJsonConverter() this.foreground = SRGBColor.black,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'markdown',super._();
   factory MarkdownElement.fromJson(Map<String, dynamic> json) => _$MarkdownElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -926,7 +927,7 @@ $ElementConstraintCopyWith<$Res> get constraint {
 @JsonSerializable()
 
 class ImageElement extends PadElement implements SourcedElement {
-   ImageElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'image',super._();
+   ImageElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'image',super._();
   factory ImageElement.fromJson(Map<String, dynamic> json) => _$ImageElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1035,7 +1036,7 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class PdfElement extends PadElement implements SourcedElement {
-   PdfElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, this.invert = false, @ColorJsonConverter() this.background = SRGBColor.transparent, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
+   PdfElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, this.invert = false, @ColorJsonConverter() this.background = SRGBColor.transparent,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
   factory PdfElement.fromJson(Map<String, dynamic> json) => _$PdfElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1150,7 +1151,7 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class SvgElement extends PadElement implements SourcedElement {
-   SvgElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'svg',super._();
+   SvgElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, required this.width, required this.height,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'svg',super._();
   factory SvgElement.fromJson(Map<String, dynamic> json) => _$SvgElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1259,7 +1260,7 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class ShapeElement extends PadElement {
-   ShapeElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.property = const ShapeProperty(shape: RectangleShape()), final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'shape',super._();
+   ShapeElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.property = const ShapeProperty(shape: RectangleShape()),  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'shape',super._();
   factory ShapeElement.fromJson(Map<String, dynamic> json) => _$ShapeElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1352,7 +1353,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class TextureElement extends PadElement {
-   TextureElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, this.texture = const SurfaceTexture.pattern(), @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'texture',super._();
+   TextureElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, this.texture = const SurfaceTexture.pattern(), @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'texture',super._();
   factory TextureElement.fromJson(Map<String, dynamic> json) => _$TextureElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1454,7 +1455,7 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class PolygonElement extends PadElement {
-   PolygonElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, final  List<PolygonPoint> points = const [], final  Map<String, dynamic> extra = const {}, this.property = const PolygonProperty(), final  String? $type}): _points = points,_extra = extra,$type = $type ?? 'polygon',super._();
+   PolygonElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id,  List<PolygonPoint> points = const [],  Map<String, dynamic> extra = const {}, this.property = const PolygonProperty(),  String? $type}): _points = points,_extra = extra,$type = $type ?? 'polygon',super._();
   factory PolygonElement.fromJson(Map<String, dynamic> json) => _$PolygonElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
