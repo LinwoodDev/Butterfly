@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
   "exportAllFiles": "Εξαγωγή όλων των αρχείων",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "barcode": "Barcode",
   "@barcode": {
