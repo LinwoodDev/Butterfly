@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Beweeg op gebaar",
   "exportAllFiles": "Voer alle lêers uit",
   "restoreSettingsFromFile": "Herstel instellings vanaf lêer",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Voer instellings na lêer uit",
   "barcode": "Strepieskode",
   "@barcode": {
