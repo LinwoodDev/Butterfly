@@ -18,9 +18,9 @@ subprojects {
 }
 
 subprojects {
-    // cryptography_flutter_plus skips its Kotlin plugin on AGP 9 even when the
-    // Flutter project has explicitly opted into the legacy Kotlin plugin.
-    if (name == "cryptography_flutter_plus") {
+    // Some plugins skip their Kotlin plugin on AGP 9 even when the Flutter
+    // project has explicitly opted into the legacy Kotlin plugin.
+    if (name in setOf("cryptography_flutter_plus", "jni")) {
         pluginManager.withPlugin("com.android.library") {
             pluginManager.apply("org.jetbrains.kotlin.android")
         }

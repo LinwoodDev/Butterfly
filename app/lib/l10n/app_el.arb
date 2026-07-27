@@ -1464,7 +1464,7 @@
   "persistentStateCleanup": "Καθαρισμός αποθηκευμένων καταστάσεων",
   "persistentStateCleanupDescription": "Διαγραφή εγγραφών παλαιότερων από τα όρια πάνω",
   "persistentStateCleanupInProgress": "Εκκαθάριση ...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκε } other{ αφαιρέθηκε {records} καταγράφει}}.",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκαν {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκαν {records} εγγραφές}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {

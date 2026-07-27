@@ -23,7 +23,7 @@ jobs:
       - name: 🔧 Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "17"
+          java-version: "21"
           distribution: "temurin"
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -891,7 +891,7 @@ jobs:
       - name: 🔧 Setup java
         uses: actions/setup-java@v5
         with:
-          java-version: "17"
+          java-version: "21"
           distribution: "temurin"
       - uses: subosito/flutter-action@v2.23.0
         with:
