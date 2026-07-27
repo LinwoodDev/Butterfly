@@ -1135,7 +1135,7 @@ as bool,
 @JsonSerializable()
 
 class TableTool extends Tool {
-   TableTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(), @ColorJsonConverter() this.fillColor = SRGBColor.transparent, final  String? $type}): $type = $type ?? 'table',super._();
+   TableTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(), @ColorJsonConverter() this.fillColor = SRGBColor.transparent,  String? $type}): $type = $type ?? 'table',super._();
   factory TableTool.fromJson(Map<String, dynamic> json) => _$TableToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1219,7 +1219,7 @@ as SRGBColor,
 @override
 @pragma('vm:prefer-inline')
 $TableBorderPropertyCopyWith<$Res> get border {
-
+  
   return $TableBorderPropertyCopyWith<$Res>(_self.border, (value) {
     return _then(_self.copyWith(border: value));
   });

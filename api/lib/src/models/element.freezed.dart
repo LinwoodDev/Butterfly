@@ -497,7 +497,7 @@ class _$TableBorderPropertyCopyWithImpl<$Res>
 /// Create a copy of TableBorderProperty
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? color = null,Object? strokeStyle = null,Object? dashMultiplier = null,Object? gapMultiplier = null,}) {
-  return _then(_self.copyWith(
+  return _then(TableBorderProperty(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as SRGBColor,strokeStyle: null == strokeStyle ? _self.strokeStyle : strokeStyle // ignore: cast_nullable_to_non_nullable
@@ -643,7 +643,7 @@ class _$TableCellPropertyCopyWithImpl<$Res>
 /// Create a copy of TableCellProperty
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fillColor = null,}) {
-  return _then(_self.copyWith(
+  return _then(TableCellProperty(
 fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
 as SRGBColor,
   ));
@@ -1637,7 +1637,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class TableElement extends PadElement {
-   TableElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(), final  List<double> rowSizes = const [], final  List<double> columnSizes = const [], final  List<TableBorderProperty> horizontalBorders = const [], final  List<TableBorderProperty> verticalBorders = const [], final  List<TableCellProperty> cells = const [], @ColorJsonConverter() this.fillColor = SRGBColor.transparent, final  Map<String, dynamic> extra = const {}, final  String? $type}): _rowSizes = rowSizes,_columnSizes = columnSizes,_horizontalBorders = horizontalBorders,_verticalBorders = verticalBorders,_cells = cells,_extra = extra,$type = $type ?? 'table',super._();
+   TableElement({this.rotation = 0, this.shear = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0), @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0), this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(),  List<double> rowSizes = const [],  List<double> columnSizes = const [],  List<TableBorderProperty> horizontalBorders = const [],  List<TableBorderProperty> verticalBorders = const [],  List<TableCellProperty> cells = const [], @ColorJsonConverter() this.fillColor = SRGBColor.transparent,  Map<String, dynamic> extra = const {},  String? $type}): _rowSizes = rowSizes,_columnSizes = columnSizes,_horizontalBorders = horizontalBorders,_verticalBorders = verticalBorders,_cells = cells,_extra = extra,$type = $type ?? 'table',super._();
   factory TableElement.fromJson(Map<String, dynamic> json) => _$TableElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1774,7 +1774,7 @@ as Map<String, dynamic>,
 @override
 @pragma('vm:prefer-inline')
 $TableBorderPropertyCopyWith<$Res> get border {
-
+  
   return $TableBorderPropertyCopyWith<$Res>(_self.border, (value) {
     return _then(_self.copyWith(border: value));
   });
