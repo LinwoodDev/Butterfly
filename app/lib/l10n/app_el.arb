@@ -577,6 +577,24 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Table",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rows",
+  "columns": "Columns",
+  "row": "Row",
+  "column": "Column",
+  "deleteRow": "Delete row",
+  "deleteColumn": "Delete column",
+  "cellColor": "Cell color",
+  "cellBorders": "Cell borders",
+  "cellBorder": "Cell border",
+  "horizontalBorder": "Horizontal border",
+  "verticalBorder": "Vertical border",
+  "rowHeight": "Row height",
+  "columnWidth": "Column width",
+  "border": "Border",
   "circle": "Κύκλος",
   "@circle": {
     "description": "Shape type"
@@ -1160,6 +1178,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Show navigator previews",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
   "highContrast": "Υψηλή αντίθεση",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1464,7 +1487,7 @@
   "persistentStateCleanup": "Καθαρισμός αποθηκευμένων καταστάσεων",
   "persistentStateCleanupDescription": "Διαγραφή εγγραφών παλαιότερων από τα όρια πάνω",
   "persistentStateCleanupInProgress": "Εκκαθάριση ...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκαν {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκαν {records} εγγραφές}}.",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκε } other{ αφαιρέθηκε {records} καταγράφει}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {
