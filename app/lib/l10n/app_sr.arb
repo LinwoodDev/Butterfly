@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Pomeri na pokret",
   "exportAllFiles": "Izvezi sve datoteke",
   "restoreSettingsFromFile": "Vrati podešavanja iz datoteke",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Izvezi podešavanja u datoteku",
   "barcode": "Barkod",
   "@barcode": {
