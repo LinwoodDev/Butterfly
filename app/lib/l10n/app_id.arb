@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Pindah saat gestur",
   "exportAllFiles": "Ekspor semua berkas",
   "restoreSettingsFromFile": "Pulihkan pengaturan dari berkas",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Ekspor pengaturan ke berkas",
   "barcode": "Kode batang",
   "@barcode": {
