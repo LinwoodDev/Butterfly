@@ -1347,6 +1347,7 @@
   "moveOnGesture": "เลื่อนด้วยท่าทาง",
   "exportAllFiles": "ส่งออกทุกไฟล์",
   "restoreSettingsFromFile": "กู้คืนการตั้งค่าจากไฟล์",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "ส่งออกการตั้งค่าเป็นไฟล์",
   "barcode": "บาร์โค้ด",
   "@barcode": {
