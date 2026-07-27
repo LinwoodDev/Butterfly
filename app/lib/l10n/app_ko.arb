@@ -1347,6 +1347,7 @@
   "moveOnGesture": "제스처로 이동",
   "exportAllFiles": "모든 파일 내보내기",
   "restoreSettingsFromFile": "파일에서 설정 복원",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "설정을 파일로 내보내기",
   "barcode": "바코드",
   "@barcode": {
