@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Mută la gest",
   "exportAllFiles": "Exportă toate fișierele",
   "restoreSettingsFromFile": "Restabilește setările din fișier",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Exportă setările în fișier",
   "barcode": "Barcode",
   "@barcode": {
