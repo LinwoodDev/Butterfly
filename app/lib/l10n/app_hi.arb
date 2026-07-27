@@ -1347,6 +1347,7 @@
   "moveOnGesture": "जेस्चर पर ले जाएं",
   "exportAllFiles": "सभी फाइलें निर्यात करें",
   "restoreSettingsFromFile": "फ़ाइल से सेटिंग्स पुनर्स्थापित करें",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "सेटिंग्स को फ़ाइल में निर्यात करें",
   "barcode": "बारकोड",
   "@barcode": {
