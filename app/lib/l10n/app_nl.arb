@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Verplaats naar gebaar",
   "exportAllFiles": "Alle bestanden exporteren",
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Instellingen exporteren naar bestand",
   "barcode": "Barcode",
   "@barcode": {
