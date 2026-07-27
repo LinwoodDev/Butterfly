@@ -1347,6 +1347,7 @@
   "moveOnGesture": "הזז במחווה",
   "exportAllFiles": "ייצא את כל הקבצים",
   "restoreSettingsFromFile": "שחזר הגדרות מקובץ",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "ייצא הגדרות לקובץ",
   "barcode": "ברקוד",
   "@barcode": {
