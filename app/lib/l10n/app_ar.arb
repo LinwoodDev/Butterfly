@@ -1347,6 +1347,7 @@
   "moveOnGesture": "إيماءة التحريك",
   "exportAllFiles": "تصدير جميع الملفات",
   "restoreSettingsFromFile": "استعادة الإعدادات من ملف",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "barcode": "الرمز الشريطي (الباركود)",
   "@barcode": {
