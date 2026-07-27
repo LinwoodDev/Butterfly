@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Mou amb gest",
   "exportAllFiles": "Exporta tots els fitxers",
   "restoreSettingsFromFile": "Restaura configuració des de fitxer",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Exporta configuració a fitxer",
   "barcode": "Codi de barres",
   "@barcode": {
