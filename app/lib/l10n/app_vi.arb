@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Di chuyển khi cử chỉ",
   "exportAllFiles": "Xuất tất cả tệp tin",
   "restoreSettingsFromFile": "Khôi phục cài đặt từ tệp tin",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Xuất cài đặt ra tệp tin",
   "barcode": "Mã vạch",
   "@barcode": {
