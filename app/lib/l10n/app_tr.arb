@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Eylemle taşı",
   "exportAllFiles": "Tüm dosyaları dışa aktar",
   "restoreSettingsFromFile": "Ayarları dosyadan geri yükle",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Ayarları dosyaya dışa aktar",
   "barcode": "Barkod",
   "@barcode": {
