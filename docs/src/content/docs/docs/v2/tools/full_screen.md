@@ -9,4 +9,5 @@ It can't be selected and will run the action immediately when you click on it.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Clicking this tool maximizes the window if on desktop, hides the sidebar and minimizes the toolbar to make place for the canvas.
+A second click will restore the previous state.

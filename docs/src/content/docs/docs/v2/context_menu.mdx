@@ -12,15 +12,16 @@ import {Scissors,
 	Stack,
 	Export,
 	PlusCircle,
+	Clipboard,
 	Polygon,
 	ArrowUpRight,
 
 } from "@phosphor-icons/react";
 
-To access the Context menu right click on a selection.
+To access the Context menu [long press](../shortcuts#document-changes) on a selection.
 
 ## Actions
-The Context menu contains actions that can be executed on the selected elements. Selections with only one element may have additional action specific to that element.
+The Context menu contains actions that can be executed on the selected elements. Selections with only one element may have special actions specific to that element.
 
 * <Scissors className="inline-icon"/> `Cut` - Deletes the selection and adds it to the clipboard.
 * <Copy className="inline-icon"/> `Copy` - Adds the selection it to the clipboard.
@@ -32,9 +33,10 @@ The Context menu contains actions that can be executed on the selected elements.
 * <Folder className="inline-icon"/> `Change collection` - Changes the [Collection](../tools/collection) this selection belongs to. Here you need to enter the name of the (maybe nonexistent) collection.
 * <Stack className="inline-icon"/> `Move to layer` - Changes the [Layer](../layers) this selection belongs to.
 * <Export className="inline-icon"/> `Export` - Exports the selection as an Image, SVG or PDF.
-* <PlusCircle className="inline-icon"/> `Add to pack` - Adds the selection as an asset to a [Pack](../pack/#adding-a-component-into-a-pack) !
+* <PlusCircle className="inline-icon"/> `Add to pack` - Adds the selection as an asset to a [Pack](../pack/#adding-a-component-into-a-pack)
 
-Element specific actions:
+Special actions:
+* <Clipboard className="inline-icon"/> `Paste` - Using long press with the [Select tool](../tools/select) on an empty canvas position pastes the clipboard at that point.
 * <Polygon className="inline-icon"/> `Edit` - Enters edit mode for this specific [Polygon](../tools/polygon)
 
 ### Arrange options

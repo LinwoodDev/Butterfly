@@ -82,12 +82,8 @@ export default defineConfig({
               link: "/docs/v2/background/",
             },
             {
-              ...getSidebarTranslatedLabel("Color picker"),
-              link: "/docs/v2/color_picker/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Paint Options"),
-              link: "/docs/v2/paint_options/",
+              ...getSidebarTranslatedLabel("Colors"),
+              link: "/docs/v2/colors/",
             },
             {
               ...getSidebarTranslatedLabel("Layers"),

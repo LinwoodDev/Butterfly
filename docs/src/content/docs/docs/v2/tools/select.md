@@ -3,7 +3,7 @@ title: Select tool
 ---
 
 
-With this tool you can select elements.
+With this tool you can select elements and access their [Context menu](../../context_menu).
 
 ## Configuration
 
