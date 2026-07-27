@@ -4,6 +4,23 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).behaviors,
   icon: PhosphorIconsLight.faders,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      autosave: defaults.autosave,
+      showSaveButton: defaults.showSaveButton,
+      delayedAutosave: defaults.delayedAutosave,
+      autosaveDelaySeconds: defaults.autosaveDelaySeconds,
+      onStartup: defaults.onStartup,
+      startInFullScreen: defaults.startInFullScreen,
+      limitViewportMultiplier: defaults.limitViewportMultiplier,
+      limitViewportPositive: defaults.limitViewportPositive,
+      renderResolution: defaults.renderResolution,
+      bringMovedElementsToFront: defaults.bringMovedElementsToFront,
+      spreadPages: defaults.spreadPages,
+      imageScale: defaults.imageScale,
+    ),
+  ),
   children: {'persistence': _persistenceSettingsPage},
   sections: {
     'behavior': SettingsLeapSection(

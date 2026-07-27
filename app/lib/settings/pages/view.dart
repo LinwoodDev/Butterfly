@@ -4,6 +4,24 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).view,
   icon: PhosphorIconsLight.eye,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      zoomEnabled: defaults.zoomEnabled,
+      zoomPosition: defaults.zoomPosition,
+      propertyPosition: defaults.propertyPosition,
+      toolbarPosition: defaults.toolbarPosition,
+      toolbarSize: defaults.toolbarSize,
+      toolbarRows: defaults.toolbarRows,
+      navigationRail: defaults.navigationRail,
+      navigatorPosition: defaults.navigatorPosition,
+      optionsPanelPosition: defaults.optionsPanelPosition,
+      simpleToolbarVisibility: defaults.simpleToolbarVisibility,
+      showNavigatorPreviews: defaults.showNavigatorPreviews,
+      showThumbnails: defaults.showThumbnails,
+      hideExtension: defaults.hideExtension,
+    ),
+  ),
   sections: {
     'interface': SettingsLeapSection(
       settings: [

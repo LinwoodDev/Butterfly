@@ -8,6 +8,15 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).inputs,
   icon: PhosphorIconsLight.keyboard,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      selectSensitivity: defaults.selectSensitivity,
+      touchSensitivity: defaults.touchSensitivity,
+      gestureSensitivity: defaults.gestureSensitivity,
+      scrollSensitivity: defaults.scrollSensitivity,
+    ),
+  ),
   children: {
     'mouse': _mouseSettingsPage,
     'touch': _touchSettingsPage,
@@ -71,6 +80,29 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).mouse,
   icon: PhosphorIconsLight.mouse,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      hideCursorWhileDrawing: defaults.hideCursorWhileDrawing,
+      inputConfiguration: current.inputConfiguration.copyWith(
+        leftMouse: defaults.inputConfiguration.leftMouse,
+        doubleLeftMouseShortcut:
+            defaults.inputConfiguration.doubleLeftMouseShortcut,
+        tripleLeftMouseShortcut:
+            defaults.inputConfiguration.tripleLeftMouseShortcut,
+        middleMouse: defaults.inputConfiguration.middleMouse,
+        doubleMiddleMouseShortcut:
+            defaults.inputConfiguration.doubleMiddleMouseShortcut,
+        tripleMiddleMouseShortcut:
+            defaults.inputConfiguration.tripleMiddleMouseShortcut,
+        rightMouse: defaults.inputConfiguration.rightMouse,
+        doubleRightMouseShortcut:
+            defaults.inputConfiguration.doubleRightMouseShortcut,
+        tripleRightMouseShortcut:
+            defaults.inputConfiguration.tripleRightMouseShortcut,
+      ),
+    ),
+  ),
   sections: {
     'behavior': SettingsLeapSection(
       settings: [
@@ -175,6 +207,18 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).touch,
   icon: PhosphorIconsLight.hand,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      inputGestures: defaults.inputGestures,
+      moveOnGesture: defaults.moveOnGesture,
+      inputConfiguration: current.inputConfiguration.copyWith(
+        touch: defaults.inputConfiguration.touch,
+        doubleTouchShortcut: defaults.inputConfiguration.doubleTouchShortcut,
+        tripleTouchShortcut: defaults.inputConfiguration.tripleTouchShortcut,
+      ),
+    ),
+  ),
   sections: {
     'behavior': SettingsLeapSection(
       settings: [
@@ -236,6 +280,18 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).keyboard,
   icon: PhosphorIconsLight.keyboard,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) async {
+    await Future.wait([
+      context.read<SettingsCubit>().resetSettings(
+        (current, defaults) => current.copyWith(
+          inputConfiguration: current.inputConfiguration.copyWith(
+            holdShortcuts: defaults.inputConfiguration.holdShortcuts,
+          ),
+        ),
+      ),
+      keybinder.resetToDefaults(),
+    ]);
+  },
   sections: {
     'help': SettingsLeapSection(
       settings: [
@@ -302,6 +358,34 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).pen,
   icon: PhosphorIconsLight.pen,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      penOnlyInput: defaults.penOnlyInput,
+      showPenOnlyToggle: defaults.showPenOnlyToggle,
+      ignorePressure: defaults.ignorePressure,
+      inputConfiguration: current.inputConfiguration.copyWith(
+        pen: defaults.inputConfiguration.pen,
+        doublePenShortcut: defaults.inputConfiguration.doublePenShortcut,
+        triplePenShortcut: defaults.inputConfiguration.triplePenShortcut,
+        invertedPen: defaults.inputConfiguration.invertedPen,
+        doubleInvertedPenShortcut:
+            defaults.inputConfiguration.doubleInvertedPenShortcut,
+        tripleInvertedPenShortcut:
+            defaults.inputConfiguration.tripleInvertedPenShortcut,
+        firstPenButton: defaults.inputConfiguration.firstPenButton,
+        doubleFirstPenButtonShortcut:
+            defaults.inputConfiguration.doubleFirstPenButtonShortcut,
+        tripleFirstPenButtonShortcut:
+            defaults.inputConfiguration.tripleFirstPenButtonShortcut,
+        secondPenButton: defaults.inputConfiguration.secondPenButton,
+        doubleSecondPenButtonShortcut:
+            defaults.inputConfiguration.doubleSecondPenButtonShortcut,
+        tripleSecondPenButtonShortcut:
+            defaults.inputConfiguration.tripleSecondPenButtonShortcut,
+      ),
+    ),
+  ),
   sections: {
     'behavior': SettingsLeapSection(
       settings: [

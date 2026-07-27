@@ -949,6 +949,27 @@ class SettingsCubit extends Cubit<ButterflySettings>
   SettingsCubit(SharedPreferences prefs)
     : super(ButterflySettings.fromPrefs(prefs));
 
+  Future<void> resetSettings(
+    ButterflySettings Function(
+      ButterflySettings current,
+      ButterflySettings defaults,
+    )
+    reset,
+  ) {
+    emit(reset(state, const ButterflySettings()));
+    return save();
+  }
+
+  Future<void> resetAllSettings() {
+    emit(
+      const ButterflySettings().copyWith(
+        history: state.history,
+        connections: state.connections,
+      ),
+    );
+    return save();
+  }
+
   void setTheme(BuildContext context, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
     final brightness = switch (theme ?? state.theme) {

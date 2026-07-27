@@ -57,6 +57,17 @@ final settingsTree = SettingsLeapTree<ButterflySettings>({
   'logs': _logsSettingsPage,
 });
 
+void _resetSettingsPage(
+  BuildContext context,
+  ButterflySettings Function(
+    ButterflySettings current,
+    ButterflySettings defaults,
+  )
+  reset,
+) {
+  context.read<SettingsCubit>().resetSettings(reset);
+}
+
 class SettingsPage extends StatelessWidget {
   final bool inView;
   const SettingsPage({super.key, this.inView = false});
