@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Переместить жест",
   "exportAllFiles": "Экспортировать все файлы",
   "restoreSettingsFromFile": "Восстановить настройки из файла",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Экспорт настроек в файл",
   "barcode": "Barcode",
   "@barcode": {
