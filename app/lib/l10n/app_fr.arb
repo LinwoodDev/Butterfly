@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Geste de déplacement",
   "exportAllFiles": "Exporter tous les fichiers",
   "restoreSettingsFromFile": "Restaurer les paramètres à partir du fichier",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Exporter les paramètres vers un fichier",
   "barcode": "Barcode",
   "@barcode": {
