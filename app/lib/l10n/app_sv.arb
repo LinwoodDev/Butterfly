@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Flytta på gest",
   "exportAllFiles": "Exportera alla filer",
   "restoreSettingsFromFile": "Återställ inställningar från fil",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Exportera inställningar till fil",
   "barcode": "Barcode",
   "@barcode": {
