@@ -1,20 +1,30 @@
 name: Deploy documentation
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
   push:
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+    branches:
+      - develop
+      - main
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: docs
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
@@ -26,7 +36,7 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: docs/pnpm-lock.yaml
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
       - name: Deploy to SFTP
@@ -44,12 +54,15 @@ jobs:
           rsync -avz --delete -e "ssh -i sftp_key -o UserKnownHostsFile=known_hosts" dist/ $SFTP_USERNAME@$SFTP_HOST:/var/www/butterfly.linwood
   web:
     runs-on: ubuntu-24.04
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -65,7 +78,7 @@ jobs:
         working-directory: .
         run: dart run tools/build_onenote_web.dart
       - name: Get Git Commit Hash
-        run: echo "GIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        run: echo "GIT_HASH=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Set flavor
         if: github.ref != 'refs/heads/main'
         run: |

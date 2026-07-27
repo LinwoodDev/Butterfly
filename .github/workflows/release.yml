@@ -13,6 +13,13 @@ on:
         type: boolean
         required: false
 
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   update-changelog:
     runs-on: ubuntu-24.04

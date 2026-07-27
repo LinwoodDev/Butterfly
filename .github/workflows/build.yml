@@ -10,9 +10,16 @@ on:
   release:
     types: [published]
   pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.ref_type == 'branch' }}
+
 jobs:
   build-apk:
-    concurrency: ci-${{ github.ref }}
     defaults:
       run:
         working-directory: app
@@ -561,6 +568,8 @@ jobs:
   deploy:
     runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request'
+    permissions:
+      contents: write
     outputs:
       version: ${{ steps.setup.outputs.BUTTERFLY_VERSION }}
       build_number: ${{ steps.setup.outputs.BUTTERFLY_BUILD_NUMBER }}
