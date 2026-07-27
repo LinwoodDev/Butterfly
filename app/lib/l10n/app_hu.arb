@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Mozgatás gesztussal",
   "exportAllFiles": "Minden fájl exportálása",
   "restoreSettingsFromFile": "Beállítások visszaállítása fájlból",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Beállítások exportálása fájlba",
   "barcode": "Vonalkód",
   "@barcode": {
