@@ -277,6 +277,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
         ),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
   showThumbnails: json['showThumbnails'] as bool? ?? true,
+  showNavigatorPreviews: json['showNavigatorPreviews'] as bool? ?? true,
   bringMovedElementsToFront:
       json['bringMovedElementsToFront'] as bool? ?? false,
   favoriteTools:
@@ -358,6 +359,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
   'showThumbnails': instance.showThumbnails,
+  'showNavigatorPreviews': instance.showNavigatorPreviews,
   'bringMovedElementsToFront': instance.bringMovedElementsToFront,
   'favoriteTools': instance.favoriteTools.map((e) => e.toJson()).toList(),
 };

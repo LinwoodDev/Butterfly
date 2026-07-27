@@ -102,6 +102,7 @@ extension ToolVisualizer on Tool {
       AreaTool() => loc.area,
       LaserTool() => loc.laser,
       ShapeTool() => loc.shape,
+      TableTool() => loc.table,
       SpacerTool() => loc.spacer,
       StampTool() => loc.stamp,
       TextureTool() => loc.texture,
@@ -152,6 +153,7 @@ extension ToolVisualizer on Tool {
     AreaTool() => PhosphorIcons.monitor,
     LaserTool() => PhosphorIcons.cursor,
     ShapeTool tool => tool.property.shape.icon,
+    TableTool() => PhosphorIcons.table,
     SpacerTool tool =>
       tool.axis == Axis2D.horizontal
           ? PhosphorIcons.splitHorizontal
@@ -176,6 +178,7 @@ extension ToolVisualizer on Tool {
       PenTool() => 'pen',
       LaserTool() => 'laser',
       ShapeTool() => 'shape',
+      TableTool() => null,
       StampTool() => 'stamp',
       EraserTool e => switch (e.mode) {
         EraserMode.stroke => 'eraser',

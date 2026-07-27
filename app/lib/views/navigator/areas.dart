@@ -8,6 +8,7 @@ import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/widgets/context_menu.dart';
+import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -22,6 +23,7 @@ import '../../widgets/editable_list_tile.dart';
 
 typedef _AreaEntry = ({
   Area area,
+  DocumentPage page,
   String pageName,
   String pageDisplayName,
   bool isCurrentPage,
@@ -139,22 +141,49 @@ class _AreasViewState extends State<AreasView> {
               value: isSelected,
               onChanged: (value) => controller.toggle(selectionId),
             )
-          : IconButton(
-              icon: PhosphorIcon(
-                selected
-                    ? PhosphorIconsLight.signOut
-                    : PhosphorIconsLight.signIn,
-              ),
-              onPressed: () {
-                if (selected) {
-                  bloc.add(CurrentAreaChanged(''));
-                  return;
+          : BlocSelector<SettingsCubit, ButterflySettings, bool>(
+              selector: (settings) => settings.showNavigatorPreviews,
+              builder: (context, showPreview) {
+                final tooltip = selected
+                    ? AppLocalizations.of(context).exitArea
+                    : AppLocalizations.of(context).enterArea;
+                if (showPreview) {
+                  return Tooltip(
+                    message: tooltip,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(6),
+                      onTap: () {
+                        if (selected) {
+                          bloc.add(CurrentAreaChanged(''));
+                        } else {
+                          navigateToArea();
+                        }
+                      },
+                      child: DocumentPagePreview(
+                        state: state,
+                        pageName: entry.pageName,
+                        page: entry.page,
+                        area: area,
+                      ),
+                    ),
+                  );
                 }
-                navigateToArea();
+                return IconButton(
+                  icon: PhosphorIcon(
+                    selected
+                        ? PhosphorIconsLight.signOut
+                        : PhosphorIconsLight.signIn,
+                  ),
+                  onPressed: () {
+                    if (selected) {
+                      bloc.add(CurrentAreaChanged(''));
+                      return;
+                    }
+                    navigateToArea();
+                  },
+                  tooltip: tooltip,
+                );
               },
-              tooltip: selected
-                  ? AppLocalizations.of(context).exitArea
-                  : AppLocalizations.of(context).enterArea,
             ),
       onTap: () {
         if (isSelectionMode) {
@@ -256,6 +285,7 @@ class _AreasViewState extends State<AreasView> {
               return page.areas.map(
                 (area) => (
                   area: area,
+                  page: page,
                   pageName: realPageName,
                   pageDisplayName: displayName,
                   isCurrentPage: realPageName == state.pageName,
@@ -426,6 +456,7 @@ class _AreasViewState extends State<AreasView> {
                                         .map(
                                           (area) => (
                                             area: area,
+                                            page: state.page,
                                             pageName: state.pageName,
                                             pageDisplayName:
                                                 currentPageDisplayName ??

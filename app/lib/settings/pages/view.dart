@@ -107,6 +107,16 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
               .changeSimpleToolbarVisibility(value),
           valueLabel: (context, value) => value.getLocalizedName(context),
         ),
+        SettingsLeapBoolSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).showNavigatorPreviews,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).showNavigatorPreviewsDescription,
+          icon: PhosphorIconsLight.imageSquare,
+          read: (state) => state.showNavigatorPreviews,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeShowNavigatorPreviews(value),
+        ),
       ],
     ),
     'home': SettingsLeapSection(
