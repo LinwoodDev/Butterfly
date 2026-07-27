@@ -1347,6 +1347,7 @@
   "moveOnGesture": "手勢移動",
   "exportAllFiles": "匯出所有檔案",
   "restoreSettingsFromFile": "從檔案還原設定",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "匯出設定到檔案",
   "barcode": "條碼",
   "@barcode": {
