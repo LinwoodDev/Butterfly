@@ -1347,6 +1347,7 @@
   "moveOnGesture": "Přesunout gestem",
   "exportAllFiles": "Exportovat všechny soubory",
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Exportovat nastavení do souboru",
   "barcode": "Čárový kód",
   "@barcode": {
