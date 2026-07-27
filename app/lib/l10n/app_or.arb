@@ -1347,6 +1347,7 @@
   "moveOnGesture": "ଇଶାରାରେ ସରାନ୍ତୁ",
   "exportAllFiles": "ସମସ୍ତ ଫାଇଲ୍ ନିର୍ୟାତ",
   "restoreSettingsFromFile": "ଫାଇଲ୍ରୁ ସେଟିଂସ୍ ପୁନଃସ୍ଥାପନ",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "ସେଟିଂସ୍ ଫାଇଲ୍ ରେ ନିର୍ୟାତ",
   "barcode": "ବାର୍କୋଡ୍",
   "@barcode": {
