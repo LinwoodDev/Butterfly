@@ -577,6 +577,24 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Table",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rows",
+  "columns": "Columns",
+  "row": "Row",
+  "column": "Column",
+  "deleteRow": "Delete row",
+  "deleteColumn": "Delete column",
+  "cellColor": "Cell color",
+  "cellBorders": "Cell borders",
+  "cellBorder": "Cell border",
+  "horizontalBorder": "Horizontal border",
+  "verticalBorder": "Vertical border",
+  "rowHeight": "Row height",
+  "columnWidth": "Column width",
+  "border": "Border",
   "circle": "圆圈",
   "@circle": {
     "description": "Shape type"
@@ -1160,6 +1178,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Show navigator previews",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
   "highContrast": "高对比度",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
