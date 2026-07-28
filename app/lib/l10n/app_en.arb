@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Zoom dependent",
   "shapeDetection": "Shape Detection",
   "delay": "Delay",
@@ -1347,6 +1351,7 @@
   "moveOnGesture": "Move on gesture",
   "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "Restore settings from file",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Export settings to file",
   "barcode": "Barcode",
   "@barcode": {

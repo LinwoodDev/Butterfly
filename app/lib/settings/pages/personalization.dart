@@ -4,6 +4,18 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).personalization,
   icon: PhosphorIconsLight.monitor,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      theme: defaults.theme,
+      density: defaults.density,
+      design: defaults.design,
+      localeTag: defaults.localeTag,
+      platformTheme: defaults.platformTheme,
+      highContrast: defaults.highContrast,
+      nativeTitleBar: defaults.nativeTitleBar,
+    ),
+  ),
   sections: {
     'content': SettingsLeapSection(
       settings: [

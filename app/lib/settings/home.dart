@@ -57,6 +57,17 @@ final settingsTree = SettingsLeapTree<ButterflySettings>({
   'logs': _logsSettingsPage,
 });
 
+void _resetSettingsPage(
+  BuildContext context,
+  ButterflySettings Function(
+    ButterflySettings current,
+    ButterflySettings defaults,
+  )
+  reset,
+) {
+  context.read<SettingsCubit>().resetSettings(reset);
+}
+
 class SettingsPage extends StatelessWidget {
   final bool inView;
   const SettingsPage({super.key, this.inView = false});
@@ -71,9 +82,14 @@ class SettingsPage extends StatelessWidget {
         searchHint: (context) => AppLocalizations.of(context).search,
         isDialog: inView,
         compactWidth: LeapBreakpoints.compact,
-        onOpenPage: (context, id, page, focusedId) {
-          context.go('/settings/${id.replaceAll('.', '/')}', extra: focusedId);
-        },
+        onOpenPage: inView
+            ? null
+            : (context, id, page, focusedId) {
+                context.go(
+                  '/settings/${id.replaceAll('.', '/')}',
+                  extra: focusedId,
+                );
+              },
         closeButton: IconButton.outlined(
           icon: const PhosphorIcon(PhosphorIconsLight.x),
           onPressed: () => Navigator.of(context).maybePop(),

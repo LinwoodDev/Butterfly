@@ -8,6 +8,15 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).inputs,
   icon: PhosphorIconsLight.keyboard,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      selectSensitivity: defaults.selectSensitivity,
+      touchSensitivity: defaults.touchSensitivity,
+      gestureSensitivity: defaults.gestureSensitivity,
+      scrollSensitivity: defaults.scrollSensitivity,
+    ),
+  ),
   children: {
     'mouse': _mouseSettingsPage,
     'touch': _touchSettingsPage,
@@ -71,6 +80,39 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).mouse,
   icon: PhosphorIconsLight.mouse,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      hideCursorWhileDrawing: defaults.hideCursorWhileDrawing,
+      inputConfiguration: current.inputConfiguration.copyWith(
+        leftMouse: defaults.inputConfiguration.leftMouse,
+        doubleLeftMouseShortcut:
+            defaults.inputConfiguration.doubleLeftMouseShortcut,
+        tripleLeftMouseShortcut:
+            defaults.inputConfiguration.tripleLeftMouseShortcut,
+        middleMouse: defaults.inputConfiguration.middleMouse,
+        doubleMiddleMouseShortcut:
+            defaults.inputConfiguration.doubleMiddleMouseShortcut,
+        tripleMiddleMouseShortcut:
+            defaults.inputConfiguration.tripleMiddleMouseShortcut,
+        rightMouse: defaults.inputConfiguration.rightMouse,
+        doubleRightMouseShortcut:
+            defaults.inputConfiguration.doubleRightMouseShortcut,
+        tripleRightMouseShortcut:
+            defaults.inputConfiguration.tripleRightMouseShortcut,
+        backMouse: defaults.inputConfiguration.backMouse,
+        doubleBackMouseShortcut:
+            defaults.inputConfiguration.doubleBackMouseShortcut,
+        tripleBackMouseShortcut:
+            defaults.inputConfiguration.tripleBackMouseShortcut,
+        forwardMouse: defaults.inputConfiguration.forwardMouse,
+        doubleForwardMouseShortcut:
+            defaults.inputConfiguration.doubleForwardMouseShortcut,
+        tripleForwardMouseShortcut:
+            defaults.inputConfiguration.tripleForwardMouseShortcut,
+      ),
+    ),
+  ),
   sections: {
     'behavior': SettingsLeapSection(
       settings: [
@@ -166,6 +208,56 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (config, value) =>
               config.copyWith(tripleRightMouseShortcut: value),
         ),
+        _optionalInputMappingSetting(
+          id: 'backMouse',
+          displayName: (context) => AppLocalizations.of(context).back,
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.backMouse,
+          write: (config, value) => config.copyWith(backMouse: value),
+        ),
+        _inputShortcutSetting(
+          id: 'doubleBackMouseShortcut',
+          displayName: (context) =>
+              _getDoubleName(context, AppLocalizations.of(context).back),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.doubleBackMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(doubleBackMouseShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'tripleBackMouseShortcut',
+          displayName: (context) =>
+              _getTripleName(AppLocalizations.of(context).back),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.tripleBackMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(tripleBackMouseShortcut: value),
+        ),
+        _optionalInputMappingSetting(
+          id: 'forwardMouse',
+          displayName: (context) => AppLocalizations.of(context).forward,
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.forwardMouse,
+          write: (config, value) => config.copyWith(forwardMouse: value),
+        ),
+        _inputShortcutSetting(
+          id: 'doubleForwardMouseShortcut',
+          displayName: (context) =>
+              _getDoubleName(context, AppLocalizations.of(context).forward),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.doubleForwardMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(doubleForwardMouseShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'tripleForwardMouseShortcut',
+          displayName: (context) =>
+              _getTripleName(AppLocalizations.of(context).forward),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.tripleForwardMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(tripleForwardMouseShortcut: value),
+        ),
       ],
     ),
   },
@@ -175,6 +267,18 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).touch,
   icon: PhosphorIconsLight.hand,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      inputGestures: defaults.inputGestures,
+      moveOnGesture: defaults.moveOnGesture,
+      inputConfiguration: current.inputConfiguration.copyWith(
+        touch: defaults.inputConfiguration.touch,
+        doubleTouchShortcut: defaults.inputConfiguration.doubleTouchShortcut,
+        tripleTouchShortcut: defaults.inputConfiguration.tripleTouchShortcut,
+      ),
+    ),
+  ),
   sections: {
     'behavior': SettingsLeapSection(
       settings: [
@@ -236,6 +340,18 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).keyboard,
   icon: PhosphorIconsLight.keyboard,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) async {
+    await Future.wait([
+      context.read<SettingsCubit>().resetSettings(
+        (current, defaults) => current.copyWith(
+          inputConfiguration: current.inputConfiguration.copyWith(
+            holdShortcuts: defaults.inputConfiguration.holdShortcuts,
+          ),
+        ),
+      ),
+      keybinder.resetToDefaults(),
+    ]);
+  },
   sections: {
     'help': SettingsLeapSection(
       settings: [
@@ -302,6 +418,34 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).pen,
   icon: PhosphorIconsLight.pen,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      penOnlyInput: defaults.penOnlyInput,
+      showPenOnlyToggle: defaults.showPenOnlyToggle,
+      ignorePressure: defaults.ignorePressure,
+      inputConfiguration: current.inputConfiguration.copyWith(
+        pen: defaults.inputConfiguration.pen,
+        doublePenShortcut: defaults.inputConfiguration.doublePenShortcut,
+        triplePenShortcut: defaults.inputConfiguration.triplePenShortcut,
+        invertedPen: defaults.inputConfiguration.invertedPen,
+        doubleInvertedPenShortcut:
+            defaults.inputConfiguration.doubleInvertedPenShortcut,
+        tripleInvertedPenShortcut:
+            defaults.inputConfiguration.tripleInvertedPenShortcut,
+        firstPenButton: defaults.inputConfiguration.firstPenButton,
+        doubleFirstPenButtonShortcut:
+            defaults.inputConfiguration.doubleFirstPenButtonShortcut,
+        tripleFirstPenButtonShortcut:
+            defaults.inputConfiguration.tripleFirstPenButtonShortcut,
+        secondPenButton: defaults.inputConfiguration.secondPenButton,
+        doubleSecondPenButtonShortcut:
+            defaults.inputConfiguration.doubleSecondPenButtonShortcut,
+        tripleSecondPenButtonShortcut:
+            defaults.inputConfiguration.tripleSecondPenButtonShortcut,
+      ),
+    ),
+  ),
   sections: {
     'behavior': SettingsLeapSection(
       settings: [
@@ -541,6 +685,58 @@ SettingsLeapListSetting<ButterflySettings, InputMapping> _inputMappingSetting({
       ),
       for (var index = 0; index < 99; index++)
         SettingsLeapOption(
+          id: 'tool${index + 1}',
+          value: InputMapping(index),
+          displayName: (context) =>
+              AppLocalizations.of(context).toolOnToolbarShort(index + 1),
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).toolOnToolbarDescription,
+        ),
+    ],
+    read: (state) => read(state.inputConfiguration),
+    write: (context, value) {
+      final cubit = context.read<SettingsCubit>();
+      cubit.changeInputConfiguration(
+        write(cubit.state.inputConfiguration, value),
+      );
+    },
+  );
+}
+
+SettingsLeapListSetting<ButterflySettings, InputMapping?>
+_optionalInputMappingSetting({
+  required String id,
+  required SettingsLeapDisplayName displayName,
+  required IconData icon,
+  required _InputConfigurationRead<InputMapping?> read,
+  required _InputConfigurationWrite<InputMapping?> write,
+}) {
+  return SettingsLeapListSetting<ButterflySettings, InputMapping?>(
+    id: id,
+    displayName: displayName,
+    icon: icon,
+    options: [
+      SettingsLeapOption<InputMapping?>(
+        id: 'none',
+        value: null,
+        displayName: (context) => AppLocalizations.of(context).none,
+      ),
+      SettingsLeapOption<InputMapping?>(
+        id: 'activeTool',
+        value: const InputMapping(InputMapping.activeToolValue),
+        displayName: (context) => AppLocalizations.of(context).activeTool,
+        descriptionBuilder: (context) =>
+            AppLocalizations.of(context).activeToolDescription,
+      ),
+      SettingsLeapOption<InputMapping?>(
+        id: 'handTool',
+        value: const InputMapping(InputMapping.handToolValue),
+        displayName: (context) => AppLocalizations.of(context).handTool,
+        descriptionBuilder: (context) =>
+            AppLocalizations.of(context).handToolDescription,
+      ),
+      for (var index = 0; index < 99; index++)
+        SettingsLeapOption<InputMapping?>(
           id: 'tool${index + 1}',
           value: InputMapping(index),
           displayName: (context) =>

@@ -5,6 +5,7 @@ import 'package:butterfly/api/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -310,6 +311,8 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.leftMouse) InputMapping leftMouse,
     @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
     @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
+    InputMapping? backMouse,
+    InputMapping? forwardMouse,
     @Default(InputMappingDefault.pen) InputMapping pen,
     @Default(InputMappingDefault.invertedPen) InputMapping invertedPen,
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
@@ -322,6 +325,10 @@ sealed class InputConfiguration with _$InputConfiguration {
     String? tripleMiddleMouseShortcut,
     String? doubleRightMouseShortcut,
     String? tripleRightMouseShortcut,
+    String? doubleBackMouseShortcut,
+    String? tripleBackMouseShortcut,
+    String? doubleForwardMouseShortcut,
+    String? tripleForwardMouseShortcut,
     String? doublePenShortcut,
     String? triplePenShortcut,
     String? doubleInvertedPenShortcut,
@@ -337,10 +344,12 @@ sealed class InputConfiguration with _$InputConfiguration {
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
 
-  Set<InputMapping> getShortcuts() => {
+  Set<InputMapping> getShortcuts() => <InputMapping>{
     leftMouse,
     middleMouse,
     rightMouse,
+    ?backMouse,
+    ?forwardMouse,
     pen,
     invertedPen,
     firstPenButton,
@@ -348,6 +357,38 @@ sealed class InputConfiguration with _$InputConfiguration {
     touch,
     ...holdShortcuts.map((e) => e.mapping),
   }.toSet();
+
+  InputMapping? getMouseMapping(int buttons) {
+    if ((buttons & kForwardMouseButton) != 0) return forwardMouse;
+    if ((buttons & kBackMouseButton) != 0) return backMouse;
+    if ((buttons & kSecondaryMouseButton) != 0) return rightMouse;
+    if ((buttons & kMiddleMouseButton) != 0) return middleMouse;
+    if ((buttons & kPrimaryMouseButton) != 0) return leftMouse;
+    return null;
+  }
+
+  String? getMouseShortcut(int buttons, {required bool isDoubleTap}) {
+    if ((buttons & kForwardMouseButton) != 0) {
+      return isDoubleTap
+          ? doubleForwardMouseShortcut
+          : tripleForwardMouseShortcut;
+    }
+    if ((buttons & kBackMouseButton) != 0) {
+      return isDoubleTap ? doubleBackMouseShortcut : tripleBackMouseShortcut;
+    }
+    if ((buttons & kSecondaryMouseButton) != 0) {
+      return isDoubleTap ? doubleRightMouseShortcut : tripleRightMouseShortcut;
+    }
+    if ((buttons & kMiddleMouseButton) != 0) {
+      return isDoubleTap
+          ? doubleMiddleMouseShortcut
+          : tripleMiddleMouseShortcut;
+    }
+    if ((buttons & kPrimaryMouseButton) != 0) {
+      return isDoubleTap ? doubleLeftMouseShortcut : tripleLeftMouseShortcut;
+    }
+    return null;
+  }
 }
 
 enum SortBy { name, created, modified }
@@ -948,6 +989,27 @@ class SettingsCubit extends Cubit<ButterflySettings>
     with LeapSettingsBlocBaseMixin {
   SettingsCubit(SharedPreferences prefs)
     : super(ButterflySettings.fromPrefs(prefs));
+
+  Future<void> resetSettings(
+    ButterflySettings Function(
+      ButterflySettings current,
+      ButterflySettings defaults,
+    )
+    reset,
+  ) {
+    emit(reset(state, const ButterflySettings()));
+    return save();
+  }
+
+  Future<void> resetAllSettings() {
+    emit(
+      const ButterflySettings().copyWith(
+        history: state.history,
+        connections: state.connections,
+      ),
+    );
+    return save();
+  }
 
   void setTheme(BuildContext context, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;

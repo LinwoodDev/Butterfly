@@ -2,7 +2,9 @@
 <component type="desktop-application">
 	<id>dev.linwood.butterfly</id>
 	<name>Linwood Butterfly</name>
-	<developer_name>Linwood</developer_name>
+	<developer id="dev.linwood">
+		<name>Linwood</name>
+	</developer>
 	<summary>Draw and organize ideas</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
@@ -72,39 +74,276 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
-		<release version="2.5.4" date="2026-07-20" />
+		<release version="2.6.0-beta.3" type="development" date="2026-07-27">
+			<description>
+				<ul>
+					<li>Add shear property for elements</li>
+					<li>Add camera rotation support (#977)</li>
+					<li>Add custom fonts to label (#1011)</li>
+					<li>Add option to customize default file name globally and in template (#1041)</li>
+					<li>Add flip horizontal and vertical to all elements (#1058)</li>
+					<li>Improve negative scaling</li>
+					<li>Improve rotated elements transformtion (#1099)</li>
+					<li>Improve rendering reliability if baking fails</li>
+					<li>Fix embed/web loading errors (#1167)</li>
+					<li>Fix file previews resetting the language to the system locale</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.3</url>
+		</release>
+		<release version="2.6.0-beta.2" type="development" date="2026-07-13">
+			<description>
+				<ul>
+					<li>Add persistent document states (#1077)</li>
+					<li>Reorder top corner menu to have home on top (#1161)</li>
+					<li>Rebuild internal settings pages</li>
+					<li>Refactor whole state management structure (#1157)</li>
+					<li>Remove unused view options</li>
+					<li>Fix crash with android saf on folders with many files</li>
+					<li>Fix blur resetting on color change</li>
+					<li>Fix polygon collision aabb tests if closed (#1162)</li>
+					<li>Upgrade to agb 9</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.2</url>
+		</release>
+		<release version="2.6.0-beta.1" type="development" date="2026-07-06">
+			<description>
+				<ul>
+					<li>Add pages selector with range input (#1151)</li>
+					<li>Add internal page numbers to the pages navigator (#1143)</li>
+					<li>Add cross-page area selection and deletion (#1143)</li>
+					<li>Add apply areas option to templates (#1151)</li>
+					<li>Add combine paths option (#1071)</li>
+					<li>Add xournal++ exporter</li>
+					<li>Add OneNote importer (#427)</li>
+					<li>Add next and previous page shortcuts</li>
+					<li>Improve xournal++ importer</li>
+					<li>Improve state management for better linking different systems together</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.1</url>
+		</release>
+		<release version="2.6.0-beta.0" type="development" date="2026-06-22">
+			<description>
+				<ul>
+					<li>Add tool presets (#1070)</li>
+					<li>Add tool favorites</li>
+					<li>Add element paints to replace current color property</li>
+					<li>Unify path eraser and eraser in one tool (#1130)</li>
+					<li>Add different eraser and selector modes (#1111)</li>
+					<li>Add subtype tool switching for selection and spacer tools (#1122)</li>
+					<li>Add property view position setting (#1100)</li>
+					<li>Add bring moved elements to front option (#1098)</li>
+					<li>Add ability to move areas together with their contents (#1125)</li>
+					<li>Add move to layer (#1069)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.0</url>
+		</release>
+		<release version="2.5.4" type="stable" date="2026-07-20">
+			<description>
+				<ul>
+					<li>Prevent crashes when Android SAF handles large folders and files</li>
+					<li>Fix text labels disappearing while editing</li>
+					<li>Fix polygons disappearing while editing</li>
+					<li>Fix renamed files appearing twice in Recent files</li>
+					<li>Fix layers and pages being reordered to the wrong position</li>
+					<li>Improve WebDAV compatibility and select the correct filesystem with SAF enabled</li>
+					<li>Fix the spacer tool for circles, shapes, polygons, and other elements</li>
+					<li>Fix repeated saves and mark imported documents as unsaved</li>
+					<li>Fix locked zoom controls</li>
+					<li>Respect hidden file extensions in Recent files</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.5.4</url>
+		</release>
+		<release version="2.5.3-rc.1" type="development" date="2026-06-05" />
+		<release version="2.5.3-rc.0" type="development" date="2026-06-02" />
 		<release version="2.5.3" date="2026-06-08" />
+		<release version="2.5.2-rc.3" type="development" date="2026-05-20" />
+		<release version="2.5.2-rc.2" type="development" date="2026-05-18" />
+		<release version="2.5.2-rc.1" type="development" date="2026-05-13" />
+		<release version="2.5.2-rc.0" type="development" date="2026-05-06" />
 		<release version="2.5.2" date="2026-05-23" />
+		<release version="2.5.1-rc.2" type="development" date="2026-04-23" />
+		<release version="2.5.1-rc.1" type="development" date="2026-04-20" />
+		<release version="2.5.1-rc.0" type="development" date="2026-04-13" />
 		<release version="2.5.1" date="2026-04-26" />
+		<release version="2.5.0-rc.2" type="development" date="2026-03-30" />
+		<release version="2.5.0-rc.1" type="development" date="2026-03-23" />
+		<release version="2.5.0-rc.0" type="development" date="2026-03-12" />
+		<release version="2.5.0-beta.3" type="development" date="2026-03-05" />
+		<release version="2.5.0-beta.2" type="development" date="2026-02-26" />
+		<release version="2.5.0-beta.1" type="development" date="2026-02-04" />
+		<release version="2.5.0-beta.0" type="development" date="2026-01-14" />
 		<release version="2.5.0" date="2026-04-05" />
 		<release version="2.4.4" date="2026-02-18" />
 		<release version="2.4.3" date="2026-01-22" />
+		<release version="2.4.2-rc.4" type="development" date="2025-12-19" />
+		<release version="2.4.2-rc.3" type="development" date="2025-12-12" />
+		<release version="2.4.2-rc.2" type="development" date="2025-12-04" />
+		<release version="2.4.2-rc.1" type="development" date="2025-11-27" />
+		<release version="2.4.2-rc.0" type="development" date="2025-11-20" />
 		<release version="2.4.2" date="2025-12-24" />
+		<release version="2.4.1-rc.4" type="development" date="2025-11-10" />
+		<release version="2.4.1-rc.3" type="development" date="2025-11-03" />
+		<release version="2.4.1-rc.2" type="development" date="2025-10-29" />
+		<release version="2.4.1-rc.1" type="development" date="2025-10-27" />
+		<release version="2.4.1-rc.0" type="development" date="2025-10-20" />
 		<release version="2.4.1" date="2025-11-13" />
+		<release version="2.4.0-rc.4" type="development" date="2025-09-19" />
+		<release version="2.4.0-rc.3" type="development" date="2025-09-15" />
+		<release version="2.4.0-rc.2" type="development" date="2025-09-12" />
+		<release version="2.4.0-rc.1" type="development" date="2025-09-08" />
+		<release version="2.4.0-rc.0" type="development" date="2025-09-04" />
+		<release version="2.4.0-beta.3" type="development" date="2025-08-28" />
+		<release version="2.4.0-beta.2" type="development" date="2025-08-13" />
+		<release version="2.4.0-beta.1" type="development" date="2025-07-14" />
+		<release version="2.4.0-beta.0" type="development" date="2025-06-18" />
 		<release version="2.4.0" date="2025-09-22" />
 		<release version="2.3.4" date="2025-08-21" />
 		<release version="2.3.3" date="2025-08-01" />
 		<release version="2.3.2" date="2025-06-23" />
+		<release version="2.3.1-rc.1" type="development" date="2025-05-12" />
+		<release version="2.3.1-rc.0" type="development" date="2025-05-05" />
 		<release version="2.3.1" date="2025-06-23" />
+		<release version="2.3.0-rc.1" type="development" date="2025-04-16" />
+		<release version="2.3.0-rc.0" type="development" date="2025-04-13" />
+		<release version="2.3.0-beta.4" type="development" date="2025-03-31" />
+		<release version="2.3.0-beta.3" type="development" date="2025-03-17" />
+		<release version="2.3.0-beta.2" type="development" date="2025-03-04" />
+		<release version="2.3.0-beta.1" type="development" date="2025-01-20" />
+		<release version="2.3.0-beta.0" type="development" date="2025-01-06" />
 		<release version="2.3.0" date="2025-04-20" />
 		<release version="2.2.4" date="2025-01-13" />
+		<release version="2.2.3-rc.2" type="development" date="2024-12-20" />
+		<release version="2.2.3-rc.1" type="development" date="2024-12-16" />
+		<release version="2.2.3-rc.0" type="development" date="2024-12-02" />
 		<release version="2.2.3" date="2024-12-24" />
+		<release version="2.2.2-rc.1" type="development" date="2024-11-04" />
+		<release version="2.2.2-rc.0" type="development" date="2024-10-28" />
 		<release version="2.2.2" date="2024-11-11" />
+		<release version="2.2.1-rc.1" type="development" date="2024-10-14" />
+		<release version="2.2.1-rc.0" type="development" date="2024-09-30" />
 		<release version="2.2.1" date="2024-10-17" />
+		<release version="2.2.0-rc.3" type="development" date="2024-09-26" />
+		<release version="2.2.0-rc.2" type="development" date="2026-06-02" />
+		<release version="2.2.0-rc.1" type="development" date="2024-09-23" />
+		<release version="2.2.0-rc.0" type="development" date="2024-09-16" />
+		<release version="2.2.0-beta.3" type="development" date="2024-09-09" />
+		<release version="2.2.0-beta.2" type="development" date="2024-08-27" />
+		<release version="2.2.0-beta.1" type="development" date="2024-08-05" />
+		<release version="2.2.0-beta.0" type="development" date="2024-06-25" />
 		<release version="2.2.0" date="2024-09-28" />
+		<release version="2.1.1-rc.2" type="development" date="2024-06-03" />
+		<release version="2.1.1-rc.1" type="development" date="2024-05-21" />
+		<release version="2.1.1-rc.0" type="development" date="2024-05-14" />
 		<release version="2.1.1" date="2024-06-10" />
+		<release version="2.1.0-rc.3" type="development" date="2024-05-07" />
+		<release version="2.1.0-rc.2" type="development" date="2024-05-06" />
+		<release version="2.1.0-rc.1" type="development" date="2024-04-30" />
+		<release version="2.1.0-rc.0" type="development" date="2024-04-22" />
+		<release version="2.1.0-beta.5" type="development" date="2024-04-08" />
+		<release version="2.1.0-beta.4" type="development" date="2024-04-01" />
+		<release version="2.1.0-beta.3" type="development" date="2024-03-25" />
+		<release version="2.1.0-beta.2" type="development" date="2024-03-11" />
+		<release version="2.1.0-beta.1" type="development" date="2024-03-04" />
+		<release version="2.1.0-beta.0" type="development" date="2024-02-26" />
 		<release version="2.1.0" date="2024-05-10" />
+		<release version="2.0.3-rc.1" type="development" date="2024-02-12" />
+		<release version="2.0.3-rc.0" type="development" date="2024-02-05" />
 		<release version="2.0.3" date="2024-02-19" />
+		<release version="2.0.2-rc.0" type="development" date="2024-01-22" />
 		<release version="2.0.2" date="2024-01-29" />
+		<release version="2.0.1-rc.1" type="development" date="2024-01-08" />
+		<release version="2.0.1-rc.0" type="development" date="2024-01-01" />
 		<release version="2.0.1" date="2024-01-15" />
+		<release version="2.0.0-rc.3" type="development" date="2023-12-22" />
+		<release version="2.0.0-rc.2" type="development" date="2023-12-15" />
+		<release version="2.0.0-rc.1" type="development" date="2023-12-08" />
+		<release version="2.0.0-rc.0" type="development" date="2023-12-01" />
+		<release version="2.0.0-beta.16" type="development" date="2023-11-24" />
+		<release version="2.0.0-beta.15" type="development" date="2023-11-17" />
+		<release version="2.0.0-beta.14" type="development" date="2023-11-04" />
+		<release version="2.0.0-beta.13" type="development" date="2023-10-29" />
+		<release version="2.0.0-beta.12" type="development" date="2023-10-27" />
+		<release version="2.0.0-beta.11" type="development" date="2023-10-20" />
+		<release version="2.0.0-beta.10" type="development" date="2023-10-13" />
+		<release version="2.0.0-beta.9" type="development" date="2023-10-06" />
+		<release version="2.0.0-beta.8" type="development" date="2023-09-28" />
+		<release version="2.0.0-beta.7" type="development" date="2023-08-18" />
+		<release version="2.0.0-beta.6" type="development" date="2023-08-04" />
+		<release version="2.0.0-beta.5" type="development" date="2023-07-21" />
+		<release version="2.0.0-beta.4" type="development" date="2023-07-14" />
+		<release version="2.0.0-beta.3" type="development" date="2023-07-07" />
+		<release version="2.0.0-beta.2" type="development" date="2023-06-30" />
+		<release version="2.0.0-beta.1" type="development" date="2023-06-23" />
+		<release version="2.0.0-beta.0" type="development" date="2023-06-12" />
+		<release version="2.0.0-alpha.4" type="development" date="2023-05-21" />
+		<release version="2.0.0-alpha.3" type="development" date="2023-05-15" />
+		<release version="2.0.0-alpha.2" type="development" date="2023-05-05" />
+		<release version="2.0.0-alpha.1" type="development" date="2023-04-14" />
+		<release version="2.0.0-alpha.0" type="development" date="2023-04-09" />
 		<release version="2.0.0" date="2023-12-24" />
 		<release version="1.6.1" date="2023-01-27" />
+		<release version="1.6.0-rc.1" type="development" date="2022-12-19" />
+		<release version="1.6.0-rc.0" type="development" date="2022-12-16" />
+		<release version="1.6.0-beta.0" type="development" date="2022-12-09" />
+		<release version="1.6.0-alpha.1" type="development" date="2022-11-25" />
+		<release version="1.6.0-alpha.0" type="development" date="2022-11-05" />
 		<release version="1.6.0" date="2022-12-24" />
 		<release version="1.5.1" date="2022-10-28" />
+		<release version="1.5.0-rc.1" type="development" date="2022-10-19" />
+		<release version="1.5.0-rc.0" type="development" date="2022-10-15" />
+		<release version="1.5.0-beta.2" type="development" date="2022-10-07" />
+		<release version="1.5.0-beta.1" type="development" date="2022-09-30" />
+		<release version="1.5.0-beta.0" type="development" date="2022-09-23" />
+		<release version="1.5.0-alpha.2" type="development" date="2022-09-09" />
+		<release version="1.5.0-alpha.1" type="development" date="2022-09-02" />
+		<release version="1.5.0-alpha.0" type="development" date="2022-08-26" />
 		<release version="1.5.0" date="2022-10-21" />
+		<release version="1.4.4" date="2022-09-16" />
+		<release version="1.4.3" date="2022-08-20" />
+		<release version="1.4.2" date="2022-08-12" />
 		<release version="1.4.1" date="2022-08-05" />
+		<release version="1.4.0-rc.3" type="development" date="2022-07-25" />
+		<release version="1.4.0-rc.2" type="development" date="2022-07-23" />
+		<release version="1.4.0-rc.1" type="development" date="2022-07-20" />
+		<release version="1.4.0-rc.0" type="development" date="2022-07-17" />
+		<release version="1.4.0-beta.1" type="development" date="2022-07-15" />
+		<release version="1.4.0-beta.0" type="development" date="2022-07-08" />
+		<release version="1.4.0-alpha.3" type="development" date="2022-07-01" />
+		<release version="1.4.0-alpha.2" type="development" date="2022-06-24" />
+		<release version="1.4.0-alpha.1" type="development" date="2022-06-20" />
+		<release version="1.4.0-alpha.0" type="development" date="2022-06-17" />
 		<release version="1.4.0" date="2022-08-05" />
 		<release version="1.3.2" date="2022-06-10" />
+		<release version="1.3.1" date="2022-06-03" />
+		<release version="1.3.0-rc.2" type="development" date="2022-05-22" />
+		<release version="1.3.0-rc.1" type="development" date="2022-05-18" />
+		<release version="1.3.0-rc.0" type="development" date="2022-05-13" />
+		<release version="1.3.0-beta.2" type="development" date="2022-05-06" />
+		<release version="1.3.0-beta.1" type="development" date="2022-04-29" />
+		<release version="1.3.0-beta.0" type="development" date="2022-04-20" />
+		<release version="1.3.0-alpha.1" type="development" date="2022-04-12" />
+		<release version="1.3.0-alpha.0" type="development" date="2022-03-05" />
+		<release version="1.3.0" date="2022-05-26" />
+		<release version="1.2.1" date="2022-03-05" />
+		<release version="1.2.0" date="2022-02-22" />
+		<release version="1.1.2" date="2022-01-21" />
+		<release version="1.1.1" date="2022-01-14" />
+		<release version="1.1.0" date="2022-01-05" />
+		<release version="1.0.0-rc.6" type="development" date="2021-12-18" />
+		<release version="1.0.0-rc.5" type="development" date="2021-12-10" />
+		<release version="1.0.0-rc.4" type="development" date="2021-11-27" />
+		<release version="1.0.0-rc.3" type="development" date="2021-11-14" />
+		<release version="1.0.0-rc.2" type="development" date="2021-11-07" />
+		<release version="1.0.0-rc.1" type="development" date="2021-10-30" />
+		<release version="1.0.0-rc.0" type="development" date="2021-10-20" />
+		<release version="1.0.0-beta.0" type="development" date="2021-10-15" />
+		<release version="1.0.0-alpha.0" type="development" date="2021-10-10" />
+		<release version="1.0.0" date="2021-12-24" />
 	</releases>
 	<content_rating type="oars-1.1" />
 	<update_contact>contact@linwood.dev</update_contact>

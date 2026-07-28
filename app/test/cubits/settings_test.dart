@@ -1,4 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +48,105 @@ void main() {
       ButterflySettings.fromPrefs(prefs).defaultFileName,
       kDefaultFileName,
     );
+  });
+
+  group('extra mouse buttons', () {
+    const backMapping = InputMapping(InputMapping.handToolValue);
+    const forwardMapping = InputMapping(4);
+    const configuration = InputConfiguration(
+      backMouse: backMapping,
+      forwardMouse: forwardMapping,
+      doubleBackMouseShortcut: 'undo',
+      tripleBackMouseShortcut: 'redo',
+      doubleForwardMouseShortcut: 'zoom_in',
+      tripleForwardMouseShortcut: 'zoom_out',
+    );
+
+    test('maps back and forward button presses', () {
+      expect(configuration.getMouseMapping(kBackMouseButton), backMapping);
+      expect(
+        configuration.getMouseMapping(kForwardMouseButton),
+        forwardMapping,
+      );
+      expect(
+        const InputConfiguration().getMouseMapping(kBackMouseButton),
+        null,
+      );
+      expect(
+        const InputConfiguration().getMouseMapping(kForwardMouseButton),
+        null,
+      );
+    });
+
+    test('maps back and forward multi-click shortcuts', () {
+      expect(
+        configuration.getMouseShortcut(kBackMouseButton, isDoubleTap: true),
+        'undo',
+      );
+      expect(
+        configuration.getMouseShortcut(kBackMouseButton, isDoubleTap: false),
+        'redo',
+      );
+      expect(
+        configuration.getMouseShortcut(kForwardMouseButton, isDoubleTap: true),
+        'zoom_in',
+      );
+      expect(
+        configuration.getMouseShortcut(kForwardMouseButton, isDoubleTap: false),
+        'zoom_out',
+      );
+    });
+
+    test('serializes back and forward mouse settings', () {
+      final decoded = InputConfiguration.fromJson(configuration.toJson());
+
+      expect(decoded, configuration);
+      expect(
+        decoded.getShortcuts(),
+        containsAll([backMapping, forwardMapping]),
+      );
+    });
+  });
+
+  group('SettingsCubit resets', () {
+    test(
+      'resets selected settings while preserving unrelated values',
+      () async {
+        SharedPreferences.setMockInitialValues({});
+        final prefs = await SharedPreferences.getInstance();
+        final cubit = SettingsCubit(prefs);
+        await cubit.changeTheme(ThemeMode.dark);
+        await cubit.changeTouchSensitivity(2);
+
+        await cubit.resetSettings(
+          (current, defaults) =>
+              current.copyWith(touchSensitivity: defaults.touchSensitivity),
+        );
+
+        expect(cubit.state.touchSensitivity, 1);
+        expect(cubit.state.theme, ThemeMode.dark);
+        expect(prefs.getDouble('touch_sensitivity'), 1);
+        expect(prefs.getString('theme_mode'), ThemeMode.dark.name);
+      },
+    );
+
+    test('resets all settings but preserves recent history', () async {
+      SharedPreferences.setMockInitialValues({});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      const location = AssetLocation(path: '/note.bfly');
+      await cubit.addRecentHistory(location);
+      await cubit.changeTheme(ThemeMode.dark);
+      await cubit.changeTouchSensitivity(2);
+
+      await cubit.resetAllSettings();
+
+      expect(cubit.state.theme, ThemeMode.system);
+      expect(cubit.state.touchSensitivity, 1);
+      expect(cubit.state.history, [location]);
+      expect(prefs.getString('theme_mode'), ThemeMode.system.name);
+      expect(prefs.getDouble('touch_sensitivity'), 1);
+    });
   });
 
   group('SettingsCubit recent history', () {

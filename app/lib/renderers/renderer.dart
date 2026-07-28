@@ -127,17 +127,29 @@ class ElementPaintRenderer {
           case RadialElementGradient(
             :final center,
             :final radius,
+            :final focal,
+            :final focalRadius,
             :final stops,
           ):
+            final radiusScale =
+                sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2;
             shader = ui.Gradient.radial(
               Offset(
                 bounds.left + center.x * bounds.width,
                 bounds.top + center.y * bounds.height,
               ),
-              radius * sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2,
+              radius * radiusScale,
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
               tileMode,
+              null,
+              focal == null
+                  ? null
+                  : Offset(
+                      bounds.left + focal.x * bounds.width,
+                      bounds.top + focal.y * bounds.height,
+                    ),
+              (focalRadius ?? 0) * radiusScale,
             );
         }
         result.shader = shader;

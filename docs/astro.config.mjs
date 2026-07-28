@@ -5,7 +5,7 @@ import { getSidebarTranslatedLabel } from "./src/translations";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 import { fileURLToPath } from "node:url";
-import { satteri } from '@astrojs/markdown-satteri';
+import { satteri } from "@astrojs/markdown-satteri";
 import katex from "katex";
 
 const renderMath = (value, displayMode = false) =>
@@ -29,7 +29,7 @@ export default defineConfig({
   site: "https://butterfly.linwood.dev",
   markdown: {
     processor: satteri({
-      features: { math: true },
+      features: { math: true, headingAttributes: true },
       mdastPlugins: [renderMathPlugin],
     }),
   },
@@ -100,6 +100,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Shortcuts"),
               link: "/docs/v2/shortcuts/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Stylus support"),
+              link: "/docs/v2/stylus-support/",
             },
             {
               ...getSidebarTranslatedLabel("Storage"),
@@ -270,10 +274,6 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Stylus support"),
-              link: "/community/stylus-support/",
             },
             {
               ...getSidebarTranslatedLabel("Comparison"),
