@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "ज़ूम पर निर्भर",
   "shapeDetection": "आकृति पहचान",
   "delay": "देरी",
