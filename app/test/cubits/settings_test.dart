@@ -97,6 +97,31 @@ void main() {
       );
     });
 
+    test('resolves pointer mappings and repeated tap shortcuts', () {
+      expect(
+        configuration.getPointerMapping(
+          PointerDeviceKind.mouse,
+          kBackMouseButton,
+        ),
+        backMapping,
+      );
+      expect(
+        configuration.getRepeatedTapShortcut(
+          PointerDeviceKind.mouse,
+          kForwardMouseButton,
+          3,
+        ),
+        'zoom_out',
+      );
+      expect(
+        configuration.hasRepeatedTapShortcut(
+          PointerDeviceKind.mouse,
+          kBackMouseButton,
+        ),
+        isTrue,
+      );
+    });
+
     test('serializes back and forward mouse settings', () {
       final decoded = InputConfiguration.fromJson(configuration.toJson());
 
@@ -106,6 +131,47 @@ void main() {
         containsAll([backMapping, forwardMapping]),
       );
     });
+  });
+
+  test('resolves stylus pointer mappings by button priority', () {
+    const configuration = InputConfiguration();
+
+    expect(
+      configuration.getPointerMapping(PointerDeviceKind.stylus, 0),
+      configuration.pen,
+    );
+    expect(
+      configuration.getPointerMapping(
+        PointerDeviceKind.stylus,
+        kPrimaryStylusButton,
+      ),
+      configuration.firstPenButton,
+    );
+    expect(
+      configuration.getPointerMapping(
+        PointerDeviceKind.stylus,
+        kFallbackSecondaryStylusButton,
+      ),
+      configuration.secondPenButton,
+    );
+    expect(
+      configuration.getPointerMapping(PointerDeviceKind.invertedStylus, 0),
+      configuration.invertedPen,
+    );
+  });
+
+  test('serializes multi-finger touch shortcuts', () {
+    const configuration = InputConfiguration(
+      twoFingerTouchShortcut: 'undo',
+      threeFingerTouchShortcut: 'redo',
+    );
+
+    final decoded = InputConfiguration.fromJson(configuration.toJson());
+
+    expect(decoded, configuration);
+    expect(decoded.getMultiFingerTouchShortcut(2), 'undo');
+    expect(decoded.getMultiFingerTouchShortcut(3), 'redo');
+    expect(decoded.getMultiFingerTouchShortcut(4), null);
   });
 
   group('SettingsCubit resets', () {
