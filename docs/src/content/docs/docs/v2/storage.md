@@ -76,7 +76,7 @@ To get the WebDAV URL, please visit the documentation:
 Still not done yet! After doing the above, press the `Connect` button.
 
 If you have done everything correctly, there will be some new stuff down the popup.
-![2 new input boxes appear down the list in the popup](@assets/img/webDAV/Directory1.png)
+![2 new input boxes appear down the list in the popup](@assets/img/webDAV/Directory1.jpg)
 
 Type the name of this connection in the `Name` inputbox, you can name it anything.
 
