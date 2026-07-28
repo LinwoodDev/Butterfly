@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "확대/축소에 따라",
   "shapeDetection": "도형 인식",
   "delay": "지연",
