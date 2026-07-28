@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Dependiente de zoom",
   "shapeDetection": "Detección de forma",
   "delay": "Retraso",
