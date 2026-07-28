@@ -3,8 +3,6 @@ title: Storage
 sidebar_position: 2
 ---
 
-
-
 There are multiple ways of storing notes in Butterfly.
 Either by using your device storage, or by using the cloud storage (WebDAV). 
 
@@ -94,13 +92,12 @@ Lastly, after typing the name of the folder you want Butterfly to store your not
 
 That's it. Syncing to the cloud should work now.
 
-
 ### Offline sync {#offline}
 
 This feature allows you to edit your files on remote servers while you are offline.
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
 
-There are a few limitations
+There are a few limitations:
 * You cannot delete a file or folder while you are offline.
 * You cannot add, edit or delete templates while you are offline.
 
@@ -129,6 +126,7 @@ This file is **not** a zip archive; instead it is a _JSON_ file.
 It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is slower to load than the normal Butterfly Note.
 
 ### SVG
+
 This file type doesn't save information about the note!
 When this file is imported into Butterfly, it is treated as a single image.
 
