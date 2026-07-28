@@ -100,6 +100,16 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
             defaults.inputConfiguration.doubleRightMouseShortcut,
         tripleRightMouseShortcut:
             defaults.inputConfiguration.tripleRightMouseShortcut,
+        backMouse: defaults.inputConfiguration.backMouse,
+        doubleBackMouseShortcut:
+            defaults.inputConfiguration.doubleBackMouseShortcut,
+        tripleBackMouseShortcut:
+            defaults.inputConfiguration.tripleBackMouseShortcut,
+        forwardMouse: defaults.inputConfiguration.forwardMouse,
+        doubleForwardMouseShortcut:
+            defaults.inputConfiguration.doubleForwardMouseShortcut,
+        tripleForwardMouseShortcut:
+            defaults.inputConfiguration.tripleForwardMouseShortcut,
       ),
     ),
   ),
@@ -197,6 +207,56 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.tripleRightMouseShortcut,
           write: (config, value) =>
               config.copyWith(tripleRightMouseShortcut: value),
+        ),
+        _optionalInputMappingSetting(
+          id: 'backMouse',
+          displayName: (context) => AppLocalizations.of(context).back,
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.backMouse,
+          write: (config, value) => config.copyWith(backMouse: value),
+        ),
+        _inputShortcutSetting(
+          id: 'doubleBackMouseShortcut',
+          displayName: (context) =>
+              _getDoubleName(context, AppLocalizations.of(context).back),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.doubleBackMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(doubleBackMouseShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'tripleBackMouseShortcut',
+          displayName: (context) =>
+              _getTripleName(AppLocalizations.of(context).back),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.tripleBackMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(tripleBackMouseShortcut: value),
+        ),
+        _optionalInputMappingSetting(
+          id: 'forwardMouse',
+          displayName: (context) => AppLocalizations.of(context).forward,
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.forwardMouse,
+          write: (config, value) => config.copyWith(forwardMouse: value),
+        ),
+        _inputShortcutSetting(
+          id: 'doubleForwardMouseShortcut',
+          displayName: (context) =>
+              _getDoubleName(context, AppLocalizations.of(context).forward),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.doubleForwardMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(doubleForwardMouseShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'tripleForwardMouseShortcut',
+          displayName: (context) =>
+              _getTripleName(AppLocalizations.of(context).forward),
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.tripleForwardMouseShortcut,
+          write: (config, value) =>
+              config.copyWith(tripleForwardMouseShortcut: value),
         ),
       ],
     ),
@@ -625,6 +685,58 @@ SettingsLeapListSetting<ButterflySettings, InputMapping> _inputMappingSetting({
       ),
       for (var index = 0; index < 99; index++)
         SettingsLeapOption(
+          id: 'tool${index + 1}',
+          value: InputMapping(index),
+          displayName: (context) =>
+              AppLocalizations.of(context).toolOnToolbarShort(index + 1),
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).toolOnToolbarDescription,
+        ),
+    ],
+    read: (state) => read(state.inputConfiguration),
+    write: (context, value) {
+      final cubit = context.read<SettingsCubit>();
+      cubit.changeInputConfiguration(
+        write(cubit.state.inputConfiguration, value),
+      );
+    },
+  );
+}
+
+SettingsLeapListSetting<ButterflySettings, InputMapping?>
+_optionalInputMappingSetting({
+  required String id,
+  required SettingsLeapDisplayName displayName,
+  required IconData icon,
+  required _InputConfigurationRead<InputMapping?> read,
+  required _InputConfigurationWrite<InputMapping?> write,
+}) {
+  return SettingsLeapListSetting<ButterflySettings, InputMapping?>(
+    id: id,
+    displayName: displayName,
+    icon: icon,
+    options: [
+      SettingsLeapOption<InputMapping?>(
+        id: 'none',
+        value: null,
+        displayName: (context) => AppLocalizations.of(context).none,
+      ),
+      SettingsLeapOption<InputMapping?>(
+        id: 'activeTool',
+        value: const InputMapping(InputMapping.activeToolValue),
+        displayName: (context) => AppLocalizations.of(context).activeTool,
+        descriptionBuilder: (context) =>
+            AppLocalizations.of(context).activeToolDescription,
+      ),
+      SettingsLeapOption<InputMapping?>(
+        id: 'handTool',
+        value: const InputMapping(InputMapping.handToolValue),
+        displayName: (context) => AppLocalizations.of(context).handTool,
+        descriptionBuilder: (context) =>
+            AppLocalizations.of(context).handToolDescription,
+      ),
+      for (var index = 0; index < 99; index++)
+        SettingsLeapOption<InputMapping?>(
           id: 'tool${index + 1}',
           value: InputMapping(index),
           displayName: (context) =>

@@ -105,24 +105,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     InputConfiguration config,
     int buttons,
     bool isDoubleTap,
-  ) {
-    if ((buttons & kSecondaryMouseButton) != 0) {
-      return isDoubleTap
-          ? config.doubleRightMouseShortcut
-          : config.tripleRightMouseShortcut;
-    }
-    if ((buttons & kMiddleMouseButton) != 0) {
-      return isDoubleTap
-          ? config.doubleMiddleMouseShortcut
-          : config.tripleMiddleMouseShortcut;
-    }
-    if ((buttons & kPrimaryMouseButton) != 0) {
-      return isDoubleTap
-          ? config.doubleLeftMouseShortcut
-          : config.tripleLeftMouseShortcut;
-    }
-    return null;
-  }
+  ) => config.getMouseShortcut(buttons, isDoubleTap: isDoubleTap);
 
   String? _getPenShortcut(
     InputConfiguration config,
@@ -473,13 +456,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                 case PointerDeviceKind.touch:
                   nextPointerMapping = config.touch;
                 case PointerDeviceKind.mouse:
-                  if ((buttons & kSecondaryMouseButton) != 0) {
-                    nextPointerMapping = config.rightMouse;
-                  } else if ((buttons & kMiddleMouseButton) != 0) {
-                    nextPointerMapping = config.middleMouse;
-                  } else if ((buttons & kPrimaryMouseButton) != 0) {
-                    nextPointerMapping = config.leftMouse;
-                  }
+                  nextPointerMapping = config.getMouseMapping(buttons);
                 case PointerDeviceKind.stylus:
                   nextPointerMapping = config.pen;
                   if ((buttons & kSecondaryStylusButton) != 0 ||

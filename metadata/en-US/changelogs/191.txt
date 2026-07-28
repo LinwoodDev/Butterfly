@@ -5,6 +5,7 @@
 * Add foreground color option to the ruler tool with automatic contrast ([#1168](https://github.com/LinwoodDev/Butterfly/issues/1168))
 * Add reset to setting pages ([#1190](https://github.com/LinwoodDev/Butterfly/issues/1190))
 * Add focal support to radial gradients ([#1193](https://github.com/LinwoodDev/Butterfly/issues/1193))
+* Add back and forward mouse button mappings ([#1169](https://github.com/LinwoodDev/Butterfly/issues/1169))
 * Improve Linux app metadata
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.4
