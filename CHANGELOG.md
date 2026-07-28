@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-beta.3 (2026-07-27)
+
+* Add shear property for elements
+* Add camera rotation support ([#977](https://github.com/LinwoodDev/Butterfly/issues/977))
+* Add custom fonts to label ([#1011](https://github.com/LinwoodDev/Butterfly/issues/1011))
+* Add option to customize default file name globally and in template ([#1041](https://github.com/LinwoodDev/Butterfly/issues/1041))
+* Add flip horizontal and vertical to all elements ([#1058](https://github.com/LinwoodDev/Butterfly/issues/1058))
+* Improve negative scaling
+* Improve rotated elements transformtion ([#1099](https://github.com/LinwoodDev/Butterfly/issues/1099))
+* Improve rendering reliability if baking fails
+* Fix embed/web loading errors ([#1167](https://github.com/LinwoodDev/Butterfly/issues/1167))
+* Fix file previews resetting the language to the system locale
+* Fix filename preview appearing when renaming existing documents
+* Fix navigation menus broken on mobile layout ([#1177](https://github.com/LinwoodDev/Butterfly/issues/1177))
+* Fix creating packs from the selection menu ([#1178](https://github.com/LinwoodDev/Butterfly/issues/1178))
+* Fix moving collection elements to layers ([#1176](https://github.com/LinwoodDev/Butterfly/issues/1176))
+* Fix unreliable keyboard shortcuts after loading toolbars ([#1186](https://github.com/LinwoodDev/Butterfly/issues/1186))
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.3
+
 ## 2.6.0-beta.2 (2026-07-13)
 
 * Add persistent document states ([#1077](https://github.com/LinwoodDev/Butterfly/issues/1077))

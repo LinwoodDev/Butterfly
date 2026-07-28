@@ -4,6 +4,24 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).view,
   icon: PhosphorIconsLight.eye,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      zoomEnabled: defaults.zoomEnabled,
+      zoomPosition: defaults.zoomPosition,
+      propertyPosition: defaults.propertyPosition,
+      toolbarPosition: defaults.toolbarPosition,
+      toolbarSize: defaults.toolbarSize,
+      toolbarRows: defaults.toolbarRows,
+      navigationRail: defaults.navigationRail,
+      navigatorPosition: defaults.navigatorPosition,
+      optionsPanelPosition: defaults.optionsPanelPosition,
+      simpleToolbarVisibility: defaults.simpleToolbarVisibility,
+      showNavigatorPreviews: defaults.showNavigatorPreviews,
+      showThumbnails: defaults.showThumbnails,
+      hideExtension: defaults.hideExtension,
+    ),
+  ),
   sections: {
     'interface': SettingsLeapSection(
       settings: [
@@ -106,6 +124,16 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
               .read<SettingsCubit>()
               .changeSimpleToolbarVisibility(value),
           valueLabel: (context, value) => value.getLocalizedName(context),
+        ),
+        SettingsLeapBoolSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).showNavigatorPreviews,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).showNavigatorPreviewsDescription,
+          icon: PhosphorIconsLight.imageSquare,
+          read: (state) => state.showNavigatorPreviews,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeShowNavigatorPreviews(value),
         ),
       ],
     ),

@@ -10,6 +10,7 @@ import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
+import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -250,6 +251,19 @@ void main() {
       );
       await tester.pumpAndSettle();
     }
+
+    final documentBloc = observer.lastDocumentBloc!;
+    expect(
+      debugDocumentPagePreviewCacheRetainedCount(documentBloc),
+      greaterThan(0),
+    );
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'preview document close',
+    );
+    expect(debugDocumentPagePreviewCacheRetainedCount(documentBloc), 0);
   });
 
   testWidgets('converted imported file starts unsaved', (tester) async {

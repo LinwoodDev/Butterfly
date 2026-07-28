@@ -4,6 +4,14 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).data,
   icon: PhosphorIconsLight.database,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      syncMode: defaults.syncMode,
+      documentPath: defaults.documentPath,
+      defaultFileName: defaults.defaultFileName,
+    ),
+  ),
   sections: {
     'storage': SettingsLeapSection(
       settings: [
@@ -69,7 +77,40 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
           icon: PhosphorIconsLight.arrowSquareOut,
           onTap: exportSettings,
         ),
+        SettingsLeapActionSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).resetAllSettings,
+          icon: PhosphorIconsLight.clockCounterClockwise,
+          onTap: _resetAllSettings,
+        ),
       ],
     ),
   },
 );
+
+Future<void> _resetAllSettings(BuildContext context) async {
+  final localizations = AppLocalizations.of(context);
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(localizations.resetAllSettings),
+      content: Text(localizations.reallyReset),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: Text(LeapLocalizations.of(context).reset),
+        ),
+      ],
+    ),
+  );
+  if (confirmed == true && context.mounted) {
+    await Future.wait([
+      context.read<SettingsCubit>().resetAllSettings(),
+      keybinder.resetToDefaults(),
+    ]);
+  }
+}

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'transform.dart';
@@ -9,6 +9,7 @@ part of 'transform.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -69,11 +70,11 @@ class _$FrictionStateCopyWithImpl<$Res>
 /// Create a copy of FrictionState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? beginOffset = null,Object? beginSize = null,Object? lastUpdate = null,Object? duration = null,}) {
-  return _then(_self.copyWith(
-beginOffset: null == beginOffset ? _self.beginOffset : beginOffset // ignore: cast_nullable_to_non_nullable
-as Offset,beginSize: null == beginSize ? _self.beginSize : beginSize // ignore: cast_nullable_to_non_nullable
-as double,lastUpdate: null == lastUpdate ? _self.lastUpdate : lastUpdate // ignore: cast_nullable_to_non_nullable
-as DateTime,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+  return _then(FrictionState(
+null == beginOffset ? _self.beginOffset : beginOffset // ignore: cast_nullable_to_non_nullable
+as Offset,null == beginSize ? _self.beginSize : beginSize // ignore: cast_nullable_to_non_nullable
+as double,null == lastUpdate ? _self.lastUpdate : lastUpdate // ignore: cast_nullable_to_non_nullable
+as DateTime,null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -218,12 +219,12 @@ class _$CameraTransformCopyWithImpl<$Res>
 /// Create a copy of CameraTransform
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pixelRatio = null,Object? position = null,Object? size = null,Object? rotation = null,Object? friction = freezed,}) {
-  return _then(_self.copyWith(
-pixelRatio: null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
-as double,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as Offset,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
-as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
-as double,friction: freezed == friction ? _self.friction : friction // ignore: cast_nullable_to_non_nullable
+  return _then(CameraTransform(
+null == pixelRatio ? _self.pixelRatio : pixelRatio // ignore: cast_nullable_to_non_nullable
+as double,null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as Offset,null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
+as double,null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,freezed == friction ? _self.friction : friction // ignore: cast_nullable_to_non_nullable
 as FrictionState?,
   ));
 }

@@ -49,6 +49,11 @@ Tool updateToolDefaultColor(Tool tool, SRGBColor color, {bool force = false}) {
         ),
       ),
     ),
+    TableTool e => e.copyWith(
+      border: e.border.copyWith(
+        color: _updateColor(e.border.color, defaultColor, force: force),
+      ),
+    ),
     PolygonTool e => e.copyWith(
       property: e.property.copyWith(
         paint: _updatePaintDefaultColor(

@@ -23,6 +23,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       return ShapeElementSelection([selected as Renderer<ShapeElement>])
           as ElementSelection<T>;
     }
+    if (selected is Renderer<TableElement>) {
+      return TableElementSelection([selected as Renderer<TableElement>])
+          as ElementSelection<T>;
+    }
     if (selected is Renderer<SvgElement>) {
       return SvgElementSelection([selected as Renderer<SvgElement>])
           as ElementSelection<T>;

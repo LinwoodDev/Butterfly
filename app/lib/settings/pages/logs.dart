@@ -4,6 +4,11 @@ final _logsSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).logs,
   icon: PhosphorIconsLight.bug,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) =>
+        current.copyWith(showVerboseLogs: defaults.showVerboseLogs),
+  ),
   sections: {
     'content': SettingsLeapSection(
       settings: [

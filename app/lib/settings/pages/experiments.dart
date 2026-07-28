@@ -9,7 +9,7 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     AppLocalizations.of(context).edgePanAreaSwitching,
   ],
   appBarBuilder: _butterflyAppBar,
-  actionsBuilder: _experimentsActions,
+  onReset: (context, state) => context.read<SettingsCubit>().resetFlags(),
   sections: {
     'flags': SettingsLeapSection(
       headerBuilder: _experimentsHeader,
@@ -47,17 +47,6 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
-
-List<Widget> _experimentsActions(
-  BuildContext context,
-  ButterflySettings state,
-) => [
-  IconButton(
-    icon: const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
-    tooltip: LeapLocalizations.of(context).reset,
-    onPressed: () => context.read<SettingsCubit>().resetFlags(),
-  ),
-];
 
 Widget _experimentsHeader(BuildContext context, ButterflySettings state) {
   return Row(

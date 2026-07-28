@@ -1,6 +1,6 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.6.0-beta.3
+version: 2.6.0-beta.4
 publish_to: none
 
 environment:
@@ -30,6 +30,5 @@ dev_dependencies:
   test: ^1.25.3
   json_serializable: ^6.7.1
   build_runner: ^2.4.9
-  freezed: ^3.0.2
+  freezed: ^4.0.0-dev.3
   lints: ^6.0.0
-  analyzer: ^10.0.2

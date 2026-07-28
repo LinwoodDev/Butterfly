@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'tool.dart';
@@ -9,6 +9,7 @@ part of 'tool.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 Tool _$ToolFromJson(
@@ -61,6 +62,10 @@ Tool _$ToolFromJson(
           );
                 case 'shape':
           return ShapeTool.fromJson(
+            json
+          );
+                case 'table':
+          return TableTool.fromJson(
             json
           );
                 case 'stamp':
@@ -186,7 +191,7 @@ as String?,
 @JsonSerializable()
 
 class SelectTool extends Tool {
-   SelectTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = SelectMode.rectangle, this.hitElementMode = HitElementMode.touchAnywhere, final  String? $type}): $type = $type ?? 'select',super._();
+   SelectTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = SelectMode.rectangle, this.hitElementMode = HitElementMode.touchAnywhere,  String? $type}): $type = $type ?? 'select',super._();
   factory SelectTool.fromJson(Map<String, dynamic> json) => _$SelectToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -260,7 +265,7 @@ as HitElementMode,
 @JsonSerializable()
 
 class HandTool extends Tool {
-   HandTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'hand',super._();
+   HandTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'hand',super._();
   factory HandTool.fromJson(Map<String, dynamic> json) => _$HandToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -330,7 +335,7 @@ as String?,
 @JsonSerializable()
 
 class ImportTool extends Tool {
-   ImportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required final  List<PadElement> elements, required final  List<Area> areas, @Uint8ListJsonConverter() final  Map<String, Uint8List> assets = const {}, final  String? $type}): _elements = elements,_areas = areas,_assets = assets,$type = $type ?? 'import',super._();
+   ImportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required  List<PadElement> elements, required  List<Area> areas, @Uint8ListJsonConverter()  Map<String, Uint8List> assets = const {},  String? $type}): _elements = elements,_areas = areas,_assets = assets,$type = $type ?? 'import',super._();
   factory ImportTool.fromJson(Map<String, dynamic> json) => _$ImportToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -424,7 +429,7 @@ as Map<String, Uint8List>,
 @JsonSerializable()
 
 class UndoTool extends Tool {
-   UndoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'undo',super._();
+   UndoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'undo',super._();
   factory UndoTool.fromJson(Map<String, dynamic> json) => _$UndoToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -494,7 +499,7 @@ as String?,
 @JsonSerializable()
 
 class RedoTool extends Tool {
-   RedoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'redo',super._();
+   RedoTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'redo',super._();
   factory RedoTool.fromJson(Map<String, dynamic> json) => _$RedoToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -564,7 +569,7 @@ as String?,
 @JsonSerializable()
 
 class LabelTool extends Tool {
-   LabelTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = LabelMode.text, this.zoomDependent = false, @ColorJsonConverter() this.foreground = SRGBColor.black, this.styleSheet, this.scale = 2.0, final  String? $type}): $type = $type ?? 'label',super._();
+   LabelTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = LabelMode.text, this.zoomDependent = false, @ColorJsonConverter() this.foreground = SRGBColor.black, this.styleSheet, this.scale = 2.0,  String? $type}): $type = $type ?? 'label',super._();
   factory LabelTool.fromJson(Map<String, dynamic> json) => _$LabelToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -656,7 +661,7 @@ $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
 @JsonSerializable()
 
 class PenTool extends Tool {
-   PenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.shapeDetectionTime = 0.5, this.shapeDetectionEnabled = false, this.combinePaths = false, this.property = const PenProperty(), final  String? $type}): $type = $type ?? 'pen',super._();
+   PenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.shapeDetectionTime = 0.5, this.shapeDetectionEnabled = false, this.combinePaths = false, this.property = const PenProperty(),  String? $type}): $type = $type ?? 'pen',super._();
   factory PenTool.fromJson(Map<String, dynamic> json) => _$PenToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -736,7 +741,7 @@ as PenProperty,
 @JsonSerializable()
 
 class EraserTool extends Tool {
-   EraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = EraserMode.stroke, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false, final  String? $type}): $type = $type ?? 'eraser',super._();
+   EraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = EraserMode.stroke, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false,  String? $type}): $type = $type ?? 'eraser',super._();
   factory EraserTool.fromJson(Map<String, dynamic> json) => _$EraserToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -814,7 +819,7 @@ as bool,
 @JsonSerializable()
 
 class CollectionTool extends Tool {
-   CollectionTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.strokeWidth = 5, final  String? $type}): $type = $type ?? 'collection',super._();
+   CollectionTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.strokeWidth = 5,  String? $type}): $type = $type ?? 'collection',super._();
   factory CollectionTool.fromJson(Map<String, dynamic> json) => _$CollectionToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -886,12 +891,13 @@ as double,
 @JsonSerializable()
 
 class AreaTool extends Tool {
-   AreaTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.askForName = false, final  String? $type}): $type = $type ?? 'area',super._();
+   AreaTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.askForName = false,  String? $type}): $type = $type ?? 'area',super._();
   factory AreaTool.fromJson(Map<String, dynamic> json) => _$AreaToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
+@ColorJsonConverter() final  SRGBColor? color;
 @JsonKey() final  double constrainedWidth;
 @JsonKey() final  double constrainedHeight;
 @JsonKey() final  double constrainedAspectRatio;
@@ -916,7 +922,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.area(name: $name, displayIcon: $displayIcon, id: $id, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
+  return 'Tool.area(name: $name, displayIcon: $displayIcon, id: $id, color: $color, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
 }
 
 
@@ -927,7 +933,7 @@ abstract mixin class $AreaToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $AreaToolCopyWith(AreaTool value, $Res Function(AreaTool) _then) = _$AreaToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, bool askForName
+ String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, bool askForName
 });
 
 
@@ -944,12 +950,13 @@ class _$AreaToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? askForName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? askForName = null,}) {
   return _then(AreaTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,constrainedWidth: null == constrainedWidth ? _self.constrainedWidth : constrainedWidth // ignore: cast_nullable_to_non_nullable
+as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor?,constrainedWidth: null == constrainedWidth ? _self.constrainedWidth : constrainedWidth // ignore: cast_nullable_to_non_nullable
 as double,constrainedHeight: null == constrainedHeight ? _self.constrainedHeight : constrainedHeight // ignore: cast_nullable_to_non_nullable
 as double,constrainedAspectRatio: null == constrainedAspectRatio ? _self.constrainedAspectRatio : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
 as double,askForName: null == askForName ? _self.askForName : askForName // ignore: cast_nullable_to_non_nullable
@@ -964,7 +971,7 @@ as bool,
 @JsonSerializable()
 
 class LaserTool extends Tool {
-   LaserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.duration = 5, this.hideDuration = 0.5, this.strokeWidth = 5, this.thinning = 0.4, @ColorJsonConverter() this.color = BasicColors.red, this.animation = LaserAnimation.fade, final  String? $type}): $type = $type ?? 'laser',super._();
+   LaserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.duration = 5, this.hideDuration = 0.5, this.strokeWidth = 5, this.thinning = 0.4, @ColorJsonConverter() this.color = BasicColors.red, this.animation = LaserAnimation.fade,  String? $type}): $type = $type ?? 'laser',super._();
   factory LaserTool.fromJson(Map<String, dynamic> json) => _$LaserToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1046,7 +1053,7 @@ as LaserAnimation,
 @JsonSerializable()
 
 class ShapeTool extends Tool {
-   ShapeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.property = const ShapeProperty(shape: RectangleShape()), this.drawFromCenter = false, final  String? $type}): $type = $type ?? 'shape',super._();
+   ShapeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.property = const ShapeProperty(shape: RectangleShape()), this.drawFromCenter = false,  String? $type}): $type = $type ?? 'shape',super._();
   factory ShapeTool.fromJson(Map<String, dynamic> json) => _$ShapeToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1127,8 +1134,103 @@ as bool,
 /// @nodoc
 @JsonSerializable()
 
+class TableTool extends Tool {
+   TableTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.rows = 3, this.columns = 3, this.border = const TableBorderProperty(), @ColorJsonConverter() this.fillColor = SRGBColor.transparent,  String? $type}): $type = $type ?? 'table',super._();
+  factory TableTool.fromJson(Map<String, dynamic> json) => _$TableToolFromJson(json);
+
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String displayIcon;
+@override@IdJsonConverter() final  String? id;
+@JsonKey() final  bool zoomDependent;
+@JsonKey() final  double constrainedWidth;
+@JsonKey() final  double constrainedHeight;
+@JsonKey() final  double constrainedAspectRatio;
+@JsonKey() final  int rows;
+@JsonKey() final  int columns;
+@JsonKey() final  TableBorderProperty border;
+@JsonKey()@ColorJsonConverter() final  SRGBColor fillColor;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TableToolCopyWith<TableTool> get copyWith => _$TableToolCopyWithImpl<TableTool>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TableToolToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'Tool.table(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, rows: $rows, columns: $columns, border: $border, fillColor: $fillColor)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TableToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory $TableToolCopyWith(TableTool value, $Res Function(TableTool) _then) = _$TableToolCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String displayIcon,@IdJsonConverter() String? id, bool zoomDependent, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, int rows, int columns, TableBorderProperty border,@ColorJsonConverter() SRGBColor fillColor
+});
+
+
+$TableBorderPropertyCopyWith<$Res> get border;
+
+}
+/// @nodoc
+class _$TableToolCopyWithImpl<$Res>
+    implements $TableToolCopyWith<$Res> {
+  _$TableToolCopyWithImpl(this._self, this._then);
+
+  final TableTool _self;
+  final $Res Function(TableTool) _then;
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomDependent = null,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? rows = null,Object? columns = null,Object? border = null,Object? fillColor = null,}) {
+  return _then(TableTool(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,zoomDependent: null == zoomDependent ? _self.zoomDependent : zoomDependent // ignore: cast_nullable_to_non_nullable
+as bool,constrainedWidth: null == constrainedWidth ? _self.constrainedWidth : constrainedWidth // ignore: cast_nullable_to_non_nullable
+as double,constrainedHeight: null == constrainedHeight ? _self.constrainedHeight : constrainedHeight // ignore: cast_nullable_to_non_nullable
+as double,constrainedAspectRatio: null == constrainedAspectRatio ? _self.constrainedAspectRatio : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
+as double,rows: null == rows ? _self.rows : rows // ignore: cast_nullable_to_non_nullable
+as int,columns: null == columns ? _self.columns : columns // ignore: cast_nullable_to_non_nullable
+as int,border: null == border ? _self.border : border // ignore: cast_nullable_to_non_nullable
+as TableBorderProperty,fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TableBorderPropertyCopyWith<$Res> get border {
+  
+  return $TableBorderPropertyCopyWith<$Res>(_self.border, (value) {
+    return _then(_self.copyWith(border: value));
+  });
+}
+}
+
+/// @nodoc
+@JsonSerializable()
+
 class StampTool extends Tool {
-   StampTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.component, final  String? $type}): $type = $type ?? 'stamp',super._();
+   StampTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.component,  String? $type}): $type = $type ?? 'stamp',super._();
   factory StampTool.fromJson(Map<String, dynamic> json) => _$StampToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1212,7 +1314,7 @@ $NamedItemCopyWith<ButterflyComponent, $Res>? get component {
 @JsonSerializable()
 
 class PresentationTool extends Tool {
-   PresentationTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'presentation',super._();
+   PresentationTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'presentation',super._();
   factory PresentationTool.fromJson(Map<String, dynamic> json) => _$PresentationToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1282,7 +1384,7 @@ as String?,
 @JsonSerializable()
 
 class SpacerTool extends Tool {
-   SpacerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.axis = Axis2D.horizontal, final  String? $type}): $type = $type ?? 'spacer',super._();
+   SpacerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.axis = Axis2D.horizontal,  String? $type}): $type = $type ?? 'spacer',super._();
   factory SpacerTool.fromJson(Map<String, dynamic> json) => _$SpacerToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1354,7 +1456,7 @@ as Axis2D,
 @JsonSerializable()
 
 class FullScreenTool extends Tool {
-   FullScreenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'fullSceen',super._();
+   FullScreenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'fullSceen',super._();
   factory FullScreenTool.fromJson(Map<String, dynamic> json) => _$FullScreenToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1424,7 +1526,7 @@ as String?,
 @JsonSerializable()
 
 class AssetTool extends Tool {
-   AssetTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.importType = ImportType.file, this.advanced = true, final  String? $type}): $type = $type ?? 'asset',super._();
+   AssetTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.importType = ImportType.file, this.advanced = true,  String? $type}): $type = $type ?? 'asset',super._();
   factory AssetTool.fromJson(Map<String, dynamic> json) => _$AssetToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1498,7 +1600,7 @@ as bool,
 @JsonSerializable()
 
 class ExportTool extends Tool {
-   ExportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required this.options, final  String? $type}): $type = $type ?? 'export',super._();
+   ExportTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, required this.options,  String? $type}): $type = $type ?? 'export',super._();
   factory ExportTool.fromJson(Map<String, dynamic> json) => _$ExportToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1579,7 +1681,7 @@ $ExportOptionsCopyWith<$Res> get options {
 @JsonSerializable()
 
 class TextureTool extends Tool {
-   TextureTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.texture = const SurfaceTexture.pattern(), final  String? $type}): $type = $type ?? 'texture',super._();
+   TextureTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.texture = const SurfaceTexture.pattern(),  String? $type}): $type = $type ?? 'texture',super._();
   factory TextureTool.fromJson(Map<String, dynamic> json) => _$TextureToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1668,13 +1770,14 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class RulerTool extends Tool {
-   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, this.size = 100, final  String? $type}): $type = $type ?? 'ruler',super._();
+   RulerTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color, @ColorJsonConverter() this.foreground, this.size = 100,  String? $type}): $type = $type ?? 'ruler',super._();
   factory RulerTool.fromJson(Map<String, dynamic> json) => _$RulerToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
 @ColorJsonConverter() final  SRGBColor? color;
+@ColorJsonConverter() final  SRGBColor? foreground;
 @JsonKey() final  int size;
 
 @JsonKey(name: 'type')
@@ -1696,7 +1799,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, size: $size)';
+  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, foreground: $foreground, size: $size)';
 }
 
 
@@ -1707,7 +1810,7 @@ abstract mixin class $RulerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $RulerToolCopyWith(RulerTool value, $Res Function(RulerTool) _then) = _$RulerToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color, int size
+ String name, String displayIcon,@IdJsonConverter() String? id,@ColorJsonConverter() SRGBColor? color,@ColorJsonConverter() SRGBColor? foreground, int size
 });
 
 
@@ -1724,12 +1827,13 @@ class _$RulerToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? size = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? color = freezed,Object? foreground = freezed,Object? size = null,}) {
   return _then(RulerTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor?,foreground: freezed == foreground ? _self.foreground : foreground // ignore: cast_nullable_to_non_nullable
 as SRGBColor?,size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -1742,7 +1846,7 @@ as int,
 @JsonSerializable()
 
 class GridTool extends Tool {
-   GridTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color = SRGBColor.black, this.xSize = 20, this.ySize = 20, this.xOffset = 0, this.yOffset = 0, this.positionDependent = false, this.zoomDependent = false, this.stroke = 1, final  String? $type}): $type = $type ?? 'grid',super._();
+   GridTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, @ColorJsonConverter() this.color = SRGBColor.black, this.xSize = 20, this.ySize = 20, this.xOffset = 0, this.yOffset = 0, this.positionDependent = false, this.zoomDependent = false, this.stroke = 1,  String? $type}): $type = $type ?? 'grid',super._();
   factory GridTool.fromJson(Map<String, dynamic> json) => _$GridToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1828,7 +1932,7 @@ as double,
 @JsonSerializable()
 
 class EyeDropperTool extends Tool {
-   EyeDropperTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, final  String? $type}): $type = $type ?? 'eyeDropper',super._();
+   EyeDropperTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id,  String? $type}): $type = $type ?? 'eyeDropper',super._();
   factory EyeDropperTool.fromJson(Map<String, dynamic> json) => _$EyeDropperToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1898,7 +2002,7 @@ as String?,
 @JsonSerializable()
 
 class BarcodeTool extends Tool {
-   BarcodeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.barcodeType = BarcodeType.qrCode, @ColorJsonConverter() this.color = SRGBColor.black, final  String? $type}): $type = $type ?? 'barcode',super._();
+   BarcodeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.barcodeType = BarcodeType.qrCode, @ColorJsonConverter() this.color = SRGBColor.black,  String? $type}): $type = $type ?? 'barcode',super._();
   factory BarcodeTool.fromJson(Map<String, dynamic> json) => _$BarcodeToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1972,7 +2076,7 @@ as SRGBColor,
 @JsonSerializable()
 
 class PolygonTool extends Tool {
-   PolygonTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.property = const PolygonProperty(), final  String? $type}): $type = $type ?? 'polygon',super._();
+   PolygonTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.property = const PolygonProperty(),  String? $type}): $type = $type ?? 'polygon',super._();
   factory PolygonTool.fromJson(Map<String, dynamic> json) => _$PolygonToolFromJson(json);
 
 @override@JsonKey() final  String name;

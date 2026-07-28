@@ -10,9 +10,14 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: update-screenshots
+  cancel-in-progress: false
+
 jobs:
   update-screenshots:
     runs-on: ubuntu-24.04
+    timeout-minutes: 60
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
@@ -41,7 +46,7 @@ jobs:
 
       - name: Compress generated screenshots
         id: calibre
-        uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@2a254d926beda392b8c36e1be95252aa3d534405 # main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           compressOnly: true

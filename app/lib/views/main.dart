@@ -24,6 +24,7 @@ import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
+import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,7 @@ class _ProjectDocumentRuntime {
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
+    clearDocumentPagePreviewCache(bloc);
     embedding?.handler?.unregister();
     if (!bloc.isClosed) {
       await bloc.close();
@@ -518,6 +520,11 @@ class _ProjectPageState extends State<ProjectPage> {
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
       if (!isCurrentLoad()) return;
       _runtime?.bloc.load();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (isCurrentLoad()) {
+          _runtime?.editorController.focusNode.requestFocus();
+        }
+      });
     });
   }
 
@@ -603,17 +610,38 @@ class _ProjectPageState extends State<ProjectPage> {
                                     return ListenableBuilder(
                                       listenable: keybinder,
                                       builder: (context, child) {
-                                        final shortcuts = _buildShortcuts();
-                                        return Actions(
-                                          actions: actions,
-                                          child: Shortcuts(
-                                            shortcuts: shortcuts,
-                                            child: child!,
-                                          ),
+                                        return ListenableBuilder(
+                                          listenable: FocusManager.instance,
+                                          builder: (context, _) {
+                                            final focusContext = FocusManager
+                                                .instance
+                                                .primaryFocus
+                                                ?.context;
+                                            final isEditingText =
+                                                focusContext
+                                                        ?.findAncestorWidgetOfExactType<
+                                                          EditableText
+                                                        >() !=
+                                                    null ||
+                                                focusContext?.widget
+                                                    is EditableText;
+                                            return Actions(
+                                              actions: actions,
+                                              child: Shortcuts(
+                                                shortcuts: isEditingText
+                                                    ? const {}
+                                                    : _buildShortcuts(),
+                                                child: child!,
+                                              ),
+                                            );
+                                          },
                                         );
                                       },
                                       child: ClipRect(
                                         child: Focus(
+                                          focusNode: runtime
+                                              .editorController
+                                              .focusNode,
                                           autofocus: true,
                                           skipTraversal: true,
                                           onFocusChange: (_) => false,

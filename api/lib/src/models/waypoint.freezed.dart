@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'waypoint.dart';
@@ -9,6 +9,7 @@ part of 'waypoint.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,10 +67,10 @@ class _$WaypointCopyWithImpl<$Res>
 /// Create a copy of Waypoint
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? position = null,Object? scale = freezed,}) {
-  return _then(_self.copyWith(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as Point<double>,scale: freezed == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+  return _then(Waypoint(
+freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as Point<double>,freezed == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double?,
   ));
 }

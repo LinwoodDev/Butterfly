@@ -78,6 +78,7 @@ class DocumentDefaults {
     Tool.ruler(),
     Tool.grid(),
     ...BarcodeType.values.map((e) => Tool.barcode(barcodeType: e)),
+    Tool.table(),
   ];
 
   static NoteData _addCoreToolPresets(NoteData pack) {

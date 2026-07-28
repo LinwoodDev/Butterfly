@@ -5,6 +5,12 @@ final _persistenceSettingsPage = SettingsLeapPage<ButterflySettings>(
       AppLocalizations.of(context).persistenceDocumentStates,
   icon: PhosphorIconsLight.database,
   appBarBuilder: _butterflyAppBar,
+  onReset: (context, state) => _resetSettingsPage(
+    context,
+    (current, defaults) => current.copyWith(
+      documentStatePersistence: defaults.documentStatePersistence,
+    ),
+  ),
   sections: {
     'content': SettingsLeapSection(
       builder: _buildPersistenceSettingsSection,

@@ -1,4 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -171,9 +172,15 @@ class _ToolbarsViewState extends State<ToolbarsView> {
                       ),
                       selected: isSelected,
                       onTap: () {
+                        final focusNode = context
+                            .read<EditorController>()
+                            .focusNode;
                         context.read<DocumentBloc>().add(
                           ToolsReplaced(item.item.tools),
                         );
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (mounted) focusNode.requestFocus();
+                        });
                       },
                     );
                   },

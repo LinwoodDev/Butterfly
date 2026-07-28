@@ -2,6 +2,7 @@ package dev.linwood.butterfly;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +45,7 @@ public class MainActivity extends FlutterActivity {
         if (Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action) || Intent.ACTION_SEND.equals(action)) {
             Uri uri = intent.getData();
             if (uri == null) {
-                uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                uri = getParcelableExtraStream(intent);
             }
             if (uri == null && intent.getClipData() != null && intent.getClipData().getItemCount() > 0) {
                 uri = intent.getClipData().getItemAt(0).getUri();
@@ -80,6 +81,15 @@ public class MainActivity extends FlutterActivity {
             }
         }
         return false;
+    }
+
+    @Nullable
+    @SuppressWarnings("deprecation")
+    private Uri getParcelableExtraStream(Intent intent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri.class);
+        }
+        return intent.getParcelableExtra(Intent.EXTRA_STREAM);
     }
 
     private byte[] getBytes(InputStream inputStream) throws IOException {

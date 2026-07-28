@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'animation.dart';
@@ -9,6 +9,7 @@ part of 'animation.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$AnimationTrackCopyWithImpl<$Res>
 /// Create a copy of AnimationTrack
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? keys = null,Object? duration = null,Object? fps = null,}) {
-  return _then(_self.copyWith(
+  return _then(AnimationTrack(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,keys: null == keys ? _self.keys : keys // ignore: cast_nullable_to_non_nullable
 as Map<int, AnimationKey>,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
@@ -83,7 +84,7 @@ as int,
 @JsonSerializable()
 
 class _AnimationTrack extends AnimationTrack {
-  const _AnimationTrack({this.name = '', final  Map<int, AnimationKey> keys = const <int, AnimationKey>{}, this.duration = 250, this.fps = 24}): _keys = keys,super._();
+  const _AnimationTrack({this.name = '',  Map<int, AnimationKey> keys = const <int, AnimationKey>{}, this.duration = 250, this.fps = 24}): _keys = keys,super._();
   factory _AnimationTrack.fromJson(Map<String, dynamic> json) => _$AnimationTrackFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -215,7 +216,7 @@ class _$AnimationKeyCopyWithImpl<$Res>
 /// Create a copy of AnimationKey
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? cameraPosition = freezed,Object? cameraZoom = freezed,Object? breakpoint = null,}) {
-  return _then(_self.copyWith(
+  return _then(AnimationKey(
 cameraPosition: freezed == cameraPosition ? _self.cameraPosition : cameraPosition // ignore: cast_nullable_to_non_nullable
 as Point<double>?,cameraZoom: freezed == cameraZoom ? _self.cameraZoom : cameraZoom // ignore: cast_nullable_to_non_nullable
 as double?,breakpoint: null == breakpoint ? _self.breakpoint : breakpoint // ignore: cast_nullable_to_non_nullable
