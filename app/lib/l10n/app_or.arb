@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "ଜୁମ୍ ନିର୍ଭର",
   "shapeDetection": "ଆକୃତି ଚିହ୍ନଟ",
   "delay": "ବିଳମ୍ବ",
