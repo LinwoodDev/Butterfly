@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "ขึ้นอยู่กับการซูม",
   "shapeDetection": "ตรวจจับรูปทรง",
   "delay": "หน่วงเวลา",
