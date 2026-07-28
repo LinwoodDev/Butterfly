@@ -98,6 +98,7 @@ This feature allows you to edit your files on remote servers while you are offli
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
 
 There are a few limitations:
+
 * You cannot delete a file or folder while you are offline.
 * You cannot add, edit or delete templates while you are offline.
 
