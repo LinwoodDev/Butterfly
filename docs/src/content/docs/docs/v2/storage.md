@@ -73,7 +73,7 @@ To get the WebDAV URL, please visit the documentation:
 
 #### Finalizing the connection setup
 
-Still not done yet! After doing the above, press the `Connect` button.
+After doing the above, press the `Connect` button.
 
 If you have done everything correctly, there will be some new stuff down the popup.
 ![2 new input boxes appear down the list in the popup](@assets/img/webDAV/Directory1.jpg)
@@ -85,14 +85,14 @@ Then, for the `Directory` inputbox, you need to type where should Butterfly stor
 For example:
   if you type `ButterflyDocs` for `Directory`, Butterfly will store all your files inside the `ButterflyDocs` folder in your cloud storage.
 
-Notes to keep in mind:
+:::note
   - Do not use symbols for folder names to be safe
   - Butterfly will create the folder if it doesnt exist
+:::
 
 Lastly, after typing the name of the folder you want Butterfly to store your notes in, press `Create`.
 
-Amazing!!! Finally, you are done. The first time you do this, it will be hard and long, but once you do it frequently, you will get used to it.
-Now, enjoy the benefits of having your notes synces to the cloud, like being able to edit the same note in 2 different devices, without needing to transfer them to the other device.
+That's it. Syncing to the cloud should work now.
 
 
 ### Offline sync {#offline}
