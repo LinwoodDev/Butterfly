@@ -14,11 +14,11 @@ void main() {
     twoFingerTouchShortcut: 'two-finger',
     threeFingerTouchShortcut: 'three-finger',
   );
-  late PointerShortcutManager tracker;
+  late PointerShortcutManager manager;
   late List<String> triggers;
 
   setUp(() {
-    tracker = PointerShortcutManager(
+    manager = PointerShortcutManager(
       repeatTimeout: const Duration(milliseconds: 500),
       repeatResolveDelay: const Duration(milliseconds: 10),
       multiFingerTimeout: const Duration(milliseconds: 500),
@@ -27,7 +27,7 @@ void main() {
     triggers = [];
   });
 
-  tearDown(() => tracker.dispose());
+  tearDown(() => manager.dispose());
 
   void pointerDown({
     required int pointer,
@@ -36,7 +36,7 @@ void main() {
     Offset position = Offset.zero,
     int buttons = kPrimaryButton,
   }) {
-    tracker.pointerDown(
+    manager.pointerDown(
       PointerDownEvent(
         pointer: pointer,
         kind: kind,
@@ -54,7 +54,7 @@ void main() {
     required Duration timeStamp,
     Offset position = Offset.zero,
   }) {
-    tracker.pointerUp(
+    manager.pointerUp(
       PointerUpEvent(
         pointer: pointer,
         kind: kind,
@@ -115,7 +115,7 @@ void main() {
       kind: PointerDeviceKind.mouse,
       timeStamp: Duration.zero,
     );
-    tracker.pointerMove(
+    manager.pointerMove(
       const PointerMoveEvent(
         pointer: 1,
         kind: PointerDeviceKind.mouse,
@@ -223,7 +223,7 @@ void main() {
       position: const Offset(30, 0),
       timeStamp: Duration.zero,
     );
-    tracker.pointerMove(
+    manager.pointerMove(
       const PointerMoveEvent(
         pointer: 1,
         kind: PointerDeviceKind.touch,
@@ -277,7 +277,7 @@ void main() {
       position: const Offset(30, 0),
       timeStamp: Duration.zero,
     );
-    tracker.pointerCancel(
+    manager.pointerCancel(
       const PointerCancelEvent(pointer: 5, kind: PointerDeviceKind.touch),
     );
     pointerUp(

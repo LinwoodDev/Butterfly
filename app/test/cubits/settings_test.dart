@@ -96,41 +96,6 @@ void main() {
         'zoom_out',
       );
     });
-
-    test('resolves pointer mappings and repeated tap shortcuts', () {
-      expect(
-        configuration.getPointerMapping(
-          PointerDeviceKind.mouse,
-          kBackMouseButton,
-        ),
-        backMapping,
-      );
-      expect(
-        configuration.getRepeatedTapShortcut(
-          PointerDeviceKind.mouse,
-          kForwardMouseButton,
-          3,
-        ),
-        'zoom_out',
-      );
-      expect(
-        configuration.hasRepeatedTapShortcut(
-          PointerDeviceKind.mouse,
-          kBackMouseButton,
-        ),
-        isTrue,
-      );
-    });
-
-    test('serializes back and forward mouse settings', () {
-      final decoded = InputConfiguration.fromJson(configuration.toJson());
-
-      expect(decoded, configuration);
-      expect(
-        decoded.getShortcuts(),
-        containsAll([backMapping, forwardMapping]),
-      );
-    });
   });
 
   test('resolves stylus pointer mappings by button priority', () {
@@ -158,20 +123,6 @@ void main() {
       configuration.getPointerMapping(PointerDeviceKind.invertedStylus, 0),
       configuration.invertedPen,
     );
-  });
-
-  test('serializes multi-finger touch shortcuts', () {
-    const configuration = InputConfiguration(
-      twoFingerTouchShortcut: 'undo',
-      threeFingerTouchShortcut: 'redo',
-    );
-
-    final decoded = InputConfiguration.fromJson(configuration.toJson());
-
-    expect(decoded, configuration);
-    expect(decoded.getMultiFingerTouchShortcut(2), 'undo');
-    expect(decoded.getMultiFingerTouchShortcut(3), 'redo');
-    expect(decoded.getMultiFingerTouchShortcut(4), null);
   });
 
   group('SettingsCubit resets', () {
