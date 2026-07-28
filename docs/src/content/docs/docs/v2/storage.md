@@ -71,14 +71,36 @@ To get the WebDAV URL, please visit the documentation:
 7. Finally, copy the password and paste it in the password input box in Butterfly
   ![](@assets/img/webDAV/Name4.png)
 
+#### Finalizing the connection setup
+
+Still not done yet! After doing the above, press the `Connect` button.
+
+If you have done everything correctly, there will be some new stuff down the popup.
+![2 new input boxes appear down the list in the popup](@assets/img/webDAV/Directory1.png)
+
+Type the name of this connection in the `Name` inputbox, you can name it anything.
+
+Then, for the `Directory` inputbox, you need to type where should Butterfly store stuff inside this cloud storage.
+
+For example:
+  if you type `ButterflyDocs` for `Directory`, Butterfly will store all your files inside the `ButterflyDocs` folder in your cloud storage.
+
+Notes to keep in mind:
+  - Do not use symbols for folder names to be safe
+  - Butterfly will create the folder if it doesnt exist
+
+Lastly, after typing the name of the folder you want Butterfly to store your notes in, press `Create`.
+
+Amazing!!! Finally, you are done. The first time you do this, it will be hard and long, but once you do it frequently, you will get used to it.
+Now, enjoy the benefits of having your notes synces to the cloud, like being able to edit the same note in 2 different devices, without needing to transfer them to the other device.
+
+
 ### Offline sync {#offline}
 
 This feature allows you to edit your files on remote servers while you are offline.
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
 
-There are a few limitations:
-
-* You can only sync the top level of a directory. For example if you have a directory `a/b/test.bfly`, this file will not be synced.
+There are a few limitations
 * You cannot delete a file or folder while you are offline.
 * You cannot add, edit or delete templates while you are offline.
 
