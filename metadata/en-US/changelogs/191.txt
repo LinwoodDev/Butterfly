@@ -4,6 +4,7 @@
 * Add color option to the area tool ([#1175](https://github.com/LinwoodDev/Butterfly/issues/1175))
 * Add foreground color option to the ruler tool with automatic contrast ([#1168](https://github.com/LinwoodDev/Butterfly/issues/1168))
 * Add reset to setting pages ([#1190](https://github.com/LinwoodDev/Butterfly/issues/1190))
+* Add focal support to radial gradients ([#1193](https://github.com/LinwoodDev/Butterfly/issues/1193))
 * Improve Linux app metadata
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.4
