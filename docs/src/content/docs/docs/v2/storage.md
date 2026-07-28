@@ -49,7 +49,7 @@ To get the WebDAV URL, please visit the documentation:
   ![](@assets/img/webDAV/URLstep1.png)
 2. Press the button on the bottom of the sidebar `Files settings`
   ![](@assets/img/webDAV/URLstep2.png)
-3. Scroll down to the `WebDAV` section, then copy the URL
+3. Scroll down to the `WebDAV` section, then copy the full URL shown inside
   ![](@assets/img/webDAV/URLstep3and4.png)
 4. Switch to Butterfly, and paste the URL in the URL input box in Butterfly
   ![](@assets/img/webDAV/URLstep5.png)
@@ -64,7 +64,7 @@ To get the WebDAV URL, please visit the documentation:
     - "Butterfly Connection" is a good name to use, as it is identifiable and clear.
 5. Press the button called `Create new app password`
   ![](@assets/img/webDAV/Name2.png)
-6. After authenticating, copy the username and paste it in the username input box in Butterfly
+6. After authenticating, copy the app password username shown on the page, and paste it in the username input box in Butterfly
   ![](@assets/img/webDAV/Name3.png)
 7. Finally, copy the password and paste it in the password input box in Butterfly
   ![](@assets/img/webDAV/Name4.png)
@@ -84,13 +84,13 @@ For example:
   if you type `ButterflyDocs` for `Directory`, Butterfly will store all your files inside the `ButterflyDocs` folder in your cloud storage.
 
 :::note
-  - Do not use symbols for folder names to be safe
+  - Avoid symbols in folder names (to be safe)
   - Butterfly will create the folder if it doesnt exist
 :::
 
 Lastly, after typing the name of the folder you want Butterfly to store your notes in, press `Create`.
 
-That's it. Syncing to the cloud should work now.
+That's it. Syncing to the cloud should work now. 🎉
 
 ### Offline sync {#offline}
 
