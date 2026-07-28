@@ -102,6 +102,10 @@ export default defineConfig({
               link: "/docs/v2/shortcuts/",
             },
             {
+              ...getSidebarTranslatedLabel("Stylus support"),
+              link: "/docs/v2/stylus-support/",
+            },
+            {
               ...getSidebarTranslatedLabel("Storage"),
               link: "/docs/v2/storage/",
             },
@@ -270,10 +274,6 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Stylus support"),
-              link: "/community/stylus-support/",
             },
             {
               ...getSidebarTranslatedLabel("Comparison"),
