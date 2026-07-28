@@ -18,8 +18,9 @@ You can customize your controls by changing which tools your inputs map to.
 **Note:** Tool activators will be ignored while certain tools are selected, such as the Select tool,
 the Label tool, and the Area tool.
 
+* `None`: Nothing will happen when using this input.
 * `Active Tool`: The input will act as the currently selected tool on the toolbar.
-* `Hand Tool`: The input will use the hand tool as a [temporary tool](tools/#temporary-tools),
+* `Hand Tool`: The input will use the hand tool as a [temporary tool](../#temporary-tools),
   allowing you to move around the canvas.
 * `Specific Tool on Toolbar`: The input will use the specified tool on the toolbar as
   a [temporary tool](../#temporary-tools), based on the position you specify. Positions are counted
@@ -43,7 +44,7 @@ the Label tool, and the Area tool.
   in [Data directory](../storage/#data-directory).
 * `Zoom in`: Zooms into the canvas at the current position. See [Camera](../utilities/camera).
 * `Zoom out`: Zooms out of the canvas at the current position. See [Camera](../utilities/camera).
-* `Full screen`: Toggles [Full screen](../tools/full_sreen)
+* `Full screen`: Toggles [Full screen](../tools/full_screen)
 * `Hide UI`: Hides everything except the canvas. To leave this view, click the `Exit` button on the
   bottom right.
 * `Next page`: Navigates to the next [page](../pages)
@@ -69,10 +70,13 @@ the Label tool, and the Area tool.
 * `Left`: When holding the left mouse button. Defaults to `Active Tool`
 * `Middle`: When holding the mouse wheel. Defaults to `Hand Tool`
 * `Rigth`: When holding the right mouse button. Defaults to `Toolbar Position 2` 
+* `Back`: When clicking 4th mouse button at the side of some mice.
+* `Forward`: When clicking 5th mouse button at the side of some mice.
+
 
 **Document actions**:
 
-*By default, the touch document actions are all set to `None`.*
+*By default, the mouse document actions are all set to `None`.*
 
 * `Double Left`: A double click on the left mouse button
 * `Triple Left`: A triple click on the left mouse button
@@ -80,6 +84,11 @@ the Label tool, and the Area tool.
 * `Triple Middle`: A triple click on the mouse wheel
 * `Double Right`: A double click on the right mouse button
 * `Triple Right`: A triple click on the right mouse button
+* `Double Back`: A double click on the 4th mouse button at the side of some mice
+* `Triple Back`: A triple click on the 4th mouse button at the side of some mice
+* `Double Forward`: A double click on the 5th mouse button at the side of some mice
+* `Double Forward`: A triple click on the 5th mouse button at the side of some mice
+
 
 ## Touch
 

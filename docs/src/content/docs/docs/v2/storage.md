@@ -24,7 +24,7 @@ Open the developer tools in your browser and you will see the data.
 
 By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. This folder can be changed in the settings.
 
-## Remote storage
+## Remote storage {#remote}
 
 :::note
 
@@ -92,7 +92,7 @@ Lastly, after typing the name of the folder you want Butterfly to store your not
 
 That's it. Syncing to the cloud should work now. 🎉
 
-### Offline sync
+### Offline sync {#offline}
 
 This feature allows you to edit your files on remote servers while you are offline.
 Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
