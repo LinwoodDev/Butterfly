@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Phụ thuộc thu phóng",
   "shapeDetection": "Phát hiện hình dạng",
   "delay": "Độ trễ",
