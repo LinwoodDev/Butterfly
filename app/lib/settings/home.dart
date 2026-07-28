@@ -82,9 +82,14 @@ class SettingsPage extends StatelessWidget {
         searchHint: (context) => AppLocalizations.of(context).search,
         isDialog: inView,
         compactWidth: LeapBreakpoints.compact,
-        onOpenPage: (context, id, page, focusedId) {
-          context.go('/settings/${id.replaceAll('.', '/')}', extra: focusedId);
-        },
+        onOpenPage: inView
+            ? null
+            : (context, id, page, focusedId) {
+                context.go(
+                  '/settings/${id.replaceAll('.', '/')}',
+                  extra: focusedId,
+                );
+              },
         closeButton: IconButton.outlined(
           icon: const PhosphorIcon(PhosphorIconsLight.x),
           onPressed: () => Navigator.of(context).maybePop(),
