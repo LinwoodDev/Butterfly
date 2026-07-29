@@ -998,6 +998,7 @@
   "sendBackward": "Отправить назад",
   "rotation": "Поворот",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Направление",
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
