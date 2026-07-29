@@ -31,6 +31,10 @@ title: Ярлыки
 - `Ctrl` + (`1` - `0`): Переключиться на инструмент
 - `Ctrl` + `+`: Увеличить
 - `Ctrl` + `-`: уменьшить масштаб
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Перо
 
