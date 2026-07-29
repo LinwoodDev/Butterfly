@@ -998,6 +998,7 @@
   "sendBackward": "Lähetä taaksepäin",
   "rotation": "Kierto",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
