@@ -589,6 +589,10 @@
   "columns": "Columns",
   "row": "Row",
   "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
   "deleteColumn": "Delete column",
   "cellColor": "Cell color",
@@ -993,6 +997,7 @@
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
   "rotation": "Kierto",
+  "rotationStep": "Rotation step",
   "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
@@ -1003,6 +1008,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "Välilyönti",
   "@spacer": {
     "description": "Spacer element"
@@ -1466,6 +1473,8 @@
   "fullScreenShortcut": "Koko näyttö",
   "doublePressAction": "Kaksoispainalluksen tehtävä",
   "triplePressAction": "Kolmen painalluksen tehtävä",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Pitkä painallus",
   "toolNumber": "Työkalu {number}",
   "@toolNumber": {
