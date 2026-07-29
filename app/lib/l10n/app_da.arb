@@ -589,6 +589,10 @@
   "columns": "Columns",
   "row": "Row",
   "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
   "deleteColumn": "Delete column",
   "cellColor": "Cell color",
@@ -993,6 +997,7 @@
   "bringForward": "Bring fremad",
   "sendBackward": "Send tilbage",
   "rotation": "Rotation",
+  "rotationStep": "Rotation step",
   "direction": "Retning",
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
   "toolbarPosition": "Værktøjslinjens position",
@@ -1003,6 +1008,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "Mellemrum",
   "@spacer": {
     "description": "Spacer element"
@@ -1466,6 +1473,8 @@
   "fullScreenShortcut": "Fuld skærm",
   "doublePressAction": "Dobbelt tryk-handling",
   "triplePressAction": "Tredobbelt tryk-handling",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Langt tryk",
   "toolNumber": "Værktøj {number}",
   "@toolNumber": {
