@@ -998,6 +998,7 @@
   "sendBackward": "पीछे भेजें",
   "rotation": "घूर्णन",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "केवल बड़ी स्क्रीन पर उपलब्ध है",
   "toolbarPosition": "टूलबार की स्थिति",
