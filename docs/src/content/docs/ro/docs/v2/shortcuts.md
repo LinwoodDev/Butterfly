@@ -31,6 +31,10 @@ Unele dintre ele sunt scrise sub butoane.
 - `Ctrl` + (`1` - `0`): Comută la unealtă
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Stiloul
 
