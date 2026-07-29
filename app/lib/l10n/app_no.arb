@@ -998,6 +998,7 @@
   "sendBackward": "Send bakover",
   "rotation": "Rotasjon",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Retning",
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
   "toolbarPosition": "Plassering av verktøylinje",
