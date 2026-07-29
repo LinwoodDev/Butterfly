@@ -31,6 +31,10 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + (`1` - `0`): Vaihda työkaluun
 - `Ctrl` + `+`: Lähennä
 - `Ctrl` + `-`: Lähennä
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Kynä
 
