@@ -31,6 +31,10 @@ Alguns deles estão escritos abaixo dos botões.
 - `Ctrl` + (`1` - `0`): Mude para a ferramenta
 - `Ctrl` + `+`: Zoom para
 - `Ctrl` + `-`: Zoom para fora
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Caneta
 
