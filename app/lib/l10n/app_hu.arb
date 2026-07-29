@@ -998,6 +998,7 @@
   "sendBackward": "Hátrébb hozás",
   "rotation": "Elforgatás",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Csak nagyobb képernyőkön érhető el",
   "toolbarPosition": "Eszköztár pozíció",
