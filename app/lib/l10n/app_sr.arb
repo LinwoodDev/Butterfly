@@ -998,6 +998,7 @@
   "sendBackward": "Pomeri nazad",
   "rotation": "Rotacija",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Dostupno samo na većim ekranima",
   "toolbarPosition": "Pozicija trake sa alatkama",
