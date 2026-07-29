@@ -27,7 +27,7 @@ The Context menu contains actions that can be executed on the selected elements.
 * <Copy className="inline-icon"/> `Copy` - Adds the selection it to the clipboard.
 * <CopySimple className="inline-icon"/> `Duplicate` - Creates a duplicate version of the selection to place on the canvas.
 * <Trash className="inline-icon"/> `Delete` - Deletes the selection.
-* <Layout className="inline-icon"/> `Arrange` - [Options](#arrange-options) that change the order in which the selection is rendered relative to the other elements in it's [Layer](../layers).
+* <Layout className="inline-icon"/> `Arrange` - [Arrange](../layers#arrange) the order in which the selection is rendered relative to the other elements in it's [Layer](../layers).
 * <Wrench className="inline-icon"/> `Operations` - Flips the selection vertically or horizontally.
 * <Faders className="inline-icon"/> `Properties` - Opens the properties view of the selection. Default properties are position, rotation and shear
 * <Folder className="inline-icon"/> `Change collection` - Changes the [Collection](../tools/collection) this selection belongs to. Here you need to enter the name of the (maybe nonexistent) collection.
@@ -38,13 +38,4 @@ The Context menu contains actions that can be executed on the selected elements.
 Special actions:
 * <Clipboard className="inline-icon"/> `Paste` - Using long press with the [Select tool](../tools/select) on an empty canvas position pastes the clipboard at that point.
 * <Polygon className="inline-icon"/> `Edit` - Enters edit mode for this specific [Polygon](../tools/polygon)
-
-### Arrange options
-
-|         Option | Description                                                       |
-|---------------:|:------------------------------------------------------------------|
-|  Bring forward | Renders the selection on top of the first element in front of it. |
-|  Send backward | Renders the selection under the first element behind in.          |
-| Bring to front | Renders the selection in front of everything else.                |
-|  Send backward | Renders the selection behind everything else.                     |
 
