@@ -31,6 +31,10 @@ Einige davon stehen unter den Schaltflächen.
 - `Ctrl` + (`1` - `0`): Wechsele zum Werkzeug
 - `Strg` + `+`: Zoom in
 - `Strg` + `-`: Verkleinern
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Stift
 
