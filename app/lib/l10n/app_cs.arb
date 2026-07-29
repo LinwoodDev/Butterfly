@@ -998,6 +998,7 @@
   "sendBackward": "Poslat zpět",
   "rotation": "Otáčení",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Směr",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
