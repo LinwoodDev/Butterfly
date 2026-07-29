@@ -998,6 +998,7 @@
   "sendBackward": "Envia enrere",
   "rotation": "Rotació",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Només disponible en pantalles grans",
   "toolbarPosition": "Posició de la barra d'eines",
