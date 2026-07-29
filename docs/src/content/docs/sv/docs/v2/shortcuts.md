@@ -31,6 +31,10 @@ Några av dem är skrivna under knapparna.
 - `Ctrl` + (`1` - `0`): Växla till verktyget
 - `Ctrl` + `+`: Zooma in
 - `Ctrl` + `-`: Zooma ut
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Penna
 
