@@ -998,6 +998,7 @@
   "sendBackward": "Αποστολή πίσω",
   "rotation": "Περιστροφή",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Κατεύθυνση",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
