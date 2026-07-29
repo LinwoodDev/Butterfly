@@ -31,6 +31,10 @@ Alcuni di loro sono scritti sotto i pulsanti.
 - `Ctrl` + (`1` - `0`): Passa allo strumento
 - `Ctrl` + `+`: Zoom avanti
 - `Ctrl` + `-`: Zoom indietro
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Penna
 
