@@ -998,6 +998,7 @@
   "sendBackward": "Envoyer vers l'arrière",
   "rotation": "Rotation",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Orientation",
   "onlyAvailableLargerScreen": "Disponible uniquement sur les écrans plus grands",
   "toolbarPosition": "Position de la barre d'outils",
