@@ -998,6 +998,7 @@
   "sendBackward": "Skicka bakåt",
   "rotation": "Rotation",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Riktning",
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
   "toolbarPosition": "Verktygsfältets position",
