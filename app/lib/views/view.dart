@@ -27,6 +27,14 @@ typedef _HandlerGetter = Handler Function();
 typedef _EventContextGetter = EventContext Function();
 typedef _TemporaryToolChanger =
     Future<void> Function(PointerDeviceKind kind, int buttons);
+typedef _PointerInputContext = ({
+  EditorController cubit,
+  DocumentLoaded state,
+  _HandlerGetter getHandler,
+  _EventContextGetter getEventContext,
+  _TemporaryToolChanger changeTemporaryTool,
+  VoidCallback delayBake,
+});
 
 class _MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
@@ -41,17 +49,10 @@ class _MainViewViewportState extends State<MainViewViewport>
   Animation<Offset>? _positionAnimation;
 
   final Map<int, PointerDeviceKind> _pointerKinds = {};
-  final PointerShortcutManager _pointerShortcutManager = PointerShortcutManager(
-    repeatTimeout: _multiTapTimeout,
-    repeatResolveDelay: _multiTapResolveDelay,
-    multiFingerTimeout: _multiTapTimeout,
-    movementTolerance: _multiTapDistance,
-  );
+  final PointerShortcutManager _pointerShortcutManager =
+      PointerShortcutManager();
   int _slideAnimationId = 0;
   static const Curve _slideCurve = Curves.easeOutCubic;
-  static const Duration _multiTapTimeout = Duration(milliseconds: 500);
-  static const Duration _multiTapResolveDelay = Duration(milliseconds: 250);
-  static const double _multiTapDistance = 18;
 
   bool _isTouchMoveGesture(EditorController controller) =>
       controller.inputCubit.moveEnabled &&
@@ -61,25 +62,30 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Future<void> _handlePointerDown(
     PointerDownEvent event,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
-  ) async {
-    // Detect pen/stylus input
-    if (event.kind == PointerDeviceKind.stylus ||
-        event.kind == PointerDeviceKind.invertedStylus) {
-      cubit.inputCubit.detectPen(true);
+    _PointerInputContext input, {
+    bool skipShortcuts = false,
+  }) async {
+    final cubit = input.cubit;
+    final getHandler = input.getHandler;
+    final getEventContext = input.getEventContext;
+    final changeTemporaryTool = input.changeTemporaryTool;
+    if (!skipShortcuts) {
+      // Detect pen/stylus input
+      if (event.kind == PointerDeviceKind.stylus ||
+          event.kind == PointerDeviceKind.invertedStylus) {
+        cubit.inputCubit.detectPen(true);
+      }
+      final result = _pointerShortcutManager.pointerDown(
+        event,
+        context.read<SettingsCubit>().state.inputConfiguration,
+      );
+      await _replayPointerEvents(result.releasedEvents, input);
+      if (result.consumed) return;
     }
+
     _isScalingDisabled = event.kind == PointerDeviceKind.trackpad
         ? false
         : null;
-
-    _pointerShortcutManager.pointerDown(
-      event,
-      context.read<SettingsCubit>().state.inputConfiguration,
-    );
-
     _pointerKinds[event.pointer] = event.kind;
     cubit.inputCubit.addPointer(event.pointer);
     cubit.inputCubit.setButtons(event.buttons);
@@ -105,13 +111,20 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Future<void> _handlePointerMove(
     PointerMoveEvent event,
-    EditorController cubit,
-    DocumentLoaded state,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-    VoidCallback delayBake,
-  ) async {
-    _pointerShortcutManager.pointerMove(event);
+    _PointerInputContext input, {
+    bool skipShortcuts = false,
+  }) async {
+    final cubit = input.cubit;
+    final state = input.state;
+    final getHandler = input.getHandler;
+    final getEventContext = input.getEventContext;
+    final delayBake = input.delayBake;
+    if (!skipShortcuts) {
+      final result = _pointerShortcutManager.pointerMove(event);
+      await _replayPointerEvents(result.releasedEvents, input);
+      if (result.consumed) return;
+    }
+
     final renderObject = context.findRenderObject();
     if (kIsWeb) {
       if (renderObject is! RenderBox) {
@@ -153,10 +166,36 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Future<void> _handlePointerUp(
     PointerUpEvent event,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-  ) async {
+    _PointerInputContext input, {
+    bool skipShortcuts = false,
+  }) async {
+    final cubit = input.cubit;
+    final getHandler = input.getHandler;
+    final getEventContext = input.getEventContext;
+    if (!skipShortcuts) {
+      if (_ruler != null) {
+        _pointerShortcutManager.pointerCancel(event);
+      } else {
+        final result = _pointerShortcutManager.pointerUp(
+          event,
+          getConfiguration: () =>
+              context.read<SettingsCubit>().state.inputConfiguration,
+          onTriggered: (shortcutId, pointerEvent) => invokePointerShortcut(
+            context,
+            shortcutId,
+            pointerEvent,
+            cubit,
+            getHandler,
+            getEventContext,
+          ),
+          onFallback: (events) =>
+              unawaited(_replayPointerEvents(events, input)),
+        );
+        await _replayPointerEvents(result.releasedEvents, input);
+        if (result.consumed) return;
+      }
+    }
+
     cubit.inputCubit.updateLastPosition(event.localPosition);
     final wasRulerInteraction = _ruler != null;
     _resetRulerInteraction();
@@ -167,26 +206,29 @@ class _MainViewViewportState extends State<MainViewViewport>
     _pointerKinds.remove(event.pointer);
     if (wasRulerInteraction) {
       cubit.inputCubit.removeButtons();
-      _pointerShortcutManager.pointerCancel(event);
-    } else {
-      _pointerShortcutManager.pointerUp(
-        event,
-        getConfiguration: () =>
-            context.read<SettingsCubit>().state.inputConfiguration,
-        onTriggered: (shortcutId, pointerEvent) => invokePointerShortcut(
-          context,
-          shortcutId,
-          pointerEvent,
-          cubit,
-          getHandler,
-          getEventContext,
-        ),
-      );
+    }
+  }
+
+  Future<void> _replayPointerEvents(
+    List<PointerEvent> events,
+    _PointerInputContext input,
+  ) async {
+    for (final event in events) {
+      switch (event) {
+        case PointerDownEvent():
+          await _handlePointerDown(event, input, skipShortcuts: true);
+        case PointerMoveEvent():
+          await _handlePointerMove(event, input, skipShortcuts: true);
+        case PointerUpEvent():
+          await _handlePointerUp(event, input, skipShortcuts: true);
+        default:
+          break;
+      }
     }
   }
 
   void _handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
-    _pointerShortcutManager.pointerCancel(event);
+    if (_pointerShortcutManager.pointerCancel(event)) return;
     _resetRulerInteraction();
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
@@ -367,6 +409,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       );
                                     }
 
+                                    final pointerInput = (
+                                      cubit: cubit,
+                                      state: state,
+                                      getHandler: getHandler,
+                                      getEventContext: getEventContext,
+                                      changeTemporaryTool: changeTemporaryTool,
+                                      delayBake: delayBake,
+                                    );
                                     return GestureDetector(
                                       onTapUp: (details) async {
                                         getHandler().onTapUp(
@@ -660,17 +710,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         onPointerDown: (event) =>
                                             _handlePointerDown(
                                               event,
-                                              cubit,
-                                              getHandler,
-                                              getEventContext,
-                                              changeTemporaryTool,
+                                              pointerInput,
                                             ),
                                         onPointerUp: (event) =>
                                             _handlePointerUp(
                                               event,
-                                              cubit,
-                                              getHandler,
-                                              getEventContext,
+                                              pointerInput,
                                             ),
                                         behavior: HitTestBehavior.translucent,
                                         onPointerHover: (event) {
@@ -685,11 +730,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         onPointerMove: (event) =>
                                             _handlePointerMove(
                                               event,
-                                              cubit,
-                                              state,
-                                              getHandler,
-                                              getEventContext,
-                                              delayBake,
+                                              pointerInput,
                                             ),
                                         onPointerCancel: (event) =>
                                             _handlePointerCancel(event, cubit),

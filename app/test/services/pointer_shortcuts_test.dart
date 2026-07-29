@@ -16,6 +16,8 @@ void main() {
   );
   late PointerShortcutManager manager;
   late List<String> triggers;
+  late int fallbacks;
+  late List<PointerEvent> fallbackEvents;
 
   setUp(() {
     manager = PointerShortcutManager(
@@ -25,18 +27,20 @@ void main() {
       movementTolerance: 18,
     );
     triggers = [];
+    fallbacks = 0;
+    fallbackEvents = [];
   });
 
   tearDown(() => manager.dispose());
 
-  void pointerDown({
+  PointerShortcutEventResult pointerDown({
     required int pointer,
     required PointerDeviceKind kind,
     required Duration timeStamp,
     Offset position = Offset.zero,
     int buttons = kPrimaryButton,
   }) {
-    manager.pointerDown(
+    return manager.pointerDown(
       PointerDownEvent(
         pointer: pointer,
         kind: kind,
@@ -48,13 +52,13 @@ void main() {
     );
   }
 
-  void pointerUp({
+  PointerShortcutEventResult pointerUp({
     required int pointer,
     required PointerDeviceKind kind,
     required Duration timeStamp,
     Offset position = Offset.zero,
   }) {
-    manager.pointerUp(
+    return manager.pointerUp(
       PointerUpEvent(
         pointer: pointer,
         kind: kind,
@@ -63,6 +67,10 @@ void main() {
       ),
       getConfiguration: () => configuration,
       onTriggered: (shortcutId, event) => triggers.add(shortcutId),
+      onFallback: (events) {
+        fallbacks++;
+        fallbackEvents.addAll(events);
+      },
     );
   }
 
@@ -92,6 +100,7 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 20));
 
     expect(triggers, ['double-back']);
+    expect(fallbacks, 0);
   });
 
   test('triple clicks supersede pending double clicks', () async {
@@ -115,13 +124,18 @@ void main() {
       kind: PointerDeviceKind.mouse,
       timeStamp: Duration.zero,
     );
-    manager.pointerMove(
+    final moveResult = manager.pointerMove(
       const PointerMoveEvent(
         pointer: 1,
         kind: PointerDeviceKind.mouse,
         position: Offset(20, 0),
       ),
     );
+    expect(moveResult.consumed, isTrue);
+    expect(moveResult.releasedEvents, [
+      isA<PointerDownEvent>(),
+      isA<PointerMoveEvent>(),
+    ]);
     pointerUp(
       pointer: 1,
       kind: PointerDeviceKind.mouse,
@@ -141,6 +155,81 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 20));
 
     expect(triggers, isEmpty);
+  });
+
+  test('releases a single tap after the repeat timeout', () async {
+    manager.dispose();
+    manager = PointerShortcutManager(
+      repeatTimeout: const Duration(milliseconds: 10),
+      repeatResolveDelay: const Duration(milliseconds: 5),
+      multiFingerTimeout: const Duration(milliseconds: 10),
+      movementTolerance: 18,
+    );
+
+    pointerDown(
+      pointer: 1,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: Duration.zero,
+    );
+    pointerUp(
+      pointer: 1,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: const Duration(milliseconds: 5),
+    );
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+
+    expect(triggers, isEmpty);
+    expect(fallbacks, 1);
+    expect(fallbackEvents, [isA<PointerDownEvent>(), isA<PointerUpEvent>()]);
+  });
+
+  test('keeps repeated tap continuations in the same buffer', () {
+    pointerDown(
+      pointer: 1,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: Duration.zero,
+    );
+    pointerUp(
+      pointer: 1,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: const Duration(milliseconds: 20),
+    );
+
+    final result = pointerDown(
+      pointer: 2,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: const Duration(milliseconds: 80),
+      position: const Offset(10, 0),
+    );
+
+    expect(result.consumed, isTrue);
+    expect(result.releasedEvents, isEmpty);
+  });
+
+  test('releases a buffered tap before a non-continuation', () {
+    pointerDown(
+      pointer: 1,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: Duration.zero,
+    );
+    pointerUp(
+      pointer: 1,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: const Duration(milliseconds: 20),
+    );
+
+    final result = pointerDown(
+      pointer: 2,
+      kind: PointerDeviceKind.mouse,
+      timeStamp: const Duration(milliseconds: 80),
+      position: const Offset(20, 0),
+    );
+
+    expect(result.consumed, isTrue);
+    expect(result.releasedEvents, [
+      isA<PointerDownEvent>(),
+      isA<PointerUpEvent>(),
+    ]);
   });
 
   test('recognizes a simultaneous two-finger tap', () {
