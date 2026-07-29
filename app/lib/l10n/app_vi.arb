@@ -998,6 +998,7 @@
   "sendBackward": "Đưa xuống sau",
   "rotation": "Xoay",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Chỉ khả dụng trên màn hình lớn hơn",
   "toolbarPosition": "Vị trí thanh công cụ",
