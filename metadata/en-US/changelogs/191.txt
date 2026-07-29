@@ -8,6 +8,7 @@
 * Add back and forward mouse button mappings ([#1169](https://github.com/LinwoodDev/Butterfly/issues/1169))
 * Add two- and three-finger touch shortcuts ([#976](https://github.com/LinwoodDev/Butterfly/issues/976))
 * Add configurable canvas rotation keyboard shortcuts ([#1170](https://github.com/LinwoodDev/Butterfly/issues/1170))
+* Add configurable zoom steps
 * Fix closing documents when navigating back from a settings page opened in the settings dialog
 * Fix camera controls not updating after external canvas transformations
 * Fix template file names not being applied to documents created from Quick Start

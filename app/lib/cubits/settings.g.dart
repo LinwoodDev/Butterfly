@@ -176,6 +176,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
   rotationStep:
       (json['rotationStep'] as num?)?.toDouble() ?? kDefaultRotationStep,
+  zoomStep: (json['zoomStep'] as num?)?.toDouble() ?? kDefaultZoomStep,
   penOnlyInput: json['penOnlyInput'] as bool?,
   showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
   inputGestures: json['inputGestures'] as bool? ?? true,
@@ -326,6 +327,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectSensitivity': instance.selectSensitivity,
   'scrollSensitivity': instance.scrollSensitivity,
   'rotationStep': instance.rotationStep,
+  'zoomStep': instance.zoomStep,
   'penOnlyInput': instance.penOnlyInput,
   'showPenOnlyToggle': instance.showPenOnlyToggle,
   'inputGestures': instance.inputGestures,

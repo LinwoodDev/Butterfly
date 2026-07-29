@@ -364,7 +364,6 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
     await Future.wait([
       context.read<SettingsCubit>().resetSettings(
         (current, defaults) => current.copyWith(
-          rotationStep: defaults.rotationStep,
           inputConfiguration: current.inputConfiguration.copyWith(
             holdShortcuts: defaults.inputConfiguration.holdShortcuts,
           ),
@@ -374,14 +373,6 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
     ]);
   },
   sections: {
-    'behavior': SettingsLeapSection(
-      settings: [
-        SettingsLeapCustomSetting(
-          displayName: (context) => AppLocalizations.of(context).rotationStep,
-          builder: _rotationStepSetting,
-        ),
-      ],
-    ),
     'help': SettingsLeapSection(
       settings: [
         SettingsLeapActionSetting(
@@ -1036,20 +1027,6 @@ Widget _selectSensitivitySetting(
     value: state.selectSensitivity,
     onChangeEnd: (value) =>
         context.read<SettingsCubit>().changeSelectSensitivity(value),
-  );
-}
-
-Widget _rotationStepSetting(BuildContext context, ButterflySettings state) {
-  return ExactSlider(
-    min: 1,
-    max: 90,
-    defaultValue: kDefaultRotationStep,
-    fractionDigits: 0,
-    value: state.rotationStep,
-    label: '°',
-    header: Text(AppLocalizations.of(context).rotationStep),
-    onChangeEnd: (value) =>
-        context.read<SettingsCubit>().changeRotationStep(value),
   );
 }
 

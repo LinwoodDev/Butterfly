@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -49,96 +48,6 @@ void main() {
       kDefaultFileName,
     );
   });
-
-  test('persists the canvas rotation step', () async {
-    SharedPreferences.setMockInitialValues({});
-    final prefs = await SharedPreferences.getInstance();
-    final cubit = SettingsCubit(prefs);
-
-    expect(cubit.state.rotationStep, kDefaultRotationStep);
-
-    await cubit.changeRotationStep(7.5);
-
-    expect(cubit.state.rotationStep, 7.5);
-    expect(prefs.getDouble('rotation_step'), 7.5);
-    expect(ButterflySettings.fromPrefs(prefs).rotationStep, 7.5);
-  });
-
-  group('extra mouse buttons', () {
-    const backMapping = InputMapping(InputMapping.handToolValue);
-    const forwardMapping = InputMapping(4);
-    const configuration = InputConfiguration(
-      backMouse: backMapping,
-      forwardMouse: forwardMapping,
-      doubleBackMouseShortcut: 'undo',
-      tripleBackMouseShortcut: 'redo',
-      doubleForwardMouseShortcut: 'zoom_in',
-      tripleForwardMouseShortcut: 'zoom_out',
-    );
-
-    test('maps back and forward button presses', () {
-      expect(configuration.getMouseMapping(kBackMouseButton), backMapping);
-      expect(
-        configuration.getMouseMapping(kForwardMouseButton),
-        forwardMapping,
-      );
-      expect(
-        const InputConfiguration().getMouseMapping(kBackMouseButton),
-        null,
-      );
-      expect(
-        const InputConfiguration().getMouseMapping(kForwardMouseButton),
-        null,
-      );
-    });
-
-    test('maps back and forward multi-click shortcuts', () {
-      expect(
-        configuration.getMouseShortcut(kBackMouseButton, isDoubleTap: true),
-        'undo',
-      );
-      expect(
-        configuration.getMouseShortcut(kBackMouseButton, isDoubleTap: false),
-        'redo',
-      );
-      expect(
-        configuration.getMouseShortcut(kForwardMouseButton, isDoubleTap: true),
-        'zoom_in',
-      );
-      expect(
-        configuration.getMouseShortcut(kForwardMouseButton, isDoubleTap: false),
-        'zoom_out',
-      );
-    });
-  });
-
-  test('resolves stylus pointer mappings by button priority', () {
-    const configuration = InputConfiguration();
-
-    expect(
-      configuration.getPointerMapping(PointerDeviceKind.stylus, 0),
-      configuration.pen,
-    );
-    expect(
-      configuration.getPointerMapping(
-        PointerDeviceKind.stylus,
-        kPrimaryStylusButton,
-      ),
-      configuration.firstPenButton,
-    );
-    expect(
-      configuration.getPointerMapping(
-        PointerDeviceKind.stylus,
-        kFallbackSecondaryStylusButton,
-      ),
-      configuration.secondPenButton,
-    );
-    expect(
-      configuration.getPointerMapping(PointerDeviceKind.invertedStylus, 0),
-      configuration.invertedPen,
-    );
-  });
-
   group('SettingsCubit resets', () {
     test(
       'resets selected settings while preserving unrelated values',

@@ -25,6 +25,7 @@ const kRecentHistorySize = 5;
 const kDefaultFileName = '{date}';
 const kFallbackSecondaryStylusButton = 0x20;
 const kDefaultRotationStep = 5.0;
+const kDefaultZoomStep = 0.1;
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -576,6 +577,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double selectSensitivity,
     @Default(1) double scrollSensitivity,
     @Default(kDefaultRotationStep) double rotationStep,
+    @Default(kDefaultZoomStep) double zoomStep,
     bool? penOnlyInput,
     @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
@@ -682,6 +684,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       scrollSensitivity: prefs.getDouble('scroll_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
       rotationStep: prefs.getDouble('rotation_step') ?? kDefaultRotationStep,
+      zoomStep: prefs.getDouble('zoom_step') ?? kDefaultZoomStep,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
           ? _enumByNameOr(
@@ -927,6 +930,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('scroll_sensitivity', scrollSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setDouble('rotation_step', rotationStep);
+    await prefs.setDouble('zoom_step', zoomStep);
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
@@ -1228,6 +1232,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> resetRotationStep() => changeRotationStep(kDefaultRotationStep);
+
+  Future<void> changeZoomStep(double zoomStep) {
+    emit(state.copyWith(zoomStep: zoomStep));
+    return save();
+  }
+
+  Future<void> resetZoomStep() => changeZoomStep(kDefaultZoomStep);
 
   Future<void> changeBannerVisibility(BannerVisibility visibility) {
     emit(state.copyWith(bannerVisibility: visibility));
