@@ -31,6 +31,10 @@ Niektóre z nich są napisane pod przyciskami.
 - `Ctrl` + (`1` - `0`): Przełącz na narzędzie
 - `Ctrl` + `+`: Powiększ
 - `Ctrl` + `-`: Pomniejsz
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Długopis
 
