@@ -31,6 +31,10 @@ title: Гарячі клавіші
 - `Ctrl` + (`1` - `0`): Перемкнутися на інструмент
 - `Ctrl` + `+`: Збільшувати масштаб
 - `Ctrl` + `-`: Збільшити
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Ручка
 
