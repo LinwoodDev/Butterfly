@@ -31,6 +31,10 @@ title: 快捷键
 - `Ctrl` + (`1` - `0`): 切换到工具
 - `Ctrl` + `+`: 缩放
 - `Ctrl` + `-`：缩放
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## 笔
 
