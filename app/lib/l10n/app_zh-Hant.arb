@@ -998,6 +998,7 @@
   "sendBackward": "下推一層",
   "rotation": "旋轉",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "工具列位置",
