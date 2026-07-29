@@ -998,6 +998,7 @@
   "sendBackward": "後方に送る",
   "rotation": "回転",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "方向",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
