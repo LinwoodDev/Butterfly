@@ -31,6 +31,10 @@ Some of them are written below the buttons.
 - `Ctrl` + (`1` - `0`): Switch to tool
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Toll
 
