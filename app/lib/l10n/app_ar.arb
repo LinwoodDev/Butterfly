@@ -998,6 +998,7 @@
   "sendBackward": "خطوة إلى الخلف",
   "rotation": "دوران",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "الاتجاه",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
