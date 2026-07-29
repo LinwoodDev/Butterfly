@@ -31,6 +31,10 @@ Algunos de ellos se escriben debajo de los botones.
 - `Ctrl` + (`1` - `0`): Cambia a herramienta
 - `Ctrl` + `+`: Acercar en
 - `Ctrl` + `-`: Alejar el zoom
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Pen
 
