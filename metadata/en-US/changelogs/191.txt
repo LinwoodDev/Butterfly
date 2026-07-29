@@ -10,6 +10,7 @@
 * Add configurable canvas rotation keyboard shortcuts ([#1170](https://github.com/LinwoodDev/Butterfly/issues/1170))
 * Fix closing documents when navigating back from a settings page opened in the settings dialog
 * Fix camera controls not updating after external canvas transformations
+* Fix template file names not being applied to documents created from Quick Start
 * Ignore last color when switching to svg or image paint kind
 * Improve Linux app metadata
 

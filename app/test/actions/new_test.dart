@@ -281,7 +281,7 @@ void main() {
     expect((openedData as NoteData).getMetadata()?.name, 'Fallback note');
   });
 
-  testWidgets('quick start ignores automatic filename patterns', (
+  testWidgets('quick start uses the template name without saving', (
     tester,
   ) async {
     final documentSystem = _MockDocumentFileSystem();
@@ -304,7 +304,7 @@ void main() {
 
     expect(find.text('Opened'), findsOneWidget);
     expect(openedPath, 'journals');
-    expect((openedData as NoteData).getMetadata()?.name, isEmpty);
+    expect((openedData as NoteData).getMetadata()?.name, 'Template note');
     verifyNever(
       () => documentSystem.createFileWithName(
         any(),
