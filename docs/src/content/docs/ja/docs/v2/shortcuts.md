@@ -31,6 +31,10 @@ title: ショートカット
 - `Ctrl` + (`1` - `0`): ツールに切り替える
 - `Ctrl` + `+`: 拡大
 - `Ctrl` + `-`: 縮小
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## ペン
 
