@@ -31,6 +31,10 @@ Noen av dem er skrevet under knappene.
 - `Ctrl` + (`1` - `0`): Bytt til verktøy
 - `Ctrl` + `+`: Zoom inn
 - `Ctrl` + `-`: Zoom ut
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Penn
 
