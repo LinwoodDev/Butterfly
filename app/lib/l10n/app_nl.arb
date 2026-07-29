@@ -589,6 +589,10 @@
   "columns": "Columns",
   "row": "Row",
   "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
   "deleteColumn": "Delete column",
   "cellColor": "Cell color",
@@ -993,6 +997,7 @@
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
   "rotation": "Rotatie",
+  "rotationStep": "Rotation step",
   "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
@@ -1003,6 +1008,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "Afstandshouder",
   "@spacer": {
     "description": "Spacer element"
@@ -1466,6 +1473,8 @@
   "fullScreenShortcut": "Volledig scherm",
   "doublePressAction": "Dubbel-klik actie",
   "triplePressAction": "Drievoudig indrukken actie",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Lang indrukken",
   "toolNumber": "Gereedschap {number}",
   "@toolNumber": {
