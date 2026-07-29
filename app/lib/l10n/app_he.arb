@@ -998,6 +998,7 @@
   "sendBackward": "שלח אחורה",
   "rotation": "סיבוב",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "זמין רק במסכים גדולים יותר",
   "toolbarPosition": "מיקום סרגל כלים",
