@@ -31,6 +31,10 @@ title: Συντομεύσεις
 - `Ctrl` + (`1` - `0`): Εναλλαγή στο εργαλείο
 - `Ctrl` + `+`: Μεγέθυνση
 - `Ctrl` + `-`: Μεγέθυνση
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Πένα
 
