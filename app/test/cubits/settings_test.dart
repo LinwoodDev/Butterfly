@@ -50,6 +50,20 @@ void main() {
     );
   });
 
+  test('persists the canvas rotation step', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+
+    expect(cubit.state.rotationStep, kDefaultRotationStep);
+
+    await cubit.changeRotationStep(7.5);
+
+    expect(cubit.state.rotationStep, 7.5);
+    expect(prefs.getDouble('rotation_step'), 7.5);
+    expect(ButterflySettings.fromPrefs(prefs).rotationStep, 7.5);
+  });
+
   group('extra mouse buttons', () {
     const backMapping = InputMapping(InputMapping.handToolValue);
     const forwardMapping = InputMapping(4);

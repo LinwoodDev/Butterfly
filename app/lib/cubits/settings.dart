@@ -24,6 +24,7 @@ const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 const kDefaultFileName = '{date}';
 const kFallbackSecondaryStylusButton = 0x20;
+const kDefaultRotationStep = 5.0;
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -574,6 +575,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double touchSensitivity,
     @Default(1) double selectSensitivity,
     @Default(1) double scrollSensitivity,
+    @Default(kDefaultRotationStep) double rotationStep,
     bool? penOnlyInput,
     @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
@@ -679,6 +681,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       gestureSensitivity: prefs.getDouble('gesture_sensitivity') ?? 1,
       scrollSensitivity: prefs.getDouble('scroll_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
+      rotationStep: prefs.getDouble('rotation_step') ?? kDefaultRotationStep,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
           ? _enumByNameOr(
@@ -923,6 +926,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('gesture_sensitivity', gestureSensitivity);
     await prefs.setDouble('scroll_sensitivity', scrollSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
+    await prefs.setDouble('rotation_step', rotationStep);
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
@@ -1217,6 +1221,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> resetSelectSensitivity() => changeScrollSensitivity(1);
+
+  Future<void> changeRotationStep(double rotationStep) {
+    emit(state.copyWith(rotationStep: rotationStep));
+    return save();
+  }
+
+  Future<void> resetRotationStep() => changeRotationStep(kDefaultRotationStep);
 
   Future<void> changeBannerVisibility(BannerVisibility visibility) {
     emit(state.copyWith(bannerVisibility: visibility));

@@ -294,7 +294,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
         final structural = switch (target) {
           TableCellTarget(:final row, :final column) => <ContextMenuEntry>[
             ContextMenuItem(
-              label: '${loc.insertBefore} (${loc.row})',
+              label: loc.insertRowBefore,
               icon: const PhosphorIcon(PhosphorIconsLight.rowsPlusTop),
               onPressed: () {
                 close();
@@ -302,7 +302,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
               },
             ),
             ContextMenuItem(
-              label: '${loc.insertAfter} (${loc.row})',
+              label: loc.insertRowAfter,
               icon: const PhosphorIcon(PhosphorIconsLight.rowsPlusBottom),
               onPressed: () {
                 close();
@@ -320,7 +320,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
                   : null,
             ),
             ContextMenuItem(
-              label: '${loc.insertBefore} (${loc.column})',
+              label: loc.insertColumnBefore,
               icon: const PhosphorIcon(PhosphorIconsLight.columnsPlusLeft),
               onPressed: () {
                 close();
@@ -328,7 +328,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
               },
             ),
             ContextMenuItem(
-              label: '${loc.insertAfter} (${loc.column})',
+              label: loc.insertColumnAfter,
               icon: const PhosphorIcon(PhosphorIconsLight.columnsPlusRight),
               onPressed: () {
                 close();

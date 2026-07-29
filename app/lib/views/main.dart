@@ -734,6 +734,7 @@ class _ProjectPageState extends State<ProjectPage> {
       PasteIntent: PasteAction(context),
       SelectAllIntent: SelectAllAction(context),
       ZoomIntent: ZoomAction(context),
+      RotateIntent: RotateAction(context),
       SearchIntent: CallbackAction<SearchIntent>(
         onInvoke: (_) {
           if (_searchController.isOpen) {
@@ -761,6 +762,7 @@ class _ProjectPageState extends State<ProjectPage> {
               intent is SaveIntent ||
               intent is PacksIntent ||
               intent is ZoomIntent ||
+              intent is RotateIntent ||
               intent is ChangeToolIntent;
         });
     }

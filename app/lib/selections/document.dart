@@ -382,60 +382,70 @@ class _UtilitiesViewState extends State<_UtilitiesView>
               ],
             ),
             const ToolbarsView(),
-            Column(
-              children: [
-                OffsetListTile(
-                  title: Text(AppLocalizations.of(context).position),
-                  value: context.read<TransformCubit>().state.position,
-                  onChanged: (value) =>
-                      context.read<TransformCubit>().teleport(value),
-                ),
-                ExactSlider(
-                  header: Text(AppLocalizations.of(context).zoom),
-                  value: context.read<TransformCubit>().state.size * 100,
-                  defaultValue: 100,
-                  min: kMinZoom * 100,
-                  max: kMaxZoom * 100,
-                  onChangeEnd: (value) {
-                    final size = context
-                        .read<EditorController>()
-                        .rendererCubit
-                        .state
-                        .cameraViewport
-                        .toSize();
-                    final editorController = context.read<EditorController>();
-                    editorController.transformCubit.sizeConstrained(
-                      value / 100,
-                      cursor: Offset(size.width / 2, size.height / 2),
-                      runtime: editorController,
-                    );
-                    context.read<DocumentBloc>().bake();
-                  },
-                ),
-                ExactSlider(
-                  header: Text(AppLocalizations.of(context).rotation),
-                  value:
-                      context.read<TransformCubit>().state.rotation * 180 / pi,
-                  defaultValue: 0,
-                  min: -180,
-                  max: 180,
-                  fractionDigits: 0,
-                  onChanged: (value) {
-                    final editorController = context.read<EditorController>();
-                    final size = editorController
-                        .rendererCubit
-                        .state
-                        .cameraViewport
-                        .toSize();
-                    final transform = editorController.transformCubit;
-                    transform.rotateConstrained(
-                      value * pi / 180 - transform.state.rotation,
-                      cursor: size.center(Offset.zero),
-                      runtime: editorController,
-                    );
-                  },
-                ),
-              ],
+            BlocSelector<
+              TransformCubit,
+              CameraTransform,
+              ({Offset position, double size, double rotation})
+            >(
+              selector: (state) => (
+                position: state.position,
+                size: state.size,
+                rotation: state.rotation,
+              ),
+              builder: (context, transformState) => Column(
+                children: [
+                  OffsetListTile(
+                    title: Text(AppLocalizations.of(context).position),
+                    value: transformState.position,
+                    onChanged: (value) =>
+                        context.read<TransformCubit>().teleport(value),
+                  ),
+                  ExactSlider(
+                    header: Text(AppLocalizations.of(context).zoom),
+                    value: transformState.size * 100,
+                    defaultValue: 100,
+                    min: kMinZoom * 100,
+                    max: kMaxZoom * 100,
+                    onChangeEnd: (value) {
+                      final size = context
+                          .read<EditorController>()
+                          .rendererCubit
+                          .state
+                          .cameraViewport
+                          .toSize();
+                      final editorController = context.read<EditorController>();
+                      editorController.transformCubit.sizeConstrained(
+                        value / 100,
+                        cursor: Offset(size.width / 2, size.height / 2),
+                        runtime: editorController,
+                      );
+                      context.read<DocumentBloc>().bake();
+                    },
+                  ),
+                  ExactSlider(
+                    header: Text(AppLocalizations.of(context).rotation),
+                    value: transformState.rotation * 180 / pi,
+                    defaultValue: 0,
+                    min: -180,
+                    max: 180,
+                    fractionDigits: 0,
+                    onChanged: (value) {
+                      final editorController = context.read<EditorController>();
+                      final size = editorController
+                          .rendererCubit
+                          .state
+                          .cameraViewport
+                          .toSize();
+                      final transform = editorController.transformCubit;
+                      transform.rotateConstrained(
+                        value * pi / 180 - transform.state.rotation,
+                        cursor: size.center(Offset.zero),
+                        runtime: editorController,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ][_tabController.index],
         ),
