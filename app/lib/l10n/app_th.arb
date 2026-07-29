@@ -998,6 +998,7 @@
   "sendBackward": "ส่งถอยหลัง",
   "rotation": "การหมุน",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "ใช้ได้เฉพาะบนหน้าจอขนาดใหญ่",
   "toolbarPosition": "ตำแหน่งแถบเครื่องมือ",
