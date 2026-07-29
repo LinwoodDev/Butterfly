@@ -998,6 +998,7 @@
   "sendBackward": "Trimite înapoi",
   "rotation": "Rotație",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direcție",
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
