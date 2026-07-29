@@ -998,6 +998,7 @@
   "sendBackward": "Kirim mundur",
   "rotation": "Rotasi",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Hanya tersedia di layar yang lebih besar",
   "toolbarPosition": "Posisi bilah alat",
