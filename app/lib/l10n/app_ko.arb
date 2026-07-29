@@ -998,6 +998,7 @@
   "sendBackward": "뒤로 보내기",
   "rotation": "회전",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "더 큰 화면에서만 사용 가능",
   "toolbarPosition": "도구 모음 위치",
