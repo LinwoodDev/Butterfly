@@ -31,6 +31,10 @@ Sommige ervan worden onder de knoppen geschreven.
 - `Ctrl` + (`1` - `0`): Wissel naar tool
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom uit
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## pennen
 
