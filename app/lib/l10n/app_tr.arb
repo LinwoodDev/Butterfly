@@ -998,6 +998,7 @@
   "sendBackward": "Bir adım geriye gönder",
   "rotation": "Döndürme",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Sadece daha büyük ekranlarda kullanılabilir",
   "toolbarPosition": "Araç çubuğu konumu",
