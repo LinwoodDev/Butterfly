@@ -589,6 +589,10 @@
   "columns": "Columns",
   "row": "Row",
   "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
   "deleteColumn": "Delete column",
   "cellColor": "Cell color",
@@ -993,6 +997,7 @@
   "bringForward": "ଆଗକୁ ଆଣନ୍ତୁ",
   "sendBackward": "ପଛକୁ ପଠାନ୍ତୁ",
   "rotation": "ଘୁର୍ଣ୍ଣନ",
+  "rotationStep": "Rotation step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "ମାତ୍ର ବଡ଼ ସ୍କ୍ରିନ୍ ଉପଲବ୍ଧ",
   "toolbarPosition": "ଟୁଲ୍ବାର ସ୍ଥାନ",
@@ -1003,6 +1008,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "ସ୍ପେସର୍",
   "@spacer": {
     "description": "Spacer element"
@@ -1466,6 +1473,8 @@
   "fullScreenShortcut": "Full screen",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
