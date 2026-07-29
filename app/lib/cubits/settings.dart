@@ -23,6 +23,7 @@ part 'settings.g.dart';
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 const kDefaultFileName = '{date}';
+const kFallbackSecondaryStylusButton = 0x20;
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -339,6 +340,8 @@ sealed class InputConfiguration with _$InputConfiguration {
     String? tripleSecondPenButtonShortcut,
     String? doubleTouchShortcut,
     String? tripleTouchShortcut,
+    String? twoFingerTouchShortcut,
+    String? threeFingerTouchShortcut,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -367,6 +370,21 @@ sealed class InputConfiguration with _$InputConfiguration {
     return null;
   }
 
+  InputMapping? getPointerMapping(PointerDeviceKind kind, int buttons) =>
+      switch (kind) {
+        PointerDeviceKind.touch => touch,
+        PointerDeviceKind.mouse => getMouseMapping(buttons),
+        PointerDeviceKind.stylus
+            when (buttons & kSecondaryStylusButton) != 0 ||
+                (buttons & kFallbackSecondaryStylusButton) != 0 =>
+          secondPenButton,
+        PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
+          firstPenButton,
+        PointerDeviceKind.stylus => pen,
+        PointerDeviceKind.invertedStylus => invertedPen,
+        _ => null,
+      };
+
   String? getMouseShortcut(int buttons, {required bool isDoubleTap}) {
     if ((buttons & kForwardMouseButton) != 0) {
       return isDoubleTap
@@ -389,6 +407,48 @@ sealed class InputConfiguration with _$InputConfiguration {
     }
     return null;
   }
+
+  String? getRepeatedTapShortcut(
+    PointerDeviceKind kind,
+    int buttons,
+    int tapCount,
+  ) {
+    if (tapCount != 2 && tapCount != 3) return null;
+    final isDoubleTap = tapCount == 2;
+    return switch (kind) {
+      PointerDeviceKind.mouse => getMouseShortcut(
+        buttons,
+        isDoubleTap: isDoubleTap,
+      ),
+      PointerDeviceKind.stylus
+          when (buttons & kSecondaryStylusButton) != 0 ||
+              (buttons & kFallbackSecondaryStylusButton) != 0 =>
+        isDoubleTap
+            ? doubleSecondPenButtonShortcut
+            : tripleSecondPenButtonShortcut,
+      PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
+        isDoubleTap
+            ? doubleFirstPenButtonShortcut
+            : tripleFirstPenButtonShortcut,
+      PointerDeviceKind.stylus =>
+        isDoubleTap ? doublePenShortcut : triplePenShortcut,
+      PointerDeviceKind.invertedStylus =>
+        isDoubleTap ? doubleInvertedPenShortcut : tripleInvertedPenShortcut,
+      PointerDeviceKind.touch =>
+        isDoubleTap ? doubleTouchShortcut : tripleTouchShortcut,
+      _ => null,
+    };
+  }
+
+  bool hasRepeatedTapShortcut(PointerDeviceKind kind, int buttons) =>
+      getRepeatedTapShortcut(kind, buttons, 2) != null ||
+      getRepeatedTapShortcut(kind, buttons, 3) != null;
+
+  String? getMultiFingerTouchShortcut(int fingerCount) => switch (fingerCount) {
+    2 => twoFingerTouchShortcut,
+    3 => threeFingerTouchShortcut,
+    _ => null,
+  };
 }
 
 enum SortBy { name, created, modified }

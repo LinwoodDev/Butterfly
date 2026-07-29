@@ -87,6 +87,8 @@ _InputConfiguration _$InputConfigurationFromJson(
       json['tripleSecondPenButtonShortcut'] as String?,
   doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
   tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
+  twoFingerTouchShortcut: json['twoFingerTouchShortcut'] as String?,
+  threeFingerTouchShortcut: json['threeFingerTouchShortcut'] as String?,
 );
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
@@ -122,6 +124,8 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'tripleSecondPenButtonShortcut': instance.tripleSecondPenButtonShortcut,
       'doubleTouchShortcut': instance.doubleTouchShortcut,
       'tripleTouchShortcut': instance.tripleTouchShortcut,
+      'twoFingerTouchShortcut': instance.twoFingerTouchShortcut,
+      'threeFingerTouchShortcut': instance.threeFingerTouchShortcut,
     };
 
 _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(

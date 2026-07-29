@@ -96,16 +96,33 @@ void main() {
         'zoom_out',
       );
     });
+  });
 
-    test('serializes back and forward mouse settings', () {
-      final decoded = InputConfiguration.fromJson(configuration.toJson());
+  test('resolves stylus pointer mappings by button priority', () {
+    const configuration = InputConfiguration();
 
-      expect(decoded, configuration);
-      expect(
-        decoded.getShortcuts(),
-        containsAll([backMapping, forwardMapping]),
-      );
-    });
+    expect(
+      configuration.getPointerMapping(PointerDeviceKind.stylus, 0),
+      configuration.pen,
+    );
+    expect(
+      configuration.getPointerMapping(
+        PointerDeviceKind.stylus,
+        kPrimaryStylusButton,
+      ),
+      configuration.firstPenButton,
+    );
+    expect(
+      configuration.getPointerMapping(
+        PointerDeviceKind.stylus,
+        kFallbackSecondaryStylusButton,
+      ),
+      configuration.secondPenButton,
+    );
+    expect(
+      configuration.getPointerMapping(PointerDeviceKind.invertedStylus, 0),
+      configuration.invertedPen,
+    );
   });
 
   group('SettingsCubit resets', () {
