@@ -589,6 +589,10 @@
   "columns": "Columns",
   "row": "Row",
   "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
   "deleteColumn": "Delete column",
   "cellColor": "Cell color",
@@ -993,6 +997,7 @@
   "bringForward": "Vorwärts bringen",
   "sendBackward": "Rückwärts senden",
   "rotation": "Drehung",
+  "rotationStep": "Rotation step",
   "direction": "Richtung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
@@ -1003,6 +1008,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "Abstandhalter",
   "@spacer": {
     "description": "Spacer element"
@@ -1466,6 +1473,8 @@
   "fullScreenShortcut": "Vollbild",
   "doublePressAction": "Doppeltes Drücken",
   "triplePressAction": "Dreifach Drücken Aktion",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Lange drücken",
   "toolNumber": "{number}",
   "@toolNumber": {
