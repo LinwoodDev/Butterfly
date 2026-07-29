@@ -589,6 +589,10 @@
   "columns": "Columns",
   "row": "Row",
   "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
   "deleteColumn": "Delete column",
   "cellColor": "Cell color",
@@ -993,6 +997,7 @@
   "bringForward": "आगे लाएं",
   "sendBackward": "पीछे भेजें",
   "rotation": "घूर्णन",
+  "rotationStep": "Rotation step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "केवल बड़ी स्क्रीन पर उपलब्ध है",
   "toolbarPosition": "टूलबार की स्थिति",
@@ -1003,6 +1008,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "स्पेसर",
   "@spacer": {
     "description": "Spacer element"
@@ -1466,6 +1473,8 @@
   "fullScreenShortcut": "Full screen",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
