@@ -998,6 +998,7 @@
   "sendBackward": "Send tilbage",
   "rotation": "Rotation",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Retning",
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
   "toolbarPosition": "Værktøjslinjens position",
