@@ -31,6 +31,10 @@ title: الاختصارات
 - `Ctrl` + (`1` - `0`): التبديل إلى أداة
 - `Ctrl` + `+`: تكبير في
 - `Ctrl` + `-`: تكبير خارجي
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## القلم
 
