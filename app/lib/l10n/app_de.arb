@@ -998,6 +998,7 @@
   "sendBackward": "Rückwärts senden",
   "rotation": "Drehung",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Richtung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
