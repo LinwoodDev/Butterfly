@@ -31,6 +31,10 @@ Certaines d'entre elles sont écrites sous les boutons.
 - `Ctrl` + (`1` - `0`) : Basculer vers l'outil
 - `Ctrl` + `+`: Zoom avant
 - `Ctrl` + `-`: Zoom arrière
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Stylo
 
