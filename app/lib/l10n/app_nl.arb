@@ -998,6 +998,7 @@
   "sendBackward": "Stuur achteruit",
   "rotation": "Rotatie",
   "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
