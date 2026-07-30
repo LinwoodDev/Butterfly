@@ -271,6 +271,9 @@ class EditorController implements EditorRuntimeContext {
 
     saveCubit.setSaveState(saved: SaveState.unsaved);
     if (saveCubit.state.embedding != null) {
+      if (replacedElements != null) {
+        await rendererCubit.bake(this, blocState, reset: true);
+      }
       return;
     }
     if (reset) {
