@@ -23,6 +23,9 @@ part 'settings.g.dart';
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 const kDefaultFileName = '{date}';
+const kFallbackSecondaryStylusButton = 0x20;
+const kDefaultRotationStep = 5.0;
+const kDefaultZoomStep = 0.1;
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -339,6 +342,8 @@ sealed class InputConfiguration with _$InputConfiguration {
     String? tripleSecondPenButtonShortcut,
     String? doubleTouchShortcut,
     String? tripleTouchShortcut,
+    String? twoFingerTouchShortcut,
+    String? threeFingerTouchShortcut,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -367,6 +372,21 @@ sealed class InputConfiguration with _$InputConfiguration {
     return null;
   }
 
+  InputMapping? getPointerMapping(PointerDeviceKind kind, int buttons) =>
+      switch (kind) {
+        PointerDeviceKind.touch => touch,
+        PointerDeviceKind.mouse => getMouseMapping(buttons),
+        PointerDeviceKind.stylus
+            when (buttons & kSecondaryStylusButton) != 0 ||
+                (buttons & kFallbackSecondaryStylusButton) != 0 =>
+          secondPenButton,
+        PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
+          firstPenButton,
+        PointerDeviceKind.stylus => pen,
+        PointerDeviceKind.invertedStylus => invertedPen,
+        _ => null,
+      };
+
   String? getMouseShortcut(int buttons, {required bool isDoubleTap}) {
     if ((buttons & kForwardMouseButton) != 0) {
       return isDoubleTap
@@ -389,6 +409,48 @@ sealed class InputConfiguration with _$InputConfiguration {
     }
     return null;
   }
+
+  String? getRepeatedTapShortcut(
+    PointerDeviceKind kind,
+    int buttons,
+    int tapCount,
+  ) {
+    if (tapCount != 2 && tapCount != 3) return null;
+    final isDoubleTap = tapCount == 2;
+    return switch (kind) {
+      PointerDeviceKind.mouse => getMouseShortcut(
+        buttons,
+        isDoubleTap: isDoubleTap,
+      ),
+      PointerDeviceKind.stylus
+          when (buttons & kSecondaryStylusButton) != 0 ||
+              (buttons & kFallbackSecondaryStylusButton) != 0 =>
+        isDoubleTap
+            ? doubleSecondPenButtonShortcut
+            : tripleSecondPenButtonShortcut,
+      PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
+        isDoubleTap
+            ? doubleFirstPenButtonShortcut
+            : tripleFirstPenButtonShortcut,
+      PointerDeviceKind.stylus =>
+        isDoubleTap ? doublePenShortcut : triplePenShortcut,
+      PointerDeviceKind.invertedStylus =>
+        isDoubleTap ? doubleInvertedPenShortcut : tripleInvertedPenShortcut,
+      PointerDeviceKind.touch =>
+        isDoubleTap ? doubleTouchShortcut : tripleTouchShortcut,
+      _ => null,
+    };
+  }
+
+  bool hasRepeatedTapShortcut(PointerDeviceKind kind, int buttons) =>
+      getRepeatedTapShortcut(kind, buttons, 2) != null ||
+      getRepeatedTapShortcut(kind, buttons, 3) != null;
+
+  String? getMultiFingerTouchShortcut(int fingerCount) => switch (fingerCount) {
+    2 => twoFingerTouchShortcut,
+    3 => threeFingerTouchShortcut,
+    _ => null,
+  };
 }
 
 enum SortBy { name, created, modified }
@@ -514,6 +576,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double touchSensitivity,
     @Default(1) double selectSensitivity,
     @Default(1) double scrollSensitivity,
+    @Default(kDefaultRotationStep) double rotationStep,
+    @Default(kDefaultZoomStep) double zoomStep,
     bool? penOnlyInput,
     @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
@@ -619,6 +683,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       gestureSensitivity: prefs.getDouble('gesture_sensitivity') ?? 1,
       scrollSensitivity: prefs.getDouble('scroll_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
+      rotationStep: prefs.getDouble('rotation_step') ?? kDefaultRotationStep,
+      zoomStep: prefs.getDouble('zoom_step') ?? kDefaultZoomStep,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
           ? _enumByNameOr(
@@ -863,6 +929,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('gesture_sensitivity', gestureSensitivity);
     await prefs.setDouble('scroll_sensitivity', scrollSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
+    await prefs.setDouble('rotation_step', rotationStep);
+    await prefs.setDouble('zoom_step', zoomStep);
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
@@ -1157,6 +1225,20 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> resetSelectSensitivity() => changeScrollSensitivity(1);
+
+  Future<void> changeRotationStep(double rotationStep) {
+    emit(state.copyWith(rotationStep: rotationStep));
+    return save();
+  }
+
+  Future<void> resetRotationStep() => changeRotationStep(kDefaultRotationStep);
+
+  Future<void> changeZoomStep(double zoomStep) {
+    emit(state.copyWith(zoomStep: zoomStep));
+    return save();
+  }
+
+  Future<void> resetZoomStep() => changeZoomStep(kDefaultZoomStep);
 
   Future<void> changeBannerVisibility(BannerVisibility visibility) {
     emit(state.copyWith(bannerVisibility: visibility));

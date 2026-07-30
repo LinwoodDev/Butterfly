@@ -10,8 +10,10 @@ import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
+import 'package:butterfly/views/view.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,7 +101,11 @@ void main() {
     );
   }
 
-  Widget buildApp({NoteData? embedDocument}) {
+  Widget buildApp({
+    NoteData? embedDocument,
+    bool embedWithData = true,
+    String embedFileName = '',
+  }) {
     final document =
         embedDocument ??
         DocumentDefaults.createDocument(
@@ -145,8 +151,8 @@ void main() {
             GoRoute(
               path: 'embed',
               builder: (context, state) => ProjectPage(
-                data: document.toFile(),
-                embedding: Embedding(internal: true),
+                data: embedWithData ? document.toFile() : null,
+                embedding: Embedding(internal: true, fileName: embedFileName),
               ),
             ),
           ],
@@ -208,6 +214,156 @@ void main() {
 
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
+  });
+
+  testWidgets('empty embed ignores the configured default template', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp(embedWithData: false));
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'empty embed open',
+    );
+
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, isEmpty);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'empty embed close',
+    );
+  });
+
+  testWidgets('embed file name is visual only and templates are hidden', (
+    tester,
+  ) async {
+    final document = DocumentDefaults.createDocument(
+      name: 'Stored document name',
+      page: const DocumentPage(backgrounds: []),
+    );
+    await tester.pumpWidget(
+      buildApp(embedDocument: document, embedFileName: 'Host file.bfly'),
+    );
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'named embed open',
+    );
+    await tester.pumpAndSettle();
+
+    final titleFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is TextFormField &&
+          widget.controller?.text == 'Host file.bfly',
+    );
+    final title = tester.widget<TextFormField>(titleFinder);
+    expect(title.controller?.text, 'Host file.bfly');
+    final titleField = tester.widget<TextField>(
+      find.descendant(of: titleFinder, matching: find.byType(TextField)),
+    );
+    expect(titleField.readOnly, isFalse);
+
+    var state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, 'Stored document name');
+
+    await tester.enterText(titleFinder, 'Renamed metadata');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, 'Renamed metadata');
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is TextFormField &&
+            widget.controller?.text == 'Renamed metadata',
+      ),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.byTooltip('Actions'));
+    await tester.pumpAndSettle();
+    expect(find.text('Templates'), findsNothing);
+    expect(find.text('Files'), findsNothing);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'named embed close',
+    );
+  });
+
+  testWidgets('double tap shortcut does not draw with the pen tool', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        inputConfiguration: InputConfiguration(doubleTouchShortcut: 'undo'),
+      ),
+    );
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final viewport = find.byType(MainViewViewport);
+    final documentBloc = observer.lastDocumentBloc!;
+    final editorController = documentBloc.editorController;
+    await editorController.toolCubit.changeTool(
+      editorController,
+      documentBloc,
+      index: 1,
+      allowBake: false,
+    );
+    await tester.pumpAndSettle();
+    final position = tester.getCenter(viewport);
+    final firstTap = await tester.startGesture(
+      position,
+      pointer: 1,
+      kind: PointerDeviceKind.touch,
+    );
+    await firstTap.up();
+    await tester.pump(const Duration(milliseconds: 50));
+    final secondTap = await tester.startGesture(
+      position,
+      pointer: 2,
+      kind: PointerDeviceKind.touch,
+    );
+    await secondTap.up();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.page.content, isEmpty);
+    expect(observer.events, isNot(contains('ElementsCreated')));
+
+    final singleTap = await tester.startGesture(
+      position + const Offset(30, 0),
+      pointer: 3,
+      kind: PointerDeviceKind.touch,
+    );
+    await singleTap.up();
+    await tester.pump(const Duration(milliseconds: 550));
+    await tester.pumpAndSettle();
+
+    final updatedState =
+        observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(updatedState.page.content, hasLength(1));
+    expect(observer.events, contains('ElementsCreated'));
+    await tester.pump(const Duration(seconds: 4));
   });
 
   testWidgets('mobile navigator dialogs receive the editor runtime cubits', (

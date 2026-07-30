@@ -19,6 +19,8 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
       bringMovedElementsToFront: defaults.bringMovedElementsToFront,
       spreadPages: defaults.spreadPages,
       imageScale: defaults.imageScale,
+      rotationStep: defaults.rotationStep,
+      zoomStep: defaults.zoomStep,
     ),
   ),
   children: {'persistence': _persistenceSettingsPage},
@@ -197,6 +199,14 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
               .read<SettingsCubit>()
               .changeBringMovedElementsToFront(value),
         ),
+        SettingsLeapCustomSetting(
+          displayName: (context) => AppLocalizations.of(context).rotationStep,
+          builder: _rotationStepSetting,
+        ),
+        SettingsLeapCustomSetting(
+          displayName: (context) => AppLocalizations.of(context).zoomStep,
+          builder: _zoomStepSetting,
+        ),
       ],
     ),
     'import': SettingsLeapSection(
@@ -247,5 +257,35 @@ Widget _autosaveDelaySetting(BuildContext context, ButterflySettings state) {
     fractionDigits: 0,
     onChangeEnd: (value) =>
         context.read<SettingsCubit>().changeAutosaveDelaySeconds(value.toInt()),
+  );
+}
+
+Widget _rotationStepSetting(BuildContext context, ButterflySettings state) {
+  return ExactSlider(
+    leading: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+    min: 1,
+    max: 90,
+    defaultValue: kDefaultRotationStep,
+    fractionDigits: 0,
+    value: state.rotationStep,
+    label: '°',
+    header: Text(AppLocalizations.of(context).rotationStep),
+    onChangeEnd: (value) =>
+        context.read<SettingsCubit>().changeRotationStep(value),
+  );
+}
+
+Widget _zoomStepSetting(BuildContext context, ButterflySettings state) {
+  return ExactSlider(
+    leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+    min: 1,
+    max: 100,
+    defaultValue: kDefaultZoomStep * 100,
+    fractionDigits: 0,
+    value: state.zoomStep * 100,
+    label: '%',
+    header: Text(AppLocalizations.of(context).zoomStep),
+    onChangeEnd: (value) =>
+        context.read<SettingsCubit>().changeZoomStep(value / 100),
   );
 }

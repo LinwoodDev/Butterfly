@@ -216,14 +216,16 @@ class _ProjectPageState extends State<ProjectPage> {
       final name = absolute ? location!.fileNameWithoutExtension : '';
       NoteData? defaultDocument;
       final defaultTemplate = settingsCubit.state.defaultTemplate;
-      final template = await fileSystem.buildTemplateSystem().getDefaultFile(
-        defaultTemplate,
-      );
-      if (template != null && mounted) {
-        defaultDocument = template.createDocument(
-          name: name,
-          createdAt: DateTime.now(),
+      if (embedding == null) {
+        final template = await fileSystem.buildTemplateSystem().getDefaultFile(
+          defaultTemplate,
         );
+        if (template != null && mounted) {
+          defaultDocument = template.createDocument(
+            name: name,
+            createdAt: DateTime.now(),
+          );
+        }
       }
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
       bool failedToLoad = false;
@@ -326,15 +328,19 @@ class _ProjectPageState extends State<ProjectPage> {
         return;
       }
       if (document == null) {
-        final template =
-            await fileSystem
-                .buildTemplateSystem(remote)
-                .getDefaultFile(defaultTemplate) ??
-            await DocumentDefaults.createTemplate();
-        document = template.createDocument(
-          name: name,
-          createdAt: DateTime.now(),
-        );
+        if (embedding != null) {
+          document = defaultDocument;
+        } else {
+          final template =
+              await fileSystem
+                  .buildTemplateSystem(remote)
+                  .getDefaultFile(defaultTemplate) ??
+              await DocumentDefaults.createTemplate();
+          document = template.createDocument(
+            name: name,
+            createdAt: DateTime.now(),
+          );
+        }
       }
       await context.read<FontService>().loadFonts(document);
       if (!isCurrentLoad()) {
@@ -711,7 +717,7 @@ class _ProjectPageState extends State<ProjectPage> {
     return <Type, Action<Intent>>{
       UndoIntent: UndoAction(context),
       RedoIntent: RedoAction(context),
-      NewIntent: NewAction(context),
+      if (widget.embedding == null) NewIntent: NewAction(context),
       SvgExportIntent: SvgExportAction(context),
       ImageExportIntent: ImageExportAction(context),
       PdfExportIntent: PdfExportAction(context),
@@ -734,6 +740,7 @@ class _ProjectPageState extends State<ProjectPage> {
       PasteIntent: PasteAction(context),
       SelectAllIntent: SelectAllAction(context),
       ZoomIntent: ZoomAction(context),
+      RotateIntent: RotateAction(context),
       SearchIntent: CallbackAction<SearchIntent>(
         onInvoke: (_) {
           if (_searchController.isOpen) {
@@ -753,6 +760,7 @@ class _ProjectPageState extends State<ProjectPage> {
       shortcuts = Map.from(shortcuts)
         ..removeWhere((key, intent) {
           return intent is ExportIntent ||
+              intent is NewIntent ||
               intent is ImageExportIntent ||
               intent is PdfExportIntent ||
               intent is SvgExportIntent ||
@@ -761,6 +769,7 @@ class _ProjectPageState extends State<ProjectPage> {
               intent is SaveIntent ||
               intent is PacksIntent ||
               intent is ZoomIntent ||
+              intent is RotateIntent ||
               intent is ChangeToolIntent;
         });
     }

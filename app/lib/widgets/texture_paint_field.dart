@@ -1,5 +1,6 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/helpers/color.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/widgets/color_field.dart';
@@ -77,7 +78,7 @@ class TexturePaintField extends StatelessWidget {
       _ => _PaintKind.solid,
     };
 
-    final color = value.previewColor;
+    final color = value.realColor;
 
     return Column(
       children: [
@@ -111,10 +112,15 @@ class TexturePaintField extends StatelessWidget {
             selected: {kind},
             onSelectionChanged: (selection) {
               final selected = selection.first;
+              final state = context.read<DocumentBloc>().state;
+              final background =
+                  state.page?.backgrounds.firstOrNull?.defaultColor ??
+                  SRGBColor.white;
+              final nextColor = color ?? getDefaultColor(background);
 
               onChanged(switch (selected) {
                 _PaintKind.solid => ElementPaint.solid(
-                  color: color,
+                  color: nextColor,
                   blur: value.blur,
                 ),
                 _PaintKind.gradient => switch (value) {
@@ -123,10 +129,10 @@ class TexturePaintField extends StatelessWidget {
                     blur: value.blur,
                     gradient: ElementGradient.linear(
                       stops: [
-                        ElementGradientStop(offset: 0, color: color),
+                        ElementGradientStop(offset: 0, color: nextColor),
                         ElementGradientStop(
                           offset: 1,
-                          color: SRGBColor.white.withValues(a: color.a),
+                          color: SRGBColor.white.withValues(a: nextColor.a),
                         ),
                       ],
                     ),
@@ -134,19 +140,11 @@ class TexturePaintField extends StatelessWidget {
                 },
                 _PaintKind.image => switch (value) {
                   ImageElementPaint() => value,
-                  _ => ElementPaint.image(
-                    source: '',
-                    tint: color,
-                    blur: value.blur,
-                  ),
+                  _ => ElementPaint.image(source: '', blur: value.blur),
                 },
                 _PaintKind.svg => switch (value) {
                   SvgElementPaint() => value,
-                  _ => ElementPaint.svg(
-                    source: '',
-                    tint: color,
-                    blur: value.blur,
-                  ),
+                  _ => ElementPaint.svg(source: '', blur: value.blur),
                 },
               });
             },
@@ -169,7 +167,7 @@ class TexturePaintField extends StatelessWidget {
                   ? LeapLocalizations.of(context).color
                   : loc.tint,
             ),
-            value: color.withValues(a: 255),
+            value: value.previewColor.withValues(a: 255),
             onChanged: (next) => onChanged(switch (value) {
               ImageElementPaint(
                 :final source,
@@ -196,14 +194,14 @@ class TexturePaintField extends StatelessWidget {
                   blur: blur,
                 ),
               _ => ElementPaint.solid(
-                color: next.withValues(a: color.a),
+                color: next.withValues(a: value.previewColor.a),
                 blur: value.blur,
               ),
             }),
           ),
 
         ExactSlider(
-          value: color.a.toDouble(),
+          value: value.previewColor.a.toDouble(),
           header: Text(loc.alpha),
           fractionDigits: 0,
           max: 255,

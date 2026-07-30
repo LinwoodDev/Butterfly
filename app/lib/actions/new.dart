@@ -78,7 +78,7 @@ Future<void> openNewDocument(
     final templatePattern = template.getMetadata()?.fileName.trim() ?? '';
     var documentName = '';
     var shouldAutoSave = autoSave;
-    if (shouldAutoSave && templatePattern.isNotEmpty) {
+    if (templatePattern.isNotEmpty) {
       try {
         documentName = resolveTemplateFileName(templatePattern, DateTime.now());
       } on FormatException {

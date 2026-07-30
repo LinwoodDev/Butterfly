@@ -158,6 +158,10 @@ to **tool activators**.*
 * `Ctrl` + `A`: Select all
 * `Ctrl` + `V`: Pastes the clipboard
 * `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + `Shift` + `Left`: Rotate canvas left
+* `Ctrl` + `Shift` + `Right`: Rotate canvas right
+
+The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Pen
 

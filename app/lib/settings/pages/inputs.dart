@@ -276,6 +276,10 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
         touch: defaults.inputConfiguration.touch,
         doubleTouchShortcut: defaults.inputConfiguration.doubleTouchShortcut,
         tripleTouchShortcut: defaults.inputConfiguration.tripleTouchShortcut,
+        twoFingerTouchShortcut:
+            defaults.inputConfiguration.twoFingerTouchShortcut,
+        threeFingerTouchShortcut:
+            defaults.inputConfiguration.threeFingerTouchShortcut,
       ),
     ),
   ),
@@ -330,6 +334,22 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
           icon: PhosphorIconsLight.handTap,
           read: (config) => config.tripleTouchShortcut,
           write: (config, value) => config.copyWith(tripleTouchShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'twoFingerTouchShortcut',
+          displayName: (context) => AppLocalizations.of(context).twoFingerTap,
+          icon: PhosphorIconsLight.handTap,
+          read: (config) => config.twoFingerTouchShortcut,
+          write: (config, value) =>
+              config.copyWith(twoFingerTouchShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'threeFingerTouchShortcut',
+          displayName: (context) => AppLocalizations.of(context).threeFingerTap,
+          icon: PhosphorIconsLight.handTap,
+          read: (config) => config.threeFingerTouchShortcut,
+          write: (config, value) =>
+              config.copyWith(threeFingerTouchShortcut: value),
         ),
       ],
     ),
@@ -399,6 +419,8 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
             changePathShortcut,
             zoomInShortcut,
             zoomOutShortcut,
+            rotateLeftShortcut,
+            rotateRightShortcut,
             fullScreenShortcut,
             hideUIShortcut,
             nextShortcut,
@@ -803,6 +825,8 @@ final _projectInputShortcuts = [
   changePathShortcut,
   zoomInShortcut,
   zoomOutShortcut,
+  rotateLeftShortcut,
+  rotateRightShortcut,
   fullScreenShortcut,
   hideUIShortcut,
   nextPageShortcut,

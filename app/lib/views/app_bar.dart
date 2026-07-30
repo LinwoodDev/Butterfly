@@ -127,6 +127,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
   final TextEditingController _nameController = TextEditingController(),
       _areaController = TextEditingController();
   final FocusNode _nameFocusNode = FocusNode(), _areaFocusNode = FocusNode();
+  bool _embedNameEdited = false;
 
   @override
   void dispose() {
@@ -148,7 +149,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
           previous.isCreating != current.isCreating ||
           previous.isSaveDelayed != current.isSaveDelayed ||
           previous.embedding?.save != current.embedding?.save ||
-          previous.embedding?.editable != current.embedding?.editable,
+          previous.embedding?.editable != current.embedding?.editable ||
+          previous.embedding?.fileName != current.embedding?.fileName,
       builder: (context, currentIndex) =>
           BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) {
@@ -170,10 +172,16 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               final areaName = state is DocumentLoadSuccess
                   ? state.currentAreaName
                   : null;
-              if (state is DocumentLoaded &&
-                  !_nameFocusNode.hasFocus &&
-                  state.metadata.name != _nameController.text) {
-                _nameController.text = state.metadata.name;
+              final embedFileName = currentIndex.embedding?.fileName ?? '';
+              final displayedName =
+                  embedFileName.isNotEmpty && !_embedNameEdited
+                  ? embedFileName
+                  : state is DocumentLoaded
+                  ? state.metadata.name
+                  : '';
+              if (!_nameFocusNode.hasFocus &&
+                  displayedName != _nameController.text) {
+                _nameController.text = displayedName;
               }
               if (!_areaFocusNode.hasFocus &&
                   _areaController.text != (area?.name ?? '')) {
@@ -275,6 +283,11 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                     value ??= area == null
                         ? _nameController.text
                         : _areaController.text;
+                    if (area == null && currentIndex.embedding != null) {
+                      if (!_embedNameEdited) return;
+                      bloc.add(DocumentDescriptionChanged(name: value));
+                      return;
+                    }
                     if (area == null || areaName == null) {
                       final cubit = context.read<EditorController>();
                       final location = cubit.saveCubit.state.location;
@@ -330,6 +343,10 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                               : _areaFocusNode,
                           onFieldSubmitted: submit,
                           onSaved: submit,
+                          onChanged:
+                              area == null && currentIndex.embedding != null
+                              ? (_) => _embedNameEdited = true
+                              : null,
                           readOnly: currentIndex.embedding?.editable == false,
                           decoration: InputDecoration(
                             filled: true,
@@ -705,57 +722,67 @@ class MainPopupMenu extends StatelessWidget {
                           const Divider(),
                         ],
                         if (showNavigatorDialog) ...[
-                          ...NavigatorPage.values.map(
-                            (e) => MenuItemButton(
-                              leadingIcon: PhosphorIcon(
-                                e.icon(PhosphorIconsStyle.light),
-                              ),
-                              child: Text(e.getLocalizedName(context)),
-                              onPressed: () {
-                                context.read<EditorViewCubit>().setNavigator(
-                                  page: e,
-                                );
-                                final bloc = context.read<DocumentBloc>();
-                                final transformCubit = context
-                                    .read<TransformCubit>();
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => MultiBlocProvider(
-                                    providers: [
-                                      BlocProvider.value(value: bloc),
-                                      BlocProvider.value(value: transformCubit),
-                                      if (cubit.editorSessionCubit != null)
-                                        BlocProvider.value(
-                                          value: cubit.editorSessionCubit!,
-                                        ),
-                                      BlocProvider.value(
-                                        value: cubit.rendererCubit,
-                                      ),
-                                      BlocProvider.value(
-                                        value: cubit.toolCubit,
-                                      ),
-                                      BlocProvider.value(
-                                        value: cubit.inputCubit,
-                                      ),
-                                      BlocProvider.value(
-                                        value: cubit.saveCubit,
-                                      ),
-                                      BlocProvider.value(
-                                        value: cubit.viewCubit,
-                                      ),
-                                    ],
-                                    child: RepositoryProvider.value(
-                                      value: cubit,
-                                      child: DocumentNavigator(asDialog: true),
-                                    ),
+                          ...NavigatorPage.values
+                              .where(
+                                (page) =>
+                                    saveState.embedding == null ||
+                                    page != NavigatorPage.files,
+                              )
+                              .map(
+                                (e) => MenuItemButton(
+                                  leadingIcon: PhosphorIcon(
+                                    e.icon(PhosphorIconsStyle.light),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
+                                  child: Text(e.getLocalizedName(context)),
+                                  onPressed: () {
+                                    context
+                                        .read<EditorViewCubit>()
+                                        .setNavigator(page: e);
+                                    final bloc = context.read<DocumentBloc>();
+                                    final transformCubit = context
+                                        .read<TransformCubit>();
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider.value(value: bloc),
+                                          BlocProvider.value(
+                                            value: transformCubit,
+                                          ),
+                                          if (cubit.editorSessionCubit != null)
+                                            BlocProvider.value(
+                                              value: cubit.editorSessionCubit!,
+                                            ),
+                                          BlocProvider.value(
+                                            value: cubit.rendererCubit,
+                                          ),
+                                          BlocProvider.value(
+                                            value: cubit.toolCubit,
+                                          ),
+                                          BlocProvider.value(
+                                            value: cubit.inputCubit,
+                                          ),
+                                          BlocProvider.value(
+                                            value: cubit.saveCubit,
+                                          ),
+                                          BlocProvider.value(
+                                            value: cubit.viewCubit,
+                                          ),
+                                        ],
+                                        child: RepositoryProvider.value(
+                                          value: cubit,
+                                          child: DocumentNavigator(
+                                            asDialog: true,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                           const Divider(),
                         ],
-                        if (saveState.embedding == null)
+                        if (saveState.embedding == null) ...[
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.filePlus,
@@ -775,24 +802,25 @@ class MainPopupMenu extends StatelessWidget {
                               AppLocalizations.of(context).newContent,
                             ),
                           ),
-                        MenuItemButton(
-                          leadingIcon: const PhosphorIcon(
-                            PhosphorIconsLight.file,
-                            textDirection: TextDirection.ltr,
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.file,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyN,
+                              shift: true,
+                              control: true,
+                            ),
+                            onPressed: () {
+                              Actions.maybeInvoke<NewIntent>(
+                                context,
+                                NewIntent(fromTemplate: true),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).templates),
                           ),
-                          shortcut: const SingleActivator(
-                            LogicalKeyboardKey.keyN,
-                            shift: true,
-                            control: true,
-                          ),
-                          onPressed: () {
-                            Actions.maybeInvoke<NewIntent>(
-                              context,
-                              NewIntent(fromTemplate: true),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context).templates),
-                        ),
+                        ],
                         SubmenuButton(
                           menuChildren: settings.history
                               .map(

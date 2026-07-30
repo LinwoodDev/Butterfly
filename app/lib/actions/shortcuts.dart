@@ -16,6 +16,7 @@ import 'package:butterfly/actions/paste.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/previous.dart';
 import 'package:butterfly/actions/redo.dart';
+import 'package:butterfly/actions/rotate.dart';
 import 'package:butterfly/actions/save.dart';
 import 'package:butterfly/actions/select.dart';
 import 'package:butterfly/actions/settings.dart';
@@ -43,6 +44,7 @@ export 'package:butterfly/actions/pdf_export.dart';
 export 'package:butterfly/actions/previous.dart';
 export 'package:butterfly/actions/previous_page.dart';
 export 'package:butterfly/actions/redo.dart';
+export 'package:butterfly/actions/rotate.dart';
 export 'package:butterfly/actions/save.dart';
 export 'package:butterfly/actions/select.dart';
 export 'package:butterfly/actions/settings.dart';
@@ -84,6 +86,8 @@ extension ShortcutDefinitionLocalization on ShortcutDefinition {
       changePathShortcut => loc.changePathShortcut,
       zoomInShortcut => loc.zoomIn,
       zoomOutShortcut => loc.zoomOut,
+      rotateLeftShortcut => loc.rotateLeft,
+      rotateRightShortcut => loc.rotateRight,
       fullScreenShortcut => loc.fullScreenShortcut,
       hideUIShortcut => loc.hideUI,
       nextShortcut => loc.nextSlide,
@@ -127,6 +131,8 @@ final keybinder = Keybinder(
     packsShortcut,
     zoomInShortcut,
     zoomOutShortcut,
+    rotateLeftShortcut,
+    rotateRightShortcut,
     pasteShortcut,
     ...changeToolShortcuts,
   ],

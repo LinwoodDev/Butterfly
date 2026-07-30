@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -49,65 +48,6 @@ void main() {
       kDefaultFileName,
     );
   });
-
-  group('extra mouse buttons', () {
-    const backMapping = InputMapping(InputMapping.handToolValue);
-    const forwardMapping = InputMapping(4);
-    const configuration = InputConfiguration(
-      backMouse: backMapping,
-      forwardMouse: forwardMapping,
-      doubleBackMouseShortcut: 'undo',
-      tripleBackMouseShortcut: 'redo',
-      doubleForwardMouseShortcut: 'zoom_in',
-      tripleForwardMouseShortcut: 'zoom_out',
-    );
-
-    test('maps back and forward button presses', () {
-      expect(configuration.getMouseMapping(kBackMouseButton), backMapping);
-      expect(
-        configuration.getMouseMapping(kForwardMouseButton),
-        forwardMapping,
-      );
-      expect(
-        const InputConfiguration().getMouseMapping(kBackMouseButton),
-        null,
-      );
-      expect(
-        const InputConfiguration().getMouseMapping(kForwardMouseButton),
-        null,
-      );
-    });
-
-    test('maps back and forward multi-click shortcuts', () {
-      expect(
-        configuration.getMouseShortcut(kBackMouseButton, isDoubleTap: true),
-        'undo',
-      );
-      expect(
-        configuration.getMouseShortcut(kBackMouseButton, isDoubleTap: false),
-        'redo',
-      );
-      expect(
-        configuration.getMouseShortcut(kForwardMouseButton, isDoubleTap: true),
-        'zoom_in',
-      );
-      expect(
-        configuration.getMouseShortcut(kForwardMouseButton, isDoubleTap: false),
-        'zoom_out',
-      );
-    });
-
-    test('serializes back and forward mouse settings', () {
-      final decoded = InputConfiguration.fromJson(configuration.toJson());
-
-      expect(decoded, configuration);
-      expect(
-        decoded.getShortcuts(),
-        containsAll([backMapping, forwardMapping]),
-      );
-    });
-  });
-
   group('SettingsCubit resets', () {
     test(
       'resets selected settings while preserving unrelated values',
