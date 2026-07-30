@@ -185,11 +185,11 @@ following **tool activators**:
 
 *By default, the pen **document actions** are all set to `None`.*
 
-* `Double Pen`: Double-tapping with a pen
-* `Triple Pen`: Triple-tapping with a pen
-* `Double Inverted Pen`: Double-tapping with a pen in inverted mode
-* `Triple Inverted Pen`: Triple-tapping with using a pen in inverted mode
-* `Double First`: Double-tapping with a pen while holding its primary button
-* `Triple First`: Triple-tapping with a pen while holding its primary button
-* `Double Second`: Double-tapping with a pen while holding its secondary button
-* `Triple Second`: Triple-tapping with a pen while holding its secondary button
+* `Double Pen`: Double-tapping using a pen
+* `Triple Pen`: Triple-tapping using a pen
+* `Double Inverted Pen`: Double-tapping using a pen in inverted mode
+* `Triple Inverted Pen`: Triple-tapping using a pen in inverted mode
+* `Double First`: Double-tapping using a pen while holding its primary button
+* `Triple First`: Triple-tapping using a pen while holding its primary button
+* `Double Second`: Double-tapping using a pen while holding its secondary button
+* `Triple Second`: Triple-tapping using a pen while holding its secondary button

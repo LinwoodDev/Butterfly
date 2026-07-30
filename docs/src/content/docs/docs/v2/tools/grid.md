@@ -19,7 +19,7 @@ Inputs get snapped to the grid.
 |               Size | (20, 20) | The size of the grid cells on the x and y axis.                                        |
 |             Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |              Color |  Black   | The color of the grid.                                                                 |
-|              Alpha |   255    | The opacity of the grid liens.                                                         |
+|              Alpha |   255    | The opacity of the grid lines.                                                         |
 |             Stroke |    1     | The width of the grid lines.                                                           |
 |     Zoom dependent |  false   | Changes the grid stroke width based on the zoom level.                                 |
 | Position dependent |  false   | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
