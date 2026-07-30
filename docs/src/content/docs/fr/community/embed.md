@@ -22,6 +22,7 @@ Ajoute le code suivant à ton site web :
 | enregistrer | Booléen (true, false)                                                                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
 | editable    | Booléen (true, false)                                                                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
 | langue      | Chaîne de caractères (..., système, utilisateur) | user       | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
+| fileName    | String                                                                                                              |            | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                       |
 
 ## Messaging
 
@@ -36,7 +37,7 @@ messages to the iframe and listens for messages from it.
 ```html
 <iframe
   id="butterfly"
-  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true"
+  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true&fileName=Example.bfly"
   width="100%"
   height="500"
 ></iframe>
@@ -62,6 +63,11 @@ messages to the iframe and listens for messages from it.
     if (type === 'save') {
       const documentBytes = Array.from(message);
       console.log('Save requested by the embed', documentBytes);
+    }
+
+    if (type === 'exit') {
+      const documentBytes = Array.from(message);
+      console.log('Exit requested by the embed', documentBytes);
     }
 
     if (type === 'change') {
