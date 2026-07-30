@@ -455,7 +455,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
                           try {
                             final fs = context.read<ButterflyFileSystem>();
-                            final archive = Archive();
+                            final output = OutputMemoryStream();
+                            final encoder = ZipEncoder()..startEncode(output);
                             final multiple =
                                 [
                                   exportDocuments,
@@ -495,17 +496,17 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             updateProgress();
 
                             if (exportDocuments) {
-                              final directory = await _documentSystem.fileSystem
-                                  .getRootDirectory(listLevel: allListLevel);
-                              final docArchive = exportDirectory(directory);
-                              for (final file in docArchive.files) {
-                                archive.addFile(
-                                  ArchiveFile.bytes(
-                                    multiple
-                                        ? 'Documents/${file.name}'
-                                        : file.name,
-                                    file.content as List<int>,
-                                  ),
+                              final documentSystem = _documentSystem.fileSystem;
+                              final directory = await documentSystem.readAsset(
+                                '',
+                                readData: false,
+                              );
+                              if (directory is RawFileSystemDirectory) {
+                                await addDirectoryToZip(
+                                  documentSystem,
+                                  encoder,
+                                  directory,
+                                  multiple ? 'Documents' : '',
                                 );
                               }
                               completedTasks++;
@@ -514,48 +515,40 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
                             if (exportPacks) {
                               final packSystem = fs.buildPackSystem();
-                              for (final key in packKeys) {
-                                final data = await packSystem.fileSystem
-                                    .getFile(key);
-                                if (data != null) {
-                                  archive.addFile(
-                                    ArchiveFile.bytes(
-                                      multiple ? 'Packs/$key' : key,
-                                      data,
-                                    ),
-                                  );
-                                }
-                                completedTasks++;
-                                updateProgress();
-                              }
+                              await addKeyFilesToZip(
+                                packSystem.fileSystem,
+                                encoder,
+                                packKeys,
+                                multiple ? 'Packs' : '',
+                                onFileAdded: () {
+                                  completedTasks++;
+                                  updateProgress();
+                                },
+                              );
                             }
 
                             if (exportTemplates) {
                               final templateSystem = fs.buildTemplateSystem();
-                              for (final key in templateKeys) {
-                                final data = await templateSystem.fileSystem
-                                    .getFile(key);
-                                if (data != null) {
-                                  archive.addFile(
-                                    ArchiveFile.bytes(
-                                      multiple ? 'Templates/$key' : key,
-                                      data,
-                                    ),
-                                  );
-                                }
-                                completedTasks++;
-                                updateProgress();
-                              }
+                              await addKeyFilesToZip(
+                                templateSystem.fileSystem,
+                                encoder,
+                                templateKeys,
+                                multiple ? 'Templates' : '',
+                                onFileAdded: () {
+                                  completedTasks++;
+                                  updateProgress();
+                                },
+                              );
                             }
 
-                            // Small delay to allow UI to render the 99% progress
-                            // before ZipEncoder blocks the thread synchronously.
+                            // Give the UI a chance to render the final progress
+                            // update before writing the ZIP directory.
                             await Future.delayed(
                               const Duration(milliseconds: 50),
                             );
 
-                            final encoder = ZipEncoder();
-                            final bytes = encoder.encodeBytes(archive);
+                            encoder.endEncode();
+                            final bytes = output.getBytes();
                             completedTasks++;
                             updateProgress();
 
@@ -621,5 +614,64 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
       mimeType: 'application/json',
       uniformTypeIdentifier: 'public.json',
     );
+  }
+}
+
+Future<void> addDirectoryToZip(
+  DirectoryFileSystem fileSystem,
+  ZipEncoder encoder,
+  RawFileSystemDirectory directory,
+  String archivePath,
+) async {
+  final resolvedDirectory = await fileSystem.readAsset(
+    directory.path,
+    readData: false,
+  );
+  if (resolvedDirectory is! RawFileSystemDirectory) return;
+
+  final directoryPath = archivePath.isEmpty
+      ? ''
+      : archivePath.endsWith('/')
+      ? archivePath
+      : '$archivePath/';
+  if (directoryPath.isNotEmpty) {
+    encoder.add(ArchiveFile.directory(directoryPath));
+  }
+
+  for (final entity in resolvedDirectory.assets) {
+    final childPath = '$directoryPath${entity.fileName}';
+    if (entity is RawFileSystemDirectory) {
+      await addDirectoryToZip(fileSystem, encoder, entity, childPath);
+      continue;
+    }
+    if (entity is! RawFileSystemFile) continue;
+
+    final file = entity.hasData
+        ? entity
+        : await fileSystem.readAsset(entity.path, readData: true);
+    if (file is RawFileSystemFile && file.data != null) {
+      encoder.add(ArchiveFile.bytes(childPath, file.data!));
+    }
+  }
+}
+
+Future<void> addKeyFilesToZip(
+  KeyFileSystem fileSystem,
+  ZipEncoder encoder,
+  Iterable<String> keys,
+  String archivePath, {
+  VoidCallback? onFileAdded,
+}) async {
+  final directoryPath = archivePath.isEmpty
+      ? ''
+      : archivePath.endsWith('/')
+      ? archivePath
+      : '$archivePath/';
+  for (final key in keys) {
+    final data = await fileSystem.getFile(key);
+    if (data != null) {
+      encoder.add(ArchiveFile.bytes('$directoryPath$key', data));
+    }
+    onFileAdded?.call();
   }
 }

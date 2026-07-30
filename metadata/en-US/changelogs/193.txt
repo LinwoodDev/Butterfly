@@ -7,5 +7,6 @@ Cherry picks:
 * Fix file grid action menu overlapping the sync indicator in right-to-left layouts
 * Fix file move dialog indentation in right-to-left layouts
 * Fix negative brush sizes ([#1201](https://github.com/LinwoodDev/Butterfly/issues/1201))
+* Fix crashes when exporting all files if the library is large
 
 Read more here: https://linwood.dev/butterfly/2.5.5
