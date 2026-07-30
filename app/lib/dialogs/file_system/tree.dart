@@ -106,7 +106,7 @@ class FileSystemDirectoryTreeViewState
               ),
               if (_expanded)
                 Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
+                  padding: const EdgeInsetsDirectional.only(start: 5.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: List.generate(children.length, (index) {
