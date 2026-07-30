@@ -22,6 +22,7 @@ title: Embed
 | сохранить | Boolean (true, false)                                                               | true         | Включить сохранение. Если отключено, будет показана только кнопка выхода                                                                                 |
 | editable  | Boolean (true, false)                                                               | true         | Включить редактирование. Если отключено, документ будет доступен только для чтения                                                                       |
 | язык      | Строка (..., система, пользователь) | user         | Язык документа. Если система, то язык будет обнаружен из браузера. Если пользователь, язык будет установлен в предпочтение пользователей |
+| fileName  | String                                                                                                 |              | Display this file name in the embed title. It is visual only and does not change the document metadata                                                   |
 
 ## Messaging
 
@@ -36,7 +37,7 @@ messages to the iframe and listens for messages from it.
 ```html
 <iframe
   id="butterfly"
-  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true"
+  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true&fileName=Example.bfly"
   width="100%"
   height="500"
 ></iframe>
@@ -62,6 +63,11 @@ messages to the iframe and listens for messages from it.
     if (type === 'save') {
       const documentBytes = Array.from(message);
       console.log('Save requested by the embed', documentBytes);
+    }
+
+    if (type === 'exit') {
+      const documentBytes = Array.from(message);
+      console.log('Exit requested by the embed', documentBytes);
     }
 
     if (type === 'change') {
