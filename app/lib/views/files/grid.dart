@@ -106,10 +106,13 @@ class FileEntityGridItem extends StatelessWidget {
                           : leading,
                     ),
                   ),
-                  Align(alignment: Alignment.topRight, child: actionButton),
+                  Align(
+                    alignment: AlignmentDirectional.topEnd,
+                    child: actionButton,
+                  ),
                   if (remote is RemoteStorage)
                     Align(
-                      alignment: Alignment.bottomRight,
+                      alignment: AlignmentDirectional.bottomStart,
                       child: FileSyncStatusButton(
                         remote: remote,
                         location: entity.location,
@@ -118,7 +121,7 @@ class FileEntityGridItem extends StatelessWidget {
                     ),
                   if (selected != null)
                     Align(
-                      alignment: Alignment.topLeft,
+                      alignment: AlignmentDirectional.topStart,
                       child: Checkbox(
                         value: selected,
                         onChanged: (value) => onSelectedChanged(value ?? false),
