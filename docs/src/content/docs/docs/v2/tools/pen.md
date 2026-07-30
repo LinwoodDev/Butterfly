@@ -62,6 +62,6 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |    Stroke width |             5             | The width of the stroke                                                                                 |
 |        Thinning |            0.4            | This effect of pressure on the stroke size                                                              |
 |       Smoothing |            0.5            | This will smooth the edges of the stroke.                                                               |
-|      Streamline |            0.5            | How much the pen will follow the movement of the mouse.                                                 |
+|      Streamline |            0.3            | How much the pen will follow the movement of the mouse.                                                 |
 |           Color |    Solid Color (Black)    | [Customization](../../colors/#further-customization) for the color of the stroke                        |
 |            Fill | Solid Color (Transparent) | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area       |

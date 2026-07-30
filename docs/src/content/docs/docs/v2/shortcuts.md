@@ -23,7 +23,8 @@ the Label tool, and the Area tool.
 * `Hand Tool`: The input will use the hand tool as a [temporary tool](../tools#temporary-tools),
   allowing you to move around the canvas.
 * `Specific Tool on Toolbar`: The input will use the specified tool on the toolbar as
-  a [temporary tool](../tools#temporary-tools), based on the position you specify. Positions are counted
+  a [temporary tool](../tools#temporary-tools), based on the position you specify. Positions are
+  counted
   starting from the left, so if you specify position `1`, the first tool on the left will be
   selected. See the screenshot below for an example of how position numbers are counted. For
   information about how to reorder your tools,
@@ -55,6 +56,8 @@ the Label tool, and the Area tool.
 * `Paste`: Pastes the clipboard
 * `Tool 1-10`: Switches the active tool to the specified toolbar position
 
+The canvas rotation and zoom step can be changed in `Settings` → `Behaviours`.
+
 ---
 
 ## Mouse
@@ -71,10 +74,9 @@ the Label tool, and the Area tool.
 
 * `Left`: When holding the left mouse button. Defaults to `Active Tool`
 * `Middle`: When holding the mouse wheel. Defaults to `Hand Tool`
-* `Right`: When holding the right mouse button. Defaults to `Toolbar Position 2` 
+* `Right`: When holding the right mouse button. Defaults to `Toolbar Position 2`
 * `Back`: When clicking 4th mouse button at the side of some mice.
 * `Forward`: When clicking 5th mouse button at the side of some mice.
-
 
 **Document actions**:
 
@@ -90,7 +92,6 @@ the Label tool, and the Area tool.
 * `Triple Back`: A triple click on the 4th mouse button at the side of some mice
 * `Double Forward`: A double click on the 5th mouse button at the side of some mice
 * `Triple Forward`: A triple click on the 5th mouse button at the side of some mice
-
 
 ## Touch
 
@@ -148,20 +149,18 @@ to **tool activators**.*
 * `Alt` + `S`: Change path
 * `Ctrl` + `+`: Zoom in
 * `Ctrl` + `-`: Zoom out
+* `Ctrl` + `Shift` + `Left`: Rotate canvas left
+* `Ctrl` + `Shift` + `Right`: Rotate canvas right
 * `F11`: Full screen
 * `F12`: Hide UI
 * `Arrow Right`: Next slide in presentation
 * `Arrow Left`: Previous slide in presentation
 * `Page Down`: Next page
 * `Page Up`: Previous page
-* `Ctrl`: Pause presentation
+* `Ctrl` + `Space`: Pause presentation
 * `Ctrl` + `A`: Select all
 * `Ctrl` + `V`: Pastes the clipboard
 * `Ctrl` + (`1` - `0`): Switch to tool
-* `Ctrl` + `Shift` + `Left`: Rotate canvas left
-* `Ctrl` + `Shift` + `Right`: Rotate canvas right
-
-The canvas rotation step can be changed in `Settings` → `Inputs` → `Keyboard`.
 
 ## Pen
 
@@ -180,7 +179,8 @@ following **tool activators**:
 
 * `Pen`: Using the pen normally. Defaults to `Active Tool`
 * `Inverted Pen`: Using the pen in inverted mode. Defaults to `Toolbar Position 4`
-* `First`: While holding its primary button, if supported. Defaults to  `Toolbar Position 3` (often path-eraser)
+* `First`: While holding its primary button, if supported. Defaults to  `Toolbar Position 3` (often
+  path-eraser)
 * `Second`: While holding its secondary button, if supported. Defaults to `Toolbar Position 2`
 
 *By default, the pen **document actions** are all set to `None`.*

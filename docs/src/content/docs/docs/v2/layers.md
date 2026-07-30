@@ -32,7 +32,7 @@ the [context menu](../context_menu).
 |         Option | Description                                                       |
 |---------------:|-------------------------------------------------------------------|
 |  Bring forward | Renders the selection on top of the first element in front of it. |
-|  Send backward | Renders the selection under the first element behind in.          |
+|  Send backward | Renders the selection under the first element behind it.          |
 | Bring to front | Renders the selection in front of everything else.                |
 |   Send to back | Renders the selection behind everything else.                     |
 

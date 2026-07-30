@@ -69,11 +69,12 @@ Normal Strokes
 
 Draw the imported image with your strokes. For no filter use white and alpha value at 255.
 
-| Property | Default | Description                                                     |
-|---------:|:-------:|:----------------------------------------------------------------|
-|     Tint |  White  | The color filter.                                               |
-|    Alpha | 255 / 0 | The opacity of the color. How transparent the image should be   |
-|     Blur |    0    | How much the color transition to the background will be blurred |
+|    Property | Default | Description                                                     |
+|------------:|:-------:|:----------------------------------------------------------------|
+|        Tint |  White  | The color filter.                                               |
+|       Alpha | 255 / 0 | The opacity of the color. How transparent the image should be   |
+|        Blur |    0    | How much the color transition to the background will be blurred |
+| Image scale |  0.25   | How big the image should be                                     |
 
 ## Gradient
 

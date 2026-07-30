@@ -22,5 +22,5 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 |          Color |    Solid Color (Black)    | [Customization](../../colors/#further-customization) for the color of the shape                                                                   |
 |          Shape |         Rectangle         | The shape that will be drawn. Available shapes are Rectangle, Triangle, Circle and Line                                                           |
 |  Corner radius |        0, 0, 0, 0         | The radius of the corners when shape is Rectangle                                                                                                 |
-|           Fill | Solid Color (Transparent) | [Customization](../../colors/#further-customization) for the color drawn inside the shape. Not available for Line shapes                          |                                                                                                              |
+|           Fill | Solid Color (Transparent) | [Customization](../../colors/#further-customization) for the color drawn inside the shape. Not available for Line shapes                          |
 | Zoom dependent |           false           | This will change the stroke width based on the zoom level.                                                                                        |
