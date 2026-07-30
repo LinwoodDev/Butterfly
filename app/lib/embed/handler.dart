@@ -77,6 +77,7 @@ class EmbedHandler {
       if (!embedding.editable) 'editable': 'false',
       if (embedding.language.isNotEmpty) 'language': embedding.language,
       if (embedding.theme.isNotEmpty) 'theme': embedding.theme,
+      if (embedding.fileName.isNotEmpty) 'fileName': embedding.fileName,
     },
   );
 

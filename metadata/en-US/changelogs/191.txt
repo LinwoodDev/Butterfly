@@ -9,6 +9,7 @@
 * Add two- and three-finger touch shortcuts ([#976](https://github.com/LinwoodDev/Butterfly/issues/976))
 * Add configurable canvas rotation keyboard shortcuts ([#1170](https://github.com/LinwoodDev/Butterfly/issues/1170))
 * Add configurable zoom steps
+* Add visual-only file name option to embeds
 * Fix closing documents when navigating back from a settings page opened in the settings dialog
 * Fix camera controls not updating after external canvas transformations
 * Fix template file names not being applied to documents created from Quick Start
@@ -19,6 +20,7 @@
 * Fix object selection bounding boxes not updating after undo and redo ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
 * Fix dragging selection transform handles sometimes starting a new selection ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
 * Ignore last color when switching to svg or image paint kind
+* Improve embeds by hiding templates and the files navigator and ignoring configured default templates
 * Improve Linux app metadata
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.4

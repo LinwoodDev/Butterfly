@@ -101,7 +101,11 @@ void main() {
     );
   }
 
-  Widget buildApp({NoteData? embedDocument}) {
+  Widget buildApp({
+    NoteData? embedDocument,
+    bool embedWithData = true,
+    String embedFileName = '',
+  }) {
     final document =
         embedDocument ??
         DocumentDefaults.createDocument(
@@ -147,8 +151,8 @@ void main() {
             GoRoute(
               path: 'embed',
               builder: (context, state) => ProjectPage(
-                data: document.toFile(),
-                embedding: Embedding(internal: true),
+                data: embedWithData ? document.toFile() : null,
+                embedding: Embedding(internal: true, fileName: embedFileName),
               ),
             ),
           ],
@@ -210,6 +214,91 @@ void main() {
 
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
+  });
+
+  testWidgets('empty embed ignores the configured default template', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp(embedWithData: false));
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'empty embed open',
+    );
+
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, isEmpty);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'empty embed close',
+    );
+  });
+
+  testWidgets('embed file name is visual only and templates are hidden', (
+    tester,
+  ) async {
+    final document = DocumentDefaults.createDocument(
+      name: 'Stored document name',
+      page: const DocumentPage(backgrounds: []),
+    );
+    await tester.pumpWidget(
+      buildApp(embedDocument: document, embedFileName: 'Host file.bfly'),
+    );
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'named embed open',
+    );
+    await tester.pumpAndSettle();
+
+    final titleFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is TextFormField &&
+          widget.controller?.text == 'Host file.bfly',
+    );
+    final title = tester.widget<TextFormField>(titleFinder);
+    expect(title.controller?.text, 'Host file.bfly');
+    final titleField = tester.widget<TextField>(
+      find.descendant(of: titleFinder, matching: find.byType(TextField)),
+    );
+    expect(titleField.readOnly, isFalse);
+
+    var state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, 'Stored document name');
+
+    await tester.enterText(titleFinder, 'Renamed metadata');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, 'Renamed metadata');
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is TextFormField &&
+            widget.controller?.text == 'Renamed metadata',
+      ),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.byTooltip('Actions'));
+    await tester.pumpAndSettle();
+    expect(find.text('Templates'), findsNothing);
+    expect(find.text('Files'), findsNothing);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'named embed close',
+    );
   });
 
   testWidgets('double tap shortcut does not draw with the pen tool', (
