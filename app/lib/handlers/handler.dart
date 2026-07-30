@@ -236,6 +236,11 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
+  void onRenderersReloaded(
+    DocumentPage page,
+    List<Renderer<PadElement>> renderers,
+  ) {}
+
   void onDocumentUpdated(
     DocumentLoadSuccess state,
     DocumentLoadSuccess? oldState,

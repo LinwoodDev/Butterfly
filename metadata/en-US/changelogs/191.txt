@@ -12,6 +12,8 @@
 * Fix closing documents when navigating back from a settings page opened in the settings dialog
 * Fix camera controls not updating after external canvas transformations
 * Fix template file names not being applied to documents created from Quick Start
+* Fix object selection bounding boxes not updating after undo and redo ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
+* Fix dragging selection transform handles sometimes starting a new selection ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
 * Ignore last color when switching to svg or image paint kind
 * Improve Linux app metadata
 

@@ -7,6 +7,7 @@ class SelectHandler extends Handler<SelectTool> {
   Offset? _rectangleFreeSelectionStart;
   Rect? _rectangleFreeSelection;
   List<Offset>? _lassoFreeSelection;
+  ({Offset position, SelectionTransformCorner? corner})? _pendingTransform;
 
   SelectHandler(super.data);
 
@@ -42,6 +43,7 @@ class SelectHandler extends Handler<SelectTool> {
     _rectangleFreeSelectionStart = null;
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
+    _pendingTransform = null;
     _selectionManager.reset();
     await bloc.refresh(allowBake: false);
   }
@@ -62,6 +64,23 @@ class SelectHandler extends Handler<SelectTool> {
         .toList();
     _updateSelectionRect();
     return changed;
+  }
+
+  @override
+  void onRenderersReloaded(
+    DocumentPage page,
+    List<Renderer<PadElement>> renderers,
+  ) {
+    final renderersById = <String, Renderer<PadElement>>{};
+    for (final renderer in renderers) {
+      final id = renderer.element.id;
+      if (id != null) renderersById[id] = renderer;
+    }
+    _selected = _selected
+        .map((renderer) => renderersById[renderer.element.id])
+        .nonNulls
+        .toList();
+    _updateSelectionRect();
   }
 
   @override
@@ -369,6 +388,8 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
+    final pendingTransform = _pendingTransform;
+    _pendingTransform = null;
     final toolState = context.getToolState();
     final inputState = context.getInputState();
     if (inputState.buttons == kSecondaryMouseButton &&
@@ -382,15 +403,17 @@ class SelectHandler extends Handler<SelectTool> {
       cameraTransform.size,
       context.getSettings().touchSensitivity,
     );
-    if (shouldTransform) {
+    if (pendingTransform != null || shouldTransform) {
       transform(
         context.getDocumentBloc(),
-        _selectionManager.getCornerHit(
-          globalPos,
-          cameraTransform.size,
-          context.getSettings().touchSensitivity,
-        ),
-        position: globalPos,
+        pendingTransform != null
+            ? pendingTransform.corner
+            : _selectionManager.getCornerHit(
+                globalPos,
+                cameraTransform.size,
+                context.getSettings().touchSensitivity,
+              ),
+        position: pendingTransform?.position ?? globalPos,
       );
       return true;
     }
@@ -411,6 +434,18 @@ class SelectHandler extends Handler<SelectTool> {
       cameraTransform.size,
       context.getSettings().touchSensitivity,
     );
+    if (shouldTransform) {
+      _pendingTransform = (
+        position: globalPos,
+        corner: _selectionManager.getCornerHit(
+          globalPos,
+          cameraTransform.size,
+          context.getSettings().touchSensitivity,
+        ),
+      );
+    } else {
+      _pendingTransform = null;
+    }
     if (selectionRect != null && selectionRect.contains(globalPos)) {
       return false;
     }
@@ -451,6 +486,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
+    _pendingTransform = null;
     final locks = context.getViewState().locks;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
