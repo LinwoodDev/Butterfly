@@ -1,0 +1,42 @@
+---
+title: Polygon tool
+---
+
+import {Check, Trash, Polygon} from "@phosphor-icons/react";
+
+With this tool you can create custom shapes.
+
+## Usage
+
+1. Click on the canvas to add the first point of the polygon.
+2. Click again to add subsequent points.
+3. Now you have three options to finish the polygon:
+   1. Click in the toolbar on the <Check className="inline-icon" /> `Finish` button. This will connect the last point to the first
+      point.
+   2. Click in the toolbar on the <Polygon className="inline-icon" /> `Submit` button. This will create the polygon without connecting
+      the last point to the first.
+   3. Change the tool. This will also create the polygon without connecting the last point to the
+      first.
+4. If you want to remove the selected point, click on the <Trash className="inline-icon" /> `Delete` button in the toolbar.
+5. To edit a point, click on it and drag it to round it off. To return to edit mode, open its [Context menu](../../context_menu) and click <Polygon className="inline-icon" /> `Edit`.
+
+## Bézier Curves
+
+You can use this tool to create Bézier Curves which gives your shape a smooth curvature.
+To adjust the curvature around a selected point, drag on the paper until a tangent line appears.
+
+## Toolbar
+
+While in Polygon edit mode the toolbar contains the following buttons:
+
+* <Trash className="inline-icon" /> `Delete` - Allows you to delete the selected point of the polygon.
+* <Check className="inline-icon" /> `Finish` - Connects the last point to the first point, completing the polygon.
+* <Polygon className="inline-icon" /> `Submit` - Completes the polygon without connecting the last point to the first.
+
+## Yapılandırma
+
+|          Özellik |         Varsayılan        | Tanım                                                                                        |
+| ---------------: | :-----------------------: | :------------------------------------------------------------------------------------------- |
+| Kontur genişliği |             5             | Kontur genişliği                                                                             |
+|             Renk |    Solid Color (Black)    | [Customization](../../colors/#further-customization) for the color of the polygon            |
+|            Dolgu | Solid Color (Transparent) | [Customization](../../colors/#further-customization) for the color drawn inside the polygon. |
