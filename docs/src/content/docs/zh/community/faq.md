@@ -23,7 +23,7 @@ title: 常见问题
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+See [Stylus support](/docs/v2/stylus-support/) for current behavior and workarounds.
 
 我使用流体框架提供的输入。
 查看相关issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
@@ -60,7 +60,7 @@ Butterfly在iOS下有预览版。 点击此[链接](https://butterfly.linwood.de
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
+See [Stylus support](/docs/v2/stylus-support/) for current behavior, settings, and issue links.
 
 我使用流体框架提供的输入。
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)

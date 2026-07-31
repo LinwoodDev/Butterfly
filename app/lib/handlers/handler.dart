@@ -50,6 +50,7 @@ import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/cursors/label.dart';
 import '../renderers/renderer.dart';
+import '../selections/selection.dart';
 import '../services/asset.dart';
 import '../services/import.dart';
 import '../theme.dart';
@@ -82,6 +83,7 @@ part 'grid.dart';
 part 'polygon.dart';
 part 'select.dart';
 part 'shape.dart';
+part 'table.dart';
 part 'spacer.dart';
 part 'stamp.dart';
 part 'texture.dart';
@@ -234,6 +236,11 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
+  void onRenderersReloaded(
+    DocumentPage page,
+    List<Renderer<PadElement>> renderers,
+  ) {}
+
   void onDocumentUpdated(
     DocumentLoadSuccess state,
     DocumentLoadSuccess? oldState,
@@ -304,6 +311,7 @@ abstract class Handler<T> {
           AreaTool() => AreaHandler(tool),
           LaserTool() => LaserHandler(tool),
           ShapeTool() => ShapeHandler(tool),
+          TableTool() => TableHandler(tool),
           StampTool() => StampHandler(tool),
           PresentationTool() => PresentationHandler(tool),
           SpacerTool() => SpacerHandler(tool),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'event.dart';
@@ -9,6 +9,7 @@ part of 'event.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$InitialAreaDetailsCopyWithImpl<$Res>
 /// Create a copy of InitialAreaDetails
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? height = null,Object? name = null,}) {
-  return _then(_self.copyWith(
+  return _then(InitialAreaDetails(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -206,7 +207,7 @@ class _$PageAddedDetailsCopyWithImpl<$Res>
 /// Create a copy of PageAddedDetails
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,Object? initialArea = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PageAddedDetails(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
@@ -618,7 +619,7 @@ $DocumentEventCopyWith(DocumentEvent _, $Res Function(DocumentEvent) __);
 @JsonSerializable()
 
 class PagesAdded extends DocumentEvent {
-  const PagesAdded(final  List<PageAddedDetails> pages, {final  String? $type}): _pages = pages,$type = $type ?? 'pagesAdded',super._();
+  const PagesAdded( List<PageAddedDetails> pages, { String? $type}): _pages = pages,$type = $type ?? 'pagesAdded',super._();
   factory PagesAdded.fromJson(Map<String, dynamic> json) => _$PagesAddedFromJson(json);
 
  final  List<PageAddedDetails> _pages;
@@ -697,7 +698,7 @@ as List<PageAddedDetails>,
 @JsonSerializable()
 
 class PageChanged extends DocumentEvent {
-  const PageChanged(this.pageName, {final  String? $type}): $type = $type ?? 'pageChanged',super._();
+  const PageChanged(this.pageName, { String? $type}): $type = $type ?? 'pageChanged',super._();
   factory PageChanged.fromJson(Map<String, dynamic> json) => _$PageChangedFromJson(json);
 
  final  String pageName;
@@ -770,7 +771,7 @@ as String,
 @JsonSerializable()
 
 class PageReordered extends DocumentEvent {
-  const PageReordered(this.page, [this.newIndex, final  String? $type]): $type = $type ?? 'pageReordered',super._();
+  const PageReordered(this.page, [this.newIndex,  String? $type]): $type = $type ?? 'pageReordered',super._();
   factory PageReordered.fromJson(Map<String, dynamic> json) => _$PageReorderedFromJson(json);
 
  final  String page;
@@ -845,7 +846,7 @@ as int?,
 @JsonSerializable()
 
 class PageRenamed extends DocumentEvent {
-  const PageRenamed(this.oldName, this.newName, {final  String? $type}): $type = $type ?? 'pageRenamed',super._();
+  const PageRenamed(this.oldName, this.newName, { String? $type}): $type = $type ?? 'pageRenamed',super._();
   factory PageRenamed.fromJson(Map<String, dynamic> json) => _$PageRenamedFromJson(json);
 
  final  String oldName;
@@ -920,7 +921,7 @@ as String,
 @JsonSerializable()
 
 class PageRemoved extends DocumentEvent {
-  const PageRemoved(this.page, {final  String? $type}): $type = $type ?? 'pageRemoved',super._();
+  const PageRemoved(this.page, { String? $type}): $type = $type ?? 'pageRemoved',super._();
   factory PageRemoved.fromJson(Map<String, dynamic> json) => _$PageRemovedFromJson(json);
 
  final  String page;
@@ -993,7 +994,7 @@ as String,
 @JsonSerializable()
 
 class ThumbnailCaptured extends DocumentEvent {
-  const ThumbnailCaptured(@Uint8ListJsonConverter() this.data, {final  String? $type}): $type = $type ?? 'thumbnailCaptured',super._();
+  const ThumbnailCaptured(@Uint8ListJsonConverter() this.data, { String? $type}): $type = $type ?? 'thumbnailCaptured',super._();
   factory ThumbnailCaptured.fromJson(Map<String, dynamic> json) => _$ThumbnailCapturedFromJson(json);
 
 @Uint8ListJsonConverter() final  Uint8List data;
@@ -1066,7 +1067,7 @@ as Uint8List,
 @JsonSerializable()
 
 class ElementsCreated extends DocumentEvent {
-  const ElementsCreated(final  List<PadElement> elements, {@Uint8ListJsonConverter() final  Map<String, Uint8List> assets = const {}, final  String? $type}): _elements = elements,_assets = assets,$type = $type ?? 'elementsCreated',super._();
+  const ElementsCreated( List<PadElement> elements, {@Uint8ListJsonConverter()  Map<String, Uint8List> assets = const {},  String? $type}): _elements = elements,_assets = assets,$type = $type ?? 'elementsCreated',super._();
   factory ElementsCreated.fromJson(Map<String, dynamic> json) => _$ElementsCreatedFromJson(json);
 
  final  List<PadElement> _elements;
@@ -1153,7 +1154,7 @@ as Map<String, Uint8List>,
 @JsonSerializable()
 
 class ElementsChanged extends DocumentEvent {
-  const ElementsChanged(final  Map<String, List<PadElement>> elements, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsChanged',super._();
+  const ElementsChanged( Map<String, List<PadElement>> elements, { String? $type}): _elements = elements,$type = $type ?? 'elementsChanged',super._();
   factory ElementsChanged.fromJson(Map<String, dynamic> json) => _$ElementsChangedFromJson(json);
 
  final  Map<String, List<PadElement>> _elements;
@@ -1232,7 +1233,7 @@ as Map<String, List<PadElement>>,
 @JsonSerializable()
 
 class ElementsRemoved extends DocumentEvent {
-  const ElementsRemoved(final  List<String> elements, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsRemoved',super._();
+  const ElementsRemoved( List<String> elements, { String? $type}): _elements = elements,$type = $type ?? 'elementsRemoved',super._();
   factory ElementsRemoved.fromJson(Map<String, dynamic> json) => _$ElementsRemovedFromJson(json);
 
  final  List<String> _elements;
@@ -1311,7 +1312,7 @@ as List<String>,
 @JsonSerializable()
 
 class ElementsArranged extends DocumentEvent {
-  const ElementsArranged(this.arrangement, final  List<String> elements, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsArranged',super._();
+  const ElementsArranged(this.arrangement,  List<String> elements, { String? $type}): _elements = elements,$type = $type ?? 'elementsArranged',super._();
   factory ElementsArranged.fromJson(Map<String, dynamic> json) => _$ElementsArrangedFromJson(json);
 
  final  Arrangement arrangement;
@@ -1392,7 +1393,7 @@ as List<String>,
 @JsonSerializable()
 
 class DocumentDescriptionChanged extends DocumentEvent {
-  const DocumentDescriptionChanged({this.name, this.description, final  String? $type}): $type = $type ?? 'documentDescriptionChanged',super._();
+  const DocumentDescriptionChanged({this.name, this.description,  String? $type}): $type = $type ?? 'documentDescriptionChanged',super._();
   factory DocumentDescriptionChanged.fromJson(Map<String, dynamic> json) => _$DocumentDescriptionChangedFromJson(json);
 
  final  String? name;
@@ -1467,7 +1468,7 @@ as String?,
 @JsonSerializable()
 
 class ToolCreated extends DocumentEvent {
-  const ToolCreated(this.tool, {final  String? $type}): $type = $type ?? 'toolCreated',super._();
+  const ToolCreated(this.tool, { String? $type}): $type = $type ?? 'toolCreated',super._();
   factory ToolCreated.fromJson(Map<String, dynamic> json) => _$ToolCreatedFromJson(json);
 
  final  Tool tool;
@@ -1549,7 +1550,7 @@ $ToolCopyWith<$Res> get tool {
 @JsonSerializable()
 
 class ToolsChanged extends DocumentEvent {
-  const ToolsChanged(final  List<Tool> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsChanged',super._();
+  const ToolsChanged( List<Tool> tools, { String? $type}): _tools = tools,$type = $type ?? 'toolsChanged',super._();
   factory ToolsChanged.fromJson(Map<String, dynamic> json) => _$ToolsChangedFromJson(json);
 
  final  List<Tool> _tools;
@@ -1628,7 +1629,7 @@ as List<Tool>,
 @JsonSerializable()
 
 class ToolsRemoved extends DocumentEvent {
-  const ToolsRemoved(final  List<String> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsRemoved',super._();
+  const ToolsRemoved( List<String> tools, { String? $type}): _tools = tools,$type = $type ?? 'toolsRemoved',super._();
   factory ToolsRemoved.fromJson(Map<String, dynamic> json) => _$ToolsRemovedFromJson(json);
 
  final  List<String> _tools;
@@ -1707,7 +1708,7 @@ as List<String>,
 @JsonSerializable()
 
 class ToolsReplaced extends DocumentEvent {
-  const ToolsReplaced(final  List<Tool> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsReplaced',super._();
+  const ToolsReplaced( List<Tool> tools, { String? $type}): _tools = tools,$type = $type ?? 'toolsReplaced',super._();
   factory ToolsReplaced.fromJson(Map<String, dynamic> json) => _$ToolsReplacedFromJson(json);
 
  final  List<Tool> _tools;
@@ -1786,7 +1787,7 @@ as List<Tool>,
 @JsonSerializable()
 
 class ToolReordered extends DocumentEvent {
-  const ToolReordered(this.id, this.newIndex, {final  String? $type}): $type = $type ?? 'toolReordered',super._();
+  const ToolReordered(this.id, this.newIndex, { String? $type}): $type = $type ?? 'toolReordered',super._();
   factory ToolReordered.fromJson(Map<String, dynamic> json) => _$ToolReorderedFromJson(json);
 
  final  String id;
@@ -1861,7 +1862,7 @@ as int,
 @JsonSerializable()
 
 class DocumentBackgroundsChanged extends DocumentEvent {
-  const DocumentBackgroundsChanged(final  List<Background> backgrounds, {final  String? $type}): _backgrounds = backgrounds,$type = $type ?? 'documentBackgroundsChanged',super._();
+  const DocumentBackgroundsChanged( List<Background> backgrounds, { String? $type}): _backgrounds = backgrounds,$type = $type ?? 'documentBackgroundsChanged',super._();
   factory DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) => _$DocumentBackgroundsChangedFromJson(json);
 
  final  List<Background> _backgrounds;
@@ -1940,7 +1941,7 @@ as List<Background>,
 @JsonSerializable()
 
 class WaypointCreated extends DocumentEvent {
-  const WaypointCreated(this.waypoint, {final  String? $type}): $type = $type ?? 'waypointCreated',super._();
+  const WaypointCreated(this.waypoint, { String? $type}): $type = $type ?? 'waypointCreated',super._();
   factory WaypointCreated.fromJson(Map<String, dynamic> json) => _$WaypointCreatedFromJson(json);
 
  final  Waypoint waypoint;
@@ -2022,7 +2023,7 @@ $WaypointCopyWith<$Res> get waypoint {
 @JsonSerializable()
 
 class WaypointChanged extends DocumentEvent {
-  const WaypointChanged(this.name, this.waypoint, {final  String? $type}): $type = $type ?? 'waypointChanged',super._();
+  const WaypointChanged(this.name, this.waypoint, { String? $type}): $type = $type ?? 'waypointChanged',super._();
   factory WaypointChanged.fromJson(Map<String, dynamic> json) => _$WaypointChangedFromJson(json);
 
  final  String? name;
@@ -2106,7 +2107,7 @@ $WaypointCopyWith<$Res> get waypoint {
 @JsonSerializable()
 
 class WaypointRemoved extends DocumentEvent {
-  const WaypointRemoved(this.name, {final  String? $type}): $type = $type ?? 'waypointRemoved',super._();
+  const WaypointRemoved(this.name, { String? $type}): $type = $type ?? 'waypointRemoved',super._();
   factory WaypointRemoved.fromJson(Map<String, dynamic> json) => _$WaypointRemovedFromJson(json);
 
  final  String? name;
@@ -2179,7 +2180,7 @@ as String?,
 @JsonSerializable()
 
 class WaypointReordered extends DocumentEvent {
-  const WaypointReordered(this.name, this.newIndex, {final  String? $type}): $type = $type ?? 'waypointReordered',super._();
+  const WaypointReordered(this.name, this.newIndex, { String? $type}): $type = $type ?? 'waypointReordered',super._();
   factory WaypointReordered.fromJson(Map<String, dynamic> json) => _$WaypointReorderedFromJson(json);
 
  final  String? name;
@@ -2254,7 +2255,7 @@ as int,
 @JsonSerializable()
 
 class CollectionRenamed extends DocumentEvent {
-  const CollectionRenamed(this.oldName, this.newName, {final  String? $type}): $type = $type ?? 'collectionRenamed',super._();
+  const CollectionRenamed(this.oldName, this.newName, { String? $type}): $type = $type ?? 'collectionRenamed',super._();
   factory CollectionRenamed.fromJson(Map<String, dynamic> json) => _$CollectionRenamedFromJson(json);
 
  final  String oldName;
@@ -2329,7 +2330,7 @@ as String,
 @JsonSerializable()
 
 class CollectionElementsRemoved extends DocumentEvent {
-  const CollectionElementsRemoved(this.name, {final  String? $type}): $type = $type ?? 'collectionElementsRemoved',super._();
+  const CollectionElementsRemoved(this.name, { String? $type}): $type = $type ?? 'collectionElementsRemoved',super._();
   factory CollectionElementsRemoved.fromJson(Map<String, dynamic> json) => _$CollectionElementsRemovedFromJson(json);
 
  final  String name;
@@ -2402,7 +2403,7 @@ as String,
 @JsonSerializable()
 
 class CurrentCollectionChanged extends DocumentEvent {
-  const CurrentCollectionChanged(this.name, {final  String? $type}): $type = $type ?? 'currentCollectionChanged',super._();
+  const CurrentCollectionChanged(this.name, { String? $type}): $type = $type ?? 'currentCollectionChanged',super._();
   factory CurrentCollectionChanged.fromJson(Map<String, dynamic> json) => _$CurrentCollectionChangedFromJson(json);
 
  final  String name;
@@ -2475,7 +2476,7 @@ as String,
 @JsonSerializable()
 
 class CurrentLayerChanged extends DocumentEvent {
-  const CurrentLayerChanged(this.name, {final  String? $type}): $type = $type ?? 'currentLayerChanged',super._();
+  const CurrentLayerChanged(this.name, { String? $type}): $type = $type ?? 'currentLayerChanged',super._();
   factory CurrentLayerChanged.fromJson(Map<String, dynamic> json) => _$CurrentLayerChangedFromJson(json);
 
  final  String name;
@@ -2548,7 +2549,7 @@ as String,
 @JsonSerializable()
 
 class LayerCreated extends DocumentEvent {
-  const LayerCreated({this.name = '', this.id, final  String? $type}): $type = $type ?? 'layerCreated',super._();
+  const LayerCreated({this.name = '', this.id,  String? $type}): $type = $type ?? 'layerCreated',super._();
   factory LayerCreated.fromJson(Map<String, dynamic> json) => _$LayerCreatedFromJson(json);
 
 @JsonKey() final  String name;
@@ -2623,7 +2624,7 @@ as String?,
 @JsonSerializable()
 
 class LayerChanged extends DocumentEvent {
-  const LayerChanged(this.id, {this.name, final  String? $type}): $type = $type ?? 'layerChanged',super._();
+  const LayerChanged(this.id, {this.name,  String? $type}): $type = $type ?? 'layerChanged',super._();
   factory LayerChanged.fromJson(Map<String, dynamic> json) => _$LayerChangedFromJson(json);
 
  final  String id;
@@ -2698,7 +2699,7 @@ as String?,
 @JsonSerializable()
 
 class LayerRemoved extends DocumentEvent {
-  const LayerRemoved(this.id, {final  String? $type}): $type = $type ?? 'layerRemoved',super._();
+  const LayerRemoved(this.id, { String? $type}): $type = $type ?? 'layerRemoved',super._();
   factory LayerRemoved.fromJson(Map<String, dynamic> json) => _$LayerRemovedFromJson(json);
 
  final  String id;
@@ -2771,7 +2772,7 @@ as String,
 @JsonSerializable()
 
 class LayersMerged extends DocumentEvent {
-  const LayersMerged(final  List<String> layers, [this.duplicate = false, final  String? $type]): _layers = layers,$type = $type ?? 'layersMerged',super._();
+  const LayersMerged( List<String> layers, [this.duplicate = false,  String? $type]): _layers = layers,$type = $type ?? 'layersMerged',super._();
   factory LayersMerged.fromJson(Map<String, dynamic> json) => _$LayersMergedFromJson(json);
 
  final  List<String> _layers;
@@ -2852,7 +2853,7 @@ as bool,
 @JsonSerializable()
 
 class LayerOrderChanged extends DocumentEvent {
-  const LayerOrderChanged(this.id, this.index, {final  String? $type}): $type = $type ?? 'layerOrderChanged',super._();
+  const LayerOrderChanged(this.id, this.index, { String? $type}): $type = $type ?? 'layerOrderChanged',super._();
   factory LayerOrderChanged.fromJson(Map<String, dynamic> json) => _$LayerOrderChangedFromJson(json);
 
  final  String id;
@@ -2927,7 +2928,7 @@ as int,
 @JsonSerializable()
 
 class LayerVisibilityChanged extends DocumentEvent {
-  const LayerVisibilityChanged(this.id, this.visible, {final  String? $type}): $type = $type ?? 'layerVisibilityChanged',super._();
+  const LayerVisibilityChanged(this.id, this.visible, { String? $type}): $type = $type ?? 'layerVisibilityChanged',super._();
   factory LayerVisibilityChanged.fromJson(Map<String, dynamic> json) => _$LayerVisibilityChangedFromJson(json);
 
  final  String id;
@@ -3002,7 +3003,7 @@ as bool,
 @JsonSerializable()
 
 class ElementsCollectionChanged extends DocumentEvent {
-  const ElementsCollectionChanged(final  List<String> elements, this.collection, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsCollectionChanged',super._();
+  const ElementsCollectionChanged( List<String> elements, this.collection, { String? $type}): _elements = elements,$type = $type ?? 'elementsCollectionChanged',super._();
   factory ElementsCollectionChanged.fromJson(Map<String, dynamic> json) => _$ElementsCollectionChangedFromJson(json);
 
  final  List<String> _elements;
@@ -3083,7 +3084,7 @@ as String,
 @JsonSerializable()
 
 class AreasCreated extends DocumentEvent {
-  const AreasCreated(final  List<AreaPreset> areas, {final  String? $type}): _areas = areas,$type = $type ?? 'areasCreated',super._();
+  const AreasCreated( List<AreaPreset> areas, { String? $type}): _areas = areas,$type = $type ?? 'areasCreated',super._();
   factory AreasCreated.fromJson(Map<String, dynamic> json) => _$AreasCreatedFromJson(json);
 
  final  List<AreaPreset> _areas;
@@ -3162,7 +3163,7 @@ as List<AreaPreset>,
 @JsonSerializable()
 
 class AreasDuplicated extends DocumentEvent {
-  const AreasDuplicated(this.area, final  List<String> pages, {final  String? $type}): _pages = pages,$type = $type ?? 'areasDuplicated',super._();
+  const AreasDuplicated(this.area,  List<String> pages, { String? $type}): _pages = pages,$type = $type ?? 'areasDuplicated',super._();
   factory AreasDuplicated.fromJson(Map<String, dynamic> json) => _$AreasDuplicatedFromJson(json);
 
  final  Area area;
@@ -3252,7 +3253,7 @@ $AreaCopyWith<$Res> get area {
 @JsonSerializable()
 
 class AreasRemoved extends DocumentEvent {
-  const AreasRemoved(final  List<AreaPreset> areas, {final  String? $type}): _areas = areas,$type = $type ?? 'areasRemoved',super._();
+  const AreasRemoved( List<AreaPreset> areas, { String? $type}): _areas = areas,$type = $type ?? 'areasRemoved',super._();
   factory AreasRemoved.fromJson(Map<String, dynamic> json) => _$AreasRemovedFromJson(json);
 
  final  List<AreaPreset> _areas;
@@ -3331,7 +3332,7 @@ as List<AreaPreset>,
 @JsonSerializable()
 
 class AreaChanged extends DocumentEvent {
-  const AreaChanged(this.name, this.area, [this.moveContents = false, final  String? $type]): $type = $type ?? 'areaChanged',super._();
+  const AreaChanged(this.name, this.area, [this.moveContents = false,  String? $type]): $type = $type ?? 'areaChanged',super._();
   factory AreaChanged.fromJson(Map<String, dynamic> json) => _$AreaChangedFromJson(json);
 
  final  String name;
@@ -3417,7 +3418,7 @@ $AreaCopyWith<$Res> get area {
 @JsonSerializable()
 
 class AreaReordered extends DocumentEvent {
-  const AreaReordered(this.name, this.newIndex, {final  String? $type}): $type = $type ?? 'areaReordered',super._();
+  const AreaReordered(this.name, this.newIndex, { String? $type}): $type = $type ?? 'areaReordered',super._();
   factory AreaReordered.fromJson(Map<String, dynamic> json) => _$AreaReorderedFromJson(json);
 
  final  String name;
@@ -3492,7 +3493,7 @@ as int,
 @JsonSerializable()
 
 class CurrentAreaChanged extends DocumentEvent {
-  const CurrentAreaChanged(this.name, {final  String? $type}): $type = $type ?? 'currentAreaChanged',super._();
+  const CurrentAreaChanged(this.name, { String? $type}): $type = $type ?? 'currentAreaChanged',super._();
   factory CurrentAreaChanged.fromJson(Map<String, dynamic> json) => _$CurrentAreaChangedFromJson(json);
 
  final  String name;
@@ -3565,7 +3566,7 @@ as String,
 @JsonSerializable()
 
 class ExportPresetCreated extends DocumentEvent {
-  const ExportPresetCreated(this.name, [final  List<AreaPreset> areas = const [], final  String? $type]): _areas = areas,$type = $type ?? 'exportPresetCreated',super._();
+  const ExportPresetCreated(this.name, [ List<AreaPreset> areas = const [],  String? $type]): _areas = areas,$type = $type ?? 'exportPresetCreated',super._();
   factory ExportPresetCreated.fromJson(Map<String, dynamic> json) => _$ExportPresetCreatedFromJson(json);
 
  final  String name;
@@ -3646,7 +3647,7 @@ as List<AreaPreset>,
 @JsonSerializable()
 
 class ExportPresetUpdated extends DocumentEvent {
-  const ExportPresetUpdated(this.name, final  List<AreaPreset> areas, {final  String? $type}): _areas = areas,$type = $type ?? 'exportPresetUpdated',super._();
+  const ExportPresetUpdated(this.name,  List<AreaPreset> areas, { String? $type}): _areas = areas,$type = $type ?? 'exportPresetUpdated',super._();
   factory ExportPresetUpdated.fromJson(Map<String, dynamic> json) => _$ExportPresetUpdatedFromJson(json);
 
  final  String name;
@@ -3727,7 +3728,7 @@ as List<AreaPreset>,
 @JsonSerializable()
 
 class ExportPresetRemoved extends DocumentEvent {
-  const ExportPresetRemoved(this.name, {final  String? $type}): $type = $type ?? 'exportPresetRemoved',super._();
+  const ExportPresetRemoved(this.name, { String? $type}): $type = $type ?? 'exportPresetRemoved',super._();
   factory ExportPresetRemoved.fromJson(Map<String, dynamic> json) => _$ExportPresetRemovedFromJson(json);
 
  final  String name;
@@ -3800,7 +3801,7 @@ as String,
 @JsonSerializable()
 
 class PackAdded extends DocumentEvent {
-  const PackAdded(this.pack, {final  String? $type}): $type = $type ?? 'packAdded',super._();
+  const PackAdded(this.pack, { String? $type}): $type = $type ?? 'packAdded',super._();
   factory PackAdded.fromJson(Map<String, dynamic> json) => _$PackAddedFromJson(json);
 
  final  NoteData pack;
@@ -3873,7 +3874,7 @@ as NoteData,
 @JsonSerializable()
 
 class PackUpdated extends DocumentEvent {
-  const PackUpdated(this.name, this.pack, {final  String? $type}): $type = $type ?? 'packUpdated',super._();
+  const PackUpdated(this.name, this.pack, { String? $type}): $type = $type ?? 'packUpdated',super._();
   factory PackUpdated.fromJson(Map<String, dynamic> json) => _$PackUpdatedFromJson(json);
 
  final  String name;
@@ -3948,7 +3949,7 @@ as NoteData,
 @JsonSerializable()
 
 class PackRemoved extends DocumentEvent {
-  const PackRemoved(this.name, {final  String? $type}): $type = $type ?? 'packRemoved',super._();
+  const PackRemoved(this.name, { String? $type}): $type = $type ?? 'packRemoved',super._();
   factory PackRemoved.fromJson(Map<String, dynamic> json) => _$PackRemovedFromJson(json);
 
  final  String name;
@@ -4021,7 +4022,7 @@ as String,
 @JsonSerializable()
 
 class AnimationAdded extends DocumentEvent {
-  const AnimationAdded(this.animation, {final  String? $type}): $type = $type ?? 'animationAdded',super._();
+  const AnimationAdded(this.animation, { String? $type}): $type = $type ?? 'animationAdded',super._();
   factory AnimationAdded.fromJson(Map<String, dynamic> json) => _$AnimationAddedFromJson(json);
 
  final  AnimationTrack animation;
@@ -4103,7 +4104,7 @@ $AnimationTrackCopyWith<$Res> get animation {
 @JsonSerializable()
 
 class AnimationUpdated extends DocumentEvent {
-  const AnimationUpdated(this.name, this.animation, {final  String? $type}): $type = $type ?? 'animationUpdated',super._();
+  const AnimationUpdated(this.name, this.animation, { String? $type}): $type = $type ?? 'animationUpdated',super._();
   factory AnimationUpdated.fromJson(Map<String, dynamic> json) => _$AnimationUpdatedFromJson(json);
 
  final  String name;
@@ -4187,7 +4188,7 @@ $AnimationTrackCopyWith<$Res> get animation {
 @JsonSerializable()
 
 class AnimationRemoved extends DocumentEvent {
-  const AnimationRemoved(this.name, {final  String? $type}): $type = $type ?? 'animationRemoved',super._();
+  const AnimationRemoved(this.name, { String? $type}): $type = $type ?? 'animationRemoved',super._();
   factory AnimationRemoved.fromJson(Map<String, dynamic> json) => _$AnimationRemovedFromJson(json);
 
  final  String name;
@@ -4260,7 +4261,7 @@ as String,
 @JsonSerializable()
 
 class PresentationModeEntered extends DocumentEvent {
-  const PresentationModeEntered(this.track, this.fullScreen, {final  String? $type}): $type = $type ?? 'presentationModeEntered',super._();
+  const PresentationModeEntered(this.track, this.fullScreen, { String? $type}): $type = $type ?? 'presentationModeEntered',super._();
   factory PresentationModeEntered.fromJson(Map<String, dynamic> json) => _$PresentationModeEnteredFromJson(json);
 
  final  AnimationTrack track;
@@ -4344,7 +4345,7 @@ $AnimationTrackCopyWith<$Res> get track {
 @JsonSerializable()
 
 class PresentationModeExited extends DocumentEvent {
-  const PresentationModeExited({final  String? $type}): $type = $type ?? 'presentationModeExited',super._();
+  const PresentationModeExited({ String? $type}): $type = $type ?? 'presentationModeExited',super._();
   factory PresentationModeExited.fromJson(Map<String, dynamic> json) => _$PresentationModeExitedFromJson(json);
 
 
@@ -4383,7 +4384,7 @@ String toString() {
 @JsonSerializable()
 
 class PresentationTick extends DocumentEvent {
-  const PresentationTick(this.tick, {final  String? $type}): $type = $type ?? 'presentationTick',super._();
+  const PresentationTick(this.tick, { String? $type}): $type = $type ?? 'presentationTick',super._();
   factory PresentationTick.fromJson(Map<String, dynamic> json) => _$PresentationTickFromJson(json);
 
  final  int tick;
@@ -4456,7 +4457,7 @@ as int,
 @JsonSerializable()
 
 class AssetUpdated extends DocumentEvent {
-  const AssetUpdated(this.path, final  List<int> data, {final  String? $type}): _data = data,$type = $type ?? 'assetUpdated',super._();
+  const AssetUpdated(this.path,  List<int> data, { String? $type}): _data = data,$type = $type ?? 'assetUpdated',super._();
   factory AssetUpdated.fromJson(Map<String, dynamic> json) => _$AssetUpdatedFromJson(json);
 
  final  String path;
@@ -4537,7 +4538,7 @@ as List<int>,
 @JsonSerializable()
 
 class ElementsLayerConverted extends DocumentEvent {
-  const ElementsLayerConverted(final  List<String> elements, [this.name = '', final  String? $type]): _elements = elements,$type = $type ?? 'elementsLayerConverted',super._();
+  const ElementsLayerConverted( List<String> elements, [this.name = '',  String? $type]): _elements = elements,$type = $type ?? 'elementsLayerConverted',super._();
   factory ElementsLayerConverted.fromJson(Map<String, dynamic> json) => _$ElementsLayerConvertedFromJson(json);
 
  final  List<String> _elements;
@@ -4618,7 +4619,7 @@ as String,
 @JsonSerializable()
 
 class ElementsLayerMoved extends DocumentEvent {
-  const ElementsLayerMoved(final  List<String> elements, this.layerId, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsLayerMoved',super._();
+  const ElementsLayerMoved( List<String> elements, this.layerId, { String? $type}): _elements = elements,$type = $type ?? 'elementsLayerMoved',super._();
   factory ElementsLayerMoved.fromJson(Map<String, dynamic> json) => _$ElementsLayerMovedFromJson(json);
 
  final  List<String> _elements;
@@ -4699,7 +4700,7 @@ as String,
 @JsonSerializable()
 
 class EncryptionChanged extends DocumentEvent {
-  const EncryptionChanged(this.password, {final  String? $type}): $type = $type ?? 'encryptionChanged',super._();
+  const EncryptionChanged(this.password, { String? $type}): $type = $type ?? 'encryptionChanged',super._();
   factory EncryptionChanged.fromJson(Map<String, dynamic> json) => _$EncryptionChangedFromJson(json);
 
  final  String? password;
@@ -4772,7 +4773,7 @@ as String?,
 @JsonSerializable()
 
 class DocumentRebuilt extends DocumentEvent {
-  const DocumentRebuilt(@Uint8ListJsonConverter() this.data, {final  String? $type}): $type = $type ?? 'documentRebuilt',super._();
+  const DocumentRebuilt(@Uint8ListJsonConverter() this.data, { String? $type}): $type = $type ?? 'documentRebuilt',super._();
   factory DocumentRebuilt.fromJson(Map<String, dynamic> json) => _$DocumentRebuiltFromJson(json);
 
 @Uint8ListJsonConverter() final  Uint8List data;

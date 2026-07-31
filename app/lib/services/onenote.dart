@@ -658,18 +658,15 @@ class _OneNotePageBuilder {
     Point<double> position,
     double availableWidth,
   ) {
-    final rows = table.rows
-        .map(
-          (row) => row.cells
-              .map(
-                (cell) =>
-                    cell.contents.map(_outlineElementText).join(' ').trim(),
-              )
-              .join('\t'),
-        )
-        .join('\n');
-    if (rows.isEmpty) return 0;
-    final height = max(24.0, table.rowCount * 24.0);
+    final rowCount = max(table.rowCount, table.rows.length);
+    final columnCount = max(
+      table.columnCount,
+      table.rows.fold<int>(0, (count, row) => max(count, row.cells.length)),
+    );
+    if (rowCount <= 0 || columnCount <= 0) return 0;
+    const rowHeight = 32.0;
+    const cellPadding = 6.0;
+    final height = rowCount * rowHeight;
     final tableWidth = table.columnWidths.isEmpty
         ? availableWidth
         : min(
@@ -677,19 +674,37 @@ class _OneNotePageBuilder {
             table.columnWidths.fold<double>(0, (sum, width) => sum + width) *
                 _pixelsPerHalfInch,
           );
+    final columnSizes = table.columnWidths.length == columnCount
+        ? table.columnWidths.map((width) => max(width, 0.01)).toList()
+        : List<double>.filled(columnCount, 1);
+    final totalColumnSize = columnSizes.fold<double>(
+      0,
+      (sum, width) => sum + width,
+    );
+    final tableId = createUniqueId();
+    final cells = List<TableCellProperty>.generate(rowCount * columnCount, (
+      index,
+    ) {
+      final row = index ~/ columnCount;
+      final column = index % columnCount;
+      final color =
+          row < table.rows.length && column < table.rows[row].cells.length
+          ? table.rows[row].cells[column].backgroundColor
+          : null;
+      return TableCellProperty(
+        fillColor: color == null ? SRGBColor.transparent : _oneNoteColor(color),
+      );
+    });
     _elements.add(
-      TextElement(
-        position: position,
-        area: text.TextArea(
-          paragraph: text.TextParagraph(
-            textSpans: [text.InlineSpan.text(text: rows)],
-          ),
-        ),
-        constraint: ElementConstraint(
-          size: tableWidth,
-          length: height,
-          includeArea: false,
-        ),
+      TableElement(
+        id: tableId,
+        firstPosition: position,
+        secondPosition: Point(position.x + tableWidth, position.y + height),
+        rows: rowCount,
+        columns: columnCount,
+        columnSizes: columnSizes,
+        cells: cells,
+        border: TableBorderProperty(width: table.bordersVisible ? 1 : 0),
         extra: {
           'onenote:tableRows': table.rowCount,
           'onenote:tableColumns': table.columnCount,
@@ -698,8 +713,48 @@ class _OneNotePageBuilder {
         },
       ),
     );
+    var columnOffset = 0.0;
+    for (var column = 0; column < columnCount; column++) {
+      final columnWidth = tableWidth * columnSizes[column] / totalColumnSize;
+      for (var row = 0; row < table.rows.length; row++) {
+        if (column >= table.rows[row].cells.length) continue;
+        final value = table.rows[row].cells[column].contents
+            .map(_outlineElementText)
+            .join('\n')
+            .trim();
+        if (value.isEmpty) continue;
+        _elements.add(
+          TextElement(
+            position: Point(
+              position.x + columnOffset + cellPadding,
+              position.y + row * rowHeight + cellPadding,
+            ),
+            area: text.TextArea(
+              paragraph: text.TextParagraph(
+                textSpans: [text.InlineSpan.text(text: value)],
+              ),
+            ),
+            constraint: ElementConstraint(
+              size: max(1, columnWidth - cellPadding * 2),
+              length: max(1, rowHeight - cellPadding * 2),
+              includeArea: false,
+            ),
+            extra: {
+              'onenote:table': tableId,
+              'onenote:tableRow': row,
+              'onenote:tableColumn': column,
+            },
+          ),
+        );
+      }
+      columnOffset += columnWidth;
+    }
     return height;
   }
+
+  SRGBColor _oneNoteColor(one.OneNoteColor color) => SRGBColor(
+    (color.alpha << 24) | (color.red << 16) | (color.green << 8) | color.blue,
+  );
 
   String _outlineElementText(one.OneNoteOutlineElement element) => [
     ...element.contents.map(_contentText),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'background.dart';
@@ -9,6 +9,7 @@ part of 'background.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 Background _$BackgroundFromJson(
@@ -100,7 +101,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class TextureBackground extends Background {
-   TextureBackground({required this.texture, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'texture',super._();
+   TextureBackground({required this.texture,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'texture',super._();
   factory TextureBackground.fromJson(Map<String, dynamic> json) => _$TextureBackgroundFromJson(json);
 
  final  SurfaceTexture texture;
@@ -183,7 +184,7 @@ $SurfaceTextureCopyWith<$Res> get texture {
 @JsonSerializable()
 
 class ImageBackground extends Background implements SourcedElement {
-   ImageBackground({required this.source, required this.width, required this.height, this.scaleX = 1, this.scaleY = 1, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'image',super._();
+   ImageBackground({required this.source, required this.width, required this.height, this.scaleX = 1, this.scaleY = 1,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'image',super._();
   factory ImageBackground.fromJson(Map<String, dynamic> json) => _$ImageBackgroundFromJson(json);
 
  final  String source;
@@ -265,7 +266,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class SvgBackground extends Background implements SourcedElement {
-   SvgBackground({required this.source, required this.width, required this.height, this.scaleX = 1, this.scaleY = 1, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'svg',super._();
+   SvgBackground({required this.source, required this.width, required this.height, this.scaleX = 1, this.scaleY = 1,  Map<String, dynamic> extra = const {},  String? $type}): _extra = extra,$type = $type ?? 'svg',super._();
   factory SvgBackground.fromJson(Map<String, dynamic> json) => _$SvgBackgroundFromJson(json);
 
  final  String source;

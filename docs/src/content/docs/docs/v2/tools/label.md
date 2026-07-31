@@ -8,9 +8,9 @@ With this tool you can add text, Markdown, or mathematical formulas into the inf
 
 The label tool can be used in different modes:
 
-| Mode | Description |
-| ---: | :---------- |
-| Text | Adds plain text labels. |
+|     Mode | Description                     |
+|---------:|:--------------------------------|
+|     Text | Adds plain text labels.         |
 | Markdown | Adds formatted Markdown labels. |
 
 ## Mathematics
@@ -47,27 +47,27 @@ $$
 
 ### Useful commands
 
-| Command | Description | Example | Example command |
-| ------- | ----------- | ------- | --------------- |
-| `\sqrt[n]{arg}` | Square root symbol, or nth root | $\sqrt[3]{x+1}$ | `\sqrt[3]{x+1}` |
-| `\frac{num}{den}` | Fraction with numerator and denominator | $\frac{a+1}{b-1}$ | `\frac{a+1}{b-1}` |
-| `\stackrel{a}{b}` | Places something (`a`) above another (`b`) | $\stackrel{!}{=}$ | `\stackrel{!}{=}` |
-| `\left<delimiter>` and `\right<delimiter>` | Scaling delimiters. `\left` must be paired with a `\right` | $\left( \frac{x}{2} \right)$ | `\left( \frac{x}{2} \right)` |
-| `\sum_{lower}^{upper}` | Summation symbol with limits | $\sum_{i=1}^{n} i$ | `\sum_{i=1}^{n} i` |
-| `\mid` | Vertical bar as relation, such as “divides” or conditional | $a\mid b$ | `a\mid b` |
-| `\prod_{lower}^{upper}` | Product symbol with limits | $\prod_{k=1}^{m} k$ | `\prod_{k=1}^{m} k` |
-| `\int_{a}^{b}` | Integral with limits | $\int_{0}^{1} x^2\,dx$ | `\int_{0}^{1} x^2\,dx` |
-| `\langle` and `\rangle` | Angle brackets for inner products or tuples | $\langle v,w\rangle$ | `\langle v,w\rangle` |
-| `\in` and `\notin` | Set membership or not membership | $x\in A$, $y\notin B$ | `x\in A`, `y\notin B` |
-| `\forall` and `\exists` | Universal or existential quantifiers | $\forall x\in\mathbb{R},\ \exists y$ | `\forall x\in\mathbb{R},\ \exists y` |
-| `\to` | Right arrow for functions or limits | $f:A\to B$, $x_n\to x$ | `f:A\to B`, `x_n\to x` |
+| Command                                    | Description                                                | Example                              | Example command                      |
+|--------------------------------------------|------------------------------------------------------------|--------------------------------------|--------------------------------------|
+| `\sqrt[n]{arg}`                            | Square root symbol, or nth root                            | $\sqrt[3]{x+1}$                      | `\sqrt[3]{x+1}`                      |
+| `\frac{num}{den}`                          | Fraction with numerator and denominator                    | $\frac{a+1}{b-1}$                    | `\frac{a+1}{b-1}`                    |
+| `\stackrel{a}{b}`                          | Places something (`a`) above another (`b`)                 | $\stackrel{!}{=}$                    | `\stackrel{!}{=}`                    |
+| `\left<delimiter>` and `\right<delimiter>` | Scaling delimiters. `\left` must be paired with a `\right` | $\left( \frac{x}{2} \right)$         | `\left( \frac{x}{2} \right)`         |
+| `\sum_{lower}^{upper}`                     | Summation symbol with limits                               | $\sum_{i=1}^{n} i$                   | `\sum_{i=1}^{n} i`                   |
+| `\mid`                                     | Vertical bar as relation, such as “divides” or conditional | $a\mid b$                            | `a\mid b`                            |
+| `\prod_{lower}^{upper}`                    | Product symbol with limits                                 | $\prod_{k=1}^{m} k$                  | `\prod_{k=1}^{m} k`                  |
+| `\int_{a}^{b}`                             | Integral with limits                                       | $\int_{0}^{1} x^2\,dx$               | `\int_{0}^{1} x^2\,dx`               |
+| `\langle` and `\rangle`                    | Angle brackets for inner products or tuples                | $\langle v,w\rangle$                 | `\langle v,w\rangle`                 |
+| `\in` and `\notin`                         | Set membership or not membership                           | $x\in A$, $y\notin B$                | `x\in A`, `y\notin B`                |
+| `\forall` and `\exists`                    | Universal or existential quantifiers                       | $\forall x\in\mathbb{R},\ \exists y$ | `\forall x\in\mathbb{R},\ \exists y` |
+| `\to`                                      | Right arrow for functions or limits                        | $f:A\to B$, $x_n\to x$               | `f:A\to B`, `x_n\to x`               |
 
 ## Configuration
 
-| Property | Default | Description |
-| -------: | :-----: | :---------- |
-| Mode | Text | The label mode. Available modes are Text and Markdown. |
-| Foreground | Black | The text color. |
-| Scale | 2 | The scale of the label. |
-| Zoom dependent | false | Changes the label size based on the zoom level. |
-| Style sheet | None | The style sheet used for the label. |
+|       Property | Default | Description                                            |
+|---------------:|:-------:|:-------------------------------------------------------|
+|           Mode |  Text   | The label mode. Available modes are Text and Markdown. |
+|     Foreground |  Black  | The text color.                                        |
+|          Scale |    2    | The scale of the label.                                |
+| Zoom dependent |  false  | Changes the label size based on the zoom level.        |
+|    Style sheet |  None   | The style sheet used for the label.                    |

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'persisted_document_state.dart';
@@ -9,6 +9,7 @@ part of 'persisted_document_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$PersistedToolSelectionCopyWithImpl<$Res>
 /// Create a copy of PersistedToolSelection
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? toolId = freezed,Object? toolIndex = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PersistedToolSelection(
 toolId: freezed == toolId ? _self.toolId : toolId // ignore: cast_nullable_to_non_nullable
 as String?,toolIndex: freezed == toolIndex ? _self.toolIndex : toolIndex // ignore: cast_nullable_to_non_nullable
 as int?,
@@ -203,7 +204,7 @@ class _$PersistedCameraStateCopyWithImpl<$Res>
 /// Create a copy of PersistedCameraState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? positionX = null,Object? positionY = null,Object? zoom = null,Object? rotation = null,}) {
-  return _then(_self.copyWith(
+  return _then(PersistedCameraState(
 positionX: null == positionX ? _self.positionX : positionX // ignore: cast_nullable_to_non_nullable
 as double,positionY: null == positionY ? _self.positionY : positionY // ignore: cast_nullable_to_non_nullable
 as double,zoom: null == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
@@ -346,7 +347,7 @@ class _$PersistentLockStateCopyWithImpl<$Res>
 /// Create a copy of PersistentLockState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,Object? lockRotation = null,}) {
-  return _then(_self.copyWith(
+  return _then(PersistentLockState(
 lockCollection: null == lockCollection ? _self.lockCollection : lockCollection // ignore: cast_nullable_to_non_nullable
 as bool,lockLayer: null == lockLayer ? _self.lockLayer : lockLayer // ignore: cast_nullable_to_non_nullable
 as bool,lockZoom: null == lockZoom ? _self.lockZoom : lockZoom // ignore: cast_nullable_to_non_nullable
@@ -495,7 +496,7 @@ class _$PersistedNavigatorStateCopyWithImpl<$Res>
 /// Create a copy of PersistedNavigatorState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? page = null,}) {
-  return _then(_self.copyWith(
+  return _then(PersistedNavigatorState(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as String,
@@ -632,7 +633,7 @@ class _$PersistedLayerStateCopyWithImpl<$Res>
 /// Create a copy of PersistedLayerState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? currentLayer = null,Object? currentCollection = null,Object? invisibleLayers = null,}) {
-  return _then(_self.copyWith(
+  return _then(PersistedLayerState(
 currentLayer: null == currentLayer ? _self.currentLayer : currentLayer // ignore: cast_nullable_to_non_nullable
 as String,currentCollection: null == currentCollection ? _self.currentCollection : currentCollection // ignore: cast_nullable_to_non_nullable
 as String,invisibleLayers: null == invisibleLayers ? _self.invisibleLayers : invisibleLayers // ignore: cast_nullable_to_non_nullable
@@ -648,7 +649,7 @@ as Set<String>,
 @JsonSerializable()
 
 class _PersistedLayerState implements PersistedLayerState {
-  const _PersistedLayerState({this.currentLayer = '', this.currentCollection = '', final  Set<String> invisibleLayers = const {}}): _invisibleLayers = invisibleLayers;
+  const _PersistedLayerState({this.currentLayer = '', this.currentCollection = '',  Set<String> invisibleLayers = const {}}): _invisibleLayers = invisibleLayers;
   factory _PersistedLayerState.fromJson(Map<String, dynamic> json) => _$PersistedLayerStateFromJson(json);
 
 @override@JsonKey() final  String currentLayer;
@@ -778,7 +779,7 @@ class _$PersistedAreaNavigatorStateCopyWithImpl<$Res>
 /// Create a copy of PersistedAreaNavigatorState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? create = null,Object? exact = null,Object? ask = null,}) {
-  return _then(_self.copyWith(
+  return _then(PersistedAreaNavigatorState(
 create: null == create ? _self.create : create // ignore: cast_nullable_to_non_nullable
 as bool,exact: null == exact ? _self.exact : exact // ignore: cast_nullable_to_non_nullable
 as bool,ask: null == ask ? _self.ask : ask // ignore: cast_nullable_to_non_nullable
@@ -918,7 +919,7 @@ class _$PersistedDocumentStateCopyWithImpl<$Res>
 /// Create a copy of PersistedDocumentState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? version = null,Object? pathKey = freezed,Object? contentHash = freezed,Object? pageName = freezed,Object? camera = null,Object? locks = null,Object? selectedTool = null,Object? navigator = null,Object? layers = null,Object? areaNavigator = null,Object? updatedAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PersistedDocumentState(
 version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as int,pathKey: freezed == pathKey ? _self.pathKey : pathKey // ignore: cast_nullable_to_non_nullable
 as String?,contentHash: freezed == contentHash ? _self.contentHash : contentHash // ignore: cast_nullable_to_non_nullable

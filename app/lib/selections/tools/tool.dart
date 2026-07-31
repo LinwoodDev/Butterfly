@@ -15,6 +15,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
             LaserTool e => LaserToolSelection([e]),
             RulerTool e => RulerToolSelection([e]),
             ShapeTool e => ShapeToolSelection([e]),
+            TableTool e => TableToolSelection([e]),
             StampTool e => StampToolSelection([e]),
             TextureTool e => TextureToolSelection([e]),
             BarcodeTool e => BarcodeToolSelection([e]),

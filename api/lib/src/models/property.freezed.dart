@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'property.dart';
@@ -9,6 +9,7 @@ part of 'property.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 ElementPaint _$ElementPaintFromJson(
@@ -111,7 +112,7 @@ as double,
 @JsonSerializable()
 
 class SolidElementPaint extends ElementPaint {
-  const SolidElementPaint({@ColorJsonConverter() this.color = SRGBColor.black, this.blur = 0, final  String? $type}): $type = $type ?? 'solid',super._();
+  const SolidElementPaint({@ColorJsonConverter() this.color = SRGBColor.black, this.blur = 0,  String? $type}): $type = $type ?? 'solid',super._();
   factory SolidElementPaint.fromJson(Map<String, dynamic> json) => _$SolidElementPaintFromJson(json);
 
 @JsonKey()@ColorJsonConverter() final  SRGBColor color;
@@ -186,7 +187,7 @@ as double,
 @JsonSerializable()
 
 class ImageElementPaint extends ElementPaint {
-  const ImageElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, this.blur = 0, final  String? $type}): $type = $type ?? 'image',super._();
+  const ImageElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, this.blur = 0,  String? $type}): $type = $type ?? 'image',super._();
   factory ImageElementPaint.fromJson(Map<String, dynamic> json) => _$ImageElementPaintFromJson(json);
 
  final  String source;
@@ -265,7 +266,7 @@ as double,
 @JsonSerializable()
 
 class SvgElementPaint extends ElementPaint {
-  const SvgElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, this.blur = 0, final  String? $type}): $type = $type ?? 'svg',super._();
+  const SvgElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, this.blur = 0,  String? $type}): $type = $type ?? 'svg',super._();
   factory SvgElementPaint.fromJson(Map<String, dynamic> json) => _$SvgElementPaintFromJson(json);
 
  final  String source;
@@ -344,7 +345,7 @@ as double,
 @JsonSerializable()
 
 class GradientElementPaint extends ElementPaint {
-  const GradientElementPaint({this.gradient = const ElementGradient.linear(), this.blur = 0, final  String? $type}): $type = $type ?? 'gradient',super._();
+  const GradientElementPaint({this.gradient = const ElementGradient.linear(), this.blur = 0,  String? $type}): $type = $type ?? 'gradient',super._();
   factory GradientElementPaint.fromJson(Map<String, dynamic> json) => _$GradientElementPaintFromJson(json);
 
 @JsonKey() final  ElementGradient gradient;
@@ -516,7 +517,7 @@ as List<ElementGradientStop>,
 @JsonSerializable()
 
 class LinearElementGradient implements ElementGradient {
-  const LinearElementGradient({@DoublePointJsonConverter() this.start = const Point(0, 0), @DoublePointJsonConverter() this.end = const Point(1, 0), final  List<ElementGradientStop> stops = defaultGradientStops, final  String? $type}): _stops = stops,$type = $type ?? 'linear';
+  const LinearElementGradient({@DoublePointJsonConverter() this.start = const Point(0, 0), @DoublePointJsonConverter() this.end = const Point(1, 0),  List<ElementGradientStop> stops = defaultGradientStops,  String? $type}): _stops = stops,$type = $type ?? 'linear';
   factory LinearElementGradient.fromJson(Map<String, dynamic> json) => _$LinearElementGradientFromJson(json);
 
 @JsonKey()@DoublePointJsonConverter() final  Point<double> start;
@@ -599,7 +600,7 @@ as List<ElementGradientStop>,
 @JsonSerializable()
 
 class RadialElementGradient implements ElementGradient {
-  const RadialElementGradient({@DoublePointJsonConverter() this.center = const Point(0.5, 0.5), this.radius = 0.5, @DoublePointJsonConverter() this.focal, this.focalRadius, final  List<ElementGradientStop> stops = defaultGradientStops, final  String? $type}): _stops = stops,$type = $type ?? 'radial';
+  const RadialElementGradient({@DoublePointJsonConverter() this.center = const Point(0.5, 0.5), this.radius = 0.5, @DoublePointJsonConverter() this.focal, this.focalRadius,  List<ElementGradientStop> stops = defaultGradientStops,  String? $type}): _stops = stops,$type = $type ?? 'radial';
   factory RadialElementGradient.fromJson(Map<String, dynamic> json) => _$RadialElementGradientFromJson(json);
 
 @JsonKey()@DoublePointJsonConverter() final  Point<double> center;
@@ -737,7 +738,7 @@ class _$ElementGradientStopCopyWithImpl<$Res>
 /// Create a copy of ElementGradientStop
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? offset = null,Object? color = null,}) {
-  return _then(_self.copyWith(
+  return _then(ElementGradientStop(
 offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
 as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as SRGBColor,
@@ -925,7 +926,7 @@ $ElementPaintCopyWith<$Res> get paint {
 @JsonSerializable()
 
 class PenProperty implements Property, PathProperty {
-  const PenProperty({this.strokeWidth = 5, this.thinning = 0.4, this.paint = const ElementPaint.solid(), this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), this.smoothing = 0.5, this.streamline = 0.3, final  String? $type}): $type = $type ?? 'pen';
+  const PenProperty({this.strokeWidth = 5, this.thinning = 0.4, this.paint = const ElementPaint.solid(), this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), this.smoothing = 0.5, this.streamline = 0.3,  String? $type}): $type = $type ?? 'pen';
   factory PenProperty.fromJson(Map<String, dynamic> json) => _$PenPropertyFromJson(json);
 
 @override@JsonKey() final  double strokeWidth;
@@ -1026,7 +1027,7 @@ $ElementPaintCopyWith<$Res> get fillPaint {
 @JsonSerializable()
 
 class ShapeProperty implements Property {
-  const ShapeProperty({this.strokeWidth = 5, required this.shape, this.paint = const ElementPaint.solid(), this.strokeStyle = StrokeStyle.solid, this.dashMultiplier = 1.0, this.gapMultiplier = 1.0, final  String? $type}): $type = $type ?? 'shape';
+  const ShapeProperty({this.strokeWidth = 5, required this.shape, this.paint = const ElementPaint.solid(), this.strokeStyle = StrokeStyle.solid, this.dashMultiplier = 1.0, this.gapMultiplier = 1.0,  String? $type}): $type = $type ?? 'shape';
   factory ShapeProperty.fromJson(Map<String, dynamic> json) => _$ShapePropertyFromJson(json);
 
 @override@JsonKey() final  double strokeWidth;
@@ -1127,7 +1128,7 @@ $ElementPaintCopyWith<$Res> get paint {
 @JsonSerializable()
 
 class PolygonProperty implements Property {
-  const PolygonProperty({this.strokeWidth = 5, this.paint = const ElementPaint.solid(), this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), final  String? $type}): $type = $type ?? 'polygon';
+  const PolygonProperty({this.strokeWidth = 5, this.paint = const ElementPaint.solid(), this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent),  String? $type}): $type = $type ?? 'polygon';
   factory PolygonProperty.fromJson(Map<String, dynamic> json) => _$PolygonPropertyFromJson(json);
 
 @override@JsonKey() final  double strokeWidth;
@@ -1287,7 +1288,7 @@ $PathShapeCopyWith(PathShape _, $Res Function(PathShape) __);
 @JsonSerializable()
 
 class CircleShape extends PathShape {
-  const CircleShape({this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), final  String? $type}): $type = $type ?? 'circle',super._();
+  const CircleShape({this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent),  String? $type}): $type = $type ?? 'circle',super._();
   factory CircleShape.fromJson(Map<String, dynamic> json) => _$CircleShapeFromJson(json);
 
 @JsonKey() final  ElementPaint fillPaint;
@@ -1369,7 +1370,7 @@ $ElementPaintCopyWith<$Res> get fillPaint {
 @JsonSerializable()
 
 class RectangleShape extends PathShape {
-  const RectangleShape({this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), this.topLeftCornerRadius = 0, this.topRightCornerRadius = 0, this.bottomLeftCornerRadius = 0, this.bottomRightCornerRadius = 0, final  String? $type}): $type = $type ?? 'rectangle',super._();
+  const RectangleShape({this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), this.topLeftCornerRadius = 0, this.topRightCornerRadius = 0, this.bottomLeftCornerRadius = 0, this.bottomRightCornerRadius = 0,  String? $type}): $type = $type ?? 'rectangle',super._();
   factory RectangleShape.fromJson(Map<String, dynamic> json) => _$RectangleShapeFromJson(json);
 
 @JsonKey() final  ElementPaint fillPaint;
@@ -1459,7 +1460,7 @@ $ElementPaintCopyWith<$Res> get fillPaint {
 @JsonSerializable()
 
 class LineShape extends PathShape {
-  const LineShape({final  String? $type}): $type = $type ?? 'line',super._();
+  const LineShape({ String? $type}): $type = $type ?? 'line',super._();
   factory LineShape.fromJson(Map<String, dynamic> json) => _$LineShapeFromJson(json);
 
 
@@ -1498,7 +1499,7 @@ String toString() {
 @JsonSerializable()
 
 class TriangleShape extends PathShape {
-  const TriangleShape({this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent), final  String? $type}): $type = $type ?? 'triangle',super._();
+  const TriangleShape({this.fillPaint = const ElementPaint.solid(color: SRGBColor.transparent),  String? $type}): $type = $type ?? 'triangle',super._();
   factory TriangleShape.fromJson(Map<String, dynamic> json) => _$TriangleShapeFromJson(json);
 
 @JsonKey() final  ElementPaint fillPaint;

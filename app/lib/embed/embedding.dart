@@ -7,7 +7,7 @@ class Embedding {
   final EmbedHandler? handler;
   final bool save, editable;
   final VoidCallback? onExit, onOpen;
-  final String language, theme;
+  final String language, theme, fileName;
   final AssetLocation? location;
 
   bool get isInternal => handler == null;
@@ -17,6 +17,7 @@ class Embedding {
     this.editable = true,
     this.language = 'user',
     this.theme = 'user',
+    this.fileName = '',
     bool internal = false,
     this.onExit,
     this.onOpen,
@@ -27,6 +28,7 @@ class Embedding {
       editable = query['editable'] != 'false',
       language = query['language'] ?? 'user',
       theme = query['theme'] ?? '',
+      fileName = query['fileName'] ?? '',
       handler = EmbedHandler(),
       onExit = null,
       location = null,

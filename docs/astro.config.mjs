@@ -5,7 +5,7 @@ import { getSidebarTranslatedLabel } from "./src/translations";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 import { fileURLToPath } from "node:url";
-import { satteri } from '@astrojs/markdown-satteri';
+import { satteri } from "@astrojs/markdown-satteri";
 import katex from "katex";
 
 const renderMath = (value, displayMode = false) =>
@@ -24,14 +24,32 @@ const renderMathPlugin = {
   },
 };
 
+const mdxHeadingAttributes = {
+  name: "mdx-heading-attributes",
+  enforce: "pre",
+  transform(code, id) {
+    if (!id.split("?", 1)[0].endsWith(".mdx")) return;
+    const transformed = code.replace(
+      /^(#{1,6})\s+(.+?)\s+\{#([\w-]+)\}\s*$/gm,
+      (_, hashes, heading, headingId) =>
+        `<h${hashes.length} id="${headingId}">${heading}</h${hashes.length}>`,
+    );
+    if (transformed === code) return;
+    return { code: transformed, map: null };
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
   markdown: {
     processor: satteri({
-      features: { math: true },
+      features: { math: true, headingAttributes: true },
       mdastPlugins: [renderMathPlugin],
     }),
+  },
+  vite: {
+    plugins: [mdxHeadingAttributes],
   },
   integrations: [
     starlight({
@@ -70,6 +88,10 @@ export default defineConfig({
               link: "/docs/v2/intro",
             },
             {
+              ...getSidebarTranslatedLabel("Context menu"),
+              link: "/docs/v2/context_menu",
+            },
+            {
               ...getSidebarTranslatedLabel("Area"),
               link: "/docs/v2/areas/",
             },
@@ -78,8 +100,8 @@ export default defineConfig({
               link: "/docs/v2/background/",
             },
             {
-              ...getSidebarTranslatedLabel("Color picker"),
-              link: "/docs/v2/color_picker/",
+              ...getSidebarTranslatedLabel("Colors"),
+              link: "/docs/v2/colors/",
             },
             {
               ...getSidebarTranslatedLabel("Layers"),
@@ -100,6 +122,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Shortcuts"),
               link: "/docs/v2/shortcuts/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Stylus support"),
+              link: "/docs/v2/stylus-support/",
             },
             {
               ...getSidebarTranslatedLabel("Storage"),
@@ -151,10 +177,6 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Hand"),
                   link: "/docs/v2/tools/hand/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Path eraser"),
-                  link: "/docs/v2/tools/path_eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Eraser"),
@@ -270,10 +292,6 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Stylus support"),
-              link: "/community/stylus-support/",
             },
             {
               ...getSidebarTranslatedLabel("Comparison"),

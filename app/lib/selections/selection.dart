@@ -33,6 +33,7 @@ part 'elements/pdf.dart';
 part 'elements/pen.dart';
 part 'elements/polygon.dart';
 part 'elements/shape.dart';
+part 'elements/table.dart';
 part 'elements/svg.dart';
 
 part 'tools/barcode.dart';
@@ -49,6 +50,7 @@ part 'tools/pen.dart';
 part 'tools/polygon.dart';
 part 'tools/ruler.dart';
 part 'tools/shape.dart';
+part 'tools/table.dart';
 part 'tools/stamp.dart';
 part 'tools/texture.dart';
 part 'tools/spacer.dart';
@@ -93,6 +95,8 @@ abstract class Selection<T> {
     }
     return current;
   }
+
+  Selection? replaceSelected(List<T>? selected) => Selection.fromList(selected);
 
   String getLocalizedName(BuildContext context);
 

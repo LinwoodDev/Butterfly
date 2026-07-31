@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
-import 'package:collection/collection.dart';
+import 'package:butterfly/services/pointer_shortcuts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +13,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_painter.dart';
-
-const kFallbackSecondaryStylusButton = 0x20;
 
 class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
@@ -26,18 +23,18 @@ class MainViewViewport extends StatefulWidget {
 
 enum _MouseState { normal, inverse, scale }
 
-typedef _TapDetails = ({
-  PointerDeviceKind kind,
-  int buttons,
-  Offset position,
-  Duration timeStamp,
-  int count,
-});
-
 typedef _HandlerGetter = Handler Function();
 typedef _EventContextGetter = EventContext Function();
 typedef _TemporaryToolChanger =
     Future<void> Function(PointerDeviceKind kind, int buttons);
+typedef _PointerInputContext = ({
+  EditorController cubit,
+  DocumentLoaded state,
+  _HandlerGetter getHandler,
+  _EventContextGetter getEventContext,
+  _TemporaryToolChanger changeTemporaryTool,
+  VoidCallback delayBake,
+});
 
 class _MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
@@ -52,22 +49,10 @@ class _MainViewViewportState extends State<MainViewViewport>
   Animation<Offset>? _positionAnimation;
 
   final Map<int, PointerDeviceKind> _pointerKinds = {};
-  Timer? _tapTimer;
-  _TapDetails? _lastTap;
+  final PointerShortcutManager _pointerShortcutManager =
+      PointerShortcutManager();
   int _slideAnimationId = 0;
   static const Curve _slideCurve = Curves.easeOutCubic;
-  static const Duration _multiTapTimeout = Duration(milliseconds: 500);
-  static const Duration _multiTapResolveDelay = Duration(milliseconds: 250);
-  static const double _multiTapDistance = 18;
-  static const String _longPressShortcutId = 'long_press';
-
-  bool _isMouseOrPen(PointerDeviceKind kind) =>
-      kind == PointerDeviceKind.mouse ||
-      kind == PointerDeviceKind.stylus ||
-      kind == PointerDeviceKind.invertedStylus;
-
-  bool _isMousePenOrTouch(PointerDeviceKind kind) =>
-      _isMouseOrPen(kind) || kind == PointerDeviceKind.touch;
 
   bool _isTouchMoveGesture(EditorController controller) =>
       controller.inputCubit.moveEnabled &&
@@ -75,220 +60,32 @@ class _MainViewViewportState extends State<MainViewViewport>
         (pointer) => _pointerKinds[pointer] == PointerDeviceKind.touch,
       );
 
-  void _rememberTap(PointerDownEvent event) {
-    if (event.kind != PointerDeviceKind.mouse &&
-        event.kind != PointerDeviceKind.stylus &&
-        event.kind != PointerDeviceKind.invertedStylus &&
-        event.kind != PointerDeviceKind.touch) {
-      return;
-    }
-
-    final lastTap = _lastTap;
-    final isContinuation =
-        lastTap != null &&
-        lastTap.kind == event.kind &&
-        lastTap.buttons == event.buttons &&
-        event.timeStamp - lastTap.timeStamp <= _multiTapTimeout &&
-        (event.position - lastTap.position).distance <= _multiTapDistance;
-    final tapCount = isContinuation ? (lastTap.count % 3) + 1 : 1;
-    _tapTimer?.cancel();
-    _lastTap = (
-      kind: event.kind,
-      buttons: event.buttons,
-      position: event.position,
-      timeStamp: event.timeStamp,
-      count: tapCount,
-    );
-  }
-
-  String? _getMouseShortcut(
-    InputConfiguration config,
-    int buttons,
-    bool isDoubleTap,
-  ) {
-    if ((buttons & kSecondaryMouseButton) != 0) {
-      return isDoubleTap
-          ? config.doubleRightMouseShortcut
-          : config.tripleRightMouseShortcut;
-    }
-    if ((buttons & kMiddleMouseButton) != 0) {
-      return isDoubleTap
-          ? config.doubleMiddleMouseShortcut
-          : config.tripleMiddleMouseShortcut;
-    }
-    if ((buttons & kPrimaryMouseButton) != 0) {
-      return isDoubleTap
-          ? config.doubleLeftMouseShortcut
-          : config.tripleLeftMouseShortcut;
-    }
-    return null;
-  }
-
-  String? _getPenShortcut(
-    InputConfiguration config,
-    int buttons,
-    bool isDoubleTap,
-  ) {
-    if ((buttons & kSecondaryStylusButton) != 0 ||
-        (buttons & kFallbackSecondaryStylusButton) != 0) {
-      return isDoubleTap
-          ? config.doubleSecondPenButtonShortcut
-          : config.tripleSecondPenButtonShortcut;
-    }
-    if ((buttons & kPrimaryStylusButton) != 0) {
-      return isDoubleTap
-          ? config.doubleFirstPenButtonShortcut
-          : config.tripleFirstPenButtonShortcut;
-    }
-    return isDoubleTap ? config.doublePenShortcut : config.triplePenShortcut;
-  }
-
-  String? _getMultiTapShortcut(InputConfiguration config, _TapDetails tap) {
-    if (tap.count < 2) return null;
-    final isDoubleTap = tap.count == 2;
-    switch (tap.kind) {
-      case PointerDeviceKind.mouse:
-        return _getMouseShortcut(config, tap.buttons, isDoubleTap);
-      case PointerDeviceKind.stylus:
-        return _getPenShortcut(config, tap.buttons, isDoubleTap);
-      case PointerDeviceKind.invertedStylus:
-        return isDoubleTap
-            ? config.doubleInvertedPenShortcut
-            : config.tripleInvertedPenShortcut;
-      case PointerDeviceKind.touch:
-        return isDoubleTap
-            ? config.doubleTouchShortcut
-            : config.tripleTouchShortcut;
-      default:
-        return null;
-    }
-  }
-
-  bool _hasConfiguredMultiTapShortcut(PointerDownEvent event) {
-    final config = context.read<SettingsCubit>().state.inputConfiguration;
-    final doubleTap = (
-      kind: event.kind,
-      buttons: event.buttons,
-      position: event.position,
-      timeStamp: event.timeStamp,
-      count: 2,
-    );
-    final tripleTap = (
-      kind: event.kind,
-      buttons: event.buttons,
-      position: event.position,
-      timeStamp: event.timeStamp,
-      count: 3,
-    );
-    return _getMultiTapShortcut(config, doubleTap) != null ||
-        _getMultiTapShortcut(config, tripleTap) != null;
-  }
-
-  void _invokeLongPressShortcut(
-    PointerEvent event,
-    PointerDeviceKind kind,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-  ) {
-    final handler = getHandler();
-    final eventContext = getEventContext();
-    cubit.inputCubit.updateLastPosition(event.localPosition);
-    handler.onLongPressDown(
-      LongPressDownDetails(
-        globalPosition: event.position,
-        localPosition: event.localPosition,
-        kind: kind,
-      ),
-      eventContext,
-    );
-    handler.onLongPressStart(
-      LongPressStartDetails(
-        globalPosition: event.position,
-        localPosition: event.localPosition,
-      ),
-      eventContext,
-    );
-    handler.onLongPressEnd(
-      LongPressEndDetails(
-        globalPosition: event.position,
-        localPosition: event.localPosition,
-      ),
-      eventContext,
-    );
-  }
-
-  void _invokeInputShortcut(
-    String? shortcutId,
-    PointerEvent event,
-    PointerDeviceKind kind,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-  ) {
-    if (shortcutId == null || shortcutId.isEmpty) return;
-    if (shortcutId == _longPressShortcutId) {
-      _invokeLongPressShortcut(event, kind, cubit, getHandler, getEventContext);
-      return;
-    }
-    final def = keybinder.definitions.firstWhereOrNull(
-      (d) => d.id == shortcutId,
-    );
-    if (def == null) return;
-    Actions.maybeInvoke(context, def.intent);
-  }
-
-  void _scheduleMultiTapShortcut(
-    PointerUpEvent event,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-  ) {
-    final tap = _lastTap;
-    if (tap == null ||
-        !_isMousePenOrTouch(event.kind) ||
-        tap.kind != event.kind ||
-        event.timeStamp - tap.timeStamp > _multiTapTimeout) {
-      return;
-    }
-    final config = context.read<SettingsCubit>().state.inputConfiguration;
-    final shortcutId = _getMultiTapShortcut(config, tap);
-
-    _tapTimer?.cancel();
-    final delay = tap.count == 1 ? _multiTapTimeout : _multiTapResolveDelay;
-    _tapTimer = Timer(delay, () async {
-      if (shortcutId == null || shortcutId.isEmpty) return;
-      _invokeInputShortcut(
-        shortcutId,
-        event,
-        tap.kind,
-        cubit,
-        getHandler,
-        getEventContext,
-      );
-    });
-  }
-
   Future<void> _handlePointerDown(
     PointerDownEvent event,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
-  ) async {
-    // Detect pen/stylus input
-    if (event.kind == PointerDeviceKind.stylus ||
-        event.kind == PointerDeviceKind.invertedStylus) {
-      cubit.inputCubit.detectPen(true);
+    _PointerInputContext input, {
+    bool skipShortcuts = false,
+  }) async {
+    final cubit = input.cubit;
+    final getHandler = input.getHandler;
+    final getEventContext = input.getEventContext;
+    final changeTemporaryTool = input.changeTemporaryTool;
+    if (!skipShortcuts) {
+      // Detect pen/stylus input
+      if (event.kind == PointerDeviceKind.stylus ||
+          event.kind == PointerDeviceKind.invertedStylus) {
+        cubit.inputCubit.detectPen(true);
+      }
+      final result = _pointerShortcutManager.pointerDown(
+        event,
+        context.read<SettingsCubit>().state.inputConfiguration,
+      );
+      await _replayPointerEvents(result.releasedEvents, input);
+      if (result.consumed) return;
     }
+
     _isScalingDisabled = event.kind == PointerDeviceKind.trackpad
         ? false
         : null;
-
-    if (_hasConfiguredMultiTapShortcut(event)) {
-      _rememberTap(event);
-    }
-
     _pointerKinds[event.pointer] = event.kind;
     cubit.inputCubit.addPointer(event.pointer);
     cubit.inputCubit.setButtons(event.buttons);
@@ -314,12 +111,20 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Future<void> _handlePointerMove(
     PointerMoveEvent event,
-    EditorController cubit,
-    DocumentLoaded state,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-    VoidCallback delayBake,
-  ) async {
+    _PointerInputContext input, {
+    bool skipShortcuts = false,
+  }) async {
+    final cubit = input.cubit;
+    final state = input.state;
+    final getHandler = input.getHandler;
+    final getEventContext = input.getEventContext;
+    final delayBake = input.delayBake;
+    if (!skipShortcuts) {
+      final result = _pointerShortcutManager.pointerMove(event);
+      await _replayPointerEvents(result.releasedEvents, input);
+      if (result.consumed) return;
+    }
+
     final renderObject = context.findRenderObject();
     if (kIsWeb) {
       if (renderObject is! RenderBox) {
@@ -361,10 +166,36 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   Future<void> _handlePointerUp(
     PointerUpEvent event,
-    EditorController cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-  ) async {
+    _PointerInputContext input, {
+    bool skipShortcuts = false,
+  }) async {
+    final cubit = input.cubit;
+    final getHandler = input.getHandler;
+    final getEventContext = input.getEventContext;
+    if (!skipShortcuts) {
+      if (_ruler != null) {
+        _pointerShortcutManager.pointerCancel(event);
+      } else {
+        final result = _pointerShortcutManager.pointerUp(
+          event,
+          getConfiguration: () =>
+              context.read<SettingsCubit>().state.inputConfiguration,
+          onTriggered: (shortcutId, pointerEvent) => invokePointerShortcut(
+            context,
+            shortcutId,
+            pointerEvent,
+            cubit,
+            getHandler,
+            getEventContext,
+          ),
+          onFallback: (events) =>
+              unawaited(_replayPointerEvents(events, input)),
+        );
+        await _replayPointerEvents(result.releasedEvents, input);
+        if (result.consumed) return;
+      }
+    }
+
     cubit.inputCubit.updateLastPosition(event.localPosition);
     final wasRulerInteraction = _ruler != null;
     _resetRulerInteraction();
@@ -375,12 +206,29 @@ class _MainViewViewportState extends State<MainViewViewport>
     _pointerKinds.remove(event.pointer);
     if (wasRulerInteraction) {
       cubit.inputCubit.removeButtons();
-    } else {
-      _scheduleMultiTapShortcut(event, cubit, getHandler, getEventContext);
+    }
+  }
+
+  Future<void> _replayPointerEvents(
+    List<PointerEvent> events,
+    _PointerInputContext input,
+  ) async {
+    for (final event in events) {
+      switch (event) {
+        case PointerDownEvent():
+          await _handlePointerDown(event, input, skipShortcuts: true);
+        case PointerMoveEvent():
+          await _handlePointerMove(event, input, skipShortcuts: true);
+        case PointerUpEvent():
+          await _handlePointerUp(event, input, skipShortcuts: true);
+        default:
+          break;
+      }
     }
   }
 
   void _handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
+    if (_pointerShortcutManager.pointerCancel(event)) return;
     _resetRulerInteraction();
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
@@ -407,7 +255,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     HardwareKeyboard.instance.removeHandler(_handleKey);
-    _tapTimer?.cancel();
+    _pointerShortcutManager.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -418,6 +266,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     if (state != AppLifecycleState.resumed) {
+      _pointerShortcutManager.reset();
       final controller = context.read<EditorController>();
       controller.toolCubit.resetInput(bloc, controller.inputCubit);
     }
@@ -464,35 +313,10 @@ class _MainViewViewportState extends State<MainViewViewport>
               PointerDeviceKind kind,
               int buttons,
             ) async {
-              InputMapping? nextPointerMapping;
               final settings = context.read<SettingsCubit>().state;
               final config = settings.inputConfiguration;
               final cubit = context.read<EditorController>();
-              // Mapped to the priority of the buttons
-              switch (kind) {
-                case PointerDeviceKind.touch:
-                  nextPointerMapping = config.touch;
-                case PointerDeviceKind.mouse:
-                  if ((buttons & kSecondaryMouseButton) != 0) {
-                    nextPointerMapping = config.rightMouse;
-                  } else if ((buttons & kMiddleMouseButton) != 0) {
-                    nextPointerMapping = config.middleMouse;
-                  } else if ((buttons & kPrimaryMouseButton) != 0) {
-                    nextPointerMapping = config.leftMouse;
-                  }
-                case PointerDeviceKind.stylus:
-                  nextPointerMapping = config.pen;
-                  if ((buttons & kSecondaryStylusButton) != 0 ||
-                      (buttons & kFallbackSecondaryStylusButton) != 0) {
-                    nextPointerMapping = config.secondPenButton;
-                  } else if ((buttons & kPrimaryStylusButton) != 0) {
-                    nextPointerMapping = config.firstPenButton;
-                  }
-                case PointerDeviceKind.invertedStylus:
-                  nextPointerMapping = config.invertedPen;
-                default:
-                  nextPointerMapping = null;
-              }
+              var nextPointerMapping = config.getPointerMapping(kind, buttons);
 
               final pressedKeys = HardwareKeyboard.instance.logicalKeysPressed;
               for (final shortcut in config.holdShortcuts) {
@@ -585,6 +409,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       );
                                     }
 
+                                    final pointerInput = (
+                                      cubit: cubit,
+                                      state: state,
+                                      getHandler: getHandler,
+                                      getEventContext: getEventContext,
+                                      changeTemporaryTool: changeTemporaryTool,
+                                      delayBake: delayBake,
+                                    );
                                     return GestureDetector(
                                       onTapUp: (details) async {
                                         getHandler().onTapUp(
@@ -878,17 +710,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         onPointerDown: (event) =>
                                             _handlePointerDown(
                                               event,
-                                              cubit,
-                                              getHandler,
-                                              getEventContext,
-                                              changeTemporaryTool,
+                                              pointerInput,
                                             ),
                                         onPointerUp: (event) =>
                                             _handlePointerUp(
                                               event,
-                                              cubit,
-                                              getHandler,
-                                              getEventContext,
+                                              pointerInput,
                                             ),
                                         behavior: HitTestBehavior.translucent,
                                         onPointerHover: (event) {
@@ -903,11 +730,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         onPointerMove: (event) =>
                                             _handlePointerMove(
                                               event,
-                                              cubit,
-                                              state,
-                                              getHandler,
-                                              getEventContext,
-                                              delayBake,
+                                              pointerInput,
                                             ),
                                         onPointerCancel: (event) =>
                                             _handlePointerCancel(event, cubit),

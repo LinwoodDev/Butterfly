@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pack.dart';
@@ -9,6 +9,7 @@ part of 'pack.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -97,7 +98,7 @@ class _$ColorPaletteCopyWithImpl<$Res>
 /// Create a copy of ColorPalette
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? colors = null,}) {
-  return _then(_self.copyWith(
+  return _then(ColorPalette(
 colors: null == colors ? _self.colors : colors // ignore: cast_nullable_to_non_nullable
 as List<SRGBColor>,
   ));
@@ -111,7 +112,7 @@ as List<SRGBColor>,
 @JsonSerializable()
 
 class _ColorPalette extends ColorPalette {
-  const _ColorPalette({@ColorJsonConverter() final  List<SRGBColor> colors = const []}): _colors = colors,super._();
+  const _ColorPalette({@ColorJsonConverter()  List<SRGBColor> colors = const []}): _colors = colors,super._();
   factory _ColorPalette.fromJson(Map<String, dynamic> json) => _$ColorPaletteFromJson(json);
 
  final  List<SRGBColor> _colors;
@@ -237,7 +238,7 @@ class _$ButterflyComponentCopyWithImpl<$Res>
 /// Create a copy of ButterflyComponent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? thumbnail = freezed,Object? elements = null,}) {
-  return _then(_self.copyWith(
+  return _then(ButterflyComponent(
 thumbnail: freezed == thumbnail ? _self.thumbnail : thumbnail // ignore: cast_nullable_to_non_nullable
 as Uint8List?,elements: null == elements ? _self.elements : elements // ignore: cast_nullable_to_non_nullable
 as List<PadElement>,
@@ -252,7 +253,7 @@ as List<PadElement>,
 @JsonSerializable()
 
 class _ButterflyComponent extends ButterflyComponent {
-  const _ButterflyComponent({@Uint8ListJsonConverter() this.thumbnail, final  List<PadElement> elements = const <PadElement>[]}): _elements = elements,super._();
+  const _ButterflyComponent({@Uint8ListJsonConverter() this.thumbnail,  List<PadElement> elements = const <PadElement>[]}): _elements = elements,super._();
   factory _ButterflyComponent.fromJson(Map<String, dynamic> json) => _$ButterflyComponentFromJson(json);
 
 @override@Uint8ListJsonConverter() final  Uint8List? thumbnail;
@@ -423,7 +424,7 @@ as String,
 @JsonSerializable()
 
 class TextParameter implements ButterflyParameter {
-  const TextParameter({required this.child, required this.name, required this.value, final  String? $type}): $type = $type ?? 'text';
+  const TextParameter({required this.child, required this.name, required this.value,  String? $type}): $type = $type ?? 'text';
   factory TextParameter.fromJson(Map<String, dynamic> json) => _$TextParameterFromJson(json);
 
 @override final  int child;
@@ -493,7 +494,7 @@ as String,
 @JsonSerializable()
 
 class ColorParameter implements ButterflyParameter {
-  const ColorParameter({required this.child, required this.name, required this.value, final  String? $type}): $type = $type ?? 'color';
+  const ColorParameter({required this.child, required this.name, required this.value,  String? $type}): $type = $type ?? 'color';
   factory ColorParameter.fromJson(Map<String, dynamic> json) => _$ColorParameterFromJson(json);
 
 @override final  int child;
@@ -563,7 +564,7 @@ as int,
 @JsonSerializable()
 
 class BoolParameter implements ButterflyParameter {
-  const BoolParameter({required this.child, required this.name, required this.value, final  String? $type}): $type = $type ?? 'bool';
+  const BoolParameter({required this.child, required this.name, required this.value,  String? $type}): $type = $type ?? 'bool';
   factory BoolParameter.fromJson(Map<String, dynamic> json) => _$BoolParameterFromJson(json);
 
 @override final  int child;
@@ -633,7 +634,7 @@ as bool,
 @JsonSerializable()
 
 class IntParameter implements ButterflyParameter {
-  const IntParameter({required this.child, required this.name, required this.value, final  String? $type}): $type = $type ?? 'int';
+  const IntParameter({required this.child, required this.name, required this.value,  String? $type}): $type = $type ?? 'int';
   factory IntParameter.fromJson(Map<String, dynamic> json) => _$IntParameterFromJson(json);
 
 @override final  int child;
@@ -703,7 +704,7 @@ as int,
 @JsonSerializable()
 
 class DoubleParameter implements ButterflyParameter {
-  const DoubleParameter({required this.child, required this.name, required this.value, final  String? $type}): $type = $type ?? 'double';
+  const DoubleParameter({required this.child, required this.name, required this.value,  String? $type}): $type = $type ?? 'double';
   factory DoubleParameter.fromJson(Map<String, dynamic> json) => _$DoubleParameterFromJson(json);
 
 @override final  int child;
@@ -824,7 +825,7 @@ class _$ToolbarCopyWithImpl<$Res>
 /// Create a copy of Toolbar
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? tools = null,}) {
-  return _then(_self.copyWith(
+  return _then(Toolbar(
 tools: null == tools ? _self.tools : tools // ignore: cast_nullable_to_non_nullable
 as List<Tool>,
   ));
@@ -838,7 +839,7 @@ as List<Tool>,
 @JsonSerializable()
 
 class _Toolbar extends Toolbar {
-  const _Toolbar({final  List<Tool> tools = const []}): _tools = tools,super._();
+  const _Toolbar({ List<Tool> tools = const []}): _tools = tools,super._();
   factory _Toolbar.fromJson(Map<String, dynamic> json) => _$ToolbarFromJson(json);
 
  final  List<Tool> _tools;
@@ -964,9 +965,9 @@ class _$PackAssetLocationCopyWithImpl<$Res>
 /// Create a copy of PackAssetLocation
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? namespace = null,Object? key = null,}) {
-  return _then(_self.copyWith(
-namespace: null == namespace ? _self.namespace : namespace // ignore: cast_nullable_to_non_nullable
-as String,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+  return _then(PackAssetLocation(
+null == namespace ? _self.namespace : namespace // ignore: cast_nullable_to_non_nullable
+as String,null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -1101,7 +1102,7 @@ class _$NamedItemCopyWithImpl<T extends PackAsset,$Res>
 /// Create a copy of NamedItem
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? item = null,}) {
-  return _then(_self.copyWith(
+  return _then(NamedItem(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,item: null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
 as T,

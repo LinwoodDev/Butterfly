@@ -5,6 +5,7 @@ import 'package:butterfly/api/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -22,6 +23,9 @@ part 'settings.g.dart';
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 const kDefaultFileName = '{date}';
+const kFallbackSecondaryStylusButton = 0x20;
+const kDefaultRotationStep = 5.0;
+const kDefaultZoomStep = 0.1;
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -310,6 +314,8 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.leftMouse) InputMapping leftMouse,
     @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
     @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
+    InputMapping? backMouse,
+    InputMapping? forwardMouse,
     @Default(InputMappingDefault.pen) InputMapping pen,
     @Default(InputMappingDefault.invertedPen) InputMapping invertedPen,
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
@@ -322,6 +328,10 @@ sealed class InputConfiguration with _$InputConfiguration {
     String? tripleMiddleMouseShortcut,
     String? doubleRightMouseShortcut,
     String? tripleRightMouseShortcut,
+    String? doubleBackMouseShortcut,
+    String? tripleBackMouseShortcut,
+    String? doubleForwardMouseShortcut,
+    String? tripleForwardMouseShortcut,
     String? doublePenShortcut,
     String? triplePenShortcut,
     String? doubleInvertedPenShortcut,
@@ -332,15 +342,19 @@ sealed class InputConfiguration with _$InputConfiguration {
     String? tripleSecondPenButtonShortcut,
     String? doubleTouchShortcut,
     String? tripleTouchShortcut,
+    String? twoFingerTouchShortcut,
+    String? threeFingerTouchShortcut,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
 
-  Set<InputMapping> getShortcuts() => {
+  Set<InputMapping> getShortcuts() => <InputMapping>{
     leftMouse,
     middleMouse,
     rightMouse,
+    ?backMouse,
+    ?forwardMouse,
     pen,
     invertedPen,
     firstPenButton,
@@ -348,6 +362,95 @@ sealed class InputConfiguration with _$InputConfiguration {
     touch,
     ...holdShortcuts.map((e) => e.mapping),
   }.toSet();
+
+  InputMapping? getMouseMapping(int buttons) {
+    if ((buttons & kForwardMouseButton) != 0) return forwardMouse;
+    if ((buttons & kBackMouseButton) != 0) return backMouse;
+    if ((buttons & kSecondaryMouseButton) != 0) return rightMouse;
+    if ((buttons & kMiddleMouseButton) != 0) return middleMouse;
+    if ((buttons & kPrimaryMouseButton) != 0) return leftMouse;
+    return null;
+  }
+
+  InputMapping? getPointerMapping(PointerDeviceKind kind, int buttons) =>
+      switch (kind) {
+        PointerDeviceKind.touch => touch,
+        PointerDeviceKind.mouse => getMouseMapping(buttons),
+        PointerDeviceKind.stylus
+            when (buttons & kSecondaryStylusButton) != 0 ||
+                (buttons & kFallbackSecondaryStylusButton) != 0 =>
+          secondPenButton,
+        PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
+          firstPenButton,
+        PointerDeviceKind.stylus => pen,
+        PointerDeviceKind.invertedStylus => invertedPen,
+        _ => null,
+      };
+
+  String? getMouseShortcut(int buttons, {required bool isDoubleTap}) {
+    if ((buttons & kForwardMouseButton) != 0) {
+      return isDoubleTap
+          ? doubleForwardMouseShortcut
+          : tripleForwardMouseShortcut;
+    }
+    if ((buttons & kBackMouseButton) != 0) {
+      return isDoubleTap ? doubleBackMouseShortcut : tripleBackMouseShortcut;
+    }
+    if ((buttons & kSecondaryMouseButton) != 0) {
+      return isDoubleTap ? doubleRightMouseShortcut : tripleRightMouseShortcut;
+    }
+    if ((buttons & kMiddleMouseButton) != 0) {
+      return isDoubleTap
+          ? doubleMiddleMouseShortcut
+          : tripleMiddleMouseShortcut;
+    }
+    if ((buttons & kPrimaryMouseButton) != 0) {
+      return isDoubleTap ? doubleLeftMouseShortcut : tripleLeftMouseShortcut;
+    }
+    return null;
+  }
+
+  String? getRepeatedTapShortcut(
+    PointerDeviceKind kind,
+    int buttons,
+    int tapCount,
+  ) {
+    if (tapCount != 2 && tapCount != 3) return null;
+    final isDoubleTap = tapCount == 2;
+    return switch (kind) {
+      PointerDeviceKind.mouse => getMouseShortcut(
+        buttons,
+        isDoubleTap: isDoubleTap,
+      ),
+      PointerDeviceKind.stylus
+          when (buttons & kSecondaryStylusButton) != 0 ||
+              (buttons & kFallbackSecondaryStylusButton) != 0 =>
+        isDoubleTap
+            ? doubleSecondPenButtonShortcut
+            : tripleSecondPenButtonShortcut,
+      PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
+        isDoubleTap
+            ? doubleFirstPenButtonShortcut
+            : tripleFirstPenButtonShortcut,
+      PointerDeviceKind.stylus =>
+        isDoubleTap ? doublePenShortcut : triplePenShortcut,
+      PointerDeviceKind.invertedStylus =>
+        isDoubleTap ? doubleInvertedPenShortcut : tripleInvertedPenShortcut,
+      PointerDeviceKind.touch =>
+        isDoubleTap ? doubleTouchShortcut : tripleTouchShortcut,
+      _ => null,
+    };
+  }
+
+  bool hasRepeatedTapShortcut(PointerDeviceKind kind, int buttons) =>
+      getRepeatedTapShortcut(kind, buttons, 2) != null ||
+      getRepeatedTapShortcut(kind, buttons, 3) != null;
+
+  String? getMultiFingerTouchShortcut(int fingerCount) => switch (fingerCount) {
+    2 => twoFingerTouchShortcut,
+    3 => threeFingerTouchShortcut,
+    _ => null,
+  };
 }
 
 enum SortBy { name, created, modified }
@@ -473,6 +576,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double touchSensitivity,
     @Default(1) double selectSensitivity,
     @Default(1) double scrollSensitivity,
+    @Default(kDefaultRotationStep) double rotationStep,
+    @Default(kDefaultZoomStep) double zoomStep,
     bool? penOnlyInput,
     @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
@@ -532,6 +637,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
     @Default(true) bool showThumbnails,
+    @Default(true) bool showNavigatorPreviews,
     @Default(false) bool bringMovedElementsToFront,
     @Default([]) List<PackAssetLocation> favoriteTools,
   }) = _ButterflySettings;
@@ -577,6 +683,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       gestureSensitivity: prefs.getDouble('gesture_sensitivity') ?? 1,
       scrollSensitivity: prefs.getDouble('scroll_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
+      rotationStep: prefs.getDouble('rotation_step') ?? kDefaultRotationStep,
+      zoomStep: prefs.getDouble('zoom_step') ?? kDefaultZoomStep,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
           ? _enumByNameOr(
@@ -761,6 +869,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
       hideExtension: prefs.getBool('hide_extension') ?? true,
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
+      showNavigatorPreviews: prefs.getBool('show_navigator_previews') ?? true,
       bringMovedElementsToFront:
           prefs.getBool('bring_moved_elements_to_front') ?? false,
       favoriteTools:
@@ -820,6 +929,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('gesture_sensitivity', gestureSensitivity);
     await prefs.setDouble('scroll_sensitivity', scrollSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
+    await prefs.setDouble('rotation_step', rotationStep);
+    await prefs.setDouble('zoom_step', zoomStep);
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
@@ -906,6 +1017,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       bringMovedElementsToFront,
     );
     await prefs.setBool('show_thumbnails', showThumbnails);
+    await prefs.setBool('show_navigator_previews', showNavigatorPreviews);
     await prefs.setStringList(
       'favorite_tools',
       favoriteTools.map((e) => json.encode(e.toJson())).toList(),
@@ -945,6 +1057,27 @@ class SettingsCubit extends Cubit<ButterflySettings>
     with LeapSettingsBlocBaseMixin {
   SettingsCubit(SharedPreferences prefs)
     : super(ButterflySettings.fromPrefs(prefs));
+
+  Future<void> resetSettings(
+    ButterflySettings Function(
+      ButterflySettings current,
+      ButterflySettings defaults,
+    )
+    reset,
+  ) {
+    emit(reset(state, const ButterflySettings()));
+    return save();
+  }
+
+  Future<void> resetAllSettings() {
+    emit(
+      const ButterflySettings().copyWith(
+        history: state.history,
+        connections: state.connections,
+      ),
+    );
+    return save();
+  }
 
   void setTheme(BuildContext context, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
@@ -1092,6 +1225,20 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> resetSelectSensitivity() => changeScrollSensitivity(1);
+
+  Future<void> changeRotationStep(double rotationStep) {
+    emit(state.copyWith(rotationStep: rotationStep));
+    return save();
+  }
+
+  Future<void> resetRotationStep() => changeRotationStep(kDefaultRotationStep);
+
+  Future<void> changeZoomStep(double zoomStep) {
+    emit(state.copyWith(zoomStep: zoomStep));
+    return save();
+  }
+
+  Future<void> resetZoomStep() => changeZoomStep(kDefaultZoomStep);
 
   Future<void> changeBannerVisibility(BannerVisibility visibility) {
     emit(state.copyWith(bannerVisibility: visibility));
@@ -1624,6 +1771,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowThumbnails(bool value) {
     emit(state.copyWith(showThumbnails: value));
+    return save();
+  }
+
+  Future<void> changeShowNavigatorPreviews(bool value) {
+    emit(state.copyWith(showNavigatorPreviews: value));
     return save();
   }
 

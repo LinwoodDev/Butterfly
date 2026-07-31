@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'info.dart';
@@ -9,6 +9,7 @@ part of 'info.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$DocumentInfoCopyWithImpl<$Res>
 /// Create a copy of DocumentInfo
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? tools = null,Object? exportPresets = null,Object? extra = null,}) {
-  return _then(_self.copyWith(
+  return _then(DocumentInfo(
 tools: null == tools ? _self.tools : tools // ignore: cast_nullable_to_non_nullable
 as List<Tool>,exportPresets: null == exportPresets ? _self.exportPresets : exportPresets // ignore: cast_nullable_to_non_nullable
 as List<ExportPreset>,extra: null == extra ? _self.extra : extra // ignore: cast_nullable_to_non_nullable
@@ -82,7 +83,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class _DocumentInfo implements DocumentInfo {
-  const _DocumentInfo({final  List<Tool> tools = const [], final  List<ExportPreset> exportPresets = const [], final  Map<String, dynamic> extra = const {}}): _tools = tools,_exportPresets = exportPresets,_extra = extra;
+  const _DocumentInfo({ List<Tool> tools = const [],  List<ExportPreset> exportPresets = const [],  Map<String, dynamic> extra = const {}}): _tools = tools,_exportPresets = exportPresets,_extra = extra;
   factory _DocumentInfo.fromJson(Map<String, dynamic> json) => _$DocumentInfoFromJson(json);
 
  final  List<Tool> _tools;

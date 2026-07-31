@@ -12,6 +12,7 @@ import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
 import 'package:networker/networker.dart';
 
 import '../embed/embedding.dart';
@@ -37,6 +38,8 @@ export 'editor_runtime.dart'
         ToolRuntimeState;
 
 class EditorController implements EditorRuntimeContext {
+  final FocusNode focusNode = FocusNode();
+
   @override
   final SettingsCubit settingsCubit;
   final TransformCubit transformCubit;
@@ -207,6 +210,7 @@ class EditorController implements EditorRuntimeContext {
     await inputCubit.close();
     await saveCubit.close();
     await viewCubit.close();
+    focusNode.dispose();
     if (!networkingService.isClosed) {
       await networkingService.close();
     }
@@ -267,6 +271,9 @@ class EditorController implements EditorRuntimeContext {
 
     saveCubit.setSaveState(saved: SaveState.unsaved);
     if (saveCubit.state.embedding != null) {
+      if (replacedElements != null) {
+        await rendererCubit.bake(this, blocState, reset: true);
+      }
       return;
     }
     if (reset) {
@@ -328,6 +335,10 @@ class EditorController implements EditorRuntimeContext {
     if (current is! DocumentLoaded) return;
     await reloadTool(bloc, current);
     await rendererCubit.loadElements(this, current);
+    toolCubit.state.handler.onRenderersReloaded(
+      current.page,
+      rendererCubit.renderers,
+    );
     await toolCubit.refresh(this, current, allowBake: false);
     await rendererCubit.delayedBake(this, current);
   }

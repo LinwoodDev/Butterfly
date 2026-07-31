@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:butterfly/services/onenote.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:dart_leap/dart_leap.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:onenote_parser/onenote_parser.dart' as one;
 
@@ -34,6 +36,26 @@ const _boldStyle = one.OneNoteTextStyle(
   hyperlinkProtected: false,
   hidden: false,
 );
+
+one.OneNoteOutlineElement _tableCellContent(String value) =>
+    one.OneNoteOutlineElement(
+      contents: [
+        one.OneNoteContent.richText(
+          one.OneNoteRichText(
+            text: value,
+            textRunIndices: Uint32List(0),
+            textRunStyles: const [],
+            paragraphStyle: _plainStyle,
+            paragraphSpaceBefore: 0,
+            paragraphSpaceAfter: 0,
+            paragraphAlignment: 'Left',
+            embeddedObjects: const [],
+          ),
+        ),
+      ],
+      childLevel: 0,
+      children: const [],
+    );
 
 void main() {
   test('reports when xpstopdf is not installed', () async {
@@ -256,6 +278,107 @@ void main() {
     expect(stroke.property.thinning, 0);
     expect(stroke.property.streamline, 0);
     expect(stroke.property.paint.previewColor.value, 0xBF332211);
+  });
+
+  test('imports OneNote tables as native tables with cell labels', () {
+    final table = one.OneNoteTable(
+      rowCount: 2,
+      columnCount: 2,
+      rows: [
+        one.OneNoteTableRow(
+          cells: [
+            one.OneNoteTableCell(
+              contents: [_tableCellContent('Name')],
+              backgroundColor: const one.OneNoteColor(
+                alpha: 255,
+                red: 240,
+                green: 240,
+                blue: 240,
+              ),
+              indents: Float32List(0),
+            ),
+            one.OneNoteTableCell(
+              contents: [_tableCellContent('Value')],
+              indents: Float32List(0),
+            ),
+          ],
+        ),
+        one.OneNoteTableRow(
+          cells: [
+            one.OneNoteTableCell(
+              contents: [_tableCellContent('Butterfly')],
+              indents: Float32List(0),
+            ),
+            one.OneNoteTableCell(
+              contents: [_tableCellContent('42')],
+              indents: Float32List(0),
+            ),
+          ],
+        ),
+      ],
+      lockedColumns: Uint8List(0),
+      columnWidths: Float32List.fromList([2, 1]),
+      bordersVisible: true,
+    );
+    final outline = one.OneNoteOutline(
+      childLevel: 0,
+      indents: Float32List(0),
+      isLayoutSizeSetByUser: true,
+      layoutMaxWidth: 6,
+      offsetHorizontal: 1,
+      offsetVertical: 2,
+      items: [
+        one.OneNoteOutlineItem.element(
+          one.OneNoteOutlineElement(
+            contents: [one.OneNoteContent.table(table)],
+            childLevel: 0,
+            children: const [],
+          ),
+        ),
+      ],
+    );
+    final section = one.OneNoteSection(
+      displayName: 'Tables',
+      pageSeries: [
+        one.OneNotePageSeries(
+          pages: [
+            one.OneNotePage(
+              linkTargetId: 'table-page',
+              title: 'Imported table',
+              level: 0,
+              createdAt: '',
+              updatedAt: '',
+              contents: [one.OneNotePageContent.outline(outline)],
+            ),
+          ],
+        ),
+      ],
+      warnings: const [],
+    );
+
+    final content = convertOneNoteSection(
+      section,
+    ).getPage('Tables/Imported table')!.content;
+    final importedTable = content.whereType<TableElement>().single;
+    final labels = content
+        .whereType<TextElement>()
+        .where((element) => element.extra['onenote:table'] == importedTable.id)
+        .toList();
+
+    expect(importedTable.rows, 2);
+    expect(importedTable.columns, 2);
+    expect(importedTable.firstPosition, const Point(48, 96));
+    expect(importedTable.secondPosition, const Point(192, 160));
+    expect(importedTable.columnSizes, [2, 1]);
+    expect(importedTable.border.width, 1);
+    expect(importedTable.cellAt(0, 0).fillColor, const SRGBColor(0xFFF0F0F0));
+    expect(labels.map((label) => label.area.paragraph.text), [
+      'Name',
+      'Butterfly',
+      'Value',
+      '42',
+    ]);
+    expect(labels.first.position, const Point(54, 102));
   });
 
   test('uses leaf offsets for nested page ink', () {

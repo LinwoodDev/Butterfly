@@ -443,7 +443,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(embedding?.editable ?? true)) return;
       final cubit = editorController;
       final renderers = <Renderer<PadElement>>[];
-      final selected = cubit.toolCubit.state.selection?.selected.toList();
+      final selection = cubit.toolCubit.state.selection;
+      final selected = selection?.selected.toList();
       final page = current.page;
       final oldRenderers = cubit.rendererCubit.renderers;
       var data = current.data;
@@ -514,7 +515,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       data = data.removeAssets(unusedAssets.toList());
 
-      cubit.toolCubit.changeSelection(Selection.fromList(selected), false);
+      cubit.toolCubit.changeSelection(
+        selection?.replaceSelected(selected),
+        false,
+      );
       return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),

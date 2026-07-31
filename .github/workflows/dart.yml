@@ -1,11 +1,20 @@
-name: Dart
+name: Dart quality
 
 on: [push, pull_request]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dart-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         projects: [app, api, tools]
     defaults:
@@ -14,6 +23,8 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -23,8 +34,7 @@ jobs:
           dart --version
           flutter --version
       - name: Install dependencies
-        run: |
-          flutter pub get
+        run: flutter pub get
       - name: Run flutter gen-l10n
         if: matrix.projects == 'app'
         run: |
@@ -35,8 +45,7 @@ jobs:
         run: dart format --output=none --set-exit-if-changed lib
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
-        run: |
-          flutter analyze --fatal-infos
+        run: flutter analyze --fatal-infos
       - name: Run build_runner
         if: matrix.projects != 'tools'
         run: dart run build_runner build --delete-conflicting-outputs

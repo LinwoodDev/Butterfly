@@ -37,6 +37,12 @@ _InputConfiguration _$InputConfigurationFromJson(
   rightMouse: json['rightMouse'] == null
       ? InputMappingDefault.rightMouse
       : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
+  backMouse: json['backMouse'] == null
+      ? null
+      : InputMapping.fromJson((json['backMouse'] as num).toInt()),
+  forwardMouse: json['forwardMouse'] == null
+      ? null
+      : InputMapping.fromJson((json['forwardMouse'] as num).toInt()),
   pen: json['pen'] == null
       ? InputMappingDefault.pen
       : InputMapping.fromJson((json['pen'] as num).toInt()),
@@ -65,6 +71,10 @@ _InputConfiguration _$InputConfigurationFromJson(
   tripleMiddleMouseShortcut: json['tripleMiddleMouseShortcut'] as String?,
   doubleRightMouseShortcut: json['doubleRightMouseShortcut'] as String?,
   tripleRightMouseShortcut: json['tripleRightMouseShortcut'] as String?,
+  doubleBackMouseShortcut: json['doubleBackMouseShortcut'] as String?,
+  tripleBackMouseShortcut: json['tripleBackMouseShortcut'] as String?,
+  doubleForwardMouseShortcut: json['doubleForwardMouseShortcut'] as String?,
+  tripleForwardMouseShortcut: json['tripleForwardMouseShortcut'] as String?,
   doublePenShortcut: json['doublePenShortcut'] as String?,
   triplePenShortcut: json['triplePenShortcut'] as String?,
   doubleInvertedPenShortcut: json['doubleInvertedPenShortcut'] as String?,
@@ -77,6 +87,8 @@ _InputConfiguration _$InputConfigurationFromJson(
       json['tripleSecondPenButtonShortcut'] as String?,
   doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
   tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
+  twoFingerTouchShortcut: json['twoFingerTouchShortcut'] as String?,
+  threeFingerTouchShortcut: json['threeFingerTouchShortcut'] as String?,
 );
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
@@ -84,6 +96,8 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'leftMouse': instance.leftMouse.toJson(),
       'middleMouse': instance.middleMouse.toJson(),
       'rightMouse': instance.rightMouse.toJson(),
+      'backMouse': instance.backMouse?.toJson(),
+      'forwardMouse': instance.forwardMouse?.toJson(),
       'pen': instance.pen.toJson(),
       'invertedPen': instance.invertedPen.toJson(),
       'firstPenButton': instance.firstPenButton.toJson(),
@@ -96,6 +110,10 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'tripleMiddleMouseShortcut': instance.tripleMiddleMouseShortcut,
       'doubleRightMouseShortcut': instance.doubleRightMouseShortcut,
       'tripleRightMouseShortcut': instance.tripleRightMouseShortcut,
+      'doubleBackMouseShortcut': instance.doubleBackMouseShortcut,
+      'tripleBackMouseShortcut': instance.tripleBackMouseShortcut,
+      'doubleForwardMouseShortcut': instance.doubleForwardMouseShortcut,
+      'tripleForwardMouseShortcut': instance.tripleForwardMouseShortcut,
       'doublePenShortcut': instance.doublePenShortcut,
       'triplePenShortcut': instance.triplePenShortcut,
       'doubleInvertedPenShortcut': instance.doubleInvertedPenShortcut,
@@ -106,6 +124,8 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'tripleSecondPenButtonShortcut': instance.tripleSecondPenButtonShortcut,
       'doubleTouchShortcut': instance.doubleTouchShortcut,
       'tripleTouchShortcut': instance.tripleTouchShortcut,
+      'twoFingerTouchShortcut': instance.twoFingerTouchShortcut,
+      'threeFingerTouchShortcut': instance.threeFingerTouchShortcut,
     };
 
 _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
@@ -154,6 +174,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   touchSensitivity: (json['touchSensitivity'] as num?)?.toDouble() ?? 1,
   selectSensitivity: (json['selectSensitivity'] as num?)?.toDouble() ?? 1,
   scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
+  rotationStep:
+      (json['rotationStep'] as num?)?.toDouble() ?? kDefaultRotationStep,
+  zoomStep: (json['zoomStep'] as num?)?.toDouble() ?? kDefaultZoomStep,
   penOnlyInput: json['penOnlyInput'] as bool?,
   showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
   inputGestures: json['inputGestures'] as bool? ?? true,
@@ -277,6 +300,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
         ),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
   showThumbnails: json['showThumbnails'] as bool? ?? true,
+  showNavigatorPreviews: json['showNavigatorPreviews'] as bool? ?? true,
   bringMovedElementsToFront:
       json['bringMovedElementsToFront'] as bool? ?? false,
   favoriteTools:
@@ -302,6 +326,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'touchSensitivity': instance.touchSensitivity,
   'selectSensitivity': instance.selectSensitivity,
   'scrollSensitivity': instance.scrollSensitivity,
+  'rotationStep': instance.rotationStep,
+  'zoomStep': instance.zoomStep,
   'penOnlyInput': instance.penOnlyInput,
   'showPenOnlyToggle': instance.showPenOnlyToggle,
   'inputGestures': instance.inputGestures,
@@ -358,6 +384,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
   'showThumbnails': instance.showThumbnails,
+  'showNavigatorPreviews': instance.showNavigatorPreviews,
   'bringMovedElementsToFront': instance.bringMovedElementsToFront,
   'favoriteTools': instance.favoriteTools.map((e) => e.toJson()).toList(),
 };

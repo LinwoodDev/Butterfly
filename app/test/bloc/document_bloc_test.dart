@@ -7,6 +7,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -731,6 +732,70 @@ void main() {
       everyElement('highlighter'),
     );
     expect(viewport.unbakedElements, hasLength(2));
+  });
+
+  test('embedded replacement rebakes the updated element', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final element = ShapeElement(
+      id: 'shape',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(40, 20),
+    );
+    final renderer = Renderer<PadElement>.fromInstance(element);
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+        width: 100,
+        height: 100,
+      ),
+      embedding: Embedding(internal: true),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+    final state = bloc.state as DocumentLoadSuccess;
+    await editorController.rendererCubit.bake(
+      editorController,
+      state,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+
+    final updated = Renderer<PadElement>.fromInstance(
+      element.copyWith(rotation: 90),
+    );
+    await editorController.stateChanged(
+      state,
+      bloc,
+      replacedElements: [updated],
+    );
+
+    final viewport = editorController.rendererCubit.state.cameraViewport;
+    expect(viewport.bakedElements, hasLength(1));
+    expect(viewport.bakedElements.single.rotation, 90);
+    expect(viewport.unbakedElements, isEmpty);
   });
 
   test(

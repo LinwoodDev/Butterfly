@@ -12,6 +12,7 @@ import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly/widgets/file_name_pattern_field.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -380,7 +381,8 @@ Future<void> exportData(BuildContext context) async {
 
                         try {
                           final fs = context.read<ButterflyFileSystem>();
-                          final archive = Archive();
+                          final output = OutputMemoryStream();
+                          final encoder = ZipEncoder()..startEncode(output);
                           final multiple =
                               [
                                 exportDocuments,
@@ -423,17 +425,17 @@ Future<void> exportData(BuildContext context) async {
                             final documentSystem = context
                                 .read<ButterflyFileSystem>()
                                 .buildDocumentSystem();
-                            final directory = await documentSystem.fileSystem
-                                .getRootDirectory(listLevel: allListLevel);
-                            final docArchive = exportDirectory(directory);
-                            for (final file in docArchive.files) {
-                              archive.addFile(
-                                ArchiveFile.bytes(
-                                  multiple
-                                      ? 'Documents/${file.name}'
-                                      : file.name,
-                                  file.content as List<int>,
-                                ),
+                            final directory = await documentSystem.getAsset(
+                              '',
+                              listLevel: oneListLevel,
+                              readData: false,
+                            );
+                            if (directory is FileSystemDirectory<NoteFile>) {
+                              await _addDirectoryToZip(
+                                documentSystem,
+                                encoder,
+                                directory,
+                                multiple ? 'Documents' : '',
                               );
                             }
                             completedTasks++;
@@ -447,7 +449,7 @@ Future<void> exportData(BuildContext context) async {
                                 key,
                               );
                               if (data != null) {
-                                archive.addFile(
+                                encoder.add(
                                   ArchiveFile.bytes(
                                     multiple ? 'Packs/$key' : key,
                                     data,
@@ -465,7 +467,7 @@ Future<void> exportData(BuildContext context) async {
                               final data = await templateSystem.fileSystem
                                   .getFile(key);
                               if (data != null) {
-                                archive.addFile(
+                                encoder.add(
                                   ArchiveFile.bytes(
                                     multiple ? 'Templates/$key' : key,
                                     data,
@@ -477,14 +479,14 @@ Future<void> exportData(BuildContext context) async {
                             }
                           }
 
-                          // Small delay to allow UI to render the 99% progress
-                          // before ZipEncoder blocks the thread synchronously.
+                          // Give the UI a chance to render the final progress
+                          // update before writing the ZIP directory.
                           await Future.delayed(
                             const Duration(milliseconds: 50),
                           );
 
-                          final encoder = ZipEncoder();
-                          final bytes = encoder.encodeBytes(archive);
+                          encoder.endEncode();
+                          final bytes = output.getBytes();
                           completedTasks++;
                           updateProgress();
 
@@ -518,6 +520,52 @@ Future<void> exportData(BuildContext context) async {
       );
     },
   );
+}
+
+Future<void> _addDirectoryToZip(
+  GeneralDirectoryFileSystem<NoteFile> fileSystem,
+  ZipEncoder encoder,
+  FileSystemDirectory<NoteFile> directory,
+  String archivePath,
+) async {
+  final resolvedDirectory = await fileSystem.getAsset(
+    directory.path,
+    listLevel: oneListLevel,
+    readData: false,
+  );
+  if (resolvedDirectory is! FileSystemDirectory<NoteFile>) return;
+
+  final directoryPath = archivePath.isEmpty
+      ? ''
+      : archivePath.endsWith('/')
+      ? archivePath
+      : '$archivePath/';
+  if (directoryPath.isNotEmpty) {
+    encoder.add(ArchiveFile.directory(directoryPath));
+  }
+
+  for (final entity in resolvedDirectory.assets) {
+    final childPath = '$directoryPath${entity.fileName}';
+    if (entity is FileSystemDirectory<NoteFile>) {
+      await _addDirectoryToZip(fileSystem, encoder, entity, childPath);
+      continue;
+    }
+    if (entity is! FileSystemFile<NoteFile>) continue;
+
+    final file = entity.hasData
+        ? entity
+        : await fileSystem.getAsset(
+            entity.path,
+            listLevel: noListLevel,
+            readData: true,
+          );
+    if (file is FileSystemFile<NoteFile>) {
+      final data = file.data?.data;
+      if (data != null) {
+        encoder.add(ArchiveFile.bytes(childPath, data));
+      }
+    }
+  }
 }
 
 void importSettings(BuildContext context) async {
