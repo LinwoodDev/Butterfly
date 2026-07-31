@@ -19,13 +19,15 @@ First, add a new pen tool into the toolbar
 1. Press the + button in the toolbar!
 2. Add a pen
 3. Hold the new pen icon to move it
-   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure the correct tool is activated for each input
+   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure
+     the correct tool is activated for each input
 
 Then, modify the new pen
 
 1. Open the properties panel of the new pen by pressing it again
 2. Rename the pen by double tapping the tool's name.
-3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
+3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing
+   the icon
 
 Finally, after modifying the tool's appearance. It's time to modify the properties!
 
@@ -54,12 +56,12 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 |         Властивість |                                 Типово                                 | Опис                                                                                                                                    |
 | ------------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|               Колір |                              Чорний колір                              | Колір, який буде намальовано                                                                                                            |
-|       Ширина штриха |                                    5                                   | Ширина риски                                                                                                                            |
 | Залежність масштабу |                                хибність                                | Це змінить ширину штриха в залежності від рівня збільшення.                                                             |
+|    Комбайнові шляхи |                                хибність                                | This will merge all strokes it touches into one path                                                                                    |
 |    Визначення форми | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
+|       Ширина штриха |                                    5                                   | Ширина риски                                                                                                                            |
 |               Думки |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |        Згладжування |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
-|           Стреймлін |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
-|               Колір |                              Чорний колір                              | Колір, який буде намальовано                                                                                                            |
-|       Заливка рядка |                                Прозорий                                | The color that will be drawn inside the shape                                                                                           |
+|           Стреймлін |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
+|               Колір |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
+|       Заливка рядка |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |
