@@ -14,7 +14,7 @@ Supported are Butterfly, Xournal++ and OneNote documents, Markdown, PNG, SVG, an
 To add tools to your toolbar, click them.
 Read more about them [here](../tools).
 
-## Surfaces
+## Surfaces {#surfaces}
 
 These are special tools to create surfaces.
 

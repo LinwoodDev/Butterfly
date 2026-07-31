@@ -24,7 +24,7 @@ show or hide a layer, use the eye button. To reorder the layers, click and drag 
 right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting
 the three dots.
 
-## Arrange
+## Arrange {#arrange}
 
 Within a layer you can set the rendering order by arranging the elements using
 the [context menu](../context_menu).

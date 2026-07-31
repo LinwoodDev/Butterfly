@@ -53,7 +53,7 @@ a [temporary tool](../tools#temporary-tools).
 
 ---
 
-## Further customization
+## Further customization {#further-customization}
 
 ## Solid Color
 
@@ -92,8 +92,8 @@ Make your strokes transition between colors
 
 |      Property |           Default            | Description                                                                                                                                       |
 |--------------:|:----------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------|
-|        Center |          (0.5,0.5)           | Geometric middle of the boundary circle at 100% offset; percentually relative to the top left corner                                              |
-| Center radius |             0.5              | Radius of the boundary circle; percentually relative to the top left corner                                                                       |
-|   Focal Point |     off (same as center)     | Where the 0% offset position is placed. If it's not same as center then an ellipse instead of a circle will form.                                 |
-|  Focal radius |              0               | Radius of the inner circle where the offset is at 0%. Behind it the offset increases.                                                             |
+|        Center |          (0.5,0.5)           | Position of the boundary circle's geometric middle at 100% offset, relative to the element bounds.                                                |
+| Center radius |             0.5              | Radius of the boundary circle, relative to half the element bounding box's diagonal.                                                              |
+|   Focal Point |     off (same as center)     | Position where the 0% offset is placed, relative to the element bounds. If it differs from the center, an ellipse forms instead of a circle.    |
+|  Focal radius |              0               | Radius of the inner circle where the offset is 0%, relative to half the element bounding box's diagonal. Beyond it, the offset increases.      |
 |   Color stops | 2 Color stops (Black, White) | The offset of a Color stop percentually defines where between focal point and the boundary the color is placed. There are color and alpha options |

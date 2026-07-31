@@ -9,7 +9,7 @@ the whole page, use the [background settings](../../background) instead.
 ## Usage
 
 1. Select the texture tool.
-2. Choose the texture and its constraints in the tool configuration.
+2. Choose the texture in the tool configuration.
 3. Drag on the canvas to create the textured area.
 
 The created texture behaves like a surface element. You can move, resize, arrange, or delete it like

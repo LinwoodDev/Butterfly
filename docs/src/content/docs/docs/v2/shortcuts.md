@@ -11,7 +11,7 @@ and the actions they are currently mapped to.
 These actions are divided into [tool activators](#tool-activators)
 and [document actions](#document-actions).
 
-## Tool activators
+## Tool activators {#tool-activators}
 
 You can customize your controls by changing which tools your inputs map to.
 
@@ -32,7 +32,7 @@ the Label tool, and the Area tool.
 
 ![toolbar numbered](toolbar_numbered.png)
 
-## Document actions
+## Document actions {#document-actions}
 
 * `None`: Nothing happens
 * `Long press`: Opens the [Context menu](../context_menu)
@@ -114,6 +114,8 @@ The canvas rotation and zoom step can be changed in `Settings` → `Behaviours`.
 
 * `Double press action`: A double-tap
 * `Triple press action`: A triple-tap
+* `Two finger tap`: A simultaneous two-finger tap
+* `Three finger tap`: A simultaneous three-finger tap
 
 ## Keyboard
 

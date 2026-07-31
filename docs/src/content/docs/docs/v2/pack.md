@@ -21,7 +21,7 @@ Components are a way to save elements that you use often. You can create your ow
 
 Use the components navigator page to paste components into your notes.
 
-### Adding a component into a pack
+### Adding a component into a pack {#adding-a-component-into-a-pack}
 
 To add a component:
  1. Select the elements on the infinite canvas

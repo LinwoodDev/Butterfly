@@ -12,7 +12,7 @@ With this tool you can select elements and access their [Context menu](../../con
 |     Mode |   Rectangle    | Mode of selection. Valid are Rectangle and Lasso |
 | Hit mode | Touch anywhere | [Hit shapes mode](#hit-mode)                     |
 
-### Hit mode
+### Hit mode {#hit-mode}
 
 Defines which part of an element needs to be touched for it to be selected.
 

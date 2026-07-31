@@ -24,6 +24,21 @@ const renderMathPlugin = {
   },
 };
 
+const mdxHeadingAttributes = {
+  name: "mdx-heading-attributes",
+  enforce: "pre",
+  transform(code, id) {
+    if (!id.split("?", 1)[0].endsWith(".mdx")) return;
+    const transformed = code.replace(
+      /^(#{1,6})\s+(.+?)\s+\{#([\w-]+)\}\s*$/gm,
+      (_, hashes, heading, headingId) =>
+        `<h${hashes.length} id="${headingId}">${heading}</h${hashes.length}>`,
+    );
+    if (transformed === code) return;
+    return { code: transformed, map: null };
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
@@ -32,6 +47,9 @@ export default defineConfig({
       features: { math: true, headingAttributes: true },
       mdastPlugins: [renderMathPlugin],
     }),
+  },
+  vite: {
+    plugins: [mdxHeadingAttributes],
   },
   integrations: [
     starlight({
