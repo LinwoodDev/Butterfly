@@ -24,6 +24,21 @@ const renderMathPlugin = {
   },
 };
 
+const mdxHeadingAttributes = {
+  name: "mdx-heading-attributes",
+  enforce: "pre",
+  transform(code, id) {
+    if (!id.split("?", 1)[0].endsWith(".mdx")) return;
+    const transformed = code.replace(
+      /^(#{1,6})\s+(.+?)\s+\{#([\w-]+)\}\s*$/gm,
+      (_, hashes, heading, headingId) =>
+        `<h${hashes.length} id="${headingId}">${heading}</h${hashes.length}>`,
+    );
+    if (transformed === code) return;
+    return { code: transformed, map: null };
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
@@ -32,6 +47,9 @@ export default defineConfig({
       features: { math: true, headingAttributes: true },
       mdastPlugins: [renderMathPlugin],
     }),
+  },
+  vite: {
+    plugins: [mdxHeadingAttributes],
   },
   integrations: [
     starlight({
@@ -70,6 +88,10 @@ export default defineConfig({
               link: "/docs/v2/intro",
             },
             {
+              ...getSidebarTranslatedLabel("Context menu"),
+              link: "/docs/v2/context_menu",
+            },
+            {
               ...getSidebarTranslatedLabel("Area"),
               link: "/docs/v2/areas/",
             },
@@ -78,8 +100,8 @@ export default defineConfig({
               link: "/docs/v2/background/",
             },
             {
-              ...getSidebarTranslatedLabel("Color picker"),
-              link: "/docs/v2/color_picker/",
+              ...getSidebarTranslatedLabel("Colors"),
+              link: "/docs/v2/colors/",
             },
             {
               ...getSidebarTranslatedLabel("Layers"),
@@ -155,10 +177,6 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Hand"),
                   link: "/docs/v2/tools/hand/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Path eraser"),
-                  link: "/docs/v2/tools/path_eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Eraser"),
