@@ -21,7 +21,7 @@ Components are a way to save elements that you use often. You can create your ow
 
 Use the components navigator page to paste components into your notes.
 
-### Adding a component into a pack
+### Adding a component into a pack {#adding-a-component-into-a-pack}
 
 To add a component:
 
@@ -39,4 +39,4 @@ Styles are used to customize the appearance of the text. The paragraph styles ca
 
 ## พาเลต
 
-The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (as mentioned in the [color picker documentation](../color_picker)) when you edit a color.
+The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (as mentioned in the [color picker documentation](../colors)) when you edit a color.
