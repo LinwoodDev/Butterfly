@@ -7,14 +7,14 @@ Here you can add things to your notes.
 ## Importa
 
 Here you can import existing files into your documents.
-Supported are Butterfly documents, Markdown, PNG, SVG, and PDF.
+Supported are Butterfly, Xournal++ and OneNote documents, Markdown, PNG, SVG, and PDF.
 
 ## Strumenti
 
 To add tools to your toolbar, click them.
 Read more about them [here](../tools).
 
-## Surfaces
+## Surfaces {#surfaces}
 
 These are special tools to create surfaces.
 
