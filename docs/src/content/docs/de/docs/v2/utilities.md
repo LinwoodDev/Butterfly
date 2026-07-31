@@ -21,4 +21,8 @@ Außerdem können Sie ein Vorschaubild aus dem aktuellen Viewport erfassen, um e
 
 ## Kamera
 
-Mit diesem Tab können Sie zu einer bestimmten Position springen oder auf eine bestimmte Stufe zoomen.
+You can use this tab to:
+
+- Jump to a specific position on the canvas
+- Zoom to certain level
+- Set the rotation of the canvas to a specific value
