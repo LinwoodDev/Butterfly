@@ -1,0 +1,43 @@
+---
+title: Context Menu
+---
+
+import {Scissors,
+	Copy,
+	CopySimple,
+	Trash,
+	Layout,
+	Wrench,
+	Faders,
+	Folder,
+	Stack,
+	Export,
+	PlusCircle,
+	Clipboard,
+	Polygon,
+	ArrowUpRight,
+
+} from "@phosphor-icons/react";
+
+To access the Context menu, right-click a selection or use a [long press](../shortcuts#document-actions).
+
+## Ενέργειες
+
+The Context menu contains actions that can be executed on the selected elements. Selections with only one element may have special actions specific to that element.
+
+* <Scissors className="inline-icon" /> `Cut` - Deletes the selection and adds it to the clipboard.
+* <Copy className="inline-icon" /> `Copy` - Adds the selection to the clipboard.
+* <CopySimple className="inline-icon" /> `Duplicate` - Creates a duplicate version of the selection to place on the canvas.
+* <Trash className="inline-icon" /> `Delete` - Deletes the selection.
+* <Layout className="inline-icon" /> `Arrange` - [Arrange](../layers#arrange) the order in which the selection is rendered relative to the other elements in its [Layer](../layers).
+* <Wrench className="inline-icon" /> `Operations` - Flips the selection vertically or horizontally and provides renderer-specific operations when available.
+* <Faders className="inline-icon" /> `Properties` - Opens the properties view of the selection. Default properties are position, rotation and shear
+* <Folder className="inline-icon" /> `Change collection` - Changes the [Collection](../tools/collection) this selection belongs to. Here you need to enter the name of the (maybe nonexistent) collection.
+* <Stack className="inline-icon" /> `Move to layer` - Changes the [Layer](../layers) this selection belongs to.
+* <Export className="inline-icon" /> `Export` - Exports the selection as an Image, SVG or PDF.
+* <PlusCircle className="inline-icon" /> `Add to pack` - Adds the selection as an asset to a [Pack](../pack/#adding-a-component-into-a-pack)
+
+Special actions:
+
+* <Clipboard className="inline-icon" /> `Paste` - Using long press with the [Select tool](../tools/select) on an empty canvas position pastes the clipboard at that point.
+* <Polygon className="inline-icon" /> `Edit` - Enters edit mode for this specific [Polygon](../tools/polygon)
