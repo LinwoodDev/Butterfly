@@ -366,6 +366,84 @@ void main() {
     await tester.pump(const Duration(seconds: 4));
   });
 
+  testWidgets('hold shortcut resets before the next pointer down', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      ButterflySettings(
+        defaultTemplate: 'default',
+        inputConfiguration: InputConfiguration(
+          holdShortcuts: [
+            HoldShortcut(
+              keyId: LogicalKeyboardKey.digit1.keyId,
+              mapping: const InputMapping(2),
+            ),
+          ],
+        ),
+      ),
+    );
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final viewport = find.byType(MainViewViewport);
+    final documentBloc = observer.lastDocumentBloc!;
+    final editorController = documentBloc.editorController;
+    await editorController.toolCubit.changeTool(
+      editorController,
+      documentBloc,
+      index: 1,
+      allowBake: false,
+    );
+    await tester.pumpAndSettle();
+
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.digit1);
+    final gesture = await tester.startGesture(
+      tester.getCenter(viewport),
+      kind: PointerDeviceKind.mouse,
+    );
+    await tester.pump();
+
+    expect(editorController.toolCubit.state.index, 1);
+    expect(editorController.toolCubit.state.temporaryIndex, 2);
+
+    await gesture.up();
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.digit1);
+    await tester.pumpAndSettle();
+
+    expect(editorController.toolCubit.state.index, 1);
+    expect(editorController.toolCubit.state.temporaryIndex, 2);
+    expect(
+      editorController.toolCubit.state.temporaryState,
+      TemporaryState.removeAfterClick,
+    );
+
+    final nextGesture = await tester.startGesture(
+      tester.getCenter(viewport),
+      kind: PointerDeviceKind.mouse,
+    );
+    await tester.pump();
+
+    expect(editorController.toolCubit.state.index, 1);
+    expect(editorController.toolCubit.state.temporaryHandler, isNull);
+    expect(editorController.toolCubit.state.temporaryIndex, isNull);
+
+    await nextGesture.up();
+    await tester.pumpAndSettle();
+
+    expect(editorController.toolCubit.state.index, 1);
+    expect(editorController.toolCubit.state.temporaryHandler, isNull);
+    expect(editorController.toolCubit.state.temporaryIndex, isNull);
+    final state = documentBloc.state as DocumentLoadSuccess;
+    expect(state.page.content, hasLength(1));
+    await tester.pump(const Duration(seconds: 4));
+  });
+
   testWidgets('mobile navigator dialogs receive the editor runtime cubits', (
     tester,
   ) async {

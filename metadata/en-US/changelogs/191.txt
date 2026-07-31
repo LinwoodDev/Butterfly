@@ -19,6 +19,7 @@
 * Fix old element state remaining visible after changing rotation in embeds ([#1128](https://github.com/LinwoodDev/Butterfly/issues/1128))
 * Fix object selection bounding boxes not updating after undo and redo ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
 * Fix dragging selection transform handles sometimes starting a new selection ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
+* Fix hold shortcuts not restoring the active tool before the next pointer input ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
 * Ignore last color when switching to svg or image paint kind
 * Improve embeds by hiding templates and the files navigator and ignoring configured default templates
 * Improve Linux app metadata

@@ -316,6 +316,7 @@ class _MainViewViewportState extends State<MainViewViewport>
               final settings = context.read<SettingsCubit>().state;
               final config = settings.inputConfiguration;
               final cubit = context.read<EditorController>();
+              cubit.toolCubit.resetDownHandler(bloc, cubit.rendererCubit);
               var nextPointerMapping = config.getPointerMapping(kind, buttons);
 
               final pressedKeys = HardwareKeyboard.instance.logicalKeysPressed;
@@ -329,7 +330,6 @@ class _MainViewViewportState extends State<MainViewViewport>
               if (nextPointerMapping == null ||
                   nextPointerMapping.getCategory() ==
                       InputMappingCategory.activeTool) {
-                cubit.toolCubit.resetDownHandler(bloc, cubit.rendererCubit);
                 return;
               }
               if (nextPointerMapping.getCategory() ==
