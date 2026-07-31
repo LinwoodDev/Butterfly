@@ -4,8 +4,8 @@ title: Redo tool
 
 :::note[⚡ Action tool]
 
-C'est un outil spécial.
-Vous ne pouvez pas le sélectionner et il exécutera l'action si vous cliquez dessus.
+This is a special action tool.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
