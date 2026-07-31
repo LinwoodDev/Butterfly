@@ -6,7 +6,7 @@ sidebar_position: 2
 Es gibt mehrere Möglichkeiten, Notizen in Butterfly zu speichern.
 Entweder über den Speicher Ihres Geräts oder über Cloud-Speicher (WebDAV).
 
-## Datenverzeichnis
+## Data directory {#data-directory}
 
 Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Packs gespeichert werden.
 Auf dem Desktop finden Sie es unter `~/Documents/Linwood/Butterfly`.
@@ -15,7 +15,7 @@ Sie können es auch in den Einstellungen unter "Data" ändern.
 
 In diesem Verzeichnis finden Sie einen Ordner `Documents`, `Templates` und `Packs`.
 
-## Web
+## Web {#web}
 
 Die Anwendungsdaten werden in Ihrem Browser gespeichert. Es wird in einem lokalen Speicher gespeichert.
 Öffnen Sie die Entwicklerwerkzeuge in Ihrem Browser und Sie werden die Daten sehen.
