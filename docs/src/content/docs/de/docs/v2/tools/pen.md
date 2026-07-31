@@ -19,13 +19,15 @@ Fügen Sie zuerst ein neues Stiftwerkzeug zur Symbolleiste hinzu
 1. Drücke die +-Schaltfläche in der Symbolleiste!
 2. Stift hinzufügen
 3. Halte das neue Stiftsymbol gedrückt, um es zu verschieben
-   - Hinweis: Wenn Sie ein Werkzeug verschiebst, passe die Einstellungen im Tab „Verhalten“ an, damit für jede Eingabe das richtige Werkzeug aktiviert wird.
+   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure
+     the correct tool is activated for each input
 
 Ändern Sie anschließend den neuen Stift
 
 1. Öffnen Sie das Eigenschaftenfeld des neuen Stifts, indem Sie erneut darauf drücken
 2. Benennen Sie den Stift um, indem Sie doppelt auf den Werkzeugnamen tippen.
-3. Nachdem Sie den Stift in Textmarker umbenannt haben, ändern Sie das Symbol passend zum Textmarker, indem Sie auf das Symbol drücken
+3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing
+   the icon
 
 Schließlich, nachdem Sie das Aussehen des Werkzeugs angepasst haben. Jetzt ist es Zeit, die Eigenschaften anzupassen!
 
@@ -52,14 +54,14 @@ Schließlich, nachdem Sie das Aussehen des Werkzeugs angepasst haben. Jetzt ist 
 
 ## Konfiguration
 
-|        Objekt |                            Standard                           | Beschreibung                                                                                                                                                   |
-| ------------: | :-----------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|         Farbe |                            Schwarz                            | Die Farbe, die gezeichnet wird                                                                                                                                 |
-|  Strichbreite |                               5                               | Die Breite des Strichs                                                                                                                                         |
-|  Zoomabhängig |                             falsch                            | Dies ändert die Pinselbreite basierend auf der Zoomstufe.                                                                                      |
-| Formerkennung | false (Verzögerung: 0,5 s) | Dadurch wird versucht, Formen während des Zeichnens zu erkennen. Wenn eine Form erkannt wird, wird sie durch die Form ersetzt. |
-|    Ausdünnung |                      0.4                      | Dies ist der Einfluss des Drucks auf die Strichgröße                                                                                                           |
-|      Glättung |                      0.5                      | Dadurch werden die Kanten des Strichs geglättet.                                                                                               |
-|       Glätten |                      0.5                      | Wie stark der Stift der Mausbewegung folgt.                                                                                                    |
-|         Farbe |                            Schwarz                            | Die Farbe, die gezeichnet wird                                                                                                                                 |
-|        Füllen |                          Transparent                          | Die Farbe, die innerhalb der Form gezeichnet wird.                                                                                             |
+|            Objekt |                            Standard                           | Beschreibung                                                                                                                                                   |
+| ----------------: | :-----------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|      Zoomabhängig |                             falsch                            | Dies ändert die Pinselbreite basierend auf der Zoomstufe.                                                                                      |
+| Pfade kombinieren |                             falsch                            | This will merge all strokes it touches into one path                                                                                                           |
+|     Formerkennung | false (Verzögerung: 0,5 s) | Dadurch wird versucht, Formen während des Zeichnens zu erkennen. Wenn eine Form erkannt wird, wird sie durch die Form ersetzt. |
+|      Strichbreite |                               5                               | Die Breite des Strichs                                                                                                                                         |
+|        Ausdünnung |                      0.4                      | Dies ist der Einfluss des Drucks auf die Strichgröße                                                                                                           |
+|          Glättung |                      0.5                      | Dadurch werden die Kanten des Strichs geglättet.                                                                                               |
+|           Glätten |                      0.3                      | Wie stark der Stift der Mausbewegung folgt.                                                                                                    |
+|             Farbe |             Solid Color (Black)            | [Customization](../../colors/#further-customization) for the color of the stroke                                                                               |
+|            Füllen |          Solid Color (Transparent)         | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                                              |
