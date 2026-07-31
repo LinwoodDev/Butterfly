@@ -6,7 +6,7 @@ sidebar_position: 2
 There are multiple ways of storing notes in Butterfly.
 Either by using your device storage, or by using the cloud storage (WebDAV).
 
-## データディレクトリ
+## Data directory {#data-directory}
 
 The data directory is the directory where documents, templates, and packs are stored.
 On desktop you can find it in `~/Documents/Linwood/Butterfly`.
@@ -15,7 +15,7 @@ On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 
 このディレクトリには、`Documents`、`Templates`、`Packs`フォルダがあります。
 
-## ウェブ
+## Web {#web}
 
 アプリケーションデータはブラウザに保存されます。 ローカルストレージに保存されます。
 ブラウザで開発者ツールを開くと、データが表示されます。
