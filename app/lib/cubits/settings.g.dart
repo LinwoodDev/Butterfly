@@ -87,6 +87,8 @@ _InputConfiguration _$InputConfigurationFromJson(
       json['tripleSecondPenButtonShortcut'] as String?,
   doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
   tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
+  twoFingerTouchShortcut: json['twoFingerTouchShortcut'] as String?,
+  threeFingerTouchShortcut: json['threeFingerTouchShortcut'] as String?,
 );
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
@@ -122,6 +124,8 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'tripleSecondPenButtonShortcut': instance.tripleSecondPenButtonShortcut,
       'doubleTouchShortcut': instance.doubleTouchShortcut,
       'tripleTouchShortcut': instance.tripleTouchShortcut,
+      'twoFingerTouchShortcut': instance.twoFingerTouchShortcut,
+      'threeFingerTouchShortcut': instance.threeFingerTouchShortcut,
     };
 
 _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
@@ -170,6 +174,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   touchSensitivity: (json['touchSensitivity'] as num?)?.toDouble() ?? 1,
   selectSensitivity: (json['selectSensitivity'] as num?)?.toDouble() ?? 1,
   scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
+  rotationStep:
+      (json['rotationStep'] as num?)?.toDouble() ?? kDefaultRotationStep,
+  zoomStep: (json['zoomStep'] as num?)?.toDouble() ?? kDefaultZoomStep,
   penOnlyInput: json['penOnlyInput'] as bool?,
   showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
   inputGestures: json['inputGestures'] as bool? ?? true,
@@ -319,6 +326,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'touchSensitivity': instance.touchSensitivity,
   'selectSensitivity': instance.selectSensitivity,
   'scrollSensitivity': instance.scrollSensitivity,
+  'rotationStep': instance.rotationStep,
+  'zoomStep': instance.zoomStep,
   'penOnlyInput': instance.penOnlyInput,
   'showPenOnlyToggle': instance.showPenOnlyToggle,
   'inputGestures': instance.inputGestures,

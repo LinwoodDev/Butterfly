@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/converter/color.dart';
+import 'package:collection/collection.dart';
 import 'package:dart_leap/dart_leap.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -64,7 +65,15 @@ sealed class ElementPaint with _$ElementPaint {
     ImageElementPaint(:final tint) => tint,
     SvgElementPaint(:final tint) => tint,
     GradientElementPaint(:final gradient) =>
-      gradient.stops.firstOrNull?.color ?? SRGBColor.black,
+      gradient.stops.firstWhereOrNull((stop) => stop.color.a > 0)?.color ??
+          SRGBColor.black,
+  };
+
+  SRGBColor? get realColor => switch (this) {
+    SolidElementPaint(:final color) => color,
+    GradientElementPaint(:final gradient) =>
+      gradient.stops.firstWhereOrNull((stop) => stop.color.a > 0)?.color,
+    _ => null,
   };
 
   ElementPaint withAlpha(int alpha) => switch (this) {

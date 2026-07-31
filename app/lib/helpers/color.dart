@@ -1,8 +1,8 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_leap/material_leap.dart';
 
-SRGBColor _readableDefaultColor(SRGBColor color) {
-  return color.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
+SRGBColor getDefaultColor(SRGBColor background) {
+  return background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
 }
 
 SRGBColor _updateColor(
@@ -28,7 +28,7 @@ ElementPaint _updatePaintDefaultColor(
 }
 
 Tool updateToolDefaultColor(Tool tool, SRGBColor color, {bool force = false}) {
-  final defaultColor = _readableDefaultColor(color);
+  final defaultColor = getDefaultColor(color);
 
   return switch (tool) {
     PenTool e => e.copyWith(

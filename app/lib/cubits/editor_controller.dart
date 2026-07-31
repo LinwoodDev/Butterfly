@@ -271,6 +271,9 @@ class EditorController implements EditorRuntimeContext {
 
     saveCubit.setSaveState(saved: SaveState.unsaved);
     if (saveCubit.state.embedding != null) {
+      if (replacedElements != null) {
+        await rendererCubit.bake(this, blocState, reset: true);
+      }
       return;
     }
     if (reset) {
@@ -332,6 +335,10 @@ class EditorController implements EditorRuntimeContext {
     if (current is! DocumentLoaded) return;
     await reloadTool(bloc, current);
     await rendererCubit.loadElements(this, current);
+    toolCubit.state.handler.onRenderersReloaded(
+      current.page,
+      rendererCubit.renderers,
+    );
     await toolCubit.refresh(this, current, allowBake: false);
     await rendererCubit.delayedBake(this, current);
   }

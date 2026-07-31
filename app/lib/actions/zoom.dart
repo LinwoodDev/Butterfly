@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,8 @@ class ZoomAction extends Action<ZoomIntent> {
 
   ZoomAction(this.context);
 
+  static double step(ButterflySettings settings) => settings.zoomStep;
+
   @override
   void invoke(ZoomIntent intent) {
     final cubit = context.read<EditorController>();
@@ -36,8 +39,9 @@ class ZoomAction extends Action<ZoomIntent> {
       (viewport.height ?? 0) / 2,
     );
     final transformCubit = cubit.transformCubit;
+    final step = ZoomAction.step(cubit.settingsCubit.state);
     cubit.transformCubit.sizeConstrained(
-      transformCubit.state.size + (intent.reverse ? -0.1 : 0.1),
+      transformCubit.state.size + (intent.reverse ? -step : step),
       cursor: center,
       runtime: cubit,
     );

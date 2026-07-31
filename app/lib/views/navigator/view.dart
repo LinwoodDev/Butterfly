@@ -84,6 +84,12 @@ class _NavigatorViewState extends State<NavigatorView>
 
   @override
   Widget build(BuildContext context) {
+    final embedded = context.select<DocumentSaveCubit, bool>(
+      (cubit) => cubit.state.embedding != null,
+    );
+    final pages = NavigatorPage.values
+        .where((page) => !embedded || page != NavigatorPage.files)
+        .toList();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
           previous.navigatorPosition != current.navigatorPosition,
@@ -93,9 +99,7 @@ class _NavigatorViewState extends State<NavigatorView>
                 previous.navigatorEnabled != current.navigatorEnabled ||
                 previous.navigatorPage != current.navigatorPage,
             builder: (context, viewState) {
-              final selected = NavigatorPage.values.indexOf(
-                viewState.navigatorPage,
-              );
+              final selected = pages.indexOf(viewState.navigatorPage);
               if (viewState.navigatorEnabled) {
                 _animationController.forward();
               } else {
@@ -132,7 +136,7 @@ class _NavigatorViewState extends State<NavigatorView>
                   NavigationRail(
                     scrollable: true,
                     minWidth: kNavigationRailWidth,
-                    destinations: NavigatorPage.values
+                    destinations: pages
                         .map(
                           (e) => NavigationRailDestination(
                             icon: PhosphorIcon(
@@ -142,7 +146,11 @@ class _NavigatorViewState extends State<NavigatorView>
                           ),
                         )
                         .toList(),
-                    selectedIndex: viewState.navigatorEnabled ? selected : null,
+                    selectedIndex: viewState.navigatorEnabled
+                        ? selected < 0
+                              ? 0
+                              : selected
+                        : null,
                     groupAlignment: 0,
                     onDestinationSelected: (index) {
                       final cubit = context.read<EditorViewCubit>();
@@ -152,10 +160,7 @@ class _NavigatorViewState extends State<NavigatorView>
                         );
                         return;
                       }
-                      cubit.setNavigator(
-                        page: NavigatorPage.values[index],
-                        enabled: true,
-                      );
+                      cubit.setNavigator(page: pages[index], enabled: true);
                     },
                   ),
                 ],
@@ -179,11 +184,16 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final embedded = context.select<DocumentSaveCubit, bool>(
+      (cubit) => cubit.state.embedding != null,
+    );
     return BlocBuilder<EditorViewCubit, EditorViewState>(
       buildWhen: (previous, current) =>
           previous.navigatorPage != current.navigatorPage,
       builder: (context, viewState) {
-        final page = viewState.navigatorPage;
+        final page = embedded && viewState.navigatorPage == NavigatorPage.files
+            ? NavigatorPage.waypoints
+            : viewState.navigatorPage;
         final body = switch (page) {
           NavigatorPage.waypoints => const WaypointsView(),
           NavigatorPage.areas => const AreasView(),
