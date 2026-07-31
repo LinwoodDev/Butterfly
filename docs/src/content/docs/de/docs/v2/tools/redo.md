@@ -4,8 +4,8 @@ title: Wiederholen-Werkzeug
 
 :::note[⚡ Aktionswerkzeug]
 
-Dies ist ein spezielles Werkzeug.
-Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
+This is a special action tool.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
