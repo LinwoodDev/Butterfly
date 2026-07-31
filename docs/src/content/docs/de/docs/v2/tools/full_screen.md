@@ -2,11 +2,12 @@
 title: Vollbildwerkzeug
 ---
 
-:::note[⚡ Aktionswerkzeug]
+:::note[🔘 Toggleable Werkzeug]
 
 Dies ist ein spezielles Werkzeug.
-Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
-Wenn Sie es anklicken, können Sie den Vollbild-Modus aktivieren bzw. deaktivieren.
+Clicking this tool toggles full-screen mode. In full-screen mode, the sidebar and app bar are hidden
+to make more room for the canvas. A second click restores the previous state.
