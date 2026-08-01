@@ -1,15 +1,14 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/select.dart';
-import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly/views/toolbar/view.dart';
+import 'package:butterfly/widgets/number_input.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '../../bloc/document_bloc.dart';
@@ -45,7 +44,6 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   late final ButterflyFileSystem _fileSystem;
   final ScrollController _scrollController = ScrollController();
   Future<PackItem<ColorPalette>?>? _colorPalette;
-  Timer? _stepTimer;
 
   @override
   void initState() {
@@ -95,21 +93,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     });
   }
 
-  void _startChanging(double delta) {
-    _stepTimer?.cancel();
-    _stepTimer = Timer.periodic(const Duration(milliseconds: 200), (_) {
-      final newVal = (widget.strokeWidth ?? 0) + delta;
-      widget.onStrokeWidthChanged?.call(newVal);
-    });
-  }
-
-  void _stopChanging() {
-    _stepTimer?.cancel();
-  }
-
   @override
   void dispose() {
-    _stepTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -232,50 +217,13 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                 if (widget.strokeWidth != null &&
                     widget.onStrokeWidthChanged != null) ...[
                   Center(
-                    child: GestureDetector(
-                      onLongPress: () => _startChanging(-1),
-                      onLongPressUp: _stopChanging,
-                      child: IconButton(
-                        icon: const Icon(PhosphorIconsLight.minus),
-                        onPressed: () => widget.onStrokeWidthChanged!(
-                          widget.strokeWidth! - 0.1,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 2),
-                  Center(
-                    child: TextField(
-                      controller: TextEditingController(
-                        text: widget.strokeWidth!.toStringAsFixed(1),
-                      ),
-                      decoration: const InputDecoration(
-                        filled: true,
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 0,
-                        ),
-                        constraints: BoxConstraints(maxWidth: 60),
-                      ),
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      onSubmitted: (val) {
-                        final v = parseDoubleInput(val);
-                        if (v != null) widget.onStrokeWidthChanged!(v);
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 2),
-                  Center(
-                    child: GestureDetector(
-                      onLongPress: () => _startChanging(1),
-                      onLongPressUp: _stopChanging,
-                      child: IconButton(
-                        icon: const Icon(PhosphorIconsLight.plus),
-                        onPressed: () => widget.onStrokeWidthChanged!(
-                          widget.strokeWidth! + 0.1,
-                        ),
-                      ),
+                    child: NumberInput(
+                      value: widget.strokeWidth!,
+                      min: 0,
+                      step: 0.1,
+                      fractionDigits: 1,
+                      errorText: AppLocalizations.of(context).error,
+                      onChanged: widget.onStrokeWidthChanged,
                     ),
                   ),
                   const VerticalDivider(),

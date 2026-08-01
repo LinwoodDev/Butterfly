@@ -6,5 +6,6 @@ Cherry picks:
 * Fix incompatible document loading
 * Fix file grid action menu overlapping the sync indicator in right-to-left layouts
 * Fix file move dialog indentation in right-to-left layouts
+* Fix negative brush sizes ([#1201](https://github.com/LinwoodDev/Butterfly/issues/1201))
 
 Read more here: https://linwood.dev/butterfly/2.5.5
