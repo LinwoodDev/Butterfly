@@ -272,6 +272,7 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
     (current, defaults) => current.copyWith(
       inputGestures: defaults.inputGestures,
       moveOnGesture: defaults.moveOnGesture,
+      rotateOnGesture: defaults.rotateOnGesture,
       inputConfiguration: current.inputConfiguration.copyWith(
         touch: defaults.inputConfiguration.touch,
         doubleTouchShortcut: defaults.inputConfiguration.doubleTouchShortcut,
@@ -305,6 +306,14 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.moveOnGesture,
           write: (context, value) =>
               context.read<SettingsCubit>().changeMoveOnGesture(value),
+        ),
+        SettingsLeapBoolSetting(
+          id: 'rotateOnGesture',
+          displayName: (context) => AppLocalizations.of(context).rotation,
+          icon: PhosphorIconsLight.arrowClockwise,
+          read: (state) => state.rotateOnGesture,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeRotateOnGesture(value),
         ),
       ],
     ),

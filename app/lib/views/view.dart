@@ -484,11 +484,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         final rotationDelta =
                                             details.rotation - gestureRotation;
                                         gestureRotation = details.rotation;
-                                        cubit.transformCubit.rotateConstrained(
-                                          rotationDelta / sensitivity,
-                                          cursor: details.localFocalPoint,
-                                          runtime: cubit,
-                                        );
+                                        if (settings.rotateOnGesture) {
+                                          cubit.transformCubit
+                                              .rotateConstrained(
+                                                rotationDelta / sensitivity,
+                                                cursor: details.localFocalPoint,
+                                                runtime: cubit,
+                                              );
+                                        }
                                         if (details.scale == 1) {
                                           cubit.transformCubit.moveConstrained(
                                             cubit.transformCubit.state

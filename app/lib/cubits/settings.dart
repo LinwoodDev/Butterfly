@@ -633,6 +633,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     OptionsPanelPosition optionsPanelPosition,
     @Default(RenderResolution.normal) RenderResolution renderResolution,
     @Default(true) bool moveOnGesture,
+    @Default(true) bool rotateOnGesture,
     @Default([]) List<String> swamps,
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
@@ -855,6 +856,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             )
           : RenderResolution.normal,
       moveOnGesture: prefs.getBool('move_on_gesture') ?? true,
+      rotateOnGesture: prefs.getBool('rotate_on_gesture') ?? true,
       swamps: prefs.getStringList('swamps') ?? [],
       ignorePressure: prefs.containsKey('ignore_pressure')
           ? _enumByNameOr(
@@ -1000,6 +1002,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('options_panel_position', optionsPanelPosition.name);
     await prefs.setString('render_resolution', renderResolution.name);
     await prefs.setBool('move_on_gesture', moveOnGesture);
+    await prefs.setBool('rotate_on_gesture', rotateOnGesture);
     await prefs.setStringList('swamps', swamps);
     await prefs.setString('ignore_pressure', ignorePressure.name);
     if (selectedPalette != null) {
@@ -1726,6 +1729,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeMoveOnGesture(bool value) {
     emit(state.copyWith(moveOnGesture: value));
+    return save();
+  }
+
+  Future<void> changeRotateOnGesture(bool value) {
+    emit(state.copyWith(rotateOnGesture: value));
     return save();
   }
 

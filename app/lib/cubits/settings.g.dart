@@ -290,6 +290,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       ) ??
       RenderResolution.normal,
   moveOnGesture: json['moveOnGesture'] as bool? ?? true,
+  rotateOnGesture: json['rotateOnGesture'] as bool? ?? true,
   swamps:
       (json['swamps'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
@@ -380,6 +381,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
       _$OptionsPanelPositionEnumMap[instance.optionsPanelPosition]!,
   'renderResolution': _$RenderResolutionEnumMap[instance.renderResolution]!,
   'moveOnGesture': instance.moveOnGesture,
+  'rotateOnGesture': instance.rotateOnGesture,
   'swamps': instance.swamps,
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
