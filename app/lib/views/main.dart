@@ -29,6 +29,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -195,6 +196,24 @@ class _ProjectPageState extends State<ProjectPage> {
       }
     }
 
+    Future<void> cancelLoad() async {
+      await disposePendingRuntime();
+      if (mounted) context.go('/');
+    }
+
+    bool isEncryptedNote(Object? data) {
+      try {
+        return switch (data) {
+          NoteFile file => file.isEncrypted(),
+          Uint8List bytes => NoteFile(bytes).isEncrypted(),
+          FileSystemFile<NoteFile> file => file.data?.isEncrypted() ?? false,
+          _ => false,
+        };
+      } catch (_) {
+        return false;
+      }
+    }
+
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
       final globalImportService = ImportService(context);
@@ -230,6 +249,7 @@ class _ProjectPageState extends State<ProjectPage> {
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
       bool failedToLoad = false;
       if (data != null) {
+        final encrypted = isEncryptedNote(data);
         if (data is Uint8List) {
           loadedDocumentBytes = data;
         } else if (data is NoteFile) {
@@ -239,6 +259,10 @@ class _ProjectPageState extends State<ProjectPage> {
             .load(type: type, data: data, document: defaultDocument)
             .then((e) => e?.export());
         if (document == null) {
+          if (encrypted) {
+            await cancelLoad();
+            return;
+          }
           failedToLoad = true;
         }
       }
@@ -253,6 +277,7 @@ class _ProjectPageState extends State<ProjectPage> {
             return;
           }
           if (asset is FileSystemFile<NoteFile>) {
+            final encrypted = isEncryptedNote(asset);
             loadedDocumentBytes = asset.data?.data;
             final NoteData? noteData = await globalImportService
                 .load(
@@ -264,14 +289,19 @@ class _ProjectPageState extends State<ProjectPage> {
                 )
                 .then((e) => e?.export());
             if (noteData != null) {
-              document = await checkFileChanges(context, noteData);
+              document = noteData;
             } else {
+              if (encrypted) {
+                await cancelLoad();
+                return;
+              }
               failedToLoad = true;
             }
           }
         } else {
           final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
+            final encrypted = isEncryptedNote(data);
             loadedDocumentBytes = data;
             document = await globalImportService
                 .load(
@@ -283,9 +313,24 @@ class _ProjectPageState extends State<ProjectPage> {
                 )
                 .then((e) => e?.export());
             if (document == null) {
+              if (encrypted) {
+                await cancelLoad();
+                return;
+              }
               failedToLoad = true;
             }
           }
+        }
+      }
+      if (document != null) {
+        document = await checkFileChanges(context, document);
+        if (!isCurrentLoad()) {
+          await disposePendingRuntime();
+          return;
+        }
+        if (document == null) {
+          await cancelLoad();
+          return;
         }
       }
       if (!isCurrentLoad()) {

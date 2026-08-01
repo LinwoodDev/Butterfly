@@ -23,11 +23,12 @@ NoteData archiveNoteDataMigrator(Archive archive, {String? password}) {
   var noteData = NoteData.build(archive, password: password);
   var metadata = noteData.getMetadata();
   if (metadata != null) {
-    if ((metadata.fileVersion ?? kFileVersion) < kFileVersion) {
+    final fileVersion = metadata.fileVersion ?? kFileVersion;
+    if (fileVersion < kFileVersion) {
       noteData = _migrate(noteData, metadata);
     }
     metadata = noteData.getMetadata();
-    if (metadata != null) {
+    if (metadata != null && fileVersion <= kFileVersion) {
       noteData = noteData.setMetadata(
         metadata.copyWith(fileVersion: kFileVersion, updatedAt: DateTime.now()),
       );

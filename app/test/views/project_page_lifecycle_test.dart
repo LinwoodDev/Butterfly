@@ -105,6 +105,7 @@ void main() {
     NoteData? embedDocument,
     bool embedWithData = true,
     String embedFileName = '',
+    Object? importData,
   }) {
     final document =
         embedDocument ??
@@ -146,7 +147,8 @@ void main() {
             ),
             GoRoute(
               path: 'import',
-              builder: (context, state) => ProjectPage(data: document),
+              builder: (context, state) =>
+                  ProjectPage(data: importData ?? document),
             ),
             GoRoute(
               path: 'embed',
@@ -524,6 +526,75 @@ void main() {
           observer.saveCubitCloses == 1,
       'imported document close',
     );
+  });
+
+  testWidgets('cancelling a newer document warning returns home', (
+    tester,
+  ) async {
+    var document = DocumentDefaults.createDocument(
+      name: 'Future document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    document = document.setMetadata(
+      document.getMetadata()!.copyWith(fileVersion: kFileVersion + 1),
+    );
+    await tester.pumpWidget(buildApp(embedDocument: document));
+
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => find.text('Breaking changes').evaluate().isNotEmpty,
+      'newer file version warning',
+    );
+
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(
+      find.textContaining('The current file version is ${kFileVersion + 1}'),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.text('Cancel'));
+    await pumpUntil(
+      tester,
+      () => find.byType(ProjectPage).evaluate().isEmpty,
+      'return home after cancelling future document',
+    );
+
+    expect(observer.documentBlocCreates, 0);
+    expect(find.byKey(const ValueKey('open-document')), findsOneWidget);
+  });
+
+  testWidgets('wrong encrypted document password returns home', (tester) async {
+    final document = DocumentDefaults.createDocument(
+      name: 'Encrypted document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    final encrypted = document.changePassword('correct password').toFile();
+    await tester.pumpWidget(buildApp(importData: encrypted));
+
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => find.text('Encrypted').evaluate().isNotEmpty,
+      'encrypted document password prompt',
+    );
+
+    await tester.enterText(find.byType(TextFormField), 'wrong password');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Open'));
+    await pumpUntil(
+      tester,
+      () => find.text('Unknown import type').evaluate().isNotEmpty,
+      'wrong password error',
+    );
+    await tester.tap(find.text('Close'));
+    await pumpUntil(
+      tester,
+      () => find.byType(ProjectPage).evaluate().isEmpty,
+      'return home after wrong password',
+    );
+
+    expect(observer.documentBlocCreates, 0);
+    expect(find.byKey(const ValueKey('open-document')), findsOneWidget);
   });
 
   testWidgets('embed does not load or save persistent document state', (
