@@ -575,7 +575,7 @@ class SelectHandler extends Handler<SelectTool> {
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
-    writeClipboardData(
+    await writeClipboardData(
       clipboardManager,
       AssetFileType.page,
       Uint8List.fromList(

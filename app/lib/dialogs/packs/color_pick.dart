@@ -35,7 +35,7 @@ class ColorPalettePickerDialog extends StatefulWidget {
 }
 
 class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
-  late final PackFileSystem _packSystem;
+  late final ButterflyFileSystem _fileSystem;
   NoteData? _pack;
   PackItem<ColorPalette>? _selected;
   ColorPalette? _palette;
@@ -44,7 +44,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   void initState() {
     super.initState();
     _palette = widget.palette;
-    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    _fileSystem = context.read<ButterflyFileSystem>();
     if (_palette == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _loadPalette();
@@ -53,19 +53,35 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   }
 
   Future<void> _loadPalette() async {
-    final pack = await _packSystem.getDefaultFile(_selected?.namespace ?? '');
-    if (pack == null) return;
-    final palette =
-        pack.getPalette(_selected?.key ?? '') ??
-        pack.getNamedPalettes().firstOrNull?.item;
-    if (palette == null) return;
+    final packs = await _fileSystem.getCoreAndUserPacks();
+    PackItem<ColorPalette>? selected = _selected;
+    NoteData? pack;
+    ColorPalette? palette;
+    if (selected != null) {
+      pack = packs
+          .firstWhereOrNull((pack) => pack.$1 == selected?.namespace)
+          ?.$2;
+      palette = pack?.getPalette(selected.key);
+    } else {
+      for (final (namespace, sourcePack) in packs) {
+        final firstPalette = sourcePack.getNamedPalettes().firstOrNull;
+        if (firstPalette != null) {
+          selected = firstPalette.toPack(sourcePack, namespace);
+          pack = sourcePack;
+          palette = firstPalette.item;
+          break;
+        }
+      }
+    }
+    if (pack == null || palette == null) return;
     setState(() {
       _pack = pack;
       _palette = palette;
+      _selected = selected;
     });
   }
 
-  void _changePalette(ColorPalette palette, [String? name]) {
+  Future<void> _changePalette(ColorPalette palette, [String? name]) async {
     setState(() {
       _palette = palette;
     });
@@ -80,7 +96,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
       }
       pack = pack?.setPalette(name ?? location.key, palette);
       if (pack == null) return;
-      _packSystem.updateFile(location.namespace, pack);
+      await _fileSystem.updatePack(location, pack);
     }
   }
 

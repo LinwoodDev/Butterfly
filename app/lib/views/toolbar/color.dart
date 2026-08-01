@@ -58,16 +58,15 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     final settings = context.read<SettingsCubit>().state;
     final location = settings.selectedPalette;
     if (location != null) {
-      final packSystem = _fileSystem.buildDefaultPackSystem();
-      await packSystem.initialize();
-      final pack = await packSystem.getFile(location.namespace);
-      if (pack != null) {
-        final palette = pack.getNamedPalettes().firstWhereOrNull(
-          (e) => e.name == location.key,
-        );
-        if (palette != null) {
-          return palette.toPack(pack, location.namespace);
-        }
+      final packs = await _fileSystem.getCoreAndUserPacks();
+      final pack = packs
+          .firstWhereOrNull((pack) => pack.$1 == location.namespace)
+          ?.$2;
+      final palette = pack?.getNamedPalettes().firstWhereOrNull(
+        (e) => e.name == location.key,
+      );
+      if (pack != null && palette != null) {
+        return palette.toPack(pack, location.namespace);
       }
     }
     return _fileSystem.findDefaultPalette();

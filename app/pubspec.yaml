@@ -17,7 +17,7 @@ version: 2.5.5+191
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
-  flutter: 3.44.6
+  flutter: 3.44.8
 
 dependencies:
   flutter:

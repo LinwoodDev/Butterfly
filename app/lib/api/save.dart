@@ -97,7 +97,7 @@ Future<void> writeClipboardData(
     final item = DataWriterItem();
     final format = type.getClipboardFormats().first;
     item.add(format(data));
-    clipboard.write([item]);
+    await clipboard.write([item]);
   } else {
     clipboardManager.setContent((data: data, type: type.name));
   }

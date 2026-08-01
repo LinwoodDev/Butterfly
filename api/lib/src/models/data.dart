@@ -147,8 +147,10 @@ class SimpleNoteDisplay extends NoteDisplay<SimpleNoteDisplay> {
 }
 
 final class NoteData extends NoteDisplay<NoteData> {
-  NoteData(super.archive, {super.state});
-  NoteData.build(super.archive, {super.password}) : super.build();
+  final NoteData? parent;
+
+  NoteData(super.archive, {super.state, this.parent});
+  NoteData.build(super.archive, {super.password, this.parent}) : super.build();
 
   factory NoteData.fromData(Uint8List data, {String? password}) {
     return noteDataMigrator(data, password: password);
@@ -169,7 +171,8 @@ final class NoteData extends NoteDisplay<NoteData> {
 
   @override
   @useResult
-  NoteData updateState(ArchiveState state) => NoteData(archive, state: state);
+  NoteData updateState(ArchiveState state) =>
+      NoteData(archive, state: state, parent: parent);
 
   @useResult
   (NoteData, String) importAsset(
@@ -554,8 +557,14 @@ final class NoteData extends NoteDisplay<NoteData> {
   // Pack specific
 
   @useResult
+  Iterable<String> _getPackAssets(String path, [bool recursive = true]) => {
+    ...?parent?._getPackAssets(path, recursive),
+    ...getAssets(path, recursive),
+  };
+
+  @useResult
   Iterable<String> getComponents() =>
-      getAssets('$kComponentsArchiveDirectory/', true);
+      _getPackAssets('$kComponentsArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<ButterflyComponent>> getNamedComponents() =>
@@ -568,15 +577,13 @@ final class NoteData extends NoteDisplay<NoteData> {
   @useResult
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getComponent(componentName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return ButterflyComponent.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getComponent(componentName);
     }
   }
 
@@ -591,7 +598,7 @@ final class NoteData extends NoteDisplay<NoteData> {
       removeAsset('$kComponentsArchiveDirectory/$name.json');
 
   @useResult
-  Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
+  Iterable<String> getStyles() => _getPackAssets('$kStylesArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<TextStyleSheet>> getNamedStyles() => getStyles().map((e) {
@@ -603,15 +610,13 @@ final class NoteData extends NoteDisplay<NoteData> {
   @useResult
   TextStyleSheet? getStyle(String styleName) {
     final data = getAsset('$kStylesArchiveDirectory/$styleName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getStyle(styleName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return TextStyleSheet.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getStyle(styleName);
     }
   }
 
@@ -630,7 +635,7 @@ final class NoteData extends NoteDisplay<NoteData> {
 
   @useResult
   Iterable<String> getPalettes() =>
-      getAssets('$kPalettesArchiveDirectory/', true);
+      _getPackAssets('$kPalettesArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<ColorPalette>> getNamedPalettes() =>
@@ -643,15 +648,13 @@ final class NoteData extends NoteDisplay<NoteData> {
   @useResult
   ColorPalette? getPalette(String paletteName) {
     final data = getAsset('$kPalettesArchiveDirectory/$paletteName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getPalette(paletteName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return ColorPalette.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getPalette(paletteName);
     }
   }
 
@@ -670,7 +673,7 @@ final class NoteData extends NoteDisplay<NoteData> {
 
   @useResult
   Iterable<String> getToolbars() =>
-      getAssets('$kToolbarsArchiveDirectory/', true);
+      _getPackAssets('$kToolbarsArchiveDirectory/');
 
   @useResult
   Iterable<NamedItem<Toolbar>> getNamedToolbars() => getToolbars().map((e) {
@@ -682,15 +685,13 @@ final class NoteData extends NoteDisplay<NoteData> {
   @useResult
   Toolbar? getToolbar(String toolbarName) {
     final data = getAsset('$kToolbarsArchiveDirectory/$toolbarName.json');
-    if (data == null) {
-      return null;
-    }
+    if (data == null) return parent?.getToolbar(toolbarName);
     try {
       final content = utf8.decode(data);
       final json = jsonDecode(content) as Map<String, dynamic>;
       return Toolbar.fromJson(json);
     } catch (e) {
-      return null;
+      return parent?.getToolbar(toolbarName);
     }
   }
 

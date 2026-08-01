@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:dart_leap/dart_leap.dart';
 import 'package:test/test.dart';
 
 DocumentPage _pageWithLayer(String layerId) =>
@@ -213,6 +214,28 @@ void main() {
       expect(metadata.name, 'Doc Name');
       expect(metadata.createdAt!.isAtSameMomentAs(createdAt), isTrue);
       expect(document.getPages(), isEmpty);
+    });
+  });
+
+  group('NoteData parent packs', () {
+    test('pack assets fall back to parent pack', () {
+      var parent = NoteData(Archive())
+          .setPalette(
+            'parent',
+            const ColorPalette(colors: [SRGBColor(0xFF000000)]),
+          )
+          .setPalette(
+            'shared',
+            const ColorPalette(colors: [SRGBColor(0xFFFF0000)]),
+          );
+      final child = NoteData(Archive(), parent: parent).setPalette(
+        'child',
+        const ColorPalette(colors: [SRGBColor(0xFFFFFFFF)]),
+      );
+
+      expect(child.getPalettes(), containsAll(['parent', 'shared', 'child']));
+      expect(child.getPalette('parent')?.colors, [const SRGBColor(0xFF000000)]);
+      expect(child.getPalette('child')?.colors, [const SRGBColor(0xFFFFFFFF)]);
     });
   });
 
