@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Переслати",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Стіл",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Рядки",
+  "columns": "Стовпці",
+  "row": "Рядок",
+  "column": "Колонка",
+  "insertRowBefore": "Вставити рядок перед",
+  "insertRowAfter": "Вставити рядок після",
+  "insertColumnBefore": "Додати стовпець перед",
+  "insertColumnAfter": "Вставити стовпець після",
+  "deleteRow": "Видалити рядок",
+  "deleteColumn": "Видалити стовпець",
+  "cellColor": "Колір клітинки",
+  "cellBorders": "Границі клітин",
+  "cellBorder": "Клітинна рамка",
+  "horizontalBorder": "Горизонтальна рамка",
+  "verticalBorder": "Вертикальна границя",
+  "rowHeight": "Висота рядка",
+  "columnWidth": "Ширина стовпця",
   "border": "Border",
   "circle": "Коло",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Поверніть вперед",
   "sendBackward": "Відправити назад",
   "rotation": "Поворот екрану",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Крок обертання",
+  "zoomStep": "Крок масштабування",
   "direction": "Напрямок",
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
   "toolbarPosition": "Позиція панелі інструментів",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Повернути ліворуч",
+  "rotateRight": "Повернути праворуч",
   "spacer": "Розділювач",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Показувати превью навігації",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Показувати кешовані ескізи попереднього перегляду в області і навігатором сторінок",
   "highContrast": "Високий контраст",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Перемістити жест",
   "exportAllFiles": "Експортувати всі файли",
   "restoreSettingsFromFile": "Відновити налаштування з файлу",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Скинути всі налаштування",
   "exportSettingsToFile": "Експорт налаштувань у файл",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "На весь екран",
   "doublePressAction": "Дії подвійного натискання",
   "triplePressAction": "Дія потрійного натискання",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Двопалець",
+  "threeFingerTap": "Трипалець",
   "longPress": "Тривале натискання",
   "toolNumber": "Інструмент {number}",
   "@toolNumber": {
