@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Vorwärts",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Tisch",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Zeilen",
+  "columns": "Spalten",
+  "row": "Zeile",
+  "column": "Spalte",
+  "insertRowBefore": "Zeile vorher einfügen",
+  "insertRowAfter": "Zeile einfügen nach",
+  "insertColumnBefore": "Spalte einfügen vor",
+  "insertColumnAfter": "Spalte einfügen nach",
+  "deleteRow": "Zeile löschen",
+  "deleteColumn": "Spalte löschen",
+  "cellColor": "Zellenfarbe",
+  "cellBorders": "Zellengrenzen",
+  "cellBorder": "Zellenrand",
+  "horizontalBorder": "Horizontaler Rand",
+  "verticalBorder": "Vertikaler Rand",
+  "rowHeight": "Zeilenhöhe",
+  "columnWidth": "Spaltenbreite",
   "border": "Border",
   "circle": "Kreis",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Vorwärts bringen",
   "sendBackward": "Rückwärts senden",
   "rotation": "Drehung",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Drehschritt",
+  "zoomStep": "Zoom-Schritt",
   "direction": "Richtung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Nach links drehen",
+  "rotateRight": "Rechts drehen",
   "spacer": "Abstandhalter",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Navigator-Vorschau anzeigen",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Zeige zwischengespeicherte Vorschaubilder in den Bereichen und Seitennavigatoren",
   "highContrast": "Hoher Kontrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Verschieben bei Geste",
   "exportAllFiles": "Alle Dateien exportieren",
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Alle Einstellungen zurücksetzen",
   "exportSettingsToFile": "Einstellungen in Datei exportieren",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Vollbild",
   "doublePressAction": "Doppeltes Drücken",
   "triplePressAction": "Dreifach Drücken Aktion",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Zwei-Finger-Tippen",
+  "threeFingerTap": "Dreifinger tippen",
   "longPress": "Lange drücken",
   "toolNumber": "{number}",
   "@toolNumber": {
