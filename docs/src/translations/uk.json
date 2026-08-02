@@ -1,7 +1,7 @@
 {
   "guides": "Посібники",
   "introduction": "Вступ",
-  "context_menu": "Context menu",
+  "context_menu": "Контекстне меню",
   "areas": "Розділи",
   "background": "Фон",
   "colors": "Кольори",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Кодекс поведінки",
   "embedding": "Embedding",
   "faq": "ЧАП",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Підтримка Stylus",
   "versions": "Версії",
   "nightly": "Нічна",
   "privacy_policy": "Політика конфіденційності",
