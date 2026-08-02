@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Doorsturen",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Tabel",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Rijen",
+  "columns": "Kolommen",
+  "row": "Rij",
+  "column": "Kolom",
+  "insertRowBefore": "Rij invoegen vóór",
+  "insertRowAfter": "Rij invoegen na",
+  "insertColumnBefore": "Kolom invoegen voor",
+  "insertColumnAfter": "Kolom invoegen na",
+  "deleteRow": "Rij verwijderen",
+  "deleteColumn": "Kolom verwijderen",
+  "cellColor": "Gel kleur",
+  "cellBorders": "Cel randen",
+  "cellBorder": "Cel rand",
+  "horizontalBorder": "Horizontale rand",
+  "verticalBorder": "Verticale rand",
+  "rowHeight": "Rij hoogte",
+  "columnWidth": "Kolom breedte",
   "border": "Border",
   "circle": "Cirkel",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
   "rotation": "Rotatie",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Rotatie stap",
+  "zoomStep": "Zoom stap",
   "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Linksom draaien",
+  "rotateRight": "Rechts draaien",
   "spacer": "Afstandshouder",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Navigator voorvertoningen weergeven",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Toon miniaturen in cache en pagina navigators",
   "highContrast": "Hoog contrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Verplaats naar gebaar",
   "exportAllFiles": "Alle bestanden exporteren",
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Reset alle instellingen",
   "exportSettingsToFile": "Instellingen exporteren naar bestand",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Volledig scherm",
   "doublePressAction": "Dubbel-klik actie",
   "triplePressAction": "Drievoudig indrukken actie",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Tikken met twee vinger",
+  "threeFingerTap": "Drie-vinger kraan",
   "longPress": "Lang indrukken",
   "toolNumber": "Gereedschap {number}",
   "@toolNumber": {
