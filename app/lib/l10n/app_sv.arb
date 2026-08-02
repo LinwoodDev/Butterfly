@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Framåt",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Tabell",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Rader",
+  "columns": "Kolumner",
+  "row": "Rad",
+  "column": "Kolumn",
+  "insertRowBefore": "Infoga rad före",
+  "insertRowAfter": "Infoga rad efter",
+  "insertColumnBefore": "Infoga kolumn före",
+  "insertColumnAfter": "Infoga kolumn efter",
+  "deleteRow": "Ta bort rad",
+  "deleteColumn": "Ta bort kolumn",
+  "cellColor": "Cellens färg",
+  "cellBorders": "Cellens gränser",
+  "cellBorder": "Cellens gräns",
+  "horizontalBorder": "Horisontell kant",
+  "verticalBorder": "Vertikal kant",
+  "rowHeight": "Rad höjd",
+  "columnWidth": "Kolumnens bredd",
   "border": "Border",
   "circle": "Cirkel",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Ta fram",
   "sendBackward": "Skicka bakåt",
   "rotation": "Rotation",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Steg för rotation",
+  "zoomStep": "Zooma steg",
   "direction": "Riktning",
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
   "toolbarPosition": "Verktygsfältets position",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Rotera vänster",
+  "rotateRight": "Rotera höger",
   "spacer": "Mellanslag",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Visa förhandsvisningar för navigator",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Visa cachelagrade miniatyrer i områden och sidor navigatorer",
   "highContrast": "Hög kontrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Flytta på gest",
   "exportAllFiles": "Exportera alla filer",
   "restoreSettingsFromFile": "Återställ inställningar från fil",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Återställ alla inställningar",
   "exportSettingsToFile": "Exportera inställningar till fil",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Helskärm",
   "doublePressAction": "Åtgärd vid dubbeltryck",
   "triplePressAction": "Trippel tryck åtgärd",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Tvåfinger-tryck",
+  "threeFingerTap": "Tre-finger tryck",
   "longPress": "Långtryck",
   "toolNumber": "Verktyg {number}",
   "@toolNumber": {
