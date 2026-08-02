@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Reenviar",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Tabla",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Filas",
+  "columns": "Columnas",
+  "row": "Fila",
+  "column": "Columna",
+  "insertRowBefore": "Insertar fila antes",
+  "insertRowAfter": "Insertar fila después de",
+  "insertColumnBefore": "Insertar columna antes",
+  "insertColumnAfter": "Insertar columna después",
+  "deleteRow": "Eliminar fila",
+  "deleteColumn": "Eliminar columna",
+  "cellColor": "Color de celda",
+  "cellBorders": "Límites de celda",
+  "cellBorder": "Borde móvil",
+  "horizontalBorder": "Borde horizontal",
+  "verticalBorder": "Borde vertical",
+  "rowHeight": "Altura de fila",
+  "columnWidth": "Ancho de columna",
   "border": "Border",
   "circle": "Círculo",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Avanzar",
   "sendBackward": "Enviar atrás",
   "rotation": "Rotación",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Paso de rotación",
+  "zoomStep": "Paso de zoom",
   "direction": "Dirección",
   "onlyAvailableLargerScreen": "Sólo disponible en pantallas más grandes",
   "toolbarPosition": "Posición de barra de herramientas",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Girar izquierda",
+  "rotateRight": "Rotar derecha",
   "spacer": "Espaciador",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Mostrar vistas previas del navegador",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Mostrar miniaturas de vista previa en caché en las áreas y navegadores de páginas",
   "highContrast": "Alto contraste",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Mover en gesto",
   "exportAllFiles": "Exportar todos los archivos",
   "restoreSettingsFromFile": "Restaurar ajustes desde el archivo",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Restablecer todos los ajustes",
   "exportSettingsToFile": "Exportar ajustes al archivo",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Pantalla completa",
   "doublePressAction": "Acción de doble pulsación",
   "triplePressAction": "Acción de triple pulsación",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Toque dos dedos",
+  "threeFingerTap": "Tocar tres dedos",
   "longPress": "Pulsación larga",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
