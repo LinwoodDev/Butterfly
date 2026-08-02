@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Вперёд",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Таблица",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Строки",
+  "columns": "Столбцы",
+  "row": "Строка",
+  "column": "Столбец",
+  "insertRowBefore": "Вставить строку перед",
+  "insertRowAfter": "Вставить строку после",
+  "insertColumnBefore": "Вставить столбец справа",
+  "insertColumnAfter": "Вставить столбец после",
+  "deleteRow": "Удалить строку",
+  "deleteColumn": "Удалить столбец",
+  "cellColor": "Цвет ячейки",
+  "cellBorders": "Ген ячейки",
+  "cellBorder": "Граница ячейки",
+  "horizontalBorder": "Горизонтальная граница",
+  "verticalBorder": "Вертикальные границы",
+  "rowHeight": "Высота строки",
+  "columnWidth": "Ширина столбца",
   "border": "Border",
   "circle": "Круг",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Перенос вперед",
   "sendBackward": "Отправить назад",
   "rotation": "Поворот",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Шаг поворота",
+  "zoomStep": "Шаг масштаба",
   "direction": "Направление",
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Повернуть влево",
+  "rotateRight": "Повернуть вправо",
   "spacer": "Пробел",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Показать превью навигатора",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Показывать превью кэша в областях и страницах навигаторов",
   "highContrast": "Высокий контраст",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Переместить жест",
   "exportAllFiles": "Экспортировать все файлы",
   "restoreSettingsFromFile": "Восстановить настройки из файла",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Сбросить все настройки",
   "exportSettingsToFile": "Экспорт настроек в файл",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "На весь экран",
   "doublePressAction": "Действие двойного нажатия",
   "triplePressAction": "Действие с тройным нажатием",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Двухпальное касание",
+  "threeFingerTap": "Касание по трем пальцам",
   "longPress": "Долгое нажатие",
   "toolNumber": "Инструмент {number}",
   "@toolNumber": {
