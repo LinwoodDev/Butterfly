@@ -1,7 +1,7 @@
 {
   "guides": "Руководства",
   "introduction": "Введение",
-  "context_menu": "Context menu",
+  "context_menu": "Контекст меню",
   "areas": "Области",
   "background": "Фон",
   "colors": "Цвета",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Кодекс поведения",
   "embedding": "Embedding",
   "faq": "ЧАВО",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Поддержка Stylus",
   "versions": "Версии",
   "nightly": "Ночной",
   "privacy_policy": "Политика конфиденциальности",
