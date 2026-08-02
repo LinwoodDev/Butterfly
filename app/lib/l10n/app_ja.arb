@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "転送",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "表",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "行",
+  "columns": "列",
+  "row": "行",
+  "column": "列",
+  "insertRowBefore": "行の前に挿入する",
+  "insertRowAfter": "行の後ろに挿入する",
+  "insertColumnBefore": "前に列を挿入",
+  "insertColumnAfter": "後ろに列を挿入",
+  "deleteRow": "行を削除",
+  "deleteColumn": "列を削除",
+  "cellColor": "セルの色",
+  "cellBorders": "セルの外枠",
+  "cellBorder": "セルの枠線",
+  "horizontalBorder": "横線",
+  "verticalBorder": "垂直枠線",
+  "rowHeight": "行の高さ",
+  "columnWidth": "列の幅",
   "border": "Border",
   "circle": "円",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "前方へ移動",
   "sendBackward": "後方に送る",
   "rotation": "回転",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "回転ステップ",
+  "zoomStep": "ズームステップ",
   "direction": "方向",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "左に回転",
+  "rotateRight": "右に回転",
   "spacer": "スペーサー",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "ナビゲーターのプレビューを表示",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "キャッシュされたプレビューサムネイルをエリアとページナビゲーターに表示します",
   "highContrast": "高コントラストformat@@0",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "ジェスチャー上に移動",
   "exportAllFiles": "すべてのファイルをエクスポート",
   "restoreSettingsFromFile": "設定をファイルから復元",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "すべての設定をリセット",
   "exportSettingsToFile": "設定をファイルにエクスポート",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "全画面",
   "doublePressAction": "Double press action",
   "triplePressAction": "トリプルプレスアクション",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "2本指タップ",
+  "threeFingerTap": "3本指タップ",
   "longPress": "長押しする",
   "toolNumber": "ツール {number}",
   "@toolNumber": {
