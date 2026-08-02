@@ -1,7 +1,7 @@
 {
   "guides": "Oppaat",
   "introduction": "Johdanto",
-  "context_menu": "Context menu",
+  "context_menu": "Kontekstivalikko",
   "areas": "Alueet",
   "background": "Tausta",
   "colors": "Värit",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Käytännesäännöt ja -säännöt",
   "embedding": "Embedding",
   "faq": "UKK",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Stylus tuki",
   "versions": "Versiot",
   "nightly": "Yöllä",
   "privacy_policy": "Yksityisyyden suoja",
