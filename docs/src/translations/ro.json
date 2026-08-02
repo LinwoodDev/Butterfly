@@ -1,7 +1,7 @@
 {
   "guides": "Ghiduri",
   "introduction": "Introducere",
-  "context_menu": "Context menu",
+  "context_menu": "Meniu contextual",
   "areas": "Domenii",
   "background": "Context",
   "colors": "Culori",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Codul de conduită",
   "embedding": "Embedding",
   "faq": "Întrebări",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Suport Stylus",
   "versions": "Versiuni",
   "nightly": "Noptez",
   "privacy_policy": "Politica de confidenţialitate",
