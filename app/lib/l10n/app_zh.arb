@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "转发方式",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "表",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "行",
+  "columns": "列",
+  "row": "行",
+  "column": "列",
+  "insertRowBefore": "插入行前",
+  "insertRowAfter": "插入行后",
+  "insertColumnBefore": "插入列在前",
+  "insertColumnAfter": "插入列",
+  "deleteRow": "删除行",
+  "deleteColumn": "删除列",
+  "cellColor": "单元格颜色",
+  "cellBorders": "单元格边框",
+  "cellBorder": "单元格边框",
+  "horizontalBorder": "水平边框",
+  "verticalBorder": "垂直边框",
+  "rowHeight": "行高度",
+  "columnWidth": "列宽度",
   "border": "Border",
   "circle": "圆圈",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "前进中",
   "sendBackward": "向后发送",
   "rotation": "旋转",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "旋转步骤",
+  "zoomStep": "缩放步骤",
   "direction": "方向",
   "onlyAvailableLargerScreen": "仅在大屏幕上可用",
   "toolbarPosition": "工具栏位置",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "向左旋转",
+  "rotateRight": "向右旋转",
   "spacer": "空格",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "显示导航器预览",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "在区域和页面导航器中显示缓存的预览缩略图",
   "highContrast": "高对比度",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "手势移动",
   "exportAllFiles": "导出所有文件",
   "restoreSettingsFromFile": "从文件恢复设置",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "重置所有设置",
   "exportSettingsToFile": "导出设置到文件",
   "barcode": "条形码",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "全屏",
   "doublePressAction": "双击动作",
   "triplePressAction": "三击动作",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "双指点击",
+  "threeFingerTap": "三指点击",
   "longPress": "长按",
   "toolNumber": "工具 {number}",
   "@toolNumber": {
