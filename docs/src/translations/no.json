@@ -1,7 +1,7 @@
 {
   "guides": "Veiledninger",
   "introduction": "Introduksjon",
-  "context_menu": "Context menu",
+  "context_menu": "Sammenhengsmeny",
   "areas": "Områder",
   "background": "Bakgrunn",
   "colors": "Farger",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Etiske retningslinjer",
   "embedding": "Embedding",
   "faq": "OSS",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Pennens brukerstøtte",
   "versions": "Versjoner",
   "nightly": "Nattlig",
   "privacy_policy": "Retningslinjer for personvern",
