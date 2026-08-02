@@ -1,7 +1,7 @@
 {
   "guides": "Przewodniki",
   "introduction": "Wprowadzanie",
-  "context_menu": "Context menu",
+  "context_menu": "Menu kontekstowe",
   "areas": "Obszary",
   "background": "Kontekst",
   "colors": "Kolory",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Kodeks postępowania",
   "embedding": "Embedding",
   "faq": "Często zadawane pytania",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Wsparcie Stylus",
   "versions": "Wersje",
   "nightly": "Nocny",
   "privacy_policy": "Polityka prywatności",
