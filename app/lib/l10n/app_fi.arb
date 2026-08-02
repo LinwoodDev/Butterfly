@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Eteenpäin",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Taulukko",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Rivit",
+  "columns": "Sarakkeet",
+  "row": "Rivi",
+  "column": "Sarake",
+  "insertRowBefore": "Lisää rivi ennen",
+  "insertRowAfter": "Lisää rivi jälkeen",
+  "insertColumnBefore": "Lisää sarake ennen",
+  "insertColumnAfter": "Lisää sarake jälkeen",
+  "deleteRow": "Poista rivi",
+  "deleteColumn": "Poista sarake",
+  "cellColor": "Solun väri",
+  "cellBorders": "Solun rajat",
+  "cellBorder": "Solun raja",
+  "horizontalBorder": "Vaakasuora raja",
+  "verticalBorder": "Pystysuora raja",
+  "rowHeight": "Rivin korkeus",
+  "columnWidth": "Sarakkeen leveys",
   "border": "Border",
   "circle": "Ympyrä",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
   "rotation": "Kierto",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Kierron vaihe",
+  "zoomStep": "Zoomauksen vaihe",
   "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Kierrä vasemmalle",
+  "rotateRight": "Kierrä oikealle",
   "spacer": "Välilyönti",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Näytä navigaattorin esikatselut",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Näytä välimuistissa olevat esikatselukuvat alueilla ja sivuilla navigointilaitteissa",
   "highContrast": "Korkea kontrasti",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Siirrä ele",
   "exportAllFiles": "Vie kaikki tiedostot",
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Nollaa kaikki asetukset",
   "exportSettingsToFile": "Vie asetukset tiedostoon",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Koko näyttö",
   "doublePressAction": "Kaksoispainalluksen tehtävä",
   "triplePressAction": "Kolmen painalluksen tehtävä",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Kaksisormen napautus",
+  "threeFingerTap": "Kolmen sormen napautus",
   "longPress": "Pitkä painallus",
   "toolNumber": "Työkalu {number}",
   "@toolNumber": {
