@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Przekaż",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Tabela",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Wiersze",
+  "columns": "Kwota, którą należy zgłosić w kolumnie 060 tego wiersza: pierwotne odliczenie, art. 36 ust. 1 lit. b) CRR.",
+  "row": "Wiersz",
+  "column": "Kolumna",
+  "insertRowBefore": "Wstaw wiersz przed",
+  "insertRowAfter": "Wstaw wiersz po",
+  "insertColumnBefore": "Wstaw kolumnę przed",
+  "insertColumnAfter": "Wstaw kolumnę po",
+  "deleteRow": "Usuń wiersz",
+  "deleteColumn": "Usuń kolumnę",
+  "cellColor": "Kolor komórki",
+  "cellBorders": "Granice komórek",
+  "cellBorder": "Obramowanie komórki",
+  "horizontalBorder": "Poziome obramowanie",
+  "verticalBorder": "Granica pionowa",
+  "rowHeight": "Wysokość wiersza",
+  "columnWidth": "Szerokość kolumny",
   "border": "Border",
   "circle": "Okręg",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Przenieś do przodu",
   "sendBackward": "Wyślij do tyłu",
   "rotation": "Obrót",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Krok obrotu",
+  "zoomStep": "Krok powiększenia",
   "direction": "Kierunek",
   "onlyAvailableLargerScreen": "Dostępne tylko na większych ekranach",
   "toolbarPosition": "Pozycja paska narzędzi",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Obróć w lewo",
+  "rotateRight": "Obróć w prawo",
   "spacer": "Odstęp",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Pokaż podgląd nawigatora",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Pokaż podgląd podglądu w strefach i nawigatorach stron",
   "highContrast": "Wysoki kontrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Przesuń po gestach",
   "exportAllFiles": "Eksportuj wszystkie pliki",
   "restoreSettingsFromFile": "Przywróć ustawienia z pliku",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Resetuj wszystkie ustawienia",
   "exportSettingsToFile": "Eksportuj ustawienia do pliku",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Pełny ekran",
   "doublePressAction": "Akcja podwójnego naciśnięcia",
   "triplePressAction": "Akcja potrójnego naciśnięcia",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Dotknięcie dwoma palcami",
+  "threeFingerTap": "Dotknięcie trzema palcami",
   "longPress": "Długie przytrzymanie",
   "toolNumber": "Narzędzie {number}",
   "@toolNumber": {
