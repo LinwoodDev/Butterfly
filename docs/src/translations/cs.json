@@ -1,7 +1,7 @@
 {
   "guides": "Návody",
   "introduction": "Úvod",
-  "context_menu": "Context menu",
+  "context_menu": "Kontextové menu",
   "areas": "Oblasti",
   "background": "Pozadí",
   "colors": "Barvy",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Kodex chování",
   "embedding": "Embedding",
   "faq": "Nejčastější dotazy",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Podpora Stylus",
   "versions": "Verze",
   "nightly": "Noční",
   "privacy_policy": "Zásady ochrany soukromí",
