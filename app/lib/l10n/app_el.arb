@@ -289,7 +289,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "Forward",
+  "forward": "Μπροστά",
   "@forward": {
     "description": "Forward action"
   },
@@ -581,27 +581,27 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "Table",
+  "table": "Πίνακας",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "Rows",
-  "columns": "Columns",
-  "row": "Row",
-  "column": "Column",
-  "insertRowBefore": "Insert row before",
-  "insertRowAfter": "Insert row after",
-  "insertColumnBefore": "Insert column before",
-  "insertColumnAfter": "Insert column after",
-  "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
+  "rows": "Γραμμές",
+  "columns": "Στήλες",
+  "row": "Γραμμή",
+  "column": "Στήλη",
+  "insertRowBefore": "Εισαγωγή γραμμής πριν",
+  "insertRowAfter": "Εισαγωγή γραμμής μετά",
+  "insertColumnBefore": "Εισαγωγή στήλης πριν",
+  "insertColumnAfter": "Εισαγωγή στήλης μετά",
+  "deleteRow": "Διαγραφή γραμμής",
+  "deleteColumn": "Διαγραφή στήλης",
+  "cellColor": "Χρώμα κελιού",
+  "cellBorders": "Περιθώριο κυψέλης",
+  "cellBorder": "Περίγραμμα κυψέλης",
+  "horizontalBorder": "Οριζόντιο περίγραμμα",
+  "verticalBorder": "Κάθετο όριο",
+  "rowHeight": "Ύψος γραμμής",
+  "columnWidth": "Πλάτος στήλης",
   "border": "Border",
   "circle": "Κύκλος",
   "@circle": {
@@ -997,8 +997,8 @@
   "bringForward": "Φέρτε μπροστά",
   "sendBackward": "Αποστολή πίσω",
   "rotation": "Περιστροφή",
-  "rotationStep": "Rotation step",
-  "zoomStep": "Zoom step",
+  "rotationStep": "Βήμα περιστροφής",
+  "zoomStep": "Βήμα εστίασης",
   "direction": "Κατεύθυνση",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
@@ -1009,8 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
-  "rotateLeft": "Rotate left",
-  "rotateRight": "Rotate right",
+  "rotateLeft": "Αριστερή περιστροφή",
+  "rotateRight": "Δεξιά περιστροφή",
   "spacer": "Διάστημα",
   "@spacer": {
     "description": "Spacer element"
@@ -1190,11 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "Show navigator previews",
+  "showNavigatorPreviews": "Εμφάνιση προεπισκοπήσεων πλοήγησης",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
+  "showNavigatorPreviewsDescription": "Εμφάνιση μικρογραφιών προεπισκόπησης προσωρινά αποθηκευμένων στις περιοχές και τις σελίδες πλοήγησης",
   "highContrast": "Υψηλή αντίθεση",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1359,7 +1359,7 @@
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
   "exportAllFiles": "Εξαγωγή όλων των αρχείων",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
-  "resetAllSettings": "Reset all settings",
+  "resetAllSettings": "Επαναφορά όλων των ρυθμίσεων",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "barcode": "Barcode",
   "@barcode": {
@@ -1474,8 +1474,8 @@
   "fullScreenShortcut": "Πλήρης οθόνη",
   "doublePressAction": "Ενέργεια διπλού πατήματος",
   "triplePressAction": "Ενέργεια τριπλού πατήματος",
-  "twoFingerTap": "Two-finger tap",
-  "threeFingerTap": "Three-finger tap",
+  "twoFingerTap": "Διπλό χτύπημα",
+  "threeFingerTap": "Πάτημα τριών δακτύλων",
   "longPress": "Παρατεταμένο πάτημα",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
