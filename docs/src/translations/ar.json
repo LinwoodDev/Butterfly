@@ -1,7 +1,7 @@
 {
   "guides": "أدلة",
   "introduction": "مقدمة",
-  "context_menu": "Context menu",
+  "context_menu": "قائمة السياق",
   "areas": "المناطق",
   "background": "الخلفية",
   "colors": "الألوان",
@@ -45,7 +45,7 @@
   "code_of_conduct": "مدونة قواعد السلوك",
   "embedding": "Embedding",
   "faq": "أسئلة متكررة",
-  "stylus_support": "Stylus support",
+  "stylus_support": "دعم Stylus",
   "versions": "الإصدارات",
   "nightly": "ليلي",
   "privacy_policy": "سياسة الخصوصية",
