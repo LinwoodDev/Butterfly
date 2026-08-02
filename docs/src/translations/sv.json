@@ -1,7 +1,7 @@
 {
   "guides": "Guider",
   "introduction": "Introduktion",
-  "context_menu": "Context menu",
+  "context_menu": "Kontextmeny",
   "areas": "Områden",
   "background": "Bakgrund",
   "colors": "Färger",
@@ -45,7 +45,7 @@
   "code_of_conduct": "Uppförandekod",
   "embedding": "Embedding",
   "faq": "Vanliga frågor",
-  "stylus_support": "Stylus support",
+  "stylus_support": "Stylus stöd",
   "versions": "Versioner",
   "nightly": "Nattlig",
   "privacy_policy": "Integritetspolicy",
