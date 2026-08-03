@@ -186,6 +186,25 @@ class _WaypointsViewState extends State<WaypointsView> {
                                 shrinkWrap: true,
                                 buildDefaultDragHandles: false,
                                 itemCount: waypoints.length,
+                                // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
+                                proxyDecorator: (context, index, animation) {
+                                  return AnimatedBuilder(
+                                    animation: animation,
+                                    builder: (context, child) {
+                                      return Material(
+                                        color: ColorScheme.of(
+                                          context,
+                                        ).surface.withValues(alpha: 0.8),
+                                        elevation: 6,
+                                        shadowColor: Colors.black45,
+                                        child: child,
+                                      );
+                                    },
+                                    child: ListTile(
+                                      title: Text(waypoints[index].name ?? ''),
+                                    ),
+                                  );
+                                },
                                 onReorderItem: (oldIndex, newIndex) =>
                                     context.read<DocumentBloc>().add(
                                       WaypointReordered(

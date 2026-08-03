@@ -221,6 +221,30 @@ class _PagesViewState extends State<PagesView> {
                                 PageReordered(all[oldIndex].path, pageIndex),
                               );
                             },
+                            // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
+                            proxyDecorator: (context, index, animation) {
+                              return AnimatedBuilder(
+                                animation: animation,
+                                builder: (context, child) {
+                                  return Material(
+                                    color: ColorScheme.of(
+                                      context,
+                                    ).surface.withValues(alpha: 0.8),
+                                    elevation: 6,
+                                    shadowColor: Colors.black45,
+                                    child: child,
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(all[index].name),
+                                  leading: Icon(
+                                    all[index].isFile
+                                        ? PhosphorIconsLight.file
+                                        : PhosphorIconsLight.folderSimple,
+                                  ),
+                                ),
+                              );
+                            },
                             itemBuilder: (BuildContext context, int index) {
                               final entity = all[index];
                               return _PageEntityListTile(
