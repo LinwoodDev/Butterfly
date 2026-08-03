@@ -1005,7 +1005,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
-    on<LayerOrderChanged>((event, emit) {
+    on<LayerOrderChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final layers = List<DocumentLayer>.from(current.page.layers);
@@ -1015,8 +1015,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (event.index < 0 || event.index > layers.length) return;
       layers.insert(event.index, layer);
       final currentDocument = current.page.copyWith(layers: layers);
-      _saveState(emit, state: current.copyWith(page: currentDocument));
-    });
+      return _saveState(
+        emit,
+        state: current.copyWith(page: currentDocument),
+        replacedElements: orderRenderersByPage(
+          currentDocument,
+          editorController.rendererCubit.renderers,
+        ),
+        resetAllLayers: true,
+      );
+    }, transformer: sequential());
 
     on<LayerVisibilityChanged>((event, emit) {
       final current = state;
@@ -1697,6 +1705,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool unbake = false,
+    bool resetAllLayers = false,
     bool? resetAll,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
@@ -1720,6 +1729,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       backgrounds: backgrounds,
       reset: reset,
       unbake: unbake,
+      resetAllLayers: resetAllLayers,
       shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
     );

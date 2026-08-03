@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +15,20 @@ import '../../widgets/reorderable_list_item.dart';
 int _documentLayerIndexFromViewIndex(int index, int layerCount) =>
     layerCount - index - 1;
 
-class LayersView extends StatelessWidget {
+class LayersView extends StatefulWidget {
   const LayersView({super.key});
 
   @override
+  State<LayersView> createState() => _LayersViewState();
+}
+
+class _LayersViewState extends State<LayersView> {
+  List<DocumentLayer> _layers = const [];
+
+  @override
   Widget build(BuildContext context) {
+    final contentPadding =
+        ListTileTheme.of(context).contentPadding ?? EdgeInsets.zero;
     return BlocBuilder<DocumentBloc, DocumentState>(
       buildWhen: (previous, current) =>
           previous is DocumentLoadSuccess &&
@@ -30,7 +40,11 @@ class LayersView extends StatelessWidget {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentIndex = state.currentLayer;
-        final layers = state.page.layers.reversed.toList();
+        final documentLayers = state.page.layers.reversed.toList();
+        if (!listEquals(_layers, documentLayers)) {
+          _layers = documentLayers;
+        }
+        final layers = _layers;
         final currentLayer = state.page.getLayer(currentIndex);
         return MultiSelectRegion<String>(
           toolbarBuilder: (context, controller) => Padding(
@@ -95,13 +109,11 @@ class LayersView extends StatelessWidget {
                   final layer = layers[index];
                   final id = layer.id ?? '';
                   final visible = state.isLayerVisible(id);
-                  final contentPadding =
-                      ListTileTheme.of(context).contentPadding ??
-                      EdgeInsets.zero;
                   return ReorderableListItem(
                     key: ValueKey(id),
                     index: index,
                     child: EditableListTile(
+                      key: ValueKey(("lal", id)),
                       initialValue: layer.name,
                       selected: controller.selectionMode
                           ? controller.selectedIds.contains(id)
@@ -244,7 +256,11 @@ class LayersView extends StatelessWidget {
                   );
                 },
                 onReorderItem: (int oldIndex, int newIndex) {
+                  if (oldIndex == newIndex) return;
                   final layer = layers[oldIndex];
+                  layers
+                    ..removeAt(oldIndex)
+                    ..insert(newIndex, layer);
                   context.read<DocumentBloc>().add(
                     LayerOrderChanged(
                       layer.id ?? '',

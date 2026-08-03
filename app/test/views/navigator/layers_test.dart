@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/viewport.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/navigator/layers.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -29,19 +32,45 @@ void main() {
     ).thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
+    final bottomElement = ShapeElement(
+      id: 'bottom-element',
+      firstPosition: const Point(0, 0),
+      secondPosition: const Point(10, 10),
+    );
+    final middleElement = ShapeElement(
+      id: 'middle-element',
+      firstPosition: const Point(0, 0),
+      secondPosition: const Point(10, 10),
+    );
+    final topElement = ShapeElement(
+      id: 'top-element',
+      firstPosition: const Point(0, 0),
+      secondPosition: const Point(10, 10),
+    );
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'bottom', name: 'Bottom', content: [bottomElement]),
+        DocumentLayer(id: 'middle', name: 'Middle', content: [middleElement]),
+        DocumentLayer(id: 'top', name: 'Top', content: [topElement]),
+      ],
+    );
+    final renderers = <Renderer<PadElement>>[
+      Renderer.fromInstance(bottomElement, 'bottom'),
+      Renderer.fromInstance(middleElement, 'middle'),
+      Renderer.fromInstance(topElement, 'top'),
+    ];
     final editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
-      CameraViewport.unbaked(),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
     );
     final windowCubit = WindowCubit(fullScreen: false);
-    const page = DocumentPage(
-      layers: [
-        DocumentLayer(id: 'bottom', name: 'Bottom'),
-        DocumentLayer(id: 'middle', name: 'Middle'),
-        DocumentLayer(id: 'top', name: 'Top'),
-      ],
-    );
     final (data, pageName) = NoteData(Archive()).setPage(page, 'Page');
     final bloc = DocumentBloc(
       fileSystem,
@@ -69,7 +98,12 @@ void main() {
             LeapLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          home: const Scaffold(body: SizedBox(width: 500, child: LayersView())),
+          home: Scaffold(
+            body: LayoutBuilder(
+              builder: (context, constraints) =>
+                  const SizedBox(width: 500, child: LayersView()),
+            ),
+          ),
         ),
       ),
     );
@@ -80,7 +114,6 @@ void main() {
 
     expect(verticalPosition('top'), lessThan(verticalPosition('middle')));
     expect(verticalPosition('middle'), lessThan(verticalPosition('bottom')));
-
     final topHandle = find.descendant(
       of: find.byKey(const ValueKey('top')),
       matching: find.byType(ReorderableDragStartListener),
@@ -91,6 +124,7 @@ void main() {
       const Duration(seconds: 1),
     );
     await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
 
     var state = bloc.state as DocumentLoadSuccess;
     expect(state.page.layers.map((layer) => layer.id), [
@@ -98,6 +132,12 @@ void main() {
       'bottom',
       'middle',
     ]);
+    expect(
+      editorController.rendererCubit.renderers.map(
+        (renderer) => renderer.layer,
+      ),
+      ['top', 'bottom', 'middle'],
+    );
     expect(verticalPosition('middle'), lessThan(verticalPosition('bottom')));
     expect(verticalPosition('bottom'), lessThan(verticalPosition('top')));
 
