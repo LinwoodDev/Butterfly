@@ -19,13 +19,15 @@ First, add a new pen tool into the toolbar
 1. Press the + button in the toolbar!
 2. Add a pen
 3. Hold the new pen icon to move it
-   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure the correct tool is activated for each input
+   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure
+     the correct tool is activated for each input
 
 Then, modify the new pen
 
 1. Open the properties panel of the new pen by pressing it again
 2. Rename the pen by double tapping the tool's name.
-3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
+3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing
+   the icon
 
 Finally, after modifying the tool's appearance. It's time to modify the properties!
 
@@ -52,14 +54,14 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 ## Configuration
 
-|          Propriété |                          Par défaut                          | Libellé                                                                                                                                             |
-| -----------------: | :----------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-|            Couleur |                             Noir                             | La couleur qui sera dessinée                                                                                                                        |
-|   Largeur du trait |                               5                              | La largeur du trait                                                                                                                                 |
-|  Dépendant du zoom |                           Désactivé                          | Cela changera la largeur du trait en fonction du niveau de zoom.                                                                    |
-| Détection de forme | Désactivé (Délai : 0,5 s) | Cela va essayer de détecter les formes pendant le dessin. Si une forme est détectée, il sera remplacé par la forme. |
-|      Amincissement |                              0,4                             | This effect of pressure on the stroke size                                                                                                          |
-|            Lissage |                              0,5                             | Cela permettra d'adoucir les contours du trait.                                                                                     |
-|         Streamline |                              0,5                             | Dans quelle mesure le stylo suivra le mouvement de la souris.                                                                       |
-|            Couleur |                             Noir                             | La couleur qui sera dessinée                                                                                                                        |
-|            Remplir |                         Transparence                         | The color that will be drawn inside the shape                                                                                                       |
+|            Propriété |                          Par défaut                          | Libellé                                                                                                                                             |
+| -------------------: | :----------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    Dépendant du zoom |                           Désactivé                          | Cela changera la largeur du trait en fonction du niveau de zoom.                                                                    |
+| Combiner les chemins |                           Désactivé                          | This will merge all strokes it touches into one path                                                                                                |
+|   Détection de forme | Désactivé (Délai : 0,5 s) | Cela va essayer de détecter les formes pendant le dessin. Si une forme est détectée, il sera remplacé par la forme. |
+|     Largeur du trait |                               5                              | La largeur du trait                                                                                                                                 |
+|        Amincissement |                              0,4                             | This effect of pressure on the stroke size                                                                                                          |
+|              Lissage |                              0,5                             | Cela permettra d'adoucir les contours du trait.                                                                                     |
+|           Streamline |                      0.3                     | Dans quelle mesure le stylo suivra le mouvement de la souris.                                                                       |
+|              Couleur |            Solid Color (Black)            | [Customization](../../colors/#further-customization) for the color of the stroke                                                                    |
+|              Remplir |         Solid Color (Transparent)         | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                                   |

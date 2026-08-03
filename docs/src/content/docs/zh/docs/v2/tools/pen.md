@@ -19,13 +19,15 @@ First, add a new pen tool into the toolbar
 1. Press the + button in the toolbar!
 2. Add a pen
 3. Hold the new pen icon to move it
-   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure the correct tool is activated for each input
+   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure
+     the correct tool is activated for each input
 
 Then, modify the new pen
 
 1. Open the properties panel of the new pen by pressing it again
 2. Rename the pen by double tapping the tool's name.
-3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
+3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing
+   the icon
 
 Finally, after modifying the tool's appearance. It's time to modify the properties!
 
@@ -54,12 +56,12 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 |   属性 |                                  默认设置                                  | 描述                                                                                                                                      |
 | ---: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|   颜色 |                                   黑色                                   | 将绘制的颜色                                                                                                                                  |
-| 笔画宽度 |                                    5                                   | 笔画的宽度                                                                                                                                   |
 | 依靠缩放 |                                  false                                 | 这将改变基于缩放级别的笔画宽度。                                                                                                                        |
+| 合并路径 |                                  false                                 | This will merge all strokes it touches into one path                                                                                    |
 | 形状检测 | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
+| 笔画宽度 |                                    5                                   | 笔画的宽度                                                                                                                                   |
 |   细化 |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |  平滑化 |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
-|  流线化 |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
-|   颜色 |                                   黑色                                   | 将绘制的颜色                                                                                                                                  |
-|   填充 |                                   透明的                                  | The color that will be drawn inside the shape                                                                                           |
+|  流线化 |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
+|   颜色 |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
+|   填充 |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |

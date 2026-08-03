@@ -2,11 +2,12 @@
 title: Full screen tool
 ---
 
-:::note[⚡ Action tool]
+:::note[🔘 Toggleable tool]
 
 This is a special tool.
-Du kan inte välja det och det kommer att köra åtgärden om du klickar på det.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Clicking this tool toggles full-screen mode. In full-screen mode, the sidebar and app bar are hidden
+to make more room for the canvas. A second click restores the previous state.

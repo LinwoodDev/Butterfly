@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Függőleges nagyítás",
   "shapeDetection": "Forma felismerés",
   "delay": "Késleltetés",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Table",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rows",
+  "columns": "Columns",
+  "row": "Row",
+  "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
+  "deleteRow": "Delete row",
+  "deleteColumn": "Delete column",
+  "cellColor": "Cell color",
+  "cellBorders": "Cell borders",
+  "cellBorder": "Cell border",
+  "horizontalBorder": "Horizontal border",
+  "verticalBorder": "Vertical border",
+  "rowHeight": "Row height",
+  "columnWidth": "Column width",
+  "border": "Border",
   "circle": "Kör",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "Előrébb hozás",
   "sendBackward": "Hátrébb hozás",
   "rotation": "Elforgatás",
+  "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "Csak nagyobb képernyőkön érhető el",
   "toolbarPosition": "Eszköztár pozíció",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "Helykitöltő",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Show navigator previews",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
   "highContrast": "Magas kontraszt",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "Mozgatás gesztussal",
   "exportAllFiles": "Minden fájl exportálása",
   "restoreSettingsFromFile": "Beállítások visszaállítása fájlból",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "Beállítások exportálása fájlba",
   "barcode": "Vonalkód",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "Full screen",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {

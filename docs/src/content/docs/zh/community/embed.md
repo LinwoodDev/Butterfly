@@ -17,11 +17,12 @@ title: 嵌入
 
 ## 备选方案
 
-| 选项  | 类型                                                                                   | 默认设置 | 描述                                        |
-| --- | ------------------------------------------------------------------------------------ | ---- | ----------------------------------------- |
-| 保存  | 布尔值(true，false)                                                   | true | 启用保存。 如果禁用，只显示退出按钮                        |
-| 可编辑 | 布尔值(true，false)                                                   | true | 启用编辑。 如果禁用，文档将只读                          |
-| 语言  | 字符串 (..., 系统, 用户) | user | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
+| 选项       | 类型                                                                                   | 默认设置 | 描述                                                                                                                     |
+| -------- | ------------------------------------------------------------------------------------ | ---- | ---------------------------------------------------------------------------------------------------------------------- |
+| 保存       | 布尔值(true，false)                                                   | true | 启用保存。 如果禁用，只显示退出按钮                                                                                                     |
+| 可编辑      | 布尔值(true，false)                                                   | true | 启用编辑。 如果禁用，文档将只读                                                                                                       |
+| 语言       | 字符串 (..., 系统, 用户) | user | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项                                                                              |
+| fileName | String                                                                               |      | Display this file name in the embed title. It is visual only and does not change the document metadata |
 
 ## Messaging
 
@@ -36,7 +37,7 @@ messages to the iframe and listens for messages from it.
 ```html
 <iframe
   id="butterfly"
-  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true"
+  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true&fileName=Example.bfly"
   width="100%"
   height="500"
 ></iframe>
@@ -62,6 +63,11 @@ messages to the iframe and listens for messages from it.
     if (type === 'save') {
       const documentBytes = Array.from(message);
       console.log('Save requested by the embed', documentBytes);
+    }
+
+    if (type === 'exit') {
+      const documentBytes = Array.from(message);
+      console.log('Exit requested by the embed', documentBytes);
     }
 
     if (type === 'change') {

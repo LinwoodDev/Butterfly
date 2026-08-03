@@ -11,6 +11,6 @@ Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
 
 Der Name des Werkzeugs wird als Hinweis beim Bewegen des Zeigers auf das Symbol angezeigt.
 
-## Temporary tools
+## Temporary tools {#temporary-tools}
 
 There can be only one temporary tool at a time. It appears on the left of the toolbar and will disappear when another tool is selected.

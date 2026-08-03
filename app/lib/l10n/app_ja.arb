@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "転送",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "ズームに依存する",
   "shapeDetection": "シェイプ検出",
   "delay": "遅延",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "表",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "行",
+  "columns": "列",
+  "row": "行",
+  "column": "列",
+  "insertRowBefore": "行の前に挿入する",
+  "insertRowAfter": "行の後ろに挿入する",
+  "insertColumnBefore": "前に列を挿入",
+  "insertColumnAfter": "後ろに列を挿入",
+  "deleteRow": "行を削除",
+  "deleteColumn": "列を削除",
+  "cellColor": "セルの色",
+  "cellBorders": "セルの外枠",
+  "cellBorder": "セルの枠線",
+  "horizontalBorder": "横線",
+  "verticalBorder": "垂直枠線",
+  "rowHeight": "行の高さ",
+  "columnWidth": "列の幅",
+  "border": "Border",
   "circle": "円",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "前方へ移動",
   "sendBackward": "後方に送る",
   "rotation": "回転",
+  "rotationStep": "回転ステップ",
+  "zoomStep": "ズームステップ",
   "direction": "方向",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "左に回転",
+  "rotateRight": "右に回転",
   "spacer": "スペーサー",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "ナビゲーターのプレビューを表示",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "キャッシュされたプレビューサムネイルをエリアとページナビゲーターに表示します",
   "highContrast": "高コントラストformat@@0",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "ジェスチャー上に移動",
   "exportAllFiles": "すべてのファイルをエクスポート",
   "restoreSettingsFromFile": "設定をファイルから復元",
+  "resetAllSettings": "すべての設定をリセット",
   "exportSettingsToFile": "設定をファイルにエクスポート",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "全画面",
   "doublePressAction": "Double press action",
   "triplePressAction": "トリプルプレスアクション",
+  "twoFingerTap": "2本指タップ",
+  "threeFingerTap": "3本指タップ",
   "longPress": "長押しする",
   "toolNumber": "ツール {number}",
   "@toolNumber": {

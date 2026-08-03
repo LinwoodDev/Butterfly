@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Μπροστά",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Εξαρτώμενο από ζουμ",
   "shapeDetection": "Ανίχνευση Σχήματος",
   "delay": "Καθυστέρηση",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Πίνακας",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Γραμμές",
+  "columns": "Στήλες",
+  "row": "Γραμμή",
+  "column": "Στήλη",
+  "insertRowBefore": "Εισαγωγή γραμμής πριν",
+  "insertRowAfter": "Εισαγωγή γραμμής μετά",
+  "insertColumnBefore": "Εισαγωγή στήλης πριν",
+  "insertColumnAfter": "Εισαγωγή στήλης μετά",
+  "deleteRow": "Διαγραφή γραμμής",
+  "deleteColumn": "Διαγραφή στήλης",
+  "cellColor": "Χρώμα κελιού",
+  "cellBorders": "Περιθώριο κυψέλης",
+  "cellBorder": "Περίγραμμα κυψέλης",
+  "horizontalBorder": "Οριζόντιο περίγραμμα",
+  "verticalBorder": "Κάθετο όριο",
+  "rowHeight": "Ύψος γραμμής",
+  "columnWidth": "Πλάτος στήλης",
+  "border": "Border",
   "circle": "Κύκλος",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "Φέρτε μπροστά",
   "sendBackward": "Αποστολή πίσω",
   "rotation": "Περιστροφή",
+  "rotationStep": "Βήμα περιστροφής",
+  "zoomStep": "Βήμα εστίασης",
   "direction": "Κατεύθυνση",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Αριστερή περιστροφή",
+  "rotateRight": "Δεξιά περιστροφή",
   "spacer": "Διάστημα",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Εμφάνιση προεπισκοπήσεων πλοήγησης",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Εμφάνιση μικρογραφιών προεπισκόπησης προσωρινά αποθηκευμένων στις περιοχές και τις σελίδες πλοήγησης",
   "highContrast": "Υψηλή αντίθεση",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
   "exportAllFiles": "Εξαγωγή όλων των αρχείων",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
+  "resetAllSettings": "Επαναφορά όλων των ρυθμίσεων",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "Πλήρης οθόνη",
   "doublePressAction": "Ενέργεια διπλού πατήματος",
   "triplePressAction": "Ενέργεια τριπλού πατήματος",
+  "twoFingerTap": "Διπλό χτύπημα",
+  "threeFingerTap": "Πάτημα τριών δακτύλων",
   "longPress": "Παρατεταμένο πάτημα",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
@@ -1464,7 +1502,7 @@
   "persistentStateCleanup": "Καθαρισμός αποθηκευμένων καταστάσεων",
   "persistentStateCleanupDescription": "Διαγραφή εγγραφών παλαιότερων από τα όρια πάνω",
   "persistentStateCleanupInProgress": "Εκκαθάριση ...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκαν {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκαν {records} εγγραφές}}.",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκε } other{ αφαιρέθηκε {records} καταγράφει}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {

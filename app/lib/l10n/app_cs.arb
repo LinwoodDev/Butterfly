@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Přeposlat",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Přiblížení závislé",
   "shapeDetection": "Detekce tvarů",
   "delay": "Zpoždění",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Stupeň úvěrové kvality 1",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Řádky",
+  "columns": "Sloupce",
+  "row": "Řádek",
+  "column": "Sloupec",
+  "insertRowBefore": "Vložit řádek před",
+  "insertRowAfter": "Vložit řádek za",
+  "insertColumnBefore": "Vložit sloupec před",
+  "insertColumnAfter": "Vložit sloupec za",
+  "deleteRow": "Odstranit řádek",
+  "deleteColumn": "Odstranit sloupec",
+  "cellColor": "Barva buňky",
+  "cellBorders": "Ohraničení buněk",
+  "cellBorder": "Hranice buňky",
+  "horizontalBorder": "Horizontální okraj",
+  "verticalBorder": "Vertikální okraj",
+  "rowHeight": "Výška řádku",
+  "columnWidth": "Šířka sloupce",
+  "border": "Border",
   "circle": "Kruh",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "Posunout vpřed",
   "sendBackward": "Poslat zpět",
   "rotation": "Otáčení",
+  "rotationStep": "Krok otáčení",
+  "zoomStep": "Krok přiblížení",
   "direction": "Směr",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Otočit vlevo",
+  "rotateRight": "Otočit vpravo",
   "spacer": "Mezera",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Zobrazit náhledy navigátoru",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Zobrazit náhledy v mezipaměti v oblastech a navigátorech",
   "highContrast": "Vysoký kontrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "Přesunout gestem",
   "exportAllFiles": "Exportovat všechny soubory",
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
+  "resetAllSettings": "Obnovit všechna nastavení",
   "exportSettingsToFile": "Exportovat nastavení do souboru",
   "barcode": "Čárový kód",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "Celá obrazovka",
   "doublePressAction": "Akce dvojím stisknutím",
   "triplePressAction": "Akce trojím stisknutím",
+  "twoFingerTap": "Poklepání dvěma prsty",
+  "threeFingerTap": "Tříprstem klepněte",
   "longPress": "Dlouhý stisk",
   "toolNumber": "Nástroj {number}",
   "@toolNumber": {

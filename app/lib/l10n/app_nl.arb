@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Doorsturen",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Afhankelijk zoomen",
   "shapeDetection": "Vorm Detectie",
   "delay": "Vertraging",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Tabel",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rijen",
+  "columns": "Kolommen",
+  "row": "Rij",
+  "column": "Kolom",
+  "insertRowBefore": "Rij invoegen vóór",
+  "insertRowAfter": "Rij invoegen na",
+  "insertColumnBefore": "Kolom invoegen voor",
+  "insertColumnAfter": "Kolom invoegen na",
+  "deleteRow": "Rij verwijderen",
+  "deleteColumn": "Kolom verwijderen",
+  "cellColor": "Gel kleur",
+  "cellBorders": "Cel randen",
+  "cellBorder": "Cel rand",
+  "horizontalBorder": "Horizontale rand",
+  "verticalBorder": "Verticale rand",
+  "rowHeight": "Rij hoogte",
+  "columnWidth": "Kolom breedte",
+  "border": "Border",
   "circle": "Cirkel",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
   "rotation": "Rotatie",
+  "rotationStep": "Rotatie stap",
+  "zoomStep": "Zoom stap",
   "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Linksom draaien",
+  "rotateRight": "Rechts draaien",
   "spacer": "Afstandshouder",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Navigator voorvertoningen weergeven",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Toon miniaturen in cache en pagina navigators",
   "highContrast": "Hoog contrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "Verplaats naar gebaar",
   "exportAllFiles": "Alle bestanden exporteren",
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
+  "resetAllSettings": "Reset alle instellingen",
   "exportSettingsToFile": "Instellingen exporteren naar bestand",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "Volledig scherm",
   "doublePressAction": "Dubbel-klik actie",
   "triplePressAction": "Drievoudig indrukken actie",
+  "twoFingerTap": "Tikken met twee vinger",
+  "threeFingerTap": "Drie-vinger kraan",
   "longPress": "Lang indrukken",
   "toolNumber": "Gereedschap {number}",
   "@toolNumber": {

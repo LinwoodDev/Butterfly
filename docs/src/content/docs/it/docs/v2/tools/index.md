@@ -11,6 +11,6 @@ Se si fa clic su uno strumento selezionato è possibile configurarlo.
 
 The name of the tool will be displayed as tooltip on hover on the tool.
 
-## Temporary tools
+## Temporary tools {#temporary-tools}
 
 There can be only one temporary tool at a time. It appears on the left of the toolbar and will disappear when another tool is selected.

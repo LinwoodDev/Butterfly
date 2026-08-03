@@ -4,8 +4,8 @@ title: Undo tool
 
 :::note[⚡ Action tool]
 
-This is a special tool.
-Du kan inte välja det och det kommer att köra åtgärden om du klickar på det.
+This is a special action tool.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 

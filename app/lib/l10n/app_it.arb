@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Avanti",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Dipendente dallo zoom",
   "shapeDetection": "Rilevamento Forme",
   "delay": "Ritardo",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Tabella",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Riga",
+  "columns": "Colonne",
+  "row": "Riga",
+  "column": "Colonna",
+  "insertRowBefore": "Inserisci riga prima",
+  "insertRowAfter": "Inserisci riga dopo",
+  "insertColumnBefore": "Inserisci colonna prima",
+  "insertColumnAfter": "Inserisci colonna dopo",
+  "deleteRow": "Elimina riga",
+  "deleteColumn": "Elimina colonna",
+  "cellColor": "Colore cella",
+  "cellBorders": "Bordi celle",
+  "cellBorder": "Bordo cella",
+  "horizontalBorder": "Bordo orizzontale",
+  "verticalBorder": "Bordo verticale",
+  "rowHeight": "Altezza riga",
+  "columnWidth": "Larghezza colonna",
+  "border": "Border",
   "circle": "Cerchio",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "Avanti",
   "sendBackward": "Invia indietro",
   "rotation": "Rotazione",
+  "rotationStep": "Passo di rotazione",
+  "zoomStep": "Passo zoom",
   "direction": "Direzione",
   "onlyAvailableLargerScreen": "Disponibile solo su schermi più grandi",
   "toolbarPosition": "Posizione barra strumenti",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Ruota a sinistra",
+  "rotateRight": "Ruota a destra",
   "spacer": "Spaziatore",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Mostra anteprime navigatore",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Mostra le miniature dell'anteprima nella cache nelle aree e nelle pagine di navigazione",
   "highContrast": "Alto contrasto",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "Sposta al gesto",
   "exportAllFiles": "Esporta tutti i file",
   "restoreSettingsFromFile": "Ripristina le impostazioni dal file",
+  "resetAllSettings": "Reimposta tutte le impostazioni",
   "exportSettingsToFile": "Esporta le impostazioni su file",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "Schermo intero",
   "doublePressAction": "Azione doppia pressione",
   "triplePressAction": "Azione tripla pressione",
+  "twoFingerTap": "Tocco a due dita",
+  "threeFingerTap": "Tocco a tre dita",
   "longPress": "Pressione prolungata",
   "toolNumber": "Strumento {number}",
   "@toolNumber": {

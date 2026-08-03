@@ -4,8 +4,8 @@ title: Redo tool
 
 :::note[⚡ Action tool]
 
-This is a special tool.
-Δεν μπορείτε να την επιλέξετε και θα εκτελέσει την ενέργεια αν κάνετε κλικ σε αυτήν.
+This is a special action tool.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 

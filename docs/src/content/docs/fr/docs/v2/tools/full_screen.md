@@ -2,11 +2,12 @@
 title: Outil plein écran
 ---
 
-:::note[⚡ Action tool]
+:::note[🔘 Toggleable tool]
 
 C'est un outil spécial.
-Vous ne pouvez pas le sélectionner et il exécutera l'action si vous cliquez dessus.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
-Lorsque cet outil et cliqué il active le mode plein écran.
+Clicking this tool toggles full-screen mode. In full-screen mode, the sidebar and app bar are hidden
+to make more room for the canvas. A second click restores the previous state.

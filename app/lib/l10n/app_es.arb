@@ -289,6 +289,10 @@
   "@back": {
     "description": "Back action"
   },
+  "forward": "Reenviar",
+  "@forward": {
+    "description": "Forward action"
+  },
   "zoomDependent": "Dependiente de zoom",
   "shapeDetection": "Detección de forma",
   "delay": "Retraso",
@@ -577,6 +581,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Tabla",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Filas",
+  "columns": "Columnas",
+  "row": "Fila",
+  "column": "Columna",
+  "insertRowBefore": "Insertar fila antes",
+  "insertRowAfter": "Insertar fila después de",
+  "insertColumnBefore": "Insertar columna antes",
+  "insertColumnAfter": "Insertar columna después",
+  "deleteRow": "Eliminar fila",
+  "deleteColumn": "Eliminar columna",
+  "cellColor": "Color de celda",
+  "cellBorders": "Límites de celda",
+  "cellBorder": "Borde móvil",
+  "horizontalBorder": "Borde horizontal",
+  "verticalBorder": "Borde vertical",
+  "rowHeight": "Altura de fila",
+  "columnWidth": "Ancho de columna",
+  "border": "Border",
   "circle": "Círculo",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +997,8 @@
   "bringForward": "Avanzar",
   "sendBackward": "Enviar atrás",
   "rotation": "Rotación",
+  "rotationStep": "Paso de rotación",
+  "zoomStep": "Paso de zoom",
   "direction": "Dirección",
   "onlyAvailableLargerScreen": "Sólo disponible en pantallas más grandes",
   "toolbarPosition": "Posición de barra de herramientas",
@@ -981,6 +1009,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Girar izquierda",
+  "rotateRight": "Rotar derecha",
   "spacer": "Espaciador",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1190,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Mostrar vistas previas del navegador",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Mostrar miniaturas de vista previa en caché en las áreas y navegadores de páginas",
   "highContrast": "Alto contraste",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1359,7 @@
   "moveOnGesture": "Mover en gesto",
   "exportAllFiles": "Exportar todos los archivos",
   "restoreSettingsFromFile": "Restaurar ajustes desde el archivo",
+  "resetAllSettings": "Restablecer todos los ajustes",
   "exportSettingsToFile": "Exportar ajustes al archivo",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1474,8 @@
   "fullScreenShortcut": "Pantalla completa",
   "doublePressAction": "Acción de doble pulsación",
   "triplePressAction": "Acción de triple pulsación",
+  "twoFingerTap": "Toque dos dedos",
+  "threeFingerTap": "Tocar tres dedos",
   "longPress": "Pulsación larga",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
