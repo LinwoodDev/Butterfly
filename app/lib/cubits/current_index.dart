@@ -2605,6 +2605,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool unbake = false,
+    bool resetAllLayers = false,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
@@ -2651,7 +2652,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await refresh(current, allowBake: replacedElements == null);
       }
       if (replacedElements != null) {
-        await bake(blocState, reset: true);
+        await bake(
+          blocState,
+          reset: true,
+          resetAllLayers: resetAllLayers,
+        );
       }
     }
     if (updateIndex) {
