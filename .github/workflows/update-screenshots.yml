@@ -46,7 +46,7 @@ jobs:
 
       - name: Compress generated screenshots
         id: calibre
-        uses: calibreapp/image-actions@2a254d926beda392b8c36e1be95252aa3d534405 # main
+        uses: calibreapp/image-actions@20a2d896d7e1103fc29631f4829539761123b8f5 # main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           compressOnly: true
