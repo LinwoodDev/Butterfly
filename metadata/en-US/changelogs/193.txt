@@ -1,3 +1,4 @@
 * Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))
+* Fix layout issues in reorderable list views
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.5

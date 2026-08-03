@@ -105,6 +105,47 @@ class _LayersViewState extends State<LayersView> {
                 shrinkWrap: true,
                 itemCount: layers.length,
                 buildDefaultDragHandles: false,
+                // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
+                proxyDecorator: (_, index, animation) {
+                  final layer = layers[index];
+                  final id = layer.id ?? '';
+                  final visible = state.isLayerVisible(id);
+                  final name = layer.name.isEmpty
+                      ? AppLocalizations.of(context).layer
+                      : layer.name;
+
+                  return AnimatedBuilder(
+                    animation: animation,
+                    child: ListTile(
+                      selected: controller.selectionMode
+                          ? controller.selectedIds.contains(id)
+                          : id == state.currentLayer,
+                      contentPadding: contentPadding.add(
+                        const EdgeInsetsDirectional.only(end: 32),
+                      ),
+                      leading: PhosphorIcon(
+                        visible
+                            ? PhosphorIconsLight.eye
+                            : PhosphorIconsLight.eyeSlash,
+                      ),
+                      title: Text(name, overflow: TextOverflow.ellipsis),
+                      subtitle: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).countElements(layer.content.length),
+                      ),
+                    ),
+                    builder: (context, child) {
+                      final value = Curves.easeInOut.transform(animation.value);
+
+                      return Material(
+                        elevation: 6 * value,
+                        color: ColorScheme.of(context).surface,
+                        child: child,
+                      );
+                    },
+                  );
+                },
                 itemBuilder: (BuildContext context, int index) {
                   final layer = layers[index];
                   final id = layer.id ?? '';
@@ -113,7 +154,6 @@ class _LayersViewState extends State<LayersView> {
                     key: ValueKey(id),
                     index: index,
                     child: EditableListTile(
-                      key: ValueKey(("lal", id)),
                       initialValue: layer.name,
                       selected: controller.selectionMode
                           ? controller.selectedIds.contains(id)
