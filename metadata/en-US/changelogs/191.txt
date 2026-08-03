@@ -23,6 +23,7 @@
 * Fix dragging selection transform handles sometimes starting a new selection ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
 * Fix hold shortcuts not restoring the active tool before the next pointer input ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
 * Fix negative brush sizes ([#1201](https://github.com/LinwoodDev/Butterfly/issues/1201))
+* Fix opening files on WebDAV connections
 * Ignore last color when switching to svg or image paint kind
 * Improve embeds by hiding templates and the files navigator and ignoring configured default templates
 * Improve Linux app metadata
