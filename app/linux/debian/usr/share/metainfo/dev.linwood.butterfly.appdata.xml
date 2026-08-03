@@ -74,6 +74,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-beta.4" type="development" date="2026-08-03">
+			<description>
+				<ul>
+					<li>Add table tool and elements (#1155)</li>
+					<li>Add Markdown table parsing and rendering</li>
+					<li>Add preview images to the pages and areas navigators (#1151)</li>
+					<li>Add color option to the area tool (#1175)</li>
+					<li>Add foreground color option to the ruler tool with automatic contrast (#1168)</li>
+					<li>Add reset to setting pages (#1190)</li>
+					<li>Add focal support to radial gradients (#1193)</li>
+					<li>Add back and forward mouse button mappings (#1169)</li>
+					<li>Add two- and three-finger touch shortcuts (#976)</li>
+					<li>Add configurable canvas rotation keyboard shortcuts (#1170)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.4</url>
+		</release>
 		<release version="2.6.0-beta.3" type="development" date="2026-07-27">
 			<description>
 				<ul>
@@ -141,23 +158,7 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.0</url>
 		</release>
-		<release version="2.5.4" type="stable" date="2026-07-20">
-			<description>
-				<ul>
-					<li>Prevent crashes when Android SAF handles large folders and files</li>
-					<li>Fix text labels disappearing while editing</li>
-					<li>Fix polygons disappearing while editing</li>
-					<li>Fix renamed files appearing twice in Recent files</li>
-					<li>Fix layers and pages being reordered to the wrong position</li>
-					<li>Improve WebDAV compatibility and select the correct filesystem with SAF enabled</li>
-					<li>Fix the spacer tool for circles, shapes, polygons, and other elements</li>
-					<li>Fix repeated saves and mark imported documents as unsaved</li>
-					<li>Fix locked zoom controls</li>
-					<li>Respect hidden file extensions in Recent files</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.5.4</url>
-		</release>
+		<release version="2.5.4" type="stable" date="2026-07-20" />
 		<release version="2.5.3-rc.1" type="development" date="2026-06-05" />
 		<release version="2.5.3-rc.0" type="development" date="2026-06-02" />
 		<release version="2.5.3" date="2026-06-08" />
