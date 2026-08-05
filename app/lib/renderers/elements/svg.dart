@@ -2,8 +2,14 @@ part of '../renderer.dart';
 
 class SvgRenderer extends Renderer<SvgElement> {
   PictureInfo? pictureInfo;
+  bool ownsPictureInfo;
 
-  SvgRenderer(super.element, [super.layer, this.pictureInfo]);
+  SvgRenderer(
+    super.element, [
+    super.layer,
+    this.pictureInfo,
+    this.ownsPictureInfo = true,
+  ]);
 
   @override
   void build(
@@ -71,11 +77,15 @@ class SvgRenderer extends Renderer<SvgElement> {
     super.setup(transformCubit, document, assetService, page);
     final data = element.getData(document);
     if (data != null) {
+      if (ownsPictureInfo) {
+        pictureInfo?.picture.dispose();
+      }
       pictureInfo = await vg.loadPicture(
         SvgStringLoader(utf8.decode(data)),
         null,
         clipViewbox: false,
       );
+      ownsPictureInfo = true;
     }
   }
 
@@ -140,7 +150,10 @@ class SvgRenderer extends Renderer<SvgElement> {
 
   @override
   void dispose() {
-    pictureInfo?.picture.dispose();
+    if (ownsPictureInfo) {
+      pictureInfo?.picture.dispose();
+    }
+    pictureInfo = null;
   }
 
   @override
@@ -159,6 +172,7 @@ class SvgRenderer extends Renderer<SvgElement> {
       ),
       layer,
       pictureInfo,
+      false,
     );
   }
 }
