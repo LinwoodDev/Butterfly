@@ -132,12 +132,11 @@ void main() {
       'bottom',
       'middle',
     ]);
-    expect(
-      currentIndexCubit.renderers.map(
-        (renderer) => renderer.layer,
-      ),
-      ['top', 'bottom', 'middle'],
-    );
+    expect(currentIndexCubit.renderers.map((renderer) => renderer.layer), [
+      'top',
+      'bottom',
+      'middle',
+    ]);
     expect(verticalPosition('middle'), lessThan(verticalPosition('bottom')));
     expect(verticalPosition('bottom'), lessThan(verticalPosition('top')));
 
@@ -168,5 +167,8 @@ void main() {
       'new',
     ]);
     expect(find.byKey(const ValueKey('middle')), findsNothing);
+
+    // CurrentIndexCubit delays disposal of replaced viewport images.
+    await tester.pump(const Duration(seconds: 2));
   });
 }

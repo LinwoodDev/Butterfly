@@ -2652,11 +2652,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await refresh(current, allowBake: replacedElements == null);
       }
       if (replacedElements != null) {
-        await bake(
-          blocState,
-          reset: true,
-          resetAllLayers: resetAllLayers,
-        );
+        await bake(blocState, reset: true, resetAllLayers: resetAllLayers);
       }
     }
     if (updateIndex) {
