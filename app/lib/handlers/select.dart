@@ -333,6 +333,15 @@ class SelectHandler extends Handler<SelectTool> {
     _onSelectionContext(context, details.localPosition);
   }
 
+  @override
+  void onContextMenu(Offset localPosition, EventContext context) {
+    final selectionRect = getSelectionRect();
+    final position = selectionRect == null
+        ? localPosition
+        : context.getCameraTransform().globalToLocal(selectionRect.center);
+    _onSelectionContext(context, position);
+  }
+
   Future<void> _onSelectionContext(
     EventContext context,
     Offset localPosition,

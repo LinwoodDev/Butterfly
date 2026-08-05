@@ -18,7 +18,7 @@ class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
 
   @override
-  _MainViewViewportState createState() => _MainViewViewportState();
+  MainViewViewportState createState() => MainViewViewportState();
 }
 
 enum _MouseState { normal, inverse, scale }
@@ -36,7 +36,7 @@ typedef _PointerInputContext = ({
   VoidCallback delayBake,
 });
 
-class _MainViewViewportState extends State<MainViewViewport>
+class MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   double size = 1.0;
@@ -53,6 +53,33 @@ class _MainViewViewportState extends State<MainViewViewport>
       PointerShortcutManager();
   int _slideAnimationId = 0;
   static const Curve _slideCurve = Curves.easeOutCubic;
+
+  void openContextMenu() {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final cubit = context.read<EditorController>();
+    final handler = state is DocumentPresentationState
+        ? state.handler
+        : cubit.toolCubit.getHandler(
+            editable: cubit.saveCubit.state.embedding?.editable != false,
+          );
+    final renderBox = context.findRenderObject();
+    if (renderBox is! RenderBox) return;
+    final position =
+        cubit.inputCubit.state.lastPosition ??
+        renderBox.size.center(Offset.zero);
+    handler.onContextMenu(
+      position,
+      EventContext(
+        context,
+        renderBox.size,
+        HardwareKeyboard.instance.isShiftPressed,
+        HardwareKeyboard.instance.isAltPressed,
+        HardwareKeyboard.instance.isControlPressed,
+      ),
+    );
+  }
 
   bool _isTouchMoveGesture(EditorController controller) =>
       controller.inputCubit.moveEnabled &&

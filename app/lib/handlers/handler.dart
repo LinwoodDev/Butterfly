@@ -260,6 +260,15 @@ abstract class Handler<T> {
 
   void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
 
+  void onContextMenu(Offset localPosition, EventContext context) =>
+      onSecondaryTapUp(
+        TapUpDetails(
+          localPosition: localPosition,
+          kind: PointerDeviceKind.mouse,
+        ),
+        context,
+      );
+
   void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
 
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {}

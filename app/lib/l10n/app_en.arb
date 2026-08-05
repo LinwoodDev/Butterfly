@@ -282,6 +282,7 @@
     "description": "Move action"
   },
   "copy": "Copy",
+  "openContextMenu": "Open context menu",
   "@copy": {
     "description": "Copy action"
   },

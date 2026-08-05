@@ -12,6 +12,7 @@ import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -444,6 +445,26 @@ void main() {
     final state = documentBloc.state as DocumentLoadSuccess;
     expect(state.page.content, hasLength(1));
     await tester.pump(const Duration(seconds: 4));
+  });
+
+  testWidgets('context menu key opens the active tool context menu', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.contextMenu);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ContextMenu), findsOneWidget);
+
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.contextMenu);
   });
 
   testWidgets('mobile navigator dialogs receive the editor runtime cubits', (

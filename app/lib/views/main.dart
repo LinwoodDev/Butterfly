@@ -103,7 +103,7 @@ class _ProjectPageState extends State<ProjectPage> {
   _ProjectDocumentRuntime? _runtime;
   final SearchController _searchController = SearchController();
   late final CloseSubscription _closeSubscription;
-  final GlobalKey _viewportKey = GlobalKey();
+  final GlobalKey<MainViewViewportState> _viewportKey = GlobalKey();
   int _loadGeneration = 0;
 
   @override
@@ -717,7 +717,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                                         settings.isInline &&
                                                         saveState.editable,
                                                   ),
-                                            body: const _MainBody(),
+                                            body: _MainBody(
+                                              viewportKey: _viewportKey,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -786,6 +788,9 @@ class _ProjectPageState extends State<ProjectPage> {
       SelectAllIntent: SelectAllAction(context),
       ZoomIntent: ZoomAction(context),
       RotateIntent: RotateAction(context),
+      ContextMenuIntent: ContextMenuAction(
+        () => _viewportKey.currentState?.openContextMenu(),
+      ),
       SearchIntent: CallbackAction<SearchIntent>(
         onInvoke: (_) {
           if (_searchController.isOpen) {
@@ -823,7 +828,9 @@ class _ProjectPageState extends State<ProjectPage> {
 }
 
 class _MainBody extends StatelessWidget {
-  const _MainBody();
+  const _MainBody({required this.viewportKey});
+
+  final GlobalKey<MainViewViewportState> viewportKey;
 
   @override
   Widget build(BuildContext context) {
@@ -925,7 +932,7 @@ class _MainBody extends StatelessWidget {
 
     return Stack(
       children: [
-        const MainViewViewport(),
+        MainViewViewport(key: viewportKey),
         _buildSelectionListener(context, toolState),
         SafeArea(
           child: Row(

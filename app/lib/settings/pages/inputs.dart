@@ -439,6 +439,7 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
             togglePresentationShortcut,
             selectAllShortcut,
             pasteShortcut,
+            contextMenuShortcut,
             ...changeToolShortcuts,
           ]),
     ),
