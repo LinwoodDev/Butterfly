@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/services/font.dart';
@@ -27,6 +28,17 @@ import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/mocks.dart';
+
+class _ReleaseTrackingHandler extends Handler<HandTool> {
+  bool pointerUpCalled = false;
+
+  _ReleaseTrackingHandler() : super(HandTool());
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    pointerUpCalled = true;
+  }
+}
 
 void main() {
   setUpAll(() {
@@ -444,6 +456,44 @@ void main() {
     expect(editorController.toolCubit.state.temporaryIndex, isNull);
     final state = documentBloc.state as DocumentLoadSuccess;
     expect(state.page.content, hasLength(1));
+    await tester.pump(const Duration(seconds: 4));
+  });
+
+  testWidgets('temporary release handler receives pointer up before removal', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final documentBloc = observer.lastDocumentBloc!;
+    final editorController = documentBloc.editorController;
+    final handler = _ReleaseTrackingHandler();
+    editorController.toolCubit.setTemporaryTool(
+      handler: handler,
+      index: null,
+      foregrounds: const [],
+      toolbar: null,
+      cursor: null,
+      rendererStates: const {},
+      temporaryState: TemporaryState.removeAfterRelease,
+    );
+    await tester.pump();
+
+    final gesture = await tester.startGesture(
+      tester.getCenter(find.byType(MainViewViewport)),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.up();
+    await tester.pumpAndSettle();
+
+    expect(handler.pointerUpCalled, isTrue);
+    expect(editorController.toolCubit.state.temporaryHandler, isNull);
     await tester.pump(const Duration(seconds: 4));
   });
 

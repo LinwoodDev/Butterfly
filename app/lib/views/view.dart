@@ -234,6 +234,10 @@ class MainViewViewportState extends State<MainViewViewport>
     if (wasRulerInteraction) {
       cubit.inputCubit.removeButtons();
     }
+    cubit.toolCubit.resetReleaseHandler(
+      context.read<DocumentBloc>(),
+      cubit.rendererCubit,
+    );
   }
 
   Future<void> _replayPointerEvents(
@@ -451,10 +455,6 @@ class MainViewViewportState extends State<MainViewViewport>
                                           getEventContext(),
                                         );
                                         cubit.inputCubit.removeButtons();
-                                        cubit.toolCubit.resetReleaseHandler(
-                                          bloc,
-                                          cubit.rendererCubit,
-                                        );
                                       },
                                       onTapDown: (details) =>
                                           getHandler().onTapDown(
@@ -588,12 +588,6 @@ class MainViewViewportState extends State<MainViewViewport>
                                         }
                                         _resetRulerInteraction();
                                         cubit.inputCubit.removeButtons();
-                                        if (_isScalingDisabled ?? true) {
-                                          cubit.toolCubit.resetReleaseHandler(
-                                            bloc,
-                                            cubit.rendererCubit,
-                                          );
-                                        }
                                       },
                                       onScaleStart: (details) {
                                         _isScalingDisabled ??=
