@@ -665,13 +665,10 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
 );
 
 Widget _shortcutsHelpHeader(BuildContext context, ButterflySettings state) {
-  return Align(
-    alignment: AlignmentDirectional.centerEnd,
-    child: IconButton(
-      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-      tooltip: AppLocalizations.of(context).help,
-      onPressed: () => openHelp(['shortcuts'], 'configure'),
-    ),
+  return IconButton(
+    icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+    tooltip: AppLocalizations.of(context).help,
+    onPressed: () => openHelp(['shortcuts'], 'configure'),
   );
 }
 
@@ -698,6 +695,7 @@ SettingsLeapListSetting<ButterflySettings, InputMapping> _inputMappingSetting({
 }) {
   return SettingsLeapListSetting<ButterflySettings, InputMapping>(
     id: id,
+    disableOptionSearch: true,
     displayName: displayName,
     icon: icon,
     options: [
@@ -745,6 +743,7 @@ _optionalInputMappingSetting({
 }) {
   return SettingsLeapListSetting<ButterflySettings, InputMapping?>(
     id: id,
+    disableOptionSearch: true,
     displayName: displayName,
     icon: icon,
     options: [
@@ -796,6 +795,7 @@ SettingsLeapListSetting<ButterflySettings, String?> _inputShortcutSetting({
 }) {
   return SettingsLeapListSetting<ButterflySettings, String?>(
     id: id,
+    disableOptionSearch: true,
     displayName: displayName,
     icon: icon,
     options: [

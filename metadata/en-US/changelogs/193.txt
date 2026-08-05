@@ -1,5 +1,9 @@
 * Add context menu shortcut ([#1214](https://github.com/LinwoodDev/Butterfly/issues/1214))
 * Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))
 * Fix layout issues in reorderable list views
+* Improve settings search performance
+* Fix settings search result scrolling
+* Align settings help buttons with their titles
+* Restore theme previews in the design settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.5

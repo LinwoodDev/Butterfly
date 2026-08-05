@@ -44,12 +44,16 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
               value: '',
               displayName: (context) =>
                   AppLocalizations.of(context).systemTheme,
+              previewBuilder: (context) =>
+                  ThemeBox(theme: getThemeData('', false)),
             ),
             for (final theme in getThemes())
               SettingsLeapOption(
                 id: theme,
                 value: theme,
                 displayName: (context) => theme,
+                previewBuilder: (context) =>
+                    ThemeBox(theme: getThemeData(theme, false)),
               ),
           ],
           read: (state) => state.design,
