@@ -113,7 +113,7 @@ class _LayersViewState extends State<LayersView> {
                     key: ValueKey(id),
                     index: index,
                     child: EditableListTile(
-                      key: ValueKey(("lal", id)),
+                      key: ValueKey(('lal', id)),
                       initialValue: layer.name,
                       selected: controller.selectionMode
                           ? controller.selectedIds.contains(id)

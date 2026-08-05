@@ -92,6 +92,25 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   }
 }
 
+List<Renderer<PadElement>> orderRenderersByPage(
+  DocumentPage page,
+  Iterable<Renderer<PadElement>> renderers,
+) {
+  final renderersById = {
+    for (final renderer in renderers)
+      if (renderer.element.id != null)
+        (renderer.element.id, renderer.layer): renderer,
+  };
+  return page.layers
+      .expand(
+        (layer) => layer.content.map(
+          (element) => renderersById[(element.id, layer.id)],
+        ),
+      )
+      .nonNulls
+      .toList();
+}
+
 Selection? _updateSelection(
   Selection? selection,
   dynamic oldElement,
