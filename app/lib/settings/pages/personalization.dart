@@ -31,6 +31,11 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
             ThemeMode.light => AppLocalizations.of(context).lightTheme,
             ThemeMode.dark => AppLocalizations.of(context).darkTheme,
           },
+          valueLeadingBuilder: (context, value) => PhosphorIcon(switch (value) {
+            ThemeMode.system => PhosphorIconsLight.power,
+            ThemeMode.light => PhosphorIconsLight.sun,
+            ThemeMode.dark => PhosphorIconsLight.moon,
+          }),
         ),
         SettingsLeapListSetting<ButterflySettings, String>(
           id: 'design',
@@ -44,7 +49,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
               value: '',
               displayName: (context) =>
                   AppLocalizations.of(context).systemTheme,
-              previewBuilder: (context) =>
+              leadingBuilder: (context) =>
                   ThemeBox(theme: getThemeData('', false)),
             ),
             for (final theme in getThemes())
@@ -52,7 +57,7 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
                 id: theme,
                 value: theme,
                 displayName: (context) => theme,
-                previewBuilder: (context) =>
+                leadingBuilder: (context) =>
                     ThemeBox(theme: getThemeData(theme, false)),
               ),
           ],
@@ -103,6 +108,11 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
             PlatformTheme.desktop => AppLocalizations.of(context).desktop,
             PlatformTheme.mobile => AppLocalizations.of(context).mobile,
           },
+          valueLeadingBuilder: (context, value) => PhosphorIcon(switch (value) {
+            PlatformTheme.system => PhosphorIconsLight.power,
+            PlatformTheme.desktop => PhosphorIconsLight.desktop,
+            PlatformTheme.mobile => PhosphorIconsLight.phone,
+          }),
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).density,
