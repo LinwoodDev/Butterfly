@@ -282,6 +282,7 @@
     "description": "Move action"
   },
   "copy": "Kopyala",
+  "openContextMenu": "Open context menu",
   "@copy": {
     "description": "Copy action"
   },
