@@ -3,6 +3,7 @@
 * Fix transformed SVG elements disposing shared picture data ([#1217](https://github.com/LinwoodDev/Butterfly/issues/1217))
 * Fix temporary tools not receiving pointer release events
 * Fix layout issues in reorderable list views
+* Improve renderer refresh and viewport baking performance on large documents
 * Improve settings search performance
 * Fix settings search result scrolling
 * Align settings help buttons with their titles

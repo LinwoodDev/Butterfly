@@ -183,6 +183,18 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     _indexedUnbaked = null;
   }
 
+  void _retainSpatialIndex(
+    List<Renderer<PadElement>> renderers,
+    Iterable<Renderer<PadElement>> unbaked,
+  ) {
+    final indexed = _indexedRenderers;
+    if (indexed == null || !sameRendererList(indexed, renderers)) {
+      _invalidateSpatialIndex();
+      return;
+    }
+    _indexedUnbaked = unbaked.toSet();
+  }
+
   List<Renderer<PadElement>> visibleRenderers(Rect rect) {
     var all = _indexedRenderers;
     if (all == null) {
@@ -546,7 +558,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
           transformCubit.state != startTransform) {
         return;
       }
-      rendererCubit._invalidateSpatialIndex();
+      rendererCubit._retainSpatialIndex(renderers, renderers);
       rendererCubit.setViewport(
         cameraViewport
             .unbake(
@@ -688,27 +700,6 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       }
     }
 
-    final List<Renderer<PadElement>> newlyUnbaked;
-    if (reset) {
-      final bakedElementsSet = cameraViewport.bakedElements
-          .map((e) => e.element)
-          .toSet();
-      final unbakedElementsSet = cameraViewport.unbakedElements
-          .map((e) => e.element)
-          .toSet();
-      final visibleElementsSet = visibleElements.toSet();
-      newlyUnbaked = renderers
-          .where(
-            (element) =>
-                !bakedElementsSet.contains(element.element) &&
-                !unbakedElementsSet.contains(element.element) &&
-                !visibleElementsSet.contains(element),
-          )
-          .toList();
-    } else {
-      newlyUnbaked = const [];
-    }
-
     if (controller.isClosed) return;
 
     // If state changed while baking (e.g. fast move submitted a newer viewport),
@@ -752,7 +743,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       y: renderTransform.position.dy,
       image: newImage,
       bakedElements: renderers,
-      unbakedElements: newlyUnbaked,
+      unbakedElements: const [],
       visibleElements: visibleElements,
       visibleUnbakedElements: const [],
       belowLayerImage: belowLayerImage,
@@ -760,7 +751,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       rendererStates: allRendererStates,
       invisibleLayers: invisibleLayers,
     );
-    rendererCubit._invalidateSpatialIndex();
+    rendererCubit._retainSpatialIndex(renderers, const []);
     rendererCubit.setViewport(newViewport);
   });
 
@@ -980,65 +971,40 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
         .where((e) => !docState.invisibleLayers.contains(e.id))
         .expand((l) => l.content.map((e) => (e, l.id)))
         .toList();
-    final elementKeys = elements
-        .map((element) => (element.$1, element.$2))
-        .toSet();
-    final existingByKey = {
-      for (final renderer in existing)
-        (renderer.element, renderer.layer): renderer,
-    };
-    final reusable = <Renderer<PadElement>>[];
-    final reusableKeys = <(PadElement, String?)>{};
-    for (final element in elements) {
-      final key = (element.$1, element.$2);
-      final renderer = existingByKey[key];
-      if (renderer != null) {
-        reusable.add(renderer);
-        reusableKeys.add(key);
+
+    // PadElement uses structural equality. Hashing it can walk every point of a
+    // pen stroke, so ordinary map/set keys make refreshes proportional to the
+    // total point count. An unchanged element retains its identity, which is
+    // exactly when its initialized renderer is safe to reuse.
+    final existingByElement =
+        Map<PadElement, Map<String?, Renderer<PadElement>>>.identity();
+    for (final renderer in existing) {
+      (existingByElement[renderer.element] ??= {})[renderer.layer] = renderer;
+    }
+    final reused = Set<Renderer<PadElement>>.identity();
+    final newRenderers = <Renderer<PadElement>>[];
+    final combined = <Renderer<PadElement>>[];
+    for (final (element, layer) in elements) {
+      final reusable = existingByElement[element]?[layer];
+      if (reusable != null && reused.add(reusable)) {
+        combined.add(reusable);
+      } else {
+        final renderer = Renderer<PadElement>.fromInstance(element, layer);
+        newRenderers.add(renderer);
+        combined.add(renderer);
       }
     }
-    final dropped = existing
-        .where(
-          (renderer) =>
-              !elementKeys.contains((renderer.element, renderer.layer)),
-        )
-        .toList();
+    final dropped = existing.where((renderer) => !reused.contains(renderer));
     for (final e in dropped) {
       rendererCubit.initializedElements.remove(e);
       e.dispose();
     }
-    final newRenderers = elements
-        .where((e) => !reusableKeys.contains((e.$1, e.$2)))
-        .map((e) => Renderer.fromInstance(e.$1, e.$2))
-        .toList();
     await Future.wait(
       newRenderers.map(
         (e) async =>
             await e.setup(transformCubit, document, assetService, page),
       ),
     );
-    // Build layer index map for O(1) lookups instead of O(n) indexOf calls
-    final layersList = page.layers.map((e) => e.id).toList();
-    final layerIndexMap = <String?, int>{};
-    for (var i = 0; i < layersList.length; i++) {
-      layerIndexMap[layersList[i]] = i;
-    }
-
-    // Build element index map for O(1) lookups
-    final elementIndexMap = <PadElement, int>{};
-    for (var i = 0; i < elements.length; i++) {
-      elementIndexMap[elements[i].$1] = i;
-    }
-
-    final combined = [...reusable, ...newRenderers]
-      ..sort((a, b) {
-        final layerA = layerIndexMap[a.layer] ?? layersList.length;
-        final layerB = layerIndexMap[b.layer] ?? layersList.length;
-        if (layerA != layerB) return layerA.compareTo(layerB);
-        final indexA = elementIndexMap[a.element] ?? -1;
-        final indexB = elementIndexMap[b.element] ?? -1;
-        return indexA.compareTo(indexB);
-      });
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(
       backgrounds.map(

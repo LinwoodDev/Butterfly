@@ -475,6 +475,65 @@ void main() {
     expect(renderer.disposeCalls, 1);
   });
 
+  test('renderer reload reuses identity and restores page order', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final firstElement = ShapeElement(
+      id: 'first-renderer',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final secondElement = ShapeElement(
+      id: 'second-renderer',
+      firstPosition: const Point(30, 30),
+      secondPosition: const Point(40, 40),
+    );
+    final firstRenderer = _VisibleTrackingRenderer(firstElement, 'layer');
+    final secondRenderer = _VisibleTrackingRenderer(secondElement, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [firstElement, secondElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (newData, pageName) = data.setPage(page, 'Page');
+    data = newData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [secondRenderer, firstRenderer],
+        visibleElements: [secondRenderer, firstRenderer],
+        visibleUnbakedElements: [secondRenderer, firstRenderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await editorController.rendererCubit.loadElements(
+      editorController,
+      bloc.state,
+    );
+
+    expect(editorController.rendererCubit.renderers, [
+      same(firstRenderer),
+      same(secondRenderer),
+    ]);
+    expect(firstRenderer.disposeCalls, 0);
+    expect(secondRenderer.disposeCalls, 0);
+  });
+
   test('failed visible renderer is retried', () async {
     await bloc.close();
     await editorController.close();
