@@ -392,8 +392,9 @@ class _ProjectPageState extends State<ProjectPage> {
         await disposePendingRuntime();
         return;
       }
+      location ??= embedding?.location;
       location ??= AssetLocation(
-        path: widget.location?.path ?? '',
+        path: embedding?.fileName ?? widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
       final persistDocumentState = embedding == null;

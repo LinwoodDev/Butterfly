@@ -254,7 +254,7 @@ void main() {
     );
   });
 
-  testWidgets('embed file name is visual only and templates are hidden', (
+  testWidgets('embed file name stays separate from document metadata', (
     tester,
   ) async {
     final document = DocumentDefaults.createDocument(
@@ -276,10 +276,10 @@ void main() {
     final titleFinder = find.byWidgetPredicate(
       (widget) =>
           widget is TextFormField &&
-          widget.controller?.text == 'Host file.bfly',
+          widget.controller?.text == 'Stored document name',
     );
     final title = tester.widget<TextFormField>(titleFinder);
-    expect(title.controller?.text, 'Host file.bfly');
+    expect(title.controller?.text, 'Stored document name');
     final titleField = tester.widget<TextField>(
       find.descendant(of: titleFinder, matching: find.byType(TextField)),
     );
@@ -287,6 +287,11 @@ void main() {
 
     var state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
     expect(state.metadata.name, 'Stored document name');
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.location.path,
+      'Host file.bfly',
+    );
+    expect(find.text('Host file.bfly'), findsOneWidget);
 
     await tester.enterText(titleFinder, 'Renamed metadata');
     await tester.testTextInput.receiveAction(TextInputAction.done);
@@ -302,11 +307,17 @@ void main() {
       ),
       findsOneWidget,
     );
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.location.path,
+      'Host file.bfly',
+    );
+    expect(find.text('Host file.bfly'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Actions'));
     await tester.pumpAndSettle();
     expect(find.text('Templates'), findsNothing);
     expect(find.text('Files'), findsNothing);
+    expect(find.text('Recent files'), findsNothing);
 
     router.go('/');
     await pumpUntil(

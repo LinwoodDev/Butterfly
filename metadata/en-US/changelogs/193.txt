@@ -6,6 +6,7 @@
 * Improve renderer refresh and viewport baking performance on large documents
 * Improve settings search performance
 * Fix settings search result scrolling
+* Improve embedding by hiding recent files and keeping configured filenames separate from document names
 * Align settings help buttons with their titles
 * Restore option icons and theme previews in the personalization settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
 
