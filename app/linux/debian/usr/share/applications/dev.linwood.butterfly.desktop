@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Linwood Butterfly
-Comment=Powerful, minimalistic, cross-platform, opensource note-taking app
+Comment=Take notes, draw freely, and organize ideas across an endless workspace
 Exec=butterfly %f
 Icon=dev.linwood.butterfly
 Terminal=false
