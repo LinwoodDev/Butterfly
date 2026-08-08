@@ -7,8 +7,9 @@ import 'package:keybinder/keybinder.dart';
 
 class ZoomIntent extends Intent {
   final bool reverse;
+  final bool reset;
 
-  const ZoomIntent({this.reverse = false});
+  const ZoomIntent({this.reverse = false, this.reset = false});
 }
 
 const zoomInShortcut = ShortcutDefinition(
@@ -21,6 +22,16 @@ const zoomOutShortcut = ShortcutDefinition(
   id: 'zoom_out',
   intent: ZoomIntent(reverse: true),
   defaultActivator: SingleActivator(LogicalKeyboardKey.minus, control: true),
+);
+
+const resetZoomShortcut = ShortcutDefinition(
+  id: 'reset_zoom',
+  intent: ZoomIntent(reset: true),
+  defaultActivator: SingleActivator(
+    LogicalKeyboardKey.digit0,
+    control: true,
+    shift: true,
+  ),
 );
 
 class ZoomAction extends Action<ZoomIntent> {
@@ -41,7 +52,9 @@ class ZoomAction extends Action<ZoomIntent> {
     final transformCubit = cubit.transformCubit;
     final step = ZoomAction.step(cubit.settingsCubit.state);
     cubit.transformCubit.sizeConstrained(
-      transformCubit.state.size + (intent.reverse ? -step : step),
+      intent.reset
+          ? 1
+          : transformCubit.state.size + (intent.reverse ? -step : step),
       cursor: center,
       runtime: cubit,
     );
