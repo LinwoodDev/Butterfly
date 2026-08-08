@@ -54,7 +54,7 @@ dependencies:
   json_annotation: ^4.12.0
   freezed_annotation: ^3.0.0
   http: ^1.2.1
-  flutter_secure_storage: ^11.0.0
+  flutter_secure_storage: ^10.0.0
   rxdart: ^0.28.0
   archive: ^4.0.0
   animations: ^2.0.11
@@ -66,12 +66,12 @@ dependencies:
   settings_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 10a2a5d0894490ee045b88d82d7ae909750e7481
+      ref: 565c074a2d0049ad9f5add658fcd245d6edfcf93
       path: packages/settings_leap
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 606c5977e7d7d0197fdec2d15dbc951afe330b43
+      ref: 4eb8e369cc37adac6eac36a9ed1c352343c8aa32
       path: packages/material_leap
   lw_sysapi:
     git:
