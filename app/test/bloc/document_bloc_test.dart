@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/asset.dart';
+import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,58 @@ import '../helpers/mocks.dart';
 Future<void> _settleBlocEvents() async {
   await Future<void>.delayed(Duration.zero);
   await Future<void>.delayed(Duration.zero);
+}
+
+Future<Uint8List> _renderViewportPixels(
+  DocumentLoadSuccess state,
+  EditorController controller,
+  Size size,
+) async {
+  final recorder = ui.PictureRecorder();
+  final canvas = Canvas(recorder);
+  ViewPainter(
+    state.data,
+    state.page,
+    state.info,
+    cameraViewport: controller.rendererCubit.state.cameraViewport,
+    transform: controller.transformCubit.state,
+  ).paint(canvas, size);
+  final picture = recorder.endRecording();
+  ui.Image? image;
+  try {
+    image = await picture.toImage(size.width.toInt(), size.height.toInt());
+    final data = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+    return data!.buffer.asUint8List();
+  } finally {
+    image?.dispose();
+    picture.dispose();
+  }
+}
+
+class _SolidRectRenderer extends Renderer<ShapeElement> {
+  _SolidRectRenderer(super.element, this.color, [super.layer]);
+
+  final Color color;
+
+  @override
+  Rect get rect => Rect.fromPoints(
+    Offset(element.firstPosition.x, element.firstPosition.y),
+    Offset(element.secondPosition.x, element.secondPosition.y),
+  );
+
+  @override
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
+    canvas.drawRect(rect, Paint()..color = color);
+  }
 }
 
 class _VisibleTrackingRenderer extends Renderer<PadElement> {
@@ -1067,6 +1121,108 @@ void main() {
     expect(existingRenderer.buildCalls, existingBuildsAfterReset);
     expect(addedRenderer.buildCalls, greaterThan(0));
   });
+
+  test(
+    'submitting a stroke at fractional zoom keeps existing document pixels',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      const viewportSize = Size(1600, 400);
+      const pixelRatio = 2.0;
+      final leftElement = ShapeElement(
+        id: 'left',
+        firstPosition: const Point(40, 40),
+        secondPosition: const Point(160, 160),
+      );
+      final rightElement = ShapeElement(
+        id: 'right',
+        firstPosition: const Point(2500, 40),
+        secondPosition: const Point(2800, 160),
+      );
+      final renderers = <Renderer<PadElement>>[
+        _SolidRectRenderer(leftElement, Colors.red, 'layer'),
+        _SolidRectRenderer(rightElement, Colors.blue, 'layer'),
+      ];
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [leftElement, rightElement]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      final transformCubit = TransformCubit(pixelRatio)
+        ..teleport(const Offset(11.3, 17.7), 0.55);
+      editorController = EditorController(
+        settingsCubit,
+        transformCubit,
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      final penHandler = PenHandler(PenTool(id: 'pen'));
+      await editorController.toolCubit.changeTool(
+        editorController,
+        bloc,
+        handler: penHandler,
+        allowBake: false,
+      );
+      await editorController.rendererCubit.bake(
+        editorController,
+        bloc.state as DocumentLoadSuccess,
+        viewportSize: viewportSize,
+        pixelRatio: pixelRatio,
+        reset: true,
+      );
+      final before = await _renderViewportPixels(
+        bloc.state as DocumentLoadSuccess,
+        editorController,
+        viewportSize,
+      );
+
+      penHandler.elements[1] = PenElement(
+        id: 'stroke',
+        points: const [PathPoint(1000, 600), PathPoint(1800, 600)],
+      );
+      await penHandler.submitElements(bloc, [1]);
+      await _settleBlocEvents();
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      await _settleBlocEvents();
+      final bakedViewport =
+          editorController.rendererCubit.state.cameraViewport;
+      expect(bakedViewport.unbakedElements, isEmpty);
+      expect(
+        bakedViewport.bakedElements.map((renderer) => renderer.element.id),
+        contains('stroke'),
+      );
+      final after = await _renderViewportPixels(
+        bloc.state as DocumentLoadSuccess,
+        editorController,
+        viewportSize,
+      );
+
+      // The submitted stroke is below this strip, so every compared RGBA byte
+      // belongs to pre-existing document content or its white background.
+      final unchangedByteCount = viewportSize.width.toInt() * 220 * 4;
+      expect(
+        after.sublist(0, unchangedByteCount),
+        before.sublist(0, unchangedByteCount),
+      );
+    },
+  );
 
   test('tool refresh without temporary handler does not reset bake', () async {
     await bloc.close();

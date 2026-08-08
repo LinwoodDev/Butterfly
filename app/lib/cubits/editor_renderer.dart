@@ -509,6 +509,18 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
             !setEquals(cameraViewport.invisibleLayers, invisibleLayers));
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
+    final cachedImage = cameraViewport.image;
+    final cachedRect = cameraViewport.toRect();
+    final cacheMatchesBakeTarget =
+        cachedImage != null &&
+        cachedImage.width == imageWidth &&
+        cachedImage.height == imageHeight &&
+        rendererCubit.rectContains(cachedRect, rect) &&
+        rendererCubit.rectContains(rect, cachedRect);
+    if (!reset && !cacheMatchesBakeTarget) {
+      reset = true;
+      resetAllLayers = true;
+    }
     if (cameraViewport.unbakedElements.isEmpty && !reset) return;
     final currentLayer = blocState.currentLayer;
     final renderers = rendererCubit.renderers;
@@ -587,7 +599,14 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     }
 
     final recorder = ui.PictureRecorder();
-    final canvas = ui.Canvas(recorder)..scale(ratio);
+    final canvas = ui.Canvas(recorder);
+    if (!reset) {
+      // Preserve already baked pixels exactly. Routing this image through
+      // ViewPainter would transform and resample the full cache on every
+      // incremental bake, which visibly distorts wide high-DPI viewports.
+      canvas.drawImage(cachedImage!, ui.Offset.zero, ui.Paint());
+    }
+    canvas.scale(ratio);
 
     ViewPainter(
       document,
@@ -604,7 +623,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
             )
           : cameraViewport,
       renderBackground: false,
-      renderBaked: !reset,
+      renderBaked: false,
       renderBakedLayers: false,
       invisibleLayers: invisibleLayers,
     ).paint(canvas, size);

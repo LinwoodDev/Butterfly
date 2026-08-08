@@ -5,6 +5,7 @@
 * Fix temporary tools not receiving pointer release events
 * Fix layout issues in reorderable list views
 * Improve renderer refresh and viewport baking performance on large documents
+* Fix document content shifting after drawing at fractional zoom
 * Improve settings search performance
 * Fix settings search result scrolling
 * Fix cannot toggle advanced switches in settings ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
