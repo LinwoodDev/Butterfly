@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/reveal.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
@@ -306,6 +307,23 @@ class ContextFileRegion extends StatelessWidget {
             onPressed: onOpen,
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.eye),
             child: Text(AppLocalizations.of(context).open),
+          ),
+        if (canRevealInFileExplorer && remote is! RemoteStorage)
+          MenuItemButton(
+            onPressed: () async {
+              final revealed = await revealInFileExplorer(
+                documentSystem.fileSystem,
+                entity.location.path,
+                directory: entity is FileSystemDirectory,
+              );
+              if (!revealed && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(AppLocalizations.of(context).error)),
+                );
+              }
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.folderOpen),
+            child: Text(AppLocalizations.of(context).revealInFileExplorer),
           ),
         if (remote is RemoteStorage)
           FileSyncStatusButton(

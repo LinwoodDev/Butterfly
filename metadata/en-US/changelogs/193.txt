@@ -1,16 +1,17 @@
 * Add reset zoom shortcut ([#1224](https://github.com/LinwoodDev/Butterfly/issues/1224))
 * Add context menu shortcut ([#1214](https://github.com/LinwoodDev/Butterfly/issues/1214))
+* Add Reveal in Explorer ([#1219](https://github.com/LinwoodDev/Butterfly/issues/1219))
+* Improve renderer refresh and viewport baking performance on large documents
+* Improve settings search performance
+* Restore option icons and theme previews in the personalization settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
+* Align settings help buttons with their titles
 * Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))
 * Fix transformed SVG elements disposing shared picture data ([#1217](https://github.com/LinwoodDev/Butterfly/issues/1217))
 * Fix temporary tools not receiving pointer release events
 * Fix layout issues in reorderable list views
-* Improve renderer refresh and viewport baking performance on large documents
 * Fix document content shifting after drawing at fractional zoom
-* Improve settings search performance
 * Fix settings search result scrolling
 * Fix cannot toggle advanced switches in settings ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
 * Improve embedding by hiding recent files and keeping configured filenames separate from document names
-* Align settings help buttons with their titles
-* Restore option icons and theme previews in the personalization settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.5
