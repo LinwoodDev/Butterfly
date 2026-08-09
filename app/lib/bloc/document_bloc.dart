@@ -675,6 +675,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         replacedElements: editorController.rendererCubit.renderers
             .where((e) => !event.elements.contains(e.element.id))
             .toList(),
+        resetAllLayers: removedRenderers.any(
+          (renderer) => renderer.layer != current.currentLayer,
+        ),
       );
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) {
@@ -1176,15 +1179,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     }, transformer: sequential());
 
-    on<CurrentLayerChanged>((event, emit) {
+    on<CurrentLayerChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
-      emit(current.copyWith(currentLayer: event.name));
+      final newState = current.copyWith(currentLayer: event.name);
+      emit(newState);
       editorController.editorSessionCubit?.updateLayer(
         currentLayer: event.name,
       );
-    });
+      await editorController.rendererCubit.bake(
+        editorController,
+        newState,
+        reset: true,
+        resetAllLayers: true,
+      );
+    }, transformer: sequential());
 
     on<CurrentCollectionChanged>((event, emit) {
       final current = state;

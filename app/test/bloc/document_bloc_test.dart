@@ -1046,6 +1046,191 @@ void main() {
     expect(viewport.visibleUnbakedElements, isEmpty);
   });
 
+  test('changing the current layer rebuilds the layer caches', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final bottomElement = ShapeElement(
+      id: 'bottom',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(90, 90),
+    );
+    final topElement = ShapeElement(
+      id: 'top',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(90, 90),
+    );
+    final renderers = <Renderer<PadElement>>[
+      _SolidRectRenderer(bottomElement, Colors.red, 'bottom-layer'),
+      _SolidRectRenderer(topElement, Colors.blue, 'top-layer'),
+    ];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'bottom-layer', content: [bottomElement]),
+        DocumentLayer(id: 'top-layer', content: [topElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    final oldViewport = editorController.rendererCubit.state.cameraViewport;
+    final cacheRebuilt = editorController.rendererCubit.stream.firstWhere(
+      (state) =>
+          !identical(state.cameraViewport.image, oldViewport.image) &&
+          !identical(
+            state.cameraViewport.aboveLayerImage,
+            oldViewport.aboveLayerImage,
+          ),
+    );
+
+    bloc.add(const CurrentLayerChanged('bottom-layer'));
+    await cacheRebuilt;
+
+    expect((bloc.state as DocumentLoadSuccess).currentLayer, 'bottom-layer');
+
+    final newBottomElement = ShapeElement(
+      id: 'new-bottom',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(90, 90),
+    );
+    final newBottomRenderer = _SolidRectRenderer(
+      newBottomElement,
+      Colors.green,
+      'bottom-layer',
+    );
+    await editorController.rendererCubit.addUnbaked(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      [newBottomRenderer],
+    );
+    final pixels = await _renderViewportPixels(
+      bloc.state as DocumentLoadSuccess,
+      editorController,
+      const Size(100, 100),
+    );
+    final centerPixel = (50 * 100 + 50) * 4;
+    expect(pixels.sublist(centerPixel, centerPixel + 4), [33, 150, 243, 255]);
+  });
+
+  test('deleting an element from another layer rebuilds its cache', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final bottomElement = ShapeElement(
+      id: 'bottom',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(40, 40),
+    );
+    final topElement = ShapeElement(
+      id: 'top',
+      firstPosition: const Point(60, 60),
+      secondPosition: const Point(90, 90),
+    );
+    final renderers = <Renderer<PadElement>>[
+      _SolidRectRenderer(bottomElement, Colors.red, 'bottom-layer'),
+      _SolidRectRenderer(topElement, Colors.blue, 'top-layer'),
+    ];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'bottom-layer', content: [bottomElement]),
+        DocumentLayer(id: 'top-layer', content: [topElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    final oldBelowLayerImage =
+        editorController.rendererCubit.state.cameraViewport.belowLayerImage;
+    final cacheRebuilt = editorController.rendererCubit.stream.firstWhere(
+      (state) =>
+          !identical(
+            state.cameraViewport.belowLayerImage,
+            oldBelowLayerImage,
+          ) &&
+          state.cameraViewport.bakedElements.every(
+            (renderer) => renderer.element.id != bottomElement.id,
+          ),
+    );
+
+    bloc.add(const ElementsRemoved(['bottom']));
+    await cacheRebuilt;
+
+    expect(
+      (bloc.state as DocumentLoadSuccess).page.getLayer('bottom-layer').content,
+      isEmpty,
+    );
+    final pixels = await _renderViewportPixels(
+      bloc.state as DocumentLoadSuccess,
+      editorController,
+      const Size(100, 100),
+    );
+    final deletedElementPixel = (20 * 100 + 20) * 4;
+    expect(pixels.sublist(deletedElementPixel, deletedElementPixel + 4), [
+      255,
+      255,
+      255,
+      255,
+    ]);
+  });
+
   test('incremental bake does not rebuild already baked renderers', () async {
     await bloc.close();
     await editorController.close();
