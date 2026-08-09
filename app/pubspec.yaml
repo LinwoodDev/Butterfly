@@ -17,7 +17,7 @@ version: 2.6.0-beta.5+192
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
-  flutter: 3.44.8
+  flutter: 3.44.9
 
 dependencies:
   flutter:
@@ -118,7 +118,7 @@ dependencies:
   onenote_parser:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d7d00d81291d6a2716da40b9f1d004ac4973771d
+      ref: c33a00d6cdbc9ea13bf933d479cb573939ef6afc
       path: packages/onenote_parser
   web: ^1.0.0
   cryptography_plus: ^3.0.0

@@ -14,5 +14,6 @@
 * Fix settings search result scrolling
 * Fix cannot toggle advanced switches in settings ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
 * Improve embedding by hiding recent files and keeping configured filenames separate from document names
+* Upgrade onenote parser
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.5
