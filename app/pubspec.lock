@@ -492,18 +492,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_rust_bridge
-      sha256: d9d819e3f39efe08a68309ff7cadc9d8bcfd65d86319e0c5735cd4f4fee16c4a
+      sha256: "7e8f565714dcb06197d29c74a559ee826c4eab4d586d7ccf9826aa5dc9478015"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.5"
+    version: "2.13.0-beta.6"
   flutter_rust_bridge_hooks:
     dependency: transitive
     description:
       name: flutter_rust_bridge_hooks
-      sha256: "33f96e930af9016405f519696574f6fcb96ec37a515188d1da484fa81f9a90f7"
+      sha256: a950952d2de2ffc2464e336bd04fe16124b863a27ed547c41b94ad635d07bfd1
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.5"
+    version: "2.13.0-beta.6"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -675,10 +675,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "3448298f244bc76a14aca71461eeab6add2b8a877930521c42c2e8b71b644590"
+      sha256: bc66cfd9afb17b3e1e966bbf0d16fa3cc782dfb058351f15daf4105a48033dca
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.6+2"
+    version: "2.9.7"
   image:
     dependency: "direct main"
     description:
@@ -844,8 +844,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "4eb8e369cc37adac6eac36a9ed1c352343c8aa32"
-      resolved-ref: "4eb8e369cc37adac6eac36a9ed1c352343c8aa32"
+      ref: "2195d9d509f5ba2c5c823491d93cac4d6136b597"
+      resolved-ref: "2195d9d509f5ba2c5c823491d93cac4d6136b597"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1282,8 +1282,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/settings_leap"
-      ref: "565c074a2d0049ad9f5add658fcd245d6edfcf93"
-      resolved-ref: "565c074a2d0049ad9f5add658fcd245d6edfcf93"
+      ref: e1b39989d0c11e70099aecc04aca93b64c469b00
+      resolved-ref: e1b39989d0c11e70099aecc04aca93b64c469b00
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.1.0"

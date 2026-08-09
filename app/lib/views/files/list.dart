@@ -188,6 +188,7 @@ class FileEntityListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
+    final highlighted = active || selected == true;
     final fileSystem = context.read<ButterflyFileSystem>();
     final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
@@ -200,6 +201,7 @@ class FileEntityListTile extends StatelessWidget {
             Expanded(
               child: Card(
                 elevation: 5,
+                color: highlighted ? colorScheme.surfaceContainerHighest : null,
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
                 shape: RoundedRectangleBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -210,8 +212,8 @@ class FileEntityListTile extends StatelessWidget {
                         )
                       : BorderSide.none,
                 ),
-                surfaceTintColor: active
-                    ? colorScheme.primaryContainer
+                surfaceTintColor: highlighted
+                    ? colorScheme.surfaceContainerHighest
                     : colorScheme.secondaryContainer,
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(

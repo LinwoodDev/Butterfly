@@ -3,6 +3,7 @@
 * Add Reveal in Explorer ([#1219](https://github.com/LinwoodDev/Butterfly/issues/1219))
 * Improve renderer refresh and viewport baking performance on large documents
 * Improve settings search performance
+* Improve context menu design ([#1220](https://github.com/LinwoodDev/Butterfly/issues/1220))
 * Restore option icons and theme previews in the personalization settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
 * Align settings help buttons with their titles
 * Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))

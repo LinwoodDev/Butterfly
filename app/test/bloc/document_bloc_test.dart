@@ -1201,8 +1201,7 @@ void main() {
       await _settleBlocEvents();
       await Future<void>.delayed(const Duration(milliseconds: 150));
       await _settleBlocEvents();
-      final bakedViewport =
-          editorController.rendererCubit.state.cameraViewport;
+      final bakedViewport = editorController.rendererCubit.state.cameraViewport;
       expect(bakedViewport.unbakedElements, isEmpty);
       expect(
         bakedViewport.bakedElements.map((renderer) => renderer.element.id),

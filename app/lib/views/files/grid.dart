@@ -45,6 +45,7 @@ class FileEntityGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
+    final highlighted = active || selected == true;
     final fileSystem = context.read<ButterflyFileSystem>();
     final settingsCubit = fileSystem.settingsCubit;
     final remote = settingsCubit.getRemote(entity.location.remote);
@@ -55,14 +56,15 @@ class FileEntityGridItem extends StatelessWidget {
     );
     return Card(
       elevation: 5,
+      color: highlighted ? colorScheme.surfaceContainerHighest : null,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         side: active
             ? BorderSide(color: colorScheme.primaryContainer, width: 1)
             : BorderSide.none,
       ),
-      surfaceTintColor: active
-          ? colorScheme.primaryContainer
+      surfaceTintColor: highlighted
+          ? colorScheme.surfaceContainerHighest
           : colorScheme.secondaryContainer,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
