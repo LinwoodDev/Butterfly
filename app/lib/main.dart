@@ -47,6 +47,9 @@ Future<void> main([List<String> args = const []]) async {
 
   final prefs = await SharedPreferences.getInstance();
   final settingsCubit = SettingsCubit(prefs);
+  await connectionEncryptionPasswordStorage.preload(
+    settingsCubit.state.connections,
+  );
   await setup(nativeTitleBar: settingsCubit.state.nativeTitleBar);
   var initialLocation = '/';
   final argParser = ArgParser();

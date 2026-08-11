@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/constraints.dart';
+import 'package:butterfly/dialogs/password.dart';
 import 'package:butterfly/dialogs/texture.dart';
 import 'package:butterfly/dialogs/export/thumbnail.dart';
 import 'package:butterfly/helpers/point.dart';

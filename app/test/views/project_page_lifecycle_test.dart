@@ -19,6 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -44,6 +45,7 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
+    FlutterSecureStorage.setMockInitialValues({});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
           const MethodChannel('window_manager'),
@@ -677,6 +679,83 @@ void main() {
 
     expect(observer.documentBlocCreates, 0);
     expect(find.byKey(const ValueKey('open-document')), findsOneWidget);
+  });
+
+  testWidgets('saved connection password opens without a prompt', (
+    tester,
+  ) async {
+    const password = 'connection password';
+    const remote = DavRemoteStorage(
+      username: 'user',
+      url: 'https://example.com/dav',
+      extra: {connectionEncryptionEnabledKey: true},
+    );
+    final document = DocumentDefaults.createDocument(
+      name: 'Connection encrypted document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    final encrypted = document.changePassword(password).toFile();
+    when(() => settingsCubit.getRemote(any())).thenReturn(remote);
+    await connectionEncryptionPasswordStorage.write(remote, password);
+    addTearDown(() => connectionEncryptionPasswordStorage.delete(remote));
+
+    await tester.pumpWidget(buildApp(importData: encrypted));
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'connection encrypted document open',
+    );
+
+    expect(find.text('Encrypted'), findsNothing);
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, 'Connection encrypted document');
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'connection encrypted document close',
+    );
+    await tester.pump(const Duration(milliseconds: 10));
+  });
+
+  testWidgets('plaintext connection document reopens as unencrypted', (
+    tester,
+  ) async {
+    const password = 'connection password';
+    const remote = DavRemoteStorage(
+      username: 'user',
+      url: 'https://example.com/dav',
+      extra: {connectionEncryptionEnabledKey: true},
+    );
+    final document = DocumentDefaults.createDocument(
+      name: 'Unencrypted document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    when(() => settingsCubit.getRemote(any())).thenReturn(remote);
+    await connectionEncryptionPasswordStorage.write(remote, password);
+    addTearDown(() => connectionEncryptionPasswordStorage.delete(remote));
+
+    await tester.pumpWidget(buildApp(importData: document.toFile()));
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'plaintext connection document open',
+    );
+
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.data.isEncrypted, isFalse);
+    expect(state.data.password, isNull);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'plaintext connection document close',
+    );
+    await tester.pump(const Duration(milliseconds: 10));
   });
 
   testWidgets('embed does not load or save persistent document state', (

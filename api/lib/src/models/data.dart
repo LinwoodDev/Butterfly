@@ -77,13 +77,7 @@ abstract class NoteDisplay<T> extends ArchiveData<T> {
 
   String? get name => getMetadata()?.name;
 
-  bool get isValid {
-    try {
-      return getAsset(kMetaArchiveFile) != null;
-    } catch (_) {
-      return false;
-    }
-  }
+  bool get isValid => getMetadata() != null;
 
   Uint8List? _thumbnail;
   bool _thumbnailLoaded = false;

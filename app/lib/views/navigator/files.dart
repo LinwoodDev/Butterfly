@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
@@ -72,10 +73,10 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
               openFile(context, true, value.location);
             },
             onPreview: (value) {
-              final data = value.data!.load();
-              if (data == null) return;
+              final data = loadConnectionNoteFile(_remote, value.data!);
+              if (!(data?.isValid ?? false)) return;
               setState(() {
-                _opened = (data, value.location);
+                _opened = (data!, value.location);
               });
             },
             onRemoteChanged: (remote) {

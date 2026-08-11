@@ -134,15 +134,20 @@ class _FileEntityItemState extends State<FileEntityItem> {
     final entity = widget.entity;
     try {
       if (entity is FileSystemFile<NoteFile>) {
-        final data = context.read<SettingsCubit>().state.showThumbnails
-            ? entity.data?.display()
+        final encrypted = entity.data?.isEncrypted() ?? false;
+        final password = readConnectionEncryptionPassword(remote);
+        final shouldLoadDisplay =
+            context.read<SettingsCubit>().state.showThumbnails ||
+            encrypted && password != null;
+        final data = shouldLoadDisplay && entity.data != null
+            ? displayConnectionNoteFile(remote, entity.data!)
             : null;
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
-        if (entity.data?.isEncrypted() ?? false) {
+        if (encrypted && !(data?.isValid ?? false)) {
           icon = PhosphorIconsLight.lock;
         }
-        if (data != null) {
-          thumbnail = data.getThumbnail();
+        if (data?.isValid ?? false) {
+          thumbnail = data!.getThumbnail();
           if (thumbnail?.isEmpty ?? false) thumbnail = null;
           metadata = data.getMetadata();
         }

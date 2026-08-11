@@ -35,6 +35,15 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
                 },
                 child: ListTile(
                   title: Text(remote.label),
+                  subtitle:
+                      remote is RemoteStorage &&
+                          remote.isConnectionEncryptionEnabled
+                      ? Text(
+                          AppLocalizations.of(
+                            context,
+                          ).documentEncryptionEnabled,
+                        )
+                      : null,
                   leading: remote.icon?.isEmpty ?? true
                       ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
                       : Image.memory(remote.icon!),
@@ -148,6 +157,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
+      _encryptionPasswordController = TextEditingController(),
       _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(text: 'Documents'),
@@ -156,6 +166,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   bool _isConnected = false,
       _advanced = false,
       _showPassword = false,
+      _showEncryptionPassword = false,
       _syncRootDirectory = false;
 
   bool get _isRemote => widget.storage is! LocalStorage;
@@ -176,6 +187,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     _urlController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
+    _encryptionPasswordController.dispose();
     _iconController.dispose();
     _directoryController.dispose();
     _documentsDirectoryController.dispose();
@@ -372,6 +384,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         icon: icon,
       ),
     };
+    if (remoteStorage is RemoteStorage &&
+        _encryptionPasswordController.text.isNotEmpty) {
+      await connectionEncryptionPasswordStorage.write(
+        remoteStorage,
+        _encryptionPasswordController.text,
+      );
+    }
     await settingsCubit.addRemote(
       remoteStorage,
       password: _passwordController.text,
@@ -394,6 +413,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       icon: icon,
       pinnedPaths: {
         'documents': [if (_syncRootDirectory) '/'],
+      },
+      extra: {
+        if (_encryptionPasswordController.text.isNotEmpty)
+          connectionEncryptionEnabledKey: true,
       },
     );
   }
@@ -503,6 +526,39 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         ),
                       ),
                     ] else ...[
+                      if (_isRemote) ...[
+                        TextField(
+                          controller: _encryptionPasswordController,
+                          obscureText: !_showEncryptionPassword,
+                          keyboardType: _showEncryptionPassword
+                              ? TextInputType.visiblePassword
+                              : TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(
+                              context,
+                            ).documentEncryptionPassword,
+                            filled: true,
+                            suffixIcon: IconButton(
+                              icon: PhosphorIcon(
+                                _showEncryptionPassword
+                                    ? PhosphorIconsLight.eye
+                                    : PhosphorIconsLight.eyeSlash,
+                              ),
+                              tooltip: _showEncryptionPassword
+                                  ? AppLocalizations.of(context).hide
+                                  : AppLocalizations.of(context).show,
+                              onPressed: () => setState(
+                                () => _showEncryptionPassword =
+                                    !_showEncryptionPassword,
+                              ),
+                            ),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.shieldCheck,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
                       TextField(
                         controller: _nameController,
                         decoration: InputDecoration(

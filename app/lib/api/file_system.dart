@@ -17,12 +17,24 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'connection_encryption.dart';
+
+export 'connection_encryption.dart';
+
 Uint8List encodeNoteData(NoteData data) =>
     Uint8List.fromList(data.exportAsBytes());
 NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
 
 Uint8List encodeNoteFile(NoteFile file) => file.data;
 NoteFile decodeNoteFile(Uint8List data) => NoteFile(data);
+
+Future<Uint8List?> loadDocumentSystemAbsolute(
+  DocumentFileSystem fileSystem,
+  String path,
+) async {
+  final data = await fileSystem.loadAbsolute(path);
+  return data == null ? null : decodeConnectionData(fileSystem.storage, data);
+}
 
 const butterflySubDirectory = '/Linwood/Butterfly';
 
@@ -101,11 +113,16 @@ Future<NoteData?> loadFileSystemNoteData(
   try {
     final asset = await documentSystem.getAsset(file.location.path);
     if (asset is FileSystemFile<NoteFile>) {
-      final data = asset.data?.load();
-      if (data != null) return data;
+      final data = asset.data == null
+          ? null
+          : loadConnectionNoteFile(documentSystem.storage, asset.data!);
+      if (data?.isValid ?? false) return data;
     }
   } catch (_) {}
-  return file.data?.load();
+  final data = file.data == null
+      ? null
+      : loadConnectionNoteFile(documentSystem.storage, file.data!);
+  return data?.isValid ?? false ? data : null;
 }
 
 class ButterflyFileSystem {
@@ -283,7 +300,8 @@ class ButterflyFileSystem {
     final system = TypedDirectoryFileSystem.build(
       _documentConfig,
       onEncode: encodeNoteFile,
-      onDecode: decodeNoteFile,
+      onDecode: (data) => decodeConnectionNoteFile(storage, data),
+      onCreate: (data) => addConnectionPasswordToNoteFile(storage, data),
       storage: storage,
       useIsolates: true,
       useAndroidSaf: true,
@@ -311,7 +329,8 @@ class ButterflyFileSystem {
     final system = TypedKeyFileSystem.build(
       _templateConfig,
       onEncode: encodeNoteData,
-      onDecode: decodeNoteData,
+      onDecode: (data) => decodeConnectionNoteData(storage, data),
+      onCreate: (data) => addConnectionPasswordToNoteData(storage, data),
       storage: _cacheAllStorage(storage, _templateConfig.variant),
       useAndroidSaf: true,
     );
@@ -331,7 +350,8 @@ class ButterflyFileSystem {
     final system = TypedKeyFileSystem.build(
       _packConfig,
       onEncode: encodeNoteData,
-      onDecode: decodeNoteData,
+      onDecode: (data) => decodeConnectionNoteData(storage, data),
+      onCreate: (data) => addConnectionPasswordToNoteData(storage, data),
       storage: _cacheAllStorage(storage, _packConfig.variant),
       useAndroidSaf: true,
     );
@@ -350,8 +370,10 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _documentStateConfig,
-      onEncode: encodePersistedDocumentState,
-      onDecode: decodePersistedDocumentState,
+      onEncode: (data) =>
+          encodeConnectionData(storage, encodePersistedDocumentState(data)),
+      onDecode: (data) =>
+          decodePersistedDocumentState(decodeConnectionData(storage, data)),
       storage: _cacheAllStorage(storage, _documentStateConfig.variant),
       useAndroidSaf: true,
     );

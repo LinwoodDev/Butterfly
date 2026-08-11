@@ -702,7 +702,11 @@ class FilesViewState extends State<FilesView> {
                             if (importResult == null) {
                               continue;
                             }
-                            final document = await importResult.export();
+                            var document = await importResult.export();
+                            document = addConnectionPasswordToNoteData(
+                              _remote,
+                              document,
+                            );
                             setNativeData(result, fileExtension);
 
                             var docName = document.getMetadata()?.name;
@@ -1022,17 +1026,20 @@ class FilesViewState extends State<FilesView> {
       }
       final aFile = a as FileSystemFile<NoteFile>;
       final bFile = b as FileSystemFile<NoteFile>;
+      NoteDisplay? display(FileSystemFile<NoteFile> file) {
+        final data = file.data;
+        return data == null ? null : displayConnectionNoteFile(_remote, data);
+      }
+
       switch (_sortBy) {
         case SortBy.name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.created:
           final aCreatedAt =
-              aFile.data?.display()?.getMetadata()?.createdAt ??
-              aFile.creationTime;
+              display(aFile)?.getMetadata()?.createdAt ?? aFile.creationTime;
           final bCreatedAt =
-              bFile.data?.display()?.getMetadata()?.createdAt ??
-              bFile.creationTime;
+              display(bFile)?.getMetadata()?.createdAt ?? bFile.creationTime;
           if (aCreatedAt == null && bCreatedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }
@@ -1046,11 +1053,9 @@ class FilesViewState extends State<FilesView> {
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.modified:
           final aModifiedAt =
-              aFile.data?.display()?.getMetadata()?.updatedAt ??
-              aFile.lastModified;
+              display(aFile)?.getMetadata()?.updatedAt ?? aFile.lastModified;
           final bModifiedAt =
-              bFile.data?.display()?.getMetadata()?.updatedAt ??
-              bFile.lastModified;
+              display(bFile)?.getMetadata()?.updatedAt ?? bFile.lastModified;
           if (aModifiedAt == null && bModifiedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }

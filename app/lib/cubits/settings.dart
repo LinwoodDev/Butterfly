@@ -649,10 +649,18 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final storedDefaultFileName = prefs.getString('default_file_name')?.trim();
     final connections =
-        prefs
-            .getStringList('connections')
-            ?.map((e) => ExternalStorageMapper.fromJson(e))
-            .toList() ??
+        prefs.getStringList('connections')?.map((encoded) {
+          final serialized = json.decode(encoded) as Map<String, dynamic>;
+          final storage = ExternalStorageMapper.fromMap(serialized);
+          final encryptionEnabled = serialized[connectionEncryptionEnabledKey];
+          if (encryptionEnabled is! bool) return storage;
+          return storage.copyWith(
+            extra: {
+              ...storage.extra,
+              connectionEncryptionEnabledKey: encryptionEnabled,
+            },
+          );
+        }).toList() ??
         const [];
     return ButterflySettings(
       limitViewportMultiplier: prefs.containsKey('limit_viewport_multiplier')
@@ -1409,6 +1417,12 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> deleteRemote(String identifier) async {
+    final remote = state.connections
+        .whereType<RemoteStorage>()
+        .firstWhereOrNull((storage) => storage.identifier == identifier);
+    if (remote != null) {
+      await connectionEncryptionPasswordStorage.delete(remote);
+    }
     emit(
       state.copyWith(
         connections: state.connections
@@ -1423,6 +1437,25 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> setDefaultRemote(String identifier) async {
     emit(state.copyWith(defaultRemote: identifier));
     return save();
+  }
+
+  Future<void> enableConnectionEncryption(String identifier) async {
+    var changed = false;
+    final connections = state.connections.map((storage) {
+      if (storage is! RemoteStorage ||
+          storage.identifier != identifier ||
+          storage.isConnectionEncryptionEnabled) {
+        return storage;
+      }
+      changed = true;
+      return storage.copyWith(
+        extra: {...storage.extra, connectionEncryptionEnabledKey: true},
+      );
+    }).toList();
+    if (!changed) return;
+
+    emit(state.copyWith(connections: connections));
+    await save();
   }
 
   Future<void> addCache(String identifier, String current) async {

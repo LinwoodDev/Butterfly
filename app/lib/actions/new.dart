@@ -95,8 +95,9 @@ Future<void> openNewDocument(
     final metadata = document.getMetadata();
     if (metadata != null) {
       path = metadata.directory;
+      final storage = settings.getRemote(targetRemote);
+      document = addConnectionPasswordToNoteData(storage, document);
       if (shouldAutoSave) {
-        final storage = settings.getRemote(targetRemote);
         final fileSystem = context
             .read<ButterflyFileSystem>()
             .buildDocumentSystem(storage);
