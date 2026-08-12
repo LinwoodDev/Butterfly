@@ -5,6 +5,7 @@ import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
+import 'package:butterfly/services/backup.dart';
 import 'package:butterfly/settings/connection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
@@ -380,7 +381,13 @@ class ButterflyApp extends StatelessWidget {
                     SyncService(context, context.read<ButterflyFileSystem>()),
                 dispose: (service) => service.dispose(),
                 lazy: false,
-                child: _WindowCloseGuard(child: child ?? Container()),
+                child: RepositoryProvider(
+                  create: (context) =>
+                      BackupService(context.read<ButterflyFileSystem>()),
+                  dispose: (service) => service.dispose(),
+                  lazy: false,
+                  child: _WindowCloseGuard(child: child ?? Container()),
+                ),
               ),
             ),
           );

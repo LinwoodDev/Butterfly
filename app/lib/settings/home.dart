@@ -12,6 +12,7 @@ import 'package:butterfly/main.dart';
 import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/settings/data.dart';
+import 'package:butterfly/settings/backup.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_picker/file_picker.dart';

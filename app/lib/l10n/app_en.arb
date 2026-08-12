@@ -212,6 +212,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "The file {fileName} was created in a newer version ({fileVersion}). What should be done with this file?",
   "@createdInNewerVersion": {
     "placeholders": {

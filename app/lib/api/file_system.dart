@@ -124,12 +124,14 @@ class ButterflyFileSystem {
   final FileSystemConfig _documentConfig,
       _templateConfig,
       _packConfig,
-      _documentStateConfig;
+      _documentStateConfig,
+      _backupConfig;
 
   final _documentCache = <String, DocumentFileSystem>{};
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
   final _documentStateCache = <String, DocumentStateFileSystem>{};
+  final _backupCache = <String, DirectoryFileSystem>{};
   StreamSubscription<ButterflySettings>? _settingsSubscription;
 
   ButterflyFileSystem(this._context, this.settingsCubit)
@@ -182,6 +184,15 @@ class ButterflyFileSystem {
         database: _database,
         databaseVersion: _databaseVersion,
         onDatabaseUpgrade: _upgradeDatabase,
+      ),
+      _backupConfig = FileSystemConfig(
+        passwordStorage: passwordStorage,
+        storeName: 'backups',
+        variant: 'backups',
+        getDirectory: _getRemoteDirectory('Backups'),
+        database: _database,
+        databaseVersion: _databaseVersion,
+        onDatabaseUpgrade: _upgradeDatabase,
       ) {
     _listenSettings();
   }
@@ -210,6 +221,7 @@ class ButterflyFileSystem {
     _templateCache.clear();
     _packCache.clear();
     _documentStateCache.clear();
+    _backupCache.clear();
   }
 
   factory ButterflyFileSystem.build(BuildContext context) =>
@@ -371,6 +383,28 @@ class ButterflyFileSystem {
     return system;
   }
 
+  DirectoryFileSystem buildBackupSystem(
+    RemoteStorage storage, {
+    bool forceRecreate = false,
+  }) {
+    final key = _cacheKey(storage);
+    if (!forceRecreate) {
+      final cached = _backupCache[key];
+      if (cached != null) return cached;
+    }
+    final backupStorage = storage.copyWith(
+      paths: {...storage.paths, _backupConfig.variant: 'Backups'},
+    );
+    final system = DirectoryFileSystem.fromPlatform(
+      _backupConfig,
+      storage: backupStorage,
+      useIsolates: true,
+      useAndroidSaf: true,
+    );
+    _backupCache[key] = system;
+    return system;
+  }
+
   DocumentFileSystem buildDefaultDocumentSystem({bool forceRecreate = false}) =>
       buildDocumentSystem(
         settingsCubit.state.getDefaultRemote(),
@@ -502,10 +536,16 @@ class ButterflyFileSystem {
     _documentStateCache.remove(key);
   }
 
+  void removeCachedBackupSystem(ExternalStorage? storage) {
+    final key = _cacheKey(storage);
+    _backupCache.remove(key);
+  }
+
   void removeCachedFileSystem(ExternalStorage? storage) {
     removeCachedDocumentSystem(storage);
     removeCachedTemplateSystem(storage);
     removeCachedPackSystem(storage);
     removeCachedDocumentStateSystem(storage);
+    removeCachedBackupSystem(storage);
   }
 }

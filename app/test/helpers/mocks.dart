@@ -17,6 +17,7 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   final PackFileSystem _packFileSystem = buildMockPackFileSystem();
   final DocumentStateFileSystem _documentStateFileSystem =
       buildMockDocumentStateFileSystem();
+  final DirectoryFileSystem _backupFileSystem = MockFileSystem();
   final SettingsCubit _settingsCubit;
 
   MockButterflyFileSystem({SettingsCubit? settingsCubit})
@@ -71,6 +72,12 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
     ExternalStorage? storage,
     bool forceRecreate = false,
   ]) => _documentStateFileSystem;
+
+  @override
+  DirectoryFileSystem buildBackupSystem(
+    RemoteStorage storage, {
+    bool forceRecreate = false,
+  }) => _backupFileSystem;
 
   @override
   TypedKeyFileSystem<NoteData> buildPackSystem([
@@ -146,6 +153,9 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
 
   @override
   void removeCachedDocumentStateSystem(ExternalStorage? storage) {}
+
+  @override
+  void removeCachedBackupSystem(ExternalStorage? storage) {}
 
   @override
   void removeCachedFileSystem(ExternalStorage? storage) {}

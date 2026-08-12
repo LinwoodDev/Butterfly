@@ -73,6 +73,31 @@ void main() {
     expect(restored?.isConnectionEncryptionEnabled, isTrue);
   });
 
+  test('persists automatic backup settings', () async {
+    const remote = DavRemoteStorage(
+      name: 'Backup target',
+      username: 'user',
+      url: 'https://example.com/dav',
+    );
+    SharedPreferences.setMockInitialValues({
+      'connections': [remote.toJson()],
+    });
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+    addTearDown(cubit.close);
+
+    await cubit.changeBackupRemote(remote.identifier);
+    await cubit.changeBackupInterval(const Duration(hours: 6));
+    await cubit.changeAutomaticBackup(true);
+    await cubit.updateLastBackup(DateTime.utc(2026, 8, 12, 14));
+
+    final restored = ButterflySettings.fromPrefs(prefs);
+    expect(restored.backupRemote, remote.identifier);
+    expect(restored.backupIntervalMinutes, 360);
+    expect(restored.automaticBackup, isTrue);
+    expect(restored.lastBackup, DateTime.utc(2026, 8, 12, 14));
+  });
+
   group('SettingsCubit resets', () {
     test(
       'resets selected settings while preserving unrelated values',

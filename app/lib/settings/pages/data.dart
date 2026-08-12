@@ -8,6 +8,10 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
     context,
     (current, defaults) => current.copyWith(
       syncMode: defaults.syncMode,
+      automaticBackup: defaults.automaticBackup,
+      backupRemote: defaults.backupRemote,
+      backupIntervalMinutes: defaults.backupIntervalMinutes,
+      lastBackup: defaults.lastBackup,
       documentPath: defaults.documentPath,
       defaultFileName: defaults.defaultFileName,
     ),
@@ -35,6 +39,11 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
               context,
             ).syncModeManualDescription,
           },
+        ),
+        SettingsLeapCustomSetting(
+          displayName: (context) => AppLocalizations.of(context).backup,
+          enabled: (context, state) => !kIsWeb,
+          builder: buildBackupSetting,
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).dataDirectory,

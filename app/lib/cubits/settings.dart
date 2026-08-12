@@ -26,6 +26,13 @@ const kDefaultFileName = '{date}';
 const kFallbackSecondaryStylusButton = 0x20;
 const kDefaultRotationStep = 5.0;
 const kDefaultZoomStep = 0.1;
+const kDefaultBackupIntervalMinutes = 24 * 60;
+
+int _readBackupIntervalMinutes(SharedPreferences prefs) {
+  final minutes =
+      prefs.getInt('backup_interval_minutes') ?? kDefaultBackupIntervalMinutes;
+  return minutes < 60 ? 60 : minutes;
+}
 
 String _normalizeCachePath(String path) {
   if (path.endsWith('/')) {
@@ -599,6 +606,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool navigationRail,
     @Default(IgnorePressure.first) IgnorePressure ignorePressure,
     @Default(SyncMode.noMobile) SyncMode syncMode,
+    @Default(false) bool automaticBackup,
+    @Default('') String backupRemote,
+    @Default(kDefaultBackupIntervalMinutes) int backupIntervalMinutes,
+    DateTime? lastBackup,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
@@ -738,6 +749,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
         prefs.getString('sync_mode'),
         SyncMode.noMobile,
       ),
+      automaticBackup: prefs.getBool('automatic_backup') ?? false,
+      backupRemote: prefs.getString('backup_remote') ?? '',
+      backupIntervalMinutes: _readBackupIntervalMinutes(prefs),
+      lastBackup: DateTime.tryParse(prefs.getString('last_backup') ?? ''),
       inputConfiguration: InputConfiguration.fromJson(
         _decodeJsonMapOrEmpty(prefs.getString('input_configuration')),
       ),
@@ -963,6 +978,14 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
     await prefs.setString('sync_mode', syncMode.name);
+    await prefs.setBool('automatic_backup', automaticBackup);
+    await prefs.setString('backup_remote', backupRemote);
+    await prefs.setInt('backup_interval_minutes', backupIntervalMinutes);
+    if (lastBackup == null) {
+      await prefs.remove('last_backup');
+    } else {
+      await prefs.setString('last_backup', lastBackup!.toIso8601String());
+    }
     await prefs.setString(
       'input_configuration',
       json.encode(inputConfiguration.toJson()),
@@ -1428,6 +1451,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
         connections: state.connections
             .where((r) => r.identifier != identifier)
             .toList(),
+        automaticBackup: state.backupRemote == identifier
+            ? false
+            : state.automaticBackup,
+        backupRemote: state.backupRemote == identifier
+            ? ''
+            : state.backupRemote,
+        lastBackup: state.backupRemote == identifier ? null : state.lastBackup,
       ),
     );
     const FlutterSecureStorage().delete(key: 'connections/$identifier');
@@ -1549,6 +1579,34 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeSyncMode(SyncMode syncMode) {
     emit(state.copyWith(syncMode: syncMode));
+    return save();
+  }
+
+  Future<void> changeBackupRemote(String identifier) {
+    final remote = state.connections
+        .whereType<RemoteStorage>()
+        .firstWhereOrNull((storage) => storage.identifier == identifier);
+    if (remote == null) return Future.value();
+    emit(state.copyWith(backupRemote: identifier, lastBackup: null));
+    return save();
+  }
+
+  Future<void> changeAutomaticBackup(bool enabled) {
+    if (enabled && state.getRemote(state.backupRemote) is! RemoteStorage) {
+      return Future.value();
+    }
+    emit(state.copyWith(automaticBackup: enabled));
+    return save();
+  }
+
+  Future<void> changeBackupInterval(Duration interval) {
+    if (interval < const Duration(hours: 1)) return Future.value();
+    emit(state.copyWith(backupIntervalMinutes: interval.inMinutes));
+    return save();
+  }
+
+  Future<void> updateLastBackup(DateTime lastBackup) {
+    emit(state.copyWith(lastBackup: lastBackup));
     return save();
   }
 
