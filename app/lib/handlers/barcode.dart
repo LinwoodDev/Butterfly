@@ -43,6 +43,26 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
   BarcodeTool setColor(SRGBColor color) => data.copyWith(color: color);
 
   @override
+  bool get shouldNormalize => false;
+
+  @visibleForTesting
+  static SvgElement transformBarcodeElement(SvgElement element, Rect rect) {
+    if (rect.width.abs() < precisionErrorTolerance &&
+        rect.height.abs() < precisionErrorTolerance) {
+      return element.copyWith(
+        position:
+            rect.topLeft.toPoint() -
+            Point(element.width / 2, element.height / 2),
+      );
+    }
+    return element.copyWith(
+      position: rect.topLeft.toPoint(),
+      width: rect.width,
+      height: rect.height,
+    );
+  }
+
+  @override
   List<PadElement> transformElements(
     Rect rect,
     String collection,
@@ -50,23 +70,7 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
   ) {
     final element = _element;
     if (element == null) return [];
-    if (rect.isEmpty) {
-      return [
-        element.copyWith(
-          position:
-              rect.topLeft.toPoint() -
-              Point(element.width / 2, element.height / 2),
-        ),
-      ];
-    }
-
-    return [
-      element.copyWith(
-        position: rect.topLeft.toPoint(),
-        width: rect.width,
-        height: rect.height,
-      ),
-    ];
+    return [transformBarcodeElement(element, rect)];
   }
 
   @override
