@@ -57,6 +57,21 @@ class StampHandler extends PastingHandler<StampTool> {
   MouseCursor get cursor => SystemMouseCursors.click;
   @override
   bool get showHoverPreview => true;
+  @override
+  bool get shouldNormalize => false;
+
+  @visibleForTesting
+  static (double, double) calculateScale(Rect sourceRect, Rect targetRect) {
+    if (sourceRect.isEmpty ||
+        (targetRect.width.abs() < precisionErrorTolerance &&
+            targetRect.height.abs() < precisionErrorTolerance)) {
+      return (1, 1);
+    }
+    return (
+      targetRect.width / sourceRect.width,
+      targetRect.height / sourceRect.height,
+    );
+  }
 
   @override
   List<PadElement> transformElements(
@@ -68,11 +83,7 @@ class StampHandler extends PastingHandler<StampTool> {
     if (elements == null || elements.isEmpty) return [];
 
     final sourceRect = this.rect;
-    var scaleX = 1.0, scaleY = 1.0;
-    if (!rect.isEmpty && !sourceRect.isEmpty) {
-      scaleX = rect.width / sourceRect.width;
-      scaleY = rect.height / sourceRect.height;
-    }
+    final (scaleX, scaleY) = calculateScale(sourceRect, rect);
 
     Offset applyScaleAndTranslate(Offset original) {
       final relative = original - sourceRect.topLeft;
