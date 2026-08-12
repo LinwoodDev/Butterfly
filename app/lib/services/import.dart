@@ -252,7 +252,7 @@ class ImportService {
     } else if (data is FileSystemFile<NoteFile>) {
       bytes = Uint8List.fromList(data.data?.data ?? []);
     } else if (location != null) {
-      bytes = await loadDocumentSystemAbsolute(fs, location.path);
+      bytes = await fs.loadAbsolute(location.path);
     } else if (data is List) {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {

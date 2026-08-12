@@ -79,22 +79,4 @@ void main() {
       expect(updated.data?.load()?.isValid, isTrue);
     },
   );
-
-  test('legacy connection-wrapped documents remain readable', () {
-    final document = DocumentDefaults.createDocument(name: 'Legacy');
-    final wrapped = encodeConnectionData(
-      storage,
-      document.toFile().data,
-      password: password,
-    );
-
-    final decoded = decodeConnectionNoteFile(
-      storage,
-      wrapped,
-      password: password,
-    );
-
-    expect(decoded.isEncrypted(), isFalse);
-    expect(decoded.load()?.isValid, isTrue);
-  });
 }

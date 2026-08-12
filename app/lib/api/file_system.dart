@@ -28,14 +28,6 @@ NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
 Uint8List encodeNoteFile(NoteFile file) => file.data;
 NoteFile decodeNoteFile(Uint8List data) => NoteFile(data);
 
-Future<Uint8List?> loadDocumentSystemAbsolute(
-  DocumentFileSystem fileSystem,
-  String path,
-) async {
-  final data = await fileSystem.loadAbsolute(path);
-  return data == null ? null : decodeConnectionData(fileSystem.storage, data);
-}
-
 const butterflySubDirectory = '/Linwood/Butterfly';
 
 String? overrideButterflyDirectory;
@@ -300,7 +292,7 @@ class ButterflyFileSystem {
     final system = TypedDirectoryFileSystem.build(
       _documentConfig,
       onEncode: encodeNoteFile,
-      onDecode: (data) => decodeConnectionNoteFile(storage, data),
+      onDecode: decodeNoteFile,
       onCreate: (data) => addConnectionPasswordToNoteFile(storage, data),
       storage: storage,
       useIsolates: true,
@@ -370,10 +362,8 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _documentStateConfig,
-      onEncode: (data) =>
-          encodeConnectionData(storage, encodePersistedDocumentState(data)),
-      onDecode: (data) =>
-          decodePersistedDocumentState(decodeConnectionData(storage, data)),
+      onEncode: encodePersistedDocumentState,
+      onDecode: decodePersistedDocumentState,
       storage: _cacheAllStorage(storage, _documentStateConfig.variant),
       useAndroidSaf: true,
     );

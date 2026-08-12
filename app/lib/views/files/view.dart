@@ -436,7 +436,9 @@ class FilesViewState extends State<FilesView> {
                                 );
                               }
                               return true;
-                            }).toList()..sort(_sortAssets);
+                            }).toList();
+                            final metadata = <NoteFile, FileMetadata?>{};
+                            assets.sort((a, b) => _sortAssets(a, b, metadata));
                             if (assets.isEmpty) {
                               return Center(
                                 child: Text(
@@ -1006,7 +1008,11 @@ class FilesViewState extends State<FilesView> {
     }
   }
 
-  int _sortAssets(FileSystemEntity<NoteFile> a, FileSystemEntity<NoteFile> b) {
+  int _sortAssets(
+    FileSystemEntity<NoteFile> a,
+    FileSystemEntity<NoteFile> b,
+    Map<NoteFile, FileMetadata?> metadataCache,
+  ) {
     try {
       final settings = _settingsCubit.state;
       // Test if starred
@@ -1026,9 +1032,13 @@ class FilesViewState extends State<FilesView> {
       }
       final aFile = a as FileSystemFile<NoteFile>;
       final bFile = b as FileSystemFile<NoteFile>;
-      NoteDisplay? display(FileSystemFile<NoteFile> file) {
+      FileMetadata? metadata(FileSystemFile<NoteFile> file) {
         final data = file.data;
-        return data == null ? null : displayConnectionNoteFile(_remote, data);
+        if (data == null) return null;
+        return metadataCache.putIfAbsent(
+          data,
+          () => displayConnectionNoteFile(_remote, data)?.getMetadata(),
+        );
       }
 
       switch (_sortBy) {
@@ -1036,10 +1046,8 @@ class FilesViewState extends State<FilesView> {
           final compared = aFile.fileName.compareTo(bFile.fileName);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.created:
-          final aCreatedAt =
-              display(aFile)?.getMetadata()?.createdAt ?? aFile.creationTime;
-          final bCreatedAt =
-              display(bFile)?.getMetadata()?.createdAt ?? bFile.creationTime;
+          final aCreatedAt = metadata(aFile)?.createdAt ?? aFile.creationTime;
+          final bCreatedAt = metadata(bFile)?.createdAt ?? bFile.creationTime;
           if (aCreatedAt == null && bCreatedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }
@@ -1052,10 +1060,8 @@ class FilesViewState extends State<FilesView> {
           final compared = bCreatedAt.compareTo(aCreatedAt);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.modified:
-          final aModifiedAt =
-              display(aFile)?.getMetadata()?.updatedAt ?? aFile.lastModified;
-          final bModifiedAt =
-              display(bFile)?.getMetadata()?.updatedAt ?? bFile.lastModified;
+          final aModifiedAt = metadata(aFile)?.updatedAt ?? aFile.lastModified;
+          final bModifiedAt = metadata(bFile)?.updatedAt ?? bFile.lastModified;
           if (aModifiedAt == null && bModifiedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }

@@ -1,19 +1,10 @@
-import 'package:archive/archive.dart';
+import 'dart:typed_data';
+
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 
 const connectionEncryptionEnabledKey = 'butterfly:encryptionEnabled';
-const _legacyEncryptionSignature = <int>[
-  0x42,
-  0x46,
-  0x4c,
-  0x59,
-  0x45,
-  0x31,
-]; // BFLYE1
-const _legacyEncryptionFileName = 'data';
 
 extension ConnectionEncryptionStorageExtension on ExternalStorage {
   bool get isConnectionEncryptionEnabled =>
@@ -67,16 +58,25 @@ String? readConnectionEncryptionPassword(ExternalStorage? storage) {
   return connectionEncryptionPasswordStorage.read(storage);
 }
 
-String? _readNoteFilePassword(ExternalStorage? storage, NoteFile file) =>
-    file.isEncrypted() ? readConnectionEncryptionPassword(storage) : null;
+String? _noteFilePassword(
+  ExternalStorage? storage,
+  NoteFile file, {
+  String? password,
+}) {
+  if (!file.isEncrypted()) return null;
+  return password ?? readConnectionEncryptionPassword(storage);
+}
 
-NoteData? loadConnectionNoteFile(ExternalStorage? storage, NoteFile file) =>
-    file.load(password: _readNoteFilePassword(storage, file));
+NoteData? loadConnectionNoteFile(
+  ExternalStorage? storage,
+  NoteFile file, {
+  String? password,
+}) => file.load(password: _noteFilePassword(storage, file, password: password));
 
 NoteDisplay? displayConnectionNoteFile(
   ExternalStorage? storage,
   NoteFile file,
-) => file.display(password: _readNoteFilePassword(storage, file));
+) => file.display(password: _noteFilePassword(storage, file));
 
 String _requireConnectionEncryptionPassword(RemoteStorage storage) {
   final password = connectionEncryptionPasswordStorage.read(storage);
@@ -84,50 +84,6 @@ String _requireConnectionEncryptionPassword(RemoteStorage storage) {
     throw const FormatException('Missing connection encryption password');
   }
   return password;
-}
-
-Uint8List encodeConnectionData(
-  ExternalStorage? storage,
-  Uint8List data, {
-  String? password,
-}) {
-  if (storage is! RemoteStorage || !storage.isConnectionEncryptionEnabled) {
-    return data;
-  }
-  password ??= _requireConnectionEncryptionPassword(storage);
-  final archive = Archive()
-    ..addFile(ArchiveFile.bytes(_legacyEncryptionFileName, data));
-  final encrypted = ZipEncoder(
-    password: password,
-  ).encodeBytes(archive, autoClose: true);
-  return Uint8List.fromList([..._legacyEncryptionSignature, ...encrypted]);
-}
-
-Uint8List decodeConnectionData(
-  ExternalStorage? storage,
-  Uint8List data, {
-  String? password,
-}) {
-  if (data.length < _legacyEncryptionSignature.length ||
-      !listEquals(
-        data.sublist(0, _legacyEncryptionSignature.length),
-        _legacyEncryptionSignature,
-      )) {
-    return data;
-  }
-  if (storage is! RemoteStorage || !storage.isConnectionEncryptionEnabled) {
-    throw const FormatException('Missing connection encryption password');
-  }
-  password ??= _requireConnectionEncryptionPassword(storage);
-  final archive = ZipDecoder().decodeBytes(
-    data.sublist(_legacyEncryptionSignature.length),
-    password: password,
-  );
-  final file = archive.findFile(_legacyEncryptionFileName);
-  if (file == null || !file.isFile) {
-    throw const FormatException('Invalid encrypted connection data');
-  }
-  return Uint8List.fromList(file.content as List<int>);
 }
 
 NoteFile addConnectionPasswordToNoteFile(
@@ -139,19 +95,12 @@ NoteFile addConnectionPasswordToNoteFile(
     return file;
   }
   password ??= _requireConnectionEncryptionPassword(storage);
-  var document = file.load(password: password);
-  if (!(document?.isValid ?? false)) document = file.load();
+  final document = loadConnectionNoteFile(storage, file, password: password);
   if (!(document?.isValid ?? false)) {
     throw const FormatException('Invalid document encryption password');
   }
   return document!.changePassword(password).toFile();
 }
-
-NoteFile decodeConnectionNoteFile(
-  ExternalStorage? storage,
-  Uint8List data, {
-  String? password,
-}) => NoteFile(decodeConnectionData(storage, data, password: password));
 
 NoteData addConnectionPasswordToNoteData(
   ExternalStorage? storage,
@@ -170,15 +119,13 @@ NoteData decodeConnectionNoteData(
   Uint8List data, {
   String? password,
 }) {
-  password ??= readConnectionEncryptionPassword(storage);
-  final decoded = decodeConnectionData(storage, data, password: password);
-  final file = NoteFile(decoded);
-  final note = NoteData.fromData(
-    decoded,
-    password: file.isEncrypted() ? password : null,
+  final note = loadConnectionNoteFile(
+    storage,
+    NoteFile(data),
+    password: password,
   );
-  if (!note.isValid) {
+  if (!(note?.isValid ?? false)) {
     throw const FormatException('Invalid document encryption password');
   }
-  return note;
+  return note!;
 }

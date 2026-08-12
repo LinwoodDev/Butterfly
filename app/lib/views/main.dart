@@ -307,10 +307,7 @@ class _ProjectPageState extends State<ProjectPage> {
             }
           }
         } else {
-          final data = await loadDocumentSystemAbsolute(
-            documentSystem,
-            location.path,
-          );
+          final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
             final encrypted = isEncryptedNote(data);
             loadedDocumentBytes = data;
