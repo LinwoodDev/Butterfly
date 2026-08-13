@@ -316,9 +316,8 @@ void main() {
             ),
           ),
           barrierDismissible: true,
-          barrierLabel: MaterialLocalizations.of(
-            viewportContext,
-          ).modalBarrierDismissLabel,
+          barrierLabel: MaterialLocalizations.of(viewportContext)
+              .modalBarrierDismissLabel,
           transitionDuration: Duration.zero,
         );
         await settle(tester);

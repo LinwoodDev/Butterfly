@@ -192,9 +192,8 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                                 children: [
                                   kIsWeb
                                       ? Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          ).webNotSupported,
+                                          AppLocalizations.of(context)
+                                              .webNotSupported,
                                         )
                                       : Column(
                                           children: [

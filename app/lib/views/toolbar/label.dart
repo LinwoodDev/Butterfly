@@ -396,9 +396,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                         ? ButtonStyle(
                                             foregroundColor:
                                                 WidgetStateProperty.all(
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.primary,
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
                                                 ),
                                           )
                                         : null,
@@ -452,9 +452,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                         ? ButtonStyle(
                                             foregroundColor:
                                                 WidgetStateProperty.all(
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.primary,
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
                                                 ),
                                           )
                                         : null,
@@ -735,13 +735,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                         var text = ((index + 1) * 100)
                                             .toString();
                                         if (index == 3) {
-                                          text = AppLocalizations.of(
-                                            context,
-                                          ).normal;
+                                          text = AppLocalizations.of(context)
+                                              .normal;
                                         } else if (index == 6) {
-                                          text = AppLocalizations.of(
-                                            context,
-                                          ).bold;
+                                          text = AppLocalizations.of(context)
+                                              .bold;
                                         }
                                         return PopupMenuItem(
                                           value: FontWeight.values[index],

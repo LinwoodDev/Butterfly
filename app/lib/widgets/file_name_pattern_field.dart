@@ -133,9 +133,8 @@ class _FileNamePatternFieldState extends State<FileNamePatternField> {
                           templateDateFormatExample,
                           templateTimeFormatExample,
                         ),
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall
+                            ?.copyWith(color: colorScheme.onSurfaceVariant),
                       ),
                       const SizedBox(height: 10),
                       _PlaceholderExample(
@@ -185,10 +184,8 @@ class _PlaceholderExample extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: Text(
           '$placeholder  →  $result',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontFamily: 'monospace',
-            color: colorScheme.onSurface,
-          ),
+          style: Theme.of(context).textTheme.bodySmall
+              ?.copyWith(fontFamily: 'monospace', color: colorScheme.onSurface),
         ),
       ),
     );

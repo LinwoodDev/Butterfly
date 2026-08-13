@@ -832,9 +832,8 @@ class FilesViewState extends State<FilesView> {
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.selectionInverse,
                             ),
-                            tooltip: AppLocalizations.of(
-                              context,
-                            ).invertSelection,
+                            tooltip: AppLocalizations.of(context)
+                                .invertSelection,
                             onPressed: () async {
                               final directory = await _documentSystem.getAsset(
                                 _locationController.text,

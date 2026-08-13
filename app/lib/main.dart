@@ -441,7 +441,9 @@ class _WindowCloseGuardState extends State<_WindowCloseGuard> {
   Widget build(BuildContext context) => widget.child;
 }
 
-const flavor = String.fromEnvironment('flavor');
+// `appFlavor` is supplied by Flutter's --flavor option on every supported
+// platform. Keep the Dart define fallback for older invocation scripts.
+const flavor = appFlavor ?? String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';

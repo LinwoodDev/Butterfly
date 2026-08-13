@@ -24,9 +24,8 @@ class AssetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
-    final textStyle = TextTheme.of(
-      context,
-    ).bodyLarge?.copyWith(color: colorScheme.onSurface);
+    final textStyle = TextTheme.of(context).bodyLarge
+        ?.copyWith(color: colorScheme.onSurface);
     return Tooltip(
       message: tooltip ?? name ?? metadata?.name,
       waitDuration: const Duration(seconds: 1),

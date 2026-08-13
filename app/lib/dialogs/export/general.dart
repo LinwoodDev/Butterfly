@@ -220,9 +220,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                             Expanded(child: Container()),
                             TextButton(
                               child: Text(
-                                MaterialLocalizations.of(
-                                  context,
-                                ).cancelButtonLabel,
+                                MaterialLocalizations.of(context)
+                                    .cancelButtonLabel,
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                             ),

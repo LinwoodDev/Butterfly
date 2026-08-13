@@ -336,9 +336,8 @@ class FileEntityListTile extends StatelessWidget {
                                           minWidth: 100,
                                           maxHeight: 40,
                                         ),
-                                        hintText: AppLocalizations.of(
-                                          context,
-                                        ).enterText,
+                                        hintText: AppLocalizations.of(context)
+                                            .enterText,
                                         suffix: IconButton(
                                           onPressed: () async {
                                             if (nameController.text ==
@@ -374,9 +373,8 @@ class FileEntityListTile extends StatelessWidget {
                                             PhosphorIconsLight.check,
                                             textDirection: TextDirection.ltr,
                                           ),
-                                          tooltip: AppLocalizations.of(
-                                            context,
-                                          ).save,
+                                          tooltip: AppLocalizations.of(context)
+                                              .save,
                                         ),
                                       ),
                                     )
@@ -394,9 +392,8 @@ class FileEntityListTile extends StatelessWidget {
                                             message: entity.fileName,
                                             child: FileNameDisplay(
                                               entity: entity,
-                                              style: TextTheme.of(
-                                                context,
-                                              ).labelLarge,
+                                              style: TextTheme.of(context)
+                                                  .labelLarge,
                                             ),
                                           ),
                                           if (!isDesktop && !collapsed) ...[
@@ -422,9 +419,8 @@ class FileEntityListTile extends StatelessWidget {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.pencil,
                                     ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).rename,
+                                    tooltip: AppLocalizations.of(context)
+                                        .rename,
                                   ),
                                 ],
                               );

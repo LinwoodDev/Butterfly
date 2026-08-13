@@ -498,8 +498,10 @@ enum RendererOperation {
   };
 }
 
-typedef RendererOperationCallback =
-    void Function(DocumentBloc bloc, BuildContext context);
+typedef RendererOperationCallback = void Function(
+  DocumentBloc bloc,
+  BuildContext context,
+);
 
 abstract class Renderer<T> {
   final T element;
@@ -512,28 +514,26 @@ abstract class Renderer<T> {
     // Elements
     if (element is PadElement) {
       return switch (element) {
-            PenElement() => PenRenderer(element, layer),
-            PdfElement() => PdfRenderer(element, layer),
-            TextElement() => TextRenderer(element, layer),
-            ImageElement() => ImageRenderer(element, layer),
-            SvgElement() => SvgRenderer(element, layer),
-            ShapeElement() => ShapeRenderer(element, layer),
-            TableElement() => TableRenderer(element, layer),
-            MarkdownElement() => MarkdownRenderer(element, layer),
-            TextureElement() => TextureRenderer(element, layer),
-            PolygonElement() => PolygonRenderer(element, layer),
-          }
-          as Renderer<T>;
+        PenElement() => PenRenderer(element, layer),
+        PdfElement() => PdfRenderer(element, layer),
+        TextElement() => TextRenderer(element, layer),
+        ImageElement() => ImageRenderer(element, layer),
+        SvgElement() => SvgRenderer(element, layer),
+        ShapeElement() => ShapeRenderer(element, layer),
+        TableElement() => TableRenderer(element, layer),
+        MarkdownElement() => MarkdownRenderer(element, layer),
+        TextureElement() => TextureRenderer(element, layer),
+        PolygonElement() => PolygonRenderer(element, layer),
+      } as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
       return switch (element) {
-            TextureBackground() => TextureBackgroundRenderer(element),
-            ImageBackground() => ImageBackgroundRenderer(element),
-            SvgBackground() => SvgBackgroundRenderer(element),
-          }
-          as Renderer<T>;
+        TextureBackground() => TextureBackgroundRenderer(element),
+        ImageBackground() => ImageBackgroundRenderer(element),
+        SvgBackground() => SvgBackgroundRenderer(element),
+      } as Renderer<T>;
     }
 
     throw Exception('Invalid instance type');

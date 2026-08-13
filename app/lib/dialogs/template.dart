@@ -482,9 +482,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.selectionInverse,
                                     ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).invertSelection,
+                                    tooltip: AppLocalizations.of(context)
+                                        .invertSelection,
                                     onPressed: () {
                                       setState(() {
                                         final inverted = filteredUserTemplates
@@ -506,9 +505,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     ),
                                     tooltip: everythingSelected
                                         ? AppLocalizations.of(context).deselect
-                                        : AppLocalizations.of(
-                                            context,
-                                          ).selectAll,
+                                        : AppLocalizations.of(context)
+                                              .selectAll,
                                     onPressed: () {
                                       setState(() {
                                         _selectedTemplates.clear();
@@ -531,9 +529,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.wrench,
                                       ),
-                                      tooltip: AppLocalizations.of(
-                                        context,
-                                      ).overrideTools,
+                                      tooltip: AppLocalizations.of(context)
+                                          .overrideTools,
                                       onPressed: () =>
                                           _overrideTools(
                                             _templateSystem,
@@ -560,9 +557,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                           PhosphorIconsLight.archive,
                                         ),
                                         child: Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          ).packagedFile,
+                                          AppLocalizations.of(context)
+                                              .packagedFile,
                                         ),
                                         onPressed: () async {
                                           await _exportTemplates(
@@ -590,18 +586,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.export,
                                       ),
-                                      tooltip: AppLocalizations.of(
-                                        context,
-                                      ).export,
+                                      tooltip: AppLocalizations.of(context)
+                                          .export,
                                     ),
                                   ),
                                   IconButton(
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.trash,
                                     ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).delete,
+                                    tooltip: AppLocalizations.of(context)
+                                        .delete,
                                     onPressed: () async {
                                       final result = await showDialog<bool>(
                                         context: context,
@@ -640,9 +634,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
           Expanded(
             child: Text(
               title ?? 'Core',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              style: Theme.of(context).textTheme.titleMedium
+                  ?.copyWith(color: Theme.of(context).colorScheme.primary),
             ),
           ),
 

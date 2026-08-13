@@ -26,9 +26,8 @@ void main() {
   testWidgets('camera sliders follow transform changes', (tester) async {
     final fileSystem = MockButterflyFileSystem();
     final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
     final transformCubit = TransformCubit(1);
@@ -77,9 +76,8 @@ void main() {
             home: Scaffold(
               body: Builder(
                 builder: (context) => ListView(
-                  children: DocumentSelection(
-                    editorController,
-                  ).buildProperties(context),
+                  children: DocumentSelection(editorController)
+                      .buildProperties(context),
                 ),
               ),
             ),
@@ -113,9 +111,8 @@ void main() {
   ) async {
     final fileSystem = MockButterflyFileSystem();
     final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
     final transformCubit = TransformCubit(1);
@@ -125,9 +122,8 @@ void main() {
       CameraViewport.unbaked(),
     );
     final windowCubit = WindowCubit(fullScreen: false);
-    final data = DocumentDefaults.createDocument(
-      name: 'Encrypted',
-    ).changePassword('password');
+    final data = DocumentDefaults.createDocument(name: 'Encrypted')
+        .changePassword('password');
     final pageName = data.getPages().first;
     final page = data.getPage(pageName)!;
     final bloc = DocumentBloc(
@@ -167,9 +163,8 @@ void main() {
             home: Scaffold(
               body: Builder(
                 builder: (context) => ListView(
-                  children: DocumentSelection(
-                    editorController,
-                  ).buildProperties(context),
+                  children: DocumentSelection(editorController)
+                      .buildProperties(context),
                 ),
               ),
             ),

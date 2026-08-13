@@ -190,9 +190,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                               Image.memory(bytes, height: 42),
                               Flexible(
                                 child: Text(
-                                  AppLocalizations.of(
-                                    context,
-                                  ).capturedThumbnail,
+                                  AppLocalizations.of(context)
+                                      .capturedThumbnail,
                                 ),
                               ),
                             ],
@@ -248,17 +247,15 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                               TextButton(
                                 onPressed: () => Navigator.pop(context, false),
                                 child: Text(
-                                  MaterialLocalizations.of(
-                                    context,
-                                  ).cancelButtonLabel,
+                                  MaterialLocalizations.of(context)
+                                      .cancelButtonLabel,
                                 ),
                               ),
                               ElevatedButton(
                                 onPressed: () => Navigator.pop(context, true),
                                 child: Text(
-                                  MaterialLocalizations.of(
-                                    context,
-                                  ).okButtonLabel,
+                                  MaterialLocalizations.of(context)
+                                      .okButtonLabel,
                                 ),
                               ),
                             ],

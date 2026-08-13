@@ -13,9 +13,8 @@ void main() {
   );
 
   test('connection note data uses the same native encryption password', () {
-    final document = DocumentDefaults.createDocument(
-      name: 'Encrypted',
-    ).changePassword('source password');
+    final document = DocumentDefaults.createDocument(name: 'Encrypted')
+        .changePassword('source password');
 
     final encrypted = addConnectionPasswordToNoteData(
       storage,

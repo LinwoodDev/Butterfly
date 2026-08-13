@@ -58,12 +58,12 @@ jobs:
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly
+          flutter build apk -v --release --flavor nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build nightly (legacy packaging)
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly
+          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android-legacy.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
@@ -88,14 +88,14 @@ jobs:
       - name: 🏭 Build architecture nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64.apk
       - name: 🏭 Build architecture nightly (legacy packaging)
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
+          USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64-legacy.apk
@@ -186,11 +186,11 @@ jobs:
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          flutter build windows -v --release --dart-define=flavor=nightly
+          flutter build windows -v --release --flavor nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
-          flutter build windows -v --release --dart-define=flavor=production
+          flutter build windows -v --release --flavor production
       - name: Build setup
         shell: pwsh
         run: |
@@ -318,12 +318,12 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
           flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=nightly
+          flutter build linux -v --release --flavor nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=production
+          flutter build linux -v --release --flavor production
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/butterfly

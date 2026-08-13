@@ -123,13 +123,11 @@ Future<void> openNewDocument(
   if (!context.mounted) return;
   final queryParams = <String, String>{'path': ?path, 'remote': ?targetRemote};
   if (replace) {
-    GoRouter.of(
-      context,
-    ).goNamed('new', queryParameters: queryParams, extra: document);
+    GoRouter.of(context)
+        .goNamed('new', queryParameters: queryParams, extra: document);
     return;
   } else {
-    await GoRouter.of(
-      context,
-    ).pushNamed('new', queryParameters: queryParams, extra: document);
+    await GoRouter.of(context)
+        .pushNamed('new', queryParameters: queryParams, extra: document);
   }
 }

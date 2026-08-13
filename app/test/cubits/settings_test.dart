@@ -67,9 +67,8 @@ void main() {
 
     final updated = cubit.state.getRemote(remote.identifier);
     expect(updated?.isConnectionEncryptionEnabled, isTrue);
-    final restored = ButterflySettings.fromPrefs(
-      prefs,
-    ).getRemote(remote.identifier);
+    final restored = ButterflySettings.fromPrefs(prefs)
+        .getRemote(remote.identifier);
     expect(restored?.isConnectionEncryptionEnabled, isTrue);
   });
 

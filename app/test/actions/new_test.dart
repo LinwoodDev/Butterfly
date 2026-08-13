@@ -178,9 +178,8 @@ void main() {
   testWidgets('template file name overrides the settings default', (
     tester,
   ) async {
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(defaultFileName: 'Default note'));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(defaultFileName: 'Default note'));
     var template = NoteData(Archive());
     template = template.setMetadata(
       const FileMetadata(
@@ -212,9 +211,8 @@ void main() {
       documentSystem: documentSystem,
     );
     fileSystem = trackingFileSystem;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(connections: [remote]));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(connections: [remote]));
     when(
       () => documentSystem.createFileWithName(
         any(),

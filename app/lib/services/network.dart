@@ -418,10 +418,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     );
     final data = _setupClient(rpc, connection);
     connection.messagePipe.connect(rpc);
-    await Future.wait([
-      connection.init(),
-      connection.onRoomInfo.first,
-    ]).timeout(kTimeout);
+    await Future.wait([connection.init(), connection.onRoomInfo.first])
+        .timeout(kTimeout);
     emit(ClientNetworkState(connection: connection, pipe: rpc));
     return data;
   }
@@ -435,10 +433,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     _setupServer(rpc, connection);
     _setupRpc(rpc, connection);
     connection.messagePipe.connect(rpc);
-    await Future.wait([
-      connection.init(),
-      connection.onRoomInfo.first,
-    ]).timeout(kTimeout);
+    await Future.wait([connection.init(), connection.onRoomInfo.first])
+        .timeout(kTimeout);
     emit(ServerNetworkState(connection: connection, pipe: rpc));
   }
 

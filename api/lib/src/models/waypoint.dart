@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import '../converter/core.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'waypoint.g.dart';

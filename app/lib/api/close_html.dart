@@ -16,13 +16,13 @@ class WebCloseSubscription extends CloseSubscription {
 
   WebCloseSubscription(OnCloseCallback onClose)
     : _subscription =
-          const EventStreamProvider<BeforeUnloadEvent>(
-            'onbeforeunload',
-          ).forTarget(window).listen((event) {
-            final request = onClose();
-            if (request is! CloseRequest) return;
-            event.returnValue = request.message;
-          });
+          const EventStreamProvider<BeforeUnloadEvent>('onbeforeunload')
+              .forTarget(window)
+              .listen((event) {
+                final request = onClose();
+                if (request is! CloseRequest) return;
+                event.returnValue = request.message;
+              });
 
   @override
   void dispose() {

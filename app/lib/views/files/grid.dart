@@ -227,9 +227,8 @@ class FileEntityGridItem extends StatelessWidget {
                                   },
                                   decoration: InputDecoration(
                                     filled: true,
-                                    hintText: AppLocalizations.of(
-                                      context,
-                                    ).enterText,
+                                    hintText: AppLocalizations.of(context)
+                                        .enterText,
                                     suffix: IconButton(
                                       onPressed: () async {
                                         await documentSystem.renameAsset(
@@ -258,9 +257,8 @@ class FileEntityGridItem extends StatelessWidget {
                                         PhosphorIconsLight.check,
                                         textDirection: TextDirection.ltr,
                                       ),
-                                      tooltip: AppLocalizations.of(
-                                        context,
-                                      ).save,
+                                      tooltip: AppLocalizations.of(context)
+                                          .save,
                                     ),
                                   ),
                                 ),

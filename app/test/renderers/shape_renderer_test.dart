@@ -469,33 +469,30 @@ void main() {
       );
     });
 
-    test(
-      'Lasso Partial selection returns false for full but true for TouchAnywhere',
-      () {
-        final calculator = ShapeRenderer(shapeElement).getHitCalculator();
-        final partialLasso = const [
-          Offset(50, 50),
-          Offset(120, 50),
-          Offset(120, 120),
-          Offset(50, 120),
-        ];
+    test('Lasso Partial selection returns false for full but true for TouchAnywhere', () {
+      final calculator = ShapeRenderer(shapeElement).getHitCalculator();
+      final partialLasso = const [
+        Offset(50, 50),
+        Offset(120, 50),
+        Offset(120, 120),
+        Offset(50, 120),
+      ];
 
-        expect(
-          calculator.hitPolygon(
-            partialLasso,
-            hitElementMode: HitElementMode.full,
-          ),
-          isFalse,
-        );
-        expect(
-          calculator.hitPolygon(
-            partialLasso,
-            hitElementMode: HitElementMode.touchAnywhere,
-          ),
-          isTrue,
-        );
-      },
-    );
+      expect(
+        calculator.hitPolygon(
+          partialLasso,
+          hitElementMode: HitElementMode.full,
+        ),
+        isFalse,
+      );
+      expect(
+        calculator.hitPolygon(
+          partialLasso,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isTrue,
+      );
+    });
   });
 
   group('unbounded spacer rectangles', () {

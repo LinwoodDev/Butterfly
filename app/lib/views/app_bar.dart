@@ -36,6 +36,7 @@ import '../cubits/settings.dart';
 import '../embed/action.dart';
 import '../embed/embedding.dart';
 import 'navigator/view.dart';
+
 import 'package:lw_file_system/lw_file_system.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -960,9 +961,8 @@ class MainPopupMenu extends StatelessWidget {
                             icon: Image.asset(logoAsset),
                             style: IconButton.styleFrom(
                               backgroundColor: controller.isOpen
-                                  ? ColorScheme.of(
-                                      context,
-                                    ).surfaceContainerHighest
+                                  ? ColorScheme.of(context)
+                                        .surfaceContainerHighest
                                   : null,
                             ),
                             tooltip: AppLocalizations.of(context).actions,

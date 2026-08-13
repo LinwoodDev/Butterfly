@@ -1844,9 +1844,8 @@ class SettingsCubit extends Cubit<ButterflySettings>
       if (decoded == null) {
         throw const FormatException('Invalid settings JSON');
       }
-      final settings = ButterflySettings.fromJson(
-        decoded,
-      ).copyWith(history: state.history, connections: state.connections);
+      final settings = ButterflySettings.fromJson(decoded)
+          .copyWith(history: state.history, connections: state.connections);
       emit(settings);
       return save();
     } catch (e) {

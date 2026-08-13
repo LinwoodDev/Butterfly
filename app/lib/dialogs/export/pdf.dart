@@ -161,9 +161,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           children: [
                             TextButton(
                               child: Text(
-                                MaterialLocalizations.of(
-                                  context,
-                                ).cancelButtonLabel,
+                                MaterialLocalizations.of(context)
+                                    .cancelButtonLabel,
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
@@ -468,9 +467,8 @@ class _AreaPreviewState extends State<_AreaPreview> {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 4),
             decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.surfaceContainerHighest
+                  .withValues(alpha: 0.5),
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               border: Border.all(
                 color: Theme.of(context).colorScheme.outlineVariant,
@@ -495,9 +493,9 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                 Radius.circular(8),
                               ),
                               border: Border.all(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.outlineVariant,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outlineVariant,
                               ),
                             ),
                             clipBehavior: Clip.antiAlias,
@@ -529,12 +527,12 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                   style: Theme.of(context).textTheme.bodySmall
                                       ?.copyWith(
                                         color: isCurrentPage
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primary
-                                            : Theme.of(
-                                                context,
-                                              ).colorScheme.onSurfaceVariant,
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurfaceVariant,
                                       ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -584,9 +582,9 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                   contentPadding: EdgeInsets.zero,
                                   header: Text(
                                     AppLocalizations.of(context).quality,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall,
                                   ),
                                 ),
                               ),
@@ -697,9 +695,8 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
 
                       children.add(
                         Container(
-                          color: ColorScheme.of(
-                            context,
-                          ).surfaceContainerHighest.withValues(alpha: 0.3),
+                          color: ColorScheme.of(context).surfaceContainerHighest
+                              .withValues(alpha: 0.3),
                           child: CheckboxListTile(
                             title: Text(
                               pageName.isEmpty
@@ -889,9 +886,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.trash,
                                     ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).remove,
+                                    tooltip: AppLocalizations.of(context)
+                                        .remove,
                                     color: Theme.of(context).colorScheme.error,
                                     onPressed: () async {
                                       if (await showDialog<bool>(

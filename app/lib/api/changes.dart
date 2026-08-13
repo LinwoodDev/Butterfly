@@ -24,9 +24,8 @@ Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppLocalizations.of(
-                  context,
-                ).breakingChangesMessage(version, kFileVersion),
+                AppLocalizations.of(context)
+                    .breakingChangesMessage(version, kFileVersion),
               ),
               const SizedBox(height: 8),
               OutlinedButton.icon(

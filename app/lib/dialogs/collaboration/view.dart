@@ -113,9 +113,8 @@ class ViewCollaborationDialog extends StatelessWidget {
             final channel = connections.elementAt(index);
             final user = service.getUser(channel);
             final hasCustomName = user.name.isNotEmpty;
-            final defaultName = AppLocalizations.of(
-              context,
-            ).defaultUserName(channel);
+            final defaultName = AppLocalizations.of(context)
+                .defaultUserName(channel);
             Widget title = Text(
               hasCustomName ? user.name : defaultName,
               style: hasCustomName ? null : const TextStyle(color: Colors.grey),

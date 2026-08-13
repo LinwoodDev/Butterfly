@@ -76,9 +76,8 @@ void main() {
     previousObserver = Bloc.observer;
     Bloc.observer = observer;
 
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(defaultTemplate: 'default'));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(defaultTemplate: 'default'));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
     when(() => settingsCubit.getRemote(any())).thenReturn(null);
   });

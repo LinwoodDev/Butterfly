@@ -162,9 +162,8 @@ void main() {
   ) async {
     final fileSystem = MockButterflyFileSystem();
     final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
     final editorController = EditorController(
       settingsCubit,

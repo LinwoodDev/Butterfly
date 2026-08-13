@@ -229,12 +229,10 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                                 ),
                                 title: Text(
                                   encryptionEnabled
-                                      ? AppLocalizations.of(
-                                          context,
-                                        ).changeDocumentEncryptionPassword
-                                      : AppLocalizations.of(
-                                          context,
-                                        ).addDocumentEncryptionPassword,
+                                      ? AppLocalizations.of(context)
+                                            .changeDocumentEncryptionPassword
+                                      : AppLocalizations.of(context)
+                                            .addDocumentEncryptionPassword,
                                 ),
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.lockKey,

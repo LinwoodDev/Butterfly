@@ -10,9 +10,8 @@ void main() {
   test('creating a pack stores it in the global pack filesystem', () async {
     final fileSystem = MockButterflyFileSystem();
     final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     final packSystem = fileSystem.buildDefaultPackSystem();
     final pack = DocumentDefaults.createPack().setMetadata(
       DocumentDefaults.createMetadata(
