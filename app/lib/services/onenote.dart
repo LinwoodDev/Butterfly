@@ -66,7 +66,7 @@ Future<Uint8List> convertXpsToPdf(
         result.exitCode,
       );
     }
-    return output.readAsBytes();
+    return await output.readAsBytes();
   } finally {
     try {
       await directory.delete(recursive: true);

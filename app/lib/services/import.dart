@@ -425,7 +425,7 @@ class ImportService {
           await _importArchive(archive);
           return null;
         }
-        return showDialog(
+        return await showDialog(
           context: context,
           builder: (context) => UnknownImportConfirmationDialog(
             message: AppLocalizations.of(context).unknownImportType,
@@ -433,7 +433,7 @@ class ImportService {
         ).then((value) => null);
       }
       final type = data.getMetadata()?.type;
-      return switch (type) {
+      return await switch (type) {
         NoteFileType.document => _importDocument(
           data,
           document: document,
@@ -490,7 +490,7 @@ class ImportService {
   }) async {
     try {
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
-      return _importPage(page, document, position);
+      return await _importPage(page, document, position);
     } catch (e) {
       await showDialog(
         context: context,
@@ -658,7 +658,7 @@ class ImportService {
   }) async {
     try {
       final data = xoppMigrator(bytes);
-      return _importDocument(data, document: document);
+      return await _importDocument(data, document: document);
     } catch (e) {
       showDialog(
         context: context,
