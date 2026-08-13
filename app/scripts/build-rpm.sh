@@ -4,14 +4,16 @@
 DIRECTORY_ARCH="x64"  # Default directory name
 BINARY_ARCH="x86_64"  # Default binary name
 RPM_ARCH="x86_64"     # Default RPM architecture
+BUILD_FLAVOR="production"
 
 # Parse command-line arguments
-while getopts "d:b:" opt; do
+while getopts "d:b:f:" opt; do
   case $opt in
     d) DIRECTORY_ARCH="$OPTARG" ;;  # Set the directory architecture
     b) BINARY_ARCH="$OPTARG" ;;    # Set the binary architecture
+    f) BUILD_FLAVOR="$OPTARG" ;;   # Set the Flutter build flavor
     *) 
-      echo "Usage: $0 [-d directory_arch] [-b binary_arch]"
+      echo "Usage: $0 [-d directory_arch] [-b binary_arch] [-f build_flavor]"
       exit 1
       ;;
   esac
@@ -40,7 +42,7 @@ mkdir -p build/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 # Copy files
 cp linux/rpm/linwood-butterfly.spec build/SPECS/linwood-butterfly.spec
-cp -r build/linux/${DIRECTORY_ARCH}/release/bundle build/SOURCES/linwood-butterfly-$RPM_VERSION
+cp -r build/linux/${DIRECTORY_ARCH}/${BUILD_FLAVOR}/release/bundle build/SOURCES/linwood-butterfly-$RPM_VERSION
 chmod 755 build/SOURCES/linwood-butterfly-$RPM_VERSION/butterfly
 mv build/SOURCES/linwood-butterfly-$RPM_VERSION/butterfly build/SOURCES/linwood-butterfly-$RPM_VERSION/linwood-butterfly
 cp linux/rpm/linwood-butterfly.desktop build/SOURCES/linwood-butterfly-$RPM_VERSION/linwood-butterfly.desktop

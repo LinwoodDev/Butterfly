@@ -158,6 +158,8 @@ jobs:
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -195,17 +197,17 @@ jobs:
         shell: pwsh
         run: |
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION /DMyAppArch=${{ matrix.arch.dir }} ButterflySetup.iss
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION /DMyAppArch=${{ matrix.arch.dir }} /DMyAppFlavor=$Env:BUILD_FLAVOR ButterflySetup.iss
       - name: Copy portable start script
         run: |
-          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/runner/Release/
+          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/$BUILD_FLAVOR/runner/Release/
           cp build/windows/${{ matrix.arch.dir }}/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/${{ matrix.arch.dir }}/runner/Release/**
+            app/build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/**
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -267,6 +269,8 @@ jobs:
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -326,19 +330,19 @@ jobs:
           flutter build linux -v --release --flavor production
       - name: 🏭 Make binary executable
         run: |
-          chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/butterfly
+          chmod +x build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle/butterfly
       - name: Update files to arm64
         if: ${{ matrix.arch.dir == 'arm64' }}
         run: |
           sed -i 's/^Architecture: amd64/Architecture: arm64/' linux/debian/DEBIAN/control
       - name: Build .deb executable
         run: |
-          cp -fr build/linux/${{ matrix.arch.dir }}/release/bundle linux/debian/usr/bin
+          cp -fr build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
           cp linux/*.deb linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Build .rpm executable
         run: |
-          bash scripts/build-rpm.sh -d ${{ matrix.arch.dir }} -b ${{ matrix.arch.name }}
+          bash scripts/build-rpm.sh -d ${{ matrix.arch.dir }} -b ${{ matrix.arch.name }} -f $BUILD_FLAVOR
       - name: Build .AppImage executable
         run: |
           wget -O appimagetool.AppImage https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${{ matrix.arch.appimage }}.AppImage
@@ -346,7 +350,7 @@ jobs:
           # Build AppDir
           mkdir -p AppDir/usr/bin
           # move bundle folder to AppDir
-          cp build/linux/${{ matrix.arch.dir }}/release/bundle/* AppDir/usr/bin/ -r
+          cp build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle/* AppDir/usr/bin/ -r
           mkdir -p AppDir/usr/share/icons/hicolor
           cp linux/debian/usr/share/icons/hicolor AppDir/usr/share/icons/ -r
           mkdir -p AppDir/usr/share/metainfo/
@@ -364,19 +368,19 @@ jobs:
           ./appimagetool.AppImage -u "$UPDATE_INFO" AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
-          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
-          mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
-          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
+          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle/usr
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
-          cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/release/bundle
+          cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/$BUILD_FLAVOR/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-build
           path: |
-            app/build/linux/${{ matrix.arch.dir }}/release/bundle/**
+            app/build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/**
       - name: Archive .deb
         uses: actions/upload-artifact@v7
         with:

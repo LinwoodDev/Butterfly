@@ -8,10 +8,13 @@
 #ifndef MyAppArch
 #define MyAppArch "x64"
 #endif
+#ifndef MyAppFlavor
+#define MyAppFlavor "production"
+#endif
 #define MyAppPublisher "Linwood"
 #define MyAppURL "https://www.linwood.dev"
 #define MyAppExeName "butterfly.exe" 
-#define BaseDirRelease "build\windows\" + MyAppArch + "\runner\Release"
+#define BaseDirRelease "build\windows\" + MyAppArch + "\" + MyAppFlavor + "\runner\Release"
 #define RunnerSourceDir "windows\runner"
 
 
