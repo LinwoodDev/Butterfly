@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "Показати в провіднику файлу",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -286,7 +286,7 @@
     "description": "Move action"
   },
   "copy": "Копія",
-  "openContextMenu": "Open context menu",
+  "openContextMenu": "Відкрийте контекстне меню",
   "@copy": {
     "description": "Copy action"
   },
