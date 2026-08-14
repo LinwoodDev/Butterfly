@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "在文件浏览器中显示",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -286,7 +286,7 @@
     "description": "Move action"
   },
   "copy": "复制",
-  "openContextMenu": "Open context menu",
+  "openContextMenu": "打开上下文菜单",
   "@copy": {
     "description": "Copy action"
   },
