@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "ファイルエクスプローラで表示",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -286,7 +286,7 @@
     "description": "Move action"
   },
   "copy": "コピー",
-  "openContextMenu": "Open context menu",
+  "openContextMenu": "コンテキストメニューを開く",
   "@copy": {
     "description": "Copy action"
   },
