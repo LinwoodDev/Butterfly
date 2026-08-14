@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "Mostrar no explorador de arquivos",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -286,7 +286,7 @@
     "description": "Move action"
   },
   "copy": "Copiar",
-  "openContextMenu": "Open context menu",
+  "openContextMenu": "Abrir menu de contexto",
   "@copy": {
     "description": "Copy action"
   },
