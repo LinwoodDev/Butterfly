@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "Zobrazit v Průzkumníku souborů",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -286,7 +286,7 @@
     "description": "Move action"
   },
   "copy": "Kopírovat",
-  "openContextMenu": "Open context menu",
+  "openContextMenu": "Otevřít kontextové menu",
   "@copy": {
     "description": "Copy action"
   },
