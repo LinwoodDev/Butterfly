@@ -24,6 +24,23 @@ const renderMathPlugin = {
   },
 };
 
+const githubEmoji = {
+  warning: "⚠️",
+  white_check_mark: "✅",
+  x: "❌",
+};
+
+const renderGithubEmojiPlugin = {
+  name: "render-github-emoji",
+  text(node, context) {
+    const value = node.value.replace(
+      /:(warning|white_check_mark|x):/g,
+      (_, name) => githubEmoji[name],
+    );
+    if (value !== node.value) context.replaceNode(node, { type: "text", value });
+  },
+};
+
 const mdxHeadingAttributes = {
   name: "mdx-heading-attributes",
   enforce: "pre",
@@ -45,7 +62,7 @@ export default defineConfig({
   markdown: {
     processor: satteri({
       features: { math: true, headingAttributes: true },
-      mdastPlugins: [renderMathPlugin],
+      mdastPlugins: [renderMathPlugin, renderGithubEmojiPlugin],
     }),
   },
   vite: {

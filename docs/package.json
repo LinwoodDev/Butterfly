@@ -18,13 +18,13 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "astro": "^7.2.0",
-    "katex": "^0.18.1",
+    "astro": "^7.2.2",
+    "katex": "^0.18.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@11.20.0",
+  "packageManager": "pnpm@11.22.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
     "sass": "^1.102.0",
