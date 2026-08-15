@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Показать в обозревателе файлов",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Настройки",
   "personalization": "Персонализация",
   "theme": "Тема",
@@ -282,6 +286,7 @@
     "description": "Move action"
   },
   "copy": "Копировать",
+  "openContextMenu": "Открыть контекстное меню",
   "@copy": {
     "description": "Copy action"
   },

@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Rivela nel file explorer",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Impostazioni",
   "personalization": "Personalizzazione",
   "theme": "Tema",
@@ -282,6 +286,7 @@
     "description": "Move action"
   },
   "copy": "Copia",
+  "openContextMenu": "Apri menu contestuale",
   "@copy": {
     "description": "Copy action"
   },

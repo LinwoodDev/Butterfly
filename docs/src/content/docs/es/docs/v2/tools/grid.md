@@ -16,10 +16,10 @@ Inputs get snapped to the grid.
 
 |               Propiedad |         Por defecto         | Descripción                                                                                            |
 | ----------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
-|                  Tamaño | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|                  Tamaño | (20, 20) | El tamaño de las celdas de la rejilla en el axis x e y.                                |
 |                  Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
-|                   Color |            Negro            | The color of the grid.                                                                 |
-|                    Alfa |             255             | The opacity of the grid lines.                                                         |
-|                  Stroke |              1              | The width of the grid lines.                                                           |
+|                   Color |            Negro            | El color de la rejilla.                                                                |
+|                    Alfa |             255             | La opacidad de las líneas de la rejilla.                                               |
+|                  Stroke |              1              | El grosor de las líneas de la rejilla.                                                 |
 |     Dependiente de zoom |            falso            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | Dependiendo de posición |            falso            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

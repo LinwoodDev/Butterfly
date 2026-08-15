@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Paljasta tiedostonetsintä",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Asetukset",
   "personalization": "Mukauttaminen",
   "theme": "Teema",
@@ -282,6 +286,7 @@
     "description": "Move action"
   },
   "copy": "Kopioi",
+  "openContextMenu": "Avaa kontekstivalikko",
   "@copy": {
     "description": "Copy action"
   },
