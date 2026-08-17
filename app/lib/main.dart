@@ -5,6 +5,7 @@ import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
+import 'package:butterfly/services/backup.dart';
 import 'package:butterfly/settings/connection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
@@ -47,6 +48,9 @@ Future<void> main([List<String> args = const []]) async {
 
   final prefs = await SharedPreferences.getInstance();
   final settingsCubit = SettingsCubit(prefs);
+  await connectionEncryptionPasswordStorage.preload(
+    settingsCubit.state.connections,
+  );
   await setup(nativeTitleBar: settingsCubit.state.nativeTitleBar);
   var initialLocation = '/';
   final argParser = ArgParser();
@@ -377,7 +381,13 @@ class ButterflyApp extends StatelessWidget {
                     SyncService(context, context.read<ButterflyFileSystem>()),
                 dispose: (service) => service.dispose(),
                 lazy: false,
-                child: _WindowCloseGuard(child: child ?? Container()),
+                child: RepositoryProvider(
+                  create: (context) =>
+                      BackupService(context.read<ButterflyFileSystem>()),
+                  dispose: (service) => service.dispose(),
+                  lazy: false,
+                  child: _WindowCloseGuard(child: child ?? Container()),
+                ),
               ),
             ),
           );
@@ -431,7 +441,9 @@ class _WindowCloseGuardState extends State<_WindowCloseGuard> {
   Widget build(BuildContext context) => widget.child;
 }
 
-const flavor = String.fromEnvironment('flavor');
+// `appFlavor` is supplied by Flutter's --flavor option on every supported
+// platform. Keep the Dart define fallback for older invocation scripts.
+const flavor = appFlavor ?? String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';

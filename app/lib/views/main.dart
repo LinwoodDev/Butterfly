@@ -29,6 +29,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -102,7 +103,7 @@ class _ProjectPageState extends State<ProjectPage> {
   _ProjectDocumentRuntime? _runtime;
   final SearchController _searchController = SearchController();
   late final CloseSubscription _closeSubscription;
-  final GlobalKey _viewportKey = GlobalKey();
+  final GlobalKey<MainViewViewportState> _viewportKey = GlobalKey();
   int _loadGeneration = 0;
 
   @override
@@ -195,9 +196,31 @@ class _ProjectPageState extends State<ProjectPage> {
       }
     }
 
+    Future<void> cancelLoad() async {
+      await disposePendingRuntime();
+      if (mounted) context.go('/');
+    }
+
+    bool isEncryptedNote(Object? data) {
+      try {
+        return switch (data) {
+          NoteFile file => file.isEncrypted(),
+          Uint8List bytes => NoteFile(bytes).isEncrypted(),
+          FileSystemFile<NoteFile> file => file.data?.isEncrypted() ?? false,
+          _ => false,
+        };
+      } catch (_) {
+        return false;
+      }
+    }
+
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
-      final globalImportService = ImportService(context);
+      final globalImportService = ImportService(
+        context,
+        storage: remote,
+        useDefaultStorage: false,
+      );
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
@@ -228,8 +251,13 @@ class _ProjectPageState extends State<ProjectPage> {
         }
       }
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
+      defaultDocument = addConnectionPasswordToNoteData(
+        remote,
+        defaultDocument,
+      );
       bool failedToLoad = false;
       if (data != null) {
+        final encrypted = isEncryptedNote(data);
         if (data is Uint8List) {
           loadedDocumentBytes = data;
         } else if (data is NoteFile) {
@@ -239,6 +267,10 @@ class _ProjectPageState extends State<ProjectPage> {
             .load(type: type, data: data, document: defaultDocument)
             .then((e) => e?.export());
         if (document == null) {
+          if (encrypted) {
+            await cancelLoad();
+            return;
+          }
           failedToLoad = true;
         }
       }
@@ -253,6 +285,7 @@ class _ProjectPageState extends State<ProjectPage> {
             return;
           }
           if (asset is FileSystemFile<NoteFile>) {
+            final encrypted = isEncryptedNote(asset);
             loadedDocumentBytes = asset.data?.data;
             final NoteData? noteData = await globalImportService
                 .load(
@@ -264,14 +297,19 @@ class _ProjectPageState extends State<ProjectPage> {
                 )
                 .then((e) => e?.export());
             if (noteData != null) {
-              document = await checkFileChanges(context, noteData);
+              document = noteData;
             } else {
+              if (encrypted) {
+                await cancelLoad();
+                return;
+              }
               failedToLoad = true;
             }
           }
         } else {
           final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
+            final encrypted = isEncryptedNote(data);
             loadedDocumentBytes = data;
             document = await globalImportService
                 .load(
@@ -283,9 +321,24 @@ class _ProjectPageState extends State<ProjectPage> {
                 )
                 .then((e) => e?.export());
             if (document == null) {
+              if (encrypted) {
+                await cancelLoad();
+                return;
+              }
               failedToLoad = true;
             }
           }
+        }
+      }
+      if (document != null) {
+        document = await checkFileChanges(context, document);
+        if (!isCurrentLoad()) {
+          await disposePendingRuntime();
+          return;
+        }
+        if (document == null) {
+          await cancelLoad();
+          return;
         }
       }
       if (!isCurrentLoad()) {
@@ -347,8 +400,9 @@ class _ProjectPageState extends State<ProjectPage> {
         await disposePendingRuntime();
         return;
       }
+      location ??= embedding?.location;
       location ??= AssetLocation(
-        path: widget.location?.path ?? '',
+        path: embedding?.fileName ?? widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
       final persistDocumentState = embedding == null;
@@ -672,7 +726,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                                         settings.isInline &&
                                                         saveState.editable,
                                                   ),
-                                            body: const _MainBody(),
+                                            body: _MainBody(
+                                              viewportKey: _viewportKey,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -741,6 +797,9 @@ class _ProjectPageState extends State<ProjectPage> {
       SelectAllIntent: SelectAllAction(context),
       ZoomIntent: ZoomAction(context),
       RotateIntent: RotateAction(context),
+      ContextMenuIntent: ContextMenuAction(
+        () => _viewportKey.currentState?.openContextMenu(),
+      ),
       SearchIntent: CallbackAction<SearchIntent>(
         onInvoke: (_) {
           if (_searchController.isOpen) {
@@ -778,7 +837,9 @@ class _ProjectPageState extends State<ProjectPage> {
 }
 
 class _MainBody extends StatelessWidget {
-  const _MainBody();
+  const _MainBody({required this.viewportKey});
+
+  final GlobalKey<MainViewViewportState> viewportKey;
 
   @override
   Widget build(BuildContext context) {
@@ -880,7 +941,7 @@ class _MainBody extends StatelessWidget {
 
     return Stack(
       children: [
-        const MainViewViewport(),
+        MainViewViewport(key: viewportKey),
         _buildSelectionListener(context, toolState),
         SafeArea(
           child: Row(

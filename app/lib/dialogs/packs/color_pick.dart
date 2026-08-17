@@ -222,9 +222,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                         children: [
                                           Text(
                                             _selected?.key ?? '',
-                                            style: TextTheme.of(
-                                              context,
-                                            ).headlineSmall,
+                                            style: TextTheme.of(context)
+                                                .headlineSmall,
                                           ),
                                           Text(
                                             _selected == null
@@ -233,9 +232,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                                     _selected!.pack,
                                                     _selected!.namespace,
                                                   ),
-                                            style: TextTheme.of(
-                                              context,
-                                            ).labelLarge,
+                                            style: TextTheme.of(context)
+                                                .labelLarge,
                                           ),
                                         ],
                                       ),
@@ -268,9 +266,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           _loadPalette();
                                         });
                                       },
-                                      tooltip: AppLocalizations.of(
-                                        context,
-                                      ).select,
+                                      tooltip: AppLocalizations.of(context)
+                                          .select,
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.package,
                                       ),
@@ -313,9 +310,9 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                             ),
                             onLongPress: () => _showColorOperation(index),
                             onSecondaryTap: () => _showColorOperation(index),
-                            onTap: () => Navigator.of(
-                              context,
-                            ).pop(_palette!.colors[index]),
+                            onTap: () =>
+                                Navigator.of(context)
+                                    .pop(_palette!.colors[index]),
                             child: Container(
                               width: 75,
                               height: 75,
@@ -333,9 +330,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Material(
-                              color: Theme.of(
-                                context,
-                              ).scaffoldBackgroundColor.withValues(alpha: 0.5),
+                              color: Theme.of(context).scaffoldBackgroundColor
+                                  .withValues(alpha: 0.5),
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(32),

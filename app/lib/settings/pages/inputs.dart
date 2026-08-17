@@ -1,8 +1,10 @@
 part of '../home.dart';
 
 typedef _InputConfigurationRead<V> = V Function(InputConfiguration config);
-typedef _InputConfigurationWrite<V> =
-    InputConfiguration Function(InputConfiguration config, V value);
+typedef _InputConfigurationWrite<V> = InputConfiguration Function(
+  InputConfiguration config,
+  V value,
+);
 
 final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).inputs,
@@ -272,6 +274,7 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
     (current, defaults) => current.copyWith(
       inputGestures: defaults.inputGestures,
       moveOnGesture: defaults.moveOnGesture,
+      rotateOnGesture: defaults.rotateOnGesture,
       inputConfiguration: current.inputConfiguration.copyWith(
         touch: defaults.inputConfiguration.touch,
         doubleTouchShortcut: defaults.inputConfiguration.doubleTouchShortcut,
@@ -305,6 +308,14 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.moveOnGesture,
           write: (context, value) =>
               context.read<SettingsCubit>().changeMoveOnGesture(value),
+        ),
+        SettingsLeapBoolSetting(
+          id: 'rotateOnGesture',
+          displayName: (context) => AppLocalizations.of(context).rotation,
+          icon: PhosphorIconsLight.arrowClockwise,
+          read: (state) => state.rotateOnGesture,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeRotateOnGesture(value),
         ),
       ],
     ),
@@ -419,6 +430,7 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
             changePathShortcut,
             zoomInShortcut,
             zoomOutShortcut,
+            resetZoomShortcut,
             rotateLeftShortcut,
             rotateRightShortcut,
             fullScreenShortcut,
@@ -430,6 +442,7 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
             togglePresentationShortcut,
             selectAllShortcut,
             pasteShortcut,
+            contextMenuShortcut,
             ...changeToolShortcuts,
           ]),
     ),
@@ -655,13 +668,10 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
 );
 
 Widget _shortcutsHelpHeader(BuildContext context, ButterflySettings state) {
-  return Align(
-    alignment: AlignmentDirectional.centerEnd,
-    child: IconButton(
-      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-      tooltip: AppLocalizations.of(context).help,
-      onPressed: () => openHelp(['shortcuts'], 'configure'),
-    ),
+  return IconButton(
+    icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+    tooltip: AppLocalizations.of(context).help,
+    onPressed: () => openHelp(['shortcuts'], 'configure'),
   );
 }
 
@@ -688,6 +698,7 @@ SettingsLeapListSetting<ButterflySettings, InputMapping> _inputMappingSetting({
 }) {
   return SettingsLeapListSetting<ButterflySettings, InputMapping>(
     id: id,
+    disableOptionSearch: true,
     displayName: displayName,
     icon: icon,
     options: [
@@ -735,6 +746,7 @@ _optionalInputMappingSetting({
 }) {
   return SettingsLeapListSetting<ButterflySettings, InputMapping?>(
     id: id,
+    disableOptionSearch: true,
     displayName: displayName,
     icon: icon,
     options: [
@@ -786,6 +798,7 @@ SettingsLeapListSetting<ButterflySettings, String?> _inputShortcutSetting({
 }) {
   return SettingsLeapListSetting<ButterflySettings, String?>(
     id: id,
+    disableOptionSearch: true,
     displayName: displayName,
     icon: icon,
     options: [
@@ -825,6 +838,7 @@ final _projectInputShortcuts = [
   changePathShortcut,
   zoomInShortcut,
   zoomOutShortcut,
+  resetZoomShortcut,
   rotateLeftShortcut,
   rotateRightShortcut,
   fullScreenShortcut,

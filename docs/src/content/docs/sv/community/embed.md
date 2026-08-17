@@ -22,6 +22,7 @@ Add the following code to your website:
 | spara      | Boolean (true, false)                                                           | true     | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable   | Boolean (true, false)                                                           | true     | Enable editing. If disabled, the document will be read-only                                                                                                 |
 | språk      | Sträng (..., system, användare) | user     | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| fileName   | String                                                                                             |          | Display this file name in the embed title. It is visual only and does not change the document metadata                                                      |
 
 ## Messaging
 
@@ -36,7 +37,7 @@ messages to the iframe and listens for messages from it.
 ```html
 <iframe
   id="butterfly"
-  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true"
+  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true&fileName=Example.bfly"
   width="100%"
   height="500"
 ></iframe>
@@ -62,6 +63,11 @@ messages to the iframe and listens for messages from it.
     if (type === 'save') {
       const documentBytes = Array.from(message);
       console.log('Save requested by the embed', documentBytes);
+    }
+
+    if (type === 'exit') {
+      const documentBytes = Array.from(message);
+      console.log('Exit requested by the embed', documentBytes);
     }
 
     if (type === 'change') {

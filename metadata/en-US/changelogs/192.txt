@@ -1,0 +1,16 @@
+This is a hotfix update, cherry-picking important fixes from the latest 2.6.0 betas.
+
+Cherry picks:
+* Improve context menu background
+* Fix pasted strokes losing their relative positions ([#1202](https://github.com/LinwoodDev/Butterfly/issues/1202))
+* Fix core pack palettes not being editable ([#1199](https://github.com/LinwoodDev/Butterfly/issues/1199))
+* Fix incompatible document loading
+* Fix file grid action menu overlapping the sync indicator in right-to-left layouts
+* Fix file move dialog indentation in right-to-left layouts
+* Fix negative brush sizes ([#1201](https://github.com/LinwoodDev/Butterfly/issues/1201))
+* Fix crashes when exporting all files if the library is large
+* Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))
+* Fix transformed SVG elements disposing shared picture data ([#1217](https://github.com/LinwoodDev/Butterfly/issues/1217))
+* Fix layout issues in reorderable list views
+
+Read more here: https://linwood.dev/butterfly/2.5.5

@@ -23,7 +23,7 @@ Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Siehe [Stiftunterstützung](/docs/v2/stylus-support/) für aktuelles Verhalten und Umgehungslösungen.
+See [Stylus support](/docs/v2/stylus-support/) for current behavior and workarounds.
 
 Ich benutze die Eingabe des Flutter-Frameworks.
 Dies ist das Issue zum Nachverfolgen: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
@@ -60,10 +60,10 @@ Butterfly ist auf iOS als Vorschau verfügbar. Klicken Sie [hier](https://butter
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-Siehe [Stiftunterstützung](/docs/v2/stylus-support/) für aktuelles Verhalten, Einstellungen und Issue-Links.
+See [Stylus support](/docs/v2/stylus-support/) for current behavior, settings, and issue links.
 
 Ich benutze die Eingabe des Flutter-Frameworks.
-Es gibt bereits Issues zum Nachverfolgen:
+There are already issues to track it:
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Diese Probleme sind etwas älter. Die Web-Version sollte im Moment gut funktionieren.

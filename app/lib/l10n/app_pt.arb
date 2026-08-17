@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Mostrar no explorador de arquivos",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Configurações",
   "personalization": "Personalização",
   "theme": "Tema",
@@ -282,12 +286,17 @@
     "description": "Move action"
   },
   "copy": "Copiar",
+  "openContextMenu": "Abrir menu de contexto",
   "@copy": {
     "description": "Copy action"
   },
   "back": "Anterior",
   "@back": {
     "description": "Back action"
+  },
+  "forward": "Encaminhar",
+  "@forward": {
+    "description": "Forward action"
   },
   "zoomDependent": "Dependente da ampliação",
   "shapeDetection": "Deteção de forma",
@@ -577,6 +586,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Classificações",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Linhas",
+  "columns": "Colunas",
+  "row": "Linha",
+  "column": "Coluna",
+  "insertRowBefore": "Inserir linha antes",
+  "insertRowAfter": "Inserir linha depois",
+  "insertColumnBefore": "Inserir coluna antes",
+  "insertColumnAfter": "Inserir coluna depois",
+  "deleteRow": "Excluir linha",
+  "deleteColumn": "Excluir coluna",
+  "cellColor": "Cor da célula",
+  "cellBorders": "Bordas de célula",
+  "cellBorder": "Borda da célula",
+  "horizontalBorder": "Borda horizontal",
+  "verticalBorder": "Borda vertical",
+  "rowHeight": "Altura da Linha",
+  "columnWidth": "Largura da coluna",
+  "border": "Border",
   "circle": "Círculo",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +1002,8 @@
   "bringForward": "Trazer para frente",
   "sendBackward": "Enviar para trás",
   "rotation": "Rotação",
+  "rotationStep": "Passo de Rotação",
+  "zoomStep": "Aumento do zoom",
   "direction": "Direção",
   "onlyAvailableLargerScreen": "Disponível apenas em telas maiores",
   "toolbarPosition": "Posição da barra",
@@ -981,6 +1014,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Girar à esquerda",
+  "rotateRight": "Girar à direita",
   "spacer": "Separador",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1195,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Mostrar pré-visualizações do navegador",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Mostrar miniaturas de visualização em cache nas áreas e páginas",
   "highContrast": "Alto contraste",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1364,7 @@
   "moveOnGesture": "Mover para gesto",
   "exportAllFiles": "Exportar todos os arquivos",
   "restoreSettingsFromFile": "Restaurar configurações do arquivo",
+  "resetAllSettings": "Redefinir todas as configurações",
   "exportSettingsToFile": "Exportar configurações para arquivo",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1479,8 @@
   "fullScreenShortcut": "Tela cheia",
   "doublePressAction": "Ação de toque duplo",
   "triplePressAction": "Ação de toque triplo",
+  "twoFingerTap": "Toque de dois dedos",
+  "threeFingerTap": "Toque de três dedos",
   "longPress": "Toque longo",
   "toolNumber": "Ferramenta {number}",
   "@toolNumber": {

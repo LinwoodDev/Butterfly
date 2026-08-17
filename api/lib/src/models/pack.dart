@@ -110,11 +110,10 @@ sealed class NamedItem<T extends PackAsset> with _$NamedItem<T> {
   ) => _$NamedItemFromJson(json, fromJsonT);
 
   @override
-  Map<String, dynamic> toJson(
-    Object? Function(T) toJsonT,
-  ) => throw UnimplementedError(
-    'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.',
-  );
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
+      throw UnimplementedError(
+        'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.',
+      );
 
   PackItem<T> toPack(NoteData pack, String namespace) =>
       PackItem<T>(PackAssetLocation(namespace, name), pack, item);

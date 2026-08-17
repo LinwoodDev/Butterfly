@@ -7,14 +7,14 @@ Hier können Sie Inhalte zu Ihren Notizen hinzufügen.
 ## Importieren
 
 Hier können Sie vorhandene Dateien in Ihre Dokumente importieren.
-Unterstützt werden Butterfly-Dokumente, Markdown, PNG, SVG und PDF.
+Supported are Butterfly, Xournal++ and OneNote documents, Markdown, PNG, SVG, and PDF.
 
 ## Werkzeuge
 
 Klicken Sie auf Werkzeuge, um sie Ihrer Symbolleiste hinzuzufügen.
 Lesen Sie [hier](../tools) mehr darüber.
 
-## Oberflächen
+## Surfaces {#surfaces}
 
 Dies sind spezielle Werkzeuge zum Erstellen von Oberflächen.
 

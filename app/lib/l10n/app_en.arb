@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Reveal in file explorer",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Settings",
   "personalization": "Personalization",
   "theme": "Theme",
@@ -208,6 +212,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "The file {fileName} was created in a newer version ({fileVersion}). What should be done with this file?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -282,6 +299,7 @@
     "description": "Move action"
   },
   "copy": "Copy",
+  "openContextMenu": "Open context menu",
   "@copy": {
     "description": "Copy action"
   },
@@ -546,6 +564,12 @@
   "connect": "Connect",
   "username": "Username",
   "password": "Password",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web not supported",
   "advanced": "Advanced",
   "directory": "Directory",

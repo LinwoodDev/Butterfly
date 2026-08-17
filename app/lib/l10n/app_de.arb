@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Im Datei-Explorer anzeigen",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Einstellungen",
   "personalization": "Personalisierung",
   "theme": "Thema",
@@ -282,12 +286,17 @@
     "description": "Move action"
   },
   "copy": "Kopieren",
+  "openContextMenu": "Kontextmenü öffnen",
   "@copy": {
     "description": "Copy action"
   },
   "back": "Zurück",
   "@back": {
     "description": "Back action"
+  },
+  "forward": "Vorwärts",
+  "@forward": {
+    "description": "Forward action"
   },
   "zoomDependent": "Zoomabhängig",
   "shapeDetection": "Formerkennung",
@@ -577,6 +586,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Tisch",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Zeilen",
+  "columns": "Spalten",
+  "row": "Zeile",
+  "column": "Spalte",
+  "insertRowBefore": "Zeile vorher einfügen",
+  "insertRowAfter": "Zeile einfügen nach",
+  "insertColumnBefore": "Spalte einfügen vor",
+  "insertColumnAfter": "Spalte einfügen nach",
+  "deleteRow": "Zeile löschen",
+  "deleteColumn": "Spalte löschen",
+  "cellColor": "Zellenfarbe",
+  "cellBorders": "Zellengrenzen",
+  "cellBorder": "Zellenrand",
+  "horizontalBorder": "Horizontaler Rand",
+  "verticalBorder": "Vertikaler Rand",
+  "rowHeight": "Zeilenhöhe",
+  "columnWidth": "Spaltenbreite",
+  "border": "Border",
   "circle": "Kreis",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +1002,8 @@
   "bringForward": "Vorwärts bringen",
   "sendBackward": "Rückwärts senden",
   "rotation": "Drehung",
+  "rotationStep": "Drehschritt",
+  "zoomStep": "Zoom-Schritt",
   "direction": "Richtung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
@@ -981,6 +1014,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Nach links drehen",
+  "rotateRight": "Rechts drehen",
   "spacer": "Abstandhalter",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1195,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Navigator-Vorschau anzeigen",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Zeige zwischengespeicherte Vorschaubilder in den Bereichen und Seitennavigatoren",
   "highContrast": "Hoher Kontrast",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1364,7 @@
   "moveOnGesture": "Verschieben bei Geste",
   "exportAllFiles": "Alle Dateien exportieren",
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
+  "resetAllSettings": "Alle Einstellungen zurücksetzen",
   "exportSettingsToFile": "Einstellungen in Datei exportieren",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1479,8 @@
   "fullScreenShortcut": "Vollbild",
   "doublePressAction": "Doppeltes Drücken",
   "triplePressAction": "Dreifach Drücken Aktion",
+  "twoFingerTap": "Zwei-Finger-Tippen",
+  "threeFingerTap": "Dreifinger tippen",
   "longPress": "Lange drücken",
   "toolNumber": "{number}",
   "@toolNumber": {

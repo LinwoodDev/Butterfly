@@ -230,6 +230,21 @@ void main() {
   });
 
   group('NoteData metadata conversion', () {
+    test('loading preserves a newer file version', () {
+      final fileVersion = kFileVersion + 1;
+      final original = NoteData(Archive()).setMetadata(
+        FileMetadata(
+          type: NoteFileType.document,
+          name: 'Future document',
+          fileVersion: fileVersion,
+        ),
+      );
+
+      final loaded = NoteData.fromData(original.exportAsBytes());
+
+      expect(loaded.getMetadata()?.fileVersion, fileVersion);
+    });
+
     test('NoteFile display reads text thumbnails and metadata', () async {
       final bytes = await File('test/assets/study.tbfly').readAsBytes();
 

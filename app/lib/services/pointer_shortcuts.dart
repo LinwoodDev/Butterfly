@@ -13,10 +13,13 @@ const _defaultTapTimeout = Duration(milliseconds: 500);
 const _defaultRepeatResolveDelay = Duration(milliseconds: 250);
 const _defaultMovementTolerance = 18.0;
 
-typedef PointerShortcutCallback =
-    void Function(String shortcutId, PointerUpEvent event);
-typedef PointerShortcutFallbackCallback =
-    void Function(List<PointerEvent> events);
+typedef PointerShortcutCallback = void Function(
+  String shortcutId,
+  PointerUpEvent event,
+);
+typedef PointerShortcutFallbackCallback = void Function(
+  List<PointerEvent> events,
+);
 typedef PointerShortcutEventResult = ({
   bool consumed,
   List<PointerEvent> releasedEvents,

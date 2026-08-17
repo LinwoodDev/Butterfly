@@ -2,6 +2,66 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-beta.5 (2026-08-17)
+
+* Add reset zoom shortcut ([#1224](https://github.com/LinwoodDev/Butterfly/issues/1224))
+* Add context menu shortcut ([#1214](https://github.com/LinwoodDev/Butterfly/issues/1214))
+* Add Reveal in Explorer ([#1219](https://github.com/LinwoodDev/Butterfly/issues/1219))
+* Improve renderer refresh and viewport baking performance on large documents
+* Improve settings search performance
+* Improve context menu design ([#1220](https://github.com/LinwoodDev/Butterfly/issues/1220))
+* Restore option icons and theme previews in the personalization settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
+* Align settings help buttons with their titles
+* Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))
+* Fix rendering updates and ordering when editing elements across layers ([#1209](https://github.com/LinwoodDev/Butterfly/issues/1209))
+* Fix transformed SVG elements disposing shared picture data ([#1217](https://github.com/LinwoodDev/Butterfly/issues/1217))
+* Fix flipping during initial barcode placement ([#1174](https://github.com/LinwoodDev/Butterfly/issues/1174))
+* Fix flipping and near-zero scaling during initial stamp placement ([#1179](https://github.com/LinwoodDev/Butterfly/issues/1179))
+* Fix temporary tools not receiving pointer release events
+* Fix layout issues in reorderable list views
+* Fix document content shifting after drawing at fractional zoom
+* Fix settings search result scrolling
+* Fix cannot toggle advanced switches in settings ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
+* Fix webdav error handling
+* Improve embedding by hiding recent files and keeping configured filenames separate from document names
+* Upgrade onenote parser
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.5
+
+## 2.6.0-beta.4 (2026-08-03)
+
+* Add table tool and elements ([#1155](https://github.com/LinwoodDev/Butterfly/issues/1155))
+* Add Markdown table parsing and rendering
+* Add preview images to the pages and areas navigators ([#1151](https://github.com/LinwoodDev/Butterfly/issues/1151))
+* Add color option to the area tool ([#1175](https://github.com/LinwoodDev/Butterfly/issues/1175))
+* Add foreground color option to the ruler tool with automatic contrast ([#1168](https://github.com/LinwoodDev/Butterfly/issues/1168))
+* Add reset to setting pages ([#1190](https://github.com/LinwoodDev/Butterfly/issues/1190))
+* Add focal support to radial gradients ([#1193](https://github.com/LinwoodDev/Butterfly/issues/1193))
+* Add back and forward mouse button mappings ([#1169](https://github.com/LinwoodDev/Butterfly/issues/1169))
+* Add two- and three-finger touch shortcuts ([#976](https://github.com/LinwoodDev/Butterfly/issues/976))
+* Add configurable canvas rotation keyboard shortcuts ([#1170](https://github.com/LinwoodDev/Butterfly/issues/1170))
+* Add configurable zoom steps
+* Add visual-only file name option to embeds
+* Add rotate input touch setting to disable canvas rotation
+* Fix closing documents when navigating back from a settings page opened in the settings dialog
+* Fix camera controls not updating after external canvas transformations
+* Fix template file names not being applied to documents created from Quick Start
+* Fix newer document versions opening without a warning
+* Fix crashes when exporting all files if library is large
+* Fix file grid action menu overlapping the sync indicator in right-to-left layouts
+* Fix file move dialog indentation in right-to-left layouts
+* Fix old element state remaining visible after changing rotation in embeds ([#1128](https://github.com/LinwoodDev/Butterfly/issues/1128))
+* Fix object selection bounding boxes not updating after undo and redo ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
+* Fix dragging selection transform handles sometimes starting a new selection ([#1196](https://github.com/LinwoodDev/Butterfly/issues/1196))
+* Fix hold shortcuts not restoring the active tool before the next pointer input ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
+* Fix negative brush sizes ([#1201](https://github.com/LinwoodDev/Butterfly/issues/1201))
+* Fix opening files on WebDAV connections
+* Ignore last color when switching to svg or image paint kind
+* Improve embeds by hiding templates and the files navigator and ignoring configured default templates
+* Improve Linux app metadata
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.4
+
 ## 2.6.0-beta.3 (2026-07-27)
 
 * Add shear property for elements

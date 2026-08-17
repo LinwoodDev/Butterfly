@@ -2,10 +2,131 @@
 title: Genveje
 ---
 
+Shortcuts are a way to map specific inputs to an action that influences the editor.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such
+as `Mouse`, `Touch`, `Keyboard` or `Pen`. You will be presented with a list of configurable inputs
+and the actions they are currently mapped to.
+
+These actions are divided into [tool activators](#tool-activators)
+and [document actions](#document-actions).
+
+## Tool activators {#tool-activators}
+
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Tool activators will be ignored while certain tools are selected, such as the Select tool,
+the Label tool, and the Area tool.
+
+- `None`: Nothing will happen when using this input.
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will use the hand tool as a [temporary tool](../tools#temporary-tools),
+  allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will use the specified tool on the toolbar as
+  a [temporary tool](../tools#temporary-tools), based on the position you specify. Positions are
+  counted
+  starting from the left, so if you specify position `1`, the first tool on the left will be
+  selected. See the screenshot below for an example of how position numbers are counted. For
+  information about how to reorder your tools,
+  see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
+
+![værktøjslinje nummereret](toolbar_numbered.png)
+
+## Document actions {#document-actions}
+
+- `None`: Nothing happens
+- `Long press`: Opens the [Context menu](../context_menu)
+- `Search`: Searches the document for pages and tools
+- `Undo`: Triggers the [Undo tool](../tools/undo)
+- `Redo`: Triggers the [Redo tool](../tools/redo)
+- `Background`: Opens the [Background dialog](../background)
+- `Save`: Saves the document state
+- `Change path`: Changes where the document is stored relative to the `Documents` folder
+  in [Data directory](../storage/#data-directory).
+- `Zoom in`: Zooms into the canvas at the current position. See [Camera](../utilities/camera).
+- `Zoom out`: Zooms out of the canvas at the current position. See [Camera](../utilities/camera).
+- `Rotate left`: Rotates the canvas counter-clockwise. See [Camera](../utilities/camera).
+- `Rotate right`: Rotates the canvas clockwise. See [Camera](../utilities/camera).
+- `Full screen`: Toggles [Full screen](../tools/full_screen)
+- `Hide UI`: Hides everything except the canvas. To leave this view, click the `Exit` button on the
+  bottom right.
+- `Next page`: Navigates to the next [page](../pages)
+- `Previous page`: Navigates to the previous [page](../pages)
+- `Select all`: Selects all elements on the canvas
+- `Paste`: Pastes the clipboard
+- `Tool 1-10`: Switches the active tool to the specified toolbar position
+
+The canvas rotation and zoom step can be changed in `Settings` → `Behaviours`.
+
+---
+
+## Mus
+
+### Mouse configurations
+
+|                   Egenskab | Standard | Varebeskrivelse                                                                   |
+| -------------------------: | :------: | :-------------------------------------------------------------------------------- |
+| Skjul markør under tegning |   true   | Skjuler musemarkøren mens du tegner, så det ikke dækker dit slag. |
+
+### Mouse shortcuts
+
+**Tool activators**:
+
+- `Left`: When holding the left mouse button. Defaults to `Active Tool`
+- `Middle`: When holding the mouse wheel. Defaults to `Hand Tool`
+- `Right`: When holding the right mouse button. Defaults to `Toolbar Position 2`
+- `Back`: When clicking 4th mouse button at the side of some mice.
+- `Forward`: When clicking 5th mouse button at the side of some mice.
+
+**Document actions**:
+
+_By default, the mouse document actions are all set to `None`._
+
+- `Double Left`: A double click on the left mouse button
+- `Triple Left`: A triple click on the left mouse button
+- `Double Middle`: A double click on the mouse wheel
+- `Triple Middle`: A triple click on the mouse wheel
+- `Double Right`: A double click on the right mouse button
+- `Triple Right`: A triple click on the right mouse button
+- `Double Back`: A double click on the 4th mouse button at the side of some mice
+- `Triple Back`: A triple click on the 4th mouse button at the side of some mice
+- `Double Forward`: A double click on the 5th mouse button at the side of some mice
+- `Triple Forward`: A triple click on the 5th mouse button at the side of some mice
+
+## Berøring
+
+### Touch configurations
+
+|          Egenskab | Standard | Varebeskrivelse                                                                                             |
+| ----------------: | :------: | :---------------------------------------------------------------------------------------------------------- |
+|    Input gestures |   true   | Lets you move and zoom the canvas with touch gestures, even while drawing tool is selected. |
+| Flyt på bevægelse |   true   | Lader multi-touch fagter flytte lærred i stedet for at interagere med nodeindhold.          |
+
+### Touch shortcuts
+
+**Tool activators**:
+
+- `Touch`: When touching the screen. Defaults to `Active Tool`
+
+**Document actions**:
+
+_By default, the touch document actions are all set to `None`._
+
+- `Double press action`: A double-tap
+- `Triple press action`: A triple-tap
+- `Two finger tap`: A simultaneous two-finger tap
+- `Three finger tap`: A simultaneous three-finger tap
+
 ## Keyboard
 
-Der er et par genveje, som du kan bruge i editoren.
-Nogle af dem er skrevet under knapperne.
+Keyboard actions are divided into the categories hold shortcuts
+for **tool activators**, general and project
+for **document actions**.
+
+### Hold shortcuts
+
+_There is no default configuration. You may add any key mappings
+to **tool activators**._
 
 ### Generelt
 
@@ -14,44 +135,63 @@ Nogle af dem er skrevet under knapperne.
 - `Ctrl` + `E`: Eksporter fil
 - `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Shift` + `P`: Export file as pdf
+- `Ctrl` + `Shift` + `P`: Export file as PDF
+- `Ctrl` + `Alt` + `E`: Export file as SVG
 - `Ctrl` + `Alt` + `S`: Åbn indstillinger
 - `Ctrl` + `Alt` + `S`: Åbn indstillinger
+- `Escape`: Escape
 
 ### Projekt
 
 - `Ctrl` + `K`: Open search
 - `Ctrl` + `Z`: Fortryd
 - `Ctrl` + `Y`: Fortryd
-- `Ctrl` + `Shift` + `P`: Åbn waypoints dialog
 - `Ctrl` + `B`: Åbn baggrundsdialog
 - `Ctrl` + `S`: Gem
 - `Alt` + `S`: Skift sti
-- `Ctrl` + (`1` - `0`): Skift til værktøj
 - `Ctrl` + `+`: Zoom ind
 - `Ctrl` + `-`: Zoom ud
+- `Ctrl` + `Shift` + `Left`: Rotate canvas left
+- `Ctrl` + `Shift` + `Right`: Rotate canvas right
+- `F11`: Full screen
+- `F12`: Hide UI
+- `Arrow Right`: Next slide in presentation
+- `Arrow Left`: Previous slide in presentation
+- `Page Down`: Next page
+- `Page Up`: Previous page
+- `Ctrl` + `Space`: Pause presentation
+- `Ctrl` + `A`: Select all
+- `Ctrl` + `V`: Pastes the clipboard
+- `Ctrl` + (`1` - `0`): Skift til værktøj
 
 ## Pen
 
-By default, the pen is configured to function as the following:
+### Pen configurations
 
-- `Pen`: konfigureret som pen.
-- `Først` (Primær knap, hvis understøttet): Skift til håndværktøj under tryk.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+|              Egenskab |              Values              | Varebeskrivelse                                                                                                                  |
+| --------------------: | :------------------------------: | :------------------------------------------------------------------------------------------------------------------------------- |
+|         Kun pen input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only pen input can draw.                                  |
+| Vis kun pen skiftende |            true, false           | Viser en hurtig kontakt til kun en pen i editoren efter Butterfly registrerer en pen.                            |
+|          Ignorér tryk |       Never, First, Always       | Controls whether a pen pressure changes the stroke and works around inaccurate pressure readings from some pens. |
 
-## Configuring {#configure}
+### Pen shortcuts
 
-You can customize your controls by changing which tools your inputs map to.
+By default, the pen is configured to function with the
+following **tool activators**:
 
-**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+- `Pen`: Using the pen normally. Defaults to `Active Tool`
+- `Inverted Pen`: Using the pen in inverted mode. Defaults to `Toolbar Position 4`
+- `First`: While holding its primary button, if supported. Defaults to  `Toolbar Position 3` (often
+  path-eraser)
+- `Second`: While holding its secondary button, if supported. Defaults to `Toolbar Position 2`
 
-To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+_By default, the pen **document actions** are all set to `None`._
 
-After selecting an input, you will have 3 options:
-
-- `Active Tool`: The input will act as the currently selected tool on the toolbar.
-- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
-- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
-
-![værktøjslinje nummereret](toolbar_numbered.png)
+- `Double Pen`: Double-tapping using a pen
+- `Triple Pen`: Triple-tapping using a pen
+- `Double Inverted Pen`: Double-tapping using a pen in inverted mode
+- `Triple Inverted Pen`: Triple-tapping using a pen in inverted mode
+- `Double First`: Double-tapping using a pen while holding its primary button
+- `Triple First`: Triple-tapping using a pen while holding its primary button
+- `Double Second`: Double-tapping using a pen while holding its secondary button
+- `Triple Second`: Triple-tapping using a pen while holding its secondary button

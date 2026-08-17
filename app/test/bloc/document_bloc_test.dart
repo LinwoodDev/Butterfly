@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/asset.dart';
+import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,58 @@ import '../helpers/mocks.dart';
 Future<void> _settleBlocEvents() async {
   await Future<void>.delayed(Duration.zero);
   await Future<void>.delayed(Duration.zero);
+}
+
+Future<Uint8List> _renderViewportPixels(
+  DocumentLoadSuccess state,
+  EditorController controller,
+  Size size,
+) async {
+  final recorder = ui.PictureRecorder();
+  final canvas = Canvas(recorder);
+  ViewPainter(
+    state.data,
+    state.page,
+    state.info,
+    cameraViewport: controller.rendererCubit.state.cameraViewport,
+    transform: controller.transformCubit.state,
+  ).paint(canvas, size);
+  final picture = recorder.endRecording();
+  ui.Image? image;
+  try {
+    image = await picture.toImage(size.width.toInt(), size.height.toInt());
+    final data = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+    return data!.buffer.asUint8List();
+  } finally {
+    image?.dispose();
+    picture.dispose();
+  }
+}
+
+class _SolidRectRenderer extends Renderer<ShapeElement> {
+  _SolidRectRenderer(super.element, this.color, [super.layer]);
+
+  final Color color;
+
+  @override
+  Rect get rect => Rect.fromPoints(
+    Offset(element.firstPosition.x, element.firstPosition.y),
+    Offset(element.secondPosition.x, element.secondPosition.y),
+  );
+
+  @override
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
+    canvas.drawRect(rect, Paint()..color = color);
+  }
 }
 
 class _VisibleTrackingRenderer extends Renderer<PadElement> {
@@ -184,9 +238,8 @@ void main() {
     fileSystem = MockButterflyFileSystem();
     settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
 
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
     when(() => settingsCubit.addRecentHistory(any())).thenAnswer((_) async {});
 
@@ -357,6 +410,77 @@ void main() {
     expect(other.property.strokeWidth, 5);
   });
 
+  test('ruler runtime survives toggling and property updates', () async {
+    final rulerTool = RulerTool(id: 'ruler');
+    bloc.add(ToolsReplaced([HandTool(id: 'hand'), rulerTool]));
+    await _settleBlocEvents();
+
+    final ruler = await editorController.toolCubit.enableHandler(
+      editorController,
+      bloc,
+      1,
+    ) as RulerHandler;
+    ruler.setPosition(const Offset(24, 48));
+    ruler.setRotation(87);
+
+    await editorController.toolCubit.toggleHandler(editorController, bloc, 1);
+    final restored = await editorController.toolCubit.toggleHandler(
+      editorController,
+      bloc,
+      1,
+    ) as RulerHandler;
+    expect(restored, same(ruler));
+    expect(restored.position, const Offset(24, 48));
+    expect(restored.rotation, 87);
+
+    const background = SRGBColor(0xFF123456);
+    const foreground = SRGBColor(0xFFABCDEF);
+    final handlerUpdated = editorController.toolCubit.stream.firstWhere(
+      (state) =>
+          (state.toggleableHandlers[1]?.data as RulerTool?)?.color ==
+          background,
+    );
+    bloc.add(
+      ToolsChanged([
+        rulerTool.copyWith(
+          color: background,
+          foreground: foreground,
+          size: 150,
+        ),
+      ]),
+    );
+    await handlerUpdated;
+
+    final updated =
+        editorController.toolCubit.state.toggleableHandlers[1] as RulerHandler;
+    expect(updated, same(ruler));
+    expect(updated.position, const Offset(24, 48));
+    expect(updated.rotation, 87);
+    expect(updated.data.color, background);
+    expect(updated.data.foreground, foreground);
+    expect(updated.data.size, 150);
+    final rendered =
+        editorController.toolCubit.state.toggleableForegrounds[1]!.single
+            as RulerRenderer;
+    expect(rendered.element, same(updated.data));
+    expect(rendered.position, const Offset(24, 48));
+    expect(rendered.rulerRotation, 87);
+
+    await editorController.toolCubit.toggleHandler(editorController, bloc, 1);
+    bloc.add(const ToolsRemoved(['ruler']));
+    await _settleBlocEvents();
+    bloc.add(ToolCreated(RulerTool(id: 'ruler')));
+    await _settleBlocEvents();
+    final recreated = await editorController.toolCubit.enableHandler(
+      editorController,
+      bloc,
+      1,
+    ) as RulerHandler;
+    expect(recreated, isNot(same(ruler)));
+    expect(recreated.position, Offset.zero);
+    expect(recreated.rotation, 0);
+  });
+
   test('reset state change waits for reload to finish', () async {
     await bloc.close();
     await editorController.close();
@@ -473,6 +597,65 @@ void main() {
 
     await editorController.close();
     expect(renderer.disposeCalls, 1);
+  });
+
+  test('renderer reload reuses identity and restores page order', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final firstElement = ShapeElement(
+      id: 'first-renderer',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final secondElement = ShapeElement(
+      id: 'second-renderer',
+      firstPosition: const Point(30, 30),
+      secondPosition: const Point(40, 40),
+    );
+    final firstRenderer = _VisibleTrackingRenderer(firstElement, 'layer');
+    final secondRenderer = _VisibleTrackingRenderer(secondElement, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [firstElement, secondElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (newData, pageName) = data.setPage(page, 'Page');
+    data = newData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [secondRenderer, firstRenderer],
+        visibleElements: [secondRenderer, firstRenderer],
+        visibleUnbakedElements: [secondRenderer, firstRenderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await editorController.rendererCubit.loadElements(
+      editorController,
+      bloc.state,
+    );
+
+    expect(editorController.rendererCubit.renderers, [
+      same(firstRenderer),
+      same(secondRenderer),
+    ]);
+    expect(firstRenderer.disposeCalls, 0);
+    expect(secondRenderer.disposeCalls, 0);
   });
 
   test('failed visible renderer is retried', () async {
@@ -803,22 +986,25 @@ void main() {
     () async {
       final state = bloc.state as DocumentLoadSuccess;
       final handler = PenHandler(PenTool(id: 'pen'));
-      final element = PenElement(
-        id: 'stroke',
-        points: const [PathPoint(10, 20), PathPoint(40, 20)],
+      final strokePoints = List.generate(
+        1000,
+        (index) => PathPoint(index / 20, 20),
       );
+      final element = PenElement(id: 'stroke', points: strokePoints);
       handler.elements[1] = element;
 
       await handler.submitElements(bloc, [1]);
 
+      final submittedForegrounds = handler.createForegrounds(
+        editorController,
+        state.data,
+        state.page,
+        state.info,
+      );
+      expect(submittedForegrounds, hasLength(1));
       expect(
-        handler.createForegrounds(
-          editorController,
-          state.data,
-          state.page,
-          state.info,
-        ),
-        hasLength(1),
+        (submittedForegrounds.single as PenRenderer).element.points,
+        strokePoints,
       );
 
       final renderer = Renderer<PadElement>.fromInstance(
@@ -933,6 +1119,191 @@ void main() {
     expect(viewport.visibleUnbakedElements, isEmpty);
   });
 
+  test('changing the current layer rebuilds the layer caches', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final bottomElement = ShapeElement(
+      id: 'bottom',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(90, 90),
+    );
+    final topElement = ShapeElement(
+      id: 'top',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(90, 90),
+    );
+    final renderers = <Renderer<PadElement>>[
+      _SolidRectRenderer(bottomElement, Colors.red, 'bottom-layer'),
+      _SolidRectRenderer(topElement, Colors.blue, 'top-layer'),
+    ];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'bottom-layer', content: [bottomElement]),
+        DocumentLayer(id: 'top-layer', content: [topElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    final oldViewport = editorController.rendererCubit.state.cameraViewport;
+    final cacheRebuilt = editorController.rendererCubit.stream.firstWhere(
+      (state) =>
+          !identical(state.cameraViewport.image, oldViewport.image) &&
+          !identical(
+            state.cameraViewport.aboveLayerImage,
+            oldViewport.aboveLayerImage,
+          ),
+    );
+
+    bloc.add(const CurrentLayerChanged('bottom-layer'));
+    await cacheRebuilt;
+
+    expect((bloc.state as DocumentLoadSuccess).currentLayer, 'bottom-layer');
+
+    final newBottomElement = ShapeElement(
+      id: 'new-bottom',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(90, 90),
+    );
+    final newBottomRenderer = _SolidRectRenderer(
+      newBottomElement,
+      Colors.green,
+      'bottom-layer',
+    );
+    await editorController.rendererCubit.addUnbaked(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      [newBottomRenderer],
+    );
+    final pixels = await _renderViewportPixels(
+      bloc.state as DocumentLoadSuccess,
+      editorController,
+      const Size(100, 100),
+    );
+    final centerPixel = (50 * 100 + 50) * 4;
+    expect(pixels.sublist(centerPixel, centerPixel + 4), [33, 150, 243, 255]);
+  });
+
+  test('deleting an element from another layer rebuilds its cache', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final bottomElement = ShapeElement(
+      id: 'bottom',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(40, 40),
+    );
+    final topElement = ShapeElement(
+      id: 'top',
+      firstPosition: const Point(60, 60),
+      secondPosition: const Point(90, 90),
+    );
+    final renderers = <Renderer<PadElement>>[
+      _SolidRectRenderer(bottomElement, Colors.red, 'bottom-layer'),
+      _SolidRectRenderer(topElement, Colors.blue, 'top-layer'),
+    ];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'bottom-layer', content: [bottomElement]),
+        DocumentLayer(id: 'top-layer', content: [topElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    final oldBelowLayerImage =
+        editorController.rendererCubit.state.cameraViewport.belowLayerImage;
+    final cacheRebuilt = editorController.rendererCubit.stream.firstWhere(
+      (state) =>
+          !identical(
+            state.cameraViewport.belowLayerImage,
+            oldBelowLayerImage,
+          ) &&
+          state.cameraViewport.bakedElements.every(
+            (renderer) => renderer.element.id != bottomElement.id,
+          ),
+    );
+
+    bloc.add(const ElementsRemoved(['bottom']));
+    await cacheRebuilt;
+
+    expect(
+      (bloc.state as DocumentLoadSuccess).page.getLayer('bottom-layer').content,
+      isEmpty,
+    );
+    final pixels = await _renderViewportPixels(
+      bloc.state as DocumentLoadSuccess,
+      editorController,
+      const Size(100, 100),
+    );
+    final deletedElementPixel = (20 * 100 + 20) * 4;
+    expect(pixels.sublist(deletedElementPixel, deletedElementPixel + 4), [
+      255,
+      255,
+      255,
+      255,
+    ]);
+  });
+
   test('incremental bake does not rebuild already baked renderers', () async {
     await bloc.close();
     await editorController.close();
@@ -1008,6 +1379,107 @@ void main() {
     expect(existingRenderer.buildCalls, existingBuildsAfterReset);
     expect(addedRenderer.buildCalls, greaterThan(0));
   });
+
+  test(
+    'submitting a stroke at fractional zoom keeps existing document pixels',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      const viewportSize = Size(1600, 400);
+      const pixelRatio = 2.0;
+      final leftElement = ShapeElement(
+        id: 'left',
+        firstPosition: const Point(40, 40),
+        secondPosition: const Point(160, 160),
+      );
+      final rightElement = ShapeElement(
+        id: 'right',
+        firstPosition: const Point(2500, 40),
+        secondPosition: const Point(2800, 160),
+      );
+      final renderers = <Renderer<PadElement>>[
+        _SolidRectRenderer(leftElement, Colors.red, 'layer'),
+        _SolidRectRenderer(rightElement, Colors.blue, 'layer'),
+      ];
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [leftElement, rightElement]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      final transformCubit = TransformCubit(pixelRatio)
+        ..teleport(const Offset(11.3, 17.7), 0.55);
+      editorController = EditorController(
+        settingsCubit,
+        transformCubit,
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      final penHandler = PenHandler(PenTool(id: 'pen'));
+      await editorController.toolCubit.changeTool(
+        editorController,
+        bloc,
+        handler: penHandler,
+        allowBake: false,
+      );
+      await editorController.rendererCubit.bake(
+        editorController,
+        bloc.state as DocumentLoadSuccess,
+        viewportSize: viewportSize,
+        pixelRatio: pixelRatio,
+        reset: true,
+      );
+      final before = await _renderViewportPixels(
+        bloc.state as DocumentLoadSuccess,
+        editorController,
+        viewportSize,
+      );
+
+      penHandler.elements[1] = PenElement(
+        id: 'stroke',
+        points: const [PathPoint(1000, 600), PathPoint(1800, 600)],
+      );
+      await penHandler.submitElements(bloc, [1]);
+      await _settleBlocEvents();
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      await _settleBlocEvents();
+      final bakedViewport = editorController.rendererCubit.state.cameraViewport;
+      expect(bakedViewport.unbakedElements, isEmpty);
+      expect(
+        bakedViewport.bakedElements.map((renderer) => renderer.element.id),
+        contains('stroke'),
+      );
+      final after = await _renderViewportPixels(
+        bloc.state as DocumentLoadSuccess,
+        editorController,
+        viewportSize,
+      );
+
+      // The submitted stroke is below this strip, so every compared RGBA byte
+      // belongs to pre-existing document content or its white background.
+      final unchangedByteCount = viewportSize.width.toInt() * 220 * 4;
+      expect(
+        after.sublist(0, unchangedByteCount),
+        before.sublist(0, unchangedByteCount),
+      );
+    },
+  );
 
   test('tool refresh without temporary handler does not reset bake', () async {
     await bloc.close();

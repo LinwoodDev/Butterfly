@@ -18,15 +18,17 @@ class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
 
   @override
-  _MainViewViewportState createState() => _MainViewViewportState();
+  MainViewViewportState createState() => MainViewViewportState();
 }
 
 enum _MouseState { normal, inverse, scale }
 
 typedef _HandlerGetter = Handler Function();
 typedef _EventContextGetter = EventContext Function();
-typedef _TemporaryToolChanger =
-    Future<void> Function(PointerDeviceKind kind, int buttons);
+typedef _TemporaryToolChanger = Future<void> Function(
+  PointerDeviceKind kind,
+  int buttons,
+);
 typedef _PointerInputContext = ({
   EditorController cubit,
   DocumentLoaded state,
@@ -36,7 +38,7 @@ typedef _PointerInputContext = ({
   VoidCallback delayBake,
 });
 
-class _MainViewViewportState extends State<MainViewViewport>
+class MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   double size = 1.0;
@@ -46,6 +48,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
   bool? _isScalingDisabled;
   RulerHandler? _ruler;
+  int? _rulerPointer;
   Animation<Offset>? _positionAnimation;
 
   final Map<int, PointerDeviceKind> _pointerKinds = {};
@@ -53,6 +56,33 @@ class _MainViewViewportState extends State<MainViewViewport>
       PointerShortcutManager();
   int _slideAnimationId = 0;
   static const Curve _slideCurve = Curves.easeOutCubic;
+
+  void openContextMenu() {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final cubit = context.read<EditorController>();
+    final handler = state is DocumentPresentationState
+        ? state.handler
+        : cubit.toolCubit.getHandler(
+            editable: cubit.saveCubit.state.embedding?.editable != false,
+          );
+    final renderBox = context.findRenderObject();
+    if (renderBox is! RenderBox) return;
+    final position =
+        cubit.inputCubit.state.lastPosition ??
+        renderBox.size.center(Offset.zero);
+    handler.onContextMenu(
+      position,
+      EventContext(
+        context,
+        renderBox.size,
+        HardwareKeyboard.instance.isShiftPressed,
+        HardwareKeyboard.instance.isAltPressed,
+        HardwareKeyboard.instance.isControlPressed,
+      ),
+    );
+  }
 
   bool _isTouchMoveGesture(EditorController controller) =>
       controller.inputCubit.moveEnabled &&
@@ -98,6 +128,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     );
     if (event.kind != PointerDeviceKind.touch && ruler != null) {
       _ruler = ruler;
+      _rulerPointer = event.pointer;
       ruler.beginTransform(event.localPosition);
       return;
     }
@@ -207,6 +238,10 @@ class _MainViewViewportState extends State<MainViewViewport>
     if (wasRulerInteraction) {
       cubit.inputCubit.removeButtons();
     }
+    cubit.toolCubit.resetReleaseHandler(
+      context.read<DocumentBloc>(),
+      cubit.rendererCubit,
+    );
   }
 
   Future<void> _replayPointerEvents(
@@ -241,6 +276,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   void _resetRulerInteraction() {
     _ruler?.endTransform();
     _ruler = null;
+    _rulerPointer = null;
   }
 
   @override
@@ -424,10 +460,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           getEventContext(),
                                         );
                                         cubit.inputCubit.removeButtons();
-                                        cubit.toolCubit.resetReleaseHandler(
-                                          bloc,
-                                          cubit.rendererCubit,
-                                        );
                                       },
                                       onTapDown: (details) =>
                                           getHandler().onTapDown(
@@ -441,11 +473,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           ),
                                       onScaleUpdate: (details) {
                                         final handler = getHandler();
-                                        if (_ruler != null) {
-                                          _ruler?.transformWithScaleUpdate(
-                                            getEventContext(),
-                                            details,
-                                          );
+                                        final ruler = _ruler;
+                                        if (ruler != null) {
+                                          if (_rulerPointer == null) {
+                                            ruler.transformWithScaleUpdate(
+                                              getEventContext(),
+                                              details,
+                                            );
+                                          }
                                           return;
                                         }
                                         if (_isScalingDisabled ?? true) {
@@ -484,11 +519,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         final rotationDelta =
                                             details.rotation - gestureRotation;
                                         gestureRotation = details.rotation;
-                                        cubit.transformCubit.rotateConstrained(
-                                          rotationDelta / sensitivity,
-                                          cursor: details.localFocalPoint,
-                                          runtime: cubit,
-                                        );
+                                        if (settings.rotateOnGesture) {
+                                          cubit.transformCubit
+                                              .rotateConstrained(
+                                                rotationDelta / sensitivity,
+                                                cursor: details.localFocalPoint,
+                                                runtime: cubit,
+                                              );
+                                        }
                                         if (details.scale == 1) {
                                           cubit.transformCubit.moveConstrained(
                                             cubit.transformCubit.state
@@ -558,36 +596,32 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         }
                                         _resetRulerInteraction();
                                         cubit.inputCubit.removeButtons();
-                                        if (_isScalingDisabled ?? true) {
-                                          cubit.toolCubit.resetReleaseHandler(
-                                            bloc,
-                                            cubit.rendererCubit,
-                                          );
-                                        }
                                       },
                                       onScaleStart: (details) {
                                         _isScalingDisabled ??=
                                             !_isTouchMoveGesture(cubit);
-                                        _ruler =
-                                            RulerHandler.getInteractiveRuler(
-                                              toolState,
-                                              cubit.toolCubit.getHandler(
-                                                editable:
-                                                    cubit
-                                                        .saveCubit
-                                                        .state
-                                                        .embedding
-                                                        ?.editable !=
-                                                    false,
-                                              ),
-                                              details.localFocalPoint,
-                                              constraints.biggest,
-                                            );
-                                        if (_ruler != null) {
-                                          _isScalingDisabled = false;
+                                        if (_rulerPointer == null) {
+                                          _ruler =
+                                              RulerHandler.getInteractiveRuler(
+                                                cubit.toolCubit.state,
+                                                cubit.toolCubit.getHandler(
+                                                  editable:
+                                                      cubit
+                                                          .saveCubit
+                                                          .state
+                                                          .embedding
+                                                          ?.editable !=
+                                                      false,
+                                                ),
+                                                details.localFocalPoint,
+                                                constraints.biggest,
+                                              );
                                           _ruler?.beginTransform(
                                             details.localFocalPoint,
                                           );
+                                        }
+                                        if (_ruler != null) {
+                                          _isScalingDisabled = false;
                                         } else if (_isScalingDisabled !=
                                             false) {
                                           _isScalingDisabled = cubit.toolCubit

@@ -156,9 +156,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                       ),
                                       const SizedBox(width: 8),
                                       Tooltip(
-                                        message: AppLocalizations.of(
-                                          context,
-                                        ).resetZoom,
+                                        message: AppLocalizations.of(context)
+                                            .resetZoom,
                                         child: IconButton(
                                           icon: const Icon(
                                             PhosphorIconsLight

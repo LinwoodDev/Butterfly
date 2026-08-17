@@ -209,9 +209,8 @@ class _PacksDialogState extends State<PacksDialog>
                                 AppLocalizations.of(ctx).importCorePack,
                               ),
                               subtitle: Text(
-                                AppLocalizations.of(
-                                  ctx,
-                                ).importCorePackDescription,
+                                AppLocalizations.of(ctx)
+                                    .importCorePackDescription,
                               ),
                               leading: const PhosphorIcon(
                                 PhosphorIconsLight.cube,

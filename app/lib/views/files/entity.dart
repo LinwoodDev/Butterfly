@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/reveal.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
@@ -133,15 +134,20 @@ class _FileEntityItemState extends State<FileEntityItem> {
     final entity = widget.entity;
     try {
       if (entity is FileSystemFile<NoteFile>) {
-        final data = context.read<SettingsCubit>().state.showThumbnails
-            ? entity.data?.display()
+        final encrypted = entity.data?.isEncrypted() ?? false;
+        final password = readConnectionEncryptionPassword(remote);
+        final shouldLoadDisplay =
+            context.read<SettingsCubit>().state.showThumbnails ||
+            encrypted && password != null;
+        final data = shouldLoadDisplay && entity.data != null
+            ? displayConnectionNoteFile(remote, entity.data!)
             : null;
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
-        if (entity.data?.isEncrypted() ?? false) {
+        if (encrypted && !(data?.isValid ?? false)) {
           icon = PhosphorIconsLight.lock;
         }
-        if (data != null) {
-          thumbnail = data.getThumbnail();
+        if (data?.isValid ?? false) {
+          thumbnail = data!.getThumbnail();
           if (thumbnail?.isEmpty ?? false) thumbnail = null;
           metadata = data.getMetadata();
         }
@@ -208,7 +214,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 nameController: _nameController,
                 collapsed: widget.collapsed,
                 editable: _editable,
-                active: widget.active,
+                active: widget.active || controller.isOpen,
                 selected: widget.selected,
                 onSelectedChanged: widget.onSelected,
                 thumbnail: thumbnail,
@@ -226,7 +232,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 nameController: _nameController,
                 collapsed: widget.collapsed,
                 editable: _editable,
-                active: widget.active,
+                active: widget.active || controller.isOpen,
                 selected: widget.selected,
                 onSelectedChanged: widget.onSelected,
                 thumbnail: thumbnail,
@@ -306,6 +312,23 @@ class ContextFileRegion extends StatelessWidget {
             onPressed: onOpen,
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.eye),
             child: Text(AppLocalizations.of(context).open),
+          ),
+        if (canRevealInFileExplorer && remote is! RemoteStorage)
+          MenuItemButton(
+            onPressed: () async {
+              final revealed = await revealInFileExplorer(
+                documentSystem.fileSystem,
+                entity.location.path,
+                directory: entity is FileSystemDirectory,
+              );
+              if (!revealed && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(AppLocalizations.of(context).error)),
+                );
+              }
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.folderOpen),
+            child: Text(AppLocalizations.of(context).revealInFileExplorer),
           ),
         if (remote is RemoteStorage)
           FileSyncStatusButton(

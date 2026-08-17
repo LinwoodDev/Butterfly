@@ -205,6 +205,14 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   syncMode:
       $enumDecodeNullable(_$SyncModeEnumMap, json['syncMode']) ??
       SyncMode.noMobile,
+  automaticBackup: json['automaticBackup'] as bool? ?? false,
+  backupRemote: json['backupRemote'] as String? ?? '',
+  backupIntervalMinutes:
+      (json['backupIntervalMinutes'] as num?)?.toInt() ??
+      kDefaultBackupIntervalMinutes,
+  lastBackup: json['lastBackup'] == null
+      ? null
+      : DateTime.parse(json['lastBackup'] as String),
   inputConfiguration: json['inputConfiguration'] == null
       ? const InputConfiguration()
       : InputConfiguration.fromJson(
@@ -290,6 +298,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       ) ??
       RenderResolution.normal,
   moveOnGesture: json['moveOnGesture'] as bool? ?? true,
+  rotateOnGesture: json['rotateOnGesture'] as bool? ?? true,
   swamps:
       (json['swamps'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
@@ -343,6 +352,10 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'navigationRail': instance.navigationRail,
   'ignorePressure': _$IgnorePressureEnumMap[instance.ignorePressure]!,
   'syncMode': _$SyncModeEnumMap[instance.syncMode]!,
+  'automaticBackup': instance.automaticBackup,
+  'backupRemote': instance.backupRemote,
+  'backupIntervalMinutes': instance.backupIntervalMinutes,
+  'lastBackup': instance.lastBackup?.toIso8601String(),
   'inputConfiguration': instance.inputConfiguration.toJson(),
   'fallbackPack': instance.fallbackPack,
   'starred': instance.starred,
@@ -380,6 +393,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
       _$OptionsPanelPositionEnumMap[instance.optionsPanelPosition]!,
   'renderResolution': _$RenderResolutionEnumMap[instance.renderResolution]!,
   'moveOnGesture': instance.moveOnGesture,
+  'rotateOnGesture': instance.rotateOnGesture,
   'swamps': instance.swamps,
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,

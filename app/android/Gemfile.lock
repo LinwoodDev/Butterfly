@@ -8,7 +8,7 @@ GEM
     artifactory (3.0.17)
     atomos (0.1.3)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1274.0)
+    aws-partitions (1.1277.0)
     aws-sdk-core (3.254.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -20,7 +20,7 @@ GEM
     aws-sdk-kms (1.130.0)
       aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.228.1)
+    aws-sdk-s3 (1.228.2)
       aws-sdk-core (~> 3, >= 3.254.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -42,7 +42,7 @@ GEM
     domain_name (0.6.20240107)
     dotenv (2.8.1)
     emoji_regex (3.2.3)
-    excon (1.6.0)
+    excon (1.7.0)
       logger
     faraday (1.10.6)
       faraday-em_http (~> 1.0)
@@ -173,7 +173,7 @@ GEM
     httpclient (2.9.0)
       mutex_m
     jmespath (1.6.2)
-    json (2.21.1)
+    json (2.21.2)
     jwt (3.2.0)
       base64
     logger (1.7.0)

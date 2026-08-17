@@ -44,6 +44,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   );
   EditorController? _controller;
   Timer? _networkingDebounceTimer;
+  final Map<String, Handler<Tool>> _inactiveHandlers = {};
 
   void bindController(EditorController controller) {
     _controller = controller;
@@ -287,6 +288,56 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     rendererCubit.setRendererStates(rendererStates: handler.rendererStates);
   }
 
+  Future<List<Renderer>> _createForegrounds(
+    EditorController controller,
+    DocumentLoaded state,
+    Handler handler,
+  ) async {
+    final foregrounds = handler.createForegrounds(
+      controller,
+      state.data,
+      state.page,
+      state.info,
+      state.currentArea,
+    );
+    if (handler.setupForegrounds) {
+      await Future.wait(
+        foregrounds.map(
+          (renderer) async => await renderer.setup(
+            controller.transformCubit,
+            state.data,
+            state.assetService,
+            state.page,
+          ),
+        ),
+      );
+    }
+    return foregrounds;
+  }
+
+  Handler<Tool> _updateHandler(DocumentBloc bloc, Handler handler, Tool tool) {
+    if (handler.data.runtimeType == tool.runtimeType) {
+      handler.data = tool;
+      return handler as Handler<Tool>;
+    }
+    handler.dispose(bloc);
+    return Handler.fromTool(tool);
+  }
+
+  Handler<Tool> _createHandler(DocumentBloc bloc, Tool tool) {
+    final cached = tool.id == null ? null : _inactiveHandlers.remove(tool.id);
+    return cached == null
+        ? Handler.fromTool(tool)
+        : _updateHandler(bloc, cached, tool);
+  }
+
+  void _disposeInactiveHandlers(dynamic bloc) {
+    for (final handler in _inactiveHandlers.values) {
+      handler.dispose(bloc);
+    }
+    _inactiveHandlers.clear();
+  }
+
   Future<void> updateTool(
     EditorController controller,
     DocumentBloc bloc,
@@ -294,30 +345,11 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   ) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
-    state.handler.dispose(bloc);
-    final handler = Handler.fromTool(tool);
+    final handler = _updateHandler(bloc, state.handler, tool);
     for (final renderer in state.foregrounds) {
       renderer.dispose();
     }
-    final foregrounds = handler.createForegrounds(
-      controller,
-      docState.data,
-      docState.page,
-      docState.info,
-      docState.currentArea,
-    );
-    if (handler.setupForegrounds) {
-      await Future.wait(
-        foregrounds.map(
-          (e) async => await e.setup(
-            controller.transformCubit,
-            docState.data,
-            docState.assetService,
-            docState.page,
-          ),
-        ),
-      );
-    }
+    final foregrounds = await _createForegrounds(controller, docState, handler);
     setActiveTool(
       index: state.index,
       handler: handler,
@@ -343,25 +375,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     for (final renderer in state.temporaryForegrounds ?? const <Renderer>[]) {
       renderer.dispose();
     }
-    final foregrounds = handler.createForegrounds(
-      controller,
-      docState.data,
-      docState.page,
-      docState.info,
-      docState.currentArea,
-    );
-    if (handler.setupForegrounds) {
-      await Future.wait(
-        foregrounds.map(
-          (e) async => await e.setup(
-            controller.transformCubit,
-            docState.data,
-            docState.assetService,
-            docState.page,
-          ),
-        ),
-      );
-    }
+    final foregrounds = await _createForegrounds(controller, docState, handler);
     setTemporaryTool(
       handler: handler,
       index: state.temporaryIndex,
@@ -392,31 +406,16 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
       final index = currentTools.indexWhere((element) => element.id == tool.id);
       if (index == -1) continue;
       final old = state.toggleableHandlers[index];
-      if (old == null || old.data == tool) continue;
-      old.dispose(bloc);
+      if (old == null || identical(old.data, tool)) continue;
       for (final renderer in state.toggleableForegrounds[index] ?? []) {
         renderer.dispose();
       }
-      final handler = Handler.fromTool(tool);
-      final foregrounds = handler.createForegrounds(
+      final handler = _updateHandler(bloc, old, tool);
+      final foregrounds = await _createForegrounds(
         controller,
-        blocState.data,
-        blocState.page,
-        blocState.info,
-        blocState.currentArea,
+        blocState,
+        handler,
       );
-      if (handler.setupForegrounds) {
-        await Future.wait(
-          foregrounds.map(
-            (e) async => await e.setup(
-              controller.transformCubit,
-              blocState.data,
-              blocState.assetService,
-              blocState.page,
-            ),
-          ),
-        );
-      }
       newHandlers[index] = handler;
       newForegrounds[index] = foregrounds;
     }
@@ -504,7 +503,6 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     if (controller.saveCubit.state.embedding?.editable == false) {
       return null;
     }
-    final document = blocState.data;
     final info = blocState.info;
     index ??= state.index ?? 0;
     if (handler == null && (index < 0 || index >= info.tools.length)) {
@@ -515,71 +513,50 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     if (context != null) {
       selectState = await handler.onSelected(context);
     }
-    if (selectState != SelectState.none) {
+    if (selectState == SelectState.toggle) {
+      return toggleHandler(controller, bloc, index);
+    }
+    if (selectState == SelectState.normal) {
+      final foregrounds = await _createForegrounds(
+        controller,
+        blocState,
+        handler,
+      );
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
       disposeTemporaryForegrounds();
       disposeForegrounds();
-      final foregrounds = handler.createForegrounds(
-        controller,
-        document,
-        blocState.page,
-        info,
-        blocState.currentArea,
+      controller.editorSessionCubit?.updateSelectedTool(handler.data, index);
+      setActiveTool(
+        index: index,
+        handler: handler,
+        cursor: handler.cursor ?? MouseCursor.defer,
+        foregrounds: foregrounds,
+        toolbar: await handler.getToolbar(bloc),
+        rendererStates: handler.rendererStates,
       );
-      if (handler.setupForegrounds) {
-        await Future.wait(
-          foregrounds.map(
-            (e) async => await e.setup(
-              controller.transformCubit,
-              document,
-              blocState.assetService,
-              blocState.page,
-            ),
-          ),
-        );
-      }
-      if (selectState == SelectState.normal) {
-        controller.editorSessionCubit?.updateSelectedTool(handler.data, index);
-        setActiveTool(
-          index: index,
-          handler: handler,
-          cursor: handler.cursor ?? MouseCursor.defer,
-          foregrounds: foregrounds,
-          toolbar: await handler.getToolbar(bloc),
-          rendererStates: handler.rendererStates,
-        );
-        controller.rendererCubit.setRendererStates(
-          rendererStates: handler.rendererStates,
-          temporaryRendererStates: const {},
-        );
-        if (allowBake) {
-          await controller.rendererCubit.bake(controller, blocState);
-        }
-      } else {
-        if (isHandlerEnabled(index)) {
-          disableHandler(bloc, index);
-        } else {
-          setToggleable(
-            handlers: {...state.toggleableHandlers, index: handler},
-            foregrounds: {...state.toggleableForegrounds, index: foregrounds},
-          );
-        }
+      controller.rendererCubit.setRendererStates(
+        rendererStates: handler.rendererStates,
+        temporaryRendererStates: const {},
+      );
+      if (allowBake) {
+        await controller.rendererCubit.bake(controller, blocState);
       }
     }
     return handler;
   }
 
-  Future<void> toggleHandler(
+  Future<Handler?> toggleHandler(
     EditorController controller,
     DocumentBloc bloc,
     int index,
   ) async {
-    if (state.toggleableHandlers.containsKey(index)) {
+    final handler = state.toggleableHandlers[index];
+    if (handler != null) {
       disableHandler(bloc, index);
-    } else {
-      await enableHandler(controller, bloc, index);
+      return handler;
     }
+    return enableHandler(controller, bloc, index);
   }
 
   Future<Handler?> enableHandler(
@@ -593,30 +570,12 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
       return null;
     }
     final tool = blocState.info.tools[index];
-    final handler = Handler.fromTool(tool);
-    final document = blocState.data;
-    final page = blocState.page;
-    final info = blocState.info;
-    final currentArea = blocState.currentArea;
-    final foregrounds = handler.createForegrounds(
+    final handler = _createHandler(bloc, tool);
+    final foregrounds = await _createForegrounds(
       controller,
-      document,
-      page,
-      info,
-      currentArea,
+      blocState,
+      handler,
     );
-    if (handler.setupForegrounds) {
-      await Future.wait(
-        foregrounds.map(
-          (e) async => await e.setup(
-            controller.transformCubit,
-            document,
-            blocState.assetService,
-            page,
-          ),
-        ),
-      );
-    }
     setToggleable(
       handlers: Map.from(state.toggleableHandlers)..[index] = handler,
       foregrounds: Map.from(state.toggleableForegrounds)..[index] = foregrounds,
@@ -629,7 +588,13 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     if (handler == null) {
       return false;
     }
-    handler.dispose(bloc);
+    final id = handler.data.id;
+    if (id != null) {
+      _inactiveHandlers[id]?.dispose(bloc);
+      _inactiveHandlers[id] = handler;
+    } else {
+      handler.dispose(bloc);
+    }
     final foregrounds = Map<int, List<Renderer>>.from(
       state.toggleableForegrounds,
     );
@@ -647,6 +612,12 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   bool isHandlerEnabled(int index) =>
       state.toggleableHandlers.containsKey(index);
 
+  Handler? getHandlerForTool(String? id) => id == null
+      ? null
+      : [state.handler, ...state.toggleableHandlers.values].firstWhereOrNull(
+          (handler) => handler.data is Tool && handler.data.id == id,
+        );
+
   void reset(EditorController controller, DocumentBloc bloc) {
     for (final r in controller.rendererCubit.renderers) {
       r.dispose();
@@ -657,6 +628,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     for (var e in state.toggleableHandlers.values) {
       e.dispose(bloc);
     }
+    _disposeInactiveHandlers(bloc);
     disposeAllForegrounds();
     resetRuntime();
     controller.rendererCubit.replace(const RendererRuntimeState());
@@ -1063,6 +1035,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     final info = docState.info;
+    _syncToggleableHandlers(bloc, info.tools);
     final index = info.tools.indexOf(state.handler.data);
     if (index < 0) {
       changeTool(controller, bloc, index: state.index ?? 0);
@@ -1077,6 +1050,38 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     }
   }
 
+  void _syncToggleableHandlers(DocumentBloc bloc, List<Tool> tools) {
+    final toolIds = tools.map((tool) => tool.id).nonNulls.toSet();
+    for (final id
+        in _inactiveHandlers.keys
+            .where((id) => !toolIds.contains(id))
+            .toList()) {
+      _inactiveHandlers.remove(id)?.dispose(bloc);
+    }
+
+    var changed = false;
+    final handlers = <int, Handler<Tool>>{};
+    final foregrounds = <int, List<Renderer>>{};
+    for (final entry in state.toggleableHandlers.entries) {
+      final id = entry.value.data.id;
+      final index = tools.indexWhere((tool) => tool.id == id);
+      if (id == null || index < 0) {
+        entry.value.dispose(bloc);
+        for (final renderer in state.toggleableForegrounds[entry.key] ?? []) {
+          renderer.dispose();
+        }
+        changed = true;
+        continue;
+      }
+      handlers[index] = entry.value;
+      foregrounds[index] = state.toggleableForegrounds[entry.key] ?? [];
+      changed |= index != entry.key;
+    }
+    if (changed) {
+      setToggleable(handlers: handlers, foregrounds: foregrounds);
+    }
+  }
+
   Future<void> disposeRuntime(dynamic bloc) async {
     state.handler.dispose(bloc);
     state.temporaryHandler?.dispose(bloc);
@@ -1086,6 +1091,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     for (final renderer in state.getAllForegrounds()) {
       renderer.dispose();
     }
+    _disposeInactiveHandlers(bloc);
     foregroundRefreshRunner.cancel();
     await foregroundRefreshRunner.disposeAndWait();
     delayedForegroundRefreshRunner.cancel();
@@ -1099,6 +1105,12 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
   Future<void> close() {
     _networkingDebounceTimer?.cancel();
     _networkingDebounceTimer = null;
+    final bloc = _controller?.activeDocumentBloc;
+    if (bloc != null) {
+      _disposeInactiveHandlers(bloc);
+    } else {
+      _inactiveHandlers.clear();
+    }
     _controller = null;
     return super.close();
   }

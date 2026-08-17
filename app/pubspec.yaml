@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.6.0-beta.4+191
+version: 2.6.0-beta.6+194
 
 environment:
-  sdk: ">=3.12.2 <4.0.0"
-  flutter: 3.44.8
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: 3.47.0
 
 dependencies:
   flutter:
@@ -35,7 +35,10 @@ dependencies:
   shared_preferences: ^2.2.3
   crypto: ^3.0.7
   url_launcher: ^6.2.6
-  phosphor_flutter: ^2.1.0
+  phosphor_flutter:
+    git:
+      url: https://github.com/CodeDoctorDE/phosphor-flutter.git
+      ref: f7479596c67239e755ab1fe3bade84895bfd6222
   replay_bloc: ^0.3.0
   share_plus: ^13.0.0
   package_info_plus: ^10.1.0
@@ -51,7 +54,7 @@ dependencies:
   json_annotation: ^4.12.0
   freezed_annotation: ^3.0.0
   http: ^1.2.1
-  flutter_secure_storage: ^10.3.1
+  flutter_secure_storage: ^10.0.0
   rxdart: ^0.28.0
   archive: ^4.0.0
   animations: ^2.0.11
@@ -63,17 +66,17 @@ dependencies:
   settings_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d8dec0aa6340505d83ae834575b7a87222b01424
+      ref: 855133902c6893903ff4ea36a99ef8279ded5121
       path: packages/settings_leap
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 606c5977e7d7d0197fdec2d15dbc951afe330b43
+      ref: 2195d9d509f5ba2c5c823491d93cac4d6136b597
       path: packages/material_leap
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 6d43be062401fafdd956448c59dea8c1df69198b
+      ref: 4504590d871958c48a93969461193691ea88cb18
       path: packages/lw_sysapi
   networker:
     git:
@@ -98,7 +101,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 18711cf5297f9679701536255dfe3d650b72fd25
+      ref: cf08b91623cd022223eb9e72f67bd972d52ec701
       path: packages/lw_file_system
   keybinder:
     git:
@@ -115,7 +118,7 @@ dependencies:
   onenote_parser:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d7d00d81291d6a2716da40b9f1d004ac4973771d
+      ref: c33a00d6cdbc9ea13bf933d479cb573939ef6afc
       path: packages/onenote_parser
   web: ^1.0.0
   cryptography_plus: ^3.0.0
@@ -123,7 +126,7 @@ dependencies:
   network_info_plus: ^8.1.0
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
-  file_picker: ^12.0.0-beta.4
+  file_picker: ^12.0.0
   pdfrx: ^2.4.1
   talker_flutter: ^5.1.6
   talker: ^5.1.6
@@ -134,10 +137,6 @@ dependency_overrides:
   # jni 1.0.1 fails to compile on arm64 Linux:
   # https://github.com/dart-lang/native/issues/3498
   jni: 1.0.0
-  phosphor_flutter:
-    git:
-      url: https://github.com/CodeDoctorDE/phosphor-flutter.git
-      ref: f7479596c67239e755ab1fe3bade84895bfd6222
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0
@@ -217,7 +216,18 @@ flutter:
           weight: 900
           style: italic
   assets:
-    - images/
+    - images/banner.png
+    - images/banner.svg
+    - images/file.ico
+    - images/file.png
+    - images/logo.png
+    - images/logo.svg
+    - path: images/nightly.png
+      # Flutter 3.47 bundles this nightly branding only for these variants.
+      flavors:
+        - development
+        - nightly
+    - images/nightly.svg
     - templates/
     - defaults/
     - fonts/Comfortaa-LICENSE.txt

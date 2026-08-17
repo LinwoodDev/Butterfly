@@ -21,7 +21,7 @@ Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden
 
 Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.
 
-### Komponente zu einem Pack hinzufügen
+### Adding a component into a pack {#adding-a-component-into-a-pack}
 
 So fügen Sie eine Komponente hinzu:
 
@@ -39,4 +39,4 @@ Stile werden verwendet, um das Aussehen des Textes anzupassen. Absatzstile könn
 
 ## Paletten
 
-Mit Farbpaletten können Sie schnell Farben für einfärbbare Werkzeuge auswählen. Wenn Sie eine Farbe bearbeiten, sehen Sie ein Farbauswahl-Overlay (wie in der [Farbauswahl-Dokumentation](../color_picker) erwähnt).
+Mit Farbpaletten können Sie schnell Farben für einfärbbare Werkzeuge auswählen. You will see a color picker overlay (as mentioned in the [color picker documentation](../colors)) when you edit a color.

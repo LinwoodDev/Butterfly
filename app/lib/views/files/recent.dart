@@ -53,7 +53,10 @@ class RecentFilesViewState extends State<RecentFilesView> {
     FileMetadata? metadata;
     Uint8List? thumbnail;
     if (entity is FileSystemFile<NoteFile>) {
-      final data = entity.data?.display();
+      final storage = settings.getRemote(entity.location.remote);
+      final data = entity.data == null
+          ? null
+          : displayConnectionNoteFile(storage, entity.data!);
       metadata = data?.getMetadata();
       if (settings.showThumbnails) {
         thumbnail = data?.getThumbnail();

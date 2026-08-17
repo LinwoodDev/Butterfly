@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:butterfly/cubits/editor_controller.dart';
@@ -9,6 +10,24 @@ import 'package:mocktail/mocktail.dart';
 class MockEditorController extends Mock implements EditorController {}
 
 void main() {
+  test('snaps line endpoints to 45 degree increments', () {
+    const start = Offset(10, 20);
+    const cases = [
+      (Offset(110, 30), 0.0),
+      (Offset(20, 120), pi / 2),
+      (Offset(-70, -40), -3 * pi / 4),
+    ];
+
+    for (final (end, direction) in cases) {
+      final snapped = snapLineEndPosition(start, end);
+      expect((snapped - start).direction, closeTo(direction, 1e-10));
+      expect(
+        (snapped - start).distance,
+        closeTo((end - start).distance, 1e-10),
+      );
+    }
+  });
+
   test('does not create shapes with zero size', () {
     final handler = ShapeHandler(ShapeTool());
     final cubit = MockEditorController();

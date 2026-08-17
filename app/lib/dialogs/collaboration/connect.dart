@@ -76,9 +76,8 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
             final url = parseConnectUri(uri);
             if (url.isEmpty) return;
             Navigator.of(context).pop();
-            GoRouter.of(
-              context,
-            ).pushNamed('connect', queryParameters: {'url': url});
+            GoRouter.of(context)
+                .pushNamed('connect', queryParameters: {'url': url});
           },
           child: Text(AppLocalizations.of(context).connect),
         ),

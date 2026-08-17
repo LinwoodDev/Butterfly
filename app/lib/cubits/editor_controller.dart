@@ -226,6 +226,7 @@ class EditorController implements EditorRuntimeContext {
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool unbake = false,
+    bool resetAllLayers = false,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
@@ -272,7 +273,12 @@ class EditorController implements EditorRuntimeContext {
     saveCubit.setSaveState(saved: SaveState.unsaved);
     if (saveCubit.state.embedding != null) {
       if (replacedElements != null) {
-        await rendererCubit.bake(this, blocState, reset: true);
+        await rendererCubit.bake(
+          this,
+          blocState,
+          reset: true,
+          resetAllLayers: resetAllLayers,
+        );
       }
       return;
     }
@@ -290,7 +296,12 @@ class EditorController implements EditorRuntimeContext {
         );
       }
       if (replacedElements != null) {
-        await rendererCubit.bake(this, blocState, reset: true);
+        await rendererCubit.bake(
+          this,
+          blocState,
+          reset: true,
+          resetAllLayers: resetAllLayers,
+        );
       }
     }
     if (updateIndex) {

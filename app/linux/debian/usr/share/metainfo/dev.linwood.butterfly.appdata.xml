@@ -74,6 +74,40 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-beta.5" type="development" date="2026-08-17">
+			<description>
+				<ul>
+					<li>Add reset zoom shortcut (#1224)</li>
+					<li>Add context menu shortcut (#1214)</li>
+					<li>Add Reveal in Explorer (#1219)</li>
+					<li>Improve renderer refresh and viewport baking performance on large documents</li>
+					<li>Improve settings search performance</li>
+					<li>Improve context menu design (#1220)</li>
+					<li>Restore option icons and theme previews in the personalization settings (#1208)</li>
+					<li>Align settings help buttons with their titles</li>
+					<li>Fix reorder changes applied only visible after moving canvas (#1211)</li>
+					<li>Fix rendering updates and ordering when editing elements across layers (#1209)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.5</url>
+		</release>
+		<release version="2.6.0-beta.4" type="development" date="2026-08-03">
+			<description>
+				<ul>
+					<li>Add table tool and elements (#1155)</li>
+					<li>Add Markdown table parsing and rendering</li>
+					<li>Add preview images to the pages and areas navigators (#1151)</li>
+					<li>Add color option to the area tool (#1175)</li>
+					<li>Add foreground color option to the ruler tool with automatic contrast (#1168)</li>
+					<li>Add reset to setting pages (#1190)</li>
+					<li>Add focal support to radial gradients (#1193)</li>
+					<li>Add back and forward mouse button mappings (#1169)</li>
+					<li>Add two- and three-finger touch shortcuts (#976)</li>
+					<li>Add configurable canvas rotation keyboard shortcuts (#1170)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.4</url>
+		</release>
 		<release version="2.6.0-beta.3" type="development" date="2026-07-27">
 			<description>
 				<ul>
@@ -124,40 +158,9 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.1</url>
 		</release>
-		<release version="2.6.0-beta.0" type="development" date="2026-06-22">
-			<description>
-				<ul>
-					<li>Add tool presets (#1070)</li>
-					<li>Add tool favorites</li>
-					<li>Add element paints to replace current color property</li>
-					<li>Unify path eraser and eraser in one tool (#1130)</li>
-					<li>Add different eraser and selector modes (#1111)</li>
-					<li>Add subtype tool switching for selection and spacer tools (#1122)</li>
-					<li>Add property view position setting (#1100)</li>
-					<li>Add bring moved elements to front option (#1098)</li>
-					<li>Add ability to move areas together with their contents (#1125)</li>
-					<li>Add move to layer (#1069)</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.0</url>
-		</release>
-		<release version="2.5.4" type="stable" date="2026-07-20">
-			<description>
-				<ul>
-					<li>Prevent crashes when Android SAF handles large folders and files</li>
-					<li>Fix text labels disappearing while editing</li>
-					<li>Fix polygons disappearing while editing</li>
-					<li>Fix renamed files appearing twice in Recent files</li>
-					<li>Fix layers and pages being reordered to the wrong position</li>
-					<li>Improve WebDAV compatibility and select the correct filesystem with SAF enabled</li>
-					<li>Fix the spacer tool for circles, shapes, polygons, and other elements</li>
-					<li>Fix repeated saves and mark imported documents as unsaved</li>
-					<li>Fix locked zoom controls</li>
-					<li>Respect hidden file extensions in Recent files</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.5.4</url>
-		</release>
+		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
+		<release version="2.5.5" date="2026-08-10" />
+		<release version="2.5.4" type="stable" date="2026-07-20" />
 		<release version="2.5.3-rc.1" type="development" date="2026-06-05" />
 		<release version="2.5.3-rc.0" type="development" date="2026-06-02" />
 		<release version="2.5.3" date="2026-06-08" />

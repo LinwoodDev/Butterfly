@@ -17,6 +17,10 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'connection_encryption.dart';
+
+export 'connection_encryption.dart';
+
 Uint8List encodeNoteData(NoteData data) =>
     Uint8List.fromList(data.exportAsBytes());
 NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
@@ -101,11 +105,16 @@ Future<NoteData?> loadFileSystemNoteData(
   try {
     final asset = await documentSystem.getAsset(file.location.path);
     if (asset is FileSystemFile<NoteFile>) {
-      final data = asset.data?.load();
-      if (data != null) return data;
+      final data = asset.data == null
+          ? null
+          : loadConnectionNoteFile(documentSystem.storage, asset.data!);
+      if (data?.isValid ?? false) return data;
     }
   } catch (_) {}
-  return file.data?.load();
+  final data = file.data == null
+      ? null
+      : loadConnectionNoteFile(documentSystem.storage, file.data!);
+  return data?.isValid ?? false ? data : null;
 }
 
 class ButterflyFileSystem {
@@ -115,12 +124,14 @@ class ButterflyFileSystem {
   final FileSystemConfig _documentConfig,
       _templateConfig,
       _packConfig,
-      _documentStateConfig;
+      _documentStateConfig,
+      _backupConfig;
 
   final _documentCache = <String, DocumentFileSystem>{};
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
   final _documentStateCache = <String, DocumentStateFileSystem>{};
+  final _backupCache = <String, DirectoryFileSystem>{};
   StreamSubscription<ButterflySettings>? _settingsSubscription;
 
   ButterflyFileSystem(this._context, this.settingsCubit)
@@ -173,6 +184,15 @@ class ButterflyFileSystem {
         database: _database,
         databaseVersion: _databaseVersion,
         onDatabaseUpgrade: _upgradeDatabase,
+      ),
+      _backupConfig = FileSystemConfig(
+        passwordStorage: passwordStorage,
+        storeName: 'backups',
+        variant: 'backups',
+        getDirectory: _getRemoteDirectory('Backups'),
+        database: _database,
+        databaseVersion: _databaseVersion,
+        onDatabaseUpgrade: _upgradeDatabase,
       ) {
     _listenSettings();
   }
@@ -201,6 +221,7 @@ class ButterflyFileSystem {
     _templateCache.clear();
     _packCache.clear();
     _documentStateCache.clear();
+    _backupCache.clear();
   }
 
   factory ButterflyFileSystem.build(BuildContext context) =>
@@ -284,6 +305,7 @@ class ButterflyFileSystem {
       _documentConfig,
       onEncode: encodeNoteFile,
       onDecode: decodeNoteFile,
+      onCreate: (data) => addConnectionPasswordToNoteFile(storage, data),
       storage: storage,
       useIsolates: true,
       useAndroidSaf: true,
@@ -311,7 +333,8 @@ class ButterflyFileSystem {
     final system = TypedKeyFileSystem.build(
       _templateConfig,
       onEncode: encodeNoteData,
-      onDecode: decodeNoteData,
+      onDecode: (data) => decodeConnectionNoteData(storage, data),
+      onCreate: (data) => addConnectionPasswordToNoteData(storage, data),
       storage: _cacheAllStorage(storage, _templateConfig.variant),
       useAndroidSaf: true,
     );
@@ -331,7 +354,8 @@ class ButterflyFileSystem {
     final system = TypedKeyFileSystem.build(
       _packConfig,
       onEncode: encodeNoteData,
-      onDecode: decodeNoteData,
+      onDecode: (data) => decodeConnectionNoteData(storage, data),
+      onCreate: (data) => addConnectionPasswordToNoteData(storage, data),
       storage: _cacheAllStorage(storage, _packConfig.variant),
       useAndroidSaf: true,
     );
@@ -356,6 +380,28 @@ class ButterflyFileSystem {
       useAndroidSaf: true,
     );
     _documentStateCache[key] = system;
+    return system;
+  }
+
+  DirectoryFileSystem buildBackupSystem(
+    RemoteStorage storage, {
+    bool forceRecreate = false,
+  }) {
+    final key = _cacheKey(storage);
+    if (!forceRecreate) {
+      final cached = _backupCache[key];
+      if (cached != null) return cached;
+    }
+    final backupStorage = storage.copyWith(
+      paths: {...storage.paths, _backupConfig.variant: 'Backups'},
+    );
+    final system = DirectoryFileSystem.fromPlatform(
+      _backupConfig,
+      storage: backupStorage,
+      useIsolates: true,
+      useAndroidSaf: true,
+    );
+    _backupCache[key] = system;
     return system;
   }
 
@@ -490,10 +536,16 @@ class ButterflyFileSystem {
     _documentStateCache.remove(key);
   }
 
+  void removeCachedBackupSystem(ExternalStorage? storage) {
+    final key = _cacheKey(storage);
+    _backupCache.remove(key);
+  }
+
   void removeCachedFileSystem(ExternalStorage? storage) {
     removeCachedDocumentSystem(storage);
     removeCachedTemplateSystem(storage);
     removeCachedPackSystem(storage);
     removeCachedDocumentStateSystem(storage);
+    removeCachedBackupSystem(storage);
   }
 }

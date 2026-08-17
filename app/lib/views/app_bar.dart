@@ -36,6 +36,7 @@ import '../cubits/settings.dart';
 import '../embed/action.dart';
 import '../embed/embedding.dart';
 import 'navigator/view.dart';
+
 import 'package:lw_file_system/lw_file_system.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -127,7 +128,6 @@ class _AppBarTitleState extends State<_AppBarTitle> {
   final TextEditingController _nameController = TextEditingController(),
       _areaController = TextEditingController();
   final FocusNode _nameFocusNode = FocusNode(), _areaFocusNode = FocusNode();
-  bool _embedNameEdited = false;
 
   @override
   void dispose() {
@@ -172,11 +172,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               final areaName = state is DocumentLoadSuccess
                   ? state.currentAreaName
                   : null;
-              final embedFileName = currentIndex.embedding?.fileName ?? '';
-              final displayedName =
-                  embedFileName.isNotEmpty && !_embedNameEdited
-                  ? embedFileName
-                  : state is DocumentLoaded
+              final displayedName = state is DocumentLoaded
                   ? state.metadata.name
                   : '';
               if (!_nameFocusNode.hasFocus &&
@@ -284,7 +280,6 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         ? _nameController.text
                         : _areaController.text;
                     if (area == null && currentIndex.embedding != null) {
-                      if (!_embedNameEdited) return;
                       bloc.add(DocumentDescriptionChanged(name: value));
                       return;
                     }
@@ -343,10 +338,6 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                               : _areaFocusNode,
                           onFieldSubmitted: submit,
                           onSaved: submit,
-                          onChanged:
-                              area == null && currentIndex.embedding != null
-                              ? (_) => _embedNameEdited = true
-                              : null,
                           readOnly: currentIndex.embedding?.editable == false,
                           decoration: InputDecoration(
                             filled: true,
@@ -821,21 +812,23 @@ class MainPopupMenu extends StatelessWidget {
                             child: Text(AppLocalizations.of(context).templates),
                           ),
                         ],
-                        SubmenuButton(
-                          menuChildren: settings.history
-                              .map(
-                                (e) => MenuItemButton(
-                                  child: Text(e.identifier),
-                                  onPressed: () => openFile(context, true, e),
-                                ),
-                              )
-                              .toList(),
-                          leadingIcon: const PhosphorIcon(
-                            PhosphorIconsLight.clock,
-                          ),
-                          child: Text(AppLocalizations.of(context).recentFiles),
-                        ),
                         if (saveState.embedding == null) ...[
+                          SubmenuButton(
+                            menuChildren: settings.history
+                                .map(
+                                  (e) => MenuItemButton(
+                                    child: Text(e.identifier),
+                                    onPressed: () => openFile(context, true, e),
+                                  ),
+                                )
+                                .toList(),
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.clock,
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context).recentFiles,
+                            ),
+                          ),
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.gear,
@@ -968,9 +961,8 @@ class MainPopupMenu extends StatelessWidget {
                             icon: Image.asset(logoAsset),
                             style: IconButton.styleFrom(
                               backgroundColor: controller.isOpen
-                                  ? ColorScheme.of(
-                                      context,
-                                    ).surfaceContainerHighest
+                                  ? ColorScheme.of(context)
+                                        .surfaceContainerHighest
                                   : null,
                             ),
                             tooltip: AppLocalizations.of(context).actions,

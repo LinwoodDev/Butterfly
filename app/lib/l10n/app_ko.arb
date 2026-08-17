@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Reveal in file explorer",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "설정",
   "personalization": "개인화",
   "theme": "테마",
@@ -282,12 +286,17 @@
     "description": "Move action"
   },
   "copy": "복사",
+  "openContextMenu": "Open context menu",
   "@copy": {
     "description": "Copy action"
   },
   "back": "뒤로",
   "@back": {
     "description": "Back action"
+  },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
   },
   "zoomDependent": "확대/축소에 따라",
   "shapeDetection": "도형 인식",
@@ -577,6 +586,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Table",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rows",
+  "columns": "Columns",
+  "row": "Row",
+  "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
+  "deleteRow": "Delete row",
+  "deleteColumn": "Delete column",
+  "cellColor": "Cell color",
+  "cellBorders": "Cell borders",
+  "cellBorder": "Cell border",
+  "horizontalBorder": "Horizontal border",
+  "verticalBorder": "Vertical border",
+  "rowHeight": "Row height",
+  "columnWidth": "Column width",
+  "border": "Border",
   "circle": "원",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +1002,8 @@
   "bringForward": "앞으로 가져오기",
   "sendBackward": "뒤로 보내기",
   "rotation": "회전",
+  "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "더 큰 화면에서만 사용 가능",
   "toolbarPosition": "도구 모음 위치",
@@ -981,6 +1014,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "간격",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1195,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Show navigator previews",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
   "highContrast": "고대비",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1364,7 @@
   "moveOnGesture": "제스처로 이동",
   "exportAllFiles": "모든 파일 내보내기",
   "restoreSettingsFromFile": "파일에서 설정 복원",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "설정을 파일로 내보내기",
   "barcode": "바코드",
   "@barcode": {
@@ -1438,6 +1479,8 @@
   "fullScreenShortcut": "Full screen",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {

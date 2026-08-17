@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Reveal in file explorer",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "ସେଟିଂସ୍",
   "personalization": "ବ୍ୟକ୍ତିଗତୀକରଣ",
   "theme": "ଥୀମ୍",
@@ -282,12 +286,17 @@
     "description": "Move action"
   },
   "copy": "ନକଲି",
+  "openContextMenu": "Open context menu",
   "@copy": {
     "description": "Copy action"
   },
   "back": "ବାକି",
   "@back": {
     "description": "Back action"
+  },
+  "forward": "Forward",
+  "@forward": {
+    "description": "Forward action"
   },
   "zoomDependent": "ଜୁମ୍ ନିର୍ଭର",
   "shapeDetection": "ଆକୃତି ଚିହ୍ନଟ",
@@ -577,6 +586,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Table",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rows",
+  "columns": "Columns",
+  "row": "Row",
+  "column": "Column",
+  "insertRowBefore": "Insert row before",
+  "insertRowAfter": "Insert row after",
+  "insertColumnBefore": "Insert column before",
+  "insertColumnAfter": "Insert column after",
+  "deleteRow": "Delete row",
+  "deleteColumn": "Delete column",
+  "cellColor": "Cell color",
+  "cellBorders": "Cell borders",
+  "cellBorder": "Cell border",
+  "horizontalBorder": "Horizontal border",
+  "verticalBorder": "Vertical border",
+  "rowHeight": "Row height",
+  "columnWidth": "Column width",
+  "border": "Border",
   "circle": "ବୃତ୍ତ",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +1002,8 @@
   "bringForward": "ଆଗକୁ ଆଣନ୍ତୁ",
   "sendBackward": "ପଛକୁ ପଠାନ୍ତୁ",
   "rotation": "ଘୁର୍ଣ୍ଣନ",
+  "rotationStep": "Rotation step",
+  "zoomStep": "Zoom step",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "ମାତ୍ର ବଡ଼ ସ୍କ୍ରିନ୍ ଉପଲବ୍ଧ",
   "toolbarPosition": "ଟୁଲ୍ବାର ସ୍ଥାନ",
@@ -981,6 +1014,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotate left",
+  "rotateRight": "Rotate right",
   "spacer": "ସ୍ପେସର୍",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1195,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Show navigator previews",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Show cached preview thumbnails in the areas and pages navigators",
   "highContrast": "ଉଚ୍ଚ ବିପରୀତତା",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1364,7 @@
   "moveOnGesture": "ଇଶାରାରେ ସରାନ୍ତୁ",
   "exportAllFiles": "ସମସ୍ତ ଫାଇଲ୍ ନିର୍ୟାତ",
   "restoreSettingsFromFile": "ଫାଇଲ୍ରୁ ସେଟିଂସ୍ ପୁନଃସ୍ଥାପନ",
+  "resetAllSettings": "Reset all settings",
   "exportSettingsToFile": "ସେଟିଂସ୍ ଫାଇଲ୍ ରେ ନିର୍ୟାତ",
   "barcode": "ବାର୍କୋଡ୍",
   "@barcode": {
@@ -1438,6 +1479,8 @@
   "fullScreenShortcut": "Full screen",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "twoFingerTap": "Two-finger tap",
+  "threeFingerTap": "Three-finger tap",
   "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {

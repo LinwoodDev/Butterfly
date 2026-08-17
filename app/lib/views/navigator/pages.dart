@@ -1,8 +1,10 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
+
 import '../../widgets/multi_select.dart';
 import '../../widgets/reorderable_list_item.dart';
+
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -218,9 +220,8 @@ class _PagesViewState extends State<PagesView> {
           PagesAdded([
             PageAddedDetails(
               index: index,
-              name: AppLocalizations.of(
-                context,
-              ).pageIndex(state.data.getPages().length + 1),
+              name: AppLocalizations.of(context)
+                  .pageIndex(state.data.getPages().length + 1),
               initialArea: currentArea != null
                   ? InitialAreaDetails(
                       width: currentArea.width,
@@ -315,6 +316,29 @@ class _PagesViewState extends State<PagesView> {
                               if (pageIndex == null) return;
                               context.read<DocumentBloc>().add(
                                 PageReordered(all[oldIndex].path, pageIndex),
+                              );
+                            },
+                            // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
+                            proxyDecorator: (context, index, animation) {
+                              return AnimatedBuilder(
+                                animation: animation,
+                                builder: (context, child) {
+                                  return Material(
+                                    color: ColorScheme.of(context).surface
+                                        .withValues(alpha: 0.8),
+                                    elevation: 6,
+                                    shadowColor: Colors.black45,
+                                    child: child,
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(all[index].name),
+                                  leading: Icon(
+                                    all[index].isFile
+                                        ? PhosphorIconsLight.file
+                                        : PhosphorIconsLight.folderSimple,
+                                  ),
+                                ),
                               );
                             },
                             itemBuilder: (BuildContext context, int index) {
@@ -645,9 +669,8 @@ class _PageEntityListTile extends StatelessWidget {
             v.isEmpty ? AppLocalizations.of(context).untitled : v,
         subtitle: showInternalPageNumber && editable
             ? Text(
-                AppLocalizations.of(
-                  context,
-                ).pageIndex((data.getPageIndex(entity.path) ?? index) + 1),
+                AppLocalizations.of(context)
+                    .pageIndex((data.getPageIndex(entity.path) ?? index) + 1),
               )
             : null,
         onTap: () {

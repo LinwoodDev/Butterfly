@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -12,7 +11,6 @@ import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly/widgets/file_name_pattern_field.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +19,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/services/backup.dart';
 
 import '../dialogs/packs/dialog.dart';
 
@@ -381,114 +380,14 @@ Future<void> exportData(BuildContext context) async {
 
                         try {
                           final fs = context.read<ButterflyFileSystem>();
-                          final output = OutputMemoryStream();
-                          final encoder = ZipEncoder()..startEncode(output);
-                          final multiple =
-                              [
-                                exportDocuments,
-                                exportPacks,
-                                exportTemplates,
-                              ].where((e) => e).length >
-                              1;
-
-                          List<String> packKeys = [];
-                          List<String> templateKeys = [];
-
-                          if (exportPacks) {
-                            packKeys = await fs.buildPackSystem().getKeys();
-                          }
-                          if (exportTemplates) {
-                            templateKeys = await fs
-                                .buildTemplateSystem()
-                                .getKeys();
-                          }
-
-                          int totalTasks =
-                              (exportDocuments ? 1 : 0) +
-                              packKeys.length +
-                              templateKeys.length +
-                              1; // +1 for zip
-                          int completedTasks = 0;
-
-                          void updateProgress() {
-                            if (totalTasks > 0) {
-                              setState(
-                                () => exportProgress =
-                                    completedTasks / totalTasks,
-                              );
-                            }
-                          }
-
-                          updateProgress();
-
-                          if (exportDocuments) {
-                            final documentSystem = context
-                                .read<ButterflyFileSystem>()
-                                .buildDocumentSystem();
-                            final directory = await documentSystem.getAsset(
-                              '',
-                              listLevel: oneListLevel,
-                              readData: false,
-                            );
-                            if (directory is FileSystemDirectory<NoteFile>) {
-                              await _addDirectoryToZip(
-                                documentSystem,
-                                encoder,
-                                directory,
-                                multiple ? 'Documents' : '',
-                              );
-                            }
-                            completedTasks++;
-                            updateProgress();
-                          }
-
-                          if (exportPacks) {
-                            final packSystem = fs.buildPackSystem();
-                            for (final key in packKeys) {
-                              final data = await packSystem.fileSystem.getFile(
-                                key,
-                              );
-                              if (data != null) {
-                                encoder.add(
-                                  ArchiveFile.bytes(
-                                    multiple ? 'Packs/$key' : key,
-                                    data,
-                                  ),
-                                );
-                              }
-                              completedTasks++;
-                              updateProgress();
-                            }
-                          }
-
-                          if (exportTemplates) {
-                            final templateSystem = fs.buildTemplateSystem();
-                            for (final key in templateKeys) {
-                              final data = await templateSystem.fileSystem
-                                  .getFile(key);
-                              if (data != null) {
-                                encoder.add(
-                                  ArchiveFile.bytes(
-                                    multiple ? 'Templates/$key' : key,
-                                    data,
-                                  ),
-                                );
-                              }
-                              completedTasks++;
-                              updateProgress();
-                            }
-                          }
-
-                          // Give the UI a chance to render the final progress
-                          // update before writing the ZIP directory.
-                          await Future.delayed(
-                            const Duration(milliseconds: 50),
+                          final bytes = await createButterflyDataArchive(
+                            fs,
+                            documents: exportDocuments,
+                            packs: exportPacks,
+                            templates: exportTemplates,
+                            onProgress: (progress) =>
+                                setState(() => exportProgress = progress),
                           );
-
-                          encoder.endEncode();
-                          final bytes = output.getBytes();
-                          completedTasks++;
-                          updateProgress();
 
                           if (context.mounted) {
                             Navigator.of(context).pop();
@@ -522,52 +421,6 @@ Future<void> exportData(BuildContext context) async {
   );
 }
 
-Future<void> _addDirectoryToZip(
-  GeneralDirectoryFileSystem<NoteFile> fileSystem,
-  ZipEncoder encoder,
-  FileSystemDirectory<NoteFile> directory,
-  String archivePath,
-) async {
-  final resolvedDirectory = await fileSystem.getAsset(
-    directory.path,
-    listLevel: oneListLevel,
-    readData: false,
-  );
-  if (resolvedDirectory is! FileSystemDirectory<NoteFile>) return;
-
-  final directoryPath = archivePath.isEmpty
-      ? ''
-      : archivePath.endsWith('/')
-      ? archivePath
-      : '$archivePath/';
-  if (directoryPath.isNotEmpty) {
-    encoder.add(ArchiveFile.directory(directoryPath));
-  }
-
-  for (final entity in resolvedDirectory.assets) {
-    final childPath = '$directoryPath${entity.fileName}';
-    if (entity is FileSystemDirectory<NoteFile>) {
-      await _addDirectoryToZip(fileSystem, encoder, entity, childPath);
-      continue;
-    }
-    if (entity is! FileSystemFile<NoteFile>) continue;
-
-    final file = entity.hasData
-        ? entity
-        : await fileSystem.getAsset(
-            entity.path,
-            listLevel: noListLevel,
-            readData: true,
-          );
-    if (file is FileSystemFile<NoteFile>) {
-      final data = file.data?.data;
-      if (data != null) {
-        encoder.add(ArchiveFile.bytes(childPath, data));
-      }
-    }
-  }
-}
-
 void importSettings(BuildContext context) async {
   final settingsCubit = context.read<SettingsCubit>();
   final result = await FilePicker.pickFile(
@@ -581,9 +434,8 @@ void importSettings(BuildContext context) async {
     await settingsCubit.importSettings(data);
   } catch (e) {
     if (!context.mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(e.toString())));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(e.toString())));
   }
 }
 

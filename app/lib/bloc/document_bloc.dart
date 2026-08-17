@@ -675,6 +675,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         replacedElements: editorController.rendererCubit.renderers
             .where((e) => !event.elements.contains(e.element.id))
             .toList(),
+        resetAllLayers: removedRenderers.any(
+          (renderer) => renderer.layer != current.currentLayer,
+        ),
       );
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) {
@@ -705,7 +708,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
     });
-    on<ToolsChanged>((event, emit) {
+    on<ToolsChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
@@ -765,19 +768,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
       if (updatedCurrent != null) {
-        editorController.toolCubit.updateTool(
+        await editorController.toolCubit.updateTool(
           editorController,
           this,
           updatedCurrent!,
         );
       }
-      editorController.toolCubit.updateTogglingTools(
+      await editorController.toolCubit.updateTogglingTools(
         editorController,
         this,
         changedTools,
       );
       if (updatedTemporary != null) {
-        editorController.toolCubit.updateTemporaryTool(
+        await editorController.toolCubit.updateTemporaryTool(
           editorController,
           this,
           updatedTemporary!,
@@ -992,9 +995,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: current.page.mapLayers(
             (e) => e.copyWith(
-              content: List<PadElement>.from(
-                e.content,
-              ).where((e) => e.collection != event.name).toList(),
+              content: List<PadElement>.from(e.content)
+                  .where((e) => e.collection != event.name)
+                  .toList(),
             ),
           ),
           currentCollection: current.currentCollection == event.name
@@ -1005,7 +1008,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
-    on<LayerOrderChanged>((event, emit) {
+    on<LayerOrderChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final layers = List<DocumentLayer>.from(current.page.layers);
@@ -1015,8 +1018,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (event.index < 0 || event.index > layers.length) return;
       layers.insert(event.index, layer);
       final currentDocument = current.page.copyWith(layers: layers);
-      _saveState(emit, state: current.copyWith(page: currentDocument));
-    });
+      return _saveState(
+        emit,
+        state: current.copyWith(page: currentDocument),
+        replacedElements: orderRenderersByPage(
+          currentDocument,
+          editorController.rendererCubit.renderers,
+        ),
+        resetAllLayers: true,
+      );
+    }, transformer: sequential());
 
     on<LayerVisibilityChanged>((event, emit) {
       final current = state;
@@ -1168,15 +1179,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     }, transformer: sequential());
 
-    on<CurrentLayerChanged>((event, emit) {
+    on<CurrentLayerChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
-      emit(current.copyWith(currentLayer: event.name));
+      final newState = current.copyWith(currentLayer: event.name);
+      emit(newState);
       editorController.editorSessionCubit?.updateLayer(
         currentLayer: event.name,
       );
-    });
+      await editorController.rendererCubit.bake(
+        editorController,
+        newState,
+        reset: true,
+        resetAllLayers: true,
+      );
+    }, transformer: sequential());
 
     on<CurrentCollectionChanged>((event, emit) {
       final current = state;
@@ -1697,6 +1715,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool unbake = false,
+    bool resetAllLayers = false,
     bool? resetAll,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
@@ -1720,6 +1739,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       backgrounds: backgrounds,
       reset: reset,
       unbake: unbake,
+      resetAllLayers: resetAllLayers,
       shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
     );

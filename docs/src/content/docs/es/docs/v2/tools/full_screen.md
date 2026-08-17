@@ -2,11 +2,12 @@
 title: Herramienta de pantalla completa
 ---
 
-:::note[⚡ Herramienta de acción
+:::note[🔘 Herramienta conmutable
 
 Esta es una herramienta especial.
-No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 
-Al hacer clic en esta herramienta puedes habilitar la pantalla completa.
+Clicking this tool toggles full-screen mode. In full-screen mode, the sidebar and app bar are hidden
+to make more room for the canvas. A second click restores the previous state.

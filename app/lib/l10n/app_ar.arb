@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "كشف في مستكشف الملفات",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "الإعدادات",
   "personalization": "التخصيص",
   "theme": "السمة",
@@ -282,12 +286,17 @@
     "description": "Move action"
   },
   "copy": "نسخ",
+  "openContextMenu": "فتح قائمة السياق",
   "@copy": {
     "description": "Copy action"
   },
   "back": "رجوع",
   "@back": {
     "description": "Back action"
+  },
+  "forward": "إعادة",
+  "@forward": {
+    "description": "Forward action"
   },
   "zoomDependent": "يتغير حسب التكبير",
   "shapeDetection": "اكتشاف الشكل",
@@ -577,6 +586,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "الجدول",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "الصفوف",
+  "columns": "الأعمدة",
+  "row": "صف",
+  "column": "العمود",
+  "insertRowBefore": "إدراج صف قبل",
+  "insertRowAfter": "إدراج صف بعد",
+  "insertColumnBefore": "إدراج العمود قبل",
+  "insertColumnAfter": "إدراج العمود بعد",
+  "deleteRow": "حذف الصف",
+  "deleteColumn": "حذف العمود",
+  "cellColor": "لون الخلية",
+  "cellBorders": "حدود الخلية",
+  "cellBorder": "حدود الخلية",
+  "horizontalBorder": "الحدود الأفقية",
+  "verticalBorder": "الحدود العمودية",
+  "rowHeight": "ارتفاع الصف",
+  "columnWidth": "عرض العمود",
+  "border": "Border",
   "circle": "دائرة",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +1002,8 @@
   "bringForward": "خطوة إلى الأمام",
   "sendBackward": "خطوة إلى الخلف",
   "rotation": "دوران",
+  "rotationStep": "خطوة التدوير",
+  "zoomStep": "تكبير خطوة",
   "direction": "الاتجاه",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
@@ -981,6 +1014,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "تدوير لليسار",
+  "rotateRight": "تدوير لليمين",
   "spacer": "المساحة",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1195,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "إظهار معاينات التصفح",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "إظهار الصور المصغرة للمعاينة المخزنة مؤقتاً في المناطق والصفحات للملاحين",
   "highContrast": "تباين عالي",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1364,7 @@
   "moveOnGesture": "إيماءة التحريك",
   "exportAllFiles": "تصدير جميع الملفات",
   "restoreSettingsFromFile": "استعادة الإعدادات من ملف",
+  "resetAllSettings": "إعادة تعيين كافة الإعدادات",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "barcode": "الرمز الشريطي (الباركود)",
   "@barcode": {
@@ -1438,6 +1479,8 @@
   "fullScreenShortcut": "ملء الشاشة",
   "doublePressAction": "إجراء الضغط المزدوج",
   "triplePressAction": "إجراء الضغط الثلاثي",
+  "twoFingerTap": "ضغطتين على إصبعين",
+  "threeFingerTap": "ضغطة ثلاثية الأصابع",
   "longPress": "ضغط مطوّل",
   "toolNumber": "الأداة {number}",
   "@toolNumber": {

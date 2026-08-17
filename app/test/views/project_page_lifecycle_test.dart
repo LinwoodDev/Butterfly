@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/services/font.dart';
@@ -12,11 +13,13 @@ import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -27,10 +30,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/mocks.dart';
 
+class _ReleaseTrackingHandler extends Handler<HandTool> {
+  bool pointerUpCalled = false;
+
+  _ReleaseTrackingHandler() : super(HandTool());
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    pointerUpCalled = true;
+  }
+}
+
 void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
+    FlutterSecureStorage.setMockInitialValues({});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
           const MethodChannel('window_manager'),
@@ -61,9 +76,8 @@ void main() {
     previousObserver = Bloc.observer;
     Bloc.observer = observer;
 
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(defaultTemplate: 'default'));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(defaultTemplate: 'default'));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
     when(() => settingsCubit.getRemote(any())).thenReturn(null);
   });
@@ -105,6 +119,7 @@ void main() {
     NoteData? embedDocument,
     bool embedWithData = true,
     String embedFileName = '',
+    Object? importData,
   }) {
     final document =
         embedDocument ??
@@ -146,7 +161,8 @@ void main() {
             ),
             GoRoute(
               path: 'import',
-              builder: (context, state) => ProjectPage(data: document),
+              builder: (context, state) =>
+                  ProjectPage(data: importData ?? document),
             ),
             GoRoute(
               path: 'embed',
@@ -239,7 +255,7 @@ void main() {
     );
   });
 
-  testWidgets('embed file name is visual only and templates are hidden', (
+  testWidgets('embed file name stays separate from document metadata', (
     tester,
   ) async {
     final document = DocumentDefaults.createDocument(
@@ -261,10 +277,10 @@ void main() {
     final titleFinder = find.byWidgetPredicate(
       (widget) =>
           widget is TextFormField &&
-          widget.controller?.text == 'Host file.bfly',
+          widget.controller?.text == 'Stored document name',
     );
     final title = tester.widget<TextFormField>(titleFinder);
-    expect(title.controller?.text, 'Host file.bfly');
+    expect(title.controller?.text, 'Stored document name');
     final titleField = tester.widget<TextField>(
       find.descendant(of: titleFinder, matching: find.byType(TextField)),
     );
@@ -272,6 +288,11 @@ void main() {
 
     var state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
     expect(state.metadata.name, 'Stored document name');
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.location.path,
+      'Host file.bfly',
+    );
+    expect(find.text('Host file.bfly'), findsOneWidget);
 
     await tester.enterText(titleFinder, 'Renamed metadata');
     await tester.testTextInput.receiveAction(TextInputAction.done);
@@ -287,11 +308,17 @@ void main() {
       ),
       findsOneWidget,
     );
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.location.path,
+      'Host file.bfly',
+    );
+    expect(find.text('Host file.bfly'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Actions'));
     await tester.pumpAndSettle();
     expect(find.text('Templates'), findsNothing);
     expect(find.text('Files'), findsNothing);
+    expect(find.text('Recent files'), findsNothing);
 
     router.go('/');
     await pumpUntil(
@@ -444,6 +471,121 @@ void main() {
     await tester.pump(const Duration(seconds: 4));
   });
 
+  testWidgets('temporary release handler receives pointer up before removal', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final documentBloc = observer.lastDocumentBloc!;
+    final editorController = documentBloc.editorController;
+    final handler = _ReleaseTrackingHandler();
+    editorController.toolCubit.setTemporaryTool(
+      handler: handler,
+      index: null,
+      foregrounds: const [],
+      toolbar: null,
+      cursor: null,
+      rendererStates: const {},
+      temporaryState: TemporaryState.removeAfterRelease,
+    );
+    await tester.pump();
+
+    final gesture = await tester.startGesture(
+      tester.getCenter(find.byType(MainViewViewport)),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.up();
+    await tester.pumpAndSettle();
+
+    expect(handler.pointerUpCalled, isTrue);
+    expect(editorController.toolCubit.state.temporaryHandler, isNull);
+    await tester.pump(const Duration(seconds: 4));
+  });
+
+  testWidgets('select tool manipulates a ruler enabled after viewport build', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final documentBloc = observer.lastDocumentBloc!;
+    final editorController = documentBloc.editorController;
+    expect(editorController.toolCubit.state.handler, isA<SelectHandler>());
+    documentBloc.add(ToolCreated(RulerTool(id: 'ruler')));
+    await tester.pumpAndSettle();
+    final rulerIndex =
+        (documentBloc.state as DocumentLoadSuccess).info.tools.length - 1;
+    await editorController.toolCubit.toggleHandler(
+      editorController,
+      documentBloc,
+      rulerIndex,
+    );
+    await tester.pump();
+
+    final viewport = find.byType(MainViewViewport);
+    final gesture = await tester.startGesture(
+      tester.getCenter(viewport),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.moveBy(const Offset(20, 10));
+    await tester.pump();
+    await gesture.moveBy(const Offset(30, 15));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+
+    final ruler =
+        editorController.toolCubit.state.toggleableHandlers[rulerIndex]
+            as RulerHandler;
+    expect(ruler.position, const Offset(50, 25));
+
+    final rulerCenter = tester.getCenter(viewport) + ruler.position;
+    final rotationGesture = await tester.startGesture(
+      rulerCenter + const Offset(100, 0),
+      kind: PointerDeviceKind.mouse,
+      buttons: kSecondaryMouseButton,
+    );
+    await rotationGesture.moveTo(rulerCenter + const Offset(0, 100));
+    await tester.pump();
+    await rotationGesture.up();
+    await tester.pumpAndSettle();
+    expect(ruler.rotation, closeTo(90, 0.1));
+    await tester.pump(const Duration(seconds: 4));
+  });
+
+  testWidgets('context menu key opens the active tool context menu', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.contextMenu);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ContextMenu), findsOneWidget);
+
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.contextMenu);
+  });
+
   testWidgets('mobile navigator dialogs receive the editor runtime cubits', (
     tester,
   ) async {
@@ -524,6 +666,152 @@ void main() {
           observer.saveCubitCloses == 1,
       'imported document close',
     );
+  });
+
+  testWidgets('cancelling a newer document warning returns home', (
+    tester,
+  ) async {
+    var document = DocumentDefaults.createDocument(
+      name: 'Future document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    document = document.setMetadata(
+      document.getMetadata()!.copyWith(fileVersion: kFileVersion + 1),
+    );
+    await tester.pumpWidget(buildApp(embedDocument: document));
+
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => find.text('Breaking changes').evaluate().isNotEmpty,
+      'newer file version warning',
+    );
+
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(
+      find.textContaining('The current file version is ${kFileVersion + 1}'),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.text('Cancel'));
+    await pumpUntil(
+      tester,
+      () => find.byType(ProjectPage).evaluate().isEmpty,
+      'return home after cancelling future document',
+    );
+
+    expect(observer.documentBlocCreates, 0);
+    expect(find.byKey(const ValueKey('open-document')), findsOneWidget);
+  });
+
+  testWidgets('wrong encrypted document password returns home', (tester) async {
+    final document = DocumentDefaults.createDocument(
+      name: 'Encrypted document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    final encrypted = document.changePassword('correct password').toFile();
+    await tester.pumpWidget(buildApp(importData: encrypted));
+
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => find.text('Encrypted').evaluate().isNotEmpty,
+      'encrypted document password prompt',
+    );
+
+    await tester.enterText(find.byType(TextFormField), 'wrong password');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Open'));
+    await pumpUntil(
+      tester,
+      () => find.text('Unknown import type').evaluate().isNotEmpty,
+      'wrong password error',
+    );
+    await tester.tap(find.text('Close'));
+    await pumpUntil(
+      tester,
+      () => find.byType(ProjectPage).evaluate().isEmpty,
+      'return home after wrong password',
+    );
+
+    expect(observer.documentBlocCreates, 0);
+    expect(find.byKey(const ValueKey('open-document')), findsOneWidget);
+  });
+
+  testWidgets('saved connection password opens without a prompt', (
+    tester,
+  ) async {
+    const password = 'connection password';
+    const remote = DavRemoteStorage(
+      username: 'user',
+      url: 'https://example.com/dav',
+      extra: {connectionEncryptionEnabledKey: true},
+    );
+    final document = DocumentDefaults.createDocument(
+      name: 'Connection encrypted document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    final encrypted = document.changePassword(password).toFile();
+    when(() => settingsCubit.getRemote(any())).thenReturn(remote);
+    await connectionEncryptionPasswordStorage.write(remote, password);
+    addTearDown(() => connectionEncryptionPasswordStorage.delete(remote));
+
+    await tester.pumpWidget(buildApp(importData: encrypted));
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'connection encrypted document open',
+    );
+
+    expect(find.text('Encrypted'), findsNothing);
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.metadata.name, 'Connection encrypted document');
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'connection encrypted document close',
+    );
+    await tester.pump(const Duration(milliseconds: 10));
+  });
+
+  testWidgets('plaintext connection document reopens as unencrypted', (
+    tester,
+  ) async {
+    const password = 'connection password';
+    const remote = DavRemoteStorage(
+      username: 'user',
+      url: 'https://example.com/dav',
+      extra: {connectionEncryptionEnabledKey: true},
+    );
+    final document = DocumentDefaults.createDocument(
+      name: 'Unencrypted document',
+      page: const DocumentPage(backgrounds: []),
+    );
+    when(() => settingsCubit.getRemote(any())).thenReturn(remote);
+    await connectionEncryptionPasswordStorage.write(remote, password);
+    addTearDown(() => connectionEncryptionPasswordStorage.delete(remote));
+
+    await tester.pumpWidget(buildApp(importData: document.toFile()));
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'plaintext connection document open',
+    );
+
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.data.isEncrypted, isFalse);
+    expect(state.data.password, isNull);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'plaintext connection document close',
+    );
+    await tester.pump(const Duration(milliseconds: 10));
   });
 
   testWidgets('embed does not load or save persistent document state', (

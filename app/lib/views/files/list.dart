@@ -188,6 +188,7 @@ class FileEntityListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
+    final highlighted = active || selected == true;
     final fileSystem = context.read<ButterflyFileSystem>();
     final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
@@ -200,6 +201,7 @@ class FileEntityListTile extends StatelessWidget {
             Expanded(
               child: Card(
                 elevation: 5,
+                color: highlighted ? colorScheme.surfaceContainerHighest : null,
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
                 shape: RoundedRectangleBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -210,8 +212,8 @@ class FileEntityListTile extends StatelessWidget {
                         )
                       : BorderSide.none,
                 ),
-                surfaceTintColor: active
-                    ? colorScheme.primaryContainer
+                surfaceTintColor: highlighted
+                    ? colorScheme.surfaceContainerHighest
                     : colorScheme.secondaryContainer,
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(
@@ -334,9 +336,8 @@ class FileEntityListTile extends StatelessWidget {
                                           minWidth: 100,
                                           maxHeight: 40,
                                         ),
-                                        hintText: AppLocalizations.of(
-                                          context,
-                                        ).enterText,
+                                        hintText: AppLocalizations.of(context)
+                                            .enterText,
                                         suffix: IconButton(
                                           onPressed: () async {
                                             if (nameController.text ==
@@ -372,9 +373,8 @@ class FileEntityListTile extends StatelessWidget {
                                             PhosphorIconsLight.check,
                                             textDirection: TextDirection.ltr,
                                           ),
-                                          tooltip: AppLocalizations.of(
-                                            context,
-                                          ).save,
+                                          tooltip: AppLocalizations.of(context)
+                                              .save,
                                         ),
                                       ),
                                     )
@@ -392,9 +392,8 @@ class FileEntityListTile extends StatelessWidget {
                                             message: entity.fileName,
                                             child: FileNameDisplay(
                                               entity: entity,
-                                              style: TextTheme.of(
-                                                context,
-                                              ).labelLarge,
+                                              style: TextTheme.of(context)
+                                                  .labelLarge,
                                             ),
                                           ),
                                           if (!isDesktop && !collapsed) ...[
@@ -420,9 +419,8 @@ class FileEntityListTile extends StatelessWidget {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.pencil,
                                     ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).rename,
+                                    tooltip: AppLocalizations.of(context)
+                                        .rename,
                                   ),
                                 ],
                               );

@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +15,20 @@ import '../../widgets/reorderable_list_item.dart';
 int _documentLayerIndexFromViewIndex(int index, int layerCount) =>
     layerCount - index - 1;
 
-class LayersView extends StatelessWidget {
+class LayersView extends StatefulWidget {
   const LayersView({super.key});
 
   @override
+  State<LayersView> createState() => _LayersViewState();
+}
+
+class _LayersViewState extends State<LayersView> {
+  List<DocumentLayer> _layers = const [];
+
+  @override
   Widget build(BuildContext context) {
+    final contentPadding =
+        ListTileTheme.of(context).contentPadding ?? EdgeInsets.zero;
     return BlocBuilder<DocumentBloc, DocumentState>(
       buildWhen: (previous, current) =>
           previous is DocumentLoadSuccess &&
@@ -30,7 +40,11 @@ class LayersView extends StatelessWidget {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentIndex = state.currentLayer;
-        final layers = state.page.layers.reversed.toList();
+        final documentLayers = state.page.layers.reversed.toList();
+        if (!listEquals(_layers, documentLayers)) {
+          _layers = documentLayers;
+        }
+        final layers = _layers;
         final currentLayer = state.page.getLayer(currentIndex);
         return MultiSelectRegion<String>(
           toolbarBuilder: (context, controller) => Padding(
@@ -91,13 +105,50 @@ class LayersView extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: layers.length,
                 buildDefaultDragHandles: false,
+                // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
+                proxyDecorator: (_, index, animation) {
+                  final layer = layers[index];
+                  final id = layer.id ?? '';
+                  final visible = state.isLayerVisible(id);
+                  final name = layer.name.isEmpty
+                      ? AppLocalizations.of(context).layer
+                      : layer.name;
+
+                  return AnimatedBuilder(
+                    animation: animation,
+                    child: ListTile(
+                      selected: controller.selectionMode
+                          ? controller.selectedIds.contains(id)
+                          : id == state.currentLayer,
+                      contentPadding: contentPadding.add(
+                        const EdgeInsetsDirectional.only(end: 32),
+                      ),
+                      leading: PhosphorIcon(
+                        visible
+                            ? PhosphorIconsLight.eye
+                            : PhosphorIconsLight.eyeSlash,
+                      ),
+                      title: Text(name, overflow: TextOverflow.ellipsis),
+                      subtitle: Text(
+                        AppLocalizations.of(context)
+                            .countElements(layer.content.length),
+                      ),
+                    ),
+                    builder: (context, child) {
+                      final value = Curves.easeInOut.transform(animation.value);
+
+                      return Material(
+                        elevation: 6 * value,
+                        color: ColorScheme.of(context).surface,
+                        child: child,
+                      );
+                    },
+                  );
+                },
                 itemBuilder: (BuildContext context, int index) {
                   final layer = layers[index];
                   final id = layer.id ?? '';
                   final visible = state.isLayerVisible(id);
-                  final contentPadding =
-                      ListTileTheme.of(context).contentPadding ??
-                      EdgeInsets.zero;
                   return ReorderableListItem(
                     key: ValueKey(id),
                     index: index,
@@ -122,9 +173,8 @@ class LayersView extends StatelessWidget {
                         }
                       },
                       subtitle: Text(
-                        AppLocalizations.of(
-                          context,
-                        ).countElements(layer.content.length),
+                        AppLocalizations.of(context)
+                            .countElements(layer.content.length),
                       ),
                       leading: controller.selectionMode
                           ? Checkbox(
@@ -244,7 +294,11 @@ class LayersView extends StatelessWidget {
                   );
                 },
                 onReorderItem: (int oldIndex, int newIndex) {
+                  if (oldIndex == newIndex) return;
                   final layer = layers[oldIndex];
+                  layers
+                    ..removeAt(oldIndex)
+                    ..insert(newIndex, layer);
                   context.read<DocumentBloc>().add(
                     LayerOrderChanged(
                       layer.id ?? '',
@@ -316,9 +370,8 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
                         : mainLayer.name,
                   ),
                   subtitle: Text(
-                    AppLocalizations.of(
-                      context,
-                    ).countElements(mainLayer.content.length),
+                    AppLocalizations.of(context)
+                        .countElements(mainLayer.content.length),
                   ),
                 ),
                 const Divider(),
@@ -343,9 +396,8 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
                             : e.name,
                       ),
                       subtitle: Text(
-                        AppLocalizations.of(
-                          context,
-                        ).countElements(e.content.length),
+                        AppLocalizations.of(context)
+                            .countElements(e.content.length),
                       ),
                     ),
                   ),

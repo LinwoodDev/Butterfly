@@ -42,14 +42,42 @@ Color resolveRulerForegroundColor(RulerTool ruler, Color background) {
 class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   Offset _position = Offset.zero;
   double _rotation = 0;
+  bool _snapRotation = false;
   double _previousGestureRotation = 0;
   Offset _transformStartPosition = Offset.zero;
   Offset _transformStartPointer = Offset.zero;
 
   Offset get position => _position;
-  double get rotation => snapRulerRotation(_rotation);
+  double get rotation => _snapRotation
+      ? snapRulerRotation(_rotation)
+      : (_rotation % 360 + 360) % 360;
 
   RulerHandler(super.data);
+
+  void setPosition(Offset position) {
+    _position = position;
+  }
+
+  void setRotation(double rotation) {
+    _rotation = (rotation % 360 + 360) % 360;
+    _snapRotation = false;
+  }
+
+  @override
+  List<Widget> getRuntimeProperties(BuildContext context) => [
+    ExactSlider(
+      header: Text(AppLocalizations.of(context).angle),
+      value: rotation,
+      min: 0,
+      max: 360,
+      defaultValue: 0,
+      fractionDigits: 1,
+      onChangeEnd: (value) async {
+        setRotation(value);
+        await context.read<DocumentBloc>().refresh(allowBake: false);
+      },
+    ),
+  ];
 
   @override
   List<Renderer> createForegrounds(
@@ -71,6 +99,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
     }
     if (rotation != null) {
       _rotation += rotation;
+      _snapRotation = true;
     }
     context.refresh();
   }

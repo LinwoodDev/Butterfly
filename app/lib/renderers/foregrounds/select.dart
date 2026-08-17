@@ -69,6 +69,8 @@ class RectSelectionForegroundManager {
   final bool enableRotation;
   Rect _selection = Rect.zero;
   SelectionScaleMode _scaleMode = SelectionScaleMode.scale;
+  bool _proportionalModifier = false;
+  bool _centeredModifier = false;
   SelectionTransformCorner? _corner;
   Offset? _startPosition, _currentPosition;
 
@@ -105,6 +107,8 @@ class RectSelectionForegroundManager {
   }
 
   void resetTransform() {
+    _proportionalModifier = false;
+    _centeredModifier = false;
     _corner = null;
     _startPosition = null;
     _currentPosition = null;
@@ -152,6 +156,16 @@ class RectSelectionForegroundManager {
       _scaleMode = (SelectionScaleMode.scale == _scaleMode
       ? SelectionScaleMode.scaleProp
       : SelectionScaleMode.scale);
+
+  void updateModifiers({required bool proportional, required bool centered}) {
+    _proportionalModifier = proportional;
+    _centeredModifier = centered;
+  }
+
+  SelectionScaleMode get _effectiveScaleMode =>
+      (_scaleMode == SelectionScaleMode.scaleProp) != _proportionalModifier
+      ? SelectionScaleMode.scaleProp
+      : SelectionScaleMode.scale;
 
   bool shouldTransform(Offset position, double scale, double sensitivity) {
     if (!isValid) return false;
@@ -246,7 +260,7 @@ class RectSelectionForegroundManager {
       default:
         moved = delta;
     }
-    if (_scaleMode == SelectionScaleMode.scaleProp) {
+    if (_effectiveScaleMode == SelectionScaleMode.scaleProp) {
       final scale = (scaleX - 1).abs() > (scaleY - 1).abs() ? scaleX : scaleY;
       scaleX = scale;
       scaleY = scale;
@@ -267,6 +281,16 @@ class RectSelectionForegroundManager {
         ),
         _ => Offset.zero,
       };
+    }
+    if (_centeredModifier &&
+        _corner != null &&
+        _corner != SelectionTransformCorner.center) {
+      scaleX = 1 + 2 * (scaleX - 1);
+      scaleY = 1 + 2 * (scaleY - 1);
+      moved = Offset(
+        _selection.width * (1 - scaleX) / 2,
+        _selection.height * (1 - scaleY) / 2,
+      );
     }
     return (
       scaleX: scaleX,
@@ -290,7 +314,7 @@ class RectSelectionForegroundManager {
   RectSelectionForegroundRenderer get renderer =>
       RectSelectionForegroundRenderer(
         getTransformedSelection(),
-        _scaleMode,
+        _effectiveScaleMode,
         _corner,
         enableRotation,
         isTransforming,

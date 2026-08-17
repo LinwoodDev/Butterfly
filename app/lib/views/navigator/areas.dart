@@ -460,9 +460,8 @@ class _AreasViewState extends State<AreasView> {
                                             pageName: state.pageName,
                                             pageDisplayName:
                                                 currentPageDisplayName ??
-                                                AppLocalizations.of(
-                                                  context,
-                                                ).page,
+                                                AppLocalizations.of(context)
+                                                    .page,
                                             isCurrentPage: true,
                                           ),
                                         )
@@ -582,15 +581,13 @@ class _AreasViewState extends State<AreasView> {
                                             PhosphorIcon(
                                               PhosphorIconsLight.compass,
                                               color: controller.isOpen
-                                                  ? ColorScheme.of(
-                                                      context,
-                                                    ).primary
+                                                  ? ColorScheme.of(context)
+                                                        .primary
                                                   : null,
                                             ),
                                             Text(
-                                              AppLocalizations.of(
-                                                context,
-                                              ).navigator,
+                                              AppLocalizations.of(context)
+                                                  .navigator,
                                               style: TextTheme.of(context)
                                                   .titleMedium
                                                   ?.copyWith(

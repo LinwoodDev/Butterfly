@@ -5,6 +5,7 @@ class AreaHandler extends Handler<AreaTool> {
     enableRotation: false,
   );
   Offset? _start, _end;
+  bool _centered = false;
   Area? _currentArea;
 
   AreaHandler(super.data);
@@ -34,12 +35,23 @@ class AreaHandler extends Handler<AreaTool> {
 
   Rect? get currentRect {
     if (_start == null || _end == null) return null;
+    if (_centered) {
+      final delta = _end! - _start!;
+      return Rect.fromPoints(_start! - delta, _start! + delta);
+    }
     return Rect.fromPoints(_start!, _end!);
   }
 
   set currentRect(Rect? value) {
     _start = value?.topLeft;
     _end = value?.bottomRight;
+    if (value == null) _centered = false;
+  }
+
+  void _startArea(Offset position, bool centered) {
+    _start = position;
+    _end = null;
+    _centered = centered;
   }
 
   void _updateArea() {
@@ -110,7 +122,7 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
-    _start = null;
+    currentRect = null;
     context.refreshForegrounds();
   }
 
@@ -139,13 +151,13 @@ class AreaHandler extends Handler<AreaTool> {
       );
       if (!startedTransform) {
         _setCurrentArea(null);
-        _start = globalPos;
+        _startArea(globalPos, context.isAltPressed);
       }
       context.refreshForegrounds();
       return true;
     }
 
-    _start = globalPos;
+    _startArea(globalPos, context.isAltPressed);
     return true;
   }
 
@@ -162,6 +174,10 @@ class AreaHandler extends Handler<AreaTool> {
     );
     var globalPos = transform.localToGlobal(localPos);
     if (_selectionManager.isTransforming) {
+      _selectionManager.updateModifiers(
+        proportional: context.isShiftPressed,
+        centered: context.isAltPressed,
+      );
       _selectionManager.updateCurrentPosition(globalPos);
       _updateArea();
       context.refreshForegrounds();
@@ -171,7 +187,10 @@ class AreaHandler extends Handler<AreaTool> {
     if (start == null) return;
     final hasConstrainedWidth = data.constrainedWidth != 0;
     final hasConstrainedHeight = data.constrainedHeight != 0;
-    final hasConstrainedAspectRatio = data.constrainedAspectRatio != 0;
+    final constrainedAspectRatio = context.isShiftPressed
+        ? (data.constrainedAspectRatio == 0 ? 1.0 : 0.0)
+        : data.constrainedAspectRatio;
+    final hasConstrainedAspectRatio = constrainedAspectRatio != 0;
     if (hasConstrainedWidth) {
       final direction = (globalPos.dx - start.dx).sign;
       final width = data.constrainedWidth * (direction == 0 ? 1 : direction);
@@ -183,7 +202,7 @@ class AreaHandler extends Handler<AreaTool> {
       globalPos = Offset(globalPos.dx, height + start.dy);
     }
     if (hasConstrainedAspectRatio) {
-      final aspectRatio = data.constrainedAspectRatio;
+      final aspectRatio = constrainedAspectRatio;
       final width = (globalPos.dx - start.dx).abs();
       final height = (globalPos.dy - start.dy).abs();
       final xDirection = (globalPos.dx - start.dx).sign;
@@ -214,6 +233,7 @@ class AreaHandler extends Handler<AreaTool> {
         }
       }
     }
+    _centered = context.isAltPressed;
     _end = globalPos;
     context.refreshForegrounds();
   }

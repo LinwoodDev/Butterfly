@@ -19,13 +19,15 @@ First, add a new pen tool into the toolbar
 1. Press the + button in the toolbar!
 2. Add a pen
 3. Hold the new pen icon to move it
-   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure the correct tool is activated for each input
+   - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure
+     the correct tool is activated for each input
 
 Then, modify the new pen
 
 1. Open the properties panel of the new pen by pressing it again
 2. Rename the pen by double tapping the tool's name.
-3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
+3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing
+   the icon
 
 Finally, after modifying the tool's appearance. It's time to modify the properties!
 
@@ -54,12 +56,12 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 |         الممتلكات |                                الافتراضي                               | الوصف                                                                                                                                   |
 | ----------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|             اللون |                                  أسود                                  | اللون الذي سيتم رسمه                                                                                                                    |
-|         سُمك الخط |                                    5                                   | عرض جرة القدم                                                                                                                           |
 | يتغير حسب التكبير |                                  خاطئ                                  | هذا سيغير عرض السكتة الدماغية بناءً على مستوى التكبير.                                                                  |
+|      دمج المسارات |                                  خاطئ                                  | This will merge all strokes it touches into one path                                                                                    |
 |      اكتشاف الشكل | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
+|          عرض الخط |                                    5                                   | عرض جرة القدم                                                                                                                           |
 |           الترقيق |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |           التنعيم |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
-|           التبسيط |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
-|             اللون |                                  أسود                                  | اللون الذي سيتم رسمه                                                                                                                    |
-|             تعبئة |                                  شفاف                                  | The color that will be drawn inside the shape                                                                                           |
+|           التبسيط |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
+|             اللون |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
+|             تعبئة |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |

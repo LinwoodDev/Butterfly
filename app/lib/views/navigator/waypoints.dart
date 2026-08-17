@@ -125,14 +125,12 @@ class _WaypointsViewState extends State<WaypointsView> {
                                           context: context,
                                           builder: (context) => AlertDialog(
                                             title: Text(
-                                              LeapLocalizations.of(
-                                                context,
-                                              ).reset,
+                                              LeapLocalizations.of(context)
+                                                  .reset,
                                             ),
                                             content: Text(
-                                              AppLocalizations.of(
-                                                context,
-                                              ).reallyReset,
+                                              AppLocalizations.of(context)
+                                                  .reallyReset,
                                             ),
                                             actions: [
                                               TextButton(
@@ -165,9 +163,8 @@ class _WaypointsViewState extends State<WaypointsView> {
                                                   bloc.delayedBake();
                                                 },
                                                 child: Text(
-                                                  LeapLocalizations.of(
-                                                    context,
-                                                  ).reset,
+                                                  LeapLocalizations.of(context)
+                                                      .reset,
                                                 ),
                                               ),
                                             ],
@@ -186,6 +183,24 @@ class _WaypointsViewState extends State<WaypointsView> {
                                 shrinkWrap: true,
                                 buildDefaultDragHandles: false,
                                 itemCount: waypoints.length,
+                                // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
+                                proxyDecorator: (context, index, animation) {
+                                  return AnimatedBuilder(
+                                    animation: animation,
+                                    builder: (context, child) {
+                                      return Material(
+                                        color: ColorScheme.of(context).surface
+                                            .withValues(alpha: 0.8),
+                                        elevation: 6,
+                                        shadowColor: Colors.black45,
+                                        child: child,
+                                      );
+                                    },
+                                    child: ListTile(
+                                      title: Text(waypoints[index].name ?? ''),
+                                    ),
+                                  );
+                                },
                                 onReorderItem: (oldIndex, newIndex) =>
                                     context.read<DocumentBloc>().add(
                                       WaypointReordered(
@@ -236,9 +251,8 @@ class _WaypointsViewState extends State<WaypointsView> {
                                             );
                                           },
                                           child: Text(
-                                            AppLocalizations.of(
-                                              context,
-                                            ).replace,
+                                            AppLocalizations.of(context)
+                                                .replace,
                                           ),
                                         ),
                                         MenuItemButton(
@@ -275,12 +289,10 @@ class _WaypointsViewState extends State<WaypointsView> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FloatingActionButton.extended(
-                                backgroundColor: ColorScheme.of(
-                                  context,
-                                ).secondary,
-                                foregroundColor: ColorScheme.of(
-                                  context,
-                                ).onSecondary,
+                                backgroundColor: ColorScheme.of(context)
+                                    .secondary,
+                                foregroundColor: ColorScheme.of(context)
+                                    .onSecondary,
                                 label: Text(AppLocalizations.of(context).add),
                                 icon: const PhosphorIcon(
                                   PhosphorIconsLight.plus,

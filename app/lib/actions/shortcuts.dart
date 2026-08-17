@@ -4,6 +4,7 @@ import 'package:keybinder/keybinder.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/change_tool.dart';
+import 'package:butterfly/actions/context_menu.dart';
 import 'package:butterfly/actions/exit.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/full_screen.dart';
@@ -30,6 +31,7 @@ import 'package:butterfly/services/keybinder_store.dart';
 export 'package:butterfly/actions/background.dart';
 export 'package:butterfly/actions/change_path.dart';
 export 'package:butterfly/actions/change_tool.dart';
+export 'package:butterfly/actions/context_menu.dart';
 export 'package:butterfly/actions/exit.dart';
 export 'package:butterfly/actions/export.dart';
 export 'package:butterfly/actions/full_screen.dart';
@@ -86,6 +88,7 @@ extension ShortcutDefinitionLocalization on ShortcutDefinition {
       changePathShortcut => loc.changePathShortcut,
       zoomInShortcut => loc.zoomIn,
       zoomOutShortcut => loc.zoomOut,
+      resetZoomShortcut => loc.resetZoom,
       rotateLeftShortcut => loc.rotateLeft,
       rotateRightShortcut => loc.rotateRight,
       fullScreenShortcut => loc.fullScreenShortcut,
@@ -97,6 +100,7 @@ extension ShortcutDefinitionLocalization on ShortcutDefinition {
       togglePresentationShortcut => loc.pausePresentation,
       selectAllShortcut => loc.selectAll,
       pasteShortcut => loc.paste,
+      contextMenuShortcut => loc.openContextMenu,
       _ => id,
     };
   }
@@ -131,9 +135,11 @@ final keybinder = Keybinder(
     packsShortcut,
     zoomInShortcut,
     zoomOutShortcut,
+    resetZoomShortcut,
     rotateLeftShortcut,
     rotateRightShortcut,
     pasteShortcut,
+    contextMenuShortcut,
     ...changeToolShortcuts,
   ],
 );

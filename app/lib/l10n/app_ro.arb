@@ -3,6 +3,10 @@
   "@open": {
     "description": "Open a file or dialog"
   },
+  "revealInFileExplorer": "Dezvăluie în exploratorul de fișiere",
+  "@revealInFileExplorer": {
+    "description": "Reveal a file or folder in the operating system's file explorer"
+  },
   "settings": "Setări",
   "personalization": "Personalizare",
   "theme": "Tema",
@@ -282,12 +286,17 @@
     "description": "Move action"
   },
   "copy": "Copiază",
+  "openContextMenu": "Deschide meniul contextual",
   "@copy": {
     "description": "Copy action"
   },
   "back": "Înapoi",
   "@back": {
     "description": "Back action"
+  },
+  "forward": "Redirecționare",
+  "@forward": {
+    "description": "Forward action"
   },
   "zoomDependent": "Depinde de zoom",
   "shapeDetection": "Detectare Formă",
@@ -577,6 +586,28 @@
   "@shape": {
     "description": "Shape tool"
   },
+  "table": "Tabel",
+  "@table": {
+    "description": "Table tool and element"
+  },
+  "rows": "Rânduri",
+  "columns": "Coloane",
+  "row": "Rând",
+  "column": "Coloana",
+  "insertRowBefore": "Introduceți un rând înainte de",
+  "insertRowAfter": "Introduceți un rând după",
+  "insertColumnBefore": "Introduceți coloana înainte de",
+  "insertColumnAfter": "Introduceți o coloană după",
+  "deleteRow": "Ștergere rând",
+  "deleteColumn": "Ștergeți coloana",
+  "cellColor": "Culoare celulă",
+  "cellBorders": "Frontiere celulare",
+  "cellBorder": "Frontieră celulă",
+  "horizontalBorder": "Frontieră orizontală",
+  "verticalBorder": "Frontieră verticală",
+  "rowHeight": "Înălțimea rândului",
+  "columnWidth": "Lățimea coloanei",
+  "border": "Border",
   "circle": "Cerc",
   "@circle": {
     "description": "Shape type"
@@ -971,6 +1002,8 @@
   "bringForward": "Adu înainte",
   "sendBackward": "Trimite înapoi",
   "rotation": "Rotație",
+  "rotationStep": "Etapa de rotație",
+  "zoomStep": "Pasul de mărire",
   "direction": "Direcție",
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
@@ -981,6 +1014,8 @@
   "@rotate": {
     "description": "Rotate action"
   },
+  "rotateLeft": "Rotire la stânga",
+  "rotateRight": "Rotire la dreapta",
   "spacer": "Spatier",
   "@spacer": {
     "description": "Spacer element"
@@ -1160,6 +1195,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
+  "showNavigatorPreviews": "Arată previzualizările navigatorului",
+  "@showNavigatorPreviews": {
+    "description": "Show cached preview thumbnails in the areas and pages navigators"
+  },
+  "showNavigatorPreviewsDescription": "Arată miniaturile de previzualizare în zonele şi paginile navigatoare",
   "highContrast": "Contrast mare",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1324,6 +1364,7 @@
   "moveOnGesture": "Mută la gest",
   "exportAllFiles": "Exportă toate fișierele",
   "restoreSettingsFromFile": "Restabilește setările din fișier",
+  "resetAllSettings": "Resetează toate setările",
   "exportSettingsToFile": "Exportă setările în fișier",
   "barcode": "Barcode",
   "@barcode": {
@@ -1438,6 +1479,8 @@
   "fullScreenShortcut": "Ecran complet",
   "doublePressAction": "Acțiune la apăsare dublă",
   "triplePressAction": "Acțiune apăsare triplă",
+  "twoFingerTap": "Atingere în două degete",
+  "threeFingerTap": "Atingere cu trei degete",
   "longPress": "Apăsare lungă",
   "toolNumber": "Unelte {number}",
   "@toolNumber": {

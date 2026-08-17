@@ -398,9 +398,8 @@ class _RemoteSummaryCard extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 state.lastError!,
-                style: TextTheme.of(
-                  context,
-                ).bodySmall?.copyWith(color: colorScheme.error),
+                style: TextTheme.of(context).bodySmall
+                    ?.copyWith(color: colorScheme.error),
               ),
             ],
             const SizedBox(height: 8),
@@ -508,9 +507,8 @@ class _ProgressTile extends StatelessWidget {
                       if (files.isNotEmpty)
                         Text(
                           '${files.length} ${AppLocalizations.of(context).files}',
-                          style: TextTheme.of(
-                            context,
-                          ).bodySmall?.copyWith(color: colorScheme.outline),
+                          style: TextTheme.of(context).bodySmall
+                              ?.copyWith(color: colorScheme.outline),
                         ),
                     ],
                   ),

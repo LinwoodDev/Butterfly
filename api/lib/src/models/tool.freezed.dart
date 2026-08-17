@@ -1053,7 +1053,7 @@ as LaserAnimation,
 @JsonSerializable()
 
 class ShapeTool extends Tool {
-   ShapeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.property = const ShapeProperty(shape: RectangleShape()), this.drawFromCenter = false,  String? $type}): $type = $type ?? 'shape',super._();
+   ShapeTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.constrainedWidth = 0, this.constrainedHeight = 0, this.constrainedAspectRatio = 0, this.property = const ShapeProperty(shape: RectangleShape()), this.drawFromCenter = false, this.constrain = false,  String? $type}): $type = $type ?? 'shape',super._();
   factory ShapeTool.fromJson(Map<String, dynamic> json) => _$ShapeToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -1065,6 +1065,7 @@ class ShapeTool extends Tool {
 @JsonKey() final  double constrainedAspectRatio;
 @JsonKey() final  ShapeProperty property;
 @JsonKey() final  bool drawFromCenter;
+@JsonKey() final  bool constrain;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -1085,7 +1086,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.shape(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property, drawFromCenter: $drawFromCenter)';
+  return 'Tool.shape(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property, drawFromCenter: $drawFromCenter, constrain: $constrain)';
 }
 
 
@@ -1096,7 +1097,7 @@ abstract mixin class $ShapeToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $ShapeToolCopyWith(ShapeTool value, $Res Function(ShapeTool) _then) = _$ShapeToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, bool zoomDependent, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, ShapeProperty property, bool drawFromCenter
+ String name, String displayIcon,@IdJsonConverter() String? id, bool zoomDependent, double constrainedWidth, double constrainedHeight, double constrainedAspectRatio, ShapeProperty property, bool drawFromCenter, bool constrain
 });
 
 
@@ -1113,7 +1114,7 @@ class _$ShapeToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomDependent = null,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? property = freezed,Object? drawFromCenter = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomDependent = null,Object? constrainedWidth = null,Object? constrainedHeight = null,Object? constrainedAspectRatio = null,Object? property = freezed,Object? drawFromCenter = null,Object? constrain = null,}) {
   return _then(ShapeTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
@@ -1124,6 +1125,7 @@ as double,constrainedHeight: null == constrainedHeight ? _self.constrainedHeight
 as double,constrainedAspectRatio: null == constrainedAspectRatio ? _self.constrainedAspectRatio : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
 as double,property: freezed == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as ShapeProperty,drawFromCenter: null == drawFromCenter ? _self.drawFromCenter : drawFromCenter // ignore: cast_nullable_to_non_nullable
+as bool,constrain: null == constrain ? _self.constrain : constrain // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

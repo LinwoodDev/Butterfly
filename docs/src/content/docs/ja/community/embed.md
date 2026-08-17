@@ -17,11 +17,12 @@ title: Embed
 
 ## オプション
 
-| Option   | タイプ                                                                                    | デフォルト | 説明                                                                                           |
-| -------- | -------------------------------------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------- |
-| 保存       | Boolean (true, false)                                               | true  | Enable save. If disabled, only an exit button will be shown                  |
-| editable | Boolean (true, false)                                               | true  | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                    |
-| 言語       | 文字列 (...、システム、ユーザー) | user  | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
+| Option   | タイプ                                                                                    | デフォルト | 説明                                                                                                                     |
+| -------- | -------------------------------------------------------------------------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------- |
+| 保存       | Boolean (true, false)                                               | true  | Enable save. If disabled, only an exit button will be shown                                            |
+| editable | Boolean (true, false)                                               | true  | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                                              |
+| 言語       | 文字列 (...、システム、ユーザー) | user  | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます                           |
+| fileName | String                                                                                 |       | Display this file name in the embed title. It is visual only and does not change the document metadata |
 
 ## Messaging
 
@@ -36,7 +37,7 @@ messages to the iframe and listens for messages from it.
 ```html
 <iframe
   id="butterfly"
-  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true"
+  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true&fileName=Example.bfly"
   width="100%"
   height="500"
 ></iframe>
@@ -62,6 +63,11 @@ messages to the iframe and listens for messages from it.
     if (type === 'save') {
       const documentBytes = Array.from(message);
       console.log('Save requested by the embed', documentBytes);
+    }
+
+    if (type === 'exit') {
+      const documentBytes = Array.from(message);
+      console.log('Exit requested by the embed', documentBytes);
     }
 
     if (type === 'change') {

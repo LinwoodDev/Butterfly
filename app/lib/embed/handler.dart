@@ -119,9 +119,8 @@ class EmbedHandler {
       }
       final embedding = bloc.editorController.saveCubit.state.embedding;
       if (embedding == null) return;
-      GoRouter.of(
-        context,
-      ).go(_buildEmbedUri(embedding).toString(), extra: bytes);
+      GoRouter.of(context)
+          .go(_buildEmbedUri(embedding).toString(), extra: bytes);
     });
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;

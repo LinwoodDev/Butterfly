@@ -21,4 +21,8 @@ Additionally, you can capture a thumbnail from the current viewport to see it in
 
 ## Máy ảnh
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+You can use this tab to:
+
+- Jump to a specific position on the canvas
+- Zoom to certain level
+- Set the rotation of the canvas to a specific value

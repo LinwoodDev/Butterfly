@@ -4,8 +4,8 @@ title: Redo tool
 
 :::note[⚡ Action tool]
 
-This is a special tool.
-لا يمكنك إختياره وستقوم بتشغيل الإجراء إذا قمت بالنقر عليه.
+This is a special action tool.
+It can't be selected and will run the action immediately when you click on it.
 
 :::
 

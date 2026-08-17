@@ -30,9 +30,8 @@ void main() {
     butterflyFileSystem = MockButterflyFileSystem(settingsCubit: settingsCubit);
 
     when(() => settingsCubit.state).thenAnswer((_) => settings);
-    when(
-      () => settingsCubit.stream,
-    ).thenAnswer((_) => settingsController.stream);
+    when(() => settingsCubit.stream)
+        .thenAnswer((_) => settingsController.stream);
     when(() => settingsCubit.getRemote(any())).thenReturn(null);
 
     await butterflyFileSystem.buildDocumentSystem().updateFile(

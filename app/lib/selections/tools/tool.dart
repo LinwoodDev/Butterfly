@@ -3,28 +3,33 @@ part of '../selection.dart';
 class ToolSelection<T extends Tool> extends Selection<T> {
   ToolSelection(super.selected);
 
-  factory ToolSelection.from(T selected) =>
-      switch (selected) {
-            HandTool e => HandSelection([e]),
-            LabelTool e => LabelToolSelection([e]),
-            PenTool e => PenToolSelection([e]),
-            EraserTool e => EraserToolSelection([e]),
-            SelectTool e => SelectToolSelection([e]),
-            AreaTool e => AreaToolSelection([e]),
-            GridTool e => GridToolSelection([e]),
-            LaserTool e => LaserToolSelection([e]),
-            RulerTool e => RulerToolSelection([e]),
-            ShapeTool e => ShapeToolSelection([e]),
-            TableTool e => TableToolSelection([e]),
-            StampTool e => StampToolSelection([e]),
-            TextureTool e => TextureToolSelection([e]),
-            BarcodeTool e => BarcodeToolSelection([e]),
-            AssetTool e => AssetToolSelection([e]),
-            PolygonTool e => PolygonToolSelection([e]),
-            SpacerTool e => SpacerToolSelection([e]),
-            _ => ToolSelection<T>([selected]),
-          }
-          as ToolSelection<T>;
+  factory ToolSelection.from(T selected) => switch (selected) {
+    HandTool e => HandSelection([e]),
+    LabelTool e => LabelToolSelection([e]),
+    PenTool e => PenToolSelection([e]),
+    EraserTool e => EraserToolSelection([e]),
+    SelectTool e => SelectToolSelection([e]),
+    AreaTool e => AreaToolSelection([e]),
+    GridTool e => GridToolSelection([e]),
+    LaserTool e => LaserToolSelection([e]),
+    RulerTool e => RulerToolSelection([e]),
+    ShapeTool e => ShapeToolSelection([e]),
+    TableTool e => TableToolSelection([e]),
+    StampTool e => StampToolSelection([e]),
+    TextureTool e => TextureToolSelection([e]),
+    BarcodeTool e => BarcodeToolSelection([e]),
+    AssetTool e => AssetToolSelection([e]),
+    PolygonTool e => PolygonToolSelection([e]),
+    SpacerTool e => SpacerToolSelection([e]),
+    _ => ToolSelection<T>([selected]),
+  } as ToolSelection<T>;
+
+  @override
+  List<Widget> buildProperties(BuildContext context) => [
+    ...super.buildProperties(context),
+    if (selected.length == 1)
+      _HandlerRuntimeProperties(toolId: selected.first.id),
+  ];
 
   @override
   bool isNameEditable(BuildContext context) => true;
@@ -109,5 +114,25 @@ class ToolSelection<T extends Tool> extends Selection<T> {
       return const [];
     }
     return selected.first.help;
+  }
+}
+
+class _HandlerRuntimeProperties extends StatelessWidget {
+  final String? toolId;
+
+  const _HandlerRuntimeProperties({required this.toolId});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ToolCubit, ToolRuntimeState>(
+      builder: (context, _) {
+        final handler = context.read<ToolCubit>().getHandlerForTool(toolId);
+        if (handler == null) return const SizedBox.shrink();
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: handler.getRuntimeProperties(context),
+        );
+      },
+    );
   }
 }

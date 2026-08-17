@@ -69,5 +69,5 @@ $$
 |              Mode | Texte du texte | The label mode. Available modes are Text and Markdown. |
 |      Premier plan |      Noir      | The text color.                                                        |
 |           Échelle |        2       | The scale of the label.                                                |
-| Dépendant du zoom |      Faux      | Changes the label size based on the zoom level.                        |
+| Dépendant du zoom |    Désactivé   | Changes the label size based on the zoom level.                        |
 |       Style sheet |      Aucun     | The style sheet used for the label.                                    |
