@@ -212,6 +212,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "Το αρχείο {fileName} δημιουργήθηκε σε μια νεότερη έκδοση ({fileVersion}). Τι πρέπει να γίνει με αυτό το αρχείο?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,6 +564,12 @@
   "connect": "Σύνδεση",
   "username": "Όνομα Χρήστη",
   "password": "Κωδικός",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Το Web δεν υποστηρίζεται",
   "advanced": "Προχωρημένα",
   "directory": "Κατάλογος",
