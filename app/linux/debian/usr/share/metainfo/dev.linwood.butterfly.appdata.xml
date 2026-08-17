@@ -74,6 +74,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-beta.5" type="development" date="2026-08-17">
+			<description>
+				<ul>
+					<li>Add reset zoom shortcut (#1224)</li>
+					<li>Add context menu shortcut (#1214)</li>
+					<li>Add Reveal in Explorer (#1219)</li>
+					<li>Improve renderer refresh and viewport baking performance on large documents</li>
+					<li>Improve settings search performance</li>
+					<li>Improve context menu design (#1220)</li>
+					<li>Restore option icons and theme previews in the personalization settings (#1208)</li>
+					<li>Align settings help buttons with their titles</li>
+					<li>Fix reorder changes applied only visible after moving canvas (#1211)</li>
+					<li>Fix rendering updates and ordering when editing elements across layers (#1209)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.5</url>
+		</release>
 		<release version="2.6.0-beta.4" type="development" date="2026-08-03">
 			<description>
 				<ul>
@@ -141,23 +158,8 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.1</url>
 		</release>
-		<release version="2.6.0-beta.0" type="development" date="2026-06-22">
-			<description>
-				<ul>
-					<li>Add tool presets (#1070)</li>
-					<li>Add tool favorites</li>
-					<li>Add element paints to replace current color property</li>
-					<li>Unify path eraser and eraser in one tool (#1130)</li>
-					<li>Add different eraser and selector modes (#1111)</li>
-					<li>Add subtype tool switching for selection and spacer tools (#1122)</li>
-					<li>Add property view position setting (#1100)</li>
-					<li>Add bring moved elements to front option (#1098)</li>
-					<li>Add ability to move areas together with their contents (#1125)</li>
-					<li>Add move to layer (#1069)</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.0</url>
-		</release>
+		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
+		<release version="2.5.5" date="2026-08-10" />
 		<release version="2.5.4" type="stable" date="2026-07-20" />
 		<release version="2.5.3-rc.1" type="development" date="2026-06-05" />
 		<release version="2.5.3-rc.0" type="development" date="2026-06-02" />

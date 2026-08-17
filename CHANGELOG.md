@@ -2,6 +2,32 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-beta.5 (2026-08-17)
+
+* Add reset zoom shortcut ([#1224](https://github.com/LinwoodDev/Butterfly/issues/1224))
+* Add context menu shortcut ([#1214](https://github.com/LinwoodDev/Butterfly/issues/1214))
+* Add Reveal in Explorer ([#1219](https://github.com/LinwoodDev/Butterfly/issues/1219))
+* Improve renderer refresh and viewport baking performance on large documents
+* Improve settings search performance
+* Improve context menu design ([#1220](https://github.com/LinwoodDev/Butterfly/issues/1220))
+* Restore option icons and theme previews in the personalization settings ([#1208](https://github.com/LinwoodDev/Butterfly/issues/1208))
+* Align settings help buttons with their titles
+* Fix reorder changes applied only visible after moving canvas ([#1211](https://github.com/LinwoodDev/Butterfly/issues/1211))
+* Fix rendering updates and ordering when editing elements across layers ([#1209](https://github.com/LinwoodDev/Butterfly/issues/1209))
+* Fix transformed SVG elements disposing shared picture data ([#1217](https://github.com/LinwoodDev/Butterfly/issues/1217))
+* Fix flipping during initial barcode placement ([#1174](https://github.com/LinwoodDev/Butterfly/issues/1174))
+* Fix flipping and near-zero scaling during initial stamp placement ([#1179](https://github.com/LinwoodDev/Butterfly/issues/1179))
+* Fix temporary tools not receiving pointer release events
+* Fix layout issues in reorderable list views
+* Fix document content shifting after drawing at fractional zoom
+* Fix settings search result scrolling
+* Fix cannot toggle advanced switches in settings ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
+* Fix webdav error handling
+* Improve embedding by hiding recent files and keeping configured filenames separate from document names
+* Upgrade onenote parser
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.5
+
 ## 2.6.0-beta.4 (2026-08-03)
 
 * Add table tool and elements ([#1155](https://github.com/LinwoodDev/Butterfly/issues/1155))
