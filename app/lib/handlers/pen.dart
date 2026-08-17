@@ -34,9 +34,24 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   Offset? lastPosit;
   Offset? localPos;
 
+  // bool for line adjusting
+  bool _isAdjustingLine = false;
+
+  // adjustment flag
+  PadElement? _pendingLineElement;
+  
+  // Offset of detected line in global space
+  Offset? _lineStartGlobal;
+
+  // Line element collection
+  String? _pendingLineCollection;
+  
+  // Pointer index for the pointer which triggered
+  int? _adjustingPointer;
+
   PenHandler(super.data);
 
-  // Create foregrounds for rendering the PenRendere
+  // Create foregrounds for rendering the PenRenderer
   @override
   List<Renderer> createForegrounds(
     EditorController editorController,
@@ -44,19 +59,30 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
-  ]) => [...elements.values, ..._submittedElements]
-      .map(
-        (e) => e.points.length > 1
-            ? PenRenderer(
-                e.copyWith(
-                  id: createUniqueId(),
-                  points: limitPenPreviewPoints(e.points),
-                ),
-              )
-            : null,
-      )
-      .whereType<Renderer>()
-      .toList();
+
+    //changed from arrow function to block body
+  ]) {
+    final renderers = [...elements.values, ..._submittedElements]
+        .map(
+          (e) => e.points.length > 1
+              ? PenRenderer(
+                  e.copyWith(
+                    id: createUniqueId(),
+                    points: limitPenPreviewPoints(e.points),
+                  ),
+                )
+              : null,
+        )
+        .whereType<Renderer>()
+        .toList();
+
+    // Adds pending lines to the foreground preview
+    if (_pendingLineElement != null) {
+      renderers.add(ShapeRenderer(_pendingLineElement! as ShapeElement));
+    }
+
+    return renderers;
+  }
 
   // Reset the input for the handler.
   @override
@@ -69,6 +95,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     lastPosition.clear();
     points.clear();
     lastPosit = null;
+    // NEW: Reset line adjustment state
+    _isAdjustingLine = false;
+    _pendingLineElement = null;
+    _lineStartGlobal = null;
+    _pendingLineCollection = null;
+    _adjustingPointer = null;
   }
 
   // Handle the pointer release event.
@@ -78,6 +110,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Cancel the timer when the pointer is lifted, preventing shape detection
     _positionCheckTimer?.cancel();
     _positionCheckTimer = null;
+
+    // NEW: If we are in line adjustment mode, commit the line on pointer up
+    if (_isAdjustingLine && _adjustingPointer == event.pointer) {
+      _commitPendingLine(context);
+      return;
+    }
+
     addPoint(
       context.buildContext,
       event.pointer,
@@ -96,6 +135,57 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Flag to check if elements are being submitted.
   bool _currentlyBaking = false;
   DocumentBloc? _bloc;
+
+  // Commit pending line to document
+  void _commitPendingLine(EventContext context) {
+    if (_pendingLineElement == null) return;
+
+    context.getDocumentBloc().add(ElementsCreated([_pendingLineElement!]));
+
+    // Reset all adjustment state
+    _isAdjustingLine = false;
+    _pendingLineElement = null;
+    _lineStartGlobal = null;
+    _pendingLineCollection = null;
+    _adjustingPointer = null;
+
+    elements.clear();
+    points.clear();
+    lastPosit = null;
+    lastPosition.clear();
+
+    context.refresh();
+  }
+
+  // NEW: Final line update while draggin
+  void _updateLineEndpoint(
+    int pointer,
+    Offset localPosition,
+    EventContext context,
+  ) {
+    if (_pendingLineElement == null || _lineStartGlobal == null) return;
+
+    final transform = context.getCameraTransform();
+
+    // Convert the new local screen position to global document coords
+    final newEndGlobal = transform.localToGlobal(localPosition);
+
+    // Rebuild the shape element with the updated second position
+    _pendingLineElement = PadElement.shape(
+      id: _pendingLineElement!.id,
+      firstPosition: _lineStartGlobal!.toPoint(),
+      secondPosition: newEndGlobal.toPoint(),
+      property: ShapeProperty(
+        shape: const LineShape(),
+        paint: data.property.paint,
+        strokeWidth: data.property.strokeWidth,
+      ),
+      collection: _pendingLineCollection ?? '',
+    );
+
+    // Refresh so the foreground preview updates
+    context.refreshForegrounds();
+  }
 
   // Submit elements for processing and rendering.
   Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
@@ -235,6 +325,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
+
+    // If a new pointer is detected, commits the line which is being adjusted 
+    if (_isAdjustingLine) {
+      _commitPendingLine(context);
+    }
+
     if (cubit.inputCubit.moveEnabled &&
         event.kind != PointerDeviceKind.stylus) {
       elements.clear();
@@ -256,6 +352,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
+
+    // Updates endpoint for line
+    if (_isAdjustingLine && _adjustingPointer == event.pointer) {
+      _updateLineEndpoint(event.pointer, event.localPosition, context);
+      return;
+    }
+
     if (!isDrawing) return;
     // Check if the pointer has not moved
     if (lastPosit == event.localPosition) return;
@@ -349,6 +452,22 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
         // Show dialog
         showMessage(context, AppLocalizations.of(context.buildContext).line);
+
+        //Enters adjustment mode instead of committing immediately
+        _isAdjustingLine = true;
+        _pendingLineElement = shapeElement;
+        _lineStartGlobal = firstPositionInView;
+        _pendingLineCollection = currentCollection;
+        _adjustingPointer = pointer;
+
+        // Clear the pen stroke preview
+        elements.clear();
+        points.clear();
+        context.refresh();
+
+        // Return early so we skip the commit block at the bottom
+        return;
+
       case DefaultUnistrokeNames.circle:
         // Calculate the center of the circle as the average of the points
         double centerX =
@@ -394,6 +513,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
         // Show dialog
         showMessage(context, AppLocalizations.of(context.buildContext).circle);
+
       case DefaultUnistrokeNames.rectangle:
         double minX = points.map((p) => p.dx).reduce(min);
         double maxX = points.map((p) => p.dx).reduce(max);
@@ -423,6 +543,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           ),
           collection: currentCollection,
         );
+
       case DefaultUnistrokeNames.triangle:
         double minX = points.map((p) => p.dx).reduce(min);
         double maxX = points.map((p) => p.dx).reduce(max);
@@ -452,8 +573,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           ),
           collection: currentCollection,
         );
+
       default:
     }
+
+    // All non-line shapes are committed immediately as before
     if (shapeElement != null) {
       // Add element on document
       context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -473,6 +597,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     points.clear();
     lastPosition.clear();
     lastPosit = null;
+    // Cancel pending line adjustments
+    _isAdjustingLine = false;
+    _pendingLineElement = null;
+    _lineStartGlobal = null;
+    _pendingLineCollection = null;
+    _adjustingPointer = null;
     context.refresh();
   }
 
@@ -487,6 +617,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     isDrawing = false;
     lastPosit = null;
     _bloc = null;
+    // Clean up line adjustment
+    _isAdjustingLine = false;
+    _pendingLineElement = null;
+    _lineStartGlobal = null;
+    _pendingLineCollection = null;
+    _adjustingPointer = null;
   }
 
   @override
