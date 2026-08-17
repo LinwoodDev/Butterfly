@@ -187,6 +187,7 @@ sealed class Tool extends PackAsset with _$Tool {
     @Default(0) double constrainedAspectRatio,
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
     @Default(false) bool drawFromCenter,
+    @Default(false) bool constrain,
   }) = ShapeTool;
 
   factory Tool.table({

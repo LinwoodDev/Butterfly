@@ -25,6 +25,16 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
               .toList(),
         ),
       ),
+      CheckboxListTile(
+        value: tool.constrain,
+        title: Text(AppLocalizations.of(context).constraint),
+        onChanged: (value) => update(
+          context,
+          selected
+              .map((e) => e.copyWith(constrain: value ?? tool.constrain))
+              .toList(),
+        ),
+      ),
       ExactSlider(
         header: Text(AppLocalizations.of(context).width),
         value: tool.constrainedWidth,

@@ -5,6 +5,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   T setColor(SRGBColor color);
   double? getStrokeWidth() => null;
   T setStrokeWidth(double width) => data;
+  List<Widget> getToolbarActions(DocumentBloc bloc) => const [];
 
   bool _startedDrawing = false;
 
@@ -24,6 +25,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
       return null;
     }
     return ColorToolbarView(
+      actions: getToolbarActions(bloc),
       color: getColor(),
       onChanged: (value) => changeToolColor(bloc, value),
       onEyeDropper: (context) {
@@ -135,8 +137,9 @@ abstract class PastingHandler<T> extends Handler<T> {
 
   List<PadElement> getTransformed(EditorController cubit) {
     final first = _firstPos;
-    final second = _secondPos;
-    if (first == null || second == null) return [];
+    final rawSecond = _secondPos;
+    if (first == null || rawSecond == null) return [];
+    final second = constrainPosition(first, rawSecond, _aspectRatio);
     double top, left, bottom, right;
     if (shouldNormalize) {
       top = min(first.dy, second.dy);
@@ -153,14 +156,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     final verticalDirection = bottom >= top ? 1 : -1;
     var width = (right - left).abs();
     var height = (bottom - top).abs();
-    var aspectRatio = constraintedAspectRatio;
-    if (_aspectRatio) {
-      if (aspectRatio == 0) {
-        aspectRatio = 1;
-      } else {
-        aspectRatio = 0;
-      }
-    }
+    final aspectRatio = getAspectRatio(_aspectRatio);
     if (constraintedHeight != 0) {
       height = constraintedHeight;
       bottom = top + height * verticalDirection;
@@ -291,6 +287,17 @@ abstract class PastingHandler<T> extends Handler<T> {
   double get constraintedHeight => 0;
   bool get drawFromCenter => false;
   bool get showHoverPreview => false;
+
+  @protected
+  Offset constrainPosition(Offset first, Offset second, bool modifierActive) =>
+      second;
+
+  @protected
+  double getAspectRatio(bool modifierActive) {
+    final aspectRatio = constraintedAspectRatio;
+    if (!modifierActive) return aspectRatio;
+    return aspectRatio == 0 ? 1 : 0;
+  }
 
   bool get currentlyPasting => _firstPos != null && _secondPos != null;
 }
