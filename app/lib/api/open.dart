@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:butterfly/main.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -65,20 +65,7 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
 }
 
 Future<(Uint8List, String, String)> _readPlatformFile(PlatformFile file) async {
-  Uint8List data;
-  if (!kIsWeb) {
-    final stream = file.readAsByteStream();
-    final size = file.size;
-    // Allocate size
-    data = Uint8List(size);
-    int offset = 0;
-    await for (final chunk in stream) {
-      data.setRange(offset, offset + chunk.length, chunk);
-      offset += chunk.length;
-    }
-  } else {
-    data = await file.readAsBytes();
-  }
+  final data = await file.readAsBytes();
   final fileName = file.name;
   final nameWithoutExtension = fileName.contains('.')
       ? fileName.substring(0, fileName.lastIndexOf('.'))
@@ -112,11 +99,8 @@ Future<List<(Uint8List, String, String)>> importFiles(
         .toList(),
     type: FileType.custom,
   );
-  if (result == null) {
-    return [];
-  }
   final files = <(Uint8List, String, String)>[];
-  for (final file in result.files) {
+  for (final file in result) {
     files.add(await _readPlatformFile(file));
   }
   return files;
@@ -129,9 +113,8 @@ Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
     allowedExtensions: extensions,
     type: FileType.custom,
   );
-  if (result == null) return [];
   final files = <(Uint8List, String, String)>[];
-  for (final file in result.files) {
+  for (final file in result) {
     files.add(await _readPlatformFile(file));
   }
   return files;

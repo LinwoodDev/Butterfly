@@ -471,6 +471,10 @@ class SelectHandler extends Handler<SelectTool> {
     );
     if (details.pointerCount > 1) return;
     if (_selectionManager.isTransforming) {
+      _selectionManager.updateModifiers(
+        proportional: context.isShiftPressed,
+        centered: context.isAltPressed,
+      );
       _selectionManager.updateCurrentPosition(globalPos);
       context.refreshForegrounds();
       return;

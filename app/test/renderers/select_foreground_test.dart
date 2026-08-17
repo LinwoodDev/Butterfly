@@ -92,6 +92,58 @@ void main() {
     );
   });
 
+  test('proportional modifier preserves the aspect ratio', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 100))
+      ..startTransformWithCorner(
+        SelectionTransformCorner.bottomRight,
+        const Offset(100, 100),
+      )
+      ..updateModifiers(proportional: true, centered: false)
+      ..updateCurrentPosition(const Offset(150, 120));
+
+    final transform = manager.getTransform()!;
+    expect(transform.scaleX, 1.5);
+    expect(transform.scaleY, 1.5);
+    expect(
+      manager.getTransformedSelection(),
+      const Rect.fromLTWH(0, 0, 150, 150),
+    );
+  });
+
+  test('centered modifier keeps the selection center fixed', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 100))
+      ..startTransformWithCorner(
+        SelectionTransformCorner.centerRight,
+        const Offset(100, 50),
+      )
+      ..updateModifiers(proportional: false, centered: true)
+      ..updateCurrentPosition(const Offset(110, 50));
+
+    final transform = manager.getTransform()!;
+    expect(transform.scaleX, closeTo(1.2, 1e-10));
+    expect(transform.scaleY, 1);
+    final transformed = manager.getTransformedSelection();
+    expect(transformed.left, closeTo(-10, 1e-10));
+    expect(transformed.top, 0);
+    expect(transformed.right, closeTo(110, 1e-10));
+    expect(transformed.bottom, 100);
+  });
+
+  test('centered modifier does not affect moving a selection', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 100))
+      ..startTransformWithCorner(null, const Offset(50, 50))
+      ..updateModifiers(proportional: false, centered: true)
+      ..updateCurrentPosition(const Offset(60, 70));
+
+    final transform = manager.getTransform()!;
+    expect(transform.position, const Offset(10, 20));
+    expect(transform.scaleX, 1);
+    expect(transform.scaleY, 1);
+  });
+
   test('negative scale uses the opposite element corner for placement', () {
     const selection = Rect.fromLTWH(0, 0, 200, 100);
     const element = Rect.fromLTWH(50, 20, 100, 40);

@@ -217,8 +217,8 @@ abstract class PastingHandler<T> extends Handler<T> {
     if (!first && _firstPos == null) return;
     _secondPos = globalPos;
     _hoverPos = null;
-    _aspectRatio = context.isCtrlPressed;
-    _center = context.isShiftPressed ^ drawFromCenter;
+    _aspectRatio = context.isShiftPressed;
+    _center = context.isAltPressed ^ drawFromCenter;
     _currentCollection = context.getState()?.currentCollection ?? '';
 
     context.refreshForegrounds();

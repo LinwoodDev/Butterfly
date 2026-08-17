@@ -1,7 +1,10 @@
 * Add whole connection encryption ([#1050](https://github.com/LinwoodDev/Butterfly/issues/1050))
 * Add backup support ([#1073](https://github.com/LinwoodDev/Butterfly/issues/1073))
 * Add constraint and center toggles to the shape toolbar, including horizontal, vertical, and 45° line snapping ([#1231](https://github.com/LinwoodDev/Butterfly/issues/1231))
+* Add Shift aspect-ratio and Alt centered scaling modifiers everywhere ([#1197](https://github.com/LinwoodDev/Butterfly/issues/1197))
 * Fix settings not updating when opened from a document ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
 * Upgrade to Flutter 3.47
+  * Migrate to impeller for windows/linux
+  * Improve linux stylus support
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.6
