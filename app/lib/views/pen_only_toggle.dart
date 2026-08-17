@@ -61,9 +61,9 @@ class PenOnlyToggle extends StatelessWidget {
                         style: IconButton.styleFrom(
                           backgroundColor: penOnlyEnabled
                               ? Theme.of(context).colorScheme.primaryContainer
-                              : Theme.of(
-                                  context,
-                                ).colorScheme.surfaceContainerHighest,
+                              : Theme.of(context)
+                                    .colorScheme
+                                    .surfaceContainerHighest,
                           foregroundColor: penOnlyEnabled
                               ? Theme.of(context).colorScheme.onPrimaryContainer
                               : Theme.of(context).colorScheme.onSurfaceVariant,

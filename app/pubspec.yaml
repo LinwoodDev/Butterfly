@@ -16,8 +16,8 @@ publish_to: none
 version: 2.6.0-beta.6+194
 
 environment:
-  sdk: ">=3.12.2 <4.0.0"
-  flutter: 3.44.9
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: 3.47.0
 
 dependencies:
   flutter:
@@ -101,7 +101,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 6ae23071257ea0a8306c083e3c04f7f4b2b93bdf
+      ref: cf08b91623cd022223eb9e72f67bd972d52ec701
       path: packages/lw_file_system
   keybinder:
     git:
@@ -216,7 +216,18 @@ flutter:
           weight: 900
           style: italic
   assets:
-    - images/
+    - images/banner.png
+    - images/banner.svg
+    - images/file.ico
+    - images/file.png
+    - images/logo.png
+    - images/logo.svg
+    - path: images/nightly.png
+      # Flutter 3.47 bundles this nightly branding only for these variants.
+      flavors:
+        - development
+        - nightly
+    - images/nightly.svg
     - templates/
     - defaults/
     - fonts/Comfortaa-LICENSE.txt

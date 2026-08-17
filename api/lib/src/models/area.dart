@@ -4,6 +4,7 @@ import 'package:dart_leap/dart_leap.dart';
 
 import '../converter/core.dart';
 import '../converter/color.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'area.g.dart';

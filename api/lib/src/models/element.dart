@@ -4,6 +4,7 @@ import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
 
 import '../converter/core.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/id.dart';

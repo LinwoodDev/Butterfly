@@ -995,9 +995,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: current.page.mapLayers(
             (e) => e.copyWith(
-              content: List<PadElement>.from(
-                e.content,
-              ).where((e) => e.collection != event.name).toList(),
+              content: List<PadElement>.from(e.content)
+                  .where((e) => e.collection != event.name)
+                  .toList(),
             ),
           ),
           currentCollection: current.currentCollection == event.name

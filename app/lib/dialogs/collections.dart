@@ -87,9 +87,8 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       bloc.add(CurrentCollectionChanged(name));
                     },
                     icon: const PhosphorIcon(PhosphorIconsLight.cursor),
-                    tooltip: AppLocalizations.of(
-                      context,
-                    ).selectCustomCollection,
+                    tooltip: AppLocalizations.of(context)
+                        .selectCustomCollection,
                   ),
                   const SizedBox(height: 32, child: VerticalDivider()),
                   IconButton(

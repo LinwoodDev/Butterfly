@@ -436,7 +436,9 @@ class FilesViewState extends State<FilesView> {
                                 );
                               }
                               return true;
-                            }).toList()..sort(_sortAssets);
+                            }).toList();
+                            final metadata = <NoteFile, FileMetadata?>{};
+                            assets.sort((a, b) => _sortAssets(a, b, metadata));
                             if (assets.isEmpty) {
                               return Center(
                                 child: Text(
@@ -702,7 +704,11 @@ class FilesViewState extends State<FilesView> {
                             if (importResult == null) {
                               continue;
                             }
-                            final document = await importResult.export();
+                            var document = await importResult.export();
+                            document = addConnectionPasswordToNoteData(
+                              _remote,
+                              document,
+                            );
                             setNativeData(result, fileExtension);
 
                             var docName = document.getMetadata()?.name;
@@ -826,9 +832,8 @@ class FilesViewState extends State<FilesView> {
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.selectionInverse,
                             ),
-                            tooltip: AppLocalizations.of(
-                              context,
-                            ).invertSelection,
+                            tooltip: AppLocalizations.of(context)
+                                .invertSelection,
                             onPressed: () async {
                               final directory = await _documentSystem.getAsset(
                                 _locationController.text,
@@ -1002,7 +1007,11 @@ class FilesViewState extends State<FilesView> {
     }
   }
 
-  int _sortAssets(FileSystemEntity<NoteFile> a, FileSystemEntity<NoteFile> b) {
+  int _sortAssets(
+    FileSystemEntity<NoteFile> a,
+    FileSystemEntity<NoteFile> b,
+    Map<NoteFile, FileMetadata?> metadataCache,
+  ) {
     try {
       final settings = _settingsCubit.state;
       // Test if starred
@@ -1022,17 +1031,22 @@ class FilesViewState extends State<FilesView> {
       }
       final aFile = a as FileSystemFile<NoteFile>;
       final bFile = b as FileSystemFile<NoteFile>;
+      FileMetadata? metadata(FileSystemFile<NoteFile> file) {
+        final data = file.data;
+        if (data == null) return null;
+        return metadataCache.putIfAbsent(
+          data,
+          () => displayConnectionNoteFile(_remote, data)?.getMetadata(),
+        );
+      }
+
       switch (_sortBy) {
         case SortBy.name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.created:
-          final aCreatedAt =
-              aFile.data?.display()?.getMetadata()?.createdAt ??
-              aFile.creationTime;
-          final bCreatedAt =
-              bFile.data?.display()?.getMetadata()?.createdAt ??
-              bFile.creationTime;
+          final aCreatedAt = metadata(aFile)?.createdAt ?? aFile.creationTime;
+          final bCreatedAt = metadata(bFile)?.createdAt ?? bFile.creationTime;
           if (aCreatedAt == null && bCreatedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }
@@ -1045,12 +1059,8 @@ class FilesViewState extends State<FilesView> {
           final compared = bCreatedAt.compareTo(aCreatedAt);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.modified:
-          final aModifiedAt =
-              aFile.data?.display()?.getMetadata()?.updatedAt ??
-              aFile.lastModified;
-          final bModifiedAt =
-              bFile.data?.display()?.getMetadata()?.updatedAt ??
-              bFile.lastModified;
+          final aModifiedAt = metadata(aFile)?.updatedAt ?? aFile.lastModified;
+          final bModifiedAt = metadata(bFile)?.updatedAt ?? bFile.lastModified;
           if (aModifiedAt == null && bModifiedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }

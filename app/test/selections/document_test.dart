@@ -6,6 +6,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/selections/selection.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -25,9 +26,8 @@ void main() {
   testWidgets('camera sliders follow transform changes', (tester) async {
     final fileSystem = MockButterflyFileSystem();
     final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
     final transformCubit = TransformCubit(1);
@@ -76,9 +76,8 @@ void main() {
             home: Scaffold(
               body: Builder(
                 builder: (context) => ListView(
-                  children: DocumentSelection(
-                    editorController,
-                  ).buildProperties(context),
+                  children: DocumentSelection(editorController)
+                      .buildProperties(context),
                 ),
               ),
             ),
@@ -105,5 +104,99 @@ void main() {
     final values = sliderValues();
     expect(values.first, 200);
     expect(values.last, closeTo(15, 1e-9));
+  });
+
+  testWidgets('encryption tile follows document encryption changes', (
+    tester,
+  ) async {
+    final fileSystem = MockButterflyFileSystem();
+    final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
+
+    final transformCubit = TransformCubit(1);
+    final editorController = EditorController(
+      settingsCubit,
+      transformCubit,
+      CameraViewport.unbaked(),
+    );
+    final windowCubit = WindowCubit(fullScreen: false);
+    final data = DocumentDefaults.createDocument(name: 'Encrypted')
+        .changePassword('password');
+    final pageName = data.getPages().first;
+    final page = data.getPage(pageName)!;
+    final bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'encrypted.bfly'),
+      null,
+      page,
+      pageName,
+    );
+    addTearDown(() async {
+      await bloc.close();
+      await editorController.close();
+      await windowCubit.close();
+    });
+
+    await tester.pumpWidget(
+      MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<ButterflyFileSystem>.value(value: fileSystem),
+          RepositoryProvider<EditorController>.value(value: editorController),
+        ],
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: bloc),
+            BlocProvider.value(value: transformCubit),
+          ],
+          child: MaterialApp(
+            locale: const Locale('en'),
+            localizationsDelegates: const [
+              ...AppLocalizations.localizationsDelegates,
+              LeapLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: Builder(
+                builder: (context) => ListView(
+                  children: DocumentSelection(editorController)
+                      .buildProperties(context),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Unencrypt'), findsOneWidget);
+    await tester.tap(find.text('Unencrypt'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(ElevatedButton, 'OK'));
+    await tester.pumpAndSettle();
+
+    expect((bloc.state as DocumentLoadSuccess).data.isEncrypted, isFalse);
+    expect(find.text('Unencrypted'), findsOneWidget);
+    expect(find.text('Encrypt'), findsOneWidget);
+
+    await tester.tap(find.text('Encrypt'));
+    await tester.pumpAndSettle();
+    final passwordFields = find.descendant(
+      of: find.byType(AlertDialog),
+      matching: find.byType(TextFormField),
+    );
+    await tester.enterText(passwordFields.at(0), 'new password');
+    await tester.enterText(passwordFields.at(1), 'new password');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'OK'));
+    await tester.pumpAndSettle();
+
+    expect((bloc.state as DocumentLoadSuccess).data.isEncrypted, isTrue);
+    expect(find.text('Encrypted'), findsOneWidget);
+    expect(find.text('Unencrypt'), findsOneWidget);
   });
 }

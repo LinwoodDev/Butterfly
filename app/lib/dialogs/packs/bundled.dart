@@ -92,9 +92,8 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
                       children: [
                         if (metadata.author.isNotEmpty)
                           Text(
-                            AppLocalizations.of(
-                              context,
-                            ).byAuthor(metadata.author),
+                            AppLocalizations.of(context)
+                                .byAuthor(metadata.author),
                           ),
                         if (metadata.description.isNotEmpty)
                           Text(metadata.description),

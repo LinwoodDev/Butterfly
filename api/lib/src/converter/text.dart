@@ -258,14 +258,12 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
           })
           .toList();
       if (data['createdAt'] is String) {
-        data['createdAt'] = DateTime.parse(
-          data['createdAt'] as String,
-        ).millisecondsSinceEpoch;
+        data['createdAt'] = DateTime.parse(data['createdAt'] as String)
+            .millisecondsSinceEpoch;
       }
       if (data['updatedAt'] is String) {
-        data['updatedAt'] = DateTime.parse(
-          data['updatedAt'] as String,
-        ).millisecondsSinceEpoch;
+        data['updatedAt'] = DateTime.parse(data['updatedAt'] as String)
+            .millisecondsSinceEpoch;
       }
     }
     if (fileVersion < 8) {

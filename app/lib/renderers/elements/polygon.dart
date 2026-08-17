@@ -174,12 +174,11 @@ class PolygonRenderer extends Renderer<PolygonElement> {
             ?.clearSelection(bloc);
         final polygon =
             await bloc.editorController.toolCubit.changeTemporaryHandler(
-                  context,
-                  bloc.editorController,
-                  PolygonTool(property: element.property),
-                  bloc: bloc,
-                )
-                as PolygonHandler;
+              context,
+              bloc.editorController,
+              PolygonTool(property: element.property),
+              bloc: bloc,
+            ) as PolygonHandler;
         polygon.editElement(element);
         await bloc.refreshForegrounds();
         await bloc.refreshToolbar();
@@ -385,9 +384,8 @@ class PolygonHitCalculator extends HitCalculator {
       HitElementMode.touchEdges =>
         hitRectPolygon(rect, _points) &&
             (isFiniteRect(rect)
-                ? !rectToPolygon(
-                    rect,
-                  ).every((p) => isPointInPolygon(_points, p))
+                ? !rectToPolygon(rect)
+                      .every((p) => isPointInPolygon(_points, p))
                 : true),
       HitElementMode.touchAnywhere => hitRectPolygon(rect, _points),
       _ => false, // this shouldn't happen

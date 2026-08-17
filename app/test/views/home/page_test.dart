@@ -12,6 +12,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:archive/archive.dart';
+
 import '../../helpers/mocks.dart';
 
 void main() {
@@ -121,9 +122,8 @@ void main() {
       path: 'test_template',
       remote: 'test_remote',
     );
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(ButterflySettings(favoriteTemplates: [favoriteTemplate]));
+    when(() => settingsCubit.state)
+        .thenReturn(ButterflySettings(favoriteTemplates: [favoriteTemplate]));
 
     final metadata = FileMetadata(
       name: 'Test Template',
@@ -155,9 +155,8 @@ void main() {
     when(() => settingsCubit.state).thenReturn(
       const ButterflySettings(bannerVisibility: BannerVisibility.always),
     );
-    when(
-      () => settingsCubit.changeBannerVisibility(any()),
-    ).thenAnswer((_) async {});
+    when(() => settingsCubit.changeBannerVisibility(any()))
+        .thenAnswer((_) async {});
 
     await tester.pumpWidget(createWidgetUnderTest());
     await tester.pumpAndSettle();
@@ -176,9 +175,8 @@ void main() {
     await tester.tap(find.text('Never'));
     await tester.pumpAndSettle();
 
-    verify(
-      () => settingsCubit.changeBannerVisibility(BannerVisibility.never),
-    ).called(1);
+    verify(() => settingsCubit.changeBannerVisibility(BannerVisibility.never))
+        .called(1);
 
     addTearDown(tester.view.resetPhysicalSize);
   });

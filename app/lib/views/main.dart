@@ -216,7 +216,11 @@ class _ProjectPageState extends State<ProjectPage> {
 
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
-      final globalImportService = ImportService(context);
+      final globalImportService = ImportService(
+        context,
+        storage: remote,
+        useDefaultStorage: false,
+      );
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
@@ -247,6 +251,10 @@ class _ProjectPageState extends State<ProjectPage> {
         }
       }
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
+      defaultDocument = addConnectionPasswordToNoteData(
+        remote,
+        defaultDocument,
+      );
       bool failedToLoad = false;
       if (data != null) {
         final encrypted = isEncryptedNote(data);

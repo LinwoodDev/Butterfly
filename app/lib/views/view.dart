@@ -25,8 +25,10 @@ enum _MouseState { normal, inverse, scale }
 
 typedef _HandlerGetter = Handler Function();
 typedef _EventContextGetter = EventContext Function();
-typedef _TemporaryToolChanger =
-    Future<void> Function(PointerDeviceKind kind, int buttons);
+typedef _TemporaryToolChanger = Future<void> Function(
+  PointerDeviceKind kind,
+  int buttons,
+);
 typedef _PointerInputContext = ({
   EditorController cubit,
   DocumentLoaded state,

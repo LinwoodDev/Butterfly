@@ -356,9 +356,9 @@ void main() {
       warnings: const [],
     );
 
-    final content = convertOneNoteSection(
-      section,
-    ).getPage('Tables/Imported table')!.content;
+    final content = convertOneNoteSection(section)
+        .getPage('Tables/Imported table')!
+        .content;
     final importedTable = content.whereType<TableElement>().single;
     final labels = content
         .whereType<TextElement>()

@@ -79,9 +79,8 @@ void main() {
       await fileSystem.createFile(documentStateContentKey('hash-a'), byContent);
       await fileSystem.createFile('path/a', byPath);
 
-      final loaded = await DocumentStateRepository(
-        fileSystem,
-      ).load(contentHash: 'hash-a', pathKey: 'path/a');
+      final loaded = await DocumentStateRepository(fileSystem)
+          .load(contentHash: 'hash-a', pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Path Page');
     });
@@ -91,17 +90,15 @@ void main() {
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', byPath);
 
-      final loaded = await DocumentStateRepository(
-        fileSystem,
-      ).load(contentHash: 'missing', pathKey: 'path/a');
+      final loaded = await DocumentStateRepository(fileSystem)
+          .load(contentHash: 'missing', pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Path Page');
     });
 
     test('returns null when no fingerprints match', () async {
-      final loaded = await DocumentStateRepository(
-        fileSystem,
-      ).load(contentHash: 'missing', pathKey: 'path/missing');
+      final loaded = await DocumentStateRepository(fileSystem)
+          .load(contentHash: 'missing', pathKey: 'path/missing');
 
       expect(loaded, isNull);
     });
@@ -113,9 +110,8 @@ void main() {
         const NetworkException('Offline', type: NetworkErrorType.connection),
       );
 
-      final loaded = await DocumentStateRepository(
-        offlineFileSystem,
-      ).load(contentHash: 'hash-a', pathKey: 'path/a');
+      final loaded = await DocumentStateRepository(offlineFileSystem)
+          .load(contentHash: 'hash-a', pathKey: 'path/a');
 
       expect(loaded, isNull);
       verify(() => offlineFileSystem.getFile('path/a')).called(1);

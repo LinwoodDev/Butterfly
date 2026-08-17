@@ -24,9 +24,8 @@ void main() {
   testWidgets('move to layer keeps the layer picker open', (tester) async {
     final fileSystem = MockButterflyFileSystem();
     final settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
-    when(
-      () => settingsCubit.state,
-    ).thenReturn(const ButterflySettings(autosave: false));
+    when(() => settingsCubit.state)
+        .thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
     final editorController = EditorController(

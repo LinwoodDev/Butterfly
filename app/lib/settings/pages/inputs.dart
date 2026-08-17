@@ -1,8 +1,10 @@
 part of '../home.dart';
 
 typedef _InputConfigurationRead<V> = V Function(InputConfiguration config);
-typedef _InputConfigurationWrite<V> =
-    InputConfiguration Function(InputConfiguration config, V value);
+typedef _InputConfigurationWrite<V> = InputConfiguration Function(
+  InputConfiguration config,
+  V value,
+);
 
 final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
   displayName: (context) => AppLocalizations.of(context).inputs,

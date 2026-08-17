@@ -79,11 +79,10 @@ sealed class DocumentPage with _$DocumentPage {
   Future<DocumentPage> mapLayersAsync(
     FutureOr<DocumentLayer> Function(DocumentLayer) mapper,
   ) {
-    return Future.wait(layers.map((e) => Future.value(mapper(e)))).then((
-      newLayers,
-    ) {
-      return copyWith(layers: newLayers.toList());
-    });
+    return Future.wait(layers.map((e) => Future.value(mapper(e))))
+        .then((newLayers) {
+          return copyWith(layers: newLayers.toList());
+        });
   }
 
   Waypoint? getWaypointByName(String? waypointName) {

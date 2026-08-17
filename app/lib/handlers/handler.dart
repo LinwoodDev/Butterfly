@@ -59,6 +59,7 @@ import '../views/toolbar/components.dart';
 import '../views/toolbar/label.dart';
 import '../views/toolbar/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
+
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 
 part 'mixins.dart';
@@ -308,33 +309,32 @@ abstract class Handler<T> {
 
   static Handler<T> fromTool<T extends Tool>(T tool) {
     return switch (tool) {
-          HandTool() => HandHandler(tool),
-          SelectTool() => SelectHandler(tool),
-          ImportTool() => ImportHandler(tool),
-          UndoTool() => UndoHandler(tool),
-          RedoTool() => RedoHandler(tool),
-          LabelTool() => LabelHandler(tool),
-          PenTool() => PenHandler(tool),
-          EraserTool() => EraserHandler(tool),
-          CollectionTool() => CollectionHandler(tool),
-          AreaTool() => AreaHandler(tool),
-          LaserTool() => LaserHandler(tool),
-          ShapeTool() => ShapeHandler(tool),
-          TableTool() => TableHandler(tool),
-          StampTool() => StampHandler(tool),
-          PresentationTool() => PresentationHandler(tool),
-          SpacerTool() => SpacerHandler(tool),
-          FullScreenTool() => FullScreenHandler(tool),
-          TextureTool() => TextureHandler(tool),
-          AssetTool() => AssetHandler(tool),
-          EyeDropperTool() => EyeDropperHandler(tool),
-          ExportTool() => ExportHandler(tool),
-          GridTool() => GridHandler(tool),
-          RulerTool() => RulerHandler(tool),
-          BarcodeTool() => BarcodeHandler(tool),
-          PolygonTool() => PolygonHandler(tool),
-        }
-        as Handler<T>;
+      HandTool() => HandHandler(tool),
+      SelectTool() => SelectHandler(tool),
+      ImportTool() => ImportHandler(tool),
+      UndoTool() => UndoHandler(tool),
+      RedoTool() => RedoHandler(tool),
+      LabelTool() => LabelHandler(tool),
+      PenTool() => PenHandler(tool),
+      EraserTool() => EraserHandler(tool),
+      CollectionTool() => CollectionHandler(tool),
+      AreaTool() => AreaHandler(tool),
+      LaserTool() => LaserHandler(tool),
+      ShapeTool() => ShapeHandler(tool),
+      TableTool() => TableHandler(tool),
+      StampTool() => StampHandler(tool),
+      PresentationTool() => PresentationHandler(tool),
+      SpacerTool() => SpacerHandler(tool),
+      FullScreenTool() => FullScreenHandler(tool),
+      TextureTool() => TextureHandler(tool),
+      AssetTool() => AssetHandler(tool),
+      EyeDropperTool() => EyeDropperHandler(tool),
+      ExportTool() => ExportHandler(tool),
+      GridTool() => GridHandler(tool),
+      RulerTool() => RulerHandler(tool),
+      BarcodeTool() => BarcodeHandler(tool),
+      PolygonTool() => PolygonHandler(tool),
+    } as Handler<T>;
   }
 
   FutureOr<PreferredSizeWidget?> getToolbar(DocumentBloc bloc) => null;

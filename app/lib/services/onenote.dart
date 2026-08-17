@@ -19,10 +19,14 @@ const _pixelsPerHalfInch = _pixelsPerInch / 2;
 const _himetricUnitsPerInch = 2540.0;
 const _himetricToPixels = _pixelsPerInch / _himetricUnitsPerInch;
 
-typedef OneNoteXpsConverter =
-    Future<Uint8List?> Function(Uint8List data, String fileName);
-typedef XpsProcessRunner =
-    Future<ProcessResult> Function(String executable, List<String> arguments);
+typedef OneNoteXpsConverter = Future<Uint8List?> Function(
+  Uint8List data,
+  String fileName,
+);
+typedef XpsProcessRunner = Future<ProcessResult> Function(
+  String executable,
+  List<String> arguments,
+);
 
 class XpsToPdfNotInstalledException implements Exception {
   const XpsToPdfNotInstalledException();
@@ -62,7 +66,7 @@ Future<Uint8List> convertXpsToPdf(
         result.exitCode,
       );
     }
-    return output.readAsBytes();
+    return await output.readAsBytes();
   } finally {
     try {
       await directory.delete(recursive: true);

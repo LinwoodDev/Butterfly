@@ -130,9 +130,8 @@ class _LayersViewState extends State<LayersView> {
                       ),
                       title: Text(name, overflow: TextOverflow.ellipsis),
                       subtitle: Text(
-                        AppLocalizations.of(
-                          context,
-                        ).countElements(layer.content.length),
+                        AppLocalizations.of(context)
+                            .countElements(layer.content.length),
                       ),
                     ),
                     builder: (context, child) {
@@ -174,9 +173,8 @@ class _LayersViewState extends State<LayersView> {
                         }
                       },
                       subtitle: Text(
-                        AppLocalizations.of(
-                          context,
-                        ).countElements(layer.content.length),
+                        AppLocalizations.of(context)
+                            .countElements(layer.content.length),
                       ),
                       leading: controller.selectionMode
                           ? Checkbox(
@@ -372,9 +370,8 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
                         : mainLayer.name,
                   ),
                   subtitle: Text(
-                    AppLocalizations.of(
-                      context,
-                    ).countElements(mainLayer.content.length),
+                    AppLocalizations.of(context)
+                        .countElements(mainLayer.content.length),
                   ),
                 ),
                 const Divider(),
@@ -399,9 +396,8 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
                             : e.name,
                       ),
                       subtitle: Text(
-                        AppLocalizations.of(
-                          context,
-                        ).countElements(e.content.length),
+                        AppLocalizations.of(context)
+                            .countElements(e.content.length),
                       ),
                     ),
                   ),

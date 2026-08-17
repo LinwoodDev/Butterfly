@@ -139,9 +139,8 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
                             ? null
                             : IconButton(
                                 icon: const PhosphorIcon(PhosphorIconsLight.x),
-                                tooltip: MaterialLocalizations.of(
-                                  context,
-                                ).deleteButtonTooltip,
+                                tooltip: MaterialLocalizations.of(context)
+                                    .deleteButtonTooltip,
                                 onPressed: () =>
                                     _updateSelected(_selected.clear),
                               ),

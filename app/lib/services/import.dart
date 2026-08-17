@@ -221,6 +221,8 @@ class ImportService {
   PackFileSystem getPackFileSystem() => useDefaultStorage
       ? getFileSystem().buildDefaultPackSystem()
       : getFileSystem().buildPackSystem(storage);
+  ExternalStorage? get effectiveStorage =>
+      useDefaultStorage ? getSettings().getDefaultRemote() : storage;
   Future<NamedItem<text.TextStyleSheet>?> findStyleSheet() async {
     final fileSystem = getPackFileSystem();
     for (final pack in await fileSystem.getFiles()) {
@@ -397,35 +399,41 @@ class ImportService {
   }) async {
     try {
       final file = NoteFile(bytes);
-      String? password;
-      if (file.isEncrypted()) {
-        password = await showDialog<String>(
-          context: context,
-          builder: (context) => NameDialog(
-            title: AppLocalizations.of(context).encrypted,
-            hint: AppLocalizations.of(context).password,
-            button: AppLocalizations.of(context).open,
-            obscureText: true,
-          ),
-        );
-        if (password == null) return null;
+      final encrypted = file.isEncrypted();
+      var password = readConnectionEncryptionPassword(effectiveStorage);
+      NoteData? data;
+      if (encrypted) {
+        data = file.load(password: password);
+        if (!(data?.isValid ?? false)) {
+          password = await showDialog<String>(
+            context: context,
+            builder: (context) => NameDialog(
+              title: AppLocalizations.of(context).encrypted,
+              hint: AppLocalizations.of(context).password,
+              button: AppLocalizations.of(context).open,
+              obscureText: true,
+            ),
+          );
+          if (password == null) return null;
+          data = null;
+        }
       }
-      final data = file.load(password: password);
-      if (data == null) {
-        return showDialog(
+      data ??= file.load(password: encrypted ? password : null);
+      if (data == null || !data.isValid) {
+        if (!encrypted && data != null) {
+          final archive = ZipDecoder().decodeBytes(bytes);
+          await _importArchive(archive);
+          return null;
+        }
+        return await showDialog(
           context: context,
           builder: (context) => UnknownImportConfirmationDialog(
             message: AppLocalizations.of(context).unknownImportType,
           ),
         ).then((value) => null);
       }
-      if (!data.isValid) {
-        final archive = ZipDecoder().decodeBytes(bytes);
-        await _importArchive(archive);
-        return null;
-      }
       final type = data.getMetadata()?.type;
-      return switch (type) {
+      return await switch (type) {
         NoteFileType.document => _importDocument(
           data,
           document: document,
@@ -482,7 +490,7 @@ class ImportService {
   }) async {
     try {
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
-      return _importPage(page, document, position);
+      return await _importPage(page, document, position);
     } catch (e) {
       await showDialog(
         context: context,
@@ -650,7 +658,7 @@ class ImportService {
   }) async {
     try {
       final data = xoppMigrator(bytes);
-      return _importDocument(data, document: document);
+      return await _importDocument(data, document: document);
     } catch (e) {
       showDialog(
         context: context,
@@ -1251,8 +1259,12 @@ class ImportService {
     final data = NoteData.fromArchive(archive);
     if (data.isValid) {
       fileSystem ??= getDocumentSystem();
-      final document = await (await importBfly(bytes))?.export();
+      var document = await (await importBfly(bytes))?.export();
       if (document != null) {
+        document = addConnectionPasswordToNoteData(
+          fileSystem.storage,
+          document,
+        );
         fileSystem.createFile(
           p.join(path ?? '', document.name ?? ''),
           document.toFile(),
@@ -1274,11 +1286,15 @@ class ImportService {
         if (!file.name.endsWith(fileExtension)) continue;
         final bytes = file.readBytes();
         if (bytes == null) continue;
-        final document = await (await importBfly(
+        var document = await (await importBfly(
           bytes,
           advanced: false,
         ))?.export();
         if (document != null) {
+          document = addConnectionPasswordToNoteData(
+            fileSystem.storage,
+            document,
+          );
           fileSystem.createFile(
             p.join(path ?? '', file.name),
             document.toFile(),

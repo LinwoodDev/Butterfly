@@ -29,12 +29,19 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
               return Dismissible(
                 key: Key(remote.identifier),
                 onDismissed: (details) {
-                  BlocProvider.of<SettingsCubit>(
-                    context,
-                  ).deleteRemote(remote.identifier);
+                  BlocProvider.of<SettingsCubit>(context)
+                      .deleteRemote(remote.identifier);
                 },
                 child: ListTile(
                   title: Text(remote.label),
+                  subtitle:
+                      remote is RemoteStorage &&
+                          remote.isConnectionEncryptionEnabled
+                      ? Text(
+                          AppLocalizations.of(context)
+                              .documentEncryptionEnabled,
+                        )
+                      : null,
                   leading: remote.icon?.isEmpty ?? true
                       ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
                       : Image.memory(remote.icon!),
@@ -50,9 +57,8 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
                         ? AppLocalizations.of(context).defaultConnection
                         : AppLocalizations.of(context).notDefaultConnection,
                     onPressed: () {
-                      BlocProvider.of<SettingsCubit>(
-                        context,
-                      ).setDefaultRemote(remote.identifier);
+                      BlocProvider.of<SettingsCubit>(context)
+                          .setDefaultRemote(remote.identifier);
                     },
                   ),
                 ),
@@ -148,6 +154,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
+      _encryptionPasswordController = TextEditingController(),
       _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(text: 'Documents'),
@@ -156,6 +163,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   bool _isConnected = false,
       _advanced = false,
       _showPassword = false,
+      _showEncryptionPassword = false,
       _syncRootDirectory = false;
 
   bool get _isRemote => widget.storage is! LocalStorage;
@@ -176,6 +184,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     _urlController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
+    _encryptionPasswordController.dispose();
     _iconController.dispose();
     _directoryController.dispose();
     _documentsDirectoryController.dispose();
@@ -195,9 +204,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).unsecureConnectionTitle),
           content: Text(
-            AppLocalizations.of(
-              context,
-            ).unsecureConnectionMessage(_formatSha1Uint8List(cert.sha1)),
+            AppLocalizations.of(context)
+                .unsecureConnectionMessage(_formatSha1Uint8List(cert.sha1)),
           ),
           actions: [
             TextButton(
@@ -345,9 +353,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   Future<Uint8List?> _decodeIcon(Uint8List bytes) async {
     try {
       final image = await decodeImageFromList(bytes);
-      return (await image.toByteData(
-        format: ImageByteFormat.png,
-      ))?.buffer.asUint8List();
+      return (await image.toByteData(format: ImageByteFormat.png))?.buffer
+          .asUint8List();
     } catch (_) {
       final decoded = img.decodeImage(bytes);
       if (decoded == null) return null;
@@ -372,6 +379,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         icon: icon,
       ),
     };
+    if (remoteStorage is RemoteStorage &&
+        _encryptionPasswordController.text.isNotEmpty) {
+      await connectionEncryptionPasswordStorage.write(
+        remoteStorage,
+        _encryptionPasswordController.text,
+      );
+    }
     await settingsCubit.addRemote(
       remoteStorage,
       password: _passwordController.text,
@@ -394,6 +408,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       icon: icon,
       pinnedPaths: {
         'documents': [if (_syncRootDirectory) '/'],
+      },
+      extra: {
+        if (_encryptionPasswordController.text.isNotEmpty)
+          connectionEncryptionEnabledKey: true,
       },
     );
   }
@@ -503,6 +521,38 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         ),
                       ),
                     ] else ...[
+                      if (_isRemote) ...[
+                        TextField(
+                          controller: _encryptionPasswordController,
+                          obscureText: !_showEncryptionPassword,
+                          keyboardType: _showEncryptionPassword
+                              ? TextInputType.visiblePassword
+                              : TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)
+                                .documentEncryptionPassword,
+                            filled: true,
+                            suffixIcon: IconButton(
+                              icon: PhosphorIcon(
+                                _showEncryptionPassword
+                                    ? PhosphorIconsLight.eye
+                                    : PhosphorIconsLight.eyeSlash,
+                              ),
+                              tooltip: _showEncryptionPassword
+                                  ? AppLocalizations.of(context).hide
+                                  : AppLocalizations.of(context).show,
+                              onPressed: () => setState(
+                                () => _showEncryptionPassword =
+                                    !_showEncryptionPassword,
+                              ),
+                            ),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.shieldCheck,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
                       TextField(
                         controller: _nameController,
                         decoration: InputDecoration(
@@ -520,15 +570,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         builder: (context, _) {
                           final shouldShowPicker =
                               !_isRemote &&
-                              (!Directory(
-                                    _documentsDirectoryController.text,
-                                  ).isAbsolute ||
-                                  !Directory(
-                                    _templatesDirectoryController.text,
-                                  ).isAbsolute ||
-                                  !Directory(
-                                    _packsDirectoryController.text,
-                                  ).isAbsolute);
+                              (!Directory(_documentsDirectoryController.text)
+                                      .isAbsolute ||
+                                  !Directory(_templatesDirectoryController.text)
+                                      .isAbsolute ||
+                                  !Directory(_packsDirectoryController.text)
+                                      .isAbsolute);
                           return _DirectoryField(
                             controller: _directoryController,
                             label: AppLocalizations.of(context).directory,
@@ -560,9 +607,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     const SizedBox(width: 8),
                                     Flexible(
                                       child: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        ).information,
+                                        AppLocalizations.of(context)
+                                            .information,
                                         style: TextTheme.of(context).bodyMedium,
                                       ),
                                     ),
@@ -574,9 +620,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                       ? AppLocalizations.of(
                                           context,
                                         ).rootDirectoryNotSpecifiedDescription
-                                      : AppLocalizations.of(
-                                          context,
-                                        ).rootDirectorySpecifiedDescription,
+                                      : AppLocalizations.of(context)
+                                            .rootDirectorySpecifiedDescription,
                                 ),
                               ],
                             ),
@@ -601,9 +646,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                 children: [
                                   _DirectoryField(
                                     controller: _documentsDirectoryController,
-                                    label: AppLocalizations.of(
-                                      context,
-                                    ).documentsDirectory,
+                                    label: AppLocalizations.of(context)
+                                        .documentsDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.file,
                                       textDirection: TextDirection.ltr,
@@ -623,9 +667,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                   const SizedBox(height: 8),
                                   _DirectoryField(
                                     controller: _templatesDirectoryController,
-                                    label: AppLocalizations.of(
-                                      context,
-                                    ).templatesDirectory,
+                                    label: AppLocalizations.of(context)
+                                        .templatesDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.fileDashed,
                                       textDirection: TextDirection.ltr,
@@ -645,9 +688,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                   const SizedBox(height: 8),
                                   _DirectoryField(
                                     controller: _packsDirectoryController,
-                                    label: AppLocalizations.of(
-                                      context,
-                                    ).packsDirectory,
+                                    label: AppLocalizations.of(context)
+                                        .packsDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.package,
                                     ),

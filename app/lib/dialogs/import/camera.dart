@@ -174,9 +174,8 @@ class _CameraDialogState extends State<CameraDialog>
                           children: [
                             TextButton(
                               child: Text(
-                                MaterialLocalizations.of(
-                                  context,
-                                ).cancelButtonLabel,
+                                MaterialLocalizations.of(context)
+                                    .cancelButtonLabel,
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
