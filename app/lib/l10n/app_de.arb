@@ -212,6 +212,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "Die Datei {fileName} wurde in einer neueren Version ({fileVersion}) erstellt. Was soll mit dieser Datei gemacht werden?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,6 +564,12 @@
   "connect": "Verbinden",
   "username": "Benutzername",
   "password": "Passwort",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web nicht unterstützt",
   "advanced": "Erweitert",
   "directory": "Verzeichnis",
