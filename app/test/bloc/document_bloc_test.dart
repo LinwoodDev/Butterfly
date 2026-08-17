@@ -915,22 +915,25 @@ void main() {
     () async {
       final state = bloc.state as DocumentLoadSuccess;
       final handler = PenHandler(PenTool(id: 'pen'));
-      final element = PenElement(
-        id: 'stroke',
-        points: const [PathPoint(10, 20), PathPoint(40, 20)],
+      final strokePoints = List.generate(
+        1000,
+        (index) => PathPoint(index / 20, 20),
       );
+      final element = PenElement(id: 'stroke', points: strokePoints);
       handler.elements[1] = element;
 
       await handler.submitElements(bloc, [1]);
 
+      final submittedForegrounds = handler.createForegrounds(
+        editorController,
+        state.data,
+        state.page,
+        state.info,
+      );
+      expect(submittedForegrounds, hasLength(1));
       expect(
-        handler.createForegrounds(
-          editorController,
-          state.data,
-          state.page,
-          state.info,
-        ),
-        hasLength(1),
+        (submittedForegrounds.single as PenRenderer).element.points,
+        strokePoints,
       );
 
       final renderer = Renderer<PadElement>.fromInstance(
