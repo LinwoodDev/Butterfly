@@ -509,6 +509,63 @@ void main() {
     await tester.pump(const Duration(seconds: 4));
   });
 
+  testWidgets('select tool manipulates a ruler enabled after viewport build', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final documentBloc = observer.lastDocumentBloc!;
+    final editorController = documentBloc.editorController;
+    expect(editorController.toolCubit.state.handler, isA<SelectHandler>());
+    documentBloc.add(ToolCreated(RulerTool(id: 'ruler')));
+    await tester.pumpAndSettle();
+    final rulerIndex =
+        (documentBloc.state as DocumentLoadSuccess).info.tools.length - 1;
+    await editorController.toolCubit.toggleHandler(
+      editorController,
+      documentBloc,
+      rulerIndex,
+    );
+    await tester.pump();
+
+    final viewport = find.byType(MainViewViewport);
+    final gesture = await tester.startGesture(
+      tester.getCenter(viewport),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.moveBy(const Offset(20, 10));
+    await tester.pump();
+    await gesture.moveBy(const Offset(30, 15));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+
+    final ruler =
+        editorController.toolCubit.state.toggleableHandlers[rulerIndex]
+            as RulerHandler;
+    expect(ruler.position, const Offset(50, 25));
+
+    final rulerCenter = tester.getCenter(viewport) + ruler.position;
+    final rotationGesture = await tester.startGesture(
+      rulerCenter + const Offset(100, 0),
+      kind: PointerDeviceKind.mouse,
+      buttons: kSecondaryMouseButton,
+    );
+    await rotationGesture.moveTo(rulerCenter + const Offset(0, 100));
+    await tester.pump();
+    await rotationGesture.up();
+    await tester.pumpAndSettle();
+    expect(ruler.rotation, closeTo(90, 0.1));
+    await tester.pump(const Duration(seconds: 4));
+  });
+
   testWidgets('context menu key opens the active tool context menu', (
     tester,
   ) async {

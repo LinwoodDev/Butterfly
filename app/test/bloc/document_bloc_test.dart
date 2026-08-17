@@ -410,6 +410,77 @@ void main() {
     expect(other.property.strokeWidth, 5);
   });
 
+  test('ruler runtime survives toggling and property updates', () async {
+    final rulerTool = RulerTool(id: 'ruler');
+    bloc.add(ToolsReplaced([HandTool(id: 'hand'), rulerTool]));
+    await _settleBlocEvents();
+
+    final ruler = await editorController.toolCubit.enableHandler(
+      editorController,
+      bloc,
+      1,
+    ) as RulerHandler;
+    ruler.setPosition(const Offset(24, 48));
+    ruler.setRotation(87);
+
+    await editorController.toolCubit.toggleHandler(editorController, bloc, 1);
+    final restored = await editorController.toolCubit.toggleHandler(
+      editorController,
+      bloc,
+      1,
+    ) as RulerHandler;
+    expect(restored, same(ruler));
+    expect(restored.position, const Offset(24, 48));
+    expect(restored.rotation, 87);
+
+    const background = SRGBColor(0xFF123456);
+    const foreground = SRGBColor(0xFFABCDEF);
+    final handlerUpdated = editorController.toolCubit.stream.firstWhere(
+      (state) =>
+          (state.toggleableHandlers[1]?.data as RulerTool?)?.color ==
+          background,
+    );
+    bloc.add(
+      ToolsChanged([
+        rulerTool.copyWith(
+          color: background,
+          foreground: foreground,
+          size: 150,
+        ),
+      ]),
+    );
+    await handlerUpdated;
+
+    final updated =
+        editorController.toolCubit.state.toggleableHandlers[1] as RulerHandler;
+    expect(updated, same(ruler));
+    expect(updated.position, const Offset(24, 48));
+    expect(updated.rotation, 87);
+    expect(updated.data.color, background);
+    expect(updated.data.foreground, foreground);
+    expect(updated.data.size, 150);
+    final rendered =
+        editorController.toolCubit.state.toggleableForegrounds[1]!.single
+            as RulerRenderer;
+    expect(rendered.element, same(updated.data));
+    expect(rendered.position, const Offset(24, 48));
+    expect(rendered.rulerRotation, 87);
+
+    await editorController.toolCubit.toggleHandler(editorController, bloc, 1);
+    bloc.add(const ToolsRemoved(['ruler']));
+    await _settleBlocEvents();
+    bloc.add(ToolCreated(RulerTool(id: 'ruler')));
+    await _settleBlocEvents();
+    final recreated = await editorController.toolCubit.enableHandler(
+      editorController,
+      bloc,
+      1,
+    ) as RulerHandler;
+    expect(recreated, isNot(same(ruler)));
+    expect(recreated.position, Offset.zero);
+    expect(recreated.rotation, 0);
+  });
+
   test('reset state change waits for reload to finish', () async {
     await bloc.close();
     await editorController.close();

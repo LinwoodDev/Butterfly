@@ -210,9 +210,9 @@ enum ToolStatus { normal, disabled, selected }
 enum SelectState { normal, none, toggle }
 
 abstract class Handler<T> {
-  final T data;
+  T data;
 
-  const Handler(this.data);
+  Handler(this.data);
 
   FutureOr<SelectState> onSelected(
     BuildContext context, [
@@ -338,6 +338,8 @@ abstract class Handler<T> {
   }
 
   FutureOr<PreferredSizeWidget?> getToolbar(DocumentBloc bloc) => null;
+
+  List<Widget> getRuntimeProperties(BuildContext context) => const [];
 
   Map<String, RendererState> get rendererStates => const {};
 

@@ -48,6 +48,7 @@ class MainViewViewportState extends State<MainViewViewport>
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
   bool? _isScalingDisabled;
   RulerHandler? _ruler;
+  int? _rulerPointer;
   Animation<Offset>? _positionAnimation;
 
   final Map<int, PointerDeviceKind> _pointerKinds = {};
@@ -127,6 +128,7 @@ class MainViewViewportState extends State<MainViewViewport>
     );
     if (event.kind != PointerDeviceKind.touch && ruler != null) {
       _ruler = ruler;
+      _rulerPointer = event.pointer;
       ruler.beginTransform(event.localPosition);
       return;
     }
@@ -274,6 +276,7 @@ class MainViewViewportState extends State<MainViewViewport>
   void _resetRulerInteraction() {
     _ruler?.endTransform();
     _ruler = null;
+    _rulerPointer = null;
   }
 
   @override
@@ -470,11 +473,14 @@ class MainViewViewportState extends State<MainViewViewport>
                                           ),
                                       onScaleUpdate: (details) {
                                         final handler = getHandler();
-                                        if (_ruler != null) {
-                                          _ruler?.transformWithScaleUpdate(
-                                            getEventContext(),
-                                            details,
-                                          );
+                                        final ruler = _ruler;
+                                        if (ruler != null) {
+                                          if (_rulerPointer == null) {
+                                            ruler.transformWithScaleUpdate(
+                                              getEventContext(),
+                                              details,
+                                            );
+                                          }
                                           return;
                                         }
                                         if (_isScalingDisabled ?? true) {
@@ -594,26 +600,28 @@ class MainViewViewportState extends State<MainViewViewport>
                                       onScaleStart: (details) {
                                         _isScalingDisabled ??=
                                             !_isTouchMoveGesture(cubit);
-                                        _ruler =
-                                            RulerHandler.getInteractiveRuler(
-                                              toolState,
-                                              cubit.toolCubit.getHandler(
-                                                editable:
-                                                    cubit
-                                                        .saveCubit
-                                                        .state
-                                                        .embedding
-                                                        ?.editable !=
-                                                    false,
-                                              ),
-                                              details.localFocalPoint,
-                                              constraints.biggest,
-                                            );
-                                        if (_ruler != null) {
-                                          _isScalingDisabled = false;
+                                        if (_rulerPointer == null) {
+                                          _ruler =
+                                              RulerHandler.getInteractiveRuler(
+                                                cubit.toolCubit.state,
+                                                cubit.toolCubit.getHandler(
+                                                  editable:
+                                                      cubit
+                                                          .saveCubit
+                                                          .state
+                                                          .embedding
+                                                          ?.editable !=
+                                                      false,
+                                                ),
+                                                details.localFocalPoint,
+                                                constraints.biggest,
+                                              );
                                           _ruler?.beginTransform(
                                             details.localFocalPoint,
                                           );
+                                        }
+                                        if (_ruler != null) {
+                                          _isScalingDisabled = false;
                                         } else if (_isScalingDisabled !=
                                             false) {
                                           _isScalingDisabled = cubit.toolCubit

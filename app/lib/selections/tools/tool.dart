@@ -25,6 +25,13 @@ class ToolSelection<T extends Tool> extends Selection<T> {
   } as ToolSelection<T>;
 
   @override
+  List<Widget> buildProperties(BuildContext context) => [
+    ...super.buildProperties(context),
+    if (selected.length == 1)
+      _HandlerRuntimeProperties(toolId: selected.first.id),
+  ];
+
+  @override
   bool isNameEditable(BuildContext context) => true;
   @override
   void setName(BuildContext context, String name) => update(
@@ -107,5 +114,25 @@ class ToolSelection<T extends Tool> extends Selection<T> {
       return const [];
     }
     return selected.first.help;
+  }
+}
+
+class _HandlerRuntimeProperties extends StatelessWidget {
+  final String? toolId;
+
+  const _HandlerRuntimeProperties({required this.toolId});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ToolCubit, ToolRuntimeState>(
+      builder: (context, _) {
+        final handler = context.read<ToolCubit>().getHandlerForTool(toolId);
+        if (handler == null) return const SizedBox.shrink();
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: handler.getRuntimeProperties(context),
+        );
+      },
+    );
   }
 }

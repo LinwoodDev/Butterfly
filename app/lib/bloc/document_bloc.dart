@@ -708,7 +708,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
     });
-    on<ToolsChanged>((event, emit) {
+    on<ToolsChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
@@ -768,19 +768,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
       if (updatedCurrent != null) {
-        editorController.toolCubit.updateTool(
+        await editorController.toolCubit.updateTool(
           editorController,
           this,
           updatedCurrent!,
         );
       }
-      editorController.toolCubit.updateTogglingTools(
+      await editorController.toolCubit.updateTogglingTools(
         editorController,
         this,
         changedTools,
       );
       if (updatedTemporary != null) {
-        editorController.toolCubit.updateTemporaryTool(
+        await editorController.toolCubit.updateTemporaryTool(
           editorController,
           this,
           updatedTemporary!,
