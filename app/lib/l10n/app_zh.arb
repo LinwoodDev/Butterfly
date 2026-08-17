@@ -212,6 +212,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "文件 {fileName} 是在更新版本 ({fileVersion}) 中创建的。应该如何处理它？",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,6 +564,12 @@
   "connect": "连接",
   "username": "用户名",
   "password": "密码",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "网络不支持",
   "advanced": "高级版",
   "directory": "目录",
