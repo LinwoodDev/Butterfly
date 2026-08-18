@@ -1,11 +1,54 @@
 import 'dart:ui';
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_leap/helpers.dart';
+import 'package:xml/xml.dart';
 
 void main() {
+  test('SVG export preserves polygon curves and paint', () {
+    final points = [
+      PolygonPoint(0, 0, handleOut: const SimplePoint(25, -50)),
+      PolygonPoint(100, 0, handleIn: const SimplePoint(75, -50)),
+      PolygonPoint(0, 0),
+    ];
+    final renderer = PolygonRenderer(
+      PolygonElement(
+        points: points,
+        property: const PolygonProperty(
+          paint: ElementPaint.solid(color: SRGBColor.green),
+          fillPaint: ElementPaint.solid(color: SRGBColor.black),
+          strokeWidth: 2,
+        ),
+      ),
+      null,
+      calculatePolygonRect(points),
+    );
+    final xml = XmlDocument([XmlElement(XmlName.parts('svg'))]);
+
+    renderer.buildSvg(
+      xml,
+      NoteData(Archive()),
+      const DocumentPage(),
+      Rect.largest,
+    );
+
+    final path = xml.findAllElements('path').single;
+    expect(path.getAttribute('d'), contains(' C '));
+    expect(path.getAttribute('d'), endsWith(' Z'));
+    expect(
+      path.getAttribute('fill'),
+      SRGBColor.black.toHexString(alpha: false),
+    );
+    expect(
+      path.getAttribute('stroke'),
+      SRGBColor.green.toHexString(alpha: false),
+    );
+    expect(path.getAttribute('stroke-width'), '2.0');
+  });
+
   test('negative scale keeps valid polygon bounds', () {
     final points = [
       PolygonPoint(0, 0),

@@ -73,8 +73,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     lastPosit = null;
   }
 
-  // Flag to check if elements are being submitted.
-  bool _currentlyBaking = false;
   DocumentBloc? _bloc;
 
   // Submit elements for processing and rendering.
@@ -128,18 +126,17 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       ...newViewport.bakedElements,
       ...newViewport.unbakedElements,
     ].map((renderer) => renderer.element.id).nonNulls.toSet();
-    if (submittedIds.isNotEmpty && viewportIds.containsAll(submittedIds)) {
-      return;
-    }
-    if (_currentlyBaking) return;
-    _currentlyBaking = true;
+    // Renderer creation is the authoritative handoff from the foreground
+    // preview to the document. A rapid sequence can produce an intermediate
+    // viewport containing only some submitted strokes; clearing all previews
+    // then makes the remaining strokes disappear until their events finish.
+    if (submittedIds.intersection(viewportIds).isNotEmpty) return;
     _submittedElements.clear();
     await _bloc?.refresh(allowBake: false);
     // If already started a new element, we don't bake yet
     if (elements.isEmpty) {
       await _bloc?.delayedBake();
     }
-    _currentlyBaking = false;
   }
 
   // Add a point to the element.

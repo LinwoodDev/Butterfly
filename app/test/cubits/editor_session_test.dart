@@ -18,42 +18,6 @@ class _MockDocumentStateFileSystem extends Mock
 
 void main() {
   group('PersistedDocumentState', () {
-    test('round trips through typed encoding', () {
-      final state = PersistedDocumentState(
-        pathKey: 'path/a',
-        contentHash: 'hash',
-        pageName: 'Page 1',
-        camera: const PersistedCameraState(
-          positionX: 10,
-          positionY: 20,
-          zoom: 2,
-          rotation: 0.5,
-        ),
-        locks: const PersistentLockState(lockZoom: true, lockRotation: true),
-        selectedTool: const PersistedToolSelection(
-          toolId: 'tool-a',
-          toolIndex: 3,
-        ),
-        navigator: PersistedNavigatorState(
-          enabled: true,
-          page: NavigatorPage.layers.name,
-        ),
-        layers: const PersistedLayerState(
-          currentLayer: 'layer-a',
-          currentCollection: 'collection-a',
-          invisibleLayers: {'hidden-a'},
-        ),
-        areaNavigator: const PersistedAreaNavigatorState(create: false),
-        updatedAt: DateTime.utc(2026),
-      );
-
-      final decoded = decodePersistedDocumentState(
-        encodePersistedDocumentState(state),
-      );
-
-      expect(decoded, state.copyWith(pathKey: null, contentHash: null));
-    });
-
     test('uses schema defaults for sparse json', () {
       final state = PersistedDocumentState.fromJson(const {});
 

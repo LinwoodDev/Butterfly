@@ -125,20 +125,27 @@ class EmbedHandler {
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        double x = 0, y = 0, scale = 1;
-        double width = 100, height = 100;
+        final controller = bloc.editorController;
+        final transform = controller.transformCubit.state;
+        final viewportSize =
+            controller.rendererCubit.state.cameraViewport.viewportSize ??
+            MediaQuery.sizeOf(context);
+        double x = transform.position.dx, y = transform.position.dy;
+        double scale = transform.size, rotation = transform.rotation;
+        double width = viewportSize.width, height = viewportSize.height;
         bool renderBackground = true;
         final map = _messageToMap(message);
         if (map != null) {
-          x = _mapDouble(map, 'x', 0);
-          y = _mapDouble(map, 'y', 0);
-          width = _mapDouble(map, 'width', 100);
-          height = _mapDouble(map, 'height', 100);
-          scale = _mapDouble(map, 'scale', 1);
+          x = _mapDouble(map, 'x', x);
+          y = _mapDouble(map, 'y', y);
+          width = _mapDouble(map, 'width', width);
+          height = _mapDouble(map, 'height', height);
+          scale = _mapDouble(map, 'scale', scale);
+          rotation = _mapDouble(map, 'rotation', rotation);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await bloc.editorController.rendererCubit.render(
-          bloc.editorController,
+        final data = await controller.rendererCubit.render(
+          controller,
           state.data,
           state.page,
           state.info,
@@ -148,6 +155,7 @@ class EmbedHandler {
             x: x,
             y: y,
             scale: scale,
+            rotation: rotation,
             renderBackground: renderBackground,
           ),
           docState: state,
@@ -161,20 +169,28 @@ class EmbedHandler {
     renderSVGListener ??= onEmbedMessage('renderSVG', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        double x = 0, y = 0;
-        double width = 100, height = 100;
+        final controller = bloc.editorController;
+        final transform = controller.transformCubit.state;
+        final viewportSize =
+            controller.rendererCubit.state.cameraViewport.viewportSize ??
+            MediaQuery.sizeOf(context);
+        double x = transform.position.dx, y = transform.position.dy;
+        double scale = transform.size, rotation = transform.rotation;
+        double width = viewportSize.width, height = viewportSize.height;
         bool renderBackground = true;
         final map = _messageToMap(message);
         if (map != null) {
-          x = _mapDouble(map, 'x', 0);
-          y = _mapDouble(map, 'y', 0);
-          width = _mapDouble(map, 'width', 100);
-          height = _mapDouble(map, 'height', 100);
+          x = _mapDouble(map, 'x', x);
+          y = _mapDouble(map, 'y', y);
+          width = _mapDouble(map, 'width', width);
+          height = _mapDouble(map, 'height', height);
+          scale = _mapDouble(map, 'scale', scale);
+          rotation = _mapDouble(map, 'rotation', rotation);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
         sendEmbedMessage(
           'renderSVG',
-          bloc.editorController.rendererCubit
+          controller.rendererCubit
               .renderSVG(
                 state.data,
                 state.page,
@@ -183,6 +199,8 @@ class EmbedHandler {
                   height: height,
                   x: x,
                   y: y,
+                  scale: scale,
+                  rotation: rotation,
                   renderBackground: renderBackground,
                 ),
               )

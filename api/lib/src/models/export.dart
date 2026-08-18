@@ -15,6 +15,7 @@ sealed class ExportOptions with _$ExportOptions {
     @Default(0) double x,
     @Default(0) double y,
     @Default(1) double scale,
+    @Default(0) double rotation,
     @Default(1) double quality,
     @Default(true) bool renderBackground,
   }) = ImageExportOptions;
@@ -24,6 +25,8 @@ sealed class ExportOptions with _$ExportOptions {
     required double height,
     @Default(0) double x,
     @Default(0) double y,
+    @Default(1) double scale,
+    @Default(0) double rotation,
     @Default(true) bool renderBackground,
   }) = SvgExportOptions;
 
@@ -37,6 +40,8 @@ sealed class ExportOptions with _$ExportOptions {
       height: e.height,
       x: e.x,
       y: e.y,
+      scale: e.scale,
+      rotation: e.rotation,
       renderBackground: e.renderBackground,
     ),
   };

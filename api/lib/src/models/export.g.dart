@@ -12,6 +12,7 @@ ImageExportOptions _$ImageExportOptionsFromJson(Map json) => ImageExportOptions(
   x: (json['x'] as num?)?.toDouble() ?? 0,
   y: (json['y'] as num?)?.toDouble() ?? 0,
   scale: (json['scale'] as num?)?.toDouble() ?? 1,
+  rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
   quality: (json['quality'] as num?)?.toDouble() ?? 1,
   renderBackground: json['renderBackground'] as bool? ?? true,
   $type: json['type'] as String?,
@@ -24,6 +25,7 @@ Map<String, dynamic> _$ImageExportOptionsToJson(ImageExportOptions instance) =>
       'x': instance.x,
       'y': instance.y,
       'scale': instance.scale,
+      'rotation': instance.rotation,
       'quality': instance.quality,
       'renderBackground': instance.renderBackground,
       'type': instance.$type,
@@ -34,6 +36,8 @@ SvgExportOptions _$SvgExportOptionsFromJson(Map json) => SvgExportOptions(
   height: (json['height'] as num).toDouble(),
   x: (json['x'] as num?)?.toDouble() ?? 0,
   y: (json['y'] as num?)?.toDouble() ?? 0,
+  scale: (json['scale'] as num?)?.toDouble() ?? 1,
+  rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
   renderBackground: json['renderBackground'] as bool? ?? true,
   $type: json['type'] as String?,
 );
@@ -44,6 +48,8 @@ Map<String, dynamic> _$SvgExportOptionsToJson(SvgExportOptions instance) =>
       'height': instance.height,
       'x': instance.x,
       'y': instance.y,
+      'scale': instance.scale,
+      'rotation': instance.rotation,
       'renderBackground': instance.renderBackground,
       'type': instance.$type,
     };

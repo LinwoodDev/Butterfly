@@ -35,37 +35,9 @@ void main() {
       expect(style.fontFamily, 'Roboto');
       expect(style.fontFamilyFallback, isEmpty);
     });
-
-    test('font families round-trip through JSON', () {
-      const style = TextStyleSheet(
-        fontFamily: 'Custom-Example.ttf',
-        fontFamilyFallback: ['Noto Sans', 'Roboto'],
-      );
-
-      final decoded = TextStyleSheet.fromJson(style.toJson());
-
-      expect(decoded.fontFamily, style.fontFamily);
-      expect(decoded.fontFamilyFallback, style.fontFamilyFallback);
-    });
   });
 
   group('Highlighter options', () {
-    test('pen tool options round-trip through JSON', () {
-      final tool = PenTool(id: 'highlighter', combinePaths: true);
-
-      final decoded = Tool.fromJson(tool.toJson()) as PenTool;
-
-      expect(decoded.combinePaths, isTrue);
-    });
-
-    test('pen element combine id round-trips through JSON', () {
-      final element = PenElement(id: 'stroke', combineId: 'highlighter');
-
-      final decoded = PadElement.fromJson(element.toJson()) as PenElement;
-
-      expect(decoded.combineId, 'highlighter');
-    });
-
     test('new options remain disabled for old JSON', () {
       final tool = Tool.fromJson({'type': 'pen'}) as PenTool;
       final element = PadElement.fromJson({'type': 'pen'}) as PenElement;

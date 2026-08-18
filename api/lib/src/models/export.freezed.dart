@@ -39,7 +39,7 @@ ExportOptions _$ExportOptionsFromJson(
 /// @nodoc
 mixin _$ExportOptions {
 
- double get width; double get height; double get x; double get y; bool get renderBackground;
+ double get width; double get height; double get x; double get y; double get scale; double get rotation; bool get renderBackground;
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -52,16 +52,16 @@ $ExportOptionsCopyWith<ExportOptions> get copyWith => _$ExportOptionsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,renderBackground);
+int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,renderBackground);
 
 @override
 String toString() {
-  return 'ExportOptions(width: $width, height: $height, x: $x, y: $y, renderBackground: $renderBackground)';
+  return 'ExportOptions(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, renderBackground: $renderBackground)';
 }
 
 
@@ -72,7 +72,7 @@ abstract mixin class $ExportOptionsCopyWith<$Res>  {
   factory $ExportOptionsCopyWith(ExportOptions value, $Res Function(ExportOptions) _then) = _$ExportOptionsCopyWithImpl;
 @useResult
 $Res call({
- double width, double height, double x, double y, bool renderBackground
+ double width, double height, double x, double y, double scale, double rotation, bool renderBackground
 });
 
 
@@ -89,12 +89,14 @@ class _$ExportOptionsCopyWithImpl<$Res>
 
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? renderBackground = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? renderBackground = null,}) {
   return _then(_self.copyWith(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -108,14 +110,15 @@ as bool,
 @JsonSerializable()
 
 class ImageExportOptions extends ExportOptions {
-  const ImageExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.quality = 1, this.renderBackground = true,  String? $type}): $type = $type ?? 'image',super._();
+  const ImageExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.rotation = 0, this.quality = 1, this.renderBackground = true,  String? $type}): $type = $type ?? 'image',super._();
   factory ImageExportOptions.fromJson(Map<String, dynamic> json) => _$ImageExportOptionsFromJson(json);
 
 @override final  double width;
 @override final  double height;
 @override@JsonKey() final  double x;
 @override@JsonKey() final  double y;
-@JsonKey() final  double scale;
+@override@JsonKey() final  double scale;
+@override@JsonKey() final  double rotation;
 @JsonKey() final  double quality;
 @override@JsonKey() final  bool renderBackground;
 
@@ -136,16 +139,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,quality,renderBackground);
+int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,quality,renderBackground);
 
 @override
 String toString() {
-  return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, quality: $quality, renderBackground: $renderBackground)';
+  return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, quality: $quality, renderBackground: $renderBackground)';
 }
 
 
@@ -156,7 +159,7 @@ abstract mixin class $ImageExportOptionsCopyWith<$Res> implements $ExportOptions
   factory $ImageExportOptionsCopyWith(ImageExportOptions value, $Res Function(ImageExportOptions) _then) = _$ImageExportOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- double width, double height, double x, double y, double scale, double quality, bool renderBackground
+ double width, double height, double x, double y, double scale, double rotation, double quality, bool renderBackground
 });
 
 
@@ -173,13 +176,14 @@ class _$ImageExportOptionsCopyWithImpl<$Res>
 
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? quality = null,Object? renderBackground = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? quality = null,Object? renderBackground = null,}) {
   return _then(ImageExportOptions(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
 as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
 as double,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -193,13 +197,15 @@ as bool,
 @JsonSerializable()
 
 class SvgExportOptions extends ExportOptions {
-  const SvgExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.renderBackground = true,  String? $type}): $type = $type ?? 'svg',super._();
+  const SvgExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.rotation = 0, this.renderBackground = true,  String? $type}): $type = $type ?? 'svg',super._();
   factory SvgExportOptions.fromJson(Map<String, dynamic> json) => _$SvgExportOptionsFromJson(json);
 
 @override final  double width;
 @override final  double height;
 @override@JsonKey() final  double x;
 @override@JsonKey() final  double y;
+@override@JsonKey() final  double scale;
+@override@JsonKey() final  double rotation;
 @override@JsonKey() final  bool renderBackground;
 
 @JsonKey(name: 'type')
@@ -219,16 +225,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,renderBackground);
+int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,renderBackground);
 
 @override
 String toString() {
-  return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, renderBackground: $renderBackground)';
+  return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, renderBackground: $renderBackground)';
 }
 
 
@@ -239,7 +245,7 @@ abstract mixin class $SvgExportOptionsCopyWith<$Res> implements $ExportOptionsCo
   factory $SvgExportOptionsCopyWith(SvgExportOptions value, $Res Function(SvgExportOptions) _then) = _$SvgExportOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- double width, double height, double x, double y, bool renderBackground
+ double width, double height, double x, double y, double scale, double rotation, bool renderBackground
 });
 
 
@@ -256,12 +262,14 @@ class _$SvgExportOptionsCopyWithImpl<$Res>
 
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? renderBackground = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? renderBackground = null,}) {
   return _then(SvgExportOptions(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
+as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

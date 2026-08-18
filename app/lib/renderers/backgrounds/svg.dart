@@ -62,6 +62,9 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
   ) {
     final height = element.height;
     final width = element.width;
+    final patternHeight = height * element.scaleY;
+    final patternWidth = width * element.scaleX;
+    if (patternWidth <= 0 || patternHeight <= 0) return;
     final id = createUniqueId();
     // Add pattern
     final pattern = xml
@@ -72,8 +75,8 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
           attributes: {
             'id': 'svg-background-$id',
             'viewBox': '0,0,$width,$height',
-            'width': '$width',
-            'height': '$height',
+            'width': '$patternWidth',
+            'height': '$patternHeight',
             'patternUnits': 'userSpaceOnUse',
           },
         );
@@ -86,14 +89,16 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
       'image',
       attributes: {'xlink:href': data, 'width': '$width', 'height': '$height'},
     );
-    // Add patern to svg
+    // Add pattern to svg
     xml
         .getOrCreateElement('svg')
         .createElement(
           'rect',
           attributes: {
-            'width': '100%',
-            'height': '100%',
+            'x': viewportRect.left.toString(),
+            'y': viewportRect.top.toString(),
+            'width': viewportRect.width.toString(),
+            'height': viewportRect.height.toString(),
             'fill': 'url(#svg-background-$id)',
           },
         );

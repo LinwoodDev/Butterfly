@@ -222,11 +222,7 @@ flutter:
     - images/file.png
     - images/logo.png
     - images/logo.svg
-    - path: images/nightly.png
-      # Flutter 3.47 bundles this nightly branding only for these variants.
-      flavors:
-        - development
-        - nightly
+    - images/nightly.png
     - images/nightly.svg
     - templates/
     - defaults/

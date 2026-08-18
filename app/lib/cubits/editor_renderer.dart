@@ -795,24 +795,21 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     canvas.scale(options.quality);
-    final viewport =
-        cameraViewport ??
-        rendererCubit.state.cameraViewport.unbake(
-          unbakedElements: rendererCubit.renderers,
-        );
     final transform = CameraTransform(
       options.quality,
       Offset(options.x, options.y),
       realZoom,
+      options.rotation,
     );
+    final viewport = cameraViewport != null
+        ? cameraViewport.unbake(rendererStates: const {})
+        : rendererCubit.state.cameraViewport.unbake(
+            unbakedElements: rendererCubit.renderers,
+            rendererStates: const {},
+          );
     final hiddenRenderers = <Renderer<PadElement>>[];
     if (docState != null) {
-      final exportRect = Rect.fromLTWH(
-        options.x,
-        options.y,
-        options.width,
-        options.height,
-      );
+      final exportRect = transform.localToGlobalRect(Offset.zero & size);
       for (final renderer in viewport.unbakedElements) {
         if (renderer.isVisible(exportRect)) {
           final wasInitialized = rendererCubit.initializedElements.contains(
@@ -885,7 +882,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   }) {
     final rendererCubit = this;
     final xml = XmlDocument();
-    xml.createElement(
+    final svg = xml.createElement(
       'svg',
       attributes: {
         'xmlns': 'http://www.w3.org/2000/svg',
@@ -893,16 +890,18 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
         'version': '1.1',
         'width': '${options.width}px',
         'height': '${options.height}px',
-        'viewBox':
-            '${options.x} ${options.y} ${options.width} ${options.height}',
+        'viewBox': '0 0 ${options.width} ${options.height}',
       },
     );
 
-    final rect = Rect.fromLTWH(
-      options.x,
-      options.y,
-      options.width.toDouble(),
-      options.height.toDouble(),
+    final transform = CameraTransform(
+      1,
+      Offset(options.x, options.y),
+      options.scale,
+      options.rotation,
+    );
+    final rect = transform.localToGlobalRect(
+      Offset.zero & Size(options.width, options.height),
     );
     if (options.renderBackground) {
       for (final e in rendererCubit.state.cameraViewport.backgrounds) {
@@ -913,9 +912,41 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       if ((invisibleLayers?.contains(e.layer) ?? false) || !e.isVisible(rect)) {
         continue;
       }
-      e.buildSvg(xml, document, page, rect);
+      final firstChild = svg.children.length;
+      // Visibility is handled against the transformed viewport above. Passing
+      // the largest rect prevents individual renderers from rejecting rotated
+      // elements whose untransformed bounds sit just outside the viewport.
+      e.buildSvg(xml, document, page, Rect.largest);
+      final center = e.rect?.center;
+      if (center != null && (e.rotation != 0 || e.shear != 0)) {
+        final elementTransform = StringBuffer(
+          'translate(${center.dx} ${center.dy})',
+        );
+        if (e.rotation != 0) {
+          elementTransform.write(' rotate(${e.rotation})');
+        }
+        if (e.shear != 0) {
+          elementTransform.write(' matrix(1 0 ${e.shear} 1 0 0)');
+        }
+        elementTransform.write(' translate(${-center.dx} ${-center.dy})');
+        _wrapSvgChildren(svg, firstChild, elementTransform.toString());
+      }
     }
+    final cameraTransform =
+        'rotate(${options.rotation * 180 / pi}) '
+        'scale(${options.scale}) '
+        'translate(${-options.x} ${-options.y})';
+    _wrapSvgChildren(svg, 0, cameraTransform);
     return xml;
+  }
+
+  void _wrapSvgChildren(XmlElement parent, int start, String transform) {
+    final children = parent.children.skip(start).toList(growable: false);
+    if (children.isEmpty) return;
+    final group = XmlElement(XmlName.parts('g'))
+      ..setAttribute('transform', transform);
+    group.children.addAll(children);
+    parent.children.insert(start, group);
   }
 
   Future<void> unbake(

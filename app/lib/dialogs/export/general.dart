@@ -27,6 +27,7 @@ ImageExportOptions getDefaultImageExportOptions(
     x: transform.position.dx,
     y: transform.position.dy,
     scale: transform.size,
+    rotation: transform.rotation,
   );
 }
 
@@ -36,12 +37,13 @@ SvgExportOptions getDefaultSvgExportOptions(
 }) {
   transform ??= context.read<TransformCubit>().state;
   final size = MediaQuery.sizeOf(context);
-  final scale = transform.size;
   return SvgExportOptions(
-    width: size.width / scale,
-    height: size.height / scale,
+    width: size.width,
+    height: size.height,
     x: transform.position.dx,
     y: transform.position.dy,
+    scale: transform.size,
+    rotation: transform.rotation,
   );
 }
 
@@ -321,12 +323,15 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                       x: rect.left,
                       y: rect.top,
                       scale: 1,
+                      rotation: 0,
                     ),
                     SvgExportOptions e => e.copyWith(
                       width: rect.width,
                       height: rect.height,
                       x: rect.left,
                       y: rect.top,
+                      scale: 1,
+                      rotation: 0,
                     ),
                   });
                 });
@@ -404,6 +409,31 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
       ),
       if (_options is ImageExportOptions)
         ..._getImageOptions(_options as ImageExportOptions),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).scale),
+        min: 0.1,
+        max: 10,
+        value: _options.scale,
+        defaultValue: 1,
+        onChangeEnd: (value) {
+          _options = _options.copyWith(scale: value);
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
+      const SizedBox(height: 8),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).rotation),
+        min: -180,
+        max: 180,
+        value: _options.rotation * 180 / pi,
+        defaultValue: 0,
+        onChangeEnd: (value) {
+          _options = _options.copyWith(rotation: value * pi / 180);
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
       const SizedBox(height: 8),
       CheckboxListTile(
         value: _options.renderBackground,
@@ -422,19 +452,6 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   List<Widget> _getImageOptions(ImageExportOptions options) {
     return [
-      ExactSlider(
-        header: Text(AppLocalizations.of(context).scale),
-        min: 0.1,
-        max: 10,
-        value: options.scale,
-        defaultValue: 1,
-        onChangeEnd: (value) {
-          _options = options.copyWith(scale: value);
-          setState(() => _preset = null);
-          _regeneratePreviewImage();
-        },
-      ),
-      const SizedBox(height: 8),
       ExactSlider(
         header: Text(AppLocalizations.of(context).quality),
         min: 0.1,

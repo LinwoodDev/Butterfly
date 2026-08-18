@@ -271,7 +271,11 @@ class EditorController implements EditorRuntimeContext {
     }
 
     saveCubit.setSaveState(saved: SaveState.unsaved);
+    final refreshRequested = shouldRefresh?.call() == true;
     if (saveCubit.state.embedding != null) {
+      if (refreshRequested) {
+        await toolCubit.refresh(this, current, allowBake: false);
+      }
       if (replacedElements != null) {
         await rendererCubit.bake(
           this,
@@ -285,7 +289,6 @@ class EditorController implements EditorRuntimeContext {
     if (reset) {
       await reload(bloc, current);
     } else {
-      final refreshRequested = shouldRefresh?.call() == true;
       if (refreshRequested) {
         // For replacement updates we force a reset bake below, so avoid
         // scheduling an extra delayed bake from refresh().

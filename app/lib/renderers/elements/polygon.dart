@@ -162,6 +162,58 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   }
 
   @override
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
+    if (element.points.isEmpty || !expandedRect.overlaps(viewportRect)) return;
+    final svg = xml.getElement('svg');
+    if (svg == null) return;
+
+    final points = element.points;
+    final first = points.first;
+    final path = StringBuffer('M ${first.x} ${first.y}');
+    for (var i = 1; i < points.length; i++) {
+      final previous = points[i - 1];
+      final point = points[i];
+      if (previous.handleOut != null || point.handleIn != null) {
+        path.write(
+          ' C ${previous.handleOut?.x ?? previous.x} '
+          '${previous.handleOut?.y ?? previous.y} '
+          '${point.handleIn?.x ?? point.x} '
+          '${point.handleIn?.y ?? point.y} ${point.x} ${point.y}',
+        );
+      } else {
+        path.write(' L ${point.x} ${point.y}');
+      }
+    }
+    if (points.length > 2 &&
+        (first.toPoint().toOffset() - points.last.toPoint().toOffset())
+                .distance <
+            1) {
+      path.write(' Z');
+    }
+
+    final stroke = element.property.paint.previewColor;
+    final fill = element.property.fillPaint.previewColor;
+    svg.createElement(
+      'path',
+      attributes: {
+        'd': path.toString(),
+        'fill': fill.a > 0 ? fill.toHexString(alpha: false) : 'none',
+        'fill-opacity': '${fill.a / 255}',
+        'stroke': stroke.a > 0 ? stroke.toHexString(alpha: false) : 'none',
+        'stroke-opacity': '${stroke.a / 255}',
+        'stroke-width': '${element.property.strokeWidth}',
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round',
+      },
+    );
+  }
+
+  @override
   ContextMenuItem? getContextMenuItem(DocumentBloc bloc, BuildContext context) {
     return ContextMenuItem(
       onPressed: () async {

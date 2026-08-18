@@ -52,7 +52,7 @@ class SvgRenderer extends Renderer<SvgElement> {
     Rect viewportRect,
   ) {
     if (!rect.overlaps(viewportRect)) return;
-    final data = element.getUriData(document, 'image/png').toString();
+    final data = element.getUriData(document, 'image/svg+xml').toString();
     xml
         .getElement('svg')
         ?.createElement(

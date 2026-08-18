@@ -52,6 +52,9 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
   ) {
     final height = element.height;
     final width = element.width;
+    final patternHeight = height * element.scaleY;
+    final patternWidth = width * element.scaleX;
+    if (patternWidth <= 0 || patternHeight <= 0) return;
     final id = createUniqueId();
     // Add pattern
     final pattern = xml
@@ -62,8 +65,8 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
           attributes: {
             'id': 'image-background-$id',
             'viewBox': '0,0,$width,$height',
-            'width': '$width',
-            'height': '$height',
+            'width': '$patternWidth',
+            'height': '$patternHeight',
             'patternUnits': 'userSpaceOnUse',
           },
         );

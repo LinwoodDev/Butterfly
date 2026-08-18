@@ -22,6 +22,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pdfrx/pdfrx.dart';
+import 'package:xml/xml.dart';
 
 import '../helpers/mocks.dart';
 
@@ -981,74 +982,89 @@ void main() {
     expect(viewport.unbakedElements, isEmpty);
   });
 
-  test(
-    'pen viewport update keeps submitted stroke until renderer is reported',
-    () async {
-      final state = bloc.state as DocumentLoadSuccess;
-      final handler = PenHandler(PenTool(id: 'pen'));
-      final strokePoints = List.generate(
-        1000,
-        (index) => PathPoint(index / 20, 20),
-      );
-      final element = PenElement(id: 'stroke', points: strokePoints);
-      handler.elements[1] = element;
+  test('partial pen viewport update keeps previews until each renderer is reported', () async {
+    final state = bloc.state as DocumentLoadSuccess;
+    final handler = PenHandler(PenTool(id: 'pen'));
+    final strokePoints = List.generate(
+      1000,
+      (index) => PathPoint(index / 20, 20),
+    );
+    final element = PenElement(id: 'stroke', points: strokePoints);
+    handler.elements[1] = element;
+    final nextElement = PenElement(
+      id: 'next-stroke',
+      points: const [PathPoint(10, 30), PathPoint(40, 30)],
+    );
 
-      await handler.submitElements(bloc, [1]);
+    await handler.submitElements(bloc, [1]);
+    handler.elements[2] = nextElement;
+    await handler.submitElements(bloc, [2]);
 
-      final submittedForegrounds = handler.createForegrounds(
+    final submittedForegrounds = handler.createForegrounds(
+      editorController,
+      state.data,
+      state.page,
+      state.info,
+    );
+    expect(submittedForegrounds, hasLength(2));
+    expect(
+      (submittedForegrounds.first as PenRenderer).element.points,
+      strokePoints,
+    );
+
+    final renderer = Renderer<PadElement>.fromInstance(
+      element,
+      state.currentLayer,
+    );
+    await renderer.setup(
+      editorController.transformCubit,
+      state.data,
+      state.assetService,
+      state.page,
+    );
+    await handler.onViewportUpdated(
+      const CameraViewport.unbaked(),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+      ),
+    );
+
+    expect(
+      handler.createForegrounds(
         editorController,
         state.data,
         state.page,
         state.info,
-      );
-      expect(submittedForegrounds, hasLength(1));
-      expect(
-        (submittedForegrounds.single as PenRenderer).element.points,
-        strokePoints,
-      );
-
-      final renderer = Renderer<PadElement>.fromInstance(
-        element,
-        state.currentLayer,
-      );
-      await renderer.setup(
-        editorController.transformCubit,
+      ),
+      hasLength(2),
+    );
+    expect(handler.onRenderersCreated(state.page, [renderer]), isTrue);
+    expect(
+      handler.createForegrounds(
+        editorController,
         state.data,
-        state.assetService,
         state.page,
-      );
-      await handler.onViewportUpdated(
-        const CameraViewport.unbaked(),
-        CameraViewport.unbaked(
-          unbakedElements: [renderer],
-          visibleElements: [renderer],
-          visibleUnbakedElements: [renderer],
-        ),
-      );
+        state.info,
+      ),
+      hasLength(1),
+    );
+    final nextRenderer = Renderer<PadElement>.fromInstance(nextElement);
+    expect(handler.onRenderersCreated(state.page, [nextRenderer]), isTrue);
+    expect(
+      handler.createForegrounds(
+        editorController,
+        state.data,
+        state.page,
+        state.info,
+      ),
+      isEmpty,
+    );
 
-      expect(
-        handler.createForegrounds(
-          editorController,
-          state.data,
-          state.page,
-          state.info,
-        ),
-        hasLength(1),
-      );
-      expect(handler.onRenderersCreated(state.page, [renderer]), isTrue);
-      expect(
-        handler.createForegrounds(
-          editorController,
-          state.data,
-          state.page,
-          state.info,
-        ),
-        isEmpty,
-      );
-
-      renderer.dispose();
-    },
-  );
+    renderer.dispose();
+    nextRenderer.dispose();
+  });
 
   test('bake records only elements visible in the current viewport', () async {
     await bloc.close();
@@ -1933,4 +1949,122 @@ void main() {
       expect(renderer.lastVisibleTransform?.pixelRatio, 10);
     },
   );
+
+  test(
+    'renderImage exports the rotated view regardless of viewport state',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      final element = ShapeElement(
+        id: 'rotated-view',
+        firstPosition: const Point(10, -30),
+        secondPosition: const Point(20, -20),
+      );
+      final renderer = _VisibleTrackingRenderer(element);
+      final renderers = <Renderer<PadElement>>[renderer];
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [element]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      editorController = EditorController(
+        settingsCubit,
+        TransformCubit(1),
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
+          rendererStates: const {'rotated-view': RendererState.hidden},
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+
+      final image = await editorController.rendererCubit.renderImage(
+        editorController,
+        data,
+        page,
+        (bloc.state as DocumentLoadSuccess).info,
+        const ImageExportOptions(width: 100, height: 100, rotation: pi / 2),
+        docState: bloc.state as DocumentLoadSuccess,
+      );
+      addTearDown(() => image?.dispose());
+
+      expect(image, isNotNull);
+      expect(renderer.onVisibleCalls, 1);
+      expect(renderer.buildCalls, 1);
+      expect(renderer.lastVisibleTransform?.rotation, pi / 2);
+    },
+  );
+
+  test('renderSVG applies camera rotation and element transforms', () async {
+    await editorController.close();
+
+    final element = ShapeElement(
+      id: 'svg-transform',
+      firstPosition: Point(10, -30),
+      secondPosition: Point(20, -20),
+      rotation: 45,
+      shear: 0.25,
+      property: ShapeProperty(
+        strokeWidth: 0,
+        shape: RectangleShape(
+          fillPaint: ElementPaint.solid(color: SRGBColor(0xFFFF0000)),
+        ),
+      ),
+    );
+    final renderer = Renderer<PadElement>.fromInstance(element);
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+      ),
+    );
+
+    final xml = editorController.rendererCubit.renderSVG(
+      NoteData(Archive()),
+      page,
+      const SvgExportOptions(
+        width: 100,
+        height: 100,
+        x: 3,
+        y: 4,
+        scale: 2,
+        rotation: pi / 2,
+      ),
+    );
+    final svg = xml.rootElement;
+    final groups = svg.findAllElements('g').toList();
+
+    expect(svg.getAttribute('viewBox'), '0 0 100.0 100.0');
+    expect(groups, hasLength(2));
+    expect(groups.first.getAttribute('transform'), contains('rotate(90.0)'));
+    expect(groups.first.getAttribute('transform'), contains('scale(2.0)'));
+    expect(groups.last.getAttribute('transform'), contains('rotate(45.0)'));
+    expect(
+      groups.last.getAttribute('transform'),
+      contains('matrix(1 0 0.25 1 0 0)'),
+    );
+    expect(svg.findAllElements('path'), isNotEmpty);
+  });
 }
