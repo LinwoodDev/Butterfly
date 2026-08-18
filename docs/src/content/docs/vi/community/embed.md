@@ -83,17 +83,30 @@ messages to the iframe and listens for messages from it.
       image.src = `data:image/png;base64,${message}`;
       document.body.append(image);
     }
+
+    if (type === 'renderSVG') {
+      const preview = document.createElement('div');
+      preview.innerHTML = message;
+      document.body.append(preview);
+    }
   });
 
   butterfly.addEventListener('load', () => {
     sendToButterfly('getData');
 
+    // Omit camera and size fields to render the current visible canvas view.
+    sendToButterfly('render', {
+      renderBackground: true,
+    });
+
+    // Set the camera explicitly to render from the document origin instead.
     sendToButterfly('render', {
       x: 0,
       y: 0,
       width: 600,
       height: 400,
       scale: 1,
+      rotation: 0,
       renderBackground: true,
     });
   });
@@ -158,14 +171,22 @@ Parameters:
 
 > The `render` method renders the document to a png image.
 
+All parameters are optional. With no camera or size parameters, Butterfly
+exports the current visible canvas view. To export from the document origin,
+set `x: 0`, `y: 0`, `scale: 1`, and `rotation: 0` together with the desired
+output size.
+
 Parameters:
 
-- `x` (Type `Number`): The x position of the exported area.
-- `y` (Type `Number`): The y position of the exported area.
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+| Parameter          | Loại      | Default                 | Mô tả                                                       |
+| ------------------ | --------- | ----------------------- | ----------------------------------------------------------- |
+| `x`                | `Number`  | Current view x          | Document x position of the exported view.   |
+| `y`                | `Number`  | Current view y          | Document y position of the exported view.   |
+| `width`            | `Number`  | Current viewport width  | Output width in pixels.                     |
+| `height`           | `Number`  | Current viewport height | Output height in pixels.                    |
+| `scale`            | `Number`  | Current zoom            | Camera zoom used for the export.            |
+| `rotation`         | `Number`  | Current rotation        | Camera rotation in radians.                 |
+| `renderBackground` | `Boolean` | `true`                  | Whether to include the document background. |
 
 Returns: `String` (Base64 encoded image)
 
@@ -173,12 +194,20 @@ Returns: `String` (Base64 encoded image)
 
 > The `renderSVG` method renders the document to a svg image.
 
+It accepts the same optional view parameters as `render`. Omitting them exports
+the current visible canvas view; explicitly setting an identity camera exports
+from the document origin.
+
 Parameters:
 
-- `x` (Type `Number`): The x position of the exported area.
-- `y` (Type `Number`): The y position of the exported area.
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+| Parameter          | Loại      | Default                 | Mô tả                                                       |
+| ------------------ | --------- | ----------------------- | ----------------------------------------------------------- |
+| `x`                | `Number`  | Current view x          | Document x position of the exported view.   |
+| `y`                | `Number`  | Current view y          | Document y position of the exported view.   |
+| `width`            | `Number`  | Current viewport width  | Output width in pixels.                     |
+| `height`           | `Number`  | Current viewport height | Output height in pixels.                    |
+| `scale`            | `Number`  | Current zoom            | Camera zoom used for the export.            |
+| `rotation`         | `Number`  | Current rotation        | Camera rotation in radians.                 |
+| `renderBackground` | `Boolean` | `true`                  | Whether to include the document background. |
 
 Returns: `String` (SVG)
