@@ -144,26 +144,41 @@ class EmbedHandler {
           rotation = _mapDouble(map, 'rotation', rotation);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await controller.rendererCubit.render(
-          controller,
-          state.data,
-          state.page,
-          state.info,
-          ImageExportOptions(
-            width: width,
-            height: height,
-            x: x,
-            y: y,
-            scale: scale,
-            rotation: rotation,
-            renderBackground: renderBackground,
-          ),
-          docState: state,
-        );
-        sendEmbedMessage(
-          'render',
-          base64.encode(data?.buffer.asUint8List() ?? []),
-        );
+        try {
+          final data = await controller.rendererCubit.render(
+            controller,
+            state.data,
+            state.page,
+            state.info,
+            ImageExportOptions(
+              width: width,
+              height: height,
+              x: x,
+              y: y,
+              scale: scale,
+              rotation: rotation,
+              renderBackground: renderBackground,
+            ),
+            docState: state,
+          );
+          if (data == null) {
+            sendEmbedMessage('error', {
+              'method': 'render',
+              'message': 'Could not render the PNG image.',
+            });
+            return;
+          }
+          final bytes = data.buffer.asUint8List(
+            data.offsetInBytes,
+            data.lengthInBytes,
+          );
+          sendEmbedMessage('render', base64.encode(bytes));
+        } catch (error) {
+          sendEmbedMessage('error', {
+            'method': 'render',
+            'message': error.toString(),
+          });
+        }
       }
     });
     renderSVGListener ??= onEmbedMessage('renderSVG', (message) async {

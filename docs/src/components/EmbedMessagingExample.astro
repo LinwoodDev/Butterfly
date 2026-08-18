@@ -3,12 +3,6 @@
     <button class="embed-demo__button" type="button" data-action="getData">
       Get data
     </button>
-    <button class="embed-demo__button" type="button" data-action="render">
-      Render PNG
-    </button>
-    <button class="embed-demo__button" type="button" data-action="renderSVG">
-      Render SVG
-    </button>
     <label class="embed-demo__button embed-demo__file">
       Load .bfly
       <input
@@ -21,6 +15,67 @@
       Clear
     </button>
   </div>
+
+  <section class="embed-demo__render-controls" aria-labelledby="embed-render-title">
+    <div class="embed-demo__render-heading">
+      <div>
+        <h2 id="embed-render-title">Render export</h2>
+        <p data-render-help>
+          Current view uses the position, zoom, rotation, and size visible in the
+          embedded canvas.
+        </p>
+      </div>
+      <label class="embed-demo__field embed-demo__field--view">
+        <span>View</span>
+        <select data-render-view>
+          <option value="current">Current view</option>
+          <option value="origin">Document origin</option>
+          <option value="custom">Custom view</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="embed-demo__render-grid">
+      <label class="embed-demo__field">
+        <span>X</span>
+        <input type="number" value="0" step="10" data-render-x />
+      </label>
+      <label class="embed-demo__field">
+        <span>Y</span>
+        <input type="number" value="0" step="10" data-render-y />
+      </label>
+      <label class="embed-demo__field">
+        <span>Width</span>
+        <input type="number" value="640" min="1" step="10" data-render-width />
+      </label>
+      <label class="embed-demo__field">
+        <span>Height</span>
+        <input type="number" value="420" min="1" step="10" data-render-height />
+      </label>
+      <label class="embed-demo__field">
+        <span>Scale</span>
+        <input type="number" value="1" min="0.01" step="0.1" data-render-scale />
+      </label>
+      <label class="embed-demo__field">
+        <span>Rotation (degrees)</span>
+        <input type="number" value="0" step="5" data-render-rotation />
+      </label>
+    </div>
+
+    <label class="embed-demo__check">
+      <input type="checkbox" checked data-render-background />
+      <span>Render background</span>
+    </label>
+
+    <div class="embed-demo__render-actions">
+      <button class="embed-demo__button" type="button" data-action="render">
+        Render PNG
+      </button>
+      <button class="embed-demo__button" type="button" data-action="renderSVG">
+        Render SVG
+      </button>
+    </div>
+  </section>
 
   <iframe
     class="embed-demo__frame"
@@ -81,8 +136,63 @@
     const responseDetail = demo.querySelector('[data-response-detail]');
     const resultType = demo.querySelector('[data-result-type]');
     const messageCount = demo.querySelector('[data-message-count]');
+    const renderView = demo.querySelector('[data-render-view]');
+    const renderGrid = demo.querySelector('.embed-demo__render-grid');
+    const renderHelp = demo.querySelector('[data-render-help]');
+    const renderX = demo.querySelector('[data-render-x]');
+    const renderY = demo.querySelector('[data-render-y]');
+    const renderWidth = demo.querySelector('[data-render-width]');
+    const renderHeight = demo.querySelector('[data-render-height]');
+    const renderScale = demo.querySelector('[data-render-scale]');
+    const renderRotation = demo.querySelector('[data-render-rotation]');
+    const renderBackground = demo.querySelector('[data-render-background]');
     const messages = [];
     let artifactUrl;
+
+    const renderFields = [
+      renderX,
+      renderY,
+      renderWidth,
+      renderHeight,
+      renderScale,
+      renderRotation,
+    ];
+
+    function numberValue(input, fallback) {
+      const value = Number(input.value);
+      return Number.isFinite(value) ? value : fallback;
+    }
+
+    function updateRenderControls() {
+      const view = renderView.value;
+      const useCurrentView = view === 'current';
+      renderGrid.hidden = useCurrentView;
+      for (const field of renderFields) field.disabled = useCurrentView;
+      renderX.disabled = view !== 'custom';
+      renderY.disabled = view !== 'custom';
+      renderHelp.textContent = useCurrentView
+        ? 'Current view uses the position, zoom, rotation, and size visible in the embedded canvas.'
+        : view === 'origin'
+          ? 'Document origin starts at (0, 0). Adjust the output size, scale, rotation, and background.'
+          : 'Custom view lets you choose the document position as well as the output transform.';
+    }
+
+    function renderOptions() {
+      const options = { renderBackground: renderBackground.checked };
+      if (renderView.value === 'current') return options;
+      return {
+        ...options,
+        x: renderView.value === 'origin' ? 0 : numberValue(renderX, 0),
+        y: renderView.value === 'origin' ? 0 : numberValue(renderY, 0),
+        width: Math.max(1, numberValue(renderWidth, 640)),
+        height: Math.max(1, numberValue(renderHeight, 420)),
+        scale: Math.max(0.01, numberValue(renderScale, 1)),
+        rotation: numberValue(renderRotation, 0) * Math.PI / 180,
+      };
+    }
+
+    renderView.addEventListener('change', updateRenderControls);
+    updateRenderControls();
 
     function bytesFromMessage(message) {
       if (message == null) return undefined;
@@ -241,6 +351,63 @@
       preview.replaceChildren(detail || 'Butterfly reported an error.');
     }
 
+    function downloadLink(url, filename, label) {
+      const link = document.createElement('a');
+      link.className = 'embed-demo__button embed-demo__download';
+      link.href = url;
+      link.download = filename;
+      link.textContent = label;
+      return link;
+    }
+
+    function showPng(message) {
+      if (typeof message !== 'string' || message.length === 0) {
+        showError('Butterfly returned an empty PNG.');
+        return;
+      }
+      try {
+        const binary = atob(message);
+        const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+        clearArtifactUrl();
+        artifactUrl = URL.createObjectURL(new Blob([bytes], { type: 'image/png' }));
+
+        const result = document.createElement('div');
+        result.className = 'embed-demo__render-result';
+        const image = new Image();
+        image.alt = 'Rendered Butterfly document';
+        image.src = artifactUrl;
+        result.append(
+          image,
+          downloadLink(artifactUrl, 'butterfly-render.png', 'Download PNG'),
+        );
+        resultType.textContent = 'PNG';
+        preview.replaceChildren(result);
+      } catch (error) {
+        showError(`Could not decode the PNG response: ${error}`);
+      }
+    }
+
+    function showSvg(message) {
+      if (typeof message !== 'string' || message.length === 0) {
+        showError('Butterfly returned an empty SVG.');
+        return;
+      }
+      clearArtifactUrl();
+      artifactUrl = URL.createObjectURL(
+        new Blob([message], { type: 'image/svg+xml;charset=utf-8' }),
+      );
+      const result = document.createElement('div');
+      result.className = 'embed-demo__render-result';
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = message;
+      result.append(
+        wrapper,
+        downloadLink(artifactUrl, 'butterfly-render.svg', 'Download SVG'),
+      );
+      resultType.textContent = 'SVG';
+      preview.replaceChildren(result);
+    }
+
     frame.addEventListener('load', () => {
       responseTitle.textContent = 'Iframe loaded';
       responseDetail.textContent = 'The embedded app is ready to receive browser messages once the document is visible.';
@@ -267,25 +434,12 @@
       }
 
       if (action === 'render') {
-        sendToButterfly('render', {
-          x: 0,
-          y: 0,
-          width: 640,
-          height: 420,
-          scale: 1,
-          renderBackground: true,
-        });
+        sendToButterfly('render', renderOptions());
         return;
       }
 
       if (action === 'renderSVG') {
-        sendToButterfly('renderSVG', {
-          x: 0,
-          y: 0,
-          width: 640,
-          height: 420,
-          renderBackground: true,
-        });
+        sendToButterfly('renderSVG', renderOptions());
       }
     });
 
@@ -309,20 +463,11 @@
       addMessage('received', type, message);
 
       if (type === 'render') {
-        clearArtifactUrl();
-        const image = new Image();
-        image.alt = 'Rendered Butterfly document';
-        image.src = `data:image/png;base64,${message}`;
-        resultType.textContent = 'PNG';
-        preview.replaceChildren(image);
+        showPng(message);
       }
 
       if (type === 'renderSVG') {
-        clearArtifactUrl();
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = message;
-        resultType.textContent = 'SVG';
-        preview.replaceChildren(wrapper);
+        showSvg(message);
       }
 
       if (type === 'getData' || type === 'save' || type === 'change' || type === 'exit') {
@@ -345,6 +490,10 @@
     min-inline-size: 0;
   }
 
+  .embed-demo :where(div, section, h2, p, label, button) {
+    margin-block: 0 !important;
+  }
+
   .embed-demo__commands {
     display: flex;
     flex-wrap: wrap;
@@ -353,6 +502,10 @@
   }
 
   .embed-demo__button {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.35rem;
     background: var(--sl-color-gray-6);
@@ -373,6 +526,105 @@
     border-color: var(--sl-color-accent);
     background: var(--sl-color-gray-5);
     color: var(--sl-color-white);
+  }
+
+  .embed-demo__render-controls {
+    display: grid;
+    gap: 0.85rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.55rem;
+    background: var(--sl-color-bg-nav);
+    padding: 1rem;
+  }
+
+  .embed-demo__render-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .embed-demo__render-heading h2 {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-lg);
+    margin: 0;
+  }
+
+  .embed-demo__render-heading p {
+    color: var(--sl-color-gray-2);
+    margin: 0.25rem 0 0;
+    max-inline-size: 46rem;
+  }
+
+  .embed-demo__render-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(6.5rem, 1fr));
+    gap: 0.65rem;
+    align-items: end;
+  }
+
+  .embed-demo__render-grid[hidden] {
+    display: none;
+  }
+
+  .embed-demo__field {
+    display: grid;
+    gap: 0.3rem;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+  }
+
+  .embed-demo__field--view {
+    min-inline-size: 12rem;
+  }
+
+  .embed-demo__field input,
+  .embed-demo__field select {
+    min-inline-size: 0;
+    inline-size: 100%;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.35rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-white);
+    font: inherit;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .embed-demo__field input:focus-visible,
+  .embed-demo__field select:focus-visible,
+  .embed-demo__button:focus-visible {
+    outline: 2px solid var(--sl-color-accent-high);
+    outline-offset: 2px;
+  }
+
+  .embed-demo__field input:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  .embed-demo__check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    grid-column: 1 / -1;
+    color: var(--sl-color-gray-2);
+    cursor: pointer;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+  }
+
+  .embed-demo__check input {
+    inline-size: 1rem;
+    block-size: 1rem;
+    accent-color: var(--sl-color-accent);
+  }
+
+  .embed-demo__render-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .embed-demo__file input {
@@ -522,6 +774,19 @@
     block-size: auto;
   }
 
+  .embed-demo__render-result {
+    display: grid;
+    gap: 0.75rem;
+    inline-size: 100%;
+    justify-items: center;
+  }
+
+  .embed-demo__render-result > div {
+    display: grid;
+    inline-size: 100%;
+    place-items: center;
+  }
+
   .embed-demo__artifact {
     display: grid;
     justify-items: center;
@@ -547,6 +812,10 @@
   }
 
   @media (max-width: 72rem) {
+    .embed-demo__render-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .embed-demo__output {
       grid-template-columns: 1fr;
     }
@@ -558,6 +827,21 @@
 
     .embed-demo__summary p {
       text-align: start;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .embed-demo__render-heading {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .embed-demo__field--view {
+      min-inline-size: 0;
+    }
+
+    .embed-demo__render-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>
