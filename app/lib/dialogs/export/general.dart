@@ -15,6 +15,8 @@ import 'package:synchronized/synchronized.dart';
 
 enum ExportTransformPreset { page, view }
 
+enum _PaddingEditMode { all, symmetric, perSide }
+
 ImageExportOptions getDefaultImageExportOptions(
   BuildContext context, {
   CameraTransform? transform,
@@ -61,6 +63,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   ExportTransformPreset? _preset;
 
   late ExportOptions _options;
+  late _PaddingEditMode _paddingEditMode;
 
   ByteData? _previewImage;
   final _previewLock = Lock();
@@ -71,9 +74,64 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   void initState() {
     _preset = widget.preset;
     _options = widget.options;
+    _paddingEditMode = _getPaddingEditMode(_options.padding);
     _regeneratePreviewImage();
 
     super.initState();
+  }
+
+  _PaddingEditMode _getPaddingEditMode(ExportPadding padding) {
+    if (padding.top == padding.right &&
+        padding.top == padding.bottom &&
+        padding.top == padding.left) {
+      return _PaddingEditMode.all;
+    }
+    if (padding.left == padding.right && padding.top == padding.bottom) {
+      return _PaddingEditMode.symmetric;
+    }
+    return _PaddingEditMode.perSide;
+  }
+
+  void _setPadding(ExportPadding padding) {
+    setState(() {
+      _options = _options.copyWith(padding: padding);
+      _preset = null;
+    });
+    _regeneratePreviewImage();
+  }
+
+  void _setPaddingEditMode(_PaddingEditMode mode) {
+    if (mode == _paddingEditMode) return;
+    final current = _options.padding;
+    final padding = switch (mode) {
+      _PaddingEditMode.all => () {
+        final value =
+            (current.top + current.right + current.bottom + current.left) / 4;
+        return ExportPadding(
+          top: value,
+          right: value,
+          bottom: value,
+          left: value,
+        );
+      }(),
+      _PaddingEditMode.symmetric => () {
+        final horizontal = (current.left + current.right) / 2;
+        final vertical = (current.top + current.bottom) / 2;
+        return ExportPadding(
+          top: vertical,
+          right: horizontal,
+          bottom: vertical,
+          left: horizontal,
+        );
+      }(),
+      _PaddingEditMode.perSide => current,
+    };
+    setState(() {
+      _paddingEditMode = mode;
+      _options = _options.copyWith(padding: padding);
+      _preset = null;
+    });
+    _regeneratePreviewImage();
   }
 
   Future<void> _regeneratePreviewImage() async {
@@ -435,45 +493,100 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         },
       ),
       const SizedBox(height: 8),
-      OffsetListTile(
-        title: Text(
-          '${AppLocalizations.of(context).padding} '
-          '(${AppLocalizations.of(context).horizontal})',
-        ),
-        value: Offset(_options.padding.left, _options.padding.right),
-        xLabel: AppLocalizations.of(context).left,
-        yLabel: AppLocalizations.of(context).right,
-        onChanged: (value) {
-          _options = _options.copyWith(
-            padding: _options.padding.copyWith(
-              left: max(0, value.dx),
-              right: max(0, value.dy),
+      ListTile(
+        title: Text(AppLocalizations.of(context).padding),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: SegmentedButton<_PaddingEditMode>(
+              showSelectedIcon: false,
+              segments: [
+                ButtonSegment(
+                  value: _PaddingEditMode.all,
+                  label: Text(AppLocalizations.of(context).forAll),
+                ),
+                ButtonSegment(
+                  value: _PaddingEditMode.symmetric,
+                  label: Text(AppLocalizations.of(context).symmetric),
+                ),
+                ButtonSegment(
+                  value: _PaddingEditMode.perSide,
+                  label: Text(AppLocalizations.of(context).perSide),
+                ),
+              ],
+              selected: {_paddingEditMode},
+              onSelectionChanged: (selection) {
+                if (selection.isNotEmpty) {
+                  _setPaddingEditMode(selection.first);
+                }
+              },
             ),
-          );
-          setState(() => _preset = null);
-          _regeneratePreviewImage();
-        },
-      ),
-      const SizedBox(height: 8),
-      OffsetListTile(
-        title: Text(
-          '${AppLocalizations.of(context).padding} '
-          '(${AppLocalizations.of(context).vertical})',
+          ),
         ),
-        value: Offset(_options.padding.top, _options.padding.bottom),
-        xLabel: AppLocalizations.of(context).top,
-        yLabel: AppLocalizations.of(context).bottom,
-        onChanged: (value) {
-          _options = _options.copyWith(
-            padding: _options.padding.copyWith(
-              top: max(0, value.dx),
-              bottom: max(0, value.dy),
-            ),
-          );
-          setState(() => _preset = null);
-          _regeneratePreviewImage();
-        },
       ),
+      ...switch (_paddingEditMode) {
+        _PaddingEditMode.all => [
+          ExactSlider(
+            header: Text(AppLocalizations.of(context).padding),
+            min: 0,
+            max: max(500.0, _options.padding.top),
+            value: _options.padding.top,
+            defaultValue: 0,
+            onChangeEnd: (value) => _setPadding(
+              ExportPadding(
+                top: value,
+                right: value,
+                bottom: value,
+                left: value,
+              ),
+            ),
+          ),
+        ],
+        _PaddingEditMode.symmetric => [
+          OffsetListTile(
+            title: Text(AppLocalizations.of(context).symmetric),
+            value: Offset(_options.padding.left, _options.padding.top),
+            xLabel: AppLocalizations.of(context).horizontal,
+            yLabel: AppLocalizations.of(context).vertical,
+            onChanged: (value) => _setPadding(
+              ExportPadding(
+                top: max(0, value.dy),
+                right: max(0, value.dx),
+                bottom: max(0, value.dy),
+                left: max(0, value.dx),
+              ),
+            ),
+          ),
+        ],
+        _PaddingEditMode.perSide => [
+          OffsetListTile(
+            title: Text(AppLocalizations.of(context).horizontal),
+            value: Offset(_options.padding.left, _options.padding.right),
+            xLabel: AppLocalizations.of(context).left,
+            yLabel: AppLocalizations.of(context).right,
+            onChanged: (value) => _setPadding(
+              _options.padding.copyWith(
+                left: max(0, value.dx),
+                right: max(0, value.dy),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          OffsetListTile(
+            title: Text(AppLocalizations.of(context).vertical),
+            value: Offset(_options.padding.top, _options.padding.bottom),
+            xLabel: AppLocalizations.of(context).top,
+            yLabel: AppLocalizations.of(context).bottom,
+            onChanged: (value) => _setPadding(
+              _options.padding.copyWith(
+                top: max(0, value.dx),
+                bottom: max(0, value.dy),
+              ),
+            ),
+          ),
+        ],
+      },
       const SizedBox(height: 8),
       CheckboxListTile(
         value: _options.renderBackground,
