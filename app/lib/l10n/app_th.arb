@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "ระยะห่าง",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "รูปภาพ",
   "@image": {
     "description": "Image object or tool"
