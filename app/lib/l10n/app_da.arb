@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web understøttes ikke",
   "advanced": "Avanceret",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Mappe",
   "documentsDirectory": "Dokumenter mappe",
   "templatesDirectory": "Mappe til skabeloner",
