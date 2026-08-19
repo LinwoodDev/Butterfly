@@ -27,6 +27,12 @@ target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_MINOR=${FLUTT
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_PATCH=${FLUTTER_VERSION_PATCH}")
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_BUILD=${FLUTTER_VERSION_BUILD}")
 
+# Flutter exposes the value passed to `--flavor` as FLUTTER_APP_FLAVOR. Keep
+# native executable metadata in sync with the Dart-side nightly branding.
+if(FLUTTER_APP_FLAVOR MATCHES "^(nightly|development|dev)$")
+  target_compile_definitions(${BINARY_NAME} PRIVATE "BUTTERFLY_NIGHTLY")
+endif()
+
 # Disable Windows macros that collide with C++ standard library functions.
 target_compile_definitions(${BINARY_NAME} PRIVATE "NOMINMAX")
 

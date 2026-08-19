@@ -220,6 +220,8 @@ jobs:
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -236,9 +238,15 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
+      - name: 🎨 Apply native branding
+        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
       - name: 🏭 Build MSIX
+        shell: pwsh
         run: |
-          dart run msix:create
+          flutter build windows --release --flavor ${{ env.BUILD_FLAVOR }}
+          New-Item -ItemType Directory -Force build/windows/x64/runner | Out-Null
+          Copy-Item -Recurse -Force build/windows/x64/${{ env.BUILD_FLAVOR }}/runner/Release build/windows/x64/runner/
+          dart run msix:create --build-windows=false
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -318,6 +326,8 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
+      - name: 🎨 Apply native branding
+        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
@@ -368,7 +378,9 @@ jobs:
           ./appimagetool.AppImage -u "$UPDATE_INFO" AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
-          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/dev.linwood.butterfly.svg
+          BRANDING_LOGO=images/logo.svg
+          if [[ "${{ env.BUILD_FLAVOR }}" == "nightly" ]]; then BRANDING_LOGO=images/nightly.svg; fi
+          cp "$BRANDING_LOGO" build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/dev.linwood.butterfly.svg
           mkdir -p build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/usr/share
           cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/usr
       - name: Copy portable start script
@@ -415,6 +427,8 @@ jobs:
             dir: arm64
             appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -422,6 +436,14 @@ jobs:
         run: |
           mkdir -p snap
           cp app/snapcraft.yaml snap/snapcraft.yaml
+      - name: 🎨 Apply native branding
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+        run: |
+          sed -i "s/flutter build linux --release --verbose --target lib\/main.dart/flutter build linux --release --verbose --target lib\/main.dart --flavor nightly/" snap/snapcraft.yaml
+          sed -i "s/title: 'Linwood Butterfly'/title: 'Linwood Butterfly Nightly'/" snap/snapcraft.yaml
+          cp app/linux/branding/nightly-256.png app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
+          sed -i 's/Name=Linwood Butterfly/Name=Linwood Butterfly Nightly/' app/linux/debian/usr/share/applications/dev.linwood.butterfly.desktop
+          sed -i 's/<name>Linwood Butterfly<\/name>/<name>Linwood Butterfly Nightly<\/name>/' app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml
       - uses: snapcore/action-build@v1
         id: build
       - uses: snapcore/action-publish@v1
@@ -442,6 +464,8 @@ jobs:
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -462,9 +486,11 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
+      - name: 🎨 Apply native branding
+        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
       - name: 🏭 Build
         run: |
-          flutter build macos -v --release
+          flutter build macos -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }}
       - name: Zip file
         working-directory: app/build/macos/Build/Products/Release
         run: zip --symlinks -qr linwood-butterfly-macos.zip butterfly.app
@@ -498,6 +524,8 @@ jobs:
     defaults:
       run:
         working-directory: app
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -514,9 +542,11 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
+      - name: 🎨 Apply native branding
+        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
       - name: 🏭 Build
         run: |
-          flutter build ios --release --no-codesign -v
+          flutter build ios --release --no-codesign -v --dart-define=flavor=${{ env.BUILD_FLAVOR }}
       - name: Packing IPA
         run: |
           cd build/ios/iphoneos/
@@ -535,6 +565,8 @@ jobs:
   build-docker:
     runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request'
+    env:
+      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -569,6 +601,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: linwooddev/butterfly:${{ env.tag }}
+          build-args: |
+            BUILD_FLAVOR=${{ env.BUILD_FLAVOR }}
   deploy:
     runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request'

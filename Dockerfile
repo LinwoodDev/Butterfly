@@ -1,6 +1,8 @@
 # Install Operating system and dependencies
 FROM ubuntu:26.04 AS builder
 
+ARG BUILD_FLAVOR=production
+
 RUN apt-get update 
 RUN apt-get install -y curl git wget unzip gdb libstdc++6 libglu1-mesa fonts-droid-fallback python3 yq
 RUN apt-get clean
@@ -20,8 +22,10 @@ RUN flutter doctor
 
 RUN flutter config --enable-web
 
-# Copy files to container and build
-RUN flutter build web
+# Copy files to container and build. The preview image is also published from
+# this Dockerfile, so keep its manifest/icons and Dart branding in sync.
+RUN if [ "$BUILD_FLAVOR" = "nightly" ] || [ "$BUILD_FLAVOR" = "development" ] || [ "$BUILD_FLAVOR" = "dev" ]; then cp -rf web_nightly/. web/; fi
+RUN flutter build web --dart-define=flavor="$BUILD_FLAVOR"
 
 # Nginx Container
 FROM nginx:1-alpine

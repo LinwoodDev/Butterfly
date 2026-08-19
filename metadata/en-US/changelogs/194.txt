@@ -5,6 +5,7 @@
 * Add Shift aspect-ratio and Alt centered scaling modifiers everywhere ([#1197](https://github.com/LinwoodDev/Butterfly/issues/1197))
 * Add padding to image and svg export
 * Improve image and SVG exports with current view transforms, rotation, and polygon rendering ([#1233](https://github.com/LinwoodDev/Butterfly/issues/1233))
+* Use correct nightly branding
 * Fix settings not updating when opened from a document ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
 * Fix import preview not appearing after selecting a file with a pen ([#1221](https://github.com/LinwoodDev/Butterfly/issues/1221))
 * Fix pen stroke changing after release

@@ -36,11 +36,10 @@ parts:
       git clone --recursive --branch "$FLUTTER_VERSION" https://github.com/flutter/flutter.git "$CRAFT_PART_SRC"
     override-build: |
       set -eux
-      mkdir -p $CRAFT_PART_INSTALL/usr/bin
-      mkdir -p $CRAFT_PART_INSTALL/usr/libexec
-      cp -r $CRAFT_PART_SRC $CRAFT_PART_INSTALL/usr/libexec/flutter
-      ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
-      ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/dart $CRAFT_PART_INSTALL/usr/bin/dart
+      mkdir -p "$CRAFT_PART_INSTALL/usr/bin" "$CRAFT_PART_INSTALL/usr/libexec"
+      cp -a "$CRAFT_PART_SRC" "$CRAFT_PART_INSTALL/usr/libexec/flutter"
+      ln -sf "$CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter" "$CRAFT_PART_INSTALL/usr/bin/flutter"
+      ln -sf "$CRAFT_PART_INSTALL/usr/libexec/flutter/bin/dart" "$CRAFT_PART_INSTALL/usr/bin/dart"
       export PATH="$CRAFT_PART_INSTALL/usr/bin:$PATH"
       flutter doctor
     build-packages:
@@ -68,19 +67,23 @@ parts:
       - lld
       - llvm
     override-build: |
-      craftctl default
       set -eux
-      cd $CRAFT_PART_SRC_WORK
-      cd app
-      flutter pub get || true
+      craftctl default
+      cd "$CRAFT_PART_SRC_WORK/app"
+      flutter pub get
       flutter build linux --release --verbose --target lib/main.dart
-      cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
-      mkdir -p $CRAFT_PART_INSTALL/metainfo
-      cp -r linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml $CRAFT_PART_INSTALL/metainfo/
-      mkdir -p $CRAFT_PART_INSTALL/meta/gui
-      mv linux/debian/usr/share/applications/dev.linwood.butterfly.desktop $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
-      mkdir -p $CRAFT_PART_INSTALL/usr/share/icons/hicolor
-      cp linux/debian/usr/share/icons/hicolor $CRAFT_PART_INSTALL/usr/share/icons/ -r
+      bundle_dir=$(find build/linux -type f -path '*/release/bundle/butterfly' -printf '%h\n' -quit)
+      if [ -z "$bundle_dir" ]; then
+        echo "Flutter Linux bundle was not found under $(pwd)/build/linux" >&2
+        exit 1
+      fi
+      cp -a "$bundle_dir"/. "$CRAFT_PART_INSTALL/"
+      mkdir -p "$CRAFT_PART_INSTALL/metainfo"
+      cp -a linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml "$CRAFT_PART_INSTALL/metainfo/"
+      mkdir -p "$CRAFT_PART_INSTALL/meta/gui"
+      cp -a linux/debian/usr/share/applications/dev.linwood.butterfly.desktop "$CRAFT_PART_INSTALL/meta/gui/butterfly.desktop"
+      mkdir -p "$CRAFT_PART_INSTALL/usr/share/icons"
+      cp -a linux/debian/usr/share/icons/hicolor "$CRAFT_PART_INSTALL/usr/share/icons/"
     stage-packages:
       - libsecret-1-0
       - libjsoncpp25

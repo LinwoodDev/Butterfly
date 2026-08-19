@@ -52,7 +52,11 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
+#ifdef BUTTERFLY_NIGHTLY
+IDI_APP_ICON            ICON                    "resources\\app_icon_nightly.ico"
+#else
 IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
+#endif
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -90,12 +94,24 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "LinwoodDev" "\0"
+#ifdef BUTTERFLY_NIGHTLY
+            VALUE "FileDescription", "Linwood Butterfly Nightly" "\0"
+#else
             VALUE "FileDescription", "Linwood Butterfly" "\0"
+#endif
             VALUE "FileVersion", VERSION_AS_STRING "\0"
+#ifdef BUTTERFLY_NIGHTLY
+            VALUE "InternalName", "Linwood Butterfly Nightly" "\0"
+#else
             VALUE "InternalName", "Linwood Butterfly" "\0"
+#endif
             VALUE "LegalCopyright", "Copyright (C) 2022 Linwood. Licensed under AGPL-3.0-only." "\0"
             VALUE "OriginalFilename", "butterfly.exe" "\0"
+#ifdef BUTTERFLY_NIGHTLY
+            VALUE "ProductName", "Linwood Butterfly Nightly" "\0"
+#else
             VALUE "ProductName", "Linwood Butterfly" "\0"
+#endif
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -16,6 +16,7 @@ set(BINARY_NAME "butterfly")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
 set(APPLICATION_ID "dev.linwood.butterfly")
+set(APPLICATION_NAME "Butterfly")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
@@ -57,6 +58,11 @@ endfunction()
 # Flutter library and tool build rules.
 set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/flutter")
 add_subdirectory(${FLUTTER_MANAGED_DIR})
+
+# generated_config.cmake (loaded above) exposes the value passed to `--flavor`.
+if(FLUTTER_APP_FLAVOR MATCHES "^(nightly|development|dev)$")
+  set(APPLICATION_NAME "Butterfly Nightly")
+endif()
 
 # System-level dependencies.
 find_package(PkgConfig REQUIRED)
