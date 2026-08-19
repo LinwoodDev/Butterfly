@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Το Web δεν υποστηρίζεται",
   "advanced": "Προχωρημένα",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Κατάλογος",
   "documentsDirectory": "Κατάλογος εγγράφων",
   "templatesDirectory": "Κατάλογος προτύπων",
