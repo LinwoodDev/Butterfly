@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web word nie ondersteun nie",
   "advanced": "Gevorderd",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Gids",
   "documentsDirectory": "Dokumente-gids",
   "templatesDirectory": "Sjablone-gids",
