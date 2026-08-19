@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Sieć nie jest obsługiwana",
   "advanced": "Zaawansowane",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Katalog",
   "documentsDirectory": "Katalog dokumentów",
   "templatesDirectory": "Katalog szablonów",
