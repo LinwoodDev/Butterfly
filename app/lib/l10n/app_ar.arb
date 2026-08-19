@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "نسخة الويب غير مدعومه",
   "advanced": "خيارات متقدمة",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "المُجلد",
   "documentsDirectory": "مجلد المستندات",
   "templatesDirectory": "مجلد القوالب",
