@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "间距",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "图片",
   "@image": {
     "description": "Image object or tool"
