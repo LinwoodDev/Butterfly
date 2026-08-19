@@ -1,35 +1,14 @@
 part of 'handler.dart';
 
 class ImportHandler extends Handler<ImportTool> {
-  List<Renderer<PadElement>>? _renderers;
+  final List<Renderer<PadElement>> _renderers;
   Offset _offset = Offset.zero;
 
-  ImportHandler(super.data);
-
-  Future<List<Renderer<PadElement>>> _load(
-    NoteData document,
-    AssetService assetService,
-    DocumentPage page,
-    EventContext context,
-  ) async {
-    if (_renderers != null) return _renderers!;
-    final renderers = data.elements
-        .map((e) => Renderer.fromInstance(e))
-        .whereType<Renderer<PadElement>>()
-        .toList();
-    await Future.wait(
-      renderers.map(
-        (e) async => await e.setup(
-          context.getTransformCubit(),
-          document,
-          assetService,
-          page,
-        ),
-      ),
-    );
-    _renderers = renderers;
-    return renderers;
-  }
+  ImportHandler(super.data)
+    : _renderers = data.elements
+          .map(Renderer.fromInstance)
+          .whereType<Renderer<PadElement>>()
+          .toList();
 
   @override
   void dispose(DocumentBloc bloc) {
@@ -39,7 +18,6 @@ class ImportHandler extends Handler<ImportTool> {
     for (final element in data.elements.whereType<SourcedElement>()) {
       assetService.invalidate(element.source);
     }
-    _renderers = null;
   }
 
   @override
@@ -48,22 +26,16 @@ class ImportHandler extends Handler<ImportTool> {
   }
 
   @override
-  Future<void> onPointerHover(PointerHoverEvent event, EventContext context) =>
+  void onPointerHover(PointerHoverEvent event, EventContext context) =>
       _updatePosition(event.localPosition, context);
 
   @override
-  Future<void> onPointerDown(PointerDownEvent event, EventContext context) =>
+  void onPointerDown(PointerDownEvent event, EventContext context) =>
       _updatePosition(event.localPosition, context);
 
-  Future<void> _updatePosition(
-    Offset localPosition,
-    EventContext context,
-  ) async {
+  void _updatePosition(Offset localPosition, EventContext context) {
     final transform = context.getCameraTransform();
     _offset = transform.localToGlobal(localPosition);
-    final state = context.getState();
-    if (state == null) return;
-    await _load(state.data, state.assetService, state.page, context);
     context.refreshForegrounds();
   }
 
@@ -84,7 +56,7 @@ class ImportHandler extends Handler<ImportTool> {
     );
     context.addDocumentEvent(
       ElementsCreated(
-        (await _load(state.data, state.assetService, state.page, context))
+        _renderers
             .map(
               (e) => e
                   .transform(position: _offset, relative: true)
@@ -107,14 +79,9 @@ class ImportHandler extends Handler<ImportTool> {
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
-  ]) =>
-      _renderers
-          ?.map((e) => e.transform(position: _offset, relative: true) ?? e)
-          .toList() ??
-      [];
-
-  @override
-  bool get setupForegrounds => false;
+  ]) => _renderers
+      .map((e) => e.transform(position: _offset, relative: true) ?? e)
+      .toList();
 
   @override
   MouseCursor get cursor => SystemMouseCursors.grabbing;

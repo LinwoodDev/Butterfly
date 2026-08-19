@@ -6,6 +6,7 @@
 * Add padding to image and svg export
 * Improve image and SVG exports with current view transforms, rotation, and polygon rendering ([#1233](https://github.com/LinwoodDev/Butterfly/issues/1233))
 * Fix settings not updating when opened from a document ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
+* Fix import preview not appearing after selecting a file with a pen ([#1221](https://github.com/LinwoodDev/Butterfly/issues/1221))
 * Fix pen stroke changing after release
 * Fix pen strokes temporarily disappearing in embeds ([#1234](https://github.com/LinwoodDev/Butterfly/issues/1234))
 * Fix nightly branding missing from web builds
