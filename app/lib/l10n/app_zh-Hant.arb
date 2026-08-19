@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "不支援的網路",
   "advanced": "進階",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "目錄",
   "documentsDirectory": "文件目錄",
   "templatesDirectory": "模板目錄",
