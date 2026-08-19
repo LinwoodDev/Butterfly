@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "ଓଲଇନ୍ ସମର୍ଥିତ ନୁହେଁ",
   "advanced": "ଉନ୍ନତ",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "ଡିରେକ୍ଟୋରି",
   "documentsDirectory": "ଡକ୍ୟୁମେଣ୍ଟ ଡିରେକ୍ଟୋରି",
   "templatesDirectory": "ଟେମ୍ପଲେଟ୍ ଡିରେକ୍ଟୋରି",
