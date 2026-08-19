@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "ଅନ୍ତରାଳ",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "ଛବି",
   "@image": {
     "description": "Image object or tool"
