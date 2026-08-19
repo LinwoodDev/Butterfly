@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web niet ondersteund",
   "advanced": "Geavanceerd",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Catalogus",
   "documentsDirectory": "Documenten map",
   "templatesDirectory": "Templates map",
