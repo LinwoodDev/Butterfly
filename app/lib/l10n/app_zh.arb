@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "网络不支持",
   "advanced": "高级版",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "目录",
   "documentsDirectory": "文档目录",
   "templatesDirectory": "模板目录",
