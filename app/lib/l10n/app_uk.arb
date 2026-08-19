@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Мережа не підтримується",
   "advanced": "Додатково",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Каталог",
   "documentsDirectory": "Каталог документів",
   "templatesDirectory": "Шаблонівський каталог",
