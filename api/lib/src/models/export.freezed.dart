@@ -12,6 +12,149 @@ part of 'export.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$ExportPadding {
+
+ double get top; double get right; double get bottom; double get left;
+/// Create a copy of ExportPadding
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExportPaddingCopyWith<ExportPadding> get copyWith => _$ExportPaddingCopyWithImpl<ExportPadding>(this as ExportPadding, _$identity);
+
+  /// Serializes this ExportPadding to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPadding&&(identical(other.top, top) || other.top == top)&&(identical(other.right, right) || other.right == right)&&(identical(other.bottom, bottom) || other.bottom == bottom)&&(identical(other.left, left) || other.left == left));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,top,right,bottom,left);
+
+@override
+String toString() {
+  return 'ExportPadding(top: $top, right: $right, bottom: $bottom, left: $left)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExportPaddingCopyWith<$Res>  {
+  factory $ExportPaddingCopyWith(ExportPadding value, $Res Function(ExportPadding) _then) = _$ExportPaddingCopyWithImpl;
+@useResult
+$Res call({
+ double top, double right, double bottom, double left
+});
+
+
+
+
+}
+/// @nodoc
+class _$ExportPaddingCopyWithImpl<$Res>
+    implements $ExportPaddingCopyWith<$Res> {
+  _$ExportPaddingCopyWithImpl(this._self, this._then);
+
+  final ExportPadding _self;
+  final $Res Function(ExportPadding) _then;
+
+/// Create a copy of ExportPadding
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? top = null,Object? right = null,Object? bottom = null,Object? left = null,}) {
+  return _then(ExportPadding(
+top: null == top ? _self.top : top // ignore: cast_nullable_to_non_nullable
+as double,right: null == right ? _self.right : right // ignore: cast_nullable_to_non_nullable
+as double,bottom: null == bottom ? _self.bottom : bottom // ignore: cast_nullable_to_non_nullable
+as double,left: null == left ? _self.left : left // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExportPadding implements ExportPadding {
+  const _ExportPadding({this.top = 0, this.right = 0, this.bottom = 0, this.left = 0});
+  factory _ExportPadding.fromJson(Map<String, dynamic> json) => _$ExportPaddingFromJson(json);
+
+@override@JsonKey() final  double top;
+@override@JsonKey() final  double right;
+@override@JsonKey() final  double bottom;
+@override@JsonKey() final  double left;
+
+/// Create a copy of ExportPadding
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExportPaddingCopyWith<_ExportPadding> get copyWith => __$ExportPaddingCopyWithImpl<_ExportPadding>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExportPaddingToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportPadding&&(identical(other.top, top) || other.top == top)&&(identical(other.right, right) || other.right == right)&&(identical(other.bottom, bottom) || other.bottom == bottom)&&(identical(other.left, left) || other.left == left));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,top,right,bottom,left);
+
+@override
+String toString() {
+  return 'ExportPadding(top: $top, right: $right, bottom: $bottom, left: $left)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExportPaddingCopyWith<$Res> implements $ExportPaddingCopyWith<$Res> {
+  factory _$ExportPaddingCopyWith(_ExportPadding value, $Res Function(_ExportPadding) _then) = __$ExportPaddingCopyWithImpl;
+@override @useResult
+$Res call({
+ double top, double right, double bottom, double left
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExportPaddingCopyWithImpl<$Res>
+    implements _$ExportPaddingCopyWith<$Res> {
+  __$ExportPaddingCopyWithImpl(this._self, this._then);
+
+  final _ExportPadding _self;
+  final $Res Function(_ExportPadding) _then;
+
+/// Create a copy of ExportPadding
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? top = null,Object? right = null,Object? bottom = null,Object? left = null,}) {
+  return _then(_ExportPadding(
+top: null == top ? _self.top : top // ignore: cast_nullable_to_non_nullable
+as double,right: null == right ? _self.right : right // ignore: cast_nullable_to_non_nullable
+as double,bottom: null == bottom ? _self.bottom : bottom // ignore: cast_nullable_to_non_nullable
+as double,left: null == left ? _self.left : left // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
 ExportOptions _$ExportOptionsFromJson(
   Map<String, dynamic> json
 ) {
@@ -39,7 +182,7 @@ ExportOptions _$ExportOptionsFromJson(
 /// @nodoc
 mixin _$ExportOptions {
 
- double get width; double get height; double get x; double get y; double get scale; double get rotation; bool get renderBackground;
+ double get width; double get height; double get x; double get y; double get scale; double get rotation; ExportPadding get padding; bool get renderBackground;
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -52,16 +195,16 @@ $ExportOptionsCopyWith<ExportOptions> get copyWith => _$ExportOptionsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,renderBackground);
+int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,renderBackground);
 
 @override
 String toString() {
-  return 'ExportOptions(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, renderBackground: $renderBackground)';
+  return 'ExportOptions(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, renderBackground: $renderBackground)';
 }
 
 
@@ -72,11 +215,11 @@ abstract mixin class $ExportOptionsCopyWith<$Res>  {
   factory $ExportOptionsCopyWith(ExportOptions value, $Res Function(ExportOptions) _then) = _$ExportOptionsCopyWithImpl;
 @useResult
 $Res call({
- double width, double height, double x, double y, double scale, double rotation, bool renderBackground
+ double width, double height, double x, double y, double scale, double rotation, ExportPadding padding, bool renderBackground
 });
 
 
-
+$ExportPaddingCopyWith<$Res> get padding;
 
 }
 /// @nodoc
@@ -89,7 +232,7 @@ class _$ExportOptionsCopyWithImpl<$Res>
 
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? renderBackground = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? padding = null,Object? renderBackground = null,}) {
   return _then(_self.copyWith(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
@@ -97,11 +240,21 @@ as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
 as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
-as double,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
+as double,padding: null == padding ? _self.padding : padding // ignore: cast_nullable_to_non_nullable
+as ExportPadding,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
-
+/// Create a copy of ExportOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ExportPaddingCopyWith<$Res> get padding {
+  
+  return $ExportPaddingCopyWith<$Res>(_self.padding, (value) {
+    return _then(_self.copyWith(padding: value));
+  });
+}
 }
 
 
@@ -110,7 +263,7 @@ as bool,
 @JsonSerializable()
 
 class ImageExportOptions extends ExportOptions {
-  const ImageExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.rotation = 0, this.quality = 1, this.renderBackground = true,  String? $type}): $type = $type ?? 'image',super._();
+  const ImageExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.rotation = 0, this.padding = const ExportPadding(), this.quality = 1, this.renderBackground = true,  String? $type}): $type = $type ?? 'image',super._();
   factory ImageExportOptions.fromJson(Map<String, dynamic> json) => _$ImageExportOptionsFromJson(json);
 
 @override final  double width;
@@ -119,6 +272,7 @@ class ImageExportOptions extends ExportOptions {
 @override@JsonKey() final  double y;
 @override@JsonKey() final  double scale;
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  ExportPadding padding;
 @JsonKey() final  double quality;
 @override@JsonKey() final  bool renderBackground;
 
@@ -139,16 +293,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,quality,renderBackground);
+int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,quality,renderBackground);
 
 @override
 String toString() {
-  return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, quality: $quality, renderBackground: $renderBackground)';
+  return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, quality: $quality, renderBackground: $renderBackground)';
 }
 
 
@@ -159,11 +313,11 @@ abstract mixin class $ImageExportOptionsCopyWith<$Res> implements $ExportOptions
   factory $ImageExportOptionsCopyWith(ImageExportOptions value, $Res Function(ImageExportOptions) _then) = _$ImageExportOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- double width, double height, double x, double y, double scale, double rotation, double quality, bool renderBackground
+ double width, double height, double x, double y, double scale, double rotation, ExportPadding padding, double quality, bool renderBackground
 });
 
 
-
+@override $ExportPaddingCopyWith<$Res> get padding;
 
 }
 /// @nodoc
@@ -176,7 +330,7 @@ class _$ImageExportOptionsCopyWithImpl<$Res>
 
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? quality = null,Object? renderBackground = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? padding = null,Object? quality = null,Object? renderBackground = null,}) {
   return _then(ImageExportOptions(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
@@ -184,20 +338,30 @@ as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
 as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
-as double,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
+as double,padding: null == padding ? _self.padding : padding // ignore: cast_nullable_to_non_nullable
+as ExportPadding,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
 as double,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
 
-
+/// Create a copy of ExportOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ExportPaddingCopyWith<$Res> get padding {
+  
+  return $ExportPaddingCopyWith<$Res>(_self.padding, (value) {
+    return _then(_self.copyWith(padding: value));
+  });
+}
 }
 
 /// @nodoc
 @JsonSerializable()
 
 class SvgExportOptions extends ExportOptions {
-  const SvgExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.rotation = 0, this.renderBackground = true,  String? $type}): $type = $type ?? 'svg',super._();
+  const SvgExportOptions({required this.width, required this.height, this.x = 0, this.y = 0, this.scale = 1, this.rotation = 0, this.padding = const ExportPadding(), this.renderBackground = true,  String? $type}): $type = $type ?? 'svg',super._();
   factory SvgExportOptions.fromJson(Map<String, dynamic> json) => _$SvgExportOptionsFromJson(json);
 
 @override final  double width;
@@ -206,6 +370,7 @@ class SvgExportOptions extends ExportOptions {
 @override@JsonKey() final  double y;
 @override@JsonKey() final  double scale;
 @override@JsonKey() final  double rotation;
+@override@JsonKey() final  ExportPadding padding;
 @override@JsonKey() final  bool renderBackground;
 
 @JsonKey(name: 'type')
@@ -225,16 +390,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,renderBackground);
+int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,renderBackground);
 
 @override
 String toString() {
-  return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, renderBackground: $renderBackground)';
+  return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, renderBackground: $renderBackground)';
 }
 
 
@@ -245,11 +410,11 @@ abstract mixin class $SvgExportOptionsCopyWith<$Res> implements $ExportOptionsCo
   factory $SvgExportOptionsCopyWith(SvgExportOptions value, $Res Function(SvgExportOptions) _then) = _$SvgExportOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- double width, double height, double x, double y, double scale, double rotation, bool renderBackground
+ double width, double height, double x, double y, double scale, double rotation, ExportPadding padding, bool renderBackground
 });
 
 
-
+@override $ExportPaddingCopyWith<$Res> get padding;
 
 }
 /// @nodoc
@@ -262,7 +427,7 @@ class _$SvgExportOptionsCopyWithImpl<$Res>
 
 /// Create a copy of ExportOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? renderBackground = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? x = null,Object? y = null,Object? scale = null,Object? rotation = null,Object? padding = null,Object? renderBackground = null,}) {
   return _then(SvgExportOptions(
 width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
@@ -270,12 +435,22 @@ as double,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
 as double,y: null == y ? _self.y : y // ignore: cast_nullable_to_non_nullable
 as double,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
-as double,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
+as double,padding: null == padding ? _self.padding : padding // ignore: cast_nullable_to_non_nullable
+as ExportPadding,renderBackground: null == renderBackground ? _self.renderBackground : renderBackground // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
 
-
+/// Create a copy of ExportOptions
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ExportPaddingCopyWith<$Res> get padding {
+  
+  return $ExportPaddingCopyWith<$Res>(_self.padding, (value) {
+    return _then(_self.copyWith(padding: value));
+  });
+}
 }
 
 

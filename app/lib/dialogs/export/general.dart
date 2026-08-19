@@ -435,6 +435,46 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         },
       ),
       const SizedBox(height: 8),
+      OffsetListTile(
+        title: Text(
+          '${AppLocalizations.of(context).padding} '
+          '(${AppLocalizations.of(context).horizontal})',
+        ),
+        value: Offset(_options.padding.left, _options.padding.right),
+        xLabel: AppLocalizations.of(context).left,
+        yLabel: AppLocalizations.of(context).right,
+        onChanged: (value) {
+          _options = _options.copyWith(
+            padding: _options.padding.copyWith(
+              left: max(0, value.dx),
+              right: max(0, value.dy),
+            ),
+          );
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
+      const SizedBox(height: 8),
+      OffsetListTile(
+        title: Text(
+          '${AppLocalizations.of(context).padding} '
+          '(${AppLocalizations.of(context).vertical})',
+        ),
+        value: Offset(_options.padding.top, _options.padding.bottom),
+        xLabel: AppLocalizations.of(context).top,
+        yLabel: AppLocalizations.of(context).bottom,
+        onChanged: (value) {
+          _options = _options.copyWith(
+            padding: _options.padding.copyWith(
+              top: max(0, value.dx),
+              bottom: max(0, value.dy),
+            ),
+          );
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
+      const SizedBox(height: 8),
       CheckboxListTile(
         value: _options.renderBackground,
         title: Text(AppLocalizations.of(context).background),

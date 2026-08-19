@@ -41,6 +41,18 @@ class EmbedHandler {
   bool _mapBool(Map<String, dynamic> map, String key, bool fallback) =>
       map[key] is bool ? map[key] as bool : fallback;
 
+  ExportPadding _mapPadding(Map<String, dynamic> map) {
+    final value = map['padding'];
+    if (value is! Map) return const ExportPadding();
+    final padding = value.cast<String, dynamic>();
+    return ExportPadding(
+      top: _mapDouble(padding, 'top', 0),
+      right: _mapDouble(padding, 'right', 0),
+      bottom: _mapDouble(padding, 'bottom', 0),
+      left: _mapDouble(padding, 'left', 0),
+    );
+  }
+
   Size _renderViewportSize(BuildContext context, EditorController controller) {
     final measured = controller.rendererCubit.state.cameraViewport.viewportSize;
     if (measured != null && measured.width > 0 && measured.height > 0) {
@@ -138,6 +150,7 @@ class EmbedHandler {
         final viewportSize = _renderViewportSize(context, controller);
         double x = transform.position.dx, y = transform.position.dy;
         double scale = transform.size, rotation = transform.rotation;
+        ExportPadding padding = const ExportPadding();
         double width = viewportSize.width, height = viewportSize.height;
         bool renderBackground = true;
         final map = _messageToMap(message);
@@ -148,6 +161,7 @@ class EmbedHandler {
           height = _mapDouble(map, 'height', height);
           scale = _mapDouble(map, 'scale', scale);
           rotation = _mapDouble(map, 'rotation', rotation);
+          padding = _mapPadding(map);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
         try {
@@ -163,6 +177,7 @@ class EmbedHandler {
               y: y,
               scale: scale,
               rotation: rotation,
+              padding: padding,
               renderBackground: renderBackground,
             ),
             invisibleLayers: state.invisibleLayers,
@@ -196,6 +211,7 @@ class EmbedHandler {
         final viewportSize = _renderViewportSize(context, controller);
         double x = transform.position.dx, y = transform.position.dy;
         double scale = transform.size, rotation = transform.rotation;
+        ExportPadding padding = const ExportPadding();
         double width = viewportSize.width, height = viewportSize.height;
         bool renderBackground = true;
         final map = _messageToMap(message);
@@ -206,6 +222,7 @@ class EmbedHandler {
           height = _mapDouble(map, 'height', height);
           scale = _mapDouble(map, 'scale', scale);
           rotation = _mapDouble(map, 'rotation', rotation);
+          padding = _mapPadding(map);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
         sendEmbedMessage(
@@ -221,6 +238,7 @@ class EmbedHandler {
                   y: y,
                   scale: scale,
                   rotation: rotation,
+                  padding: padding,
                   renderBackground: renderBackground,
                 ),
                 invisibleLayers: state.invisibleLayers,

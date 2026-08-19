@@ -785,22 +785,19 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     DocumentLoaded? docState,
   }) async {
     final rendererCubit = this;
-    final realWidth = (options.width * options.quality).ceil();
-    final realHeight = (options.height * options.quality).ceil();
-    final realZoom = options.scale;
+    final exportSize = _exportSize(options);
+    final realWidth = (exportSize.width * options.quality).ceil();
+    final realHeight = (exportSize.height * options.quality).ceil();
+    if (options.width <= 0 || options.height <= 0) {
+      return null;
+    }
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
     }
-    final size = Size(options.width, options.height);
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     canvas.scale(options.quality);
-    final transform = CameraTransform(
-      options.quality,
-      Offset(options.x, options.y),
-      realZoom,
-      options.rotation,
-    );
+    final transform = _exportTransform(options, pixelRatio: options.quality);
     final viewport = cameraViewport != null
         ? cameraViewport.unbake(rendererStates: const {})
         : rendererCubit.state.cameraViewport.unbake(
@@ -809,14 +806,19 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
           );
     final hiddenRenderers = <Renderer<PadElement>>[];
     if (docState != null) {
-      final exportRect = transform.localToGlobalRect(Offset.zero & size);
+      final exportRect = transform.localToGlobalRect(Offset.zero & exportSize);
       for (final renderer in viewport.unbakedElements) {
         if (renderer.isVisible(exportRect)) {
           final wasInitialized = rendererCubit.initializedElements.contains(
             renderer,
           );
           if (!wasInitialized) {
-            await renderer.onVisible(controller, docState, transform, size);
+            await renderer.onVisible(
+              controller,
+              docState,
+              transform,
+              exportSize,
+            );
             hiddenRenderers.add(renderer);
           }
         }
@@ -831,9 +833,9 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       cameraViewport: viewport,
       transform: transform,
     );
-    painter.paint(canvas, size);
+    painter.paint(canvas, exportSize);
     for (final renderer in hiddenRenderers) {
-      await renderer.onHidden(controller, docState!, transform, size);
+      await renderer.onHidden(controller, docState!, transform, exportSize);
     }
     final picture = recorder.endRecording();
     ui.Image? image;
@@ -882,27 +884,21 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   }) {
     final rendererCubit = this;
     final xml = XmlDocument();
+    final exportSize = _exportSize(options);
     final svg = xml.createElement(
       'svg',
       attributes: {
         'xmlns': 'http://www.w3.org/2000/svg',
         'xmlns:xlink': 'http://www.w3.org/1999/xlink',
         'version': '1.1',
-        'width': '${options.width}px',
-        'height': '${options.height}px',
-        'viewBox': '0 0 ${options.width} ${options.height}',
+        'width': '${exportSize.width}px',
+        'height': '${exportSize.height}px',
+        'viewBox': '0 0 ${exportSize.width} ${exportSize.height}',
       },
     );
 
-    final transform = CameraTransform(
-      1,
-      Offset(options.x, options.y),
-      options.scale,
-      options.rotation,
-    );
-    final rect = transform.localToGlobalRect(
-      Offset.zero & Size(options.width, options.height),
-    );
+    final transform = _exportTransform(options, pixelRatio: 1);
+    final rect = transform.localToGlobalRect(Offset.zero & exportSize);
     if (options.renderBackground) {
       for (final e in rendererCubit.state.cameraViewport.backgrounds) {
         e.buildSvg(xml, document, page, rect);
@@ -932,17 +928,40 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
         _wrapSvgChildren(svg, firstChild, elementTransform.toString());
       }
     }
-    final cameraTransform = _svgCameraTransform(transform);
-    _wrapSvgChildren(svg, 0, cameraTransform);
+    _wrapSvgChildren(svg, 0, _svgCameraTransform(transform));
     return xml;
   }
 
+  Size _exportSize(ExportOptions options) {
+    final padding = options.padding;
+    final horizontal = max(0.0, padding.left) + max(0.0, padding.right);
+    final vertical = max(0.0, padding.top) + max(0.0, padding.bottom);
+    return Size(options.width + horizontal, options.height + vertical);
+  }
+
+  CameraTransform _exportTransform(
+    ExportOptions options, {
+    double pixelRatio = 1,
+  }) {
+    final baseTransform = CameraTransform(
+      pixelRatio,
+      Offset(options.x, options.y),
+      options.scale,
+      options.rotation,
+    );
+    final left = max(0.0, options.padding.left);
+    final top = max(0.0, options.padding.top);
+    if (left == 0 && top == 0) return baseTransform;
+    final paddedPosition = baseTransform.localToGlobal(Offset(-left, -top));
+    return baseTransform.withPosition(paddedPosition);
+  }
+
   String _svgCameraTransform(CameraTransform transform) {
-    final origin = transform.globalToLocal(Offset.zero);
-    final xAxis = transform.globalToLocal(const Offset(1, 0)) - origin;
-    final yAxis = transform.globalToLocal(const Offset(0, 1)) - origin;
-    return 'matrix(${xAxis.dx} ${xAxis.dy} ${yAxis.dx} ${yAxis.dy} '
-        '${origin.dx} ${origin.dy})';
+    final zero = transform.globalToLocal(Offset.zero);
+    final horizontal = transform.globalToLocal(const Offset(1, 0)) - zero;
+    final vertical = transform.globalToLocal(const Offset(0, 1)) - zero;
+    return 'matrix(${horizontal.dx} ${horizontal.dy} '
+        '${vertical.dx} ${vertical.dy} ${zero.dx} ${zero.dy})';
   }
 
   void _wrapSvgChildren(XmlElement parent, int start, String transform) {

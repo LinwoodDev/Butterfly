@@ -6,6 +6,19 @@ part 'export.freezed.dart';
 part 'export.g.dart';
 
 @freezed
+sealed class ExportPadding with _$ExportPadding {
+  const factory ExportPadding({
+    @Default(0) double top,
+    @Default(0) double right,
+    @Default(0) double bottom,
+    @Default(0) double left,
+  }) = _ExportPadding;
+
+  factory ExportPadding.fromJson(Map<String, dynamic> json) =>
+      _$ExportPaddingFromJson(json);
+}
+
+@freezed
 sealed class ExportOptions with _$ExportOptions {
   const ExportOptions._();
 
@@ -16,6 +29,7 @@ sealed class ExportOptions with _$ExportOptions {
     @Default(0) double y,
     @Default(1) double scale,
     @Default(0) double rotation,
+    @Default(ExportPadding()) ExportPadding padding,
     @Default(1) double quality,
     @Default(true) bool renderBackground,
   }) = ImageExportOptions;
@@ -27,6 +41,7 @@ sealed class ExportOptions with _$ExportOptions {
     @Default(0) double y,
     @Default(1) double scale,
     @Default(0) double rotation,
+    @Default(ExportPadding()) ExportPadding padding,
     @Default(true) bool renderBackground,
   }) = SvgExportOptions;
 
@@ -42,6 +57,7 @@ sealed class ExportOptions with _$ExportOptions {
       y: e.y,
       scale: e.scale,
       rotation: e.rotation,
+      padding: e.padding,
       renderBackground: e.renderBackground,
     ),
   };

@@ -22,7 +22,7 @@
         <h2 id="embed-render-title">Render export</h2>
         <p data-render-help>
           Current view uses the position, zoom, rotation, and size visible in the
-          embedded canvas.
+          embedded canvas. Padding remains configurable below.
         </p>
       </div>
       <label class="embed-demo__field embed-demo__field--view">
@@ -59,6 +59,25 @@
       <label class="embed-demo__field">
         <span>Rotation (degrees)</span>
         <input type="number" value="0" step="5" data-render-rotation />
+      </label>
+    </div>
+
+    <div class="embed-demo__padding-grid" aria-label="Export padding">
+      <label class="embed-demo__field">
+        <span>Padding top</span>
+        <input type="number" value="0" min="0" step="8" data-render-padding-top />
+      </label>
+      <label class="embed-demo__field">
+        <span>Padding right</span>
+        <input type="number" value="0" min="0" step="8" data-render-padding-right />
+      </label>
+      <label class="embed-demo__field">
+        <span>Padding bottom</span>
+        <input type="number" value="0" min="0" step="8" data-render-padding-bottom />
+      </label>
+      <label class="embed-demo__field">
+        <span>Padding left</span>
+        <input type="number" value="0" min="0" step="8" data-render-padding-left />
       </label>
     </div>
 
@@ -145,6 +164,10 @@
     const renderHeight = demo.querySelector('[data-render-height]');
     const renderScale = demo.querySelector('[data-render-scale]');
     const renderRotation = demo.querySelector('[data-render-rotation]');
+    const renderPaddingTop = demo.querySelector('[data-render-padding-top]');
+    const renderPaddingRight = demo.querySelector('[data-render-padding-right]');
+    const renderPaddingBottom = demo.querySelector('[data-render-padding-bottom]');
+    const renderPaddingLeft = demo.querySelector('[data-render-padding-left]');
     const renderBackground = demo.querySelector('[data-render-background]');
     const messages = [];
     let artifactUrl;
@@ -171,14 +194,20 @@
       renderX.disabled = view !== 'custom';
       renderY.disabled = view !== 'custom';
       renderHelp.textContent = useCurrentView
-        ? 'Current view uses the position, zoom, rotation, and size visible in the embedded canvas.'
+        ? 'Current view uses the position, zoom, rotation, and size visible in the embedded canvas. Padding remains configurable below.'
         : view === 'origin'
           ? 'Document origin starts at (0, 0). Adjust the output size, scale, rotation, and background.'
           : 'Custom view lets you choose the document position as well as the output transform.';
     }
 
     function renderOptions() {
-      const options = { renderBackground: renderBackground.checked };
+      const padding = {
+        top: Math.max(0, numberValue(renderPaddingTop, 0)),
+        right: Math.max(0, numberValue(renderPaddingRight, 0)),
+        bottom: Math.max(0, numberValue(renderPaddingBottom, 0)),
+        left: Math.max(0, numberValue(renderPaddingLeft, 0)),
+      };
+      const options = { renderBackground: renderBackground.checked, padding };
       if (renderView.value === 'current') return options;
       const width = Math.max(1, numberValue(renderWidth, 640));
       const height = Math.max(1, numberValue(renderHeight, 420));
@@ -566,15 +595,19 @@
     max-inline-size: 46rem;
   }
 
-  .embed-demo__render-grid {
+  .embed-demo__render-grid,
+  .embed-demo__padding-grid {
     display: grid;
-    grid-template-columns: repeat(6, minmax(6.5rem, 1fr));
     gap: 0.65rem;
     align-items: end;
   }
 
-  .embed-demo__render-grid[hidden] {
-    display: none;
+  .embed-demo__render-grid {
+    grid-template-columns: repeat(6, minmax(6.5rem, 1fr));
+  }
+
+  .embed-demo__padding-grid {
+    grid-template-columns: repeat(4, minmax(6.5rem, 1fr));
   }
 
   .embed-demo__render-grid[hidden] {
@@ -826,7 +859,8 @@
   }
 
   @media (max-width: 72rem) {
-    .embed-demo__render-grid {
+    .embed-demo__render-grid,
+    .embed-demo__padding-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
@@ -854,7 +888,8 @@
       min-inline-size: 0;
     }
 
-    .embed-demo__render-grid {
+    .embed-demo__render-grid,
+    .embed-demo__padding-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }

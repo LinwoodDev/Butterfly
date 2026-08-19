@@ -2004,13 +2004,16 @@ void main() {
           y: 10,
           scale: 2,
           rotation: pi / 2,
+          padding: ExportPadding(top: 7, right: 3, bottom: 11, left: 5),
         ),
         docState: bloc.state as DocumentLoadSuccess,
       );
       addTearDown(() => image?.dispose());
 
       expect(image, isNotNull);
-      final pixelData = await image!.toByteData(
+      expect(image!.width, 58);
+      expect(image.height, 68);
+      final pixelData = await image.toByteData(
         format: ui.ImageByteFormat.rawRgba,
       );
       final pixels = pixelData!.buffer.asUint8List();
@@ -2024,7 +2027,7 @@ void main() {
         );
       }
 
-      expect(pixelAt(10, 30), const Color(0xFFF44336));
+      expect(pixelAt(15, 37), const Color(0xFFF44336));
       expect(pixelAt(30, 30), Colors.white);
     },
   );
@@ -2071,12 +2074,13 @@ void main() {
         y: 4,
         scale: 2,
         rotation: pi / 2,
+        padding: ExportPadding(top: 7, right: 3, bottom: 11, left: 5),
       ),
     );
     final svg = xml.rootElement;
     final groups = svg.findAllElements('g').toList();
 
-    expect(svg.getAttribute('viewBox'), '0 0 100.0 100.0');
+    expect(svg.getAttribute('viewBox'), '0 0 108.0 118.0');
     expect(groups, hasLength(2));
     final cameraMatrix = groups.first.getAttribute('transform')!;
     final matrixValues =
@@ -2087,7 +2091,10 @@ void main() {
     expect(cameraMatrix, startsWith('matrix('));
     expect(matrixValues, hasLength(6));
     final [a, b, c, d, tx, ty] = matrixValues;
-    const camera = CameraTransform(1, Offset(3, 4), 2, pi / 2);
+    const baseCamera = CameraTransform(1, Offset(3, 4), 2, pi / 2);
+    final camera = baseCamera.withPosition(
+      baseCamera.localToGlobal(const Offset(-5, -7)),
+    );
     for (final point in const [Offset.zero, Offset(10, 20), Offset(-5, 7)]) {
       final svgPoint = Offset(
         a * point.dx + c * point.dy + tx,

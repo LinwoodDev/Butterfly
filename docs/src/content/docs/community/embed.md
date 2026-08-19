@@ -107,6 +107,7 @@ messages to the iframe and listens for messages from it.
       height: 400,
       scale: 1,
       rotation: 0,
+      padding: { top: 0, right: 0, bottom: 0, left: 0 },
       renderBackground: true,
     });
   });
@@ -176,6 +177,9 @@ exports the current visible canvas view. To export from the document origin,
 set `x: 0`, `y: 0`, `scale: 1`, and `rotation: 0` together with the desired
 output size.
 
+Padding expands the output dimensions: the final width is `width + left + right`
+and the final height is `height + top + bottom`.
+
 Parameters:
 
 | Parameter | Type | Default | Description |
@@ -186,6 +190,7 @@ Parameters:
 | `height` | `Number` | Current viewport height | Output height in pixels. |
 | `scale` | `Number` | Current zoom | Camera zoom used for the export. |
 | `rotation` | `Number` | Current rotation | Camera rotation in radians. |
+| `padding` | `Object` | All sides `0` | Extra output pixels added with `top`, `right`, `bottom`, and `left` fields. |
 | `renderBackground` | `Boolean` | `true` | Whether to include the document background. |
 
 Returns: `String` (Base64 encoded image)
@@ -208,6 +213,7 @@ Parameters:
 | `height` | `Number` | Current viewport height | Output height in pixels. |
 | `scale` | `Number` | Current zoom | Camera zoom used for the export. |
 | `rotation` | `Number` | Current rotation | Camera rotation in radians. |
+| `padding` | `Object` | All sides `0` | Extra output pixels added with `top`, `right`, `bottom`, and `left` fields. |
 | `renderBackground` | `Boolean` | `true` | Whether to include the document background. |
 
 Returns: `String` (SVG)
