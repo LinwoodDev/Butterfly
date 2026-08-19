@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web nije podržan",
   "advanced": "Napredno",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Direktorijum",
   "documentsDirectory": "Direktorijum dokumenata",
   "templatesDirectory": "Direktorijum šablona",
