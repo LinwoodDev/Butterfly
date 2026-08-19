@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Väli",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Kuva",
   "@image": {
     "description": "Image object or tool"
