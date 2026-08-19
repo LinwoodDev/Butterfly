@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web desteklenmiyor",
   "advanced": "Gelişmiş",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Dizin",
   "documentsDirectory": "Belge dizini",
   "templatesDirectory": "Şablon dizini",
