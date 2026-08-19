@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Abstand",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Bild",
   "@image": {
     "description": "Image object or tool"
