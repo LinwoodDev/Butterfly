@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Webはサポートされていません",
   "advanced": "高度な設定",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "ディレクトリ",
   "documentsDirectory": "ドキュメントディレクトリ",
   "templatesDirectory": "テンプレートディレクトリ",
