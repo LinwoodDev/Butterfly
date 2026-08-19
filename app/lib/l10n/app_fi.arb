@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Verkkoa ei tueta",
   "advanced": "Lisäasetukset",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Hakemisto",
   "documentsDirectory": "Asiakirjojen hakemisto",
   "templatesDirectory": "Mallien hakemisto",
