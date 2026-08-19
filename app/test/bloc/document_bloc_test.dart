@@ -1958,10 +1958,10 @@ void main() {
 
       final element = ShapeElement(
         id: 'rotated-view',
-        firstPosition: const Point(10, -30),
-        secondPosition: const Point(20, -20),
+        firstPosition: const Point(20, 0),
+        secondPosition: const Point(30, 10),
       );
-      final renderer = _VisibleTrackingRenderer(element);
+      final renderer = _SolidRectRenderer(element, Colors.red);
       final renderers = <Renderer<PadElement>>[renderer];
       final page = DocumentPage(
         layers: [
@@ -1997,15 +1997,35 @@ void main() {
         data,
         page,
         (bloc.state as DocumentLoadSuccess).info,
-        const ImageExportOptions(width: 100, height: 100, rotation: pi / 2),
+        const ImageExportOptions(
+          width: 50,
+          height: 50,
+          x: 10,
+          y: 10,
+          scale: 2,
+          rotation: pi / 2,
+        ),
         docState: bloc.state as DocumentLoadSuccess,
       );
       addTearDown(() => image?.dispose());
 
       expect(image, isNotNull);
-      expect(renderer.onVisibleCalls, 1);
-      expect(renderer.buildCalls, 1);
-      expect(renderer.lastVisibleTransform?.rotation, pi / 2);
+      final pixelData = await image!.toByteData(
+        format: ui.ImageByteFormat.rawRgba,
+      );
+      final pixels = pixelData!.buffer.asUint8List();
+      Color pixelAt(int x, int y) {
+        final offset = (y * image.width + x) * 4;
+        return Color.fromARGB(
+          pixels[offset + 3],
+          pixels[offset],
+          pixels[offset + 1],
+          pixels[offset + 2],
+        );
+      }
+
+      expect(pixelAt(10, 30), const Color(0xFFF44336));
+      expect(pixelAt(30, 30), Colors.white);
     },
   );
 
@@ -2058,8 +2078,25 @@ void main() {
 
     expect(svg.getAttribute('viewBox'), '0 0 100.0 100.0');
     expect(groups, hasLength(2));
-    expect(groups.first.getAttribute('transform'), contains('rotate(90.0)'));
-    expect(groups.first.getAttribute('transform'), contains('scale(2.0)'));
+    final cameraMatrix = groups.first.getAttribute('transform')!;
+    final matrixValues =
+        RegExp(r'-?\d+(?:\.\d+)?(?:e[+-]?\d+)?', caseSensitive: false)
+            .allMatches(cameraMatrix)
+            .map((match) => double.parse(match.group(0)!))
+            .toList();
+    expect(cameraMatrix, startsWith('matrix('));
+    expect(matrixValues, hasLength(6));
+    final [a, b, c, d, tx, ty] = matrixValues;
+    const camera = CameraTransform(1, Offset(3, 4), 2, pi / 2);
+    for (final point in const [Offset.zero, Offset(10, 20), Offset(-5, 7)]) {
+      final svgPoint = Offset(
+        a * point.dx + c * point.dy + tx,
+        b * point.dx + d * point.dy + ty,
+      );
+      final canvasPoint = camera.globalToLocal(point);
+      expect(svgPoint.dx, closeTo(canvasPoint.dx, 1e-9));
+      expect(svgPoint.dy, closeTo(canvasPoint.dy, 1e-9));
+    }
     expect(groups.last.getAttribute('transform'), contains('rotate(45.0)'));
     expect(
       groups.last.getAttribute('transform'),

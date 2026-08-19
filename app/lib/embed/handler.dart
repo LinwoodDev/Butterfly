@@ -41,6 +41,14 @@ class EmbedHandler {
   bool _mapBool(Map<String, dynamic> map, String key, bool fallback) =>
       map[key] is bool ? map[key] as bool : fallback;
 
+  Size _renderViewportSize(BuildContext context, EditorController controller) {
+    final measured = controller.rendererCubit.state.cameraViewport.viewportSize;
+    if (measured != null && measured.width > 0 && measured.height > 0) {
+      return measured;
+    }
+    return MediaQuery.sizeOf(context);
+  }
+
   Uint8List? _messageToBytes(Object? message) {
     if (message is Uint8List) return message;
     if (message is ByteBuffer) return message.asUint8List();
@@ -127,9 +135,7 @@ class EmbedHandler {
       if (state is DocumentLoadSuccess) {
         final controller = bloc.editorController;
         final transform = controller.transformCubit.state;
-        final viewportSize =
-            controller.rendererCubit.state.cameraViewport.viewportSize ??
-            MediaQuery.sizeOf(context);
+        final viewportSize = _renderViewportSize(context, controller);
         double x = transform.position.dx, y = transform.position.dy;
         double scale = transform.size, rotation = transform.rotation;
         double width = viewportSize.width, height = viewportSize.height;
@@ -159,6 +165,7 @@ class EmbedHandler {
               rotation: rotation,
               renderBackground: renderBackground,
             ),
+            invisibleLayers: state.invisibleLayers,
             docState: state,
           );
           if (data == null) {
@@ -186,9 +193,7 @@ class EmbedHandler {
       if (state is DocumentLoadSuccess) {
         final controller = bloc.editorController;
         final transform = controller.transformCubit.state;
-        final viewportSize =
-            controller.rendererCubit.state.cameraViewport.viewportSize ??
-            MediaQuery.sizeOf(context);
+        final viewportSize = _renderViewportSize(context, controller);
         double x = transform.position.dx, y = transform.position.dy;
         double scale = transform.size, rotation = transform.rotation;
         double width = viewportSize.width, height = viewportSize.height;
@@ -218,6 +223,7 @@ class EmbedHandler {
                   rotation: rotation,
                   renderBackground: renderBackground,
                 ),
+                invisibleLayers: state.invisibleLayers,
               )
               .toXmlString(),
         );

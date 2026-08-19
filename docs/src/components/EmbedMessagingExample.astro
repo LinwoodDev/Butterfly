@@ -180,14 +180,24 @@
     function renderOptions() {
       const options = { renderBackground: renderBackground.checked };
       if (renderView.value === 'current') return options;
+      const width = Math.max(1, numberValue(renderWidth, 640));
+      const height = Math.max(1, numberValue(renderHeight, 420));
+      const scale = Math.max(0.01, numberValue(renderScale, 1));
+      const rotation = numberValue(renderRotation, 0) * Math.PI / 180;
+      const requestedX = renderView.value === 'origin' ? 0 : numberValue(renderX, 0);
+      const requestedY = renderView.value === 'origin' ? 0 : numberValue(renderY, 0);
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const rotatedCenterX = centerX * Math.cos(rotation) + centerY * Math.sin(rotation);
+      const rotatedCenterY = -centerX * Math.sin(rotation) + centerY * Math.cos(rotation);
       return {
         ...options,
-        x: renderView.value === 'origin' ? 0 : numberValue(renderX, 0),
-        y: renderView.value === 'origin' ? 0 : numberValue(renderY, 0),
-        width: Math.max(1, numberValue(renderWidth, 640)),
-        height: Math.max(1, numberValue(renderHeight, 420)),
-        scale: Math.max(0.01, numberValue(renderScale, 1)),
-        rotation: numberValue(renderRotation, 0) * Math.PI / 180,
+        x: requestedX + (centerX - rotatedCenterX) / scale,
+        y: requestedY + (centerY - rotatedCenterY) / scale,
+        width,
+        height,
+        scale,
+        rotation,
       };
     }
 
@@ -561,6 +571,10 @@
     grid-template-columns: repeat(6, minmax(6.5rem, 1fr));
     gap: 0.65rem;
     align-items: end;
+  }
+
+  .embed-demo__render-grid[hidden] {
+    display: none;
   }
 
   .embed-demo__render-grid[hidden] {

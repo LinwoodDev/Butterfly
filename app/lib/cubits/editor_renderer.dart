@@ -932,12 +932,17 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
         _wrapSvgChildren(svg, firstChild, elementTransform.toString());
       }
     }
-    final cameraTransform =
-        'rotate(${options.rotation * 180 / pi}) '
-        'scale(${options.scale}) '
-        'translate(${-options.x} ${-options.y})';
+    final cameraTransform = _svgCameraTransform(transform);
     _wrapSvgChildren(svg, 0, cameraTransform);
     return xml;
+  }
+
+  String _svgCameraTransform(CameraTransform transform) {
+    final origin = transform.globalToLocal(Offset.zero);
+    final xAxis = transform.globalToLocal(const Offset(1, 0)) - origin;
+    final yAxis = transform.globalToLocal(const Offset(0, 1)) - origin;
+    return 'matrix(${xAxis.dx} ${xAxis.dy} ${yAxis.dx} ${yAxis.dy} '
+        '${origin.dx} ${origin.dy})';
   }
 
   void _wrapSvgChildren(XmlElement parent, int start, String transform) {
