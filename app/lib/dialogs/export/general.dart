@@ -412,22 +412,24 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               if (_previewImage == null) {
                 return const Center(child: CircularProgressIndicator());
               }
-              return Image(
-                fit: BoxFit.contain,
-                image: MemoryImage(_previewImage!.buffer.asUint8List()),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  );
-                },
+              return SizedBox.expand(
+                child: Image(
+                  fit: BoxFit.contain,
+                  image: MemoryImage(_previewImage!.buffer.asUint8List()),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
               );
             },
           ),
