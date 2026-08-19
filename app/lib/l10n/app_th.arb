@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "ไม่รองรับเว็บ",
   "advanced": "ขั้นสูง",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "ไดเรกทอรี",
   "documentsDirectory": "ไดเรกทอรีเอกสาร",
   "templatesDirectory": "ไดเรกทอรีแม่แบบ",
