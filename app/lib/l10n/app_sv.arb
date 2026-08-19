@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Webben stöds inte",
   "advanced": "Avancerat",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Katalog",
   "documentsDirectory": "Katalog för dokument",
   "templatesDirectory": "Mall katalog",
