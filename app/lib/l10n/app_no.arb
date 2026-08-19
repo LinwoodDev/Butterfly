@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web støttes ikke",
   "advanced": "Avansert",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Katalog",
   "documentsDirectory": "Dokumenter katalog",
   "templatesDirectory": "Mappe for maler",
