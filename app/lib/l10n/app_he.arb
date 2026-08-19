@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "אינטרנט אינו נתמך",
   "advanced": "מתקדם",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "ספרייה",
   "documentsDirectory": "ספריית מסמכים",
   "templatesDirectory": "ספריית תבניות",
