@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web tidak didukung",
   "advanced": "Lanjutan",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Direktori",
   "documentsDirectory": "Direktori dokumen",
   "templatesDirectory": "Direktori templat",
