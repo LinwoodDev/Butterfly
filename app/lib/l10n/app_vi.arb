@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Trình duyệt không hỗ trợ",
   "advanced": "Nâng cao",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Thư mục",
   "documentsDirectory": "Thư mục tài liệu",
   "templatesDirectory": "Thư mục mẫu",
