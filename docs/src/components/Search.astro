@@ -1,0 +1,13 @@
+---
+import StarlightSearch from '@astrojs/starlight/components/Search.astro';
+---
+
+<div class="search" transition:persist="starlight-search">
+  <StarlightSearch {...Astro.props} />
+</div>
+
+<style>
+  .search {
+    display: contents;
+  }
+</style>
