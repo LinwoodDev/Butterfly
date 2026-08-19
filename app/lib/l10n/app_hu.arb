@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "A web nem támogatott",
   "advanced": "Speciális",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Könyvtár",
   "documentsDirectory": "Dokumentumok könyvtára",
   "templatesDirectory": "Sablonok könyvtára",
