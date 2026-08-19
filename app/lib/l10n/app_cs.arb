@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web není podporován",
   "advanced": "Rozšířené",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Adresář",
   "documentsDirectory": "Adresář dokumentů",
   "templatesDirectory": "Adresář šablon",
