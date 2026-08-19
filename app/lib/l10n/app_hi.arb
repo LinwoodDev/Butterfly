@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "वेब समर्थित नहीं है",
   "advanced": "उन्नत",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "डायरेक्टरी",
   "documentsDirectory": "दस्तावेज़ डायरेक्टरी",
   "templatesDirectory": "टेम्पलेट्स डायरेक्टरी",
