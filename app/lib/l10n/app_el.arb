@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Απόσταση",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Εικόνα",
   "@image": {
     "description": "Image object or tool"
