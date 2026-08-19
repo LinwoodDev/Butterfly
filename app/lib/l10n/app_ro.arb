@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web neacceptat",
   "advanced": "Avansat",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Director",
   "documentsDirectory": "Dosar documente",
   "templatesDirectory": "Directorul de șabloane",
