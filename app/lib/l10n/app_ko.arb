@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "웹은 지원되지 않습니다",
   "advanced": "고급",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "디렉터리",
   "documentsDirectory": "문서 디렉터리",
   "templatesDirectory": "템플릿 디렉터리",
