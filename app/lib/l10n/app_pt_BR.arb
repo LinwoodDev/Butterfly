@@ -576,6 +576,8 @@
   "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web não suportado",
   "advanced": "Avançado",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Diretório",
   "documentsDirectory": "Diretório de documentos",
   "templatesDirectory": "Diretório de modelos",
