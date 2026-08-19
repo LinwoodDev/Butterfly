@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Tagolás",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Kép",
   "@image": {
     "description": "Image object or tool"
