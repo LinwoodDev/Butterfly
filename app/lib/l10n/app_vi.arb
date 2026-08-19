@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Khoảng cách",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Hình ảnh",
   "@image": {
     "description": "Image object or tool"
