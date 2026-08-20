@@ -1,3 +1,9 @@
+# Butterfly is packaged from an already-built Flutter release bundle, so there
+# is no useful debug subpackage to generate. RPM 4.20+ uses the boolean macro;
+# older RPM releases use the debug_package template.
+%global _enable_debug_packages 0
+%global debug_package %{nil}
+
 Name:           linwood-butterfly
 Version:        1.0.0
 Release:        1%{?dist}
