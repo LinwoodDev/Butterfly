@@ -1,5 +1,35 @@
+import 'dart:math';
+
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
+
+/// Calculates the scale for an imported visual asset.
+///
+/// Assets keep their native on-screen size when they fit within the configured
+/// viewport fraction. Larger assets are scaled down to that limit. Dividing by
+/// the current viewport scale keeps the initial on-screen size independent of
+/// the zoom level at which the asset is imported.
+double calculateImportAssetScale({
+  required double assetWidth,
+  required double assetHeight,
+  required double viewportWidth,
+  required double viewportHeight,
+  required double viewportScale,
+  required double maxViewportFraction,
+}) {
+  final fraction = maxViewportFraction.clamp(0.0, 1.0);
+  var fitScale = 1.0;
+  if (assetWidth > 0 && viewportWidth.isFinite) {
+    fitScale = min(fitScale, viewportWidth * fraction / assetWidth);
+  }
+  if (assetHeight > 0 && viewportHeight.isFinite) {
+    fitScale = min(fitScale, viewportHeight * fraction / assetHeight);
+  }
+  final zoom = viewportScale.isFinite && viewportScale > 0
+      ? viewportScale
+      : 1.0;
+  return fitScale / zoom;
+}
 
 Uint8List? getDataFromSource(NoteData document, String source) {
   if (source.isEmpty) {

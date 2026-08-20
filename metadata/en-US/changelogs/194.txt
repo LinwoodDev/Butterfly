@@ -4,6 +4,7 @@
 * Add runtime exact ruler angle control and preserve ruler placement while toggling ([#1230](https://github.com/LinwoodDev/Butterfly/issues/1230))
 * Add Shift aspect-ratio and Alt centered scaling modifiers everywhere ([#1197](https://github.com/LinwoodDev/Butterfly/issues/1197))
 * Add padding to image and svg export
+* Improve image and SVG import sizing by preserving their native on-screen size ([#1222](https://github.com/LinwoodDev/Butterfly/issues/1222))
 * Improve image and SVG exports with current view transforms, rotation, and polygon rendering ([#1233](https://github.com/LinwoodDev/Butterfly/issues/1233))
 * Use correct nightly branding
 * Fix settings not updating when opened from a document ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))

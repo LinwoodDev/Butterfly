@@ -35,6 +35,7 @@ import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
+import '../helpers/element.dart';
 import 'onenote.dart';
 
 enum _OneNoteXpsFallback { manual, skipAll }
@@ -617,12 +618,15 @@ class ImportService {
       final settingsScale = getSettingsCubit().state.imageScale;
       ElementConstraints? constraints;
       if (position == null && editorController != null && settingsScale > 0) {
-        final scale =
-            min(
-              (screen.width * settingsScale) / width,
-              (screen.height * settingsScale) / height,
-            ) /
-            editorController!.rendererCubit.state.cameraViewport.scale;
+        final scale = calculateImportAssetScale(
+          assetWidth: width,
+          assetHeight: height,
+          viewportWidth: screen.width,
+          viewportHeight: screen.height,
+          viewportScale:
+              editorController!.rendererCubit.state.cameraViewport.scale,
+          maxViewportFraction: settingsScale,
+        );
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
       return ImportResult(
@@ -931,12 +935,15 @@ class ImportService {
           if (position == null &&
               editorController != null &&
               settingsScale > 0) {
-            final scale =
-                min(
-                  (screen.width * settingsScale) / width,
-                  (screen.height * settingsScale) / height,
-                ) /
-                editorController!.rendererCubit.state.cameraViewport.scale;
+            final scale = calculateImportAssetScale(
+              assetWidth: width,
+              assetHeight: height,
+              viewportWidth: screen.width,
+              viewportHeight: screen.height,
+              viewportScale:
+                  editorController!.rendererCubit.state.cameraViewport.scale,
+              maxViewportFraction: settingsScale,
+            );
             constraints = ElementConstraints.scaled(
               scaleX: scale,
               scaleY: scale,
