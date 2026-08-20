@@ -53,7 +53,7 @@ jobs:
           chmod 600 known_hosts
           rsync -avz --delete -e "ssh -i sftp_key -o UserKnownHostsFile=known_hosts" dist/ $SFTP_USERNAME@$SFTP_HOST:/var/www/butterfly.linwood
   web:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 60
     defaults:
       run:

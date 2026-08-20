@@ -23,7 +23,7 @@ jobs:
     defaults:
       run:
         working-directory: app
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -257,22 +257,26 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-          - image: ubuntu-24.04
+          - image: ubuntu-26.04
             name: x86_64
             dir: x64
             appimage: x86_64
-          - image: ubuntu-24.04-arm
+            gdk_pixbuf_dev: libgdk-pixbuf-2.0-dev
+          - image: ubuntu-26.04-arm
             name: arm64
             dir: arm64
             appimage: aarch64
-          - image: ubuntu-22.04
+            gdk_pixbuf_dev: libgdk-pixbuf-2.0-dev
+          - image: ubuntu-24.04
             name: alternative-x86_64
             dir: x64
             appimage: x86_64
-          - image: ubuntu-22.04-arm
+            gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
+          - image: ubuntu-24.04-arm
             name: alternative-arm64
             dir: arm64
             appimage: aarch64
+            gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
     runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
@@ -288,7 +292,7 @@ jobs:
           sudo apt-get install -y python3-pip \
             python3-setuptools \
             desktop-file-utils \
-            libgdk-pixbuf2.0-dev \
+            ${{ matrix.arch.gdk_pixbuf_dev }} \
             fakeroot \
             strace \
             fuse \
@@ -418,11 +422,11 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-          - image: ubuntu-24.04
+          - image: ubuntu-26.04
             name: x86_64
             dir: x64
             appimage: x86_64
-          - image: ubuntu-24.04-arm
+          - image: ubuntu-26.04-arm
             name: arm64
             dir: arm64
             appimage: aarch64
@@ -563,7 +567,7 @@ jobs:
           path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
           compression-level: 0 #ipa is already compressed
   build-docker:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
     env:
       BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
@@ -604,7 +608,7 @@ jobs:
           build-args: |
             BUILD_FLAVOR=${{ env.BUILD_FLAVOR }}
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
     permissions:
       contents: write
@@ -908,7 +912,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:
@@ -997,7 +1001,7 @@ jobs:
         github.event.action == 'published' &&
         github.event.release.prerelease == true
       }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     permissions:
       contents: read
