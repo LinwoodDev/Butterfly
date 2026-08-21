@@ -7,6 +7,7 @@ import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/input.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/repositories/document_state.dart';

@@ -7,6 +7,7 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     AppLocalizations.of(context).collaboration,
     AppLocalizations.of(context).smoothNavigation,
     AppLocalizations.of(context).edgePanAreaSwitching,
+    AppLocalizations.of(context).infiniteZoom,
   ],
   appBarBuilder: _butterflyAppBar,
   onReset: (context, state) => context.read<SettingsCubit>().resetFlags(),
@@ -42,6 +43,15 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.hasFlag('edgePanAreaSwitching'),
           write: (context, value) =>
               _changeFlag(context, 'edgePanAreaSwitching', value),
+        ),
+        SettingsLeapBoolSetting(
+          displayName: (context) => AppLocalizations.of(context).infiniteZoom,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).infiniteZoomDescription,
+          icon: PhosphorIconsLight.infinity,
+          read: (state) => state.hasFlag(kInfiniteZoomFlag),
+          write: (context, value) =>
+              _changeFlag(context, kInfiniteZoomFlag, value),
         ),
       ],
     ),

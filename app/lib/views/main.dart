@@ -455,6 +455,7 @@ class _ProjectPageState extends State<ProjectPage> {
         ),
         initialSession.camera.zoom,
         initialSession.camera.rotation,
+        getZoomUpperBound(settingsCubit.state),
       );
       final editorSessionCubit = EditorSessionCubit(
         repository: documentStateRepository,
@@ -488,7 +489,10 @@ class _ProjectPageState extends State<ProjectPage> {
         return;
       }
       if (restoredSession == null) {
-        transformCubit.teleportToWaypoint(page.getOriginWaypoint());
+        transformCubit.teleportToWaypoint(
+          page.getOriginWaypoint(),
+          maxZoom: getZoomUpperBound(settingsCubit.state),
+        );
       }
       final editorController = EditorController(
         settingsCubit,

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -59,6 +60,46 @@ void main() {
         bounds.bottom,
         closeTo(corners.map((e) => e.dy).reduce(max), 1e-9),
       );
+    });
+  });
+
+  group('CameraTransform zoom limits', () {
+    test('uses an unbounded upper limit only for the experiment flag', () {
+      expect(getZoomUpperBound(const ButterflySettings()), kMaxZoom);
+      expect(
+        getZoomUpperBound(const ButterflySettings(flags: [kInfiniteZoomFlag])),
+        isNull,
+      );
+    });
+
+    test('uses the standard upper zoom limit by default', () {
+      const transform = CameraTransform();
+
+      expect(transform.withSize(100).size, kMaxZoom);
+    });
+
+    test(
+      'allows finite zoom levels above the standard limit when unbounded',
+      () {
+        const transform = CameraTransform();
+
+        expect(transform.withSize(1000, Offset.zero, null).size, 1000);
+      },
+    );
+
+    test('ignores non-finite zoom levels', () {
+      const transform = CameraTransform(1, Offset.zero, 25);
+
+      expect(transform.withSize(double.infinity, Offset.zero, null).size, 25);
+    });
+
+    test('position-only teleports preserve a high zoom level', () {
+      final cubit = TransformCubit(1)..size(1000, Offset.zero, null);
+
+      cubit.teleport(const Offset(20, 30));
+
+      expect(cubit.state.position, const Offset(20, 30));
+      expect(cubit.state.size, 1000);
     });
   });
 }

@@ -139,7 +139,13 @@ mixin GeneralPresentationHandler {
     final zoom = animation.interpolateCameraZoom(currentFrame);
     if (position == null && zoom == null) return;
     if (position != null) transformCubit.teleport(position.toOffset());
-    if (zoom != null) transformCubit.size(zoom);
+    if (zoom != null) {
+      transformCubit.size(
+        zoom,
+        Offset.zero,
+        getZoomUpperBound(cubit.settingsCubit.state),
+      );
+    }
     bloc.delayedBake(testTransform: true);
   }
 

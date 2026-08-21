@@ -128,6 +128,7 @@ class _AreasViewState extends State<AreasView> {
         area,
         viewport.toSize(),
         viewport.resolution,
+        getZoomUpperBound(context.read<SettingsCubit>().state),
       );
       bloc.add(CurrentAreaChanged(area.name));
     }

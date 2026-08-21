@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -85,7 +86,14 @@ class _WaypointsViewState extends State<WaypointsView> {
                                     onTap: () {
                                       context
                                           .read<TransformCubit>()
-                                          .teleportToWaypoint(origin);
+                                          .teleportToWaypoint(
+                                            origin,
+                                            maxZoom: getZoomUpperBound(
+                                              context
+                                                  .read<SettingsCubit>()
+                                                  .state,
+                                            ),
+                                          );
                                       context.read<DocumentBloc>().bake();
                                     },
                                     trailing: button,
@@ -159,6 +167,14 @@ class _WaypointsViewState extends State<WaypointsView> {
                                                   bloc.transformCubit
                                                       .teleportToWaypoint(
                                                         Waypoint.defaultOrigin,
+                                                        maxZoom:
+                                                            getZoomUpperBound(
+                                                              context
+                                                                  .read<
+                                                                    SettingsCubit
+                                                                  >()
+                                                                  .state,
+                                                            ),
                                                       );
                                                   bloc.delayedBake();
                                                 },
@@ -218,7 +234,14 @@ class _WaypointsViewState extends State<WaypointsView> {
                                       onTap: () {
                                         context
                                             .read<TransformCubit>()
-                                            .teleportToWaypoint(waypoint);
+                                            .teleportToWaypoint(
+                                              waypoint,
+                                              maxZoom: getZoomUpperBound(
+                                                context
+                                                    .read<SettingsCubit>()
+                                                    .state,
+                                              ),
+                                            );
                                         context.read<DocumentBloc>().bake();
                                       },
                                       onSaved: (value) =>

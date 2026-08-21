@@ -19,9 +19,13 @@ part 'transform.freezed.dart';
 
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
+const kInfiniteZoomFlag = 'infiniteZoom';
 const kRoundPrecision = 3;
 const kDrag = 0.001;
 const kBoundsSnapBackDuration = 0.18;
+
+double? getZoomUpperBound(ButterflySettings settings) =>
+    settings.hasFlag(kInfiniteZoomFlag) ? null : kMaxZoom;
 
 @freezed
 sealed class FrictionState with _$FrictionState {
@@ -51,9 +55,16 @@ sealed class CameraTransform with _$CameraTransform {
   CameraTransform withPointPosition(Point<double> position) =>
       CameraTransform(pixelRatio, position.toOffset(), size, rotation);
 
-  CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
+  CameraTransform withSize(
+    double size, [
+    Offset cursor = Offset.zero,
+    double? maxZoom = kMaxZoom,
+  ]) {
     // Set size and focus on cursor if provided
-    final double newSize = size.clamp(kMinZoom, kMaxZoom);
+    final requestedSize = size.isFinite ? size : this.size;
+    final double newSize = maxZoom == null
+        ? max(requestedSize, kMinZoom)
+        : requestedSize.clamp(kMinZoom, maxZoom);
     return CameraTransform(
       pixelRatio,
       localToGlobal(cursor) - cursor.rotate(Offset.zero, -rotation) / newSize,
@@ -128,6 +139,7 @@ sealed class CameraTransform with _$CameraTransform {
     Offset velocityPosition,
     double velocitySize, {
     Rect? positionBounds,
+    double? maxZoom = kMaxZoom,
   }) {
     final simX = _getSimulation(velocityPosition.dx);
     final finalX = simX.finalX;
@@ -141,7 +153,11 @@ sealed class CameraTransform with _$CameraTransform {
     final finalPosition = positionBounds == null
         ? position - finalPos
         : _clampPosition(position - finalPos, positionBounds);
-    final finalScale = (size + finalSize).clamp(kMinZoom, kMaxZoom);
+    final simulatedScale = size + finalSize;
+    final requestedScale = simulatedScale.isFinite ? simulatedScale : size;
+    final finalScale = maxZoom == null
+        ? max(requestedScale, kMinZoom)
+        : requestedScale.clamp(kMinZoom, maxZoom);
     var duration = max(durationPosition, durationSize);
     if (!duration.isFinite) {
       duration = 0;
@@ -189,15 +205,27 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
-  void teleport(Offset position, [double? scale, double? rotation]) => emit(
+  void teleport(
+    Offset position, [
+    double? scale,
+    double? rotation,
+    double? maxZoom = kMaxZoom,
+  ]) => emit(
     state
         .withPosition(position)
-        .withSize(scale ?? state.size)
+        .withSize(
+          scale ?? state.size,
+          Offset.zero,
+          scale == null ? null : maxZoom,
+        )
         .withRotation(rotation ?? state.rotation),
   );
 
-  void zoom(double delta, [Offset cursor = Offset.zero]) =>
-      emit(state.withSize(state.size * delta, cursor));
+  void zoom(
+    double delta, [
+    Offset cursor = Offset.zero,
+    double? maxZoom = kMaxZoom,
+  ]) => emit(state.withSize(state.size * delta, cursor, maxZoom));
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
 
@@ -206,40 +234,54 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void reset() => emit(CameraTransform(state.pixelRatio));
 
-  void size(double size, [Offset cursor = Offset.zero]) =>
-      emit(state.withSize(size, cursor));
+  void size(
+    double size, [
+    Offset cursor = Offset.zero,
+    double? maxZoom = kMaxZoom,
+  ]) => emit(state.withSize(size, cursor, maxZoom));
 
-  void teleportToWaypoint(Waypoint waypoint) =>
-      teleport(waypoint.position.toOffset(), waypoint.scale ?? state.size);
+  void teleportToWaypoint(Waypoint waypoint, {double? maxZoom = kMaxZoom}) =>
+      teleport(
+        waypoint.position.toOffset(),
+        waypoint.scale ?? state.size,
+        null,
+        maxZoom,
+      );
 
   void teleportToArea(
     Area area, [
     Size? screen,
     RenderResolution resolution = RenderResolution.performance,
+    double? maxZoom = kMaxZoom,
   ]) {
     if (screen == null || area.width <= 0 || area.height <= 0) {
-      teleport(area.position.toOffset(), state.size);
+      teleport(area.position.toOffset(), state.size, null, maxZoom);
       return;
     }
 
     final effectiveScreen = screen / resolution.multiplier;
     final width = effectiveScreen.width / area.width;
     final height = effectiveScreen.height / area.height;
-    final size = min(width, height).clamp(kMinZoom, kMaxZoom);
+    final requestedSize = min(width, height);
+    final size = maxZoom == null
+        ? max(requestedSize, kMinZoom)
+        : requestedSize.clamp(kMinZoom, maxZoom);
     final position =
         area.rect.center - effectiveScreen.center(Offset.zero) / size;
-    teleport(position, size);
+    teleport(position, size, null, maxZoom);
   }
 
   void slide(
     Offset velocityPosition,
     double velocitySize, {
     Rect? positionBounds,
+    double? maxZoom = kMaxZoom,
   }) => emit(
     state.withFriction(
       velocityPosition,
       velocitySize,
       positionBounds: positionBounds,
+      maxZoom: maxZoom,
     ),
   );
 
@@ -558,12 +600,16 @@ class TransformCubit extends Cubit<CameraTransform> {
       return;
     }
     if (force) {
-      zoom(delta, cursor);
+      zoom(delta, cursor, getZoomUpperBound(runtime.settingsCubit.state));
       return;
     }
-    final transform = state.withSize(state.size * delta, cursor);
+    final transform = state.withSize(
+      state.size * delta,
+      cursor,
+      getZoomUpperBound(runtime.settingsCubit.state),
+    );
     final clamped = _clampTransform(transform: transform, runtime: runtime);
-    teleport(clamped.position, clamped.size);
+    emit(clamped);
   }
 
   void rotateConstrained(
@@ -587,14 +633,18 @@ class TransformCubit extends Cubit<CameraTransform> {
     final locks = runtime.viewCubit.state.locks;
     if (locks.lockZoom && !force) return;
     if (force) {
-      this.size(size, cursor);
+      this.size(size, cursor, getZoomUpperBound(runtime.settingsCubit.state));
       return;
     }
     final transform = _clampTransform(
-      transform: state.withSize(size, cursor),
+      transform: state.withSize(
+        size,
+        cursor,
+        getZoomUpperBound(runtime.settingsCubit.state),
+      ),
       runtime: runtime,
     );
-    teleport(transform.position, transform.size);
+    emit(transform);
   }
 
   void slideConstrained(
@@ -655,6 +705,11 @@ class TransformCubit extends Cubit<CameraTransform> {
         !outOfBounds) {
       return;
     }
-    slide(positionVelocity, sizeVelocity, positionBounds: bounds);
+    slide(
+      positionVelocity,
+      sizeVelocity,
+      positionBounds: bounds,
+      maxZoom: getZoomUpperBound(runtime.settingsCubit.state),
+    );
   }
 }

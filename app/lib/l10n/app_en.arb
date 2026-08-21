@@ -1262,6 +1262,10 @@
   "@edgePanAreaSwitching": {
     "description": "Switch areas when you pan near the edge of the canvas"
   },
+  "infiniteZoom": "Infinite zoom",
+  "@infiniteZoom": {
+    "description": "Allow zooming beyond the standard maximum"
+  },
   "useAndroidSaf": "Use Android SAF",
   "exact": "Exact",
   "@exact": {
@@ -1553,6 +1557,7 @@
   "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
   "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
   "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
+  "infiniteZoomDescription": "Removes the standard maximum zoom level. Embedded raster content may stop getting sharper at very high zoom levels.",
   "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
   "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
   "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
