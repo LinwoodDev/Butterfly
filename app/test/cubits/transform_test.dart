@@ -61,4 +61,20 @@ void main() {
       );
     });
   });
+
+  group('CameraTransform friction', () {
+    test('starts the animation at the current position and size', () {
+      const transform = CameraTransform(1, Offset(10, 20), 2);
+
+      final sliding = transform.withFriction(const Offset(100, -50), 2);
+      final friction = sliding.friction!;
+      final animationStart = sliding.withFrictionless(
+        friction.beginOffset,
+        friction.beginSize,
+      );
+
+      expect(animationStart.position, transform.position);
+      expect(animationStart.size, transform.size);
+    });
+  });
 }

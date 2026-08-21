@@ -154,7 +154,7 @@ sealed class CameraTransform with _$CameraTransform {
     }
     final frictionState = FrictionState(
       finalPosition - position,
-      velocitySize == 0 ? 0 : 1 / velocitySize,
+      finalScale - size,
       DateTime.now(),
       duration,
     );

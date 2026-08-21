@@ -11,6 +11,7 @@
 * Fix import preview not appearing after selecting a file with a pen ([#1221](https://github.com/LinwoodDev/Butterfly/issues/1221))
 * Fix pen stroke changing after release
 * Fix pen strokes temporarily disappearing in embeds ([#1234](https://github.com/LinwoodDev/Butterfly/issues/1234))
+* Fix smooth touch navigation with the hand tool and when adding or releasing fingers
 * Fix nightly branding missing from web builds
 * Fix export preview sizing
 * Fix WebDAV failing to create missing parent directories ([#1207](https://github.com/LinwoodDev/Butterfly/issues/1207))
