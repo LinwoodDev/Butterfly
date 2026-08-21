@@ -393,6 +393,56 @@ void main() {
     await tester.pump(const Duration(seconds: 4));
   });
 
+  testWidgets('releasing one touch pointer keeps the camera stable', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['smoothNavigation'],
+      ),
+    );
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final viewport = find.byType(MainViewViewport);
+    final center = tester.getCenter(viewport);
+    final firstFinger = await tester.startGesture(
+      center - const Offset(30, 0),
+      pointer: 1,
+      kind: PointerDeviceKind.touch,
+    );
+    final secondFinger = await tester.startGesture(
+      center + const Offset(30, 0),
+      pointer: 2,
+      kind: PointerDeviceKind.touch,
+    );
+    await tester.pump();
+    await firstFinger.moveBy(const Offset(20, 10));
+    await secondFinger.moveBy(const Offset(20, 10));
+    await tester.pump();
+
+    final transformCubit =
+        observer.lastDocumentBloc!.editorController.transformCubit;
+    final beforeRelease = transformCubit.state;
+    await secondFinger.up();
+    await tester.pump();
+    final afterRelease = transformCubit.state;
+
+    expect(afterRelease.position, beforeRelease.position);
+    expect(afterRelease.size, beforeRelease.size);
+    expect(afterRelease.friction, isNull);
+
+    await firstFinger.up();
+    await tester.pumpAndSettle();
+  });
+
   testWidgets('hold shortcut resets before the next pointer down', (
     tester,
   ) async {
