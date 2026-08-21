@@ -13,6 +13,7 @@
 * Fix pen strokes temporarily disappearing in embeds ([#1234](https://github.com/LinwoodDev/Butterfly/issues/1234))
 * Fix nightly branding missing from web builds
 * Fix export preview sizing
+* Fix WebDAV failing to create missing parent directories ([#1207](https://github.com/LinwoodDev/Butterfly/issues/1207))
 * Upgrade to Flutter 3.47
   * Migrate to impeller for windows/linux
   * Improve linux stylus support

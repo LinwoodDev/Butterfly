@@ -236,10 +236,10 @@ packages:
     dependency: transitive
     description:
       name: cli_util
-      sha256: "71e43f1976c3eae2d9468a5b4d6600bf8cae61508b87f27fa1799228935d48ab"
+      sha256: "89b8801ba49f8b593fbf2d3e59efd0f566c46cd4ba6837ae2610c72b52a0f899"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.2"
+    version: "0.6.0"
   clock:
     dependency: transitive
     description:
@@ -833,8 +833,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: cf08b91623cd022223eb9e72f67bd972d52ec701
-      resolved-ref: cf08b91623cd022223eb9e72f67bd972d52ec701
+      ref: "53bd5c8cf9e6f43015838608540158698a9f114e"
+      resolved-ref: "53bd5c8cf9e6f43015838608540158698a9f114e"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
