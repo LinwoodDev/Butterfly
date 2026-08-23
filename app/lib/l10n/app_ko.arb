@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "간격",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "이미지",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "파일 {fileName}이(가) 더 새로운 버전({fileVersion})에서 생성되었습니다. 이 파일을 어떻게 처리할까요?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "연결",
   "username": "사용자 이름",
   "password": "비밀번호",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "웹은 지원되지 않습니다",
   "advanced": "고급",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "디렉터리",
   "documentsDirectory": "문서 디렉터리",
   "templatesDirectory": "템플릿 디렉터리",

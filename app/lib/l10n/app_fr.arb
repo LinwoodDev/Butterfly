@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Espacement",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Image",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Sauvegarder la connexion",
+  "automaticBackups": "Sauvegardes automatiques",
+  "automaticBackupsDescription": "Crée des sauvegardes pendant que Butterfly fonctionne.",
+  "backupInterval": "Intervalle de sauvegarde",
+  "backupNow": "Sauvegarder maintenant",
+  "lastBackup": "Dernière sauvegarde",
+  "backupCreated": "Sauvegarde créée",
+  "hour": "heure",
+  "hours": "heures",
+  "day": "jour",
+  "days": "Jours",
+  "week": "Semaine",
+  "weeks": "semaines",
   "createdInNewerVersion": "Le fichier {fileName} a été créé dans une version plus récente ({fileVersion}). Que faire de ce fichier ?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Connecter",
   "username": "Nom d'utilisateur",
   "password": "Mot de passe",
+  "authenticationPassword": "Mot de passe d'authentification",
+  "documentEncryptionPassword": "Mot de passe de cryptage du document",
+  "documentEncryptionEnabled": "Chiffrement des documents activé",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Ajouter un mot de passe de cryptage de document",
+  "changeDocumentEncryptionPassword": "Modifier le mot de passe de cryptage du document",
   "webNotSupported": "Web non pris en charge",
   "advanced": "Avancé",
+  "symmetric": "Symétrique",
+  "perSide": "Par côté",
   "directory": "Répertoire",
   "documentsDirectory": "Répertoire des documents",
   "templatesDirectory": "Répertoire des modèles",

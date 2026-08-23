@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Väli",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Kuva",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Varmuuskopioi yhteys",
+  "automaticBackups": "Automaattiset varmuuskopiot",
+  "automaticBackupsDescription": "Luo varmuuskopiot Butterfyn ollessa käynnissä.",
+  "backupInterval": "Varmuuskopioinnin aikaväli",
+  "backupNow": "Varmuuskopioi nyt",
+  "lastBackup": "Viimeisin varmuuskopiointi",
+  "backupCreated": "Varmuuskopio luotu",
+  "hour": "tunti",
+  "hours": "tuntia",
+  "day": "päivä",
+  "days": "päivää",
+  "week": "viikko",
+  "weeks": "viikkoa",
   "createdInNewerVersion": "Tiedosto {fileName} on luotu uudempaan versioon ({fileVersion}). Mitä pitäisi tehdä tällä tiedostolla?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Yhdistä",
   "username": "Käyttäjätunnus",
   "password": "Salasana",
+  "authenticationPassword": "Todennuksen salasana",
+  "documentEncryptionPassword": "Asiakirjan salauksen salasana",
+  "documentEncryptionEnabled": "Asiakirjan salaus käytössä",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Lisää asiakirjan salauksen salasana",
+  "changeDocumentEncryptionPassword": "Vaihda asiakirjan salauksen salasana",
   "webNotSupported": "Verkkoa ei tueta",
   "advanced": "Lisäasetukset",
+  "symmetric": "Symmetrinen",
+  "perSide": "Per puoli",
   "directory": "Hakemisto",
   "documentsDirectory": "Asiakirjojen hakemisto",
   "templatesDirectory": "Mallien hakemisto",

@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Odstępy",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Obraz",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Tworzenie kopii zapasowej połączenia",
+  "automaticBackups": "Automatyczne kopie zapasowe",
+  "automaticBackupsDescription": "Tworzy kopie zapasowe podczas uruchamiania Motylka.",
+  "backupInterval": "Interwał kopii zapasowej",
+  "backupNow": "Utwórz kopię zapasową",
+  "lastBackup": "Ostatnia kopia",
+  "backupCreated": "Kopia zapasowa utworzona",
+  "hour": "godzina",
+  "hours": "godziny",
+  "day": "dzień",
+  "days": "dni",
+  "week": "tydzień",
+  "weeks": "tygodnie",
   "createdInNewerVersion": "Plik {fileName} został utworzony w nowszej wersji ({fileVersion}). Co należy zrobić z tym plikiem?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Połącz",
   "username": "Nazwa użytkownika",
   "password": "Hasło",
+  "authenticationPassword": "Hasło uwierzytelniania",
+  "documentEncryptionPassword": "Hasło szyfrowania dokumentów",
+  "documentEncryptionEnabled": "Szyfrowanie dokumentów włączone",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Dodaj hasło szyfrowania dokumentów",
+  "changeDocumentEncryptionPassword": "Zmień hasło szyfrowania dokumentu",
   "webNotSupported": "Sieć nie jest obsługiwana",
   "advanced": "Zaawansowane",
+  "symmetric": "Symetryczny",
+  "perSide": "Na stronę",
   "directory": "Katalog",
   "documentsDirectory": "Katalog dokumentów",
   "templatesDirectory": "Katalog szablonów",

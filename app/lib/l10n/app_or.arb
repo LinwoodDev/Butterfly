@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "ଅନ୍ତରାଳ",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "ଛବି",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "ଫାଇଲ୍ {fileName} ଏକ ନୂତନ ସଂସ୍କରଣ ({fileVersion})ରେ ସୃଷ୍ଟି ହୋଇଛି। ଏହି ଫାଇଲ୍ ସହ କʼଣ କରିବେ?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "ସଂଯୋଗ କରନ୍ତୁ",
   "username": "ଉପଯୋଗକର୍ତ୍ତା ନାମ",
   "password": "ପାସୱାର୍ଡ",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "ଓଲଇନ୍ ସମର୍ଥିତ ନୁହେଁ",
   "advanced": "ଉନ୍ନତ",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "ଡିରେକ୍ଟୋରି",
   "documentsDirectory": "ଡକ୍ୟୁମେଣ୍ଟ ଡିରେକ୍ଟୋରି",
   "templatesDirectory": "ଟେମ୍ପଲେଟ୍ ଡିରେକ୍ଟୋରି",

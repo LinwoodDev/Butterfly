@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Afstand",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Billede",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Sikkerhedskopiér forbindelse",
+  "automaticBackups": "Automatiske sikkerhedskopier",
+  "automaticBackupsDescription": "Opretter sikkerhedskopier, mens Butterfly kører.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Sikkerhedskopier nu",
+  "lastBackup": "Sidste sikkerhedskopi",
+  "backupCreated": "Sikkerhedskopi oprettet",
+  "hour": "time",
+  "hours": "timer",
+  "day": "dag",
+  "days": "dage",
+  "week": "uge",
+  "weeks": "uger",
   "createdInNewerVersion": "Filen {fileName} blev oprettet i en nyere version ({fileVersion}). Hvad skal der gøres med denne fil?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Forbind",
   "username": "Brugernavn",
   "password": "Adgangskode",
+  "authenticationPassword": "Godkendelsesadgangskode",
+  "documentEncryptionPassword": "Kodeord til kryptering af dokumenter",
+  "documentEncryptionEnabled": "Kryptering af dokument aktiveret",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Tilføj dokument kryptering adgangskode",
+  "changeDocumentEncryptionPassword": "Skift adgangskode til kryptering af dokumenter",
   "webNotSupported": "Web understøttes ikke",
   "advanced": "Avanceret",
+  "symmetric": "Symmetrisk",
+  "perSide": "Pr. side",
   "directory": "Mappe",
   "documentsDirectory": "Dokumenter mappe",
   "templatesDirectory": "Mappe til skabeloner",

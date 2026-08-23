@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Jarak",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Gambar",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "Berkas {fileName} dibuat dengan versi yang lebih baru ({fileVersion}). Apa yang harus dilakukan dengan berkas ini?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Hubungkan",
   "username": "Nama pengguna",
   "password": "Kata sandi",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web tidak didukung",
   "advanced": "Lanjutan",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Direktori",
   "documentsDirectory": "Direktori dokumen",
   "templatesDirectory": "Direktori templat",

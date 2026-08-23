@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Интервал",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Изображение",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Резервное подключение",
+  "automaticBackups": "Автоматическое резервное копирование",
+  "automaticBackupsDescription": "Создает резервные копии во время работы Butterfly.",
+  "backupInterval": "Интервал резервного копирования",
+  "backupNow": "Резервное копирование",
+  "lastBackup": "Последняя резервная копия",
+  "backupCreated": "Резервная копия создана",
+  "hour": "час",
+  "hours": "часов",
+  "day": "день",
+  "days": "дней",
+  "week": "неделя",
+  "weeks": "недель",
   "createdInNewerVersion": "Файл {fileName} был создан в более новой версии ({fileVersion}). Что нужно сделать с этим файлом?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Подключиться",
   "username": "Имя пользователя",
   "password": "Пароль",
+  "authenticationPassword": "Пароль аутентификации",
+  "documentEncryptionPassword": "Пароль шифрования документа",
+  "documentEncryptionEnabled": "Шифрование документов включено",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Добавить пароль шифрования документа",
+  "changeDocumentEncryptionPassword": "Изменить пароль шифрования документа",
   "webNotSupported": "Сеть не поддерживается",
   "advanced": "Расширенные",
+  "symmetric": "Симметричный",
+  "perSide": "На стороне",
   "directory": "Каталог",
   "documentsDirectory": "Каталог документов",
   "templatesDirectory": "Каталог шаблонов",

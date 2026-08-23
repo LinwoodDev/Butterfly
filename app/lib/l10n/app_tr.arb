@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Aralık",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Görsel",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "{fileName} adındaki dosya daha yeni bir sürümde ({fileVersion}) adıyla yeniden oluşturuldu. Bu dosyazı ne yapmak istersiniz?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Bağlan",
   "username": "Kullanıcı Adı",
   "password": "Şifre",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "Web desteklenmiyor",
   "advanced": "Gelişmiş",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "Dizin",
   "documentsDirectory": "Belge dizini",
   "templatesDirectory": "Şablon dizini",

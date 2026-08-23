@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Avstand",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Bilde",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Sikkerhetskopier tilkobling",
+  "automaticBackups": "Automatisk sikkerhetskopiering",
+  "automaticBackupsDescription": "Oppretter sikkerhetskopier mens Butterfly kjører.",
+  "backupInterval": "Sikkerhetskopier intervall",
+  "backupNow": "Sikkerhetskopier nå",
+  "lastBackup": "Siste sikkerhetskopi",
+  "backupCreated": "Sikkerhetskopi opprettet",
+  "hour": "time",
+  "hours": "timer",
+  "day": "dag",
+  "days": "dager",
+  "week": "uke",
+  "weeks": "uker",
   "createdInNewerVersion": "Filen {fileName} ble laget i en nyere versjon ({fileVersion}). Hva bør gjøres med denne filen?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Nettverk",
   "username": "Brukernavn",
   "password": "Passord",
+  "authenticationPassword": "Godkjenning passord",
+  "documentEncryptionPassword": "Krypteringspassord for dokument",
+  "documentEncryptionEnabled": "Dokumentkryptering aktivert",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Legg til passord for kryptering av dokument",
+  "changeDocumentEncryptionPassword": "Endre passord for kryptering av dokument",
   "webNotSupported": "Web støttes ikke",
   "advanced": "Avansert",
+  "symmetric": "Symmetrisk",
+  "perSide": "Pr. side",
   "directory": "Katalog",
   "documentsDirectory": "Dokumenter katalog",
   "templatesDirectory": "Mappe for maler",

@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "تباعد",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "صورة",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "الإتصال بالنسخ الاحتياطي",
+  "automaticBackups": "النسخ الاحتياطي التلقائي",
+  "automaticBackupsDescription": "يقوم بإنشاء نسخ إحتياطية أثناء تشغيل الفراشة.",
+  "backupInterval": "فاصل النسخ الاحتياطي",
+  "backupNow": "النسخ الاحتياطي الآن",
+  "lastBackup": "آخر نسخة احتياطية",
+  "backupCreated": "تم إنشاء نسخة احتياطية",
+  "hour": "ساعة",
+  "hours": "ساعات",
+  "day": "يوم",
+  "days": "أيام",
+  "week": "اسبوع",
+  "weeks": "أسابيع",
   "createdInNewerVersion": "تم إنشاء الملف {fileName} في إصدار أحدث ({fileVersion}). ما الذي ينبغي فعله مع هذا الملف؟",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "توصيل",
   "username": "اسم المستخدم",
   "password": "كلمة المرور",
+  "authenticationPassword": "كلمة مرور المصادقة",
+  "documentEncryptionPassword": "كلمة مرور تشفير المستند",
+  "documentEncryptionEnabled": "تم تمكين تشفير المستند",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "إضافة كلمة مرور تشفير المستند",
+  "changeDocumentEncryptionPassword": "تغيير كلمة مرور تشفير المستند",
   "webNotSupported": "نسخة الويب غير مدعومه",
   "advanced": "خيارات متقدمة",
+  "symmetric": "تماثل",
+  "perSide": "لكل جانب",
   "directory": "المُجلد",
   "documentsDirectory": "مجلد المستندات",
   "templatesDirectory": "مجلد القوالب",

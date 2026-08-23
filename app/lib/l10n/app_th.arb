@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "ระยะห่าง",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "รูปภาพ",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Backup connection",
+  "automaticBackups": "Automatic backups",
+  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
+  "backupInterval": "Backup interval",
+  "backupNow": "Back up now",
+  "lastBackup": "Last backup",
+  "backupCreated": "Backup created",
+  "hour": "hour",
+  "hours": "hours",
+  "day": "day",
+  "days": "days",
+  "week": "week",
+  "weeks": "weeks",
   "createdInNewerVersion": "ไฟล์ {fileName} ถูกสร้างในเวอร์ชันที่ใหม่กว่า ({fileVersion}) ควรจัดการไฟล์นี้อย่างไร?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "เชื่อมต่อ",
   "username": "ชื่อผู้ใช้",
   "password": "รหัสผ่าน",
+  "authenticationPassword": "Authentication password",
+  "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionEnabled": "Document encryption enabled",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Add document encryption password",
+  "changeDocumentEncryptionPassword": "Change document encryption password",
   "webNotSupported": "ไม่รองรับเว็บ",
   "advanced": "ขั้นสูง",
+  "symmetric": "Symmetric",
+  "perSide": "Per side",
   "directory": "ไดเรกทอรี",
   "documentsDirectory": "ไดเรกทอรีเอกสาร",
   "templatesDirectory": "ไดเรกทอรีแม่แบบ",

@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Rozestup",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Obrázek",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Zálohovat připojení",
+  "automaticBackups": "Automatické zálohy",
+  "automaticBackupsDescription": "Vytváří zálohování při běhu Butterfly",
+  "backupInterval": "Interval zálohování",
+  "backupNow": "Zálohovat nyní",
+  "lastBackup": "Poslední záloha",
+  "backupCreated": "Záloha vytvořena",
+  "hour": "hodina",
+  "hours": "hodiny",
+  "day": "den",
+  "days": "dny",
+  "week": "týden",
+  "weeks": "týdny",
   "createdInNewerVersion": "Soubor {fileName} byl vytvořen v novější verzi ({fileVersion}). Co chcete provést s tímto souborem?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Připojit",
   "username": "Uživatelské jméno",
   "password": "Heslo",
+  "authenticationPassword": "Autentizační heslo",
+  "documentEncryptionPassword": "Šifrovací heslo dokumentu",
+  "documentEncryptionEnabled": "Šifrování dokumentů povoleno",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Přidat šifrovací heslo dokumentu",
+  "changeDocumentEncryptionPassword": "Změnit šifrovací heslo dokumentu",
   "webNotSupported": "Web není podporován",
   "advanced": "Rozšířené",
+  "symmetric": "Symetrický",
+  "perSide": "Na straně",
   "directory": "Adresář",
   "documentsDirectory": "Adresář dokumentů",
   "templatesDirectory": "Adresář šablon",

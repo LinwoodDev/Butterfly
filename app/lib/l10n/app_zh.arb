@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "间距",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "图片",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "备份连接",
+  "automaticBackups": "自动备份",
+  "automaticBackupsDescription": "在 Butterfight 运行时创建备份。",
+  "backupInterval": "备份间隔",
+  "backupNow": "立即备份",
+  "lastBackup": "上次备份",
+  "backupCreated": "备份已创建",
+  "hour": "小时",
+  "hours": "小时",
+  "day": "天",
+  "days": "天",
+  "week": "周",
+  "weeks": "周",
   "createdInNewerVersion": "文件 {fileName} 是在更新版本 ({fileVersion}) 中创建的。应该如何处理它？",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "连接",
   "username": "用户名",
   "password": "密码",
+  "authenticationPassword": "验证密码",
+  "documentEncryptionPassword": "文档加密密码",
+  "documentEncryptionEnabled": "文档加密已启用",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "添加文档加密密码",
+  "changeDocumentEncryptionPassword": "更改文档加密密码",
   "webNotSupported": "网络不支持",
   "advanced": "高级版",
+  "symmetric": "对齐",
+  "perSide": "每面",
   "directory": "目录",
   "documentsDirectory": "文档目录",
   "templatesDirectory": "模板目录",

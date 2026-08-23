@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Abstand",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Bild",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Verbindung sichern",
+  "automaticBackups": "Automatische Sicherungen",
+  "automaticBackupsDescription": "Erstellt Backups, während Butterfly läuft.",
+  "backupInterval": "Sicherungsintervall",
+  "backupNow": "Jetzt sichern",
+  "lastBackup": "Letzte Sicherung",
+  "backupCreated": "Backup erstellt",
+  "hour": "std",
+  "hours": "std",
+  "day": "tag",
+  "days": "tage",
+  "week": "woche",
+  "weeks": "wochen",
   "createdInNewerVersion": "Die Datei {fileName} wurde in einer neueren Version ({fileVersion}) erstellt. Was soll mit dieser Datei gemacht werden?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Verbinden",
   "username": "Benutzername",
   "password": "Passwort",
+  "authenticationPassword": "Authentifizierungspasswort",
+  "documentEncryptionPassword": "Verschlüsselungspasswort",
+  "documentEncryptionEnabled": "Dokumentenverschlüsselung aktiviert",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Dokumentverschlüsselungspasswort hinzufügen",
+  "changeDocumentEncryptionPassword": "Passwort für Dokumentverschlüsselung ändern",
   "webNotSupported": "Web nicht unterstützt",
   "advanced": "Erweitert",
+  "symmetric": "Symmetrisch",
+  "perSide": "Pro Seite",
   "directory": "Verzeichnis",
   "documentsDirectory": "Dokumentenverzeichnis",
   "templatesDirectory": "Vorlagenverzeichnis",

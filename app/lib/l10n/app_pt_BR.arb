@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Espaçamento",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Imagem",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Conexão de backup",
+  "automaticBackups": "Backup automático",
+  "automaticBackupsDescription": "Cria backups enquanto a Borboleta está sendo executada.",
+  "backupInterval": "Intervalo de backup",
+  "backupNow": "Fazer backup agora",
+  "lastBackup": "Último backup",
+  "backupCreated": "Backup criado",
+  "hour": "hora",
+  "hours": "horas",
+  "day": "Dia",
+  "days": "Dias",
+  "week": "Semana",
+  "weeks": "Semanas",
   "createdInNewerVersion": "O arquivo {fileName} foi criado em uma versão mais recente ({fileVersion}). O que deve ser feito com esse arquivo?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Conectar",
   "username": "Usuário:",
   "password": "Palavra-passe",
+  "authenticationPassword": "Senha de autenticação",
+  "documentEncryptionPassword": "Senha de encriptação do documento",
+  "documentEncryptionEnabled": "Criptografia de documento ativada",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Adicionar senha de criptografia do documento",
+  "changeDocumentEncryptionPassword": "Alterar senha de criptografia de documento",
   "webNotSupported": "Web não suportado",
   "advanced": "Avançado",
+  "symmetric": "Simétrica",
+  "perSide": "Por lado",
   "directory": "Diretório",
   "documentsDirectory": "Diretório de documentos",
   "templatesDirectory": "Diretório de modelos",

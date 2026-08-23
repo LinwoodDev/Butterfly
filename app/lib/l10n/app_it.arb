@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Spaziatura",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Immagine",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Connessione di backup",
+  "automaticBackups": "Backup automatico",
+  "automaticBackupsDescription": "Crea backup mentre Butterfly è in esecuzione.",
+  "backupInterval": "Intervallo di backup",
+  "backupNow": "Backup ora",
+  "lastBackup": "Ultimo backup",
+  "backupCreated": "Backup creato",
+  "hour": "ora",
+  "hours": "ore",
+  "day": "giorno",
+  "days": "giorni",
+  "week": "settimana",
+  "weeks": "settimane",
   "createdInNewerVersion": "Il file {fileName} è stato creato in una versione più recente ({fileVersion}). Cosa fare di questo file?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Connetti",
   "username": "Username",
   "password": "Password",
+  "authenticationPassword": "Password di autenticazione",
+  "documentEncryptionPassword": "Password crittografia documento",
+  "documentEncryptionEnabled": "Crittografia documento abilitata",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Aggiungi password di cifratura documento",
+  "changeDocumentEncryptionPassword": "Cambia password di cifratura documento",
   "webNotSupported": "Web non supportato",
   "advanced": "Avanzate",
+  "symmetric": "Simmetrico",
+  "perSide": "Per lato",
   "directory": "Directory",
   "documentsDirectory": "Percorso documenti",
   "templatesDirectory": "Cartella modelli",

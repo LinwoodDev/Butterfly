@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "Spațiere",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "Imagine",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "Copie de rezervă conexiune",
+  "automaticBackups": "Backup-uri automate",
+  "automaticBackupsDescription": "Creează copii de rezervă în timp ce Butterfly rulează.",
+  "backupInterval": "Interval backup",
+  "backupNow": "Backup acum",
+  "lastBackup": "Ultima copie de rezervă",
+  "backupCreated": "Copie de rezervă creată",
+  "hour": "oră",
+  "hours": "ore",
+  "day": "zi",
+  "days": "zile",
+  "week": "săptămână",
+  "weeks": "săptămâni",
   "createdInNewerVersion": "Fișierul {fileName} a fost creat într-o versiune mai nouă ({fileVersion}). Ce ar trebui să facă cu acest fișier?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "Conectează-te",
   "username": "Nume",
   "password": "Parolă",
+  "authenticationPassword": "Parola de autentificare",
+  "documentEncryptionPassword": "Parola de criptare document",
+  "documentEncryptionEnabled": "Criptare document activată",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "Adăugați parola de criptare a documentului",
+  "changeDocumentEncryptionPassword": "Schimbați parola de criptare a documentului",
   "webNotSupported": "Web neacceptat",
   "advanced": "Avansat",
+  "symmetric": "Simetric",
+  "perSide": "Pe parte",
   "directory": "Director",
   "documentsDirectory": "Dosar documente",
   "templatesDirectory": "Directorul de șabloane",

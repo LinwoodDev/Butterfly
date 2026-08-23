@@ -189,6 +189,10 @@
     "description": "Share action"
   },
   "spacing": "間隔",
+  "padding": "Padding",
+  "@padding": {
+    "description": "Padding around an exported image"
+  },
   "image": "画像",
   "@image": {
     "description": "Image object or tool"
@@ -212,6 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
+  "backupConnection": "バックアップ接続",
+  "automaticBackups": "自動バックアップ",
+  "automaticBackupsDescription": "Butterflyが実行中にバックアップを作成します。",
+  "backupInterval": "バックアップ間隔",
+  "backupNow": "今すぐバックアップ",
+  "lastBackup": "前回のバックアップ",
+  "backupCreated": "バックアップの作成",
+  "hour": "時",
+  "hours": "時間",
+  "day": "日",
+  "days": "日",
+  "week": "週",
+  "weeks": "週間",
   "createdInNewerVersion": "ファイル {fileName} は、新しいバージョン ({fileVersion}) で作成されました。このファイルをどうすればよいですか？",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -551,8 +568,16 @@
   "connect": "接続する",
   "username": "ユーザー名",
   "password": "パスワード",
+  "authenticationPassword": "認証パスワード",
+  "documentEncryptionPassword": "ドキュメント暗号化パスワード",
+  "documentEncryptionEnabled": "ドキュメントの暗号化が有効になっています",
+  "reauthenticate": "Reauthenticate",
+  "addDocumentEncryptionPassword": "ドキュメント暗号化パスワードを追加",
+  "changeDocumentEncryptionPassword": "ドキュメント暗号化パスワードの変更",
   "webNotSupported": "Webはサポートされていません",
   "advanced": "高度な設定",
+  "symmetric": "Symmetric",
+  "perSide": "1 辺あたり",
   "directory": "ディレクトリ",
   "documentsDirectory": "ドキュメントディレクトリ",
   "templatesDirectory": "テンプレートディレクトリ",
