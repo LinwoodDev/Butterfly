@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
 part 'settings.freezed.dart';
+
 part 'settings.g.dart';
 
 const secureStorage = FlutterSecureStorage();
@@ -576,6 +577,7 @@ sealed class DocumentStatePersistenceSettings
 @freezed
 sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
+
   const factory ButterflySettings({
     @Default(ThemeMode.system) ThemeMode theme,
     @Default(ThemeDensity.system) ThemeDensity density,
@@ -1848,12 +1850,60 @@ class SettingsCubit extends Cubit<ButterflySettings>
       if (decoded == null) {
         throw const FormatException('Invalid settings JSON');
       }
+      _migrateSettings(decoded);
       final settings = ButterflySettings.fromJson(decoded)
           .copyWith(history: state.history, connections: state.connections);
       emit(settings);
       return save();
     } catch (e) {
       return Future.error(FormatException('Invalid settings file: $e'));
+    }
+  }
+
+  void _migrateSettings(Map<String, dynamic> decoded) {
+    final inputConfiguration =
+        decoded['inputConfiguration']! as Map<String, dynamic>;
+    _renameKey(inputConfiguration, 'pen', 'stylus');
+    _renameKey(inputConfiguration, 'invertedPen', 'invertedStylus');
+    _renameKey(inputConfiguration, 'firstPenButton', 'firstStylusButton');
+    _renameKey(inputConfiguration, 'secondPenButton', 'secondStylusButton');
+    _renameKey(inputConfiguration, 'doublePenShortcut', 'doubleStylusShortcut');
+    _renameKey(inputConfiguration, 'triplePenShortcut', 'tripleStylusShortcut');
+    _renameKey(
+      inputConfiguration,
+      'doubleInvertedPenShortcut',
+      'doubleInvertedStylusShortcut',
+    );
+    _renameKey(
+      inputConfiguration,
+      'tripleInvertedPenShortcut',
+      'tripleInvertedStylusShortcut',
+    );
+    _renameKey(
+      inputConfiguration,
+      'doubleFirstPenButtonShortcut',
+      'doubleFirstStylusButtonShortcut',
+    );
+    _renameKey(
+      inputConfiguration,
+      'tripleFirstPenButtonShortcut',
+      'tripleFirstStylusButtonShortcut',
+    );
+    _renameKey(
+      inputConfiguration,
+      'doubleSecondPenButtonShortcut',
+      'doubleSecondStylusButtonShortcut',
+    );
+    _renameKey(
+      inputConfiguration,
+      'tripleSecondPenButtonShortcut',
+      'tripleSecondStylusButtonShortcut',
+    );
+  }
+
+  void _renameKey(Map<String, dynamic> map, String oldKey, String newKey) {
+    if (map.containsKey(oldKey)) {
+      map[newKey] = map.remove(oldKey);
     }
   }
 
