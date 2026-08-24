@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: be169cf6ac481e052c4538715d88841d567150dfe1df38aaec76461a4e7b39f2
+      sha256: ace891da0862b0e4cabbb064ee3fd87b2728b898949fdb366d83fe98342c9f19
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   args:
     dependency: "direct main"
     description:
@@ -532,18 +532,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_rust_bridge
-      sha256: "7e8f565714dcb06197d29c74a559ee826c4eab4d586d7ccf9826aa5dc9478015"
+      sha256: ec69331e2335ab4d456c0a9fc700892c2c85b72b9c0cb39df3ecfe8833d5d5c8
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.6"
+    version: "2.13.0"
   flutter_rust_bridge_hooks:
     dependency: transitive
     description:
       name: flutter_rust_bridge_hooks
-      sha256: a950952d2de2ffc2464e336bd04fe16124b863a27ed547c41b94ad635d07bfd1
+      sha256: "19900fbcaa8ddc2a4f1b13994ef34393eda129ebccc59ceb887a8fd2cf5def3e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.6"
+    version: "2.13.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -614,10 +614,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "9ec135696554923c59339d46dd50adbaf81099be06ffda0fb9c06f410aea9137"
+      sha256: "27585a6c2b9ac28ffb7b45d87fd1502332af1eb90e1c9f5eb1acb24c71d26e17"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0-dev.3"
+    version: "4.0.0"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -715,10 +715,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "1c95d7711467f6a9878a4962823008e75146590eec043c94a296d4cfe6380597"
+      sha256: e36a748165663a165e1f292e9d85af6e3aa087f6e2291d16f86b2035103b2950
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.7+1"
+    version: "2.9.8"
   image:
     dependency: "direct main"
     description:
