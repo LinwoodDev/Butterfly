@@ -382,7 +382,7 @@ as PreferredSizeWidget?,
 /// @nodoc
 mixin _$EditorInputState implements DiagnosticableTreeMixin {
 
- ui.Offset? get lastPosition; List<int> get pointers; int? get buttons; bool get penDetected; bool get sessionPenOnlyInput; HideState get hideUi;
+ ui.Offset? get lastPosition; List<int> get pointers; int? get buttons; bool get stylusDetected; bool get sessionStylusOnlyInput; HideState get hideUi;
 /// Create a copy of EditorInputState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -394,21 +394,21 @@ $EditorInputStateCopyWith<EditorInputState> get copyWith => _$EditorInputStateCo
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'EditorInputState'))
-    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('penDetected', penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
+    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('stylusDetected', stylusDetected))..add(DiagnosticsProperty('sessionStylusOnlyInput', sessionStylusOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other.pointers, pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.penDetected, penDetected) || other.penDetected == penDetected)&&(identical(other.sessionPenOnlyInput, sessionPenOnlyInput) || other.sessionPenOnlyInput == sessionPenOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other.pointers, pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.stylusDetected, stylusDetected) || other.stylusDetected == stylusDetected)&&(identical(other.sessionStylusOnlyInput, sessionStylusOnlyInput) || other.sessionStylusOnlyInput == sessionStylusOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
+int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(pointers),buttons,stylusDetected,sessionStylusOnlyInput,hideUi);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
+  return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, stylusDetected: $stylusDetected, sessionStylusOnlyInput: $sessionStylusOnlyInput, hideUi: $hideUi)';
 }
 
 
@@ -419,7 +419,7 @@ abstract mixin class $EditorInputStateCopyWith<$Res>  {
   factory $EditorInputStateCopyWith(EditorInputState value, $Res Function(EditorInputState) _then) = _$EditorInputStateCopyWithImpl;
 @useResult
 $Res call({
- ui.Offset? lastPosition, List<int> pointers, int? buttons, bool penDetected, bool sessionPenOnlyInput, HideState hideUi
+ ui.Offset? lastPosition, List<int> pointers, int? buttons, bool stylusDetected, bool sessionStylusOnlyInput, HideState hideUi
 });
 
 
@@ -436,13 +436,13 @@ class _$EditorInputStateCopyWithImpl<$Res>
 
 /// Create a copy of EditorInputState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lastPosition = freezed,Object? pointers = null,Object? buttons = freezed,Object? penDetected = null,Object? sessionPenOnlyInput = null,Object? hideUi = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lastPosition = freezed,Object? pointers = null,Object? buttons = freezed,Object? stylusDetected = null,Object? sessionStylusOnlyInput = null,Object? hideUi = null,}) {
   return _then(EditorInputState(
 lastPosition: freezed == lastPosition ? _self.lastPosition : lastPosition // ignore: cast_nullable_to_non_nullable
 as ui.Offset?,pointers: null == pointers ? _self.pointers : pointers // ignore: cast_nullable_to_non_nullable
 as List<int>,buttons: freezed == buttons ? _self.buttons : buttons // ignore: cast_nullable_to_non_nullable
-as int?,penDetected: null == penDetected ? _self.penDetected : penDetected // ignore: cast_nullable_to_non_nullable
-as bool,sessionPenOnlyInput: null == sessionPenOnlyInput ? _self.sessionPenOnlyInput : sessionPenOnlyInput // ignore: cast_nullable_to_non_nullable
+as int?,stylusDetected: null == stylusDetected ? _self.stylusDetected : stylusDetected // ignore: cast_nullable_to_non_nullable
+as bool,sessionStylusOnlyInput: null == sessionStylusOnlyInput ? _self.sessionStylusOnlyInput : sessionStylusOnlyInput // ignore: cast_nullable_to_non_nullable
 as bool,hideUi: null == hideUi ? _self.hideUi : hideUi // ignore: cast_nullable_to_non_nullable
 as HideState,
   ));
@@ -456,7 +456,7 @@ as HideState,
 
 
 class _EditorInputState with DiagnosticableTreeMixin implements EditorInputState {
-  const _EditorInputState({this.lastPosition,  List<int> pointers = const [], this.buttons, this.penDetected = false, this.sessionPenOnlyInput = false, this.hideUi = HideState.visible}): _pointers = pointers;
+  const _EditorInputState({this.lastPosition,  List<int> pointers = const [], this.buttons, this.stylusDetected = false, this.sessionStylusOnlyInput = false, this.hideUi = HideState.visible}): _pointers = pointers;
   
 
 @override final  ui.Offset? lastPosition;
@@ -468,8 +468,8 @@ class _EditorInputState with DiagnosticableTreeMixin implements EditorInputState
 }
 
 @override final  int? buttons;
-@override@JsonKey() final  bool penDetected;
-@override@JsonKey() final  bool sessionPenOnlyInput;
+@override@JsonKey() final  bool stylusDetected;
+@override@JsonKey() final  bool sessionStylusOnlyInput;
 @override@JsonKey() final  HideState hideUi;
 
 /// Create a copy of EditorInputState
@@ -483,21 +483,21 @@ _$EditorInputStateCopyWith<_EditorInputState> get copyWith => __$EditorInputStat
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'EditorInputState'))
-    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('penDetected', penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
+    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('stylusDetected', stylusDetected))..add(DiagnosticsProperty('sessionStylusOnlyInput', sessionStylusOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other._pointers, _pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.penDetected, penDetected) || other.penDetected == penDetected)&&(identical(other.sessionPenOnlyInput, sessionPenOnlyInput) || other.sessionPenOnlyInput == sessionPenOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other._pointers, _pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.stylusDetected, stylusDetected) || other.stylusDetected == stylusDetected)&&(identical(other.sessionStylusOnlyInput, sessionStylusOnlyInput) || other.sessionStylusOnlyInput == sessionStylusOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(_pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
+int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(_pointers),buttons,stylusDetected,sessionStylusOnlyInput,hideUi);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
+  return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, stylusDetected: $stylusDetected, sessionStylusOnlyInput: $sessionStylusOnlyInput, hideUi: $hideUi)';
 }
 
 
@@ -508,7 +508,7 @@ abstract mixin class _$EditorInputStateCopyWith<$Res> implements $EditorInputSta
   factory _$EditorInputStateCopyWith(_EditorInputState value, $Res Function(_EditorInputState) _then) = __$EditorInputStateCopyWithImpl;
 @override @useResult
 $Res call({
- ui.Offset? lastPosition, List<int> pointers, int? buttons, bool penDetected, bool sessionPenOnlyInput, HideState hideUi
+ ui.Offset? lastPosition, List<int> pointers, int? buttons, bool stylusDetected, bool sessionStylusOnlyInput, HideState hideUi
 });
 
 
@@ -525,13 +525,13 @@ class __$EditorInputStateCopyWithImpl<$Res>
 
 /// Create a copy of EditorInputState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? lastPosition = freezed,Object? pointers = null,Object? buttons = freezed,Object? penDetected = null,Object? sessionPenOnlyInput = null,Object? hideUi = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? lastPosition = freezed,Object? pointers = null,Object? buttons = freezed,Object? stylusDetected = null,Object? sessionStylusOnlyInput = null,Object? hideUi = null,}) {
   return _then(_EditorInputState(
 lastPosition: freezed == lastPosition ? _self.lastPosition : lastPosition // ignore: cast_nullable_to_non_nullable
 as ui.Offset?,pointers: null == pointers ? _self._pointers : pointers // ignore: cast_nullable_to_non_nullable
 as List<int>,buttons: freezed == buttons ? _self.buttons : buttons // ignore: cast_nullable_to_non_nullable
-as int?,penDetected: null == penDetected ? _self.penDetected : penDetected // ignore: cast_nullable_to_non_nullable
-as bool,sessionPenOnlyInput: null == sessionPenOnlyInput ? _self.sessionPenOnlyInput : sessionPenOnlyInput // ignore: cast_nullable_to_non_nullable
+as int?,stylusDetected: null == stylusDetected ? _self.stylusDetected : stylusDetected // ignore: cast_nullable_to_non_nullable
+as bool,sessionStylusOnlyInput: null == sessionStylusOnlyInput ? _self.sessionStylusOnlyInput : sessionStylusOnlyInput // ignore: cast_nullable_to_non_nullable
 as bool,hideUi: null == hideUi ? _self.hideUi : hideUi // ignore: cast_nullable_to_non_nullable
 as HideState,
   ));

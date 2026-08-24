@@ -7,9 +7,9 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 /// A toggle button that appears when a pen/stylus is detected,
-/// allowing the user to quickly toggle pen-only input mode.
-class PenOnlyToggle extends StatelessWidget {
-  const PenOnlyToggle({super.key});
+/// allowing the user to quickly toggle stylus-only input mode.
+class StylusOnlyToggle extends StatelessWidget {
+  const StylusOnlyToggle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,57 +19,61 @@ class PenOnlyToggle extends StatelessWidget {
           BlocSelector<
             EditorInputCubit,
             EditorInputState,
-            ({HideState hideUi, bool penDetected, bool? sessionPenOnlyInput})
+            ({
+              HideState hideUi,
+              bool stylusDetected,
+              bool? sessionStylusOnlyInput,
+            })
           >(
             selector: (state) => (
               hideUi: state.hideUi,
-              penDetected: state.penDetected,
-              sessionPenOnlyInput: state.sessionPenOnlyInput,
+              stylusDetected: state.stylusDetected,
+              sessionStylusOnlyInput: state.sessionStylusOnlyInput,
             ),
             builder: (context, inputState) =>
                 BlocSelector<
                   SettingsCubit,
                   ButterflySettings,
-                  ({bool? penOnlyInput, bool showPenOnlyToggle})
+                  ({bool? stylusOnlyInput, bool showStylusOnlyToggle})
                 >(
                   selector: (state) => (
-                    penOnlyInput: state.penOnlyInput,
-                    showPenOnlyToggle: state.showPenOnlyToggle,
+                    stylusOnlyInput: state.stylusOnlyInput,
+                    showStylusOnlyToggle: state.showStylusOnlyToggle,
                   ),
                   builder: (context, settings) {
                     // Don't show if:
-                    // - No pen has been detected
+                    // - No stylus has been detected
                     // - UI is hidden
                     // - Setting to show toggle is disabled
                     // - Document is not loaded
-                    if (!inputState.penDetected ||
+                    if (!inputState.stylusDetected ||
                         inputState.hideUi != HideState.visible ||
-                        !settings.showPenOnlyToggle ||
+                        !settings.showStylusOnlyToggle ||
                         !loaded) {
                       return const SizedBox.shrink();
                     }
 
-                    // Use effective pen-only state (considers both setting and session)
-                    final penOnlyEnabled = context
+                    // Use effective stylus-only state (considers both setting and session)
+                    final stylusOnlyEnabled = context
                         .read<EditorInputCubit>()
-                        .effectivePenOnlyInput;
-                    final isAutoMode = settings.penOnlyInput == null;
+                        .effectiveStylusOnlyInput;
+                    final isAutoMode = settings.stylusOnlyInput == null;
 
                     return Tooltip(
-                      message: AppLocalizations.of(context).penOnlyInput,
+                      message: AppLocalizations.of(context).stylusOnlyInput,
                       child: IconButton.filled(
                         style: IconButton.styleFrom(
-                          backgroundColor: penOnlyEnabled
+                          backgroundColor: stylusOnlyEnabled
                               ? Theme.of(context).colorScheme.primaryContainer
                               : Theme.of(context)
                                     .colorScheme
                                     .surfaceContainerHighest,
-                          foregroundColor: penOnlyEnabled
+                          foregroundColor: stylusOnlyEnabled
                               ? Theme.of(context).colorScheme.onPrimaryContainer
                               : Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                         icon: PhosphorIcon(
-                          penOnlyEnabled
+                          stylusOnlyEnabled
                               ? PhosphorIconsFill.pen
                               : PhosphorIconsLight.pen,
                         ),
@@ -78,11 +82,11 @@ class PenOnlyToggle extends StatelessWidget {
                             // In auto mode, toggle the session state
                             context
                                 .read<EditorInputCubit>()
-                                .setSessionPenOnlyInput(!penOnlyEnabled);
+                                .setSessionStylusOnlyInput(!stylusOnlyEnabled);
                           } else {
                             // In explicit mode, toggle the persisted setting
-                            context.read<SettingsCubit>().changePenOnlyInput(
-                              !penOnlyEnabled,
+                            context.read<SettingsCubit>().changeStylusOnlyInput(
+                              !stylusOnlyEnabled,
                             );
                           }
                         },

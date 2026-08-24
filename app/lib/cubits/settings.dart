@@ -234,10 +234,10 @@ class InputMappingDefault {
     InputMapping.handToolValue,
   );
   static const InputMapping rightMouse = InputMapping(1);
-  static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
-  static const InputMapping invertedPen = InputMapping(3);
-  static const InputMapping firstPenButton = InputMapping(2);
-  static const InputMapping secondPenButton = InputMapping(1);
+  static const InputMapping stylus = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping invertedStylus = InputMapping(3);
+  static const InputMapping firstStylusButton = InputMapping(2);
+  static const InputMapping secondStylusButton = InputMapping(1);
   static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
 }
 
@@ -323,10 +323,12 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
     InputMapping? backMouse,
     InputMapping? forwardMouse,
-    @Default(InputMappingDefault.pen) InputMapping pen,
-    @Default(InputMappingDefault.invertedPen) InputMapping invertedPen,
-    @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
-    @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
+    @Default(InputMappingDefault.stylus) InputMapping stylus,
+    @Default(InputMappingDefault.invertedStylus) InputMapping invertedStylus,
+    @Default(InputMappingDefault.firstStylusButton)
+    InputMapping firstStylusButton,
+    @Default(InputMappingDefault.secondStylusButton)
+    InputMapping secondStylusButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
     @Default([]) List<HoldShortcut> holdShortcuts,
     String? doubleLeftMouseShortcut,
@@ -339,14 +341,14 @@ sealed class InputConfiguration with _$InputConfiguration {
     String? tripleBackMouseShortcut,
     String? doubleForwardMouseShortcut,
     String? tripleForwardMouseShortcut,
-    String? doublePenShortcut,
-    String? triplePenShortcut,
-    String? doubleInvertedPenShortcut,
-    String? tripleInvertedPenShortcut,
-    String? doubleFirstPenButtonShortcut,
-    String? tripleFirstPenButtonShortcut,
-    String? doubleSecondPenButtonShortcut,
-    String? tripleSecondPenButtonShortcut,
+    String? doubleStylusShortcut,
+    String? tripleStylusShortcut,
+    String? doubleInvertedStylusShortcut,
+    String? tripleInvertedStylusShortcut,
+    String? doubleFirstStylusButtonShortcut,
+    String? tripleFirstStylusButtonShortcut,
+    String? doubleSecondStylusButtonShortcut,
+    String? tripleSecondStylusButtonShortcut,
     String? doubleTouchShortcut,
     String? tripleTouchShortcut,
     String? twoFingerTouchShortcut,
@@ -362,10 +364,10 @@ sealed class InputConfiguration with _$InputConfiguration {
     rightMouse,
     ?backMouse,
     ?forwardMouse,
-    pen,
-    invertedPen,
-    firstPenButton,
-    secondPenButton,
+    stylus,
+    invertedStylus,
+    firstStylusButton,
+    secondStylusButton,
     touch,
     ...holdShortcuts.map((e) => e.mapping),
   }.toSet();
@@ -386,11 +388,11 @@ sealed class InputConfiguration with _$InputConfiguration {
         PointerDeviceKind.stylus
             when (buttons & kSecondaryStylusButton) != 0 ||
                 (buttons & kFallbackSecondaryStylusButton) != 0 =>
-          secondPenButton,
+          secondStylusButton,
         PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
-          firstPenButton,
-        PointerDeviceKind.stylus => pen,
-        PointerDeviceKind.invertedStylus => invertedPen,
+          firstStylusButton,
+        PointerDeviceKind.stylus => stylus,
+        PointerDeviceKind.invertedStylus => invertedStylus,
         _ => null,
       };
 
@@ -433,16 +435,18 @@ sealed class InputConfiguration with _$InputConfiguration {
           when (buttons & kSecondaryStylusButton) != 0 ||
               (buttons & kFallbackSecondaryStylusButton) != 0 =>
         isDoubleTap
-            ? doubleSecondPenButtonShortcut
-            : tripleSecondPenButtonShortcut,
+            ? doubleSecondStylusButtonShortcut
+            : tripleSecondStylusButtonShortcut,
       PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
         isDoubleTap
-            ? doubleFirstPenButtonShortcut
-            : tripleFirstPenButtonShortcut,
+            ? doubleFirstStylusButtonShortcut
+            : tripleFirstStylusButtonShortcut,
       PointerDeviceKind.stylus =>
-        isDoubleTap ? doublePenShortcut : triplePenShortcut,
+        isDoubleTap ? doubleStylusShortcut : tripleStylusShortcut,
       PointerDeviceKind.invertedStylus =>
-        isDoubleTap ? doubleInvertedPenShortcut : tripleInvertedPenShortcut,
+        isDoubleTap
+            ? doubleInvertedStylusShortcut
+            : tripleInvertedStylusShortcut,
       PointerDeviceKind.touch =>
         isDoubleTap ? doubleTouchShortcut : tripleTouchShortcut,
       _ => null,
@@ -585,8 +589,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double scrollSensitivity,
     @Default(kDefaultRotationStep) double rotationStep,
     @Default(kDefaultZoomStep) double zoomStep,
-    bool? penOnlyInput,
-    @Default(true) bool showPenOnlyToggle,
+    bool? stylusOnlyInput,
+    @Default(true) bool showStylusOnlyToggle,
     @Default(true) bool inputGestures,
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
@@ -679,10 +683,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           : null,
       limitViewportPositive: prefs.getBool('limit_viewport_positive') ?? false,
       localeTag: prefs.getString('locale') ?? '',
-      penOnlyInput: prefs.containsKey('pen_only_input')
-          ? prefs.getBool('pen_only_input')
+      stylusOnlyInput: prefs.containsKey('stylus_only_input')
+          ? prefs.getBool('stylus_only_input')
           : null,
-      showPenOnlyToggle: prefs.getBool('show_pen_only_toggle') ?? true,
+      showStylusOnlyToggle: prefs.getBool('show_stylus_only_toggle') ?? true,
       inputGestures: prefs.getBool('input_gestures') ?? true,
       documentPath: prefs.getString('document_path') ?? '',
       theme: prefs.containsKey('theme_mode')
@@ -944,10 +948,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
-    if (penOnlyInput != null) {
-      await prefs.setBool('pen_only_input', penOnlyInput!);
+    if (stylusOnlyInput != null) {
+      await prefs.setBool('stylus_only_input', stylusOnlyInput!);
     }
-    await prefs.setBool('show_pen_only_toggle', showPenOnlyToggle);
+    await prefs.setBool('show_stylus_only_toggle', showStylusOnlyToggle);
     await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
@@ -1211,19 +1215,19 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> changePenOnlyInput(bool? penOnlyInput) {
-    emit(state.copyWith(penOnlyInput: penOnlyInput));
+  Future<void> changeStylusOnlyInput(bool? stylusOnlyInput) {
+    emit(state.copyWith(stylusOnlyInput: stylusOnlyInput));
     return save();
   }
 
-  Future<void> resetPenOnlyInput() async {
+  Future<void> resetStylusOnlyInput() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('pen_only_input');
-    emit(state.copyWith(penOnlyInput: null));
+    await prefs.remove('stylus_only_input');
+    emit(state.copyWith(stylusOnlyInput: null));
   }
 
-  Future<void> changeShowPenOnlyToggle(bool showPenOnlyToggle) {
-    emit(state.copyWith(showPenOnlyToggle: showPenOnlyToggle));
+  Future<void> changeShowStylusOnlyToggle(bool showStylusOnlyToggle) {
+    emit(state.copyWith(showStylusOnlyToggle: showStylusOnlyToggle));
     return save();
   }
 

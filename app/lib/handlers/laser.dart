@@ -135,14 +135,15 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final editorController = context.read<EditorController>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final penOnlyInput = editorController.inputCubit.effectivePenOnlyInput;
+    final stylusOnlyInput =
+        editorController.inputCubit.effectiveStylusOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
       editorController.toolCubit.state,
       localPosition,
       viewportSize,
       transform,
     );
-    if (penOnlyInput &&
+    if (stylusOnlyInput &&
         (kind != PointerDeviceKind.stylus &&
             kind != PointerDeviceKind.invertedStylus)) {
       return;

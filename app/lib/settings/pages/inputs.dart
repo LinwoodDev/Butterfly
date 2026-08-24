@@ -23,7 +23,7 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
     'mouse': _mouseSettingsPage,
     'touch': _touchSettingsPage,
     'keyboard': _keyboardSettingsPage,
-    'pen': _penSettingsPage,
+    'stylus': _stylusSettingsPage,
   },
   sections: {
     'devices': SettingsLeapSection(
@@ -44,9 +44,9 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
           onTap: (context) => context.push('/settings/inputs/keyboard'),
         ),
         SettingsLeapActionSetting(
-          displayName: (context) => AppLocalizations.of(context).pen,
+          displayName: (context) => AppLocalizations.of(context).stylus,
           icon: PhosphorIconsLight.pen,
-          onTap: (context) => context.push('/settings/inputs/pen'),
+          onTap: (context) => context.push('/settings/inputs/stylus'),
         ),
       ],
     ),
@@ -449,35 +449,35 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
   },
 );
 
-final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
-  displayName: (context) => AppLocalizations.of(context).pen,
+final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
+  displayName: (context) => AppLocalizations.of(context).stylus,
   icon: PhosphorIconsLight.pen,
   appBarBuilder: _butterflyAppBar,
   onReset: (context, state) => _resetSettingsPage(
     context,
     (current, defaults) => current.copyWith(
-      penOnlyInput: defaults.penOnlyInput,
-      showPenOnlyToggle: defaults.showPenOnlyToggle,
+      stylusOnlyInput: defaults.stylusOnlyInput,
+      showStylusOnlyToggle: defaults.showStylusOnlyToggle,
       ignorePressure: defaults.ignorePressure,
       inputConfiguration: current.inputConfiguration.copyWith(
-        pen: defaults.inputConfiguration.pen,
-        doublePenShortcut: defaults.inputConfiguration.doublePenShortcut,
-        triplePenShortcut: defaults.inputConfiguration.triplePenShortcut,
-        invertedPen: defaults.inputConfiguration.invertedPen,
-        doubleInvertedPenShortcut:
-            defaults.inputConfiguration.doubleInvertedPenShortcut,
-        tripleInvertedPenShortcut:
-            defaults.inputConfiguration.tripleInvertedPenShortcut,
-        firstPenButton: defaults.inputConfiguration.firstPenButton,
-        doubleFirstPenButtonShortcut:
-            defaults.inputConfiguration.doubleFirstPenButtonShortcut,
-        tripleFirstPenButtonShortcut:
-            defaults.inputConfiguration.tripleFirstPenButtonShortcut,
-        secondPenButton: defaults.inputConfiguration.secondPenButton,
-        doubleSecondPenButtonShortcut:
-            defaults.inputConfiguration.doubleSecondPenButtonShortcut,
-        tripleSecondPenButtonShortcut:
-            defaults.inputConfiguration.tripleSecondPenButtonShortcut,
+        stylus: defaults.inputConfiguration.stylus,
+        doubleStylusShortcut: defaults.inputConfiguration.doubleStylusShortcut,
+        tripleStylusShortcut: defaults.inputConfiguration.tripleStylusShortcut,
+        invertedStylus: defaults.inputConfiguration.invertedStylus,
+        doubleInvertedStylusShortcut:
+            defaults.inputConfiguration.doubleInvertedStylusShortcut,
+        tripleInvertedStylusShortcut:
+            defaults.inputConfiguration.tripleInvertedStylusShortcut,
+        firstStylusButton: defaults.inputConfiguration.firstStylusButton,
+        doubleFirstStylusButtonShortcut:
+            defaults.inputConfiguration.doubleFirstStylusButtonShortcut,
+        tripleFirstStylusButtonShortcut:
+            defaults.inputConfiguration.tripleFirstStylusButtonShortcut,
+        secondStylusButton: defaults.inputConfiguration.secondStylusButton,
+        doubleSecondStylusButtonShortcut:
+            defaults.inputConfiguration.doubleSecondStylusButtonShortcut,
+        tripleSecondStylusButtonShortcut:
+            defaults.inputConfiguration.tripleSecondStylusButtonShortcut,
       ),
     ),
   ),
@@ -485,10 +485,11 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
     'behavior': SettingsLeapSection(
       settings: [
         SettingsLeapListSetting<ButterflySettings, bool?>(
-          id: 'penOnlyInput',
-          displayName: (context) => AppLocalizations.of(context).penOnlyInput,
+          id: 'stylusOnlyInput',
+          displayName: (context) =>
+              AppLocalizations.of(context).stylusOnlyInput,
           hintBuilder: (context) =>
-              AppLocalizations.of(context).penOnlyInputDescription,
+              AppLocalizations.of(context).stylusOnlyInputDescription,
           icon: PhosphorIconsLight.pencilSimpleLine,
           options: [
             SettingsLeapOption(
@@ -496,37 +497,37 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
               value: null,
               displayName: (context) => AppLocalizations.of(context).automatic,
               descriptionBuilder: (context) =>
-                  AppLocalizations.of(context).penOnlyInputAutoDescription,
+                  AppLocalizations.of(context).stylusOnlyInputAutoDescription,
             ),
             SettingsLeapOption(
               id: 'alwaysOn',
               value: true,
               displayName: (context) => AppLocalizations.of(context).alwaysOn,
               descriptionBuilder: (context) =>
-                  AppLocalizations.of(context).penOnlyInputOnDescription,
+                  AppLocalizations.of(context).stylusOnlyInputOnDescription,
             ),
             SettingsLeapOption(
               id: 'alwaysOff',
               value: false,
               displayName: (context) => AppLocalizations.of(context).alwaysOff,
               descriptionBuilder: (context) =>
-                  AppLocalizations.of(context).penOnlyInputOffDescription,
+                  AppLocalizations.of(context).stylusOnlyInputOffDescription,
             ),
           ],
-          read: (state) => state.penOnlyInput,
+          read: (state) => state.stylusOnlyInput,
           write: (context, value) =>
-              context.read<SettingsCubit>().changePenOnlyInput(value),
+              context.read<SettingsCubit>().changeStylusOnlyInput(value),
         ),
         SettingsLeapBoolSetting(
-          id: 'showPenOnlyToggle',
+          id: 'showStylusOnlyToggle',
           displayName: (context) =>
-              AppLocalizations.of(context).showPenOnlyToggle,
+              AppLocalizations.of(context).showStylusOnlyToggle,
           hintBuilder: (context) =>
-              AppLocalizations.of(context).showPenOnlyToggleDescription,
+              AppLocalizations.of(context).showStylusOnlyToggleDescription,
           icon: PhosphorIconsLight.toggleRight,
-          read: (state) => state.showPenOnlyToggle,
+          read: (state) => state.showStylusOnlyToggle,
           write: (context, value) =>
-              context.read<SettingsCubit>().changeShowPenOnlyToggle(value),
+              context.read<SettingsCubit>().changeShowStylusOnlyToggle(value),
         ),
         SettingsLeapListSetting<ButterflySettings, IgnorePressure>(
           id: 'ignorePressure',
@@ -565,102 +566,106 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
       headerBuilder: _shortcutsHelpHeader,
       settings: [
         _inputMappingSetting(
-          id: 'pen',
-          displayName: (context) => AppLocalizations.of(context).pen,
+          id: 'stylus',
+          displayName: (context) => AppLocalizations.of(context).stylus,
           icon: PhosphorIconsLight.pen,
-          read: (config) => config.pen,
-          write: (config, value) => config.copyWith(pen: value),
+          read: (config) => config.stylus,
+          write: (config, value) => config.copyWith(stylus: value),
         ),
         _inputShortcutSetting(
-          id: 'doublePenShortcut',
+          id: 'doubleStylusShortcut',
           displayName: (context) =>
-              _getDoubleName(context, AppLocalizations.of(context).pen),
+              _getDoubleName(context, AppLocalizations.of(context).stylus),
           icon: PhosphorIconsLight.pen,
-          read: (config) => config.doublePenShortcut,
-          write: (config, value) => config.copyWith(doublePenShortcut: value),
+          read: (config) => config.doubleStylusShortcut,
+          write: (config, value) =>
+              config.copyWith(doubleStylusShortcut: value),
         ),
         _inputShortcutSetting(
-          id: 'triplePenShortcut',
+          id: 'tripleStylusShortcut',
           displayName: (context) =>
-              _getTripleName(AppLocalizations.of(context).pen),
+              _getTripleName(AppLocalizations.of(context).stylus),
           icon: PhosphorIconsLight.pen,
-          read: (config) => config.triplePenShortcut,
-          write: (config, value) => config.copyWith(triplePenShortcut: value),
+          read: (config) => config.tripleStylusShortcut,
+          write: (config, value) =>
+              config.copyWith(tripleStylusShortcut: value),
         ),
         _inputMappingSetting(
-          id: 'invertedPen',
-          displayName: (context) => AppLocalizations.of(context).invertedPen,
+          id: 'invertedStylus',
+          displayName: (context) => AppLocalizations.of(context).invertedStylus,
           icon: PhosphorIconsLight.pen,
-          read: (config) => config.invertedPen,
-          write: (config, value) => config.copyWith(invertedPen: value),
+          read: (config) => config.invertedStylus,
+          write: (config, value) => config.copyWith(invertedStylus: value),
         ),
         _inputShortcutSetting(
-          id: 'doubleInvertedPenShortcut',
-          displayName: (context) =>
-              _getDoubleName(context, AppLocalizations.of(context).invertedPen),
+          id: 'doubleInvertedStylusShortcut',
+          displayName: (context) => _getDoubleName(
+            context,
+            AppLocalizations.of(context).invertedStylus,
+          ),
           icon: PhosphorIconsLight.pen,
-          read: (config) => config.doubleInvertedPenShortcut,
+          read: (config) => config.doubleInvertedStylusShortcut,
           write: (config, value) =>
-              config.copyWith(doubleInvertedPenShortcut: value),
+              config.copyWith(doubleInvertedStylusShortcut: value),
         ),
         _inputShortcutSetting(
-          id: 'tripleInvertedPenShortcut',
+          id: 'tripleInvertedStylusShortcut',
           displayName: (context) =>
-              _getTripleName(AppLocalizations.of(context).invertedPen),
+              _getTripleName(AppLocalizations.of(context).invertedStylus),
           icon: PhosphorIconsLight.pen,
-          read: (config) => config.tripleInvertedPenShortcut,
+          read: (config) => config.tripleInvertedStylusShortcut,
           write: (config, value) =>
-              config.copyWith(tripleInvertedPenShortcut: value),
+              config.copyWith(tripleInvertedStylusShortcut: value),
         ),
         _inputMappingSetting(
-          id: 'firstPenButton',
+          id: 'firstStylusButton',
           displayName: (context) => AppLocalizations.of(context).first,
           icon: PhosphorIconsLight.numberCircleOne,
-          read: (config) => config.firstPenButton,
-          write: (config, value) => config.copyWith(firstPenButton: value),
+          read: (config) => config.firstStylusButton,
+          write: (config, value) => config.copyWith(firstStylusButton: value),
         ),
         _inputShortcutSetting(
-          id: 'doubleFirstPenButtonShortcut',
+          id: 'doubleFirstStylusButtonShortcut',
           displayName: (context) =>
               _getDoubleName(context, AppLocalizations.of(context).first),
           icon: PhosphorIconsLight.numberCircleOne,
-          read: (config) => config.doubleFirstPenButtonShortcut,
+          read: (config) => config.doubleFirstStylusButtonShortcut,
           write: (config, value) =>
-              config.copyWith(doubleFirstPenButtonShortcut: value),
+              config.copyWith(doubleFirstStylusButtonShortcut: value),
         ),
         _inputShortcutSetting(
-          id: 'tripleFirstPenButtonShortcut',
+          id: 'tripleFirstStylusButtonShortcut',
           displayName: (context) =>
               _getTripleName(AppLocalizations.of(context).first),
           icon: PhosphorIconsLight.numberCircleOne,
-          read: (config) => config.tripleFirstPenButtonShortcut,
+          read: (config) => config.tripleFirstStylusButtonShortcut,
           write: (config, value) =>
-              config.copyWith(tripleFirstPenButtonShortcut: value),
+              config.copyWith(tripleFirstStylusButtonShortcut: value),
         ),
         _inputMappingSetting(
-          id: 'secondPenButton',
+          id: 'secondStylusButton',
           displayName: (context) => AppLocalizations.of(context).second,
           icon: PhosphorIconsLight.numberCircleTwo,
-          read: (config) => config.secondPenButton,
-          write: (config, value) => config.copyWith(secondPenButton: value),
+          read: (config) => config.secondStylusButton,
+          write: (config, value) => config.copyWith(secondStylusButton: value),
         ),
         _inputShortcutSetting(
-          id: 'doubleSecondPenButtonShortcut',
+          id: 'doubleSecondStylusButtonShortcut',
           displayName: (context) =>
               _getDoubleName(context, AppLocalizations.of(context).second),
           icon: PhosphorIconsLight.numberCircleTwo,
-          read: (config) => config.doubleSecondPenButtonShortcut,
+          read: (config) => config.doubleSecondStylusButtonShortcut,
           write: (config, value) =>
-              config.copyWith(doubleSecondPenButtonShortcut: value),
+              config.copyWith(doubleSecondStylusButtonShortcut: value),
         ),
         _inputShortcutSetting(
-          id: 'tripleSecondPenButtonShortcut',
+          id: 'tripleSecondStylusButtonShortcut',
           displayName: (context) =>
               _getTripleName(AppLocalizations.of(context).second),
           icon: PhosphorIconsLight.numberCircleTwo,
-          read: (config) => config.tripleSecondPenButtonShortcut,
+          read: (config) => config.tripleSecondStylusButtonShortcut,
           write: (config, value) =>
-              config.copyWith(tripleSecondPenButtonShortcut: value),
+              config.copyWith(tripleSecondStylusButtonShortcut: value),
         ),
       ],
     ),

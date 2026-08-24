@@ -62,7 +62,7 @@ class _ViewportInputCoordinator {
     if (!skipShortcuts) {
       if (event.kind == PointerDeviceKind.stylus ||
           event.kind == PointerDeviceKind.invertedStylus) {
-        cubit.inputCubit.detectPen(true);
+        cubit.inputCubit.detectStylus(true);
       }
       final result = _shortcutManager.pointerDown(
         event,

@@ -6,8 +6,8 @@ sealed class EditorInputState with _$EditorInputState {
     Offset? lastPosition,
     @Default([]) List<int> pointers,
     int? buttons,
-    @Default(false) bool penDetected,
-    @Default(false) bool sessionPenOnlyInput,
+    @Default(false) bool stylusDetected,
+    @Default(false) bool sessionStylusOnlyInput,
     @Default(HideState.visible) HideState hideUi,
   }) = _EditorInputState;
 }
@@ -35,45 +35,48 @@ class EditorInputCubit extends Cubit<EditorInputState> {
 
   void replace(EditorInputState state) => emit(state);
 
-  void setPenDetected(bool detected, {bool enableSessionPenOnly = false}) {
-    if (state.penDetected == detected &&
-        (!enableSessionPenOnly || state.sessionPenOnlyInput)) {
+  void setStylusDetected(
+    bool detected, {
+    bool enableSessionStylusOnly = false,
+  }) {
+    if (state.stylusDetected == detected &&
+        (!enableSessionStylusOnly || state.sessionStylusOnlyInput)) {
       return;
     }
     emit(
       state.copyWith(
-        penDetected: detected,
-        sessionPenOnlyInput: enableSessionPenOnly
+        stylusDetected: detected,
+        sessionStylusOnlyInput: enableSessionStylusOnly
             ? true
-            : state.sessionPenOnlyInput,
+            : state.sessionStylusOnlyInput,
       ),
     );
   }
 
-  bool get effectivePenOnlyInput {
-    final setting = settingsCubit.state.penOnlyInput;
+  bool get effectiveStylusOnlyInput {
+    final setting = settingsCubit.state.stylusOnlyInput;
     if (setting != null) return setting;
-    return state.sessionPenOnlyInput;
+    return state.sessionStylusOnlyInput;
   }
 
   bool get moveEnabled =>
       (settingsCubit.state.inputGestures && state.pointers.length > 1) &&
       settingsCubit.state.moveOnGesture;
 
-  void detectPen(bool detected) {
-    if (state.penDetected == detected) return;
-    setPenDetected(
+  void detectStylus(bool detected) {
+    if (state.stylusDetected == detected) return;
+    setStylusDetected(
       detected,
-      enableSessionPenOnly:
+      enableSessionStylusOnly:
           detected &&
-          settingsCubit.state.penOnlyInput == null &&
-          !state.sessionPenOnlyInput,
+          settingsCubit.state.stylusOnlyInput == null &&
+          !state.sessionStylusOnlyInput,
     );
   }
 
-  void setSessionPenOnlyInput(bool value) {
-    if (state.sessionPenOnlyInput != value) {
-      emit(state.copyWith(sessionPenOnlyInput: value));
+  void setSessionStylusOnlyInput(bool value) {
+    if (state.sessionStylusOnlyInput != value) {
+      emit(state.copyWith(sessionStylusOnlyInput: value));
     }
   }
 

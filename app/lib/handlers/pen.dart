@@ -3,18 +3,24 @@ part of 'handler.dart';
 // This class represents the handler for the PenTool.
 class PenHandler extends Handler<PenTool> with ColoredHandler {
   bool _hideCursorWhileDrawing = false;
+
   // Map to store the PenElements.
   final Map<int, PenElement> elements = {};
   final Map<int, List<PathPoint>> _elementPoints = {};
   final List<PenElement> _submittedElements = [];
+
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
+
   // List for shapeDetection
   final points = <Offset>[];
+
   // For control if the pointer has not moved
   bool isDrawing = false;
+
   // Timer to initiate shape detection after a period of inactivity
   Timer? _positionCheckTimer;
+
   // Variable to store the current position of the pointer
   Offset? lastPosit;
   Offset? localPos;
@@ -163,10 +169,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
-    final penOnlyInput = editorController.inputCubit.effectivePenOnlyInput;
+    final stylusOnlyInput =
+        editorController.inputCubit.effectiveStylusOnlyInput;
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
-    if (penOnlyInput &&
+    if (stylusOnlyInput &&
         (kind != PointerDeviceKind.stylus &&
             kind != PointerDeviceKind.invertedStylus)) {
       return;

@@ -39,7 +39,7 @@ import '../actions/color_palette.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
 import '../api/changes.dart';
-import 'pen_only_toggle.dart';
+import 'stylus_only_toggle.dart';
 import 'view.dart';
 import 'zoom.dart';
 
@@ -1144,7 +1144,7 @@ class _MainBody extends StatelessWidget {
         settings.zoomPosition == ZoomPosition.topLeft ||
         settings.zoomPosition == ZoomPosition.bottomLeft;
     final children = [
-      const PenOnlyToggle(),
+      const StylusOnlyToggle(),
       if (settings.zoomEnabled) Flexible(child: ZoomView(isMobile: isMobile)),
     ];
     return Row(
