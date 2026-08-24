@@ -74,6 +74,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-beta.6" type="development" date="2026-08-24">
+			<description>
+				<ul>
+					<li>Add whole connection encryption (#1050)</li>
+					<li>Add backup support (#1073)</li>
+					<li>Add constraint and center toggles to the shape toolbar, including horizontal, vertical, and 45° line snapping (#1231)</li>
+					<li>Add runtime exact ruler angle control and preserve ruler placement while toggling (#1230)</li>
+					<li>Add Shift aspect-ratio and Alt centered scaling modifiers everywhere (#1197)</li>
+					<li>Add padding to image and svg export</li>
+					<li>Improve image and SVG import sizing by preserving their native on-screen size (#1222)</li>
+					<li>Improve image and SVG exports with current view transforms, rotation, and polygon rendering (#1233)</li>
+					<li>Use correct nightly branding</li>
+					<li>Fix settings not updating when opened from a document (#1210)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.6</url>
+		</release>
 		<release version="2.6.0-beta.5" type="development" date="2026-08-17">
 			<description>
 				<ul>
@@ -141,23 +158,7 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.2</url>
 		</release>
-		<release version="2.6.0-beta.1" type="development" date="2026-07-06">
-			<description>
-				<ul>
-					<li>Add pages selector with range input (#1151)</li>
-					<li>Add internal page numbers to the pages navigator (#1143)</li>
-					<li>Add cross-page area selection and deletion (#1143)</li>
-					<li>Add apply areas option to templates (#1151)</li>
-					<li>Add combine paths option (#1071)</li>
-					<li>Add xournal++ exporter</li>
-					<li>Add OneNote importer (#427)</li>
-					<li>Add next and previous page shortcuts</li>
-					<li>Improve xournal++ importer</li>
-					<li>Improve state management for better linking different systems together</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.1</url>
-		</release>
+		<release version="2.6.0-beta.1" type="development" date="2026-07-06" />
 		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
 		<release version="2.5.5" date="2026-08-10" />
 		<release version="2.5.4" type="stable" date="2026-07-20" />

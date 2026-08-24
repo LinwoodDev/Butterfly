@@ -2,6 +2,31 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-beta.6 (2026-08-24)
+
+* Add whole connection encryption ([#1050](https://github.com/LinwoodDev/Butterfly/issues/1050))
+* Add backup support ([#1073](https://github.com/LinwoodDev/Butterfly/issues/1073))
+* Add constraint and center toggles to the shape toolbar, including horizontal, vertical, and 45° line snapping ([#1231](https://github.com/LinwoodDev/Butterfly/issues/1231))
+* Add runtime exact ruler angle control and preserve ruler placement while toggling ([#1230](https://github.com/LinwoodDev/Butterfly/issues/1230))
+* Add Shift aspect-ratio and Alt centered scaling modifiers everywhere ([#1197](https://github.com/LinwoodDev/Butterfly/issues/1197))
+* Add padding to image and svg export
+* Improve image and SVG import sizing by preserving their native on-screen size ([#1222](https://github.com/LinwoodDev/Butterfly/issues/1222))
+* Improve image and SVG exports with current view transforms, rotation, and polygon rendering ([#1233](https://github.com/LinwoodDev/Butterfly/issues/1233))
+* Use correct nightly branding
+* Fix settings not updating when opened from a document ([#1210](https://github.com/LinwoodDev/Butterfly/issues/1210))
+* Fix import preview not appearing after selecting a file with a pen ([#1221](https://github.com/LinwoodDev/Butterfly/issues/1221))
+* Fix pen stroke changing after release
+* Fix pen strokes temporarily disappearing in embeds ([#1234](https://github.com/LinwoodDev/Butterfly/issues/1234))
+* Fix smooth touch navigation with the hand tool and when adding or releasing fingers
+* Fix nightly branding missing from web builds
+* Fix export preview sizing
+* Fix WebDAV failing to create missing parent directories ([#1207](https://github.com/LinwoodDev/Butterfly/issues/1207))
+* Upgrade to Flutter 3.47
+  * Migrate to impeller for windows/linux
+  * Improve linux stylus support
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.6
+
 ## 2.6.0-beta.5 (2026-08-17)
 
 * Add reset zoom shortcut ([#1224](https://github.com/LinwoodDev/Butterfly/issues/1224))
