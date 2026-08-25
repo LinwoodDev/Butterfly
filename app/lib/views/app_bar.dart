@@ -553,7 +553,11 @@ class MainPopupMenu extends StatelessWidget {
                               final router = GoRouter.of(context);
                               final bloc = context.read<DocumentBloc>();
                               await bloc.save();
-                              router.go('/');
+                              if (router.canPop()) {
+                                router.pop();
+                              } else {
+                                router.go('/');
+                              }
                             },
                           ),
                           MenuItemButton(

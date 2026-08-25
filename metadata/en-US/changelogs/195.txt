@@ -1,3 +1,4 @@
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
+* Fix file thumbnails not refreshing after returning from documents on mobile ([#1241](https://github.com/LinwoodDev/Butterfly/issues/1241))
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0
