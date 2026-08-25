@@ -35,6 +35,17 @@ class CoalescedAsyncRunner {
       if (completer?.isCompleted == false) completer?.complete();
       return;
     }
+    if (!restartDelay) {
+      // Start the throttle interval with the work itself. If a slow task takes
+      // longer than [delay], the latest pending update can run immediately
+      // instead of adding another full delay after the task completes.
+      _timer = Timer(delay, () {
+        _timer = null;
+        if (_running == null && _pendingTask != null && !_disposed) {
+          _runPending();
+        }
+      });
+    }
     _running = () async {
       try {
         await task();
@@ -49,7 +60,11 @@ class CoalescedAsyncRunner {
       _running!.whenComplete(() {
         _running = null;
         if (_pendingTask != null && !_disposed) {
-          _timer = Timer(delay, _runPending);
+          if (restartDelay) {
+            _timer = Timer(delay, _runPending);
+          } else if (_timer == null) {
+            _runPending();
+          }
         }
       }),
     );
