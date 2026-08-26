@@ -7,7 +7,6 @@ class _ViewportInputCoordinator {
   final Map<int, PointerDeviceKind> _pointerKinds = {};
   final PointerShortcutManager _shortcutManager = PointerShortcutManager();
 
-  Offset _gestureFocalPoint = Offset.zero;
   double _gestureScale = 1;
   double _gestureRotation = 0;
   int _gesturePointerCount = 0;
@@ -121,22 +120,7 @@ class _ViewportInputCoordinator {
       ruler.transformWithPointerMove(input.getEventContext(), event);
       return;
     }
-    final inputState = cubit.inputCubit.state;
     if (_isTouchMoveGesture(cubit)) {
-      if (inputState.pointers.isEmpty) return;
-      if (event.pointer == inputState.pointers.first) {
-        final transform = cubit.transformCubit.state;
-        cubit.transformCubit.moveConstrained(
-          transform.localToGlobalDelta(-event.delta),
-          runtime: cubit,
-          bloc: input.bloc,
-          currentArea: input.state.currentArea,
-        );
-        _delayBakeUnlessSmooth(
-          input.context.read<SettingsCubit>().state,
-          input.delayBake,
-        );
-      }
       return;
     }
     if (_isHandlerGesture) {
@@ -223,7 +207,6 @@ class _ViewportInputCoordinator {
 
   void _rebaseScaleGesture(ScaleUpdateDetails details) {
     _gesturePointerCount = details.pointerCount;
-    _gestureFocalPoint = details.localFocalPoint;
     _gestureScale = details.scale;
     _gestureRotation = details.rotation;
   }
@@ -259,7 +242,6 @@ class _ViewportInputCoordinator {
       handler.onScaleStartAbort(details, eventContext);
     }
 
-    _gestureFocalPoint = details.localFocalPoint;
     _gestureScale = 1;
     _gestureRotation = 0;
     _gesturePointerCount = details.pointerCount;
@@ -299,6 +281,13 @@ class _ViewportInputCoordinator {
     final sensitivity = settings.gestureSensitivity;
     final rotationDelta = details.rotation - _gestureRotation;
     _gestureRotation = details.rotation;
+    cubit.transformCubit.moveConstrained(
+      cubit.transformCubit.state.localToGlobalDelta(-details.focalPointDelta) /
+          sensitivity,
+      runtime: cubit,
+      bloc: input.bloc,
+      currentArea: input.state.currentArea,
+    );
     if (settings.rotateOnGesture) {
       cubit.transformCubit.rotateConstrained(
         rotationDelta / sensitivity,
@@ -307,24 +296,12 @@ class _ViewportInputCoordinator {
       );
     }
 
-    if (details.scale == 1) {
-      cubit.transformCubit.moveConstrained(
-        cubit.transformCubit.state.localToGlobalDelta(
-              -details.focalPointDelta,
-            ) /
-            sensitivity,
-        runtime: cubit,
-        bloc: input.bloc,
-        currentArea: input.state.currentArea,
-      );
-    } else {
-      final scaleDelta = details.scale - _gestureScale;
-      cubit.transformCubit.zoomConstrained(
-        scaleDelta / sensitivity + 1,
-        cursor: _gestureFocalPoint,
-        runtime: cubit,
-      );
-    }
+    final scaleDelta = details.scale / _gestureScale;
+    cubit.transformCubit.zoomConstrained(
+      (scaleDelta - 1) / sensitivity + 1,
+      cursor: details.localFocalPoint,
+      runtime: cubit,
+    );
     _gestureScale = details.scale;
     _delayBakeUnlessSmooth(settings, input.delayBake);
   }

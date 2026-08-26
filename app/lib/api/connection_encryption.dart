@@ -91,6 +91,7 @@ NoteFile addConnectionPasswordToNoteFile(
   NoteFile file, {
   String? password,
 }) {
+  if (file.isEncrypted()) return file;
   if (storage is! RemoteStorage || !storage.isConnectionEncryptionEnabled) {
     return file;
   }

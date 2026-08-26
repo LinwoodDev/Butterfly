@@ -700,18 +700,15 @@ class FilesViewState extends State<FilesView> {
                                   DocumentDefaults.createDocument(
                                     name: nameWithoutExtension,
                                   ),
+                              preserveEncrypted: true,
                             );
                             if (importResult == null) {
                               continue;
                             }
-                            var document = await importResult.export();
-                            document = addConnectionPasswordToNoteData(
-                              _remote,
-                              document,
-                            );
+                            final noteFile = await importResult.exportFile();
                             setNativeData(result, fileExtension);
 
-                            var docName = document.getMetadata()?.name;
+                            var docName = noteFile.display()?.name;
                             if (docName == null || docName.trim().isEmpty) {
                               docName = nameWithoutExtension;
                             }
@@ -726,7 +723,7 @@ class FilesViewState extends State<FilesView> {
                                   directory: _locationController.text,
                                   name: docName,
                                   suffix: '.bfly',
-                                  document.toFile(),
+                                  noteFile,
                                 );
 
                             if (files.length == 1 && context.mounted) {

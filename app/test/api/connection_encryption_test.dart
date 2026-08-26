@@ -48,7 +48,7 @@ void main() {
   });
 
   test(
-    'connection password is added on create but not reapplied on update',
+    'connection password is added only to plaintext files on create',
     () async {
       final fileSystem = MockTypedDirectoryFileSystem<NoteFile>(
         onCreate: (file) =>
@@ -76,6 +76,13 @@ void main() {
         isFalse,
       );
       expect(updated.data?.load()?.isValid, isTrue);
+
+      final imported = document.changePassword('document password').toFile();
+      final preserved = await fileSystem.createFile('imported.bfly', imported);
+      expect(
+        preserved.data?.load(password: 'document password')?.isValid,
+        isTrue,
+      );
     },
   );
 }
