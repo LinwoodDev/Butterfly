@@ -162,6 +162,7 @@ Map<String, dynamic> _$DocumentStatePersistenceSettingsToJson(
 };
 
 _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
+  fileVersion: (json['fileVersion'] as num?)?.toInt() ?? kSettingsFileVersion,
   theme:
       $enumDecodeNullable(_$ThemeModeEnumMap, json['theme']) ??
       ThemeMode.system,
@@ -328,6 +329,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
 Map<String, dynamic> _$ButterflySettingsToJson(
   _ButterflySettings instance,
 ) => <String, dynamic>{
+  'fileVersion': instance.fileVersion,
   'theme': _$ThemeModeEnumMap[instance.theme]!,
   'density': _$ThemeDensityEnumMap[instance.density]!,
   'limitViewportMultiplier': instance.limitViewportMultiplier,

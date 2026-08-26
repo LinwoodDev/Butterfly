@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:idb_shim/utils/idb_value_utils.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -28,6 +29,7 @@ const kFallbackSecondaryStylusButton = 0x20;
 const kDefaultRotationStep = 5.0;
 const kDefaultZoomStep = 0.1;
 const kDefaultBackupIntervalMinutes = 24 * 60;
+const kSettingsFileVersion = 1;
 
 int _readBackupIntervalMinutes(SharedPreferences prefs) {
   final minutes =
@@ -579,6 +581,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
 
   const factory ButterflySettings({
+    @Default(kSettingsFileVersion) int fileVersion,
     @Default(ThemeMode.system) ThemeMode theme,
     @Default(ThemeDensity.system) ThemeDensity density,
     double? limitViewportMultiplier,
@@ -680,6 +683,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
         }).toList() ??
         const [];
     return ButterflySettings(
+      fileVersion: prefs.getInt('file_version') ?? kSettingsFileVersion,
       limitViewportMultiplier: prefs.containsKey('limit_viewport_multiplier')
           ? prefs.getDouble('limit_viewport_multiplier')
           : null,
@@ -938,6 +942,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('file_version', kSettingsFileVersion);
     if (limitViewportMultiplier != null) {
       await prefs.setDouble(
         'limit_viewport_multiplier',
@@ -1002,7 +1007,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       'favorite_templates',
       favoriteTemplates.map((e) => json.encode(e.toJson())).toList(),
     );
-    await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
     await prefs.setString('default_file_name', defaultFileName);
     await prefs.setString('toolbar_position', toolbarPosition.name);
@@ -1850,7 +1854,9 @@ class SettingsCubit extends Cubit<ButterflySettings>
       if (decoded == null) {
         throw const FormatException('Invalid settings JSON');
       }
-      _migrateSettings(decoded);
+      if (decoded.getFieldValue('file_version') ?? 0 < state.fileVersion) {
+        _migrateSettings(decoded);
+      }
       final settings = ButterflySettings.fromJson(decoded)
           .copyWith(history: state.history, connections: state.connections);
       emit(settings);
@@ -1861,44 +1867,55 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   void _migrateSettings(Map<String, dynamic> decoded) {
-    final inputConfiguration =
-        decoded['inputConfiguration']! as Map<String, dynamic>;
-    _renameKey(inputConfiguration, 'pen', 'stylus');
-    _renameKey(inputConfiguration, 'invertedPen', 'invertedStylus');
-    _renameKey(inputConfiguration, 'firstPenButton', 'firstStylusButton');
-    _renameKey(inputConfiguration, 'secondPenButton', 'secondStylusButton');
-    _renameKey(inputConfiguration, 'doublePenShortcut', 'doubleStylusShortcut');
-    _renameKey(inputConfiguration, 'triplePenShortcut', 'tripleStylusShortcut');
-    _renameKey(
-      inputConfiguration,
-      'doubleInvertedPenShortcut',
-      'doubleInvertedStylusShortcut',
-    );
-    _renameKey(
-      inputConfiguration,
-      'tripleInvertedPenShortcut',
-      'tripleInvertedStylusShortcut',
-    );
-    _renameKey(
-      inputConfiguration,
-      'doubleFirstPenButtonShortcut',
-      'doubleFirstStylusButtonShortcut',
-    );
-    _renameKey(
-      inputConfiguration,
-      'tripleFirstPenButtonShortcut',
-      'tripleFirstStylusButtonShortcut',
-    );
-    _renameKey(
-      inputConfiguration,
-      'doubleSecondPenButtonShortcut',
-      'doubleSecondStylusButtonShortcut',
-    );
-    _renameKey(
-      inputConfiguration,
-      'tripleSecondPenButtonShortcut',
-      'tripleSecondStylusButtonShortcut',
-    );
+    int version = decoded.getFieldValue('file_version') ?? 0;
+    if (version < 1) {
+      final inputConfiguration =
+          decoded['inputConfiguration']! as Map<String, dynamic>;
+      _renameKey(inputConfiguration, 'pen', 'stylus');
+      _renameKey(inputConfiguration, 'invertedPen', 'invertedStylus');
+      _renameKey(inputConfiguration, 'firstPenButton', 'firstStylusButton');
+      _renameKey(inputConfiguration, 'secondPenButton', 'secondStylusButton');
+      _renameKey(
+        inputConfiguration,
+        'doublePenShortcut',
+        'doubleStylusShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'triplePenShortcut',
+        'tripleStylusShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'doubleInvertedPenShortcut',
+        'doubleInvertedStylusShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'tripleInvertedPenShortcut',
+        'tripleInvertedStylusShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'doubleFirstPenButtonShortcut',
+        'doubleFirstStylusButtonShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'tripleFirstPenButtonShortcut',
+        'tripleFirstStylusButtonShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'doubleSecondPenButtonShortcut',
+        'doubleSecondStylusButtonShortcut',
+      );
+      _renameKey(
+        inputConfiguration,
+        'tripleSecondPenButtonShortcut',
+        'tripleSecondStylusButtonShortcut',
+      );
+    }
   }
 
   void _renameKey(Map<String, dynamic> map, String oldKey, String newKey) {
