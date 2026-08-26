@@ -54,8 +54,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final isDesktop = size.width > LeapBreakpoints.expanded;
-    final isMobile = size.width < LeapBreakpoints.compact;
+    final isMobile = size.shortestSide < LeapBreakpoints.compact;
+    final isMobileLandscape = isMobile && size.width > size.height;
+    final isDesktop = !isMobile && size.width > LeapBreakpoints.expanded;
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
           previous.bannerVisibility != current.bannerVisibility ||
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             );
             return Scaffold(
               appBar: isMobile ? null : appBar,
-              bottomNavigationBar: isMobile
+              bottomNavigationBar: isMobile && !isMobileLandscape
                   ? NavigationBar(
                       destinations: [
                         NavigationDestination(
@@ -143,35 +144,81 @@ class _HomePageState extends State<HomePage> {
                     )
                   : null,
               body: isMobile
-                  ? DefaultTabController(
-                      length: 1,
-                      child: switch (_tab) {
-                        _MobileTab.home => Scaffold(
-                          appBar: appBar,
-                          body: ListView(
-                            children: [
-                              _QuickstartHomeView(
-                                remote: _remote,
-                                isMobile: true,
-                                onReload: () => setState(
-                                  () => _filesViewKey.currentState
-                                      ?.reloadFileSystem(),
+                  ? Row(
+                      children: [
+                        if (isMobileLandscape) ...[
+                          NavigationRail(
+                            destinations: [
+                              NavigationRailDestination(
+                                icon: const Icon(PhosphorIconsLight.house),
+                                selectedIcon: const Icon(
+                                  PhosphorIconsFill.house,
+                                ),
+                                label: Text(AppLocalizations.of(context).home),
+                              ),
+                              NavigationRailDestination(
+                                icon: const Icon(PhosphorIconsLight.folder),
+                                selectedIcon: const Icon(
+                                  PhosphorIconsFill.folder,
+                                ),
+                                label: Text(AppLocalizations.of(context).files),
+                              ),
+                              NavigationRailDestination(
+                                icon: const Icon(PhosphorIconsLight.gear),
+                                selectedIcon: const Icon(
+                                  PhosphorIconsFill.gear,
+                                ),
+                                label: Text(
+                                  AppLocalizations.of(context).settings,
                                 ),
                               ),
-                              RecentFilesView(replace: false, asGrid: true),
                             ],
+                            onDestinationSelected: (index) {
+                              setState(() {
+                                _tab = _MobileTab.values[index];
+                              });
+                            },
+                            selectedIndex: _tab.index,
+                            labelType: NavigationRailLabelType.selected,
+                          ),
+                          const VerticalDivider(width: 1),
+                        ],
+                        Expanded(
+                          child: DefaultTabController(
+                            length: 1,
+                            child: switch (_tab) {
+                              _MobileTab.home => Scaffold(
+                                appBar: appBar,
+                                body: ListView(
+                                  children: [
+                                    _QuickstartHomeView(
+                                      remote: _remote,
+                                      isMobile: true,
+                                      onReload: () => setState(
+                                        () => _filesViewKey.currentState
+                                            ?.reloadFileSystem(),
+                                      ),
+                                    ),
+                                    RecentFilesView(
+                                      replace: false,
+                                      asGrid: true,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              _MobileTab.files => FilesView(
+                                activeAsset: widget.selectedAsset,
+                                remote: _remote,
+                                isMobile: true,
+                                isPage: true,
+                                key: _filesViewKey,
+                                onRemoteChanged: (value) => updateRemote(value),
+                              ),
+                              _MobileTab.settings => SettingsPage(),
+                            },
                           ),
                         ),
-                        _MobileTab.files => FilesView(
-                          activeAsset: widget.selectedAsset,
-                          remote: _remote,
-                          isMobile: true,
-                          isPage: true,
-                          key: _filesViewKey,
-                          onRemoteChanged: (value) => updateRemote(value),
-                        ),
-                        _MobileTab.settings => SettingsPage(),
-                      },
+                      ],
                     )
                   : SingleChildScrollView(
                       child: Align(
