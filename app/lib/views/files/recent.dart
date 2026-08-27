@@ -68,9 +68,14 @@ class RecentFilesViewState extends State<RecentFilesView> {
       name: _getDisplayName(entity.location, settings.hideExtension),
       tooltip: entity.identifier,
       height: double.infinity,
-      onTap: () => widget.onFileTap == null
-          ? openFile(context, widget.replace, entity.location)
-          : widget.onFileTap!(entity),
+      onTap: () async {
+        if (widget.onFileTap != null) {
+          widget.onFileTap!(entity);
+          return;
+        }
+        await openFile(context, widget.replace, entity.location);
+        if (mounted) reload();
+      },
     );
   }
 

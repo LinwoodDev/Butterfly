@@ -1,0 +1,8 @@
+* Improve landscape mobile home page
+* Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
+* Fix file thumbnails not refreshing after returning from documents on mobile ([#1241](https://github.com/LinwoodDev/Butterfly/issues/1241))
+* Fix importing encrypted notes requiring their password ([#1242](https://github.com/LinwoodDev/Butterfly/issues/1242))
+* Fix importing Butterfly files on Android
+* Fix pinch zoom drifting toward one finger
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.0

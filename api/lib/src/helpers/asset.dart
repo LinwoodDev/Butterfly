@@ -21,7 +21,7 @@ extension AssetFileTypeHelper on AssetFileType {
   List<String> getFileExtensions() => switch (this) {
     AssetFileType.note => ['bfly'],
     AssetFileType.textNote => ['tbfly'],
-    AssetFileType.image => ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico'],
+    AssetFileType.image => ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico', 'webp'],
     AssetFileType.pdf => ['pdf'],
     AssetFileType.svg => ['svg'],
     AssetFileType.markdown => ['md', 'markdown'],
@@ -49,6 +49,7 @@ extension AssetFileTypeHelper on AssetFileType {
       'image/gif',
       'image/bmp',
       'image/x-icon',
+      'image/webp',
     ],
     AssetFileType.markdown => ['text/markdown'],
     AssetFileType.pdf => ['application/pdf'],

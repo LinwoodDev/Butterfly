@@ -443,6 +443,75 @@ void main() {
     await tester.pumpAndSettle();
   });
 
+  testWidgets('pinch zoom stays anchored to the stationary finger', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['smoothNavigation'],
+      ),
+    );
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+
+    final viewport = find.byType(MainViewViewport);
+    final center = tester.getCenter(viewport);
+    final viewportOrigin = tester.getTopLeft(viewport);
+    final firstFinger = await tester.startGesture(
+      center - const Offset(40, 0),
+      pointer: 1,
+      kind: PointerDeviceKind.touch,
+    );
+    final secondFingerPosition = center + const Offset(40, 0);
+    final secondFinger = await tester.startGesture(
+      secondFingerPosition,
+      pointer: 2,
+      kind: PointerDeviceKind.touch,
+    );
+    await tester.pump();
+
+    // Cross the gesture slop before measuring the focal-point invariant.
+    await firstFinger.moveBy(const Offset(-10, 0));
+    await tester.pump();
+    await firstFinger.moveBy(const Offset(-30, 0));
+    await tester.pump();
+    final transformCubit =
+        observer.lastDocumentBloc!.editorController.transformCubit;
+    final stationaryLocalPosition = secondFingerPosition - viewportOrigin;
+    final documentPoint = transformCubit.state.localToGlobal(
+      stationaryLocalPosition,
+    );
+
+    await firstFinger.moveBy(const Offset(-30, 0));
+    await tester.pump();
+
+    final restored = transformCubit.state.localToGlobal(
+      stationaryLocalPosition,
+    );
+    expect(restored.dx, closeTo(documentPoint.dx, 1e-6));
+    expect(restored.dy, closeTo(documentPoint.dy, 1e-6));
+
+    await firstFinger.moveBy(const Offset(-30, 0));
+    await tester.pump();
+
+    final restoredAgain = transformCubit.state.localToGlobal(
+      stationaryLocalPosition,
+    );
+    expect(restoredAgain.dx, closeTo(documentPoint.dx, 1e-6));
+    expect(restoredAgain.dy, closeTo(documentPoint.dy, 1e-6));
+
+    await firstFinger.up();
+    await secondFinger.up();
+    await tester.pumpAndSettle();
+  });
+
   testWidgets('hold shortcut resets before the next pointer down', (
     tester,
   ) async {

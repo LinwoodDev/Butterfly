@@ -48,6 +48,14 @@ void main() {
   });
 
   group('AssetFileType helpers', () {
+    test('fromFileExtension recognizes WebP images', () {
+      expect(
+        AssetFileTypeHelper.fromFileExtension('.WEBP'),
+        AssetFileType.image,
+      );
+      expect(AssetFileTypeHelper.fromMime('image/webp'), AssetFileType.image);
+    });
+
     test('fromFileExtension handles uppercase and dotted PDF extensions', () {
       expect(AssetFileTypeHelper.fromFileExtension('PDF'), AssetFileType.pdf);
       expect(AssetFileTypeHelper.fromFileExtension('.PDF'), AssetFileType.pdf);

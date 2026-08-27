@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:butterfly/main.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -73,15 +74,27 @@ Future<(Uint8List, String, String)> _readPlatformFile(PlatformFile file) async {
   return (data, fileName.split('.').lastOrNull ?? '', nameWithoutExtension);
 }
 
+(FileType, List<String>?) _getImportPickerOptions(Iterable<String> extensions) {
+  // Android's system picker filters by MIME type, not extension. The picker
+  // plugin drops unknown extensions such as bfly and tbfly while converting
+  // them to MIME types, making Butterfly files unselectable when known file
+  // types are requested alongside them.
+  if (!kIsWeb && Platform.isAndroid) {
+    return (FileType.any, null);
+  }
+  return (FileType.custom, extensions.toList());
+}
+
 Future<(Uint8List?, String?, String?)> importFile(
   BuildContext context, [
   List<AssetFileType>? types,
 ]) async {
+  final (fileType, allowedExtensions) = _getImportPickerOptions(
+    (types ?? AssetFileType.values).expand((e) => e.getFileExtensions()),
+  );
   final file = await FilePicker.pickFile(
-    allowedExtensions: (types ?? AssetFileType.values)
-        .expand((e) => e.getFileExtensions())
-        .toList(),
-    type: FileType.custom,
+    allowedExtensions: allowedExtensions,
+    type: fileType,
   );
   if (file == null) {
     return (null, null, null);
@@ -93,11 +106,12 @@ Future<List<(Uint8List, String, String)>> importFiles(
   BuildContext context, [
   List<AssetFileType>? types,
 ]) async {
+  final (fileType, allowedExtensions) = _getImportPickerOptions(
+    (types ?? AssetFileType.values).expand((e) => e.getFileExtensions()),
+  );
   final result = await FilePicker.pickFiles(
-    allowedExtensions: (types ?? AssetFileType.values)
-        .expand((e) => e.getFileExtensions())
-        .toList(),
-    type: FileType.custom,
+    allowedExtensions: allowedExtensions,
+    type: fileType,
   );
   final files = <(Uint8List, String, String)>[];
   for (final file in result) {
@@ -109,9 +123,10 @@ Future<List<(Uint8List, String, String)>> importFiles(
 Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
   List<String> extensions,
 ) async {
+  final (fileType, allowedExtensions) = _getImportPickerOptions(extensions);
   final result = await FilePicker.pickFiles(
-    allowedExtensions: extensions,
-    type: FileType.custom,
+    allowedExtensions: allowedExtensions,
+    type: fileType,
   );
   final files = <(Uint8List, String, String)>[];
   for (final file in result) {

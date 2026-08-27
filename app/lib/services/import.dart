@@ -45,6 +45,7 @@ enum _OneNoteManualXpsAction { selectPdf, exportAgain, skipFile, skipAll }
 class ImportResult {
   final ImportService service;
   final NoteData? document;
+  final NoteFile? file;
   final List<PadElement> elements;
   final Map<String, Uint8List> assets;
   final List<(String?, DocumentPage)> pages;
@@ -57,6 +58,7 @@ class ImportResult {
   ImportResult({
     required this.service,
     required this.document,
+    this.file,
     this.elements = const [],
     this.assets = const {},
     this.pages = const [],
@@ -66,7 +68,8 @@ class ImportResult {
     this.choosePosition = false,
   }) : documentReady = false;
   ImportResult.ready({required this.service, required NoteData this.document})
-    : elements = const [],
+    : file = null,
+      elements = const [],
       assets = document.getAllAssets(),
       pages = document
           .getPages(true)
@@ -86,6 +89,8 @@ class ImportResult {
       exportPresets = const [],
       choosePosition = false,
       documentReady = true;
+  ImportResult.file({required ImportService service, required NoteFile file})
+    : this(service: service, document: null, file: file);
 
   bool _isArchiveAssetPath(String path) =>
       validAssetPaths.any((e) => path.startsWith('$e/'));
@@ -151,6 +156,8 @@ class ImportResult {
     }
     return document;
   }
+
+  Future<NoteFile> exportFile() async => file ?? (await export()).toFile();
 
   void submit({bool? choosePosition}) {
     choosePosition ??= this.choosePosition;
@@ -240,6 +247,7 @@ class ImportService {
     String type = '',
     Object? data,
     NoteData? document,
+    bool preserveEncrypted = false,
   }) async {
     final location = bloc?.editorController.saveCubit.state.location;
     Uint8List? bytes;
@@ -279,7 +287,13 @@ class ImportService {
       return null;
     }
     if (bytes == null) return null;
-    return import(fileType, bytes, document: document, advanced: false);
+    return import(
+      fileType,
+      bytes,
+      document: document,
+      advanced: false,
+      preserveEncrypted: preserveEncrypted,
+    );
   }
 
   @useResult
@@ -293,6 +307,7 @@ class ImportService {
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
     String? name,
+    bool preserveEncrypted = false,
   }) async {
     final realDocument =
         document ?? bloc?.state.data ?? DocumentDefaults.createDocument();
@@ -305,6 +320,7 @@ class ImportService {
         templateSystem: templateSystem,
         packSystem: packSystem,
         name: name,
+        preserveEncrypted: preserveEncrypted,
       ),
       AssetFileType.image => importImage(
         bytes,
@@ -397,10 +413,14 @@ class ImportService {
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
     String? name,
+    bool preserveEncrypted = false,
   }) async {
     try {
       final file = NoteFile(bytes);
       final encrypted = file.isEncrypted();
+      if (encrypted && preserveEncrypted) {
+        return ImportResult.file(service: this, file: file);
+      }
       var password = readConnectionEncryptionPassword(effectiveStorage);
       NoteData? data;
       if (encrypted) {
@@ -1272,7 +1292,7 @@ class ImportService {
           fileSystem.storage,
           document,
         );
-        fileSystem.createFile(
+        await fileSystem.createFile(
           p.join(path ?? '', document.name ?? ''),
           document.toFile(),
         );
@@ -1290,22 +1310,16 @@ class ImportService {
       fileSystem ??= getDocumentSystem();
       for (final file in archive) {
         const fileExtension = '.bfly';
-        if (!file.name.endsWith(fileExtension)) continue;
+        if (!file.name.toLowerCase().endsWith(fileExtension)) continue;
         final bytes = file.readBytes();
         if (bytes == null) continue;
-        var document = await (await importBfly(
+        final noteFile = await (await importBfly(
           bytes,
           advanced: false,
-        ))?.export();
-        if (document != null) {
-          document = addConnectionPasswordToNoteData(
-            fileSystem.storage,
-            document,
-          );
-          fileSystem.createFile(
-            p.join(path ?? '', file.name),
-            document.toFile(),
-          );
+          preserveEncrypted: true,
+        ))?.exportFile();
+        if (noteFile != null) {
+          await fileSystem.createFile(p.join(path ?? '', file.name), noteFile);
         }
       }
       return true;
