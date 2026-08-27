@@ -8,7 +8,6 @@ import 'package:butterfly/views/navigator/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'constants.dart';
@@ -41,13 +40,19 @@ enum NavigatorPage {
     NavigatorPage.components => (['pack'], 'components'),
   };
 
-  IconGetter get icon => switch (this) {
-    NavigatorPage.waypoints => PhosphorIcons.mapPin,
-    NavigatorPage.areas => PhosphorIcons.monitor,
-    NavigatorPage.layers => PhosphorIcons.stack,
-    NavigatorPage.pages => PhosphorIcons.book,
-    NavigatorPage.files => PhosphorIcons.file,
-    NavigatorPage.components => PhosphorIcons.cube,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    NavigatorPage.waypoints =>
+      filled ? PhosphorIconsFill.mapPin : PhosphorIconsLight.mapPin,
+    NavigatorPage.areas =>
+      filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
+    NavigatorPage.layers =>
+      filled ? PhosphorIconsFill.stack : PhosphorIconsLight.stack,
+    NavigatorPage.pages =>
+      filled ? PhosphorIconsFill.book : PhosphorIconsLight.book,
+    NavigatorPage.files =>
+      filled ? PhosphorIconsFill.file : PhosphorIconsLight.file,
+    NavigatorPage.components =>
+      filled ? PhosphorIconsFill.cube : PhosphorIconsLight.cube,
   };
 }
 
@@ -139,9 +144,7 @@ class _NavigatorViewState extends State<NavigatorView>
                     destinations: pages
                         .map(
                           (e) => NavigationRailDestination(
-                            icon: PhosphorIcon(
-                              e.icon(PhosphorIconsStyle.light),
-                            ),
+                            icon: PhosphorIcon(e.icon()),
                             label: Text(e.getLocalizedName(context)),
                           ),
                         )

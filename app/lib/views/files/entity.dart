@@ -142,7 +142,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
         final data = shouldLoadDisplay && entity.data != null
             ? displayConnectionNoteFile(remote, entity.data!)
             : null;
-        icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
+        icon = entity.location.fileType.icon();
         if (encrypted && !(data?.isValid ?? false)) {
           icon = PhosphorIconsLight.lock;
         }

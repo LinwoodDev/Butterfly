@@ -173,16 +173,14 @@ class _PropertyCardState extends State<_PropertyCard> {
     final help = selection.help;
     final multi = selection.selected.length != 1;
     final selected = selection.selected.first;
-    final icon = selection.icon(
-      multi ? PhosphorIconsStyle.fill : PhosphorIconsStyle.light,
-    );
+    final icon = selection.icon(filled: multi);
     final menuChildren = multi
         ? <Widget>[]
         : DisplayIcons.recommended(selected)
               .map(
                 (e) => IconButton(
                   icon: PhosphorIcon(
-                    e.icon(PhosphorIconsStyle.light),
+                    e.icon(),
                     textDirection: TextDirection.ltr,
                   ),
                   iconSize: 26,

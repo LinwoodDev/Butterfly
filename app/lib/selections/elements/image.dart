@@ -28,7 +28,8 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.image;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image;
 
   @override
   String getLocalizedName(BuildContext context) =>

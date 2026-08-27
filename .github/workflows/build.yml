@@ -3,7 +3,8 @@ name: Flutter build
 on:
   push:
     branches:
-      - "*"
+      - main
+      - develop
     tags:
       - stable
       - nightly
@@ -15,8 +16,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: build-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.ref_type == 'branch' }}
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-apk:
@@ -42,11 +43,8 @@ jobs:
           cache: true
       - name: 📦 Get dependencies
         run: |
-          flutter clean
           flutter pub get
-          flutter doctor -v
       - name: Import files
-        if: ${{ github.event_name != 'pull_request' }}
         env:
           KEY_JKS: ${{ secrets.KEY_JKS }}
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
@@ -55,36 +53,6 @@ jobs:
           if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
-      - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
-        run: |
-          flutter build apk -v --release --flavor nightly
-          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
-      - name: 🏭 Build nightly (legacy packaging)
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
-        run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
-          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android-legacy.apk
-      - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
-        run: |
-          flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
-      - name: 🏭 Build production (legacy packaging)
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
-        run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
-      - name: Archive
-        uses: actions/upload-artifact@v7
-        with:
-          name: apk-build
-          path: app/linwood-butterfly-android.apk
-      - name: Archive (legacy)
-        uses: actions/upload-artifact@v7
-        with:
-          name: apk-build-legacy
-          path: app/linwood-butterfly-android-legacy.apk
       - name: 🏭 Build architecture nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
@@ -113,6 +81,22 @@ jobs:
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64-legacy.apk
+      - name: 📊 Analyze nightly Android arm64 size
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        run: |
+          flutter build apk -v --release --flavor nightly --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-nightly
+          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-nightly/
+      - name: 📊 Analyze production Android arm64 size
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        run: |
+          flutter build apk -v --release --flavor production --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-production
+          cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-production/
+      - name: Archive size analysis
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-size-analysis
+          path: app/build/size-analysis/
+          if-no-files-found: error
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -182,9 +166,7 @@ jobs:
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
         run: |
-          flutter clean
           flutter pub get
-          flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
@@ -193,6 +175,12 @@ jobs:
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter build windows -v --release --flavor production
+      - name: 📊 Analyze Windows x86_64 size
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        run: |
+          flutter build windows -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
+          New-Item -ItemType Directory -Force build/size-analysis/windows-x86_64 | Out-Null
+          Copy-Item "$env:USERPROFILE/.flutter-devtools/*-code-size-analysis_*.json" build/size-analysis/windows-x86_64/
       - name: Build setup
         shell: pwsh
         run: |
@@ -214,6 +202,13 @@ jobs:
           name: windows-${{ matrix.arch.name }}-setup
           path: |
             app/linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
+      - name: Archive size analysis
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-x86_64-size-analysis
+          path: app/build/size-analysis/windows-x86_64/
+          if-no-files-found: error
   build-msix:
     name: build-msix
     runs-on: windows-2025
@@ -235,9 +230,7 @@ jobs:
           cache: true
       - name: 📦 Get dependencies
         run: |
-          flutter clean
           flutter pub get
-          flutter doctor -v
       - name: 🎨 Apply native branding
         run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
       - name: 🏭 Build MSIX
@@ -257,23 +250,13 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-          - image: ubuntu-26.04
-            name: x86_64
-            dir: x64
-            appimage: x86_64
-            gdk_pixbuf_dev: libgdk-pixbuf-2.0-dev
-          - image: ubuntu-26.04-arm
-            name: arm64
-            dir: arm64
-            appimage: aarch64
-            gdk_pixbuf_dev: libgdk-pixbuf-2.0-dev
           - image: ubuntu-24.04
-            name: alternative-x86_64
+            name: x86_64
             dir: x64
             appimage: x86_64
             gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
           - image: ubuntu-24.04-arm
-            name: alternative-arm64
+            name: arm64
             dir: arm64
             appimage: aarch64
             gdk_pixbuf_dev: libgdk-pixbuf2.0-dev
@@ -327,21 +310,22 @@ jobs:
           flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
-          flutter clean
           flutter pub get
-          flutter doctor -v
       - name: 🎨 Apply native branding
         run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          flutter doctor -v
           flutter build linux -v --release --flavor nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
-          flutter doctor -v
           flutter build linux -v --release --flavor production
+      - name: 📊 Analyze Linux x86_64 size
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        run: |
+          flutter build linux -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          cp "$HOME"/.flutter-devtools/*-code-size-analysis_*.json build/size-analysis/linux-x86_64/
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/butterfly
@@ -416,6 +400,13 @@ jobs:
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync
+      - name: Archive size analysis
+        if: ${{ matrix.arch.name == 'x86_64' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: linux-x86_64-size-analysis
+          path: app/build/size-analysis/linux-x86_64/
+          if-no-files-found: error
   build-snap:
     name: build-snap
     strategy:
@@ -480,6 +471,7 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
@@ -487,9 +479,7 @@ jobs:
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
         run: |
-          flutter clean
           flutter pub get
-          flutter doctor -v
       - name: 🎨 Apply native branding
         run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
       - name: 🏭 Build
@@ -540,12 +530,10 @@ jobs:
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
-          #cache: true
+          cache: true
       - name: 📦 Get dependencies
         run: |
-          flutter clean
           flutter pub get
-          flutter doctor -v
       - name: 🎨 Apply native branding
         run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
       - name: 🏭 Build
@@ -643,9 +631,6 @@ jobs:
           git config --global user.name "Linwood CI"
       - uses: actions/download-artifact@v8
         with:
-          name: apk-build
-      - uses: actions/download-artifact@v8
-        with:
           name: apk-arm-build
       - uses: actions/download-artifact@v8
         with:
@@ -653,9 +638,6 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: apk-x86_64-build
-      - uses: actions/download-artifact@v8
-        with:
-          name: apk-build-legacy
       - uses: actions/download-artifact@v8
         with:
           name: apk-arm-build-legacy
@@ -701,32 +683,6 @@ jobs:
           name: linux-arm64-appimage
       - uses: actions/download-artifact@v8
         with:
-          name: linux-alternative-x86_64-build
-          path: linux-alternative-x86_64-build/
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-x86_64-deb
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-x86_64-rpm
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-x86_64-appimage
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-build
-          path: linux-alternative-arm64-build/
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-deb
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-rpm
-      - uses: actions/download-artifact@v8
-        with:
-          name: linux-alternative-arm64-appimage
-      - uses: actions/download-artifact@v8
-        with:
           name: windows-x86_64-setup
       - uses: actions/download-artifact@v8
         with:
@@ -749,8 +705,6 @@ jobs:
           cd ..
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
-          tar -C linux-alternative-x86_64-build -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
-          tar -C linux-alternative-arm64-build -czf linwood-butterfly-linux-alternative-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -797,23 +751,11 @@ jobs:
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-linux-arm64.AppImage.zsync
-            linwood-butterfly-linux-alternative-x86_64.tar.gz
-            linwood-butterfly-linux-alternative-x86_64.deb
-            linwood-butterfly-linux-alternative-x86_64.rpm
-            linwood-butterfly-linux-alternative-x86_64.AppImage
-            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
-            linwood-butterfly-linux-alternative-arm64.tar.gz
-            linwood-butterfly-linux-alternative-arm64.deb
-            linwood-butterfly-linux-alternative-arm64.rpm
-            linwood-butterfly-linux-alternative-arm64.AppImage
-            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
-            linwood-butterfly-android.apk
             linwood-butterfly-android-arm.apk
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
-            linwood-butterfly-android-legacy.apk
             linwood-butterfly-android-arm-legacy.apk
             linwood-butterfly-android-arm64-legacy.apk
             linwood-butterfly-android-x86_64-legacy.apk
@@ -843,23 +785,11 @@ jobs:
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-linux-arm64.AppImage.zsync
-            linwood-butterfly-linux-alternative-x86_64.tar.gz
-            linwood-butterfly-linux-alternative-x86_64.deb
-            linwood-butterfly-linux-alternative-x86_64.rpm
-            linwood-butterfly-linux-alternative-x86_64.AppImage
-            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
-            linwood-butterfly-linux-alternative-arm64.tar.gz
-            linwood-butterfly-linux-alternative-arm64.deb
-            linwood-butterfly-linux-alternative-arm64.rpm
-            linwood-butterfly-linux-alternative-arm64.AppImage
-            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
-            linwood-butterfly-android.apk
             linwood-butterfly-android-arm.apk
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
-            linwood-butterfly-android-legacy.apk
             linwood-butterfly-android-arm-legacy.apk
             linwood-butterfly-android-arm64-legacy.apk
             linwood-butterfly-android-x86_64-legacy.apk
@@ -887,23 +817,11 @@ jobs:
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-linux-arm64.AppImage.zsync
-            linwood-butterfly-linux-alternative-x86_64.tar.gz
-            linwood-butterfly-linux-alternative-x86_64.deb
-            linwood-butterfly-linux-alternative-x86_64.rpm
-            linwood-butterfly-linux-alternative-x86_64.AppImage
-            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
-            linwood-butterfly-linux-alternative-arm64.tar.gz
-            linwood-butterfly-linux-alternative-arm64.deb
-            linwood-butterfly-linux-alternative-arm64.rpm
-            linwood-butterfly-linux-alternative-arm64.AppImage
-            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
-            linwood-butterfly-android.apk
             linwood-butterfly-android-arm.apk
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
-            linwood-butterfly-android-legacy.apk
             linwood-butterfly-android-arm-legacy.apk
             linwood-butterfly-android-arm64-legacy.apk
             linwood-butterfly-android-x86_64-legacy.apk

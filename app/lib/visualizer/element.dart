@@ -2,7 +2,6 @@ import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ElementVisualizer on PadElement {
@@ -22,17 +21,24 @@ extension ElementVisualizer on PadElement {
     };
   }
 
-  IconGetter get icon => switch (this) {
-    PenElement _ => PhosphorIcons.pen,
-    PdfElement _ => PhosphorIcons.filePdf,
-    TextElement _ => PhosphorIcons.textT,
-    ImageElement _ => PhosphorIcons.image,
-    ShapeElement element => element.property.shape.icon,
-    TableElement _ => PhosphorIcons.table,
-    SvgElement _ => PhosphorIcons.fileSvg,
-    MarkdownElement _ => PhosphorIcons.textbox,
-    TextureElement e => e.texture.icon,
-    PolygonElement _ => PhosphorIcons.polygon,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    PenElement _ => filled ? PhosphorIconsFill.pen : PhosphorIconsLight.pen,
+    PdfElement _ =>
+      filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf,
+    TextElement _ =>
+      filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT,
+    ImageElement _ =>
+      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
+    ShapeElement element => element.property.shape.icon(filled: filled),
+    TableElement _ =>
+      filled ? PhosphorIconsFill.table : PhosphorIconsLight.table,
+    SvgElement _ =>
+      filled ? PhosphorIconsFill.fileSvg : PhosphorIconsLight.fileSvg,
+    MarkdownElement _ =>
+      filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox,
+    TextureElement e => e.texture.icon(filled: filled),
+    PolygonElement _ =>
+      filled ? PhosphorIconsFill.polygon : PhosphorIconsLight.polygon,
   };
 }
 
@@ -80,9 +86,11 @@ extension LabelModeVisualizer on LabelMode {
     LabelMode.text => AppLocalizations.of(context).text,
   };
 
-  IconGetter get icon => switch (this) {
-    LabelMode.markdown => PhosphorIcons.textbox,
-    LabelMode.text => PhosphorIcons.textT,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    LabelMode.markdown =>
+      filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox,
+    LabelMode.text =>
+      filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT,
   };
 }
 
@@ -91,7 +99,8 @@ extension SurfaceTextureVisualizer on SurfaceTexture {
     PatternTexture() => AppLocalizations.of(context).pattern,
   };
 
-  IconGetter get icon => switch (this) {
-    PatternTexture() => PhosphorIcons.blueprint,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    PatternTexture() =>
+      filled ? PhosphorIconsFill.blueprint : PhosphorIconsLight.blueprint,
   };
 }

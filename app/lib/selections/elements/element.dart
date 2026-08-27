@@ -218,5 +218,6 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       AppLocalizations.of(context).element;
 
   @override
-  IconGetter get icon => PhosphorIcons.cube;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.cube : PhosphorIconsLight.cube;
 }

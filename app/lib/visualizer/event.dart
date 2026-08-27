@@ -1,7 +1,6 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ArangementVisualizer on Arrangement {
@@ -15,10 +14,14 @@ extension ArangementVisualizer on Arrangement {
     };
   }
 
-  IconGetter get icon => switch (this) {
-    Arrangement.back => PhosphorIcons.arrowDown,
-    Arrangement.front => PhosphorIcons.arrowUp,
-    Arrangement.backward => PhosphorIcons.arrowDownLeft,
-    Arrangement.forward => PhosphorIcons.arrowUpRight,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    Arrangement.back =>
+      filled ? PhosphorIconsFill.arrowDown : PhosphorIconsLight.arrowDown,
+    Arrangement.front =>
+      filled ? PhosphorIconsFill.arrowUp : PhosphorIconsLight.arrowUp,
+    Arrangement.backward =>
+      filled ? PhosphorIconsFill.arrowLeft : PhosphorIconsLight.arrowLeft,
+    Arrangement.forward =>
+      filled ? PhosphorIconsFill.arrowRight : PhosphorIconsLight.arrowRight,
   };
 }

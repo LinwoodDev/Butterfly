@@ -1,15 +1,18 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
-  IconGetter get icon => switch (this) {
-    CircleShape _ => PhosphorIcons.circle,
-    RectangleShape _ => PhosphorIcons.square,
-    LineShape _ => PhosphorIcons.lineSegment,
-    TriangleShape _ => PhosphorIcons.triangle,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    CircleShape _ =>
+      filled ? PhosphorIconsFill.circle : PhosphorIconsLight.circle,
+    RectangleShape _ =>
+      filled ? PhosphorIconsFill.square : PhosphorIconsLight.square,
+    LineShape _ =>
+      filled ? PhosphorIconsFill.lineSegment : PhosphorIconsLight.lineSegment,
+    TriangleShape _ =>
+      filled ? PhosphorIconsFill.triangle : PhosphorIconsLight.triangle,
   };
 
   String getLocalizedName(BuildContext context) {
@@ -32,9 +35,11 @@ extension StrokeStyleVisualizer on StrokeStyle {
     };
   }
 
-  IconGetter get icon => switch (this) {
-    StrokeStyle.solid => PhosphorIcons.minus,
-    StrokeStyle.dotted => PhosphorIcons.dotsSix,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    StrokeStyle.solid =>
+      filled ? PhosphorIconsFill.minus : PhosphorIconsLight.minus,
+    StrokeStyle.dotted =>
+      filled ? PhosphorIconsFill.dotsSix : PhosphorIconsLight.dotsSix,
   };
 }
 

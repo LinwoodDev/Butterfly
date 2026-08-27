@@ -27,7 +27,8 @@ class PenElementSelection extends ElementSelection<PenElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.pen;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.pen : PhosphorIconsLight.pen;
 
   @override
   String getLocalizedName(BuildContext context) =>

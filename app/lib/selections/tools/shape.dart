@@ -163,7 +163,8 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
   }
 
   @override
-  IconGetter get icon => selected.first.property.shape.icon;
+  PhosphorIconData icon({bool filled = false}) =>
+      selected.first.property.shape.icon(filled: filled);
 }
 
 class ShapeView extends StatefulWidget {
@@ -248,7 +249,7 @@ class _ShapeViewState extends State<ShapeView> {
                     (e) => DropdownMenuEntry(
                       label: e.key,
                       value: e.key,
-                      leadingIcon: Icon(e.value.icon(PhosphorIconsStyle.light)),
+                      leadingIcon: Icon(e.value.icon()),
                     ),
                   )
                   .toList(),
@@ -432,7 +433,7 @@ class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
                     (e) => DropdownMenuEntry(
                       label: e.getLocalizedName(context),
                       value: e,
-                      leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                      leadingIcon: Icon(e.icon()),
                     ),
                   )
                   .toList(),

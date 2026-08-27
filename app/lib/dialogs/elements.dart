@@ -126,7 +126,7 @@ ContextMenuBuilder buildElementsContextMenu(
           children: Arrangement.values
               .map(
                 (e) => MenuItemButton(
-                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                  leadingIcon: Icon(e.icon()),
                   child: Text(e.getLocalizedName(context)),
                   onPressed: () {
                     Navigator.of(context).pop(true);
@@ -150,7 +150,7 @@ ContextMenuBuilder buildElementsContextMenu(
           children: operationKeys
               .map(
                 (e) => MenuItemButton(
-                  leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  leadingIcon: PhosphorIcon(e.icon()),
                   child: Text(e.getLocalizedName(context)),
                   onPressed: () {
                     final flipAxis = e.flipAxis;

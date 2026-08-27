@@ -16,9 +16,7 @@ class AssetToolSelection extends ToolSelection<AssetTool> {
                 (type) => DropdownMenuEntry(
                   value: type,
                   label: type.getLocalizedName(context),
-                  leadingIcon: PhosphorIcon(
-                    type.icon(PhosphorIconsStyle.light),
-                  ),
+                  leadingIcon: PhosphorIcon(type.icon()),
                 ),
               )
               .toList(),

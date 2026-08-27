@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:keybinder/keybinder.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SearchIntent extends Intent {
@@ -39,12 +38,12 @@ class SearchButton extends StatelessWidget {
   final SearchController controller;
   const SearchButton({super.key, required this.controller});
 
-  IconGetter _getIcon(SearchResult item) => switch (item) {
-    ElementResult e => e.element.icon,
-    WaypointResult _ => PhosphorIcons.mapPin,
-    AreaResult _ => PhosphorIcons.selection,
-    PageResult _ => PhosphorIcons.book,
-    ToolResult e => e.tool.icon,
+  PhosphorIconData _getIcon(SearchResult item) => switch (item) {
+    ElementResult e => e.element.icon(),
+    WaypointResult _ => PhosphorIconsLight.mapPin,
+    AreaResult _ => PhosphorIconsLight.selection,
+    PageResult _ => PhosphorIconsLight.book,
+    ToolResult e => e.tool.icon(),
   };
 
   String _getLocalizedName(SearchResult item, BuildContext context) =>
@@ -100,7 +99,7 @@ class SearchButton extends StatelessWidget {
         }
         return results.map((result) {
           return ListTile(
-            leading: PhosphorIcon(_getIcon(result)(PhosphorIconsStyle.light)),
+            leading: PhosphorIcon(_getIcon(result)),
             title: Text(_getDisplay(result, context)),
             subtitle: Text(_getLocalizedName(result, context)),
             onTap: () {

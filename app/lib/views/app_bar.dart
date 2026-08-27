@@ -461,9 +461,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
             ),
           if (state.absolute)
             IconButton(
-              icon: PhosphorIcon(
-                currentIndex.location.fileType.icon(PhosphorIconsStyle.light),
-              ),
+              icon: PhosphorIcon(currentIndex.location.fileType.icon()),
               tooltip: AppLocalizations.of(context).export,
               onPressed: () => context.read<ImportService>().export(),
             ),
@@ -725,9 +723,7 @@ class MainPopupMenu extends StatelessWidget {
                               )
                               .map(
                                 (e) => MenuItemButton(
-                                  leadingIcon: PhosphorIcon(
-                                    e.icon(PhosphorIconsStyle.light),
-                                  ),
+                                  leadingIcon: PhosphorIcon(e.icon()),
                                   child: Text(e.getLocalizedName(context)),
                                   onPressed: () {
                                     context

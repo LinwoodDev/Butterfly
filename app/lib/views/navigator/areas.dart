@@ -607,7 +607,7 @@ class _AreasViewState extends State<AreasView> {
                             Row(
                               children: [
                                 _AreaDirectionButton(
-                                  icon: PhosphorIcons.arrowLeft,
+                                  icon: PhosphorIconsLight.arrowLeft,
                                   tooltip: AppLocalizations.of(context).left,
                                   enabled: enableButton(-1, 0),
                                   selected: selectedButton(-1, 0),
@@ -616,7 +616,7 @@ class _AreasViewState extends State<AreasView> {
                                 ),
                                 const SizedBox(width: 2),
                                 _AreaDirectionButton(
-                                  icon: PhosphorIcons.arrowUp,
+                                  icon: PhosphorIconsLight.arrowUp,
                                   tooltip: AppLocalizations.of(context).top,
                                   enabled: enableButton(0, -1),
                                   selected: selectedButton(0, -1),
@@ -625,7 +625,7 @@ class _AreasViewState extends State<AreasView> {
                                 ),
                                 const SizedBox(width: 2),
                                 _AreaDirectionButton(
-                                  icon: PhosphorIcons.arrowDown,
+                                  icon: PhosphorIconsLight.arrowDown,
                                   tooltip: AppLocalizations.of(context).bottom,
                                   enabled: enableButton(0, 1),
                                   selected: selectedButton(0, 1),
@@ -633,7 +633,7 @@ class _AreasViewState extends State<AreasView> {
                                 ),
                                 const SizedBox(width: 2),
                                 _AreaDirectionButton(
-                                  icon: PhosphorIcons.arrowRight,
+                                  icon: PhosphorIconsLight.arrowRight,
                                   tooltip: AppLocalizations.of(context).right,
                                   enabled: enableButton(1, 0),
                                   selected: selectedButton(1, 0),
@@ -657,7 +657,7 @@ class _AreasViewState extends State<AreasView> {
 }
 
 class _AreaDirectionButton extends StatelessWidget {
-  final IconData Function(PhosphorIconsStyle) icon;
+  final PhosphorIconData icon;
   final String tooltip;
   final bool enabled;
   final bool selected;
@@ -674,10 +674,10 @@ class _AreaDirectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton.filledTonal(
-      icon: PhosphorIcon(icon(PhosphorIconsStyle.light)),
+      icon: PhosphorIcon(icon),
       tooltip: tooltip,
       onPressed: enabled ? onPressed : null,
-      selectedIcon: PhosphorIcon(icon(PhosphorIconsStyle.light)),
+      selectedIcon: PhosphorIcon(icon),
       isSelected: selected,
     );
   }

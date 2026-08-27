@@ -1,7 +1,6 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension AssetFileTypeVisualizer on AssetFileType? {
@@ -20,17 +19,25 @@ extension AssetFileTypeVisualizer on AssetFileType? {
     null => AppLocalizations.of(context).unknownImportType,
   };
 
-  IconGetter get icon => switch (this) {
-    AssetFileType.note || AssetFileType.textNote => PhosphorIcons.fileText,
-    AssetFileType.image => PhosphorIcons.image,
-    AssetFileType.markdown => PhosphorIcons.textbox,
-    AssetFileType.pdf => PhosphorIcons.filePdf,
-    AssetFileType.svg => PhosphorIcons.fileSvg,
-    AssetFileType.xopp => PhosphorIcons.notebook,
-    AssetFileType.oneNote ||
-    AssetFileType.oneNotePackage => PhosphorIcons.notebook,
-    AssetFileType.page => PhosphorIcons.book,
-    AssetFileType.archive => PhosphorIcons.archive,
-    _ => PhosphorIcons.file,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    AssetFileType.note || AssetFileType.textNote =>
+      filled ? PhosphorIconsFill.fileText : PhosphorIconsLight.fileText,
+    AssetFileType.image =>
+      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
+    AssetFileType.markdown =>
+      filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox,
+    AssetFileType.pdf =>
+      filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf,
+    AssetFileType.svg =>
+      filled ? PhosphorIconsFill.fileSvg : PhosphorIconsLight.fileSvg,
+    AssetFileType.xopp =>
+      filled ? PhosphorIconsFill.notebook : PhosphorIconsLight.notebook,
+    AssetFileType.oneNote || AssetFileType.oneNotePackage =>
+      filled ? PhosphorIconsFill.notebook : PhosphorIconsLight.notebook,
+    AssetFileType.page =>
+      filled ? PhosphorIconsFill.book : PhosphorIconsLight.book,
+    AssetFileType.archive =>
+      filled ? PhosphorIconsFill.archive : PhosphorIconsLight.archive,
+    _ => filled ? PhosphorIconsFill.file : PhosphorIconsLight.file,
   };
 }

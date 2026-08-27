@@ -57,7 +57,8 @@ class LabelElementSelection extends ElementSelection<PadElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.textT;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT;
 
   @override
   String getLocalizedName(BuildContext context) =>

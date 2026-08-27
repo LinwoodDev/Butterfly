@@ -16,7 +16,7 @@ class SpacerToolSelection extends ToolSelection<SpacerTool> {
               .map(
                 (e) => DropdownMenuEntry(
                   label: e.getLocalizedName(context),
-                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                  leadingIcon: Icon(e.icon()),
                   value: e,
                 ),
               )

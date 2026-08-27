@@ -99,12 +99,14 @@ class ToolSelection<T extends Tool> extends Selection<T> {
   }
 
   @override
-  IconGetter get icon {
+  PhosphorIconData icon({bool filled = false}) {
     final type = selected.first.runtimeType;
     if (selected.every((e) => e.runtimeType == type)) {
-      return selected.first.icon;
+      return selected.first.icon(filled: filled);
     }
-    return PhosphorIcons.paintRoller;
+    return filled
+        ? PhosphorIconsFill.paintRoller
+        : PhosphorIconsLight.paintRoller;
   }
 
   @override
