@@ -22,6 +22,10 @@
 }
 header {
   backdrop-filter: lw.$elevation-filter;
+  background: color-mix(in srgb, var(--ls-background) 72%, transparent);
+  border-bottom: 1px solid var(--sl-color-gray-5);
+  box-shadow: 0 0.35rem 1rem color-mix(in srgb, var(--ls-background-text) 5%, transparent);
+  isolation: isolate;
 }
 .tagline, label, .site-title {
   color: var(--ls-background-text);
@@ -64,6 +68,16 @@ option {
 .sl-link-card a {
   text-decoration: none;
 }
+
+.sl-link-card {
+  --sl-color-gray-3: color-mix(in srgb, var(--ls-background-text) 78%, transparent);
+  border-radius: 1rem;
+}
+
+.card {
+  border-radius: 1rem;
+}
+
 .sidebar-content {
   padding-left: 6px;
   summary {

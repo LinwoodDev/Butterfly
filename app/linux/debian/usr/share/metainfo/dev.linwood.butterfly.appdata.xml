@@ -5,7 +5,7 @@
 	<developer id="dev.linwood">
 		<name>Linwood</name>
 	</developer>
-	<summary>Draw and organize ideas</summary>
+	<summary>Take notes, draw freely, and organize ideas across an endless workspace</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
 	<supports>
@@ -27,38 +27,27 @@
 	<url type="vcs-browser">https://github.com/LinwoodDev/Butterfly.git</url>
 	<url type="contribute">https://github.com/LinwoodDev/Butterfly/blob/develop/CONTRIBUTING.md</url>
 	<description>
-		<p>Butterfly is a note-taking app where your ideas come first. You can paint, add texts, and
-			export them easily on every device. This app works on Android, Windows, Linux, and in the web.</p>
-		<p>Features:</p>
-		<ul>
-			<li>Simple and intuitive: Every tool is in the right place. Open the app and start drawing.
-				Change your tools by clicking on them.</li>
-			<li>Customizable: Change everything to your needs. Choose your custom color, create a palette,
-				and add your pages to the paper. The paper has an infinite size, perfect for your ideas and
-				notes.</li>
-			<li>Supports your favorite formats: Import and export are supported for images, PDF and SVG.
-				Open these files directly to edit them.</li>
-			<li>Works on every device: The app is available for Android, Windows, Linux, and in the web.
-				You can use it on your phone, tablet, or computer.</li>
-			<li>Choose where your data is stored: You can choose to store your data locally or in your
-				favorite cloud (WebDAV). You can also export your data to a file and import it again.</li>
-			<li>Available in many languages: The app is available in many languages. Help us to translate
-				this app to your language.</li>
-			<li>FOSS: The app is open source and free. You can contribute to the project and help to make
-				it better.</li>
-			<li>Use it offline: You can use the app offline. You can draw, paint, and export your notes
-				without an internet connection.</li>
-			<li>Use your favorite stylus: The app supports stylus and touch devices. You can draw and
-				paint with your favorite stylus.</li>
-			<li>Write text: You can write text on your notes. You can change the font, size, and color.</li>
-			<li>Take photos: You can take photos and add them to your notes. You can also import photos
-				from your gallery.</li>
-			<li>Editable: You can change the size, color, and position of every element after you added it
-				to your note.</li>
-			<li>Add shapes: You can add shapes to your notes. You can choose between a rectangle,
-				triangle, circle and line.</li>
-			<li>Structure your notes: Add areas and waypoints to your notes to keep them organized.</li>
-		</ul>
+		<p>Butterfly is an open-source app for people who think better with space around their ideas. Instead of
+			writing everything from top to bottom on a fixed page, you get an endless workspace where you can place
+			notes, sketches, diagrams, images, and documents wherever they make sense.</p>
+		<p>Use it for class notes, meeting notes, research, math, worksheets, planning, whiteboarding, storyboards,
+			product sketches, or any project that starts messy and needs room to grow. Write by hand with a stylus,
+			touch, or mouse, type text and Markdown, add shapes and lines, place images and photos, import PDFs,
+			SVGs, and image files, then export your work as PDF, SVG, images, or portable Butterfly files.</p>
+		<p>Butterfly tries to stay out of your way while you work. Recent files, quick-start templates, search,
+			folders, imports, page navigation, and tool settings are close when you need them, but the document
+			stays at the center. You can begin with a plain page, ruled paper, a grid, dotted paper, music paper,
+			or your own template.</p>
+		<p>As your document grows, Butterfly gives you ways to keep it understandable. Split work into pages and
+			page folders, use layers, mark important places with areas and waypoints, save reusable parts in packs,
+			and keep palettes and text styles ready for the next document. Almost everything you add remains
+			editable, so you can move, resize, recolor, reorder, and refine your work later instead of starting
+			over.</p>
+		<p>Your files stay under your control. Work offline, store documents on your device, choose a different
+			data directory, or connect WebDAV and Nextcloud if you want your own sync setup. There is no required
+			account, no required subscription, and no required proprietary cloud.</p>
+		<p>Butterfly is free, community translated, available on phones, tablets, desktops, and the web, and
+			developed in public under the AGPL-3.0 license.</p>
 	</description>
 	<screenshots>
 		<screenshot type="default">
