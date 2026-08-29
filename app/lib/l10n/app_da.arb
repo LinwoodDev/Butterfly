@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverteret Pen",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Mappe synkroniseret",
   "syncRootDirectory": "Synkroniser rodmappen",
-  "penOnlyInput": "Kun pen input",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Aktivér automatisk kun pen-tilstand når en stylus detekteres. Denne indstilling varer kun for den aktuelle session.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Afvis altid berøring og mus input, kun acceptere stylus input.",
   "penOnlyInputOffDescription": "Accepter alle inputtyper, herunder touch, mus og stylus.",
   "automatic": "Automatisk",
   "alwaysOn": "Altid tændt",
   "alwaysOff": "Altid slukket",
-  "showPenOnlyToggle": "Vis kun pen skiftende",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Lader dig flytte og zoome lærredet med berøringsbevægelser, selv mens et tegneværktøj er valgt.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignorerer den første tryklæsning, som kan være unøjagtig på nogle penne.",
-  "ignorePressureNeverDescription": "Anvender hvert tryk fra pennen.",
-  "ignorePressureAlwaysDescription": "Ignorerer trykket og behandler pennen som fuldt trykket.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Midlertidig",
   "simpleToolbarVisibility": "Simpel synlighed for værktøjslinjen",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Viser en permanent navigationslinje på brede skærme for hurtigere adgang til app-sektioner.",
   "optionsPanelPositionDescription": "Vælger om værktøjs indstillinger vises over eller under lærredet.",
   "simpleToolbarVisibilityDescription": "Kontrollerer, når den mindre, forenklede værktøjslinje vises, mens du redigerer en note.",
-  "penOnlyInputDescription": "Forhindrer utilsigtet mærker fra din hånd eller mus ved at vælge, når kun pen input kan tegne.",
-  "showPenOnlyToggleDescription": "Viser en hurtig kontakt til kun en pen i editoren efter Butterfly registrerer en pen.",
-  "ignorePressureDescription": "Kontrollerer, om pennens tryk ændrer slagtilfælde og virker omkring unøjagtige trykaflæsninger fra nogle penne.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Lader multi-touch fagter flytte lærred i stedet for at interagere med nodeindhold.",
   "spreadPagesDescription": "Opdeler import på flere sider på tværs af separate notessider i stedet for at placere alt på én side.",
   "shear": "Forskyd"
