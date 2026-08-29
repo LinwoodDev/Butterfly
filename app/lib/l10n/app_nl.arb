@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Omgekeerde Pen",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Map gesynchroniseerd",
   "syncRootDirectory": "Synchroniseer hoofdmap",
-  "penOnlyInput": "Alleen invoer pen",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Schakel 'Alleen pen-modus' automatisch in wanneer een stylus wordt gedetecteerd. Deze instelling geldt alleen voor de huidige sessie.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Aanraken en muisaanvoer altijd weigeren, alleen stylus invoeren.",
   "penOnlyInputOffDescription": "Accepteer alle invoertypes zoals aanraken, muis en stijlus.",
   "automatic": "Automatisch",
   "alwaysOn": "Altijd aan",
   "alwaysOff": "Altijd uitgeschakeld",
-  "showPenOnlyToggle": "Toon alleen penschakelaar",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Laat je het canvas verplaatsen en zoomen met aanraakgebaren, zelfs wanneer een tekst-tool is geselecteerd.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Negeert de eerste druklezing, die op sommige pennen onjuist kan zijn.",
-  "ignorePressureNeverDescription": "Maakt gebruik van elke drukmeting van de pen.",
-  "ignorePressureAlwaysDescription": "Negeert druk en behandelt de pen als volledig ingedrukt.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Tijdelijk",
   "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Toont een permanente navigatiebalk op brede schermen voor snellere toegang tot app secties.",
   "optionsPanelPositionDescription": "Kiest of hulpopties boven of onder het canvas verschijnen.",
   "simpleToolbarVisibilityDescription": "Bepaalt wanneer de kleinere, vereenvoudigde werkbalk verschijnt tijdens het bewerken van een notitie.",
-  "penOnlyInputDescription": "Voorkomt onbedoelde markeringen van je hand of muis door te kiezen wanneer alleen peninvoer kan tekenen.",
-  "showPenOnlyToggleDescription": "Toont een snelle schakelaar in de editor nadat Butterfly een pen detecteert.",
-  "ignorePressureDescription": "Bepaalt of pendruk de rand verandert en werkt rond onnauwkeurige drukmetingen van sommige pennen.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Laat multi-touch gebaren het canvas verplaatsen in plaats van interactie met notitie-inhoud.",
   "spreadPagesDescription": "Splitst meervoudige pagina's door aparte notitiepagina's in plaats van alles op één pagina te plaatsen.",
   "shear": "Afschuiving"
