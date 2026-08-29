@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Odwrócony wstrzykiwacz",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Folder zsynchronizowany",
   "syncRootDirectory": "Synchronizuj główny katalog",
-  "penOnlyInput": "Wprowadzanie tylko pióra",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatycznie włącza tryb tylko piór, gdy rysik jest wykryty. To ustawienie trwa tylko dla bieżącej sesji.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Zawsze odrzucaj dane wejściowe dotyku i myszki, akceptuj tylko dane wejściowe rysika.",
   "penOnlyInputOffDescription": "Akceptuj wszystkie typy danych wejściowych, w tym dotyk, mysz i styl.",
   "automatic": "Automatyczne",
   "alwaysOn": "Zawsze włączony",
   "alwaysOff": "Zawsze wyłączone",
-  "showPenOnlyToggle": "Pokaż tylko pióro",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Pozwala poruszać się i powiększać płótno z gestami dotykowymi, nawet gdy wybrane jest narzędzie rysowania.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignoruje pierwszy odczyt ciśnienia, który może być niedokładny na niektórych wstrzykiwaczach.",
-  "ignorePressureNeverDescription": "Używa każdego odczytu ciśnienia ze wstrzykiwacza.",
-  "ignorePressureAlwaysDescription": "Ignoruje ciśnienie i leczy wstrzykiwacz po pełnym naciśnięciu.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Tymczasowy",
   "simpleToolbarVisibility": "Widoczność prostego paska narzędzi",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Pokazuje stały pasek nawigacyjny na szerokich ekranach, aby szybciej uzyskać dostęp do sekcji aplikacji.",
   "optionsPanelPositionDescription": "Wybiera, czy opcje narzędzia pojawiają się powyżej czy poniżej płótna.",
   "simpleToolbarVisibilityDescription": "Kontroluje wyświetlanie mniejszego, uproszczonego paska narzędzi podczas edycji notatki.",
-  "penOnlyInputDescription": "Zapobiega przypadkowym oznaczeniom dłoni lub myszy, wybierając kiedy tylko wstawiony wstrzykiwacz może rysować.",
-  "showPenOnlyToggleDescription": "Pokazuje szybki przełącznik tylko długopisów w edytorze po wykryciu długopisu.",
-  "ignorePressureDescription": "Kontroluje czy ciśnienie w pionie zmienia uderzenie i działa wokół niedokładnych odczytów ciśnienia z niektórych wstrzykiwaczy.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Pozwala na przenoszenie gestów z wielu dotyków zamiast interakcji z treścią notatki.",
   "spreadPagesDescription": "Dzieli wiele stron importu na oddzielne strony notatki, zamiast umieszczać wszystko na jednej stronie.",
   "shear": "Ścinanie"
