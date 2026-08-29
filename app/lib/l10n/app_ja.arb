@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "反転ペン",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "フォルダを同期しました",
   "syncRootDirectory": "ルートディレクトリを同期",
-  "penOnlyInput": "ペンのみ入力",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "スタイラスが検出されたときにペンオンリーモードを自動的に有効にします。この設定は現在のセッションでのみ有効です。",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "タッチとマウスの入力を常に拒否し、スタイラスの入力のみを受け付けます。",
   "penOnlyInputOffDescription": "タッチ、マウス、スタイラスを含むすべての入力タイプを受け入れます。",
   "automatic": "自動",
   "alwaysOn": "常にオン",
   "alwaysOff": "常にオフ",
-  "showPenOnlyToggle": "ペンのみのトグル表示",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "図形描画ツールが選択されている場合でも、タッチジェスチャーでキャンバスを移動およびズームできます。",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "いくつかのペンで不正確である可能性がある最初の圧力の読み取りを無視します。",
-  "ignorePressureNeverDescription": "ペンから読み取るすべての圧力を使用します。",
-  "ignorePressureAlwaysDescription": "圧力を無視し、完全に押されたペンを扱います。",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "一時的な",
   "simpleToolbarVisibility": "シンプルなツールバーの表示",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "アプリのセクションにすばやくアクセスするために、ワイドスクリーンに恒久的なナビゲーションバーを表示します。",
   "optionsPanelPositionDescription": "キャンバスの上下にツールオプションが表示されるかどうかを選択します。",
   "simpleToolbarVisibilityDescription": "ノートを編集しているときに、小さく簡略化されたツールバーが表示されるタイミングをコントロールします。",
-  "penOnlyInputDescription": "ペン入力のみが描けるときに選択することで、手やマウスからの偶発的なマークを防ぎます。",
-  "showPenOnlyToggleDescription": "Butterflyがペンを検出した後に、エディタにクイックペンのみのスイッチを表示します。",
-  "ignorePressureDescription": "ペンの圧力がストロークを変えるかどうかを制御し、一部のペンからの不正確な圧力測定値を回避します。",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "マルチタッチジェスチャーでノートコンテンツを操作する代わりにキャンバスを移動できます。",
   "spreadPagesDescription": "すべてを1ページに配置するのではなく、複数ページのインポートを別々のノートページに分割します。",
   "shear": "せん断（せん）"
