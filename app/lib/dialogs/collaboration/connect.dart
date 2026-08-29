@@ -13,19 +13,23 @@ class ConnectCollaborationDialog extends StatefulWidget {
       ConnectCollaborationDialogState();
 }
 
-class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
-    with TickerProviderStateMixin {
-  final TextEditingController _urlConntroller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class ConnectCollaborationDialogState
+    extends State<ConnectCollaborationDialog> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final TextEditingController _urlController = TextEditingController();
 
   @override
   void dispose() {
+    _urlController.dispose();
     super.dispose();
-    _urlConntroller.dispose();
+  }
+
+  void _connect() {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    final uri = Uri.parse(_urlController.text.trim());
+    final url = parseConnectUri(uri);
+    Navigator.of(context).pop();
+    GoRouter.of(context).pushNamed('connect', queryParameters: {'url': url});
   }
 
   @override
@@ -42,18 +46,35 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
         ),
       ],
       constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
-      content: ListView(
-        shrinkWrap: true,
-        children: [
-          TextFormField(
-            controller: _urlConntroller,
-            autofocus: true,
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).url,
-              filled: true,
+      content: Form(
+        key: _formKey,
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            TextFormField(
+              controller: _urlController,
+              autofocus: true,
+              keyboardType: TextInputType.url,
+              textInputAction: TextInputAction.go,
+              onFieldSubmitted: (_) => _connect(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).url,
+                filled: true,
+              ),
+              validator: (value) {
+                final raw = value?.trim() ?? '';
+                if (raw.isEmpty) {
+                  return LeapLocalizations.of(context).shouldNotEmpty;
+                }
+                final uri = Uri.tryParse(raw);
+                if (uri == null || parseConnectUri(uri).isEmpty) {
+                  return AppLocalizations.of(context).urlNotValid;
+                }
+                return null;
+              },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: [
         TextButton(
@@ -63,22 +84,7 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
           child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
         ),
         ElevatedButton(
-          onPressed: () {
-            final uri = Uri.tryParse(_urlConntroller.text.trim());
-            if (uri == null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context).urlNotValid),
-                ),
-              );
-              return;
-            }
-            final url = parseConnectUri(uri);
-            if (url.isEmpty) return;
-            Navigator.of(context).pop();
-            GoRouter.of(context)
-                .pushNamed('connect', queryParameters: {'url': url});
-          },
+          onPressed: _connect,
           child: Text(AppLocalizations.of(context).connect),
         ),
       ],

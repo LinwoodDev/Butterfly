@@ -1,6 +1,6 @@
 part of 'dialog.dart';
 
-class ViewCollaborationDialog extends StatelessWidget {
+class ViewCollaborationDialog extends StatefulWidget {
   final NetworkingService service;
   final NetworkState state;
   final EditorController editorController;
@@ -13,11 +13,54 @@ class ViewCollaborationDialog extends StatelessWidget {
   });
 
   @override
+  State<ViewCollaborationDialog> createState() =>
+      _ViewCollaborationDialogState();
+}
+
+class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
+  late Future<Uri> _shareAddress;
+  bool _isStopping = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _shareAddress = widget.state.getShareAddress();
+    widget.service.setName(widget.editorController.viewCubit.state.userName);
+  }
+
+  @override
+  void didUpdateWidget(covariant ViewCollaborationDialog oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.state.connection, widget.state.connection)) {
+      _shareAddress = widget.state.getShareAddress();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final service = widget.service;
+    final editorController = widget.editorController;
     final info = FutureBuilder<Uri>(
-      future: Future.value(state.getShareAddress()),
+      future: _shareAddress,
       builder: (context, snapshot) {
-        final address = snapshot.data?.toString() ?? '?';
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const SizedBox(
+            height: 208,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (snapshot.hasError || !snapshot.hasData) {
+          return SizedBox(
+            height: 208,
+            child: Center(
+              child: Text(
+                '${AppLocalizations.of(context).error}: ${snapshot.error}',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+        final address = snapshot.requireData.toString();
         final uri = getConnectUri(address);
         final connect = uri.toString();
         final qr = Barcode.qrCode();
@@ -89,6 +132,7 @@ class ViewCollaborationDialog extends StatelessWidget {
               initialValue: editorController.viewCubit.state.userName,
               onChanged: (value) {
                 editorController.viewCubit.setUserName(value);
+                service.setName(value);
               },
             ),
           ],
@@ -182,10 +226,24 @@ class ViewCollaborationDialog extends StatelessWidget {
             ),
       actions: [
         OutlinedButton(
-          child: Text(AppLocalizations.of(context).stop),
-          onPressed: () {
-            service.closeNetworking();
-          },
+          onPressed: _isStopping
+              ? null
+              : () async {
+                  setState(() => _isStopping = true);
+                  try {
+                    await service.closeNetworking();
+                  } finally {
+                    if (mounted) {
+                      setState(() => _isStopping = false);
+                    }
+                  }
+                },
+          child: _isStopping
+              ? const SizedBox.square(
+                  dimension: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(AppLocalizations.of(context).stop),
         ),
         TextButton(
           child: Text(MaterialLocalizations.of(context).closeButtonLabel),

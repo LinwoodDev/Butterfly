@@ -21,7 +21,7 @@ part 'network.g.dart';
 
 const kDefaultPort = 28005;
 const kBroadcastPort = kDefaultPort + 1;
-const kTimeout = Duration(minutes: 5);
+const kTimeout = Duration(seconds: 30);
 
 sealed class NetworkState {
   NetworkerBase get connection;
@@ -38,7 +38,7 @@ sealed class NetworkState {
       return Uri(
         scheme: 'ws',
         host: ip ?? 'localhost',
-        port: (connection as NetworkerSocketServer).port,
+        port: connection.address.port,
       );
     }
     return connection.address;
@@ -115,8 +115,10 @@ enum ConnectionTechnology {
 }
 
 class NetworkingService extends Cubit<NetworkState?> {
+  final Duration timeout;
   DocumentBloc? _bloc;
   StreamSubscription<Uint8List>? _resetSubscription;
+  StreamSubscription<void>? _clientClosedSubscription;
   String _userName = '';
   final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
   final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
@@ -127,7 +129,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   Stream<Set<Channel>> get connectionsStream => _connections.stream;
   Set<Channel> get connections => _connections.value;
 
-  Stream<Map<Channel?, NetworkingUser>> get usersStream => _users.stream;
+  Stream<Map<Channel, NetworkingUser>> get usersStream => _users.stream;
   Map<Channel, NetworkingUser> get users => _users.value;
 
   final StreamController<Uint8List> _resetController =
@@ -135,9 +137,10 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   Stream<Uint8List> get resetStream => _resetController.stream;
 
-  NetworkingService() : super(null);
+  NetworkingService({this.timeout = kTimeout}) : super(null);
 
-  bool get isActive => state != null;
+  bool get isActive =>
+      state is ServerNetworkState || state is ClientNetworkState;
 
   bool get _canEmitConnections => !_connections.isClosed;
 
@@ -153,6 +156,18 @@ class NetworkingService extends Cubit<NetworkState?> {
     if (_canEmitUsers) {
       _users.add(value);
     }
+    final bloc = _bloc;
+    if (bloc != null) {
+      bloc.editorController.updateNetworkingState(bloc, value);
+    }
+  }
+
+  void _setConnections(Set<Channel> value) {
+    _emitConnections(value);
+    _emitUsers(
+      Map<Channel, NetworkingUser>.from(_users.value)
+        ..removeWhere((channel, _) => !value.contains(channel)),
+    );
   }
 
   void setup(DocumentBloc bloc) {
@@ -161,6 +176,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     _resetSubscription = resetStream.listen((event) {
       bloc.add(DocumentRebuilt(event));
     });
+    setName(bloc.editorController.viewCubit.state.userName);
   }
 
   Future<void> createSocketServer([String? address, int? port]) async {
@@ -175,8 +191,13 @@ class NetworkingService extends Cubit<NetworkState?> {
     _setupServer(rpc, server);
     _setupRpc(rpc, server);
     server.connect(rpc);
-    await server.init();
-    emit(ServerNetworkState(connection: server, pipe: rpc));
+    try {
+      await server.init().timeout(timeout);
+      emit(ServerNetworkState(connection: server, pipe: rpc));
+    } catch (_) {
+      await server.close();
+      rethrow;
+    }
   }
 
   Future<Uint8List?> createSocketClient(Uri uri) async {
@@ -189,18 +210,20 @@ class NetworkingService extends Cubit<NetworkState?> {
     }
     final client = NetworkerSocketClient(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
-    final data = _setupClient(rpc, client);
     client.connect(rpc);
-    await client.init();
-    emit(ClientNetworkState(connection: client, pipe: rpc));
-    return data;
+    return _initializeClient(rpc, client, client.init);
   }
 
   Future<void> closeNetworking() async {
-    await state?.connection.close();
+    final connection = state?.connection;
     emit(null);
-    _emitConnections({});
-    _emitUsers({});
+    await _clientClosedSubscription?.cancel();
+    _clientClosedSubscription = null;
+    try {
+      await connection?.close();
+    } finally {
+      _setConnections({});
+    }
   }
 
   void _setupReset(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc) {
@@ -209,33 +232,63 @@ class NetworkingService extends Cubit<NetworkState?> {
     });
   }
 
-  Future<Uint8List?> _setupClient(
+  Future<Uint8List?> _initializeClient(
     NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
     NetworkerClientMixin client,
+    Future<void> Function() initialize,
   ) async {
     _setupRpc(rpc, client);
-    client.onClosed.listen((event) {
-      emit(DisconnectedNetworkState(connection: client, pipe: rpc));
-    });
-    final completer = Completer<Uint8List?>();
+    final initialData = Completer<Uint8List?>();
+    final disconnected = Completer<Never>();
+    void disconnect([Object? error, StackTrace? stackTrace]) {
+      if (!disconnected.isCompleted) {
+        disconnected.completeError(
+          error ?? StateError('The collaboration connection was closed.'),
+          stackTrace,
+        );
+      }
+      if (identical(state?.connection, client)) {
+        emit(DisconnectedNetworkState(connection: client, pipe: rpc));
+        _setConnections({});
+      }
+    }
+
+    await _clientClosedSubscription?.cancel();
+    _clientClosedSubscription = client.onClosed.listen(
+      (_) => disconnect(),
+      onError: (Object error, StackTrace stackTrace) =>
+          disconnect(error, stackTrace),
+    );
     final listener = rpc.registerNamedFunction(NetworkEvent.init).read.listen((
       message,
     ) {
-      completer.complete(message.data);
+      if (!initialData.isCompleted) {
+        initialData.complete(message.data);
+      }
     });
-    return completer.future
-        .timeout(kTimeout)
-        .then((e) {
-          _setupReset(rpc);
-          return e;
-        })
-        .catchError((_) {
-          emit(DisconnectedNetworkState(connection: client, pipe: rpc));
-          return null;
-        })
-        .whenComplete(() {
-          listener.cancel();
-        });
+    try {
+      await Future.any<void>([
+        initialize().timeout(timeout),
+        disconnected.future,
+      ]);
+      emit(ClientNetworkState(connection: client, pipe: rpc));
+      final data = await Future.any<Uint8List?>([
+        initialData.future,
+        disconnected.future,
+      ]).timeout(timeout);
+      _setupReset(rpc);
+      return data;
+    } catch (_) {
+      if (identical(state?.connection, client)) {
+        emit(null);
+      }
+      await _clientClosedSubscription?.cancel();
+      _clientClosedSubscription = null;
+      await client.close();
+      rethrow;
+    } finally {
+      await listener.cancel();
+    }
   }
 
   void _setupServer(
@@ -244,28 +297,44 @@ class NetworkingService extends Cubit<NetworkState?> {
   ) {
     void sendConnections() {
       final current = server.clientConnections;
-      _emitConnections(current);
+      _setConnections(current);
+      final sharedConnections = {kAuthorityChannel, ...current};
       rpc.sendNamedFunction(
         NetworkEvent.connections,
-        Uint8List.fromList(jsonEncode(current.toList()).codeUnits),
+        Uint8List.fromList(jsonEncode(sharedConnections.toList()).codeUnits),
       );
     }
 
     server.clientConnect.listen((event) async {
       final state = _bloc?.state;
-      if (state is! DocumentLoaded) return;
-      rpc.sendNamedFunction(
-        NetworkEvent.init,
-        await state.saveBytes(),
-        channel: event.$1,
-      );
-      sendConnections();
-      for (final user in users.entries) {
+      if (state is! DocumentLoaded) {
+        await server.closeConnection(event.$1);
+        return;
+      }
+      try {
         rpc.sendNamedFunction(
-          NetworkEvent.user,
-          Uint8List.fromList(jsonEncode(user.value.toJson()).codeUnits),
+          NetworkEvent.init,
+          await state.saveBytes(),
           channel: event.$1,
         );
+        sendConnections();
+        rpc.sendNamedFunction(
+          NetworkEvent.user,
+          Uint8List.fromList(
+            jsonEncode(NetworkingUser(name: _userName).toJson()).codeUnits,
+          ),
+          channel: event.$1,
+        );
+        for (final user in users.entries) {
+          rpc.sendNamedFunction(
+            NetworkEvent.user,
+            Uint8List.fromList(jsonEncode(user.value.toJson()).codeUnits),
+            channel: event.$1,
+            receiver: user.key,
+          );
+        }
+      } catch (_) {
+        await server.closeConnection(event.$1);
       }
     });
     server.clientDisconnect.listen((event) {
@@ -280,7 +349,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     final blocState = docState ?? _bloc?.state;
     if (blocState is! DocumentLoaded) return;
     final state = this.state;
-    if (state == null) return;
+    if (state == null || state is DisconnectedNetworkState) return;
     state.pipe.sendNamedFunction(
       NetworkEvent.init,
       await blocState.saveBytes(),
@@ -292,8 +361,6 @@ class NetworkingService extends Cubit<NetworkState?> {
     NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
     NetworkerBase networker,
   ) {
-    _userName = '';
-
     rpc.registerNamedFunctions(NetworkEvent.values);
     rpc
         .getNamedFunction(NetworkEvent.event)
@@ -310,11 +377,7 @@ class NetworkingService extends Cubit<NetworkState?> {
           RawJsonNetworkerPlugin()
             ..read.listen((message) {
               final ids = Set<Channel>.from(message.data);
-              _emitConnections(ids);
-              _emitUsers(
-                Map.from(_users.value)
-                  ..removeWhere((key, value) => !ids.contains(key)),
-              );
+              _setConnections(ids);
             }),
         );
     rpc
@@ -326,7 +389,6 @@ class NetworkingService extends Cubit<NetworkState?> {
               final users = Map<Channel, NetworkingUser>.from(_users.value)
                 ..[message.channel] = user;
               _emitUsers(users);
-              _bloc?.editorController.updateNetworkingState(_bloc!, users);
             }),
         );
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {
@@ -345,7 +407,7 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   bool sendUndo() {
     final state = this.state;
-    if (state == null) return false;
+    if (state == null || state is DisconnectedNetworkState) return false;
     if (state is ClientNetworkState) {
       state.pipe.sendNamedFunction(NetworkEvent.undo, Uint8List(0));
       return true;
@@ -357,7 +419,7 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   bool sendRedo() {
     final state = this.state;
-    if (state == null) return false;
+    if (state == null || state is DisconnectedNetworkState) return false;
     if (state is ClientNetworkState) {
       state.pipe.sendNamedFunction(NetworkEvent.redo, Uint8List(0));
       return true;
@@ -368,7 +430,9 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   void sendUser(NetworkingUser user) {
-    state?.pipe.sendNamedFunction(
+    final state = this.state;
+    if (state == null || state is DisconnectedNetworkState) return;
+    state.pipe.sendNamedFunction(
       NetworkEvent.user,
       Uint8List.fromList(jsonEncode(user.toJson()).codeUnits),
     );
@@ -376,17 +440,18 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   bool _externalEvent = false;
 
-  bool get isClient => state is ClientNetworkState;
+  bool get isClient =>
+      state is ClientNetworkState || state is DisconnectedNetworkState;
   bool get isServer => state is ServerNetworkState;
 
   void testForInits(DocumentState state) {
-    if (!_needsInit) return;
+    if (!_needsInit || !isActive) return;
     _needsInit = false;
     sendInit(docState: state);
   }
 
   void onEvent(DocumentEvent event) {
-    if (!event.shouldSync() || _externalEvent) return;
+    if (!event.shouldSync() || _externalEvent || !isActive) return;
     state?.pipe.sendNamedFunction(
       NetworkEvent.event,
       Uint8List.fromList(jsonEncode(event.toJson()).codeUnits),
@@ -403,8 +468,8 @@ class NetworkingService extends Cubit<NetworkState?> {
   Cipher _buildCipher() => AesGcm.with256bits();
 
   Future<SwampConnection> _createSwamp(Uri uri) {
-    if (uri.scheme.isEmpty) {
-      uri = uri.replace(scheme: 'wss');
+    if (!uri.hasAuthority) {
+      uri = Uri.parse('wss://${uri.toString()}');
     }
     final cipher = _buildCipher();
     return SwampConnection.buildSecure(uri, cipher);
@@ -416,12 +481,10 @@ class NetworkingService extends Cubit<NetworkState?> {
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
       config: RpcConfig(channelField: false),
     );
-    final data = _setupClient(rpc, connection);
     connection.messagePipe.connect(rpc);
-    await Future.wait([connection.init(), connection.onRoomInfo.first])
-        .timeout(kTimeout);
-    emit(ClientNetworkState(connection: connection, pipe: rpc));
-    return data;
+    return _initializeClient(rpc, connection, () async {
+      await Future.wait([connection.init(), connection.onRoomInfo.first]);
+    });
   }
 
   Future<void> createSwampServer(Uri uri) async {
@@ -433,9 +496,14 @@ class NetworkingService extends Cubit<NetworkState?> {
     _setupServer(rpc, connection);
     _setupRpc(rpc, connection);
     connection.messagePipe.connect(rpc);
-    await Future.wait([connection.init(), connection.onRoomInfo.first])
-        .timeout(kTimeout);
-    emit(ServerNetworkState(connection: connection, pipe: rpc));
+    try {
+      await Future.wait([connection.init(), connection.onRoomInfo.first])
+          .timeout(timeout);
+      emit(ServerNetworkState(connection: connection, pipe: rpc));
+    } catch (_) {
+      await connection.close();
+      rethrow;
+    }
   }
 
   Future<Uint8List?> createClient(
@@ -459,6 +527,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     _bloc = null;
     _resetSubscription?.cancel();
     _resetSubscription = null;
+    await _clientClosedSubscription?.cancel();
+    _clientClosedSubscription = null;
     await closeNetworking();
     await _connections.close();
     await _users.close();

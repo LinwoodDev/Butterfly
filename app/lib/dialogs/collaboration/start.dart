@@ -21,6 +21,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
         text: kDefaultPort.toString(),
       );
   late final TextEditingController _swampAddressController;
+  bool _isStarting = false;
 
   @override
   void initState() {
@@ -30,32 +31,45 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
     _swampAddressController = TextEditingController(text: _defaultSwamp);
   }
 
-  void _start() {
-    if (kIsWeb) return;
-    switch (_connectionTechnology) {
-      case ConnectionTechnology.swamp:
-        final swamp = _swampAddressController.text.trim();
-        final uri = Uri.tryParse(swamp);
-        if (uri == null) return;
-        widget.service.createSwampServer(uri);
-        if (swamp != _defaultSwamp) {
-          _settingsCubit.changeSwamp(swamp);
-        }
-      case ConnectionTechnology.webSocket:
-        if (kIsWeb) return;
-        widget.service.createSocketServer(
-          _webSocketAddressController.text,
-          int.tryParse(_webSocketPortController.text),
-        );
+  Future<void> _start() async {
+    setState(() => _isStarting = true);
+    try {
+      switch (_connectionTechnology) {
+        case ConnectionTechnology.swamp:
+          final swamp = _swampAddressController.text.trim();
+          final uri = Uri.tryParse(swamp);
+          if (uri == null) return;
+          await widget.service.createSwampServer(uri);
+          if (swamp != _defaultSwamp) {
+            await _settingsCubit.changeSwamp(swamp);
+            _defaultSwamp = swamp;
+          }
+        case ConnectionTechnology.webSocket:
+          await widget.service.createSocketServer(
+            _webSocketAddressController.text.trim(),
+            int.parse(_webSocketPortController.text),
+          );
+      }
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${AppLocalizations.of(context).error}: $error'),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isStarting = false);
+      }
     }
   }
 
   @override
   void dispose() {
-    super.dispose();
     _webSocketAddressController.dispose();
     _webSocketPortController.dispose();
     _swampAddressController.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,7 +81,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
         child: ResponsiveAlertDialog(
           title: Text(AppLocalizations.of(context).collaboration),
           leading: IconButton.outlined(
-            onPressed: () => Navigator.pop(context),
+            onPressed: _isStarting ? null : () => Navigator.pop(context),
             icon: Icon(PhosphorIconsLight.x),
             tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
           ),
@@ -91,7 +105,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                 label: Text(AppLocalizations.of(context).collaboration),
                 initialSelection: _connectionTechnology,
                 onSelected: (value) {
-                  if (value == null) return;
+                  if (value == null || _isStarting) return;
                   setState(() {
                     _connectionTechnology = value;
                   });
@@ -253,6 +267,12 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                                                     context,
                                                   ).shouldANumber;
                                                 }
+                                                if (number < 1 ||
+                                                    number > 65535) {
+                                                  return AppLocalizations.of(
+                                                    context,
+                                                  ).shouldANumber;
+                                                }
                                                 return null;
                                               },
                                             ),
@@ -269,15 +289,26 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
           actions: [
             ElevatedButton.icon(
               onPressed:
-                  kIsWeb &&
-                      _connectionTechnology == ConnectionTechnology.webSocket
+                  _isStarting ||
+                      (kIsWeb &&
+                          _connectionTechnology ==
+                              ConnectionTechnology.webSocket)
                   ? null
                   : () {
                       if (!(_formKey.currentState?.validate() ?? false)) return;
                       _start();
                     },
-              icon: Icon(PhosphorIconsLight.play),
-              label: Text(AppLocalizations.of(context).start),
+              icon: _isStarting
+                  ? const SizedBox.square(
+                      dimension: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Icon(PhosphorIconsLight.play),
+              label: Text(
+                _isStarting
+                    ? AppLocalizations.of(context).loading
+                    : AppLocalizations.of(context).start,
+              ),
             ),
           ],
         ),
