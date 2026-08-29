@@ -101,10 +101,10 @@ class FilesViewState extends State<FilesView> {
     SortBy.modified => AppLocalizations.of(context).modified,
   };
 
-  IconGetter getIconOfSortBy(SortBy sortBy) => switch (sortBy) {
-    SortBy.name => PhosphorIcons.file,
-    SortBy.created => PhosphorIcons.calendar,
-    SortBy.modified => PhosphorIcons.clock,
+  PhosphorIconData getIconOfSortBy(SortBy sortBy) => switch (sortBy) {
+    SortBy.name => PhosphorIconsLight.file,
+    SortBy.created => PhosphorIconsLight.calendar,
+    SortBy.modified => PhosphorIconsLight.clock,
   };
 
   void _setFilesStream() {
@@ -265,9 +265,7 @@ class FilesViewState extends State<FilesView> {
                           (e) => DropdownMenuEntry(
                             value: e,
                             label: getLocalizedNameOfSortBy(e),
-                            leadingIcon: PhosphorIcon(
-                              getIconOfSortBy(e)(PhosphorIconsStyle.light),
-                            ),
+                            leadingIcon: PhosphorIcon(getIconOfSortBy(e)),
                           ),
                         )
                         .toList(),
@@ -297,15 +295,13 @@ class FilesViewState extends State<FilesView> {
                 MenuAnchor(
                   builder: defaultMenuButton(
                     tooltip: AppLocalizations.of(context).sortBy,
-                    icon: PhosphorIcon(
-                      getIconOfSortBy(_sortBy)(PhosphorIconsStyle.light),
-                    ),
+                    icon: PhosphorIcon(getIconOfSortBy(_sortBy)),
                   ),
                   menuChildren: SortBy.values
                       .map(
                         (e) => MenuItemButton(
                           leadingIcon: PhosphorIcon(
-                            getIconOfSortBy(e)(PhosphorIconsStyle.light),
+                            getIconOfSortBy(e),
                             color: e == _sortBy ? primary : null,
                           ),
                           child: Text(

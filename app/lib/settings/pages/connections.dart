@@ -43,7 +43,7 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
                         )
                       : null,
                   leading: remote.icon?.isEmpty ?? true
-                      ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
+                      ? PhosphorIcon(remote.typeIcon())
                       : Image.memory(remote.icon!),
                   onTap: () => context.pushNamed(
                     'connection',
@@ -108,7 +108,7 @@ Widget? buildConnectionsSettingsFloatingActionButton(
               .map(
                 (e) => ListTile(
                   title: Text(e.getLocalizedTypeName(context)),
-                  leading: PhosphorIcon(e.typeIcon(PhosphorIconsStyle.light)),
+                  leading: PhosphorIcon(e.typeIcon()),
                   onTap: () => Navigator.pop(context, e),
                 ),
               )

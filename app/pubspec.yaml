@@ -24,8 +24,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  integration_test:
-    sdk: flutter
   butterfly_api:
     path: ../api
   flutter_svg: ^2.2.0
@@ -118,7 +116,7 @@ dependencies:
   onenote_parser:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d138063addcb981d200f578fd0374df8f518cbb8
+      ref: 78d98f1eb5a40c4f0f351cdafeabc2eee3b56504
       path: packages/onenote_parser
   web: ^1.0.0
   cryptography_plus: ^3.0.0
@@ -138,6 +136,8 @@ dependency_overrides:
   # https://github.com/dart-lang/native/issues/3498
   jni: 1.0.0
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0
   flutter_test:
@@ -161,59 +161,14 @@ flutter:
   fonts:
     - family: Noto Sans Arabic
       fonts:
-        - asset: fonts/NotoSansArabic-Light.ttf
-          weight: 300
-        - asset: fonts/NotoSansArabic-Regular.ttf
-          weight: 400
-        - asset: fonts/NotoSansArabic-Medium.ttf
-          weight: 500
-        - asset: fonts/NotoSansArabic-SemiBold.ttf
-          weight: 600
-        - asset: fonts/NotoSansArabic-Bold.ttf
-          weight: 700
+        - asset: fonts/NotoSansArabic-Variable.ttf
     - family: Comfortaa
       fonts:
-        - asset: fonts/Comfortaa-Light.ttf
-          weight: 300
-        - asset: fonts/Comfortaa-Regular.ttf
-          weight: 400
-        - asset: fonts/Comfortaa-Medium.ttf
-          weight: 500
-        - asset: fonts/Comfortaa-SemiBold.ttf
-          weight: 600
-        - asset: fonts/Comfortaa-Bold.ttf
-          weight: 700
+        - asset: fonts/Comfortaa-Variable.ttf
     - family: Roboto
       fonts:
-        - asset: fonts/Roboto-Thin.ttf
-          weight: 100
-        - asset: fonts/Roboto-ThinItalic.ttf
-          weight: 100
-          style: italic
-        - asset: fonts/Roboto-Light.ttf
-          weight: 300
-        - asset: fonts/Roboto-LightItalic.ttf
-          weight: 300
-          style: italic
-        - asset: fonts/Roboto-Regular.ttf
-          weight: 400
-        - asset: fonts/Roboto-Italic.ttf
-          weight: 400
-          style: italic
-        - asset: fonts/Roboto-Medium.ttf
-          weight: 500
-        - asset: fonts/Roboto-MediumItalic.ttf
-          weight: 500
-          style: italic
-        - asset: fonts/Roboto-Bold.ttf
-          weight: 700
-        - asset: fonts/Roboto-BoldItalic.ttf
-          weight: 700
-          style: italic
-        - asset: fonts/Roboto-Black.ttf
-          weight: 900
-        - asset: fonts/Roboto-BlackItalic.ttf
-          weight: 900
+        - asset: fonts/Roboto-Variable.ttf
+        - asset: fonts/Roboto-Italic-Variable.ttf
           style: italic
   assets:
     - images/banner.png

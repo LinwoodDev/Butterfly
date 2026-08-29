@@ -4,7 +4,8 @@ class DocumentSelection extends Selection<EditorController> {
   DocumentSelection(EditorController cubit) : super([cubit]);
 
   @override
-  IconGetter get icon => PhosphorIcons.wrench;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.wrench : PhosphorIconsLight.wrench;
 
   @override
   String getLocalizedName(BuildContext context) =>

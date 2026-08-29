@@ -62,14 +62,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    final markdownParagraphTools = <(IconGetter, String, String)>[
+    final markdownParagraphTools = <(PhosphorIconData, String, String)>[
       ...[
-        PhosphorIcons.textHOne,
-        PhosphorIcons.textHTwo,
-        PhosphorIcons.textHThree,
-        PhosphorIcons.textHFour,
-        PhosphorIcons.textHFive,
-        PhosphorIcons.textHSix,
+        PhosphorIconsLight.textHOne,
+        PhosphorIconsLight.textHTwo,
+        PhosphorIconsLight.textHThree,
+        PhosphorIconsLight.textHFour,
+        PhosphorIconsLight.textHFive,
+        PhosphorIconsLight.textHSix,
       ].asMap().entries.map(
         (e) => (
           e.value,
@@ -77,19 +77,23 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
           '#' * (e.key + 1),
         ),
       ),
-      (PhosphorIcons.quotes, AppLocalizations.of(context).quote, '>'),
-      (PhosphorIcons.codeBlock, AppLocalizations.of(context).code, '```'),
+      (PhosphorIconsLight.quotes, AppLocalizations.of(context).quote, '>'),
+      (PhosphorIconsLight.codeBlock, AppLocalizations.of(context).code, '```'),
     ];
-    final markdownSpanTools = <(IconGetter, String, String)>[
-      (PhosphorIcons.textB, AppLocalizations.of(context).bold, '**'),
-      (PhosphorIcons.textItalic, AppLocalizations.of(context).italic, '*'),
+    final markdownSpanTools = <(PhosphorIconData, String, String)>[
+      (PhosphorIconsLight.textB, AppLocalizations.of(context).bold, '**'),
+      (PhosphorIconsLight.textItalic, AppLocalizations.of(context).italic, '*'),
       (
-        PhosphorIcons.textStrikethrough,
+        PhosphorIconsLight.textStrikethrough,
         AppLocalizations.of(context).strikethrough,
         '~~',
       ),
-      (PhosphorIcons.code, AppLocalizations.of(context).code, '`'),
-      (PhosphorIcons.mathOperations, AppLocalizations.of(context).math, '\$'),
+      (PhosphorIconsLight.code, AppLocalizations.of(context).code, '`'),
+      (
+        PhosphorIconsLight.mathOperations,
+        AppLocalizations.of(context).math,
+        '\$',
+      ),
     ];
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
@@ -305,9 +309,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         menuChildren: LabelMode.values
                             .map(
                               (e) => MenuItemButton(
-                                leadingIcon: Icon(
-                                  e.icon(PhosphorIconsStyle.light),
-                                ),
+                                leadingIcon: Icon(e.icon()),
                                 child: Text(e.getLocalizedName(context)),
                                 onPressed: () =>
                                     widget.onChanged(value.toMode(e)),
@@ -315,9 +317,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             )
                             .toList(),
                         builder: defaultMenuButton(
-                          icon: PhosphorIcon(
-                            mode.icon(PhosphorIconsStyle.light),
-                          ),
+                          icon: PhosphorIcon(mode.icon()),
                           tooltip: AppLocalizations.of(context).chooseLabelMode,
                         ),
                       ),
@@ -832,10 +832,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                           children: markdownParagraphTools
                               .map(
-                                (e) => Tooltip(
-                                  message: e.$2,
-                                  child: Icon(e.$1(PhosphorIconsStyle.light)),
-                                ),
+                                (e) =>
+                                    Tooltip(message: e.$2, child: Icon(e.$1)),
                               )
                               .toList(),
                         ),
@@ -886,10 +884,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                           children: markdownSpanTools
                               .map(
-                                (e) => Tooltip(
-                                  message: e.$2,
-                                  child: Icon(e.$1(PhosphorIconsStyle.light)),
-                                ),
+                                (e) =>
+                                    Tooltip(message: e.$2, child: Icon(e.$1)),
                               )
                               .toList(),
                         ),

@@ -1,7 +1,6 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension PatternTemplateHelper on PatternTemplate {
@@ -34,9 +33,12 @@ extension AspectRatioPresetVisualizer on AspectRatioPreset {
     AspectRatioPreset.landscape => AppLocalizations.of(context).pageLandscape,
   };
 
-  IconGetter get icon => switch (this) {
-    AspectRatioPreset.square => PhosphorIcons.square,
-    AspectRatioPreset.portrait => PhosphorIcons.userFocus,
-    AspectRatioPreset.landscape => PhosphorIcons.image,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    AspectRatioPreset.square =>
+      filled ? PhosphorIconsFill.square : PhosphorIconsLight.square,
+    AspectRatioPreset.portrait =>
+      filled ? PhosphorIconsFill.userFocus : PhosphorIconsLight.userFocus,
+    AspectRatioPreset.landscape =>
+      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
   };
 }

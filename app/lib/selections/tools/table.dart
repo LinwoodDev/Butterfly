@@ -86,7 +86,8 @@ class TableToolSelection extends ToolSelection<TableTool> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.table;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.table : PhosphorIconsLight.table;
 }
 
 class _TableBorderControls extends StatefulWidget {

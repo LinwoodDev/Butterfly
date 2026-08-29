@@ -141,8 +141,8 @@ class _EditToolbarState extends State<EditToolbar> {
     if (tooltip?.isEmpty ?? false) {
       if (tempData is Tool) {
         tooltip = tempData.getLocalizedName(context);
-        icon = tempData.icon(PhosphorIconsStyle.light);
-        iconFilled = tempData.icon(PhosphorIconsStyle.fill);
+        icon = tempData.icon();
+        iconFilled = tempData.icon(filled: true);
       }
     }
     tooltip ??= '';
@@ -366,14 +366,12 @@ class _EditToolbarState extends State<EditToolbar> {
                                       )
                                     : null,
                                 selectedIcon: _buildIcon(
-                                  handlerIcon ??
-                                      tool.icon(PhosphorIconsStyle.fill),
+                                  handlerIcon ?? tool.icon(filled: true),
                                   size,
                                   color,
                                 ),
                                 icon: _buildIcon(
-                                  handlerIcon ??
-                                      tool.icon(PhosphorIconsStyle.light),
+                                  handlerIcon ?? tool.icon(),
                                   size,
                                   color,
                                 ),

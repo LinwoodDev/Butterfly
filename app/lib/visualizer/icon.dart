@@ -1,26 +1,41 @@
 import 'package:butterfly_api/butterfly_models.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 enum DisplayIcons {
-  pen(PhosphorIcons.pen),
-  pencil(PhosphorIcons.pencil),
-  pencilSimple(PhosphorIcons.pencilSimple),
-  penNib(PhosphorIcons.penNib),
-  highlighterCircle(PhosphorIcons.highlighterCircle);
+  pen(PhosphorIconsLight.pen, PhosphorIconsFill.pen),
+  pencil(PhosphorIconsLight.pencil, PhosphorIconsFill.pencil),
+  pencilSimple(PhosphorIconsLight.pencilSimple, PhosphorIconsFill.pencilSimple),
+  penNib(PhosphorIconsLight.penNib, PhosphorIconsFill.penNib),
+  highlighterCircle(
+    PhosphorIconsLight.highlighterCircle,
+    PhosphorIconsFill.highlighterCircle,
+  );
 
-  final IconGetter icon;
+  final PhosphorIconData lightIcon;
+  final PhosphorIconData fillIcon;
 
-  const DisplayIcons(this.icon);
+  const DisplayIcons(this.lightIcon, this.fillIcon);
 
-  static IconGetter from(Object tool) {
+  // Flutter copies unreferenced package fonts unchanged. Keep one explicit
+  // glyph from each remaining Phosphor family so its font is subsetted too.
+  @pragma('vm:entry-point')
+  static const fontSubsetAnchors = <PhosphorIconData>[
+    PhosphorIconsBold.circle,
+    PhosphorIconsRegular.circle,
+    PhosphorIconsThin.circle,
+  ];
+
+  PhosphorIconData icon({bool filled = false}) => filled ? fillIcon : lightIcon;
+
+  static PhosphorIconData from(Object tool, {bool filled = false}) {
     if (tool is Tool && tool.displayIcon.isNotEmpty) {
       try {
         final displayIcon = tool.displayIcon;
-        return DisplayIcons.values.byName(displayIcon).icon;
+        return DisplayIcons.values.byName(displayIcon).icon(filled: filled);
       } catch (_) {}
     }
-    return recommended(tool).firstOrNull?.icon ?? PhosphorIcons.question;
+    return recommended(tool).firstOrNull?.icon(filled: filled) ??
+        (filled ? PhosphorIconsFill.question : PhosphorIconsLight.question);
   }
 
   static List<DisplayIcons> recommended(Object? tool) {

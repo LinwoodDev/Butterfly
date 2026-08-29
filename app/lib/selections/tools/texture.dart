@@ -58,5 +58,6 @@ class TextureToolSelection extends ToolSelection<TextureTool> {
   }
 
   @override
-  IconGetter get icon => selected.first.icon;
+  PhosphorIconData icon({bool filled = false}) =>
+      selected.first.icon(filled: filled);
 }

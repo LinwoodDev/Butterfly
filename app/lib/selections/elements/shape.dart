@@ -67,7 +67,8 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
   }
 
   @override
-  IconGetter get icon => selected.first.element.property.shape.icon;
+  PhosphorIconData icon({bool filled = false}) =>
+      selected.first.element.property.shape.icon(filled: filled);
 
   @override
   String getLocalizedName(BuildContext context) =>
@@ -116,7 +117,7 @@ class _ShapeElementStrokeStyleSectionState
                     (e) => DropdownMenuEntry(
                       label: e.getLocalizedName(context),
                       value: e,
-                      leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                      leadingIcon: Icon(e.icon()),
                     ),
                   )
                   .toList(),

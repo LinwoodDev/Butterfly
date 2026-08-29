@@ -14,12 +14,19 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ToolCategoryVisualizer on ToolCategory {
-  IconGetter get icon => switch (this) {
-    ToolCategory.normal => PhosphorIcons.paintBrush,
-    ToolCategory.import => PhosphorIcons.arrowSquareIn,
-    ToolCategory.surface => PhosphorIcons.monitor,
-    ToolCategory.action => PhosphorIcons.play,
-    ToolCategory.view => PhosphorIcons.eye,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    ToolCategory.normal =>
+      filled ? PhosphorIconsFill.paintBrush : PhosphorIconsLight.paintBrush,
+    ToolCategory.import =>
+      filled
+          ? PhosphorIconsFill.arrowSquareIn
+          : PhosphorIconsLight.arrowSquareIn,
+    ToolCategory.surface =>
+      filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
+    ToolCategory.action =>
+      filled ? PhosphorIconsFill.play : PhosphorIconsLight.play,
+    ToolCategory.view =>
+      filled ? PhosphorIconsFill.eye : PhosphorIconsLight.eye,
   };
 
   String getLocalizedName(BuildContext context) => switch (this) {
@@ -38,10 +45,13 @@ extension BarcodeTypeVisualizer on BarcodeType {
     BarcodeType.code128 => AppLocalizations.of(context).code128,
   };
 
-  IconGetter get icon => switch (this) {
-    BarcodeType.qrCode => PhosphorIcons.qrCode,
-    BarcodeType.dataMatrix => PhosphorIcons.scan,
-    BarcodeType.code128 => PhosphorIcons.barcode,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    BarcodeType.qrCode =>
+      filled ? PhosphorIconsFill.qrCode : PhosphorIconsLight.qrCode,
+    BarcodeType.dataMatrix =>
+      filled ? PhosphorIconsFill.scan : PhosphorIconsLight.scan,
+    BarcodeType.code128 =>
+      filled ? PhosphorIconsFill.barcode : PhosphorIconsLight.barcode,
   };
 }
 
@@ -51,9 +61,11 @@ extension SelectModeVisualizer on SelectMode {
     SelectMode.lasso => AppLocalizations.of(context).lasso,
   };
 
-  IconGetter get icon => switch (this) {
-    SelectMode.rectangle => PhosphorIcons.selection,
-    SelectMode.lasso => PhosphorIcons.lasso,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    SelectMode.rectangle =>
+      filled ? PhosphorIconsFill.selection : PhosphorIconsLight.selection,
+    SelectMode.lasso =>
+      filled ? PhosphorIconsFill.lasso : PhosphorIconsLight.lasso,
   };
 }
 
@@ -63,9 +75,11 @@ extension EraserModeVisualizer on EraserMode {
     EraserMode.path => AppLocalizations.of(context).path,
   };
 
-  IconGetter get icon => switch (this) {
-    EraserMode.stroke => PhosphorIcons.eraser,
-    EraserMode.path => PhosphorIcons.path,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    EraserMode.stroke =>
+      filled ? PhosphorIconsFill.eraser : PhosphorIconsLight.eraser,
+    EraserMode.path =>
+      filled ? PhosphorIconsFill.path : PhosphorIconsLight.path,
   };
 }
 
@@ -75,9 +89,15 @@ extension Axis2DVisualizer on Axis2D {
     Axis2D.vertical => AppLocalizations.of(context).vertical,
   };
 
-  IconGetter get icon => switch (this) {
-    Axis2D.horizontal => PhosphorIcons.splitHorizontal,
-    Axis2D.vertical => PhosphorIcons.splitVertical,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    Axis2D.horizontal =>
+      filled
+          ? PhosphorIconsFill.splitHorizontal
+          : PhosphorIconsLight.splitHorizontal,
+    Axis2D.vertical =>
+      filled
+          ? PhosphorIconsFill.splitVertical
+          : PhosphorIconsLight.splitVertical,
   };
 }
 
@@ -134,41 +154,65 @@ extension ToolVisualizer on Tool {
     };
   }
 
-  IconGetter get icon => switch (this) {
-    HandTool() => PhosphorIcons.hand,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    HandTool() => filled ? PhosphorIconsFill.hand : PhosphorIconsLight.hand,
     SelectTool tool =>
       tool.mode == SelectMode.lasso
-          ? PhosphorIcons.lasso
-          : PhosphorIcons.selection,
-    ImportTool() => PhosphorIcons.arrowSquareIn,
-    UndoTool() => PhosphorIcons.arrowCounterClockwise,
-    RedoTool() => PhosphorIcons.arrowClockwise,
+          ? (filled ? PhosphorIconsFill.lasso : PhosphorIconsLight.lasso)
+          : (filled
+                ? PhosphorIconsFill.selection
+                : PhosphorIconsLight.selection),
+    ImportTool() =>
+      filled
+          ? PhosphorIconsFill.arrowSquareIn
+          : PhosphorIconsLight.arrowSquareIn,
+    UndoTool() =>
+      filled
+          ? PhosphorIconsFill.arrowCounterClockwise
+          : PhosphorIconsLight.arrowCounterClockwise,
+    RedoTool() =>
+      filled
+          ? PhosphorIconsFill.arrowClockwise
+          : PhosphorIconsLight.arrowClockwise,
     LabelTool tool =>
       tool.mode == LabelMode.markdown
-          ? PhosphorIcons.textbox
-          : PhosphorIcons.textT,
-    PenTool tool => DisplayIcons.from(tool),
-    EraserTool tool => tool.mode.icon,
-    CollectionTool() => PhosphorIcons.folder,
-    AreaTool() => PhosphorIcons.monitor,
-    LaserTool() => PhosphorIcons.cursor,
-    ShapeTool tool => tool.property.shape.icon,
-    TableTool() => PhosphorIcons.table,
+          ? (filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox)
+          : (filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT),
+    PenTool tool => DisplayIcons.from(tool, filled: filled),
+    EraserTool tool => tool.mode.icon(filled: filled),
+    CollectionTool() =>
+      filled ? PhosphorIconsFill.folder : PhosphorIconsLight.folder,
+    AreaTool() =>
+      filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
+    LaserTool() =>
+      filled ? PhosphorIconsFill.cursor : PhosphorIconsLight.cursor,
+    ShapeTool tool => tool.property.shape.icon(filled: filled),
+    TableTool() => filled ? PhosphorIconsFill.table : PhosphorIconsLight.table,
     SpacerTool tool =>
       tool.axis == Axis2D.horizontal
-          ? PhosphorIcons.splitHorizontal
-          : PhosphorIcons.splitVertical,
-    StampTool() => PhosphorIcons.stamp,
-    TextureTool tool => tool.texture.icon,
-    PresentationTool() => PhosphorIcons.presentation,
-    FullScreenTool() => PhosphorIcons.arrowsOut,
-    AssetTool tool => tool.importType.icon,
-    EyeDropperTool() => PhosphorIcons.eyedropper,
-    ExportTool() => PhosphorIcons.export,
-    GridTool() => PhosphorIcons.gridFour,
-    RulerTool() => PhosphorIcons.ruler,
-    BarcodeTool tool => tool.barcodeType.icon,
-    PolygonTool() => PhosphorIcons.polygon,
+          ? (filled
+                ? PhosphorIconsFill.splitHorizontal
+                : PhosphorIconsLight.splitHorizontal)
+          : (filled
+                ? PhosphorIconsFill.splitVertical
+                : PhosphorIconsLight.splitVertical),
+    StampTool() => filled ? PhosphorIconsFill.stamp : PhosphorIconsLight.stamp,
+    TextureTool tool => tool.texture.icon(filled: filled),
+    PresentationTool() =>
+      filled ? PhosphorIconsFill.presentation : PhosphorIconsLight.presentation,
+    FullScreenTool() =>
+      filled ? PhosphorIconsFill.arrowsOut : PhosphorIconsLight.arrowsOut,
+    AssetTool tool => tool.importType.icon(filled: filled),
+    EyeDropperTool() =>
+      filled ? PhosphorIconsFill.eyedropper : PhosphorIconsLight.eyedropper,
+    ExportTool() =>
+      filled ? PhosphorIconsFill.export : PhosphorIconsLight.export,
+    GridTool() =>
+      filled ? PhosphorIconsFill.gridFour : PhosphorIconsLight.gridFour,
+    RulerTool() => filled ? PhosphorIconsFill.ruler : PhosphorIconsLight.ruler,
+    BarcodeTool tool => tool.barcodeType.icon(filled: filled),
+    PolygonTool() =>
+      filled ? PhosphorIconsFill.polygon : PhosphorIconsLight.polygon,
   };
 
   List<String> get help {
@@ -234,17 +278,25 @@ extension ImportTypeVisualizer on ImportType {
     ImportType.xopp => 'Xournal++',
   };
 
-  IconGetter get icon => switch (this) {
-    ImportType.file => PhosphorIcons.fileArrowUp,
-    ImportType.oneNote => PhosphorIcons.notebook,
-    ImportType.document => PhosphorIcons.fileText,
-    ImportType.image => PhosphorIcons.image,
-    ImportType.pdf => PhosphorIcons.filePdf,
-    ImportType.svg => PhosphorIcons.fileSvg,
-    ImportType.svgText => PhosphorIcons.article,
-    ImportType.camera => PhosphorIcons.camera,
-    ImportType.markdown => PhosphorIcons.textbox,
-    ImportType.xopp => PhosphorIcons.notebook,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    ImportType.file =>
+      filled ? PhosphorIconsFill.fileArrowUp : PhosphorIconsLight.fileArrowUp,
+    ImportType.oneNote || ImportType.xopp =>
+      filled ? PhosphorIconsFill.notebook : PhosphorIconsLight.notebook,
+    ImportType.document =>
+      filled ? PhosphorIconsFill.fileText : PhosphorIconsLight.fileText,
+    ImportType.image =>
+      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
+    ImportType.pdf =>
+      filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf,
+    ImportType.svg =>
+      filled ? PhosphorIconsFill.fileSvg : PhosphorIconsLight.fileSvg,
+    ImportType.svgText =>
+      filled ? PhosphorIconsFill.article : PhosphorIconsLight.article,
+    ImportType.camera =>
+      filled ? PhosphorIconsFill.camera : PhosphorIconsLight.camera,
+    ImportType.markdown =>
+      filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox,
   };
 
   Future<bool> isAvailable() async {

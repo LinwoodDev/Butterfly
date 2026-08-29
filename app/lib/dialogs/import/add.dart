@@ -326,7 +326,7 @@ class _AddDialogState extends State<AddDialog> {
         icon: Padding(
           padding: const EdgeInsets.all(4),
           child: PhosphorIcon(
-            handler.getIcon(bloc) ?? tool.icon(PhosphorIconsStyle.light),
+            handler.getIcon(bloc) ?? tool.icon(),
             color: status == ToolStatus.disabled
                 ? Theme.of(context).disabledColor
                 : null,
@@ -371,10 +371,7 @@ class _AddDialogState extends State<AddDialog> {
             textDirection: TextDirection.ltr,
           ),
         ),
-        icon: PhosphorIcon(
-          type.icon(PhosphorIconsStyle.light),
-          textDirection: TextDirection.ltr,
-        ),
+        icon: PhosphorIcon(type.icon(), textDirection: TextDirection.ltr),
         onTap: () async {
           final bloc = context.read<DocumentBloc>();
           final importService = context.read<ImportService>();
@@ -452,7 +449,7 @@ class _AddDialogState extends State<AddDialog> {
                   _buildSection(
                     context,
                     title: category.getLocalizedName(context),
-                    icon: category.icon(PhosphorIconsStyle.light),
+                    icon: category.icon(),
                     children: category == ToolCategory.import
                         ? [
                             ...importItems,

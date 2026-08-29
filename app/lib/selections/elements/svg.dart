@@ -28,7 +28,8 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.fileSvg;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.fileSvg : PhosphorIconsLight.fileSvg;
 
   @override
   String getLocalizedName(BuildContext context) =>

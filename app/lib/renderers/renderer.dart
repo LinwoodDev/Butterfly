@@ -483,12 +483,19 @@ enum RendererOperation {
     };
   }
 
-  IconGetter get icon => switch (this) {
-    RendererOperation.invert => PhosphorIcons.circleHalf,
-    RendererOperation.background => PhosphorIcons.paintBucket,
-    RendererOperation.grayscale => PhosphorIcons.palette,
-    RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
-    RendererOperation.flipVertical => PhosphorIcons.flipVertical,
+  PhosphorIconData icon({bool filled = false}) => switch (this) {
+    RendererOperation.invert =>
+      filled ? PhosphorIconsFill.circleHalf : PhosphorIconsLight.circleHalf,
+    RendererOperation.background =>
+      filled ? PhosphorIconsFill.paintBucket : PhosphorIconsLight.paintBucket,
+    RendererOperation.grayscale =>
+      filled ? PhosphorIconsFill.palette : PhosphorIconsLight.palette,
+    RendererOperation.flipHorizontal =>
+      filled
+          ? PhosphorIconsFill.flipHorizontal
+          : PhosphorIconsLight.flipHorizontal,
+    RendererOperation.flipVertical =>
+      filled ? PhosphorIconsFill.flipVertical : PhosphorIconsLight.flipVertical,
   };
 
   Axis? get flipAxis => switch (this) {

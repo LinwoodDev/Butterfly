@@ -92,7 +92,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               .map(
                 (preset) => ButtonSegment<double>(
                   value: preset.ratio,
-                  icon: PhosphorIcon(preset.icon(PhosphorIconsStyle.light)),
+                  icon: PhosphorIcon(preset.icon()),
                   tooltip: preset.getLocalizedName(context),
                 ),
               )

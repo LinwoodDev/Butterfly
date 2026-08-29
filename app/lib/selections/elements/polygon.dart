@@ -27,7 +27,8 @@ class PolygonElementSelection extends ElementSelection<PolygonElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.polygon;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.polygon : PhosphorIconsLight.polygon;
 
   @override
   String getLocalizedName(BuildContext context) =>

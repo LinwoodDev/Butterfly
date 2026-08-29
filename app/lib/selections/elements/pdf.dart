@@ -60,7 +60,8 @@ class PdfElementSelection extends ElementSelection<PdfElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.filePdf;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf;
 
   @override
   String getLocalizedName(BuildContext context) =>

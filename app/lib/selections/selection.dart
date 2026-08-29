@@ -107,7 +107,7 @@ abstract class Selection<T> {
 
   String getLocalizedCaption(BuildContext context) => '';
 
-  IconGetter get icon;
+  PhosphorIconData icon({bool filled = false});
 
   List<Widget> buildProperties(BuildContext context) => [];
 

@@ -165,7 +165,8 @@ class TableElementSelection extends ElementSelection<TableElement> {
   }
 
   @override
-  IconGetter get icon => PhosphorIcons.table;
+  PhosphorIconData icon({bool filled = false}) =>
+      filled ? PhosphorIconsFill.table : PhosphorIconsLight.table;
 
   @override
   String getLocalizedName(BuildContext context) =>

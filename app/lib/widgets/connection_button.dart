@@ -70,9 +70,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
             icon: _currentConnection == null
                 ? const PhosphorIcon(PhosphorIconsLight.house)
                 : _currentConnection!.icon?.isEmpty ?? true
-                ? PhosphorIcon(
-                    _currentConnection!.typeIcon(PhosphorIconsStyle.light),
-                  )
+                ? PhosphorIcon(_currentConnection!.typeIcon())
                 : Image.memory(_currentConnection!.icon!, width: 24),
           ),
           menuChildren: [
@@ -88,7 +86,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
               (remote) => MenuItemButton(
                 onPressed: () => _onChange(remote),
                 leadingIcon: remote.icon?.isEmpty ?? true
-                    ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
+                    ? PhosphorIcon(remote.typeIcon())
                     : Image.memory(remote.icon!, width: 24),
                 child: Text(
                   remote.identifier,

@@ -841,7 +841,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
                   SizedBox.square(
                     dimension: 64,
                     child: OptionButton(
-                      icon: Icon(tool.icon(PhosphorIconsStyle.light)),
+                      icon: Icon(tool.icon()),
                       tooltip: tool.name,
                     ),
                   ),
