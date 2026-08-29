@@ -23,7 +23,7 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
     'mouse': _mouseSettingsPage,
     'touch': _touchSettingsPage,
     'keyboard': _keyboardSettingsPage,
-    'pen': _penSettingsPage,
+    'stylus': _stylusSettingsPage,
   },
   sections: {
     'devices': SettingsLeapSection(
@@ -44,9 +44,9 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
           onTap: (context) => context.push('/settings/inputs/keyboard'),
         ),
         SettingsLeapActionSetting(
-          displayName: (context) => AppLocalizations.of(context).pen,
+          displayName: (context) => AppLocalizations.of(context).stylus,
           icon: PhosphorIconsLight.pen,
-          onTap: (context) => context.push('/settings/inputs/pen'),
+          onTap: (context) => context.push('/settings/inputs/stylus'),
         ),
       ],
     ),
@@ -449,8 +449,8 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
   },
 );
 
-final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
-  displayName: (context) => AppLocalizations.of(context).pen,
+final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
+  displayName: (context) => AppLocalizations.of(context).stylus,
   icon: PhosphorIconsLight.pen,
   appBarBuilder: _butterflyAppBar,
   onReset: (context, state) => _resetSettingsPage(
@@ -566,7 +566,7 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         _inputMappingSetting(
           id: 'pen',
-          displayName: (context) => AppLocalizations.of(context).pen,
+          displayName: (context) => AppLocalizations.of(context).stylus,
           icon: PhosphorIconsLight.pen,
           read: (config) => config.pen,
           write: (config, value) => config.copyWith(pen: value),
@@ -574,7 +574,7 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
         _inputShortcutSetting(
           id: 'doublePenShortcut',
           displayName: (context) =>
-              _getDoubleName(context, AppLocalizations.of(context).pen),
+              _getDoubleName(context, AppLocalizations.of(context).stylus),
           icon: PhosphorIconsLight.pen,
           read: (config) => config.doublePenShortcut,
           write: (config, value) => config.copyWith(doublePenShortcut: value),
@@ -582,7 +582,7 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
         _inputShortcutSetting(
           id: 'triplePenShortcut',
           displayName: (context) =>
-              _getTripleName(AppLocalizations.of(context).pen),
+              _getTripleName(AppLocalizations.of(context).stylus),
           icon: PhosphorIconsLight.pen,
           read: (config) => config.triplePenShortcut,
           write: (config, value) => config.copyWith(triplePenShortcut: value),
@@ -1172,7 +1172,7 @@ class __PointerTestState extends State<_PointerTest> {
           subtitle: Text(switch (_kind) {
             PointerDeviceKind.touch => AppLocalizations.of(context).touch,
             PointerDeviceKind.mouse => AppLocalizations.of(context).mouse,
-            PointerDeviceKind.stylus => AppLocalizations.of(context).pen,
+            PointerDeviceKind.stylus => AppLocalizations.of(context).stylus,
             PointerDeviceKind.invertedStylus => AppLocalizations.of(
               context,
             ).invert,
