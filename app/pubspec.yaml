@@ -17,7 +17,7 @@ version: 2.6.0-rc.0+195
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
-  flutter: 3.47.1
+  flutter: 3.47.2
 
 dependencies:
   flutter:
@@ -125,16 +125,12 @@ dependencies:
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
   file_picker: ^12.0.0
-  pdfrx: ^2.4.1
+  pdfrx: ">=2.4.1 <2.5.0"
   talker_flutter: ^5.1.6
   talker: ^5.1.6
   talker_bloc_logger: ^5.1.6
   html: ^0.15.6
   #flutter_native_splash: ^2.4.7
-dependency_overrides:
-  # jni 1.0.1 fails to compile on arm64 Linux:
-  # https://github.com/dart-lang/native/issues/3498
-  jni: 1.0.0
 dev_dependencies:
   integration_test:
     sdk: flutter
