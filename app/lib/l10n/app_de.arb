@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Invertierter Stift",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Radierer",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
-  "penOnlyInput": "Nur-Pen-Eingabe",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatisch aktivieren, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Tipp- und Mauseingabe immer ablehnen, nur Stift-Eingaben akzeptieren.",
   "penOnlyInputOffDescription": "Akzeptieren Sie alle Eingabetypen, einschließlich Berührung, Maus und Stil.",
   "automatic": "Automatisch",
   "alwaysOn": "Immer an",
   "alwaysOff": "Immer aus",
-  "showPenOnlyToggle": "Nur Stift anzeigen",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Eingabegesten",
   "inputGesturesDescription": "Lässt Sie die Leinwand mit Berührungsgesten bewegen und zoomen, auch wenn ein Zeichenwerkzeug ausgewählt ist.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignoriert die erste Drucklesung, die auf einigen Stiften ungenau sein kann.",
-  "ignorePressureNeverDescription": "Verwendet jeden Druck, der vom Stift liest.",
-  "ignorePressureAlwaysDescription": "Ignoriert Druck und behandelt den Stift wie voll gepresst.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Temporär",
   "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Zeigt eine permanente Navigationsleiste auf großen Bildschirmen für einen schnelleren Zugriff auf App-Sektionen.",
   "optionsPanelPositionDescription": "Legt fest, ob Werkzeugoptionen über oder unter der Leinwand erscheinen.",
   "simpleToolbarVisibilityDescription": "Legt fest, wenn die kleinere, vereinfachte Symbolleiste beim Bearbeiten einer Notiz erscheint.",
-  "penOnlyInputDescription": "Verhindert versehentliche Markierungen aus der Hand oder der Maus durch Auswählen, wenn nur der Stift gezeichnet werden kann.",
-  "showPenOnlyToggleDescription": "Zeigt einen schnellen Pen-Only Schalter im Editor, nachdem Butterfly einen Stift erkennt.",
-  "ignorePressureDescription": "Steuert ob der Stiftdruck den Schlaganfall ändert und arbeitet um ungenaue Druckmessungen von einigen Stiften herum.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Lassen Sie uns Multi-Touch-Gesten die Leinwand bewegen, anstatt mit Notizinhalt zu interagieren.",
   "spreadPagesDescription": "Splits mehrseitige Importe über separate Notizseiten statt alles auf einer Seite zu platzieren.",
   "shear": "Scherz"
