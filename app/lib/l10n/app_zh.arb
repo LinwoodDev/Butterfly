@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "反转笔数",
+  "invertedPen": "Inverted Stylus",
   "eraser": "橡皮擦",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "文件夹已同步",
   "syncRootDirectory": "同步根目录",
-  "penOnlyInput": "只输入笔数",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "检测到触发笔时自动启用纯笔模式。此设置仅持续当前会话。",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "总是拒绝触摸和鼠标输入，只接受触摸笔输入。",
   "penOnlyInputOffDescription": "接受所有输入类型，包括触摸、鼠标和样式。",
   "automatic": "自动的",
   "alwaysOn": "总是开启",
   "alwaysOff": "总是关闭",
-  "showPenOnlyToggle": "只显示画笔开关",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "输入手势",
   "inputGesturesDescription": "让您用触摸手势移动和缩放画布，即使选择绘图工具。",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "忽略一读压力解读，这对某些笔来说可能是不准确的。",
-  "ignorePressureNeverDescription": "使用从笔子读取的每种压力。",
-  "ignorePressureAlwaysDescription": "忽略压力，并将笔视为已完全按压。",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "临时的",
   "simpleToolbarVisibility": "简单工具栏可见性",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "在宽屏幕上显示永久导航栏，以便更快地访问应用部分。",
   "optionsPanelPositionDescription": "选择工具选项出现在画布上方还是在画布以下。",
   "simpleToolbarVisibilityDescription": "编辑注释时出现较小的简化工具栏时进行控制。",
-  "penOnlyInputDescription": "选择只有笔输入可以绘制时，可以防止手或鼠标出现意外标记。",
-  "showPenOnlyToggleDescription": "Butterfight 检测到笔刷后在编辑器中显示一个快速的纯笔开关。",
-  "ignorePressureDescription": "控制笔压是否改变笔划，并围绕某些笔的不准确压力读数工作。",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "让多点触摸手势移动画布，而不是与笔记内容交互。",
   "spreadPagesDescription": "将多页导入分开单独的便笺页面，而不是将所有内容放在一个页面上。",
   "shear": "剪辑"
