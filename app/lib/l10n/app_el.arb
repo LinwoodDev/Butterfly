@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Ανεστραμμένη Πένα",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Ο φάκελος συγχρονίστηκε",
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
-  "penOnlyInput": "Είσοδος μόνο πένας",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Αυτόματη ενεργοποίηση λειτουργίας μόνο στυλό όταν εντοπιστεί μια γραφίδα. Αυτή η ρύθμιση διαρκεί μόνο για την τρέχουσα συνεδρία.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Πάντα απορρίπτει την είσοδο αφής και ποντικιού, δέχεται μόνο γραφίδα εισόδου.",
   "penOnlyInputOffDescription": "Αποδεχτείτε όλους τους τύπους εισόδου, συμπεριλαμβανομένης της αφής, του ποντικιού και της γραφίδας.",
   "automatic": "Αυτόματο",
   "alwaysOn": "Πάντα ενεργό",
   "alwaysOff": "Πάντα ανενεργό",
-  "showPenOnlyToggle": "Εμφάνιση εναλλαγής μόνο πένας",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Σας επιτρέπει να μετακινήσετε και να μεγεθύνετε τον καμβά με χειρονομίες αφής, ακόμα και όταν ένα εργαλείο σχεδίασης είναι επιλεγμένο.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Αγνοεί την πρώτη ανάγνωση πίεσης, η οποία μπορεί να είναι ανακριβής σε μερικά στυλό.",
-  "ignorePressureNeverDescription": "Χρησιμοποιεί κάθε ανάγνωση πίεσης από το στυλό.",
-  "ignorePressureAlwaysDescription": "Αγνοεί την πίεση και αντιμετωπίζει την πένα όταν πιέζεται πλήρως.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Προσωρινή",
   "simpleToolbarVisibility": "Απλή ορατότητα γραμμής εργαλείων",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Εμφανίζει μια μόνιμη γραμμή πλοήγησης σε ευρείες οθόνες για ταχύτερη πρόσβαση σε τμήματα εφαρμογών.",
   "optionsPanelPositionDescription": "Επιλέγει αν οι επιλογές εργαλείων εμφανίζονται πάνω ή κάτω από τον καμβά.",
   "simpleToolbarVisibilityDescription": "Ελέγχει όταν εμφανίζεται η μικρότερη, απλοποιημένη γραμμή εργαλείων κατά την επεξεργασία μιας σημείωσης.",
-  "penOnlyInputDescription": "Αποτρέπει τυχαία σημάδια από το χέρι ή το ποντίκι σας, επιλέγοντας όταν μόνο εισόδου στυλό μπορεί να σχεδιάσει.",
-  "showPenOnlyToggleDescription": "Εμφανίζει έναν γρήγορο διακόπτη στυλό μόνο στον επεξεργαστή αφού η πεταλούδα ανιχνεύσει μια πένα.",
-  "ignorePressureDescription": "Ελέγχει αν η πίεση στυλό αλλάζει τη διαδρομή και λειτουργεί γύρω από ανακριβείς αναγνώσεις πίεσης από μερικά στυλό.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Αφήνει τις χειρονομίες πολλαπλών αφής να μετακινήσετε τον καμβά αντί να αλληλεπιδράσετε με το περιεχόμενο σημειώσεων.",
   "spreadPagesDescription": "Διαχωρίζει τις πολυσέλιδες εισαγωγές σε ξεχωριστές σελίδες σημειώσεων αντί να τα τοποθετεί όλα σε μία σελίδα.",
   "shear": "Διάτμηση"
