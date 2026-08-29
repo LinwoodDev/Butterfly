@@ -5,7 +5,7 @@ title: Atajos
 Shortcuts are a way to map specific inputs to an action that influences the editor.
 
 To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such
-as `Mouse`, `Touch`, `Keyboard` or `Pen`. You will be presented with a list of configurable inputs
+as `Mouse`, `Touch`, `Keyboard` or `Stylus`. You will be presented with a list of configurable inputs
 and the actions they are currently mapped to.
 
 These actions are divided into [tool activators](#tool-activators)
@@ -164,34 +164,34 @@ to **tool activators**._
 - `Ctrl` + `V`: Pastes the clipboard
 - `Ctrl` + (`1` - `0`): Cambia a herramienta
 
-## Pen
+## Stylus
 
-### Pen configurations
+### Stylus configurations
 
-|                   Propiedad |              Values              | Descripción                                                                                                                      |
-| --------------------------: | :------------------------------: | :------------------------------------------------------------------------------------------------------------------------------- |
-|         Entrada de Pen sólo | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only pen input can draw.                                  |
-| Mostrar sólo alternar lápiz |            true, false           | Muestra un interruptor rápido de sólo pluma en el editor después de que Butterfly detecte una pluma.             |
-|       Presión de ignorancia |       Never, First, Always       | Controls whether a pen pressure changes the stroke and works around inaccurate pressure readings from some pens. |
+|               Propiedad |              Values              | Descripción                                                                                                                             |
+| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
+|   Presión de ignorancia |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
-### Pen shortcuts
+### Stylus shortcuts
 
-By default, the pen is configured to function with the
+By default, the stylus is configured to function with the
 following **tool activators**:
 
-- `Pen`: Using the pen normally. Defaults to `Active Tool`
-- `Inverted Pen`: Using the pen in inverted mode. Defaults to `Toolbar Position 4`
+- `Stylus`: Using the stylus normally. Defaults to `Active Tool`
+- `Inverted Stylus`: Using the stylus in inverted mode. Defaults to `Toolbar Position 4`
 - `First`: While holding its primary button, if supported. Defaults to  `Toolbar Position 3` (often
   path-eraser)
 - `Second`: While holding its secondary button, if supported. Defaults to `Toolbar Position 2`
 
-_By default, the pen **document actions** are all set to `None`._
+_By default, the stylus **document actions** are all set to `None`._
 
-- `Double Pen`: Double-tapping using a pen
-- `Triple Pen`: Triple-tapping using a pen
-- `Double Inverted Pen`: Double-tapping using a pen in inverted mode
-- `Triple Inverted Pen`: Triple-tapping using a pen in inverted mode
-- `Double First`: Double-tapping using a pen while holding its primary button
-- `Triple First`: Triple-tapping using a pen while holding its primary button
-- `Double Second`: Double-tapping using a pen while holding its secondary button
-- `Triple Second`: Triple-tapping using a pen while holding its secondary button
+- `Double Stylus`: Double-tapping using a stylus
+- `Triple Stylus`: Triple-tapping using a stylus
+- `Double Inverted Stylus`: Double-tapping using a stylus in inverted mode
+- `Triple Inverted Stylus`: Triple-tapping using a stylus in inverted mode
+- `Double First`: Double-tapping using a stylus while holding its primary button
+- `Triple First`: Triple-tapping using a stylus while holding its primary button
+- `Double Second`: Double-tapping using a stylus while holding its secondary button
+- `Triple Second`: Triple-tapping using a stylus while holding its secondary button
