@@ -74,6 +74,33 @@ void main() {
     );
   }
 
+  test('merges hover button state into stylus pointer down events', () {
+    expect(
+      mergeStylusButtonState(
+        kind: PointerDeviceKind.stylus,
+        eventButtons: 0,
+        hoverButtons: kSecondaryStylusButton,
+      ),
+      kSecondaryStylusButton,
+    );
+    expect(
+      mergeStylusButtonState(
+        kind: PointerDeviceKind.stylus,
+        eventButtons: kPrimaryStylusButton,
+        hoverButtons: kSecondaryStylusButton,
+      ),
+      kPrimaryStylusButton | kSecondaryStylusButton,
+    );
+    expect(
+      mergeStylusButtonState(
+        kind: PointerDeviceKind.mouse,
+        eventButtons: kPrimaryMouseButton,
+        hoverButtons: kSecondaryStylusButton,
+      ),
+      kPrimaryMouseButton,
+    );
+  });
+
   test('recognizes repeated mouse button clicks', () async {
     pointerDown(
       pointer: 1,
