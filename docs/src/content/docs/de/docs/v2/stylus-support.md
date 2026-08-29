@@ -2,26 +2,26 @@
 title: Stiftunterstützung
 ---
 
-Diese Seite sammelt das aktuelle Verhalten von Stift- und Stylus-Eingaben in Butterfly.
+This page collects the current stylus-input behavior in Butterfly.
 
 ## Unterstützt platforms
 
 - **Android / mobil:** Stylus-Eingabe funktioniert derzeit am besten und ist der wichtigste unterstützte Weg.
-- **Desktop (Linux):** Stylus-Eingabe ist aktuell durch die Eingabeunterstützung von Flutter eingeschränkt.
+- **Desktop (Linux):** Stylus input is currently limited by Flutter input support.
 - **Web:** Oft eine gute Ausweichmöglichkeit, wenn sich ein Stift auf dem Desktop uneinheitlich verhält.
 
 ## Stylus-related Einstellungen
 
-Optionen zum Stylus finden Sie unter **Einstellungen → Eingabe → Stift**:
+You can find stylus-related options in **Settings → Input → Stylus**:
 
-- **Nur-Stift-Eingabe** (geändert in 2.5): Hilft, versehentliches Zeichnen mit Finger/Touch bei Verwendung eines Stifts zu vermeiden.
-- **Nur-Stift-Schalter bei Stifterkennung:** Wenn ein Stift erkannt wird, wird ein schneller Nur-Stift-Schalter aktiviert; Sie können ihn weiterhin unter **Einstellungen → Eingabe → Stift** deaktivieren.
+- **Stylus-only input** (changed in 2.5): helps avoid accidental finger/touch drawing when using a stylus.
+- **Stylus-only toggle on stylus detection:** when a stylus is detected, a quick Stylus-only toggle is activated; you can still disable it in **Settings → Input → Stylus**.
 - **Druck ignorieren:** Nützlich, wenn Druckdaten unzuverlässig sind. Dies ist gesetzt, um in Fällen zu helfen, in denen Firefox bei der ersten Eingabe falschen Druck meldet.
 - **Eingabetest:** Damit können Sie prüfen, welche Pointer-/Stylus-Ereignisse Ihr Gerät aktuell meldet.
 
-## Stift-Kurzbefehle und Zeigertest
+## Stylus shortcuts and pointer test
 
-Butterfly unterstützt Stift-/Stylus-Kürzel; die Tastenbelegung kann je nach Gerät/Betriebssystem variieren. Wenn Kurzbefehle nicht wie erwartet funktionieren, öffnen Sie zuerst den **Eingabetest** und prüfen Sie die Schaltflächenwerte:
+Butterfly supports stylus shortcuts (button mappings can vary by device/OS). Wenn Kurzbefehle nicht wie erwartet funktionieren, öffnen Sie zuerst den **Eingabetest** und prüfen Sie die Schaltflächenwerte:
 
 - **Primary Schaltfläche** commonly appears as `10` (`2`)
 - **Sekundäre Schaltfläche** erscheint häufig als `100` (`4`) oder `100000` (`32`)
