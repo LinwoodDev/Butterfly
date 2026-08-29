@@ -164,15 +164,15 @@ to **tool activators**._
 - `Ctrl` + `V`: Pastes the clipboard
 - `Ctrl` + (`1` - `0`): التبديل إلى أداة
 
-## Stylus
+## قلم الشاشه
 
 ### Stylus configurations
 
-|               الممتلكات |              Values              | الوصف                                                                                                                                   |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|             تجاهل الضغط |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                   الممتلكات |              Values              | الوصف                                                                                                                                   |
+| --------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|             وضع "القلم فقط" | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| إظهار زر الإدخال بالقلم فقط |            true, false           | يعرض تبديلاً سريعاً إلى وضع  ”القلم فقط“ في المحرر عندما يكتشف Butterfly وجود قلم.                                      |
+|                 تجاهل الضغط |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
