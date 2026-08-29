@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Penne Invertite",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Gomma",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Cartella sincronizzata",
   "syncRootDirectory": "Sincronizza directory root",
-  "penOnlyInput": "Input solo penna",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Abilita automaticamente la modalità di sola penna quando viene rilevato uno stilo. Questa impostazione dura solo per la sessione corrente.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Rifiuta sempre il tocco e l'ingresso del mouse, accetta solo l'input stilo.",
   "penOnlyInputOffDescription": "Accetta tutti i tipi di input, tra cui tocco, mouse, e stilo.",
   "automatic": "Automatico",
   "alwaysOn": "Sempre acceso",
   "alwaysOff": "Sempre spento",
-  "showPenOnlyToggle": "Mostra solo penna attiva/disattiva",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Gestures di input",
   "inputGesturesDescription": "Permette di spostare e ingrandire la superficie con i gesti tattili, anche mentre è selezionato uno strumento di disegno.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignora la prima lettura di pressione, che può essere imprecisa su alcune penne.",
-  "ignorePressureNeverDescription": "Utilizza ogni lettura di pressione dalla penna.",
-  "ignorePressureAlwaysDescription": "Ignora la pressione e tratta la penna come completamente premuta.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Temporaneo",
   "simpleToolbarVisibility": "Semplice visibilità della barra degli strumenti",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Mostra una barra di navigazione permanente su schermi larghi per un accesso più rapido alle sezioni delle app.",
   "optionsPanelPositionDescription": "Scegli se le opzioni degli strumenti appaiono sopra o sotto la tela.",
   "simpleToolbarVisibilityDescription": "Controlla quando la barra degli strumenti più piccola e semplificata appare durante la modifica di una nota.",
-  "penOnlyInputDescription": "Impedisce segni accidentali dalla mano o dal mouse scegliendo quando solo l'ingresso della penna può disegnare.",
-  "showPenOnlyToggleDescription": "Mostra un rapido interruttore di sola penna nell'editor dopo che Butterfly rileva una penna.",
-  "ignorePressureDescription": "Controlla se la pressione della penna cambia il tratto e funziona intorno a letture di pressione imprecise da alcune penne.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Permette ai gesti multi-touch di spostare la tela invece di interagire con il contenuto delle note.",
   "spreadPagesDescription": "Divide le importazioni di pagine multiple tra pagine separate invece di posizionare tutto su una pagina.",
   "shear": "Inclina"
