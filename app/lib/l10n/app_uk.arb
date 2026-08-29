@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Інвертована пера",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Папку синхронізовано",
   "syncRootDirectory": "Синхронізація кореневого каталогу",
-  "penOnlyInput": "Тільки введення Pen",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Автоматично вмикати режим тільки, коли виявлено стиль. Це налаштування триває лише для поточного сесії.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Завжди відхиляти дотик та мишу, приймати лише перус введення.",
   "penOnlyInputOffDescription": "Приймати всі типи вводу, включаючи дотик, мишу та стилюс.",
   "automatic": "Автоматично",
   "alwaysOn": "Завжди увімкнено",
   "alwaysOff": "Завжди вимкнено",
-  "showPenOnlyToggle": "Показати тільки переключити ручку",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Дозволяє перемістити та збільшити полотно за допомогою сенсорних жестів, навіть при виборі інструменту малювання.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ігнорує перше зчитування тиску, яке не є точним на деяких ручках.",
-  "ignorePressureNeverDescription": "Використовує всі читають з пера.",
-  "ignorePressureAlwaysDescription": "Ігнорує тиск і сприймає ручку як повністю натисну.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Тимчасово",
   "simpleToolbarVisibility": "Проста видимість панелі інструментів",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Показує панель навігації на всіх екранах для швидшого доступу до розділів додатків.",
   "optionsPanelPositionDescription": "Вибирати, чи з'явиться інструмент над або нижче полотна.",
   "simpleToolbarVisibilityDescription": "Контролює коли менша, спрощена панель інструментів відображається під час редагування нотатки.",
-  "penOnlyInputDescription": "Запобігає випадковим маркам з вашої руки або миші, вибираючи тільки введення ручки.",
-  "showPenOnlyToggleDescription": "Показує швидкий перемикач тільки в редакторі після того, як Butterfly виявить ручку.",
-  "ignorePressureDescription": "Визначає, чи змінюється тиск ручки і працює навколо неточних показників тиску з деяких ручок.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Дозволяє жести мультисенсорного екрану перемістити полотно замість взаємодії з вмістом нотаток.",
   "spreadPagesDescription": "Розділяє багатосторінковий імпорт окремих сторінок замість розміщення всього на одній сторінці.",
   "shear": "Стригти"
