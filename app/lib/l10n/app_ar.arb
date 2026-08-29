@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "كشف في مستكشف الملفات",
+  "revealInFileExplorer": "فتح في متصفح الملفات",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "قلم معكوس",
   "eraser": "الممحاة",
   "@eraser": {
     "description": "Eraser tool"
@@ -189,7 +189,7 @@
     "description": "Share action"
   },
   "spacing": "تباعد",
-  "padding": "Padding",
+  "padding": "مساحة إضافية",
   "@padding": {
     "description": "Padding around an exported image"
   },
@@ -216,11 +216,11 @@
   "@backup": {
     "description": "Backup action"
   },
-  "backupConnection": "الإتصال بالنسخ الاحتياطي",
+  "backupConnection": "اتصال النسخ الاحتياطي",
   "automaticBackups": "النسخ الاحتياطي التلقائي",
-  "automaticBackupsDescription": "يقوم بإنشاء نسخ إحتياطية أثناء تشغيل الفراشة.",
-  "backupInterval": "فاصل النسخ الاحتياطي",
-  "backupNow": "النسخ الاحتياطي الآن",
+  "automaticBackupsDescription": "يقوم بإنشاء نُسخ احتياطية بينما يعمل Butterfly.",
+  "backupInterval": "الفاصل الزمني للنسخ الاحتياطي",
+  "backupNow": "نسخ احتياطي الآن",
   "lastBackup": "آخر نسخة احتياطية",
   "backupCreated": "تم إنشاء نسخة احتياطية",
   "hour": "ساعة",
@@ -311,7 +311,7 @@
   "@back": {
     "description": "Back action"
   },
-  "forward": "إعادة",
+  "forward": "للأمام",
   "@forward": {
     "description": "Forward action"
   },
@@ -571,12 +571,12 @@
   "authenticationPassword": "كلمة مرور المصادقة",
   "documentEncryptionPassword": "كلمة مرور تشفير المستند",
   "documentEncryptionEnabled": "تم تمكين تشفير المستند",
-  "reauthenticate": "Reauthenticate",
+  "reauthenticate": "إعادة التوثيق",
   "addDocumentEncryptionPassword": "إضافة كلمة مرور تشفير المستند",
   "changeDocumentEncryptionPassword": "تغيير كلمة مرور تشفير المستند",
   "webNotSupported": "نسخة الويب غير مدعومه",
   "advanced": "خيارات متقدمة",
-  "symmetric": "تماثل",
+  "symmetric": "متماثل",
   "perSide": "لكل جانب",
   "directory": "المُجلد",
   "documentsDirectory": "مجلد المستندات",
@@ -702,18 +702,18 @@
   },
   "folderSynced": "تمت مزامنة المجلد",
   "syncRootDirectory": "مزامنة مجلد الجذر",
-  "stylus": "Stylus",
-  "penOnlyInput": "Stylus only input",
+  "stylus": "قلم الشاشه",
+  "penOnlyInput": "وضع \"القلم فقط\"",
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "شغّل وضع \"الإدخال بالقلم فقط\" عند رصد القلم.\nهذا الإعداد لن يحفظ و سيتغير في الجَلسة القادمة.",
   "penOnlyInputOnDescription": "تجاهل دائمًا الإدخال باللمس والفأرة، واسمح فقط بالكتابة بالقلم.",
   "penOnlyInputOffDescription": "اقبل جميع أنواع الإدخال بما في ذلك اللمس والفأرة و القلم.",
   "automatic": "تلقائي",
   "alwaysOn": "مفعل",
   "alwaysOff": "معطل",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "إظهار زر الإدخال بالقلم فقط",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1029,7 +1029,7 @@
   "sendBackward": "خطوة إلى الخلف",
   "rotation": "دوران",
   "rotationStep": "خطوة التدوير",
-  "zoomStep": "تكبير خطوة",
+  "zoomStep": "خطوة التكبير",
   "direction": "الاتجاه",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
@@ -1442,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "يتجاهل أول قراءة للضغط، والتي ربما تكون غير دقيقة في بعض الأقلام.",
+  "ignorePressureNeverDescription": "يستخدم كل قراءة ضغط من القلم.",
+  "ignorePressureAlwaysDescription": "يتجاهل ضغط القلم ويعتبره مضغوطًا بالكامل.",
   "temporary": "مؤقت",
   "simpleToolbarVisibility": "عرض شريط الأدوات البسيط",
   "@simpleToolbarVisibility": {
@@ -1580,9 +1580,9 @@
   "navigationRailDescription": "يعرض شريط تنقل دائم على شاشات واسعة للوصول السريع إلى أقسام التطبيقات.",
   "optionsPanelPositionDescription": "يحدد ما إذا كانت خيارات الأداة تظهر أعلاه أو أسفل الكانفاس.",
   "simpleToolbarVisibilityDescription": "التحكم عندما يظهر شريط الأدوات الأصغر والمبسطة أثناء تحرير الملاحظة.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "يمنع ظهور علامات غير مقصودة ناتجة عن يدك أو الفأرة من خلال تحديد متى يمّكن وضع \"القلم فقط\".",
+  "showPenOnlyToggleDescription": "يعرض تبديلاً سريعاً إلى وضع  ”القلم فقط“ في المحرر عندما يكتشف Butterfly وجود قلم.",
+  "ignorePressureDescription": "يحدد ما إذا كان لضغط القلم تأثير على شكل الخط، كما يقلل من تأثير قراءات الضغط الغير الدقيقة التي تنتج من بعض الأقلام.",
   "moveOnGestureDescription": "يتيح إيماءات اللمس المتعددة تحريك الكانفا بدلاً من التفاعل مع محتوى الملاحظة.",
   "spreadPagesDescription": "تقسيم الواردات متعددة الصفحات عبر صفحات ملاحظات منفصلة بدلاً من وضع كل شيء على صفحة واحدة.",
   "shear": "القصة"
