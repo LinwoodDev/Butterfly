@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Převrácená tužka",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Guma",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Složka synchronizována",
   "syncRootDirectory": "Synchronizovat kořenový adresář",
-  "penOnlyInput": "Používat pouze tužku",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automaticky povolit režim pouze pro pen-only pokud je rozpoznán perus. Toto nastavení trvá pouze pro aktuální relaci.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Vždy odmítnout dotyk a vstup myši, přijmout pouze stylus vstupu.",
   "penOnlyInputOffDescription": "Přijmout všechny typy vstupů včetně dotyku, myši a stylu.",
   "automatic": "Automaticky",
   "alwaysOn": "Vždy zapnuto",
   "alwaysOff": "Vždy vypnuto",
-  "showPenOnlyToggle": "Zobrazit pouze přepínač pera",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Gesta",
   "inputGesturesDescription": "Umožňuje přesouvat a přiblížit plátno s dotykovými gesty, i když je vybrán nástroj pro kreslení.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignorovat první čtení tlaku, které může být na některých perech nepřesné.",
-  "ignorePressureNeverDescription": "Používá každý tlak z kotce.",
-  "ignorePressureAlwaysDescription": "Ignorovat tlak a zacházet s perem jako s plně lisovaným.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Dočasné",
   "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Zobrazí stálou navigační lištu na širokých obrazovkách pro rychlejší přístup do sekcí aplikace.",
   "optionsPanelPositionDescription": "Zvolte, zda se možnosti nástroje zobrazí nad nebo pod plátno.",
   "simpleToolbarVisibilityDescription": "Určuje, kdy se při úpravách poznámky objeví menší, zjednodušený nástrojový řádek.",
-  "penOnlyInputDescription": "Zabraňuje náhodným značkám z vaší ruky nebo myši výběrem, kdy může kreslit pouze vstup pera.",
-  "showPenOnlyToggleDescription": "Zobrazí rychlý přepnutí v editoru poté, co Butterfly detekuje per.",
-  "ignorePressureDescription": "Určuje, zda tlak kotce mění zdvih a funguje kolem nepřesných hodnot tlaku z některých kotců.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Umožňuje vícenásobné dotykové gesta přesunout plátno místo interakce s obsahem poznámek.",
   "spreadPagesDescription": "Rozdělí vícestránkové importy na samostatné stránky poznámek namísto umístění vše na jednu stránku.",
   "shear": "Smyk"
