@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Инверсия ручки",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Ластик",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
-  "penOnlyInput": "Только ввод ручки",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Автоматически включать режим \"только ручкой\" при обнаружении стилуса. Этот параметр длится только для текущей сессии.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Всегда отклонять ввод касания и мыши, принимать только ввод стилуса.",
   "penOnlyInputOffDescription": "Принимать все типы ввода, включая касание, мышь и стиль.",
   "automatic": "Автоматически",
   "alwaysOn": "Всегда включен",
   "alwaysOff": "Всегда выкл",
-  "showPenOnlyToggle": "Показывать переключатель только пера",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Жесты ввода",
   "inputGesturesDescription": "Позволяет перемещать и масштабировать холст с помощью жестов касания, даже если выбран инструмент рисования.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Игнорирует первое измерение давления, которое может быть неточным на некоторых ручках.",
-  "ignorePressureNeverDescription": "Использует любое давление из ручки.",
-  "ignorePressureAlwaysDescription": "Игнорирует давление и лечит ручку при полном нажатии.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Временно",
   "simpleToolbarVisibility": "Простая видимость панели инструментов",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Показывает постоянную панель навигации на широких экранах для более быстрого доступа к разделам приложений.",
   "optionsPanelPositionDescription": "Выберите, будут ли параметры инструмента отображаться выше или под холстом.",
   "simpleToolbarVisibilityDescription": "Управляет, когда при редактировании заметки появляется меньшая упрощенная панель инструментов.",
-  "penOnlyInputDescription": "Предотвращает случайные отметки от руки или мышки, выбрав, когда может нарисовать только перо.",
-  "showPenOnlyToggleDescription": "Показывает быстрый переключатель только ручки в редакторе после обнаружения Бабочки.",
-  "ignorePressureDescription": "Управляет, изменяет ли давление пера ход и работает вокруг неточных показаний давления из некоторых ручек.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Позволяет многокасательно жестов перемещать холст вместо взаимодействия с содержимым заметок.",
   "spreadPagesDescription": "Разделяет многостраничные импорты на отдельные страницы заметок вместо размещения всего на одной странице.",
   "shear": "Срез"
