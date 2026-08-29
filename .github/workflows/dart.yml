@@ -1,9 +1,6 @@
 name: Dart quality
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
+on: [push, pull_request]
 
 permissions:
   contents: read

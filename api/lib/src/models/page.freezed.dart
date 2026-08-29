@@ -29,16 +29,21 @@ $DocumentPageCopyWith<DocumentPage> get copyWith => _$DocumentPageCopyWithImpl<D
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentPage&&const DeepCollectionEquality().equals(other.animations, animations)&&const DeepCollectionEquality().equals(other.layers, layers)&&const DeepCollectionEquality().equals(other.backgrounds, backgrounds)&&const DeepCollectionEquality().equals(other.waypoints, waypoints)&&const DeepCollectionEquality().equals(other.areas, areas)&&const DeepCollectionEquality().equals(other.extra, extra));
+  final _this = this as DocumentPage;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentPage&&const DeepCollectionEquality().equals(other.animations, _this.animations)&&const DeepCollectionEquality().equals(other.layers, _this.layers)&&const DeepCollectionEquality().equals(other.backgrounds, _this.backgrounds)&&const DeepCollectionEquality().equals(other.waypoints, _this.waypoints)&&const DeepCollectionEquality().equals(other.areas, _this.areas)&&const DeepCollectionEquality().equals(other.extra, _this.extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(animations),const DeepCollectionEquality().hash(layers),const DeepCollectionEquality().hash(backgrounds),const DeepCollectionEquality().hash(waypoints),const DeepCollectionEquality().hash(areas),const DeepCollectionEquality().hash(extra));
+int get hashCode {
+  final _this = this as DocumentPage;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.animations),const DeepCollectionEquality().hash(_this.layers),const DeepCollectionEquality().hash(_this.backgrounds),const DeepCollectionEquality().hash(_this.waypoints),const DeepCollectionEquality().hash(_this.areas),const DeepCollectionEquality().hash(_this.extra));
+}
 
 @override
 String toString() {
-  return 'DocumentPage(animations: $animations, layers: $layers, backgrounds: $backgrounds, waypoints: $waypoints, areas: $areas, extra: $extra)';
+  final _this = this as DocumentPage;
+  return 'DocumentPage(animations: ${_this.animations}, layers: ${_this.layers}, backgrounds: ${_this.backgrounds}, waypoints: ${_this.waypoints}, areas: ${_this.areas}, extra: ${_this.extra})';
 }
 
 
@@ -145,16 +150,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentPage&&const DeepCollectionEquality().equals(other._animations, _animations)&&const DeepCollectionEquality().equals(other._layers, _layers)&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds)&&const DeepCollectionEquality().equals(other._waypoints, _waypoints)&&const DeepCollectionEquality().equals(other._areas, _areas)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentPage&&const DeepCollectionEquality().equals(other.animations, _animations)&&const DeepCollectionEquality().equals(other.layers, _layers)&&const DeepCollectionEquality().equals(other.backgrounds, _backgrounds)&&const DeepCollectionEquality().equals(other.waypoints, _waypoints)&&const DeepCollectionEquality().equals(other.areas, _areas)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_animations),const DeepCollectionEquality().hash(_layers),const DeepCollectionEquality().hash(_backgrounds),const DeepCollectionEquality().hash(_waypoints),const DeepCollectionEquality().hash(_areas),const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_animations),const DeepCollectionEquality().hash(_layers),const DeepCollectionEquality().hash(_backgrounds),const DeepCollectionEquality().hash(_waypoints),const DeepCollectionEquality().hash(_areas),const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'DocumentPage(animations: $animations, layers: $layers, backgrounds: $backgrounds, waypoints: $waypoints, areas: $areas, extra: $extra)';
+    return 'DocumentPage(animations: $animations, layers: $layers, backgrounds: $backgrounds, waypoints: $waypoints, areas: $areas, extra: $extra)';
 }
 
 
@@ -214,16 +221,21 @@ $DocumentLayerCopyWith<DocumentLayer> get copyWith => _$DocumentLayerCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentLayer&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.content, content));
+  final _this = this as DocumentLayer;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentLayer&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.content, _this.content));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(content));
+int get hashCode {
+  final _this = this as DocumentLayer;
+  return Object.hash(runtimeType,_this.id,_this.name,const DeepCollectionEquality().hash(_this.content));
+}
 
 @override
 String toString() {
-  return 'DocumentLayer(id: $id, name: $name, content: $content)';
+  final _this = this as DocumentLayer;
+  return 'DocumentLayer(id: ${_this.id}, name: ${_this.name}, content: ${_this.content})';
 }
 
 
@@ -294,16 +306,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentLayer&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._content, _content));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentLayer&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.content, _content));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_content));
+int get hashCode {
+    return Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_content));
+}
 
 @override
 String toString() {
-  return 'DocumentLayer(id: $id, name: $name, content: $content)';
+    return 'DocumentLayer(id: $id, name: $name, content: $content)';
 }
 
 

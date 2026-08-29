@@ -29,16 +29,21 @@ $DocumentInfoCopyWith<DocumentInfo> get copyWith => _$DocumentInfoCopyWithImpl<D
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentInfo&&const DeepCollectionEquality().equals(other.tools, tools)&&const DeepCollectionEquality().equals(other.exportPresets, exportPresets)&&const DeepCollectionEquality().equals(other.extra, extra));
+  final _this = this as DocumentInfo;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentInfo&&const DeepCollectionEquality().equals(other.tools, _this.tools)&&const DeepCollectionEquality().equals(other.exportPresets, _this.exportPresets)&&const DeepCollectionEquality().equals(other.extra, _this.extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tools),const DeepCollectionEquality().hash(exportPresets),const DeepCollectionEquality().hash(extra));
+int get hashCode {
+  final _this = this as DocumentInfo;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.tools),const DeepCollectionEquality().hash(_this.exportPresets),const DeepCollectionEquality().hash(_this.extra));
+}
 
 @override
 String toString() {
-  return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, extra: $extra)';
+  final _this = this as DocumentInfo;
+  return 'DocumentInfo(tools: ${_this.tools}, exportPresets: ${_this.exportPresets}, extra: ${_this.extra})';
 }
 
 
@@ -121,16 +126,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentInfo&&const DeepCollectionEquality().equals(other._tools, _tools)&&const DeepCollectionEquality().equals(other._exportPresets, _exportPresets)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentInfo&&const DeepCollectionEquality().equals(other.tools, _tools)&&const DeepCollectionEquality().equals(other.exportPresets, _exportPresets)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools),const DeepCollectionEquality().hash(_exportPresets),const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools),const DeepCollectionEquality().hash(_exportPresets),const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, extra: $extra)';
+    return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, extra: $extra)';
 }
 
 

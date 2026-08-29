@@ -21,7 +21,7 @@ mixin _$SearchResult {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchResult);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchResult);
 }
 
 
@@ -30,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SearchResult()';
+    return 'SearchResult()';
 }
 
 
@@ -62,16 +62,18 @@ $PageResultCopyWith<PageResult> get copyWith => _$PageResultCopyWithImpl<PageRes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageResult&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageResult&&(identical(other.name, name) || other.name == name));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'SearchResult.page(name: $name)';
+    return 'SearchResult.page(name: $name)';
 }
 
 
@@ -131,16 +133,18 @@ $ElementResultCopyWith<ElementResult> get copyWith => _$ElementResultCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementResult&&(identical(other.text, text) || other.text == text)&&(identical(other.page, page) || other.page == page)&&(identical(other.position, position) || other.position == position)&&(identical(other.element, element) || other.element == element));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementResult&&(identical(other.text, text) || other.text == text)&&(identical(other.page, page) || other.page == page)&&(identical(other.position, position) || other.position == position)&&(identical(other.element, element) || other.element == element));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,text,page,position,element);
+int get hashCode {
+    return Object.hash(runtimeType,text,page,position,element);
+}
 
 @override
 String toString() {
-  return 'SearchResult.element(text: $text, page: $page, position: $position, element: $element)';
+    return 'SearchResult.element(text: $text, page: $page, position: $position, element: $element)';
 }
 
 
@@ -210,16 +214,18 @@ $AreaResultCopyWith<AreaResult> get copyWith => _$AreaResultCopyWithImpl<AreaRes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaResult&&(identical(other.area, area) || other.area == area)&&(identical(other.page, page) || other.page == page));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaResult&&(identical(other.area, area) || other.area == area)&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,area,page);
+int get hashCode {
+    return Object.hash(runtimeType,area,page);
+}
 
 @override
 String toString() {
-  return 'SearchResult.area(area: $area, page: $page)';
+    return 'SearchResult.area(area: $area, page: $page)';
 }
 
 
@@ -287,16 +293,18 @@ $WaypointResultCopyWith<WaypointResult> get copyWith => _$WaypointResultCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointResult&&(identical(other.waypoint, waypoint) || other.waypoint == waypoint)&&(identical(other.page, page) || other.page == page));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointResult&&(identical(other.waypoint, waypoint) || other.waypoint == waypoint)&&(identical(other.page, page) || other.page == page));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,waypoint,page);
+int get hashCode {
+    return Object.hash(runtimeType,waypoint,page);
+}
 
 @override
 String toString() {
-  return 'SearchResult.waypoint(waypoint: $waypoint, page: $page)';
+    return 'SearchResult.waypoint(waypoint: $waypoint, page: $page)';
 }
 
 
@@ -365,16 +373,18 @@ $ToolResultCopyWith<ToolResult> get copyWith => _$ToolResultCopyWithImpl<ToolRes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolResult&&(identical(other.name, name) || other.name == name)&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.index, index) || other.index == index));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolResult&&(identical(other.name, name) || other.name == name)&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.index, index) || other.index == index));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,tool,index);
+int get hashCode {
+    return Object.hash(runtimeType,name,tool,index);
+}
 
 @override
 String toString() {
-  return 'SearchResult.tool(name: $name, tool: $tool, index: $index)';
+    return 'SearchResult.tool(name: $name, tool: $tool, index: $index)';
 }
 
 

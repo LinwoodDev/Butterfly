@@ -28,23 +28,29 @@ $NetworkingUserCopyWith<NetworkingUser> get copyWith => _$NetworkingUserCopyWith
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as NetworkingUser;
   properties
     ..add(DiagnosticsProperty('type', 'NetworkingUser'))
-    ..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('foreground', foreground))..add(DiagnosticsProperty('name', name));
+    ..add(DiagnosticsProperty('cursor', _this.cursor))..add(DiagnosticsProperty('foreground', _this.foreground))..add(DiagnosticsProperty('name', _this.name));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkingUser&&(identical(other.cursor, cursor) || other.cursor == cursor)&&const DeepCollectionEquality().equals(other.foreground, foreground)&&(identical(other.name, name) || other.name == name));
+  final _this = this as NetworkingUser;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkingUser&&(identical(other.cursor, _this.cursor) || other.cursor == _this.cursor)&&const DeepCollectionEquality().equals(other.foreground, _this.foreground)&&(identical(other.name, _this.name) || other.name == _this.name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,cursor,const DeepCollectionEquality().hash(foreground),name);
+int get hashCode {
+  final _this = this as NetworkingUser;
+  return Object.hash(runtimeType,_this.cursor,const DeepCollectionEquality().hash(_this.foreground),_this.name);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'NetworkingUser(cursor: $cursor, foreground: $foreground, name: $name)';
+  final _this = this as NetworkingUser;
+  return 'NetworkingUser(cursor: ${_this.cursor}, foreground: ${_this.foreground}, name: ${_this.name})';
 }
 
 
@@ -116,23 +122,25 @@ Map<String, dynamic> toJson() {
 }
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'NetworkingUser'))
     ..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('foreground', foreground))..add(DiagnosticsProperty('name', name));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NetworkingUser&&(identical(other.cursor, cursor) || other.cursor == cursor)&&const DeepCollectionEquality().equals(other._foreground, _foreground)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NetworkingUser&&(identical(other.cursor, cursor) || other.cursor == cursor)&&const DeepCollectionEquality().equals(other.foreground, _foreground)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,cursor,const DeepCollectionEquality().hash(_foreground),name);
+int get hashCode {
+    return Object.hash(runtimeType,cursor,const DeepCollectionEquality().hash(_foreground),name);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'NetworkingUser(cursor: $cursor, foreground: $foreground, name: $name)';
+    return 'NetworkingUser(cursor: $cursor, foreground: $foreground, name: $name)';
 }
 
 

@@ -28,7 +28,8 @@ $CameraViewportCopyWith<CameraViewport> get copyWith => _$CameraViewportCopyWith
 
 @override
 String toString() {
-  return 'CameraViewport(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
+  final _this = this as CameraViewport;
+  return 'CameraViewport(backgrounds: ${_this.backgrounds}, bakedElements: ${_this.bakedElements}, unbakedElements: ${_this.unbakedElements}, visibleElements: ${_this.visibleElements}, visibleUnbakedElements: ${_this.visibleUnbakedElements}, width: ${_this.width}, height: ${_this.height}, viewportSize: ${_this.viewportSize}, pixelRatio: ${_this.pixelRatio}, scale: ${_this.scale}, x: ${_this.x}, y: ${_this.y}, resolution: ${_this.resolution}, rendererStates: ${_this.rendererStates}, invisibleLayers: ${_this.invisibleLayers}, image: ${_this.image}, belowLayerImage: ${_this.belowLayerImage}, aboveLayerImage: ${_this.aboveLayerImage})';
 }
 
 
@@ -164,7 +165,7 @@ $CameraViewportUnbakedCopyWith<CameraViewportUnbaked> get copyWith => _$CameraVi
 
 @override
 String toString() {
-  return 'CameraViewport.unbaked(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
+    return 'CameraViewport.unbaked(backgrounds: $backgrounds, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, scale: $scale, x: $x, y: $y, resolution: $resolution, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage)';
 }
 
 
@@ -299,7 +300,7 @@ $CameraViewportBakedCopyWith<CameraViewportBaked> get copyWith => _$CameraViewpo
 
 @override
 String toString() {
-  return 'CameraViewport.baked(backgrounds: $backgrounds, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, scale: $scale, x: $x, resolution: $resolution, y: $y, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers)';
+    return 'CameraViewport.baked(backgrounds: $backgrounds, image: $image, belowLayerImage: $belowLayerImage, aboveLayerImage: $aboveLayerImage, width: $width, height: $height, viewportSize: $viewportSize, pixelRatio: $pixelRatio, bakedElements: $bakedElements, unbakedElements: $unbakedElements, visibleElements: $visibleElements, visibleUnbakedElements: $visibleUnbakedElements, scale: $scale, x: $x, resolution: $resolution, y: $y, rendererStates: $rendererStates, invisibleLayers: $invisibleLayers)';
 }
 
 

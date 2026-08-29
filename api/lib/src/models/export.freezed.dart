@@ -29,16 +29,21 @@ $ExportPaddingCopyWith<ExportPadding> get copyWith => _$ExportPaddingCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPadding&&(identical(other.top, top) || other.top == top)&&(identical(other.right, right) || other.right == right)&&(identical(other.bottom, bottom) || other.bottom == bottom)&&(identical(other.left, left) || other.left == left));
+  final _this = this as ExportPadding;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPadding&&(identical(other.top, _this.top) || other.top == _this.top)&&(identical(other.right, _this.right) || other.right == _this.right)&&(identical(other.bottom, _this.bottom) || other.bottom == _this.bottom)&&(identical(other.left, _this.left) || other.left == _this.left));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,top,right,bottom,left);
+int get hashCode {
+  final _this = this as ExportPadding;
+  return Object.hash(runtimeType,_this.top,_this.right,_this.bottom,_this.left);
+}
 
 @override
 String toString() {
-  return 'ExportPadding(top: $top, right: $right, bottom: $bottom, left: $left)';
+  final _this = this as ExportPadding;
+  return 'ExportPadding(top: ${_this.top}, right: ${_this.right}, bottom: ${_this.bottom}, left: ${_this.left})';
 }
 
 
@@ -105,16 +110,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportPadding&&(identical(other.top, top) || other.top == top)&&(identical(other.right, right) || other.right == right)&&(identical(other.bottom, bottom) || other.bottom == bottom)&&(identical(other.left, left) || other.left == left));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportPadding&&(identical(other.top, top) || other.top == top)&&(identical(other.right, right) || other.right == right)&&(identical(other.bottom, bottom) || other.bottom == bottom)&&(identical(other.left, left) || other.left == left));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,top,right,bottom,left);
+int get hashCode {
+    return Object.hash(runtimeType,top,right,bottom,left);
+}
 
 @override
 String toString() {
-  return 'ExportPadding(top: $top, right: $right, bottom: $bottom, left: $left)';
+    return 'ExportPadding(top: $top, right: $right, bottom: $bottom, left: $left)';
 }
 
 
@@ -195,16 +202,21 @@ $ExportOptionsCopyWith<ExportOptions> get copyWith => _$ExportOptionsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+  final _this = this as ExportOptions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportOptions&&(identical(other.width, _this.width) || other.width == _this.width)&&(identical(other.height, _this.height) || other.height == _this.height)&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y)&&(identical(other.scale, _this.scale) || other.scale == _this.scale)&&(identical(other.rotation, _this.rotation) || other.rotation == _this.rotation)&&(identical(other.padding, _this.padding) || other.padding == _this.padding)&&(identical(other.renderBackground, _this.renderBackground) || other.renderBackground == _this.renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,renderBackground);
+int get hashCode {
+  final _this = this as ExportOptions;
+  return Object.hash(runtimeType,_this.width,_this.height,_this.x,_this.y,_this.scale,_this.rotation,_this.padding,_this.renderBackground);
+}
 
 @override
 String toString() {
-  return 'ExportOptions(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, renderBackground: $renderBackground)';
+  final _this = this as ExportOptions;
+  return 'ExportOptions(width: ${_this.width}, height: ${_this.height}, x: ${_this.x}, y: ${_this.y}, scale: ${_this.scale}, rotation: ${_this.rotation}, padding: ${_this.padding}, renderBackground: ${_this.renderBackground})';
 }
 
 
@@ -293,16 +305,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,quality,renderBackground);
+int get hashCode {
+    return Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,quality,renderBackground);
+}
 
 @override
 String toString() {
-  return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, quality: $quality, renderBackground: $renderBackground)';
+    return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, quality: $quality, renderBackground: $renderBackground)';
 }
 
 
@@ -390,16 +404,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgExportOptions&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.padding, padding) || other.padding == padding)&&(identical(other.renderBackground, renderBackground) || other.renderBackground == renderBackground));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,renderBackground);
+int get hashCode {
+    return Object.hash(runtimeType,width,height,x,y,scale,rotation,padding,renderBackground);
+}
 
 @override
 String toString() {
-  return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, renderBackground: $renderBackground)';
+    return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, scale: $scale, rotation: $rotation, padding: $padding, renderBackground: $renderBackground)';
 }
 
 
@@ -470,16 +486,21 @@ $ExportPresetCopyWith<ExportPreset> get copyWith => _$ExportPresetCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPreset&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.areas, areas));
+  final _this = this as ExportPreset;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPreset&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.areas, _this.areas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(areas));
+int get hashCode {
+  final _this = this as ExportPreset;
+  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.areas));
+}
 
 @override
 String toString() {
-  return 'ExportPreset(name: $name, areas: $areas)';
+  final _this = this as ExportPreset;
+  return 'ExportPreset(name: ${_this.name}, areas: ${_this.areas})';
 }
 
 
@@ -548,16 +569,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportPreset&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._areas, _areas));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportPreset&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.areas, _areas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_areas));
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_areas));
+}
 
 @override
 String toString() {
-  return 'ExportPreset(name: $name, areas: $areas)';
+    return 'ExportPreset(name: $name, areas: $areas)';
 }
 
 
@@ -613,16 +636,21 @@ $AreaPresetCopyWith<AreaPreset> get copyWith => _$AreaPresetCopyWithImpl<AreaPre
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaPreset&&(identical(other.page, page) || other.page == page)&&(identical(other.name, name) || other.name == name)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.area, area) || other.area == area));
+  final _this = this as AreaPreset;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaPreset&&(identical(other.page, _this.page) || other.page == _this.page)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.quality, _this.quality) || other.quality == _this.quality)&&(identical(other.area, _this.area) || other.area == _this.area));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,name,quality,area);
+int get hashCode {
+  final _this = this as AreaPreset;
+  return Object.hash(runtimeType,_this.page,_this.name,_this.quality,_this.area);
+}
 
 @override
 String toString() {
-  return 'AreaPreset(page: $page, name: $name, quality: $quality, area: $area)';
+  final _this = this as AreaPreset;
+  return 'AreaPreset(page: ${_this.page}, name: ${_this.name}, quality: ${_this.quality}, area: ${_this.area})';
 }
 
 
@@ -701,16 +729,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaPreset&&(identical(other.page, page) || other.page == page)&&(identical(other.name, name) || other.name == name)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.area, area) || other.area == area));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaPreset&&(identical(other.page, page) || other.page == page)&&(identical(other.name, name) || other.name == name)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.area, area) || other.area == area));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,name,quality,area);
+int get hashCode {
+    return Object.hash(runtimeType,page,name,quality,area);
+}
 
 @override
 String toString() {
-  return 'AreaPreset(page: $page, name: $name, quality: $quality, area: $area)';
+    return 'AreaPreset(page: $page, name: $name, quality: $quality, area: $area)';
 }
 
 

@@ -25,16 +25,18 @@ $RendererRuntimeStateCopyWith<RendererRuntimeState> get copyWith => _$RendererRu
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as RendererRuntimeState;
   properties
     ..add(DiagnosticsProperty('type', 'RendererRuntimeState'))
-    ..add(DiagnosticsProperty('cameraViewport', cameraViewport))..add(DiagnosticsProperty('rendererStates', rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', temporaryRendererStates));
+    ..add(DiagnosticsProperty('cameraViewport', _this.cameraViewport))..add(DiagnosticsProperty('rendererStates', _this.rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', _this.temporaryRendererStates));
 }
 
 
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'RendererRuntimeState(cameraViewport: $cameraViewport, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates)';
+  final _this = this as RendererRuntimeState;
+  return 'RendererRuntimeState(cameraViewport: ${_this.cameraViewport}, rendererStates: ${_this.rendererStates}, temporaryRendererStates: ${_this.temporaryRendererStates})';
 }
 
 
@@ -118,7 +120,7 @@ _$RendererRuntimeStateCopyWith<_RendererRuntimeState> get copyWith => __$Rendere
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'RendererRuntimeState'))
     ..add(DiagnosticsProperty('cameraViewport', cameraViewport))..add(DiagnosticsProperty('rendererStates', rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', temporaryRendererStates));
 }
@@ -127,7 +129,7 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'RendererRuntimeState(cameraViewport: $cameraViewport, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates)';
+    return 'RendererRuntimeState(cameraViewport: $cameraViewport, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates)';
 }
 
 
@@ -189,16 +191,18 @@ $ToolRuntimeStateCopyWith<ToolRuntimeState> get copyWith => _$ToolRuntimeStateCo
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as ToolRuntimeState;
   properties
     ..add(DiagnosticsProperty('type', 'ToolRuntimeState'))
-    ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('handler', handler))..add(DiagnosticsProperty('temporaryHandler', temporaryHandler))..add(DiagnosticsProperty('temporaryIndex', temporaryIndex))..add(DiagnosticsProperty('foregrounds', foregrounds))..add(DiagnosticsProperty('selection', selection))..add(DiagnosticsProperty('pinned', pinned))..add(DiagnosticsProperty('temporaryForegrounds', temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', toggleableForegrounds))..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('temporaryCursor', temporaryCursor))..add(DiagnosticsProperty('temporaryState', temporaryState))..add(DiagnosticsProperty('toolbar', toolbar))..add(DiagnosticsProperty('temporaryToolbar', temporaryToolbar));
+    ..add(DiagnosticsProperty('index', _this.index))..add(DiagnosticsProperty('handler', _this.handler))..add(DiagnosticsProperty('temporaryHandler', _this.temporaryHandler))..add(DiagnosticsProperty('temporaryIndex', _this.temporaryIndex))..add(DiagnosticsProperty('foregrounds', _this.foregrounds))..add(DiagnosticsProperty('selection', _this.selection))..add(DiagnosticsProperty('pinned', _this.pinned))..add(DiagnosticsProperty('temporaryForegrounds', _this.temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', _this.toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', _this.networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', _this.toggleableForegrounds))..add(DiagnosticsProperty('cursor', _this.cursor))..add(DiagnosticsProperty('temporaryCursor', _this.temporaryCursor))..add(DiagnosticsProperty('temporaryState', _this.temporaryState))..add(DiagnosticsProperty('toolbar', _this.toolbar))..add(DiagnosticsProperty('temporaryToolbar', _this.temporaryToolbar));
 }
 
 
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ToolRuntimeState(index: $index, handler: $handler, temporaryHandler: $temporaryHandler, temporaryIndex: $temporaryIndex, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
+  final _this = this as ToolRuntimeState;
+  return 'ToolRuntimeState(index: ${_this.index}, handler: ${_this.handler}, temporaryHandler: ${_this.temporaryHandler}, temporaryIndex: ${_this.temporaryIndex}, foregrounds: ${_this.foregrounds}, selection: ${_this.selection}, pinned: ${_this.pinned}, temporaryForegrounds: ${_this.temporaryForegrounds}, toggleableHandlers: ${_this.toggleableHandlers}, networkingForegrounds: ${_this.networkingForegrounds}, toggleableForegrounds: ${_this.toggleableForegrounds}, cursor: ${_this.cursor}, temporaryCursor: ${_this.temporaryCursor}, temporaryState: ${_this.temporaryState}, toolbar: ${_this.toolbar}, temporaryToolbar: ${_this.temporaryToolbar})';
 }
 
 
@@ -317,7 +321,7 @@ _$ToolRuntimeStateCopyWith<_ToolRuntimeState> get copyWith => __$ToolRuntimeStat
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'ToolRuntimeState'))
     ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('handler', handler))..add(DiagnosticsProperty('temporaryHandler', temporaryHandler))..add(DiagnosticsProperty('temporaryIndex', temporaryIndex))..add(DiagnosticsProperty('foregrounds', foregrounds))..add(DiagnosticsProperty('selection', selection))..add(DiagnosticsProperty('pinned', pinned))..add(DiagnosticsProperty('temporaryForegrounds', temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', toggleableForegrounds))..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('temporaryCursor', temporaryCursor))..add(DiagnosticsProperty('temporaryState', temporaryState))..add(DiagnosticsProperty('toolbar', toolbar))..add(DiagnosticsProperty('temporaryToolbar', temporaryToolbar));
 }
@@ -326,7 +330,7 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ToolRuntimeState(index: $index, handler: $handler, temporaryHandler: $temporaryHandler, temporaryIndex: $temporaryIndex, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
+    return 'ToolRuntimeState(index: $index, handler: $handler, temporaryHandler: $temporaryHandler, temporaryIndex: $temporaryIndex, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
 }
 
 
@@ -392,23 +396,29 @@ $EditorInputStateCopyWith<EditorInputState> get copyWith => _$EditorInputStateCo
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as EditorInputState;
   properties
     ..add(DiagnosticsProperty('type', 'EditorInputState'))
-    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('penDetected', penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
+    ..add(DiagnosticsProperty('lastPosition', _this.lastPosition))..add(DiagnosticsProperty('pointers', _this.pointers))..add(DiagnosticsProperty('buttons', _this.buttons))..add(DiagnosticsProperty('penDetected', _this.penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', _this.sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', _this.hideUi));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other.pointers, pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.penDetected, penDetected) || other.penDetected == penDetected)&&(identical(other.sessionPenOnlyInput, sessionPenOnlyInput) || other.sessionPenOnlyInput == sessionPenOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
+  final _this = this as EditorInputState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorInputState&&(identical(other.lastPosition, _this.lastPosition) || other.lastPosition == _this.lastPosition)&&const DeepCollectionEquality().equals(other.pointers, _this.pointers)&&(identical(other.buttons, _this.buttons) || other.buttons == _this.buttons)&&(identical(other.penDetected, _this.penDetected) || other.penDetected == _this.penDetected)&&(identical(other.sessionPenOnlyInput, _this.sessionPenOnlyInput) || other.sessionPenOnlyInput == _this.sessionPenOnlyInput)&&(identical(other.hideUi, _this.hideUi) || other.hideUi == _this.hideUi));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
+int get hashCode {
+  final _this = this as EditorInputState;
+  return Object.hash(runtimeType,_this.lastPosition,const DeepCollectionEquality().hash(_this.pointers),_this.buttons,_this.penDetected,_this.sessionPenOnlyInput,_this.hideUi);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
+  final _this = this as EditorInputState;
+  return 'EditorInputState(lastPosition: ${_this.lastPosition}, pointers: ${_this.pointers}, buttons: ${_this.buttons}, penDetected: ${_this.penDetected}, sessionPenOnlyInput: ${_this.sessionPenOnlyInput}, hideUi: ${_this.hideUi})';
 }
 
 
@@ -481,23 +491,25 @@ _$EditorInputStateCopyWith<_EditorInputState> get copyWith => __$EditorInputStat
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'EditorInputState'))
     ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('penDetected', penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other._pointers, _pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.penDetected, penDetected) || other.penDetected == penDetected)&&(identical(other.sessionPenOnlyInput, sessionPenOnlyInput) || other.sessionPenOnlyInput == sessionPenOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorInputState&&(identical(other.lastPosition, lastPosition) || other.lastPosition == lastPosition)&&const DeepCollectionEquality().equals(other.pointers, _pointers)&&(identical(other.buttons, buttons) || other.buttons == buttons)&&(identical(other.penDetected, penDetected) || other.penDetected == penDetected)&&(identical(other.sessionPenOnlyInput, sessionPenOnlyInput) || other.sessionPenOnlyInput == sessionPenOnlyInput)&&(identical(other.hideUi, hideUi) || other.hideUi == hideUi));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(_pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
+int get hashCode {
+    return Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(_pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
+    return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
 }
 
 
@@ -553,23 +565,29 @@ $DocumentSaveStateCopyWith<DocumentSaveState> get copyWith => _$DocumentSaveStat
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as DocumentSaveState;
   properties
     ..add(DiagnosticsProperty('type', 'DocumentSaveState'))
-    ..add(DiagnosticsProperty('isSaveDelayed', isSaveDelayed))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('isCreating', isCreating));
+    ..add(DiagnosticsProperty('isSaveDelayed', _this.isSaveDelayed))..add(DiagnosticsProperty('location', _this.location))..add(DiagnosticsProperty('embedding', _this.embedding))..add(DiagnosticsProperty('saved', _this.saved))..add(DiagnosticsProperty('isCreating', _this.isCreating));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentSaveState&&(identical(other.isSaveDelayed, isSaveDelayed) || other.isSaveDelayed == isSaveDelayed)&&(identical(other.location, location) || other.location == location)&&(identical(other.embedding, embedding) || other.embedding == embedding)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isCreating, isCreating) || other.isCreating == isCreating));
+  final _this = this as DocumentSaveState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentSaveState&&(identical(other.isSaveDelayed, _this.isSaveDelayed) || other.isSaveDelayed == _this.isSaveDelayed)&&(identical(other.location, _this.location) || other.location == _this.location)&&(identical(other.embedding, _this.embedding) || other.embedding == _this.embedding)&&(identical(other.saved, _this.saved) || other.saved == _this.saved)&&(identical(other.isCreating, _this.isCreating) || other.isCreating == _this.isCreating));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSaveDelayed,location,embedding,saved,isCreating);
+int get hashCode {
+  final _this = this as DocumentSaveState;
+  return Object.hash(runtimeType,_this.isSaveDelayed,_this.location,_this.embedding,_this.saved,_this.isCreating);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, saved: $saved, isCreating: $isCreating)';
+  final _this = this as DocumentSaveState;
+  return 'DocumentSaveState(isSaveDelayed: ${_this.isSaveDelayed}, location: ${_this.location}, embedding: ${_this.embedding}, saved: ${_this.saved}, isCreating: ${_this.isCreating})';
 }
 
 
@@ -634,23 +652,25 @@ _$DocumentSaveStateCopyWith<_DocumentSaveState> get copyWith => __$DocumentSaveS
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'DocumentSaveState'))
     ..add(DiagnosticsProperty('isSaveDelayed', isSaveDelayed))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('isCreating', isCreating));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentSaveState&&(identical(other.isSaveDelayed, isSaveDelayed) || other.isSaveDelayed == isSaveDelayed)&&(identical(other.location, location) || other.location == location)&&(identical(other.embedding, embedding) || other.embedding == embedding)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isCreating, isCreating) || other.isCreating == isCreating));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentSaveState&&(identical(other.isSaveDelayed, isSaveDelayed) || other.isSaveDelayed == isSaveDelayed)&&(identical(other.location, location) || other.location == location)&&(identical(other.embedding, embedding) || other.embedding == embedding)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isCreating, isCreating) || other.isCreating == isCreating));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSaveDelayed,location,embedding,saved,isCreating);
+int get hashCode {
+    return Object.hash(runtimeType,isSaveDelayed,location,embedding,saved,isCreating);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, saved: $saved, isCreating: $isCreating)';
+    return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, saved: $saved, isCreating: $isCreating)';
 }
 
 
@@ -705,23 +725,29 @@ $EditorViewStateCopyWith<EditorViewState> get copyWith => _$EditorViewStateCopyW
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as EditorViewState;
   properties
     ..add(DiagnosticsProperty('type', 'EditorViewState'))
-    ..add(DiagnosticsProperty('locks', locks))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
+    ..add(DiagnosticsProperty('locks', _this.locks))..add(DiagnosticsProperty('areaNavigatorCreate', _this.areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', _this.areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', _this.areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', _this.navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', _this.navigatorPage))..add(DiagnosticsProperty('userName', _this.userName));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorViewState&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
+  final _this = this as EditorViewState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorViewState&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.areaNavigatorCreate, _this.areaNavigatorCreate) || other.areaNavigatorCreate == _this.areaNavigatorCreate)&&(identical(other.areaNavigatorExact, _this.areaNavigatorExact) || other.areaNavigatorExact == _this.areaNavigatorExact)&&(identical(other.areaNavigatorAsk, _this.areaNavigatorAsk) || other.areaNavigatorAsk == _this.areaNavigatorAsk)&&(identical(other.navigatorEnabled, _this.navigatorEnabled) || other.navigatorEnabled == _this.navigatorEnabled)&&(identical(other.navigatorPage, _this.navigatorPage) || other.navigatorPage == _this.navigatorPage)&&(identical(other.userName, _this.userName) || other.userName == _this.userName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,locks,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
+int get hashCode {
+  final _this = this as EditorViewState;
+  return Object.hash(runtimeType,_this.locks,_this.areaNavigatorCreate,_this.areaNavigatorExact,_this.areaNavigatorAsk,_this.navigatorEnabled,_this.navigatorPage,_this.userName);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorViewState(locks: $locks, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
+  final _this = this as EditorViewState;
+  return 'EditorViewState(locks: ${_this.locks}, areaNavigatorCreate: ${_this.areaNavigatorCreate}, areaNavigatorExact: ${_this.areaNavigatorExact}, areaNavigatorAsk: ${_this.areaNavigatorAsk}, navigatorEnabled: ${_this.navigatorEnabled}, navigatorPage: ${_this.navigatorPage}, userName: ${_this.userName})';
 }
 
 
@@ -799,23 +825,25 @@ _$EditorViewStateCopyWith<_EditorViewState> get copyWith => __$EditorViewStateCo
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'EditorViewState'))
     ..add(DiagnosticsProperty('locks', locks))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorViewState&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorViewState&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,locks,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
+int get hashCode {
+    return Object.hash(runtimeType,locks,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorViewState(locks: $locks, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
+    return 'EditorViewState(locks: $locks, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
 }
 
 

@@ -29,16 +29,21 @@ $InitialAreaDetailsCopyWith<InitialAreaDetails> get copyWith => _$InitialAreaDet
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitialAreaDetails&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.name, name) || other.name == name));
+  final _this = this as InitialAreaDetails;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitialAreaDetails&&(identical(other.width, _this.width) || other.width == _this.width)&&(identical(other.height, _this.height) || other.height == _this.height)&&(identical(other.name, _this.name) || other.name == _this.name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,name);
+int get hashCode {
+  final _this = this as InitialAreaDetails;
+  return Object.hash(runtimeType,_this.width,_this.height,_this.name);
+}
 
 @override
 String toString() {
-  return 'InitialAreaDetails(width: $width, height: $height, name: $name)';
+  final _this = this as InitialAreaDetails;
+  return 'InitialAreaDetails(width: ${_this.width}, height: ${_this.height}, name: ${_this.name})';
 }
 
 
@@ -103,16 +108,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InitialAreaDetails&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InitialAreaDetails&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,height,name);
+int get hashCode {
+    return Object.hash(runtimeType,width,height,name);
+}
 
 @override
 String toString() {
-  return 'InitialAreaDetails(width: $width, height: $height, name: $name)';
+    return 'InitialAreaDetails(width: $width, height: $height, name: $name)';
 }
 
 
@@ -169,16 +176,21 @@ $PageAddedDetailsCopyWith<PageAddedDetails> get copyWith => _$PageAddedDetailsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.initialArea, initialArea) || other.initialArea == initialArea));
+  final _this = this as PageAddedDetails;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAddedDetails&&(identical(other.index, _this.index) || other.index == _this.index)&&(identical(other.page, _this.page) || other.page == _this.page)&&(identical(other.addNumber, _this.addNumber) || other.addNumber == _this.addNumber)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.initialArea, _this.initialArea) || other.initialArea == _this.initialArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,page,addNumber,name,initialArea);
+int get hashCode {
+  final _this = this as PageAddedDetails;
+  return Object.hash(runtimeType,_this.index,_this.page,_this.addNumber,_this.name,_this.initialArea);
+}
 
 @override
 String toString() {
-  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name, initialArea: $initialArea)';
+  final _this = this as PageAddedDetails;
+  return 'PageAddedDetails(index: ${_this.index}, page: ${_this.page}, addNumber: ${_this.addNumber}, name: ${_this.name}, initialArea: ${_this.initialArea})';
 }
 
 
@@ -271,16 +283,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.initialArea, initialArea) || other.initialArea == initialArea));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.initialArea, initialArea) || other.initialArea == initialArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,page,addNumber,name,initialArea);
+int get hashCode {
+    return Object.hash(runtimeType,index,page,addNumber,name,initialArea);
+}
 
 @override
 String toString() {
-  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name, initialArea: $initialArea)';
+    return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name, initialArea: $initialArea)';
 }
 
 
@@ -593,7 +607,7 @@ mixin _$DocumentEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentEvent);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentEvent);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -602,7 +616,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DocumentEvent()';
+    return 'DocumentEvent()';
 }
 
 
@@ -647,16 +661,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PagesAdded&&const DeepCollectionEquality().equals(other._pages, _pages));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PagesAdded&&const DeepCollectionEquality().equals(other.pages, _pages));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_pages));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_pages));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.pagesAdded(pages: $pages)';
+    return 'DocumentEvent.pagesAdded(pages: $pages)';
 }
 
 
@@ -720,16 +736,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageChanged&&(identical(other.pageName, pageName) || other.pageName == pageName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageChanged&&(identical(other.pageName, pageName) || other.pageName == pageName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,pageName);
+int get hashCode {
+    return Object.hash(runtimeType,pageName);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.pageChanged(pageName: $pageName)';
+    return 'DocumentEvent.pageChanged(pageName: $pageName)';
 }
 
 
@@ -794,16 +812,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageReordered&&(identical(other.page, page) || other.page == page)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageReordered&&(identical(other.page, page) || other.page == page)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,newIndex);
+int get hashCode {
+    return Object.hash(runtimeType,page,newIndex);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.pageReordered(page: $page, newIndex: $newIndex)';
+    return 'DocumentEvent.pageReordered(page: $page, newIndex: $newIndex)';
 }
 
 
@@ -869,16 +889,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageRenamed&&(identical(other.oldName, oldName) || other.oldName == oldName)&&(identical(other.newName, newName) || other.newName == newName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageRenamed&&(identical(other.oldName, oldName) || other.oldName == oldName)&&(identical(other.newName, newName) || other.newName == newName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,oldName,newName);
+int get hashCode {
+    return Object.hash(runtimeType,oldName,newName);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.pageRenamed(oldName: $oldName, newName: $newName)';
+    return 'DocumentEvent.pageRenamed(oldName: $oldName, newName: $newName)';
 }
 
 
@@ -943,16 +965,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageRemoved&&(identical(other.page, page) || other.page == page));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageRemoved&&(identical(other.page, page) || other.page == page));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page);
+int get hashCode {
+    return Object.hash(runtimeType,page);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.pageRemoved(page: $page)';
+    return 'DocumentEvent.pageRemoved(page: $page)';
 }
 
 
@@ -1016,16 +1040,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThumbnailCaptured&&const DeepCollectionEquality().equals(other.data, data));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ThumbnailCaptured&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.thumbnailCaptured(data: $data)';
+    return 'DocumentEvent.thumbnailCaptured(data: $data)';
 }
 
 
@@ -1102,16 +1128,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsCreated&&const DeepCollectionEquality().equals(other._elements, _elements)&&const DeepCollectionEquality().equals(other._assets, _assets));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsCreated&&const DeepCollectionEquality().equals(other.elements, _elements)&&const DeepCollectionEquality().equals(other.assets, _assets));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),const DeepCollectionEquality().hash(_assets));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),const DeepCollectionEquality().hash(_assets));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsCreated(elements: $elements, assets: $assets)';
+    return 'DocumentEvent.elementsCreated(elements: $elements, assets: $assets)';
 }
 
 
@@ -1182,16 +1210,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsChanged&&const DeepCollectionEquality().equals(other._elements, _elements));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsChanged&&const DeepCollectionEquality().equals(other.elements, _elements));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsChanged(elements: $elements)';
+    return 'DocumentEvent.elementsChanged(elements: $elements)';
 }
 
 
@@ -1261,16 +1291,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsRemoved&&const DeepCollectionEquality().equals(other._elements, _elements));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsRemoved&&const DeepCollectionEquality().equals(other.elements, _elements));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsRemoved(elements: $elements)';
+    return 'DocumentEvent.elementsRemoved(elements: $elements)';
 }
 
 
@@ -1341,16 +1373,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsArranged&&(identical(other.arrangement, arrangement) || other.arrangement == arrangement)&&const DeepCollectionEquality().equals(other._elements, _elements));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsArranged&&(identical(other.arrangement, arrangement) || other.arrangement == arrangement)&&const DeepCollectionEquality().equals(other.elements, _elements));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,arrangement,const DeepCollectionEquality().hash(_elements));
+int get hashCode {
+    return Object.hash(runtimeType,arrangement,const DeepCollectionEquality().hash(_elements));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsArranged(arrangement: $arrangement, elements: $elements)';
+    return 'DocumentEvent.elementsArranged(arrangement: $arrangement, elements: $elements)';
 }
 
 
@@ -1416,16 +1450,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentDescriptionChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentDescriptionChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description);
+int get hashCode {
+    return Object.hash(runtimeType,name,description);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.documentDescriptionChanged(name: $name, description: $description)';
+    return 'DocumentEvent.documentDescriptionChanged(name: $name, description: $description)';
 }
 
 
@@ -1490,16 +1526,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolCreated&&(identical(other.tool, tool) || other.tool == tool));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolCreated&&(identical(other.tool, tool) || other.tool == tool));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,tool);
+int get hashCode {
+    return Object.hash(runtimeType,tool);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.toolCreated(tool: $tool)';
+    return 'DocumentEvent.toolCreated(tool: $tool)';
 }
 
 
@@ -1578,16 +1616,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsChanged&&const DeepCollectionEquality().equals(other._tools, _tools));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsChanged&&const DeepCollectionEquality().equals(other.tools, _tools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.toolsChanged(tools: $tools)';
+    return 'DocumentEvent.toolsChanged(tools: $tools)';
 }
 
 
@@ -1657,16 +1697,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsRemoved&&const DeepCollectionEquality().equals(other._tools, _tools));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsRemoved&&const DeepCollectionEquality().equals(other.tools, _tools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.toolsRemoved(tools: $tools)';
+    return 'DocumentEvent.toolsRemoved(tools: $tools)';
 }
 
 
@@ -1736,16 +1778,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsReplaced&&const DeepCollectionEquality().equals(other._tools, _tools));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsReplaced&&const DeepCollectionEquality().equals(other.tools, _tools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.toolsReplaced(tools: $tools)';
+    return 'DocumentEvent.toolsReplaced(tools: $tools)';
 }
 
 
@@ -1810,16 +1854,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolReordered&&(identical(other.id, id) || other.id == id)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolReordered&&(identical(other.id, id) || other.id == id)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,newIndex);
+int get hashCode {
+    return Object.hash(runtimeType,id,newIndex);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.toolReordered(id: $id, newIndex: $newIndex)';
+    return 'DocumentEvent.toolReordered(id: $id, newIndex: $newIndex)';
 }
 
 
@@ -1890,16 +1936,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentBackgroundsChanged&&const DeepCollectionEquality().equals(other._backgrounds, _backgrounds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentBackgroundsChanged&&const DeepCollectionEquality().equals(other.backgrounds, _backgrounds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_backgrounds));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.documentBackgroundsChanged(backgrounds: $backgrounds)';
+    return 'DocumentEvent.documentBackgroundsChanged(backgrounds: $backgrounds)';
 }
 
 
@@ -1963,16 +2011,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointCreated&&(identical(other.waypoint, waypoint) || other.waypoint == waypoint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointCreated&&(identical(other.waypoint, waypoint) || other.waypoint == waypoint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,waypoint);
+int get hashCode {
+    return Object.hash(runtimeType,waypoint);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.waypointCreated(waypoint: $waypoint)';
+    return 'DocumentEvent.waypointCreated(waypoint: $waypoint)';
 }
 
 
@@ -2046,16 +2096,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.waypoint, waypoint) || other.waypoint == waypoint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.waypoint, waypoint) || other.waypoint == waypoint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,waypoint);
+int get hashCode {
+    return Object.hash(runtimeType,name,waypoint);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.waypointChanged(name: $name, waypoint: $waypoint)';
+    return 'DocumentEvent.waypointChanged(name: $name, waypoint: $waypoint)';
 }
 
 
@@ -2129,16 +2181,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoved&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointRemoved&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.waypointRemoved(name: $name)';
+    return 'DocumentEvent.waypointRemoved(name: $name)';
 }
 
 
@@ -2203,16 +2257,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointReordered&&(identical(other.name, name) || other.name == name)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is WaypointReordered&&(identical(other.name, name) || other.name == name)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,newIndex);
+int get hashCode {
+    return Object.hash(runtimeType,name,newIndex);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.waypointReordered(name: $name, newIndex: $newIndex)';
+    return 'DocumentEvent.waypointReordered(name: $name, newIndex: $newIndex)';
 }
 
 
@@ -2278,16 +2334,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CollectionRenamed&&(identical(other.oldName, oldName) || other.oldName == oldName)&&(identical(other.newName, newName) || other.newName == newName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CollectionRenamed&&(identical(other.oldName, oldName) || other.oldName == oldName)&&(identical(other.newName, newName) || other.newName == newName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,oldName,newName);
+int get hashCode {
+    return Object.hash(runtimeType,oldName,newName);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.collectionRenamed(oldName: $oldName, newName: $newName)';
+    return 'DocumentEvent.collectionRenamed(oldName: $oldName, newName: $newName)';
 }
 
 
@@ -2352,16 +2410,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CollectionElementsRemoved&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CollectionElementsRemoved&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.collectionElementsRemoved(name: $name)';
+    return 'DocumentEvent.collectionElementsRemoved(name: $name)';
 }
 
 
@@ -2425,16 +2485,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrentCollectionChanged&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrentCollectionChanged&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.currentCollectionChanged(name: $name)';
+    return 'DocumentEvent.currentCollectionChanged(name: $name)';
 }
 
 
@@ -2498,16 +2560,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrentLayerChanged&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrentLayerChanged&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.currentLayerChanged(name: $name)';
+    return 'DocumentEvent.currentLayerChanged(name: $name)';
 }
 
 
@@ -2572,16 +2636,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerCreated&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerCreated&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,id);
+int get hashCode {
+    return Object.hash(runtimeType,name,id);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.layerCreated(name: $name, id: $id)';
+    return 'DocumentEvent.layerCreated(name: $name, id: $id)';
 }
 
 
@@ -2647,16 +2713,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerChanged&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerChanged&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name);
+int get hashCode {
+    return Object.hash(runtimeType,id,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.layerChanged(id: $id, name: $name)';
+    return 'DocumentEvent.layerChanged(id: $id, name: $name)';
 }
 
 
@@ -2721,16 +2789,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerRemoved&&(identical(other.id, id) || other.id == id));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerRemoved&&(identical(other.id, id) || other.id == id));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id);
+int get hashCode {
+    return Object.hash(runtimeType,id);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.layerRemoved(id: $id)';
+    return 'DocumentEvent.layerRemoved(id: $id)';
 }
 
 
@@ -2801,16 +2871,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayersMerged&&const DeepCollectionEquality().equals(other._layers, _layers)&&(identical(other.duplicate, duplicate) || other.duplicate == duplicate));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LayersMerged&&const DeepCollectionEquality().equals(other.layers, _layers)&&(identical(other.duplicate, duplicate) || other.duplicate == duplicate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_layers),duplicate);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_layers),duplicate);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.layersMerged(layers: $layers, duplicate: $duplicate)';
+    return 'DocumentEvent.layersMerged(layers: $layers, duplicate: $duplicate)';
 }
 
 
@@ -2876,16 +2948,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerOrderChanged&&(identical(other.id, id) || other.id == id)&&(identical(other.index, index) || other.index == index));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerOrderChanged&&(identical(other.id, id) || other.id == id)&&(identical(other.index, index) || other.index == index));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,index);
+int get hashCode {
+    return Object.hash(runtimeType,id,index);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.layerOrderChanged(id: $id, index: $index)';
+    return 'DocumentEvent.layerOrderChanged(id: $id, index: $index)';
 }
 
 
@@ -2951,16 +3025,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerVisibilityChanged&&(identical(other.id, id) || other.id == id)&&(identical(other.visible, visible) || other.visible == visible));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LayerVisibilityChanged&&(identical(other.id, id) || other.id == id)&&(identical(other.visible, visible) || other.visible == visible));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,visible);
+int get hashCode {
+    return Object.hash(runtimeType,id,visible);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.layerVisibilityChanged(id: $id, visible: $visible)';
+    return 'DocumentEvent.layerVisibilityChanged(id: $id, visible: $visible)';
 }
 
 
@@ -3032,16 +3108,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsCollectionChanged&&const DeepCollectionEquality().equals(other._elements, _elements)&&(identical(other.collection, collection) || other.collection == collection));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsCollectionChanged&&const DeepCollectionEquality().equals(other.elements, _elements)&&(identical(other.collection, collection) || other.collection == collection));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),collection);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),collection);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsCollectionChanged(elements: $elements, collection: $collection)';
+    return 'DocumentEvent.elementsCollectionChanged(elements: $elements, collection: $collection)';
 }
 
 
@@ -3112,16 +3190,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasCreated&&const DeepCollectionEquality().equals(other._areas, _areas));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasCreated&&const DeepCollectionEquality().equals(other.areas, _areas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_areas));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_areas));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.areasCreated(areas: $areas)';
+    return 'DocumentEvent.areasCreated(areas: $areas)';
 }
 
 
@@ -3192,16 +3272,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasDuplicated&&(identical(other.area, area) || other.area == area)&&const DeepCollectionEquality().equals(other._pages, _pages));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasDuplicated&&(identical(other.area, area) || other.area == area)&&const DeepCollectionEquality().equals(other.pages, _pages));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,area,const DeepCollectionEquality().hash(_pages));
+int get hashCode {
+    return Object.hash(runtimeType,area,const DeepCollectionEquality().hash(_pages));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.areasDuplicated(area: $area, pages: $pages)';
+    return 'DocumentEvent.areasDuplicated(area: $area, pages: $pages)';
 }
 
 
@@ -3281,16 +3363,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasRemoved&&const DeepCollectionEquality().equals(other._areas, _areas));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasRemoved&&const DeepCollectionEquality().equals(other.areas, _areas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_areas));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_areas));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.areasRemoved(areas: $areas)';
+    return 'DocumentEvent.areasRemoved(areas: $areas)';
 }
 
 
@@ -3356,16 +3440,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.area, area) || other.area == area)&&(identical(other.moveContents, moveContents) || other.moveContents == moveContents));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.area, area) || other.area == area)&&(identical(other.moveContents, moveContents) || other.moveContents == moveContents));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,area,moveContents);
+int get hashCode {
+    return Object.hash(runtimeType,name,area,moveContents);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.areaChanged(name: $name, area: $area, moveContents: $moveContents)';
+    return 'DocumentEvent.areaChanged(name: $name, area: $area, moveContents: $moveContents)';
 }
 
 
@@ -3441,16 +3527,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaReordered&&(identical(other.name, name) || other.name == name)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaReordered&&(identical(other.name, name) || other.name == name)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,newIndex);
+int get hashCode {
+    return Object.hash(runtimeType,name,newIndex);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.areaReordered(name: $name, newIndex: $newIndex)';
+    return 'DocumentEvent.areaReordered(name: $name, newIndex: $newIndex)';
 }
 
 
@@ -3515,16 +3603,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrentAreaChanged&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CurrentAreaChanged&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.currentAreaChanged(name: $name)';
+    return 'DocumentEvent.currentAreaChanged(name: $name)';
 }
 
 
@@ -3595,16 +3685,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPresetCreated&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._areas, _areas));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPresetCreated&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.areas, _areas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_areas));
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_areas));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.exportPresetCreated(name: $name, areas: $areas)';
+    return 'DocumentEvent.exportPresetCreated(name: $name, areas: $areas)';
 }
 
 
@@ -3676,16 +3768,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPresetUpdated&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._areas, _areas));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPresetUpdated&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.areas, _areas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_areas));
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_areas));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.exportPresetUpdated(name: $name, areas: $areas)';
+    return 'DocumentEvent.exportPresetUpdated(name: $name, areas: $areas)';
 }
 
 
@@ -3750,16 +3844,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPresetRemoved&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPresetRemoved&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.exportPresetRemoved(name: $name)';
+    return 'DocumentEvent.exportPresetRemoved(name: $name)';
 }
 
 
@@ -3823,16 +3919,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAdded&&(identical(other.pack, pack) || other.pack == pack));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAdded&&(identical(other.pack, pack) || other.pack == pack));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,pack);
+int get hashCode {
+    return Object.hash(runtimeType,pack);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.packAdded(pack: $pack)';
+    return 'DocumentEvent.packAdded(pack: $pack)';
 }
 
 
@@ -3897,16 +3995,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackUpdated&&(identical(other.name, name) || other.name == name)&&(identical(other.pack, pack) || other.pack == pack));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PackUpdated&&(identical(other.name, name) || other.name == name)&&(identical(other.pack, pack) || other.pack == pack));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,pack);
+int get hashCode {
+    return Object.hash(runtimeType,name,pack);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.packUpdated(name: $name, pack: $pack)';
+    return 'DocumentEvent.packUpdated(name: $name, pack: $pack)';
 }
 
 
@@ -3971,16 +4071,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackRemoved&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PackRemoved&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.packRemoved(name: $name)';
+    return 'DocumentEvent.packRemoved(name: $name)';
 }
 
 
@@ -4044,16 +4146,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationAdded&&(identical(other.animation, animation) || other.animation == animation));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationAdded&&(identical(other.animation, animation) || other.animation == animation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,animation);
+int get hashCode {
+    return Object.hash(runtimeType,animation);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.animationAdded(animation: $animation)';
+    return 'DocumentEvent.animationAdded(animation: $animation)';
 }
 
 
@@ -4127,16 +4231,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationUpdated&&(identical(other.name, name) || other.name == name)&&(identical(other.animation, animation) || other.animation == animation));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationUpdated&&(identical(other.name, name) || other.name == name)&&(identical(other.animation, animation) || other.animation == animation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,animation);
+int get hashCode {
+    return Object.hash(runtimeType,name,animation);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.animationUpdated(name: $name, animation: $animation)';
+    return 'DocumentEvent.animationUpdated(name: $name, animation: $animation)';
 }
 
 
@@ -4210,16 +4316,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationRemoved&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationRemoved&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.animationRemoved(name: $name)';
+    return 'DocumentEvent.animationRemoved(name: $name)';
 }
 
 
@@ -4284,16 +4392,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PresentationModeEntered&&(identical(other.track, track) || other.track == track)&&(identical(other.fullScreen, fullScreen) || other.fullScreen == fullScreen));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PresentationModeEntered&&(identical(other.track, track) || other.track == track)&&(identical(other.fullScreen, fullScreen) || other.fullScreen == fullScreen));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,track,fullScreen);
+int get hashCode {
+    return Object.hash(runtimeType,track,fullScreen);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.presentationModeEntered(track: $track, fullScreen: $fullScreen)';
+    return 'DocumentEvent.presentationModeEntered(track: $track, fullScreen: $fullScreen)';
 }
 
 
@@ -4362,7 +4472,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PresentationModeExited);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PresentationModeExited);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -4371,7 +4481,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DocumentEvent.presentationModeExited()';
+    return 'DocumentEvent.presentationModeExited()';
 }
 
 
@@ -4406,16 +4516,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PresentationTick&&(identical(other.tick, tick) || other.tick == tick));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PresentationTick&&(identical(other.tick, tick) || other.tick == tick));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,tick);
+int get hashCode {
+    return Object.hash(runtimeType,tick);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.presentationTick(tick: $tick)';
+    return 'DocumentEvent.presentationTick(tick: $tick)';
 }
 
 
@@ -4486,16 +4598,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AssetUpdated&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other._data, _data));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AssetUpdated&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other.data, _data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,path,const DeepCollectionEquality().hash(_data));
+int get hashCode {
+    return Object.hash(runtimeType,path,const DeepCollectionEquality().hash(_data));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.assetUpdated(path: $path, data: $data)';
+    return 'DocumentEvent.assetUpdated(path: $path, data: $data)';
 }
 
 
@@ -4567,16 +4681,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsLayerConverted&&const DeepCollectionEquality().equals(other._elements, _elements)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsLayerConverted&&const DeepCollectionEquality().equals(other.elements, _elements)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),name);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),name);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsLayerConverted(elements: $elements, name: $name)';
+    return 'DocumentEvent.elementsLayerConverted(elements: $elements, name: $name)';
 }
 
 
@@ -4648,16 +4764,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsLayerMoved&&const DeepCollectionEquality().equals(other._elements, _elements)&&(identical(other.layerId, layerId) || other.layerId == layerId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsLayerMoved&&const DeepCollectionEquality().equals(other.elements, _elements)&&(identical(other.layerId, layerId) || other.layerId == layerId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),layerId);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),layerId);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsLayerMoved(elements: $elements, layerId: $layerId)';
+    return 'DocumentEvent.elementsLayerMoved(elements: $elements, layerId: $layerId)';
 }
 
 
@@ -4722,16 +4840,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EncryptionChanged&&(identical(other.password, password) || other.password == password));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is EncryptionChanged&&(identical(other.password, password) || other.password == password));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,password);
+int get hashCode {
+    return Object.hash(runtimeType,password);
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.encryptionChanged(password: $password)';
+    return 'DocumentEvent.encryptionChanged(password: $password)';
 }
 
 
@@ -4795,16 +4915,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentRebuilt&&const DeepCollectionEquality().equals(other.data, data));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentRebuilt&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+}
 
 @override
 String toString() {
-  return 'DocumentEvent.documentRebuilt(data: $data)';
+    return 'DocumentEvent.documentRebuilt(data: $data)';
 }
 
 

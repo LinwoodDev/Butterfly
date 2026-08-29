@@ -36,16 +36,21 @@ $SurfaceTextureCopyWith<SurfaceTexture> get copyWith => _$SurfaceTextureCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SurfaceTexture&&(identical(other.boxWidth, boxWidth) || other.boxWidth == boxWidth)&&(identical(other.boxHeight, boxHeight) || other.boxHeight == boxHeight)&&(identical(other.boxXCount, boxXCount) || other.boxXCount == boxXCount)&&(identical(other.boxYCount, boxYCount) || other.boxYCount == boxYCount)&&(identical(other.boxXSpace, boxXSpace) || other.boxXSpace == boxXSpace)&&(identical(other.boxYSpace, boxYSpace) || other.boxYSpace == boxYSpace)&&(identical(other.boxXColor, boxXColor) || other.boxXColor == boxXColor)&&(identical(other.boxYColor, boxYColor) || other.boxYColor == boxYColor)&&(identical(other.boxColor, boxColor) || other.boxColor == boxColor)&&(identical(other.boxXStroke, boxXStroke) || other.boxXStroke == boxXStroke)&&(identical(other.boxYStroke, boxYStroke) || other.boxYStroke == boxYStroke));
+  final _this = this as SurfaceTexture;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SurfaceTexture&&(identical(other.boxWidth, _this.boxWidth) || other.boxWidth == _this.boxWidth)&&(identical(other.boxHeight, _this.boxHeight) || other.boxHeight == _this.boxHeight)&&(identical(other.boxXCount, _this.boxXCount) || other.boxXCount == _this.boxXCount)&&(identical(other.boxYCount, _this.boxYCount) || other.boxYCount == _this.boxYCount)&&(identical(other.boxXSpace, _this.boxXSpace) || other.boxXSpace == _this.boxXSpace)&&(identical(other.boxYSpace, _this.boxYSpace) || other.boxYSpace == _this.boxYSpace)&&(identical(other.boxXColor, _this.boxXColor) || other.boxXColor == _this.boxXColor)&&(identical(other.boxYColor, _this.boxYColor) || other.boxYColor == _this.boxYColor)&&(identical(other.boxColor, _this.boxColor) || other.boxColor == _this.boxColor)&&(identical(other.boxXStroke, _this.boxXStroke) || other.boxXStroke == _this.boxXStroke)&&(identical(other.boxYStroke, _this.boxYStroke) || other.boxYStroke == _this.boxYStroke));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,boxWidth,boxHeight,boxXCount,boxYCount,boxXSpace,boxYSpace,boxXColor,boxYColor,boxColor,boxXStroke,boxYStroke);
+int get hashCode {
+  final _this = this as SurfaceTexture;
+  return Object.hash(runtimeType,_this.boxWidth,_this.boxHeight,_this.boxXCount,_this.boxYCount,_this.boxXSpace,_this.boxYSpace,_this.boxXColor,_this.boxYColor,_this.boxColor,_this.boxXStroke,_this.boxYStroke);
+}
 
 @override
 String toString() {
-  return 'SurfaceTexture(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
+  final _this = this as SurfaceTexture;
+  return 'SurfaceTexture(boxWidth: ${_this.boxWidth}, boxHeight: ${_this.boxHeight}, boxXCount: ${_this.boxXCount}, boxYCount: ${_this.boxYCount}, boxXSpace: ${_this.boxXSpace}, boxYSpace: ${_this.boxYSpace}, boxXColor: ${_this.boxXColor}, boxYColor: ${_this.boxYColor}, boxColor: ${_this.boxColor}, boxXStroke: ${_this.boxXStroke}, boxYStroke: ${_this.boxYStroke})';
 }
 
 
@@ -126,16 +131,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatternTexture&&(identical(other.boxWidth, boxWidth) || other.boxWidth == boxWidth)&&(identical(other.boxHeight, boxHeight) || other.boxHeight == boxHeight)&&(identical(other.boxXCount, boxXCount) || other.boxXCount == boxXCount)&&(identical(other.boxYCount, boxYCount) || other.boxYCount == boxYCount)&&(identical(other.boxXSpace, boxXSpace) || other.boxXSpace == boxXSpace)&&(identical(other.boxYSpace, boxYSpace) || other.boxYSpace == boxYSpace)&&(identical(other.boxXColor, boxXColor) || other.boxXColor == boxXColor)&&(identical(other.boxYColor, boxYColor) || other.boxYColor == boxYColor)&&(identical(other.boxColor, boxColor) || other.boxColor == boxColor)&&(identical(other.boxXStroke, boxXStroke) || other.boxXStroke == boxXStroke)&&(identical(other.boxYStroke, boxYStroke) || other.boxYStroke == boxYStroke));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PatternTexture&&(identical(other.boxWidth, boxWidth) || other.boxWidth == boxWidth)&&(identical(other.boxHeight, boxHeight) || other.boxHeight == boxHeight)&&(identical(other.boxXCount, boxXCount) || other.boxXCount == boxXCount)&&(identical(other.boxYCount, boxYCount) || other.boxYCount == boxYCount)&&(identical(other.boxXSpace, boxXSpace) || other.boxXSpace == boxXSpace)&&(identical(other.boxYSpace, boxYSpace) || other.boxYSpace == boxYSpace)&&(identical(other.boxXColor, boxXColor) || other.boxXColor == boxXColor)&&(identical(other.boxYColor, boxYColor) || other.boxYColor == boxYColor)&&(identical(other.boxColor, boxColor) || other.boxColor == boxColor)&&(identical(other.boxXStroke, boxXStroke) || other.boxXStroke == boxXStroke)&&(identical(other.boxYStroke, boxYStroke) || other.boxYStroke == boxYStroke));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,boxWidth,boxHeight,boxXCount,boxYCount,boxXSpace,boxYSpace,boxXColor,boxYColor,boxColor,boxXStroke,boxYStroke);
+int get hashCode {
+    return Object.hash(runtimeType,boxWidth,boxHeight,boxXCount,boxYCount,boxXSpace,boxYSpace,boxXColor,boxYColor,boxColor,boxXStroke,boxYStroke);
+}
 
 @override
 String toString() {
-  return 'SurfaceTexture.pattern(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
+    return 'SurfaceTexture.pattern(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
 }
 
 

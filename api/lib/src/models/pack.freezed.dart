@@ -21,7 +21,7 @@ mixin _$PackAsset {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAsset);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAsset);
 }
 
 
@@ -30,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PackAsset()';
+    return 'PackAsset()';
 }
 
 
@@ -60,16 +60,21 @@ $ColorPaletteCopyWith<ColorPalette> get copyWith => _$ColorPaletteCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ColorPalette&&const DeepCollectionEquality().equals(other.colors, colors));
+  final _this = this as ColorPalette;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ColorPalette&&const DeepCollectionEquality().equals(other.colors, _this.colors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(colors));
+int get hashCode {
+  final _this = this as ColorPalette;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.colors));
+}
 
 @override
 String toString() {
-  return 'ColorPalette(colors: $colors)';
+  final _this = this as ColorPalette;
+  return 'ColorPalette(colors: ${_this.colors})';
 }
 
 
@@ -136,16 +141,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ColorPalette&&const DeepCollectionEquality().equals(other._colors, _colors));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ColorPalette&&const DeepCollectionEquality().equals(other.colors, _colors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_colors));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_colors));
+}
 
 @override
 String toString() {
-  return 'ColorPalette(colors: $colors)';
+    return 'ColorPalette(colors: $colors)';
 }
 
 
@@ -200,16 +207,21 @@ $ButterflyComponentCopyWith<ButterflyComponent> get copyWith => _$ButterflyCompo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ButterflyComponent&&const DeepCollectionEquality().equals(other.thumbnail, thumbnail)&&const DeepCollectionEquality().equals(other.elements, elements));
+  final _this = this as ButterflyComponent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ButterflyComponent&&const DeepCollectionEquality().equals(other.thumbnail, _this.thumbnail)&&const DeepCollectionEquality().equals(other.elements, _this.elements));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(thumbnail),const DeepCollectionEquality().hash(elements));
+int get hashCode {
+  final _this = this as ButterflyComponent;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.thumbnail),const DeepCollectionEquality().hash(_this.elements));
+}
 
 @override
 String toString() {
-  return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
+  final _this = this as ButterflyComponent;
+  return 'ButterflyComponent(thumbnail: ${_this.thumbnail}, elements: ${_this.elements})';
 }
 
 
@@ -278,16 +290,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ButterflyComponent&&const DeepCollectionEquality().equals(other.thumbnail, thumbnail)&&const DeepCollectionEquality().equals(other._elements, _elements));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ButterflyComponent&&const DeepCollectionEquality().equals(other.thumbnail, thumbnail)&&const DeepCollectionEquality().equals(other.elements, _elements));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(thumbnail),const DeepCollectionEquality().hash(_elements));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(thumbnail),const DeepCollectionEquality().hash(_elements));
+}
 
 @override
 String toString() {
-  return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
+    return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
 }
 
 
@@ -380,7 +394,8 @@ $ButterflyParameterCopyWith<ButterflyParameter> get copyWith => _$ButterflyParam
 
 @override
 String toString() {
-  return 'ButterflyParameter(child: $child, name: $name, value: $value)';
+  final _this = this as ButterflyParameter;
+  return 'ButterflyParameter(child: ${_this.child}, name: ${_this.name}, value: ${_this.value})';
 }
 
 
@@ -450,7 +465,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'ButterflyParameter.text(child: $child, name: $name, value: $value)';
+    return 'ButterflyParameter.text(child: $child, name: $name, value: $value)';
 }
 
 
@@ -520,7 +535,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'ButterflyParameter.color(child: $child, name: $name, value: $value)';
+    return 'ButterflyParameter.color(child: $child, name: $name, value: $value)';
 }
 
 
@@ -590,7 +605,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'ButterflyParameter.bool(child: $child, name: $name, value: $value)';
+    return 'ButterflyParameter.bool(child: $child, name: $name, value: $value)';
 }
 
 
@@ -660,7 +675,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'ButterflyParameter.int(child: $child, name: $name, value: $value)';
+    return 'ButterflyParameter.int(child: $child, name: $name, value: $value)';
 }
 
 
@@ -730,7 +745,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'ButterflyParameter.double(child: $child, name: $name, value: $value)';
+    return 'ButterflyParameter.double(child: $child, name: $name, value: $value)';
 }
 
 
@@ -787,16 +802,21 @@ $ToolbarCopyWith<Toolbar> get copyWith => _$ToolbarCopyWithImpl<Toolbar>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Toolbar&&const DeepCollectionEquality().equals(other.tools, tools));
+  final _this = this as Toolbar;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Toolbar&&const DeepCollectionEquality().equals(other.tools, _this.tools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tools));
+int get hashCode {
+  final _this = this as Toolbar;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.tools));
+}
 
 @override
 String toString() {
-  return 'Toolbar(tools: $tools)';
+  final _this = this as Toolbar;
+  return 'Toolbar(tools: ${_this.tools})';
 }
 
 
@@ -863,16 +883,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Toolbar&&const DeepCollectionEquality().equals(other._tools, _tools));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Toolbar&&const DeepCollectionEquality().equals(other.tools, _tools));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+}
 
 @override
 String toString() {
-  return 'Toolbar(tools: $tools)';
+    return 'Toolbar(tools: $tools)';
 }
 
 
@@ -927,16 +949,21 @@ $PackAssetLocationCopyWith<PackAssetLocation> get copyWith => _$PackAssetLocatio
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
+  final _this = this as PackAssetLocation;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAssetLocation&&(identical(other.namespace, _this.namespace) || other.namespace == _this.namespace)&&(identical(other.key, _this.key) || other.key == _this.key));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,namespace,key);
+int get hashCode {
+  final _this = this as PackAssetLocation;
+  return Object.hash(runtimeType,_this.namespace,_this.key);
+}
 
 @override
 String toString() {
-  return 'PackAssetLocation(namespace: $namespace, key: $key)';
+  final _this = this as PackAssetLocation;
+  return 'PackAssetLocation(namespace: ${_this.namespace}, key: ${_this.key})';
 }
 
 
@@ -999,16 +1026,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,namespace,key);
+int get hashCode {
+    return Object.hash(runtimeType,namespace,key);
+}
 
 @override
 String toString() {
-  return 'PackAssetLocation(namespace: $namespace, key: $key)';
+    return 'PackAssetLocation(namespace: $namespace, key: $key)';
 }
 
 
@@ -1064,16 +1093,21 @@ $NamedItemCopyWith<T, NamedItem<T>> get copyWith => _$NamedItemCopyWithImpl<T, N
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedItem<T>&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.item, item));
+  final _this = this as NamedItem<T>;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedItem<T>&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.item, _this.item));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(item));
+int get hashCode {
+  final _this = this as NamedItem<T>;
+  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.item));
+}
 
 @override
 String toString() {
-  return 'NamedItem<$T>(name: $name, item: $item)';
+  final _this = this as NamedItem<T>;
+  return 'NamedItem<$T>(name: ${_this.name}, item: ${_this.item})';
 }
 
 
@@ -1136,16 +1170,18 @@ Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NamedItem<T>&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.item, item));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NamedItem<T>&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.item, item));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(item));
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(item));
+}
 
 @override
 String toString() {
-  return 'NamedItem<$T>(name: $name, item: $item)';
+    return 'NamedItem<$T>(name: $name, item: $item)';
 }
 
 

@@ -60,16 +60,21 @@ $ElementPaintCopyWith<ElementPaint> get copyWith => _$ElementPaintCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementPaint&&(identical(other.blur, blur) || other.blur == blur));
+  final _this = this as ElementPaint;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementPaint&&(identical(other.blur, _this.blur) || other.blur == _this.blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,blur);
+int get hashCode {
+  final _this = this as ElementPaint;
+  return Object.hash(runtimeType,_this.blur);
+}
 
 @override
 String toString() {
-  return 'ElementPaint(blur: $blur)';
+  final _this = this as ElementPaint;
+  return 'ElementPaint(blur: ${_this.blur})';
 }
 
 
@@ -135,16 +140,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SolidElementPaint&&(identical(other.color, color) || other.color == color)&&(identical(other.blur, blur) || other.blur == blur));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SolidElementPaint&&(identical(other.color, color) || other.color == color)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,color,blur);
+int get hashCode {
+    return Object.hash(runtimeType,color,blur);
+}
 
 @override
 String toString() {
-  return 'ElementPaint.solid(color: $color, blur: $blur)';
+    return 'ElementPaint.solid(color: $color, blur: $blur)';
 }
 
 
@@ -212,16 +219,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.blur, blur) || other.blur == blur));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,source,tint,scale,blur);
+int get hashCode {
+    return Object.hash(runtimeType,source,tint,scale,blur);
+}
 
 @override
 String toString() {
-  return 'ElementPaint.image(source: $source, tint: $tint, scale: $scale, blur: $blur)';
+    return 'ElementPaint.image(source: $source, tint: $tint, scale: $scale, blur: $blur)';
 }
 
 
@@ -291,16 +300,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.blur, blur) || other.blur == blur));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,source,tint,scale,blur);
+int get hashCode {
+    return Object.hash(runtimeType,source,tint,scale,blur);
+}
 
 @override
 String toString() {
-  return 'ElementPaint.svg(source: $source, tint: $tint, scale: $scale, blur: $blur)';
+    return 'ElementPaint.svg(source: $source, tint: $tint, scale: $scale, blur: $blur)';
 }
 
 
@@ -368,16 +379,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient)&&(identical(other.blur, blur) || other.blur == blur));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,gradient,blur);
+int get hashCode {
+    return Object.hash(runtimeType,gradient,blur);
+}
 
 @override
 String toString() {
-  return 'ElementPaint.gradient(gradient: $gradient, blur: $blur)';
+    return 'ElementPaint.gradient(gradient: $gradient, blur: $blur)';
 }
 
 
@@ -465,16 +478,21 @@ $ElementGradientCopyWith<ElementGradient> get copyWith => _$ElementGradientCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradient&&const DeepCollectionEquality().equals(other.stops, stops));
+  final _this = this as ElementGradient;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradient&&const DeepCollectionEquality().equals(other.stops, _this.stops));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(stops));
+int get hashCode {
+  final _this = this as ElementGradient;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.stops));
+}
 
 @override
 String toString() {
-  return 'ElementGradient(stops: $stops)';
+  final _this = this as ElementGradient;
+  return 'ElementGradient(stops: ${_this.stops})';
 }
 
 
@@ -547,16 +565,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LinearElementGradient&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&const DeepCollectionEquality().equals(other._stops, _stops));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LinearElementGradient&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&const DeepCollectionEquality().equals(other.stops, _stops));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,start,end,const DeepCollectionEquality().hash(_stops));
+int get hashCode {
+    return Object.hash(runtimeType,start,end,const DeepCollectionEquality().hash(_stops));
+}
 
 @override
 String toString() {
-  return 'ElementGradient.linear(start: $start, end: $end, stops: $stops)';
+    return 'ElementGradient.linear(start: $start, end: $end, stops: $stops)';
 }
 
 
@@ -632,16 +652,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RadialElementGradient&&(identical(other.center, center) || other.center == center)&&(identical(other.radius, radius) || other.radius == radius)&&(identical(other.focal, focal) || other.focal == focal)&&(identical(other.focalRadius, focalRadius) || other.focalRadius == focalRadius)&&const DeepCollectionEquality().equals(other._stops, _stops));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RadialElementGradient&&(identical(other.center, center) || other.center == center)&&(identical(other.radius, radius) || other.radius == radius)&&(identical(other.focal, focal) || other.focal == focal)&&(identical(other.focalRadius, focalRadius) || other.focalRadius == focalRadius)&&const DeepCollectionEquality().equals(other.stops, _stops));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,center,radius,focal,focalRadius,const DeepCollectionEquality().hash(_stops));
+int get hashCode {
+    return Object.hash(runtimeType,center,radius,focal,focalRadius,const DeepCollectionEquality().hash(_stops));
+}
 
 @override
 String toString() {
-  return 'ElementGradient.radial(center: $center, radius: $radius, focal: $focal, focalRadius: $focalRadius, stops: $stops)';
+    return 'ElementGradient.radial(center: $center, radius: $radius, focal: $focal, focalRadius: $focalRadius, stops: $stops)';
 }
 
 
@@ -700,16 +722,21 @@ $ElementGradientStopCopyWith<ElementGradientStop> get copyWith => _$ElementGradi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradientStop&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.color, color) || other.color == color));
+  final _this = this as ElementGradientStop;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradientStop&&(identical(other.offset, _this.offset) || other.offset == _this.offset)&&(identical(other.color, _this.color) || other.color == _this.color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,offset,color);
+int get hashCode {
+  final _this = this as ElementGradientStop;
+  return Object.hash(runtimeType,_this.offset,_this.color);
+}
 
 @override
 String toString() {
-  return 'ElementGradientStop(offset: $offset, color: $color)';
+  final _this = this as ElementGradientStop;
+  return 'ElementGradientStop(offset: ${_this.offset}, color: ${_this.color})';
 }
 
 
@@ -772,16 +799,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementGradientStop&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.color, color) || other.color == color));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementGradientStop&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,offset,color);
+int get hashCode {
+    return Object.hash(runtimeType,offset,color);
+}
 
 @override
 String toString() {
-  return 'ElementGradientStop(offset: $offset, color: $color)';
+    return 'ElementGradientStop(offset: $offset, color: $color)';
 }
 
 
@@ -864,16 +893,21 @@ $PropertyCopyWith<Property> get copyWith => _$PropertyCopyWithImpl<Property>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Property&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.paint, paint) || other.paint == paint));
+  final _this = this as Property;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Property&&(identical(other.strokeWidth, _this.strokeWidth) || other.strokeWidth == _this.strokeWidth)&&(identical(other.paint, _this.paint) || other.paint == _this.paint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,strokeWidth,paint);
+int get hashCode {
+  final _this = this as Property;
+  return Object.hash(runtimeType,_this.strokeWidth,_this.paint);
+}
 
 @override
 String toString() {
-  return 'Property(strokeWidth: $strokeWidth, paint: $paint)';
+  final _this = this as Property;
+  return 'Property(strokeWidth: ${_this.strokeWidth}, paint: ${_this.paint})';
 }
 
 
@@ -953,16 +987,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.thinning, thinning) || other.thinning == thinning)&&(identical(other.paint, paint) || other.paint == paint)&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint)&&(identical(other.smoothing, smoothing) || other.smoothing == smoothing)&&(identical(other.streamline, streamline) || other.streamline == streamline));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PenProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.thinning, thinning) || other.thinning == thinning)&&(identical(other.paint, paint) || other.paint == paint)&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint)&&(identical(other.smoothing, smoothing) || other.smoothing == smoothing)&&(identical(other.streamline, streamline) || other.streamline == streamline));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,strokeWidth,thinning,paint,fillPaint,smoothing,streamline);
+int get hashCode {
+    return Object.hash(runtimeType,strokeWidth,thinning,paint,fillPaint,smoothing,streamline);
+}
 
 @override
 String toString() {
-  return 'Property.pen(strokeWidth: $strokeWidth, thinning: $thinning, paint: $paint, fillPaint: $fillPaint, smoothing: $smoothing, streamline: $streamline)';
+    return 'Property.pen(strokeWidth: $strokeWidth, thinning: $thinning, paint: $paint, fillPaint: $fillPaint, smoothing: $smoothing, streamline: $streamline)';
 }
 
 
@@ -1054,16 +1090,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.shape, shape) || other.shape == shape)&&(identical(other.paint, paint) || other.paint == paint)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.shape, shape) || other.shape == shape)&&(identical(other.paint, paint) || other.paint == paint)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,strokeWidth,shape,paint,strokeStyle,dashMultiplier,gapMultiplier);
+int get hashCode {
+    return Object.hash(runtimeType,strokeWidth,shape,paint,strokeStyle,dashMultiplier,gapMultiplier);
+}
 
 @override
 String toString() {
-  return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, paint: $paint, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
+    return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, paint: $paint, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
 }
 
 
@@ -1152,16 +1190,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.paint, paint) || other.paint == paint)&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.paint, paint) || other.paint == paint)&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,strokeWidth,paint,fillPaint);
+int get hashCode {
+    return Object.hash(runtimeType,strokeWidth,paint,fillPaint);
+}
 
 @override
 String toString() {
-  return 'Property.polygon(strokeWidth: $strokeWidth, paint: $paint, fillPaint: $fillPaint)';
+    return 'Property.polygon(strokeWidth: $strokeWidth, paint: $paint, fillPaint: $fillPaint)';
 }
 
 
@@ -1262,7 +1302,7 @@ mixin _$PathShape {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PathShape);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PathShape);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1271,7 +1311,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PathShape()';
+    return 'PathShape()';
 }
 
 
@@ -1310,16 +1350,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CircleShape&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CircleShape&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fillPaint);
+int get hashCode {
+    return Object.hash(runtimeType,fillPaint);
+}
 
 @override
 String toString() {
-  return 'PathShape.circle(fillPaint: $fillPaint)';
+    return 'PathShape.circle(fillPaint: $fillPaint)';
 }
 
 
@@ -1396,16 +1438,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RectangleShape&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint)&&(identical(other.topLeftCornerRadius, topLeftCornerRadius) || other.topLeftCornerRadius == topLeftCornerRadius)&&(identical(other.topRightCornerRadius, topRightCornerRadius) || other.topRightCornerRadius == topRightCornerRadius)&&(identical(other.bottomLeftCornerRadius, bottomLeftCornerRadius) || other.bottomLeftCornerRadius == bottomLeftCornerRadius)&&(identical(other.bottomRightCornerRadius, bottomRightCornerRadius) || other.bottomRightCornerRadius == bottomRightCornerRadius));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RectangleShape&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint)&&(identical(other.topLeftCornerRadius, topLeftCornerRadius) || other.topLeftCornerRadius == topLeftCornerRadius)&&(identical(other.topRightCornerRadius, topRightCornerRadius) || other.topRightCornerRadius == topRightCornerRadius)&&(identical(other.bottomLeftCornerRadius, bottomLeftCornerRadius) || other.bottomLeftCornerRadius == bottomLeftCornerRadius)&&(identical(other.bottomRightCornerRadius, bottomRightCornerRadius) || other.bottomRightCornerRadius == bottomRightCornerRadius));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fillPaint,topLeftCornerRadius,topRightCornerRadius,bottomLeftCornerRadius,bottomRightCornerRadius);
+int get hashCode {
+    return Object.hash(runtimeType,fillPaint,topLeftCornerRadius,topRightCornerRadius,bottomLeftCornerRadius,bottomRightCornerRadius);
+}
 
 @override
 String toString() {
-  return 'PathShape.rectangle(fillPaint: $fillPaint, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
+    return 'PathShape.rectangle(fillPaint: $fillPaint, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
 }
 
 
@@ -1477,7 +1521,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LineShape);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LineShape);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1486,7 +1530,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PathShape.line()';
+    return 'PathShape.line()';
 }
 
 
@@ -1521,16 +1565,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TriangleShape&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TriangleShape&&(identical(other.fillPaint, fillPaint) || other.fillPaint == fillPaint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fillPaint);
+int get hashCode {
+    return Object.hash(runtimeType,fillPaint);
+}
 
 @override
 String toString() {
-  return 'PathShape.triangle(fillPaint: $fillPaint)';
+    return 'PathShape.triangle(fillPaint: $fillPaint)';
 }
 
 

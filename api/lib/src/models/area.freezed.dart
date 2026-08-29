@@ -29,16 +29,21 @@ $AreaCopyWith<Area> get copyWith => _$AreaCopyWithImpl<Area>(this as Area, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&(identical(other.isInitial, isInitial) || other.isInitial == isInitial)&&(identical(other.color, color) || other.color == color));
+  final _this = this as Area;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Area&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.width, _this.width) || other.width == _this.width)&&(identical(other.height, _this.height) || other.height == _this.height)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.isInitial, _this.isInitial) || other.isInitial == _this.isInitial)&&(identical(other.color, _this.color) || other.color == _this.color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,width,height,position,isInitial,color);
+int get hashCode {
+  final _this = this as Area;
+  return Object.hash(runtimeType,_this.name,_this.width,_this.height,_this.position,_this.isInitial,_this.color);
+}
 
 @override
 String toString() {
-  return 'Area(name: $name, width: $width, height: $height, position: $position, isInitial: $isInitial, color: $color)';
+  final _this = this as Area;
+  return 'Area(name: ${_this.name}, width: ${_this.width}, height: ${_this.height}, position: ${_this.position}, isInitial: ${_this.isInitial}, color: ${_this.color})';
 }
 
 
@@ -109,16 +114,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&(identical(other.isInitial, isInitial) || other.isInitial == isInitial)&&(identical(other.color, color) || other.color == color));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&(identical(other.isInitial, isInitial) || other.isInitial == isInitial)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,width,height,position,isInitial,color);
+int get hashCode {
+    return Object.hash(runtimeType,name,width,height,position,isInitial,color);
+}
 
 @override
 String toString() {
-  return 'Area(name: $name, width: $width, height: $height, position: $position, isInitial: $isInitial, color: $color)';
+    return 'Area(name: $name, width: $width, height: $height, position: $position, isInitial: $isInitial, color: $color)';
 }
 
 

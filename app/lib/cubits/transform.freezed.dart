@@ -25,23 +25,29 @@ $FrictionStateCopyWith<FrictionState> get copyWith => _$FrictionStateCopyWithImp
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as FrictionState;
   properties
     ..add(DiagnosticsProperty('type', 'FrictionState'))
-    ..add(DiagnosticsProperty('beginOffset', beginOffset))..add(DiagnosticsProperty('beginSize', beginSize))..add(DiagnosticsProperty('lastUpdate', lastUpdate))..add(DiagnosticsProperty('duration', duration));
+    ..add(DiagnosticsProperty('beginOffset', _this.beginOffset))..add(DiagnosticsProperty('beginSize', _this.beginSize))..add(DiagnosticsProperty('lastUpdate', _this.lastUpdate))..add(DiagnosticsProperty('duration', _this.duration));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FrictionState&&(identical(other.beginOffset, beginOffset) || other.beginOffset == beginOffset)&&(identical(other.beginSize, beginSize) || other.beginSize == beginSize)&&(identical(other.lastUpdate, lastUpdate) || other.lastUpdate == lastUpdate)&&(identical(other.duration, duration) || other.duration == duration));
+  final _this = this as FrictionState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FrictionState&&(identical(other.beginOffset, _this.beginOffset) || other.beginOffset == _this.beginOffset)&&(identical(other.beginSize, _this.beginSize) || other.beginSize == _this.beginSize)&&(identical(other.lastUpdate, _this.lastUpdate) || other.lastUpdate == _this.lastUpdate)&&(identical(other.duration, _this.duration) || other.duration == _this.duration));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,beginOffset,beginSize,lastUpdate,duration);
+int get hashCode {
+  final _this = this as FrictionState;
+  return Object.hash(runtimeType,_this.beginOffset,_this.beginSize,_this.lastUpdate,_this.duration);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'FrictionState(beginOffset: $beginOffset, beginSize: $beginSize, lastUpdate: $lastUpdate, duration: $duration)';
+  final _this = this as FrictionState;
+  return 'FrictionState(beginOffset: ${_this.beginOffset}, beginSize: ${_this.beginSize}, lastUpdate: ${_this.lastUpdate}, duration: ${_this.duration})';
 }
 
 
@@ -104,23 +110,25 @@ _$FrictionStateCopyWith<_FrictionState> get copyWith => __$FrictionStateCopyWith
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'FrictionState'))
     ..add(DiagnosticsProperty('beginOffset', beginOffset))..add(DiagnosticsProperty('beginSize', beginSize))..add(DiagnosticsProperty('lastUpdate', lastUpdate))..add(DiagnosticsProperty('duration', duration));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FrictionState&&(identical(other.beginOffset, beginOffset) || other.beginOffset == beginOffset)&&(identical(other.beginSize, beginSize) || other.beginSize == beginSize)&&(identical(other.lastUpdate, lastUpdate) || other.lastUpdate == lastUpdate)&&(identical(other.duration, duration) || other.duration == duration));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FrictionState&&(identical(other.beginOffset, beginOffset) || other.beginOffset == beginOffset)&&(identical(other.beginSize, beginSize) || other.beginSize == beginSize)&&(identical(other.lastUpdate, lastUpdate) || other.lastUpdate == lastUpdate)&&(identical(other.duration, duration) || other.duration == duration));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,beginOffset,beginSize,lastUpdate,duration);
+int get hashCode {
+    return Object.hash(runtimeType,beginOffset,beginSize,lastUpdate,duration);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'FrictionState(beginOffset: $beginOffset, beginSize: $beginSize, lastUpdate: $lastUpdate, duration: $duration)';
+    return 'FrictionState(beginOffset: $beginOffset, beginSize: $beginSize, lastUpdate: $lastUpdate, duration: $duration)';
 }
 
 
@@ -174,23 +182,29 @@ $CameraTransformCopyWith<CameraTransform> get copyWith => _$CameraTransformCopyW
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  final _this = this as CameraTransform;
   properties
     ..add(DiagnosticsProperty('type', 'CameraTransform'))
-    ..add(DiagnosticsProperty('pixelRatio', pixelRatio))..add(DiagnosticsProperty('position', position))..add(DiagnosticsProperty('size', size))..add(DiagnosticsProperty('rotation', rotation))..add(DiagnosticsProperty('friction', friction));
+    ..add(DiagnosticsProperty('pixelRatio', _this.pixelRatio))..add(DiagnosticsProperty('position', _this.position))..add(DiagnosticsProperty('size', _this.size))..add(DiagnosticsProperty('rotation', _this.rotation))..add(DiagnosticsProperty('friction', _this.friction));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraTransform&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.position, position) || other.position == position)&&(identical(other.size, size) || other.size == size)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.friction, friction) || other.friction == friction));
+  final _this = this as CameraTransform;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CameraTransform&&(identical(other.pixelRatio, _this.pixelRatio) || other.pixelRatio == _this.pixelRatio)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.size, _this.size) || other.size == _this.size)&&(identical(other.rotation, _this.rotation) || other.rotation == _this.rotation)&&(identical(other.friction, _this.friction) || other.friction == _this.friction));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pixelRatio,position,size,rotation,friction);
+int get hashCode {
+  final _this = this as CameraTransform;
+  return Object.hash(runtimeType,_this.pixelRatio,_this.position,_this.size,_this.rotation,_this.friction);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'CameraTransform(pixelRatio: $pixelRatio, position: $position, size: $size, rotation: $rotation, friction: $friction)';
+  final _this = this as CameraTransform;
+  return 'CameraTransform(pixelRatio: ${_this.pixelRatio}, position: ${_this.position}, size: ${_this.size}, rotation: ${_this.rotation}, friction: ${_this.friction})';
 }
 
 
@@ -267,23 +281,25 @@ _$CameraTransformCopyWith<_CameraTransform> get copyWith => __$CameraTransformCo
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
+    properties
     ..add(DiagnosticsProperty('type', 'CameraTransform'))
     ..add(DiagnosticsProperty('pixelRatio', pixelRatio))..add(DiagnosticsProperty('position', position))..add(DiagnosticsProperty('size', size))..add(DiagnosticsProperty('rotation', rotation))..add(DiagnosticsProperty('friction', friction));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CameraTransform&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.position, position) || other.position == position)&&(identical(other.size, size) || other.size == size)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.friction, friction) || other.friction == friction));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CameraTransform&&(identical(other.pixelRatio, pixelRatio) || other.pixelRatio == pixelRatio)&&(identical(other.position, position) || other.position == position)&&(identical(other.size, size) || other.size == size)&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.friction, friction) || other.friction == friction));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pixelRatio,position,size,rotation,friction);
+int get hashCode {
+    return Object.hash(runtimeType,pixelRatio,position,size,rotation,friction);
+}
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'CameraTransform(pixelRatio: $pixelRatio, position: $position, size: $size, rotation: $rotation, friction: $friction)';
+    return 'CameraTransform(pixelRatio: $pixelRatio, position: $position, size: $size, rotation: $rotation, friction: $friction)';
 }
 
 

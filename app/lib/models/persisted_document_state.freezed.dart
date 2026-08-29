@@ -29,16 +29,21 @@ $PersistedToolSelectionCopyWith<PersistedToolSelection> get copyWith => _$Persis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedToolSelection&&(identical(other.toolId, toolId) || other.toolId == toolId)&&(identical(other.toolIndex, toolIndex) || other.toolIndex == toolIndex));
+  final _this = this as PersistedToolSelection;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedToolSelection&&(identical(other.toolId, _this.toolId) || other.toolId == _this.toolId)&&(identical(other.toolIndex, _this.toolIndex) || other.toolIndex == _this.toolIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,toolId,toolIndex);
+int get hashCode {
+  final _this = this as PersistedToolSelection;
+  return Object.hash(runtimeType,_this.toolId,_this.toolIndex);
+}
 
 @override
 String toString() {
-  return 'PersistedToolSelection(toolId: $toolId, toolIndex: $toolIndex)';
+  final _this = this as PersistedToolSelection;
+  return 'PersistedToolSelection(toolId: ${_this.toolId}, toolIndex: ${_this.toolIndex})';
 }
 
 
@@ -101,16 +106,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedToolSelection&&(identical(other.toolId, toolId) || other.toolId == toolId)&&(identical(other.toolIndex, toolIndex) || other.toolIndex == toolIndex));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedToolSelection&&(identical(other.toolId, toolId) || other.toolId == toolId)&&(identical(other.toolIndex, toolIndex) || other.toolIndex == toolIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,toolId,toolIndex);
+int get hashCode {
+    return Object.hash(runtimeType,toolId,toolIndex);
+}
 
 @override
 String toString() {
-  return 'PersistedToolSelection(toolId: $toolId, toolIndex: $toolIndex)';
+    return 'PersistedToolSelection(toolId: $toolId, toolIndex: $toolIndex)';
 }
 
 
@@ -166,16 +173,21 @@ $PersistedCameraStateCopyWith<PersistedCameraState> get copyWith => _$PersistedC
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.rotation, rotation) || other.rotation == rotation));
+  final _this = this as PersistedCameraState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedCameraState&&(identical(other.positionX, _this.positionX) || other.positionX == _this.positionX)&&(identical(other.positionY, _this.positionY) || other.positionY == _this.positionY)&&(identical(other.zoom, _this.zoom) || other.zoom == _this.zoom)&&(identical(other.rotation, _this.rotation) || other.rotation == _this.rotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,positionX,positionY,zoom,rotation);
+int get hashCode {
+  final _this = this as PersistedCameraState;
+  return Object.hash(runtimeType,_this.positionX,_this.positionY,_this.zoom,_this.rotation);
+}
 
 @override
 String toString() {
-  return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom, rotation: $rotation)';
+  final _this = this as PersistedCameraState;
+  return 'PersistedCameraState(positionX: ${_this.positionX}, positionY: ${_this.positionY}, zoom: ${_this.zoom}, rotation: ${_this.rotation})';
 }
 
 
@@ -242,16 +254,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.rotation, rotation) || other.rotation == rotation));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.rotation, rotation) || other.rotation == rotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,positionX,positionY,zoom,rotation);
+int get hashCode {
+    return Object.hash(runtimeType,positionX,positionY,zoom,rotation);
+}
 
 @override
 String toString() {
-  return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom, rotation: $rotation)';
+    return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom, rotation: $rotation)';
 }
 
 
@@ -309,16 +323,21 @@ $PersistentLockStateCopyWith<PersistentLockState> get copyWith => _$PersistentLo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.lockRotation, lockRotation) || other.lockRotation == lockRotation));
+  final _this = this as PersistentLockState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistentLockState&&(identical(other.lockCollection, _this.lockCollection) || other.lockCollection == _this.lockCollection)&&(identical(other.lockLayer, _this.lockLayer) || other.lockLayer == _this.lockLayer)&&(identical(other.lockZoom, _this.lockZoom) || other.lockZoom == _this.lockZoom)&&(identical(other.lockHorizontal, _this.lockHorizontal) || other.lockHorizontal == _this.lockHorizontal)&&(identical(other.lockVertical, _this.lockVertical) || other.lockVertical == _this.lockVertical)&&(identical(other.lockRotation, _this.lockRotation) || other.lockRotation == _this.lockRotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,lockRotation);
+int get hashCode {
+  final _this = this as PersistentLockState;
+  return Object.hash(runtimeType,_this.lockCollection,_this.lockLayer,_this.lockZoom,_this.lockHorizontal,_this.lockVertical,_this.lockRotation);
+}
 
 @override
 String toString() {
-  return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, lockRotation: $lockRotation)';
+  final _this = this as PersistentLockState;
+  return 'PersistentLockState(lockCollection: ${_this.lockCollection}, lockLayer: ${_this.lockLayer}, lockZoom: ${_this.lockZoom}, lockHorizontal: ${_this.lockHorizontal}, lockVertical: ${_this.lockVertical}, lockRotation: ${_this.lockRotation})';
 }
 
 
@@ -389,16 +408,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.lockRotation, lockRotation) || other.lockRotation == lockRotation));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.lockRotation, lockRotation) || other.lockRotation == lockRotation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,lockRotation);
+int get hashCode {
+    return Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,lockRotation);
+}
 
 @override
 String toString() {
-  return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, lockRotation: $lockRotation)';
+    return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, lockRotation: $lockRotation)';
 }
 
 
@@ -458,16 +479,21 @@ $PersistedNavigatorStateCopyWith<PersistedNavigatorState> get copyWith => _$Pers
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedNavigatorState&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.page, page) || other.page == page));
+  final _this = this as PersistedNavigatorState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedNavigatorState&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.page, _this.page) || other.page == _this.page));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,page);
+int get hashCode {
+  final _this = this as PersistedNavigatorState;
+  return Object.hash(runtimeType,_this.enabled,_this.page);
+}
 
 @override
 String toString() {
-  return 'PersistedNavigatorState(enabled: $enabled, page: $page)';
+  final _this = this as PersistedNavigatorState;
+  return 'PersistedNavigatorState(enabled: ${_this.enabled}, page: ${_this.page})';
 }
 
 
@@ -530,16 +556,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedNavigatorState&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.page, page) || other.page == page));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedNavigatorState&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.page, page) || other.page == page));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,enabled,page);
+int get hashCode {
+    return Object.hash(runtimeType,enabled,page);
+}
 
 @override
 String toString() {
-  return 'PersistedNavigatorState(enabled: $enabled, page: $page)';
+    return 'PersistedNavigatorState(enabled: $enabled, page: $page)';
 }
 
 
@@ -595,16 +623,21 @@ $PersistedLayerStateCopyWith<PersistedLayerState> get copyWith => _$PersistedLay
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedLayerState&&(identical(other.currentLayer, currentLayer) || other.currentLayer == currentLayer)&&(identical(other.currentCollection, currentCollection) || other.currentCollection == currentCollection)&&const DeepCollectionEquality().equals(other.invisibleLayers, invisibleLayers));
+  final _this = this as PersistedLayerState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedLayerState&&(identical(other.currentLayer, _this.currentLayer) || other.currentLayer == _this.currentLayer)&&(identical(other.currentCollection, _this.currentCollection) || other.currentCollection == _this.currentCollection)&&const DeepCollectionEquality().equals(other.invisibleLayers, _this.invisibleLayers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,currentLayer,currentCollection,const DeepCollectionEquality().hash(invisibleLayers));
+int get hashCode {
+  final _this = this as PersistedLayerState;
+  return Object.hash(runtimeType,_this.currentLayer,_this.currentCollection,const DeepCollectionEquality().hash(_this.invisibleLayers));
+}
 
 @override
 String toString() {
-  return 'PersistedLayerState(currentLayer: $currentLayer, currentCollection: $currentCollection, invisibleLayers: $invisibleLayers)';
+  final _this = this as PersistedLayerState;
+  return 'PersistedLayerState(currentLayer: ${_this.currentLayer}, currentCollection: ${_this.currentCollection}, invisibleLayers: ${_this.invisibleLayers})';
 }
 
 
@@ -675,16 +708,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedLayerState&&(identical(other.currentLayer, currentLayer) || other.currentLayer == currentLayer)&&(identical(other.currentCollection, currentCollection) || other.currentCollection == currentCollection)&&const DeepCollectionEquality().equals(other._invisibleLayers, _invisibleLayers));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedLayerState&&(identical(other.currentLayer, currentLayer) || other.currentLayer == currentLayer)&&(identical(other.currentCollection, currentCollection) || other.currentCollection == currentCollection)&&const DeepCollectionEquality().equals(other.invisibleLayers, _invisibleLayers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,currentLayer,currentCollection,const DeepCollectionEquality().hash(_invisibleLayers));
+int get hashCode {
+    return Object.hash(runtimeType,currentLayer,currentCollection,const DeepCollectionEquality().hash(_invisibleLayers));
+}
 
 @override
 String toString() {
-  return 'PersistedLayerState(currentLayer: $currentLayer, currentCollection: $currentCollection, invisibleLayers: $invisibleLayers)';
+    return 'PersistedLayerState(currentLayer: $currentLayer, currentCollection: $currentCollection, invisibleLayers: $invisibleLayers)';
 }
 
 
@@ -741,16 +776,21 @@ $PersistedAreaNavigatorStateCopyWith<PersistedAreaNavigatorState> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedAreaNavigatorState&&(identical(other.create, create) || other.create == create)&&(identical(other.exact, exact) || other.exact == exact)&&(identical(other.ask, ask) || other.ask == ask));
+  final _this = this as PersistedAreaNavigatorState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedAreaNavigatorState&&(identical(other.create, _this.create) || other.create == _this.create)&&(identical(other.exact, _this.exact) || other.exact == _this.exact)&&(identical(other.ask, _this.ask) || other.ask == _this.ask));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,create,exact,ask);
+int get hashCode {
+  final _this = this as PersistedAreaNavigatorState;
+  return Object.hash(runtimeType,_this.create,_this.exact,_this.ask);
+}
 
 @override
 String toString() {
-  return 'PersistedAreaNavigatorState(create: $create, exact: $exact, ask: $ask)';
+  final _this = this as PersistedAreaNavigatorState;
+  return 'PersistedAreaNavigatorState(create: ${_this.create}, exact: ${_this.exact}, ask: ${_this.ask})';
 }
 
 
@@ -815,16 +855,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedAreaNavigatorState&&(identical(other.create, create) || other.create == create)&&(identical(other.exact, exact) || other.exact == exact)&&(identical(other.ask, ask) || other.ask == ask));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedAreaNavigatorState&&(identical(other.create, create) || other.create == create)&&(identical(other.exact, exact) || other.exact == exact)&&(identical(other.ask, ask) || other.ask == ask));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,create,exact,ask);
+int get hashCode {
+    return Object.hash(runtimeType,create,exact,ask);
+}
 
 @override
 String toString() {
-  return 'PersistedAreaNavigatorState(create: $create, exact: $exact, ask: $ask)';
+    return 'PersistedAreaNavigatorState(create: $create, exact: $exact, ask: $ask)';
 }
 
 
@@ -881,16 +923,21 @@ $PersistedDocumentStateCopyWith<PersistedDocumentState> get copyWith => _$Persis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedDocumentState&&(identical(other.version, version) || other.version == version)&&(identical(other.pathKey, pathKey) || other.pathKey == pathKey)&&(identical(other.contentHash, contentHash) || other.contentHash == contentHash)&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.camera, camera) || other.camera == camera)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.selectedTool, selectedTool) || other.selectedTool == selectedTool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areaNavigator, areaNavigator) || other.areaNavigator == areaNavigator)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  final _this = this as PersistedDocumentState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedDocumentState&&(identical(other.version, _this.version) || other.version == _this.version)&&(identical(other.pathKey, _this.pathKey) || other.pathKey == _this.pathKey)&&(identical(other.contentHash, _this.contentHash) || other.contentHash == _this.contentHash)&&(identical(other.pageName, _this.pageName) || other.pageName == _this.pageName)&&(identical(other.camera, _this.camera) || other.camera == _this.camera)&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.selectedTool, _this.selectedTool) || other.selectedTool == _this.selectedTool)&&(identical(other.navigator, _this.navigator) || other.navigator == _this.navigator)&&(identical(other.layers, _this.layers) || other.layers == _this.layers)&&(identical(other.areaNavigator, _this.areaNavigator) || other.areaNavigator == _this.areaNavigator)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,version,pathKey,contentHash,pageName,camera,locks,selectedTool,navigator,layers,areaNavigator,updatedAt);
+int get hashCode {
+  final _this = this as PersistedDocumentState;
+  return Object.hash(runtimeType,_this.version,_this.pathKey,_this.contentHash,_this.pageName,_this.camera,_this.locks,_this.selectedTool,_this.navigator,_this.layers,_this.areaNavigator,_this.updatedAt);
+}
 
 @override
 String toString() {
-  return 'PersistedDocumentState(version: $version, pathKey: $pathKey, contentHash: $contentHash, pageName: $pageName, camera: $camera, locks: $locks, selectedTool: $selectedTool, navigator: $navigator, layers: $layers, areaNavigator: $areaNavigator, updatedAt: $updatedAt)';
+  final _this = this as PersistedDocumentState;
+  return 'PersistedDocumentState(version: ${_this.version}, pathKey: ${_this.pathKey}, contentHash: ${_this.contentHash}, pageName: ${_this.pageName}, camera: ${_this.camera}, locks: ${_this.locks}, selectedTool: ${_this.selectedTool}, navigator: ${_this.navigator}, layers: ${_this.layers}, areaNavigator: ${_this.areaNavigator}, updatedAt: ${_this.updatedAt})';
 }
 
 
@@ -1025,16 +1072,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedDocumentState&&(identical(other.version, version) || other.version == version)&&(identical(other.pathKey, pathKey) || other.pathKey == pathKey)&&(identical(other.contentHash, contentHash) || other.contentHash == contentHash)&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.camera, camera) || other.camera == camera)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.selectedTool, selectedTool) || other.selectedTool == selectedTool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areaNavigator, areaNavigator) || other.areaNavigator == areaNavigator)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedDocumentState&&(identical(other.version, version) || other.version == version)&&(identical(other.pathKey, pathKey) || other.pathKey == pathKey)&&(identical(other.contentHash, contentHash) || other.contentHash == contentHash)&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.camera, camera) || other.camera == camera)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.selectedTool, selectedTool) || other.selectedTool == selectedTool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areaNavigator, areaNavigator) || other.areaNavigator == areaNavigator)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,version,pathKey,contentHash,pageName,camera,locks,selectedTool,navigator,layers,areaNavigator,updatedAt);
+int get hashCode {
+    return Object.hash(runtimeType,version,pathKey,contentHash,pageName,camera,locks,selectedTool,navigator,layers,areaNavigator,updatedAt);
+}
 
 @override
 String toString() {
-  return 'PersistedDocumentState(version: $version, pathKey: $pathKey, contentHash: $contentHash, pageName: $pageName, camera: $camera, locks: $locks, selectedTool: $selectedTool, navigator: $navigator, layers: $layers, areaNavigator: $areaNavigator, updatedAt: $updatedAt)';
+    return 'PersistedDocumentState(version: $version, pathKey: $pathKey, contentHash: $contentHash, pageName: $pageName, camera: $camera, locks: $locks, selectedTool: $selectedTool, navigator: $navigator, layers: $layers, areaNavigator: $areaNavigator, updatedAt: $updatedAt)';
 }
 
 

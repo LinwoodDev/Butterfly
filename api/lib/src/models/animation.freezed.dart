@@ -29,16 +29,21 @@ $AnimationTrackCopyWith<AnimationTrack> get copyWith => _$AnimationTrackCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationTrack&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.keys, keys)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.fps, fps) || other.fps == fps));
+  final _this = this as AnimationTrack;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationTrack&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.keys, _this.keys)&&(identical(other.duration, _this.duration) || other.duration == _this.duration)&&(identical(other.fps, _this.fps) || other.fps == _this.fps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(keys),duration,fps);
+int get hashCode {
+  final _this = this as AnimationTrack;
+  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.keys),_this.duration,_this.fps);
+}
 
 @override
 String toString() {
-  return 'AnimationTrack(name: $name, keys: $keys, duration: $duration, fps: $fps)';
+  final _this = this as AnimationTrack;
+  return 'AnimationTrack(name: ${_this.name}, keys: ${_this.keys}, duration: ${_this.duration}, fps: ${_this.fps})';
 }
 
 
@@ -111,16 +116,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnimationTrack&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._keys, _keys)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.fps, fps) || other.fps == fps));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnimationTrack&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.keys, _keys)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.fps, fps) || other.fps == fps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_keys),duration,fps);
+int get hashCode {
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_keys),duration,fps);
+}
 
 @override
 String toString() {
-  return 'AnimationTrack(name: $name, keys: $keys, duration: $duration, fps: $fps)';
+    return 'AnimationTrack(name: $name, keys: $keys, duration: $duration, fps: $fps)';
 }
 
 
@@ -178,16 +185,21 @@ $AnimationKeyCopyWith<AnimationKey> get copyWith => _$AnimationKeyCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationKey&&(identical(other.cameraPosition, cameraPosition) || other.cameraPosition == cameraPosition)&&(identical(other.cameraZoom, cameraZoom) || other.cameraZoom == cameraZoom)&&(identical(other.breakpoint, breakpoint) || other.breakpoint == breakpoint));
+  final _this = this as AnimationKey;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationKey&&(identical(other.cameraPosition, _this.cameraPosition) || other.cameraPosition == _this.cameraPosition)&&(identical(other.cameraZoom, _this.cameraZoom) || other.cameraZoom == _this.cameraZoom)&&(identical(other.breakpoint, _this.breakpoint) || other.breakpoint == _this.breakpoint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,cameraPosition,cameraZoom,breakpoint);
+int get hashCode {
+  final _this = this as AnimationKey;
+  return Object.hash(runtimeType,_this.cameraPosition,_this.cameraZoom,_this.breakpoint);
+}
 
 @override
 String toString() {
-  return 'AnimationKey(cameraPosition: $cameraPosition, cameraZoom: $cameraZoom, breakpoint: $breakpoint)';
+  final _this = this as AnimationKey;
+  return 'AnimationKey(cameraPosition: ${_this.cameraPosition}, cameraZoom: ${_this.cameraZoom}, breakpoint: ${_this.breakpoint})';
 }
 
 
@@ -252,16 +264,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnimationKey&&(identical(other.cameraPosition, cameraPosition) || other.cameraPosition == cameraPosition)&&(identical(other.cameraZoom, cameraZoom) || other.cameraZoom == cameraZoom)&&(identical(other.breakpoint, breakpoint) || other.breakpoint == breakpoint));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnimationKey&&(identical(other.cameraPosition, cameraPosition) || other.cameraPosition == cameraPosition)&&(identical(other.cameraZoom, cameraZoom) || other.cameraZoom == cameraZoom)&&(identical(other.breakpoint, breakpoint) || other.breakpoint == breakpoint));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,cameraPosition,cameraZoom,breakpoint);
+int get hashCode {
+    return Object.hash(runtimeType,cameraPosition,cameraZoom,breakpoint);
+}
 
 @override
 String toString() {
-  return 'AnimationKey(cameraPosition: $cameraPosition, cameraZoom: $cameraZoom, breakpoint: $breakpoint)';
+    return 'AnimationKey(cameraPosition: $cameraPosition, cameraZoom: $cameraZoom, breakpoint: $breakpoint)';
 }
 
 

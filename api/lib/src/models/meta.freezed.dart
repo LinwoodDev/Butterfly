@@ -29,16 +29,21 @@ $FileMetadataCopyWith<FileMetadata> get copyWith => _$FileMetadataCopyWithImpl<F
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileMetadata&&(identical(other.fileVersion, fileVersion) || other.fileVersion == fileVersion)&&(identical(other.type, type) || other.type == type)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&(identical(other.directory, directory) || other.directory == directory)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.version, version) || other.version == version));
+  final _this = this as FileMetadata;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FileMetadata&&(identical(other.fileVersion, _this.fileVersion) || other.fileVersion == _this.fileVersion)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.author, _this.author) || other.author == _this.author)&&(identical(other.directory, _this.directory) || other.directory == _this.directory)&&(identical(other.fileName, _this.fileName) || other.fileName == _this.fileName)&&(identical(other.version, _this.version) || other.version == _this.version));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fileVersion,type,createdAt,updatedAt,name,description,author,directory,fileName,version);
+int get hashCode {
+  final _this = this as FileMetadata;
+  return Object.hash(runtimeType,_this.fileVersion,_this.type,_this.createdAt,_this.updatedAt,_this.name,_this.description,_this.author,_this.directory,_this.fileName,_this.version);
+}
 
 @override
 String toString() {
-  return 'FileMetadata(fileVersion: $fileVersion, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, author: $author, directory: $directory, fileName: $fileName, version: $version)';
+  final _this = this as FileMetadata;
+  return 'FileMetadata(fileVersion: ${_this.fileVersion}, type: ${_this.type}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, name: ${_this.name}, description: ${_this.description}, author: ${_this.author}, directory: ${_this.directory}, fileName: ${_this.fileName}, version: ${_this.version})';
 }
 
 
@@ -117,16 +122,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileMetadata&&(identical(other.fileVersion, fileVersion) || other.fileVersion == fileVersion)&&(identical(other.type, type) || other.type == type)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&(identical(other.directory, directory) || other.directory == directory)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.version, version) || other.version == version));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileMetadata&&(identical(other.fileVersion, fileVersion) || other.fileVersion == fileVersion)&&(identical(other.type, type) || other.type == type)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&(identical(other.directory, directory) || other.directory == directory)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.version, version) || other.version == version));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fileVersion,type,createdAt,updatedAt,name,description,author,directory,fileName,version);
+int get hashCode {
+    return Object.hash(runtimeType,fileVersion,type,createdAt,updatedAt,name,description,author,directory,fileName,version);
+}
 
 @override
 String toString() {
-  return 'FileMetadata(fileVersion: $fileVersion, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, author: $author, directory: $directory, fileName: $fileName, version: $version)';
+    return 'FileMetadata(fileVersion: $fileVersion, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, author: $author, directory: $directory, fileName: $fileName, version: $version)';
 }
 
 

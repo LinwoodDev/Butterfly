@@ -146,7 +146,8 @@ $ToolCopyWith<Tool> get copyWith => _$ToolCopyWithImpl<Tool>(this as Tool, _$ide
 
 @override
 String toString() {
-  return 'Tool(name: $name, displayIcon: $displayIcon, id: $id)';
+  final _this = this as Tool;
+  return 'Tool(name: ${_this.name}, displayIcon: ${_this.displayIcon}, id: ${_this.id})';
 }
 
 
@@ -219,7 +220,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.select(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, hitElementMode: $hitElementMode)';
+    return 'Tool.select(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, hitElementMode: $hitElementMode)';
 }
 
 
@@ -291,7 +292,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.hand(name: $name, displayIcon: $displayIcon, id: $id)';
+    return 'Tool.hand(name: $name, displayIcon: $displayIcon, id: $id)';
 }
 
 
@@ -382,7 +383,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.import(name: $name, displayIcon: $displayIcon, id: $id, elements: $elements, areas: $areas, assets: $assets)';
+    return 'Tool.import(name: $name, displayIcon: $displayIcon, id: $id, elements: $elements, areas: $areas, assets: $assets)';
 }
 
 
@@ -455,7 +456,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.undo(name: $name, displayIcon: $displayIcon, id: $id)';
+    return 'Tool.undo(name: $name, displayIcon: $displayIcon, id: $id)';
 }
 
 
@@ -525,7 +526,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.redo(name: $name, displayIcon: $displayIcon, id: $id)';
+    return 'Tool.redo(name: $name, displayIcon: $displayIcon, id: $id)';
 }
 
 
@@ -600,7 +601,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.label(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
+    return 'Tool.label(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
 }
 
 
@@ -692,7 +693,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.pen(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, combinePaths: $combinePaths, property: $property)';
+    return 'Tool.pen(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, combinePaths: $combinePaths, property: $property)';
 }
 
 
@@ -771,7 +772,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.eraser(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, strokeWidth: $strokeWidth, hitElementMode: $hitElementMode, eraseElements: $eraseElements)';
+    return 'Tool.eraser(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, strokeWidth: $strokeWidth, hitElementMode: $hitElementMode, eraseElements: $eraseElements)';
 }
 
 
@@ -846,7 +847,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.collection(name: $name, displayIcon: $displayIcon, id: $id, strokeWidth: $strokeWidth)';
+    return 'Tool.collection(name: $name, displayIcon: $displayIcon, id: $id, strokeWidth: $strokeWidth)';
 }
 
 
@@ -922,7 +923,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.area(name: $name, displayIcon: $displayIcon, id: $id, color: $color, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
+    return 'Tool.area(name: $name, displayIcon: $displayIcon, id: $id, color: $color, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
 }
 
 
@@ -1003,7 +1004,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.laser(name: $name, displayIcon: $displayIcon, id: $id, duration: $duration, hideDuration: $hideDuration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color, animation: $animation)';
+    return 'Tool.laser(name: $name, displayIcon: $displayIcon, id: $id, duration: $duration, hideDuration: $hideDuration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color, animation: $animation)';
 }
 
 
@@ -1086,7 +1087,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.shape(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property, drawFromCenter: $drawFromCenter, constrain: $constrain)';
+    return 'Tool.shape(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property, drawFromCenter: $drawFromCenter, constrain: $constrain)';
 }
 
 
@@ -1171,7 +1172,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.table(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, rows: $rows, columns: $columns, border: $border, fillColor: $fillColor)';
+    return 'Tool.table(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, rows: $rows, columns: $columns, border: $border, fillColor: $fillColor)';
 }
 
 
@@ -1259,7 +1260,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.stamp(name: $name, displayIcon: $displayIcon, id: $id, component: $component)';
+    return 'Tool.stamp(name: $name, displayIcon: $displayIcon, id: $id, component: $component)';
 }
 
 
@@ -1342,7 +1343,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.presentation(name: $name, displayIcon: $displayIcon, id: $id)';
+    return 'Tool.presentation(name: $name, displayIcon: $displayIcon, id: $id)';
 }
 
 
@@ -1413,7 +1414,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.spacer(name: $name, displayIcon: $displayIcon, id: $id, axis: $axis)';
+    return 'Tool.spacer(name: $name, displayIcon: $displayIcon, id: $id, axis: $axis)';
 }
 
 
@@ -1484,7 +1485,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.fullScreen(name: $name, displayIcon: $displayIcon, id: $id)';
+    return 'Tool.fullScreen(name: $name, displayIcon: $displayIcon, id: $id)';
 }
 
 
@@ -1556,7 +1557,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.asset(name: $name, displayIcon: $displayIcon, id: $id, importType: $importType, advanced: $advanced)';
+    return 'Tool.asset(name: $name, displayIcon: $displayIcon, id: $id, importType: $importType, advanced: $advanced)';
 }
 
 
@@ -1629,7 +1630,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.export(name: $name, displayIcon: $displayIcon, id: $id, options: $options)';
+    return 'Tool.export(name: $name, displayIcon: $displayIcon, id: $id, options: $options)';
 }
 
 
@@ -1714,7 +1715,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.texture(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, texture: $texture)';
+    return 'Tool.texture(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, texture: $texture)';
 }
 
 
@@ -1801,7 +1802,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, foreground: $foreground, size: $size)';
+    return 'Tool.ruler(name: $name, displayIcon: $displayIcon, id: $id, color: $color, foreground: $foreground, size: $size)';
 }
 
 
@@ -1882,7 +1883,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.grid(name: $name, displayIcon: $displayIcon, id: $id, color: $color, xSize: $xSize, ySize: $ySize, xOffset: $xOffset, yOffset: $yOffset, positionDependent: $positionDependent, zoomDependent: $zoomDependent, stroke: $stroke)';
+    return 'Tool.grid(name: $name, displayIcon: $displayIcon, id: $id, color: $color, xSize: $xSize, ySize: $ySize, xOffset: $xOffset, yOffset: $yOffset, positionDependent: $positionDependent, zoomDependent: $zoomDependent, stroke: $stroke)';
 }
 
 
@@ -1960,7 +1961,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.eyeDropper(name: $name, displayIcon: $displayIcon, id: $id)';
+    return 'Tool.eyeDropper(name: $name, displayIcon: $displayIcon, id: $id)';
 }
 
 
@@ -2032,7 +2033,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.barcode(name: $name, displayIcon: $displayIcon, id: $id, barcodeType: $barcodeType, color: $color)';
+    return 'Tool.barcode(name: $name, displayIcon: $displayIcon, id: $id, barcodeType: $barcodeType, color: $color)';
 }
 
 
@@ -2106,7 +2107,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.polygon(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, property: $property)';
+    return 'Tool.polygon(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, property: $property)';
 }
 
 

@@ -29,16 +29,21 @@ $ElementConstraintCopyWith<ElementConstraint> get copyWith => _$ElementConstrain
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementConstraint&&(identical(other.size, size) || other.size == size)&&(identical(other.length, length) || other.length == length)&&(identical(other.includeArea, includeArea) || other.includeArea == includeArea));
+  final _this = this as ElementConstraint;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementConstraint&&(identical(other.size, _this.size) || other.size == _this.size)&&(identical(other.length, _this.length) || other.length == _this.length)&&(identical(other.includeArea, _this.includeArea) || other.includeArea == _this.includeArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,size,length,includeArea);
+int get hashCode {
+  final _this = this as ElementConstraint;
+  return Object.hash(runtimeType,_this.size,_this.length,_this.includeArea);
+}
 
 @override
 String toString() {
-  return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
+  final _this = this as ElementConstraint;
+  return 'ElementConstraint(size: ${_this.size}, length: ${_this.length}, includeArea: ${_this.includeArea})';
 }
 
 
@@ -103,16 +108,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementConstraint&&(identical(other.size, size) || other.size == size)&&(identical(other.length, length) || other.length == length)&&(identical(other.includeArea, includeArea) || other.includeArea == includeArea));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementConstraint&&(identical(other.size, size) || other.size == size)&&(identical(other.length, length) || other.length == length)&&(identical(other.includeArea, includeArea) || other.includeArea == includeArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,size,length,includeArea);
+int get hashCode {
+    return Object.hash(runtimeType,size,length,includeArea);
+}
 
 @override
 String toString() {
-  return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
+    return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
 }
 
 
@@ -191,7 +198,7 @@ mixin _$ElementConstraints {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementConstraints);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementConstraints);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -200,7 +207,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ElementConstraints()';
+    return 'ElementConstraints()';
 }
 
 
@@ -240,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScaledElementConstraints&&(identical(other.scaleX, scaleX) || other.scaleX == scaleX)&&(identical(other.scaleY, scaleY) || other.scaleY == scaleY));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ScaledElementConstraints&&(identical(other.scaleX, scaleX) || other.scaleX == scaleX)&&(identical(other.scaleY, scaleY) || other.scaleY == scaleY));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,scaleX,scaleY);
+int get hashCode {
+    return Object.hash(runtimeType,scaleX,scaleY);
+}
 
 @override
 String toString() {
-  return 'ElementConstraints.scaled(scaleX: $scaleX, scaleY: $scaleY)';
+    return 'ElementConstraints.scaled(scaleX: $scaleX, scaleY: $scaleY)';
 }
 
 
@@ -315,16 +324,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FixedElementConstraints&&(identical(other.height, height) || other.height == height)&&(identical(other.width, width) || other.width == width));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FixedElementConstraints&&(identical(other.height, height) || other.height == height)&&(identical(other.width, width) || other.width == width));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,height,width);
+int get hashCode {
+    return Object.hash(runtimeType,height,width);
+}
 
 @override
 String toString() {
-  return 'ElementConstraints.fixed(height: $height, width: $width)';
+    return 'ElementConstraints.fixed(height: $height, width: $width)';
 }
 
 
@@ -392,16 +403,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DynamicElementConstraints&&(identical(other.height, height) || other.height == height)&&(identical(other.width, width) || other.width == width)&&(identical(other.aspectRatio, aspectRatio) || other.aspectRatio == aspectRatio)&&(identical(other.includeArea, includeArea) || other.includeArea == includeArea));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DynamicElementConstraints&&(identical(other.height, height) || other.height == height)&&(identical(other.width, width) || other.width == width)&&(identical(other.aspectRatio, aspectRatio) || other.aspectRatio == aspectRatio)&&(identical(other.includeArea, includeArea) || other.includeArea == includeArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,height,width,aspectRatio,includeArea);
+int get hashCode {
+    return Object.hash(runtimeType,height,width,aspectRatio,includeArea);
+}
 
 @override
 String toString() {
-  return 'ElementConstraints.dynamic(height: $height, width: $width, aspectRatio: $aspectRatio, includeArea: $includeArea)';
+    return 'ElementConstraints.dynamic(height: $height, width: $width, aspectRatio: $aspectRatio, includeArea: $includeArea)';
 }
 
 
@@ -459,16 +472,21 @@ $TableBorderPropertyCopyWith<TableBorderProperty> get copyWith => _$TableBorderP
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableBorderProperty&&(identical(other.width, width) || other.width == width)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
+  final _this = this as TableBorderProperty;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableBorderProperty&&(identical(other.width, _this.width) || other.width == _this.width)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.strokeStyle, _this.strokeStyle) || other.strokeStyle == _this.strokeStyle)&&(identical(other.dashMultiplier, _this.dashMultiplier) || other.dashMultiplier == _this.dashMultiplier)&&(identical(other.gapMultiplier, _this.gapMultiplier) || other.gapMultiplier == _this.gapMultiplier));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,color,strokeStyle,dashMultiplier,gapMultiplier);
+int get hashCode {
+  final _this = this as TableBorderProperty;
+  return Object.hash(runtimeType,_this.width,_this.color,_this.strokeStyle,_this.dashMultiplier,_this.gapMultiplier);
+}
 
 @override
 String toString() {
-  return 'TableBorderProperty(width: $width, color: $color, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
+  final _this = this as TableBorderProperty;
+  return 'TableBorderProperty(width: ${_this.width}, color: ${_this.color}, strokeStyle: ${_this.strokeStyle}, dashMultiplier: ${_this.dashMultiplier}, gapMultiplier: ${_this.gapMultiplier})';
 }
 
 
@@ -537,16 +555,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableBorderProperty&&(identical(other.width, width) || other.width == width)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableBorderProperty&&(identical(other.width, width) || other.width == width)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,width,color,strokeStyle,dashMultiplier,gapMultiplier);
+int get hashCode {
+    return Object.hash(runtimeType,width,color,strokeStyle,dashMultiplier,gapMultiplier);
+}
 
 @override
 String toString() {
-  return 'TableBorderProperty(width: $width, color: $color, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
+    return 'TableBorderProperty(width: $width, color: $color, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
 }
 
 
@@ -605,16 +625,21 @@ $TableCellPropertyCopyWith<TableCellProperty> get copyWith => _$TableCellPropert
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableCellProperty&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor));
+  final _this = this as TableCellProperty;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableCellProperty&&(identical(other.fillColor, _this.fillColor) || other.fillColor == _this.fillColor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fillColor);
+int get hashCode {
+  final _this = this as TableCellProperty;
+  return Object.hash(runtimeType,_this.fillColor);
+}
 
 @override
 String toString() {
-  return 'TableCellProperty(fillColor: $fillColor)';
+  final _this = this as TableCellProperty;
+  return 'TableCellProperty(fillColor: ${_this.fillColor})';
 }
 
 
@@ -675,16 +700,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableCellProperty&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableCellProperty&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fillColor);
+int get hashCode {
+    return Object.hash(runtimeType,fillColor);
+}
 
 @override
 String toString() {
-  return 'TableCellProperty(fillColor: $fillColor)';
+    return 'TableCellProperty(fillColor: $fillColor)';
 }
 
 
@@ -794,16 +821,21 @@ $PadElementCopyWith<PadElement> get copyWith => _$PadElementCopyWithImpl<PadElem
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PadElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.extra, extra));
+  final _this = this as PadElement;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PadElement&&(identical(other.rotation, _this.rotation) || other.rotation == _this.rotation)&&(identical(other.shear, _this.shear) || other.shear == _this.shear)&&(identical(other.collection, _this.collection) || other.collection == _this.collection)&&(identical(other.id, _this.id) || other.id == _this.id)&&const DeepCollectionEquality().equals(other.extra, _this.extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,const DeepCollectionEquality().hash(extra));
+int get hashCode {
+  final _this = this as PadElement;
+  return Object.hash(runtimeType,_this.rotation,_this.shear,_this.collection,_this.id,const DeepCollectionEquality().hash(_this.extra));
+}
 
 @override
 String toString() {
-  return 'PadElement(rotation: $rotation, shear: $shear, collection: $collection, id: $id, extra: $extra)';
+  final _this = this as PadElement;
+  return 'PadElement(rotation: ${_this.rotation}, shear: ${_this.shear}, collection: ${_this.collection}, id: ${_this.id}, extra: ${_this.extra})';
 }
 
 
@@ -892,16 +924,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.combineId, combineId) || other.combineId == combineId)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.combineId, combineId) || other.combineId == combineId)&&const DeepCollectionEquality().equals(other.points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,zoom,combineId,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,zoom,combineId,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.pen(rotation: $rotation, shear: $shear, collection: $collection, id: $id, zoom: $zoom, combineId: $combineId, points: $points, property: $property, extra: $extra)';
+    return 'PadElement.pen(rotation: $rotation, shear: $shear, collection: $collection, id: $id, zoom: $zoom, combineId: $combineId, points: $points, property: $property, extra: $extra)';
 }
 
 
@@ -989,16 +1023,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.area, area) || other.area == area)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TextElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.area, area) || other.area == area)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,scale,styleSheet,area,constraint,foreground,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,position,scale,styleSheet,area,constraint,foreground,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.text(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
+    return 'PadElement.text(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
 }
 
 
@@ -1119,16 +1155,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.text, text) || other.text == text)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.text, text) || other.text == text)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,scale,styleSheet,areaProperty,text,constraint,foreground,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,position,scale,styleSheet,areaProperty,text,constraint,foreground,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.markdown(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
+    return 'PadElement.markdown(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
 }
 
 
@@ -1248,16 +1286,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.image(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
+    return 'PadElement.image(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
 }
 
 
@@ -1360,16 +1400,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PdfElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.page, page) || other.page == page)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.invert, invert) || other.invert == invert)&&(identical(other.background, background) || other.background == background)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PdfElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.page, page) || other.page == page)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.invert, invert) || other.invert == invert)&&(identical(other.background, background) || other.background == background)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,page,width,height,invert,background,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,page,width,height,invert,background,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.pdf(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, invert: $invert, background: $background, extra: $extra)';
+    return 'PadElement.pdf(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, invert: $invert, background: $background, extra: $extra)';
 }
 
 
@@ -1472,16 +1514,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.svg(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
+    return 'PadElement.svg(rotation: $rotation, shear: $shear, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
 }
 
 
@@ -1579,16 +1623,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,firstPosition,secondPosition,const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,firstPosition,secondPosition,const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.shape(rotation: $rotation, shear: $shear, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
+    return 'PadElement.shape(rotation: $rotation, shear: $shear, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
 }
 
 
@@ -1710,16 +1756,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&(identical(other.rows, rows) || other.rows == rows)&&(identical(other.columns, columns) || other.columns == columns)&&(identical(other.border, border) || other.border == border)&&const DeepCollectionEquality().equals(other._rowSizes, _rowSizes)&&const DeepCollectionEquality().equals(other._columnSizes, _columnSizes)&&const DeepCollectionEquality().equals(other._horizontalBorders, _horizontalBorders)&&const DeepCollectionEquality().equals(other._verticalBorders, _verticalBorders)&&const DeepCollectionEquality().equals(other._cells, _cells)&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TableElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&(identical(other.rows, rows) || other.rows == rows)&&(identical(other.columns, columns) || other.columns == columns)&&(identical(other.border, border) || other.border == border)&&const DeepCollectionEquality().equals(other.rowSizes, _rowSizes)&&const DeepCollectionEquality().equals(other.columnSizes, _columnSizes)&&const DeepCollectionEquality().equals(other.horizontalBorders, _horizontalBorders)&&const DeepCollectionEquality().equals(other.verticalBorders, _verticalBorders)&&const DeepCollectionEquality().equals(other.cells, _cells)&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,firstPosition,secondPosition,rows,columns,border,const DeepCollectionEquality().hash(_rowSizes),const DeepCollectionEquality().hash(_columnSizes),const DeepCollectionEquality().hash(_horizontalBorders),const DeepCollectionEquality().hash(_verticalBorders),const DeepCollectionEquality().hash(_cells),fillColor,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,firstPosition,secondPosition,rows,columns,border,const DeepCollectionEquality().hash(_rowSizes),const DeepCollectionEquality().hash(_columnSizes),const DeepCollectionEquality().hash(_horizontalBorders),const DeepCollectionEquality().hash(_verticalBorders),const DeepCollectionEquality().hash(_cells),fillColor,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.table(rotation: $rotation, shear: $shear, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, rows: $rows, columns: $columns, border: $border, rowSizes: $rowSizes, columnSizes: $columnSizes, horizontalBorders: $horizontalBorders, verticalBorders: $verticalBorders, cells: $cells, fillColor: $fillColor, extra: $extra)';
+    return 'PadElement.table(rotation: $rotation, shear: $shear, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, rows: $rows, columns: $columns, border: $border, rowSizes: $rowSizes, columnSizes: $columnSizes, horizontalBorders: $horizontalBorders, verticalBorders: $verticalBorders, cells: $cells, fillColor: $fillColor, extra: $extra)';
 }
 
 
@@ -1820,16 +1868,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextureElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.texture, texture) || other.texture == texture)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other._extra, _extra));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TextureElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.texture, texture) || other.texture == texture)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other.extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,texture,firstPosition,secondPosition,const DeepCollectionEquality().hash(_extra));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,texture,firstPosition,secondPosition,const DeepCollectionEquality().hash(_extra));
+}
 
 @override
 String toString() {
-  return 'PadElement.texture(rotation: $rotation, shear: $shear, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
+    return 'PadElement.texture(rotation: $rotation, shear: $shear, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
 }
 
 
@@ -1927,16 +1977,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other._extra, _extra)&&const DeepCollectionEquality().equals(other.property, property));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.shear, shear) || other.shear == shear)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.points, _points)&&const DeepCollectionEquality().equals(other.extra, _extra)&&const DeepCollectionEquality().equals(other.property, property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,rotation,shear,collection,id,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(_extra),const DeepCollectionEquality().hash(property));
+int get hashCode {
+    return Object.hash(runtimeType,rotation,shear,collection,id,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(_extra),const DeepCollectionEquality().hash(property));
+}
 
 @override
 String toString() {
-  return 'PadElement.polygon(rotation: $rotation, shear: $shear, collection: $collection, id: $id, points: $points, extra: $extra, property: $property)';
+    return 'PadElement.polygon(rotation: $rotation, shear: $shear, collection: $collection, id: $id, points: $points, extra: $extra, property: $property)';
 }
 
 

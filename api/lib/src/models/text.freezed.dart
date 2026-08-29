@@ -51,7 +51,7 @@ mixin _$SpanProperty {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpanProperty);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SpanProperty);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -60,7 +60,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SpanProperty()';
+    return 'SpanProperty()';
 }
 
 
@@ -110,16 +110,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DefinedSpanProperty&&(identical(other.size, size) || other.size == size)&&(identical(other.color, color) || other.color == color)&&(identical(other.fontWeight, fontWeight) || other.fontWeight == fontWeight)&&(identical(other.lineThrough, lineThrough) || other.lineThrough == lineThrough)&&(identical(other.underline, underline) || other.underline == underline)&&(identical(other.overline, overline) || other.overline == overline)&&(identical(other.italic, italic) || other.italic == italic)&&(identical(other.letterSpacing, letterSpacing) || other.letterSpacing == letterSpacing)&&(identical(other.decorationColor, decorationColor) || other.decorationColor == decorationColor)&&(identical(other.decorationStyle, decorationStyle) || other.decorationStyle == decorationStyle)&&(identical(other.decorationThickness, decorationThickness) || other.decorationThickness == decorationThickness)&&(identical(other.backgroundColor, backgroundColor) || other.backgroundColor == backgroundColor));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DefinedSpanProperty&&(identical(other.size, size) || other.size == size)&&(identical(other.color, color) || other.color == color)&&(identical(other.fontWeight, fontWeight) || other.fontWeight == fontWeight)&&(identical(other.lineThrough, lineThrough) || other.lineThrough == lineThrough)&&(identical(other.underline, underline) || other.underline == underline)&&(identical(other.overline, overline) || other.overline == overline)&&(identical(other.italic, italic) || other.italic == italic)&&(identical(other.letterSpacing, letterSpacing) || other.letterSpacing == letterSpacing)&&(identical(other.decorationColor, decorationColor) || other.decorationColor == decorationColor)&&(identical(other.decorationStyle, decorationStyle) || other.decorationStyle == decorationStyle)&&(identical(other.decorationThickness, decorationThickness) || other.decorationThickness == decorationThickness)&&(identical(other.backgroundColor, backgroundColor) || other.backgroundColor == backgroundColor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,size,color,fontWeight,lineThrough,underline,overline,italic,letterSpacing,decorationColor,decorationStyle,decorationThickness,backgroundColor);
+int get hashCode {
+    return Object.hash(runtimeType,size,color,fontWeight,lineThrough,underline,overline,italic,letterSpacing,decorationColor,decorationStyle,decorationThickness,backgroundColor);
+}
 
 @override
 String toString() {
-  return 'SpanProperty.defined(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, backgroundColor: $backgroundColor)';
+    return 'SpanProperty.defined(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, backgroundColor: $backgroundColor)';
 }
 
 
@@ -194,16 +196,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedSpanProperty&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedSpanProperty&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'SpanProperty.named(name: $name)';
+    return 'SpanProperty.named(name: $name)';
 }
 
 
@@ -262,7 +266,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UndefinedSpanProperty);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UndefinedSpanProperty);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -271,7 +275,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SpanProperty.undefined()';
+    return 'SpanProperty.undefined()';
 }
 
 
@@ -319,7 +323,7 @@ mixin _$ParagraphProperty {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ParagraphProperty);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ParagraphProperty);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -328,7 +332,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ParagraphProperty()';
+    return 'ParagraphProperty()';
 }
 
 
@@ -368,16 +372,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DefinedParagraphProperty&&const DeepCollectionEquality().equals(other.span, span)&&(identical(other.alignment, alignment) || other.alignment == alignment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DefinedParagraphProperty&&const DeepCollectionEquality().equals(other.span, span)&&(identical(other.alignment, alignment) || other.alignment == alignment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(span),alignment);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(span),alignment);
+}
 
 @override
 String toString() {
-  return 'ParagraphProperty.defined(span: $span, alignment: $alignment)';
+    return 'ParagraphProperty.defined(span: $span, alignment: $alignment)';
 }
 
 
@@ -442,16 +448,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedParagraphProperty&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NamedParagraphProperty&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode {
+    return Object.hash(runtimeType,name);
+}
 
 @override
 String toString() {
-  return 'ParagraphProperty.named(name: $name)';
+    return 'ParagraphProperty.named(name: $name)';
 }
 
 
@@ -510,7 +518,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UndefinedParagraphProperty);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UndefinedParagraphProperty);
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -519,7 +527,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ParagraphProperty.undefined()';
+    return 'ParagraphProperty.undefined()';
 }
 
 
@@ -545,16 +553,21 @@ $AreaPropertyCopyWith<AreaProperty> get copyWith => _$AreaPropertyCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaProperty&&(identical(other.alignment, alignment) || other.alignment == alignment));
+  final _this = this as AreaProperty;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaProperty&&(identical(other.alignment, _this.alignment) || other.alignment == _this.alignment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,alignment);
+int get hashCode {
+  final _this = this as AreaProperty;
+  return Object.hash(runtimeType,_this.alignment);
+}
 
 @override
 String toString() {
-  return 'AreaProperty(alignment: $alignment)';
+  final _this = this as AreaProperty;
+  return 'AreaProperty(alignment: ${_this.alignment})';
 }
 
 
@@ -615,16 +628,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaProperty&&(identical(other.alignment, alignment) || other.alignment == alignment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaProperty&&(identical(other.alignment, alignment) || other.alignment == alignment));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,alignment);
+int get hashCode {
+    return Object.hash(runtimeType,alignment);
+}
 
 @override
 String toString() {
-  return 'AreaProperty(alignment: $alignment)';
+    return 'AreaProperty(alignment: $alignment)';
 }
 
 
@@ -702,16 +717,21 @@ $InlineSpanCopyWith<InlineSpan> get copyWith => _$InlineSpanCopyWithImpl<InlineS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InlineSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+  final _this = this as InlineSpan;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InlineSpan&&(identical(other.text, _this.text) || other.text == _this.text)&&(identical(other.property, _this.property) || other.property == _this.property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,text,property);
+int get hashCode {
+  final _this = this as InlineSpan;
+  return Object.hash(runtimeType,_this.text,_this.property);
+}
 
 @override
 String toString() {
-  return 'InlineSpan(text: $text, property: $property)';
+  final _this = this as InlineSpan;
+  return 'InlineSpan(text: ${_this.text}, property: ${_this.property})';
 }
 
 
@@ -787,16 +807,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,text,property);
+int get hashCode {
+    return Object.hash(runtimeType,text,property);
+}
 
 @override
 String toString() {
-  return 'InlineSpan.text(text: $text, property: $property)';
+    return 'InlineSpan.text(text: $text, property: $property)';
 }
 
 
@@ -871,16 +893,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MathTextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is MathTextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,text,property);
+int get hashCode {
+    return Object.hash(runtimeType,text,property);
+}
 
 @override
 String toString() {
-  return 'InlineSpan.math(text: $text, property: $property)';
+    return 'InlineSpan.math(text: $text, property: $property)';
 }
 
 
@@ -942,16 +966,21 @@ $IndexedModelCopyWith<T, IndexedModel<T>> get copyWith => _$IndexedModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndexedModel<T>&&(identical(other.index, index) || other.index == index)&&const DeepCollectionEquality().equals(other.model, model));
+  final _this = this as IndexedModel<T>;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndexedModel<T>&&(identical(other.index, _this.index) || other.index == _this.index)&&const DeepCollectionEquality().equals(other.model, _this.model));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,index,const DeepCollectionEquality().hash(model));
+int get hashCode {
+  final _this = this as IndexedModel<T>;
+  return Object.hash(runtimeType,_this.index,const DeepCollectionEquality().hash(_this.model));
+}
 
 @override
 String toString() {
-  return 'IndexedModel<$T>(index: $index, model: $model)';
+  final _this = this as IndexedModel<T>;
+  return 'IndexedModel<$T>(index: ${_this.index}, model: ${_this.model})';
 }
 
 
@@ -1011,16 +1040,18 @@ _$IndexedModelCopyWith<T, _IndexedModel<T>> get copyWith => __$IndexedModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndexedModel<T>&&(identical(other.index, index) || other.index == index)&&const DeepCollectionEquality().equals(other.model, model));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndexedModel<T>&&(identical(other.index, index) || other.index == index)&&const DeepCollectionEquality().equals(other.model, model));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,index,const DeepCollectionEquality().hash(model));
+int get hashCode {
+    return Object.hash(runtimeType,index,const DeepCollectionEquality().hash(model));
+}
 
 @override
 String toString() {
-  return 'IndexedModel<$T>(index: $index, model: $model)';
+    return 'IndexedModel<$T>(index: $index, model: $model)';
 }
 
 
@@ -1076,16 +1107,21 @@ $TextParagraphCopyWith<TextParagraph> get copyWith => _$TextParagraphCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextParagraph&&(identical(other.property, property) || other.property == property)&&const DeepCollectionEquality().equals(other.textSpans, textSpans));
+  final _this = this as TextParagraph;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextParagraph&&(identical(other.property, _this.property) || other.property == _this.property)&&const DeepCollectionEquality().equals(other.textSpans, _this.textSpans));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,property,const DeepCollectionEquality().hash(textSpans));
+int get hashCode {
+  final _this = this as TextParagraph;
+  return Object.hash(runtimeType,_this.property,const DeepCollectionEquality().hash(_this.textSpans));
+}
 
 @override
 String toString() {
-  return 'TextParagraph(property: $property, textSpans: $textSpans)';
+  final _this = this as TextParagraph;
+  return 'TextParagraph(property: ${_this.property}, textSpans: ${_this.textSpans})';
 }
 
 
@@ -1163,16 +1199,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextParagraph&&(identical(other.property, property) || other.property == property)&&const DeepCollectionEquality().equals(other._textSpans, _textSpans));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextParagraph&&(identical(other.property, property) || other.property == property)&&const DeepCollectionEquality().equals(other.textSpans, _textSpans));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,property,const DeepCollectionEquality().hash(_textSpans));
+int get hashCode {
+    return Object.hash(runtimeType,property,const DeepCollectionEquality().hash(_textSpans));
+}
 
 @override
 String toString() {
-  return 'TextParagraph(property: $property, textSpans: $textSpans)';
+    return 'TextParagraph(property: $property, textSpans: $textSpans)';
 }
 
 
@@ -1237,16 +1275,21 @@ $TextAreaCopyWith<TextArea> get copyWith => _$TextAreaCopyWithImpl<TextArea>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextArea&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.paragraph, paragraph) || other.paragraph == paragraph));
+  final _this = this as TextArea;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextArea&&(identical(other.areaProperty, _this.areaProperty) || other.areaProperty == _this.areaProperty)&&(identical(other.paragraph, _this.paragraph) || other.paragraph == _this.paragraph));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,areaProperty,paragraph);
+int get hashCode {
+  final _this = this as TextArea;
+  return Object.hash(runtimeType,_this.areaProperty,_this.paragraph);
+}
 
 @override
 String toString() {
-  return 'TextArea(areaProperty: $areaProperty, paragraph: $paragraph)';
+  final _this = this as TextArea;
+  return 'TextArea(areaProperty: ${_this.areaProperty}, paragraph: ${_this.paragraph})';
 }
 
 
@@ -1327,16 +1370,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextArea&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.paragraph, paragraph) || other.paragraph == paragraph));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextArea&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.paragraph, paragraph) || other.paragraph == paragraph));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,areaProperty,paragraph);
+int get hashCode {
+    return Object.hash(runtimeType,areaProperty,paragraph);
+}
 
 @override
 String toString() {
-  return 'TextArea(areaProperty: $areaProperty, paragraph: $paragraph)';
+    return 'TextArea(areaProperty: $areaProperty, paragraph: $paragraph)';
 }
 
 
@@ -1410,16 +1455,21 @@ $TextStyleSheetCopyWith<TextStyleSheet> get copyWith => _$TextStyleSheetCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextStyleSheet&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&const DeepCollectionEquality().equals(other.fontFamilyFallback, fontFamilyFallback)&&const DeepCollectionEquality().equals(other.spanProperties, spanProperties)&&const DeepCollectionEquality().equals(other.paragraphProperties, paragraphProperties));
+  final _this = this as TextStyleSheet;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextStyleSheet&&(identical(other.fontFamily, _this.fontFamily) || other.fontFamily == _this.fontFamily)&&const DeepCollectionEquality().equals(other.fontFamilyFallback, _this.fontFamilyFallback)&&const DeepCollectionEquality().equals(other.spanProperties, _this.spanProperties)&&const DeepCollectionEquality().equals(other.paragraphProperties, _this.paragraphProperties));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fontFamily,const DeepCollectionEquality().hash(fontFamilyFallback),const DeepCollectionEquality().hash(spanProperties),const DeepCollectionEquality().hash(paragraphProperties));
+int get hashCode {
+  final _this = this as TextStyleSheet;
+  return Object.hash(runtimeType,_this.fontFamily,const DeepCollectionEquality().hash(_this.fontFamilyFallback),const DeepCollectionEquality().hash(_this.spanProperties),const DeepCollectionEquality().hash(_this.paragraphProperties));
+}
 
 @override
 String toString() {
-  return 'TextStyleSheet(fontFamily: $fontFamily, fontFamilyFallback: $fontFamilyFallback, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
+  final _this = this as TextStyleSheet;
+  return 'TextStyleSheet(fontFamily: ${_this.fontFamily}, fontFamilyFallback: ${_this.fontFamilyFallback}, spanProperties: ${_this.spanProperties}, paragraphProperties: ${_this.paragraphProperties})';
 }
 
 
@@ -1504,16 +1554,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextStyleSheet&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&const DeepCollectionEquality().equals(other._fontFamilyFallback, _fontFamilyFallback)&&const DeepCollectionEquality().equals(other._spanProperties, _spanProperties)&&const DeepCollectionEquality().equals(other._paragraphProperties, _paragraphProperties));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextStyleSheet&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&const DeepCollectionEquality().equals(other.fontFamilyFallback, _fontFamilyFallback)&&const DeepCollectionEquality().equals(other.spanProperties, _spanProperties)&&const DeepCollectionEquality().equals(other.paragraphProperties, _paragraphProperties));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,fontFamily,const DeepCollectionEquality().hash(_fontFamilyFallback),const DeepCollectionEquality().hash(_spanProperties),const DeepCollectionEquality().hash(_paragraphProperties));
+int get hashCode {
+    return Object.hash(runtimeType,fontFamily,const DeepCollectionEquality().hash(_fontFamilyFallback),const DeepCollectionEquality().hash(_spanProperties),const DeepCollectionEquality().hash(_paragraphProperties));
+}
 
 @override
 String toString() {
-  return 'TextStyleSheet(fontFamily: $fontFamily, fontFamilyFallback: $fontFamilyFallback, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
+    return 'TextStyleSheet(fontFamily: $fontFamily, fontFamilyFallback: $fontFamilyFallback, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
 }
 
 

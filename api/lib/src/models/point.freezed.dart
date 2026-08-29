@@ -29,16 +29,21 @@ $SimplePointCopyWith<SimplePoint> get copyWith => _$SimplePointCopyWithImpl<Simp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SimplePoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
+  final _this = this as SimplePoint;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SimplePoint&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,x,y);
+int get hashCode {
+  final _this = this as SimplePoint;
+  return Object.hash(runtimeType,_this.x,_this.y);
+}
 
 @override
 String toString() {
-  return 'SimplePoint(x: $x, y: $y)';
+  final _this = this as SimplePoint;
+  return 'SimplePoint(x: ${_this.x}, y: ${_this.y})';
 }
 
 
@@ -101,16 +106,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SimplePoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SimplePoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,x,y);
+int get hashCode {
+    return Object.hash(runtimeType,x,y);
+}
 
 @override
 String toString() {
-  return 'SimplePoint(x: $x, y: $y)';
+    return 'SimplePoint(x: $x, y: $y)';
 }
 
 
@@ -166,16 +173,21 @@ $PathPointCopyWith<PathPoint> get copyWith => _$PathPointCopyWithImpl<PathPoint>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PathPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.pressure, pressure) || other.pressure == pressure));
+  final _this = this as PathPoint;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PathPoint&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y)&&(identical(other.pressure, _this.pressure) || other.pressure == _this.pressure));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,x,y,pressure);
+int get hashCode {
+  final _this = this as PathPoint;
+  return Object.hash(runtimeType,_this.x,_this.y,_this.pressure);
+}
 
 @override
 String toString() {
-  return 'PathPoint(x: $x, y: $y, pressure: $pressure)';
+  final _this = this as PathPoint;
+  return 'PathPoint(x: ${_this.x}, y: ${_this.y}, pressure: ${_this.pressure})';
 }
 
 
@@ -240,16 +252,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PathPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.pressure, pressure) || other.pressure == pressure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PathPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.pressure, pressure) || other.pressure == pressure));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,x,y,pressure);
+int get hashCode {
+    return Object.hash(runtimeType,x,y,pressure);
+}
 
 @override
 String toString() {
-  return 'PathPoint(x: $x, y: $y, pressure: $pressure)';
+    return 'PathPoint(x: $x, y: $y, pressure: $pressure)';
 }
 
 
@@ -306,16 +320,21 @@ $PolygonPointCopyWith<PolygonPoint> get copyWith => _$PolygonPointCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.handleIn, handleIn) || other.handleIn == handleIn)&&(identical(other.handleOut, handleOut) || other.handleOut == handleOut));
+  final _this = this as PolygonPoint;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonPoint&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y)&&(identical(other.handleIn, _this.handleIn) || other.handleIn == _this.handleIn)&&(identical(other.handleOut, _this.handleOut) || other.handleOut == _this.handleOut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,x,y,handleIn,handleOut);
+int get hashCode {
+  final _this = this as PolygonPoint;
+  return Object.hash(runtimeType,_this.x,_this.y,_this.handleIn,_this.handleOut);
+}
 
 @override
 String toString() {
-  return 'PolygonPoint(x: $x, y: $y, handleIn: $handleIn, handleOut: $handleOut)';
+  final _this = this as PolygonPoint;
+  return 'PolygonPoint(x: ${_this.x}, y: ${_this.y}, handleIn: ${_this.handleIn}, handleOut: ${_this.handleOut})';
 }
 
 
@@ -406,16 +425,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PolygonPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.handleIn, handleIn) || other.handleIn == handleIn)&&(identical(other.handleOut, handleOut) || other.handleOut == handleOut));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PolygonPoint&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.handleIn, handleIn) || other.handleIn == handleIn)&&(identical(other.handleOut, handleOut) || other.handleOut == handleOut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,x,y,handleIn,handleOut);
+int get hashCode {
+    return Object.hash(runtimeType,x,y,handleIn,handleOut);
+}
 
 @override
 String toString() {
-  return 'PolygonPoint(x: $x, y: $y, handleIn: $handleIn, handleOut: $handleOut)';
+    return 'PolygonPoint(x: $x, y: $y, handleIn: $handleIn, handleOut: $handleOut)';
 }
 
 

@@ -58,7 +58,8 @@ $BackgroundCopyWith<Background> get copyWith => _$BackgroundCopyWithImpl<Backgro
 
 @override
 String toString() {
-  return 'Background(extra: $extra)';
+  final _this = this as Background;
+  return 'Background(extra: ${_this.extra})';
 }
 
 
@@ -132,7 +133,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Background.texture(texture: $texture, extra: $extra)';
+    return 'Background.texture(texture: $texture, extra: $extra)';
 }
 
 
@@ -219,7 +220,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
+    return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
 }
 
 
@@ -301,7 +302,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
+    return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
 }
 
 

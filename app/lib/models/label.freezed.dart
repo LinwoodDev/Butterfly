@@ -26,16 +26,21 @@ $LabelContextCopyWith<LabelContext> get copyWith => _$LabelContextCopyWithImpl<L
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LabelContext&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.textPainter, textPainter) || other.textPainter == textPainter)&&(identical(other.element, element) || other.element == element)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.selection, selection) || other.selection == selection));
+  final _this = this as LabelContext;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LabelContext&&(identical(other.tool, _this.tool) || other.tool == _this.tool)&&(identical(other.textPainter, _this.textPainter) || other.textPainter == _this.textPainter)&&(identical(other.element, _this.element) || other.element == _this.element)&&(identical(other.zoom, _this.zoom) || other.zoom == _this.zoom)&&(identical(other.selection, _this.selection) || other.selection == _this.selection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tool,textPainter,element,zoom,selection);
+int get hashCode {
+  final _this = this as LabelContext;
+  return Object.hash(runtimeType,_this.tool,_this.textPainter,_this.element,_this.zoom,_this.selection);
+}
 
 @override
 String toString() {
-  return 'LabelContext(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
+  final _this = this as LabelContext;
+  return 'LabelContext(tool: ${_this.tool}, textPainter: ${_this.textPainter}, element: ${_this.element}, zoom: ${_this.zoom}, selection: ${_this.selection})';
 }
 
 
@@ -103,16 +108,18 @@ $TextContextCopyWith<TextContext> get copyWith => _$TextContextCopyWithImpl<Text
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextContext&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.textPainter, textPainter) || other.textPainter == textPainter)&&(identical(other.element, element) || other.element == element)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.forcedProperty, forcedProperty) || other.forcedProperty == forcedProperty)&&(identical(other.forcedSpanProperty, forcedSpanProperty) || other.forcedSpanProperty == forcedSpanProperty)&&(identical(other.forceParagraph, forceParagraph) || other.forceParagraph == forceParagraph));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TextContext&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.textPainter, textPainter) || other.textPainter == textPainter)&&(identical(other.element, element) || other.element == element)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.selection, selection) || other.selection == selection)&&(identical(other.forcedProperty, forcedProperty) || other.forcedProperty == forcedProperty)&&(identical(other.forcedSpanProperty, forcedSpanProperty) || other.forcedSpanProperty == forcedSpanProperty)&&(identical(other.forceParagraph, forceParagraph) || other.forceParagraph == forceParagraph));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tool,textPainter,element,zoom,selection,forcedProperty,forcedSpanProperty,forceParagraph);
+int get hashCode {
+    return Object.hash(runtimeType,tool,textPainter,element,zoom,selection,forcedProperty,forcedSpanProperty,forceParagraph);
+}
 
 @override
 String toString() {
-  return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
+    return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
 }
 
 
@@ -204,16 +211,18 @@ $MarkdownContextCopyWith<MarkdownContext> get copyWith => _$MarkdownContextCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownContext&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.textPainter, textPainter) || other.textPainter == textPainter)&&(identical(other.element, element) || other.element == element)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.selection, selection) || other.selection == selection));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownContext&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.textPainter, textPainter) || other.textPainter == textPainter)&&(identical(other.element, element) || other.element == element)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.selection, selection) || other.selection == selection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,tool,textPainter,element,zoom,selection);
+int get hashCode {
+    return Object.hash(runtimeType,tool,textPainter,element,zoom,selection);
+}
 
 @override
 String toString() {
-  return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
+    return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
 }
 
 

@@ -29,16 +29,21 @@ $WaypointCopyWith<Waypoint> get copyWith => _$WaypointCopyWithImpl<Waypoint>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.name, name) || other.name == name)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale));
+  final _this = this as Waypoint;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Waypoint&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.scale, _this.scale) || other.scale == _this.scale));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,position,scale);
+int get hashCode {
+  final _this = this as Waypoint;
+  return Object.hash(runtimeType,_this.name,_this.position,_this.scale);
+}
 
 @override
 String toString() {
-  return 'Waypoint(name: $name, position: $position, scale: $scale)';
+  final _this = this as Waypoint;
+  return 'Waypoint(name: ${_this.name}, position: ${_this.position}, scale: ${_this.scale})';
 }
 
 
@@ -103,16 +108,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.name, name) || other.name == name)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Waypoint&&(identical(other.name, name) || other.name == name)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,position,scale);
+int get hashCode {
+    return Object.hash(runtimeType,name,position,scale);
+}
 
 @override
 String toString() {
-  return 'Waypoint(name: $name, position: $position, scale: $scale)';
+    return 'Waypoint(name: $name, position: $position, scale: $scale)';
 }
 
 

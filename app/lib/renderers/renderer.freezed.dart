@@ -21,7 +21,7 @@ mixin _$TableHitTarget {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableHitTarget);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TableHitTarget);
 }
 
 
@@ -30,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'TableHitTarget()';
+    return 'TableHitTarget()';
 }
 
 
@@ -63,16 +63,18 @@ $TableCellTargetCopyWith<TableCellTarget> get copyWith => _$TableCellTargetCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableCellTarget&&(identical(other.row, row) || other.row == row)&&(identical(other.column, column) || other.column == column));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TableCellTarget&&(identical(other.row, row) || other.row == row)&&(identical(other.column, column) || other.column == column));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,row,column);
+int get hashCode {
+    return Object.hash(runtimeType,row,column);
+}
 
 @override
 String toString() {
-  return 'TableHitTarget.cell(row: $row, column: $column)';
+    return 'TableHitTarget.cell(row: $row, column: $column)';
 }
 
 
@@ -131,16 +133,18 @@ $TableLineTargetCopyWith<TableLineTarget> get copyWith => _$TableLineTargetCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableLineTarget&&(identical(other.axis, axis) || other.axis == axis)&&(identical(other.line, line) || other.line == line));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TableLineTarget&&(identical(other.axis, axis) || other.axis == axis)&&(identical(other.line, line) || other.line == line));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,axis,line);
+int get hashCode {
+    return Object.hash(runtimeType,axis,line);
+}
 
 @override
 String toString() {
-  return 'TableHitTarget.line(axis: $axis, line: $line)';
+    return 'TableHitTarget.line(axis: $axis, line: $line)';
 }
 
 
@@ -200,16 +204,18 @@ $TableBorderTargetCopyWith<TableBorderTarget> get copyWith => _$TableBorderTarge
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TableBorderTarget&&(identical(other.axis, axis) || other.axis == axis)&&(identical(other.line, line) || other.line == line)&&(identical(other.segment, segment) || other.segment == segment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TableBorderTarget&&(identical(other.axis, axis) || other.axis == axis)&&(identical(other.line, line) || other.line == line)&&(identical(other.segment, segment) || other.segment == segment));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,axis,line,segment);
+int get hashCode {
+    return Object.hash(runtimeType,axis,line,segment);
+}
 
 @override
 String toString() {
-  return 'TableHitTarget.border(axis: $axis, line: $line, segment: $segment)';
+    return 'TableHitTarget.border(axis: $axis, line: $line, segment: $segment)';
 }
 
 
