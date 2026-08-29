@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Caneta Invertida",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Borracha",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Pasta sincronizada",
   "syncRootDirectory": "Sincronizar diretório raiz",
-  "penOnlyInput": "Entrada apenas de caneta",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Ativar automaticamente o modo de caneta quando uma caneta é detectada. Esta configuração só dura a sessão atual.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Sempre rejeitar toque e entrada do mouse, só aceitar a entrada do stylus",
   "penOnlyInputOffDescription": "Aceite todos os tipos de entrada, incluindo toque, mouse e estilo.",
   "automatic": "Automático",
   "alwaysOn": "Sempre Ligado",
   "alwaysOff": "Sempre desligado",
-  "showPenOnlyToggle": "Mostrar somente a caneta",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Gestos de Entrada",
   "inputGesturesDescription": "Permite mover e ampliar a tela com gestos de toque, mesmo enquanto uma ferramenta de desenho for selecionada.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignora a primeira leitura da pressão, que pode ser inexacta em algumas canetas.",
-  "ignorePressureNeverDescription": "Usa todas as pressões lidas da caneta.",
-  "ignorePressureAlwaysDescription": "Ignora a pressão e trata a caneta como totalmente pressionada.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Temporário",
   "simpleToolbarVisibility": "Visibilidade na barra de ferramentas simples",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Mostra uma barra de navegação permanente em telas amplas para acesso mais rápido a seções de aplicativos.",
   "optionsPanelPositionDescription": "Escolha se as opções da ferramenta serão exibidas acima ou abaixo da tela.",
   "simpleToolbarVisibilityDescription": "Controla quando a barra de ferramentas (toolbar) menor e simplificada aparece durante a edição de uma nota.",
-  "penOnlyInputDescription": "Impede marcas acidentais da sua mão ou do rato, escolhendo quando apenas a entrada de caneta pode desenhar.",
-  "showPenOnlyToggleDescription": "Exibe uma chave de caneta rápida no editor após a Butterfly detectar uma caneta.",
-  "ignorePressureDescription": "Controla se a pressão da caneta muda o golpe e funciona com leituras de pressão imprecisas de algumas canetas.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Permite que os gestos de vários toque movam a tela em vez de interagir com o conteúdo de notas.",
   "spreadPagesDescription": "Divide as importações multi-páginas em páginas de notas separadas, em vez de colocar tudo em uma página.",
   "shear": "Cortar"
