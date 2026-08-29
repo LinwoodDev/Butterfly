@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Pen invertido",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Carpeta sincronizada",
   "syncRootDirectory": "Directorio raíz de sincronización",
-  "penOnlyInput": "Entrada de Pen sólo",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Activa automáticamente el modo de solo pluma cuando se detecta un código. Este ajuste solo dura la sesión actual.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Siempre rechazar el toque y la entrada del ratón, sólo aceptar la entrada del estilo.",
   "penOnlyInputOffDescription": "Acepta todos los tipos de entrada, incluyendo toque, ratón y estilo.",
   "automatic": "Automático",
   "alwaysOn": "Siempre encendido",
   "alwaysOff": "Siempre apagado",
-  "showPenOnlyToggle": "Mostrar sólo alternar lápiz",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Te permite moverte y acercar el lienzo con gestos táctiles, incluso mientras se selecciona una herramienta de dibujo.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignora la primera lectura de presión, que puede ser inexacta en algunos corrales.",
-  "ignorePressureNeverDescription": "Utiliza todas las lecturas de presión de la pluma.",
-  "ignorePressureAlwaysDescription": "Ignora la presión y trata el bolígrafo como completamente presionado.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Temporal",
   "simpleToolbarVisibility": "Visibilidad simple de la barra de herramientas",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Muestra una barra de navegación permanente en pantallas anchas para un acceso más rápido a las secciones de la aplicación.",
   "optionsPanelPositionDescription": "Elige si las opciones de la herramienta aparecen por encima o por debajo del lienzo.",
   "simpleToolbarVisibilityDescription": "Controla cuando la barra de herramientas más pequeña y simplificada aparece al editar una nota.",
-  "penOnlyInputDescription": "Evita marcas accidentales de su mano o ratón eligiendo cuando sólo la entrada del bolígrafo puede dibujar.",
-  "showPenOnlyToggleDescription": "Muestra un interruptor rápido de sólo pluma en el editor después de que Butterfly detecte una pluma.",
-  "ignorePressureDescription": "Controla si la presión de los bolígrafos cambia el trazo y funciona alrededor de lecturas de presión inexactas de algunos bolígrafos.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Permite que los gestos multitáctiles muevan el lienzo en lugar de interactuar con el contenido de las notas.",
   "spreadPagesDescription": "Divide las importaciones de varias páginas a través de páginas de notas separadas en lugar de colocar todo en una sola página.",
   "shear": "Cortar"
