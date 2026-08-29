@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "القلم المقلوب",
+  "invertedPen": "Inverted Stylus",
   "eraser": "الممحاة",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "تمت مزامنة المجلد",
   "syncRootDirectory": "مزامنة مجلد الجذر",
-  "penOnlyInput": "الرسم باستخدام القلم فقط",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "شغّل وضع \"الإدخال بالقلم فقط\" عند رصد القلم.\nهذا الإعداد لن يحفظ و سيتغير في الجَلسة القادمة.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "تجاهل دائمًا الإدخال باللمس والفأرة، واسمح فقط بالكتابة بالقلم.",
   "penOnlyInputOffDescription": "اقبل جميع أنواع الإدخال بما في ذلك اللمس والفأرة و القلم.",
   "automatic": "تلقائي",
   "alwaysOn": "مفعل",
   "alwaysOff": "معطل",
-  "showPenOnlyToggle": "إظهار زر الإدخال بالقلم فقط",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "إيماءات الإدخال",
   "inputGesturesDescription": "يتيح لك تحريك وتكبيير القماش بإيماءات اللمس، حتى عندما يتم اختيار أداة الرسم.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "يتجاهل قراءة الضغط الأولى، التي يمكن أن تكون غير دقيقة في بعض القلم.",
-  "ignorePressureNeverDescription": "يستخدم كل ضغط يقرأ من القلم.",
-  "ignorePressureAlwaysDescription": "يتجاهل الضغط ويتعامل مع القلم كما هو مضغوط بالكامل.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "مؤقت",
   "simpleToolbarVisibility": "عرض شريط الأدوات البسيط",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "يعرض شريط تنقل دائم على شاشات واسعة للوصول السريع إلى أقسام التطبيقات.",
   "optionsPanelPositionDescription": "يحدد ما إذا كانت خيارات الأداة تظهر أعلاه أو أسفل الكانفاس.",
   "simpleToolbarVisibilityDescription": "التحكم عندما يظهر شريط الأدوات الأصغر والمبسطة أثناء تحرير الملاحظة.",
-  "penOnlyInputDescription": "يمنع العلامات العرضية من يدك أو الفأرة عن طريق اختيار الوقت الذي يمكن فيه لمدخلات القلم فقط الرسم.",
-  "showPenOnlyToggleDescription": "يعرض تبديل سريع للقلم فقط في المحرر بعد اكتشاف الفراشة لقلم.",
-  "ignorePressureDescription": "يتحكم فيما إذا كان ضغط القلم يغير السكتة الدماغية ويعمل حول قراءات ضغط غير دقيقة من بعض الأقسام.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "يتيح إيماءات اللمس المتعددة تحريك الكانفا بدلاً من التفاعل مع محتوى الملاحظة.",
   "spreadPagesDescription": "تقسيم الواردات متعددة الصفحات عبر صفحات ملاحظات منفصلة بدلاً من وضع كل شيء على صفحة واحدة.",
   "shear": "القصة"
