@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverterad penna",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -702,19 +702,20 @@
   },
   "folderSynced": "Mappen synkroniserad",
   "syncRootDirectory": "Synkronisera rotkatalog",
-  "penOnlyInput": "Endast penna inmatning",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Aktivera automatiskt pennläge när en penna upptäcks. Denna inställning varar endast för den aktuella sessionen.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Avvisa alltid beröring och musinmatning, acceptera bara stylus ingång.",
   "penOnlyInputOffDescription": "Acceptera alla inmatningstyper inklusive touch, mus och penna.",
   "automatic": "Automatisk",
   "alwaysOn": "Alltid på",
   "alwaysOff": "Alltid av",
-  "showPenOnlyToggle": "Visa endast penna",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Kan du flytta och zooma duken med touch-gester, även när ett ritverktyg är valt.",
@@ -1441,9 +1442,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignorerar den första tryckbehandlingen, som kan vara felaktig på vissa pennor.",
-  "ignorePressureNeverDescription": "Använder varje tryckavläsning från pennan.",
-  "ignorePressureAlwaysDescription": "Ignorerar tryck och behandlar pennan som fullpressad.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Tillfällig",
   "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet",
   "@simpleToolbarVisibility": {
@@ -1579,9 +1580,9 @@
   "navigationRailDescription": "Visar ett permanent navigeringsfält på breda skärmar för snabbare åtkomst till appsektioner.",
   "optionsPanelPositionDescription": "Väljer om verktygsalternativ visas ovanför eller under duken.",
   "simpleToolbarVisibilityDescription": "Styr när det mindre, förenklade verktygsfältet visas medan du redigerar en anteckning.",
-  "penOnlyInputDescription": "Förhindrar oavsiktliga märken från din hand eller mus genom att välja när endast penninmatning kan rita.",
-  "showPenOnlyToggleDescription": "Visar en snabb pennknapp i redigeraren efter att Butterfly upptäcker en penna.",
-  "ignorePressureDescription": "Kontrollerar om penntrycket ändrar slaglängden och arbetar runt felaktiga tryckvärden från vissa pennor.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Låter multi-touch gester flytta duken istället för att interagera med anteckningsinnehåll.",
   "spreadPagesDescription": "Delar upp importen av flera sidor på separata anteckningssidor istället för att placera allt på en sida.",
   "shear": "Hör"
