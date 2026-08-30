@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import linwoodStarlight from "@linwooddev/starlight-style";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
 import AstroPWA from "@vite-pwa/astro";
@@ -70,10 +71,9 @@ export default defineConfig({
   },
   integrations: [
     starlight({
+      plugins: [linwoodStarlight()],
       title: "Linwood Butterfly",
       customCss: [
-        // Relative path to your custom CSS file
-        "./src/styles/linwood-style.scss",
         "./src/styles/custom.scss",
         "katex/dist/katex.min.css",
       ],
@@ -93,9 +93,7 @@ export default defineConfig({
       ],
       components: {
         Head: "./src/components/Head.astro",
-        Search: "./src/components/Search.astro",
         Footer: "./src/components/Footer.astro",
-        ContentPanel: "./src/components/ContentPanel.astro",
       },
       sidebar: [
         {

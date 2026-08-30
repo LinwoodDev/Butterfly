@@ -14,6 +14,8 @@
     "@astrojs/markdown-satteri": "^0.3.8",
     "@astrojs/react": "^6.0.4",
     "@astrojs/starlight": "^0.41.10",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@linwooddev/starlight-style": "github:LinwoodDev/style#1fe2f9532daa3a4d929763a65ab1c88e6e864654&path:/packages/starlight",
     "@linwooddev/style": "github:LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.18",

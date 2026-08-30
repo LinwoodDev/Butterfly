@@ -1,34 +1,11 @@
 ---
-import { LinkCard } from "@astrojs/starlight/components";
+import SharedDownloadButton from "@linwooddev/starlight-style/components/DownloadButton.astro";
 
 export interface Props {
   title: string;
   href: string;
   after?: string;
 }
-
-const { title, href, after } = Astro.props;
 ---
 
-<LinkCard
-  title={title}
-  href={href}
-  download
-  target="_blank"
-  data-download
-  data-after={after}
-/>
-
-<script lang="ts" is:inline>
-  const downloadButtons = document.querySelectorAll("[data-download]");
-
-  downloadButtons.forEach((button) => {
-    const after = button.getAttribute("data-after");
-    button.addEventListener("click", (event) => {
-      console.log("Downloading...");
-      setTimeout(() => {
-        window.location.href = after ?? "/downloads/thank-you";
-      }, 500);
-    });
-  });
-</script>
+<SharedDownloadButton {...Astro.props} />
