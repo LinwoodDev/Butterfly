@@ -17,12 +17,13 @@ Aşağıdaki kodu web sitenize ekleyin:
 
 ## Şeçenekler
 
-| Seçenek  | Tür                                                                                           | Varsayılan | Tanım                                                                                                                                                             |
-| -------- | --------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| kaydet   | Boolean (true, false)                                                      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                      |
-| editable | Boolean (true, false)                                                      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                                      |
-| dil      | String (..., system, user) | user       | Belge dili. Eğer sistem ise, dil tarayıcıdan algılanacaktır. Eğer kullanıcı ise, dil kullanıcıların tercihine göre ayarlanacaktır |
-| fileName | String                                                                                        |            | Display this file name in the embed title. It is visual only and does not change the document metadata                                            |
+| Seçenek    | Tür                                                                                           | Varsayılan | Tanım                                                                                                                                                             |
+| ---------- | --------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| kaydet     | Boolean (true, false)                                                      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                      |
+| editable   | Boolean (true, false)                                                      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                                      |
+| fullScreen | Boolean (true, false)                                                      | false      | Use the full-screen editor layout without the app bar                                                                                                             |
+| dil        | String (..., system, user) | user       | Belge dili. Eğer sistem ise, dil tarayıcıdan algılanacaktır. Eğer kullanıcı ise, dil kullanıcıların tercihine göre ayarlanacaktır |
+| fileName   | String                                                                                        |            | Display this file name in the embed title. It is visual only and does not change the document metadata                                            |
 
 ## Messaging
 
