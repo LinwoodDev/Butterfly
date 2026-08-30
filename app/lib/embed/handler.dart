@@ -95,6 +95,7 @@ class EmbedHandler {
     queryParameters: {
       if (!embedding.save) 'save': 'false',
       if (!embedding.editable) 'editable': 'false',
+      if (embedding.fullScreen) 'fullScreen': 'true',
       if (embedding.language.isNotEmpty) 'language': embedding.language,
       if (embedding.theme.isNotEmpty) 'theme': embedding.theme,
       if (embedding.fileName.isNotEmpty) 'fileName': embedding.fileName,

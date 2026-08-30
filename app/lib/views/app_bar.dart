@@ -533,31 +533,35 @@ class MainPopupMenu extends StatelessWidget {
                     final size = MediaQuery.sizeOf(context);
                     final navigatorRailEnabled =
                         settings.navigationRail || saveState.embedding != null;
+                    final effectiveFullScreen =
+                        fullScreen ||
+                        (saveState.embedding?.fullScreen ?? false);
                     final showNavigatorDialog =
                         MediaQuery.sizeOf(context).width <
                             LeapBreakpoints.expanded ||
                         !navigatorRailEnabled ||
-                        fullScreen ||
+                        effectiveFullScreen ||
                         hideUi != HideState.visible;
                     return MenuAnchor(
                       menuChildren: [
-                        if (saveState.embedding == null) ...[
-                          MenuItemButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.house,
+                        ...[
+                          if (saveState.embedding == null)
+                            MenuItemButton(
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.house,
+                              ),
+                              child: Text(AppLocalizations.of(context).home),
+                              onPressed: () async {
+                                final router = GoRouter.of(context);
+                                final bloc = context.read<DocumentBloc>();
+                                await bloc.save();
+                                if (router.canPop()) {
+                                  router.pop();
+                                } else {
+                                  router.go('/');
+                                }
+                              },
                             ),
-                            child: Text(AppLocalizations.of(context).home),
-                            onPressed: () async {
-                              final router = GoRouter.of(context);
-                              final bloc = context.read<DocumentBloc>();
-                              await bloc.save();
-                              if (router.canPop()) {
-                                router.pop();
-                              } else {
-                                router.go('/');
-                              }
-                            },
-                          ),
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.image,

@@ -648,10 +648,11 @@ class _ProjectPageState extends State<ProjectPage> {
                           BlocSelector<
                             DocumentSaveCubit,
                             DocumentSaveState,
-                            ({bool editable, bool inView})
+                            ({bool editable, bool fullScreen, bool inView})
                           >(
                             selector: (state) => (
                               editable: state.embedding?.editable != false,
+                              fullScreen: state.embedding?.fullScreen ?? false,
                               inView: state.embedding?.isInternal ?? false,
                             ),
                             builder: (context, saveState) =>
@@ -709,6 +710,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                             appBar:
                                                 state is DocumentPresentationState ||
                                                     fullScreen ||
+                                                    saveState.fullScreen ||
                                                     hideUi != HideState.visible
                                                 ? null
                                                 : PadAppBar(
@@ -932,10 +934,12 @@ class _MainBody extends StatelessWidget {
     );
     final navigatorRailEnabled =
         settings.navigationRail || saveState.embedding != null;
+    final fullScreen =
+        windowState.fullScreen || (saveState.embedding?.fullScreen ?? false);
     final showNavigator =
         isLarge &&
         navigatorRailEnabled &&
-        !windowState.fullScreen &&
+        !fullScreen &&
         state is DocumentLoadSuccess &&
         inputState.hideUi == HideState.visible;
 
@@ -957,7 +961,7 @@ class _MainBody extends StatelessWidget {
               _buildCenterColumn(
                 context,
                 settings,
-                windowState,
+                fullScreen,
                 inputState,
                 isMobile,
                 toolbar,
@@ -993,7 +997,7 @@ class _MainBody extends StatelessWidget {
   Widget _buildCenterColumn(
     BuildContext context,
     ButterflySettings settings,
-    WindowState windowState,
+    bool fullScreen,
     EditorInputState inputState,
     bool isMobile,
     Widget toolbar,
@@ -1001,7 +1005,7 @@ class _MainBody extends StatelessWidget {
     final pos = settings.toolbarPosition;
     final optPos = settings.optionsPanelPosition;
     final showToolbar =
-        (((windowState.fullScreen || settings.toolbarRows > 1) &&
+        (((fullScreen || settings.toolbarRows > 1) &&
                     pos == ToolbarPosition.inline ||
                 pos == ToolbarPosition.top) &&
             !isMobile) &&

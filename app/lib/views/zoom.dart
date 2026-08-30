@@ -86,9 +86,11 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
     final settings = context.read<SettingsCubit>().state;
     final windowState = context.read<WindowCubit>().state;
+    final embedding = context.read<DocumentSaveCubit>().state.embedding;
     final hideZoom =
         !settings.zoomEnabled ||
         windowState.fullScreen ||
+        (embedding?.fullScreen ?? false) ||
         inputState.hideUi != HideState.visible;
     if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
       _controller.reverse();
@@ -112,9 +114,12 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                           var scale = transformSize;
                           final editorController = context
                               .read<EditorController>();
+                          final embedding =
+                              editorController.saveCubit.state.embedding;
                           final hideZoom =
                               !zoomEnabled ||
                               fullScreen ||
+                              (embedding?.fullScreen ?? false) ||
                               editorController.inputCubit.state.hideUi !=
                                   HideState.visible;
 

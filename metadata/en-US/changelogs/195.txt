@@ -1,3 +1,4 @@
+* Add full screen embed option and restore missing embed menu items
 * Improve landscape mobile home page
 * Improve collaboration reliability and user experience
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))

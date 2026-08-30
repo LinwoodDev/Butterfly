@@ -519,7 +519,8 @@ class _EditToolbarState extends State<EditToolbar> {
                           );
                         },
                       ),
-                      if (windowState.fullScreen)
+                      if (windowState.fullScreen ||
+                          (saveState.embedding?.fullScreen ?? false))
                         MainPopupMenu(
                           viewportKey: GlobalKey(),
                           isLarge: !isMobile,
