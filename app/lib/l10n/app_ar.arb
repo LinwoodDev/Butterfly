@@ -1533,7 +1533,7 @@
   "persistentStateCleanup": "تنظيف الحالات المخزنة",
   "persistentStateCleanupDescription": "حذف السجلات الأقدم من الحدود أعلاه",
   "persistentStateCleanupInProgress": "تنظيف...",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{تم تنظيف موقع تخزين واحد} other{تم تنظيفه {locations} مواقع تخزين}}; {records, plural, =1{حذف سجل واحد} other{حذف {records} سجلات}}",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{تم تنظيف موقع تخزين واحد} other{تم تنظيف {locations} مواقع تخزين}}; {records, plural, =1{حُذف سجل واحد} other{حُذفت {records} سجلات}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {
