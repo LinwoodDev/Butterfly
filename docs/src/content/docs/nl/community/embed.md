@@ -17,12 +17,13 @@ Voeg de volgende code toe aan je website:
 
 ## Instellingen
 
-| Optie    | Type                                                                                                | Standaard | Beschrijving                                                                                                                                                                           |
-| -------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| opslaan  | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
-| editable | Boolean (true, false)                                                            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
-| taal     | String (..., systeem, gebruiker) | user      | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
-| fileName | String                                                                                              |           | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                 |
+| Optie      | Type                                                                                                | Standaard | Beschrijving                                                                                                                                                                           |
+| ---------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| opslaan    | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
+| editable   | Boolean (true, false)                                                            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
+| fullScreen | Boolean (true, false)                                                            | Onjuist   | Use the full-screen editor layout without the app bar                                                                                                                                  |
+| taal       | String (..., systeem, gebruiker) | user      | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
+| fileName   | String                                                                                              |           | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                 |
 
 ## Messaging
 
