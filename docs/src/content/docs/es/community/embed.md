@@ -17,12 +17,13 @@ Añade el siguiente código a tu sitio web:
 
 ## Opciones
 
-| Opción   | Tipo                                                                                              | Por defecto | Descripción                                                                                                                                                                             |
-| -------- | ------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| guardar  | Boolean (true, false)                                                          | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                                               |
-| editable | Boolean (true, false)                                                          | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                                            |
-| idioma   | Cadena (..., sistema, usuario) | user        | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
-| fileName | String                                                                                            |             | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                  |
+| Opción     | Tipo                                                                                              | Por defecto | Descripción                                                                                                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| guardar    | Boolean (true, false)                                                          | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                                               |
+| editable   | Boolean (true, false)                                                          | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                                            |
+| fullScreen | Boolean (true, false)                                                          | falso       | Use the full-screen editor layout without the app bar                                                                                                                                   |
+| idioma     | Cadena (..., sistema, usuario) | user        | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
+| fileName   | String                                                                                            |             | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                  |
 
 ## Messaging
 
