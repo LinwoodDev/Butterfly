@@ -17,12 +17,13 @@ Dodaj następujący kod do swojej strony internetowej:
 
 ## Opcje
 
-| Opcja    | Typ                                                                                                      | Domyślny | Opis                                                                                                                                                                         |
-| -------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| zapisz   | Boolean (true, false)                                                                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
-| editable | Boolean (true, false)                                                                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
-| język    | Ciąg znaków (..., system, użytkownik) | user     | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
-| fileName | String                                                                                                   |          | Display this file name in the embed title. It is visual only and does not change the document metadata                                                       |
+| Opcja      | Typ                                                                                                      | Domyślny | Opis                                                                                                                                                                         |
+| ---------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| zapisz     | Boolean (true, false)                                                                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
+| editable   | Boolean (true, false)                                                                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
+| fullScreen | Boolean (true, false)                                                                 | fałszywy | Use the full-screen editor layout without the app bar                                                                                                                        |
+| język      | Ciąg znaków (..., system, użytkownik) | user     | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
+| fileName   | String                                                                                                   |          | Display this file name in the embed title. It is visual only and does not change the document metadata                                                       |
 
 ## Messaging
 
