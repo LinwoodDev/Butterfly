@@ -17,12 +17,13 @@ Add the following code to your website:
 
 ## Options
 
-| Option   | 유형                                                                                            | Default | 설명                                                                                                                                                                          |
-| -------- | --------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable | Boolean (true, false)                                                      | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| language | String (..., system, user) | user    | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
-| fileName | String                                                                                        |         | Display this file name in the embed title. It is visual only and does not change the document metadata                                                      |
+| Option     | 유형                                                                                            | Default | 설명                                                                                                                                                                          |
+| ---------- | --------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| save       | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
+| editable   | Boolean (true, false)                                                      | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |
+| fullScreen | Boolean (true, false)                                                      | false   | Use the full-screen editor layout without the app bar                                                                                                                       |
+| language   | String (..., system, user) | user    | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| fileName   | String                                                                                        |         | Display this file name in the embed title. It is visual only and does not change the document metadata                                                      |
 
 ## Messaging
 
