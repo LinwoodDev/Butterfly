@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "توصيل",
   "username": "اسم المستخدم",
   "password": "كلمة المرور",
   "authenticationPassword": "كلمة مرور المصادقة",
   "documentEncryptionPassword": "كلمة مرور تشفير المستند",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "تم تمكين تشفير المستند",
   "reauthenticate": "إعادة التوثيق",
   "addDocumentEncryptionPassword": "إضافة كلمة مرور تشفير المستند",
@@ -579,6 +581,8 @@
   "symmetric": "متماثل",
   "perSide": "لكل جانب",
   "directory": "المُجلد",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "مجلد المستندات",
   "templatesDirectory": "مجلد القوالب",
   "errorWhileCreatingConnection": "حدث خطأ أثناء إنشاء الاتصال",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "تحديث",
   "@update": {
     "description": "Update action"
