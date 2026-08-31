@@ -21,9 +21,19 @@ Ajoute le code suivant à ton site web :
 | ----------- | ------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | enregistrer | Booléen (true, false)                                                                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
 | editable    | Booléen (true, false)                                                                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
-| fullScreen  | Booléen (true, false)                                                                            | Désactivé  | Use the full-screen editor layout without the app bar                                                                                                                                        |
+| fullScreen  | String (enabled, layoutOnly, startInLayout, forced, disabled)                                    | enabled    | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                                               |
 | langue      | Chaîne de caractères (..., système, utilisateur) | user       | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
 | fileName    | String                                                                                                              |            | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                       |
+
+### Full-screen modes
+
+| Valeur        | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Normale        | Oui    | When enabled by the user   |
+| layoutOnly    | Normale        | Oui    | Jamais                     |
+| startInLayout | Plein écran    | Oui    | Jamais                     |
+| forced        | Plein écran    | Non    | Jamais                     |
+| disabled      | Normale        | Non    | Jamais                     |
 
 ## Messaging
 
