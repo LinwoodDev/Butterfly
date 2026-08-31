@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Verbinden",
   "username": "Gebruikersnaam",
   "password": "Wachtwoord",
   "authenticationPassword": "Authenticatie wachtwoord",
   "documentEncryptionPassword": "Wachtwoord voor versleuteling van document",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Documentversleuteling ingeschakeld",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Wachtwoord voor versleuteling van documenten toevoegen",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetrisch",
   "perSide": "Per zijde",
   "directory": "Catalogus",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Documenten map",
   "templatesDirectory": "Templates map",
   "errorWhileCreatingConnection": "Fout tijdens het maken van de verbinding",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Vernieuwen",
   "@update": {
     "description": "Update action"
