@@ -17,13 +17,23 @@ Adicione o seguinte código ao seu site:
 
 ## Opções
 
-| Alternativa | Tipo                                                                                              | Padrão | Descrição                                                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| save        | Boolean (true, false)                                                          | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
-| editable    |                                                                                                   | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |
-| fullScreen  | Boolean (true, false)                                                          | Falso  | Use the full-screen editor layout without the app bar                                                                                                                          |
-| language    | String (..., sistema, usuário) | user   | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
-| fileName    | String                                                                                            |        | Display this file name in the embed title. It is visual only and does not change the document metadata                                                         |
+| Alternativa | Tipo                                                                                              | Padrão  | Descrição                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| save        | Boolean (true, false)                                                          | true    | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
+| editable    |                                                                                                   | true    | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |
+| fullScreen  | String (enabled, layoutOnly, startInLayout, forced, disabled)                  | enabled | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                                 |
+| language    | String (..., sistema, usuário) | user    | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
+| fileName    | String                                                                                            |         | Display this file name in the embed title. It is visual only and does not change the document metadata                                                         |
+
+### Full-screen modes
+
+| Valor         | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Normal         | Sim    | When enabled by the user   |
+| layoutOnly    | Normal         | Sim    | nunca                      |
+| startInLayout | Tela cheia     | Sim    | nunca                      |
+| forced        | Tela cheia     | Não    | nunca                      |
+| disabled      | Normal         | Não    | nunca                      |
 
 ## Messaging
 
