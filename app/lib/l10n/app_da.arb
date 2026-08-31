@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Forbind",
   "username": "Brugernavn",
   "password": "Adgangskode",
   "authenticationPassword": "Godkendelsesadgangskode",
   "documentEncryptionPassword": "Kodeord til kryptering af dokumenter",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Kryptering af dokument aktiveret",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Tilføj dokument kryptering adgangskode",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetrisk",
   "perSide": "Pr. side",
   "directory": "Mappe",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Dokumenter mappe",
   "templatesDirectory": "Mappe til skabeloner",
   "errorWhileCreatingConnection": "Fejl under oprettelse af forbindelse",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Opdater",
   "@update": {
     "description": "Update action"
