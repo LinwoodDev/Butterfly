@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Yhdistä",
   "username": "Käyttäjätunnus",
   "password": "Salasana",
   "authenticationPassword": "Todennuksen salasana",
   "documentEncryptionPassword": "Asiakirjan salauksen salasana",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Asiakirjan salaus käytössä",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lisää asiakirjan salauksen salasana",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetrinen",
   "perSide": "Per puoli",
   "directory": "Hakemisto",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Asiakirjojen hakemisto",
   "templatesDirectory": "Mallien hakemisto",
   "errorWhileCreatingConnection": "Virhe yhteyttä luotaessa",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Päivitä",
   "@update": {
     "description": "Update action"
