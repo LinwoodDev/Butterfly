@@ -21,9 +21,19 @@ Fügen Sie den folgenden Code Ihrer Webseite hinzu:
 | ----------- | ------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | speichern   | Boolean (true, false)                                                          | true     | Speichern aktivieren. Wenn deaktiviert, wird nur eine Beenden-Schaltfläche angezeigt                                                                           |
 | bearbeitbar | Boolean (true, false)                                                          | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                                    |
-| fullScreen  | Boolean (true, false)                                                          | falsch   | Use the full-screen editor layout without the app bar                                                                                                                          |
+| fullScreen  | String (enabled, layoutOnly, startInLayout, forced, disabled)                  | enabled  | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                                 |
 | Sprache     | String (..., System, Benutzer) | user     | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
 | fileName    | String                                                                                            |          | Display this file name in the embed title. It is visual only and does not change the document metadata                                                         |
+
+### Full-screen modes
+
+| Wert          | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Normal         | Ja     | When enabled by the user   |
+| layoutOnly    | Normal         | Ja     | Nie                        |
+| startInLayout | Vollbild       | Ja     | Nie                        |
+| forced        | Vollbild       | Nein   | Nie                        |
+| disabled      | Normal         | Nein   | Nie                        |
 
 ## Messaging
 
