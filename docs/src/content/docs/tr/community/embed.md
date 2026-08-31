@@ -21,9 +21,19 @@ Aşağıdaki kodu web sitenize ekleyin:
 | ---------- | --------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | kaydet     | Boolean (true, false)                                                      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                      |
 | editable   | Boolean (true, false)                                                      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                                      |
-| fullScreen | Boolean (true, false)                                                      | false      | Use the full-screen editor layout without the app bar                                                                                                             |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)              | enabled    | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                    |
 | dil        | String (..., system, user) | user       | Belge dili. Eğer sistem ise, dil tarayıcıdan algılanacaktır. Eğer kullanıcı ise, dil kullanıcıların tercihine göre ayarlanacaktır |
 | fileName   | String                                                                                        |            | Display this file name in the embed title. It is visual only and does not change the document metadata                                            |
+
+### Full-screen modes
+
+| Değer         | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Normal         | Evet   | When enabled by the user   |
+| layoutOnly    | Normal         | Evet   | Asla                       |
+| startInLayout | Tam ekran      | Evet   | Asla                       |
+| forced        | Tam ekran      | Hayır  | Asla                       |
+| disabled      | Normal         | Hayır  | Asla                       |
 
 ## Messaging
 
