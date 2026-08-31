@@ -21,9 +21,19 @@ Dodaj następujący kod do swojej strony internetowej:
 | ---------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | zapisz     | Boolean (true, false)                                                                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
 | editable   | Boolean (true, false)                                                                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
-| fullScreen | Boolean (true, false)                                                                 | fałszywy | Use the full-screen editor layout without the app bar                                                                                                                        |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                         | enabled  | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                               |
 | język      | Ciąg znaków (..., system, użytkownik) | user     | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
 | fileName   | String                                                                                                   |          | Display this file name in the embed title. It is visual only and does not change the document metadata                                                       |
+
+### Full-screen modes
+
+| Wartość       | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Normalny       | Tak    | When enabled by the user   |
+| layoutOnly    | Normalny       | Tak    | Nigdy                      |
+| startInLayout | Pełny ekran    | Tak    | Nigdy                      |
+| forced        | Pełny ekran    | Nie    | Nigdy                      |
+| disabled      | Normalny       | Nie    | Nigdy                      |
 
 ## Messaging
 
