@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "接続する",
   "username": "ユーザー名",
   "password": "パスワード",
   "authenticationPassword": "認証パスワード",
   "documentEncryptionPassword": "ドキュメント暗号化パスワード",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "ドキュメントの暗号化が有効になっています",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "ドキュメント暗号化パスワードを追加",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetric",
   "perSide": "1 辺あたり",
   "directory": "ディレクトリ",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "ドキュメントディレクトリ",
   "templatesDirectory": "テンプレートディレクトリ",
   "errorWhileCreatingConnection": "接続の作成中にエラー",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "更新",
   "@update": {
     "description": "Update action"
