@@ -21,9 +21,19 @@ Añade el siguiente código a tu sitio web:
 | ---------- | ------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | guardar    | Boolean (true, false)                                                          | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                                               |
 | editable   | Boolean (true, false)                                                          | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                                            |
-| fullScreen | Boolean (true, false)                                                          | falso       | Use the full-screen editor layout without the app bar                                                                                                                                   |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                  | enabled     | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                                          |
 | idioma     | Cadena (..., sistema, usuario) | user        | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
 | fileName   | String                                                                                            |             | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                  |
+
+### Full-screen modes
+
+| Valor         | Initial layout    | Toggle | Browser/system full screen |
+| ------------- | ----------------- | ------ | -------------------------- |
+| enabled       | Normal            | Sí     | When enabled by the user   |
+| layoutOnly    | Normal            | Sí     | Nunca                      |
+| startInLayout | Pantalla completa | Sí     | Nunca                      |
+| forced        | Pantalla completa | Nu     | Nunca                      |
+| disabled      | Normal            | Nu     | Nunca                      |
 
 ## Messaging
 
