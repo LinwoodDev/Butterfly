@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Conectar",
   "username": "Usuário:",
   "password": "Palavra-passe",
   "authenticationPassword": "Senha de autenticação",
   "documentEncryptionPassword": "Senha de encriptação do documento",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Criptografia de documento ativada",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Adicionar senha de criptografia do documento",
@@ -579,6 +581,8 @@
   "symmetric": "Simétrica",
   "perSide": "Por lado",
   "directory": "Diretório",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Diretório de documentos",
   "templatesDirectory": "Diretório de modelos",
   "errorWhileCreatingConnection": "Erro ao criar a conexão",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Atualização",
   "@update": {
     "description": "Update action"
