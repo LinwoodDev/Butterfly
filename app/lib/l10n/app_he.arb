@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "התחבר",
   "username": "שם משתמש",
   "password": "סיסמה",
   "authenticationPassword": "Authentication password",
   "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Document encryption enabled",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Add document encryption password",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetric",
   "perSide": "Per side",
   "directory": "ספרייה",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "ספריית מסמכים",
   "templatesDirectory": "ספריית תבניות",
   "errorWhileCreatingConnection": "שגיאה ביצירת החיבור",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "עדכון",
   "@update": {
     "description": "Update action"
