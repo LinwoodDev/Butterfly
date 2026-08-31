@@ -8,6 +8,7 @@ sealed class DocumentSaveState with _$DocumentSaveState {
     @Default(false) bool isSaveDelayed,
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
+    @Default(false) bool fullScreen,
     @Default(SaveState.saved) SaveState saved,
     @Default(false) bool isCreating,
   }) = _DocumentSaveState;
@@ -44,6 +45,8 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
   );
 
   void setDelayed(bool delayed) => emit(state.copyWith(isSaveDelayed: delayed));
+
+  void changeFullScreen(bool value) => emit(state.copyWith(fullScreen: value));
 
   ExternalStorage? getRemoteStorage() =>
       settingsCubit.getRemote(state.location.remote);

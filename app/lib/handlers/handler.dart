@@ -42,6 +42,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../actions/paste.dart';
 import '../actions/select.dart';
+import '../actions/full_screen.dart';
 import '../api/save.dart';
 import '../cubits/editor_controller.dart';
 import '../dialogs/import/camera.dart';

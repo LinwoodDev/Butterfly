@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/actions/full_screen.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
@@ -518,10 +519,13 @@ class MainPopupMenu extends StatelessWidget {
             return BlocSelector<
               DocumentSaveCubit,
               DocumentSaveState,
-              ({Embedding? embedding, SaveState saved})
+              ({Embedding? embedding, bool fullScreen, SaveState saved})
             >(
-              selector: (state) =>
-                  (embedding: state.embedding, saved: state.saved),
+              selector: (state) => (
+                embedding: state.embedding,
+                fullScreen: state.fullScreen,
+                saved: state.saved,
+              ),
               builder: (context, saveState) {
                 return BlocSelector<
                   EditorInputCubit,
@@ -534,8 +538,7 @@ class MainPopupMenu extends StatelessWidget {
                     final navigatorRailEnabled =
                         settings.navigationRail || saveState.embedding != null;
                     final effectiveFullScreen =
-                        fullScreen ||
-                        (saveState.embedding?.fullScreen ?? false);
+                        fullScreen || saveState.fullScreen;
                     final showNavigatorDialog =
                         MediaQuery.sizeOf(context).width <
                             LeapBreakpoints.expanded ||
@@ -859,29 +862,35 @@ class MainPopupMenu extends StatelessWidget {
                             },
                             child: Text(AppLocalizations.of(context).hideUI),
                           ),
+                        ],
+                        if (saveState.embedding?.fullScreen.canToggle != false)
                           BlocBuilder<WindowCubit, WindowState>(
                             buildWhen: (previous, current) =>
                                 previous.fullScreen != current.fullScreen,
-                            builder: (context, windowState) => MenuItemButton(
-                              leadingIcon: windowState.fullScreen
-                                  ? const PhosphorIcon(
-                                      PhosphorIconsLight.arrowsIn,
-                                    )
-                                  : const PhosphorIcon(
-                                      PhosphorIconsLight.arrowsOut,
-                                    ),
-                              shortcut: const SingleActivator(
-                                LogicalKeyboardKey.f11,
-                              ),
-                              onPressed: () async {
-                                windowCubit.toggleFullScreen();
-                              },
-                              child: Text(
-                                LeapLocalizations.of(context).fullScreen,
-                              ),
-                            ),
+                            builder: (context, windowState) {
+                              final isFullScreen = saveState.embedding != null
+                                  ? saveState.fullScreen
+                                  : windowState.fullScreen;
+                              return MenuItemButton(
+                                leadingIcon: isFullScreen
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.arrowsIn,
+                                      )
+                                    : const PhosphorIcon(
+                                        PhosphorIconsLight.arrowsOut,
+                                      ),
+                                shortcut: const SingleActivator(
+                                  LogicalKeyboardKey.f11,
+                                ),
+                                onPressed: () async {
+                                  await toggleFullScreen(cubit, windowCubit);
+                                },
+                                child: Text(
+                                  LeapLocalizations.of(context).fullScreen,
+                                ),
+                              );
+                            },
                           ),
-                        ],
                         if (saveState.embedding == null &&
                             settings.collaboration)
                           BlocBuilder<NetworkingService, NetworkState?>(

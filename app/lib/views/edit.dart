@@ -94,7 +94,8 @@ class _EditToolbarState extends State<EditToolbar> {
                 builder: (context, toolState) =>
                     BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
                       buildWhen: (previous, current) =>
-                          previous.embedding != current.embedding,
+                          previous.embedding != current.embedding ||
+                          previous.fullScreen != current.fullScreen,
                       builder: (context, saveState) {
                         return Card(
                           elevation: 10,
@@ -519,8 +520,7 @@ class _EditToolbarState extends State<EditToolbar> {
                           );
                         },
                       ),
-                      if (windowState.fullScreen ||
-                          (saveState.embedding?.fullScreen ?? false))
+                      if (windowState.fullScreen || saveState.fullScreen)
                         MainPopupMenu(
                           viewportKey: GlobalKey(),
                           isLarge: !isMobile,

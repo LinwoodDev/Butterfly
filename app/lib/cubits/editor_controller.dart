@@ -78,6 +78,7 @@ class EditorController implements EditorRuntimeContext {
          settingsCubit,
          DocumentSaveState(
            embedding: embedding,
+           fullScreen: embedding?.fullScreen.initialLayout ?? false,
            saved: absolute ? SaveState.absoluteRead : SaveState.saved,
          ),
        ),

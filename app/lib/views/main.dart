@@ -652,7 +652,7 @@ class _ProjectPageState extends State<ProjectPage> {
                           >(
                             selector: (state) => (
                               editable: state.embedding?.editable != false,
-                              fullScreen: state.embedding?.fullScreen ?? false,
+                              fullScreen: state.fullScreen,
                               inView: state.embedding?.isInternal ?? false,
                             ),
                             builder: (context, saveState) =>
@@ -861,7 +861,8 @@ class _MainBody extends StatelessWidget {
               builder: (context, inputState) =>
                   BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
                     buildWhen: (previous, current) =>
-                        previous.embedding != current.embedding,
+                        previous.embedding != current.embedding ||
+                        previous.fullScreen != current.fullScreen,
                     builder: (context, saveState) =>
                         BlocBuilder<WindowCubit, WindowState>(
                           builder: (context, windowState) =>
@@ -934,8 +935,7 @@ class _MainBody extends StatelessWidget {
     );
     final navigatorRailEnabled =
         settings.navigationRail || saveState.embedding != null;
-    final fullScreen =
-        windowState.fullScreen || (saveState.embedding?.fullScreen ?? false);
+    final fullScreen = windowState.fullScreen || saveState.fullScreen;
     final showNavigator =
         isLarge &&
         navigatorRailEnabled &&

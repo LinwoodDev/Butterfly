@@ -86,11 +86,11 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
     final settings = context.read<SettingsCubit>().state;
     final windowState = context.read<WindowCubit>().state;
-    final embedding = context.read<DocumentSaveCubit>().state.embedding;
+    final saveState = context.read<DocumentSaveCubit>().state;
     final hideZoom =
         !settings.zoomEnabled ||
         windowState.fullScreen ||
-        (embedding?.fullScreen ?? false) ||
+        saveState.fullScreen ||
         inputState.hideUi != HideState.visible;
     if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
       _controller.reverse();
@@ -99,6 +99,9 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final layoutFullScreen = context.select<DocumentSaveCubit, bool>(
+      (cubit) => cubit.state.fullScreen,
+    );
     return BlocSelector<DocumentBloc, DocumentState, bool>(
       selector: (state) => state is DocumentLoadSuccess,
       builder: (context, loaded) =>
@@ -114,12 +117,10 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                           var scale = transformSize;
                           final editorController = context
                               .read<EditorController>();
-                          final embedding =
-                              editorController.saveCubit.state.embedding;
                           final hideZoom =
                               !zoomEnabled ||
                               fullScreen ||
-                              (embedding?.fullScreen ?? false) ||
+                              layoutFullScreen ||
                               editorController.inputCubit.state.hideUi !=
                                   HideState.visible;
 

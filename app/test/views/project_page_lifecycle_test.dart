@@ -9,6 +9,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/view.dart';
@@ -42,14 +43,18 @@ class _ReleaseTrackingHandler extends Handler<HandTool> {
 }
 
 void main() {
+  late List<MethodCall> windowManagerCalls;
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
     FlutterSecureStorage.setMockInitialValues({});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
-          const MethodChannel('window_manager'),
-          (call) async => switch (call.method) {
+        .setMockMethodCallHandler(const MethodChannel('window_manager'), (
+          call,
+        ) async {
+          windowManagerCalls.add(call);
+          return switch (call.method) {
             'isMaximized' ||
             'isMinimized' ||
             'isFullScreen' ||
@@ -57,8 +62,8 @@ void main() {
             'isAlwaysOnTop' ||
             'isSkipTaskbar' => false,
             _ => null,
-          },
-        );
+          };
+        });
   });
 
   late MockSettingsCubit settingsCubit;
@@ -69,6 +74,7 @@ void main() {
   late BlocObserver previousObserver;
 
   setUp(() {
+    windowManagerCalls = [];
     settingsCubit = MockSettingsCubit();
     fileSystem = MockButterflyFileSystem(settingsCubit: settingsCubit);
     windowCubit = WindowCubit(fullScreen: false);
@@ -119,6 +125,7 @@ void main() {
     NoteData? embedDocument,
     bool embedWithData = true,
     String embedFileName = '',
+    EmbedFullScreen embedFullScreen = EmbedFullScreen.enabled,
     Object? importData,
   }) {
     final document =
@@ -168,7 +175,11 @@ void main() {
               path: 'embed',
               builder: (context, state) => ProjectPage(
                 data: embedWithData ? document.toFile() : null,
-                embedding: Embedding(internal: true, fileName: embedFileName),
+                embedding: Embedding(
+                  internal: true,
+                  fileName: embedFileName,
+                  fullScreen: embedFullScreen,
+                ),
               ),
             ),
           ],
@@ -252,6 +263,200 @@ void main() {
       tester,
       () => observer.documentBlocCloses == 1,
       'empty embed close',
+    );
+  });
+
+  testWidgets('embed can start full screen and be toggled off', (tester) async {
+    await tester.pumpWidget(
+      buildApp(embedFullScreen: EmbedFullScreen.startInLayout),
+    );
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () =>
+          observer.lastDocumentBloc?.state is DocumentLoadSuccess &&
+          observer
+                  .lastDocumentBloc
+                  ?.editorController
+                  .saveCubit
+                  .state
+                  .fullScreen ==
+              true,
+      'full screen embed open',
+    );
+    expect(windowCubit.state.fullScreen, isFalse);
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(
+      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
+      isEmpty,
+    );
+
+    windowManagerCalls.clear();
+    final viewportContext = find.byType(MainViewViewport).evaluate().single;
+    FullScreenHandler(FullScreenTool()).onSelected(viewportContext);
+    await tester.pump();
+
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.fullScreen,
+      isFalse,
+    );
+    expect(find.byType(PadAppBar), findsOneWidget);
+    expect(
+      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
+      isEmpty,
+    );
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'full screen embed close',
+    );
+  });
+
+  testWidgets('normal embed can toggle native full screen', (tester) async {
+    await tester.pumpWidget(buildApp());
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'normal embed open',
+    );
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.fullScreen,
+      isFalse,
+    );
+
+    windowManagerCalls.clear();
+    final viewportContext = find.byType(MainViewViewport).evaluate().single;
+    FullScreenHandler(FullScreenTool()).onSelected(viewportContext);
+    await tester.pump();
+
+    expect(
+      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
+      isNotEmpty,
+    );
+    expect(find.byType(PadAppBar), findsNothing);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'normal embed close',
+    );
+  });
+
+  testWidgets('embed shows full screen menu item when toggling is enabled', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'toggleable embed open',
+    );
+
+    await tester.tap(find.byTooltip('Actions').hitTestable().first);
+    await tester.pumpAndSettle();
+    final fullScreenItem = find.widgetWithText(MenuItemButton, 'Full Screen');
+    expect(fullScreenItem, findsOneWidget);
+
+    windowManagerCalls.clear();
+    await tester.tap(fullScreenItem);
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.fullScreen,
+      isTrue,
+    );
+    expect(
+      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
+      isNotEmpty,
+    );
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'toggleable embed close',
+    );
+  });
+
+  testWidgets('embed hides full screen menu item when toggling is disabled', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      buildApp(embedFullScreen: EmbedFullScreen.disabled),
+    );
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'locked normal embed open',
+    );
+
+    await tester.tap(find.byTooltip('Actions').hitTestable().first);
+    await tester.pumpAndSettle();
+    expect(find.widgetWithText(MenuItemButton, 'Full Screen'), findsNothing);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'locked normal embed close',
+    );
+  });
+
+  testWidgets('locked full screen layout ignores toggles', (tester) async {
+    await tester.pumpWidget(buildApp(embedFullScreen: EmbedFullScreen.forced));
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () =>
+          observer.lastDocumentBloc?.state is DocumentLoadSuccess &&
+          observer
+                  .lastDocumentBloc
+                  ?.editorController
+                  .saveCubit
+                  .state
+                  .fullScreen ==
+              true,
+      'locked full screen layout embed open',
+    );
+    expect(windowCubit.state.fullScreen, isFalse);
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(
+      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
+      isEmpty,
+    );
+
+    windowManagerCalls.clear();
+    final viewportContext = find.byType(MainViewViewport).evaluate().single;
+    FullScreenHandler(FullScreenTool()).onSelected(viewportContext);
+    await tester.pump();
+
+    expect(
+      observer.lastDocumentBloc!.editorController.saveCubit.state.fullScreen,
+      isTrue,
+    );
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(
+      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
+      isEmpty,
+    );
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'locked full screen layout embed close',
     );
   });
 

@@ -5,13 +5,20 @@ class FullScreenHandler extends Handler<FullScreenTool> {
 
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
-    context.read<WindowCubit>().toggleFullScreen();
+    unawaited(
+      toggleFullScreen(
+        context.read<EditorController>(),
+        context.read<WindowCubit>(),
+      ),
+    );
     return SelectState.none;
   }
 
   @override
   PhosphorIconData getIcon(DocumentBloc bloc) =>
-      bloc.state.windowCubit.state.fullScreen
+      (bloc.editorController.saveCubit.state.embedding != null
+          ? bloc.editorController.saveCubit.state.fullScreen
+          : bloc.state.windowCubit.state.fullScreen)
       ? PhosphorIconsLight.arrowsIn
       : PhosphorIconsLight.arrowsOut;
 }

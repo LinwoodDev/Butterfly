@@ -555,7 +555,7 @@ as HideState,
 /// @nodoc
 mixin _$DocumentSaveState implements DiagnosticableTreeMixin {
 
- bool get isSaveDelayed; AssetLocation get location; Embedding? get embedding; SaveState get saved; bool get isCreating;
+ bool get isSaveDelayed; AssetLocation get location; Embedding? get embedding; bool get fullScreen; SaveState get saved; bool get isCreating;
 /// Create a copy of DocumentSaveState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -568,26 +568,26 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   final _this = this as DocumentSaveState;
   properties
     ..add(DiagnosticsProperty('type', 'DocumentSaveState'))
-    ..add(DiagnosticsProperty('isSaveDelayed', _this.isSaveDelayed))..add(DiagnosticsProperty('location', _this.location))..add(DiagnosticsProperty('embedding', _this.embedding))..add(DiagnosticsProperty('saved', _this.saved))..add(DiagnosticsProperty('isCreating', _this.isCreating));
+    ..add(DiagnosticsProperty('isSaveDelayed', _this.isSaveDelayed))..add(DiagnosticsProperty('location', _this.location))..add(DiagnosticsProperty('embedding', _this.embedding))..add(DiagnosticsProperty('fullScreen', _this.fullScreen))..add(DiagnosticsProperty('saved', _this.saved))..add(DiagnosticsProperty('isCreating', _this.isCreating));
 }
 
 @override
 bool operator ==(Object other) {
   final _this = this as DocumentSaveState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentSaveState&&(identical(other.isSaveDelayed, _this.isSaveDelayed) || other.isSaveDelayed == _this.isSaveDelayed)&&(identical(other.location, _this.location) || other.location == _this.location)&&(identical(other.embedding, _this.embedding) || other.embedding == _this.embedding)&&(identical(other.saved, _this.saved) || other.saved == _this.saved)&&(identical(other.isCreating, _this.isCreating) || other.isCreating == _this.isCreating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentSaveState&&(identical(other.isSaveDelayed, _this.isSaveDelayed) || other.isSaveDelayed == _this.isSaveDelayed)&&(identical(other.location, _this.location) || other.location == _this.location)&&(identical(other.embedding, _this.embedding) || other.embedding == _this.embedding)&&(identical(other.fullScreen, _this.fullScreen) || other.fullScreen == _this.fullScreen)&&(identical(other.saved, _this.saved) || other.saved == _this.saved)&&(identical(other.isCreating, _this.isCreating) || other.isCreating == _this.isCreating));
 }
 
 
 @override
 int get hashCode {
   final _this = this as DocumentSaveState;
-  return Object.hash(runtimeType,_this.isSaveDelayed,_this.location,_this.embedding,_this.saved,_this.isCreating);
+  return Object.hash(runtimeType,_this.isSaveDelayed,_this.location,_this.embedding,_this.fullScreen,_this.saved,_this.isCreating);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   final _this = this as DocumentSaveState;
-  return 'DocumentSaveState(isSaveDelayed: ${_this.isSaveDelayed}, location: ${_this.location}, embedding: ${_this.embedding}, saved: ${_this.saved}, isCreating: ${_this.isCreating})';
+  return 'DocumentSaveState(isSaveDelayed: ${_this.isSaveDelayed}, location: ${_this.location}, embedding: ${_this.embedding}, fullScreen: ${_this.fullScreen}, saved: ${_this.saved}, isCreating: ${_this.isCreating})';
 }
 
 
@@ -598,7 +598,7 @@ abstract mixin class $DocumentSaveStateCopyWith<$Res>  {
   factory $DocumentSaveStateCopyWith(DocumentSaveState value, $Res Function(DocumentSaveState) _then) = _$DocumentSaveStateCopyWithImpl;
 @useResult
 $Res call({
- bool isSaveDelayed, AssetLocation location, Embedding? embedding, SaveState saved, bool isCreating
+ bool isSaveDelayed, AssetLocation location, Embedding? embedding, bool fullScreen, SaveState saved, bool isCreating
 });
 
 
@@ -615,12 +615,13 @@ class _$DocumentSaveStateCopyWithImpl<$Res>
 
 /// Create a copy of DocumentSaveState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isSaveDelayed = null,Object? location = null,Object? embedding = freezed,Object? saved = null,Object? isCreating = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isSaveDelayed = null,Object? location = null,Object? embedding = freezed,Object? fullScreen = null,Object? saved = null,Object? isCreating = null,}) {
   return _then(DocumentSaveState(
 isSaveDelayed: null == isSaveDelayed ? _self.isSaveDelayed : isSaveDelayed // ignore: cast_nullable_to_non_nullable
 as bool,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as AssetLocation,embedding: freezed == embedding ? _self.embedding : embedding // ignore: cast_nullable_to_non_nullable
-as Embedding?,saved: null == saved ? _self.saved : saved // ignore: cast_nullable_to_non_nullable
+as Embedding?,fullScreen: null == fullScreen ? _self.fullScreen : fullScreen // ignore: cast_nullable_to_non_nullable
+as bool,saved: null == saved ? _self.saved : saved // ignore: cast_nullable_to_non_nullable
 as SaveState,isCreating: null == isCreating ? _self.isCreating : isCreating // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -634,12 +635,13 @@ as bool,
 
 
 class _DocumentSaveState extends DocumentSaveState with DiagnosticableTreeMixin {
-  const _DocumentSaveState({this.isSaveDelayed = false, this.location = const AssetLocation(path: ''), this.embedding, this.saved = SaveState.saved, this.isCreating = false}): super._();
+  const _DocumentSaveState({this.isSaveDelayed = false, this.location = const AssetLocation(path: ''), this.embedding, this.fullScreen = false, this.saved = SaveState.saved, this.isCreating = false}): super._();
   
 
 @override@JsonKey() final  bool isSaveDelayed;
 @override@JsonKey() final  AssetLocation location;
 @override final  Embedding? embedding;
+@override@JsonKey() final  bool fullScreen;
 @override@JsonKey() final  SaveState saved;
 @override@JsonKey() final  bool isCreating;
 
@@ -654,23 +656,23 @@ _$DocumentSaveStateCopyWith<_DocumentSaveState> get copyWith => __$DocumentSaveS
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
     ..add(DiagnosticsProperty('type', 'DocumentSaveState'))
-    ..add(DiagnosticsProperty('isSaveDelayed', isSaveDelayed))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('isCreating', isCreating));
+    ..add(DiagnosticsProperty('isSaveDelayed', isSaveDelayed))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('fullScreen', fullScreen))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('isCreating', isCreating));
 }
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentSaveState&&(identical(other.isSaveDelayed, isSaveDelayed) || other.isSaveDelayed == isSaveDelayed)&&(identical(other.location, location) || other.location == location)&&(identical(other.embedding, embedding) || other.embedding == embedding)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isCreating, isCreating) || other.isCreating == isCreating));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentSaveState&&(identical(other.isSaveDelayed, isSaveDelayed) || other.isSaveDelayed == isSaveDelayed)&&(identical(other.location, location) || other.location == location)&&(identical(other.embedding, embedding) || other.embedding == embedding)&&(identical(other.fullScreen, fullScreen) || other.fullScreen == fullScreen)&&(identical(other.saved, saved) || other.saved == saved)&&(identical(other.isCreating, isCreating) || other.isCreating == isCreating));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,isSaveDelayed,location,embedding,saved,isCreating);
+    return Object.hash(runtimeType,isSaveDelayed,location,embedding,fullScreen,saved,isCreating);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, saved: $saved, isCreating: $isCreating)';
+    return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, fullScreen: $fullScreen, saved: $saved, isCreating: $isCreating)';
 }
 
 
@@ -681,7 +683,7 @@ abstract mixin class _$DocumentSaveStateCopyWith<$Res> implements $DocumentSaveS
   factory _$DocumentSaveStateCopyWith(_DocumentSaveState value, $Res Function(_DocumentSaveState) _then) = __$DocumentSaveStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isSaveDelayed, AssetLocation location, Embedding? embedding, SaveState saved, bool isCreating
+ bool isSaveDelayed, AssetLocation location, Embedding? embedding, bool fullScreen, SaveState saved, bool isCreating
 });
 
 
@@ -698,12 +700,13 @@ class __$DocumentSaveStateCopyWithImpl<$Res>
 
 /// Create a copy of DocumentSaveState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isSaveDelayed = null,Object? location = null,Object? embedding = freezed,Object? saved = null,Object? isCreating = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isSaveDelayed = null,Object? location = null,Object? embedding = freezed,Object? fullScreen = null,Object? saved = null,Object? isCreating = null,}) {
   return _then(_DocumentSaveState(
 isSaveDelayed: null == isSaveDelayed ? _self.isSaveDelayed : isSaveDelayed // ignore: cast_nullable_to_non_nullable
 as bool,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as AssetLocation,embedding: freezed == embedding ? _self.embedding : embedding // ignore: cast_nullable_to_non_nullable
-as Embedding?,saved: null == saved ? _self.saved : saved // ignore: cast_nullable_to_non_nullable
+as Embedding?,fullScreen: null == fullScreen ? _self.fullScreen : fullScreen // ignore: cast_nullable_to_non_nullable
+as bool,saved: null == saved ? _self.saved : saved // ignore: cast_nullable_to_non_nullable
 as SaveState,isCreating: null == isCreating ? _self.isCreating : isCreating // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
