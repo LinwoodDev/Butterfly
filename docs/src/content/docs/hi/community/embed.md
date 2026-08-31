@@ -21,9 +21,19 @@ Add the following code to your website:
 | ---------- | --------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | save       | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable   | Boolean (true, false)                                                      | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| fullScreen | Boolean (true, false)                                                      | false   | Use the full-screen editor layout without the app bar                                                                                                                       |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)              | enabled | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                              |
 | language   | String (..., system, user) | user    | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 | fileName   | String                                                                                        |         | Display this file name in the embed title. It is visual only and does not change the document metadata                                                      |
+
+### Full-screen modes
+
+| Value         | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | सामान्य        | हाँ    | When enabled by the user   |
+| layoutOnly    | सामान्य        | हाँ    | कभी नहीँ                   |
+| startInLayout | Full screen    | हाँ    | कभी नहीँ                   |
+| forced        | Full screen    | नहीं   | कभी नहीँ                   |
+| disabled      | सामान्य        | नहीं   | कभी नहीँ                   |
 
 ## Messaging
 
