@@ -21,9 +21,19 @@ Aggiungi il seguente codice al tuo sito web:
 | ---------- | ------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | salva      | Boolean (true, false)                                                          | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                                    |
 | editable   | Boolean (true, false)                                                          | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                                              |
-| fullScreen | Boolean (true, false)                                                          | falso       | Use the full-screen editor layout without the app bar                                                                                                                 |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                  | enabled     | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                        |
 | lingua     | Stringa (..., sistema, utente) | user        | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
 | fileName   | String                                                                                            |             | Display this file name in the embed title. It is visual only and does not change the document metadata                                                |
+
+### Full-screen modes
+
+| Valore        | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Normale        | Sì     | When enabled by the user   |
+| layoutOnly    | Normale        | Sì     | Mai                        |
+| startInLayout | Schermo intero | Sì     | Mai                        |
+| forced        | Schermo intero | No     | Mai                        |
+| disabled      | Normale        | No     | Mai                        |
 
 ## Messaging
 
