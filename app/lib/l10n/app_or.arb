@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "ସଂଯୋଗ କରନ୍ତୁ",
   "username": "ଉପଯୋଗକର୍ତ୍ତା ନାମ",
   "password": "ପାସୱାର୍ଡ",
   "authenticationPassword": "Authentication password",
   "documentEncryptionPassword": "Document encryption password",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Document encryption enabled",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Add document encryption password",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetric",
   "perSide": "Per side",
   "directory": "ଡିରେକ୍ଟୋରି",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "ଡକ୍ୟୁମେଣ୍ଟ ଡିରେକ୍ଟୋରି",
   "templatesDirectory": "ଟେମ୍ପଲେଟ୍ ଡିରେକ୍ଟୋରି",
   "errorWhileCreatingConnection": "ସଂଯୋଗ ତିଆରି କାଳୀନ ত୍ରୁଟି",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "ଅଦ୍ୟତିତ",
   "@update": {
     "description": "Update action"
