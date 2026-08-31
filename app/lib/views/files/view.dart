@@ -251,7 +251,7 @@ class FilesViewState extends State<FilesView> {
                         ),
                         const SizedBox(width: 2),
                         state.connections.any((e) => e is RemoteStorage)
-                            ? const SyncButton()
+                            ? SyncButton(selectedRemote: _remote?.identifier)
                             : const SizedBox.shrink(),
                       ],
                     ),
@@ -320,7 +320,7 @@ class FilesViewState extends State<FilesView> {
                 ),
                 orderButton,
                 if (state.connections.any((e) => e is RemoteStorage))
-                  const SyncButton(),
+                  SyncButton(selectedRemote: _remote?.identifier),
               ];
               final mobileActions = OverflowBar(
                 spacing: 4,
@@ -914,22 +914,23 @@ class FilesViewState extends State<FilesView> {
     if (selected.isEmpty) return;
 
     try {
-      final archive = Archive();
+      final output = OutputMemoryStream();
+      final encoder = ZipEncoder()..startEncode(output);
       final archivePaths = <String>{};
       for (final path in selected) {
         final entity = await _documentSystem.getAsset(path, listLevel: 0);
         if (entity == null) continue;
         await _addEntityToArchive(
-          archive,
+          encoder,
           archivePaths,
           entity,
           entity.fileName,
         );
       }
-      if (archive.isEmpty) return;
-      final bytes = ZipEncoder().encodeBytes(archive);
+      if (archivePaths.isEmpty) return;
+      encoder.endEncode();
       if (!mounted) return;
-      await exportZip(context, bytes);
+      await exportZip(context, output.getBytes());
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -939,7 +940,7 @@ class FilesViewState extends State<FilesView> {
   }
 
   Future<void> _addEntityToArchive(
-    Archive archive,
+    ZipEncoder encoder,
     Set<String> archivePaths,
     FileSystemEntity<NoteFile> entity,
     String archivePath,
@@ -953,14 +954,14 @@ class FilesViewState extends State<FilesView> {
       if (file is! FileSystemFile<NoteFile>) return;
       final data = file.data?.data;
       if (data == null || !archivePaths.add(normalizedPath)) return;
-      archive.addFile(ArchiveFile.bytes(normalizedPath, data));
+      encoder.add(ArchiveFile.bytes(normalizedPath, data));
       return;
     }
 
     if (entity is FileSystemDirectory<NoteFile>) {
       final directory = await _documentSystem.getAsset(
         entity.path,
-        listLevel: oneListLevel,
+        listLevel: noListLevel,
         readData: false,
       );
       if (directory is! FileSystemDirectory<NoteFile>) return;
@@ -968,11 +969,11 @@ class FilesViewState extends State<FilesView> {
           ? normalizedPath
           : '$normalizedPath/';
       if (archivePaths.add(directoryPath)) {
-        archive.addFile(ArchiveFile.directory(directoryPath));
+        encoder.add(ArchiveFile.directory(directoryPath));
       }
       for (final child in directory.assets) {
         await _addEntityToArchive(
-          archive,
+          encoder,
           archivePaths,
           child,
           '$directoryPath${child.fileName}',

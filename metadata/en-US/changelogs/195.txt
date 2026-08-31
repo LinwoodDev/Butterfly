@@ -2,6 +2,8 @@
 * Improve landscape mobile home page
 * Improve collaboration reliability and user experience
 * Improve responsiveness and add helper text to the add connection dialog
+* Improve efficiency of file coping and exporting
+* Fix sync dialog not opening current connection initially
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
 * Fix file thumbnails not refreshing after returning from documents on mobile ([#1241](https://github.com/LinwoodDev/Butterfly/issues/1241))
 * Fix importing encrypted notes requiring their password ([#1242](https://github.com/LinwoodDev/Butterfly/issues/1242))

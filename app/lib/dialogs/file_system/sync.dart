@@ -8,7 +8,9 @@ import '../../services/sync.dart';
 import '../sync.dart';
 
 class SyncButton extends StatelessWidget {
-  const SyncButton({super.key});
+  final String? selectedRemote;
+
+  const SyncButton({super.key, this.selectedRemote});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class SyncButton extends StatelessWidget {
               '$cachedFiles ${AppLocalizations.of(context).caches}',
           onPressed: () => showDialog<void>(
             context: context,
-            builder: (context) => const SyncDialog(),
+            builder: (context) => SyncDialog(selectedRemote: selectedRemote),
           ),
         );
         if (pendingFiles <= 0) return button;

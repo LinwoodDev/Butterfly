@@ -63,7 +63,11 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     if (asset is FileSystemFile<NoteFile>) {
       var data = asset.data;
       if (data == null) {
-        final source = await sourceFileSystem.getAsset(asset.path);
+        final source = await sourceFileSystem.getAsset(
+          asset.path,
+          listLevel: noListLevel,
+          readData: true,
+        );
         if (source is FileSystemFile<NoteFile>) {
           data = source.data;
         }
@@ -73,7 +77,13 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       }
     } else if (asset is FileSystemDirectory<NoteFile>) {
       await destinationFileSystem.createDirectory(newPath);
-      for (final child in asset.assets) {
+      final source = await sourceFileSystem.getAsset(
+        asset.path,
+        listLevel: noListLevel,
+        readData: false,
+      );
+      if (source is! FileSystemDirectory<NoteFile>) return newPath;
+      for (final child in source.assets) {
         await _copyAsset(
           sourceFileSystem,
           destinationFileSystem,
@@ -108,7 +118,8 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
         } else {
           final source = await sourceFileSystem.getAsset(
             asset.path,
-            listLevel: allListLevel,
+            listLevel: noListLevel,
+            readData: false,
           );
           if (source != null) {
             await _copyAsset(
@@ -122,7 +133,8 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       } else {
         final source = await sourceFileSystem.getAsset(
           asset.path,
-          listLevel: allListLevel,
+          listLevel: noListLevel,
+          readData: false,
         );
         if (source == null) continue;
         if (asset.remote == selectedRemote) {

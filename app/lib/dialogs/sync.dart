@@ -11,7 +11,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../services/sync.dart';
 
 class SyncDialog extends StatefulWidget {
-  const SyncDialog({super.key});
+  final String? selectedRemote;
+
+  const SyncDialog({super.key, this.selectedRemote});
 
   @override
   State<SyncDialog> createState() => _SyncDialogState();
@@ -19,6 +21,12 @@ class SyncDialog extends StatefulWidget {
 
 class _SyncDialogState extends State<SyncDialog> {
   String? _selectedRemote;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedRemote = widget.selectedRemote;
+  }
 
   @override
   Widget build(BuildContext context) {
