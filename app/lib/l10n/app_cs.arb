@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Připojit",
   "username": "Uživatelské jméno",
   "password": "Heslo",
   "authenticationPassword": "Autentizační heslo",
   "documentEncryptionPassword": "Šifrovací heslo dokumentu",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Šifrování dokumentů povoleno",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Přidat šifrovací heslo dokumentu",
@@ -579,6 +581,8 @@
   "symmetric": "Symetrický",
   "perSide": "Na straně",
   "directory": "Adresář",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Adresář dokumentů",
   "templatesDirectory": "Adresář šablon",
   "errorWhileCreatingConnection": "Chyba při vytváření připojení",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Aktualizace",
   "@update": {
     "description": "Update action"
