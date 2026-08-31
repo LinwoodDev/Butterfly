@@ -441,345 +441,294 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-          child: Column(
-            children: [
-              Header(title: Text(AppLocalizations.of(context).addConnection)),
-              const SizedBox(height: 16.0),
-              Flexible(
-                child: ListView(
-                  children: [
-                    if (_isRemote) ...[
-                      TextField(
-                        controller: _urlController,
-                        readOnly: _isConnected,
-                        keyboardType: TextInputType.url,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).url,
-                          filled: true,
-                          icon: const PhosphorIcon(PhosphorIconsLight.link),
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      TextField(
-                        controller: _iconController,
-                        keyboardType: TextInputType.url,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).icon,
-                          filled: true,
-                          icon: const PhosphorIcon(PhosphorIconsLight.image),
-                        ),
-                      ),
-                      const Divider(height: 32),
-                    ],
-                    if (!_isConnected) ...[
-                      TextField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).username,
-                          filled: true,
-                          icon: const PhosphorIcon(PhosphorIconsLight.user),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        controller: _passwordController,
-                        obscureText: !_showPassword,
-                        keyboardType: _showPassword
-                            ? TextInputType.visiblePassword
-                            : TextInputType.text,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).password,
-                          filled: true,
-                          suffixIcon: IconButton(
-                            icon: PhosphorIcon(
-                              _showPassword
-                                  ? PhosphorIconsLight.eye
-                                  : PhosphorIconsLight.eyeSlash,
-                            ),
-                            tooltip: _showPassword
-                                ? AppLocalizations.of(context).hide
-                                : AppLocalizations.of(context).show,
-                            onPressed: () =>
-                                setState(() => _showPassword = !_showPassword),
-                          ),
-                          icon: const PhosphorIcon(PhosphorIconsLight.lock),
-                        ),
-                      ),
-                      CheckboxListTile(
-                        value: _syncRootDirectory,
-                        onChanged: (value) => setState(
-                          () =>
-                              _syncRootDirectory = value ?? _syncRootDirectory,
-                        ),
-                        title: Text(
-                          AppLocalizations.of(context).syncRootDirectory,
-                        ),
-                      ),
-                    ] else ...[
-                      if (_isRemote) ...[
-                        TextField(
-                          controller: _encryptionPasswordController,
-                          obscureText: !_showEncryptionPassword,
-                          keyboardType: _showEncryptionPassword
-                              ? TextInputType.visiblePassword
-                              : TextInputType.text,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)
-                                .documentEncryptionPassword,
-                            filled: true,
-                            suffixIcon: IconButton(
-                              icon: PhosphorIcon(
-                                _showEncryptionPassword
-                                    ? PhosphorIconsLight.eye
-                                    : PhosphorIconsLight.eyeSlash,
-                              ),
-                              tooltip: _showEncryptionPassword
-                                  ? AppLocalizations.of(context).hide
-                                  : AppLocalizations.of(context).show,
-                              onPressed: () => setState(
-                                () => _showEncryptionPassword =
-                                    !_showEncryptionPassword,
-                              ),
-                            ),
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.shieldCheck,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                      ],
-                      TextField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          labelText: LeapLocalizations.of(context).name,
-                          filled: true,
-                          icon: const PhosphorIcon(PhosphorIconsLight.textAa),
-                        ),
-                      ),
-                      ListenableBuilder(
-                        listenable: Listenable.merge([
-                          _documentsDirectoryController,
-                          _templatesDirectoryController,
-                          _packsDirectoryController,
-                        ]),
-                        builder: (context, _) {
-                          final shouldShowPicker =
-                              !_isRemote &&
-                              (!Directory(_documentsDirectoryController.text)
-                                      .isAbsolute ||
-                                  !Directory(_templatesDirectoryController.text)
-                                      .isAbsolute ||
-                                  !Directory(_packsDirectoryController.text)
-                                      .isAbsolute);
-                          return _DirectoryField(
-                            controller: _directoryController,
-                            label: AppLocalizations.of(context).directory,
-                            icon: const PhosphorIcon(PhosphorIconsLight.folder),
-                            onPick: shouldShowPicker
-                                ? () async {
-                                    final result =
-                                        await FilePicker.getDirectoryPath();
-                                    if (result != null) {
-                                      _directoryController.text = result;
-                                    }
-                                  }
-                                : null,
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 8),
-                      ListenableBuilder(
-                        listenable: _directoryController,
-                        builder: (context, _) => Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  children: [
-                                    const PhosphorIcon(PhosphorIconsLight.info),
-                                    const SizedBox(width: 8),
-                                    Flexible(
-                                      child: Text(
-                                        AppLocalizations.of(context)
-                                            .information,
-                                        style: TextTheme.of(context).bodyMedium,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  _directoryController.text.isEmpty
-                                      ? AppLocalizations.of(
-                                          context,
-                                        ).rootDirectoryNotSpecifiedDescription
-                                      : AppLocalizations.of(context)
-                                            .rootDirectorySpecifiedDescription,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      ExpansionPanelList(
-                        expansionCallback: (index, isExpanded) =>
-                            setState(() => _advanced = isExpanded),
-                        children: [
-                          ExpansionPanel(
-                            headerBuilder: (context, isExpanded) => ListTile(
-                              title: Text(
-                                AppLocalizations.of(context).advanced,
-                              ),
-                            ),
-                            canTapOnHeader: true,
-                            isExpanded: _advanced,
-                            body: ListenableBuilder(
-                              listenable: _directoryController,
-                              builder: (context, _) => Column(
-                                children: [
-                                  _DirectoryField(
-                                    controller: _documentsDirectoryController,
-                                    label: AppLocalizations.of(context)
-                                        .documentsDirectory,
-                                    icon: const PhosphorIcon(
-                                      PhosphorIconsLight.file,
-                                      textDirection: TextDirection.ltr,
-                                    ),
-                                    onPick: _directoryController.text.isEmpty
-                                        ? () async {
-                                            final result =
-                                                await FilePicker.getDirectoryPath();
-                                            if (result != null) {
-                                              _documentsDirectoryController
-                                                      .text =
-                                                  result;
-                                            }
-                                          }
-                                        : null,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  _DirectoryField(
-                                    controller: _templatesDirectoryController,
-                                    label: AppLocalizations.of(context)
-                                        .templatesDirectory,
-                                    icon: const PhosphorIcon(
-                                      PhosphorIconsLight.fileDashed,
-                                      textDirection: TextDirection.ltr,
-                                    ),
-                                    onPick: _directoryController.text.isEmpty
-                                        ? () async {
-                                            final result =
-                                                await FilePicker.getDirectoryPath();
-                                            if (result != null) {
-                                              _templatesDirectoryController
-                                                      .text =
-                                                  result;
-                                            }
-                                          }
-                                        : null,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  _DirectoryField(
-                                    controller: _packsDirectoryController,
-                                    label: AppLocalizations.of(context)
-                                        .packsDirectory,
-                                    icon: const PhosphorIcon(
-                                      PhosphorIconsLight.package,
-                                    ),
-                                    onPick: _directoryController.text.isEmpty
-                                        ? () async {
-                                            final result =
-                                                await FilePicker.getDirectoryPath();
-                                            if (result != null) {
-                                              _documentsDirectoryController
-                                                      .text =
-                                                  result;
-                                            }
-                                          }
-                                        : null,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ],
-                ),
+    return ResponsiveAlertDialog(
+      constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
+      title: Text(AppLocalizations.of(context).addConnection),
+      headerActions: [
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+          tooltip: AppLocalizations.of(context).help,
+          onPressed: () => openHelp(['storage'], 'remote'),
+        ),
+      ],
+      content: ListView(
+        shrinkWrap: true,
+        children: [
+          if (_isRemote) ...[
+            TextField(
+              controller: _urlController,
+              readOnly: _isConnected,
+              keyboardType: TextInputType.url,
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).url,
+                helperText: AppLocalizations.of(context).webDavUrlDescription,
+                filled: true,
+                icon: const PhosphorIcon(PhosphorIconsLight.link),
               ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      if (_isConnected && _isRemote) {
-                        setState(() {
-                          _isConnected = false;
-                          _certificateSha1 = null;
-                        });
-                        return;
-                      }
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      MaterialLocalizations.of(context).cancelButtonLabel,
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _iconController,
+              keyboardType: TextInputType.url,
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).icon,
+                helperText: AppLocalizations.of(context)
+                    .connectionIconDescription,
+                filled: true,
+                icon: const PhosphorIcon(PhosphorIconsLight.image),
+              ),
+            ),
+            const Divider(height: 32),
+          ],
+          if (!_isConnected) ...[
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).username,
+                filled: true,
+                icon: const PhosphorIcon(PhosphorIconsLight.user),
+              ),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _passwordController,
+              obscureText: !_showPassword,
+              keyboardType: _showPassword
+                  ? TextInputType.visiblePassword
+                  : TextInputType.text,
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).password,
+                filled: true,
+                suffixIcon: IconButton(
+                  icon: PhosphorIcon(
+                    _showPassword
+                        ? PhosphorIconsLight.eye
+                        : PhosphorIconsLight.eyeSlash,
+                  ),
+                  tooltip: _showPassword
+                      ? AppLocalizations.of(context).hide
+                      : AppLocalizations.of(context).show,
+                  onPressed: () =>
+                      setState(() => _showPassword = !_showPassword),
+                ),
+                icon: const PhosphorIcon(PhosphorIconsLight.lock),
+              ),
+            ),
+            CheckboxListTile(
+              value: _syncRootDirectory,
+              onChanged: (value) => setState(
+                () => _syncRootDirectory = value ?? _syncRootDirectory,
+              ),
+              title: Text(AppLocalizations.of(context).syncRootDirectory),
+            ),
+          ] else ...[
+            if (_isRemote) ...[
+              TextField(
+                controller: _encryptionPasswordController,
+                obscureText: !_showEncryptionPassword,
+                keyboardType: _showEncryptionPassword
+                    ? TextInputType.visiblePassword
+                    : TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)
+                      .documentEncryptionPassword,
+                  helperText: AppLocalizations.of(context)
+                      .documentEncryptionPasswordDescription,
+                  filled: true,
+                  suffixIcon: IconButton(
+                    icon: PhosphorIcon(
+                      _showEncryptionPassword
+                          ? PhosphorIconsLight.eye
+                          : PhosphorIconsLight.eyeSlash,
+                    ),
+                    tooltip: _showEncryptionPassword
+                        ? AppLocalizations.of(context).hide
+                        : AppLocalizations.of(context).show,
+                    onPressed: () => setState(
+                      () => _showEncryptionPassword = !_showEncryptionPassword,
                     ),
                   ),
-                  if (_isConnected) ...[
-                    ListenableBuilder(
-                      listenable: Listenable.merge([
-                        _nameController,
-                        _directoryController,
-                        _documentsDirectoryController,
-                        _templatesDirectoryController,
-                        _packsDirectoryController,
-                      ]),
-                      builder: (context, _) => ElevatedButton(
-                        onPressed:
-                            _nameController.text.isEmpty &&
-                                    _directoryController.text.isEmpty ||
-                                _documentsDirectoryController.text.isEmpty &&
-                                    _templatesDirectoryController
-                                        .text
-                                        .isEmpty &&
-                                    _packsDirectoryController.text.isEmpty
-                            ? null
-                            : _create,
-                        child: Text(LeapLocalizations.of(context).create),
-                      ),
-                    ),
-                  ] else ...[
-                    ElevatedButton(
-                      onPressed: _connect,
-                      child: Text(AppLocalizations.of(context).connect),
-                    ),
-                  ],
-                ],
+                  icon: const PhosphorIcon(PhosphorIconsLight.shieldCheck),
+                ),
               ),
+              const SizedBox(height: 8),
             ],
-          ),
-        ),
+            TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: LeapLocalizations.of(context).name,
+                helperText: AppLocalizations.of(context)
+                    .connectionNameDescription,
+                filled: true,
+                icon: const PhosphorIcon(PhosphorIconsLight.textAa),
+              ),
+            ),
+            ListenableBuilder(
+              listenable: Listenable.merge([
+                _documentsDirectoryController,
+                _templatesDirectoryController,
+                _packsDirectoryController,
+              ]),
+              builder: (context, _) {
+                final shouldShowPicker =
+                    !_isRemote &&
+                    (!Directory(_documentsDirectoryController.text)
+                            .isAbsolute ||
+                        !Directory(_templatesDirectoryController.text)
+                            .isAbsolute ||
+                        !Directory(_packsDirectoryController.text).isAbsolute);
+                return _DirectoryField(
+                  controller: _directoryController,
+                  label: AppLocalizations.of(context).directory,
+                  helperText: AppLocalizations.of(context)
+                      .connectionDirectoryDescription,
+                  icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                  onPick: shouldShowPicker
+                      ? () async {
+                          final result = await FilePicker.getDirectoryPath();
+                          if (result != null) {
+                            _directoryController.text = result;
+                          }
+                        }
+                      : null,
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+            ExpansionPanelList(
+              expansionCallback: (index, isExpanded) =>
+                  setState(() => _advanced = isExpanded),
+              children: [
+                ExpansionPanel(
+                  headerBuilder: (context, isExpanded) => ListTile(
+                    title: Text(AppLocalizations.of(context).advanced),
+                  ),
+                  canTapOnHeader: true,
+                  isExpanded: _advanced,
+                  body: ListenableBuilder(
+                    listenable: _directoryController,
+                    builder: (context, _) => Column(
+                      children: [
+                        _DirectoryField(
+                          controller: _documentsDirectoryController,
+                          label: AppLocalizations.of(context)
+                              .documentsDirectory,
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.file,
+                            textDirection: TextDirection.ltr,
+                          ),
+                          onPick: _directoryController.text.isEmpty
+                              ? () async {
+                                  final result =
+                                      await FilePicker.getDirectoryPath();
+                                  if (result != null) {
+                                    _documentsDirectoryController.text = result;
+                                  }
+                                }
+                              : null,
+                        ),
+                        const SizedBox(height: 8),
+                        _DirectoryField(
+                          controller: _templatesDirectoryController,
+                          label: AppLocalizations.of(context)
+                              .templatesDirectory,
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.fileDashed,
+                            textDirection: TextDirection.ltr,
+                          ),
+                          onPick: _directoryController.text.isEmpty
+                              ? () async {
+                                  final result =
+                                      await FilePicker.getDirectoryPath();
+                                  if (result != null) {
+                                    _templatesDirectoryController.text = result;
+                                  }
+                                }
+                              : null,
+                        ),
+                        const SizedBox(height: 8),
+                        _DirectoryField(
+                          controller: _packsDirectoryController,
+                          label: AppLocalizations.of(context).packsDirectory,
+                          icon: const PhosphorIcon(PhosphorIconsLight.package),
+                          onPick: _directoryController.text.isEmpty
+                              ? () async {
+                                  final result =
+                                      await FilePicker.getDirectoryPath();
+                                  if (result != null) {
+                                    _documentsDirectoryController.text = result;
+                                  }
+                                }
+                              : null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
       ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            if (_isConnected && _isRemote) {
+              setState(() {
+                _isConnected = false;
+                _certificateSha1 = null;
+              });
+              return;
+            }
+            Navigator.of(context).pop();
+          },
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+        ),
+        if (_isConnected) ...[
+          ListenableBuilder(
+            listenable: Listenable.merge([
+              _nameController,
+              _directoryController,
+              _documentsDirectoryController,
+              _templatesDirectoryController,
+              _packsDirectoryController,
+            ]),
+            builder: (context, _) => ElevatedButton(
+              onPressed:
+                  _nameController.text.isEmpty &&
+                          _directoryController.text.isEmpty ||
+                      _documentsDirectoryController.text.isEmpty &&
+                          _templatesDirectoryController.text.isEmpty &&
+                          _packsDirectoryController.text.isEmpty
+                  ? null
+                  : _create,
+              child: Text(LeapLocalizations.of(context).create),
+            ),
+          ),
+        ] else ...[
+          ElevatedButton(
+            onPressed: _connect,
+            child: Text(AppLocalizations.of(context).connect),
+          ),
+        ],
+      ],
     );
   }
 }
 
 class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
-  final String? label;
+  final String? label, helperText;
   final Widget? icon;
   final VoidCallback? onPick;
 
-  const _DirectoryField({this.controller, this.label, this.onPick, this.icon});
+  const _DirectoryField({
+    this.controller,
+    this.label,
+    this.helperText,
+    this.onPick,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -787,6 +736,7 @@ class _DirectoryField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
+        helperText: helperText,
         icon: icon,
         filled: true,
         suffixIcon: onPick == null
