@@ -21,9 +21,19 @@ Voeg de volgende code toe aan je website:
 | ---------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | opslaan    | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
 | editable   | Boolean (true, false)                                                            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
-| fullScreen | Boolean (true, false)                                                            | Onjuist   | Use the full-screen editor layout without the app bar                                                                                                                                  |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                    | enabled   | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                                         |
 | taal       | String (..., systeem, gebruiker) | user      | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
 | fileName   | String                                                                                              |           | Display this file name in the embed title. It is visual only and does not change the document metadata                                                                 |
+
+### Full-screen modes
+
+| Value         | Initial layout  | Toggle | Browser/system full screen |
+| ------------- | --------------- | ------ | -------------------------- |
+| enabled       | normaal         | ja     | When enabled by the user   |
+| layoutOnly    | normaal         | ja     | Nooit                      |
+| startInLayout | Volledig scherm | ja     | Nooit                      |
+| forced        | Volledig scherm | Neen   | Nooit                      |
+| disabled      | normaal         | Neen   | Nooit                      |
 
 ## Messaging
 
