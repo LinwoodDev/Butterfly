@@ -21,9 +21,19 @@ title: Embed
 | ---------- | ------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | сохранить  | Boolean (true, false)                                                               | true         | Включить сохранение. Если отключено, будет показана только кнопка выхода                                                                                 |
 | editable   | Boolean (true, false)                                                               | true         | Включить редактирование. Если отключено, документ будет доступен только для чтения                                                                       |
-| fullScreen | Boolean (true, false)                                                               | ложь         | Use the full-screen editor layout without the app bar                                                                                                                    |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                       | enabled      | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                           |
 | язык       | Строка (..., система, пользователь) | user         | Язык документа. Если система, то язык будет обнаружен из браузера. Если пользователь, язык будет установлен в предпочтение пользователей |
 | fileName   | String                                                                                                 |              | Display this file name in the embed title. It is visual only and does not change the document metadata                                                   |
+
+### Full-screen modes
+
+| Значение      | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | Обычный        | Да     | When enabled by the user   |
+| layoutOnly    | Обычный        | Да     | Никогда                    |
+| startInLayout | На весь экран  | Да     | Никогда                    |
+| forced        | На весь экран  | Нет    | Никогда                    |
+| disabled      | Обычный        | Нет    | Никогда                    |
 
 ## Messaging
 
