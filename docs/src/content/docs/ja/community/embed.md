@@ -17,13 +17,23 @@ title: Embed
 
 ## オプション
 
-| Option     | タイプ                                                                                    | デフォルト | 説明                                                                                                                     |
-| ---------- | -------------------------------------------------------------------------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------- |
-| 保存         | Boolean (true, false)                                               | true  | Enable save. If disabled, only an exit button will be shown                                            |
-| editable   | Boolean (true, false)                                               | true  | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                                              |
-| fullScreen | Boolean (true, false)                                               | false | Use the full-screen editor layout without the app bar                                                                  |
-| 言語         | 文字列 (...、システム、ユーザー) | user  | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます                           |
-| fileName   | String                                                                                 |       | Display this file name in the embed title. It is visual only and does not change the document metadata |
+| Option     | タイプ                                                                                    | デフォルト   | 説明                                                                                                                     |
+| ---------- | -------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 保存         | Boolean (true, false)                                               | true    | Enable save. If disabled, only an exit button will be shown                                            |
+| editable   | Boolean (true, false)                                               | true    | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                                              |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)       | enabled | Configure full-screen behavior. Embeds never enter browser or system full screen automatically         |
+| 言語         | 文字列 (...、システム、ユーザー) | user    | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます                           |
+| fileName   | String                                                                                 |         | Display this file name in the embed title. It is visual only and does not change the document metadata |
+
+### Full-screen modes
+
+| 値             | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | 標準             | はい     | When enabled by the user   |
+| layoutOnly    | 標準             | はい     | 一切なし                       |
+| startInLayout | 全画面            | はい     | 一切なし                       |
+| forced        | 全画面            | いいえ    | 一切なし                       |
+| disabled      | 標準             | いいえ    | 一切なし                       |
 
 ## Messaging
 
