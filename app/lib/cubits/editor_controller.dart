@@ -274,16 +274,20 @@ class EditorController implements EditorRuntimeContext {
     saveCubit.setSaveState(saved: SaveState.unsaved);
     final refreshRequested = shouldRefresh?.call() == true;
     if (saveCubit.state.embedding != null) {
-      if (refreshRequested) {
-        await toolCubit.refresh(this, current, allowBake: false);
-      }
-      if (replacedElements != null) {
-        await rendererCubit.bake(
-          this,
-          blocState,
-          reset: true,
-          resetAllLayers: resetAllLayers,
-        );
+      if (reset) {
+        await reload(bloc, current);
+      } else {
+        if (refreshRequested) {
+          await toolCubit.refresh(this, current, allowBake: false);
+        }
+        if (replacedElements != null) {
+          await rendererCubit.bake(
+            this,
+            blocState,
+            reset: true,
+            resetAllLayers: resetAllLayers,
+          );
+        }
       }
       return;
     }

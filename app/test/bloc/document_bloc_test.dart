@@ -167,6 +167,25 @@ class _BlockingReloadEditorController extends EditorController {
   }
 }
 
+class _TrackingReloadEditorController extends EditorController {
+  _TrackingReloadEditorController(
+    super.settingsCubit,
+    super.transformCubit,
+    super.viewport, {
+    super.embedding,
+  });
+
+  final reloadCompleted = Completer<void>();
+
+  @override
+  Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) async {
+    await super.reload(bloc, blocState);
+    if (!reloadCompleted.isCompleted) {
+      reloadCompleted.complete();
+    }
+  }
+}
+
 class _ThrowingVisibleRenderer extends Renderer<PadElement> {
   int onVisibleCalls = 0;
 
@@ -980,6 +999,65 @@ void main() {
     expect(viewport.bakedElements, hasLength(1));
     expect(viewport.bakedElements.single.rotation, 90);
     expect(viewport.unbakedElements, isEmpty);
+  });
+
+  test('switching pages reloads the renderer in embeds', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final firstElement = ShapeElement(
+      id: 'first-page-element',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final secondElement = ShapeElement(
+      id: 'second-page-element',
+      firstPosition: const Point(30, 30),
+      secondPosition: const Point(40, 40),
+    );
+    final firstPage = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'first-page-layer', content: [firstElement]),
+      ],
+    );
+    final secondPage = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'second-page-layer', content: [secondElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (firstData, firstPageName) = data.setPage(firstPage, 'Page 1');
+    data = firstData;
+    final (secondData, secondPageName) = data.setPage(secondPage, 'Page 2');
+    data = secondData;
+    final trackingController = _TrackingReloadEditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(),
+      embedding: Embedding(internal: true),
+    );
+    editorController = trackingController;
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'embedded-pages-test.bfly'),
+      null,
+      firstPage,
+      firstPageName,
+    );
+
+    bloc.add(PageChanged(secondPageName));
+    await trackingController.reloadCompleted.future;
+
+    final state = bloc.state as DocumentLoadSuccess;
+    expect(state.pageName, secondPageName);
+    expect(state.page, secondPage);
+    expect(
+      trackingController.rendererCubit.renderers.map((e) => e.element.id),
+      [secondElement.id],
+    );
   });
 
   test('partial pen viewport update keeps previews until each renderer is reported', () async {
