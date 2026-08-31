@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Anslut",
   "username": "Användarnamn",
   "password": "Lösenord",
   "authenticationPassword": "Lösenord för autentisering",
   "documentEncryptionPassword": "Lösenord för dokumentkryptering",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Dokumentkryptering aktiverad",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lägg till lösenord för dokumentkryptering",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetrisk",
   "perSide": "Per sida",
   "directory": "Katalog",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Katalog för dokument",
   "templatesDirectory": "Mall katalog",
   "errorWhileCreatingConnection": "Fel vid skapande av anslutning",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Uppdatera",
   "@update": {
     "description": "Update action"
