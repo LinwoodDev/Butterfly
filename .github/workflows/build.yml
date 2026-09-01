@@ -45,6 +45,7 @@ jobs:
         run: |
           flutter pub get
       - name: Import files
+        if: ${{ github.event_name != 'pull_request' }}
         env:
           KEY_JKS: ${{ secrets.KEY_JKS }}
           KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
@@ -53,6 +54,36 @@ jobs:
           if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        run: |
+          flutter build apk -v --release --flavor nightly
+          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
+      - name: 🏭 Build nightly (legacy packaging)
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        run: |
+          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
+          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android-legacy.apk
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        run: |
+          flutter build apk -v --release --flavor production
+          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
+      - name: 🏭 Build production (legacy packaging)
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        run: |
+          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
+          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
+      - name: Archive
+        uses: actions/upload-artifact@v7
+        with:
+          name: apk-build
+          path: app/linwood-butterfly-android.apk
+      - name: Archive (legacy)
+        uses: actions/upload-artifact@v7
+        with:
+          name: apk-build-legacy
+          path: app/linwood-butterfly-android-legacy.apk
       - name: 🏭 Build architecture nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
@@ -413,11 +444,11 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-          - image: ubuntu-26.04
+          - image: ubuntu-24.04
             name: x86_64
             dir: x64
             appimage: x86_64
-          - image: ubuntu-26.04-arm
+          - image: ubuntu-24.04-arm
             name: arm64
             dir: arm64
             appimage: aarch64
@@ -631,6 +662,12 @@ jobs:
           git config --global user.name "Linwood CI"
       - uses: actions/download-artifact@v8
         with:
+          name: apk-build-legacy
+      - uses: actions/download-artifact@v8
+        with:
+          name: apk-build
+      - uses: actions/download-artifact@v8
+        with:
           name: apk-arm-build
       - uses: actions/download-artifact@v8
         with:
@@ -753,9 +790,11 @@ jobs:
             linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-android.apk
             linwood-butterfly-android-arm.apk
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
+            linwood-butterfly-android-legacy.apk
             linwood-butterfly-android-arm-legacy.apk
             linwood-butterfly-android-arm64-legacy.apk
             linwood-butterfly-android-x86_64-legacy.apk
@@ -787,9 +826,11 @@ jobs:
             linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-android.apk
             linwood-butterfly-android-arm.apk
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
+            linwood-butterfly-android-legacy.apk
             linwood-butterfly-android-arm-legacy.apk
             linwood-butterfly-android-arm64-legacy.apk
             linwood-butterfly-android-x86_64-legacy.apk
@@ -819,9 +860,11 @@ jobs:
             linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-android.apk
             linwood-butterfly-android-arm.apk
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
+            linwood-butterfly-android-legacy.apk
             linwood-butterfly-android-arm-legacy.apk
             linwood-butterfly-android-arm64-legacy.apk
             linwood-butterfly-android-x86_64-legacy.apk
