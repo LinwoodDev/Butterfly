@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "تنظيف الحالات المخزنة",
   "persistentStateCleanupDescription": "حذف السجلات الأقدم من الحدود أعلاه",
   "persistentStateCleanupInProgress": "تنظيف...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{تم تنظيف موقع تخزين واحد} other{تم تنظيف {locations} مواقع تخزين}}; {records, plural, =1{حُذف سجل واحد} other{حُذفت {records} سجلات}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "تذكر الصفحة الحالية عند إعادة فتح ملف",
   "persistentStateViewportDescription": "تذكر موضع العرض وتكبيره",
   "persistentStateSelectedToolDescription": "تذكر الأداة المحددة عند إعادة فتح ملف",
-  "persistentStateLocksDescription": "تذكر الطبقة وقفل الجمع عند إعادة فتح الملف",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "تذكر حالة التنقل عند إعادة فتح الملف",
   "persistentStateLayersDescription": "تذكر حالة لوحة الطبقة عند إعادة فتح الملف",
   "persistentStateAreasDescription": "تذكر حالة لوحة المنطقة عند إعادة فتح الملف",
