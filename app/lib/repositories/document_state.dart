@@ -230,7 +230,7 @@ class DocumentStateRepository {
   ) => state.copyWith(
     pageName: settings.page ? state.pageName : null,
     camera: settings.camera ? state.camera : const PersistedCameraState(),
-    locks: settings.locks ? state.locks : const PersistentLockState(),
+    locks: settings.locks ? state.locks : settings.defaultLocks,
     selectedTool: settings.tool
         ? state.selectedTool
         : const PersistedToolSelection(),

@@ -435,7 +435,8 @@ class _ProjectPageState extends State<ProjectPage> {
         document: document,
         page: page,
         fallbackPageName: pageName,
-        fallbackLocks: const PersistentLockState(),
+        fallbackLocks:
+            settingsCubit.state.documentStatePersistence.defaultLocks,
         pathKey: pathKey,
         contentHash: contentHash,
       );

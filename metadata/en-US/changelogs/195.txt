@@ -1,4 +1,5 @@
 * Add full screen embed option and restore missing embed menu items
+* Add setting for default document persistence states ([#1249](https://github.com/LinwoodDev/Butterfly/issues/1249))
 * Improve landscape mobile home page
 * Improve collaboration reliability and user experience
 * Improve responsiveness and add helper text to the add connection dialog

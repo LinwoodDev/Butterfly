@@ -1,5 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -95,6 +96,28 @@ void main() {
     expect(restored.backupIntervalMinutes, 360);
     expect(restored.automaticBackup, isTrue);
     expect(restored.lastBackup, DateTime.utc(2026, 8, 12, 14));
+  });
+
+  test('persists default document locks', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+    addTearDown(cubit.close);
+    const persistence = DocumentStatePersistenceSettings(
+      defaultLocks: PersistentLockState(
+        lockZoom: true,
+        lockHorizontal: true,
+        lockVertical: true,
+      ),
+    );
+
+    await cubit.changeDocumentStatePersistence(persistence);
+
+    final restored = ButterflySettings.fromPrefs(prefs);
+    expect(
+      restored.documentStatePersistence.defaultLocks,
+      persistence.defaultLocks,
+    );
   });
 
   group('SettingsCubit resets', () {

@@ -29,6 +29,19 @@ Widget _buildPersistenceSettingsSection(
     context.read<SettingsCubit>().changeDocumentStatePersistence(next);
   }
 
+  Widget buildDefaultLock({
+    required bool value,
+    required String title,
+    required PhosphorIconData icon,
+    required PersistentLockState Function(bool value) update,
+  }) => SwitchListTile(
+    value: value,
+    secondary: PhosphorIcon(icon),
+    title: Text(title),
+    onChanged: (value) =>
+        change(settings.copyWith(defaultLocks: update(value))),
+  );
+
   return Center(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -145,6 +158,61 @@ Widget _buildPersistenceSettingsSection(
                   onChanged: settings.enabled
                       ? (value) => change(settings.copyWith(areas: value))
                       : null,
+                ),
+                const Divider(),
+                ExpansionTile(
+                  leading: const PhosphorIcon(PhosphorIconsLight.lockKeyOpen),
+                  title: Text(
+                    AppLocalizations.of(context).persistentStateDefaultLocks,
+                  ),
+                  subtitle: Text(
+                    AppLocalizations.of(context)
+                        .persistentStateDefaultLocksDescription,
+                  ),
+                  children: [
+                    buildDefaultLock(
+                      value: settings.defaultLocks.lockCollection,
+                      title: AppLocalizations.of(context).collection,
+                      icon: PhosphorIconsLight.folder,
+                      update: (value) =>
+                          settings.defaultLocks.copyWith(lockCollection: value),
+                    ),
+                    buildDefaultLock(
+                      value: settings.defaultLocks.lockLayer,
+                      title: AppLocalizations.of(context).layer,
+                      icon: PhosphorIconsLight.stack,
+                      update: (value) =>
+                          settings.defaultLocks.copyWith(lockLayer: value),
+                    ),
+                    buildDefaultLock(
+                      value: settings.defaultLocks.lockZoom,
+                      title: AppLocalizations.of(context).zoom,
+                      icon: PhosphorIconsLight.magnifyingGlassPlus,
+                      update: (value) =>
+                          settings.defaultLocks.copyWith(lockZoom: value),
+                    ),
+                    buildDefaultLock(
+                      value: settings.defaultLocks.lockRotation,
+                      title: AppLocalizations.of(context).rotation,
+                      icon: PhosphorIconsLight.arrowClockwise,
+                      update: (value) =>
+                          settings.defaultLocks.copyWith(lockRotation: value),
+                    ),
+                    buildDefaultLock(
+                      value: settings.defaultLocks.lockHorizontal,
+                      title: AppLocalizations.of(context).horizontal,
+                      icon: PhosphorIconsLight.arrowsHorizontal,
+                      update: (value) =>
+                          settings.defaultLocks.copyWith(lockHorizontal: value),
+                    ),
+                    buildDefaultLock(
+                      value: settings.defaultLocks.lockVertical,
+                      title: AppLocalizations.of(context).vertical,
+                      icon: PhosphorIconsLight.arrowsVertical,
+                      update: (value) =>
+                          settings.defaultLocks.copyWith(lockVertical: value),
+                    ),
+                  ],
                 ),
                 const Divider(),
                 ExactSlider(

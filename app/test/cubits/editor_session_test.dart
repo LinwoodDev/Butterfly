@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -26,6 +27,26 @@ void main() {
       expect(state.camera.rotation, 0);
       expect(state.locks, const PersistentLockState());
       expect(state.navigator.page, NavigatorPage.waypoints.name);
+    });
+
+    test('new sessions use configured default locks', () {
+      var document = NoteData(Archive());
+      final result = document.setPage(const DocumentPage(), 'Page 1');
+      document = result.$1;
+      const defaultLocks = PersistentLockState(
+        lockZoom: true,
+        lockHorizontal: true,
+        lockVertical: true,
+      );
+
+      final state = EditorSessionCubit.buildInitial(
+        document: document,
+        page: const DocumentPage(),
+        fallbackPageName: result.$2,
+        fallbackLocks: defaultLocks,
+      );
+
+      expect(state.locks, defaultLocks);
     });
   });
 
@@ -115,12 +136,15 @@ void main() {
 
       final loaded = await DocumentStateRepository(
         fileSystem,
-        settingsProvider: () =>
-            const DocumentStatePersistenceSettings(locks: false, areas: false),
+        settingsProvider: () => const DocumentStatePersistenceSettings(
+          locks: false,
+          areas: false,
+          defaultLocks: PersistentLockState(lockZoom: true),
+        ),
       ).load(pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Page 1');
-      expect(loaded?.locks, const PersistentLockState());
+      expect(loaded?.locks, const PersistentLockState(lockZoom: true));
       expect(loaded?.areaNavigator, const PersistedAreaNavigatorState());
     });
 

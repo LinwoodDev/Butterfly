@@ -9,6 +9,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/input.dart';
 import 'package:butterfly/main.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/settings/data.dart';
