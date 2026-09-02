@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -65,6 +66,90 @@ Rect _fitPreviewAspectRatio(Rect bounds) {
   );
 }
 
+DocumentPage? _decodePreviewPage(Uint8List data) {
+  try {
+    return DocumentPage.fromJson(
+      jsonDecode(utf8.decode(data)) as Map<String, dynamic>,
+    );
+  } catch (_) {
+    return null;
+  }
+}
+
+class DeferredDocumentPagePreview extends StatefulWidget {
+  const DeferredDocumentPagePreview({
+    required this.state,
+    required this.pageName,
+    this.page,
+    super.key,
+  });
+
+  final DocumentLoadSuccess state;
+  final String pageName;
+  final DocumentPage? page;
+
+  @override
+  State<DeferredDocumentPagePreview> createState() =>
+      _DeferredDocumentPagePreviewState();
+}
+
+class _DeferredDocumentPagePreviewState
+    extends State<DeferredDocumentPagePreview> {
+  Uint8List? _rawPage;
+  late Future<DocumentPage?> _pageFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPage();
+  }
+
+  @override
+  void didUpdateWidget(DeferredDocumentPagePreview oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final rawPage = widget.page == null
+        ? widget.state.data.getRawPage(widget.pageName)
+        : null;
+    if (!identical(widget.page, oldWidget.page) ||
+        !identical(rawPage, _rawPage)) {
+      _loadPage(rawPage);
+    }
+  }
+
+  void _loadPage([Uint8List? rawPage]) {
+    final page = widget.page;
+    if (page != null) {
+      _rawPage = null;
+      _pageFuture = Future.value(page);
+      return;
+    }
+    _rawPage = rawPage ?? widget.state.data.getRawPage(widget.pageName);
+    _pageFuture = _rawPage == null
+        ? Future.value(null)
+        : compute(_decodePreviewPage, _rawPage!);
+  }
+
+  @override
+  Widget build(BuildContext context) => FutureBuilder<DocumentPage?>(
+    future: _pageFuture,
+    builder: (context, snapshot) {
+      final page = snapshot.data;
+      if (page != null) {
+        return DocumentPagePreview(
+          state: widget.state,
+          pageName: widget.pageName,
+          page: page,
+        );
+      }
+      return const SizedBox(
+        width: _previewWidth,
+        height: _previewHeight,
+        child: Center(child: PhosphorIcon(PhosphorIconsLight.image, size: 18)),
+      );
+    },
+  );
+}
+
 class _PreviewKey {
   _PreviewKey({
     required this.sessionId,
@@ -126,13 +211,14 @@ class _PreviewTask {
 
 class _DocumentPagePreviewCache {
   static const _maximumEntries = 96;
-  static const _maximumConcurrentLoads = 2;
+  static const _maximumConcurrentLoads = 1;
 
   final LinkedHashMap<_PreviewKey, Future<Uint8List?>> _entries =
       LinkedHashMap();
   final Queue<_PreviewTask> _pending = Queue();
   final Set<_PreviewTask> _active = {};
   int _activeLoads = 0;
+  bool _pumpScheduled = false;
 
   Future<Uint8List?> get(
     _PreviewKey key,
@@ -153,7 +239,7 @@ class _DocumentPagePreviewCache {
       _entries.remove(evictedKey);
       _cancelTasks((task) => task.key == evictedKey);
     }
-    _pump();
+    _schedulePump();
     return future;
   }
 
@@ -175,6 +261,16 @@ class _DocumentPagePreviewCache {
     }
   }
 
+  void _schedulePump() {
+    if (_pumpScheduled || _pending.isEmpty) return;
+    _pumpScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _pumpScheduled = false;
+      _pump();
+    });
+    WidgetsBinding.instance.ensureVisualUpdate();
+  }
+
   void _pump() {
     while (_activeLoads < _maximumConcurrentLoads && _pending.isNotEmpty) {
       final task = _pending.removeFirst();
@@ -194,7 +290,7 @@ class _DocumentPagePreviewCache {
         } finally {
           _active.remove(task);
           _activeLoads--;
-          _pump();
+          _schedulePump();
         }
       }();
     }

@@ -294,10 +294,13 @@ final class NoteData extends NoteDisplay<NoteData> {
   }
 
   @useResult
+  Uint8List? getRawPage([String name = '']) => getAsset(
+    '$kPagesArchiveDirectory/${_getPageFileName(name) ?? name}.json',
+  );
+
+  @useResult
   DocumentPage? getPage([String name = '']) {
-    final data = getAsset(
-      '$kPagesArchiveDirectory/${_getPageFileName(name) ?? name}.json',
-    );
+    final data = getRawPage(name);
     if (data == null) {
       return null;
     }

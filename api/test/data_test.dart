@@ -101,6 +101,7 @@ void main() {
       expect(data.getPages().length, 2);
       expect(data.getPage(firstPageName)?.layers.first.id, 'first-layer');
       expect(data.getPage(secondPageName)?.layers.first.id, 'second-layer');
+      expect(data.getRawPage(firstPageName), isNotEmpty);
       expect(data.getPages(), contains('Page 2'));
     });
 

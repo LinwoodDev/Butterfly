@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "9a3386eea899815698dd55995277cf7cb8572ee52b399a6edfb7ae2b50e5fc19"
+      sha256: "739258fc1504144e55b639fa6c6fe4c1d10ae71c20f25973c12af118699723fa"
       url: "https://pub.dev"
     source: hosted
-    version: "105.0.0"
+    version: "106.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "62993bed6eadbe9596c5c20d5c167e7bc563c5fe266657a04ddeb93bdb84f4c9"
+      sha256: "76c74350a63a37635d01dc2dd6850cc9642218c9f7291659d073e697e4450bc1"
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.0"
+    version: "14.2.0"
   analyzer_buffer:
     dependency: transitive
     description:
@@ -413,10 +413,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: b7acb5d123cb398f6b4a8a38e43777545254f8fc1fabef3ee11cbbb56aece9c8
+      sha256: "3c5191df3efd7445ab7c6bc4653fe10a2bc907e2f826244eea7f5622724161f5"
       url: "https://pub.dev"
     source: hosted
-    version: "12.1.2"
+    version: "12.1.3"
   file_picker_darwin:
     dependency: transitive
     description:
@@ -760,10 +760,10 @@ packages:
     dependency: transitive
     description:
       name: jni_flutter
-      sha256: "7b717011ea40d04fd47c2731d3d1d36eb99eba3435c2753d62489e8c3c9991d5"
+      sha256: b2310cdd4c18c65c081ab141a41efa94aa26c65431803703ece51996f174f351
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   jni_util:
     dependency: transitive
     description:

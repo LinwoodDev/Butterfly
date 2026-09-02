@@ -2,6 +2,8 @@
 * Improve landscape mobile home page
 * Improve collaboration reliability and user experience
 * Improve responsiveness and add helper text to the add connection dialog
+* Improve pages and areas navigator performance
+* Improve page switching performance for large documents
 * Improve efficiency of file coping and exporting
 * Fix sync dialog not opening current connection initially
 * Fix switching pages in embeds ([#1247](https://github.com/LinwoodDev/Butterfly/issues/1247))

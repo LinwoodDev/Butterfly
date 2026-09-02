@@ -47,6 +47,18 @@ class DocumentLoadFailure extends DocumentState {
 Uint8List _encodePage(DocumentPage page) =>
     utf8.encode(jsonEncode(page.toJson()));
 
+const _pageComputeThreshold = 64 * 1024;
+
+DocumentPage? _decodePage(Uint8List data) {
+  try {
+    return DocumentPage.fromJson(
+      jsonDecode(utf8.decode(data)) as Map<String, dynamic>,
+    );
+  } catch (_) {
+    return null;
+  }
+}
+
 abstract class DocumentLoaded extends DocumentState {
   @override
   final NoteData data;

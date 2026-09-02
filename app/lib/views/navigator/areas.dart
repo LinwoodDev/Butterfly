@@ -273,25 +273,27 @@ class _AreasViewState extends State<AreasView> {
                 .where((page) => page.$2 == state.pageName)
                 .map((page) => page.$1)
                 .firstOrNull;
-            final allPageEntries = pagesWithNames.expand((pageNames) {
-              final realPageName = pageNames.$2;
-              final page = realPageName == state.pageName
-                  ? state.page
-                  : state.data.getPage(realPageName);
-              if (page == null) return const <_AreaEntry>[];
-              final displayName = pageNames.$1.isEmpty
-                  ? AppLocalizations.of(context).page
-                  : pageNames.$1;
-              return page.areas.map(
-                (area) => (
-                  area: area,
-                  page: page,
-                  pageName: realPageName,
-                  pageDisplayName: displayName,
-                  isCurrentPage: realPageName == state.pageName,
-                ),
-              );
-            }).toList();
+            final allPageEntries = _showAllPages
+                ? pagesWithNames.expand((pageNames) {
+                    final realPageName = pageNames.$2;
+                    final page = realPageName == state.pageName
+                        ? state.page
+                        : state.data.getPage(realPageName);
+                    if (page == null) return const <_AreaEntry>[];
+                    final displayName = pageNames.$1.isEmpty
+                        ? AppLocalizations.of(context).page
+                        : pageNames.$1;
+                    return page.areas.map(
+                      (area) => (
+                        area: area,
+                        page: page,
+                        pageName: realPageName,
+                        pageDisplayName: displayName,
+                        isCurrentPage: realPageName == state.pageName,
+                      ),
+                    );
+                  }).toList()
+                : const <_AreaEntry>[];
 
             final editorController = context.read<EditorController>();
 
@@ -487,30 +489,30 @@ class _AreasViewState extends State<AreasView> {
                                   ),
                                 );
                               }
-                              return ListView(
+                              return ListView.builder(
                                 primary: true,
-                                children: [
-                                  ...subgroups.map(
-                                    (group) => buildAreaFolder(
+                                itemCount: subgroups.length + areas.length,
+                                itemBuilder: (context, index) {
+                                  if (index < subgroups.length) {
+                                    final group = subgroups[index];
+                                    return buildAreaFolder(
                                       group,
                                       '$_currentGroup$group',
-                                    ),
-                                  ),
-                                  ...areas.map(
-                                    (entry) => buildAreaTile(
-                                      bloc,
-                                      viewport,
-                                      state,
-                                      viewportRect,
-                                      current,
-                                      entry,
-                                      controller: controller,
-                                      folderPath: _currentGroup.isEmpty
-                                          ? []
-                                          : _currentGroup.split('/'),
-                                    ),
-                                  ),
-                                ],
+                                    );
+                                  }
+                                  return buildAreaTile(
+                                    bloc,
+                                    viewport,
+                                    state,
+                                    viewportRect,
+                                    current,
+                                    areas[index - subgroups.length],
+                                    controller: controller,
+                                    folderPath: _currentGroup.isEmpty
+                                        ? []
+                                        : _currentGroup.split('/'),
+                                  );
+                                },
                               );
                             },
                           ),

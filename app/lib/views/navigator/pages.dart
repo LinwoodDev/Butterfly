@@ -343,15 +343,9 @@ class _PagesViewState extends State<PagesView> {
                             },
                             itemBuilder: (BuildContext context, int index) {
                               final entity = all[index];
-                              final previewPage = entity.isFile
-                                  ? entity.path == state.pageName
-                                        ? state.page
-                                        : state.data.getPage(entity.path)
-                                  : null;
                               return _PageEntityListTile(
                                 entity: entity,
                                 state: state,
-                                previewPage: previewPage,
                                 selected: entity.path == currentName,
                                 showInternalPageNumber:
                                     _showInternalPageNumbers,
@@ -602,7 +596,6 @@ class _PageEntityListTile extends StatelessWidget {
   const _PageEntityListTile({
     required this.entity,
     required this.state,
-    required this.previewPage,
     required this.selected,
     required this.showInternalPageNumber,
     required this.locationController,
@@ -615,7 +608,6 @@ class _PageEntityListTile extends StatelessWidget {
 
   final PageEntity entity;
   final DocumentLoadSuccess state;
-  final DocumentPage? previewPage;
   final bool selected;
   final bool showInternalPageNumber;
   final NoteData data;
@@ -650,11 +642,11 @@ class _PageEntityListTile extends StatelessWidget {
             : BlocSelector<SettingsCubit, ButterflySettings, bool>(
                 selector: (settings) => settings.showNavigatorPreviews,
                 builder: (context, showPreview) {
-                  if (editable && showPreview && previewPage != null) {
-                    return DocumentPagePreview(
+                  if (editable && showPreview) {
+                    return DeferredDocumentPagePreview(
                       state: state,
                       pageName: entity.path,
-                      page: previewPage!,
+                      page: entity.path == state.pageName ? state.page : null,
                     );
                   }
                   return Icon(

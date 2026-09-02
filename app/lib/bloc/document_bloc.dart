@@ -310,11 +310,37 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<PageChanged>((event, emit) async {
       final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      current.assetService.dispose();
-      final data = current.data.setPage(current.page, current.pageName).$1;
-      final page = data.getPage(event.pageName);
+      if (current is! DocumentLoadSuccess ||
+          current.pageName == event.pageName) {
+        return;
+      }
+      final rawPage = current.data.getRawPage(event.pageName);
+      if (rawPage == null) return;
+      final currentRawPage = current.data.getRawPage(current.pageName);
+      final useBackgroundEncode =
+          (currentRawPage?.length ?? 0) >= _pageComputeThreshold ||
+          current.page.content.length >= 100;
+      final useBackgroundDecode = rawPage.length >= _pageComputeThreshold;
+      late final Uint8List encodedPage;
+      late final DocumentPage? page;
+      if (useBackgroundEncode || useBackgroundDecode) {
+        final results = await Future.wait<Object?>([
+          useBackgroundEncode
+              ? compute(_encodePage, current.page)
+              : Future.value(_encodePage(current.page)),
+          useBackgroundDecode
+              ? compute(_decodePage, rawPage)
+              : Future.value(_decodePage(rawPage)),
+        ]);
+        encodedPage = results[0] as Uint8List;
+        page = results[1] as DocumentPage?;
+      } else {
+        encodedPage = _encodePage(current.page);
+        page = _decodePage(rawPage);
+      }
       if (page == null) return;
+      current.assetService.dispose();
+      final data = current.data.setRawPage(encodedPage, current.pageName).$1;
       await _saveState(
         emit,
         state: current.copyWith(
@@ -326,7 +352,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         reset: true,
       );
       editorController.editorSessionCubit?.updatePage(event.pageName);
-    });
+    }, transformer: restartable());
     on<PageReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
