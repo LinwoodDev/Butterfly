@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Nettoyer les états stockés",
   "persistentStateCleanupDescription": "Supprimer les enregistrements antérieurs aux limites ci-dessus",
   "persistentStateCleanupInProgress": "Nettoyage en cours...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Nettoyé 1 emplacement de stockage} other{Nettoyé {locations} emplacements de stockage}}; {records, plural, =1{a enlevé 1 record} other{enlevé {records} records}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Se souvenir de la page en cours lors de la réouverture d'un fichier",
   "persistentStateViewportDescription": "Se souvenir de la position de la vue et du zoom",
   "persistentStateSelectedToolDescription": "Se souvenir de l'outil sélectionné lors de la réouverture d'un fichier",
-  "persistentStateLocksDescription": "Se souvenir des verrous de la couche et de la collection lors de la réouverture d'un fichier",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Se souvenir de l'état du navigateur lors de la réouverture d'un fichier",
   "persistentStateLayersDescription": "Se souvenir de l'état du panneau de calque lors de la réouverture d'un fichier",
   "persistentStateAreasDescription": "Se souvenir de l'état du panneau de zone lors de la réouverture d'un fichier",
