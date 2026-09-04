@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Очистити збережені стани",
   "persistentStateCleanupDescription": "Видалити записи старші за межі",
   "persistentStateCleanupInProgress": "Очищення...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Запам'ятати поточну сторінку при повторному відкритті файлу",
   "persistentStateViewportDescription": "Запам'ятати положення і масштабування вікна перегляду",
   "persistentStateSelectedToolDescription": "Запам'ятати обраний інструмент, коли повторно відкрити файл",
-  "persistentStateLocksDescription": "Запам'ятовувати шар та колекцію при перевідкритті файлу",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Запам'ятовувати стан навігації при повторному відкритті файлу",
   "persistentStateLayersDescription": "Запам'ятати стан панелі шару під час перезавантаження файлу",
   "persistentStateAreasDescription": "Запам'ятати стан області під час перезавантаження файлу",
