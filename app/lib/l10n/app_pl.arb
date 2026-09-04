@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Wyczyść przechowywane stany",
   "persistentStateCleanupDescription": "Usuń rekordy starsze niż powyższe limity",
   "persistentStateCleanupInProgress": "Czyszczenie...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Wyczyszczono 1 miejsce przechowywania} other{Wyczyszczono {locations} miejsca przechowywania}}; {records, plural, =1{usunięto 1 rekord} other{usunięto {records} rekordy}} . .",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Zapamiętaj bieżącą stronę podczas ponownego otwierania pliku",
   "persistentStateViewportDescription": "Zapamiętaj pozycję i powiększenie widoku",
   "persistentStateSelectedToolDescription": "Zapamiętaj wybrane narzędzie podczas ponownego otwierania pliku",
-  "persistentStateLocksDescription": "Pamiętaj blokadę warstwy i kolekcji podczas ponownego otwierania pliku",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Zapamiętaj stan nawigatora podczas ponownego otwierania pliku",
   "persistentStateLayersDescription": "Zapamiętaj stan panelu warstwy podczas ponownego otwierania pliku",
   "persistentStateAreasDescription": "Zapamiętaj stan panelu przy ponownym otwieraniu pliku",
