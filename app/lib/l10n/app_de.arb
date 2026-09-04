@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Gespeicherte Zustände bereinigen",
   "persistentStateCleanupDescription": "Lösche Datensätze, die älter als die oben genannten Grenzen sind",
   "persistentStateCleanupInProgress": "Bereinigen...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Bereinigt 1 Speicherort} other{Bereinigt {locations} Speicherstandorte}}; {records, plural, =1{entfernte 1 Datensatz} other{entfernt! {records} Datensätze}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Die aktuelle Seite beim erneuten Öffnen einer Datei merken",
   "persistentStateViewportDescription": "Position des Viewports merken und zoomen",
   "persistentStateSelectedToolDescription": "Ausgewähltes Werkzeug beim Wiederöffnen einer Datei merken",
-  "persistentStateLocksDescription": "Ebenen- und Sammlungssperren beim erneuten Öffnen einer Datei merken",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Navigator-Status beim Wiederöffnen einer Datei merken",
   "persistentStateLayersDescription": "Beim erneuten Öffnen einer Datei den Layer-Panel-Status merken",
   "persistentStateAreasDescription": "Beim erneuten Öffnen einer Datei den Status des Bereichs merken",
