@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Pulisci gli stati memorizzati",
   "persistentStateCleanupDescription": "Elimina record più vecchi dei limiti sopra",
   "persistentStateCleanupInProgress": "Pulizia in corso...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Pulito 1 posizione di archiviazione} other{Pulito {locations} posizioni di archiviazione}} {records, plural, =1{rimosso 1 record} other{rimosso {records} record}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Ricorda la pagina corrente quando riapri un file",
   "persistentStateViewportDescription": "Ricorda la posizione della vista e lo zoom",
   "persistentStateSelectedToolDescription": "Ricorda lo strumento selezionato quando riapri un file",
-  "persistentStateLocksDescription": "Ricorda i blocchi di livello e collezione quando riapri un file",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Ricorda lo stato dell'esploratore quando riapri un file",
   "persistentStateLayersDescription": "Ricorda lo stato del pannello di livello quando riapri un file",
   "persistentStateAreasDescription": "Ricorda lo stato del pannello area quando riapri un file",
