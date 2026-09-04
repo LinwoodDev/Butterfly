@@ -669,7 +669,7 @@ as int,
 @override
 @pragma('vm:prefer-inline')
 $PersistentLockStateCopyWith<$Res> get defaultLocks {
-
+  
   return $PersistentLockStateCopyWith<$Res>(_self.defaultLocks, (value) {
     return _then(_self.copyWith(defaultLocks: value));
   });
@@ -777,7 +777,7 @@ as int,
 @override
 @pragma('vm:prefer-inline')
 $PersistentLockStateCopyWith<$Res> get defaultLocks {
-
+  
   return $PersistentLockStateCopyWith<$Res>(_self.defaultLocks, (value) {
     return _then(_self.copyWith(defaultLocks: value));
   });
