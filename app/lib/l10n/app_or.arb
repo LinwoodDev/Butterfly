@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Clean up stored states",
   "persistentStateCleanupDescription": "Delete records older than the limits above",
   "persistentStateCleanupInProgress": "Cleaning up...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
   "persistentStateViewportDescription": "Remember the viewport position and zoom",
   "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
-  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
   "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
   "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
