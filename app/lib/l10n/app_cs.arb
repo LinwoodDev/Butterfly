@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Vyčistit uložené stavy",
   "persistentStateCleanupDescription": "Odstranit záznamy starší než výše uvedené limity",
   "persistentStateCleanupInProgress": "Čištění...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Vyčištěno 1 úložiště} other{Vyčištěno {locations} místa v úložišti}}; {records, plural, =1{odebral 1 záznam} other{odstranil {records} záznamy}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Zapamatovat si aktuální stránku při opětovném otevření souboru",
   "persistentStateViewportDescription": "Pamatovat si pozici zobrazení a přiblížení",
   "persistentStateSelectedToolDescription": "Zapamatovat si vybraný nástroj při opětovném otevření souboru",
-  "persistentStateLocksDescription": "Zapamatovat si vrstvu a uzamknutí kolekce při znovuotevření souboru",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Zapamatovat si stav navigátoru při opětovném otevření souboru",
   "persistentStateLayersDescription": "Zapamatovat si stav panelu vrstvy při opětovném otevření souboru",
   "persistentStateAreasDescription": "Zapamatovat si stav oblastního panelu při opětovném otevření souboru",
