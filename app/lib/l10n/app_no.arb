@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Opprydding i lagrede stater",
   "persistentStateCleanupDescription": "Slett oppføringer eldre enn grensene over",
   "persistentStateCleanupInProgress": "Rydder opp...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Rens opp 1 lagringsplassering} other{Fjernet opp {locations} Lagringsplasseringene}}! ! {records, plural, =1{fjernet 1 rekord} other{fjernet {records} poster}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Husk gjeldende side ved gjenåpning av en fil",
   "persistentStateViewportDescription": "Husk visningsposisjon og zoom",
   "persistentStateSelectedToolDescription": "Husk det valgte verktøyet ved gjenåpning av en fil",
-  "persistentStateLocksDescription": "Husk lag- og innsamlingslåser når du gjenåpner en fil",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden når du gjenåpner en fil",
   "persistentStateLayersDescription": "Husk lag-panelet når en fil åpnes på nytt",
   "persistentStateAreasDescription": "Husk områdepanel når du gjenåpner en fil",
