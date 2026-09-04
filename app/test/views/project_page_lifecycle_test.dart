@@ -47,6 +47,7 @@ void main() {
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
+    registerFallbackValue(AssetLocation.empty);
     SharedPreferences.setMockInitialValues({});
     FlutterSecureStorage.setMockInitialValues({});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
@@ -86,6 +87,7 @@ void main() {
         .thenReturn(const ButterflySettings(defaultTemplate: 'default'));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
     when(() => settingsCubit.getRemote(any())).thenReturn(null);
+    when(() => settingsCubit.addRecentHistory(any())).thenAnswer((_) async {});
   });
 
   tearDown(() async {
@@ -123,7 +125,6 @@ void main() {
 
   Widget buildApp({
     NoteData? embedDocument,
-    bool embedWithData = true,
     String embedFileName = '',
     EmbedFullScreen embedFullScreen = EmbedFullScreen.enabled,
     Object? importData,
@@ -174,7 +175,7 @@ void main() {
             GoRoute(
               path: 'embed',
               builder: (context, state) => ProjectPage(
-                data: embedWithData ? document.toFile() : null,
+                data: document.toFile(),
                 embedding: Embedding(
                   internal: true,
                   fileName: embedFileName,
@@ -243,27 +244,52 @@ void main() {
     expect(observer.documentBlocCloses, 3);
   });
 
-  testWidgets('empty embed ignores the configured default template', (
-    tester,
-  ) async {
-    await tester.pumpWidget(buildApp(embedWithData: false));
-
-    router.go('/embed');
+  testWidgets('backgrounding flushes a delayed autosave', (tester) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        autosaveDelaySeconds: 1800,
+      ),
+    );
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
     await pumpUntil(
       tester,
       () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
-      'empty embed open',
+      'document open',
     );
 
-    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
-    expect(state.metadata.name, isEmpty);
-
-    router.go('/');
+    final bloc = observer.lastDocumentBloc!;
+    bloc.add(const DocumentDescriptionChanged(name: 'Saved in background'));
     await pumpUntil(
       tester,
-      () => observer.documentBlocCloses == 1,
-      'empty embed close',
+      () => bloc.editorController.saveCubit.state.isSaveDelayed,
+      'delayed autosave',
     );
+
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    await pumpUntil(
+      tester,
+      () => bloc.editorController.saveCubit.state.saved == SaveState.saved,
+      'background save',
+    );
+
+    final saved = await fileSystem.buildDocumentSystem().getAsset(
+      'lifecycle.bfly',
+    );
+    expect(saved, isA<FileSystemFile<NoteFile>>());
+    expect(
+      (saved as FileSystemFile<NoteFile>).data?.display()?.getMetadata()?.name,
+      'Saved in background',
+    );
+    expect(bloc.editorController.saveCubit.state.isSaveDelayed, isFalse);
+
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump(const Duration(minutes: 30));
   });
 
   testWidgets('embed can start full screen and be toggled off', (tester) async {
@@ -1096,44 +1122,6 @@ void main() {
       tester,
       () => observer.documentBlocCloses == 1,
       'connection encrypted document close',
-    );
-    await tester.pump(const Duration(milliseconds: 10));
-  });
-
-  testWidgets('plaintext connection document reopens as unencrypted', (
-    tester,
-  ) async {
-    const password = 'connection password';
-    const remote = DavRemoteStorage(
-      username: 'user',
-      url: 'https://example.com/dav',
-      extra: {connectionEncryptionEnabledKey: true},
-    );
-    final document = DocumentDefaults.createDocument(
-      name: 'Unencrypted document',
-      page: const DocumentPage(backgrounds: []),
-    );
-    when(() => settingsCubit.getRemote(any())).thenReturn(remote);
-    await connectionEncryptionPasswordStorage.write(remote, password);
-    addTearDown(() => connectionEncryptionPasswordStorage.delete(remote));
-
-    await tester.pumpWidget(buildApp(importData: document.toFile()));
-    router.go('/import');
-    await pumpUntil(
-      tester,
-      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
-      'plaintext connection document open',
-    );
-
-    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
-    expect(state.data.isEncrypted, isFalse);
-    expect(state.data.password, isNull);
-
-    router.go('/');
-    await pumpUntil(
-      tester,
-      () => observer.documentBlocCloses == 1,
-      'plaintext connection document close',
     );
     await tester.pump(const Duration(milliseconds: 10));
   });

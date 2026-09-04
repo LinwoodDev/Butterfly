@@ -103,6 +103,7 @@ class MainViewViewportState extends State<MainViewViewport>
     _input.reset();
     final controller = context.read<EditorController>();
     controller.toolCubit.resetInput(bloc, controller.inputCubit);
+    unawaited(bloc.save());
   }
 
   @override
