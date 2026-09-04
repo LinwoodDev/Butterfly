@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Curăță stările stocate",
   "persistentStateCleanupDescription": "Ştergeţi înregistrările mai vechi decât limitele de mai sus",
   "persistentStateCleanupInProgress": "Curățare în sus...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{A curățat o locație de stocare} other{A șters {locations} Locații de stocare}} {records, plural, =1{a eliminat 1 record} other{a șters {records} înregistrările}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Amintiţi-vă pagina curentă la redeschiderea unui fişier",
   "persistentStateViewportDescription": "Amintește-ți poziția viewport-ului și zoom",
   "persistentStateSelectedToolDescription": "Reține instrumentul selectat la redeschiderea unui fișier",
-  "persistentStateLocksDescription": "Amintiţi-vă stratul şi blocurile de colectare la redeschiderea unui fişier",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Amintiţi-vă starea navigatorului la redeschiderea unui fişier",
   "persistentStateLayersDescription": "Reţineţi starea panoului pe strat la redeschiderea unui fişier",
   "persistentStateAreasDescription": "Memorează starea zonei panoului la redeschiderea unui fișier",
