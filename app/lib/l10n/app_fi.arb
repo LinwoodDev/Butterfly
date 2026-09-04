@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Tallennetut tilat puhdistetaan",
   "persistentStateCleanupDescription": "Poista yllä olevia rajoja vanhemmat tietueet",
   "persistentStateCleanupInProgress": "Siivotaan...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Siivottu 1 tallennuspaikka} other{Siivottu {locations} tallennuspaikat}}; {records, plural, =1{poistettiin 1 tietueen} other{poistettiin {records} tietueet}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Muista nykyinen sivu avattaessa tiedostoa uudelleen",
   "persistentStateViewportDescription": "Muista näkymän sijainti ja zoomaus",
   "persistentStateSelectedToolDescription": "Muista valittu työkalu avattaessa tiedostoa uudelleen",
-  "persistentStateLocksDescription": "Muista kerros ja kokoelman lukitus avattaessa tiedostoa uudelleen",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Muista navigaattorin tila avattaessa tiedostoa uudelleen",
   "persistentStateLayersDescription": "Muista tasopaneelin tila avattaessa tiedostoa uudelleen",
   "persistentStateAreasDescription": "Muista aluepaneelin tila avattaessa tiedostoa uudelleen",
