@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "保存されている状態を消去",
   "persistentStateCleanupDescription": "上記の制限より古いレコードを削除",
   "persistentStateCleanupInProgress": "クリーンアップ中...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{1 つのストレージの場所} other{クリーンアップ {locations} ストレージ場所}}! {records, plural, =1{removed 1 レコード} other{removed {records} records}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "ファイルを再開したときに現在のページを記憶する",
   "persistentStateViewportDescription": "ビューポートの位置とズームを記憶する",
   "persistentStateSelectedToolDescription": "ファイルを再開するときに選択したツールを記憶する",
-  "persistentStateLocksDescription": "ファイルを再開するときにレイヤーとコレクションのロックを記憶する",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "ファイルを再開したときにナビゲータの状態を記憶する",
   "persistentStateLayersDescription": "ファイルを再開したときのレイヤーパネルの状態を記憶する",
   "persistentStateAreasDescription": "ファイルを再開したときの領域パネルの状態を記憶する",
