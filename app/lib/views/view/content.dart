@@ -109,7 +109,7 @@ class _LoadedViewport extends StatelessWidget {
                   (realSize.width - viewportSize.width).abs() < 2 &&
                   (realSize.height - viewportSize.height).abs() < 2;
               if (state is DocumentLoadSuccess && !viewportMatches) {
-                WidgetsBinding.instance.addPostFrameCallback((_) => bake());
+                bake();
               }
 
               return Actions(

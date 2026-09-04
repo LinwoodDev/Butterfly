@@ -1284,6 +1284,9 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> addRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
     location = _normalizeHistoryLocation(location);
+    if (history.isNotEmpty && _isSameHistoryLocation(history.first, location)) {
+      return;
+    }
     history.removeWhere((element) => _isSameHistoryLocation(element, location));
     history.insert(0, location);
     if (history.length > 10) {

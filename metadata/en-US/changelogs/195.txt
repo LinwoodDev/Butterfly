@@ -6,6 +6,7 @@
 * Improve pages and areas navigator performance
 * Improve page switching performance for large documents
 * Improve efficiency of file coping and exporting
+* Improve baking performance by testing layer changes before baking
 * Fix sync dialog not opening current connection initially
 * Fix switching pages in embeds ([#1247](https://github.com/LinwoodDev/Butterfly/issues/1247))
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
@@ -13,6 +14,8 @@
 * Fix importing encrypted notes requiring their password ([#1242](https://github.com/LinwoodDev/Butterfly/issues/1242))
 * Fix importing Butterfly files on Android
 * Fix pinch zoom drifting toward one finger
+* Fix document view freezing on non-Wasm web builds
 * Fix documents got lost after app is moved to background on Android
+* Fix always saving settings without checking if they changed
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0

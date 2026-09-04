@@ -103,7 +103,10 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
   _RendererSpatialIndex? _spatialIndex;
   List<Renderer<PadElement>>? _indexedRenderers;
   Set<Renderer<PadElement>>? _indexedUnbaked;
-  bool _useDirectRendering = false;
+  bool _useDirectRendering = kIsWeb && !kIsWasm;
+
+  @visibleForTesting
+  void enableDirectRendering() => _useDirectRendering = true;
 
   void bindController(EditorController controller) {
     _controller = controller;
@@ -521,16 +524,50 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       reset = true;
       resetAllLayers = true;
     }
+    final renderers = rendererCubit.renderers;
+
+    void useDirectRendering(List<Renderer<PadElement>> visibleElements) {
+      if (controller.isClosed ||
+          !identical(rendererCubit.state.cameraViewport, startViewport) ||
+          transformCubit.state != startTransform) {
+        return;
+      }
+      rendererCubit._retainSpatialIndex(renderers, renderers);
+      rendererCubit.setViewport(
+        cameraViewport
+            .unbake(
+              unbakedElements: renderers,
+              visibleElements: visibleElements,
+              visibleUnbakedElements: visibleElements,
+              rendererStates: allRendererStates,
+            )
+            .copyWith(
+              width: size.width,
+              height: size.height,
+              viewportSize: measuredViewportSize,
+              pixelRatio: ratio,
+              resolution: resolution,
+              scale: transform.size,
+              x: renderTransform.position.dx,
+              y: renderTransform.position.dy,
+              invisibleLayers: invisibleLayers,
+            ),
+      );
+    }
+
+    // JavaScript web builds paint the live renderer list. Do not feed them
+    // through the cache-specific visibility pass: during initial layout that
+    // pass can temporarily be empty and replace an already correct document
+    // with a blank viewport.
+    if (_useDirectRendering || renderers.isEmpty) {
+      useDirectRendering(cameraViewport.visibleElements);
+      return;
+    }
+
     if (cameraViewport.unbakedElements.isEmpty && !reset) return;
     final currentLayer = blocState.currentLayer;
-    final renderers = rendererCubit.renderers;
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
-    talker.verbose(
-      'Baking viewport (reset: $reset, viewChanged: $viewChanged, '
-      'rendererStatesChanged: $rendererStatesChanged)',
-    );
-
     if (reset) {
       visibleElements = rendererCubit.visibleRenderers(rect);
     } else {
@@ -564,97 +601,65 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
 
-    void useDirectRendering() {
-      if (controller.isClosed ||
-          !identical(rendererCubit.state.cameraViewport, startViewport) ||
-          transformCubit.state != startTransform) {
-        return;
+    talker.verbose(
+      'Baking viewport (reset: $reset, viewChanged: $viewChanged, '
+      'rendererStatesChanged: $rendererStatesChanged)',
+    );
+
+    final currentLayerElements = reset
+        ? visibleElements.where((e) => currentLayer == e.layer).toList()
+        : visibleElements;
+    ui.Image? newImage;
+    if (!reset || currentLayerElements.isNotEmpty) {
+      final recorder = ui.PictureRecorder();
+      final canvas = ui.Canvas(recorder);
+      if (!reset) {
+        // Preserve already baked pixels exactly. Routing this image through
+        // ViewPainter would transform and resample the full cache on every
+        // incremental bake, which visibly distorts wide high-DPI viewports.
+        canvas.drawImage(cachedImage!, ui.Offset.zero, ui.Paint());
       }
-      rendererCubit._retainSpatialIndex(renderers, renderers);
-      rendererCubit.setViewport(
-        cameraViewport
-            .unbake(
-              unbakedElements: renderers,
-              visibleElements: visibleElements,
-              visibleUnbakedElements: visibleElements,
-              rendererStates: allRendererStates,
-            )
-            .copyWith(
-              width: size.width,
-              height: size.height,
-              viewportSize: measuredViewportSize,
-              pixelRatio: ratio,
-              resolution: resolution,
-              scale: transform.size,
-              x: renderTransform.position.dx,
-              y: renderTransform.position.dy,
-              invisibleLayers: invisibleLayers,
-            ),
-      );
-    }
+      canvas.scale(ratio);
 
-    if (_useDirectRendering) {
-      useDirectRendering();
-      return;
-    }
+      ViewPainter(
+        document,
+        page,
+        info,
+        transform: renderTransform,
+        cameraViewport: reset
+            ? cameraViewport.unbake(
+                rendererStates: allRendererStates,
+                unbakedElements: currentLayerElements,
+                visibleElements: visibleElements,
+              )
+            : cameraViewport,
+        renderBackground: false,
+        renderBaked: false,
+        renderBakedLayers: false,
+        invisibleLayers: invisibleLayers,
+      ).paint(canvas, size);
 
-    final recorder = ui.PictureRecorder();
-    final canvas = ui.Canvas(recorder);
-    if (!reset) {
-      // Preserve already baked pixels exactly. Routing this image through
-      // ViewPainter would transform and resample the full cache on every
-      // incremental bake, which visibly distorts wide high-DPI viewports.
-      canvas.drawImage(cachedImage!, ui.Offset.zero, ui.Paint());
-    }
-    canvas.scale(ratio);
-
-    ViewPainter(
-      document,
-      page,
-      info,
-      transform: renderTransform,
-      cameraViewport: reset
-          ? cameraViewport.unbake(
-              rendererStates: allRendererStates,
-              unbakedElements: visibleElements
-                  .where((e) => currentLayer == e.layer)
-                  .toList(),
-              visibleElements: visibleElements,
-            )
-          : cameraViewport,
-      renderBackground: false,
-      renderBaked: false,
-      renderBakedLayers: false,
-      invisibleLayers: invisibleLayers,
-    ).paint(canvas, size);
-
-    final picture = recorder.endRecording();
-    ui.Image newImage;
-    try {
-      newImage = await picture.toImage(imageWidth, imageHeight);
-    } catch (error, stackTrace) {
-      _useDirectRendering = true;
-      talker.warning(
-        'Viewport image baking failed; using direct rendering',
-        error,
-        stackTrace,
-      );
-      useDirectRendering();
-      return;
-    } finally {
-      picture.dispose();
+      final picture = recorder.endRecording();
+      try {
+        newImage = await picture.toImage(imageWidth, imageHeight);
+      } catch (error, stackTrace) {
+        _useDirectRendering = true;
+        talker.warning(
+          'Viewport image baking failed; using direct rendering',
+          error,
+          stackTrace,
+        );
+        useDirectRendering(visibleElements);
+        return;
+      } finally {
+        picture.dispose();
+      }
     }
 
     var belowLayerImage = cameraViewport.belowLayerImage;
     var aboveLayerImage = cameraViewport.aboveLayerImage;
 
     if (resetAllLayers) {
-      final belowLayerRecorder = ui.PictureRecorder();
-      final belowLayerCanvas = ui.Canvas(belowLayerRecorder);
-      belowLayerCanvas.scale(ratio);
-      final aboveLayerRecorder = ui.PictureRecorder();
-      final aboveLayerCanvas = ui.Canvas(aboveLayerRecorder);
-      aboveLayerCanvas.scale(ratio);
       final belowLayers = <String>{}, aboveLayers = <String>{};
       bool above = false;
       for (final layer in page.layers) {
@@ -671,52 +676,48 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
         }
       }
 
-      ViewPainter(
-        document,
-        page,
-        info,
-        transform: renderTransform,
-        cameraViewport: cameraViewport.unbake(
-          rendererStates: allRendererStates,
-          unbakedElements: visibleElements
+      Future<ui.Image?> rasterizeLayer(
+        List<Renderer<PadElement>> elements,
+      ) async {
+        if (elements.isEmpty) return null;
+        final recorder = ui.PictureRecorder();
+        final canvas = ui.Canvas(recorder)..scale(ratio);
+        ViewPainter(
+          document,
+          page,
+          info,
+          transform: renderTransform,
+          cameraViewport: cameraViewport.unbake(
+            rendererStates: allRendererStates,
+            unbakedElements: elements,
+            visibleElements: visibleElements,
+          ),
+          renderBackground: false,
+          renderBaked: false,
+          invisibleLayers: invisibleLayers,
+        ).paint(canvas, size);
+        final picture = recorder.endRecording();
+        try {
+          return await picture.toImage(imageWidth, imageHeight);
+        } finally {
+          picture.dispose();
+        }
+      }
+
+      final result = await Future.wait([
+        rasterizeLayer(
+          visibleElements
               .where((e) => e.layer != null && belowLayers.contains(e.layer))
               .toList(),
-          visibleElements: visibleElements,
         ),
-        renderBackground: false,
-        renderBaked: false,
-        invisibleLayers: invisibleLayers,
-      ).paint(belowLayerCanvas, size);
-      ViewPainter(
-        document,
-        page,
-        info,
-        transform: renderTransform,
-        cameraViewport: cameraViewport.unbake(
-          rendererStates: allRendererStates,
-          unbakedElements: visibleElements
+        rasterizeLayer(
+          visibleElements
               .where((e) => e.layer != null && aboveLayers.contains(e.layer))
               .toList(),
-          visibleElements: visibleElements,
         ),
-        renderBackground: false,
-        renderBaked: false,
-        invisibleLayers: invisibleLayers,
-      ).paint(aboveLayerCanvas, size);
-
-      final belowPicture = belowLayerRecorder.endRecording();
-      final abovePicture = aboveLayerRecorder.endRecording();
-      try {
-        final result = await Future.wait([
-          belowPicture.toImage(imageWidth, imageHeight),
-          abovePicture.toImage(imageWidth, imageHeight),
-        ]);
-        belowLayerImage = result[0];
-        aboveLayerImage = result[1];
-      } finally {
-        belowPicture.dispose();
-        abovePicture.dispose();
-      }
+      ]);
+      belowLayerImage = result[0];
+      aboveLayerImage = result[1];
     }
 
     if (controller.isClosed) return;
@@ -727,7 +728,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     final currentTransform = transformCubit.state;
     if (!identical(currentViewport, startViewport) ||
         currentTransform != startTransform) {
-      newImage.dispose();
+      newImage?.dispose();
       final oldBelow = startViewport.belowLayerImage;
       final oldAbove = startViewport.aboveLayerImage;
       if (!identical(belowLayerImage, oldBelow)) {

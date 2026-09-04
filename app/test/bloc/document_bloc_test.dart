@@ -307,6 +307,131 @@ void main() {
     }
   });
 
+  test('empty initial viewport skips image rasterization', () async {
+    await editorController.rendererCubit.bake(
+      editorController,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(800, 600),
+      pixelRatio: 2,
+      reset: true,
+    );
+
+    final viewport = editorController.rendererCubit.state.cameraViewport;
+    expect(viewport, isA<CameraViewportUnbaked>());
+    expect(viewport.image, isNull);
+    expect(viewport.belowLayerImage, isNull);
+    expect(viewport.aboveLayerImage, isNull);
+    expect(viewport.viewportSize, const Size(800, 600));
+  });
+
+  test(
+    'direct rendering preserves visible elements during initial measurement',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      final element = ShapeElement(
+        id: 'visible-renderer',
+        firstPosition: const Point(10, 10),
+        secondPosition: const Point(20, 20),
+      );
+      final renderer = _VisibleTrackingRenderer(element, 'layer');
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [element]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (newData, pageName) = data.setPage(page, 'Page');
+      data = newData;
+      editorController = EditorController(
+        settingsCubit,
+        TransformCubit(1),
+        CameraViewport.unbaked(
+          unbakedElements: [renderer],
+          visibleElements: [renderer],
+          visibleUnbakedElements: [renderer],
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      editorController.rendererCubit.enableDirectRendering();
+
+      await editorController.rendererCubit.bake(
+        editorController,
+        bloc.state as DocumentLoadSuccess,
+        viewportSize: const Size(800, 600),
+        pixelRatio: 2,
+        reset: true,
+      );
+
+      final viewport = editorController.rendererCubit.state.cameraViewport;
+      expect(viewport, isA<CameraViewportUnbaked>());
+      expect(viewport.visibleElements, [renderer]);
+      expect(viewport.visibleUnbakedElements, [renderer]);
+      expect(viewport.image, isNull);
+      expect(viewport.viewportSize, const Size(800, 600));
+    },
+  );
+
+  test('initial tool setup does not queue another viewport bake', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final element = ShapeElement(
+      id: 'initial-renderer',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderer = _VisibleTrackingRenderer(element, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (newData, pageName) = data.setPage(page, 'Page');
+    data = newData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+        width: 100,
+        height: 100,
+        viewportSize: const Size(100, 100),
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await bloc.load();
+
+    expect(
+      editorController.rendererCubit.state.cameraViewport,
+      isA<CameraViewportUnbaked>(),
+    );
+    expect(renderer.buildCalls, 0);
+  });
+
   test(
     'renaming non-active page keeps active page and preserves page contents',
     () async {

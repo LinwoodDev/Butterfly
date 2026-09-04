@@ -41,6 +41,7 @@ class MainViewViewportState extends State<MainViewViewport>
     with WidgetsBindingObserver {
   final GlobalKey<_ViewportCanvasState> _canvasKey = GlobalKey();
   late final _ViewportInputCoordinator _input;
+  bool _initialBakePending = false;
 
   void openContextMenu() {
     final bloc = context.read<DocumentBloc>();
@@ -65,10 +66,22 @@ class MainViewViewportState extends State<MainViewViewport>
     );
   }
 
-  void _bake(Size viewportSize) => context.read<DocumentBloc>().bake(
+  Future<void> _bake(Size viewportSize) => context.read<DocumentBloc>().bake(
     viewportSize: viewportSize,
     pixelRatio: MediaQuery.devicePixelRatioOf(context),
   );
+
+  void _scheduleInitialBake(Size viewportSize) {
+    if (_initialBakePending) return;
+    _initialBakePending = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        if (mounted) await _bake(viewportSize);
+      } finally {
+        _initialBakePending = false;
+      }
+    });
+  }
 
   void _delayBake(Size viewportSize) =>
       context.read<DocumentBloc>().delayedBake(
@@ -126,7 +139,7 @@ class MainViewViewportState extends State<MainViewViewport>
                   viewportSize: viewportSize,
                   input: _input,
                   canvasKey: _canvasKey,
-                  bake: () => _bake(viewportSize),
+                  bake: () => _scheduleInitialBake(viewportSize),
                   delayBake: () => _delayBake(viewportSize),
                 );
               },

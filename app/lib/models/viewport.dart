@@ -207,7 +207,7 @@ sealed class CameraViewport with _$CameraViewport {
   }
 
   CameraViewport bake({
-    required ui.Image image,
+    required ui.Image? image,
     required double width,
     required double height,
     ui.Size? viewportSize,

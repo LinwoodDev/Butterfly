@@ -124,13 +124,13 @@ class EditorController implements EditorRuntimeContext {
   Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) =>
       reloadRuntime(bloc, blocState);
 
-  void init(DocumentBloc bloc) {
+  Future<void> init(DocumentBloc bloc) async {
     _documentBloc = WeakReference(bloc);
     final blocState = bloc.state;
     final index = blocState is DocumentLoadSuccess
         ? editorSessionCubit?.resolveToolIndex(blocState.info)
         : toolCubit.state.index;
-    toolCubit.changeTool(this, bloc, index: index ?? 0);
+    await toolCubit.changeTool(this, bloc, index: index ?? 0, allowBake: false);
     networkingService.setup(bloc);
   }
 

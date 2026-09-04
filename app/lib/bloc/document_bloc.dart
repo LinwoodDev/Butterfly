@@ -1866,7 +1866,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       cubit.saveCubit.setSaveState(isCreating: true);
     }
     await cubit.rendererCubit.loadElements(cubit, current);
-    cubit.init(this);
+    await cubit.init(this);
   }
 
   Future<void> reload() async {
