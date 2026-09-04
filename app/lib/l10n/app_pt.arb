@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Limpar estados armazenados",
   "persistentStateCleanupDescription": "Excluir registros anteriores aos limites acima",
   "persistentStateCleanupInProgress": "Limpando...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Limpou 1 local de armazenamento} other{Limpou {locations} locais de armazenamento}} {records, plural, =1{removeu 1 registro} other{removeu {records} Registros}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Lembrar a página atual ao reabrir um arquivo",
   "persistentStateViewportDescription": "Lembrar posição e zoom do visualizador",
   "persistentStateSelectedToolDescription": "Lembrar a ferramenta selecionada quando reabrir um arquivo",
-  "persistentStateLocksDescription": "Lembrar bloqueios de camada e memoria ao reabrir um arquivo",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Lembrar o estado do navegador ao reabrir um arquivo",
   "persistentStateLayersDescription": "Lembrar o estado do painel ao reabrir um arquivo",
   "persistentStateAreasDescription": "Lembrar o estado do painel de área ao reabrir um arquivo",
