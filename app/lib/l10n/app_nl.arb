@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Opgeslagen staten opschonen",
   "persistentStateCleanupDescription": "Verwijder records ouder dan de limieten hierboven",
   "persistentStateCleanupInProgress": "Aan het opschonen...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{1 opslaglocatie werd opgeschoond} other{Opgeschoond {locations} opslaglocaties}}; {records, plural, =1{verwijderde 1 record} other{verwijderd {records} records}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Huidige pagina onthouden bij heropenen van een bestand",
   "persistentStateViewportDescription": "Onthoud de viewport positie en zoom",
   "persistentStateSelectedToolDescription": "Onthoud het geselecteerde gereedschap bij het heropenen van een bestand",
-  "persistentStateLocksDescription": "Laag en collectie vergrendelingen onthouden bij heropenen van een bestand",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Onthoud de navigator status bij het heropenen van een bestand",
   "persistentStateLayersDescription": "Onthoud de status van het paneel bij het heropenen van een bestand",
   "persistentStateAreasDescription": "Onthoud de status van het gebied paneel bij het heropenen van een bestand",
