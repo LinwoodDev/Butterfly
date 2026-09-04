@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Ryd gemte stater",
   "persistentStateCleanupDescription": "Slet elementer ældre end grænserne ovenfor",
   "persistentStateCleanupInProgress": "Rydder op...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Renset 1 opbevaringssted} other{Renset op {locations} opbevaringssteder}} {records, plural, =1{fjernede 1 record} other{fjerne {records} posteringer}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Husk den aktuelle side ved genåbning af en fil",
   "persistentStateViewportDescription": "Husk viewport position og zoom",
   "persistentStateSelectedToolDescription": "Husk det valgte værktøj ved genåbning af en fil",
-  "persistentStateLocksDescription": "Husk lag og samling låser, når du genåbner en fil",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden ved genåbning af en fil",
   "persistentStateLayersDescription": "Husk lagpanelets tilstand når en fil genåbnes",
   "persistentStateAreasDescription": "Husk områdepanelets tilstand ved genåbning af en fil",
