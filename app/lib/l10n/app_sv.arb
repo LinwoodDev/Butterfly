@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Rensa upp lagrade tillstånd",
   "persistentStateCleanupDescription": "Ta bort poster äldre än gränserna ovan",
   "persistentStateCleanupInProgress": "Rensar upp...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Rensade 1 lagringsplats} other{Rensade upp {locations} lagringsplatser}}; {records, plural, =1{tog bort 1 post} other{tog bort {records} poster}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Kom ihåg den aktuella sidan när en fil öppnas på nytt",
   "persistentStateViewportDescription": "Kom ihåg visningsportens position och zooma",
   "persistentStateSelectedToolDescription": "Kom ihåg det valda verktyget när en fil öppnas på nytt",
-  "persistentStateLocksDescription": "Kom ihåg lager och uppsamlingslås när en fil öppnas på nytt",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Kom ihåg navigatorns status när en fil öppnas på nytt",
   "persistentStateLayersDescription": "Kom ihåg lagerfältet när en fil öppnas på nytt",
   "persistentStateAreasDescription": "Kom ihåg områdespanelens läge när en fil öppnas på nytt",
