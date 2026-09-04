@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "清理存储的状态",
   "persistentStateCleanupDescription": "删除超过以上限制的记录",
   "persistentStateCleanupInProgress": "清理中...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{清理1个存储位置} other{清理 {locations} 存储位置}}; {records, plural, =1{删除1个记录} other{删除 {records} 记录}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "重新打开文件时记住当前页面",
   "persistentStateViewportDescription": "记住视图位置和缩放",
   "persistentStateSelectedToolDescription": "重新打开文件时记住选中的工具",
-  "persistentStateLocksDescription": "打开文件时记住图层和收藏锁",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "重新打开文件时记住导航器状态",
   "persistentStateLayersDescription": "打开文件时记住图层面板状态",
   "persistentStateAreasDescription": "重新打开文件时记住区域面板状态",
