@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Καθαρισμός αποθηκευμένων καταστάσεων",
   "persistentStateCleanupDescription": "Διαγραφή εγγραφών παλαιότερων από τα όρια πάνω",
   "persistentStateCleanupInProgress": "Εκκαθάριση ...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκε } other{ αφαιρέθηκε {records} καταγράφει}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Απομνημόνευση της τρέχουσας σελίδας κατά την επανεκκίνηση ενός αρχείου",
   "persistentStateViewportDescription": "Απομνημόνευση της θέσης προβολής και μεγέθυνση",
   "persistentStateSelectedToolDescription": "Απομνημόνευση του επιλεγμένου εργαλείου κατά την επανεκκίνηση ενός αρχείου",
-  "persistentStateLocksDescription": "Απομνημόνευση στρώματος και κλειδαριών συλλογής κατά την επανεκκίνηση ενός αρχείου",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Απομνημόνευση της κατάστασης πλοήγησης κατά το άνοιγμα ενός αρχείου",
   "persistentStateLayersDescription": "Απομνημόνευση της κατάστασης του πίνακα στρώματος κατά το άνοιγμα ενός αρχείου",
   "persistentStateAreasDescription": "Απομνημόνευση της κατάστασης του πίνακα περιοχής κατά το άνοιγμα ενός αρχείου",
