@@ -1538,6 +1538,8 @@
   "persistentStateCleanup": "Очистка сохраненных состояний",
   "persistentStateCleanupDescription": "Удалить записи старше указанных выше пределов",
   "persistentStateCleanupInProgress": "Очистка...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Очищено 1 место для хранения} other{{locations} Места для хранения}}; {records, plural, =1{Удалена 1 запись} other{Удалена {records} записей}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1567,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Запомнить текущую страницу при повторном открытии файла",
   "persistentStateViewportDescription": "Запомнить расположение и масштаб видового порта",
   "persistentStateSelectedToolDescription": "Запомнить выбранный инструмент при переоткрытии файла",
-  "persistentStateLocksDescription": "Запоминать блокировку и коллекцию при повторном открытии файла",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Запомнить состояние навигатора при повторном открытии файла",
   "persistentStateLayersDescription": "Запомнить состояние панели слоя при повторном открытии файла",
   "persistentStateAreasDescription": "Запомнить состояние панели области при переоткрытии файла",
