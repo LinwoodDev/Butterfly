@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Stylo inversé",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Connecter",
   "username": "Nom d'utilisateur",
   "password": "Mot de passe",
   "authenticationPassword": "Mot de passe d'authentification",
   "documentEncryptionPassword": "Mot de passe de cryptage du document",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Chiffrement des documents activé",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Ajouter un mot de passe de cryptage de document",
@@ -579,6 +581,8 @@
   "symmetric": "Symétrique",
   "perSide": "Par côté",
   "directory": "Répertoire",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Répertoire des documents",
   "templatesDirectory": "Répertoire des modèles",
   "errorWhileCreatingConnection": "Erreur lors de la création de la connexion",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Mise à jour",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Dossier synchronisé",
   "syncRootDirectory": "Synchroniser le répertoire racine",
-  "penOnlyInput": "Seules les entrées du stylet",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Active automatiquement le mode stylet uniquement quand un stylet est détecté. Ce paramètre ne dure que pour la session en cours.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Toujours rejeter la touche et la souris, n'accepter que l'entrée stylet.",
   "penOnlyInputOffDescription": "Accepter tous les types d'entrée, y compris le toucher, la souris et le stylet.",
   "automatic": "Automatique",
   "alwaysOn": "Toujours allumé",
   "alwaysOff": "Toujours éteint",
-  "showPenOnlyToggle": "Afficher uniquement le bouton du stylet",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Vous permet de déplacer et de zoomer la toile avec des gestes tactiles, même si un outil de dessin est sélectionné.",
@@ -1441,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignore la première lecture de pression, qui peut être inexacte sur certains stylos.",
-  "ignorePressureNeverDescription": "Utilise chaque lecture de pression à partir du stylo.",
-  "ignorePressureAlwaysDescription": "Ignore la pression et traite le stylo comme étant entièrement pressé.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Temporaire",
   "simpleToolbarVisibility": "Visibilité simple de la barre d'outils",
   "@simpleToolbarVisibility": {
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Nettoyer les états stockés",
   "persistentStateCleanupDescription": "Supprimer les enregistrements antérieurs aux limites ci-dessus",
   "persistentStateCleanupInProgress": "Nettoyage en cours...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Nettoyé 1 emplacement de stockage} other{Nettoyé {locations} emplacements de stockage}}; {records, plural, =1{a enlevé 1 record} other{enlevé {records} records}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Se souvenir de la page en cours lors de la réouverture d'un fichier",
   "persistentStateViewportDescription": "Se souvenir de la position de la vue et du zoom",
   "persistentStateSelectedToolDescription": "Se souvenir de l'outil sélectionné lors de la réouverture d'un fichier",
-  "persistentStateLocksDescription": "Se souvenir des verrous de la couche et de la collection lors de la réouverture d'un fichier",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Se souvenir de l'état du navigateur lors de la réouverture d'un fichier",
   "persistentStateLayersDescription": "Se souvenir de l'état du panneau de calque lors de la réouverture d'un fichier",
   "persistentStateAreasDescription": "Se souvenir de l'état du panneau de zone lors de la réouverture d'un fichier",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Affiche une barre de navigation permanente sur les écrans larges pour un accès plus rapide aux sections de l'application.",
   "optionsPanelPositionDescription": "Choisir si les options de l'outil apparaissent au-dessus ou en dessous de la toile.",
   "simpleToolbarVisibilityDescription": "Contrôle quand la petite barre d'outils simplifiée apparaît lors de l'édition d'une note.",
-  "penOnlyInputDescription": "Empêche les marques accidentelles de votre main ou de votre souris en choisissant lorsque seule l'entrée du stylet peut dessiner.",
-  "showPenOnlyToggleDescription": "Affiche un changement rapide de stylo seulement dans l'éditeur après que Butterfly ait détecté un stylo.",
-  "ignorePressureDescription": "Contrôle si la pression du stylo modifie le mouvement de course et agit autour de mesures de pression inexactes de certains stylos.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Permet aux gestes tactiles de déplacer la toile au lieu d'interagir avec le contenu de la note.",
   "spreadPagesDescription": "Divise l'importation de plusieurs pages sur des pages distinctes au lieu de tout placer sur une seule page.",
   "shear": "Cisaillement"

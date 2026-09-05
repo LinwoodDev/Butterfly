@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Инверсия ручки",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Ластик",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Подключиться",
   "username": "Имя пользователя",
   "password": "Пароль",
   "authenticationPassword": "Пароль аутентификации",
   "documentEncryptionPassword": "Пароль шифрования документа",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Шифрование документов включено",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Добавить пароль шифрования документа",
@@ -579,6 +581,8 @@
   "symmetric": "Симметричный",
   "perSide": "На стороне",
   "directory": "Каталог",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Каталог документов",
   "templatesDirectory": "Каталог шаблонов",
   "errorWhileCreatingConnection": "Ошибка при создании соединения",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Обновление",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
-  "penOnlyInput": "Только ввод ручки",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Автоматически включать режим \"только ручкой\" при обнаружении стилуса. Этот параметр длится только для текущей сессии.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Всегда отклонять ввод касания и мыши, принимать только ввод стилуса.",
   "penOnlyInputOffDescription": "Принимать все типы ввода, включая касание, мышь и стиль.",
   "automatic": "Автоматически",
   "alwaysOn": "Всегда включен",
   "alwaysOff": "Всегда выкл",
-  "showPenOnlyToggle": "Показывать переключатель только пера",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Жесты ввода",
   "inputGesturesDescription": "Позволяет перемещать и масштабировать холст с помощью жестов касания, даже если выбран инструмент рисования.",
@@ -1441,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Игнорирует первое измерение давления, которое может быть неточным на некоторых ручках.",
-  "ignorePressureNeverDescription": "Использует любое давление из ручки.",
-  "ignorePressureAlwaysDescription": "Игнорирует давление и лечит ручку при полном нажатии.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Временно",
   "simpleToolbarVisibility": "Простая видимость панели инструментов",
   "@simpleToolbarVisibility": {
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Очистка сохраненных состояний",
   "persistentStateCleanupDescription": "Удалить записи старше указанных выше пределов",
   "persistentStateCleanupInProgress": "Очистка...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Очищено 1 место для хранения} other{{locations} Места для хранения}}; {records, plural, =1{Удалена 1 запись} other{Удалена {records} записей}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Запомнить текущую страницу при повторном открытии файла",
   "persistentStateViewportDescription": "Запомнить расположение и масштаб видового порта",
   "persistentStateSelectedToolDescription": "Запомнить выбранный инструмент при переоткрытии файла",
-  "persistentStateLocksDescription": "Запоминать блокировку и коллекцию при повторном открытии файла",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Запомнить состояние навигатора при повторном открытии файла",
   "persistentStateLayersDescription": "Запомнить состояние панели слоя при повторном открытии файла",
   "persistentStateAreasDescription": "Запомнить состояние панели области при переоткрытии файла",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Показывает постоянную панель навигации на широких экранах для более быстрого доступа к разделам приложений.",
   "optionsPanelPositionDescription": "Выберите, будут ли параметры инструмента отображаться выше или под холстом.",
   "simpleToolbarVisibilityDescription": "Управляет, когда при редактировании заметки появляется меньшая упрощенная панель инструментов.",
-  "penOnlyInputDescription": "Предотвращает случайные отметки от руки или мышки, выбрав, когда может нарисовать только перо.",
-  "showPenOnlyToggleDescription": "Показывает быстрый переключатель только ручки в редакторе после обнаружения Бабочки.",
-  "ignorePressureDescription": "Управляет, изменяет ли давление пера ход и работает вокруг неточных показаний давления из некоторых ручек.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Позволяет многокасательно жестов перемещать холст вместо взаимодействия с содержимым заметок.",
   "spreadPagesDescription": "Разделяет многостраничные импорты на отдельные страницы заметок вместо размещения всего на одной странице.",
   "shear": "Срез"

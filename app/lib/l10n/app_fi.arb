@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Käänteinen Kynä",
+  "invertedPen": "Inverted Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
   "connect": "Yhdistä",
   "username": "Käyttäjätunnus",
   "password": "Salasana",
   "authenticationPassword": "Todennuksen salasana",
   "documentEncryptionPassword": "Asiakirjan salauksen salasana",
+  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
   "documentEncryptionEnabled": "Asiakirjan salaus käytössä",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lisää asiakirjan salauksen salasana",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetrinen",
   "perSide": "Per puoli",
   "directory": "Hakemisto",
+  "connectionNameDescription": "Only used to identify this connection in Butterfly",
+  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
   "documentsDirectory": "Asiakirjojen hakemisto",
   "templatesDirectory": "Mallien hakemisto",
   "errorWhileCreatingConnection": "Virhe yhteyttä luotaessa",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
   "update": "Päivitä",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Kansio synkronoitu",
   "syncRootDirectory": "Synkronoi juurikansio",
-  "penOnlyInput": "Vain kynä syöttö",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Ota käyttöön automaattisesti vain kynä-tila kun stylus havaitaan. Tämä asetus kestää vain nykyisen istunnon.",
+  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
   "penOnlyInputOnDescription": "Hylkää aina kosketus ja hiiren syöte, vain hyväksy stylus syöte.",
   "penOnlyInputOffDescription": "Hyväksy kaikki syöttötyypit, mukaan lukien kosketus, hiiri ja tyyli.",
   "automatic": "Automaattinen",
   "alwaysOn": "Aina päällä",
   "alwaysOff": "Aina pois",
-  "showPenOnlyToggle": "Näytä vain kynän vaihto",
+  "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Antaa sinun siirtää ja zoomata kankaalle kosketuseleitä, vaikka piirustustyökalu on valittu.",
@@ -1441,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Jätä huomiotta ensimmäinen paineenlukema, joka voi olla epätarkka joissakin kynissä.",
-  "ignorePressureNeverDescription": "Käyttää jokaista kynän paineen lukemaa.",
-  "ignorePressureAlwaysDescription": "Jätä huomiotta paine ja kohtelee kynää täysin painettuna.",
+  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
+  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
+  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
   "temporary": "Väliaikainen",
   "simpleToolbarVisibility": "Yksinkertainen työkalupalkin näkyvyys",
   "@simpleToolbarVisibility": {
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Tallennetut tilat puhdistetaan",
   "persistentStateCleanupDescription": "Poista yllä olevia rajoja vanhemmat tietueet",
   "persistentStateCleanupInProgress": "Siivotaan...",
+  "persistentStateDefaultLocks": "Default locks",
+  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Siivottu 1 tallennuspaikka} other{Siivottu {locations} tallennuspaikat}}; {records, plural, =1{poistettiin 1 tietueen} other{poistettiin {records} tietueet}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Muista nykyinen sivu avattaessa tiedostoa uudelleen",
   "persistentStateViewportDescription": "Muista näkymän sijainti ja zoomaus",
   "persistentStateSelectedToolDescription": "Muista valittu työkalu avattaessa tiedostoa uudelleen",
-  "persistentStateLocksDescription": "Muista kerros ja kokoelman lukitus avattaessa tiedostoa uudelleen",
+  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Muista navigaattorin tila avattaessa tiedostoa uudelleen",
   "persistentStateLayersDescription": "Muista tasopaneelin tila avattaessa tiedostoa uudelleen",
   "persistentStateAreasDescription": "Muista aluepaneelin tila avattaessa tiedostoa uudelleen",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Näyttää vakituisen navigointipalkin leveillä näytöillä, jotta sovellusosioita voidaan käyttää nopeammin.",
   "optionsPanelPositionDescription": "Valitsee, näkyvätkö työkaluvaihtoehdot kankaan ylä- tai alapuolella.",
   "simpleToolbarVisibilityDescription": "Ohjaa, kun pienempi, yksinkertaistettu työkalupalkki näkyy muokattaessa muistiinpanoa.",
-  "penOnlyInputDescription": "Estä tahattomat merkit kädestä tai hiirestä valitsemalla kun vain kynä voi piirtää.",
-  "showPenOnlyToggleDescription": "Näyttää nopean vain kynällä -kytkimen editorissa, kun Butterfly tunnistaa kynän.",
-  "ignorePressureDescription": "Ohjaa onko kynä paine muuttaa aivohalvausta ja toimii joidenkin kynien epätarkkojen painelukemien ympärillä.",
+  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
+  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
+  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Lets multi-touch eleet siirtää kankaalle sen sijaan, että vuorovaikutuksessa huomautuksen sisällön kanssa.",
   "spreadPagesDescription": "Jakaa usean sivun tuonnin eri muistiinpanon sivuille sen sijaan, että kaikki asetettaisiin yhdelle sivulle.",
   "shear": "Viistoa"
