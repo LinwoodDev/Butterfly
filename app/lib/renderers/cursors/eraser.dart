@@ -1,7 +1,6 @@
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:material_leap/material_leap.dart';
 
 import '../../models/cursor.dart';
 import '../renderer.dart';
@@ -27,22 +26,21 @@ class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    final radius = element.tool.strokeWidth / 2;
+    final radius = element.tool.strokeWidth;
     final position = transform.localToGlobal(element.position);
-    final background = page.backgrounds.firstOrNull;
+    // Keep both edges visible over light, dark, and transparent backgrounds,
+    // even when the document is zoomed out.
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = Colors.white
+      ..strokeWidth = 4 / transform.size;
+    canvas.drawCircle(position, radius, paint);
     canvas.drawCircle(
       position,
       radius,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..color = switch (background) {
-          TextureBackground e => e.texture.boxColor,
-          _ => SRGBColor.white,
-        }.toColor()
-        ..strokeCap = StrokeCap.round
-        ..invertColors = true
-        ..strokeWidth = element.tool.strokeWidth / 8
-        ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear,
+      paint
+        ..color = Colors.black
+        ..strokeWidth = 1 / transform.size,
     );
   }
 }

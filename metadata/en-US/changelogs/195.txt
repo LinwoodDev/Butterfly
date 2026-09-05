@@ -7,6 +7,8 @@
 * Improve page switching performance for large documents
 * Improve efficiency of file coping and exporting
 * Improve baking performance by testing layer changes before baking
+* Improve eraser performance by clipping strokes directly at the eraser boundary
+* Improve eraser cursor display
 * Fix sync dialog not opening current connection initially
 * Fix switching pages in embeds ([#1247](https://github.com/LinwoodDev/Butterfly/issues/1247))
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
@@ -17,7 +19,6 @@
 * Fix document view freezing on non-Wasm web builds
 * Fix documents got lost after app is moved to background on Android
 * Fix always saving settings without checking if they changed
-* Improve eraser performance by clipping strokes directly at the eraser boundary
 * Fix eraser input handling when pointer events overlap, fail, or finish while work is pending
 * Improve polygon hit testing performance for disjoint shapes
 

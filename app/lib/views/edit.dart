@@ -385,7 +385,6 @@ class _EditToolbarState extends State<EditToolbar> {
                                       cubit,
                                       bloc,
                                       index: i,
-                                      handler: handler,
                                       context: context,
                                     );
                                   } else {
