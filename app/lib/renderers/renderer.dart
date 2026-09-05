@@ -399,6 +399,9 @@ abstract class HitCalculator {
 
   bool _isPointOnSegment(Offset point, Offset a, Offset b) {
     const epsilon = 1e-10;
+    if (a == b) {
+      return (point - a).distanceSquared <= epsilon * epsilon;
+    }
     final cross =
         (point.dy - a.dy) * (b.dx - a.dx) - (point.dx - a.dx) * (b.dy - a.dy);
     if (cross.abs() > epsilon) return false;
@@ -447,21 +450,48 @@ abstract class HitCalculator {
     if (poly1.isEmpty || poly2.isEmpty) return false;
     if (!isFinitePolygon(poly1) || !isFinitePolygon(poly2)) return false;
 
+    final bounds1 = _polygonBounds(poly1);
+    final bounds2 = _polygonBounds(poly2);
+    // Keep touching boundaries and zero-width/height polygons eligible for
+    // intersection, unlike Rect.overlaps. Allow for the segment tolerance.
+    const epsilon = 1e-10;
+    if (bounds1.right < bounds2.left - epsilon ||
+        bounds2.right < bounds1.left - epsilon ||
+        bounds1.bottom < bounds2.top - epsilon ||
+        bounds2.bottom < bounds1.top - epsilon) {
+      return false;
+    }
+
     for (final (a, b) in _edgesOf(poly1)) {
       for (final (c, d) in _edgesOf(poly2)) {
         if (_segmentsIntersect(a, b, c, d)) return true;
       }
     }
 
-    if (poly2.length > 2 &&
-        poly1.any((point) => isPointInPolygon(poly2, point))) {
+    // Without intersecting edges, each connected polygon is either entirely
+    // inside or entirely outside the other. One point per polygon suffices.
+    if (poly2.length > 2 && isPointInPolygon(poly2, poly1.first)) {
       return true;
     }
-    if (poly1.length > 2 &&
-        poly2.any((point) => isPointInPolygon(poly1, point))) {
+    if (poly1.length > 2 && isPointInPolygon(poly1, poly2.first)) {
       return true;
     }
     return false;
+  }
+
+  Rect _polygonBounds(List<Offset> polygon) {
+    var left = polygon.first.dx;
+    var right = left;
+    var top = polygon.first.dy;
+    var bottom = top;
+    for (var i = 1; i < polygon.length; i++) {
+      final point = polygon[i];
+      left = min(left, point.dx);
+      right = max(right, point.dx);
+      top = min(top, point.dy);
+      bottom = max(bottom, point.dy);
+    }
+    return Rect.fromLTRB(left, top, right, bottom);
   }
 }
 
