@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Omgekeerde Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "De volledige WebDAV URL van uw opslagprovider",
   "connect": "Verbinden",
   "username": "Gebruikersnaam",
   "password": "Wachtwoord",
   "authenticationPassword": "Authenticatie wachtwoord",
   "documentEncryptionPassword": "Wachtwoord voor versleuteling van document",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "Codeert documenten die zijn opgeslagen in dit verband. Laat leeg om ze onversleuteld te houden",
   "documentEncryptionEnabled": "Documentversleuteling ingeschakeld",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Wachtwoord voor versleuteling van documenten toevoegen",
@@ -581,8 +581,8 @@
   "symmetric": "Symmetrisch",
   "perSide": "Per zijde",
   "directory": "Catalogus",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "Alleen gebruikt om deze verbinding te identificeren in Vlinder",
+  "connectionDirectoryDescription": "Basis map voor deze verbinding. Geavanceerde directory paden zijn er relatief om; laat leeg om absolute paden te gebruiken",
   "documentsDirectory": "Documenten map",
   "templatesDirectory": "Templates map",
   "errorWhileCreatingConnection": "Fout tijdens het maken van de verbinding",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "Optionele URL van een afbeelding die gebruikt wordt als verbindingsicoon",
   "update": "Vernieuwen",
   "@update": {
     "description": "Update action"
@@ -712,13 +712,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "Stelt stylus-only modus automatisch in wanneer een stylus wordt gedetecteerd. Deze instelling werkt alleen voor de huidige sessie.",
   "penOnlyInputOnDescription": "Aanraken en muisaanvoer altijd weigeren, alleen stylus invoeren.",
   "penOnlyInputOffDescription": "Accepteer alle invoertypes zoals aanraken, muis en stijlus.",
   "automatic": "Automatisch",
   "alwaysOn": "Altijd aan",
   "alwaysOff": "Altijd uitgeschakeld",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "Laat stylus alleen schakelen",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1447,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "Negeert de eerste druklezing, die onjuist kan zijn op sommige stijlen.",
+  "ignorePressureNeverDescription": "Maakt gebruik van elke drukmeting van de stijl.",
+  "ignorePressureAlwaysDescription": "Negeert druk en behandelt de stylus als volledig ingedrukt.",
   "temporary": "Tijdelijk",
   "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid",
   "@simpleToolbarVisibility": {
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "Opgeslagen staten opschonen",
   "persistentStateCleanupDescription": "Verwijder records ouder dan de limieten hierboven",
   "persistentStateCleanupInProgress": "Aan het opschonen...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "Standaard vergrendelingen",
+  "persistentStateDefaultLocksDescription": "Pas deze vergrendelingen toe wanneer een document geen opgeslagen status heeft",
   "persistentStateCleanupFeedback": "{locations, plural, =1{1 opslaglocatie werd opgeschoond} other{Opgeschoond {locations} opslaglocaties}}; {records, plural, =1{verwijderde 1 record} other{verwijderd {records} records}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Huidige pagina onthouden bij heropenen van een bestand",
   "persistentStateViewportDescription": "Onthoud de viewport positie en zoom",
   "persistentStateSelectedToolDescription": "Onthoud het geselecteerde gereedschap bij het heropenen van een bestand",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "Vergrendelingsinstellingen onthouden bij het heropenen van een bestand",
   "persistentStateNavigatorDescription": "Onthoud de navigator status bij het heropenen van een bestand",
   "persistentStateLayersDescription": "Onthoud de status van het paneel bij het heropenen van een bestand",
   "persistentStateAreasDescription": "Onthoud de status van het gebied paneel bij het heropenen van een bestand",
@@ -1587,9 +1587,9 @@
   "navigationRailDescription": "Toont een permanente navigatiebalk op brede schermen voor snellere toegang tot app secties.",
   "optionsPanelPositionDescription": "Kiest of hulpopties boven of onder het canvas verschijnen.",
   "simpleToolbarVisibilityDescription": "Bepaalt wanneer de kleinere, vereenvoudigde werkbalk verschijnt tijdens het bewerken van een notitie.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "Voorkomt onbedoelde markeringen van je hand of muis door te kiezen wanneer alleen een stylus invoer kan tekenen.",
+  "showPenOnlyToggleDescription": "Toont een snelle stylus-only schakelaar in de editor nadat Butterfly een stijl detecteert.",
+  "ignorePressureDescription": "Bepaalt of de stylus druk de beroerte verandert en werkt rond onnauwkeurige drukmetingen van sommige stijlen.",
   "moveOnGestureDescription": "Laat multi-touch gebaren het canvas verplaatsen in plaats van interactie met notitie-inhoud.",
   "spreadPagesDescription": "Splitst meervoudige pagina's door aparte notitiepagina's in plaats van alles op één pagina te plaatsen.",
   "shear": "Afschuiving"
