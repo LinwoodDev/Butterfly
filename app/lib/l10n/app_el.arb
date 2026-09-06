@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Ανεστραμμένη Γραφίδα",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "Η πλήρης διεύθυνση URL WebDAV που παρέχεται από τον πάροχο αποθήκευσης σας",
   "connect": "Σύνδεση",
   "username": "Όνομα Χρήστη",
   "password": "Κωδικός",
   "authenticationPassword": "Κωδικός ταυτοποίησης",
   "documentEncryptionPassword": "Κωδικός πρόσβασης κρυπτογράφησης εγγράφου",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "Κρυπτογραφεί τα έγγραφα που είναι αποθηκευμένα σε αυτήν τη σύνδεση. Αφήστε κενό για να τα διατηρήσετε μη κρυπτογραφημένα",
   "documentEncryptionEnabled": "Ενεργοποίηση κρυπτογράφησης εγγράφου",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Προσθήκη κωδικού πρόσβασης κρυπτογράφησης εγγράφου",
@@ -581,8 +581,8 @@
   "symmetric": "Συμμετρικό",
   "perSide": "Ανά πλευρά",
   "directory": "Κατάλογος",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "Χρησιμοποιείται μόνο για την αναγνώριση αυτής της σύνδεσης στο Butterfly",
+  "connectionDirectoryDescription": "Φάκελος βάσης για αυτήν τη σύνδεση. Οι προηγμένες διαδρομές καταλόγου είναι σχετικές με αυτήν: αφήστε κενό για να χρησιμοποιήσετε απόλυτες διαδρομές",
   "documentsDirectory": "Κατάλογος εγγράφων",
   "templatesDirectory": "Κατάλογος προτύπων",
   "errorWhileCreatingConnection": "Σφάλμα κατά τη δημιουργία σύνδεσης",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "Προαιρετικό URL μιας εικόνας που θα χρησιμοποιηθεί ως εικονίδιο σύνδεσης",
   "update": "Ενημέρωση",
   "@update": {
     "description": "Update action"
@@ -712,13 +712,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "Αυτόματη ενεργοποίηση λειτουργίας γραφίδας μόνο όταν εντοπιστεί μια γραφίδα. Αυτή η ρύθμιση διαρκεί μόνο για την τρέχουσα συνεδρία.",
   "penOnlyInputOnDescription": "Πάντα απορρίπτει την είσοδο αφής και ποντικιού, δέχεται μόνο γραφίδα εισόδου.",
   "penOnlyInputOffDescription": "Αποδεχτείτε όλους τους τύπους εισόδου, συμπεριλαμβανομένης της αφής, του ποντικιού και της γραφίδας.",
   "automatic": "Αυτόματο",
   "alwaysOn": "Πάντα ενεργό",
   "alwaysOff": "Πάντα ανενεργό",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "Εμφάνιση εναλλαγής μόνο γραφίδας",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1447,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "Αγνοεί την πρώτη ανάγνωση πίεσης, η οποία μπορεί να είναι ανακριβής σε ορισμένες μορφές.",
+  "ignorePressureNeverDescription": "Χρησιμοποιεί κάθε ανάγνωση πίεσης από τη γραφίδα.",
+  "ignorePressureAlwaysDescription": "Αγνοεί την πίεση και αντιμετωπίζει τη γραφίδα ως πλήρως πιεσμένη.",
   "temporary": "Προσωρινή",
   "simpleToolbarVisibility": "Απλή ορατότητα γραμμής εργαλείων",
   "@simpleToolbarVisibility": {
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "Καθαρισμός αποθηκευμένων καταστάσεων",
   "persistentStateCleanupDescription": "Διαγραφή εγγραφών παλαιότερων από τα όρια πάνω",
   "persistentStateCleanupInProgress": "Εκκαθάριση ...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "Προεπιλεγμένες κλειδαριές",
+  "persistentStateDefaultLocksDescription": "Εφαρμογή αυτών των κλειδαριών όταν ένα έγγραφο δεν έχει αποθηκευμένη κατάσταση",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκε } other{ αφαιρέθηκε {records} καταγράφει}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Απομνημόνευση της τρέχουσας σελίδας κατά την επανεκκίνηση ενός αρχείου",
   "persistentStateViewportDescription": "Απομνημόνευση της θέσης προβολής και μεγέθυνση",
   "persistentStateSelectedToolDescription": "Απομνημόνευση του επιλεγμένου εργαλείου κατά την επανεκκίνηση ενός αρχείου",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "Απομνημόνευση ρυθμίσεων κλειδώματος όταν ανοίγετε ξανά ένα αρχείο",
   "persistentStateNavigatorDescription": "Απομνημόνευση της κατάστασης πλοήγησης κατά το άνοιγμα ενός αρχείου",
   "persistentStateLayersDescription": "Απομνημόνευση της κατάστασης του πίνακα στρώματος κατά το άνοιγμα ενός αρχείου",
   "persistentStateAreasDescription": "Απομνημόνευση της κατάστασης του πίνακα περιοχής κατά το άνοιγμα ενός αρχείου",
@@ -1587,9 +1587,9 @@
   "navigationRailDescription": "Εμφανίζει μια μόνιμη γραμμή πλοήγησης σε ευρείες οθόνες για ταχύτερη πρόσβαση σε τμήματα εφαρμογών.",
   "optionsPanelPositionDescription": "Επιλέγει αν οι επιλογές εργαλείων εμφανίζονται πάνω ή κάτω από τον καμβά.",
   "simpleToolbarVisibilityDescription": "Ελέγχει όταν εμφανίζεται η μικρότερη, απλοποιημένη γραμμή εργαλείων κατά την επεξεργασία μιας σημείωσης.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "Αποτρέπει τυχαία σημάδια από το χέρι ή το ποντίκι σας, επιλέγοντας όταν μόνο γραφίδα εισόδου μπορεί να σχεδιάσει.",
+  "showPenOnlyToggleDescription": "Εμφανίζει ένα γρήγορο διακόπτη μόνο γραφίδας-στο πρόγραμμα επεξεργασίας μετά Butterfly ανιχνεύει μια γραφίδα.",
+  "ignorePressureDescription": "Ελέγχει αν η πίεση γραφίδας αλλάζει το εγκεφαλικό επεισόδιο και λειτουργεί γύρω από ανακριβείς αναγνώσεις πίεσης από μερικές μορφές.",
   "moveOnGestureDescription": "Αφήνει τις χειρονομίες πολλαπλών αφής να μετακινήσετε τον καμβά αντί να αλληλεπιδράσετε με το περιεχόμενο σημειώσεων.",
   "spreadPagesDescription": "Διαχωρίζει τις πολυσέλιδες εισαγωγές σε ξεχωριστές σελίδες σημειώσεων αντί να τα τοποθετεί όλα σε μία σελίδα.",
   "shear": "Διάτμηση"
