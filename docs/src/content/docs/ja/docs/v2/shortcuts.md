@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|                      属性 |              Values              | 説明                                                                                                                                      |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|               プレッシャーを無視 |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                属性 |              Values              | 説明                                                                                                                                      |
+| ----------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+|      スタイラスのみを表示する |            true, false           | Butterflyがスタイラスを検出した後、エディタにクイックスタイラスのみのスイッチを表示します。                                                                                      |
+|         プレッシャーを無視 |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
