@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|             Propriedade |              Values              | Descrição                                                                                                                               |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|         Ignorar pressão |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                          Propriedade |              Values              | Descrição                                                                                                                               |
+| -----------------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|                    Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Mostrar alternância apenas da caneta |            true, false           | Exibe uma troca de estilo rápida no editor depois que a Borterfly detectar um estilo.                                   |
+|                      Ignorar pressão |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
