@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "反転したスタイル",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "ストレージプロバイダーが提供する完全な WebDAV URL",
   "connect": "接続する",
   "username": "ユーザー名",
   "password": "パスワード",
   "authenticationPassword": "認証パスワード",
   "documentEncryptionPassword": "ドキュメント暗号化パスワード",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "この接続に保存されているドキュメントを暗号化します。暗号化されていない場合は空白のままにしてください。",
   "documentEncryptionEnabled": "ドキュメントの暗号化が有効になっています",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "ドキュメント暗号化パスワードを追加",
@@ -581,8 +581,8 @@
   "symmetric": "Symmetric",
   "perSide": "1 辺あたり",
   "directory": "ディレクトリ",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "バタフライでこの接続を識別するためにのみ使用されます",
+  "connectionDirectoryDescription": "この接続のベースフォルダ。高度なディレクトリパスは相対パスです。絶対パスを使用する場合は空のままにしてください。",
   "documentsDirectory": "ドキュメントディレクトリ",
   "templatesDirectory": "テンプレートディレクトリ",
   "errorWhileCreatingConnection": "接続の作成中にエラー",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "接続アイコンとして使用する画像のオプションURL",
   "update": "更新",
   "@update": {
     "description": "Update action"
@@ -712,13 +712,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "スタイラス検出時に自動的にスタイラス専用モードを有効にします。この設定は現在のセッションでのみ有効です。",
   "penOnlyInputOnDescription": "タッチとマウスの入力を常に拒否し、スタイラスの入力のみを受け付けます。",
   "penOnlyInputOffDescription": "タッチ、マウス、スタイラスを含むすべての入力タイプを受け入れます。",
   "automatic": "自動",
   "alwaysOn": "常にオン",
   "alwaysOff": "常にオフ",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "スタイラスのみを表示する",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1447,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "いくつかのスタイルで不正確である可能性がある最初の圧力読み取りを無視します。",
+  "ignorePressureNeverDescription": "スタイラスからのすべてのプレッシャー読み取りを使用します。",
+  "ignorePressureAlwaysDescription": "スタイラスの圧力を無視し、完全に押された状態で処理します。",
   "temporary": "一時的な",
   "simpleToolbarVisibility": "シンプルなツールバーの表示",
   "@simpleToolbarVisibility": {
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "保存されている状態を消去",
   "persistentStateCleanupDescription": "上記の制限より古いレコードを削除",
   "persistentStateCleanupInProgress": "クリーンアップ中...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "デフォルトのロック",
+  "persistentStateDefaultLocksDescription": "ドキュメントに保存された状態がない場合にこれらのロックを適用する",
   "persistentStateCleanupFeedback": "{locations, plural, =1{1 つのストレージの場所} other{クリーンアップ {locations} ストレージ場所}}! {records, plural, =1{removed 1 レコード} other{removed {records} records}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "ファイルを再開したときに現在のページを記憶する",
   "persistentStateViewportDescription": "ビューポートの位置とズームを記憶する",
   "persistentStateSelectedToolDescription": "ファイルを再開するときに選択したツールを記憶する",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "ファイルを再開したときにロック設定を記憶する",
   "persistentStateNavigatorDescription": "ファイルを再開したときにナビゲータの状態を記憶する",
   "persistentStateLayersDescription": "ファイルを再開したときのレイヤーパネルの状態を記憶する",
   "persistentStateAreasDescription": "ファイルを再開したときの領域パネルの状態を記憶する",
@@ -1587,9 +1587,9 @@
   "navigationRailDescription": "アプリのセクションにすばやくアクセスするために、ワイドスクリーンに恒久的なナビゲーションバーを表示します。",
   "optionsPanelPositionDescription": "キャンバスの上下にツールオプションが表示されるかどうかを選択します。",
   "simpleToolbarVisibilityDescription": "ノートを編集しているときに、小さく簡略化されたツールバーが表示されるタイミングをコントロールします。",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "スタイラス入力のみが描けるときに選択することで、手やマウスからの偶発的なマークを防ぎます。",
+  "showPenOnlyToggleDescription": "Butterflyがスタイラスを検出した後、エディタにクイックスタイラスのみのスイッチを表示します。",
+  "ignorePressureDescription": "スタイラスの圧力がストロークを変化させ、いくつかのスタイラスからの不正確な圧力測定値を回避するかどうかを制御します。",
   "moveOnGestureDescription": "マルチタッチジェスチャーでノートコンテンツを操作する代わりにキャンバスを移動できます。",
   "spreadPagesDescription": "すべてを1ページに配置するのではなく、複数ページのインポートを別々のノートページに分割します。",
   "shear": "せん断（せん）"
