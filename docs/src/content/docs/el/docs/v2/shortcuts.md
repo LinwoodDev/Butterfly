@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|                Ιδιότητα |              Values              | Περιγραφή                                                                                                                               |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|        Παράβλεψη πίεσης |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                         Ιδιότητα |              Values              | Περιγραφή                                                                                                                               |
+| -------------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|                Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Εμφάνιση εναλλαγής μόνο γραφίδας |            true, false           | Εμφανίζει ένα γρήγορο διακόπτη μόνο γραφίδας-στο πρόγραμμα επεξεργασίας μετά Butterfly ανιχνεύει μια γραφίδα.           |
+|                 Παράβλεψη πίεσης |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
