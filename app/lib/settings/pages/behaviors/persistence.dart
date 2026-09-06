@@ -371,7 +371,7 @@ Future<_CleanupResult?> _showCleanupTargetsDialog(
                     setState(() => cleaning = true);
                     var deleted = 0;
                     for (final target in selectedTargets) {
-                      final repository = DocumentStateRepository(
+                      final repository = DocumentStateService(
                         fileSystem.buildDocumentStateSystem(target.storage),
                         settingsProvider: () =>
                             settingsCubit.state.documentStatePersistence,

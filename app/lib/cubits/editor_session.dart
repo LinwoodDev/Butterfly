@@ -1,17 +1,16 @@
 import 'dart:async';
 
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
-import 'package:butterfly/repositories/document_state.dart';
-import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly/services/document_state.dart';
+import 'package:butterfly/views/navigator/view.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   EditorSessionCubit({
-    required this.repository,
+    required this.service,
     required TransformCubit transformCubit,
     required PersistedDocumentState initialState,
     String? pathKey,
@@ -26,7 +25,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     _transformSubscription = transformCubit.stream.listen(_onTransformChanged);
   }
 
-  final DocumentStateRepository repository;
+  final DocumentStateService service;
   final TransformCubit _transformCubit;
   StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _saveDebounce;
@@ -224,7 +223,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
         _pendingSave = null;
 
         try {
-          await repository.save(
+          await service.save(
             next,
             contentKey: next.contentHash == null
                 ? null

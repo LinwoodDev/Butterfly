@@ -1,6 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';

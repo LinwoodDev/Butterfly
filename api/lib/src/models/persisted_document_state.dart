@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lw_file_system/lw_file_system.dart';
+import 'package:lw_file_system_api/lw_file_system_api.dart';
 
 part 'persisted_document_state.freezed.dart';
 part 'persisted_document_state.g.dart';
@@ -114,37 +114,6 @@ sealed class PersistedAreaNavigatorState with _$PersistedAreaNavigatorState {
       _$PersistedAreaNavigatorStateFromJson(json);
 }
 
-Object? _readLocks(Map json, String key) => json[key] ?? json['utilities'];
-
-Object? _readNavigator(Map json, String key) =>
-    json[key] ??
-    <String, dynamic>{
-      if (json.containsKey('navigatorEnabled'))
-        'enabled': json['navigatorEnabled'],
-      if (json.containsKey('navigatorPage')) 'page': json['navigatorPage'],
-    };
-
-Object? _readLayers(Map json, String key) =>
-    json[key] ??
-    <String, dynamic>{
-      if (json.containsKey('currentLayer'))
-        'currentLayer': json['currentLayer'],
-      if (json.containsKey('currentCollection'))
-        'currentCollection': json['currentCollection'],
-      if (json.containsKey('invisibleLayers'))
-        'invisibleLayers': json['invisibleLayers'],
-    };
-
-Object? _readAreaNavigator(Map json, String key) =>
-    json[key] ??
-    <String, dynamic>{
-      if (json.containsKey('areaNavigatorCreate'))
-        'create': json['areaNavigatorCreate'],
-      if (json.containsKey('areaNavigatorExact'))
-        'exact': json['areaNavigatorExact'],
-      if (json.containsKey('areaNavigatorAsk')) 'ask': json['areaNavigatorAsk'],
-    };
-
 @freezed
 sealed class PersistedDocumentState with _$PersistedDocumentState {
   const PersistedDocumentState._();
@@ -155,17 +124,10 @@ sealed class PersistedDocumentState with _$PersistedDocumentState {
     @JsonKey(includeFromJson: false, includeToJson: false) String? contentHash,
     String? pageName,
     @Default(PersistedCameraState()) PersistedCameraState camera,
-    @JsonKey(readValue: _readLocks)
-    @Default(PersistentLockState())
-    PersistentLockState locks,
+    @Default(PersistentLockState()) PersistentLockState locks,
     @Default(PersistedToolSelection()) PersistedToolSelection selectedTool,
-    @JsonKey(readValue: _readNavigator)
-    @Default(PersistedNavigatorState())
-    PersistedNavigatorState navigator,
-    @JsonKey(readValue: _readLayers)
-    @Default(PersistedLayerState())
-    PersistedLayerState layers,
-    @JsonKey(readValue: _readAreaNavigator)
+    @Default(PersistedNavigatorState()) PersistedNavigatorState navigator,
+    @Default(PersistedLayerState()) PersistedLayerState layers,
     @Default(PersistedAreaNavigatorState())
     PersistedAreaNavigatorState areaNavigator,
     DateTime? updatedAt,

@@ -15,6 +15,7 @@ export 'src/models/info.dart';
 export 'src/models/meta.dart';
 export 'src/models/pack.dart';
 export 'src/models/page.dart';
+export 'src/models/persisted_document_state.dart';
 export 'src/models/texture.dart';
 export 'src/models/tool.dart';
 export 'src/models/point.dart';

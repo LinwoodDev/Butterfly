@@ -1,11 +1,10 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/import/add.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/option_button.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

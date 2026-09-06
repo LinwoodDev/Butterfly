@@ -4,7 +4,6 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/defaults.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/models/text.dart';
 import 'package:mocktail/mocktail.dart';

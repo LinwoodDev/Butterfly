@@ -11,9 +11,9 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/renderers/renderer.dart';
-import 'package:butterfly/repositories/document_state.dart';
+import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/services/import.dart';
@@ -25,7 +25,6 @@ import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -412,11 +411,11 @@ class _ProjectPageState extends State<ProjectPage> {
       final contentHash = !persistDocumentState || loadedDocumentBytes == null
           ? null
           : documentStateContentHash(loadedDocumentBytes);
-      final documentStateRepository = DocumentStateRepository(
+      final documentStateService = DocumentStateService(
         fileSystem.buildDocumentStateSystem(remote),
         settingsProvider: () => settingsCubit.state.documentStatePersistence,
       );
-      final restoredSession = await documentStateRepository.load(
+      final restoredSession = await documentStateService.load(
         contentHash: contentHash,
         pathKey: pathKey,
         allowContentHash: loadedDocumentBytes != null,
@@ -458,7 +457,7 @@ class _ProjectPageState extends State<ProjectPage> {
         initialSession.camera.rotation,
       );
       final editorSessionCubit = EditorSessionCubit(
-        repository: documentStateRepository,
+        service: documentStateService,
         transformCubit: transformCubit,
         initialState: initialSession,
         pathKey: pathKey,

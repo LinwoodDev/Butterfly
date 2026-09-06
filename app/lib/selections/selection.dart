@@ -8,7 +8,7 @@ import 'package:butterfly/dialogs/password.dart';
 import 'package:butterfly/dialogs/texture.dart';
 import 'package:butterfly/dialogs/export/thumbnail.dart';
 import 'package:butterfly/helpers/point.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/preset.dart';
@@ -19,7 +19,6 @@ import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly/widgets/texture_paint_field.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';

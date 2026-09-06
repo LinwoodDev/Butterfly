@@ -3,10 +3,9 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
-import 'package:butterfly/repositories/document_state.dart';
-import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly/services/document_state.dart';
+import 'package:butterfly/views/navigator/view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -64,7 +63,7 @@ void main() {
       await fileSystem.createFile(documentStateContentKey('hash-a'), byContent);
       await fileSystem.createFile('path/a', byPath);
 
-      final loaded = await DocumentStateRepository(fileSystem)
+      final loaded = await DocumentStateService(fileSystem)
           .load(contentHash: 'hash-a', pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Path Page');
@@ -75,14 +74,14 @@ void main() {
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', byPath);
 
-      final loaded = await DocumentStateRepository(fileSystem)
+      final loaded = await DocumentStateService(fileSystem)
           .load(contentHash: 'missing', pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Path Page');
     });
 
     test('returns null when no fingerprints match', () async {
-      final loaded = await DocumentStateRepository(fileSystem)
+      final loaded = await DocumentStateService(fileSystem)
           .load(contentHash: 'missing', pathKey: 'path/missing');
 
       expect(loaded, isNull);
@@ -95,7 +94,7 @@ void main() {
         const NetworkException('Offline', type: NetworkErrorType.connection),
       );
 
-      final loaded = await DocumentStateRepository(offlineFileSystem)
+      final loaded = await DocumentStateService(offlineFileSystem)
           .load(contentHash: 'hash-a', pathKey: 'path/a');
 
       expect(loaded, isNull);
@@ -110,7 +109,7 @@ void main() {
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', state);
 
-      final repository = DocumentStateRepository(
+      final repository = DocumentStateService(
         fileSystem,
         settingsProvider: () =>
             const DocumentStatePersistenceSettings(enabled: false),
@@ -134,7 +133,7 @@ void main() {
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', state);
 
-      final loaded = await DocumentStateRepository(
+      final loaded = await DocumentStateService(
         fileSystem,
         settingsProvider: () => const DocumentStatePersistenceSettings(
           locks: false,
@@ -156,7 +155,7 @@ void main() {
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', existing);
 
-      await DocumentStateRepository(
+      await DocumentStateService(
         fileSystem,
         settingsProvider: () =>
             const DocumentStatePersistenceSettings(locks: false),
@@ -175,7 +174,7 @@ void main() {
     });
 
     test('cleanup removes old and overflowing records', () async {
-      final repository = DocumentStateRepository(
+      final repository = DocumentStateService(
         fileSystem,
         settingsProvider: () => const DocumentStatePersistenceSettings(
           maxEntries: 2,
@@ -211,7 +210,7 @@ void main() {
     test('writes session state to content and path keys', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/a',
@@ -238,7 +237,7 @@ void main() {
     test('writes session state to updated document identity', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/old',
@@ -267,7 +266,7 @@ void main() {
     test('rewrites state when document identity and state changed', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/old',
@@ -289,7 +288,7 @@ void main() {
     test('renames content identity without leaving old content key', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/a',
@@ -319,7 +318,7 @@ void main() {
     test('camera changes stay in memory until session is flushed', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/a',
@@ -350,7 +349,7 @@ void main() {
 
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/test',
@@ -374,7 +373,7 @@ void main() {
     test('close flushes unsaved session state', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        repository: DocumentStateRepository(fileSystem),
+        service: DocumentStateService(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/a',

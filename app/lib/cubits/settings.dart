@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/window.dart';
-import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
