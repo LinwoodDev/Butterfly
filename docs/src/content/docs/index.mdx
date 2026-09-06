@@ -23,6 +23,7 @@ hero:
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
 import LandingFeature from '@components/LandingFeature.astro';
+import LandingText from '@components/LandingText.astro';
 import showcaseAdd from '@assets/img/showcase-add.png';
 import showcaseHome from '@assets/img/showcase-home.png';
 import showcasePhone from '@assets/img/showcase-phone.png';
@@ -31,7 +32,9 @@ import showcaseTools from '@assets/img/showcase-tools.png';
 
 ## Notes are only the beginning
 
-Butterfly is a creative workspace for people who think visually. Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document. Everything remains movable, resizable, recolorable, and ready to evolve with your idea.
+<LandingText>
+  Butterfly is a creative workspace for people who think visually. Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document. Everything remains movable, resizable, recolorable, and ready to evolve with your idea.
+</LandingText>
 
 <LandingFeature
   image={showcaseTools}
@@ -63,7 +66,9 @@ Butterfly is a creative workspace for people who think visually. Capture lecture
 
 ## Powerful when your projects grow
 
-An infinite canvas should still be easy to navigate. Butterfly lets one document contain multiple infinite pages, page folders, layers, named areas, and waypoints. Move from the big picture to one exact detail without losing your place.
+<LandingText>
+  An infinite canvas should still be easy to navigate. Butterfly lets one document contain multiple infinite pages, page folders, layers, named areas, and waypoints. Move from the big picture to one exact detail without losing your place.
+</LandingText>
 
 <CardGrid stagger>
   <Card title="Every element stays editable" icon="pencil">
@@ -93,7 +98,9 @@ An infinite canvas should still be easy to navigate. Butterfly lets one document
 
 ## Your work belongs to you
 
-Butterfly is offline-first, free, and open source. Save documents directly on your device, choose a different data directory, connect your own WebDAV server, or keep readable `.tbfly` files in version control. There is no required account and no proprietary cloud standing between you and your notes.
+<LandingText>
+  Butterfly is offline-first, free, and open source. Save documents directly on your device, choose a different data directory, connect your own WebDAV server, or keep readable `.tbfly` files in version control. There is no required account and no proprietary cloud standing between you and your notes.
+</LandingText>
 
 <CardGrid>
   <Card title="Local by default" icon="laptop">
@@ -121,7 +128,9 @@ Butterfly is offline-first, free, and open source. Save documents directly on yo
 
 ## Make your next idea tangible
 
-No subscription is required. Download Butterfly, open the web app, and create your first canvas today.
+<LandingText>
+  No subscription is required. Download Butterfly, open the web app, and create your first canvas today.
+</LandingText>
 
 <CardGrid>
   <LinkCard
