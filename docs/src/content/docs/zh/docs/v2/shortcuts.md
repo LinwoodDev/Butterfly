@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|                      属性 |              Values              | 描述                                                                                                                                      |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|                    忽略压力 |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                属性 |              Values              | 描述                                                                                                                                      |
+| ----------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+|            只显示触摸条 |            true, false           | Butterfight 检测到样式后，在编辑器中显示一个只显示样式的快速开关。                                                                                                 |
+|              忽略压力 |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
