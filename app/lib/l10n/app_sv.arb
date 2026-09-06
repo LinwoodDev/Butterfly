@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Inverterad Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "Den fullständiga WebDAV-URL:en som tillhandahålls av din lagringsleverantör",
   "connect": "Anslut",
   "username": "Användarnamn",
   "password": "Lösenord",
   "authenticationPassword": "Lösenord för autentisering",
   "documentEncryptionPassword": "Lösenord för dokumentkryptering",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "Krypterar dokument som lagras i den här anslutningen. Lämna tomt för att hålla dem okrypterade",
   "documentEncryptionEnabled": "Dokumentkryptering aktiverad",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lägg till lösenord för dokumentkryptering",
@@ -581,8 +581,8 @@
   "symmetric": "Symmetrisk",
   "perSide": "Per sida",
   "directory": "Katalog",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "Används endast för att identifiera denna anslutning i fjärilen",
+  "connectionDirectoryDescription": "Basmapp för denna anslutning. Avancerade katalogvägar är relativa till den; lämna tomt för att använda absoluta sökvägar",
   "documentsDirectory": "Katalog för dokument",
   "templatesDirectory": "Mall katalog",
   "errorWhileCreatingConnection": "Fel vid skapande av anslutning",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "Valfri URL för en bild att använda som anslutningsikon",
   "update": "Uppdatera",
   "@update": {
     "description": "Update action"
@@ -712,13 +712,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "Aktivera automatiskt stylus-only mode när en stylus upptäcks. Denna inställning varar bara för den aktuella sessionen.",
   "penOnlyInputOnDescription": "Avvisa alltid beröring och musinmatning, acceptera bara stylus ingång.",
   "penOnlyInputOffDescription": "Acceptera alla inmatningstyper inklusive touch, mus och penna.",
   "automatic": "Automatisk",
   "alwaysOn": "Alltid på",
   "alwaysOff": "Alltid av",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "Visa endast pennan",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1447,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "Ignorerar den första tryckläsningen, som kan vara felaktig på vissa stilar.",
+  "ignorePressureNeverDescription": "Använder varje tryckavläsning från pennan.",
+  "ignorePressureAlwaysDescription": "Ignorerar tryck och behandlar pennan som heltryckt.",
   "temporary": "Tillfällig",
   "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet",
   "@simpleToolbarVisibility": {
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "Rensa upp lagrade tillstånd",
   "persistentStateCleanupDescription": "Ta bort poster äldre än gränserna ovan",
   "persistentStateCleanupInProgress": "Rensar upp...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "Standard lås",
+  "persistentStateDefaultLocksDescription": "Tillämpa dessa lås när ett dokument inte har något sparat tillstånd",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Rensade 1 lagringsplats} other{Rensade upp {locations} lagringsplatser}}; {records, plural, =1{tog bort 1 post} other{tog bort {records} poster}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Kom ihåg den aktuella sidan när en fil öppnas på nytt",
   "persistentStateViewportDescription": "Kom ihåg visningsportens position och zooma",
   "persistentStateSelectedToolDescription": "Kom ihåg det valda verktyget när en fil öppnas på nytt",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "Kom ihåg låsningsinställningar när en fil öppnas på nytt",
   "persistentStateNavigatorDescription": "Kom ihåg navigatorns status när en fil öppnas på nytt",
   "persistentStateLayersDescription": "Kom ihåg lagerfältet när en fil öppnas på nytt",
   "persistentStateAreasDescription": "Kom ihåg områdespanelens läge när en fil öppnas på nytt",
@@ -1587,9 +1587,9 @@
   "navigationRailDescription": "Visar ett permanent navigeringsfält på breda skärmar för snabbare åtkomst till appsektioner.",
   "optionsPanelPositionDescription": "Väljer om verktygsalternativ visas ovanför eller under duken.",
   "simpleToolbarVisibilityDescription": "Styr när det mindre, förenklade verktygsfältet visas medan du redigerar en anteckning.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "Förhindrar oavsiktliga märken från din hand eller mus genom att välja när endast stylus ingång kan rita.",
+  "showPenOnlyToggleDescription": "Visar en snabb stylus-endast växla i redigeraren efter att Butterfly upptäcker en penna.",
+  "ignorePressureDescription": "Bestämmer om penntrycket ändrar slaget och fungerar runt felaktiga tryckvärden från vissa pennor.",
   "moveOnGestureDescription": "Låter multi-touch gester flytta duken istället för att interagera med anteckningsinnehåll.",
   "spreadPagesDescription": "Delar upp importen av flera sidor på separata anteckningssidor istället för att placera allt på en sida.",
   "shear": "Hör"
