@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|                 Majetek |              Values              | Popis                                                                                                                                   |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|   Ignorovat sílu stisku |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                         Majetek |              Values              | Popis                                                                                                                                   |
+| ------------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|               Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Zobrazit pouze přepnutí stylusu |            true, false           | Zobrazí rychlý přepínač v editoru po rozpoznání stylu Butterfly .                                                       |
+|           Ignorovat sílu stisku |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
