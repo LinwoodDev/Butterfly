@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Invertierte Stylus",
   "eraser": "Radierer",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "Die vollständige WebDAV-URL, die von Ihrem Speicheranbieter bereitgestellt wird",
   "connect": "Verbinden",
   "username": "Benutzername",
   "password": "Passwort",
   "authenticationPassword": "Authentifizierungspasswort",
   "documentEncryptionPassword": "Verschlüsselungspasswort",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "Verschlüsselt Dokumente, die in dieser Verbindung gespeichert sind. Lassen Sie leer, um sie unverschlüsselt zu halten",
   "documentEncryptionEnabled": "Dokumentenverschlüsselung aktiviert",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Dokumentverschlüsselungspasswort hinzufügen",
@@ -581,8 +581,8 @@
   "symmetric": "Symmetrisch",
   "perSide": "Pro Seite",
   "directory": "Verzeichnis",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "Nur verwendet, um diese Verbindung in Butterfly zu identifizieren",
+  "connectionDirectoryDescription": "Basisordner für diese Verbindung. Erweiterte Verzeichnispfade sind relativ dazu. Leer lassen um absolute Pfade zu verwenden",
   "documentsDirectory": "Dokumentenverzeichnis",
   "templatesDirectory": "Vorlagenverzeichnis",
   "errorWhileCreatingConnection": "Fehler beim Erstellen der Verbindung",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "Optionale URL eines Bildes als Verbindungssymbol zu verwenden",
   "update": "Aktualisieren",
   "@update": {
     "description": "Update action"
@@ -712,13 +712,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "Aktiviert automatisch den Stil-Nur-Modus, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
   "penOnlyInputOnDescription": "Tipp- und Mauseingabe immer ablehnen, nur Stift-Eingaben akzeptieren.",
   "penOnlyInputOffDescription": "Akzeptieren Sie alle Eingabetypen, einschließlich Berührung, Maus und Stil.",
   "automatic": "Automatisch",
   "alwaysOn": "Immer an",
   "alwaysOff": "Immer aus",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "Nur Stylus umschalten",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1447,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "Ignoriert die erste Drucklesung, die auf einigen Stilen ungenau sein kann.",
+  "ignorePressureNeverDescription": "Verwendet jeden Druckausdruck aus dem Stil.",
+  "ignorePressureAlwaysDescription": "Ignoriert Druck und behandelt die Stylus als vollpresst.",
   "temporary": "Temporär",
   "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
   "@simpleToolbarVisibility": {
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "Gespeicherte Zustände bereinigen",
   "persistentStateCleanupDescription": "Lösche Datensätze, die älter als die oben genannten Grenzen sind",
   "persistentStateCleanupInProgress": "Bereinigen...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "Standardsperren",
+  "persistentStateDefaultLocksDescription": "Diese Sperren anwenden, wenn ein Dokument keinen gespeicherten Status hat",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Bereinigt 1 Speicherort} other{Bereinigt {locations} Speicherstandorte}}; {records, plural, =1{entfernte 1 Datensatz} other{entfernt! {records} Datensätze}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Die aktuelle Seite beim erneuten Öffnen einer Datei merken",
   "persistentStateViewportDescription": "Position des Viewports merken und zoomen",
   "persistentStateSelectedToolDescription": "Ausgewähltes Werkzeug beim Wiederöffnen einer Datei merken",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "Sperreinstellungen beim erneuten Öffnen einer Datei merken",
   "persistentStateNavigatorDescription": "Navigator-Status beim Wiederöffnen einer Datei merken",
   "persistentStateLayersDescription": "Beim erneuten Öffnen einer Datei den Layer-Panel-Status merken",
   "persistentStateAreasDescription": "Beim erneuten Öffnen einer Datei den Status des Bereichs merken",
@@ -1587,9 +1587,9 @@
   "navigationRailDescription": "Zeigt eine permanente Navigationsleiste auf großen Bildschirmen für einen schnelleren Zugriff auf App-Sektionen.",
   "optionsPanelPositionDescription": "Legt fest, ob Werkzeugoptionen über oder unter der Leinwand erscheinen.",
   "simpleToolbarVisibilityDescription": "Legt fest, wenn die kleinere, vereinfachte Symbolleiste beim Bearbeiten einer Notiz erscheint.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "Vermeiden Sie versehentliche Markierungen von Hand oder Maus, indem Sie auswählen, wann nur Stift-Eingaben gezogen werden können.",
+  "showPenOnlyToggleDescription": "Zeigt einen schnellen Stil-Nur-Schalter im Editor, nachdem Butterfly einen Stylus erkennt.",
+  "ignorePressureDescription": "Steuert, ob Stift Druck den Haken ändert und arbeitet um ungenaue Druckmessungen von einigen Stieflächen herum.",
   "moveOnGestureDescription": "Lassen Sie uns Multi-Touch-Gesten die Leinwand bewegen, anstatt mit Notizinhalt zu interagieren.",
   "spreadPagesDescription": "Splits mehrseitige Importe über separate Notizseiten statt alles auf einer Seite zu platzieren.",
   "shear": "Scherz"
