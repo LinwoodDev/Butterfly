@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|               Propriété |              Values              | Libellé                                                                                                                                 |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|     Ignorer la pression |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                     Propriété |              Values              | Libellé                                                                                                                                 |
+| ----------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|             Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Afficher uniquement le stylet |            true, false           | Affiche un changement rapide de style seulement dans l'éditeur après que Butterfly ait détecté un stylet.               |
+|           Ignorer la pression |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
