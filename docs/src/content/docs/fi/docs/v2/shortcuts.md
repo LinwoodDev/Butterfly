@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|              Ominaisuus |              Values              | Kuvaus                                                                                                                                  |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|             Ohita paine |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|        Ominaisuus |              Values              | Kuvaus                                                                                                                                  |
+| ----------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+|  Näytä vain tylus |            true, false           | Näyttää nopean vain stylus-kytkimen editorissa, kun Butterfly tunnistaa stylus.                                         |
+|       Ohita paine |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
