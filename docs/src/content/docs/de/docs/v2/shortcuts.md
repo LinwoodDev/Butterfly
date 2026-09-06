@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|                  Objekt |              Values              | Beschreibung                                                                                                                            |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|         Ignoriere Druck |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                Objekt |              Values              | Beschreibung                                                                                                                            |
+| --------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|     Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Nur Stylus umschalten |            true, false           | Zeigt einen schnellen Stil-Nur-Schalter im Editor, nachdem Butterfly einen Stylus erkennt.                              |
+|       Ignoriere Druck |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
