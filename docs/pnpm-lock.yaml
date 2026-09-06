@@ -125,8 +125,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       '@linwooddev/starlight-style':
-        specifier: github:LinwoodDev/style#d7dee09a5f9c3407a1ad096be25ca034b2f5e1d1&path:/packages/starlight
-        version: https://codeload.github.com/LinwoodDev/style/tar.gz/d7dee09a5f9c3407a1ad096be25ca034b2f5e1d1#path:/packages/starlight(@astrojs/starlight@0.42.0(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e#path:/packages/web)(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))
+        specifier: github:LinwoodDev/style#5fd25f2e595873cefd3e61a081b9eaba881adfcf&path:/packages/starlight
+        version: https://codeload.github.com/LinwoodDev/style/tar.gz/5fd25f2e595873cefd3e61a081b9eaba881adfcf#path:/packages/starlight(@astrojs/starlight@0.42.0(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e#path:/packages/web)(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))
       '@linwooddev/style':
         specifier: github:LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web
         version: https://codeload.github.com/LinwoodDev/style/tar.gz/efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e#path:/packages/web
@@ -1281,8 +1281,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/d7dee09a5f9c3407a1ad096be25ca034b2f5e1d1#path:/packages/starlight':
-    resolution: {gitHosted: true, integrity: sha512-lKYbC+lLkOvFkcq1W67pj53r6KVqSj/zRQqiHETN4vsJKEj9eAx08h5NUEQwbI2tdcObm7YOOy4+DycF9Qdonw==, path: /packages/starlight, tarball: https://codeload.github.com/LinwoodDev/style/tar.gz/d7dee09a5f9c3407a1ad096be25ca034b2f5e1d1}
+  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/5fd25f2e595873cefd3e61a081b9eaba881adfcf#path:/packages/starlight':
+    resolution: {gitHosted: true, integrity: sha512-HH6tVWBOvp4n9eKYcceIrDgsRq1nSEsPfUNJ2Is8kAIm1oQpgQmfKyfvVd/jvyNDs9IFiDqvnS4gLx7pYgq1fw==, path: /packages/starlight, tarball: https://codeload.github.com/LinwoodDev/style/tar.gz/5fd25f2e595873cefd3e61a081b9eaba881adfcf}
     version: 0.0.1
     peerDependencies:
       '@astrojs/starlight': ^0.41.10
@@ -5114,7 +5114,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/d7dee09a5f9c3407a1ad096be25ca034b2f5e1d1#path:/packages/starlight(@astrojs/starlight@0.42.0(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e#path:/packages/web)(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))':
+  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/5fd25f2e595873cefd3e61a081b9eaba881adfcf#path:/packages/starlight(@astrojs/starlight@0.42.0(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e#path:/packages/web)(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@astrojs/starlight': 0.42.0(astro@7.3.1(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))(typescript@6.0.3)
       '@fontsource-variable/inter': 5.3.0
