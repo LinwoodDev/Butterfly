@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Invertert stilke",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "Full URL til WebDAV-en som leveres av din lagringsleverandør",
   "connect": "Nettverk",
   "username": "Brukernavn",
   "password": "Passord",
   "authenticationPassword": "Godkjenning passord",
   "documentEncryptionPassword": "Krypteringspassord for dokument",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "Krypterer dokumenter lagret i denne tilkoblingen. La dem være ukryptert",
   "documentEncryptionEnabled": "Dokumentkryptering aktivert",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Legg til passord for kryptering av dokument",
@@ -581,8 +581,8 @@
   "symmetric": "Symmetrisk",
   "perSide": "Pr. side",
   "directory": "Katalog",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "Brukes kun til å identifisere denne tilkoblingen i Sommerfly.",
+  "connectionDirectoryDescription": "Basemappen for denne tilkoblingen. Avanserte katalogbaner er relativ til den; la stå tom for å bruke absolutte baner",
   "documentsDirectory": "Dokumenter katalog",
   "templatesDirectory": "Mappe for maler",
   "errorWhileCreatingConnection": "Feil under oppretting av tilkobling",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "Valgfri URL til et bilde som skal brukes som tilkoblingsikonet",
   "update": "Oppdater",
   "@update": {
     "description": "Update action"
@@ -712,13 +712,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputAutoDescription": "Aktiverer stilen automatisk bare når en penn oppdages. Denne innstillingen varer bare for gjeldende økt.",
   "penOnlyInputOnDescription": "Alltid avvis berøring og museinngang, bare godta penneinndata.",
   "penOnlyInputOffDescription": "Godta alle inndatatyper, inkludert berøring, mus og stil.",
   "automatic": "Automatisk",
   "alwaysOn": "Alltid på",
   "alwaysOff": "Alltid av",
-  "showPenOnlyToggle": "Show stylus only toggle",
+  "showPenOnlyToggle": "Vis kun pennen veksling",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
   },
@@ -1447,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignores the first pressure reading, which can be inaccurate on some styluses.",
-  "ignorePressureNeverDescription": "Uses every pressure reading from the stylus.",
-  "ignorePressureAlwaysDescription": "Ignores pressure and treats the stylus as fully pressed.",
+  "ignoreFirstPressureDescription": "Ignorerer den første trykkavlesningen, som kan være unøyaktig på noen stiler.",
+  "ignorePressureNeverDescription": "Bruker alle trykkavlesninger fra stilen.",
+  "ignorePressureAlwaysDescription": "Ignorerer trykket og behandler pennen som fullt ut.",
   "temporary": "Midlertidig",
   "simpleToolbarVisibility": "Enkel verktøylinjens synlighet",
   "@simpleToolbarVisibility": {
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "Opprydding i lagrede stater",
   "persistentStateCleanupDescription": "Slett oppføringer eldre enn grensene over",
   "persistentStateCleanupInProgress": "Rydder opp...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "Standard låser",
+  "persistentStateDefaultLocksDescription": "Bruk disse låsene når et dokument ikke har lagret status",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Rens opp 1 lagringsplassering} other{Fjernet opp {locations} Lagringsplasseringene}}! ! {records, plural, =1{fjernet 1 rekord} other{fjernet {records} poster}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Husk gjeldende side ved gjenåpning av en fil",
   "persistentStateViewportDescription": "Husk visningsposisjon og zoom",
   "persistentStateSelectedToolDescription": "Husk det valgte verktøyet ved gjenåpning av en fil",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "Husk låsinnstillinger når du gjenåpner en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden når du gjenåpner en fil",
   "persistentStateLayersDescription": "Husk lag-panelet når en fil åpnes på nytt",
   "persistentStateAreasDescription": "Husk områdepanel når du gjenåpner en fil",
@@ -1587,9 +1587,9 @@
   "navigationRailDescription": "Viser en permanent navigasjonslinje på brede skjermer for raskere tilgang til app-deler.",
   "optionsPanelPositionDescription": "Velger om verktøyalternativene vises over eller under lerretet.",
   "simpleToolbarVisibilityDescription": "Kontrollerer når den mindre, forenklede verktøylinjen vises mens du redigerer en merknad.",
-  "penOnlyInputDescription": "Prevents accidental marks from your hand or mouse by choosing when only stylus input can draw.",
-  "showPenOnlyToggleDescription": "Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.",
-  "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
+  "penOnlyInputDescription": "Hindrer utilsiktede merker fra hånd eller mus ved å velge når bare tips kan hente.",
+  "showPenOnlyToggleDescription": "Viser en rask stil-bytter bare i editoren etter Butterfly oppdager en stil.",
+  "ignorePressureDescription": "Kontrollerer om pennen endrer slaget, og fungerer rundt unøyaktige trykkavlesninger fra noen stilarter.",
   "moveOnGestureDescription": "Lar multi-touch bevegelser flytte lerretet i stedet for å samhandle med notatinnhold.",
   "spreadPagesDescription": "Deler av flerside import på tvers av forskjellige notatsider i stedet for å plassere alt på en side.",
   "shear": "Klipp"
