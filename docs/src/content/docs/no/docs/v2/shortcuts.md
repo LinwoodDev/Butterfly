@@ -171,7 +171,7 @@ to **tool activators**._
 |                Egenskap |              Values              | Beskrivelse                                                                                                                             |
 | ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
 |       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
+| Vis kun pennen veksling |            true, false           | Viser en rask stil-bytter bare i editoren etter Butterfly oppdager en stil.                                             |
 |           Ignorer trykk |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
