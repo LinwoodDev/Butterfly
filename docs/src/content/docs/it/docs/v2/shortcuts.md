@@ -168,11 +168,11 @@ to **tool activators**._
 
 ### Stylus configurations
 
-|               Proprietà |              Values              | Descrizione                                                                                                                             |
-| ----------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|       Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
-| Show stylus only toggle |            true, false           | Shows a quick stylus-only switch in the editor after Butterfly detects a stylus.                                        |
-|        Ignora pressione |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
+|                          Proprietà |              Values              | Descrizione                                                                                                                             |
+| ---------------------------------: | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|                  Stylus only input | Automatic, Always on, Always off | Prevents accidental marks from your hand or mouse when only stylus input can draw.                                      |
+| Mostra solo stilo attiva/disattiva |            true, false           | Mostra un rapido interruttore solo stilo nell'editor dopo che Butterfly rileva uno stilo.                               |
+|                   Ignora pressione |       Never, First, Always       | Controls whether a stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses. |
 
 ### Stylus shortcuts
 
