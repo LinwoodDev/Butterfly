@@ -565,13 +565,13 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "رابط WebDAV الكامل المقدم من مزود التخزين الخاص بك",
   "connect": "توصيل",
   "username": "اسم المستخدم",
   "password": "كلمة المرور",
   "authenticationPassword": "كلمة مرور المصادقة",
   "documentEncryptionPassword": "كلمة مرور تشفير المستند",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "تشفير المستندات المخزنة في هذا الاتصال. اتركها فارغة لإبقائها غير مشفرة",
   "documentEncryptionEnabled": "تم تمكين تشفير المستند",
   "reauthenticate": "إعادة التوثيق",
   "addDocumentEncryptionPassword": "إضافة كلمة مرور تشفير المستند",
@@ -581,8 +581,8 @@
   "symmetric": "متماثل",
   "perSide": "لكل جانب",
   "directory": "المُجلد",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionNameDescription": "يستخدم فقط لتحديد هذا الاتصال في الفراشة",
+  "connectionDirectoryDescription": "مجلد القاعدة لهذا الاتصال. مسارات الدليل المتقدمة نسبية إليه؛ اتركه فارغاً لاستخدام المسارات المطلقة",
   "documentsDirectory": "مجلد المستندات",
   "templatesDirectory": "مجلد القوالب",
   "errorWhileCreatingConnection": "حدث خطأ أثناء إنشاء الاتصال",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "connectionIconDescription": "اختيار عنوان URL لصورة لاستخدامها كأيقونة اتصال",
   "update": "تحديث",
   "@update": {
     "description": "Update action"
@@ -1538,8 +1538,8 @@
   "persistentStateCleanup": "تنظيف الحالات المخزنة",
   "persistentStateCleanupDescription": "حذف السجلات الأقدم من الحدود أعلاه",
   "persistentStateCleanupInProgress": "تنظيف...",
-  "persistentStateDefaultLocks": "Default locks",
-  "persistentStateDefaultLocksDescription": "Apply these locks when a document has no saved state",
+  "persistentStateDefaultLocks": "الأقفال الافتراضية",
+  "persistentStateDefaultLocksDescription": "تطبيق هذه الأقفال عندما لا يكون المستند محفوظ الحالة",
   "persistentStateCleanupFeedback": "{locations, plural, =1{تم تنظيف موقع تخزين واحد} other{تم تنظيف {locations} مواقع تخزين}}; {records, plural, =1{حُذف سجل واحد} other{حُذفت {records} سجلات}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1569,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "تذكر الصفحة الحالية عند إعادة فتح ملف",
   "persistentStateViewportDescription": "تذكر موضع العرض وتكبيره",
   "persistentStateSelectedToolDescription": "تذكر الأداة المحددة عند إعادة فتح ملف",
-  "persistentStateLocksDescription": "Remember lock settings when reopening a file",
+  "persistentStateLocksDescription": "تذكر إعدادات القفل عند إعادة فتح ملف",
   "persistentStateNavigatorDescription": "تذكر حالة التنقل عند إعادة فتح الملف",
   "persistentStateLayersDescription": "تذكر حالة لوحة الطبقة عند إعادة فتح الملف",
   "persistentStateAreasDescription": "تذكر حالة لوحة المنطقة عند إعادة فتح الملف",
