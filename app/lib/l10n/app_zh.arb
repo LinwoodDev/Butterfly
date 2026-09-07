@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "在移动时通过简化画布使得画布变得更加舒适。",
   "edgePanAreaSwitchingDescription": "当你在画布边缘靠近画布时，切换到邻居地区。",
   "collaborationDescription": "允许多人实时编辑同一笔记。",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "在日志视图和控制台中包含详细的诊断消息。当出现问题时，这些消息可以帮助解答问题。",
   "bringMovedElementsToFrontDescription": "移动后将一个元素放在重叠元素上面。",
   "persistenceDocumentStatesDescription": "控制每个笔记的工作区的哪些部件，例如当前页面、缩放和选定的工具。",
