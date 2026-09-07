@@ -2,6 +2,38 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-rc.0 (2026-09-07)
+
+* Add full screen embed option and restore missing embed menu items
+* Add setting for default document persistence states ([#1249](https://github.com/LinwoodDev/Butterfly/issues/1249))
+* Improve landscape mobile home page
+* Improve collaboration reliability and user experience
+* Improve responsiveness and add helper text to the add connection dialog
+* Improve pages and areas navigator performance
+* Improve page switching performance for large documents
+* Improve efficiency of file coping and exporting
+* Improve baking performance by testing layer changes before baking
+* Improve eraser performance by clipping strokes directly at the eraser boundary
+* Improve eraser cursor display
+* Improve polygon hit testing performance for disjoint shapes
+* Improve responsiveness and clarity of texture paint fields
+* Improve settings modal responsiveness
+* Improve backup connection selection
+* Rename the logs setting to verbose
+* Fix sync dialog not opening current connection initially
+* Fix switching pages in embeds ([#1247](https://github.com/LinwoodDev/Butterfly/issues/1247))
+* Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
+* Fix file thumbnails not refreshing after returning from documents on mobile ([#1241](https://github.com/LinwoodDev/Butterfly/issues/1241))
+* Fix importing encrypted notes requiring their password ([#1242](https://github.com/LinwoodDev/Butterfly/issues/1242))
+* Fix importing Butterfly files on Android
+* Fix pinch zoom drifting toward one finger
+* Fix document view freezing on non-Wasm web builds
+* Fix documents got lost after app is moved to background on Android
+* Fix always saving settings without checking if they changed
+* Fix eraser input handling when pointer events overlap, fail, or finish while work is pending
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.0
+
 ## 2.6.0-beta.6 (2026-08-24)
 
 * Add whole connection encryption ([#1050](https://github.com/LinwoodDev/Butterfly/issues/1050))

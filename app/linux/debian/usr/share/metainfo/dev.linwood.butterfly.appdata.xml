@@ -74,6 +74,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-rc.0" type="development" date="2026-09-07">
+			<description>
+				<ul>
+					<li>Add full screen embed option and restore missing embed menu items</li>
+					<li>Add setting for default document persistence states (#1249)</li>
+					<li>Improve landscape mobile home page</li>
+					<li>Improve collaboration reliability and user experience</li>
+					<li>Improve responsiveness and add helper text to the add connection dialog</li>
+					<li>Improve pages and areas navigator performance</li>
+					<li>Improve page switching performance for large documents</li>
+					<li>Improve efficiency of file coping and exporting</li>
+					<li>Improve baking performance by testing layer changes before baking</li>
+					<li>Improve eraser performance by clipping strokes directly at the eraser boundary</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.0</url>
+		</release>
 		<release version="2.6.0-beta.6" type="development" date="2026-08-24">
 			<description>
 				<ul>
@@ -142,22 +159,7 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.3</url>
 		</release>
-		<release version="2.6.0-beta.2" type="development" date="2026-07-13">
-			<description>
-				<ul>
-					<li>Add persistent document states (#1077)</li>
-					<li>Reorder top corner menu to have home on top (#1161)</li>
-					<li>Rebuild internal settings pages</li>
-					<li>Refactor whole state management structure (#1157)</li>
-					<li>Remove unused view options</li>
-					<li>Fix crash with android saf on folders with many files</li>
-					<li>Fix blur resetting on color change</li>
-					<li>Fix polygon collision aabb tests if closed (#1162)</li>
-					<li>Upgrade to agb 9</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.2</url>
-		</release>
+		<release version="2.6.0-beta.2" type="development" date="2026-07-13" />
 		<release version="2.6.0-beta.1" type="development" date="2026-07-06" />
 		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
 		<release version="2.5.5" date="2026-08-10" />
