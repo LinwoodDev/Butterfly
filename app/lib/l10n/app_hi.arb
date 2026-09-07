@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
   "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
   "collaborationDescription": "Allows multiple people to edit the same note together in real time.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Includes detailed diagnostic messages in the log view and console. These messages can help when troubleshooting a problem.",
   "bringMovedElementsToFrontDescription": "Places an element above overlapping elements after you move it.",
   "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
