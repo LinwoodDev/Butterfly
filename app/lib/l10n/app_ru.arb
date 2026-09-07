@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Штрих",
   "label": "Подпись",
   "@label": {
     "description": "Label tool"
