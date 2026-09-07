@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Stiloul injector",
+  "invertedPen": "Stylus inversat",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "URL-ul complet WebDAV furnizat de furnizorul de stocare",
   "connect": "Conectează-te",
   "username": "Nume",
   "password": "Parolă",
   "authenticationPassword": "Parola de autentificare",
   "documentEncryptionPassword": "Parola de criptare document",
+  "documentEncryptionPasswordDescription": "Criptează documentele stocate în această conexiune. Lăsați gol pentru a le păstra necriptate",
   "documentEncryptionEnabled": "Criptare document activată",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Adăugați parola de criptare a documentului",
@@ -579,6 +581,8 @@
   "symmetric": "Simetric",
   "perSide": "Pe parte",
   "directory": "Director",
+  "connectionNameDescription": "Folosit doar pentru a identifica această conexiune în Butterfly",
+  "connectionDirectoryDescription": "Dosarul de bază pentru această conexiune. Căile avansate de directoare sunt relaționate; lăsați necompletate pentru a utiliza căi absolute",
   "documentsDirectory": "Dosar documente",
   "templatesDirectory": "Directorul de șabloane",
   "errorWhileCreatingConnection": "Eroare la crearea conexiunii",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "URL opțional al unei imagini pentru a fi folosită ca pictogramă de conexiune",
   "update": "Actualizare",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Dosar sincronizat",
   "syncRootDirectory": "Sincronizare director rădăcină",
-  "penOnlyInput": "Numai introducerea stiloului injector",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Activează automat modul pen-only atunci când un stylus este detectat. Această setare durează numai pentru sesiunea curentă.",
+  "penOnlyInputAutoDescription": "Activează automat modul doar stylus, atunci când un stylus este detectat. Această setare durează doar pentru sesiunea curentă.",
   "penOnlyInputOnDescription": "Respingeți întotdeauna intrarea tactilei și a mouse-ului, acceptă doar input de stylus.",
   "penOnlyInputOffDescription": "Acceptă toate tipurile de intrare, inclusiv atingerea, mouse-ul și stylusul.",
   "automatic": "Automat",
   "alwaysOn": "Mereu activ",
   "alwaysOff": "Întotdeauna oprit",
-  "showPenOnlyToggle": "Arată doar comutator pentru stilou",
+  "showPenOnlyToggle": "Arată doar comutator stylus",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Vă permite să vă mutaţi şi să măriţi pânzele cu gesturi tactile, chiar dacă o unealtă de desenare este selectată.",
@@ -1441,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignoră prima valoare a presiunii care poate fi imprecisă pe unele stilouri injectoare (pen-uri).",
-  "ignorePressureNeverDescription": "Folosește fiecare presiune din citirea stiloului injector (pen).",
-  "ignorePressureAlwaysDescription": "Ignoră presiunea şi tratează stiloul injector (pen-ul) aşa cum este apăsat complet.",
+  "ignoreFirstPressureDescription": "Ignoră prima citire a presiunii, care poate fi inexactă pe unele stilusuri.",
+  "ignorePressureNeverDescription": "Folosește orice presiune citită din stylus.",
+  "ignorePressureAlwaysDescription": "Ignoră presiunea şi tratează stylus-ul aşa cum este apăsat complet.",
   "temporary": "Temporar",
   "simpleToolbarVisibility": "Vizibilitate simplă a barei de instrumente",
   "@simpleToolbarVisibility": {
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Curăță stările stocate",
   "persistentStateCleanupDescription": "Ştergeţi înregistrările mai vechi decât limitele de mai sus",
   "persistentStateCleanupInProgress": "Curățare în sus...",
+  "persistentStateDefaultLocks": "Blocaje implicite",
+  "persistentStateDefaultLocksDescription": "Aplică aceste blocaje atunci când un document nu are stare salvată",
   "persistentStateCleanupFeedback": "{locations, plural, =1{A curățat o locație de stocare} other{A șters {locations} Locații de stocare}} {records, plural, =1{a eliminat 1 record} other{a șters {records} înregistrările}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Amintiţi-vă pagina curentă la redeschiderea unui fişier",
   "persistentStateViewportDescription": "Amintește-ți poziția viewport-ului și zoom",
   "persistentStateSelectedToolDescription": "Reține instrumentul selectat la redeschiderea unui fișier",
-  "persistentStateLocksDescription": "Amintiţi-vă stratul şi blocurile de colectare la redeschiderea unui fişier",
+  "persistentStateLocksDescription": "Reține setările de blocare la redeschiderea unui fișier",
   "persistentStateNavigatorDescription": "Amintiţi-vă starea navigatorului la redeschiderea unui fişier",
   "persistentStateLayersDescription": "Reţineţi starea panoului pe strat la redeschiderea unui fişier",
   "persistentStateAreasDescription": "Memorează starea zonei panoului la redeschiderea unui fișier",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Afișează o bară permanentă de navigare pe ecranele largi pentru acces mai rapid la secțiunile aplicației.",
   "optionsPanelPositionDescription": "Alegeți dacă opțiunile de instrumente apar deasupra sau sub pânză.",
   "simpleToolbarVisibilityDescription": "Controlează când apare bara de instrumente mai mică, simplificată în timp ce editează o notă.",
-  "penOnlyInputDescription": "Previne semnele accidentale din mâna sau mouse-ul alegând când doar introducerea unui stilou poate fi desenată.",
-  "showPenOnlyToggleDescription": "Afișează un buton doar rapid în editor după ce Butterfly detectează un stilou.",
-  "ignorePressureDescription": "Controlează dacă presiunea stiloului injector (pen-ului) modifică accidentul vascular cerebral şi acţionează în jurul valorilor inexacte ale presiunii din unele stilouri injectoare (pen-uri).",
+  "penOnlyInputDescription": "Previne semnele accidentale din mâna ta sau mouse-ul alegând când doar intrarea de stylus poate fi desenată.",
+  "showPenOnlyToggleDescription": "Arată un întrerupător rapid doar de stylus în editor după ce Butterfly detectează un stylus.",
+  "ignorePressureDescription": "Controlează dacă presiunea stylusului modifică accidentul vascular cerebral şi acţionează în jurul valorilor inexacte ale presiunii din unele stylus.",
   "moveOnGestureDescription": "Lasă gesturi multi-touch să mute pânza în loc să interacționeze cu conținutul notei.",
   "spreadPagesDescription": "Împarte importurile în mai multe pagini pe pagini separate de note, în loc să plasezi totul pe o singură pagină.",
   "shear": "Șuruburi"

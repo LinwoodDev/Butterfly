@@ -1,8 +1,8 @@
 ---
-title: Stylus support
+title: Pennens brukerstøtte
 ---
 
-This page collects the current stylus and pen-input behavior in Butterfly.
+This page collects the current stylus-input behavior in Butterfly.
 
 ## Supported platforms
 
@@ -12,16 +12,16 @@ This page collects the current stylus and pen-input behavior in Butterfly.
 
 ## Stylus-related settings
 
-You can find stylus-related options in **Settings → Input → Pen**:
+You can find stylus-related options in **Settings → Input → Stylus**:
 
-- **Pen-only input** (changed in 2.5): helps avoid accidental finger/touch drawing when using a stylus.
-- **Pen-only toggle on stylus detection:** when a stylus is detected, a quick Pen-only toggle is activated; you can still disable it in **Settings → Input → Pen**.
+- **Stylus-only input** (changed in 2.5): helps avoid accidental finger/touch drawing when using a stylus.
+- **Stylus-only toggle on stylus detection:** when a stylus is detected, a quick Stylus-only toggle is activated; you can still disable it in **Settings → Input → Stylus**.
 - **Ignore pressure:** useful when pressure data is unreliable. This is set to help with cases where Firefox reports incorrect pressure on first input.
 - **Input test:** lets you verify what pointer/stylus events your device is currently reporting.
 
-## Pen shortcuts and pointer test
+## Stylus shortcuts and pointer test
 
-Butterfly supports pen/stylus shortcuts (button mappings can vary by device/OS). If shortcuts do not behave as expected, open **Input test** first and check button values:
+Butterfly supports stylus shortcuts (button mappings can vary by device/OS). If shortcuts do not behave as expected, open **Input test** first and check button values:
 
 - **Primary button** commonly appears as `10` (`2`)
 - **Secondary button** commonly appears as `100` (`4`) or `100000` (`32`)

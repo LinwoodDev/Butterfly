@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Odwrócony wstrzykiwacz",
+  "invertedPen": "Odwrócony Stylus",
   "eraser": "Eraser",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "Pełny adres URL WebDAV dostarczony przez dostawcę pamięci",
   "connect": "Połącz",
   "username": "Nazwa użytkownika",
   "password": "Hasło",
   "authenticationPassword": "Hasło uwierzytelniania",
   "documentEncryptionPassword": "Hasło szyfrowania dokumentów",
+  "documentEncryptionPasswordDescription": "Szyfruje dokumenty przechowywane w tym powiązaniu. Pozostaw puste, aby zachować je niezaszyfrowane",
   "documentEncryptionEnabled": "Szyfrowanie dokumentów włączone",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Dodaj hasło szyfrowania dokumentów",
@@ -579,6 +581,8 @@
   "symmetric": "Symetryczny",
   "perSide": "Na stronę",
   "directory": "Katalog",
+  "connectionNameDescription": "Używane tylko do identyfikacji tego połączenia w Motylce",
+  "connectionDirectoryDescription": "Folder podstawowy dla tego połączenia. Zaawansowane ścieżki katalogów są względne; pozostaw puste, aby użyć ścieżek bezwzględnych",
   "documentsDirectory": "Katalog dokumentów",
   "templatesDirectory": "Katalog szablonów",
   "errorWhileCreatingConnection": "Błąd podczas tworzenia połączenia",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Opcjonalny adres URL obrazu do użycia jako ikona połączenia",
   "update": "Aktualizuj",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Folder zsynchronizowany",
   "syncRootDirectory": "Synchronizuj główny katalog",
-  "penOnlyInput": "Wprowadzanie tylko pióra",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatycznie włącza tryb tylko piór, gdy rysik jest wykryty. To ustawienie trwa tylko dla bieżącej sesji.",
+  "penOnlyInputAutoDescription": "Automatycznie włącza tryb tylko stylus, gdy rysik jest wykryty. To ustawienie trwa tylko dla bieżącej sesji.",
   "penOnlyInputOnDescription": "Zawsze odrzucaj dane wejściowe dotyku i myszki, akceptuj tylko dane wejściowe rysika.",
   "penOnlyInputOffDescription": "Akceptuj wszystkie typy danych wejściowych, w tym dotyk, mysz i styl.",
   "automatic": "Automatyczne",
   "alwaysOn": "Zawsze włączony",
   "alwaysOff": "Zawsze wyłączone",
-  "showPenOnlyToggle": "Pokaż tylko pióro",
+  "showPenOnlyToggle": "Pokaż tylko przełącznik rysika",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Input gestures",
   "inputGesturesDescription": "Pozwala poruszać się i powiększać płótno z gestami dotykowymi, nawet gdy wybrane jest narzędzie rysowania.",
@@ -1441,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignoruje pierwszy odczyt ciśnienia, który może być niedokładny na niektórych wstrzykiwaczach.",
-  "ignorePressureNeverDescription": "Używa każdego odczytu ciśnienia ze wstrzykiwacza.",
-  "ignorePressureAlwaysDescription": "Ignoruje ciśnienie i leczy wstrzykiwacz po pełnym naciśnięciu.",
+  "ignoreFirstPressureDescription": "Ignoruje pierwszy odczyt ciśnienia, który może być niedokładny dla niektórych stylów.",
+  "ignorePressureNeverDescription": "Używa każdego odczytu nacisku z stylu.",
+  "ignorePressureAlwaysDescription": "Ignoruje ciśnienie i poddaje rysikowi po pełnym naciśnięciu.",
   "temporary": "Tymczasowy",
   "simpleToolbarVisibility": "Widoczność prostego paska narzędzi",
   "@simpleToolbarVisibility": {
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Wyczyść przechowywane stany",
   "persistentStateCleanupDescription": "Usuń rekordy starsze niż powyższe limity",
   "persistentStateCleanupInProgress": "Czyszczenie...",
+  "persistentStateDefaultLocks": "Domyślne blokady",
+  "persistentStateDefaultLocksDescription": "Zastosuj te blokady, gdy dokument nie ma zapisanego stanu",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Wyczyszczono 1 miejsce przechowywania} other{Wyczyszczono {locations} miejsca przechowywania}}; {records, plural, =1{usunięto 1 rekord} other{usunięto {records} rekordy}} . .",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Zapamiętaj bieżącą stronę podczas ponownego otwierania pliku",
   "persistentStateViewportDescription": "Zapamiętaj pozycję i powiększenie widoku",
   "persistentStateSelectedToolDescription": "Zapamiętaj wybrane narzędzie podczas ponownego otwierania pliku",
-  "persistentStateLocksDescription": "Pamiętaj blokadę warstwy i kolekcji podczas ponownego otwierania pliku",
+  "persistentStateLocksDescription": "Zapamiętaj ustawienia blokady podczas ponownego otwierania pliku",
   "persistentStateNavigatorDescription": "Zapamiętaj stan nawigatora podczas ponownego otwierania pliku",
   "persistentStateLayersDescription": "Zapamiętaj stan panelu warstwy podczas ponownego otwierania pliku",
   "persistentStateAreasDescription": "Zapamiętaj stan panelu przy ponownym otwieraniu pliku",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Pokazuje stały pasek nawigacyjny na szerokich ekranach, aby szybciej uzyskać dostęp do sekcji aplikacji.",
   "optionsPanelPositionDescription": "Wybiera, czy opcje narzędzia pojawiają się powyżej czy poniżej płótna.",
   "simpleToolbarVisibilityDescription": "Kontroluje wyświetlanie mniejszego, uproszczonego paska narzędzi podczas edycji notatki.",
-  "penOnlyInputDescription": "Zapobiega przypadkowym oznaczeniom dłoni lub myszy, wybierając kiedy tylko wstawiony wstrzykiwacz może rysować.",
-  "showPenOnlyToggleDescription": "Pokazuje szybki przełącznik tylko długopisów w edytorze po wykryciu długopisu.",
-  "ignorePressureDescription": "Kontroluje czy ciśnienie w pionie zmienia uderzenie i działa wokół niedokładnych odczytów ciśnienia z niektórych wstrzykiwaczy.",
+  "penOnlyInputDescription": "Zapobiega przypadkowym oznakowaniom z dłoni lub myszy, wybierając kiedy tylko rysowanie może narysować.",
+  "showPenOnlyToggleDescription": "Pokazuje szybki przełącznik stylu tylko w edytorze po wykryciu stylu Butterfly.",
+  "ignorePressureDescription": "Kontroluje czy ciśnienie rysika zmienia uderzenie i działa wokół niedokładnych odczytów ciśnienia z niektórych stylów.",
   "moveOnGestureDescription": "Pozwala na przenoszenie gestów z wielu dotyków zamiast interakcji z treścią notatki.",
   "spreadPagesDescription": "Dzieli wiele stron importu na oddzielne strony notatki, zamiast umieszczać wszystko na jednej stronie.",
   "shear": "Ścinanie"

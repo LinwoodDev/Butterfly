@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Invertierter Stift",
+  "invertedPen": "Invertierte Stylus",
   "eraser": "Radierer",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "Die vollständige WebDAV-URL, die von Ihrem Speicheranbieter bereitgestellt wird",
   "connect": "Verbinden",
   "username": "Benutzername",
   "password": "Passwort",
   "authenticationPassword": "Authentifizierungspasswort",
   "documentEncryptionPassword": "Verschlüsselungspasswort",
+  "documentEncryptionPasswordDescription": "Verschlüsselt Dokumente, die in dieser Verbindung gespeichert sind. Lassen Sie leer, um sie unverschlüsselt zu halten",
   "documentEncryptionEnabled": "Dokumentenverschlüsselung aktiviert",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Dokumentverschlüsselungspasswort hinzufügen",
@@ -579,6 +581,8 @@
   "symmetric": "Symmetrisch",
   "perSide": "Pro Seite",
   "directory": "Verzeichnis",
+  "connectionNameDescription": "Nur verwendet, um diese Verbindung in Butterfly zu identifizieren",
+  "connectionDirectoryDescription": "Basisordner für diese Verbindung. Erweiterte Verzeichnispfade sind relativ dazu. Leer lassen um absolute Pfade zu verwenden",
   "documentsDirectory": "Dokumentenverzeichnis",
   "templatesDirectory": "Vorlagenverzeichnis",
   "errorWhileCreatingConnection": "Fehler beim Erstellen der Verbindung",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "Optionale URL eines Bildes als Verbindungssymbol zu verwenden",
   "update": "Aktualisieren",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
-  "penOnlyInput": "Nur-Pen-Eingabe",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatisch aktivieren, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
+  "penOnlyInputAutoDescription": "Aktiviert automatisch den Stil-Nur-Modus, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
   "penOnlyInputOnDescription": "Tipp- und Mauseingabe immer ablehnen, nur Stift-Eingaben akzeptieren.",
   "penOnlyInputOffDescription": "Akzeptieren Sie alle Eingabetypen, einschließlich Berührung, Maus und Stil.",
   "automatic": "Automatisch",
   "alwaysOn": "Immer an",
   "alwaysOff": "Immer aus",
-  "showPenOnlyToggle": "Nur Stift anzeigen",
+  "showPenOnlyToggle": "Nur Stylus umschalten",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Eingabegesten",
   "inputGesturesDescription": "Lässt Sie die Leinwand mit Berührungsgesten bewegen und zoomen, auch wenn ein Zeichenwerkzeug ausgewählt ist.",
@@ -1441,9 +1447,9 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignoriert die erste Drucklesung, die auf einigen Stiften ungenau sein kann.",
-  "ignorePressureNeverDescription": "Verwendet jeden Druck, der vom Stift liest.",
-  "ignorePressureAlwaysDescription": "Ignoriert Druck und behandelt den Stift wie voll gepresst.",
+  "ignoreFirstPressureDescription": "Ignoriert die erste Drucklesung, die auf einigen Stilen ungenau sein kann.",
+  "ignorePressureNeverDescription": "Verwendet jeden Druckausdruck aus dem Stil.",
+  "ignorePressureAlwaysDescription": "Ignoriert Druck und behandelt die Stylus als vollpresst.",
   "temporary": "Temporär",
   "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
   "@simpleToolbarVisibility": {
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Gespeicherte Zustände bereinigen",
   "persistentStateCleanupDescription": "Lösche Datensätze, die älter als die oben genannten Grenzen sind",
   "persistentStateCleanupInProgress": "Bereinigen...",
+  "persistentStateDefaultLocks": "Standardsperren",
+  "persistentStateDefaultLocksDescription": "Diese Sperren anwenden, wenn ein Dokument keinen gespeicherten Status hat",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Bereinigt 1 Speicherort} other{Bereinigt {locations} Speicherstandorte}}; {records, plural, =1{entfernte 1 Datensatz} other{entfernt! {records} Datensätze}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Die aktuelle Seite beim erneuten Öffnen einer Datei merken",
   "persistentStateViewportDescription": "Position des Viewports merken und zoomen",
   "persistentStateSelectedToolDescription": "Ausgewähltes Werkzeug beim Wiederöffnen einer Datei merken",
-  "persistentStateLocksDescription": "Ebenen- und Sammlungssperren beim erneuten Öffnen einer Datei merken",
+  "persistentStateLocksDescription": "Sperreinstellungen beim erneuten Öffnen einer Datei merken",
   "persistentStateNavigatorDescription": "Navigator-Status beim Wiederöffnen einer Datei merken",
   "persistentStateLayersDescription": "Beim erneuten Öffnen einer Datei den Layer-Panel-Status merken",
   "persistentStateAreasDescription": "Beim erneuten Öffnen einer Datei den Status des Bereichs merken",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Zeigt eine permanente Navigationsleiste auf großen Bildschirmen für einen schnelleren Zugriff auf App-Sektionen.",
   "optionsPanelPositionDescription": "Legt fest, ob Werkzeugoptionen über oder unter der Leinwand erscheinen.",
   "simpleToolbarVisibilityDescription": "Legt fest, wenn die kleinere, vereinfachte Symbolleiste beim Bearbeiten einer Notiz erscheint.",
-  "penOnlyInputDescription": "Verhindert versehentliche Markierungen aus der Hand oder der Maus durch Auswählen, wenn nur der Stift gezeichnet werden kann.",
-  "showPenOnlyToggleDescription": "Zeigt einen schnellen Pen-Only Schalter im Editor, nachdem Butterfly einen Stift erkennt.",
-  "ignorePressureDescription": "Steuert ob der Stiftdruck den Schlaganfall ändert und arbeitet um ungenaue Druckmessungen von einigen Stiften herum.",
+  "penOnlyInputDescription": "Vermeiden Sie versehentliche Markierungen von Hand oder Maus, indem Sie auswählen, wann nur Stift-Eingaben gezogen werden können.",
+  "showPenOnlyToggleDescription": "Zeigt einen schnellen Stil-Nur-Schalter im Editor, nachdem Butterfly einen Stylus erkennt.",
+  "ignorePressureDescription": "Steuert, ob Stift Druck den Haken ändert und arbeitet um ungenaue Druckmessungen von einigen Stieflächen herum.",
   "moveOnGestureDescription": "Lassen Sie uns Multi-Touch-Gesten die Leinwand bewegen, anstatt mit Notizinhalt zu interagieren.",
   "spreadPagesDescription": "Splits mehrseitige Importe über separate Notizseiten statt alles auf einer Seite zu platzieren.",
   "shear": "Scherz"

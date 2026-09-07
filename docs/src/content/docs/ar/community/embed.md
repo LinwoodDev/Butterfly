@@ -17,12 +17,23 @@ title: Embed
 
 ## خيارات
 
-| خيار     | نوع                                                                                              | الافتراضي | الوصف                                                                                                                                                                    |
-| -------- | ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| حفظ      | Boolean (true, false)                                                         | true      | تمكين الحفظ. في حالة التعطيل، سيتم عرض زر الخروج فقط                                                                                                     |
-| editable | Boolean (true, false)                                                         | true      | تمكين التحرير. في حالة التعطيل، سيكون المستند للقراءة فقط                                                                                                |
-| اللغة    | سلسلة (...، النظام، المستخدم) | user      | () لغة الوثيقة. إذا كان النظام، سيتم اكتشاف اللغة من المتصفح. إذا كان المستخدم، سيتم تعيين اللغة إلى تفضيل المستخدمين |
-| fileName | String                                                                                           |           | Display this file name in the embed title. It is visual only and does not change the document metadata                                                   |
+| خيار       | نوع                                                                                              | الافتراضي | الوصف                                                                                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| حفظ        | Boolean (true, false)                                                         | true      | تمكين الحفظ. في حالة التعطيل، سيتم عرض زر الخروج فقط                                                                                                     |
+| editable   | Boolean (true, false)                                                         | true      | تمكين التحرير. في حالة التعطيل، سيكون المستند للقراءة فقط                                                                                                |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                 | enabled   | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                           |
+| اللغة      | سلسلة (...، النظام، المستخدم) | user      | () لغة الوثيقة. إذا كان النظام، سيتم اكتشاف اللغة من المتصفح. إذا كان المستخدم، سيتم تعيين اللغة إلى تفضيل المستخدمين |
+| fileName   | String                                                                                           |           | Display this file name in the embed title. It is visual only and does not change the document metadata                                                   |
+
+### Full-screen modes
+
+| القيمة        | Initial layout | Toggle | Browser/system full screen |
+| ------------- | -------------- | ------ | -------------------------- |
+| enabled       | عادي           | نعم    | When enabled by the user   |
+| layoutOnly    | عادي           | نعم    | مطلقًا                     |
+| startInLayout | ملء الشاشة     | نعم    | مطلقًا                     |
+| forced        | ملء الشاشة     | لا     | مطلقًا                     |
+| disabled      | عادي           | لا     | مطلقًا                     |
 
 ## Messaging
 

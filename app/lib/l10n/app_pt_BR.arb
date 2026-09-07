@@ -54,7 +54,7 @@
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Caneta Invertida",
+  "invertedPen": "Estilus invertida",
   "eraser": "Borracha",
   "@eraser": {
     "description": "Eraser tool"
@@ -565,11 +565,13 @@
   "@url": {
     "description": "URL field"
   },
+  "webDavUrlDescription": "A URL completa WebDAV fornecida pelo seu provedor de armazenamento",
   "connect": "Conectar",
   "username": "Usuário:",
   "password": "Palavra-passe",
   "authenticationPassword": "Senha de autenticação",
   "documentEncryptionPassword": "Senha de encriptação do documento",
+  "documentEncryptionPasswordDescription": "Criptografa documentos armazenados nesta conexão. Deixe em branco para mantê-los descriptografados",
   "documentEncryptionEnabled": "Criptografia de documento ativada",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Adicionar senha de criptografia do documento",
@@ -579,6 +581,8 @@
   "symmetric": "Simétrica",
   "perSide": "Por lado",
   "directory": "Diretório",
+  "connectionNameDescription": "Usado apenas para identificar essa conexão na Borboleta",
+  "connectionDirectoryDescription": "Pasta base para esta conexão. Caminhos avançados de diretório são relativos a ela; deixe vazio para usar caminhos absolutos",
   "documentsDirectory": "Diretório de documentos",
   "templatesDirectory": "Diretório de modelos",
   "errorWhileCreatingConnection": "Erro ao criar a conexão",
@@ -588,6 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
+  "connectionIconDescription": "URL opcional de uma imagem para usar como o ícone de conexão",
   "update": "Atualização",
   "@update": {
     "description": "Update action"
@@ -702,19 +707,20 @@
   },
   "folderSynced": "Pasta sincronizada",
   "syncRootDirectory": "Sincronizar diretório raiz",
-  "penOnlyInput": "Entrada somente por caneta",
+  "stylus": "Stylus",
+  "penOnlyInput": "Stylus only input",
   "@penOnlyInput": {
-    "description": "Setting to enable pen only input mode"
+    "description": "Setting to enable stylus only input mode"
   },
-  "penOnlyInputAutoDescription": "Ativar automaticamente o modo de caneta quando uma caneta é detectada. Esta configuração só dura a sessão atual.",
+  "penOnlyInputAutoDescription": "Habilita automaticamente o modo stylus-only quando uma caneta é detectada. Esta configuração só dura a sessão atual.",
   "penOnlyInputOnDescription": "Sempre rejeitar toque e entrada do mouse, só aceitar a entrada do stylus",
   "penOnlyInputOffDescription": "Aceite todos os tipos de entrada, incluindo toque, mouse e estilo.",
   "automatic": "Automático",
   "alwaysOn": "Sempre Ligado",
   "alwaysOff": "Sempre desligado",
-  "showPenOnlyToggle": "Mostrar somente a caneta",
+  "showPenOnlyToggle": "Mostrar alternância apenas da caneta",
   "@showPenOnlyToggle": {
-    "description": "Setting to show pen only toggle button when pen is detected"
+    "description": "Setting to show stylus only toggle button when stylus is detected"
   },
   "inputGestures": "Gestos de entrada",
   "inputGesturesDescription": "Permite mover e ampliar a tela com gestos de toque, mesmo enquanto uma ferramenta de desenho for selecionada.",
@@ -1441,8 +1447,8 @@
   "@ignorePressure": {
     "description": "Choose how stylus pressure is handled"
   },
-  "ignoreFirstPressureDescription": "Ignora a primeira leitura da pressão, que pode ser inexacta em algumas canetas.",
-  "ignorePressureNeverDescription": "Usa todas as pressões lidas da caneta.",
+  "ignoreFirstPressureDescription": "Ignora a primeira leitura da pressão, que pode ser imprecisa em alguns estilos.",
+  "ignorePressureNeverDescription": "Usa todas as pressões do estilo.",
   "ignorePressureAlwaysDescription": "Ignora a pressão e trata a caneta como totalmente pressionada.",
   "temporary": "Temporário",
   "simpleToolbarVisibility": "Visibilidade na barra de ferramentas simples",
@@ -1532,6 +1538,8 @@
   "persistentStateCleanup": "Limpar estados armazenados",
   "persistentStateCleanupDescription": "Excluir registros anteriores aos limites acima",
   "persistentStateCleanupInProgress": "Limpando...",
+  "persistentStateDefaultLocks": "Bloqueio padrão",
+  "persistentStateDefaultLocksDescription": "Aplicar estes bloqueios quando um documento não tiver estado salvo",
   "persistentStateCleanupFeedback": "{locations, plural, =1{Limpou 1 local de armazenamento} other{Limpou {locations} locais de armazenamento}} {records, plural, =1{removeu 1 registro} other{removeu {records} Registros}}",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1561,7 +1569,7 @@
   "persistentStateCurrentPageDescription": "Lembrar a página atual ao reabrir um arquivo",
   "persistentStateViewportDescription": "Lembrar posição e zoom do visualizador",
   "persistentStateSelectedToolDescription": "Lembrar a ferramenta selecionada quando reabrir um arquivo",
-  "persistentStateLocksDescription": "Lembrar bloqueios de camada e memoria ao reabrir um arquivo",
+  "persistentStateLocksDescription": "Lembrar configurações de bloqueio ao reabrir um arquivo",
   "persistentStateNavigatorDescription": "Lembrar o estado do navegador ao reabrir um arquivo",
   "persistentStateLayersDescription": "Lembrar o estado do painel ao reabrir um arquivo",
   "persistentStateAreasDescription": "Lembrar o estado do painel de área ao reabrir um arquivo",
@@ -1579,9 +1587,9 @@
   "navigationRailDescription": "Mostra uma barra de navegação permanente em telas amplas para acesso mais rápido a seções de aplicativos.",
   "optionsPanelPositionDescription": "Escolha se as opções da ferramenta serão exibidas acima ou abaixo da tela.",
   "simpleToolbarVisibilityDescription": "Controla quando a barra de ferramentas (toolbar) menor e simplificada aparece durante a edição de uma nota.",
-  "penOnlyInputDescription": "Impede marcas acidentais da sua mão ou do rato, escolhendo quando apenas a entrada de caneta pode desenhar.",
-  "showPenOnlyToggleDescription": "Exibe uma chave de caneta rápida no editor após a Butterfly detectar uma caneta.",
-  "ignorePressureDescription": "Controla se a pressão da caneta muda o golpe e funciona com leituras de pressão imprecisas de algumas canetas.",
+  "penOnlyInputDescription": "Impede marcas acidentais da mão ou do rato, escolhendo quando apenas a caneta pode desenhar.",
+  "showPenOnlyToggleDescription": "Exibe uma troca de estilo rápida no editor depois que a Borterfly detectar um estilo.",
+  "ignorePressureDescription": "Controla se a pressão do stylus muda o traço e funciona em torno de leituras de pressão imprecisas de alguns estilos.",
   "moveOnGestureDescription": "Permite que os gestos de vários toque movam a tela em vez de interagir com o conteúdo de notas.",
   "spreadPagesDescription": "Divide as importações multi-páginas em páginas de notas separadas, em vez de colocar tudo em uma página.",
   "shear": "Cortar"
