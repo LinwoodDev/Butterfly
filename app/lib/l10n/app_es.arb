@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Trazo",
   "label": "Etiqueta",
   "@label": {
     "description": "Label tool"
