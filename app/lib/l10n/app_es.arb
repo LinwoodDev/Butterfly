@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "Hace que el pandeo y el zooming se sienta más suave simplificando el lienzo mientras se mueve.",
   "edgePanAreaSwitchingDescription": "Cambia a un área vecina cuando te acercas al borde del lienzo.",
   "collaborationDescription": "Permite a varias personas editar la misma nota juntos en tiempo real.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Incluye mensajes de diagnóstico detallados en la vista de registro y en la consola. Estos mensajes pueden ayudar cuando se resuelve un problema.",
   "bringMovedElementsToFrontDescription": "Coloca un elemento sobre los elementos superpuestos después de moverlo.",
   "persistenceDocumentStatesDescription": "Controla qué partes de su espacio de trabajo recuerda por cada nota, como la página actual, el zoom y la herramienta seleccionada.",
