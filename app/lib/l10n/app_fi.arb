@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "Tekee panorointi ja zoomaus tuntuu sujuvammalta yksinkertaistamalla kankaalle kun se liikkuu.",
   "edgePanAreaSwitchingDescription": "Vaihtaa naapurialueelle, kun panet lähelle kankaan reunaa.",
   "collaborationDescription": "Mahdollistaa useamman henkilön muokata samaa merkintää reaaliajassa.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Sisältää yksityiskohtaiset diagnostiset viestit lokinäkymään ja konsoliin. Nämä viestit voivat auttaa vianetsinnässä.",
   "bringMovedElementsToFrontDescription": "Asettaa elementin päällekkäisten elementtien yläpuolelle sen siirtämisen jälkeen.",
   "persistenceDocumentStatesDescription": "Määrittää mitkä työtilan osat Butterfly muistaa kunkin muistiinpanon, kuten nykyinen sivu, zoomaus ja valittu työkalu.",
