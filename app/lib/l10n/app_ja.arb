@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "ストロークformat@@0",
   "label": "ラベル",
   "@label": {
     "description": "Label tool"
