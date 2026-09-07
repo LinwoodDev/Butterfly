@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "يجعل الإنحناء والتصوير يشعران بالسلاسة من خلال تبسيط الكانفا أثناء تحركه.",
   "edgePanAreaSwitchingDescription": "التبديل إلى منطقة مجاورة عندما تقرب من حافة الكانفاس.",
   "collaborationDescription": "يسمح لأشخاص متعددين بتحرير نفس الملاحظة معا في الوقت الحقيقي.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "يتضمن رسائل تشخيصية مفصلة في طريقة عرض السجل و وحدة التحكم. يمكن أن تساعد هذه الرسائل عند اكتشاف مشكلة ما.",
   "bringMovedElementsToFrontDescription": "يضع عنصرا فوق العناصر المتداخلة بعد نقله.",
   "persistenceDocumentStatesDescription": "يتحكم في أجزاء من مساحة العمل الخاصة بك تتذكر الفراشة لكل ملاحظة، مثل الصفحة الحالية، وتكبير، والأداة المحددة.",
