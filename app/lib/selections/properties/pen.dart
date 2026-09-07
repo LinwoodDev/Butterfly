@@ -47,7 +47,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
     ),
     TexturePaintField(
       value: property.paint,
-      title: Text(LeapLocalizations.of(context).color),
+      title: Text(AppLocalizations.of(context).stroke),
       onChanged: (paint) => onChanged(property.copyWith(paint: paint)),
     ),
     TexturePaintField(

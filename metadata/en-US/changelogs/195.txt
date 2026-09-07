@@ -9,6 +9,8 @@
 * Improve baking performance by testing layer changes before baking
 * Improve eraser performance by clipping strokes directly at the eraser boundary
 * Improve eraser cursor display
+* Improve polygon hit testing performance for disjoint shapes
+* Improve responsiveness and clarity of texture paint fields
 * Fix sync dialog not opening current connection initially
 * Fix switching pages in embeds ([#1247](https://github.com/LinwoodDev/Butterfly/issues/1247))
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))
@@ -20,6 +22,5 @@
 * Fix documents got lost after app is moved to background on Android
 * Fix always saving settings without checking if they changed
 * Fix eraser input handling when pointer events overlap, fail, or finish while work is pending
-* Improve polygon hit testing performance for disjoint shapes
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0

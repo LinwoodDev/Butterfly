@@ -80,75 +80,100 @@ class TexturePaintField extends StatelessWidget {
 
     final color = value.realColor;
 
+    Widget paintKindPicker({required bool expanded}) {
+      return SegmentedButton<_PaintKind>(
+        showSelectedIcon: false,
+        expandedInsets: expanded ? EdgeInsets.zero : null,
+        segments: [
+          ButtonSegment(
+            value: _PaintKind.solid,
+            icon: const PhosphorIcon(PhosphorIconsLight.circle),
+            tooltip: loc.solidColor,
+          ),
+          ButtonSegment(
+            value: _PaintKind.image,
+            icon: const PhosphorIcon(PhosphorIconsLight.image),
+            tooltip: loc.image,
+          ),
+          ButtonSegment(
+            value: _PaintKind.svg,
+            icon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+            tooltip: loc.svg,
+          ),
+          ButtonSegment(
+            value: _PaintKind.gradient,
+            icon: const PhosphorIcon(PhosphorIconsLight.gradient),
+            tooltip: loc.gradient,
+          ),
+        ],
+        selected: {kind},
+        onSelectionChanged: (selection) {
+          final selected = selection.first;
+          final state = context.read<DocumentBloc>().state;
+          final background =
+              state.page?.backgrounds.firstOrNull?.defaultColor ??
+              SRGBColor.white;
+          final nextColor = color ?? getDefaultColor(background);
+
+          onChanged(switch (selected) {
+            _PaintKind.solid => ElementPaint.solid(
+              color: nextColor,
+              blur: value.blur,
+            ),
+            _PaintKind.gradient => switch (value) {
+              GradientElementPaint() => value,
+              _ => ElementPaint.gradient(
+                blur: value.blur,
+                gradient: ElementGradient.linear(
+                  stops: [
+                    ElementGradientStop(offset: 0, color: nextColor),
+                    ElementGradientStop(
+                      offset: 1,
+                      color: SRGBColor.white.withValues(a: nextColor.a),
+                    ),
+                  ],
+                ),
+              ),
+            },
+            _PaintKind.image => switch (value) {
+              ImageElementPaint() => value,
+              _ => ElementPaint.image(source: '', blur: value.blur),
+            },
+            _PaintKind.svg => switch (value) {
+              SvgElementPaint() => value,
+              _ => ElementPaint.svg(source: '', blur: value.blur),
+            },
+          });
+        },
+      );
+    }
+
     return Column(
       children: [
-        ListTile(
-          leading: const PhosphorIcon(PhosphorIconsLight.paintBrush),
-          title: title,
-          trailing: SegmentedButton<_PaintKind>(
-            showSelectedIcon: false,
-            segments: [
-              ButtonSegment(
-                value: _PaintKind.solid,
-                icon: const PhosphorIcon(PhosphorIconsLight.circle),
-                tooltip: loc.solidColor,
-              ),
-              ButtonSegment(
-                value: _PaintKind.image,
-                icon: const PhosphorIcon(PhosphorIconsLight.image),
-                tooltip: loc.image,
-              ),
-              ButtonSegment(
-                value: _PaintKind.svg,
-                icon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
-                tooltip: loc.svg,
-              ),
-              ButtonSegment(
-                value: _PaintKind.gradient,
-                icon: const PhosphorIcon(PhosphorIconsLight.gradient),
-                tooltip: loc.gradient,
-              ),
-            ],
-            selected: {kind},
-            onSelectionChanged: (selection) {
-              final selected = selection.first;
-              final state = context.read<DocumentBloc>().state;
-              final background =
-                  state.page?.backgrounds.firstOrNull?.defaultColor ??
-                  SRGBColor.white;
-              final nextColor = color ?? getDefaultColor(background);
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final compact = constraints.maxWidth < 480;
+            if (!compact) {
+              return ListTile(
+                leading: const PhosphorIcon(PhosphorIconsLight.paintBrush),
+                title: title,
+                trailing: paintKindPicker(expanded: false),
+              );
+            }
 
-              onChanged(switch (selected) {
-                _PaintKind.solid => ElementPaint.solid(
-                  color: nextColor,
-                  blur: value.blur,
+            return Column(
+              children: [
+                ListTile(
+                  leading: const PhosphorIcon(PhosphorIconsLight.paintBrush),
+                  title: title,
                 ),
-                _PaintKind.gradient => switch (value) {
-                  GradientElementPaint() => value,
-                  _ => ElementPaint.gradient(
-                    blur: value.blur,
-                    gradient: ElementGradient.linear(
-                      stops: [
-                        ElementGradientStop(offset: 0, color: nextColor),
-                        ElementGradientStop(
-                          offset: 1,
-                          color: SRGBColor.white.withValues(a: nextColor.a),
-                        ),
-                      ],
-                    ),
-                  ),
-                },
-                _PaintKind.image => switch (value) {
-                  ImageElementPaint() => value,
-                  _ => ElementPaint.image(source: '', blur: value.blur),
-                },
-                _PaintKind.svg => switch (value) {
-                  SvgElementPaint() => value,
-                  _ => ElementPaint.svg(source: '', blur: value.blur),
-                },
-              });
-            },
-          ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: paintKindPicker(expanded: true),
+                ),
+              ],
+            );
+          },
         ),
 
         if (value case GradientElementPaint(:final gradient))
