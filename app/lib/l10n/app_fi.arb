@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Aivohalvaus",
   "label": "Tunniste",
   "@label": {
     "description": "Label tool"
