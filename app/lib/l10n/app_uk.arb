@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Обведення",
   "label": "Мітка",
   "@label": {
     "description": "Label tool"
