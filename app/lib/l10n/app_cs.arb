@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "Zjednodušením plátna během pohybu panování a přiblížění se cítí plynulé.",
   "edgePanAreaSwitchingDescription": "Přepne do sousední oblasti, když se poblíž okraje plátna.",
   "collaborationDescription": "Umožňuje více lidí upravovat stejnou poznámku společně v reálném čase.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Obsahuje podrobné diagnostické zprávy v zobrazení logu a konzoli. Tyto zprávy mohou pomoci při řešení problému.",
   "bringMovedElementsToFrontDescription": "Umístí prvek nad překrývající se prvky po přesunutí prvku.",
   "persistenceDocumentStatesDescription": "Určuje, které části vašeho pracovního prostoru Butterfly si pamatují na každou poznámku, jako je aktuální stránka, zoom a vybraný nástroj.",
