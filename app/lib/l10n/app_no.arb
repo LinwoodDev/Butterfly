@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "Gjør at du panorerer og zoomer røyke ved å forenkle lerretet mens det beveger seg.",
   "edgePanAreaSwitchingDescription": "Bytter til et naboområde når du panorerer nær kanten av lerretet.",
   "collaborationDescription": "Lar flere personer redigere det samme notatet sammen i sanntid.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Inneholder detaljerte diagnose-meldinger i loggvisningen og konsollen. Disse meldingene kan hjelpe når du feilsøker et problem.",
   "bringMovedElementsToFrontDescription": "Plasserer et element over overlappende elementer etter at du har flyttet det.",
   "persistenceDocumentStatesDescription": "Kontrollerer hvilke deler av arbeidsområdet som husker det for hvert notat, for eksempel gjeldende side, zoom og valgt verktøy.",
