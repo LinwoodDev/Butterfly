@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Εγκεφαλικό",
   "label": "Ετικέτα",
   "@label": {
     "description": "Label tool"
