@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "移動中のキャンバスを簡素化することで、パンニングとズームがスムーズになります。",
   "edgePanAreaSwitchingDescription": "キャンバスの端に近い位置にパンすると、隣のエリアに切り替わります。",
   "collaborationDescription": "複数の人が同じノートをリアルタイムで編集できます。",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "詳細な診断メッセージがログビューとコンソールに含まれています。これらのメッセージは問題のトラブルシューティングに役立ちます。",
   "bringMovedElementsToFrontDescription": "要素を移動させた後に、要素をオーバーラップする上に配置します。",
   "persistenceDocumentStatesDescription": "現在のページ、ズーム、選択したツールなど、各ノートのワークスペースのどの部分が記憶されるかを設定します。",
