@@ -1562,6 +1562,7 @@
   "smoothNavigationDescription": "Face să se simtă mai liniştite prin simplificarea pânzei în timp ce se mişcă.",
   "edgePanAreaSwitchingDescription": "Comută la o zonă vecină când urci lângă marginea pânzilor.",
   "collaborationDescription": "Permite mai multor persoane să editeze aceeași notă împreună în timp real.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Include mesaje detaliate de diagnosticare in vizualizarea jurnalului si consola. Aceste mesaje pot ajuta cand depanati o problema.",
   "bringMovedElementsToFrontDescription": "Plasează un element deasupra elementelor suprapuse după ce îl muți.",
   "persistenceDocumentStatesDescription": "Controlează ce părţi din spaţiul tău de lucru îşi aminteşte fluturaşul pentru fiecare notă, cum ar fi pagina curentă, zoom-ul şi unealta selectată.",
