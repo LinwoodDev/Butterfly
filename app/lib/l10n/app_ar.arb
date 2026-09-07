@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "جرة",
   "label": "التسمية",
   "@label": {
     "description": "Label tool"
