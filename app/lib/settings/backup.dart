@@ -38,20 +38,28 @@ Widget buildBackupSetting(BuildContext context, ButterflySettings state) {
                   .where((storage) => storage.identifier == selectedRemote)
                   .firstOrNull
                   ?.label ??
-              localizations.select,
+              (remotes.isEmpty
+                  ? localizations.noConnections
+                  : localizations.select),
         ),
-        trailing: PopupMenuButton<String>(
-          enabled: remotes.isNotEmpty,
-          icon: const PhosphorIcon(PhosphorIconsLight.caretDown),
-          itemBuilder: (context) => remotes
+        trailing: MenuAnchor(
+          menuChildren: remotes
               .map(
-                (storage) => PopupMenuItem(
-                  value: storage.identifier,
+                (storage) => MenuItemButton(
+                  onPressed: () =>
+                      settingsCubit.changeBackupRemote(storage.identifier),
                   child: Text(storage.label),
                 ),
               )
               .toList(),
-          onSelected: settingsCubit.changeBackupRemote,
+          builder: (context, controller, child) => IconButton(
+            onPressed: remotes.isEmpty
+                ? null
+                : () => controller.isOpen
+                      ? controller.close()
+                      : controller.open(),
+            icon: const PhosphorIcon(PhosphorIconsLight.caretDown),
+          ),
         ),
       ),
       SwitchListTile(

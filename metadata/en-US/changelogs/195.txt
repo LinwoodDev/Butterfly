@@ -11,6 +11,9 @@
 * Improve eraser cursor display
 * Improve polygon hit testing performance for disjoint shapes
 * Improve responsiveness and clarity of texture paint fields
+* Improve settings modal responsiveness
+* Improve backup connection selection
+* Rename the logs setting to verbose
 * Fix sync dialog not opening current connection initially
 * Fix switching pages in embeds ([#1247](https://github.com/LinwoodDev/Butterfly/issues/1247))
 * Fix importing WebP images ([#1240](https://github.com/LinwoodDev/Butterfly/issues/1240))

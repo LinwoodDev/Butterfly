@@ -83,7 +83,7 @@ class SettingsPage extends StatelessWidget {
         title: (context) => AppLocalizations.of(context).settings,
         searchHint: (context) => AppLocalizations.of(context).search,
         isDialog: inView,
-        compactWidth: LeapBreakpoints.compact,
+        compactWidth: inView ? 800 : LeapBreakpoints.compact,
         onOpenPage: inView
             ? null
             : (context, id, page, focusedId) {

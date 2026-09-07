@@ -13,7 +13,7 @@ final _logsSettingsPage = SettingsLeapPage<ButterflySettings>(
     'content': SettingsLeapSection(
       settings: [
         SettingsLeapBoolSetting(
-          displayName: (context) => AppLocalizations.of(context).logs,
+          displayName: (context) => AppLocalizations.of(context).verbose,
           hintBuilder: (context) =>
               AppLocalizations.of(context).showVerboseLogsDescription,
           read: (state) => state.showVerboseLogs,
