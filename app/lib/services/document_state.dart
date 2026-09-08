@@ -20,6 +20,8 @@ class DocumentStateService {
   DocumentStatePersistenceSettings get _settings =>
       settingsProvider?.call() ?? const DocumentStatePersistenceSettings();
 
+  bool get persistCamera => _settings.enabled && _settings.camera;
+
   Future<PersistedDocumentState?> load({
     String? contentHash,
     String? pathKey,
@@ -214,6 +216,7 @@ class DocumentStateService {
     return state.copyWith(
       pageName: settings.page ? state.pageName : existing.pageName,
       camera: settings.camera ? state.camera : existing.camera,
+      pageCameras: settings.camera ? state.pageCameras : existing.pageCameras,
       locks: settings.locks ? state.locks : existing.locks,
       selectedTool: settings.tool ? state.selectedTool : existing.selectedTool,
       navigator: settings.navigator ? state.navigator : existing.navigator,
@@ -230,6 +233,12 @@ class DocumentStateService {
   ) => state.copyWith(
     pageName: settings.page ? state.pageName : null,
     camera: settings.camera ? state.camera : const PersistedCameraState(),
+    pageCameras: settings.camera
+        ? {
+            if (state.pageName != null) state.pageName!: state.camera,
+            ...state.pageCameras,
+          }
+        : const {},
     locks: settings.locks ? state.locks : settings.defaultLocks,
     selectedTool: settings.tool
         ? state.selectedTool

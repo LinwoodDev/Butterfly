@@ -1,3 +1,4 @@
+* Add per-page viewport persistence
 * Add table cell range selection with shared formatting controls
 * Improve table selection, deselection, and border resizing behavior
 

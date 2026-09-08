@@ -101,45 +101,53 @@ Map<String, dynamic> _$PersistedAreaNavigatorStateToJson(
   'ask': instance.ask,
 };
 
-_PersistedDocumentState _$PersistedDocumentStateFromJson(Map json) =>
-    _PersistedDocumentState(
-      version:
-          (json['version'] as num?)?.toInt() ?? kPersistedDocumentStateVersion,
-      pageName: json['pageName'] as String?,
-      camera: json['camera'] == null
-          ? const PersistedCameraState()
-          : PersistedCameraState.fromJson(
-              Map<String, dynamic>.from(json['camera'] as Map),
-            ),
-      locks: json['locks'] == null
-          ? const PersistentLockState()
-          : PersistentLockState.fromJson(
-              Map<String, dynamic>.from(json['locks'] as Map),
-            ),
-      selectedTool: json['selectedTool'] == null
-          ? const PersistedToolSelection()
-          : PersistedToolSelection.fromJson(
-              Map<String, dynamic>.from(json['selectedTool'] as Map),
-            ),
-      navigator: json['navigator'] == null
-          ? const PersistedNavigatorState()
-          : PersistedNavigatorState.fromJson(
-              Map<String, dynamic>.from(json['navigator'] as Map),
-            ),
-      layers: json['layers'] == null
-          ? const PersistedLayerState()
-          : PersistedLayerState.fromJson(
-              Map<String, dynamic>.from(json['layers'] as Map),
-            ),
-      areaNavigator: json['areaNavigator'] == null
-          ? const PersistedAreaNavigatorState()
-          : PersistedAreaNavigatorState.fromJson(
-              Map<String, dynamic>.from(json['areaNavigator'] as Map),
-            ),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-    );
+_PersistedDocumentState _$PersistedDocumentStateFromJson(
+  Map json,
+) => _PersistedDocumentState(
+  version: (json['version'] as num?)?.toInt() ?? kPersistedDocumentStateVersion,
+  pageName: json['pageName'] as String?,
+  camera: json['camera'] == null
+      ? const PersistedCameraState()
+      : PersistedCameraState.fromJson(
+          Map<String, dynamic>.from(json['camera'] as Map),
+        ),
+  pageCameras:
+      (json['pageCameras'] as Map?)?.map(
+        (k, e) => MapEntry(
+          k as String,
+          PersistedCameraState.fromJson(Map<String, dynamic>.from(e as Map)),
+        ),
+      ) ??
+      const {},
+  locks: json['locks'] == null
+      ? const PersistentLockState()
+      : PersistentLockState.fromJson(
+          Map<String, dynamic>.from(json['locks'] as Map),
+        ),
+  selectedTool: json['selectedTool'] == null
+      ? const PersistedToolSelection()
+      : PersistedToolSelection.fromJson(
+          Map<String, dynamic>.from(json['selectedTool'] as Map),
+        ),
+  navigator: json['navigator'] == null
+      ? const PersistedNavigatorState()
+      : PersistedNavigatorState.fromJson(
+          Map<String, dynamic>.from(json['navigator'] as Map),
+        ),
+  layers: json['layers'] == null
+      ? const PersistedLayerState()
+      : PersistedLayerState.fromJson(
+          Map<String, dynamic>.from(json['layers'] as Map),
+        ),
+  areaNavigator: json['areaNavigator'] == null
+      ? const PersistedAreaNavigatorState()
+      : PersistedAreaNavigatorState.fromJson(
+          Map<String, dynamic>.from(json['areaNavigator'] as Map),
+        ),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
+);
 
 Map<String, dynamic> _$PersistedDocumentStateToJson(
   _PersistedDocumentState instance,
@@ -147,6 +155,7 @@ Map<String, dynamic> _$PersistedDocumentStateToJson(
   'version': instance.version,
   'pageName': instance.pageName,
   'camera': instance.camera.toJson(),
+  'pageCameras': instance.pageCameras.map((k, e) => MapEntry(k, e.toJson())),
   'locks': instance.locks.toJson(),
   'selectedTool': instance.selectedTool.toJson(),
   'navigator': instance.navigator.toJson(),

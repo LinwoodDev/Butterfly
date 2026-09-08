@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Controls which parts of your workspace Butterfly remembers for each note, such as the current page, zoom, and selected tool.",
   "persistentStatesEnabledDescription": "Store document state information between app sessions",
   "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
-  "persistentStateViewportDescription": "Remember the viewport position and zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
   "persistentStateLocksDescription": "Remember lock settings when reopening a file",
   "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",

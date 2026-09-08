@@ -68,6 +68,20 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
       pathKey: pathKey,
       contentHash: contentHash,
       pageName: pageName,
+      camera:
+          restored?.pageCameras[pageName] ??
+          (restored?.pageName == pageName ? restored?.camera : null) ??
+          const PersistedCameraState(),
+      pageCameras: {
+        if (restored?.pageName != null && pages.contains(restored!.pageName))
+          restored.pageName!: restored.camera,
+        ...Map.fromEntries(
+          restored?.pageCameras.entries.where(
+                (entry) => pages.contains(entry.key),
+              ) ??
+              const <MapEntry<String, PersistedCameraState>>[],
+        ),
+      },
       layers: (restored?.layers ?? const PersistedLayerState()).copyWith(
         currentLayer: currentLayer,
         invisibleLayers: invisibleLayers,
@@ -103,6 +117,8 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
       NavigatorPage.waypoints;
 
   void _onTransformChanged(CameraTransform transform) {
+    // Ignore events queued before the current camera was restored.
+    if (transform != _transformCubit.state) return;
     final camera = PersistedCameraState(
       positionX: transform.position.dx,
       positionY: transform.position.dy,
@@ -110,13 +126,58 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
       rotation: transform.rotation,
     );
     if (state.camera == camera) return;
-    emit(state.copyWith(camera: camera));
+    emit(
+      state.copyWith(
+        camera: camera,
+        pageCameras: {
+          ...state.pageCameras,
+          if (state.pageName != null) state.pageName!: camera,
+        },
+      ),
+    );
     _dirty = true;
   }
 
   void updatePage(String pageName) {
     if (state.pageName == pageName) return;
-    emit(state.copyWith(pageName: pageName));
+    _onTransformChanged(_transformCubit.state);
+    final camera = service.persistCamera
+        ? state.pageCameras[pageName] ?? const PersistedCameraState()
+        : const PersistedCameraState();
+    emit(
+      state.copyWith(
+        pageName: pageName,
+        camera: camera,
+        pageCameras: {
+          ...state.pageCameras,
+          if (state.pageName != null) state.pageName!: state.camera,
+        },
+      ),
+    );
+    _transformCubit.teleport(
+      Offset(camera.positionX, camera.positionY),
+      camera.zoom,
+      camera.rotation,
+    );
+    _dirty = true;
+  }
+
+  void renamePages(Map<String, String> names) {
+    _onTransformChanged(_transformCubit.state);
+    emit(
+      state.copyWith(
+        pageName: names[state.pageName] ?? state.pageName,
+        pageCameras: {
+          for (final entry in state.pageCameras.entries)
+            names[entry.key] ?? entry.key: entry.value,
+        },
+      ),
+    );
+    _dirty = true;
+  }
+
+  void removePage(String pageName) {
+    emit(state.copyWith(pageCameras: {...state.pageCameras}..remove(pageName)));
     _dirty = true;
   }
 
@@ -186,6 +247,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   }
 
   Future<void> saveNow({String? pathKey, String? contentHash}) async {
+    _onTransformChanged(_transformCubit.state);
     final persistentChanged = _dirty;
     _saveDebounce?.cancel();
     _saveDebounce = null;

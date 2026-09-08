@@ -351,20 +351,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
         reset: true,
       );
-      editorController.editorSessionCubit?.updatePage(event.pageName);
     }, transformer: restartable());
     on<PageReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       var newPageName = current.pageName;
+      final renamedPages = <String, String>{};
       final newData = current.data.reorderPage(event.page, event.newIndex, (
         oldName,
         newName,
       ) {
-        if (newPageName == oldName) {
+        renamedPages[oldName] = newName;
+        if (current.pageName == oldName) {
           newPageName = newName;
         }
       });
+      editorController.editorSessionCubit?.renamePages(renamedPages);
       _saveState(
         emit,
         state: current.copyWith(data: newData, pageName: newPageName),
@@ -377,6 +379,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         event.oldName,
         event.newName,
       );
+      editorController.editorSessionCubit?.renamePages({
+        event.oldName: newPageName,
+      });
       final updatedCurrentPageName = current.pageName == event.oldName
           ? newPageName
           : current.pageName;
@@ -422,6 +427,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
         reset: pageChanged,
       );
+      editorController.editorSessionCubit?.removePage(event.page);
     });
     on<ThumbnailCaptured>((event, emit) {
       final current = state;
@@ -1755,6 +1761,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ? this.state as DocumentLoadSuccess
         : null;
     state ??= this.state as DocumentLoadSuccess;
+    if (oldState != null && oldState.pageName != state.pageName) {
+      final session = editorController.editorSessionCubit;
+      if (session != null) {
+        session.updatePage(state.pageName);
+      } else if (reset) {
+        editorController.transformCubit.reset();
+      }
+    }
     emit(state);
     return editorController.stateChanged(
       state,

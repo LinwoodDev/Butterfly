@@ -28,6 +28,39 @@ void main() {
       expect(state.navigator.page, NavigatorPage.waypoints.name);
     });
 
+    test('initial camera belongs to the selected page', () {
+      final (document, pageName) = NoteData(Archive())
+          .setPage(const DocumentPage(), 'First');
+      const savedCamera = PersistedCameraState(positionX: 42, zoom: 2);
+      PersistedDocumentState initial(PersistedDocumentState restored) =>
+          EditorSessionCubit.buildInitial(
+            restored: restored,
+            document: document,
+            page: const DocumentPage(),
+            fallbackPageName: pageName,
+            fallbackLocks: const PersistentLockState(),
+          );
+      expect(
+        initial(PersistedDocumentState(pageName: pageName, camera: savedCamera))
+            .camera,
+        savedCamera,
+      );
+      expect(
+        initial(
+          const PersistedDocumentState(
+            pageName: 'Missing',
+            camera: savedCamera,
+          ),
+        ).camera,
+        const PersistedCameraState(),
+      );
+      expect(
+        initial(PersistedDocumentState(pageCameras: {pageName: savedCamera}))
+            .camera,
+        savedCamera,
+      );
+    });
+
     test('new sessions use configured default locks', () {
       var document = NoteData(Archive());
       final result = document.setPage(const DocumentPage(), 'Page 1');
@@ -205,6 +238,73 @@ void main() {
       expect(await fileSystem.getFile('path/a'), isNull);
       expect(await fileSystem.getFile('path/b'), isNotNull);
       expect(await fileSystem.getFile('path/c'), isNotNull);
+    });
+
+    test('restores each page camera after switching and reopening', () async {
+      final transform = TransformCubit(1);
+      final service = DocumentStateService(fileSystem);
+      final session = EditorSessionCubit(
+        service: service,
+        transformCubit: transform,
+        initialState: const PersistedDocumentState(pageName: 'First'),
+        pathKey: 'path/pages',
+      );
+      transform.teleport(const Offset(120, 240), 2, 0.5);
+      session.updatePage('Second');
+      expect(transform.state.position, Offset.zero);
+      expect(transform.state.size, 1);
+      transform.teleport(const Offset(30, 40), 3, 0.25);
+      session.updatePage('First');
+      await Future<void>.delayed(Duration.zero);
+      expect(transform.state.position, const Offset(120, 240));
+      expect(transform.state.size, 2);
+      expect(transform.state.rotation, 0.5);
+      await session.saveNow();
+      final saved = (await service.load(pathKey: 'path/pages'))!;
+      final decoded = decodePersistedDocumentState(
+        encodePersistedDocumentState(saved),
+      );
+      await session.close();
+      await transform.close();
+
+      final reopenedTransform = TransformCubit(1)
+        ..teleport(const Offset(120, 240), 2, 0.5);
+      final reopened = EditorSessionCubit(
+        service: service,
+        transformCubit: reopenedTransform,
+        initialState: decoded,
+      );
+      reopened.updatePage('Second');
+      expect(reopenedTransform.state.position, const Offset(30, 40));
+      expect(reopenedTransform.state.size, 3);
+      expect(reopenedTransform.state.rotation, 0.25);
+      reopened.renamePages({'First': 'Renamed'});
+      reopened.updatePage('Renamed');
+      expect(reopenedTransform.state.position, const Offset(120, 240));
+      reopened.removePage('Second');
+      reopened.updatePage('Second');
+      expect(reopenedTransform.state.position, Offset.zero);
+      await reopened.close();
+      await reopenedTransform.close();
+    });
+
+    test('disabled viewport persistence switches to origin', () async {
+      final transform = TransformCubit(1);
+      final session = EditorSessionCubit(
+        service: DocumentStateService(
+          fileSystem,
+          settingsProvider: () =>
+              const DocumentStatePersistenceSettings(camera: false),
+        ),
+        transformCubit: transform,
+        initialState: const PersistedDocumentState(pageName: 'First'),
+      );
+      transform.teleport(const Offset(120, 240));
+      session.updatePage('Second');
+      session.updatePage('First');
+      expect(transform.state.position, Offset.zero);
+      await session.close();
+      await transform.close();
     });
 
     test('writes session state to content and path keys', () async {

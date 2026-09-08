@@ -124,6 +124,7 @@ sealed class PersistedDocumentState with _$PersistedDocumentState {
     @JsonKey(includeFromJson: false, includeToJson: false) String? contentHash,
     String? pageName,
     @Default(PersistedCameraState()) PersistedCameraState camera,
+    @Default({}) Map<String, PersistedCameraState> pageCameras,
     @Default(PersistentLockState()) PersistentLockState locks,
     @Default(PersistedToolSelection()) PersistedToolSelection selectedTool,
     @Default(PersistedNavigatorState()) PersistedNavigatorState navigator,
