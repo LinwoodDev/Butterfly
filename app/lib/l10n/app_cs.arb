@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Určuje, které části vašeho pracovního prostoru Butterfly si pamatují na každou poznámku, jako je aktuální stránka, zoom a vybraný nástroj.",
   "persistentStatesEnabledDescription": "Ukládat informace o stavu dokumentu mezi relacemi aplikací",
   "persistentStateCurrentPageDescription": "Zapamatovat si aktuální stránku při opětovném otevření souboru",
-  "persistentStateViewportDescription": "Pamatovat si pozici zobrazení a přiblížení",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Zapamatovat si vybraný nástroj při opětovném otevření souboru",
   "persistentStateLocksDescription": "Zapamatovat si nastavení zámku při opětovném otevření souboru",
   "persistentStateNavigatorDescription": "Zapamatovat si stav navigátoru při opětovném otevření souboru",
