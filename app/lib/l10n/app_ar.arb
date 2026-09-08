@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "يتحكم في أجزاء من مساحة العمل الخاصة بك تتذكر الفراشة لكل ملاحظة، مثل الصفحة الحالية، وتكبير، والأداة المحددة.",
   "persistentStatesEnabledDescription": "تخزين معلومات حالة المستند بين جلسات التطبيق",
   "persistentStateCurrentPageDescription": "تذكر الصفحة الحالية عند إعادة فتح ملف",
-  "persistentStateViewportDescription": "تذكر موضع العرض وتكبيره",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "تذكر الأداة المحددة عند إعادة فتح ملف",
   "persistentStateLocksDescription": "تذكر إعدادات القفل عند إعادة فتح ملف",
   "persistentStateNavigatorDescription": "تذكر حالة التنقل عند إعادة فتح الملف",
