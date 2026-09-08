@@ -5,6 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('resize cursor follows viewport rotation', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(100, 100, 300, 200))
+      ..updateCurrentPosition(const Offset(100, 200));
+    for (final (angle, cursor) in [
+      (0.0, SystemMouseCursors.resizeLeftRight),
+      (pi / 4, SystemMouseCursors.resizeUpLeftDownRight),
+      (pi / 2, SystemMouseCursors.resizeUpDown),
+      (-pi / 4, SystemMouseCursors.resizeUpRightDownLeft),
+    ]) {
+      manager.updateCursor(1, 1, angle);
+      expect(manager.cursor, cursor);
+    }
+  });
+
   test('tiny selections keep a usable interaction target', () {
     final manager = RectSelectionForegroundManager()
       ..select(const Rect.fromLTWH(10, 10, 2, 2));

@@ -5,6 +5,7 @@ class LabelHandler extends Handler<LabelTool>
   LabelContext? _context;
   DocumentBloc? _bloc;
   String? _editingElementId;
+  Offset? _textAnchor;
   bool _isSelecting = false;
   TextRange _composing = TextRange.empty;
 
@@ -22,6 +23,7 @@ class LabelHandler extends Handler<LabelTool>
     ButterflyFileSystem fileSystem, {
     Point<double>? position,
     double zoom = 1,
+    double rotation = 0,
     LabelElement? element,
   }) async {
     final scale = (data.zoomDependent ? 1 / zoom : 1.0) * data.scale;
@@ -46,6 +48,7 @@ class LabelHandler extends Handler<LabelTool>
                   ? null
                   : TextElement(
                       position: position,
+                      rotation: rotation,
                       area: text.TextArea(
                         paragraph: text.TextParagraph(
                           property:
@@ -70,6 +73,7 @@ class LabelHandler extends Handler<LabelTool>
                   ? null
                   : MarkdownElement(
                       position: position,
+                      rotation: rotation,
                       text: '',
                       styleSheet: styleSheet,
                       scale: scale,
@@ -114,11 +118,12 @@ class LabelHandler extends Handler<LabelTool>
     final globalPos = context.getCameraTransform().localToGlobal(
       details.localFocalPoint,
     );
-    final hit = hitRect?.contains(globalPos) ?? false;
+    final labelPos = _context?.toLocalPosition(globalPos) ?? globalPos;
+    final hit = hitRect?.contains(labelPos) ?? false;
     _isSelecting = hit;
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(
-        globalPos - Offset(hitRect!.left, hitRect.top),
+        labelPos - Offset(hitRect!.left, hitRect.top),
       );
       _context = _context!.copyWith(
         selection: TextSelection.collapsed(offset: position.offset),
@@ -137,7 +142,8 @@ class LabelHandler extends Handler<LabelTool>
     );
     if (hitRect != null) {
       final position = _context!.textPainter.getPositionForOffset(
-        globalPos - Offset(hitRect.left, hitRect.top),
+        _context!.toLocalPosition(globalPos) -
+            Offset(hitRect.left, hitRect.top),
       );
       _context = _context!.copyWith(
         selection: TextSelection(
@@ -187,7 +193,8 @@ class LabelHandler extends Handler<LabelTool>
     final focusNode = Focus.of(context.buildContext);
     final globalPos = context.getCameraTransform().localToGlobal(localPosition);
     final hitRect = _context?.getRect();
-    final hit = hitRect?.contains(globalPos) ?? false;
+    final labelPos = _context?.toLocalPosition(globalPos) ?? globalPos;
+    final hit = hitRect?.contains(labelPos) ?? false;
     FocusScope.of(context.buildContext).requestFocus(focusNode);
     final theme = Theme.of(context.buildContext);
     final style = theme.textTheme.bodyLarge!;
@@ -206,16 +213,22 @@ class LabelHandler extends Handler<LabelTool>
           .whereType<Renderer<LabelElement>>()
           .firstOrNull;
       if (labelRenderer == null) {
+        _textAnchor = globalPos;
         _context = await _createContext(
           document,
           fileSystem,
           position: globalPos.toPoint(),
           zoom: context.getCameraTransform().size,
+          rotation: -context.getCameraTransform().rotation * 180 / pi,
         );
       } else {
         final id = (labelRenderer.element as PadElement).id;
         if (id == null) return;
         _editingElementId = id;
+        final bounds = labelRenderer.rect;
+        _textAnchor = bounds == null
+            ? globalPos
+            : labelRenderer.transformPoint(bounds.topLeft);
         _context = await _createContext(
           document,
           fileSystem,
@@ -225,7 +238,7 @@ class LabelHandler extends Handler<LabelTool>
     }
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(
-        globalPos - Offset(hitRect!.left, hitRect.top),
+        labelPos - Offset(hitRect!.left, hitRect.top),
       );
       _context = _context!.copyWith(
         selection: TextSelection.collapsed(offset: position.offset),
@@ -265,6 +278,7 @@ class LabelHandler extends Handler<LabelTool>
     _bloc = context.getDocumentBloc();
     _connection!.show();
     _refreshToolbar(_bloc!);
+    await _layoutText(context.getDocumentBloc());
     context.refresh();
   }
 
@@ -499,13 +513,18 @@ class LabelHandler extends Handler<LabelTool>
           Rect.zero,
         ) ??
         Offset.zero;
-    newPosition += Point(0, caret.dy);
+    newPosition = _context!
+        .toGlobalPosition(element.position.toOffset() + Offset(0, caret.dy))
+        .toPoint();
     _submit(bloc);
+    _textAnchor = newPosition.toOffset();
     _context = await _createContext(
       state.data,
       state.fileSystem,
       position: newPosition,
+      rotation: oldContext.rotation,
     );
+    await _layoutText(bloc);
     bloc.refresh();
   }
 
@@ -606,9 +625,33 @@ class LabelHandler extends Handler<LabelTool>
           selection: selection,
         );
     }
+    if (_bloc != null) await _layoutText(_bloc!);
     await _bloc?.refresh();
     if (_bloc != null) await _refreshToolbar(_bloc!);
     if (!replace) _updateEditingState();
+  }
+
+  Future<void> _layoutText(DocumentBloc bloc) async {
+    final context = _context;
+    final anchor = _textAnchor;
+    final state = bloc.state;
+    if (context == null ||
+        context.element == null ||
+        anchor == null ||
+        state is! DocumentLoaded) {
+      return;
+    }
+    final renderer = switch (context) {
+      TextContext e => TextRenderer(e.element!, null, e) as GenericTextRenderer,
+      MarkdownContext e => MarkdownRenderer(e.element!, null, e),
+    };
+    await renderer.setup(
+      bloc.editorController.transformCubit,
+      state.data,
+      state.assetService,
+      state.page,
+    );
+    if (identical(_context, context)) _context = context.withTextAnchor(anchor);
   }
 
   @override

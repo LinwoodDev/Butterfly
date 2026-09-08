@@ -94,6 +94,7 @@ abstract class PastingHandler<T> extends Handler<T> {
   Offset? _firstPos;
   Offset? _secondPos;
   Offset? _hoverPos;
+  double _creationRotation = 0;
   Future<void>? _prepareFuture;
   bool _aspectRatio = false, _center = false;
   String _currentCollection = '';
@@ -114,10 +115,12 @@ abstract class PastingHandler<T> extends Handler<T> {
     if (_firstPos != null && _secondPos != null)
       ...getTransformed(editorController).map((e) => Renderer.fromInstance(e)),
     if (_firstPos == null && showHoverPreview && _hoverPos != null)
-      ...transformElements(
-        Rect.fromPoints(_hoverPos!, _hoverPos!),
-        _currentCollection,
-        editorController,
+      ..._orientElements(
+        transformElements(
+          Rect.fromPoints(_hoverPos!, _hoverPos!),
+          _currentCollection,
+          editorController,
+        ),
       ).map(Renderer.fromInstance),
   ];
 
@@ -188,8 +191,14 @@ abstract class PastingHandler<T> extends Handler<T> {
       left -= width * horizontalDirection;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
-    return transformElements(rect, _currentCollection, cubit);
+    return _orientElements(transformElements(rect, _currentCollection, cubit));
   }
+
+  // Construct in viewport-aligned axes, then rotate the whole result back into
+  // document space. This also preserves the layout of multi-element stamps.
+  List<PadElement> _orientElements(List<PadElement> elements) => elements
+      .map((element) => orientCreatedElement(element, _creationRotation))
+      .toList();
 
   Offset _getGlobalPosition(Offset localPosition, EventContext context) {
     final transform = context.getCameraTransform();
@@ -213,9 +222,12 @@ abstract class PastingHandler<T> extends Handler<T> {
     _startedDrawing = true;
     final globalPos = _getGlobalPosition(localPosition, context);
     if (!context.getDocumentBloc().isInBounds(globalPos)) return;
-    if (first) _firstPos = globalPos;
+    if (first) {
+      _creationRotation = context.getCameraTransform().rotation;
+      _firstPos = globalPos.rotate(Offset.zero, _creationRotation);
+    }
     if (!first && _firstPos == null) return;
-    _secondPos = globalPos;
+    _secondPos = globalPos.rotate(Offset.zero, _creationRotation);
     _hoverPos = null;
     _aspectRatio = context.isShiftPressed;
     _center = context.isAltPressed ^ drawFromCenter;
@@ -227,7 +239,11 @@ abstract class PastingHandler<T> extends Handler<T> {
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     if (!showHoverPreview) return;
-    _hoverPos = _getGlobalPosition(event.localPosition, context);
+    _creationRotation = context.getCameraTransform().rotation;
+    _hoverPos = _getGlobalPosition(
+      event.localPosition,
+      context,
+    ).rotate(Offset.zero, _creationRotation);
     _currentCollection = context.getState()?.currentCollection ?? '';
     unawaited(_preparePaste(context).then((_) => context.refreshForegrounds()));
     context.refreshForegrounds();
@@ -325,4 +341,18 @@ mixin PointerManipulationHandler<T> on Handler<T> {
               handler.getPointerPosition(pos, viewportSize, transform),
         );
   }
+}
+
+/// Converts viewport-aligned creation geometry into document coordinates.
+PadElement orientCreatedElement(PadElement element, double viewportRotation) {
+  if (viewportRotation == 0) return element;
+  final renderer = Renderer.fromInstance(element);
+  final center = renderer.rect?.center ?? Offset.zero;
+  return renderer
+          .transform(
+            position: center.rotate(Offset.zero, -viewportRotation) - center,
+            rotation: -viewportRotation * 180 / pi,
+          )
+          ?.element ??
+      element;
 }

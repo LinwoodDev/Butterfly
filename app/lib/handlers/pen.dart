@@ -285,6 +285,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     }
 
     final transform = context.getCameraTransform();
+    final creationTransform = CameraTransform(
+      transform.pixelRatio,
+      transform.position.rotate(Offset.zero, transform.rotation),
+      transform.size,
+    );
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
     final state = context.getState();
@@ -305,10 +310,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         Point<double> secondPosition = Point(endX, endY);
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView = transform.localToGlobal(
+        Offset firstPositionInView = creationTransform.localToGlobal(
           firstPosition.toOffset(),
         );
-        Offset secondPositionInView = transform.localToGlobal(
+        Offset secondPositionInView = creationTransform.localToGlobal(
           secondPosition.toOffset(),
         );
 
@@ -350,10 +355,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         );
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView = transform.localToGlobal(
+        Offset firstPositionInView = creationTransform.localToGlobal(
           firstPosition.toOffset(),
         );
-        Offset secondPositionInView = transform.localToGlobal(
+        Offset secondPositionInView = creationTransform.localToGlobal(
           secondPosition.toOffset(),
         );
 
@@ -382,10 +387,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         Point<double> secondPosition = Point(maxX, maxY);
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView = transform.localToGlobal(
+        Offset firstPositionInView = creationTransform.localToGlobal(
           firstPosition.toOffset(),
         );
-        Offset secondPositionInView = transform.localToGlobal(
+        Offset secondPositionInView = creationTransform.localToGlobal(
           secondPosition.toOffset(),
         );
 
@@ -411,10 +416,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         Point<double> secondPosition = Point(maxX, maxY);
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView = transform.localToGlobal(
+        Offset firstPositionInView = creationTransform.localToGlobal(
           firstPosition.toOffset(),
         );
-        Offset secondPositionInView = transform.localToGlobal(
+        Offset secondPositionInView = creationTransform.localToGlobal(
           secondPosition.toOffset(),
         );
 
@@ -434,7 +439,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     }
     if (shapeElement != null) {
       // Add element on document
-      context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+      context.getDocumentBloc().add(
+        ElementsCreated([
+          orientCreatedElement(shapeElement, transform.rotation),
+        ]),
+      );
 
       elements.clear();
       context.refresh();

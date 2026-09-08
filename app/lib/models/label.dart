@@ -134,6 +134,53 @@ sealed class LabelContext with _$LabelContext {
     );
   }
 
+  double get rotation => (labelElement as PadElement?)?.rotation ?? 0;
+  double get shear => (labelElement as PadElement?)?.shear ?? 0;
+
+  Offset toGlobalPosition(Offset position) {
+    final bounds = getRect();
+    if (bounds == null) return position;
+    final delta = position - bounds.center;
+    final x = delta.dx + delta.dy * shear;
+    final angle = rotation * pi / 180;
+    return bounds.center +
+        Offset(
+          x * cos(angle) - delta.dy * sin(angle),
+          x * sin(angle) + delta.dy * cos(angle),
+        );
+  }
+
+  /// Preserve the rendered text origin when layout changes its rotation pivot.
+  LabelContext withTextAnchor(Offset anchor) {
+    final bounds = getRect();
+    if (bounds == null) return this;
+    final delta = anchor - toGlobalPosition(bounds.topLeft);
+    return switch (this) {
+      TextContext context => context.copyWith(
+        element: context.element?.copyWith(
+          position: Point(bounds.left + delta.dx, bounds.top + delta.dy),
+        ),
+      ),
+      MarkdownContext context => context.copyWith(
+        element: context.element?.copyWith(
+          position: Point(bounds.left + delta.dx, bounds.top + delta.dy),
+        ),
+      ),
+    };
+  }
+
+  /// Undo the element transform before text hit testing and caret selection.
+  Offset toLocalPosition(Offset position) {
+    final bounds = getRect();
+    final element = labelElement;
+    if (bounds == null || element == null) return position;
+    final delta = position - bounds.center;
+    final angle = rotation * pi / 180;
+    final x = delta.dx * cos(angle) + delta.dy * sin(angle);
+    final y = -delta.dx * sin(angle) + delta.dy * cos(angle);
+    return bounds.center + Offset(x - y * shear, y);
+  }
+
   int nextWordIndex(int index) {
     if (text == null) return 0;
     return text!.substring(index).indexOf(RegExp(r'\w')) + index;

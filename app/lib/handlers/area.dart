@@ -116,6 +116,7 @@ class AreaHandler extends Handler<AreaTool> {
     _selectionManager.updateCursor(
       transform.size,
       context.getSettings().touchSensitivity,
+      transform.rotation,
     );
     context.refreshForegrounds();
   }

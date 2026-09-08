@@ -9,12 +9,13 @@ Rect _getRulerRect(
   Offset position, [
   CameraTransform transform = const CameraTransform(),
 ]) {
-  return Rect.fromLTWH(
-    transform.position.dx + (position.dx - size.width / 2) / transform.size,
-    transform.position.dy +
-        (size.height / 2 + -ruler.size / 2 + position.dy) / transform.size,
-    size.width * 2 / transform.size,
-    ruler.size / transform.size,
+  return transform.localToGlobalRect(
+    Rect.fromLTWH(
+      position.dx - size.width / 2,
+      size.height / 2 - ruler.size / 2 + position.dy,
+      size.width * 2,
+      ruler.size.toDouble(),
+    ),
   );
 }
 
@@ -235,6 +236,7 @@ class RulerRenderer extends Renderer<RulerTool> {
     canvas.save();
     canvas.translate(transform.position.dx, transform.position.dy);
     canvas.scale(1 / transform.size, 1 / transform.size);
+    canvas.rotate(-transform.rotation);
     var rulerRect = _getRulerRect(element, size, position);
     final rulerCenter = rulerRect.center;
     canvas.translate(rulerCenter.dx, rulerCenter.dy);
@@ -289,10 +291,6 @@ class RulerRenderer extends Renderer<RulerTool> {
       x += steps;
     }
 
-    canvas.rotate(-rulerRotation * pi / 180);
-    canvas.translate(-rulerCenter.dx, -rulerCenter.dy);
-    canvas.scale(transform.size, transform.size);
-    canvas.translate(-transform.position.dx, -transform.position.dy);
     canvas.restore();
   }
 }

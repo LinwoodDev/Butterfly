@@ -71,6 +71,7 @@ class RectSelectionForegroundManager {
   SelectionScaleMode _scaleMode = SelectionScaleMode.scale;
   bool _proportionalModifier = false;
   bool _centeredModifier = false;
+  double _viewportRotation = 0;
   SelectionTransformCorner? _corner;
   Offset? _startPosition, _currentPosition;
 
@@ -87,7 +88,8 @@ class RectSelectionForegroundManager {
     _currentPosition = position;
   }
 
-  void updateCursor(double scale, double sensitivity) {
+  void updateCursor(double scale, double sensitivity, [double rotation = 0]) {
+    _viewportRotation = rotation;
     if (_currentPosition == null) return;
     _corner = getCornerHit(_currentPosition!, scale, sensitivity);
   }
@@ -199,23 +201,30 @@ class RectSelectionForegroundManager {
   bool get isMoving => isTransforming && _corner == null;
   bool get isScaling => isTransforming && _corner != null;
   Offset get pivot => _selection.center;
-  MouseCursor? get cursor =>
-      switch (corner) {
-        SelectionTransformCorner.bottomCenter ||
-        SelectionTransformCorner.topCenter => SystemMouseCursors.resizeUpDown,
-        SelectionTransformCorner.centerLeft ||
-        SelectionTransformCorner.centerRight =>
-          SystemMouseCursors.resizeLeftRight,
-        SelectionTransformCorner.topLeft ||
-        SelectionTransformCorner.bottomRight =>
-          SystemMouseCursors.resizeUpLeftDownRight,
-        SelectionTransformCorner.topRight ||
-        SelectionTransformCorner.bottomLeft =>
-          SystemMouseCursors.resizeUpRightDownLeft,
-        SelectionTransformCorner.center => SystemMouseCursors.grab,
-        _ => null,
-      } ??
-      (isInsideSelection ? SystemMouseCursors.move : null);
+  MouseCursor? get cursor {
+    final angle = switch (corner) {
+      SelectionTransformCorner.centerLeft ||
+      SelectionTransformCorner.centerRight => 0.0,
+      SelectionTransformCorner.topLeft ||
+      SelectionTransformCorner.bottomRight => pi / 4,
+      SelectionTransformCorner.topCenter ||
+      SelectionTransformCorner.bottomCenter => pi / 2,
+      SelectionTransformCorner.topRight ||
+      SelectionTransformCorner.bottomLeft => 3 * pi / 4,
+      _ => null,
+    };
+    if (angle != null) {
+      return switch (((angle + _viewportRotation) / (pi / 4)).round() % 4) {
+        0 => SystemMouseCursors.resizeLeftRight,
+        1 => SystemMouseCursors.resizeUpLeftDownRight,
+        2 => SystemMouseCursors.resizeUpDown,
+        _ => SystemMouseCursors.resizeUpRightDownLeft,
+      };
+    }
+    return corner == SelectionTransformCorner.center
+        ? SystemMouseCursors.grab
+        : (isInsideSelection ? SystemMouseCursors.move : null);
+  }
 
   TransformResult? getTransform() {
     final position = _currentPosition;

@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:math';
 
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
@@ -8,6 +9,16 @@ import 'package:flutter/material.dart' show Colors;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('ruler bounds follow a rotated viewport', () {
+    final handler = RulerHandler(RulerTool());
+    const camera = CameraTransform(1, Offset(10, 20), 2, pi / 2);
+    final center = camera.globalToLocal(
+      handler.getRect(const Size(800, 600), camera).center,
+    );
+    expect(center.dx, closeTo(400, 1e-7));
+    expect(center.dy, closeTo(300, 1e-7));
+  });
+
   test('default ruler pivots around the center of the viewport', () {
     final handler = RulerHandler(RulerTool());
 

@@ -59,16 +59,29 @@ class LabelCursor extends Renderer<LabelCursorData> {
       textAlign: TextAlign.center,
     );
     iconPainter.layout();
+    final position = transform.localToGlobal(element.position);
+    canvas.save();
+    canvas.translate(position.dx, position.dy);
+    canvas.rotate(-transform.rotation);
     iconPainter.paint(
       canvas,
-      transform.localToGlobal(element.position) -
-          Offset(iconPainter.width / 2, iconPainter.height / 2),
+      -Offset(iconPainter.width / 2, iconPainter.height / 2),
     );
+    canvas.restore();
   }
 }
 
 class LabelSelectionCursor extends Renderer<LabelContext> {
   LabelSelectionCursor(super.element);
+
+  @override
+  Rect? get rect => element.getRect();
+
+  @override
+  double get rotation => element.rotation;
+
+  @override
+  double get shear => element.shear;
 
   @override
   void build(

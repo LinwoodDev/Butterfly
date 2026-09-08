@@ -546,7 +546,11 @@ class SelectHandler extends Handler<SelectTool> {
     final globalPos = transform.localToGlobal(event.localPosition);
     _selectionManager
       ..updateCurrentPosition(globalPos)
-      ..updateCursor(transform.size, context.getSettings().touchSensitivity);
+      ..updateCursor(
+        transform.size,
+        context.getSettings().touchSensitivity,
+        transform.rotation,
+      );
     context.refreshForegrounds();
   }
 

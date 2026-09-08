@@ -23,31 +23,16 @@ class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
     Size viewportSize, [
     CameraTransform transform = const CameraTransform(),
   ]) {
-    var xSize = data.xSize;
-    var ySize = data.ySize;
-    var xOffset = data.xOffset;
-    var yOffset = data.yOffset;
-    if (data.zoomDependent) {
-      xSize *= transform.size;
-      ySize *= transform.size;
-    }
-    if (data.positionDependent) {
-      xOffset -= transform.position.dx * transform.size;
-      yOffset -= transform.position.dy * transform.size;
-    }
-    var x = (position.dx - xOffset) / xSize;
-    if (!x.isFinite) {
-      x = position.dx;
-    } else {
-      x = x.round() * xSize + xOffset;
-    }
-    var y = (position.dy - yOffset) / ySize;
-    if (!y.isFinite) {
-      y = position.dy;
-    } else {
-      y = y.round() * ySize + yOffset;
-    }
-    return Offset(x, y);
+    final grid = _gridGeometry(data, transform);
+    final point = transform.localToGlobal(position);
+    double snap(double value, double origin, double step) =>
+        step > 0 ? ((value - origin) / step).round() * step + origin : value;
+    return transform.globalToLocal(
+      Offset(
+        snap(point.dx, grid.origin.dx, grid.spacing.dx),
+        snap(point.dy, grid.origin.dy, grid.spacing.dy),
+      ),
+    );
   }
 }
 
@@ -65,71 +50,38 @@ class GridRenderer extends Renderer<GridTool> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    final xPaint = Paint()
+    final grid = _gridGeometry(element, transform);
+    final bounds = transform.localToGlobalRect(Offset.zero & size);
+    final paint = Paint()
       ..strokeWidth = element.stroke / transform.size
       ..color = element.color.toColor();
-    if (element.xSize > 0) {
-      double x = -element.xSize + element.xOffset % element.xSize;
-      var cap = size.width;
-      if (element.zoomDependent) {
-        cap = size.width / transform.size;
-      }
-      cap += element.xSize;
-      while (x <= cap) {
-        var localX = x;
-        if (!element.zoomDependent) {
-          localX /= transform.size;
-        }
-        if (element.positionDependent) {
-          var size = element.xSize;
-          if (!element.zoomDependent) {
-            size /= transform.size;
-          }
-          localX -= transform.position.dx % size;
-        }
-        canvas.drawLine(
-          Offset(localX + transform.position.dx, transform.position.dy),
-          Offset(
-            localX + transform.position.dx,
-            size.height / transform.size + transform.position.dy,
-          ),
-          xPaint,
-        );
-        x += element.xSize;
+    final dx = grid.spacing.dx;
+    if (dx > 0) {
+      final first =
+          ((bounds.left - grid.origin.dx) / dx).floor() * dx + grid.origin.dx;
+      for (var x = first; x <= bounds.right; x += dx) {
+        canvas.drawLine(Offset(x, bounds.top), Offset(x, bounds.bottom), paint);
       }
     }
-    final yPaint = Paint()
-      ..strokeWidth = element.stroke / transform.size
-      ..color = element.color.toColor();
-    if (element.ySize > 0) {
-      double y = -element.ySize + element.yOffset % element.ySize;
-      var cap = size.height;
-      if (element.zoomDependent) {
-        cap = size.height / transform.size;
-      }
-      cap += element.ySize;
-      while (y <= cap) {
-        var localY = y;
-        if (!element.zoomDependent) {
-          localY /= transform.size;
-        }
-        if (element.positionDependent) {
-          var size = element.ySize;
-          if (!element.zoomDependent) {
-            size /= transform.size;
-          }
-          localY -= transform.position.dy % size;
-        }
-        canvas.drawLine(
-          Offset(transform.position.dx, transform.position.dy + localY),
-          Offset(
-            transform.position.dx + size.width / transform.size,
-            transform.position.dy + localY,
-          ),
-          yPaint,
-        );
-        y += element.ySize;
+    final dy = grid.spacing.dy;
+    if (dy > 0) {
+      final first =
+          ((bounds.top - grid.origin.dy) / dy).floor() * dy + grid.origin.dy;
+      for (var y = first; y <= bounds.bottom; y += dy) {
+        canvas.drawLine(Offset(bounds.left, y), Offset(bounds.right, y), paint);
       }
     }
   }
 }
+
+({Offset origin, Offset spacing}) _gridGeometry(
+  GridTool tool,
+  CameraTransform transform,
+) => (
+  origin:
+      Offset(tool.xOffset, tool.yOffset) / transform.size +
+      (tool.positionDependent ? Offset.zero : transform.position),
+  spacing:
+      Offset(tool.xSize, tool.ySize) /
+      (tool.zoomDependent ? 1 : transform.size),
+);
