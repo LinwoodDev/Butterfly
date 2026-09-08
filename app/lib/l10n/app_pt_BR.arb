@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Controla quais partes do seu espaço de trabalho Borboleta se lembra de cada nota, como a página atual, zoom, e ferramenta selecionada.",
   "persistentStatesEnabledDescription": "Armazenar informações do documento entre sessões de app",
   "persistentStateCurrentPageDescription": "Lembrar a página atual ao reabrir um arquivo",
-  "persistentStateViewportDescription": "Lembrar posição e zoom do visualizador",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Lembrar a ferramenta selecionada quando reabrir um arquivo",
   "persistentStateLocksDescription": "Lembrar configurações de bloqueio ao reabrir um arquivo",
   "persistentStateNavigatorDescription": "Lembrar o estado do navegador ao reabrir um arquivo",
