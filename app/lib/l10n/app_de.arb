@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Legt fest, welche Teile Ihres Arbeitsbereiches sich für jede Notiz wie die aktuelle Seite, den Zoom und das ausgewählte Werkzeug merkt.",
   "persistentStatesEnabledDescription": "Dokumenten-Statusinformationen zwischen App-Sitzungen speichern",
   "persistentStateCurrentPageDescription": "Die aktuelle Seite beim erneuten Öffnen einer Datei merken",
-  "persistentStateViewportDescription": "Position des Viewports merken und zoomen",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Ausgewähltes Werkzeug beim Wiederöffnen einer Datei merken",
   "persistentStateLocksDescription": "Sperreinstellungen beim erneuten Öffnen einer Datei merken",
   "persistentStateNavigatorDescription": "Navigator-Status beim Wiederöffnen einer Datei merken",
