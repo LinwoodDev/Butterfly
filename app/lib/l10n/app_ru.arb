@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Контролирует какие части вашей рабочей области Butterfly запоминаются для каждой записи, такой как текущая страница, масштаб и выбранный инструмент.",
   "persistentStatesEnabledDescription": "Сохранять информацию о состоянии документа между сессиями приложения",
   "persistentStateCurrentPageDescription": "Запомнить текущую страницу при повторном открытии файла",
-  "persistentStateViewportDescription": "Запомнить расположение и масштаб видового порта",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Запомнить выбранный инструмент при переоткрытии файла",
   "persistentStateLocksDescription": "Запомнить настройки блокировки при переоткрытии файла",
   "persistentStateNavigatorDescription": "Запомнить состояние навигатора при повторном открытии файла",
