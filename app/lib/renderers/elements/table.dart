@@ -10,6 +10,26 @@ sealed class TableHitTarget with _$TableHitTarget {
       TableBorderTarget;
 }
 
+Iterable<TableCellTarget> tableCellRange(
+  TableCellTarget start,
+  TableCellTarget? end,
+) sync* {
+  end ??= start;
+  for (
+    var row = min(start.row, end.row);
+    row <= max(start.row, end.row);
+    row++
+  ) {
+    for (
+      var column = min(start.column, end.column);
+      column <= max(start.column, end.column);
+      column++
+    ) {
+      yield TableCellTarget(row, column);
+    }
+  }
+}
+
 class TableRenderer extends Renderer<TableElement> {
   TableRenderer(super.element, [super.layer]);
 
@@ -107,6 +127,15 @@ class TableRenderer extends Renderer<TableElement> {
     return TableCellTarget(
       _segmentAt(local.dy, rows),
       _segmentAt(local.dx, columns),
+    );
+  }
+
+  /// Finds a cell during selection, clamping drags outside the table to its edges.
+  TableCellTarget cellTargetAtPosition(Offset position) {
+    final local = tablePosition(position);
+    return TableCellTarget(
+      _segmentAt(local.dy.clamp(rect.top, rect.bottom), _rowBoundaries),
+      _segmentAt(local.dx.clamp(rect.left, rect.right), _columnBoundaries),
     );
   }
 

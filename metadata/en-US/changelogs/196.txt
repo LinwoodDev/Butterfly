@@ -1,0 +1,4 @@
+* Add table cell range selection with shared formatting controls
+* Improve table selection, deselection, and border resizing behavior
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.1

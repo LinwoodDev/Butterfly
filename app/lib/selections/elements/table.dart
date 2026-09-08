@@ -2,8 +2,9 @@ part of '../selection.dart';
 
 class TableElementSelection extends ElementSelection<TableElement> {
   final TableHitTarget? target;
+  final TableCellTarget? rangeEnd;
 
-  TableElementSelection(super.selected, {this.target});
+  TableElementSelection(super.selected, {this.target, this.rangeEnd});
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -90,6 +91,20 @@ class TableElementSelection extends ElementSelection<TableElement> {
   ) {
     final renderer = TableRenderer(element);
     final bounds = renderer.cellRect(row, column);
+    final cells = tableCellRange(
+      TableCellTarget(row, column),
+      rangeEnd,
+    ).toList();
+    TableElement updateCells(
+      TableElement Function(TableElement, TableCellTarget) update,
+    ) {
+      var updated = elements.first;
+      for (final cell in cells) {
+        updated = update(updated, cell);
+      }
+      return updated;
+    }
+
     return [
       ExactSlider(
         header: Text(AppLocalizations.of(context).rowHeight),
@@ -97,8 +112,13 @@ class TableElementSelection extends ElementSelection<TableElement> {
         min: 10,
         max: 1000,
         defaultValue: 60,
-        onChangeEnd: (height) =>
-            updateElements(context, [elements.first.setRowExtent(row, height)]),
+        onChangeEnd: (height) {
+          var updated = elements.first;
+          for (final row in cells.map((cell) => cell.row).toSet()) {
+            updated = updated.setRowExtent(row, height);
+          }
+          updateElements(context, [updated]);
+        },
       ),
       ExactSlider(
         header: Text(AppLocalizations.of(context).columnWidth),
@@ -106,18 +126,24 @@ class TableElementSelection extends ElementSelection<TableElement> {
         min: 10,
         max: 1000,
         defaultValue: 120,
-        onChangeEnd: (width) => updateElements(context, [
-          elements.first.setColumnExtent(column, width),
-        ]),
+        onChangeEnd: (width) {
+          var updated = elements.first;
+          for (final column in cells.map((cell) => cell.column).toSet()) {
+            updated = updated.setColumnExtent(column, width);
+          }
+          updateElements(context, [updated]);
+        },
       ),
       _TableColorControls(
         value: element.cellAt(row, column).fillColor,
         title: AppLocalizations.of(context).cellColor,
         onChanged: (color) => updateElements(context, [
-          elements.first.setCell(
-            row,
-            column,
-            elements.first.cellAt(row, column).copyWith(fillColor: color),
+          updateCells(
+            (element, cell) => element.setCell(
+              cell.row,
+              cell.column,
+              element.cellAt(cell.row, cell.column).copyWith(fillColor: color),
+            ),
           ),
         ]),
       ),
@@ -125,7 +151,10 @@ class TableElementSelection extends ElementSelection<TableElement> {
         value: element.borderAt(TableAxis.horizontal, row, column),
         title: AppLocalizations.of(context).cellBorders,
         onChanged: (border) => updateElements(context, [
-          elements.first.setCellBorders(row, column, border),
+          updateCells(
+            (element, cell) =>
+                element.setCellBorders(cell.row, cell.column, border),
+          ),
         ]),
       ),
     ];
@@ -153,7 +182,11 @@ class TableElementSelection extends ElementSelection<TableElement> {
   @override
   Selection insert(dynamic element) {
     if (element is Renderer<TableElement>) {
-      return TableElementSelection([...selected, element], target: target);
+      return TableElementSelection(
+        [...selected, element],
+        target: target,
+        rangeEnd: rangeEnd,
+      );
     }
     return super.insert(element);
   }
@@ -161,7 +194,7 @@ class TableElementSelection extends ElementSelection<TableElement> {
   @override
   Selection? replaceSelected(List<Renderer<TableElement>>? selected) {
     if (selected == null || selected.isEmpty) return null;
-    return TableElementSelection(selected, target: target);
+    return TableElementSelection(selected, target: target, rangeEnd: rangeEnd);
   }
 
   @override

@@ -7,6 +7,43 @@ import 'package:dart_leap/dart_leap.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('cell range includes all cells in either drag direction', () {
+    expect(
+      tableCellRange(const TableCellTarget(2, 2), const TableCellTarget(1, 0)),
+      [
+        const TableCellTarget(1, 0),
+        const TableCellTarget(1, 1),
+        const TableCellTarget(1, 2),
+        const TableCellTarget(2, 0),
+        const TableCellTarget(2, 1),
+        const TableCellTarget(2, 2),
+      ],
+    );
+  });
+
+  test('cell drag clamps to edges and includes cells on grid lines', () {
+    final renderer = TableRenderer(
+      TableElement(
+        rows: 3,
+        columns: 3,
+        firstPosition: const Point(0, 0),
+        secondPosition: const Point(300, 180),
+      ),
+    );
+    expect(
+      renderer.cellTargetAtPosition(const Offset(-50, -50)),
+      const TableCellTarget(0, 0),
+    );
+    expect(
+      renderer.cellTargetAtPosition(const Offset(400, 300)),
+      const TableCellTarget(2, 2),
+    );
+    expect(
+      renderer.cellTargetAtPosition(const Offset(100, 60)),
+      const TableCellTarget(1, 1),
+    );
+  });
+
   test('table hit targets are immutable Freezed values', () {
     const target = TableHitTarget.border(TableAxis.vertical, 2, 1);
 

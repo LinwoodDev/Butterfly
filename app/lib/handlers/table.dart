@@ -20,11 +20,13 @@ TableHitTarget resolveTableSelectionTarget(
 class TableTargetIndicatorRenderer extends Renderer<TableElement> {
   final TableHitTarget target;
   final bool selected;
+  final TableCellTarget? rangeEnd;
 
   TableTargetIndicatorRenderer(
     super.element,
     this.target, {
     this.selected = false,
+    this.rangeEnd,
   });
 
   Path _transformedRect(TableRenderer renderer, Rect rect) {
@@ -72,7 +74,10 @@ class TableTargetIndicatorRenderer extends Renderer<TableElement> {
 
     final cellTarget = target as TableCellTarget;
     final tableRect = renderer.rect;
-    final cell = renderer.cellRect(cellTarget.row, cellTarget.column);
+    final end = rangeEnd ?? cellTarget;
+    final cell = renderer
+        .cellRect(cellTarget.row, cellTarget.column)
+        .expandToInclude(renderer.cellRect(end.row, end.column));
     final rowRect = Rect.fromLTRB(
       tableRect.left,
       cell.top,
@@ -144,25 +149,32 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
   TableLineTarget? _resizeTarget;
   Offset? _resizePosition;
   ToolCubit? _selectionCubit;
-  int _hoverRequest = 0;
+  TableCellTarget? _rangeEnd;
+  TableCellTarget? _dragAnchor;
+  Offset? _pressPosition;
+  bool _dismissGesture = false;
   bool _didResize = false;
 
   TableHandler(super.data);
 
-  Future<({TableRenderer renderer, TableHitTarget target})?> _hitTable(
+  ({TableRenderer renderer, TableHitTarget target})? _hitTable(
     EventContext context,
     Offset localPosition,
-  ) async {
+  ) {
     final transform = context.getCameraTransform();
     final position = transform.localToGlobal(localPosition);
     final locks = context.getViewState().locks;
-    final hits = await context.getDocumentBloc().rayCast(
-      position,
-      0,
-      useCollection: locks.lockCollection,
-      useLayer: locks.lockLayer,
+    final state = context.getState();
+    final hits = context.getEditorController().rendererCubit.visibleRenderers(
+      Rect.fromCircle(center: position, radius: 8 / transform.size),
     );
-    for (final renderer in hits.whereType<TableRenderer>()) {
+    for (final renderer in hits.reversed.whereType<TableRenderer>()) {
+      if (state?.invisibleLayers.contains(renderer.layer) ?? false) continue;
+      if (locks.lockCollection &&
+          renderer.element.collection != state?.currentCollection) {
+        continue;
+      }
+      if (locks.lockLayer && renderer.layer != state?.currentLayer) continue;
       final target = renderer.hitTarget(
         position,
         tolerance: 8 / transform.size,
@@ -177,6 +189,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     TableRenderer renderer,
     TableHitTarget target,
   ) {
+    _rangeEnd = null;
     _activeRenderer = renderer;
     _activeTarget = target;
     _selectionCubit = context.getEditorController().toolCubit;
@@ -195,9 +208,65 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     _activeTarget = target;
     _selectionCubit = context.getEditorController().toolCubit;
     _selectionCubit!.setSelection(
-      TableElementSelection([renderer], target: target),
+      TableElementSelection([renderer], target: target, rangeEnd: _rangeEnd),
     );
     context.refreshForegrounds();
+  }
+
+  TableHitTarget _resolveTarget(TableRenderer renderer, TableHitTarget hit) =>
+      resolveTableSelectionTarget(
+        renderer.element == _activeRenderer?.element ? _activeTarget : null,
+        hit,
+      );
+
+  void _clearSelection() {
+    _activeRenderer = null;
+    _activeTarget = null;
+    _rangeEnd = null;
+    _hoverRenderer = null;
+    _hoverTarget = null;
+    if (_selectionCubit?.state.selection is TableElementSelection) {
+      _selectionCubit!.setSelection(null);
+    }
+  }
+
+  @override
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    _pressPosition = event.localPosition;
+    _didResize = false;
+    _dismissGesture = false;
+    if (event.buttons == kSecondaryMouseButton) return;
+    if (_activeRenderer != null &&
+        _hitTable(context, event.localPosition) == null) {
+      _clearSelection();
+      _dismissGesture = true;
+      context.refreshForegrounds();
+    }
+  }
+
+  @override
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
+    _dragAnchor = null;
+    _resizeRenderer = null;
+    _resizeTarget = null;
+    _resizePosition = null;
+    _pressPosition = null;
+    _dismissGesture = false;
+    super.onScaleStartAbort(details, context);
+  }
+
+  @override
+  Future<void> resetInput(DocumentBloc bloc) async {
+    _clearSelection();
+    _dragAnchor = null;
+    _resizeRenderer = null;
+    _resizeTarget = null;
+    _resizePosition = null;
+    _pressPosition = null;
+    _dismissGesture = false;
+    _firstPos = null;
+    _secondPos = null;
+    await bloc.refreshForegrounds();
   }
 
   @override
@@ -222,35 +291,45 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
         _activeRenderer!.element,
         _activeTarget!,
         selected: true,
+        rangeEnd: _rangeEnd,
       ),
   ];
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) async {
-    final request = ++_hoverRequest;
-    final hit = await _hitTable(context, event.localPosition);
-    if (request != _hoverRequest) return;
+    final hit = _hitTable(context, event.localPosition);
     _hoverRenderer = hit?.renderer;
     _hoverTarget = hit == null
         ? null
-        : resolveTableSelectionTarget(_activeTarget, hit.target);
+        : _resolveTarget(hit.renderer, hit.target);
     context.refreshForegrounds();
   }
 
   @override
   // ignore: must_call_super
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
+    _pressPosition = null;
+    if (_dismissGesture) {
+      _dismissGesture = false;
+      return;
+    }
     if (_didResize) {
       _didResize = false;
       return;
     }
-    final hit = await _hitTable(context, details.localPosition);
+    final hit = _hitTable(context, details.localPosition);
     if (hit != null) {
       _activateTarget(
         context,
         hit.renderer,
-        resolveTableSelectionTarget(_activeTarget, hit.target),
+        _resolveTarget(hit.renderer, hit.target),
       );
+      return;
+    }
+
+    if (_activeRenderer != null) {
+      _clearSelection();
+      context.refreshForegrounds();
       return;
     }
 
@@ -278,10 +357,19 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
 
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
-    final hit = await _hitTable(context, details.localPosition);
+    final hit = _hitTable(context, details.localPosition);
     if (hit == null || !context.buildContext.mounted) return;
-    final target = resolveTableSelectionTarget(_activeTarget, hit.target);
-    _activateTarget(context, hit.renderer, target);
+    final target = _resolveTarget(hit.renderer, hit.target);
+    final inRange =
+        hit.renderer.element.id == _activeRenderer?.element.id &&
+        target is TableCellTarget &&
+        _activeTarget is TableCellTarget &&
+        tableCellRange(
+          _activeTarget as TableCellTarget,
+          _rangeEnd,
+        ).contains(target);
+    if (!inRange) _activateTarget(context, hit.renderer, target);
+    final propertyTarget = inRange ? _activeTarget! : target;
     final element = hit.renderer.element;
     final bloc = context.getDocumentBloc();
 
@@ -363,7 +451,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
             icon: const PhosphorIcon(PhosphorIconsLight.faders),
             onPressed: () {
               close();
-              _openTargetProperties(context, hit.renderer, target);
+              _openTargetProperties(context, hit.renderer, propertyTarget);
             },
           ),
           ContextMenuItem(
@@ -373,8 +461,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
               close();
               final id = element.id;
               if (id != null) bloc.add(ElementsRemoved([id]));
-              _activeRenderer = null;
-              _activeTarget = null;
+              _clearSelection();
               bloc.delayedBake();
               bloc.refresh();
             },
@@ -397,8 +484,27 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
         id: [updated],
       }),
     );
-    final renderer = TableRenderer(updated);
+    final renderer = TableRenderer(updated, _activeRenderer?.layer);
     _activeRenderer = renderer;
+    _clampSelection(updated);
+    _hoverRenderer = null;
+    _hoverTarget = null;
+    final selection = _selectionCubit?.state.selection;
+    if (selection is TableElementSelection &&
+        selection.selected.first.element.id == id) {
+      _selectionCubit!.setSelection(
+        TableElementSelection(
+          [renderer],
+          target: _activeTarget,
+          rangeEnd: _rangeEnd,
+        ),
+      );
+    }
+    bloc.delayedBake();
+    bloc.refresh();
+  }
+
+  void _clampSelection(TableElement updated) {
     _activeTarget = switch (_activeTarget) {
       TableCellTarget(:final row, :final column) => TableCellTarget(
         min(row, updated.rows - 1),
@@ -416,15 +522,13 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
         ),
       null => null,
     };
-    final selection = _selectionCubit?.state.selection;
-    if (selection is TableElementSelection &&
-        selection.selected.first.element.id == id) {
-      _selectionCubit!.setSelection(
-        TableElementSelection([renderer], target: _activeTarget),
+    final end = _rangeEnd;
+    if (end != null) {
+      _rangeEnd = TableCellTarget(
+        min(end.row, updated.rows - 1),
+        min(end.column, updated.columns - 1),
       );
     }
-    bloc.delayedBake();
-    bloc.refresh();
   }
 
   @override
@@ -433,8 +537,10 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
         context.getToolState().temporaryHandler == null) {
       return false;
     }
-    final renderer = _hoverRenderer;
-    final target = switch (_hoverTarget) {
+    if (_dismissGesture) return true;
+    final hit = _hitTable(context, _pressPosition ?? details.localFocalPoint);
+    final renderer = hit?.renderer;
+    final target = switch (hit?.target) {
       TableLineTarget target => target,
       TableBorderTarget(:final axis, :final line) => TableLineTarget(
         axis,
@@ -442,6 +548,13 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
       ),
       _ => null,
     };
+    if (hit?.target case final TableCellTarget cell when renderer != null) {
+      _activateTarget(context, renderer, cell);
+      _dragAnchor = cell;
+      _hoverRenderer = null;
+      _hoverTarget = null;
+      return true;
+    }
     if (target != null &&
         renderer != null &&
         target.line > 0 &&
@@ -452,7 +565,16 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
         details.localFocalPoint,
       );
       _didResize = false;
-      _activateTarget(context, renderer, _activeTarget ?? target);
+      _activateTarget(context, renderer, target);
+      return true;
+    }
+    if (hit != null) {
+      _activateTarget(
+        context,
+        hit.renderer,
+        _resolveTarget(hit.renderer, hit.target),
+      );
+      _dismissGesture = true;
       return true;
     }
     return super.onScaleStart(details, context);
@@ -460,6 +582,16 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (_dismissGesture) return;
+    final anchor = _dragAnchor;
+    final active = _activeRenderer;
+    if (anchor != null && active != null) {
+      _rangeEnd = active.cellTargetAtPosition(
+        context.getCameraTransform().localToGlobal(details.localFocalPoint),
+      );
+      context.refreshForegrounds();
+      return;
+    }
     final renderer = _resizeRenderer;
     final target = _resizeTarget;
     final previous = _resizePosition;
@@ -487,7 +619,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     if (updated == renderer.element) return;
     _didResize = true;
     _replaceElement(context.getDocumentBloc(), renderer.element, updated);
-    _resizeRenderer = TableRenderer(updated);
+    _resizeRenderer = TableRenderer(updated, renderer.layer);
     _hoverRenderer = _resizeRenderer;
     _hoverTarget = target;
     _resizePosition = current;
@@ -496,12 +628,15 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) {
-    if (_resizeRenderer == null) {
+    if (_resizeRenderer == null && _dragAnchor == null && !_dismissGesture) {
       super.onScaleEnd(details, context);
     }
     _resizeRenderer = null;
     _resizeTarget = null;
     _resizePosition = null;
+    _dragAnchor = null;
+    _pressPosition = null;
+    _dismissGesture = false;
   }
 
   @override
@@ -511,14 +646,17 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
 
   @override
   MouseCursor? get cursor => switch (_hoverTarget) {
-    TableLineTarget(axis: TableAxis.horizontal) ||
+    TableLineTarget(axis: TableAxis.horizontal, :final line) ||
     TableBorderTarget(
       axis: TableAxis.horizontal,
-    ) => SystemMouseCursors.resizeUpDown,
-    TableLineTarget(axis: TableAxis.vertical) ||
+      :final line,
+    ) when line > 0 => SystemMouseCursors.resizeUpDown,
+    TableLineTarget(axis: TableAxis.vertical, :final line) ||
     TableBorderTarget(
       axis: TableAxis.vertical,
-    ) => SystemMouseCursors.resizeLeftRight,
+      :final line,
+    ) when line > 0 => SystemMouseCursors.resizeLeftRight,
+    TableCellTarget() => SystemMouseCursors.cell,
     _ => super.cursor,
   };
 
@@ -531,14 +669,20 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     final id = _activeRenderer?.element.id;
     if (id == null || old.element?.id != id) return false;
     final renderer = updated.whereType<TableRenderer>().firstOrNull;
-    if (renderer == null) return false;
+    if (renderer == null) {
+      _clearSelection();
+      return true;
+    }
     _activeRenderer = renderer;
+    _clampSelection(renderer.element);
+    _hoverRenderer = null;
+    _hoverTarget = null;
     return true;
   }
 
   @override
   void dispose(DocumentBloc bloc) {
-    _hoverRequest++;
+    _clearSelection();
     _activeRenderer = null;
     _activeTarget = null;
     _hoverRenderer = null;
