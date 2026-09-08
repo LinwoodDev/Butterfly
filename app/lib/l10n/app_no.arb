@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Kontrollerer hvilke deler av arbeidsområdet som husker det for hvert notat, for eksempel gjeldende side, zoom og valgt verktøy.",
   "persistentStatesEnabledDescription": "Lagre dokumentstatus informasjon mellom appsesjoner",
   "persistentStateCurrentPageDescription": "Husk gjeldende side ved gjenåpning av en fil",
-  "persistentStateViewportDescription": "Husk visningsposisjon og zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Husk det valgte verktøyet ved gjenåpning av en fil",
   "persistentStateLocksDescription": "Husk låsinnstillinger når du gjenåpner en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden når du gjenåpner en fil",
