@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Controlează ce părţi din spaţiul tău de lucru îşi aminteşte fluturaşul pentru fiecare notă, cum ar fi pagina curentă, zoom-ul şi unealta selectată.",
   "persistentStatesEnabledDescription": "Salvați informații despre starea documentului între sesiunile aplicațiilor",
   "persistentStateCurrentPageDescription": "Amintiţi-vă pagina curentă la redeschiderea unui fişier",
-  "persistentStateViewportDescription": "Amintește-ți poziția viewport-ului și zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Reține instrumentul selectat la redeschiderea unui fișier",
   "persistentStateLocksDescription": "Reține setările de blocare la redeschiderea unui fișier",
   "persistentStateNavigatorDescription": "Amintiţi-vă starea navigatorului la redeschiderea unui fişier",
