@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "控制每个笔记的工作区的哪些部件，例如当前页面、缩放和选定的工具。",
   "persistentStatesEnabledDescription": "在应用会话之间存储文档状态信息",
   "persistentStateCurrentPageDescription": "重新打开文件时记住当前页面",
-  "persistentStateViewportDescription": "记住视图位置和缩放",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "重新打开文件时记住选中的工具",
   "persistentStateLocksDescription": "重新打开文件时记住锁定设置",
   "persistentStateNavigatorDescription": "重新打开文件时记住导航器状态",
