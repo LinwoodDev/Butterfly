@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "現在のページ、ズーム、選択したツールなど、各ノートのワークスペースのどの部分が記憶されるかを設定します。",
   "persistentStatesEnabledDescription": "ドキュメントの状態情報をアプリセッション間で保存する",
   "persistentStateCurrentPageDescription": "ファイルを再開したときに現在のページを記憶する",
-  "persistentStateViewportDescription": "ビューポートの位置とズームを記憶する",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "ファイルを再開するときに選択したツールを記憶する",
   "persistentStateLocksDescription": "ファイルを再開したときにロック設定を記憶する",
   "persistentStateNavigatorDescription": "ファイルを再開したときにナビゲータの状態を記憶する",
