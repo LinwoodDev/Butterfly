@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Kontrollerar vilka delar av din arbetsyta Butterfly kommer ihåg för varje anteckning, såsom den aktuella sidan, zoom och valt verktyg.",
   "persistentStatesEnabledDescription": "Lagra information om dokumentstatus mellan app-sessioner",
   "persistentStateCurrentPageDescription": "Kom ihåg den aktuella sidan när en fil öppnas på nytt",
-  "persistentStateViewportDescription": "Kom ihåg visningsportens position och zooma",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Kom ihåg det valda verktyget när en fil öppnas på nytt",
   "persistentStateLocksDescription": "Kom ihåg låsningsinställningar när en fil öppnas på nytt",
   "persistentStateNavigatorDescription": "Kom ihåg navigatorns status när en fil öppnas på nytt",
