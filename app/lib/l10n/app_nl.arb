@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Bepaalt welke delen van de werkruimte zich voor elk bericht heronthouden, zoals de huidige pagina, zoom en de geselecteerde tool.",
   "persistentStatesEnabledDescription": "Documentgegevens tussen app-sessies opslaan",
   "persistentStateCurrentPageDescription": "Huidige pagina onthouden bij heropenen van een bestand",
-  "persistentStateViewportDescription": "Onthoud de viewport positie en zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Onthoud het geselecteerde gereedschap bij het heropenen van een bestand",
   "persistentStateLocksDescription": "Vergrendelingsinstellingen onthouden bij het heropenen van een bestand",
   "persistentStateNavigatorDescription": "Onthoud de navigator status bij het heropenen van een bestand",
