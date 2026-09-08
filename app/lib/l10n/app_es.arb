@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Controla qué partes de su espacio de trabajo recuerda por cada nota, como la página actual, el zoom y la herramienta seleccionada.",
   "persistentStatesEnabledDescription": "Guardar información del estado del documento entre sesiones de aplicación",
   "persistentStateCurrentPageDescription": "Recordar la página actual al reabrir un archivo",
-  "persistentStateViewportDescription": "Recordar la posición de la vista y el zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Recordar la herramienta seleccionada al reabrir un archivo",
   "persistentStateLocksDescription": "Recordar ajustes de bloqueo al reabrir un archivo",
   "persistentStateNavigatorDescription": "Recordar el estado del navegador al reabrir un archivo",
