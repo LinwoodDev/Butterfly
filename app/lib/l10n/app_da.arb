@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Kontrollerer, hvilke dele af dit arbejdsområde Butterfly husker for hver note, såsom den aktuelle side, zoom og valgte værktøj.",
   "persistentStatesEnabledDescription": "Gem dokumentstatus mellem app-sessioner",
   "persistentStateCurrentPageDescription": "Husk den aktuelle side ved genåbning af en fil",
-  "persistentStateViewportDescription": "Husk viewport position og zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Husk det valgte værktøj ved genåbning af en fil",
   "persistentStateLocksDescription": "Husk låseindstillinger ved genåbning af en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden ved genåbning af en fil",
