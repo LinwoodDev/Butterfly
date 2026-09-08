@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Ελέγχει ποια μέρη του χώρου εργασίας σας Butterfly θυμάται για κάθε σημείωση, όπως η τρέχουσα σελίδα, ζουμ και επιλεγμένο εργαλείο.",
   "persistentStatesEnabledDescription": "Αποθήκευση πληροφοριών κατάστασης εγγράφου μεταξύ των συνεδριών εφαρμογών",
   "persistentStateCurrentPageDescription": "Απομνημόνευση της τρέχουσας σελίδας κατά την επανεκκίνηση ενός αρχείου",
-  "persistentStateViewportDescription": "Απομνημόνευση της θέσης προβολής και μεγέθυνση",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Απομνημόνευση του επιλεγμένου εργαλείου κατά την επανεκκίνηση ενός αρχείου",
   "persistentStateLocksDescription": "Απομνημόνευση ρυθμίσεων κλειδώματος όταν ανοίγετε ξανά ένα αρχείο",
   "persistentStateNavigatorDescription": "Απομνημόνευση της κατάστασης πλοήγησης κατά το άνοιγμα ενός αρχείου",
