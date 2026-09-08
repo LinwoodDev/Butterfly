@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Kontroluje, które części Twojego obszaru roboczego Motylki pamiętają dla każdej notatki, takie jak bieżąca strona, powiększenie i wybrane narzędzie.",
   "persistentStatesEnabledDescription": "Przechowuj informacje o stanie dokumentu pomiędzy sesjami aplikacji",
   "persistentStateCurrentPageDescription": "Zapamiętaj bieżącą stronę podczas ponownego otwierania pliku",
-  "persistentStateViewportDescription": "Zapamiętaj pozycję i powiększenie widoku",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Zapamiętaj wybrane narzędzie podczas ponownego otwierania pliku",
   "persistentStateLocksDescription": "Zapamiętaj ustawienia blokady podczas ponownego otwierania pliku",
   "persistentStateNavigatorDescription": "Zapamiętaj stan nawigatora podczas ponownego otwierania pliku",
