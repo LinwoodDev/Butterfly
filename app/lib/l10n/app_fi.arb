@@ -1568,7 +1568,7 @@
   "persistenceDocumentStatesDescription": "Määrittää mitkä työtilan osat Butterfly muistaa kunkin muistiinpanon, kuten nykyinen sivu, zoomaus ja valittu työkalu.",
   "persistentStatesEnabledDescription": "Tallenna asiakirjan tilan tiedot sovellusistuntojen välillä",
   "persistentStateCurrentPageDescription": "Muista nykyinen sivu avattaessa tiedostoa uudelleen",
-  "persistentStateViewportDescription": "Muista näkymän sijainti ja zoomaus",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Muista valittu työkalu avattaessa tiedostoa uudelleen",
   "persistentStateLocksDescription": "Muista lukitusasetukset avattaessa tiedostoa uudelleen",
   "persistentStateNavigatorDescription": "Muista navigaattorin tila avattaessa tiedostoa uudelleen",
