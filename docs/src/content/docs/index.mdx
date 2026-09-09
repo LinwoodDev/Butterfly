@@ -30,39 +30,87 @@ import showcasePhone from '@assets/img/showcase-phone.png';
 import showcaseTemplates from '@assets/img/showcase-templates.png';
 import showcaseTools from '@assets/img/showcase-tools.png';
 
-## Notes are only the beginning
+import collageDark from '@assets/img/homepage/collagedark.png';
+import collageLight from '@assets/img/homepage/collage-light.png';
+import desktop2Dark from '@assets/img/homepage/Desktop2-dark.png';
+import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
+import desktop2Light from '@assets/img/homepage/Desktop2-light.png';
+import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
+import desktopDark from '@assets/img/homepage/Desktop-dark.png';
+import desktopLight from '@assets/img/homepage/Desktop-light.png';
+import mobileDark from '@assets/img/homepage/Mobile-dark.png';
+import mobileLight from '@assets/img/homepage/Mobile-light.png';
+import packsDark from '@assets/img/homepage/Packs-dark.png';
+import packsLight from '@assets/img/homepage/Packs-light.png';
+import penDark from '@assets/img/homepage/Pen-dark.png';
+import penLight from '@assets/img/homepage/Pen-light.png';
+import templateDark from '@assets/img/homepage/Template-dark.png';
+import templateLight from '@assets/img/homepage/Template-light.png';
+
+
+{/* ## Butterfly is **the** workspace for people who think *visually*.
+Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document.
+
+The above feels out of place. especially for an opening.
+*/}
+
+{/* The image here should showcase most available features.
+- PDF
+- Images
+- Shapes
+- Gradients
+- Unique elements
+- etc.
+*/}
+<LandingFeature
+  image={desktop2LightRuler}
+  alt="Image showcasing a note made in Butterfly"
+>
+  ### Butterfly is *the* workspace for people who think visually.
+
+  Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document.
+
+</LandingFeature>
 
 <LandingText>
   Butterfly is a creative workspace for people who think visually. Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document. Everything remains movable, resizable, recolorable, and ready to evolve with your idea.
 </LandingText>
 
 <LandingFeature
-  image={showcaseTools}
+  image={penLight}
   alt="Pen settings for a Butterfly drawing tool"
+  reverse
 >
   ### Tune every stroke
 
-  Draw with a stylus, touch, or mouse and shape the pen around the way you work. Adjust stroke width, thinning, smoothing, pressure behavior, and shape detection. If a mark is not quite right, select it and keep editing instead of starting over.
+  Draw with a stylus, touch, or mouse. Adjust stroke width, color, smoothing, and texture. If a mark is not quite right, select it and keep editing instead of starting over.
 </LandingFeature>
 
-<LandingFeature
+{/* <LandingFeature
   image={showcaseAdd}
   alt="The Butterfly add menu with import and creative tool options"
   reverse
 >
-  ### Mix ink, text, shapes, and media
+  ### Mix strokes, text, shapes, and media
 
-  Handwrite beside rich text or Markdown, add precise shapes and lines, place images, and capture photos without leaving your document. Import PDFs, SVGs, and images to annotate existing work, then export the result as PDF, SVG, or an image when it is ready to share.
-</LandingFeature>
+  Handwrite with customizable stokes, write formatted text with Markdown and rich text.
+  Add shapes, lines, and polygons for geometric needs.
+  Import PDFs, SVGs, and images to annotate existing work, then export the result as PDF, SVG, or an image when it is ready to share.
+</LandingFeature> */}
+{/* The above card needs a better rewrite.
+The features mentioned in the card above is already mentioned again below, so it makes sense to hide this.*/}
 
 <LandingFeature
-  image={showcaseTemplates}
-  alt="The Butterfly template browser with several paper styles"
+  image={collageLight}
+  alt="The Butterfly template browser with several canvas styles"
 >
   ### Make Butterfly fit your workflow
 
-  Create templates that remember content, backgrounds, tools, settings, layers, areas, and pages. Save frequently used elements as reusable components in packs, build custom color palettes and text styles, and arrange the toolbar around what you actually use.
+  Create templates that remember contents, backgrounds, tools, settings, layers, areas, and pages. Save frequently used elements as reusable components in packs, build custom color palettes and text styles, and arrange the toolbar around what you actually use.
 </LandingFeature>
+{/*
+Maybe this belongs to the "Powerful when your projects grow" section
+*/}
 
 ## Powerful when your projects grow
 
@@ -86,7 +134,7 @@ import showcaseTools from '@assets/img/showcase-tools.png';
 </CardGrid>
 
 <LandingFeature
-  image={showcasePhone}
+  image={mobileLight}
   alt="A handwritten Butterfly document on a phone"
   reverse
   portrait
@@ -117,20 +165,8 @@ import showcaseTools from '@assets/img/showcase-tools.png';
   </Card>
 </CardGrid>
 
-<LandingFeature
-  image={showcaseHome}
-  alt="The Butterfly home screen with recent documents and quick-start templates"
->
-  ### Open Butterfly and begin
+<h1 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0px 0px 5px var(--sl-color-accent);"> Try Butterfly, the limitless canvas for visual thinking. </h1>
 
-  Recent documents, file search, folders, imports, storage locations, and quick-start templates are all close at hand. The interface stays focused while the deeper controls appear when you need them.
-</LandingFeature>
-
-## Make your next idea tangible
-
-<LandingText>
-  No subscription is required. Download Butterfly, open the web app, and create your first canvas today.
-</LandingText>
 
 <CardGrid>
   <LinkCard
