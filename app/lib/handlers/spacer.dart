@@ -4,6 +4,13 @@ class SpacerHandler extends Handler<SpacerTool> {
   Offset? _startPosition;
   Set<Renderer<PadElement>>? _renderers;
   double _spacing = 0.0;
+  double _rotation = 0;
+
+  Offset get _movement =>
+      (data.axis == Axis2D.horizontal
+              ? Offset(_spacing, 0)
+              : Offset(0, _spacing))
+          .rotate(Offset.zero, -_rotation);
 
   SpacerHandler(super.data);
 
@@ -15,17 +22,8 @@ class SpacerHandler extends Handler<SpacerTool> {
     DocumentInfo info, [
     Area? currentArea,
   ]) => [
-    if (_startPosition != null)
-      SpacerRenderer(_startPosition!, _spacing, data.axis),
-    ...?_renderers?.map(
-      (e) =>
-          e.transform(
-            position: (data.axis == Axis2D.horizontal
-                ? Offset(_spacing, 0)
-                : Offset(0, _spacing)),
-          ) ??
-          e,
-    ),
+    if (_startPosition != null) SpacerRenderer(_startPosition!, _movement),
+    ...?_renderers?.map((e) => e.transform(position: _movement) ?? e),
   ];
 
   @override
@@ -35,23 +33,40 @@ class SpacerHandler extends Handler<SpacerTool> {
 
   Rect? _lastRect;
 
-  Future<void> _refreshRenderers(Offset position, EventContext context) async {
-    final rect = _getRect(position, _spacing);
-    if (rect == _lastRect) return;
+  Future<void>? _pendingRefresh;
+
+  Future<void> _refreshRenderers(EventContext context) {
+    final rect = _getRect(context);
+    if (rect == _lastRect) return _pendingRefresh ?? Future.value();
     _lastRect = rect;
-    final renderers = await context.getDocumentBloc().rayCastRect(
-      rect,
-      useCollection: true,
-    );
-    if (rect != _lastRect) return;
-    _renderers = renderers;
+    if (rect == null) {
+      _renderers = null;
+      return Future.value();
+    }
+    final locks = context.getViewState().locks;
+    return _pendingRefresh = context
+        .getDocumentBloc()
+        .rayCastRect(
+          rect,
+          rotation: -_rotation * 180 / pi,
+          useCollection: locks.lockCollection,
+          useLayer: locks.lockLayer,
+        )
+        .then((renderers) {
+          if (rect == _lastRect) _renderers = renderers;
+        });
   }
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final transform = context.getCameraTransform();
     _startPosition = transform.localToGlobal(details.localFocalPoint);
-    _refreshRenderers(_startPosition!, context).whenComplete(context.refresh);
+    _rotation = transform.rotation;
+    _spacing = 0;
+    _renderers = null;
+    _lastRect = null;
+    _pendingRefresh = null;
+    context.refresh();
     return true;
   }
 
@@ -60,21 +75,21 @@ class SpacerHandler extends Handler<SpacerTool> {
     if (details.pointerCount > 1) return;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localFocalPoint);
-    _spacing = (data.axis == Axis2D.horizontal
-        ? globalPos.dx - _startPosition!.dx
-        : globalPos.dy - _startPosition!.dy);
-    _startPosition = (data.axis == Axis2D.horizontal
-        ? Offset(_startPosition!.dx, globalPos.dy)
-        : Offset(globalPos.dx, _startPosition!.dy));
-    _refreshRenderers(
-      _startPosition!,
-      context,
-    ).whenComplete(context.refreshForegrounds);
+    final start = _startPosition;
+    if (start == null) return;
+    final delta = (globalPos - start).rotate(Offset.zero, _rotation);
+    _spacing = data.axis == Axis2D.horizontal ? delta.dx : delta.dy;
+    final perpendicular = data.axis == Axis2D.horizontal
+        ? Offset(0, delta.dy)
+        : Offset(delta.dx, 0);
+    _startPosition = start + perpendicular.rotate(Offset.zero, -_rotation);
+    _refreshRenderers(context).whenComplete(context.refreshForegrounds);
   }
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    await _refreshRenderers(_startPosition!, context);
+    if (_startPosition == null) return;
+    await _refreshRenderers(context);
 
     final elements = Map<String, List<PadElement>>.fromEntries(
       _renderers
@@ -82,14 +97,7 @@ class SpacerHandler extends Handler<SpacerTool> {
                 final id = e.element.id;
                 if (id == null) return null;
                 return MapEntry(id, [
-                  e
-                          .transform(
-                            position: (data.axis == Axis2D.horizontal
-                                ? Offset(_spacing, 0)
-                                : Offset(0, _spacing)),
-                          )
-                          ?.element ??
-                      e.element,
+                  e.transform(position: _movement)?.element ?? e.element,
                 ]);
               })
               .nonNulls
@@ -100,38 +108,52 @@ class SpacerHandler extends Handler<SpacerTool> {
     _spacing = 0.0;
     _renderers = null;
     _lastRect = null;
+    _pendingRefresh = null;
     await context.refresh();
     context.getDocumentBloc().add(ElementsChanged(elements));
   }
 
-  Rect _getRect(Offset position, double spacing) {
-    if (_startPosition == null || spacing == 0.0) {
-      return Rect.zero;
+  Rect? _getRect(EventContext context) {
+    final start = _startPosition;
+    if (start == null || _spacing == 0) return null;
+    // Bound the half-plane in viewport-aligned axes before rotating it back.
+    // This keeps distant content eligible without rotating infinite corners.
+    Rect? bounds;
+    for (final renderer
+        in context.getEditorController().rendererCubit.renderers) {
+      final rect = renderer.expandedRect;
+      if (rect == null) continue;
+      for (final point in rect.toPolygon()) {
+        final aligned = point.rotate(start, _rotation);
+        final pointRect = Rect.fromPoints(aligned, aligned);
+        bounds = bounds?.expandToInclude(pointRect) ?? pointRect;
+      }
     }
-    if (data.axis == Axis2D.horizontal) {
-      return Rect.fromLTRB(
-        spacing > 0 ? _startPosition!.dx : -double.infinity,
-        -double.infinity,
-        spacing < 0 ? _startPosition!.dx : double.infinity,
-        double.infinity,
-      );
-    } else {
-      return Rect.fromLTRB(
-        -double.infinity,
-        spacing > 0 ? _startPosition!.dy : -double.infinity,
-        double.infinity,
-        spacing < 0 ? _startPosition!.dy : double.infinity,
-      );
-    }
+    if (bounds == null) return null;
+    final halfPlane = data.axis == Axis2D.horizontal
+        ? Rect.fromLTRB(
+            _spacing > 0 ? start.dx : -double.infinity,
+            -double.infinity,
+            _spacing < 0 ? start.dx : double.infinity,
+            double.infinity,
+          )
+        : Rect.fromLTRB(
+            -double.infinity,
+            _spacing > 0 ? start.dy : -double.infinity,
+            double.infinity,
+            _spacing < 0 ? start.dy : double.infinity,
+          );
+    final rect = bounds.inflate(1).intersect(halfPlane);
+    if (rect.isEmpty) return null;
+    return rect.shift(rect.center.rotate(start, -_rotation) - rect.center);
   }
 }
 
 class SpacerRenderer extends Renderer {
   final Offset startPosition;
-  final double spacing;
-  final Axis2D axis;
+  final Offset movement;
 
-  SpacerRenderer(this.startPosition, this.spacing, this.axis) : super(null);
+  SpacerRenderer(this.startPosition, this.movement) : super(null);
 
   @override
   void build(
@@ -148,11 +170,6 @@ class SpacerRenderer extends Renderer {
       ..color = colorScheme?.primary ?? Colors.black
       ..strokeWidth = 4 / transform.size
       ..style = PaintingStyle.stroke;
-    canvas.drawLine(
-      startPosition,
-      startPosition +
-          (axis == Axis2D.horizontal ? Offset(spacing, 0) : Offset(0, spacing)),
-      paint,
-    );
+    canvas.drawLine(startPosition, startPosition + movement, paint);
   }
 }

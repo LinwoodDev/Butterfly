@@ -641,9 +641,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           if (rect != null) {
             final hits = (await rayCastRect(
               rect,
+              rotation: renderer!.rotation,
               hitElementMode: HitElementMode.touchAnywhere,
             )).map((e) => e.element).toList();
-            final hitIndex = hits.indexOf(renderer!.element);
+            final hitIndex = hits.indexOf(renderer.element);
             if (event.arrangement == Arrangement.backward && hitIndex > 0) {
               newIndex = content.indexOf(hits[hitIndex - 1]);
             } else if (event.arrangement == Arrangement.forward &&
@@ -2006,6 +2007,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
+      rotation:
+          -(transform ??
+                  _editorController?.transformCubit.state ??
+                  const CameraTransform())
+              .rotation *
+          180 /
+          pi,
       transform: transform,
       useCollection: useCollection,
       useLayer: useLayer,
@@ -2013,39 +2021,37 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     );
   }
 
+  /// Cast a document-space rectangle, rotated about its center in degrees.
   Future<Set<Renderer<PadElement>>> rayCastRect(
     Rect rect, {
+    double rotation = 0,
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
     HitElementMode? hitElementMode,
   }) async {
-    final state = this.state;
-    final cubit = _editorController;
-    if (state is! DocumentLoadSuccess || cubit == null) return {};
-    transform ??= cubit.transformCubit.state;
-    final renderers = cubit.rendererCubit.visibleRenderers(rect);
-    if (renderers.isEmpty) return {};
-    hitElementMode ??= HitElementMode.touchAnywhere;
-
-    final params = _RayCastParams(
-      state.invisibleLayers,
-      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-      rect,
-      transform.size,
-      useCollection ? state.currentCollection : null,
-      useLayer ? state.currentLayer : null,
-      hitElementMode,
-    );
-
-    // Use synchronous execution for small element counts to avoid isolate overhead
-    final Set<int> result;
-    if (renderers.length < 100) {
-      result = _executeRayCast(params);
-    } else {
-      result = await compute(_executeRayCast, params);
+    rect = rect.normalized();
+    // Spacer queries use half-planes. Clip them to document content before
+    // building a polygon so infinite corners never enter the geometry code.
+    if (!rect.isFinite) {
+      final bounds = _editorController?.rendererCubit.renderers
+          .map((renderer) => renderer.expandedRect)
+          .nonNulls
+          .fold<Rect?>(
+            null,
+            (bounds, rect) => bounds?.expandToInclude(rect) ?? rect,
+          );
+      if (bounds == null) return {};
+      rect = rect.intersect(bounds.inflate(1));
+      if (rect.isEmpty) return {};
     }
-    return result.map((e) => renderers[e]).toSet();
+    return rayCastPolygon(
+      rect.toPolygon(rotation: rotation * pi / 180),
+      transform: transform,
+      useCollection: useCollection,
+      useLayer: useLayer,
+      hitElementMode: hitElementMode,
+    );
   }
 
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
@@ -2058,12 +2064,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final state = this.state;
     final cubit = _editorController;
     if (state is! DocumentLoadSuccess || cubit == null) return {};
-    if (points.isEmpty) return {};
+    if (points.isEmpty ||
+        points.any((point) => !point.dx.isFinite || !point.dy.isFinite)) {
+      return {};
+    }
     var bounds = Rect.fromPoints(points.first, points.first);
     for (final point in points.skip(1)) {
       bounds = bounds.expandToInclude(Rect.fromPoints(point, point));
     }
-    final renderers = cubit.rendererCubit.visibleRenderers(bounds);
+    final renderers = cubit.rendererCubit.visibleRenderers(
+      bounds.inflate(1e-7),
+    );
     if (renderers.isEmpty) return {};
     transform ??= cubit.transformCubit.state;
     hitElementMode ??= HitElementMode.touchAnywhere;
@@ -2111,42 +2122,6 @@ class _SmallRenderer {
   _SmallRenderer(this.hitCalc, this.element, this.layer);
   _SmallRenderer.fromRenderer(Renderer renderer)
     : this(renderer.getHitCalculator(), renderer.element, renderer.layer);
-}
-
-class _RayCastParams {
-  final Set<String> invisibleLayers;
-  final List<_SmallRenderer> renderers;
-  final Rect rect;
-  final double size;
-  final String? collection, layer;
-  final HitElementMode hitElementMode;
-
-  const _RayCastParams(
-    this.invisibleLayers,
-    this.renderers,
-    this.rect,
-    this.size,
-    this.collection,
-    this.layer,
-    this.hitElementMode,
-  );
-}
-
-Set<int> _executeRayCast(_RayCastParams params) {
-  final rect = params.rect.normalized();
-  return params.renderers
-      .asMap()
-      .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.layer))
-      .where(
-        (e) =>
-            e.value.hitCalc.hit(rect, hitElementMode: params.hitElementMode) &&
-            (params.collection == null ||
-                e.value.element.collection == params.collection) &&
-            (params.layer == null || e.value.layer == params.layer),
-      )
-      .map((e) => e.key)
-      .toSet();
 }
 
 class _RayCastPolygonParams {

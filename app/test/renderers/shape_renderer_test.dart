@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,8 +30,16 @@ void main() {
         ),
       ).getHitCalculator();
 
-      expect(hitCalculator.hit(const Rect.fromLTWH(9, 9, 2, 2)), isTrue);
-      expect(hitCalculator.hit(const Rect.fromLTWH(11, 11, 2, 2)), isFalse);
+      expect(
+        hitCalculator.hitPolygon((const Rect.fromLTWH(9, 9, 2, 2)).toPolygon()),
+        isTrue,
+      );
+      expect(
+        hitCalculator.hitPolygon(
+          (const Rect.fromLTWH(11, 11, 2, 2)).toPolygon(),
+        ),
+        isFalse,
+      );
     });
 
     test('zero-size shape is hit by lasso selection', () {
@@ -248,8 +257,18 @@ void main() {
         closeTo(-50, 1e-9),
       );
       final hitCalculator = mirrored.getHitCalculator();
-      expect(hitCalculator.hit(const Rect.fromLTWH(10, -48, 10, 8)), isTrue);
-      expect(hitCalculator.hit(const Rect.fromLTWH(10, -10, 10, 8)), isFalse);
+      expect(
+        hitCalculator.hitPolygon(
+          (const Rect.fromLTWH(10, -48, 10, 8)).toPolygon(),
+        ),
+        isTrue,
+      );
+      expect(
+        hitCalculator.hitPolygon(
+          (const Rect.fromLTWH(10, -10, 10, 8)).toPolygon(),
+        ),
+        isFalse,
+      );
 
       final restored = mirrored.transform(scaleY: -1)!;
       expect(restored.rotation, closeTo(0, 1e-9));
@@ -284,7 +303,12 @@ void main() {
         const Rect.fromLTRB(-40, 49, 60, 51),
       ).getHitCalculator();
 
-      expect(hitCalculator.hit(const Rect.fromLTWH(58, 49, 4, 2)), isTrue);
+      expect(
+        hitCalculator.hitPolygon(
+          (const Rect.fromLTWH(58, 49, 4, 2)).toPolygon(),
+        ),
+        isTrue,
+      );
     });
 
     test('rotated shape is hit outside its original bounds', () {
@@ -296,67 +320,27 @@ void main() {
         ),
       ).getHitCalculator();
 
-      expect(hitCalculator.hit(const Rect.fromLTWH(50, 49, 2, 2)), isTrue);
+      expect(
+        hitCalculator.hitPolygon(
+          (const Rect.fromLTWH(50, 49, 2, 2)).toPolygon(),
+        ),
+        isTrue,
+      );
     });
 
     test('default rotated renderer is hit outside its original bounds', () {
       final hitCalculator = DefaultHitCalculator(
         const Rect.fromLTWH(0, 0, 10, 100),
-        const Rect.fromLTWH(-45, 45, 100, 10),
         pi / 2,
       );
 
-      expect(hitCalculator.hit(const Rect.fromLTWH(50, 49, 2, 2)), isTrue);
+      expect(
+        hitCalculator.hitPolygon(
+          (const Rect.fromLTWH(50, 49, 2, 2)).toPolygon(),
+        ),
+        isTrue,
+      );
     });
-  });
-
-  group('Spacer rectangle hits', () {
-    const rightSpacerRect = Rect.fromLTRB(
-      50,
-      -double.infinity,
-      double.infinity,
-      double.infinity,
-    );
-    const leftSpacerRect = Rect.fromLTRB(
-      -double.infinity,
-      -double.infinity,
-      50,
-      double.infinity,
-    );
-
-    test(
-      'default rectangular renderers handle unbounded spacer rectangles',
-      () {
-        final calculator = DefaultHitCalculator(
-          const Rect.fromLTWH(100, 100, 40, 40),
-          const Rect.fromLTWH(100, 100, 40, 40),
-          0,
-        );
-
-        expect(calculator.hit(rightSpacerRect), isTrue);
-        expect(calculator.hit(leftSpacerRect), isFalse);
-      },
-    );
-
-    for (final entry in {
-      'circle': CircleShape(),
-      'rectangle': RectangleShape(),
-      'triangle': TriangleShape(),
-      'line': LineShape(),
-    }.entries) {
-      test('${entry.key} handles unbounded spacer rectangles', () {
-        final calculator = ShapeRenderer(
-          ShapeElement(
-            firstPosition: const Point(100, 100),
-            secondPosition: const Point(140, 140),
-            property: ShapeProperty(shape: entry.value, strokeWidth: 2),
-          ),
-        ).getHitCalculator();
-
-        expect(calculator.hit(rightSpacerRect), isTrue);
-        expect(calculator.hit(leftSpacerRect), isFalse);
-      });
-    }
   });
 
   group('Shape Interaction Tests by HitElementMode', () {
@@ -388,7 +372,10 @@ void main() {
         test('HitElementMode.none returns false', () {
           final bigRect = const Rect.fromLTWH(-50, -50, 200, 200);
           expect(
-            calculator.hit(bigRect, hitElementMode: HitElementMode.none),
+            calculator.hitPolygon(
+              bigRect.toPolygon(),
+              hitElementMode: HitElementMode.none,
+            ),
             isFalse,
           );
         });
@@ -396,8 +383,8 @@ void main() {
         test('HitElementMode.full', () {
           final fullyEnclosingRect = const Rect.fromLTWH(-10, -10, 120, 120);
           expect(
-            calculator.hit(
-              fullyEnclosingRect,
+            calculator.hitPolygon(
+              fullyEnclosingRect.toPolygon(),
               hitElementMode: HitElementMode.full,
             ),
             isTrue,
@@ -405,7 +392,10 @@ void main() {
 
           final partialRect = const Rect.fromLTWH(50, 50, 100, 100);
           expect(
-            calculator.hit(partialRect, hitElementMode: HitElementMode.full),
+            calculator.hitPolygon(
+              partialRect.toPolygon(),
+              hitElementMode: HitElementMode.full,
+            ),
             isFalse,
           );
         });
@@ -413,8 +403,8 @@ void main() {
         test('HitElementMode.touchAnywhere', () {
           final partialRect = const Rect.fromLTWH(40, 40, 30, 30);
           expect(
-            calculator.hit(
-              partialRect,
+            calculator.hitPolygon(
+              partialRect.toPolygon(),
               hitElementMode: HitElementMode.touchAnywhere,
             ),
             isTrue,
@@ -422,8 +412,8 @@ void main() {
 
           final distantRect = const Rect.fromLTWH(200, 200, 50, 50);
           expect(
-            calculator.hit(
-              distantRect,
+            calculator.hitPolygon(
+              distantRect.toPolygon(),
               hitElementMode: HitElementMode.touchAnywhere,
             ),
             isFalse,
@@ -433,8 +423,8 @@ void main() {
         test('HitElementMode.touchEdges', () {
           final edgeCrossRect = const Rect.fromLTWH(40, -10, 20, 120);
           expect(
-            calculator.hit(
-              edgeCrossRect,
+            calculator.hitPolygon(
+              edgeCrossRect.toPolygon(),
               hitElementMode: HitElementMode.touchEdges,
             ),
             isTrue,
@@ -492,69 +482,6 @@ void main() {
         ),
         isTrue,
       );
-    });
-  });
-
-  group('unbounded spacer rectangles', () {
-    const rightSpacerRect = Rect.fromLTRB(
-      50,
-      -double.infinity,
-      double.infinity,
-      double.infinity,
-    );
-    const leftSpacerRect = Rect.fromLTRB(
-      -double.infinity,
-      -double.infinity,
-      50,
-      double.infinity,
-    );
-
-    test('default renderers', () {
-      final calculator = DefaultHitCalculator(
-        const Rect.fromLTWH(100, 100, 40, 40),
-        const Rect.fromLTWH(100, 100, 40, 40),
-        0,
-      );
-
-      expect(calculator.hit(rightSpacerRect), isTrue);
-      expect(calculator.hit(leftSpacerRect), isFalse);
-    });
-
-    for (final entry in {
-      'circle': CircleShape(),
-      'rectangle': RectangleShape(),
-      'triangle': TriangleShape(),
-      'line': LineShape(),
-    }.entries) {
-      test('${entry.key} shapes', () {
-        final calculator = ShapeRenderer(
-          ShapeElement(
-            firstPosition: const Point(100, 100),
-            secondPosition: const Point(140, 140),
-            property: ShapeProperty(shape: entry.value, strokeWidth: 2),
-          ),
-        ).getHitCalculator();
-
-        expect(calculator.hit(rightSpacerRect), isTrue);
-        expect(calculator.hit(leftSpacerRect), isFalse);
-      });
-    }
-
-    test('polygons', () {
-      final calculator = PolygonHitCalculator(
-        const Rect.fromLTWH(100, 100, 40, 40),
-        const [
-          PolygonPoint(100, 100),
-          PolygonPoint(140, 100),
-          PolygonPoint(140, 140),
-          PolygonPoint(100, 140),
-        ],
-        0,
-        const PolygonProperty(strokeWidth: 2),
-      );
-
-      expect(calculator.hit(rightSpacerRect), isTrue);
-      expect(calculator.hit(leftSpacerRect), isFalse);
     });
   });
 }

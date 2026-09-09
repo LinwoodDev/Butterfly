@@ -1,6 +1,8 @@
 * Add per-page viewport persistence
 * Add table cell range selection with shared formatting controls
-* Respect rotation in element creation in tools
+* Respect viewport rotation in element creation, selection, and spacer tools
+* Assign new text and markdown elements to the current collection
+* Improve hit testing for rotated, curved, and zero-size elements
 * Improve table selection, deselection, and border resizing behavior
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.1

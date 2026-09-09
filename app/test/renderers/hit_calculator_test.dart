@@ -1,17 +1,13 @@
 import 'dart:collection';
+import 'dart:math';
 import 'dart:ui';
 
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _TestHitCalculator extends HitCalculator {
-  @override
-  bool hit(
-    Rect rect, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
-  }) => false;
-
   @override
   bool hitPolygon(
     List<Offset> polygon, {
@@ -43,6 +39,59 @@ class _CountingPoints extends ListBase<Offset> {
 }
 
 void main() {
+  test('polygon hits include crossing edges and point clicks', () {
+    final rectangle = DefaultHitCalculator(
+      const Rect.fromLTWH(-10, -1, 20, 2),
+      0,
+    );
+    expect(
+      rectangle.hitPolygon(const Rect.fromLTWH(5, -10, 1, 20).toPolygon()),
+      isTrue,
+    );
+    expect(rectangle.hitPolygon([const Offset(5, 0)]), isTrue);
+    expect(
+      rectangle.hitPolygon(
+        const Rect.fromLTWH(-10, -1, 20, 2).toPolygon(),
+        hitElementMode: HitElementMode.touchEdges,
+      ),
+      isTrue,
+    );
+    final pen = PenRenderer(
+      PenElement(points: const [PathPoint(-10, 0), PathPoint(10, 0)]),
+    ).getHitCalculator();
+    expect(
+      pen.hitPolygon(const Rect.fromLTWH(-1, -1, 2, 2).toPolygon()),
+      isTrue,
+    );
+    expect(
+      pen.hitPolygon(
+        const Rect.fromLTWH(-1, -1, 2, 2).toPolygon(),
+        hitElementMode: HitElementMode.full,
+      ),
+      isFalse,
+    );
+    expect(
+      pen.hitPolygon([Offset.zero], hitElementMode: HitElementMode.none),
+      isFalse,
+    );
+  });
+
+  test(
+    'ellipse point hits are exact between polygon approximation vertices',
+    () {
+      final ellipse = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(-50, -50),
+          secondPosition: const Point(50, 50),
+          property: const ShapeProperty(shape: CircleShape()),
+        ),
+      ).getHitCalculator();
+      final direction = Offset(cos(pi / 36), sin(pi / 36));
+      expect(ellipse.hitPolygon([direction * 49.9]), isTrue);
+      expect(ellipse.hitPolygon([direction * 50.1]), isFalse);
+    },
+  );
+
   group('HitCalculator.isPolygonInPolygon', () {
     final calculator = _TestHitCalculator();
     const square = [Offset(0, 0), Offset(10, 0), Offset(10, 10), Offset(0, 10)];

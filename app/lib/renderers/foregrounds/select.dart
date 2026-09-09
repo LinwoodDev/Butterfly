@@ -72,6 +72,10 @@ class RectSelectionForegroundManager {
   bool _proportionalModifier = false;
   bool _centeredModifier = false;
   double _viewportRotation = 0;
+  double rotation = 0;
+
+  Offset _toLocal(Offset point) => point.rotate(Offset.zero, -rotation);
+  bool contains(Offset point) => selection.contains(_toLocal(point));
   SelectionTransformCorner? _corner;
   Offset? _startPosition, _currentPosition;
 
@@ -85,13 +89,13 @@ class RectSelectionForegroundManager {
       selection.contains(_currentPosition ?? Offset.zero);
 
   void updateCurrentPosition(Offset position) {
-    _currentPosition = position;
+    _currentPosition = _toLocal(position);
   }
 
   void updateCursor(double scale, double sensitivity, [double rotation = 0]) {
     _viewportRotation = rotation;
     if (_currentPosition == null) return;
-    _corner = getCornerHit(_currentPosition!, scale, sensitivity);
+    _corner = _getCornerHit(_currentPosition!, scale, sensitivity);
   }
 
   Rect getHitRect(double scale, double sensitivity) {
@@ -116,7 +120,8 @@ class RectSelectionForegroundManager {
     _currentPosition = null;
   }
 
-  void select(Rect? selection) {
+  void select(Rect? selection, {double rotation = 0}) {
+    this.rotation = rotation;
     _selection = selection ?? Rect.zero;
     resetTransform();
   }
@@ -124,6 +129,12 @@ class RectSelectionForegroundManager {
   void deselect() => select(null);
 
   SelectionTransformCorner? getCornerHit(
+    Offset position,
+    double scale,
+    double sensitivity,
+  ) => _getCornerHit(_toLocal(position), scale, sensitivity);
+
+  SelectionTransformCorner? _getCornerHit(
     Offset position,
     double scale,
     double sensitivity,
@@ -171,18 +182,19 @@ class RectSelectionForegroundManager {
 
   bool shouldTransform(Offset position, double scale, double sensitivity) {
     if (!isValid) return false;
-    return getHitRect(scale, sensitivity).contains(position) ||
+    return getHitRect(scale, sensitivity).contains(_toLocal(position)) ||
         getCornerHit(position, scale, sensitivity) != null;
   }
 
   bool startTransform(Offset position, double scale, double sensitivity) {
     if (!isValid) return false;
     final hit = getCornerHit(position, scale, sensitivity);
-    if (!getHitRect(scale, sensitivity).contains(position) && hit == null) {
+    if (!getHitRect(scale, sensitivity).contains(_toLocal(position)) &&
+        hit == null) {
       return false;
     }
-    _startPosition = position;
-    _currentPosition = position;
+    _startPosition = _toLocal(position);
+    _currentPosition = _startPosition;
     _corner = hit;
     return true;
   }
@@ -192,7 +204,9 @@ class RectSelectionForegroundManager {
     Offset? position,
   ]) {
     _corner = corner;
-    _startPosition = position ?? corner.getFromRect(_selection);
+    _startPosition = position == null
+        ? corner.getFromRect(_selection)
+        : _toLocal(position);
     _currentPosition = _startPosition;
   }
 
@@ -214,7 +228,9 @@ class RectSelectionForegroundManager {
       _ => null,
     };
     if (angle != null) {
-      return switch (((angle + _viewportRotation) / (pi / 4)).round() % 4) {
+      return switch (((angle + _viewportRotation + rotation) / (pi / 4))
+              .round() %
+          4) {
         0 => SystemMouseCursors.resizeLeftRight,
         1 => SystemMouseCursors.resizeUpLeftDownRight,
         2 => SystemMouseCursors.resizeUpDown,
@@ -265,7 +281,10 @@ class RectSelectionForegroundManager {
         scaleX += delta.dx / _selection.size.width;
         scaleY += delta.dy / _selection.size.height;
       case SelectionTransformCorner.center when enableRotation:
-        rotation = (position.getRotation(_selection.center) + 90) / pi * 180;
+        rotation =
+            ((position - pivot).direction - (previous - pivot).direction) *
+            180 /
+            pi;
       default:
         moved = delta;
     }
@@ -320,14 +339,17 @@ class RectSelectionForegroundManager {
     return transform.scaleRect(_selection, _selection);
   }
 
-  RectSelectionForegroundRenderer get renderer =>
-      RectSelectionForegroundRenderer(
-        getTransformedSelection(),
-        _effectiveScaleMode,
-        _corner,
-        enableRotation,
-        isTransforming,
-      );
+  RectSelectionForegroundRenderer get renderer {
+    final rect = getTransformedSelection();
+    return RectSelectionForegroundRenderer(
+      rect.shift(rect.center.rotate(Offset.zero, rotation) - rect.center),
+      rotation: rotation * 180 / pi,
+      transformMode: _effectiveScaleMode,
+      transformCorner: _corner,
+      enableRotation: enableRotation,
+      isTransforming: isTransforming,
+    );
+  }
 }
 
 class RectSelectionForegroundRenderer extends Renderer<Rect> {
@@ -335,13 +357,27 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
   final SelectionTransformCorner? transformCorner;
   final bool enableRotation, isTransforming;
 
+  @override
+  final double rotation;
+
+  @override
+  Rect get rect => element;
+
+  List<Offset> get corners => [
+    element.topLeft,
+    element.topRight,
+    element.bottomRight,
+    element.bottomLeft,
+  ].map(transformPoint).toList();
+
   RectSelectionForegroundRenderer(
-    super.element, [
+    super.element, {
     this.transformMode,
     this.transformCorner,
     this.enableRotation = true,
     this.isTransforming = false,
-  ]);
+    this.rotation = 0,
+  });
 
   @override
   void build(

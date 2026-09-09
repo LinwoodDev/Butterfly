@@ -12,9 +12,11 @@ import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -56,6 +58,8 @@ Future<Uint8List> _renderViewportPixels(
     picture.dispose();
   }
 }
+
+class _ToolEventContext extends Mock implements EventContext {}
 
 class _SolidRectRenderer extends Renderer<ShapeElement> {
   _SolidRectRenderer(super.element, this.color, [super.layer]);
@@ -306,6 +310,251 @@ void main() {
       await windowCubit.close();
     }
   });
+
+  test('rectangle ray casts rotate around their center and preserve spacer queries', () async {
+    bloc.add(
+      ElementsCreated([
+        ShapeElement(
+          id: 'vertical',
+          firstPosition: const Point(-2, 28),
+          secondPosition: const Point(2, 32),
+        ),
+        ShapeElement(
+          id: 'horizontal',
+          firstPosition: const Point(28, -2),
+          secondPosition: const Point(32, 2),
+        ),
+      ]),
+    );
+    await _settleBlocEvents();
+    const selection = Rect.fromLTWH(-40, -10, 80, 20);
+    expect((await bloc.rayCastRect(selection, rotation: 90)).map((e) => e.id), [
+      'vertical',
+    ]);
+    expect((await bloc.rayCastRect(selection)).map((e) => e.id), [
+      'horizontal',
+    ]);
+    expect(
+      (await bloc.rayCastRect(
+        const Rect.fromLTRB(
+          10,
+          -double.infinity,
+          double.infinity,
+          double.infinity,
+        ),
+      )).map((e) => e.id),
+      ['horizontal'],
+    );
+    expect((await bloc.rayCast(const Offset(0, 30), 0)).map((e) => e.id), [
+      'vertical',
+    ]);
+  });
+
+  test(
+    'spacer moves the viewport-facing side along its rotated axis',
+    () async {
+      editorController.transformCubit
+        ..zoom(2)
+        ..rotate(pi / 3);
+      final camera = editorController.transformCubit.state;
+      bloc.add(
+        ElementsCreated([
+          orientCreatedElement(
+            ShapeElement(
+              id: 'right',
+              firstPosition: const Point(90, 40),
+              secondPosition: const Point(110, 60),
+            ),
+            camera.rotation,
+          ),
+          orientCreatedElement(
+            ShapeElement(
+              id: 'left',
+              firstPosition: const Point(-10, 40),
+              secondPosition: const Point(10, 60),
+            ),
+            camera.rotation,
+          ),
+        ]),
+      );
+      await _settleBlocEvents();
+      final context = _ToolEventContext();
+      when(() => context.getCameraTransform()).thenReturn(camera);
+      when(() => context.getDocumentBloc()).thenReturn(bloc);
+      when(() => context.getEditorController()).thenReturn(editorController);
+      when(() => context.getViewState()).thenReturn(const EditorViewState());
+      when(() => context.refresh()).thenAnswer((_) async {});
+      when(() => context.refreshForegrounds()).thenAnswer((_) async {});
+      final handler = SpacerHandler(SpacerTool(axis: Axis2D.horizontal));
+      handler.onScaleStart(
+        ScaleStartDetails(localFocalPoint: const Offset(100, 100)),
+        context,
+      );
+      handler.onScaleUpdate(
+        ScaleUpdateDetails(
+          localFocalPoint: const Offset(140, 110),
+          pointerCount: 1,
+        ),
+        context,
+      );
+      await handler.onScaleEnd(ScaleEndDetails(), context);
+      await _settleBlocEvents();
+      for (final renderer in editorController.rendererCubit.renderers) {
+        final center = camera.globalToLocal(renderer.rect!.center);
+        expect(center.dx, closeTo(renderer.id == 'right' ? 240 : 0, 1e-6));
+        expect(center.dy, closeTo(100, 1e-6));
+      }
+    },
+  );
+
+  test(
+    'spacer moves text outside the current collection when unlocked',
+    () async {
+      editorController.transformCubit
+        ..zoom(2)
+        ..rotate(pi / 3);
+      final camera = editorController.transformCubit.state;
+      final documentPosition = camera.localToGlobal(const Offset(240, 100));
+      final element = TextElement(
+        id: 'text',
+        position: Point(documentPosition.dx, documentPosition.dy),
+        rotation: 25,
+        area: const text.TextArea(
+          paragraph: text.TextParagraph(
+            textSpans: [text.TextSpan(text: 'Text')],
+          ),
+        ),
+      );
+      bloc.add(ElementsCreated([element]));
+      bloc.add(const CurrentCollectionChanged('active'));
+      await _settleBlocEvents();
+      final originalPosition = Offset(element.position.x, element.position.y);
+      final context = _ToolEventContext();
+      when(() => context.getCameraTransform()).thenReturn(camera);
+      when(() => context.getDocumentBloc()).thenReturn(bloc);
+      when(() => context.getEditorController()).thenReturn(editorController);
+      when(() => context.getViewState()).thenReturn(const EditorViewState());
+      when(() => context.refresh()).thenAnswer((_) async {});
+      final foregroundsRefreshed = Completer<void>();
+      when(() => context.refreshForegrounds()).thenAnswer((_) async {
+        if (!foregroundsRefreshed.isCompleted) foregroundsRefreshed.complete();
+      });
+      final handler = SpacerHandler(SpacerTool(axis: Axis2D.horizontal));
+      handler.onScaleStart(
+        ScaleStartDetails(localFocalPoint: const Offset(100, 100)),
+        context,
+      );
+      handler.onScaleUpdate(
+        ScaleUpdateDetails(
+          localFocalPoint: const Offset(140, 100),
+          pointerCount: 1,
+        ),
+        context,
+      );
+      await foregroundsRefreshed.future;
+      final state = bloc.state as DocumentLoadSuccess;
+      final preview = handler
+          .createForegrounds(
+            editorController,
+            state.data,
+            state.page,
+            state.info,
+          )
+          .map((renderer) => renderer.element)
+          .whereType<TextElement>()
+          .single;
+      expect(
+        Offset(preview.position.x, preview.position.y),
+        offsetMoreOrLessEquals(
+          originalPosition + camera.localToGlobalDelta(const Offset(40, 0)),
+        ),
+      );
+      await handler.onScaleEnd(ScaleEndDetails(), context);
+      await _settleBlocEvents();
+      final result =
+          editorController.rendererCubit.renderers.single.element
+              as TextElement;
+      expect(
+        Offset(result.position.x, result.position.y),
+        offsetMoreOrLessEquals(
+          originalPosition + camera.localToGlobalDelta(const Offset(40, 0)),
+        ),
+      );
+    },
+  );
+
+  test(
+    'selection handles resize along viewport axes with the opposite edge fixed',
+    () async {
+      editorController.transformCubit
+        ..zoom(2)
+        ..rotate(pi / 3);
+      final camera = editorController.transformCubit.state;
+      bloc.add(
+        ElementsCreated([
+          orientCreatedElement(
+            ShapeElement(
+              id: 'selected',
+              firstPosition: const Point(50, 50),
+              secondPosition: const Point(150, 100),
+            ),
+            camera.rotation,
+          ),
+        ]),
+      );
+      await _settleBlocEvents();
+      final context = _ToolEventContext();
+      final handler = SelectHandler(SelectTool());
+      when(() => context.getCameraTransform()).thenReturn(camera);
+      when(() => context.getDocumentBloc()).thenReturn(bloc);
+      when(() => context.getToolState())
+          .thenReturn(ToolRuntimeState(handler: handler));
+      when(() => context.getInputState()).thenReturn(const EditorInputState());
+      when(() => context.getViewState()).thenReturn(const EditorViewState());
+      when(() => context.getSettings()).thenReturn(const ButterflySettings());
+      when(() => context.isShiftPressed).thenReturn(false);
+      when(() => context.isAltPressed).thenReturn(false);
+      when(() => context.refresh()).thenAnswer((_) async {});
+      when(() => context.refreshForegrounds()).thenAnswer((_) async {});
+      handler.selectAll(bloc);
+      final state = bloc.state as DocumentLoadSuccess;
+      final box = handler
+          .createForegrounds(
+            editorController,
+            state.data,
+            state.page,
+            state.info,
+          )
+          .whereType<RectSelectionForegroundRenderer>()
+          .single;
+      final corners = box.corners.map(camera.globalToLocal).toList();
+      expect(corners[0].dx, closeTo(100, 1e-6));
+      expect(corners[0].dy, closeTo(100, 1e-6));
+      expect(corners[1].dy, closeTo(corners[0].dy, 1e-6));
+      handler.onScaleStart(
+        ScaleStartDetails(localFocalPoint: const Offset(300, 150)),
+        context,
+      );
+      handler.onScaleUpdate(
+        ScaleUpdateDetails(
+          localFocalPoint: const Offset(360, 150),
+          pointerCount: 1,
+        ),
+        context,
+      );
+      await handler.onScaleEnd(ScaleEndDetails(), context);
+      await _settleBlocEvents();
+      final result = editorController.rendererCubit.renderers.single;
+      final points = [
+        result.rect!.topLeft,
+        result.rect!.bottomRight,
+      ].map(result.transformPoint).map(camera.globalToLocal).toList();
+      expect(points[0].dx, closeTo(100, 1e-6));
+      expect(points[0].dy, closeTo(100, 1e-6));
+      expect(points[1].dx, closeTo(360, 1e-6));
+      expect(points[1].dy, closeTo(200, 1e-6));
+    },
+  );
 
   test('empty initial viewport skips image rasterization', () async {
     await editorController.rendererCubit.bake(

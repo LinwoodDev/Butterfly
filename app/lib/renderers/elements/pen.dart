@@ -348,84 +348,21 @@ class PenRenderer extends Renderer<PenElement> {
 
   @override
   PathHitCalculator createHitCalculator() {
-    _cachedHitCalculator ??= PathHitCalculator(
-      rect,
-      _localExpandedRect,
-      element.points,
-      0,
-    );
+    _cachedHitCalculator ??= PathHitCalculator(rect, element.points, 0);
     return _cachedHitCalculator!;
   }
 }
 
 class PathHitCalculator extends HitCalculator {
   final Rect elementRect;
-  final Rect boundsRect;
   final List<PathPoint> points;
   final double rotation;
   final double _cos;
   final double _sin;
 
-  PathHitCalculator(
-    this.elementRect,
-    this.boundsRect,
-    this.points,
-    this.rotation,
-  ) : _cos = rotation == 0 ? 1 : cos(rotation),
+  PathHitCalculator(this.elementRect, this.points, this.rotation)
+    : _cos = rotation == 0 ? 1 : cos(rotation),
       _sin = rotation == 0 ? 0 : sin(rotation);
-
-  /// Check if a line segment intersects with a rectangle
-  bool _lineIntersectsRect(Offset p1, Offset p2, Rect rect) {
-    // Quick check: if both points are on the same side of any edge, no intersection
-    if ((p1.dx < rect.left && p2.dx < rect.left) ||
-        (p1.dx > rect.right && p2.dx > rect.right) ||
-        (p1.dy < rect.top && p2.dy < rect.top) ||
-        (p1.dy > rect.bottom && p2.dy > rect.bottom)) {
-      return false;
-    }
-
-    // Check if either endpoint is inside the rect
-    if (rect.contains(p1) || rect.contains(p2)) {
-      return true;
-    }
-
-    // Check intersection with each edge of the rectangle
-    // Using parametric line intersection
-    final dx = p2.dx - p1.dx;
-    final dy = p2.dy - p1.dy;
-
-    // Check left edge (x = rect.left)
-    if (dx != 0) {
-      final t = (rect.left - p1.dx) / dx;
-      if (t >= 0 && t <= 1) {
-        final y = p1.dy + t * dy;
-        if (y >= rect.top && y <= rect.bottom) return true;
-      }
-      // Check right edge (x = rect.right)
-      final t2 = (rect.right - p1.dx) / dx;
-      if (t2 >= 0 && t2 <= 1) {
-        final y = p1.dy + t2 * dy;
-        if (y >= rect.top && y <= rect.bottom) return true;
-      }
-    }
-
-    // Check top edge (y = rect.top)
-    if (dy != 0) {
-      final t = (rect.top - p1.dy) / dy;
-      if (t >= 0 && t <= 1) {
-        final x = p1.dx + t * dx;
-        if (x >= rect.left && x <= rect.right) return true;
-      }
-      // Check bottom edge (y = rect.bottom)
-      final t2 = (rect.bottom - p1.dy) / dy;
-      if (t2 >= 0 && t2 <= 1) {
-        final x = p1.dx + t2 * dx;
-        if (x >= rect.left && x <= rect.right) return true;
-      }
-    }
-
-    return false;
-  }
 
   Offset _rotatePoint(PathPoint point) {
     if (rotation == 0) return point.toOffset();
@@ -439,93 +376,25 @@ class PathHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(
-    Rect rect, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
-  }) {
-    // Quick bounds check first
-    if (!boundsRect.overlaps(rect)) {
-      return false;
-    }
-
-    if (points.isEmpty) return false;
-
-    if (points.length == 1) {
-      final rotated = _rotatePoint(points.first);
-      return rect.contains(rotated);
-    }
-
-    var p1 = _rotatePoint(points[0]);
-
-    if (hitElementMode == HitElementMode.full) {
-      if (!rect.contains(p1)) return false;
-
-      // All segments must be fully inside the rect
-      for (int i = 0; i < points.length - 1; i++) {
-        final p2 = _rotatePoint(points[i + 1]);
-        if (!rect.contains(p2)) {
-          return false;
-        }
-        p1 = p2;
-      }
-      return true;
-    } else {
-      // Any segment intersects the rect
-      for (int i = 0; i < points.length - 1; i++) {
-        final p2 = _rotatePoint(points[i + 1]);
-        if (_lineIntersectsRect(p1, p2, rect)) {
-          return true;
-        }
-        p1 = p2;
-      }
-      return false;
-    }
-  }
-
-  @override
   bool hitPolygon(
     List<ui.Offset> polygon, {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
-    if (points.isEmpty) return false;
-    if (!_rectIntersectsPolygonBounds(boundsRect, polygon)) return false;
-
-    if (hitElementMode == HitElementMode.full) {
-      // All points must be inside the polygon
-      for (final point in points) {
-        final rotated = _rotatePoint(point);
-        if (!isPointInPolygon(polygon, rotated)) {
-          return false;
-        }
-      }
-      return true;
-    } else {
-      // Any point inside the polygon is a hit
-      for (final point in points) {
-        final rotated = _rotatePoint(point);
-        if (isPointInPolygon(polygon, rotated)) {
-          return true;
-        }
-      }
+    if (points.isEmpty ||
+        polygon.isEmpty ||
+        hitElementMode == HitElementMode.none) {
       return false;
     }
-  }
-
-  bool _rectIntersectsPolygonBounds(Rect rect, List<ui.Offset> polygon) {
-    if (polygon.isEmpty) return false;
-    double minX = polygon[0].dx;
-    double maxX = polygon[0].dx;
-    double minY = polygon[0].dy;
-    double maxY = polygon[0].dy;
-
-    for (int i = 1; i < polygon.length; i++) {
-      final p = polygon[i];
-      if (p.dx < minX) minX = p.dx;
-      if (p.dx > maxX) maxX = p.dx;
-      if (p.dy < minY) minY = p.dy;
-      if (p.dy > maxY) maxY = p.dy;
+    final path = points.map(_rotatePoint).toList();
+    if (hitElementMode == HitElementMode.full) {
+      return path.every((point) => isPointInPolygon(polygon, point));
     }
-
-    return rect.overlaps(Rect.fromLTRB(minX, minY, maxX, maxY));
+    if (path.length == 1) return isPointInPolygon(polygon, path.first);
+    // A pen path is open: test each segment without closing the last point
+    // back to the first, and include crossings between sparse samples.
+    for (var i = 1; i < path.length; i++) {
+      if (isPolygonInPolygon(polygon, [path[i - 1], path[i]])) return true;
+    }
+    return false;
   }
 }

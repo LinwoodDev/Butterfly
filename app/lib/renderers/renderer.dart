@@ -176,78 +176,32 @@ class ElementPaintRenderer {
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
-  final Rect? boundsRect;
   final double rotation;
 
-  DefaultHitCalculator(this.rect, this.boundsRect, this.rotation);
-
-  List<Offset> _rotatedCorners(Rect rect) {
-    final center = rect.center;
-    return [
-      rect.topLeft.rotate(center, rotation),
-      rect.topRight.rotate(center, rotation),
-      rect.bottomRight.rotate(center, rotation),
-      rect.bottomLeft.rotate(center, rotation),
-    ];
-  }
-
-  @override
-  bool hit(
-    Rect rect, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
-  }) {
-    final element = this.rect;
-    if (element == null) return false;
-    if (!(boundsRect ?? element).overlaps(rect)) return false;
-    final rotated = _rotatedCorners(element);
-    if (hitElementMode == HitElementMode.full) {
-      return rotated.every(rect.contains);
-    }
-    if (!isFiniteRect(rect)) {
-      return rotated.any(rect.contains);
-    }
-    return isPolygonInPolygon(rotated, [
-      rect.topLeft,
-      rect.topRight,
-      rect.bottomRight,
-      rect.bottomLeft,
-    ]);
-  }
+  DefaultHitCalculator(this.rect, this.rotation);
 
   @override
   bool hitPolygon(
     List<ui.Offset> polygon, {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
-    if (rect == null) return false;
-    final rotated = _rotatedCorners(rect!);
-    final center = rect!.center;
-    final isCenter = isPointInPolygon(polygon, center);
-    final isTopLeft = isPointInPolygon(polygon, rotated[0]);
-    final isTopRight = isPointInPolygon(polygon, rotated[1]);
-    final isBottomRight = isPointInPolygon(polygon, rotated[2]);
-    final isBottomLeft = isPointInPolygon(polygon, rotated[3]);
-    if (hitElementMode == HitElementMode.full) {
-      return isCenter &&
-          isTopLeft &&
-          isTopRight &&
-          isBottomLeft &&
-          isBottomRight;
-    }
-    return isCenter || isTopLeft || isTopRight || isBottomLeft || isBottomRight;
+    if (rect == null || hitElementMode == HitElementMode.none) return false;
+    return hitShape(
+      polygon,
+      rect!.toPolygon(rotation: rotation),
+      hitElementMode,
+    );
   }
 }
 
 class TransformedHitCalculator extends HitCalculator {
   final HitCalculator delegate;
-  final Rect? bounds;
   final Offset center;
   final double rotation;
   final double shear;
 
   TransformedHitCalculator(
     this.delegate,
-    this.bounds,
     this.center,
     this.rotation,
     this.shear,
@@ -256,34 +210,6 @@ class TransformedHitCalculator extends HitCalculator {
   Offset _inverse(Offset point) {
     final rotated = (point - center).rotate(Offset.zero, -rotation);
     return center + Offset(rotated.dx - rotated.dy * shear, rotated.dy);
-  }
-
-  @override
-  bool hit(
-    Rect rect, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
-  }) {
-    if (!isFiniteRect(rect)) {
-      final bounds = this.bounds;
-      if (bounds == null) return false;
-      return hitElementMode == HitElementMode.full
-          ? [
-              bounds.topLeft,
-              bounds.topRight,
-              bounds.bottomRight,
-              bounds.bottomLeft,
-            ].every(rect.contains)
-          : bounds.overlaps(rect);
-    }
-    return delegate.hitPolygon(
-      [
-        rect.topLeft,
-        rect.topRight,
-        rect.bottomRight,
-        rect.bottomLeft,
-      ].map(_inverse).toList(),
-      hitElementMode: hitElementMode,
-    );
   }
 
   @override
@@ -296,48 +222,37 @@ class TransformedHitCalculator extends HitCalculator {
   );
 }
 
-/// A helper class to represent the projection of a polygon onto an axis.
-class Projection {
-  double min;
-  double max;
-  Projection(this.min, this.max);
-}
-
-double dotProduct(Offset a, Offset b) => a.dx * b.dx + a.dy * b.dy;
-
-/// Projects the polygon onto the given axis and returns the min and max values.
-Projection projectPolygon(Offset axis, List<Offset> polygon) {
-  double min = dotProduct(polygon[0], axis);
-  double max = min;
-
-  for (int i = 1; i < polygon.length; i++) {
-    final double p = dotProduct(polygon[i], axis);
-    if (p < min) {
-      min = p;
-    }
-    if (p > max) {
-      max = p;
-    }
-  }
-  return Projection(min, max);
-}
-
 abstract class HitCalculator {
-  bool hit(
-    Rect rect, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
-  });
-
   bool hitPolygon(
     List<Offset> polygon, {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   });
 
+  bool hitShape(
+    List<Offset> selection,
+    List<Offset> outline,
+    HitElementMode mode,
+  ) => switch (mode) {
+    HitElementMode.full =>
+      outline.isNotEmpty &&
+          outline.every((point) => isPointInPolygon(selection, point)),
+    HitElementMode.touchEdges => _edgesOf(
+      outline,
+    ).any((edge) => isPolygonInPolygon(selection, [edge.$1, edge.$2])),
+    HitElementMode.touchAnywhere => isPolygonInPolygon(selection, outline),
+    HitElementMode.none => false,
+  };
+
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
     if (!_isFiniteOffset(testPoint) || !isFinitePolygon(polygon)) return false;
+    if (polygon.isEmpty) return false;
+    if (polygon.length == 1) {
+      return _isPointOnSegment(testPoint, polygon.first, polygon.first);
+    }
     bool result = false;
     int j = polygon.length - 1;
     for (int i = 0; i < polygon.length; i++) {
+      if (_isPointOnSegment(testPoint, polygon[j], polygon[i])) return true;
       if ((polygon[i].dy < testPoint.dy && polygon[j].dy >= testPoint.dy) ||
           (polygon[j].dy < testPoint.dy && polygon[i].dy >= testPoint.dy)) {
         if (polygon[i].dx +
@@ -356,46 +271,6 @@ abstract class HitCalculator {
   bool _isFiniteOffset(Offset point) => point.dx.isFinite && point.dy.isFinite;
 
   bool isFinitePolygon(List<Offset> polygon) => polygon.every(_isFiniteOffset);
-
-  bool isFiniteRect(Rect rect) =>
-      rect.left.isFinite &&
-      rect.top.isFinite &&
-      rect.right.isFinite &&
-      rect.bottom.isFinite;
-
-  List<Offset> rectToPolygon(Rect rect) => [
-    rect.topLeft,
-    rect.topRight,
-    rect.bottomRight,
-    rect.bottomLeft,
-  ];
-
-  bool hitRectPolygon(Rect rect, List<Offset> polygon) {
-    if (polygon.isEmpty) return false;
-    if (!isFiniteRect(rect)) {
-      return polygon.any(rect.contains);
-    }
-    return isPolygonInPolygon(rectToPolygon(rect), polygon);
-  }
-
-  List<Offset> getAxesOfPolygon(List<Offset> polygon) {
-    List<Offset> axes = [];
-    for (int i = 0; i < polygon.length; i++) {
-      final Offset p1 = polygon[i];
-      final Offset p2 = polygon[(i + 1) % polygon.length];
-
-      // Edge vector from p1 to p2.
-      final Offset edge = p2 - p1;
-
-      // The normal (perpendicular) to the edge.
-      final Offset normal = Offset(-edge.dy, edge.dx);
-
-      // Normalize the axis.
-      final double length = normal.distance;
-      axes.add(normal / length);
-    }
-    return axes;
-  }
 
   bool _isPointOnSegment(Offset point, Offset a, Offset b) {
     const epsilon = 1e-10;
@@ -712,7 +587,6 @@ abstract class Renderer<T> {
     if (rotation == 0 && shear == 0) return calculator;
     return TransformedHitCalculator(
       calculator,
-      expandedRect,
       rect?.center ?? Offset.zero,
       rotation * pi / 180,
       shear,
@@ -720,7 +594,7 @@ abstract class Renderer<T> {
   }
 
   @protected
-  HitCalculator createHitCalculator() => DefaultHitCalculator(rect, rect, 0);
+  HitCalculator createHitCalculator() => DefaultHitCalculator(rect, 0);
 
   void buildSvg(
     XmlDocument xml,
@@ -733,6 +607,8 @@ abstract class Renderer<T> {
     Offset? position,
     double scaleX = 1,
     double scaleY = 1,
+    double scaleRotation = 0,
+    Offset? center,
     double? rotation,
     bool relative = true,
     bool rotatePosition = false,
@@ -776,10 +652,15 @@ abstract class Renderer<T> {
     final effectiveScaleY = scaleY.abs() < minimumScale
         ? (scaleY.isNegative ? -minimumScale : minimumScale)
         : scaleY;
-    final m00 = dc * effectiveScaleX * a - ds * effectiveScaleY * d;
-    final m01 = dc * effectiveScaleX * b - ds * effectiveScaleY * e;
-    final m10 = ds * effectiveScaleX * a + dc * effectiveScaleY * d;
-    final m11 = ds * effectiveScaleX * b + dc * effectiveScaleY * e;
+    // Apply scaling along the requested axes before the rotation delta.
+    final sc = cos(scaleRotation), ss = sin(scaleRotation);
+    final sx = sc * sc * effectiveScaleX + ss * ss * effectiveScaleY;
+    final sy = ss * ss * effectiveScaleX + sc * sc * effectiveScaleY;
+    final cross = sc * ss * (effectiveScaleX - effectiveScaleY);
+    final m00 = dc * (sx * a + cross * d) - ds * (cross * a + sy * d);
+    final m01 = dc * (sx * b + cross * e) - ds * (cross * b + sy * e);
+    final m10 = ds * (sx * a + cross * d) + dc * (cross * a + sy * d);
+    final m11 = ds * (sx * b + cross * e) + dc * (cross * b + sy * e);
 
     final r00Magnitude = sqrt(m00 * m00 + m10 * m10);
     if (r00Magnitude <= 1e-12) return null;
@@ -816,6 +697,11 @@ abstract class Renderer<T> {
           (newExpanded.topLeft - scaledOrigin);
     }
 
+    if (center != null) {
+      nextPosition =
+          center -
+          Offset(rect.width * geometryScaleX, rect.height * geometryScaleY) / 2;
+    }
     return _transform(
       position: nextPosition,
       rotation: nextRotation,

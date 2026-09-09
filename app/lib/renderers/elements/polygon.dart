@@ -424,42 +424,18 @@ class PolygonHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(
-    Rect rect, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
-  }) {
-    if (hitElementMode == HitElementMode.none) return false;
-    if (_points.isEmpty) return false;
-    if (!_bounds.overlaps(rect)) return false;
-    return switch (hitElementMode) {
-      HitElementMode.full => _points.every((p) => rect.contains(p)),
-      HitElementMode.touchEdges =>
-        hitRectPolygon(rect, _points) &&
-            (isFiniteRect(rect)
-                ? !rectToPolygon(rect)
-                      .every((p) => isPointInPolygon(_points, p))
-                : true),
-      HitElementMode.touchAnywhere => hitRectPolygon(rect, _points),
-      _ => false, // this shouldn't happen
-    };
-  }
-
-  @override
   bool hitPolygon(
     List<Offset> polygon, {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
     if (hitElementMode == HitElementMode.none) return false;
     if (polygon.isEmpty || _points.isEmpty) return false;
-    if (!_bounds.overlaps(_selectionBounds(polygon))) return false;
+    if (!_bounds
+        .inflate(1e-7)
+        .overlaps(_selectionBounds(polygon).inflate(1e-7))) {
+      return false;
+    }
 
-    return switch (hitElementMode) {
-      HitElementMode.full => _points.every((p) => isPointInPolygon(polygon, p)),
-      HitElementMode.touchEdges =>
-        isPolygonInPolygon(polygon, _points) &&
-            !polygon.every((p) => isPointInPolygon(_points, p)),
-      HitElementMode.touchAnywhere => isPolygonInPolygon(polygon, _points),
-      _ => false, // this shouldn't happen
-    };
+    return hitShape(polygon, _points, hitElementMode);
   }
 }

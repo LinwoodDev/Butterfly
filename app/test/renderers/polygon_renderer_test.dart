@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -99,7 +100,10 @@ void main() {
     test('HitElementMode.none returns false', () {
       final rect = const Rect.fromLTWH(-50, -50, 200, 200);
       expect(
-        calculator.hit(rect, hitElementMode: HitElementMode.none),
+        calculator.hitPolygon(
+          rect.toPolygon(),
+          hitElementMode: HitElementMode.none,
+        ),
         isFalse,
       );
     });
@@ -107,13 +111,19 @@ void main() {
     test('HitElementMode.full', () {
       final fullRect = const Rect.fromLTWH(-10, -10, 120, 120);
       expect(
-        calculator.hit(fullRect, hitElementMode: HitElementMode.full),
+        calculator.hitPolygon(
+          fullRect.toPolygon(),
+          hitElementMode: HitElementMode.full,
+        ),
         isTrue,
       );
 
       final partialRect = const Rect.fromLTWH(50, -10, 100, 150);
       expect(
-        calculator.hit(partialRect, hitElementMode: HitElementMode.full),
+        calculator.hitPolygon(
+          partialRect.toPolygon(),
+          hitElementMode: HitElementMode.full,
+        ),
         isFalse,
       );
     });
@@ -121,8 +131,8 @@ void main() {
     test('HitElementMode.touchAnywhere partial', () {
       final touchingRect = const Rect.fromLTWH(50, -10, 20, 20);
       expect(
-        calculator.hit(
-          touchingRect,
+        calculator.hitPolygon(
+          touchingRect.toPolygon(),
           hitElementMode: HitElementMode.touchAnywhere,
         ),
         isTrue,
@@ -130,7 +140,10 @@ void main() {
 
       final farRect = const Rect.fromLTWH(200, 200, 50, 50);
       expect(
-        calculator.hit(farRect, hitElementMode: HitElementMode.touchAnywhere),
+        calculator.hitPolygon(
+          farRect.toPolygon(),
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
         isFalse,
       );
     });
@@ -163,45 +176,15 @@ void main() {
       const selection = Rect.fromLTWH(5, 4, 2, 2);
 
       expect(
-        openCalculator.hit(
-          selection,
+        openCalculator.hitPolygon(
+          selection.toPolygon(),
           hitElementMode: HitElementMode.touchAnywhere,
         ),
         isFalse,
       );
       expect(
-        closedCalculator.hit(
-          selection,
-          hitElementMode: HitElementMode.touchAnywhere,
-        ),
-        isFalse,
-      );
-    });
-
-    test('handles unbounded spacer rectangles', () {
-      final rightSpacerRect = const Rect.fromLTRB(
-        50,
-        -double.infinity,
-        double.infinity,
-        double.infinity,
-      );
-      final leftSpacerRect = const Rect.fromLTRB(
-        -double.infinity,
-        -double.infinity,
-        -50,
-        double.infinity,
-      );
-
-      expect(
-        calculator.hit(
-          rightSpacerRect,
-          hitElementMode: HitElementMode.touchAnywhere,
-        ),
-        isTrue,
-      );
-      expect(
-        calculator.hit(
-          leftSpacerRect,
+        closedCalculator.hitPolygon(
+          selection.toPolygon(),
           hitElementMode: HitElementMode.touchAnywhere,
         ),
         isFalse,
@@ -241,13 +224,19 @@ void main() {
     test('HitElementMode.full', () {
       final smallRect = const Rect.fromLTWH(-5, -5, 110, 110);
       expect(
-        calculator.hit(smallRect, hitElementMode: HitElementMode.full),
+        calculator.hitPolygon(
+          smallRect.toPolygon(),
+          hitElementMode: HitElementMode.full,
+        ),
         isFalse,
       );
 
       final bigRect = const Rect.fromLTWH(-5, -50, 110, 160);
       expect(
-        calculator.hit(bigRect, hitElementMode: HitElementMode.full),
+        calculator.hitPolygon(
+          bigRect.toPolygon(),
+          hitElementMode: HitElementMode.full,
+        ),
         isTrue,
       );
     });
@@ -255,8 +244,8 @@ void main() {
     test('HitElementMode.touchAnywhere', () {
       final curveIntersectionRect = const Rect.fromLTWH(45, -35, 10, 10);
       expect(
-        calculator.hit(
-          curveIntersectionRect,
+        calculator.hitPolygon(
+          curveIntersectionRect.toPolygon(),
           hitElementMode: HitElementMode.touchAnywhere,
         ),
         isTrue,

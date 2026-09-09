@@ -5,7 +5,8 @@ class SelectHandler extends Handler<SelectTool> {
   List<Renderer<PadElement>> _selected = [];
   bool _duplicate = false;
   Offset? _rectangleFreeSelectionStart;
-  Rect? _rectangleFreeSelection;
+  RectSelectionForegroundRenderer? _rectangleFreeSelection;
+  double _rectangleSelectionRotation = 0;
   List<Offset>? _lassoFreeSelection;
   ({Offset position, SelectionTransformCorner? corner})? _pendingTransform;
 
@@ -20,11 +21,8 @@ class SelectHandler extends Handler<SelectTool> {
   }) {
     _selected = next ?? _selected;
     _submitTransform(bloc);
-    _updateSelectionRect();
-    _selectionManager.startTransformWithCorner(
-      corner,
-      position ?? _selectionManager.selection.center,
-    );
+    _updateSelectionRect(-bloc.editorController.transformCubit.state.rotation);
+    _selectionManager.startTransformWithCorner(corner, position);
     _duplicate = duplicate;
     bloc.refresh();
   }
@@ -112,7 +110,29 @@ class SelectHandler extends Handler<SelectTool> {
     return rect;
   }
 
-  void _updateSelectionRect() => _selectionManager.select(getSelectionRect());
+  void _updateSelectionRect([double? rotation]) {
+    final angle = rotation ?? _selectionManager.rotation;
+    Rect? bounds;
+    for (final renderer in _selected) {
+      final rect = renderer.rect;
+      if (rect == null) continue;
+      for (final corner in rect.toPolygon()) {
+        final point = renderer
+            .transformPoint(corner)
+            .rotate(Offset.zero, -angle);
+        final pointRect = Rect.fromPoints(point, point);
+        bounds = bounds?.expandToInclude(pointRect) ?? pointRect;
+      }
+    }
+    _selectionManager.select(bounds, rotation: angle);
+  }
+
+  void _syncSelectionRotation(CameraTransform camera) {
+    if (!_selectionManager.isTransforming &&
+        _selectionManager.rotation != -camera.rotation) {
+      _updateSelectionRect(-camera.rotation);
+    }
+  }
 
   bool _isSelectionHit(
     Offset position,
@@ -128,56 +148,23 @@ class SelectHandler extends Handler<SelectTool> {
     final transform = _selectionManager.getTransform();
     if (transform == null) return null;
 
-    final scaleX = transform.scaleX;
-    final scaleY = transform.scaleY;
-    final rotation = transform.rotation;
-    final rotationRad = rotation * pi / 180;
-
-    Offset applyScaleAndTranslate(Offset original) =>
-        transform.scalePoint(original, selectionRect);
-
-    final Offset transformedPivot = applyScaleAndTranslate(pivot);
-
+    final angle = _selectionManager.rotation;
+    final transformedPivot = transform.scalePoint(pivot, selectionRect);
     return _selected.map((renderer) {
-      // Use expandedRect for position computation because the selection
-      // rectangle is built from expanded (AABB) rects. This ensures
-      // rotated elements scale and reposition consistently.
-      final elementExpandedRect =
-          renderer.expandedRect ?? renderer.rect ?? Rect.zero;
-      final elementRect = renderer.rect ?? Rect.zero;
-
-      final originalExpandedTopLeft = elementExpandedRect.topLeft;
-      final transformedExpandedRect = transform.scaleRect(
-        elementExpandedRect,
-        selectionRect,
+      final center = (renderer.rect?.center ?? Offset.zero).rotate(
+        Offset.zero,
+        -angle,
       );
-      // Delta relative to expandedRect.topLeft so it's zero at identity.
-      // The position compensation inside transform() converts from the
-      // expandedRect reference frame to the rect reference frame.
-      var delta = transformedExpandedRect.topLeft - originalExpandedTopLeft;
-
-      if (rotation != 0) {
-        final originalTopLeft = elementRect.topLeft;
-        final originalCenter = elementRect.center;
-        final transformedTopLeft = applyScaleAndTranslate(originalTopLeft);
-        final transformedCenter = applyScaleAndTranslate(originalCenter);
-        final rotatedCenter = transformedCenter.rotate(
-          transformedPivot,
-          rotationRad,
-        );
-        final transformedCenterOffset = transformedCenter - transformedTopLeft;
-        final rotatedTopLeft = rotatedCenter - transformedCenterOffset;
-        delta = rotatedTopLeft - originalTopLeft;
-      }
-
+      final target = transform
+          .scalePoint(center, selectionRect)
+          .rotate(transformedPivot, transform.rotation * pi / 180)
+          .rotate(Offset.zero, angle);
       return renderer.transform(
-            position: delta,
-            scaleX: scaleX,
-            scaleY: scaleY,
-            rotation: rotation,
-            rotatePosition: false,
-            relative: true,
-            positionIsBounds: true,
+            center: target,
+            scaleX: transform.scaleX,
+            scaleY: transform.scaleY,
+            scaleRotation: angle,
+            rotation: transform.rotation,
           ) ??
           renderer;
     }).toList();
@@ -191,6 +178,7 @@ class SelectHandler extends Handler<SelectTool> {
     DocumentInfo info, [
     Area? currentArea,
   ]) {
+    _syncSelectionRotation(editorController.transformCubit.state);
     final foregrounds = <Renderer>[];
     // When transform just started but the pointer hasn't moved yet,
     // _getTransformed() returns null. Show originals as foregrounds
@@ -206,9 +194,7 @@ class SelectHandler extends Handler<SelectTool> {
       foregrounds.add(_selectionManager.renderer);
     }
     if (_rectangleFreeSelection != null) {
-      foregrounds.add(
-        RectSelectionForegroundRenderer(_rectangleFreeSelection!),
-      );
+      foregrounds.add(_rectangleFreeSelection!);
     }
     if (_lassoFreeSelection != null) {
       foregrounds.add(
@@ -255,6 +241,7 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
     final transform = context.getCameraTransform();
+    _syncSelectionRotation(transform);
     final globalPos = transform.localToGlobal(details.localPosition);
     if (_selectionManager.isTransforming) {
       _selectionManager.updateCurrentPosition(globalPos);
@@ -267,6 +254,7 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void onLongPressEnd(LongPressEndDetails details, EventContext context) async {
     final transform = context.getCameraTransform();
+    _syncSelectionRotation(transform);
     final globalPos = transform.localToGlobal(details.localPosition);
     final hitSelection = _isSelectionHit(
       globalPos,
@@ -289,9 +277,9 @@ class SelectHandler extends Handler<SelectTool> {
     }
     final locks = context.getViewState().locks;
     final transform = context.getCameraTransform();
+    _syncSelectionRotation(transform);
     final globalPos = transform.localToGlobal(localPosition);
-    final selectionRect = getSelectionRect();
-    if (selectionRect?.contains(globalPos) ?? false) {
+    if (_selectionManager.contains(globalPos)) {
       _selectionManager.toggleTransformMode();
       context.refresh();
       return;
@@ -406,6 +394,7 @@ class SelectHandler extends Handler<SelectTool> {
       return false;
     }
     final cameraTransform = context.getCameraTransform();
+    _syncSelectionRotation(cameraTransform);
     final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
     final shouldTransform = _selectionManager.shouldTransform(
       globalPos,
@@ -426,6 +415,7 @@ class SelectHandler extends Handler<SelectTool> {
       );
       return true;
     }
+    _rectangleSelectionRotation = cameraTransform.rotation;
     _rectangleFreeSelectionStart = data.mode == SelectMode.rectangle
         ? globalPos
         : null;
@@ -436,6 +426,7 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   bool canChange(PointerDownEvent event, EventContext context) {
     final cameraTransform = context.getCameraTransform();
+    _syncSelectionRotation(cameraTransform);
     final globalPos = cameraTransform.localToGlobal(event.localPosition);
     final selectionRect = getSelectionRect();
     final shouldTransform = _selectionManager.shouldTransform(
@@ -455,7 +446,7 @@ class SelectHandler extends Handler<SelectTool> {
     } else {
       _pendingTransform = null;
     }
-    if (selectionRect != null && selectionRect.contains(globalPos)) {
+    if (selectionRect != null && _selectionManager.contains(globalPos)) {
       return false;
     }
     if (shouldTransform) {
@@ -480,9 +471,16 @@ class SelectHandler extends Handler<SelectTool> {
       return;
     }
     final start = _rectangleFreeSelectionStart ?? globalPos;
-    _rectangleFreeSelection = data.mode == SelectMode.rectangle
-        ? Rect.fromLTRB(start.dx, start.dy, globalPos.dx, globalPos.dy)
-        : null;
+    if (data.mode == SelectMode.rectangle) {
+      final angle = _rectangleSelectionRotation;
+      final rect = Rect.fromPoints(start, globalPos.rotate(start, angle));
+      _rectangleFreeSelection = RectSelectionForegroundRenderer(
+        rect.shift(rect.center.rotate(start, -angle) - rect.center),
+        rotation: -angle * 180 / pi,
+      );
+    } else {
+      _rectangleFreeSelection = null;
+    }
     if (data.mode == SelectMode.lasso) {
       _lassoFreeSelection ??= [];
       _lassoFreeSelection!.add(globalPos);
@@ -498,10 +496,10 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  void onScaleEnd(ScaleEndDetails details, EventContext context) async {
+  Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     _pendingTransform = null;
     final locks = context.getViewState().locks;
-    final rectangleSelection = _rectangleFreeSelection?.normalized();
+    final rectangleSelection = _rectangleFreeSelection;
     final lassoSelection = _lassoFreeSelection;
     final transformed = _submitTransform(context.getDocumentBloc());
     if (transformed != null) {
@@ -516,9 +514,10 @@ class SelectHandler extends Handler<SelectTool> {
     if (!context.isCtrlPressed) {
       _selected.clear();
     }
-    if (rectangleSelection != null && !rectangleSelection.isEmpty) {
+    if (rectangleSelection != null && !rectangleSelection.rect.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
-        rectangleSelection,
+        rectangleSelection.rect,
+        rotation: rectangleSelection.rotation,
         useCollection: locks.lockCollection,
         useLayer: locks.lockLayer,
         hitElementMode: data.hitElementMode,
@@ -543,6 +542,7 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     final transform = context.getCameraTransform();
+    _syncSelectionRotation(transform);
     final globalPos = transform.localToGlobal(event.localPosition);
     _selectionManager
       ..updateCurrentPosition(globalPos)

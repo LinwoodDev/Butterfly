@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:material_leap/material_leap.dart';
+
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 
@@ -55,6 +57,14 @@ extension DocumentAreaHelper on DocumentPage {
 }
 
 extension RectHelper on Rect {
+  /// Corners rotated around the rectangle center, in radians.
+  List<Offset> toPolygon({double rotation = 0}) =>
+      [topLeft, topRight, bottomRight, bottomLeft]
+          .map(
+            (point) => rotation == 0 ? point : point.rotate(center, rotation),
+          )
+          .toList();
+
   Rect normalized() {
     var firstX = left;
     var firstY = top;

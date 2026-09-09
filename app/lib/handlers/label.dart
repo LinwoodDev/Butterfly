@@ -24,6 +24,7 @@ class LabelHandler extends Handler<LabelTool>
     Point<double>? position,
     double zoom = 1,
     double rotation = 0,
+    String collection = '',
     LabelElement? element,
   }) async {
     final scale = (data.zoomDependent ? 1 / zoom : 1.0) * data.scale;
@@ -49,6 +50,7 @@ class LabelHandler extends Handler<LabelTool>
                   : TextElement(
                       position: position,
                       rotation: rotation,
+                      collection: collection,
                       area: text.TextArea(
                         paragraph: text.TextParagraph(
                           property:
@@ -74,6 +76,7 @@ class LabelHandler extends Handler<LabelTool>
                   : MarkdownElement(
                       position: position,
                       rotation: rotation,
+                      collection: collection,
                       text: '',
                       styleSheet: styleSheet,
                       scale: scale,
@@ -187,8 +190,8 @@ class LabelHandler extends Handler<LabelTool>
     );
     final pixelRatio = context.devicePixelRatio;
     final state = context.getState();
-    final document = state?.data;
-    if (document == null) return;
+    if (state == null) return;
+    final document = state.data;
     final fileSystem = context.getFileSystem();
     final focusNode = Focus.of(context.buildContext);
     final globalPos = context.getCameraTransform().localToGlobal(localPosition);
@@ -220,6 +223,7 @@ class LabelHandler extends Handler<LabelTool>
           position: globalPos.toPoint(),
           zoom: context.getCameraTransform().size,
           rotation: -context.getCameraTransform().rotation * 180 / pi,
+          collection: state.currentCollection,
         );
       } else {
         final id = (labelRenderer.element as PadElement).id;
@@ -523,6 +527,7 @@ class LabelHandler extends Handler<LabelTool>
       state.fileSystem,
       position: newPosition,
       rotation: oldContext.rotation,
+      collection: element.collection,
     );
     await _layoutText(bloc);
     bloc.refresh();
@@ -608,7 +613,11 @@ class LabelHandler extends Handler<LabelTool>
                 e.forcedProperty ?? const text.ParagraphProperty.undefined(),
           );
           final area = text.TextArea(paragraph: paragraph);
-          element = TextElement(area: area, id: createUniqueId());
+          element = TextElement(
+            area: area,
+            collection: state.currentCollection,
+            id: createUniqueId(),
+          );
         }
         _context = e.copyWith(element: element, selection: selection);
       case MarkdownContext e:
