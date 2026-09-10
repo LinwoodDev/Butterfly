@@ -90,7 +90,12 @@ class FilesViewState extends State<FilesView> {
   void didUpdateWidget(covariant FilesView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
+      final storageChanged = _remote?.identifier != widget.remote?.identifier;
       _remote = widget.remote;
+      if (storageChanged) {
+        _locationController.clear();
+        _selectedFiles.clear();
+      }
       _setFilesStream();
     }
   }
@@ -151,8 +156,15 @@ class FilesViewState extends State<FilesView> {
   }
 
   void _setRemote(ExternalStorage? remote) {
-    setState(() => _remote = remote);
-    _setFilesStream();
+    final storageChanged = _remote?.identifier != remote?.identifier;
+    setState(() {
+      _remote = remote;
+      if (storageChanged) {
+        _locationController.clear();
+        _selectedFiles.clear();
+      }
+      _setFilesStream();
+    });
     widget.onRemoteChanged?.call(remote);
   }
 
