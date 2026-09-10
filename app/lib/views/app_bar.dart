@@ -539,6 +539,10 @@ class MainPopupMenu extends StatelessWidget {
                         settings.navigationRail || saveState.embedding != null;
                     final effectiveFullScreen =
                         fullScreen || saveState.fullScreen;
+                    final openNavigatorAsSidebar =
+                        effectiveFullScreen ||
+                        (!navigatorRailEnabled &&
+                            size.width >= LeapBreakpoints.expanded);
                     final showNavigatorDialog =
                         MediaQuery.sizeOf(context).width <
                             LeapBreakpoints.expanded ||
@@ -733,9 +737,15 @@ class MainPopupMenu extends StatelessWidget {
                                   leadingIcon: PhosphorIcon(e.icon()),
                                   child: Text(e.getLocalizedName(context)),
                                   onPressed: () {
-                                    context
-                                        .read<EditorViewCubit>()
-                                        .setNavigator(page: e);
+                                    final viewCubit = context
+                                        .read<EditorViewCubit>();
+                                    viewCubit.setNavigator(
+                                      page: e,
+                                      enabled: openNavigatorAsSidebar
+                                          ? true
+                                          : null,
+                                    );
+                                    if (openNavigatorAsSidebar) return;
                                     final bloc = context.read<DocumentBloc>();
                                     final transformCubit = context
                                         .read<TransformCubit>();

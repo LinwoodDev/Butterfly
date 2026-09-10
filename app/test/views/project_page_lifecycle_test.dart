@@ -991,6 +991,130 @@ void main() {
     expect(debugDocumentPagePreviewCacheRetainedCount(documentBloc), 0);
   });
 
+  testWidgets('full screen navigator menu opens the sidebar', (tester) async {
+    tester.view.physicalSize = const Size(1200, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await windowCubit.changeFullScreen(true);
+    await tester.pumpAndSettle();
+
+    final editorController = observer.lastDocumentBloc!.editorController;
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(find.byType(NavigatorView), findsNothing);
+
+    for (final page in NavigatorPage.values) {
+      await tester.tap(
+        find
+            .descendant(
+              of: find.byType(MainPopupMenu),
+              matching: find.byTooltip('Actions'),
+            )
+            .hitTestable()
+            .first,
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.widgetWithText(
+          MenuItemButton,
+          page.getLocalizedName(tester.element(find.byType(ProjectPage))),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(NavigatorView), findsOneWidget, reason: page.name);
+      expect(find.byType(DocumentNavigator), findsOneWidget, reason: page.name);
+      expect(find.byType(Dialog), findsNothing, reason: page.name);
+      expect(
+        editorController.viewCubit.state.navigatorPage,
+        page,
+        reason: page.name,
+      );
+      expect(
+        editorController.viewCubit.state.navigatorEnabled,
+        isTrue,
+        reason: page.name,
+      );
+      expect(tester.takeException(), isNull, reason: page.name);
+    }
+  });
+
+  testWidgets(
+    'desktop navigator menu opens the sidebar when its rail is disabled',
+    (tester) async {
+      tester.view.physicalSize = const Size(1200, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          navigationRail: false,
+        ),
+      );
+
+      await tester.pumpWidget(buildApp());
+      await tester.tap(find.byKey(const ValueKey('open-document')));
+      await pumpUntil(
+        tester,
+        () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+        'document open',
+      );
+      await tester.pumpAndSettle();
+
+      final editorController = observer.lastDocumentBloc!.editorController;
+      expect(find.byType(PadAppBar), findsOneWidget);
+      expect(find.byType(NavigatorView), findsNothing);
+
+      for (final page in NavigatorPage.values) {
+        await tester.tap(
+          find
+              .descendant(
+                of: find.byType(MainPopupMenu),
+                matching: find.byTooltip('Actions'),
+              )
+              .hitTestable()
+              .first,
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.widgetWithText(
+            MenuItemButton,
+            page.getLocalizedName(tester.element(find.byType(ProjectPage))),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(NavigatorView), findsOneWidget, reason: page.name);
+        expect(
+          find.byType(DocumentNavigator),
+          findsOneWidget,
+          reason: page.name,
+        );
+        expect(find.byType(Dialog), findsNothing, reason: page.name);
+        expect(
+          editorController.viewCubit.state.navigatorPage,
+          page,
+          reason: page.name,
+        );
+        expect(
+          editorController.viewCubit.state.navigatorEnabled,
+          isTrue,
+          reason: page.name,
+        );
+        expect(tester.takeException(), isNull, reason: page.name);
+      }
+    },
+  );
+
   testWidgets('converted imported file starts unsaved', (tester) async {
     await tester.pumpWidget(buildApp());
 

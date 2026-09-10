@@ -936,10 +936,13 @@ class _MainBody extends StatelessWidget {
     final navigatorRailEnabled =
         settings.navigationRail || saveState.embedding != null;
     final fullScreen = windowState.fullScreen || saveState.fullScreen;
+    final navigatorEnabled = context.select<EditorViewCubit, bool>(
+      (cubit) => cubit.state.navigatorEnabled,
+    );
     final showNavigator =
         isLarge &&
-        navigatorRailEnabled &&
-        !fullScreen &&
+        ((navigatorRailEnabled && !fullScreen) ||
+            (navigatorEnabled && (fullScreen || !navigatorRailEnabled))) &&
         state is DocumentLoadSuccess &&
         inputState.hideUi == HideState.visible;
 
