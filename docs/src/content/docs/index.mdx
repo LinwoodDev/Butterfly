@@ -30,22 +30,24 @@ import showcasePhone from '@assets/img/showcase-phone.png';
 import showcaseTemplates from '@assets/img/showcase-templates.png';
 import showcaseTools from '@assets/img/showcase-tools.png';
 
-import collageDark from '@assets/img/homepage/collagedark.png';
-import collageLight from '@assets/img/homepage/collage-light.png';
-import desktop2Dark from '@assets/img/homepage/Desktop2-dark.png';
-import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
+import collageLightBg from '@assets/img/homepage/collage-bg.png';
 import desktop2Light from '@assets/img/homepage/Desktop2-light.png';
 import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
-import desktopDark from '@assets/img/homepage/Desktop-dark.png';
 import desktopLight from '@assets/img/homepage/Desktop-light.png';
-import mobileDark from '@assets/img/homepage/Mobile-dark.png';
 import mobileLight from '@assets/img/homepage/Mobile-light.png';
-import packsDark from '@assets/img/homepage/Packs-dark.png';
 import packsLight from '@assets/img/homepage/Packs-light.png';
-import penDark from '@assets/img/homepage/Pen-dark.png';
 import penLight from '@assets/img/homepage/Pen-light.png';
-import templateDark from '@assets/img/homepage/Template-dark.png';
-import templateLight from '@assets/img/homepage/Template-light.png';
+
+{/* // import collageDark from '@assets/img/homepage/collagedark.png';
+// import collageLight from '@assets/img/homepage/collage-light.png';
+// import desktop2Dark from '@assets/img/homepage/Desktop2-dark.png';
+// import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
+// import desktopDark from '@assets/img/homepage/Desktop-dark.png';
+// import mobileDark from '@assets/img/homepage/Mobile-dark.png';
+// import packsDark from '@assets/img/homepage/Packs-dark.png';
+// import penDark from '@assets/img/homepage/Pen-dark.png';
+// import templateDark from '@assets/img/homepage/Template-dark.png';
+// import templateLight from '@assets/img/homepage/Template-light.png'; */}
 
 
 {/* ## Butterfly is **the** workspace for people who think *visually*.
@@ -65,6 +67,7 @@ The above feels out of place. especially for an opening.
 <LandingFeature
   image={desktop2LightRuler}
   alt="Image showcasing a note made in Butterfly"
+  style="box-shadow: var(--sl-shadow-md);"
 >
   ### Butterfly is *the* workspace for people who think visually.
 
@@ -72,9 +75,9 @@ The above feels out of place. especially for an opening.
 
 </LandingFeature>
 
-<LandingText>
+{/* <LandingText>
   Butterfly is a creative workspace for people who think visually. Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document. Everything remains movable, resizable, recolorable, and ready to evolve with your idea.
-</LandingText>
+</LandingText> */}
 
 <LandingFeature
   image={penLight}
@@ -101,7 +104,7 @@ The above feels out of place. especially for an opening.
 The features mentioned in the card above is already mentioned again below, so it makes sense to hide this.*/}
 
 <LandingFeature
-  image={collageLight}
+  image={collageLightBg}
   alt="The Butterfly template browser with several canvas styles"
 >
   ### Make Butterfly fit your workflow
@@ -114,21 +117,25 @@ Maybe this belongs to the "Powerful when your projects grow" section
 
 ## Powerful when your projects grow
 
-<LandingText>
+{/* <LandingText>
   An infinite canvas should still be easy to navigate. Butterfly lets one document contain multiple infinite pages, page folders, layers, named areas, and waypoints. Move from the big picture to one exact detail without losing your place.
-</LandingText>
+</LandingText> 
+
+My plan here is to keep a balance.
+This can be removed without losing details.
+*/}
 
 <CardGrid stagger>
   <Card title="Every element stays editable" icon="pencil">
     Move, resize, recolor, and reorganize content after placing it. Your first attempt never has to be your final one.
   </Card>
-  <Card title="From paper to presentation" icon="document">
+  <Card title="Common media in one document" icon="document">
     Import camera photos, gallery images, PDFs, and SVGs. Combine them with your own notes and export clean results in common formats.
   </Card>
   <Card title="Reusable building blocks" icon="puzzle">
     Turn favorite layouts into templates and frequently used content into packs, stamps, palettes, and styles available across documents.
   </Card>
-  <Card title="Fast access to a deep toolbox" icon="open-book">
+  <Card title="A lot of tools for everything" icon="open-book">
     Go beyond pen and eraser with labels, shapes, polygons, rulers, grids, textures, stamps, a laser pointer, presentation tools, and more.
   </Card>
 </CardGrid>
@@ -139,33 +146,35 @@ Maybe this belongs to the "Powerful when your projects grow" section
   reverse
   portrait
 >
-  ### Start here. Continue anywhere.
+  ### Works everywhere
 
   Use the same adaptable workspace on Android, iOS, Windows, macOS, Linux, and the web. Butterfly is equally at home with a phone in your hand, a stylus on a tablet, or a keyboard and mouse at your desk.
 </LandingFeature>
 
 ## Your work belongs to you
 
-<LandingText>
+{/* <LandingText>
   Butterfly is offline-first, free, and open source. Save documents directly on your device, choose a different data directory, connect your own WebDAV server, or keep readable `.tbfly` files in version control. There is no required account and no proprietary cloud standing between you and your notes.
-</LandingText>
+</LandingText> 
+
+To keep consistency since the previous one was hidden*/}
 
 <CardGrid>
   <Card title="Local by default" icon="laptop">
-    Keep working without an internet connection. Your documents live on your device unless you choose another destination.
+    Keep working without an internet connection. Your documents live on your device unless you choose to save them somewhere else.
   </Card>
   <Card title="Bring your own cloud" icon="rocket">
-    Connect WebDAV, including services such as Nextcloud, and make remote files available for offline work when you need them.
+    Connect WebDAV services like Nextcloud to sync, back up, and edit your notes anywhere.
   </Card>
-  <Card title="Open formats and open code" icon="open-book">
-    Use portable Butterfly files in two native formats: readable `.tbfly` JSON files suited to Git, or packaged `.bfly` archives. Import and export familiar formats, too. The app itself is licensed under AGPL-3.0.
+  <Card title="Open source software" icon="code-branch">
+    Butterfly and its custom file formats `.bfly` `.tbfly` are open source under the GNU AGPL-3.0
   </Card>
-  <Card title="Create together" icon="puzzle">
+  <Card title="Create together" icon="comment">
     Experimental collaboration supports end-to-end encrypted sessions through Swamp or a WebSocket server you host yourself.
   </Card>
 </CardGrid>
 
-<h1 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0px 0px 5px var(--sl-color-accent);"> Try Butterfly, the limitless canvas for visual thinking. </h1>
+<h1 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0px 0px 5px var(--sl-color-accent);"> Butterfly, the limitless canvas for visual thinking. </h1>
 
 
 <CardGrid>
