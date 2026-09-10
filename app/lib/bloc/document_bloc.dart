@@ -839,11 +839,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         updateIndex: true,
       );
     });
-    on<ToolsReplaced>((event, emit) {
+    on<ToolsReplaced>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
-      _saveState(
+      await _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(

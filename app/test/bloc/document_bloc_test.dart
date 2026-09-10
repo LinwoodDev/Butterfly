@@ -804,6 +804,41 @@ void main() {
     expect(other.property.strokeWidth, 5);
   });
 
+  test('replacing toolbar synchronizes the active tool handler', () async {
+    final initialPen = PenTool(
+      id: 'initial-pen',
+      property: const PenProperty(thinning: 0.4),
+    );
+    await editorController.toolCubit.changeTool(
+      editorController,
+      bloc,
+      index: 0,
+      handler: PenHandler(initialPen),
+      allowBake: false,
+    );
+
+    final replacementPen = PenTool(
+      id: 'replacement-pen',
+      property: const PenProperty(thinning: 0),
+    );
+    final handlerUpdated = editorController.toolCubit.stream.firstWhere(
+      (state) =>
+          state.index == 0 &&
+          state.handler.data is PenTool &&
+          (state.handler.data as PenTool).id == replacementPen.id,
+    );
+    bloc.add(ToolsReplaced([replacementPen]));
+    await handlerUpdated.timeout(const Duration(seconds: 1));
+
+    final state = bloc.state as DocumentLoadSuccess;
+    final documentPen = state.info.tools.single as PenTool;
+    final handlerPen = editorController.toolCubit.state.handler.data as PenTool;
+    expect(documentPen.property.thinning, 0);
+    expect(handlerPen, same(documentPen));
+    expect(handlerPen.property.thinning, 0);
+    expect(editorController.toolCubit.state.index, 0);
+  });
+
   test('ruler runtime survives toggling and property updates', () async {
     final rulerTool = RulerTool(id: 'ruler');
     bloc.add(ToolsReplaced([HandTool(id: 'hand'), rulerTool]));

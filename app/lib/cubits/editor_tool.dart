@@ -1031,14 +1031,20 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     }
   }
 
-  void updateIndex(EditorController controller, DocumentBloc bloc) {
+  Future<void> updateIndex(
+    EditorController controller,
+    DocumentBloc bloc,
+  ) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     final info = docState.info;
     _syncToggleableHandlers(bloc, info.tools);
-    final index = info.tools.indexOf(state.handler.data);
+    final index = info.tools.indexWhere(
+      (tool) => identical(tool, state.handler.data),
+    );
     if (index < 0) {
-      changeTool(controller, bloc, index: state.index ?? 0);
+      await changeTool(controller, bloc, index: state.index ?? 0);
+      return;
     }
     if (index == state.index) {
       return;

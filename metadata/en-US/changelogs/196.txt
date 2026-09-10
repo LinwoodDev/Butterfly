@@ -4,5 +4,6 @@
 * Assign new text and markdown elements to the current collection
 * Improve hit testing for rotated, curved, and zero-size elements
 * Improve table selection, deselection, and border resizing behavior
+* Fix current tool not updated after toolbar change
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.1
