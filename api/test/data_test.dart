@@ -74,6 +74,25 @@ void main() {
   });
 
   group('NoteData page operations', () {
+    test('getFirstPage returns a named first page from a custom template', () {
+      final page = DocumentPage(
+        backgrounds: [
+          Background.image(source: 'background.png', width: 1, height: 1),
+        ],
+      );
+      final (data, _) = NoteData(Archive()).setPage(page, 'Page 1');
+      final template = data.createTemplate(name: 'Custom');
+
+      expect(template.getPage(), isNull);
+      final firstPage = template.getFirstPage();
+      expect(firstPage, isNotNull);
+      expect(firstPage!.backgrounds, hasLength(1));
+      expect(
+        (firstPage.backgrounds.single as ImageBackground).source,
+        'background.png',
+      );
+    });
+
     test('addPage keeps existing page when name collides', () {
       var data = NoteData(Archive());
       const firstPage = DocumentPage(

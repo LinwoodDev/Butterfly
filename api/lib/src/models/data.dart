@@ -314,6 +314,12 @@ final class NoteData extends NoteDisplay<NoteData> {
   }
 
   @useResult
+  DocumentPage? getFirstPage() {
+    final pageName = getPages(true).firstOrNull;
+    return pageName == null ? null : getPage(pageName);
+  }
+
+  @useResult
   (NoteData, String) setPage(
     DocumentPage page, [
     String name = '',

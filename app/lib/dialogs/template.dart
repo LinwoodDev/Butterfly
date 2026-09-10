@@ -789,7 +789,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
         FileMetadata(type: NoteFileType.template);
     final info = widget.template.getInfo();
     final hasTemplateAreas =
-        widget.template.getPage()?.areas.isNotEmpty ?? false;
+        widget.template.getFirstPage()?.areas.isNotEmpty ?? false;
     final thumbnail = context.read<SettingsCubit>().state.showThumbnails
         ? widget.template.getThumbnail()
         : null;
@@ -1306,9 +1306,9 @@ List<Widget> _buildTemplateMenuChildren(
   final isDefault = settings.defaultTemplate == path;
   final template = file.data!;
   final metadata = template.getMetadata()!;
-  final templateBackgrounds =
-      template.getPage()?.backgrounds ?? const <Background>[];
-  final templateAreas = template.getPage()?.areas ?? const <Area>[];
+  final templatePage = template.getFirstPage();
+  final templateBackgrounds = templatePage?.backgrounds ?? const <Background>[];
+  final templateAreas = templatePage?.areas ?? const <Area>[];
 
   return [
     if (!isCore && fileSystem.storage == null)
@@ -1478,7 +1478,8 @@ void _applyTemplateBackgroundsToPages(
 ) {
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return;
-  final backgrounds = template.getPage()?.backgrounds ?? const <Background>[];
+  final backgrounds =
+      template.getFirstPage()?.backgrounds ?? const <Background>[];
   for (final background in backgrounds.whereType<SourcedElement>()) {
     final uri = Uri.tryParse(background.source);
     if (uri?.scheme.isNotEmpty ?? true) continue;
@@ -1512,7 +1513,7 @@ void _applyTemplateAreasToPages(
 ) {
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return;
-  final areas = template.getPage()?.areas ?? const <Area>[];
+  final areas = template.getFirstPage()?.areas ?? const <Area>[];
   bloc.add(
     AreasCreated([
       for (final pageName in pageNames)
