@@ -6,21 +6,21 @@ part of 'persisted_document_state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_PersistedToolSelection _$PersistedToolSelectionFromJson(Map json) =>
-    _PersistedToolSelection(
+PersistedToolSelection _$PersistedToolSelectionFromJson(Map json) =>
+    PersistedToolSelection(
       toolId: json['toolId'] as String?,
       toolIndex: (json['toolIndex'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$PersistedToolSelectionToJson(
-  _PersistedToolSelection instance,
+  PersistedToolSelection instance,
 ) => <String, dynamic>{
   'toolId': instance.toolId,
   'toolIndex': instance.toolIndex,
 };
 
-_PersistedCameraState _$PersistedCameraStateFromJson(Map json) =>
-    _PersistedCameraState(
+PersistedCameraState _$PersistedCameraStateFromJson(Map json) =>
+    PersistedCameraState(
       positionX: (json['positionX'] as num?)?.toDouble() ?? 0,
       positionY: (json['positionY'] as num?)?.toDouble() ?? 0,
       zoom: (json['zoom'] as num?)?.toDouble() ?? 1,
@@ -28,7 +28,7 @@ _PersistedCameraState _$PersistedCameraStateFromJson(Map json) =>
     );
 
 Map<String, dynamic> _$PersistedCameraStateToJson(
-  _PersistedCameraState instance,
+  PersistedCameraState instance,
 ) => <String, dynamic>{
   'positionX': instance.positionX,
   'positionY': instance.positionY,
@@ -36,8 +36,8 @@ Map<String, dynamic> _$PersistedCameraStateToJson(
   'rotation': instance.rotation,
 };
 
-_PersistentLockState _$PersistentLockStateFromJson(Map json) =>
-    _PersistentLockState(
+PersistentLockState _$PersistentLockStateFromJson(Map json) =>
+    PersistentLockState(
       lockCollection: json['lockCollection'] as bool? ?? false,
       lockLayer: json['lockLayer'] as bool? ?? false,
       lockZoom: json['lockZoom'] as bool? ?? false,
@@ -47,7 +47,7 @@ _PersistentLockState _$PersistentLockStateFromJson(Map json) =>
     );
 
 Map<String, dynamic> _$PersistentLockStateToJson(
-  _PersistentLockState instance,
+  PersistentLockState instance,
 ) => <String, dynamic>{
   'lockCollection': instance.lockCollection,
   'lockLayer': instance.lockLayer,
@@ -57,15 +57,30 @@ Map<String, dynamic> _$PersistentLockStateToJson(
   'lockRotation': instance.lockRotation,
 };
 
-_PersistedNavigatorState _$PersistedNavigatorStateFromJson(Map json) =>
-    _PersistedNavigatorState(
+PersistedNavigatorState _$PersistedNavigatorStateFromJson(Map json) =>
+    PersistedNavigatorState(
       enabled: json['enabled'] as bool? ?? false,
       page: json['page'] as String? ?? 'waypoints',
     );
 
 Map<String, dynamic> _$PersistedNavigatorStateToJson(
-  _PersistedNavigatorState instance,
+  PersistedNavigatorState instance,
 ) => <String, dynamic>{'enabled': instance.enabled, 'page': instance.page};
+
+PersistedAreaNavigatorState _$PersistedAreaNavigatorStateFromJson(Map json) =>
+    PersistedAreaNavigatorState(
+      create: json['create'] as bool? ?? true,
+      exact: json['exact'] as bool? ?? true,
+      ask: json['ask'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$PersistedAreaNavigatorStateToJson(
+  PersistedAreaNavigatorState instance,
+) => <String, dynamic>{
+  'create': instance.create,
+  'exact': instance.exact,
+  'ask': instance.ask,
+};
 
 _PersistedLayerState _$PersistedLayerStateFromJson(Map json) =>
     _PersistedLayerState(
@@ -84,21 +99,6 @@ Map<String, dynamic> _$PersistedLayerStateToJson(
   'currentLayer': instance.currentLayer,
   'currentCollection': instance.currentCollection,
   'invisibleLayers': instance.invisibleLayers.toList(),
-};
-
-_PersistedAreaNavigatorState _$PersistedAreaNavigatorStateFromJson(Map json) =>
-    _PersistedAreaNavigatorState(
-      create: json['create'] as bool? ?? true,
-      exact: json['exact'] as bool? ?? true,
-      ask: json['ask'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$PersistedAreaNavigatorStateToJson(
-  _PersistedAreaNavigatorState instance,
-) => <String, dynamic>{
-  'create': instance.create,
-  'exact': instance.exact,
-  'ask': instance.ask,
 };
 
 _PersistedDocumentState _$PersistedDocumentStateFromJson(

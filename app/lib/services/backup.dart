@@ -165,8 +165,7 @@ class BackupService {
   Future<String>? _activeBackup;
   bool _disposed = false;
 
-  BackupService(this.fileSystem, {DateTime Function()? now})
-    : _now = now ?? DateTime.now {
+  new(this.fileSystem, {this._now = DateTime.now}) {
     _settingsSubscription = fileSystem.settingsCubit.stream.listen(
       _configureSchedule,
     );

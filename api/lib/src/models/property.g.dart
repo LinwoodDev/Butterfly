@@ -6,6 +6,21 @@ part of 'property.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+ElementGradientStop _$ElementGradientStopFromJson(Map json) =>
+    ElementGradientStop(
+      offset: (json['offset'] as num?)?.toDouble() ?? 0,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+    );
+
+Map<String, dynamic> _$ElementGradientStopToJson(
+  ElementGradientStop instance,
+) => <String, dynamic>{
+  'offset': instance.offset,
+  'color': const ColorJsonConverter().toJson(instance.color),
+};
+
 SolidElementPaint _$SolidElementPaintFromJson(Map json) => SolidElementPaint(
   color: json['color'] == null
       ? SRGBColor.black
@@ -153,21 +168,6 @@ Json? _$JsonConverterToJson<Json, Value>(
   Value? value,
   Json? Function(Value value) toJson,
 ) => value == null ? null : toJson(value);
-
-_ElementGradientStop _$ElementGradientStopFromJson(Map json) =>
-    _ElementGradientStop(
-      offset: (json['offset'] as num?)?.toDouble() ?? 0,
-      color: json['color'] == null
-          ? SRGBColor.black
-          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
-    );
-
-Map<String, dynamic> _$ElementGradientStopToJson(
-  _ElementGradientStop instance,
-) => <String, dynamic>{
-  'offset': instance.offset,
-  'color': const ColorJsonConverter().toJson(instance.color),
-};
 
 PenProperty _$PenPropertyFromJson(Map json) => PenProperty(
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,

@@ -1,17 +1,18 @@
 part of 'editor_runtime.dart';
 
-@freezed
-sealed class DocumentSaveState with _$DocumentSaveState {
-  const DocumentSaveState._();
+const _defaultDocumentLocation = AssetLocation(path: '');
 
-  const factory DocumentSaveState({
-    @Default(false) bool isSaveDelayed,
-    @Default(AssetLocation(path: '')) AssetLocation location,
-    Embedding? embedding,
-    @Default(false) bool fullScreen,
-    @Default(SaveState.saved) SaveState saved,
-    @Default(false) bool isCreating,
-  }) = _DocumentSaveState;
+@freezed
+class const DocumentSaveState({
+  final bool isSaveDelayed = false,
+  final AssetLocation location = _defaultDocumentLocation,
+  final Embedding? embedding,
+  final bool fullScreen = false,
+  final SaveState saved = SaveState.saved,
+  final bool isCreating = false,
+}) with _$DocumentSaveState {
+  // Freezed uses this redirecting constructor to inherit custom members.
+  const new _() : this();
 
   bool get absolute => saved == SaveState.absoluteRead;
 }

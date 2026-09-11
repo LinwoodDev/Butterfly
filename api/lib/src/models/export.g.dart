@@ -6,19 +6,36 @@ part of 'export.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ExportPadding _$ExportPaddingFromJson(Map json) => _ExportPadding(
+ExportPadding _$ExportPaddingFromJson(Map json) => ExportPadding(
   top: (json['top'] as num?)?.toDouble() ?? 0,
   right: (json['right'] as num?)?.toDouble() ?? 0,
   bottom: (json['bottom'] as num?)?.toDouble() ?? 0,
   left: (json['left'] as num?)?.toDouble() ?? 0,
 );
 
-Map<String, dynamic> _$ExportPaddingToJson(_ExportPadding instance) =>
+Map<String, dynamic> _$ExportPaddingToJson(ExportPadding instance) =>
     <String, dynamic>{
       'top': instance.top,
       'right': instance.right,
       'bottom': instance.bottom,
       'left': instance.left,
+    };
+
+AreaPreset _$AreaPresetFromJson(Map json) => AreaPreset(
+  page: json['page'] as String? ?? '',
+  name: json['name'] as String? ?? '',
+  quality: (json['quality'] as num?)?.toDouble() ?? 1,
+  area: json['area'] == null
+      ? null
+      : Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+);
+
+Map<String, dynamic> _$AreaPresetToJson(AreaPreset instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'name': instance.name,
+      'quality': instance.quality,
+      'area': instance.area?.toJson(),
     };
 
 ImageExportOptions _$ImageExportOptionsFromJson(Map json) => ImageExportOptions(
@@ -94,21 +111,4 @@ Map<String, dynamic> _$ExportPresetToJson(_ExportPreset instance) =>
     <String, dynamic>{
       'name': instance.name,
       'areas': instance.areas.map((e) => e.toJson()).toList(),
-    };
-
-_AreaPreset _$AreaPresetFromJson(Map json) => _AreaPreset(
-  page: json['page'] as String? ?? '',
-  name: json['name'] as String? ?? '',
-  quality: (json['quality'] as num?)?.toDouble() ?? 1,
-  area: json['area'] == null
-      ? null
-      : Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
-);
-
-Map<String, dynamic> _$AreaPresetToJson(_AreaPreset instance) =>
-    <String, dynamic>{
-      'page': instance.page,
-      'name': instance.name,
-      'quality': instance.quality,
-      'area': instance.area?.toJson(),
     };

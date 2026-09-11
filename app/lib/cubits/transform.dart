@@ -8,7 +8,7 @@ import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/views/navigator/constants.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show precisionErrorTolerance;
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,27 +24,21 @@ const kDrag = 0.001;
 const kBoundsSnapBackDuration = 0.18;
 
 @freezed
-sealed class FrictionState with _$FrictionState {
-  const factory FrictionState(
-    Offset beginOffset,
-    double beginSize,
-    DateTime lastUpdate,
-    double duration,
-  ) = _FrictionState;
-}
+class const FrictionState(
+  final Offset beginOffset,
+  final double beginSize,
+  final DateTime lastUpdate,
+  final double duration,
+) with _$FrictionState {}
 
 @freezed
-sealed class CameraTransform with _$CameraTransform {
-  const CameraTransform._();
-
-  const factory CameraTransform([
-    @Default(1) double pixelRatio,
-    @Default(Offset.zero) Offset position,
-    @Default(1) double size,
-    @Default(0) double rotation,
-    FrictionState? friction,
-  ]) = _CameraTransform;
-
+class const CameraTransform([
+  final double pixelRatio = 1,
+  final Offset position = Offset.zero,
+  final double size = 1,
+  final double rotation = 0,
+  final FrictionState? friction,
+]) with _$CameraTransform {
   CameraTransform withPosition(Offset position) =>
       CameraTransform(pixelRatio, position, size, rotation);
 

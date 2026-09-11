@@ -9,22 +9,38 @@ const kFileVersion = 13;
 const kBreakingChangesVersion = 7;
 
 @freezed
-sealed class FileMetadata with _$FileMetadata {
-  const factory FileMetadata({
-    int? fileVersion,
-    required NoteFileType type,
-    @DateTimeJsonConverter() DateTime? createdAt,
-    @DateTimeJsonConverter() DateTime? updatedAt,
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String author,
-    @Default('') String directory,
-    @Default('') String fileName,
-    @Default('') String version,
-  }) = _FileMetadata;
+@JsonSerializable()
+class FileMetadata with _$FileMetadata {
+  const new({
+    this.fileVersion,
+    required this.type,
+    this.createdAt,
+    this.updatedAt,
+    this.name = '',
+    this.description = '',
+    this.author = '',
+    this.directory = '',
+    this.fileName = '',
+    this.version = '',
+  });
+
+  final int? fileVersion;
+  final NoteFileType type;
+  @DateTimeJsonConverter()
+  final DateTime? createdAt;
+  @DateTimeJsonConverter()
+  final DateTime? updatedAt;
+  final String name;
+  final String description;
+  final String author;
+  final String directory;
+  final String fileName;
+  final String version;
 
   factory FileMetadata.fromJson(Map<String, dynamic> json) =>
       _$FileMetadataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FileMetadataToJson(this);
 }
 
 enum NoteFileType { document, template, pack }

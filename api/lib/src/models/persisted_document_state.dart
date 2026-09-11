@@ -41,53 +41,77 @@ String _normalizeDocumentStatePath(String path) {
 }
 
 @freezed
-sealed class PersistedToolSelection with _$PersistedToolSelection {
-  const factory PersistedToolSelection({String? toolId, int? toolIndex}) =
-      _PersistedToolSelection;
+@JsonSerializable()
+class PersistedToolSelection with _$PersistedToolSelection {
+  const new({this.toolId, this.toolIndex});
+
+  final String? toolId;
+  final int? toolIndex;
 
   factory PersistedToolSelection.fromJson(Map<String, dynamic> json) =>
       _$PersistedToolSelectionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersistedToolSelectionToJson(this);
 }
 
 @freezed
-sealed class PersistedCameraState with _$PersistedCameraState {
-  const factory PersistedCameraState({
-    @Default(0) double positionX,
-    @Default(0) double positionY,
-    @Default(1) double zoom,
-    @Default(0) double rotation,
-  }) = _PersistedCameraState;
+@JsonSerializable()
+class PersistedCameraState with _$PersistedCameraState {
+  const new({
+    this.positionX = 0,
+    this.positionY = 0,
+    this.zoom = 1,
+    this.rotation = 0,
+  });
+
+  final double positionX;
+  final double positionY;
+  final double zoom;
+  final double rotation;
 
   factory PersistedCameraState.fromJson(Map<String, dynamic> json) =>
       _$PersistedCameraStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersistedCameraStateToJson(this);
 }
 
 @freezed
-sealed class PersistentLockState with _$PersistentLockState {
-  const PersistentLockState._();
+@JsonSerializable()
+class PersistentLockState with _$PersistentLockState {
+  const new({
+    this.lockCollection = false,
+    this.lockLayer = false,
+    this.lockZoom = false,
+    this.lockHorizontal = false,
+    this.lockVertical = false,
+    this.lockRotation = false,
+  });
 
-  const factory PersistentLockState({
-    @Default(false) bool lockCollection,
-    @Default(false) bool lockLayer,
-    @Default(false) bool lockZoom,
-    @Default(false) bool lockHorizontal,
-    @Default(false) bool lockVertical,
-    @Default(false) bool lockRotation,
-  }) = _PersistentLockState;
+  final bool lockCollection;
+  final bool lockLayer;
+  final bool lockZoom;
+  final bool lockHorizontal;
+  final bool lockVertical;
+  final bool lockRotation;
 
   factory PersistentLockState.fromJson(Map<String, dynamic> json) =>
       _$PersistentLockStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersistentLockStateToJson(this);
 }
 
 @freezed
-sealed class PersistedNavigatorState with _$PersistedNavigatorState {
-  const factory PersistedNavigatorState({
-    @Default(false) bool enabled,
-    @Default('waypoints') String page,
-  }) = _PersistedNavigatorState;
+@JsonSerializable()
+class PersistedNavigatorState with _$PersistedNavigatorState {
+  const new({this.enabled = false, this.page = 'waypoints'});
+
+  final bool enabled;
+  final String page;
 
   factory PersistedNavigatorState.fromJson(Map<String, dynamic> json) =>
       _$PersistedNavigatorStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersistedNavigatorStateToJson(this);
 }
 
 @freezed
@@ -103,15 +127,18 @@ sealed class PersistedLayerState with _$PersistedLayerState {
 }
 
 @freezed
-sealed class PersistedAreaNavigatorState with _$PersistedAreaNavigatorState {
-  const factory PersistedAreaNavigatorState({
-    @Default(true) bool create,
-    @Default(true) bool exact,
-    @Default(false) bool ask,
-  }) = _PersistedAreaNavigatorState;
+@JsonSerializable()
+class PersistedAreaNavigatorState with _$PersistedAreaNavigatorState {
+  const new({this.create = true, this.exact = true, this.ask = false});
+
+  final bool create;
+  final bool exact;
+  final bool ask;
 
   factory PersistedAreaNavigatorState.fromJson(Map<String, dynamic> json) =>
       _$PersistedAreaNavigatorStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersistedAreaNavigatorStateToJson(this);
 }
 
 @freezed

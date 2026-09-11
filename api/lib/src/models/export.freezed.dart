@@ -16,15 +16,13 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExportPadding {
 
- double get top; double get right; double get bottom; double get left;
+
 /// Create a copy of ExportPadding
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ExportPaddingCopyWith<ExportPadding> get copyWith => _$ExportPaddingCopyWithImpl<ExportPadding>(this as ExportPadding, _$identity);
 
-  /// Serializes this ExportPadding to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -84,83 +82,6 @@ as double,
 }
 
 
-
-/// @nodoc
-@JsonSerializable()
-
-class _ExportPadding implements ExportPadding {
-  const _ExportPadding({this.top = 0, this.right = 0, this.bottom = 0, this.left = 0});
-  factory _ExportPadding.fromJson(Map<String, dynamic> json) => _$ExportPaddingFromJson(json);
-
-@override@JsonKey() final  double top;
-@override@JsonKey() final  double right;
-@override@JsonKey() final  double bottom;
-@override@JsonKey() final  double left;
-
-/// Create a copy of ExportPadding
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$ExportPaddingCopyWith<_ExportPadding> get copyWith => __$ExportPaddingCopyWithImpl<_ExportPadding>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$ExportPaddingToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportPadding&&(identical(other.top, top) || other.top == top)&&(identical(other.right, right) || other.right == right)&&(identical(other.bottom, bottom) || other.bottom == bottom)&&(identical(other.left, left) || other.left == left));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode {
-    return Object.hash(runtimeType,top,right,bottom,left);
-}
-
-@override
-String toString() {
-    return 'ExportPadding(top: $top, right: $right, bottom: $bottom, left: $left)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$ExportPaddingCopyWith<$Res> implements $ExportPaddingCopyWith<$Res> {
-  factory _$ExportPaddingCopyWith(_ExportPadding value, $Res Function(_ExportPadding) _then) = __$ExportPaddingCopyWithImpl;
-@override @useResult
-$Res call({
- double top, double right, double bottom, double left
-});
-
-
-
-
-}
-/// @nodoc
-class __$ExportPaddingCopyWithImpl<$Res>
-    implements _$ExportPaddingCopyWith<$Res> {
-  __$ExportPaddingCopyWithImpl(this._self, this._then);
-
-  final _ExportPadding _self;
-  final $Res Function(_ExportPadding) _then;
-
-/// Create a copy of ExportPadding
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? top = null,Object? right = null,Object? bottom = null,Object? left = null,}) {
-  return _then(_ExportPadding(
-top: null == top ? _self.top : top // ignore: cast_nullable_to_non_nullable
-as double,right: null == right ? _self.right : right // ignore: cast_nullable_to_non_nullable
-as double,bottom: null == bottom ? _self.bottom : bottom // ignore: cast_nullable_to_non_nullable
-as double,left: null == left ? _self.left : left // ignore: cast_nullable_to_non_nullable
-as double,
-  ));
-}
-
-
-}
 
 ExportOptions _$ExportOptionsFromJson(
   Map<String, dynamic> json
@@ -623,15 +544,13 @@ as List<AreaPreset>,
 /// @nodoc
 mixin _$AreaPreset {
 
- String get page; String get name; double get quality; Area? get area;
+
 /// Create a copy of AreaPreset
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $AreaPresetCopyWith<AreaPreset> get copyWith => _$AreaPresetCopyWithImpl<AreaPreset>(this as AreaPreset, _$identity);
 
-  /// Serializes this AreaPreset to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -665,7 +584,7 @@ $Res call({
 });
 
 
-$AreaCopyWith<$Res>? get area;
+
 
 }
 /// @nodoc
@@ -687,110 +606,9 @@ as double,area: freezed == area ? _self.area : area // ignore: cast_nullable_to_
 as Area?,
   ));
 }
-/// Create a copy of AreaPreset
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AreaCopyWith<$Res>? get area {
-    if (_self.area == null) {
-    return null;
-  }
-
-  return $AreaCopyWith<$Res>(_self.area!, (value) {
-    return _then(_self.copyWith(area: value));
-  });
-}
-}
-
-
-
-/// @nodoc
-@JsonSerializable()
-
-class _AreaPreset implements AreaPreset {
-  const _AreaPreset({this.page = '', this.name = '', this.quality = 1, this.area});
-  factory _AreaPreset.fromJson(Map<String, dynamic> json) => _$AreaPresetFromJson(json);
-
-@override@JsonKey() final  String page;
-@override@JsonKey() final  String name;
-@override@JsonKey() final  double quality;
-@override final  Area? area;
-
-/// Create a copy of AreaPreset
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$AreaPresetCopyWith<_AreaPreset> get copyWith => __$AreaPresetCopyWithImpl<_AreaPreset>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$AreaPresetToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaPreset&&(identical(other.page, page) || other.page == page)&&(identical(other.name, name) || other.name == name)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.area, area) || other.area == area));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode {
-    return Object.hash(runtimeType,page,name,quality,area);
-}
-
-@override
-String toString() {
-    return 'AreaPreset(page: $page, name: $name, quality: $quality, area: $area)';
-}
-
 
 }
 
-/// @nodoc
-abstract mixin class _$AreaPresetCopyWith<$Res> implements $AreaPresetCopyWith<$Res> {
-  factory _$AreaPresetCopyWith(_AreaPreset value, $Res Function(_AreaPreset) _then) = __$AreaPresetCopyWithImpl;
-@override @useResult
-$Res call({
- String page, String name, double quality, Area? area
-});
 
-
-@override $AreaCopyWith<$Res>? get area;
-
-}
-/// @nodoc
-class __$AreaPresetCopyWithImpl<$Res>
-    implements _$AreaPresetCopyWith<$Res> {
-  __$AreaPresetCopyWithImpl(this._self, this._then);
-
-  final _AreaPreset _self;
-  final $Res Function(_AreaPreset) _then;
-
-/// Create a copy of AreaPreset
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? name = null,Object? quality = null,Object? area = freezed,}) {
-  return _then(_AreaPreset(
-page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
-as double,area: freezed == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
-as Area?,
-  ));
-}
-
-/// Create a copy of AreaPreset
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AreaCopyWith<$Res>? get area {
-    if (_self.area == null) {
-    return null;
-  }
-
-  return $AreaCopyWith<$Res>(_self.area!, (value) {
-    return _then(_self.copyWith(area: value));
-  });
-}
-}
 
 // dart format on

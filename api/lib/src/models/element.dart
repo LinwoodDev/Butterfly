@@ -18,15 +18,18 @@ part 'element.freezed.dart';
 part 'element.g.dart';
 
 @freezed
-sealed class ElementConstraint with _$ElementConstraint {
-  const factory ElementConstraint({
-    @Default(0) double size,
-    @Default(0) double length,
-    @Default(true) bool includeArea,
-  }) = _ElementConstraint;
+@JsonSerializable()
+class ElementConstraint with _$ElementConstraint {
+  const new({this.size = 0, this.length = 0, this.includeArea = true});
+
+  final double size;
+  final double length;
+  final bool includeArea;
 
   factory ElementConstraint.fromJson(Map<String, dynamic> json) =>
       _$ElementConstraintFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ElementConstraintToJson(this);
 }
 
 abstract class SourcedElement {
@@ -61,37 +64,53 @@ abstract class PathElement {
 enum TableAxis { horizontal, vertical }
 
 @freezed
-sealed class TableBorderProperty with _$TableBorderProperty {
-  const factory TableBorderProperty({
-    @Default(1) double width,
-    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
-    @Default(StrokeStyle.solid) StrokeStyle strokeStyle,
-    @Default(1.0) double dashMultiplier,
-    @Default(1.0) double gapMultiplier,
-  }) = _TableBorderProperty;
+@JsonSerializable()
+class TableBorderProperty with _$TableBorderProperty {
+  const new({
+    this.width = 1,
+    this.color = SRGBColor.black,
+    this.strokeStyle = StrokeStyle.solid,
+    this.dashMultiplier = 1,
+    this.gapMultiplier = 1,
+  });
+
+  final double width;
+  @ColorJsonConverter()
+  final SRGBColor color;
+  final StrokeStyle strokeStyle;
+  final double dashMultiplier;
+  final double gapMultiplier;
 
   factory TableBorderProperty.fromJson(Map<String, dynamic> json) =>
       _$TableBorderPropertyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TableBorderPropertyToJson(this);
 }
 
 @freezed
-sealed class TableCellProperty with _$TableCellProperty {
-  const factory TableCellProperty({
-    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor fillColor,
-  }) = _TableCellProperty;
+@JsonSerializable()
+class TableCellProperty with _$TableCellProperty {
+  const new({this.fillColor = SRGBColor.transparent});
+
+  @ColorJsonConverter()
+  final SRGBColor fillColor;
 
   factory TableCellProperty.fromJson(Map<String, dynamic> json) =>
       _$TableCellPropertyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TableCellPropertyToJson(this);
 }
 
-mixin LabelElement {
+abstract interface class LabelElement {
   String get collection;
   Point<double> get position;
   double get scale;
   NamedItem<TextStyleSheet>? get styleSheet;
   ElementConstraint get constraint;
   SRGBColor get foreground;
+}
 
+extension LabelElementProperties on LabelElement {
   AreaProperty get areaProperty => switch (this) {
     MarkdownElement e => e.areaProperty,
     TextElement e => e.area.areaProperty,
@@ -122,7 +141,7 @@ sealed class PadElement with _$PadElement {
     @Default({}) Map<String, dynamic> extra,
   }) = PenElement;
 
-  @With<LabelElement>()
+  @Implements<LabelElement>()
   factory PadElement.text({
     @Default(0) double rotation,
     @Default(0) double shear,
@@ -139,7 +158,7 @@ sealed class PadElement with _$PadElement {
     @Default({}) Map<String, dynamic> extra,
   }) = TextElement;
 
-  @With<LabelElement>()
+  @Implements<LabelElement>()
   factory PadElement.markdown({
     @Default(0) double rotation,
     @Default(0) double shear,

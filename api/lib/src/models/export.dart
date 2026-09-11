@@ -6,16 +6,19 @@ part 'export.freezed.dart';
 part 'export.g.dart';
 
 @freezed
-sealed class ExportPadding with _$ExportPadding {
-  const factory ExportPadding({
-    @Default(0) double top,
-    @Default(0) double right,
-    @Default(0) double bottom,
-    @Default(0) double left,
-  }) = _ExportPadding;
+@JsonSerializable()
+class ExportPadding with _$ExportPadding {
+  const new({this.top = 0, this.right = 0, this.bottom = 0, this.left = 0});
+
+  final double top;
+  final double right;
+  final double bottom;
+  final double left;
 
   factory ExportPadding.fromJson(Map<String, dynamic> json) =>
       _$ExportPaddingFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ExportPaddingToJson(this);
 }
 
 @freezed
@@ -75,14 +78,17 @@ sealed class ExportPreset with _$ExportPreset {
 }
 
 @freezed
-sealed class AreaPreset with _$AreaPreset {
-  const factory AreaPreset({
-    @Default('') String page,
-    @Default('') String name,
-    @Default(1) double quality,
-    Area? area,
-  }) = _AreaPreset;
+@JsonSerializable()
+class AreaPreset with _$AreaPreset {
+  const new({this.page = '', this.name = '', this.quality = 1, this.area});
+
+  final String page;
+  final String name;
+  final double quality;
+  final Area? area;
 
   factory AreaPreset.fromJson(Map<String, dynamic> json) =>
       _$AreaPresetFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AreaPresetToJson(this);
 }

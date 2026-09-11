@@ -89,12 +89,17 @@ sealed class Toolbar extends PackAsset with _$Toolbar {
 }
 
 @freezed
-sealed class PackAssetLocation with _$PackAssetLocation {
-  const factory PackAssetLocation(String namespace, String key) =
-      _PackAssetLocation;
+@JsonSerializable()
+class PackAssetLocation with _$PackAssetLocation {
+  const new(this.namespace, this.key);
+
+  final String namespace;
+  final String key;
 
   factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
       _$PackAssetLocationFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PackAssetLocationToJson(this);
 }
 
 @Freezed(genericArgumentFactories: true)
@@ -119,14 +124,13 @@ sealed class NamedItem<T extends PackAsset> with _$NamedItem<T> {
       PackItem<T>(PackAssetLocation(namespace, name), pack, item);
 }
 
-final class PackItem<T extends PackAsset> implements PackAssetLocation {
-  final PackAssetLocation location;
-  final NoteData pack;
-  final T item;
-
-  const PackItem(this.location, this.pack, this.item);
-  PackItem.build(String namespace, String key, this.pack, this.item)
-    : location = PackAssetLocation(namespace, key);
+final class const PackItem<T extends PackAsset>(
+  final PackAssetLocation location,
+  final NoteData pack,
+  final T item,
+) implements PackAssetLocation {
+  new build(String namespace, String key, NoteData pack, T item)
+    : this(PackAssetLocation(namespace, key), pack, item);
 
   @override
   String get namespace => location.namespace;

@@ -6,6 +6,12 @@ part of 'pack.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+PackAssetLocation _$PackAssetLocationFromJson(Map json) =>
+    PackAssetLocation(json['namespace'] as String, json['key'] as String);
+
+Map<String, dynamic> _$PackAssetLocationToJson(PackAssetLocation instance) =>
+    <String, dynamic>{'namespace': instance.namespace, 'key': instance.key};
+
 _ColorPalette _$ColorPaletteFromJson(Map json) => _ColorPalette(
   colors:
       (json['colors'] as List<dynamic>?)
@@ -139,12 +145,6 @@ _Toolbar _$ToolbarFromJson(Map json) => _Toolbar(
 Map<String, dynamic> _$ToolbarToJson(_Toolbar instance) => <String, dynamic>{
   'tools': instance.tools.map((e) => e.toJson()).toList(),
 };
-
-_PackAssetLocation _$PackAssetLocationFromJson(Map json) =>
-    _PackAssetLocation(json['namespace'] as String, json['key'] as String);
-
-Map<String, dynamic> _$PackAssetLocationToJson(_PackAssetLocation instance) =>
-    <String, dynamic>{'namespace': instance.namespace, 'key': instance.key};
 
 _NamedItem<T> _$NamedItemFromJson<T extends PackAsset>(
   Map json,

@@ -6,6 +6,23 @@ part of 'text.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+AreaProperty _$AreaPropertyFromJson(Map json) => AreaProperty(
+  alignment:
+      $enumDecodeNullable(_$VerticalAlignmentEnumMap, json['alignment']) ??
+      VerticalAlignment.top,
+);
+
+Map<String, dynamic> _$AreaPropertyToJson(AreaProperty instance) =>
+    <String, dynamic>{
+      'alignment': _$VerticalAlignmentEnumMap[instance.alignment]!,
+    };
+
+const _$VerticalAlignmentEnumMap = {
+  VerticalAlignment.top: 'top',
+  VerticalAlignment.center: 'center',
+  VerticalAlignment.bottom: 'bottom',
+};
+
 DefinedSpanProperty _$DefinedSpanPropertyFromJson(Map json) =>
     DefinedSpanProperty(
       size: (json['size'] as num?)?.toDouble(),
@@ -140,23 +157,6 @@ UndefinedParagraphProperty _$UndefinedParagraphPropertyFromJson(Map json) =>
 Map<String, dynamic> _$UndefinedParagraphPropertyToJson(
   UndefinedParagraphProperty instance,
 ) => <String, dynamic>{'type': instance.$type};
-
-_AreaProperty _$AreaPropertyFromJson(Map json) => _AreaProperty(
-  alignment:
-      $enumDecodeNullable(_$VerticalAlignmentEnumMap, json['alignment']) ??
-      VerticalAlignment.top,
-);
-
-Map<String, dynamic> _$AreaPropertyToJson(_AreaProperty instance) =>
-    <String, dynamic>{
-      'alignment': _$VerticalAlignmentEnumMap[instance.alignment]!,
-    };
-
-const _$VerticalAlignmentEnumMap = {
-  VerticalAlignment.top: 'top',
-  VerticalAlignment.center: 'center',
-  VerticalAlignment.bottom: 'bottom',
-};
 
 TextSpan _$TextSpanFromJson(Map json) => TextSpan(
   text: json['text'] as String? ?? '',

@@ -13,29 +13,41 @@ enum Arrangement { forward, backward, front, back }
 enum DocumentPermission { read, write, admin }
 
 @freezed
-sealed class InitialAreaDetails with _$InitialAreaDetails {
-  const factory InitialAreaDetails({
-    required double width,
-    required double height,
-    required String name,
-  }) = _InitialAreaDetails;
+@JsonSerializable()
+class InitialAreaDetails with _$InitialAreaDetails {
+  const new({required this.width, required this.height, required this.name});
+
+  final double width;
+  final double height;
+  final String name;
 
   factory InitialAreaDetails.fromJson(Map<String, dynamic> json) =>
       _$InitialAreaDetailsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InitialAreaDetailsToJson(this);
 }
 
 @freezed
-sealed class PageAddedDetails with _$PageAddedDetails {
-  const factory PageAddedDetails({
-    int? index,
-    DocumentPage? page,
-    @Default(true) bool addNumber,
-    @Default('') String name,
-    InitialAreaDetails? initialArea,
-  }) = _PageAddedDetails;
+@JsonSerializable()
+class PageAddedDetails with _$PageAddedDetails {
+  const new({
+    this.index,
+    this.page,
+    this.addNumber = true,
+    this.name = '',
+    this.initialArea,
+  });
+
+  final int? index;
+  final DocumentPage? page;
+  final bool addNumber;
+  final String name;
+  final InitialAreaDetails? initialArea;
 
   factory PageAddedDetails.fromJson(Map<String, dynamic> json) =>
       _$PageAddedDetailsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PageAddedDetailsToJson(this);
 }
 
 @freezed

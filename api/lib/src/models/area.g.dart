@@ -6,7 +6,7 @@ part of 'area.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_Area _$AreaFromJson(Map json) => _Area(
+Area _$AreaFromJson(Map json) => Area(
   name: json['name'] as String? ?? '',
   width: (json['width'] as num).toDouble(),
   height: (json['height'] as num).toDouble(),
@@ -18,7 +18,7 @@ _Area _$AreaFromJson(Map json) => _Area(
   ),
 );
 
-Map<String, dynamic> _$AreaToJson(_Area instance) => <String, dynamic>{
+Map<String, dynamic> _$AreaToJson(Area instance) => <String, dynamic>{
   'name': instance.name,
   'width': instance.width,
   'height': instance.height,

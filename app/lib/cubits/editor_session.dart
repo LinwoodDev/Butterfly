@@ -9,20 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditorSessionCubit extends Cubit<PersistedDocumentState> {
-  EditorSessionCubit({
+  new({
     required this.service,
-    required TransformCubit transformCubit,
+    required this._transformCubit,
     required PersistedDocumentState initialState,
     String? pathKey,
     String? contentHash,
-  }) : _transformCubit = transformCubit,
-       super(
+  }) : super(
          initialState.copyWith(
            pathKey: pathKey ?? initialState.pathKey,
            contentHash: contentHash ?? initialState.contentHash,
          ),
        ) {
-    _transformSubscription = transformCubit.stream.listen(_onTransformChanged);
+    _transformSubscription = _transformCubit.stream.listen(_onTransformChanged);
   }
 
   final DocumentStateService service;

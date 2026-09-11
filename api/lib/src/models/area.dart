@@ -63,18 +63,28 @@ extension AreaSizePresetExtension on AreaSizePreset {
 }
 
 @freezed
-sealed class Area with _$Area {
-  const Area._();
-  const factory Area({
-    @Default('') String name,
-    required double width,
-    required double height,
-    @DoublePointJsonConverter() required Point<double> position,
-    @Default(false) bool isInitial,
-    @ColorJsonConverter() SRGBColor? color,
-  }) = _Area;
+@JsonSerializable()
+class Area with _$Area {
+  const new({
+    this.name = '',
+    required this.width,
+    required this.height,
+    required this.position,
+    this.isInitial = false,
+    this.color,
+  });
+
+  final String name;
+  final double width;
+  final double height;
+  @DoublePointJsonConverter()
+  final Point<double> position;
+  final bool isInitial;
+  @ColorJsonConverter()
+  final SRGBColor? color;
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
+  Map<String, dynamic> toJson() => _$AreaToJson(this);
   // Aspect ratio is the ratio between width and height.
   factory Area.fromPoints(
     Point<double> first,

@@ -540,15 +540,13 @@ String toString() {
 /// @nodoc
 mixin _$AreaProperty {
 
- VerticalAlignment get alignment;
+
 /// Create a copy of AreaProperty
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $AreaPropertyCopyWith<AreaProperty> get copyWith => _$AreaPropertyCopyWithImpl<AreaProperty>(this as AreaProperty, _$identity);
 
-  /// Serializes this AreaProperty to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -605,77 +603,6 @@ as VerticalAlignment,
 }
 
 
-
-/// @nodoc
-@JsonSerializable()
-
-class _AreaProperty implements AreaProperty {
-  const _AreaProperty({this.alignment = VerticalAlignment.top});
-  factory _AreaProperty.fromJson(Map<String, dynamic> json) => _$AreaPropertyFromJson(json);
-
-@override@JsonKey() final  VerticalAlignment alignment;
-
-/// Create a copy of AreaProperty
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$AreaPropertyCopyWith<_AreaProperty> get copyWith => __$AreaPropertyCopyWithImpl<_AreaProperty>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$AreaPropertyToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaProperty&&(identical(other.alignment, alignment) || other.alignment == alignment));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode {
-    return Object.hash(runtimeType,alignment);
-}
-
-@override
-String toString() {
-    return 'AreaProperty(alignment: $alignment)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$AreaPropertyCopyWith<$Res> implements $AreaPropertyCopyWith<$Res> {
-  factory _$AreaPropertyCopyWith(_AreaProperty value, $Res Function(_AreaProperty) _then) = __$AreaPropertyCopyWithImpl;
-@override @useResult
-$Res call({
- VerticalAlignment alignment
-});
-
-
-
-
-}
-/// @nodoc
-class __$AreaPropertyCopyWithImpl<$Res>
-    implements _$AreaPropertyCopyWith<$Res> {
-  __$AreaPropertyCopyWithImpl(this._self, this._then);
-
-  final _AreaProperty _self;
-  final $Res Function(_AreaProperty) _then;
-
-/// Create a copy of AreaProperty
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? alignment = null,}) {
-  return _then(_AreaProperty(
-alignment: null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
-as VerticalAlignment,
-  ));
-}
-
-
-}
 
 InlineSpan _$InlineSpanFromJson(
   Map<String, dynamic> json
@@ -950,144 +877,6 @@ $SpanPropertyCopyWith<$Res> get property {
     return _then(_self.copyWith(property: value));
   });
 }
-}
-
-/// @nodoc
-mixin _$IndexedModel<T> {
-
- int get index; T get model;
-/// Create a copy of IndexedModel
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$IndexedModelCopyWith<T, IndexedModel<T>> get copyWith => _$IndexedModelCopyWithImpl<T, IndexedModel<T>>(this as IndexedModel<T>, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  final _this = this as IndexedModel<T>;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IndexedModel<T>&&(identical(other.index, _this.index) || other.index == _this.index)&&const DeepCollectionEquality().equals(other.model, _this.model));
-}
-
-
-@override
-int get hashCode {
-  final _this = this as IndexedModel<T>;
-  return Object.hash(runtimeType,_this.index,const DeepCollectionEquality().hash(_this.model));
-}
-
-@override
-String toString() {
-  final _this = this as IndexedModel<T>;
-  return 'IndexedModel<$T>(index: ${_this.index}, model: ${_this.model})';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $IndexedModelCopyWith<T,$Res>  {
-  factory $IndexedModelCopyWith(IndexedModel<T> value, $Res Function(IndexedModel<T>) _then) = _$IndexedModelCopyWithImpl;
-@useResult
-$Res call({
- int index, T model
-});
-
-
-
-
-}
-/// @nodoc
-class _$IndexedModelCopyWithImpl<T,$Res>
-    implements $IndexedModelCopyWith<T, $Res> {
-  _$IndexedModelCopyWithImpl(this._self, this._then);
-
-  final IndexedModel<T> _self;
-  final $Res Function(IndexedModel<T>) _then;
-
-/// Create a copy of IndexedModel
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? model = freezed,}) {
-  return _then(IndexedModel(
-null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int,freezed == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
-as T,
-  ));
-}
-
-}
-
-
-
-/// @nodoc
-
-
-class _IndexedModel<T> implements IndexedModel<T> {
-  const _IndexedModel(this.index, this.model);
-  
-
-@override final  int index;
-@override final  T model;
-
-/// Create a copy of IndexedModel
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$IndexedModelCopyWith<T, _IndexedModel<T>> get copyWith => __$IndexedModelCopyWithImpl<T, _IndexedModel<T>>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IndexedModel<T>&&(identical(other.index, index) || other.index == index)&&const DeepCollectionEquality().equals(other.model, model));
-}
-
-
-@override
-int get hashCode {
-    return Object.hash(runtimeType,index,const DeepCollectionEquality().hash(model));
-}
-
-@override
-String toString() {
-    return 'IndexedModel<$T>(index: $index, model: $model)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$IndexedModelCopyWith<T,$Res> implements $IndexedModelCopyWith<T, $Res> {
-  factory _$IndexedModelCopyWith(_IndexedModel<T> value, $Res Function(_IndexedModel<T>) _then) = __$IndexedModelCopyWithImpl;
-@override @useResult
-$Res call({
- int index, T model
-});
-
-
-
-
-}
-/// @nodoc
-class __$IndexedModelCopyWithImpl<T,$Res>
-    implements _$IndexedModelCopyWith<T, $Res> {
-  __$IndexedModelCopyWithImpl(this._self, this._then);
-
-  final _IndexedModel<T> _self;
-  final $Res Function(_IndexedModel<T>) _then;
-
-/// Create a copy of IndexedModel
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? model = freezed,}) {
-  return _then(_IndexedModel<T>(
-null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int,freezed == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
-as T,
-  ));
-}
-
-
 }
 
 

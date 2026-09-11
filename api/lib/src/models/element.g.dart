@@ -6,17 +6,56 @@ part of 'element.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ElementConstraint _$ElementConstraintFromJson(Map json) => _ElementConstraint(
+ElementConstraint _$ElementConstraintFromJson(Map json) => ElementConstraint(
   size: (json['size'] as num?)?.toDouble() ?? 0,
   length: (json['length'] as num?)?.toDouble() ?? 0,
   includeArea: json['includeArea'] as bool? ?? true,
 );
 
-Map<String, dynamic> _$ElementConstraintToJson(_ElementConstraint instance) =>
+Map<String, dynamic> _$ElementConstraintToJson(ElementConstraint instance) =>
     <String, dynamic>{
       'size': instance.size,
       'length': instance.length,
       'includeArea': instance.includeArea,
+    };
+
+TableBorderProperty _$TableBorderPropertyFromJson(Map json) =>
+    TableBorderProperty(
+      width: (json['width'] as num?)?.toDouble() ?? 1,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+      strokeStyle:
+          $enumDecodeNullable(_$StrokeStyleEnumMap, json['strokeStyle']) ??
+          StrokeStyle.solid,
+      dashMultiplier: (json['dashMultiplier'] as num?)?.toDouble() ?? 1,
+      gapMultiplier: (json['gapMultiplier'] as num?)?.toDouble() ?? 1,
+    );
+
+Map<String, dynamic> _$TableBorderPropertyToJson(
+  TableBorderProperty instance,
+) => <String, dynamic>{
+  'width': instance.width,
+  'color': const ColorJsonConverter().toJson(instance.color),
+  'strokeStyle': _$StrokeStyleEnumMap[instance.strokeStyle]!,
+  'dashMultiplier': instance.dashMultiplier,
+  'gapMultiplier': instance.gapMultiplier,
+};
+
+const _$StrokeStyleEnumMap = {
+  StrokeStyle.solid: 'solid',
+  StrokeStyle.dotted: 'dotted',
+};
+
+TableCellProperty _$TableCellPropertyFromJson(Map json) => TableCellProperty(
+  fillColor: json['fillColor'] == null
+      ? SRGBColor.transparent
+      : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),
+);
+
+Map<String, dynamic> _$TableCellPropertyToJson(TableCellProperty instance) =>
+    <String, dynamic>{
+      'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
     };
 
 ScaledElementConstraints _$ScaledElementConstraintsFromJson(Map json) =>
@@ -67,45 +106,6 @@ Map<String, dynamic> _$DynamicElementConstraintsToJson(
   'includeArea': instance.includeArea,
   'type': instance.$type,
 };
-
-_TableBorderProperty _$TableBorderPropertyFromJson(Map json) =>
-    _TableBorderProperty(
-      width: (json['width'] as num?)?.toDouble() ?? 1,
-      color: json['color'] == null
-          ? SRGBColor.black
-          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
-      strokeStyle:
-          $enumDecodeNullable(_$StrokeStyleEnumMap, json['strokeStyle']) ??
-          StrokeStyle.solid,
-      dashMultiplier: (json['dashMultiplier'] as num?)?.toDouble() ?? 1.0,
-      gapMultiplier: (json['gapMultiplier'] as num?)?.toDouble() ?? 1.0,
-    );
-
-Map<String, dynamic> _$TableBorderPropertyToJson(
-  _TableBorderProperty instance,
-) => <String, dynamic>{
-  'width': instance.width,
-  'color': const ColorJsonConverter().toJson(instance.color),
-  'strokeStyle': _$StrokeStyleEnumMap[instance.strokeStyle]!,
-  'dashMultiplier': instance.dashMultiplier,
-  'gapMultiplier': instance.gapMultiplier,
-};
-
-const _$StrokeStyleEnumMap = {
-  StrokeStyle.solid: 'solid',
-  StrokeStyle.dotted: 'dotted',
-};
-
-_TableCellProperty _$TableCellPropertyFromJson(Map json) => _TableCellProperty(
-  fillColor: json['fillColor'] == null
-      ? SRGBColor.transparent
-      : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),
-);
-
-Map<String, dynamic> _$TableCellPropertyToJson(_TableCellProperty instance) =>
-    <String, dynamic>{
-      'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
-    };
 
 PenElement _$PenElementFromJson(Map json) => PenElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,

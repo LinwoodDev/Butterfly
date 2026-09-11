@@ -75,13 +75,16 @@ sealed class ParagraphProperty with _$ParagraphProperty {
 }
 
 @freezed
-sealed class AreaProperty with _$AreaProperty {
-  const factory AreaProperty({
-    @Default(VerticalAlignment.top) VerticalAlignment alignment,
-  }) = _AreaProperty;
+@JsonSerializable()
+class AreaProperty with _$AreaProperty {
+  const new({this.alignment = VerticalAlignment.top});
+
+  final VerticalAlignment alignment;
 
   factory AreaProperty.fromJson(Map<String, dynamic> json) =>
       _$AreaPropertyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AreaPropertyToJson(this);
 }
 
 @freezed
@@ -114,10 +117,7 @@ sealed class InlineSpan with _$InlineSpan {
   bool get isNotEmpty => text.isNotEmpty;
 }
 
-@freezed
-sealed class IndexedModel<T> with _$IndexedModel<T> {
-  const factory IndexedModel(int index, T model) = _IndexedModel<T>;
-}
+class const IndexedModel<T>(final int index, final T model) {}
 
 @freezed
 sealed class TextParagraph with _$TextParagraph {

@@ -8,18 +8,13 @@ import '../converter/core.dart';
 part 'animation.freezed.dart';
 part 'animation.g.dart';
 
-class _InterpolationResult {
-  final AnimationKey first, second;
-  final int firstFrame, secondFrame;
-
+class const _InterpolationResult(
+  final AnimationKey first,
+  final AnimationKey second,
+  final int firstFrame,
+  final int secondFrame,
+) {
   int get delta => secondFrame - firstFrame;
-
-  const _InterpolationResult(
-    this.first,
-    this.second,
-    this.firstFrame,
-    this.secondFrame,
-  );
 }
 
 @freezed
@@ -110,15 +105,17 @@ sealed class AnimationTrack with _$AnimationTrack {
 }
 
 @freezed
-sealed class AnimationKey with _$AnimationKey {
-  const AnimationKey._();
+@JsonSerializable()
+class AnimationKey with _$AnimationKey {
+  const new({this.cameraPosition, this.cameraZoom, this.breakpoint = false});
 
-  const factory AnimationKey({
-    @DoublePointJsonConverter() Point<double>? cameraPosition,
-    double? cameraZoom,
-    @Default(false) bool breakpoint,
-  }) = _AnimationKey;
+  @DoublePointJsonConverter()
+  final Point<double>? cameraPosition;
+  final double? cameraZoom;
+  final bool breakpoint;
 
   factory AnimationKey.fromJson(Map<String, dynamic> json) =>
       _$AnimationKeyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AnimationKeyToJson(this);
 }

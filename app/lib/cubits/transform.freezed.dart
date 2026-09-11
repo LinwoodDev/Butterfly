@@ -13,9 +13,9 @@ part of 'transform.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$FrictionState implements DiagnosticableTreeMixin {
+mixin _$FrictionState {
 
- Offset get beginOffset; double get beginSize; DateTime get lastUpdate; double get duration;
+
 /// Create a copy of FrictionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -23,13 +23,6 @@ mixin _$FrictionState implements DiagnosticableTreeMixin {
 $FrictionStateCopyWith<FrictionState> get copyWith => _$FrictionStateCopyWithImpl<FrictionState>(this as FrictionState, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  final _this = this as FrictionState;
-  properties
-    ..add(DiagnosticsProperty('type', 'FrictionState'))
-    ..add(DiagnosticsProperty('beginOffset', _this.beginOffset))..add(DiagnosticsProperty('beginSize', _this.beginSize))..add(DiagnosticsProperty('lastUpdate', _this.lastUpdate))..add(DiagnosticsProperty('duration', _this.duration));
-}
 
 @override
 bool operator ==(Object other) {
@@ -45,7 +38,7 @@ int get hashCode {
 }
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
   final _this = this as FrictionState;
   return 'FrictionState(beginOffset: ${_this.beginOffset}, beginSize: ${_this.beginSize}, lastUpdate: ${_this.lastUpdate}, duration: ${_this.duration})';
 }
@@ -92,8 +85,8 @@ as double,
 /// @nodoc
 
 
-class _FrictionState with DiagnosticableTreeMixin implements FrictionState {
-  const _FrictionState(this.beginOffset, this.beginSize, this.lastUpdate, this.duration);
+class _FrictionState extends FrictionState {
+  const _FrictionState(this.beginOffset, this.beginSize, this.lastUpdate, this.duration): super(beginOffset, beginSize, lastUpdate, duration);
   
 
 @override final  Offset beginOffset;
@@ -108,12 +101,6 @@ class _FrictionState with DiagnosticableTreeMixin implements FrictionState {
 _$FrictionStateCopyWith<_FrictionState> get copyWith => __$FrictionStateCopyWithImpl<_FrictionState>(this, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties
-    ..add(DiagnosticsProperty('type', 'FrictionState'))
-    ..add(DiagnosticsProperty('beginOffset', beginOffset))..add(DiagnosticsProperty('beginSize', beginSize))..add(DiagnosticsProperty('lastUpdate', lastUpdate))..add(DiagnosticsProperty('duration', duration));
-}
 
 @override
 bool operator ==(Object other) {
@@ -127,7 +114,7 @@ int get hashCode {
 }
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
     return 'FrictionState(beginOffset: $beginOffset, beginSize: $beginSize, lastUpdate: $lastUpdate, duration: $duration)';
 }
 
@@ -170,9 +157,9 @@ as double,
 }
 
 /// @nodoc
-mixin _$CameraTransform implements DiagnosticableTreeMixin {
+mixin _$CameraTransform {
 
- double get pixelRatio; Offset get position; double get size; double get rotation; FrictionState? get friction;
+
 /// Create a copy of CameraTransform
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -180,13 +167,6 @@ mixin _$CameraTransform implements DiagnosticableTreeMixin {
 $CameraTransformCopyWith<CameraTransform> get copyWith => _$CameraTransformCopyWithImpl<CameraTransform>(this as CameraTransform, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  final _this = this as CameraTransform;
-  properties
-    ..add(DiagnosticsProperty('type', 'CameraTransform'))
-    ..add(DiagnosticsProperty('pixelRatio', _this.pixelRatio))..add(DiagnosticsProperty('position', _this.position))..add(DiagnosticsProperty('size', _this.size))..add(DiagnosticsProperty('rotation', _this.rotation))..add(DiagnosticsProperty('friction', _this.friction));
-}
 
 @override
 bool operator ==(Object other) {
@@ -202,7 +182,7 @@ int get hashCode {
 }
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
   final _this = this as CameraTransform;
   return 'CameraTransform(pixelRatio: ${_this.pixelRatio}, position: ${_this.position}, size: ${_this.size}, rotation: ${_this.rotation}, friction: ${_this.friction})';
 }
@@ -262,14 +242,14 @@ $FrictionStateCopyWith<$Res>? get friction {
 /// @nodoc
 
 
-class _CameraTransform extends CameraTransform with DiagnosticableTreeMixin {
-  const _CameraTransform([this.pixelRatio = 1, this.position = Offset.zero, this.size = 1, this.rotation = 0, this.friction]): super._();
+class _CameraTransform extends CameraTransform {
+  const _CameraTransform([this.pixelRatio = 1.0, this.position = Offset.zero, this.size = 1.0, this.rotation = 0.0, this.friction]): super(pixelRatio, position, size, rotation, friction);
   
 
-@override@JsonKey() final  double pixelRatio;
-@override@JsonKey() final  Offset position;
-@override@JsonKey() final  double size;
-@override@JsonKey() final  double rotation;
+@override final  double pixelRatio;
+@override final  Offset position;
+@override final  double size;
+@override final  double rotation;
 @override final  FrictionState? friction;
 
 /// Create a copy of CameraTransform
@@ -279,12 +259,6 @@ class _CameraTransform extends CameraTransform with DiagnosticableTreeMixin {
 _$CameraTransformCopyWith<_CameraTransform> get copyWith => __$CameraTransformCopyWithImpl<_CameraTransform>(this, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties
-    ..add(DiagnosticsProperty('type', 'CameraTransform'))
-    ..add(DiagnosticsProperty('pixelRatio', pixelRatio))..add(DiagnosticsProperty('position', position))..add(DiagnosticsProperty('size', size))..add(DiagnosticsProperty('rotation', rotation))..add(DiagnosticsProperty('friction', friction));
-}
 
 @override
 bool operator ==(Object other) {
@@ -298,7 +272,7 @@ int get hashCode {
 }
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
     return 'CameraTransform(pixelRatio: $pixelRatio, position: $position, size: $size, rotation: $rotation, friction: $friction)';
 }
 

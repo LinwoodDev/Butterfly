@@ -31,5 +31,5 @@ dev_dependencies:
   test: ^1.25.3
   json_serializable: ^6.7.1
   build_runner: ^2.4.9
-  freezed: ^4.0.0-dev.3
+  freezed: ^4.0.1
   lints: ^6.0.0

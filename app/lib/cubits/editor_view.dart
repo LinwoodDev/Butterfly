@@ -1,17 +1,15 @@
 part of 'editor_runtime.dart';
 
 @freezed
-sealed class EditorViewState with _$EditorViewState {
-  const factory EditorViewState({
-    @Default(PersistentLockState()) PersistentLockState locks,
-    @Default(true) bool areaNavigatorCreate,
-    @Default(true) bool areaNavigatorExact,
-    @Default(false) bool areaNavigatorAsk,
-    @Default(false) bool navigatorEnabled,
-    @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
-    @Default('') String userName,
-  }) = _EditorViewState;
-}
+class const EditorViewState({
+  final PersistentLockState locks = const PersistentLockState(),
+  final bool areaNavigatorCreate = true,
+  final bool areaNavigatorExact = true,
+  final bool areaNavigatorAsk = false,
+  final bool navigatorEnabled = false,
+  final NavigatorPage navigatorPage = NavigatorPage.waypoints,
+  final String userName = '',
+}) with _$EditorViewState {}
 
 class EditorViewCubit extends Cubit<EditorViewState> {
   EditorViewCubit({this.editorSessionCubit, EditorViewState? initial})
