@@ -10,12 +10,10 @@ import 'package:xml/xml.dart';
 
 const _xoppTypeKey = 'xopp:type';
 
-class _XoppContainer {
-  final XmlDocument document;
-  final Archive? archive;
-
-  const _XoppContainer(this.document, [this.archive]);
-}
+class const _XoppContainer(
+  final XmlDocument document, [
+  final Archive? archive,
+]) {}
 
 List<double> _numbers(String? value) =>
     value

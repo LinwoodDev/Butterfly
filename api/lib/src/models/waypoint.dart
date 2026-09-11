@@ -9,19 +9,16 @@ part 'waypoint.freezed.dart';
 
 @freezed
 @JsonSerializable()
-class Waypoint with _$Waypoint {
+class const Waypoint(
+  final String? name,
+  @DoublePointJsonConverter() final Point<double> position, [
+  final double? scale,
+]) with _$Waypoint {
   static const String? originName = null;
   static const Waypoint defaultOrigin = Waypoint(originName, Point(0, 0), 1);
 
-  const new(this.name, this.position, [this.scale]);
-
-  final String? name;
-  @DoublePointJsonConverter()
-  final Point<double> position;
-  final double? scale;
-
-  factory Waypoint.fromJson(Map<String, dynamic> json) =>
-      _$WaypointFromJson(json);
+  static Waypoint fromJson(Map json) =>
+      _$WaypointFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$WaypointToJson(this);
 }

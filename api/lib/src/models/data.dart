@@ -29,11 +29,7 @@ String getAssetFileName(String fileExtension, Uint8List data) {
   return '$name.$fileExtension';
 }
 
-final class NoteFile {
-  final Uint8List data;
-
-  NoteFile(this.data);
-
+final class NoteFile(final Uint8List data) {
   bool isEncrypted() => isZipEncrypted(data);
 
   (String?, NoteData)? _data;

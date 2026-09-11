@@ -90,14 +90,10 @@ sealed class Toolbar extends PackAsset with _$Toolbar {
 
 @freezed
 @JsonSerializable()
-class PackAssetLocation with _$PackAssetLocation {
-  const new(this.namespace, this.key);
-
-  final String namespace;
-  final String key;
-
-  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$PackAssetLocationFromJson(json);
+class const PackAssetLocation(final String namespace, final String key)
+    with _$PackAssetLocation {
+  static PackAssetLocation fromJson(Map json) =>
+      _$PackAssetLocationFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PackAssetLocationToJson(this);
 }
@@ -129,8 +125,8 @@ final class const PackItem<T extends PackAsset>(
   final NoteData pack,
   final T item,
 ) implements PackAssetLocation {
-  new build(String namespace, String key, NoteData pack, T item)
-    : this(PackAssetLocation(namespace, key), pack, item);
+  factory build(String namespace, String key, NoteData pack, T item) =>
+      .new(PackAssetLocation(namespace, key), pack, item);
 
   @override
   String get namespace => location.namespace;

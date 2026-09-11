@@ -28,11 +28,8 @@ Future<void> ensureOneNoteLibraryAvailable() async {
   }
 }
 
-class OneNoteLibraryNotFoundException implements Exception {
-  const OneNoteLibraryNotFoundException(this.details);
-
-  final String details;
-
+class const OneNoteLibraryNotFoundException(final String details)
+    implements Exception {
   @override
   String toString() =>
       'The OneNote parser web library is missing. $details\n\n'

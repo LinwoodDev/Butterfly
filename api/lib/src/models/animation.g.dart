@@ -40,10 +40,8 @@ _AnimationTrack _$AnimationTrackFromJson(Map json) => _AnimationTrack(
   name: json['name'] as String? ?? '',
   keys:
       (json['keys'] as Map?)?.map(
-        (k, e) => MapEntry(
-          int.parse(k as String),
-          AnimationKey.fromJson(Map<String, dynamic>.from(e as Map)),
-        ),
+        (k, e) =>
+            MapEntry(int.parse(k as String), AnimationKey.fromJson(e as Map)),
       ) ??
       const <int, AnimationKey>{},
   duration: (json['duration'] as num?)?.toInt() ?? 250,

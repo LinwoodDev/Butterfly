@@ -63,7 +63,7 @@ ImportTool _$ImportToolFromJson(Map json) => ImportTool(
       .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
       .toList(),
   areas: (json['areas'] as List<dynamic>)
-      .map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+      .map((e) => Area.fromJson(e as Map))
       .toList(),
   assets:
       (json['assets'] as Map?)?.map(
@@ -355,9 +355,7 @@ TableTool _$TableToolFromJson(Map json) => TableTool(
   columns: (json['columns'] as num?)?.toInt() ?? 3,
   border: json['border'] == null
       ? const TableBorderProperty()
-      : TableBorderProperty.fromJson(
-          Map<String, dynamic>.from(json['border'] as Map),
-        ),
+      : TableBorderProperty.fromJson(json['border'] as Map),
   fillColor: json['fillColor'] == null
       ? SRGBColor.transparent
       : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),

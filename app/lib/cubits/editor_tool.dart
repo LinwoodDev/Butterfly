@@ -33,9 +33,8 @@ sealed class ToolRuntimeState with _$ToolRuntimeState {
   ];
 }
 
-class ToolCubit extends Cubit<ToolRuntimeState> {
-  ToolCubit([ToolRuntimeState? initial])
-    : super(initial ?? ToolRuntimeState(handler: HandHandler()));
+class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
+  this : super(initial ?? ToolRuntimeState(handler: HandHandler()));
 
   final foregroundRefreshRunner = CoalescedAsyncRunner(delay: Duration.zero);
   final delayedForegroundRefreshRunner = CoalescedAsyncRunner(
@@ -513,10 +512,10 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     if (context != null) {
       selectState = await handler.onSelected(context);
     }
-    if (selectState == SelectState.toggle) {
+    if (selectState == .toggle) {
       return toggleHandler(controller, bloc, index);
     }
-    if (selectState == SelectState.normal) {
+    if (selectState == .normal) {
       final foregrounds = await _createForegrounds(
         controller,
         blocState,
@@ -681,7 +680,7 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     state.temporaryHandler?.dispose(bloc);
     final selectState = await handler.onSelected(context);
 
-    if (selectState == SelectState.normal) {
+    if (selectState == .normal) {
       disposeTemporaryForegrounds();
       final temporaryForegrounds = handler.createForegrounds(
         controller,
@@ -715,14 +714,14 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
         temporaryRendererStates: handler.rendererStates,
       );
       await controller.rendererCubit.bake(controller, blocState);
-    } else if (selectState == SelectState.toggle && index != null) {
+    } else if (selectState == .toggle && index != null) {
       await toggleHandler(controller, bloc, index);
     }
     return handler;
   }
 
   void resetReleaseHandler(DocumentBloc bloc, [RendererCubit? rendererCubit]) {
-    if (state.temporaryState == TemporaryState.removeAfterRelease) {
+    if (state.temporaryState == .removeAfterRelease) {
       resetTemporaryHandler(bloc, true, rendererCubit);
     }
   }
@@ -739,8 +738,8 @@ class ToolCubit extends Cubit<ToolRuntimeState> {
     if (state.temporaryHandler == null) {
       return;
     }
-    if (!force && state.temporaryState != TemporaryState.removeAfterClick) {
-      if (state.temporaryState == TemporaryState.allowClick) {
+    if (!force && state.temporaryState != .removeAfterClick) {
+      if (state.temporaryState == .allowClick) {
         setTemporaryState(TemporaryState.removeAfterClick);
       }
       return;

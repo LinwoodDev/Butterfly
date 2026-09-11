@@ -9,7 +9,7 @@ part of 'text.dart';
 AreaProperty _$AreaPropertyFromJson(Map json) => AreaProperty(
   alignment:
       $enumDecodeNullable(_$VerticalAlignmentEnumMap, json['alignment']) ??
-      VerticalAlignment.top,
+      .top,
 );
 
 Map<String, dynamic> _$AreaPropertyToJson(AreaProperty instance) =>
@@ -213,9 +213,7 @@ Map<String, dynamic> _$TextParagraphToJson(_TextParagraph instance) =>
 _TextArea _$TextAreaFromJson(Map json) => _TextArea(
   areaProperty: json['areaProperty'] == null
       ? const AreaProperty()
-      : AreaProperty.fromJson(
-          Map<String, dynamic>.from(json['areaProperty'] as Map),
-        ),
+      : AreaProperty.fromJson(json['areaProperty'] as Map),
   paragraph: TextParagraph.fromJson(
     Map<String, dynamic>.from(json['paragraph'] as Map),
   ),

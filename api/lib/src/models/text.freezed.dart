@@ -536,7 +536,6 @@ String toString() {
 
 
 
-
 /// @nodoc
 mixin _$AreaProperty {
 
@@ -555,7 +554,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaProperty&&(identical(other.alignment, _this.alignment) || other.alignment == _this.alignment));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as AreaProperty;
@@ -603,6 +602,74 @@ as VerticalAlignment,
 }
 
 
+
+/// @nodoc
+
+
+class _AreaProperty extends AreaProperty {
+  const _AreaProperty({this.alignment = VerticalAlignment.top}): super(alignment: alignment);
+  
+
+@override final  VerticalAlignment alignment;
+
+/// Create a copy of AreaProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AreaPropertyCopyWith<_AreaProperty> get copyWith => __$AreaPropertyCopyWithImpl<_AreaProperty>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AreaProperty&&(identical(other.alignment, alignment) || other.alignment == alignment));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,alignment);
+}
+
+@override
+String toString() {
+    return 'AreaProperty(alignment: $alignment)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AreaPropertyCopyWith<$Res> implements $AreaPropertyCopyWith<$Res> {
+  factory _$AreaPropertyCopyWith(_AreaProperty value, $Res Function(_AreaProperty) _then) = __$AreaPropertyCopyWithImpl;
+@override @useResult
+$Res call({
+ VerticalAlignment alignment
+});
+
+
+
+
+}
+/// @nodoc
+class __$AreaPropertyCopyWithImpl<$Res>
+    implements _$AreaPropertyCopyWith<$Res> {
+  __$AreaPropertyCopyWithImpl(this._self, this._then);
+
+  final _AreaProperty _self;
+  final $Res Function(_AreaProperty) _then;
+
+/// Create a copy of AreaProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? alignment = null,}) {
+  return _then(_AreaProperty(
+alignment: null == alignment ? _self.alignment : alignment // ignore: cast_nullable_to_non_nullable
+as VerticalAlignment,
+  ));
+}
+
+
+}
 
 InlineSpan _$InlineSpanFromJson(
   Map<String, dynamic> json

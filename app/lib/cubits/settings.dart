@@ -139,32 +139,28 @@ enum ToolbarSize {
   large;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    ToolbarSize.tiny => AppLocalizations.of(context).tiny,
-    ToolbarSize.small => AppLocalizations.of(context).small,
-    ToolbarSize.compact => AppLocalizations.of(context).compact,
-    ToolbarSize.normal => AppLocalizations.of(context).normal,
-    ToolbarSize.medium => AppLocalizations.of(context).medium,
-    ToolbarSize.large => AppLocalizations.of(context).large,
+    .tiny => AppLocalizations.of(context).tiny,
+    .small => AppLocalizations.of(context).small,
+    .compact => AppLocalizations.of(context).compact,
+    .normal => AppLocalizations.of(context).normal,
+    .medium => AppLocalizations.of(context).medium,
+    .large => AppLocalizations.of(context).large,
   };
 
   double get size => switch (this) {
-    ToolbarSize.tiny => 45,
-    ToolbarSize.small => 50,
-    ToolbarSize.compact => 55,
-    ToolbarSize.normal => 60,
-    ToolbarSize.medium => 65,
-    ToolbarSize.large => 70,
+    .tiny => 45,
+    .small => 50,
+    .compact => 55,
+    .normal => 60,
+    .medium => 65,
+    .large => 70,
   };
 }
 
-enum RenderResolution {
+enum RenderResolution(final double multiplier) {
   performance(1),
   normal(1.5),
   high(2);
-
-  final double multiplier;
-
-  const RenderResolution(this.multiplier);
 
   Rect getRect(Rect rect) {
     final width = (rect.width * multiplier).ceilToDouble();
@@ -181,10 +177,9 @@ enum PlatformTheme {
   bool isMobile(BuildContext context) {
     final platform = Theme.of(context).platform;
     return switch (this) {
-      PlatformTheme.mobile => true,
-      PlatformTheme.desktop => false,
-      PlatformTheme.system =>
-        platform == TargetPlatform.iOS || platform == TargetPlatform.android,
+      .mobile => true,
+      .desktop => false,
+      .system => platform == .iOS || platform == .android,
     };
   }
 }
@@ -195,9 +190,9 @@ enum SimpleToolbarVisibility {
   hide;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    SimpleToolbarVisibility.show => AppLocalizations.of(context).show,
-    SimpleToolbarVisibility.temporary => AppLocalizations.of(context).temporary,
-    SimpleToolbarVisibility.hide => AppLocalizations.of(context).hide,
+    .show => AppLocalizations.of(context).show,
+    .temporary => AppLocalizations.of(context).temporary,
+    .hide => AppLocalizations.of(context).hide,
   };
 }
 
@@ -226,7 +221,7 @@ sealed class FavoriteLocation with _$FavoriteLocation {
   }
 }
 
-class InputMappingDefault {
+class const InputMappingDefault._() {
   static const InputMapping leftMouse = InputMapping(
     InputMapping.activeToolValue,
   );
@@ -478,19 +473,19 @@ enum ToolbarPosition {
   right;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    ToolbarPosition.inline => AppLocalizations.of(context).inline,
-    ToolbarPosition.top => AppLocalizations.of(context).top,
-    ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
-    ToolbarPosition.left => AppLocalizations.of(context).left,
-    ToolbarPosition.right => AppLocalizations.of(context).right,
+    .inline => AppLocalizations.of(context).inline,
+    .top => AppLocalizations.of(context).top,
+    .bottom => AppLocalizations.of(context).bottom,
+    .left => AppLocalizations.of(context).left,
+    .right => AppLocalizations.of(context).right,
   };
 
   Axis get axis => switch (this) {
-    ToolbarPosition.left => Axis.vertical,
-    ToolbarPosition.right => Axis.vertical,
-    ToolbarPosition.inline => Axis.horizontal,
-    ToolbarPosition.top => Axis.horizontal,
-    ToolbarPosition.bottom => Axis.horizontal,
+    .left => .vertical,
+    .right => .vertical,
+    .inline => .horizontal,
+    .top => .horizontal,
+    .bottom => .horizontal,
   };
 }
 
@@ -501,10 +496,10 @@ enum ZoomPosition {
   bottomLeft;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    ZoomPosition.topRight => AppLocalizations.of(context).topRight,
-    ZoomPosition.topLeft => AppLocalizations.of(context).topLeft,
-    ZoomPosition.bottomRight => AppLocalizations.of(context).bottomRight,
-    ZoomPosition.bottomLeft => AppLocalizations.of(context).bottomLeft,
+    .topRight => AppLocalizations.of(context).topRight,
+    .topLeft => AppLocalizations.of(context).topLeft,
+    .bottomRight => AppLocalizations.of(context).bottomRight,
+    .bottomLeft => AppLocalizations.of(context).bottomLeft,
   };
 }
 
@@ -513,8 +508,8 @@ enum OptionsPanelPosition {
   bottom;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    OptionsPanelPosition.top => AppLocalizations.of(context).top,
-    OptionsPanelPosition.bottom => AppLocalizations.of(context).bottom,
+    .top => AppLocalizations.of(context).top,
+    .bottom => AppLocalizations.of(context).bottom,
   };
 }
 
@@ -527,20 +522,18 @@ enum ThemeDensity {
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-    ThemeDensity.maximize => const VisualDensity(horizontal: -4, vertical: -4),
-    ThemeDensity.desktop => const VisualDensity(horizontal: -3, vertical: -3),
-    ThemeDensity.compact => VisualDensity.compact,
-    ThemeDensity.comfortable => VisualDensity.comfortable,
-    ThemeDensity.standard => VisualDensity.standard,
-    ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
+    .maximize => const .new(horizontal: -4, vertical: -4),
+    .desktop => const .new(horizontal: -3, vertical: -3),
+    .compact => .compact,
+    .comfortable => .comfortable,
+    .standard => .standard,
+    .system => .adaptivePlatformDensity,
   };
 }
 
-class SRGBConverter extends JsonConverter<SRGBColor, int> {
-  const SRGBConverter();
-
+class const SRGBConverter() extends JsonConverter<SRGBColor, int> {
   @override
-  SRGBColor fromJson(int json) => SRGBColor(json);
+  SRGBColor fromJson(int json) => .new(json);
 
   @override
   int toJson(SRGBColor object) => object.value;
@@ -1088,10 +1081,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   bool hasFlag(String s) => flags.contains(s);
 }
 
-class SettingsCubit extends Cubit<ButterflySettings>
+class SettingsCubit(SharedPreferences prefs)
+    extends Cubit<ButterflySettings>
     with LeapSettingsBlocBaseMixin {
-  SettingsCubit(SharedPreferences prefs)
-    : super(ButterflySettings.fromPrefs(prefs));
+  this : super(ButterflySettings.fromPrefs(prefs));
 
   Future<void> resetSettings(
     ButterflySettings Function(

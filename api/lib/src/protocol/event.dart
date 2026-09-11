@@ -14,38 +14,28 @@ enum DocumentPermission { read, write, admin }
 
 @freezed
 @JsonSerializable()
-class InitialAreaDetails with _$InitialAreaDetails {
-  const new({required this.width, required this.height, required this.name});
-
-  final double width;
-  final double height;
-  final String name;
-
-  factory InitialAreaDetails.fromJson(Map<String, dynamic> json) =>
-      _$InitialAreaDetailsFromJson(json);
+class const InitialAreaDetails({
+  required final double width,
+  required final double height,
+  required final String name,
+}) with _$InitialAreaDetails {
+  static InitialAreaDetails fromJson(Map json) =>
+      _$InitialAreaDetailsFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$InitialAreaDetailsToJson(this);
 }
 
 @freezed
 @JsonSerializable()
-class PageAddedDetails with _$PageAddedDetails {
-  const new({
-    this.index,
-    this.page,
-    this.addNumber = true,
-    this.name = '',
-    this.initialArea,
-  });
-
-  final int? index;
-  final DocumentPage? page;
-  final bool addNumber;
-  final String name;
-  final InitialAreaDetails? initialArea;
-
-  factory PageAddedDetails.fromJson(Map<String, dynamic> json) =>
-      _$PageAddedDetailsFromJson(json);
+class const PageAddedDetails({
+  final int? index,
+  final DocumentPage? page,
+  final bool addNumber = true,
+  final String name = '',
+  final InitialAreaDetails? initialArea,
+}) with _$PageAddedDetails {
+  static PageAddedDetails fromJson(Map json) =>
+      _$PageAddedDetailsFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PageAddedDetailsToJson(this);
 }
@@ -254,7 +244,7 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   };
 
   bool isAllowed(DocumentPermission permission) {
-    if (permission == DocumentPermission.read) return false;
+    if (permission == .read) return false;
     if (!shouldSync()) return false;
     return switch (this) {
       _ => true,

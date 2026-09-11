@@ -11,11 +11,11 @@ class const EditorViewState({
   final String userName = '',
 }) with _$EditorViewState {}
 
-class EditorViewCubit extends Cubit<EditorViewState> {
-  EditorViewCubit({this.editorSessionCubit, EditorViewState? initial})
-    : super(initial ?? const EditorViewState());
-
-  final EditorSessionCubit? editorSessionCubit;
+class EditorViewCubit({
+  final EditorSessionCubit? editorSessionCubit,
+  EditorViewState? initial,
+}) extends Cubit<EditorViewState> {
+  this : super(initial ?? const EditorViewState());
   ToolCubit? _toolCubit;
 
   void bindToolCubit(ToolCubit toolCubit) {

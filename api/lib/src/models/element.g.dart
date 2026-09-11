@@ -23,11 +23,11 @@ TableBorderProperty _$TableBorderPropertyFromJson(Map json) =>
     TableBorderProperty(
       width: (json['width'] as num?)?.toDouble() ?? 1,
       color: json['color'] == null
-          ? SRGBColor.black
+          ? .black
           : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
       strokeStyle:
           $enumDecodeNullable(_$StrokeStyleEnumMap, json['strokeStyle']) ??
-          StrokeStyle.solid,
+          .solid,
       dashMultiplier: (json['dashMultiplier'] as num?)?.toDouble() ?? 1,
       gapMultiplier: (json['gapMultiplier'] as num?)?.toDouble() ?? 1,
     );
@@ -49,7 +49,7 @@ const _$StrokeStyleEnumMap = {
 
 TableCellProperty _$TableCellPropertyFromJson(Map json) => TableCellProperty(
   fillColor: json['fillColor'] == null
-      ? SRGBColor.transparent
+      ? .transparent
       : const ColorJsonConverter().fromJson((json['fillColor'] as num).toInt()),
 );
 
@@ -163,9 +163,7 @@ TextElement _$TextElementFromJson(Map json) => TextElement(
   area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
   constraint: json['constraint'] == null
       ? const ElementConstraint(size: 1000)
-      : ElementConstraint.fromJson(
-          Map<String, dynamic>.from(json['constraint'] as Map),
-        ),
+      : ElementConstraint.fromJson(json['constraint'] as Map),
   foreground: json['foreground'] == null
       ? SRGBColor.black
       : const ColorJsonConverter().fromJson(
@@ -211,15 +209,11 @@ MarkdownElement _$MarkdownElementFromJson(Map json) => MarkdownElement(
         ),
   areaProperty: json['areaProperty'] == null
       ? const AreaProperty()
-      : AreaProperty.fromJson(
-          Map<String, dynamic>.from(json['areaProperty'] as Map),
-        ),
+      : AreaProperty.fromJson(json['areaProperty'] as Map),
   text: json['text'] as String,
   constraint: json['constraint'] == null
       ? const ElementConstraint(size: 1000)
-      : ElementConstraint.fromJson(
-          Map<String, dynamic>.from(json['constraint'] as Map),
-        ),
+      : ElementConstraint.fromJson(json['constraint'] as Map),
   foreground: json['foreground'] == null
       ? SRGBColor.black
       : const ColorJsonConverter().fromJson(
@@ -427,9 +421,7 @@ TableElement _$TableElementFromJson(Map json) => TableElement(
   columns: (json['columns'] as num?)?.toInt() ?? 3,
   border: json['border'] == null
       ? const TableBorderProperty()
-      : TableBorderProperty.fromJson(
-          Map<String, dynamic>.from(json['border'] as Map),
-        ),
+      : TableBorderProperty.fromJson(json['border'] as Map),
   rowSizes:
       (json['rowSizes'] as List<dynamic>?)
           ?.map((e) => (e as num).toDouble())
@@ -442,28 +434,17 @@ TableElement _$TableElementFromJson(Map json) => TableElement(
       const [],
   horizontalBorders:
       (json['horizontalBorders'] as List<dynamic>?)
-          ?.map(
-            (e) => TableBorderProperty.fromJson(
-              Map<String, dynamic>.from(e as Map),
-            ),
-          )
+          ?.map((e) => TableBorderProperty.fromJson(e as Map))
           .toList() ??
       const [],
   verticalBorders:
       (json['verticalBorders'] as List<dynamic>?)
-          ?.map(
-            (e) => TableBorderProperty.fromJson(
-              Map<String, dynamic>.from(e as Map),
-            ),
-          )
+          ?.map((e) => TableBorderProperty.fromJson(e as Map))
           .toList() ??
       const [],
   cells:
       (json['cells'] as List<dynamic>?)
-          ?.map(
-            (e) =>
-                TableCellProperty.fromJson(Map<String, dynamic>.from(e as Map)),
-          )
+          ?.map((e) => TableCellProperty.fromJson(e as Map))
           .toList() ??
       const [],
   fillColor: json['fillColor'] == null

@@ -76,13 +76,10 @@ sealed class ParagraphProperty with _$ParagraphProperty {
 
 @freezed
 @JsonSerializable()
-class AreaProperty with _$AreaProperty {
-  const new({this.alignment = VerticalAlignment.top});
-
-  final VerticalAlignment alignment;
-
-  factory AreaProperty.fromJson(Map<String, dynamic> json) =>
-      _$AreaPropertyFromJson(json);
+class const AreaProperty({final VerticalAlignment alignment = .top})
+    with _$AreaProperty {
+  static AreaProperty fromJson(Map json) =>
+      _$AreaPropertyFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$AreaPropertyToJson(this);
 }

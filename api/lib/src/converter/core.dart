@@ -4,38 +4,34 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-class DoublePointJsonConverter extends JsonConverter<Point<double>, Map> {
-  const DoublePointJsonConverter();
-
+class const DoublePointJsonConverter()
+    extends JsonConverter<Point<double>, Map> {
   @override
   Point<double> fromJson(Map json) {
     final xJson = json['x'];
     final yJson = json['y'];
     if (xJson is double) {
       if (yJson is double) {
-        return Point(xJson, yJson);
+        return .new(xJson, yJson);
       }
     }
-    return Point(0, 0);
+    return .new(0, 0);
   }
 
   @override
   Map toJson(Point<double> object) => {'x': object.x, 'y': object.y};
 }
 
-class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {
-  const Uint8ListJsonConverter();
-
+class const Uint8ListJsonConverter() extends JsonConverter<Uint8List, String> {
   @override
-  Uint8List fromJson(String json) => Uint8List.fromList(base64.decode(json));
+  Uint8List fromJson(String json) => .fromList(base64.decode(json));
   @override
   String toJson(Uint8List object) => base64.encode(object.toList());
 }
 
-class DateTimeJsonConverter extends JsonConverter<DateTime, int> {
-  const DateTimeJsonConverter();
+class const DateTimeJsonConverter() extends JsonConverter<DateTime, int> {
   @override
-  DateTime fromJson(int json) => DateTime.fromMillisecondsSinceEpoch(json);
+  DateTime fromJson(int json) => .fromMillisecondsSinceEpoch(json);
   @override
   int toJson(DateTime object) => object.millisecondsSinceEpoch;
 }

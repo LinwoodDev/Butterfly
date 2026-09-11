@@ -28,12 +28,12 @@ _DocumentPage _$DocumentPageFromJson(Map json) => _DocumentPage(
       const [],
   waypoints:
       (json['waypoints'] as List<dynamic>?)
-          ?.map((e) => Waypoint.fromJson(Map<String, dynamic>.from(e as Map)))
+          ?.map((e) => Waypoint.fromJson(e as Map))
           .toList() ??
       const [],
   areas:
       (json['areas'] as List<dynamic>?)
-          ?.map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+          ?.map((e) => Area.fromJson(e as Map))
           .toList() ??
       const [],
   extra:

@@ -12,13 +12,10 @@ sealed class EditorInputState with _$EditorInputState {
   }) = _EditorInputState;
 }
 
-class EditorInputCubit extends Cubit<EditorInputState> {
-  EditorInputCubit(
-    this.settingsCubit, [
-    super.initial = const EditorInputState(),
-  ]);
-
-  final SettingsCubit settingsCubit;
+class EditorInputCubit(
+  final SettingsCubit settingsCubit, [
+  super.initial = const EditorInputState(),
+]) extends Cubit<EditorInputState> {
   ToolCubit? _toolCubit;
 
   void bindToolCubit(ToolCubit toolCubit) {
@@ -110,16 +107,12 @@ class EditorInputCubit extends Cubit<EditorInputState> {
   void resetInputState() => emit(state.copyWith(buttons: null, pointers: []));
 
   void toggleKeyboardHideUI() => emit(
-    state.copyWith(
-      hideUi: state.hideUi == HideState.visible
-          ? HideState.keyboard
-          : HideState.visible,
-    ),
+    state.copyWith(hideUi: state.hideUi == .visible ? .keyboard : .visible),
   );
 
-  void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
+  void enterTouchHideUI() => emit(state.copyWith(hideUi: .touch));
 
-  void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
+  void exitHideUI() => emit(state.copyWith(hideUi: .visible));
 
   @override
   Future<void> close() {

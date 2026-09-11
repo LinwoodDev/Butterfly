@@ -10,7 +10,7 @@ ElementGradientStop _$ElementGradientStopFromJson(Map json) =>
     ElementGradientStop(
       offset: (json['offset'] as num?)?.toDouble() ?? 0,
       color: json['color'] == null
-          ? SRGBColor.black
+          ? .black
           : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
     );
 
@@ -103,11 +103,7 @@ LinearElementGradient _$LinearElementGradientFromJson(Map json) =>
           : const DoublePointJsonConverter().fromJson(json['end'] as Map),
       stops:
           (json['stops'] as List<dynamic>?)
-              ?.map(
-                (e) => ElementGradientStop.fromJson(
-                  Map<String, dynamic>.from(e as Map),
-                ),
-              )
+              ?.map((e) => ElementGradientStop.fromJson(e as Map))
               .toList() ??
           defaultGradientStops,
       $type: json['type'] as String?,
@@ -135,11 +131,7 @@ RadialElementGradient _$RadialElementGradientFromJson(Map json) =>
       focalRadius: (json['focalRadius'] as num?)?.toDouble(),
       stops:
           (json['stops'] as List<dynamic>?)
-              ?.map(
-                (e) => ElementGradientStop.fromJson(
-                  Map<String, dynamic>.from(e as Map),
-                ),
-              )
+              ?.map((e) => ElementGradientStop.fromJson(e as Map))
               .toList() ??
           defaultGradientStops,
       $type: json['type'] as String?,

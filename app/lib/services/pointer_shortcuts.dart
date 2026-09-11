@@ -33,12 +33,12 @@ typedef _RepeatedTapDetails = ({
   int count,
 });
 
-class PointerShortcutManager {
-  final Duration repeatTimeout;
-  final Duration repeatResolveDelay;
-  final Duration multiFingerTimeout;
-  final double movementTolerance;
-
+class PointerShortcutManager({
+  final Duration repeatTimeout = _defaultTapTimeout,
+  final Duration repeatResolveDelay = _defaultRepeatResolveDelay,
+  final Duration multiFingerTimeout = _defaultTapTimeout,
+  final double movementTolerance = _defaultMovementTolerance,
+}) {
   final Map<int, Offset> _initialTouchPositions = {};
   final Map<int, Offset> _repeatedDownPositions = {};
   final List<PointerEvent> _bufferedRepeatedTapEvents = [];
@@ -52,13 +52,6 @@ class PointerShortcutManager {
 
   Timer? _repeatTimer;
   _RepeatedTapDetails? _lastRepeatedTap;
-
-  PointerShortcutManager({
-    this.repeatTimeout = _defaultTapTimeout,
-    this.repeatResolveDelay = _defaultRepeatResolveDelay,
-    this.multiFingerTimeout = _defaultTapTimeout,
-    this.movementTolerance = _defaultMovementTolerance,
-  });
 
   PointerShortcutEventResult pointerDown(
     PointerDownEvent event,
@@ -79,7 +72,7 @@ class PointerShortcutManager {
     final hasActivePointer = _activePointers.isNotEmpty;
     _activePointers.add(event.pointer);
     var touchPointerCount = 0;
-    if (event.kind == PointerDeviceKind.touch) {
+    if (event.kind == .touch) {
       touchPointerCount = _addTouchPointer(event);
       if (touchPointerCount > 1) {
         _resetRepeatedTap();
@@ -87,7 +80,7 @@ class PointerShortcutManager {
     }
 
     if (configuration.hasRepeatedTapShortcut(event.kind, event.buttons) &&
-        (event.kind != PointerDeviceKind.touch || touchPointerCount == 1)) {
+        (event.kind != .touch || touchPointerCount == 1)) {
       _trackedRepeatedPointers.add(event.pointer);
       _repeatedDownPositions[event.pointer] = event.localPosition;
       _rememberRepeatedTap(event);
@@ -112,7 +105,7 @@ class PointerShortcutManager {
 
   PointerShortcutEventResult pointerMove(PointerMoveEvent event) {
     _checkRepeatedTapMovement(event.pointer, event.localPosition);
-    if (event.kind == PointerDeviceKind.touch) {
+    if (event.kind == .touch) {
       _checkTouchMovement(event.pointer, event.localPosition);
     }
     final startPosition = _bufferedRepeatedTapStartPositions[event.pointer];
@@ -149,7 +142,7 @@ class PointerShortcutManager {
                 movementTolerance
         ? _takeBufferedRepeatedTapEvents()
         : const <PointerEvent>[];
-    if (event.kind == PointerDeviceKind.touch) {
+    if (event.kind == .touch) {
       final multiFingerTap = _removeTouchPointer(event);
       if (multiFingerTap.fingerCount case final fingerCount?) {
         _resetRepeatedTap();
@@ -185,7 +178,7 @@ class PointerShortcutManager {
     }
     final trackedRepeatedTap = _trackedRepeatedPointers.remove(event.pointer);
     _repeatedDownPositions.remove(event.pointer);
-    if (event.kind == PointerDeviceKind.touch) {
+    if (event.kind == .touch) {
       _cancelTouchPointer(event.pointer);
     }
     if (trackedRepeatedTap) {

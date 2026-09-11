@@ -19,15 +19,13 @@ part 'element.g.dart';
 
 @freezed
 @JsonSerializable()
-class ElementConstraint with _$ElementConstraint {
-  const new({this.size = 0, this.length = 0, this.includeArea = true});
-
-  final double size;
-  final double length;
-  final bool includeArea;
-
-  factory ElementConstraint.fromJson(Map<String, dynamic> json) =>
-      _$ElementConstraintFromJson(json);
+class const ElementConstraint({
+  final double size = 0,
+  final double length = 0,
+  final bool includeArea = true,
+}) with _$ElementConstraint {
+  static ElementConstraint fromJson(Map json) =>
+      _$ElementConstraintFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$ElementConstraintToJson(this);
 }
@@ -65,38 +63,26 @@ enum TableAxis { horizontal, vertical }
 
 @freezed
 @JsonSerializable()
-class TableBorderProperty with _$TableBorderProperty {
-  const new({
-    this.width = 1,
-    this.color = SRGBColor.black,
-    this.strokeStyle = StrokeStyle.solid,
-    this.dashMultiplier = 1,
-    this.gapMultiplier = 1,
-  });
-
-  final double width;
-  @ColorJsonConverter()
-  final SRGBColor color;
-  final StrokeStyle strokeStyle;
-  final double dashMultiplier;
-  final double gapMultiplier;
-
-  factory TableBorderProperty.fromJson(Map<String, dynamic> json) =>
-      _$TableBorderPropertyFromJson(json);
+class const TableBorderProperty({
+  final double width = 1,
+  @ColorJsonConverter() final SRGBColor color = .black,
+  final StrokeStyle strokeStyle = .solid,
+  final double dashMultiplier = 1,
+  final double gapMultiplier = 1,
+}) with _$TableBorderProperty {
+  static TableBorderProperty fromJson(Map json) =>
+      _$TableBorderPropertyFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$TableBorderPropertyToJson(this);
 }
 
 @freezed
 @JsonSerializable()
-class TableCellProperty with _$TableCellProperty {
-  const new({this.fillColor = SRGBColor.transparent});
-
-  @ColorJsonConverter()
-  final SRGBColor fillColor;
-
-  factory TableCellProperty.fromJson(Map<String, dynamic> json) =>
-      _$TableCellPropertyFromJson(json);
+class const TableCellProperty({
+  @ColorJsonConverter() final SRGBColor fillColor = .transparent,
+}) with _$TableCellProperty {
+  static TableCellProperty fromJson(Map json) =>
+      _$TableCellPropertyFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$TableCellPropertyToJson(this);
 }
@@ -327,15 +313,13 @@ extension TableElementOperations on TableElement {
   }
 
   int borderLineCount(TableAxis axis) =>
-      (axis == TableAxis.horizontal ? rows : columns) + 1;
+      (axis == .horizontal ? rows : columns) + 1;
 
   int borderSegmentCount(TableAxis axis) =>
-      axis == TableAxis.horizontal ? columns : rows;
+      axis == .horizontal ? columns : rows;
 
   TableBorderProperty borderAt(TableAxis axis, int line, int segment) {
-    final borders = axis == TableAxis.horizontal
-        ? horizontalBorders
-        : verticalBorders;
+    final borders = axis == .horizontal ? horizontalBorders : verticalBorders;
     final segmentCount = borderSegmentCount(axis);
     final index = line * segmentCount + segment;
     return line >= 0 &&
@@ -362,7 +346,7 @@ extension TableElementOperations on TableElement {
       return this;
     }
     final updated = _setTableBorderSegment(
-      axis == TableAxis.horizontal ? horizontalBorders : verticalBorders,
+      axis == .horizontal ? horizontalBorders : verticalBorders,
       lineCount,
       segmentCount,
       line,
@@ -370,7 +354,7 @@ extension TableElementOperations on TableElement {
       value,
       border,
     );
-    return axis == TableAxis.horizontal
+    return axis == .horizontal
         ? copyWith(horizontalBorders: updated)
         : copyWith(verticalBorders: updated);
   }
@@ -445,11 +429,11 @@ extension TableElementOperations on TableElement {
       _setTableExtent(TableAxis.vertical, index, extent);
 
   TableElement _setTableExtent(TableAxis axis, int index, double extent) {
-    final sizes = axis == TableAxis.horizontal
+    final sizes = axis == .horizontal
         ? normalizedRowSizes
         : normalizedColumnSizes;
     if (index < 0 || index >= sizes.length || extent <= 0) return this;
-    final tableExtent = axis == TableAxis.horizontal
+    final tableExtent = axis == .horizontal
         ? secondPosition.y - firstPosition.y
         : secondPosition.x - firstPosition.x;
     final total = sizes.reduce((a, b) => a + b);
@@ -458,7 +442,7 @@ extension TableElementOperations on TableElement {
     final nextSize = max(0.1, extent / unit);
     final extentDelta = (nextSize - sizes[index]) * unit * tableExtent.sign;
     sizes[index] = nextSize;
-    return axis == TableAxis.horizontal
+    return axis == .horizontal
         ? copyWith(
             rowSizes: sizes,
             secondPosition: Point(
@@ -476,7 +460,7 @@ extension TableElementOperations on TableElement {
   }
 
   TableElement moveBorder(TableAxis axis, int line, double deltaFraction) {
-    final sizes = axis == TableAxis.horizontal
+    final sizes = axis == .horizontal
         ? normalizedRowSizes
         : normalizedColumnSizes;
     if (line <= 0 || line > sizes.length || !deltaFraction.isFinite) {
@@ -489,7 +473,7 @@ extension TableElementOperations on TableElement {
       final next = max(0.1, previous + delta);
       final adjustedFraction = (next - previous) / total;
       sizes[sizes.length - 1] = next;
-      return axis == TableAxis.horizontal
+      return axis == .horizontal
           ? copyWith(
               rowSizes: sizes,
               secondPosition: Point(
@@ -513,7 +497,7 @@ extension TableElementOperations on TableElement {
     final adjusted = delta.clamp(0.1 - before, after - 0.1);
     sizes[line - 1] = before + adjusted;
     sizes[line] = after - adjusted;
-    return axis == TableAxis.horizontal
+    return axis == .horizontal
         ? copyWith(rowSizes: sizes)
         : copyWith(columnSizes: sizes);
   }

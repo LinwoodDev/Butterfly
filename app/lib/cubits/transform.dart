@@ -34,7 +34,7 @@ class const FrictionState(
 @freezed
 class const CameraTransform([
   final double pixelRatio = 1,
-  final Offset position = Offset.zero,
+  final Offset position = .zero,
   final double size = 1,
   final double rotation = 0,
   final FrictionState? friction,
@@ -177,9 +177,9 @@ class const CameraTransform([
   }
 }
 
-class TransformCubit extends Cubit<CameraTransform> {
-  TransformCubit(double pixelRatio, [Offset? position])
-    : super(CameraTransform(pixelRatio, position ?? Offset.zero));
+class TransformCubit(double pixelRatio, [Offset? position])
+    extends Cubit<CameraTransform> {
+  this : super(CameraTransform(pixelRatio, position ?? .zero));
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 

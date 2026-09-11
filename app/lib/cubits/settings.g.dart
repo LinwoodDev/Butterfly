@@ -141,9 +141,7 @@ _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
   areas: json['areas'] as bool? ?? true,
   defaultLocks: json['defaultLocks'] == null
       ? const PersistentLockState()
-      : PersistentLockState.fromJson(
-          Map<String, dynamic>.from(json['defaultLocks'] as Map),
-        ),
+      : PersistentLockState.fromJson(json['defaultLocks'] as Map),
   maxEntries: (json['maxEntries'] as num?)?.toInt() ?? 400,
   maxAgeDays: (json['maxAgeDays'] as num?)?.toInt() ?? 180,
 );
@@ -310,9 +308,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       const [],
   selectedPalette: json['selectedPalette'] == null
       ? null
-      : PackAssetLocation.fromJson(
-          Map<String, dynamic>.from(json['selectedPalette'] as Map),
-        ),
+      : PackAssetLocation.fromJson(json['selectedPalette'] as Map),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
   showThumbnails: json['showThumbnails'] as bool? ?? true,
   showNavigatorPreviews: json['showNavigatorPreviews'] as bool? ?? true,
@@ -320,10 +316,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       json['bringMovedElementsToFront'] as bool? ?? false,
   favoriteTools:
       (json['favoriteTools'] as List<dynamic>?)
-          ?.map(
-            (e) =>
-                PackAssetLocation.fromJson(Map<String, dynamic>.from(e as Map)),
-          )
+          ?.map((e) => PackAssetLocation.fromJson(e as Map))
           .toList() ??
       const [],
 );

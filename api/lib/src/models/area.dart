@@ -18,13 +18,16 @@ enum AspectRatioPreset { square, portrait, landscape }
 
 extension RatioPresetExtension on AspectRatioPreset {
   double get ratio => switch (this) {
-    AspectRatioPreset.square => _kSquareRatio,
-    AspectRatioPreset.portrait => _kAPortraitRatio,
-    AspectRatioPreset.landscape => _kLandscapeRatio,
+    .square => _kSquareRatio,
+    .portrait => _kAPortraitRatio,
+    .landscape => _kLandscapeRatio,
   };
 }
 
-enum AreaSizePreset {
+enum AreaSizePreset({
+  required final double width,
+  required final double height,
+}) {
   a3(width: 297, height: 420),
   a4(width: 210, height: 297),
   a5(width: 148, height: 210),
@@ -37,53 +40,39 @@ enum AreaSizePreset {
   screenHd(width: 1280, height: 720),
   screenFullHd(width: 1920, height: 1080),
   screenQhd(width: 2560, height: 1440),
-  screen4k(width: 3840, height: 2160);
-
-  final double width, height;
-
-  const AreaSizePreset({required this.width, required this.height});
+  screen4k(width: 3840, height: 2160),
 }
 
 extension AreaSizePresetExtension on AreaSizePreset {
   String get label => switch (this) {
-    AreaSizePreset.a3 => 'A3',
-    AreaSizePreset.a4 => 'A4',
-    AreaSizePreset.a5 => 'A5',
-    AreaSizePreset.letter => 'Letter',
-    AreaSizePreset.legal => 'Legal',
-    AreaSizePreset.ledger => 'Ledger',
-    AreaSizePreset.photo4x6 => 'Photo 4×6',
-    AreaSizePreset.photo5x7 => 'Photo 5×7',
-    AreaSizePreset.photo8x10 => 'Photo 8×10',
-    AreaSizePreset.screenHd => 'HD (1280×720)',
-    AreaSizePreset.screenFullHd => 'Full HD (1920×1080)',
-    AreaSizePreset.screenQhd => 'QHD (2560×1440)',
-    AreaSizePreset.screen4k => '4K (3840×2160)',
+    .a3 => 'A3',
+    .a4 => 'A4',
+    .a5 => 'A5',
+    .letter => 'Letter',
+    .legal => 'Legal',
+    .ledger => 'Ledger',
+    .photo4x6 => 'Photo 4×6',
+    .photo5x7 => 'Photo 5×7',
+    .photo8x10 => 'Photo 8×10',
+    .screenHd => 'HD (1280×720)',
+    .screenFullHd => 'Full HD (1920×1080)',
+    .screenQhd => 'QHD (2560×1440)',
+    .screen4k => '4K (3840×2160)',
   };
 }
 
 @freezed
 @JsonSerializable()
-class Area with _$Area {
-  const new({
-    this.name = '',
-    required this.width,
-    required this.height,
-    required this.position,
-    this.isInitial = false,
-    this.color,
-  });
-
-  final String name;
-  final double width;
-  final double height;
-  @DoublePointJsonConverter()
-  final Point<double> position;
-  final bool isInitial;
-  @ColorJsonConverter()
-  final SRGBColor? color;
-
-  factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
+class const Area({
+  final String name = '',
+  required final double width,
+  required final double height,
+  @DoublePointJsonConverter() required final Point<double> position,
+  final bool isInitial = false,
+  @ColorJsonConverter() final SRGBColor? color,
+}) with _$Area {
+  static Area fromJson(Map json) =>
+      _$AreaFromJson(Map<String, dynamic>.from(json));
   Map<String, dynamic> toJson() => _$AreaToJson(this);
   // Aspect ratio is the ratio between width and height.
   factory Area.fromPoints(
@@ -120,8 +109,10 @@ class Area with _$Area {
       isInitial: false,
     );
   }
+}
 
-  Point<double> get second => Point(position.x + width, position.y + height);
+extension AreaProperties on Area {
+  Point<double> get second => .new(position.x + width, position.y + height);
 
   Area moveBy(Point<double> offset) => copyWith(position: position + offset);
 

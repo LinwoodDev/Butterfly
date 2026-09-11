@@ -12,7 +12,6 @@ part of 'meta.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$FileMetadata {
 
@@ -31,7 +30,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is FileMetadata&&(identical(other.fileVersion, _this.fileVersion) || other.fileVersion == _this.fileVersion)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.author, _this.author) || other.author == _this.author)&&(identical(other.directory, _this.directory) || other.directory == _this.directory)&&(identical(other.fileName, _this.fileName) || other.fileName == _this.fileName)&&(identical(other.version, _this.version) || other.version == _this.version));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as FileMetadata;
@@ -52,7 +51,7 @@ abstract mixin class $FileMetadataCopyWith<$Res>  {
   factory $FileMetadataCopyWith(FileMetadata value, $Res Function(FileMetadata) _then) = _$FileMetadataCopyWithImpl;
 @useResult
 $Res call({
- int? fileVersion, NoteFileType type, DateTime? createdAt, DateTime? updatedAt, String name, String description, String author, String directory, String fileName, String version
+ int? fileVersion, NoteFileType type,@DateTimeJsonConverter() DateTime? createdAt,@DateTimeJsonConverter() DateTime? updatedAt, String name, String description, String author, String directory, String fileName, String version
 });
 
 
@@ -88,5 +87,91 @@ as String,
 }
 
 
+
+/// @nodoc
+
+
+class _FileMetadata extends FileMetadata {
+  const _FileMetadata({this.fileVersion, required this.type, @DateTimeJsonConverter() this.createdAt, @DateTimeJsonConverter() this.updatedAt, this.name = '', this.description = '', this.author = '', this.directory = '', this.fileName = '', this.version = ''}): super(fileVersion: fileVersion, type: type, createdAt: createdAt, updatedAt: updatedAt, name: name, description: description, author: author, directory: directory, fileName: fileName, version: version);
+  
+
+@override final  int? fileVersion;
+@override final  NoteFileType type;
+@override@DateTimeJsonConverter() final  DateTime? createdAt;
+@override@DateTimeJsonConverter() final  DateTime? updatedAt;
+@override final  String name;
+@override final  String description;
+@override final  String author;
+@override final  String directory;
+@override final  String fileName;
+@override final  String version;
+
+/// Create a copy of FileMetadata
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FileMetadataCopyWith<_FileMetadata> get copyWith => __$FileMetadataCopyWithImpl<_FileMetadata>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FileMetadata&&(identical(other.fileVersion, fileVersion) || other.fileVersion == fileVersion)&&(identical(other.type, type) || other.type == type)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&(identical(other.directory, directory) || other.directory == directory)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&(identical(other.version, version) || other.version == version));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,fileVersion,type,createdAt,updatedAt,name,description,author,directory,fileName,version);
+}
+
+@override
+String toString() {
+    return 'FileMetadata(fileVersion: $fileVersion, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, author: $author, directory: $directory, fileName: $fileName, version: $version)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$FileMetadataCopyWith<$Res> implements $FileMetadataCopyWith<$Res> {
+  factory _$FileMetadataCopyWith(_FileMetadata value, $Res Function(_FileMetadata) _then) = __$FileMetadataCopyWithImpl;
+@override @useResult
+$Res call({
+ int? fileVersion, NoteFileType type,@DateTimeJsonConverter() DateTime? createdAt,@DateTimeJsonConverter() DateTime? updatedAt, String name, String description, String author, String directory, String fileName, String version
+});
+
+
+
+
+}
+/// @nodoc
+class __$FileMetadataCopyWithImpl<$Res>
+    implements _$FileMetadataCopyWith<$Res> {
+  __$FileMetadataCopyWithImpl(this._self, this._then);
+
+  final _FileMetadata _self;
+  final $Res Function(_FileMetadata) _then;
+
+/// Create a copy of FileMetadata
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fileVersion = freezed,Object? type = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? name = null,Object? description = null,Object? author = null,Object? directory = null,Object? fileName = null,Object? version = null,}) {
+  return _then(_FileMetadata(
+fileVersion: freezed == fileVersion ? _self.fileVersion : fileVersion // ignore: cast_nullable_to_non_nullable
+as int?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as NoteFileType,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as String,directory: null == directory ? _self.directory : directory // ignore: cast_nullable_to_non_nullable
+as String,fileName: null == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
+as String,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 // dart format on

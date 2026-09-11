@@ -8,24 +8,22 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EditorSessionCubit extends Cubit<PersistedDocumentState> {
-  new({
-    required this.service,
-    required this._transformCubit,
-    required PersistedDocumentState initialState,
-    String? pathKey,
-    String? contentHash,
-  }) : super(
-         initialState.copyWith(
-           pathKey: pathKey ?? initialState.pathKey,
-           contentHash: contentHash ?? initialState.contentHash,
-         ),
-       ) {
+class EditorSessionCubit({
+  required final DocumentStateService service,
+  required final TransformCubit _transformCubit,
+  required PersistedDocumentState initialState,
+  String? pathKey,
+  String? contentHash,
+}) extends Cubit<PersistedDocumentState> {
+  this
+    : super(
+        initialState.copyWith(
+          pathKey: pathKey ?? initialState.pathKey,
+          contentHash: contentHash ?? initialState.contentHash,
+        ),
+      ) {
     _transformSubscription = _transformCubit.stream.listen(_onTransformChanged);
   }
-
-  final DocumentStateService service;
-  final TransformCubit _transformCubit;
   StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _saveDebounce;
   Future<void>? _saveFuture;

@@ -172,7 +172,7 @@ class ImportResult {
         service.editorController!,
         ImportTool(elements: elements, areas: areas, assets: assets),
         bloc: bloc!,
-        temporaryState: TemporaryState.removeAfterRelease,
+        temporaryState: .removeAfterRelease,
       );
     } else {
       for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
@@ -198,21 +198,13 @@ class ImportResult {
   }
 }
 
-class ImportService {
-  final DocumentBloc? bloc;
-  final BuildContext context;
-  final ExternalStorage? storage;
-  final String? path;
-  final bool useDefaultStorage;
-
-  ImportService(
-    this.context, {
-    this.bloc,
-    this.storage,
-    this.path,
-    this.useDefaultStorage = true,
-  });
-
+class ImportService(
+  final BuildContext context, {
+  final DocumentBloc? bloc,
+  final ExternalStorage? storage,
+  final String? path,
+  final bool useDefaultStorage = true,
+}) {
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;

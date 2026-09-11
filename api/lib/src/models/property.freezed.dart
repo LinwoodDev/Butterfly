@@ -705,7 +705,6 @@ as List<ElementGradientStop>,
 
 }
 
-
 /// @nodoc
 mixin _$ElementGradientStop {
 
@@ -724,7 +723,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradientStop&&(identical(other.offset, _this.offset) || other.offset == _this.offset)&&(identical(other.color, _this.color) || other.color == _this.color));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as ElementGradientStop;
@@ -745,7 +744,7 @@ abstract mixin class $ElementGradientStopCopyWith<$Res>  {
   factory $ElementGradientStopCopyWith(ElementGradientStop value, $Res Function(ElementGradientStop) _then) = _$ElementGradientStopCopyWithImpl;
 @useResult
 $Res call({
- double offset, SRGBColor color
+ double offset,@ColorJsonConverter() SRGBColor color
 });
 
 
@@ -773,6 +772,76 @@ as SRGBColor,
 }
 
 
+
+/// @nodoc
+
+
+class _ElementGradientStop extends ElementGradientStop {
+  const _ElementGradientStop({this.offset = 0.0, @ColorJsonConverter() this.color = SRGBColor.black}): super(offset: offset, color: color);
+  
+
+@override final  double offset;
+@override@ColorJsonConverter() final  SRGBColor color;
+
+/// Create a copy of ElementGradientStop
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ElementGradientStopCopyWith<_ElementGradientStop> get copyWith => __$ElementGradientStopCopyWithImpl<_ElementGradientStop>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementGradientStop&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.color, color) || other.color == color));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,offset,color);
+}
+
+@override
+String toString() {
+    return 'ElementGradientStop(offset: $offset, color: $color)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ElementGradientStopCopyWith<$Res> implements $ElementGradientStopCopyWith<$Res> {
+  factory _$ElementGradientStopCopyWith(_ElementGradientStop value, $Res Function(_ElementGradientStop) _then) = __$ElementGradientStopCopyWithImpl;
+@override @useResult
+$Res call({
+ double offset,@ColorJsonConverter() SRGBColor color
+});
+
+
+
+
+}
+/// @nodoc
+class __$ElementGradientStopCopyWithImpl<$Res>
+    implements _$ElementGradientStopCopyWith<$Res> {
+  __$ElementGradientStopCopyWithImpl(this._self, this._then);
+
+  final _ElementGradientStop _self;
+  final $Res Function(_ElementGradientStop) _then;
+
+/// Create a copy of ElementGradientStop
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? offset = null,Object? color = null,}) {
+  return _then(_ElementGradientStop(
+offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
+as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+
+}
 
 Property _$PropertyFromJson(
   Map<String, dynamic> json

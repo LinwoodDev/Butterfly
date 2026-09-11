@@ -7,11 +7,10 @@ import 'package:butterfly/services/logger.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:synchronized/synchronized.dart';
 
-class DocumentStateService {
-  DocumentStateService(this.fileSystem, {this.settingsProvider});
-
-  final DocumentStateFileSystem fileSystem;
-  final DocumentStatePersistenceSettings Function()? settingsProvider;
+class DocumentStateService(
+  final DocumentStateFileSystem fileSystem, {
+  final DocumentStatePersistenceSettings Function()? settingsProvider,
+}) {
   final _lock = Lock();
   var _cleanupStarted = false;
   DateTime? _lastCleanupAt;

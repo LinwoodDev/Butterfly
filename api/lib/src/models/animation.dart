@@ -106,16 +106,13 @@ sealed class AnimationTrack with _$AnimationTrack {
 
 @freezed
 @JsonSerializable()
-class AnimationKey with _$AnimationKey {
-  const new({this.cameraPosition, this.cameraZoom, this.breakpoint = false});
-
-  @DoublePointJsonConverter()
-  final Point<double>? cameraPosition;
-  final double? cameraZoom;
-  final bool breakpoint;
-
-  factory AnimationKey.fromJson(Map<String, dynamic> json) =>
-      _$AnimationKeyFromJson(json);
+class const AnimationKey({
+  @DoublePointJsonConverter() final Point<double>? cameraPosition,
+  final double? cameraZoom,
+  final bool breakpoint = false,
+}) with _$AnimationKey {
+  static AnimationKey fromJson(Map json) =>
+      _$AnimationKeyFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$AnimationKeyToJson(this);
 }

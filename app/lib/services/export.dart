@@ -9,12 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 
-class ExportService {
-  final DocumentBloc? bloc;
-  final BuildContext context;
-
-  ExportService(this.context, [this.bloc]);
-
+class ExportService(final BuildContext context, [final DocumentBloc? bloc]) {
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;

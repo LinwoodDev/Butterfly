@@ -23,11 +23,10 @@ const kDefaultPort = 28005;
 const kBroadcastPort = kDefaultPort + 1;
 const kTimeout = Duration(seconds: 30);
 
-sealed class NetworkState {
+sealed class NetworkState({
+  required final NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> pipe,
+}) {
   NetworkerBase get connection;
-  final NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> pipe;
-
-  NetworkState({required this.pipe});
 
   Future<Uri> getShareAddress() async {
     if (connection is SwampConnection) {
@@ -45,33 +44,22 @@ sealed class NetworkState {
   }
 }
 
-final class ServerNetworkState extends NetworkState {
-  @override
-  final NetworkerServerMixin connection;
-  final bool queue;
-  final String password;
+final class ServerNetworkState({
+  required super.pipe,
+  @override required final NetworkerServerMixin connection,
+  final bool queue = true,
+  final String password = '',
+}) extends NetworkState;
 
-  ServerNetworkState({
-    required super.pipe,
-    required this.connection,
-    this.queue = true,
-    this.password = '',
-  });
-}
+final class DisconnectedNetworkState({
+  required super.pipe,
+  @override required final NetworkerClientMixin connection,
+}) extends NetworkState;
 
-final class DisconnectedNetworkState extends NetworkState {
-  @override
-  final NetworkerClientMixin connection;
-
-  DisconnectedNetworkState({required super.pipe, required this.connection});
-}
-
-final class ClientNetworkState extends NetworkState {
-  @override
-  final NetworkerClientMixin connection;
-
-  ClientNetworkState({required super.pipe, required this.connection});
-}
+final class ClientNetworkState({
+  required super.pipe,
+  @override required final NetworkerClientMixin connection,
+}) extends NetworkState;
 
 @freezed
 sealed class NetworkingUser with _$NetworkingUser {
@@ -85,23 +73,16 @@ sealed class NetworkingUser with _$NetworkingUser {
       _$NetworkingUserFromJson(json);
 }
 
-enum NetworkEvent with RpcFunctionName {
+enum NetworkEvent({
+  @override final RpcNetworkerMode mode = RpcNetworkerMode.authority,
+  @override final bool canRunLocally = false,
+}) with RpcFunctionName {
   event(mode: RpcNetworkerMode.any, canRunLocally: false),
   init(mode: RpcNetworkerMode.authority, canRunLocally: false),
   connections(mode: RpcNetworkerMode.authority, canRunLocally: false),
   user(mode: RpcNetworkerMode.any, canRunLocally: false),
   undo(mode: RpcNetworkerMode.any, canRunLocally: false),
-  redo(mode: RpcNetworkerMode.any, canRunLocally: false);
-
-  @override
-  final RpcNetworkerMode mode;
-  @override
-  final bool canRunLocally;
-
-  const NetworkEvent({
-    this.mode = RpcNetworkerMode.authority,
-    this.canRunLocally = false,
-  });
+  redo(mode: RpcNetworkerMode.any, canRunLocally: false),
 }
 
 enum ConnectionTechnology {
@@ -109,13 +90,14 @@ enum ConnectionTechnology {
   webSocket;
 
   static ConnectionTechnology fromScheme(String scheme) => switch (scheme) {
-    'ws' || 'wss' => ConnectionTechnology.webSocket,
-    _ => ConnectionTechnology.swamp,
+    'ws' || 'wss' => .webSocket,
+    _ => .swamp,
   };
 }
 
-class NetworkingService extends Cubit<NetworkState?> {
-  final Duration timeout;
+class NetworkingService({final Duration timeout = kTimeout})
+    extends Cubit<NetworkState?> {
+  this : super(null);
   DocumentBloc? _bloc;
   StreamSubscription<Uint8List>? _resetSubscription;
   StreamSubscription<void>? _clientClosedSubscription;
@@ -136,8 +118,6 @@ class NetworkingService extends Cubit<NetworkState?> {
       StreamController.broadcast();
 
   Stream<Uint8List> get resetStream => _resetController.stream;
-
-  NetworkingService({this.timeout = kTimeout}) : super(null);
 
   bool get isActive =>
       state is ServerNetworkState || state is ClientNetworkState;

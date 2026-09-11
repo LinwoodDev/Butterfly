@@ -134,15 +134,12 @@ sealed class ElementGradient with _$ElementGradient {
 
 @freezed
 @JsonSerializable()
-class ElementGradientStop with _$ElementGradientStop {
-  const new({this.offset = 0, this.color = SRGBColor.black});
-
-  final double offset;
-  @ColorJsonConverter()
-  final SRGBColor color;
-
-  factory ElementGradientStop.fromJson(Map<String, dynamic> json) =>
-      _$ElementGradientStopFromJson(json);
+class const ElementGradientStop({
+  final double offset = 0,
+  @ColorJsonConverter() final SRGBColor color = .black,
+}) with _$ElementGradientStop {
+  static ElementGradientStop fromJson(Map json) =>
+      _$ElementGradientStopFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$ElementGradientStopToJson(this);
 }

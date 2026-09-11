@@ -41,14 +41,10 @@ enum LaserAnimation { fade, path }
 
 enum ToolCategory { import, normal, surface, action, view }
 
-enum BarcodeType {
+enum BarcodeType({final double width = 300, final double height = 300}) {
   qrCode,
   dataMatrix,
-  code128(width: 400, height: 160);
-
-  final double width, height;
-
-  const BarcodeType({this.width = 300, this.height = 300});
+  code128(width: 400, height: 160),
 }
 
 enum HitElementMode {
@@ -305,30 +301,30 @@ sealed class Tool extends PackAsset with _$Tool {
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
   ToolCategory get category => switch (this) {
-    SelectTool() => ToolCategory.normal,
-    HandTool() => ToolCategory.view,
-    ImportTool() => ToolCategory.import,
-    UndoTool() => ToolCategory.action,
-    RedoTool() => ToolCategory.action,
-    LabelTool() => ToolCategory.normal,
-    PenTool() => ToolCategory.normal,
-    EraserTool() => ToolCategory.normal,
-    CollectionTool() => ToolCategory.action,
-    AreaTool() => ToolCategory.normal,
-    LaserTool() => ToolCategory.view,
-    ShapeTool() => ToolCategory.surface,
-    TableTool() => ToolCategory.surface,
-    StampTool() => ToolCategory.surface,
-    PresentationTool() => ToolCategory.normal,
-    SpacerTool() => ToolCategory.normal,
-    FullScreenTool() => ToolCategory.action,
-    AssetTool() => ToolCategory.import,
-    ExportTool() => ToolCategory.action,
-    TextureTool() => ToolCategory.surface,
-    RulerTool() => ToolCategory.view,
-    GridTool() => ToolCategory.view,
-    EyeDropperTool() => ToolCategory.action,
-    BarcodeTool() => ToolCategory.surface,
-    PolygonTool() => ToolCategory.surface,
+    SelectTool() => .normal,
+    HandTool() => .view,
+    ImportTool() => .import,
+    UndoTool() => .action,
+    RedoTool() => .action,
+    LabelTool() => .normal,
+    PenTool() => .normal,
+    EraserTool() => .normal,
+    CollectionTool() => .action,
+    AreaTool() => .normal,
+    LaserTool() => .view,
+    ShapeTool() => .surface,
+    TableTool() => .surface,
+    StampTool() => .surface,
+    PresentationTool() => .normal,
+    SpacerTool() => .normal,
+    FullScreenTool() => .action,
+    AssetTool() => .import,
+    ExportTool() => .action,
+    TextureTool() => .surface,
+    RulerTool() => .view,
+    GridTool() => .view,
+    EyeDropperTool() => .action,
+    BarcodeTool() => .surface,
+    PolygonTool() => .surface,
   };
 }

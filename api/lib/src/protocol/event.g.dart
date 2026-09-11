@@ -28,9 +28,7 @@ PageAddedDetails _$PageAddedDetailsFromJson(Map json) => PageAddedDetails(
   name: json['name'] as String? ?? '',
   initialArea: json['initialArea'] == null
       ? null
-      : InitialAreaDetails.fromJson(
-          Map<String, dynamic>.from(json['initialArea'] as Map),
-        ),
+      : InitialAreaDetails.fromJson(json['initialArea'] as Map),
 );
 
 Map<String, dynamic> _$PageAddedDetailsToJson(PageAddedDetails instance) =>
@@ -44,9 +42,7 @@ Map<String, dynamic> _$PageAddedDetailsToJson(PageAddedDetails instance) =>
 
 PagesAdded _$PagesAddedFromJson(Map json) => PagesAdded(
   (json['pages'] as List<dynamic>)
-      .map(
-        (e) => PageAddedDetails.fromJson(Map<String, dynamic>.from(e as Map)),
-      )
+      .map((e) => PageAddedDetails.fromJson(e as Map))
       .toList(),
   $type: json['type'] as String?,
 );
@@ -264,7 +260,7 @@ Map<String, dynamic> _$DocumentBackgroundsChangedToJson(
 };
 
 WaypointCreated _$WaypointCreatedFromJson(Map json) => WaypointCreated(
-  Waypoint.fromJson(Map<String, dynamic>.from(json['waypoint'] as Map)),
+  Waypoint.fromJson(json['waypoint'] as Map),
   $type: json['type'] as String?,
 );
 
@@ -276,7 +272,7 @@ Map<String, dynamic> _$WaypointCreatedToJson(WaypointCreated instance) =>
 
 WaypointChanged _$WaypointChangedFromJson(Map json) => WaypointChanged(
   json['name'] as String?,
-  Waypoint.fromJson(Map<String, dynamic>.from(json['waypoint'] as Map)),
+  Waypoint.fromJson(json['waypoint'] as Map),
   $type: json['type'] as String?,
 );
 
@@ -436,7 +432,7 @@ Map<String, dynamic> _$ElementsCollectionChangedToJson(
 
 AreasCreated _$AreasCreatedFromJson(Map json) => AreasCreated(
   (json['areas'] as List<dynamic>)
-      .map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+      .map((e) => AreaPreset.fromJson(e as Map))
       .toList(),
   $type: json['type'] as String?,
 );
@@ -448,7 +444,7 @@ Map<String, dynamic> _$AreasCreatedToJson(AreasCreated instance) =>
     };
 
 AreasDuplicated _$AreasDuplicatedFromJson(Map json) => AreasDuplicated(
-  Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+  Area.fromJson(json['area'] as Map),
   (json['pages'] as List<dynamic>).map((e) => e as String).toList(),
   $type: json['type'] as String?,
 );
@@ -462,7 +458,7 @@ Map<String, dynamic> _$AreasDuplicatedToJson(AreasDuplicated instance) =>
 
 AreasRemoved _$AreasRemovedFromJson(Map json) => AreasRemoved(
   (json['areas'] as List<dynamic>)
-      .map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+      .map((e) => AreaPreset.fromJson(e as Map))
       .toList(),
   $type: json['type'] as String?,
 );
@@ -475,7 +471,7 @@ Map<String, dynamic> _$AreasRemovedToJson(AreasRemoved instance) =>
 
 AreaChanged _$AreaChangedFromJson(Map json) => AreaChanged(
   json['name'] as String,
-  Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+  Area.fromJson(json['area'] as Map),
   json['moveContents'] as bool? ?? false,
   json['type'] as String?,
 );
@@ -511,9 +507,7 @@ ExportPresetCreated _$ExportPresetCreatedFromJson(Map json) =>
     ExportPresetCreated(
       json['name'] as String,
       (json['areas'] as List<dynamic>?)
-              ?.map(
-                (e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)),
-              )
+              ?.map((e) => AreaPreset.fromJson(e as Map))
               .toList() ??
           const [],
       json['type'] as String?,
@@ -531,7 +525,7 @@ ExportPresetUpdated _$ExportPresetUpdatedFromJson(Map json) =>
     ExportPresetUpdated(
       json['name'] as String,
       (json['areas'] as List<dynamic>)
-          .map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+          .map((e) => AreaPreset.fromJson(e as Map))
           .toList(),
       $type: json['type'] as String?,
     );

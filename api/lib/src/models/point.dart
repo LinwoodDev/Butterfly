@@ -16,7 +16,7 @@ abstract class SimplePoint with _$SimplePoint {
   factory SimplePoint.fromJson(Map<String, dynamic> json) =>
       _$SimplePointFromJson(json);
 
-  Point<double> toPoint() => Point(x, y);
+  Point<double> toPoint() => .new(x, y);
 
   SimplePoint move(
     double dx,

@@ -1,7 +1,7 @@
 import 'package:keybinder/keybinder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesKeybinderStore implements KeybinderStore {
+class SharedPreferencesKeybinderStore() implements KeybinderStore {
   static const String _key = 'keybinder_shortcuts';
 
   @override

@@ -1,12 +1,10 @@
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-class ColorJsonConverter extends JsonConverter<SRGBColor, int> {
-  const ColorJsonConverter();
-
+class const ColorJsonConverter() extends JsonConverter<SRGBColor, int> {
   @override
   SRGBColor fromJson(int json) {
-    return SRGBColor(json);
+    return .new(json);
   }
 
   @override

@@ -12,12 +12,10 @@ import 'package:pdfrx/pdfrx.dart';
 Uint8List? _getDataFromSource((NoteData, String) message) =>
     element_helper.getDataFromSource(message.$1, message.$2);
 
-class AssetService {
+class AssetService() {
   final Map<String, Future<ui.Image?>> _images = {};
   final Map<String, Future<Uint8List?>> _dataCache = {};
   final Map<String, Future<PdfDocument?>> _pdfs = {};
-
-  AssetService();
 
   Future<ui.Image?> getImage(String path, NoteData document) async {
     if (_images.containsKey(path)) {

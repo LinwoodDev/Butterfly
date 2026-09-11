@@ -25,9 +25,7 @@ AreaPreset _$AreaPresetFromJson(Map json) => AreaPreset(
   page: json['page'] as String? ?? '',
   name: json['name'] as String? ?? '',
   quality: (json['quality'] as num?)?.toDouble() ?? 1,
-  area: json['area'] == null
-      ? null
-      : Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+  area: json['area'] == null ? null : Area.fromJson(json['area'] as Map),
 );
 
 Map<String, dynamic> _$AreaPresetToJson(AreaPreset instance) =>
@@ -47,9 +45,7 @@ ImageExportOptions _$ImageExportOptionsFromJson(Map json) => ImageExportOptions(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
   padding: json['padding'] == null
       ? const ExportPadding()
-      : ExportPadding.fromJson(
-          Map<String, dynamic>.from(json['padding'] as Map),
-        ),
+      : ExportPadding.fromJson(json['padding'] as Map),
   quality: (json['quality'] as num?)?.toDouble() ?? 1,
   renderBackground: json['renderBackground'] as bool? ?? true,
   $type: json['type'] as String?,
@@ -78,9 +74,7 @@ SvgExportOptions _$SvgExportOptionsFromJson(Map json) => SvgExportOptions(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
   padding: json['padding'] == null
       ? const ExportPadding()
-      : ExportPadding.fromJson(
-          Map<String, dynamic>.from(json['padding'] as Map),
-        ),
+      : ExportPadding.fromJson(json['padding'] as Map),
   renderBackground: json['renderBackground'] as bool? ?? true,
   $type: json['type'] as String?,
 );
@@ -102,7 +96,7 @@ _ExportPreset _$ExportPresetFromJson(Map json) => _ExportPreset(
   name: json['name'] as String? ?? '',
   areas:
       (json['areas'] as List<dynamic>?)
-          ?.map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+          ?.map((e) => AreaPreset.fromJson(e as Map))
           .toList() ??
       const [],
 );

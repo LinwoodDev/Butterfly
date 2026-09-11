@@ -168,7 +168,6 @@ as int,
 
 }
 
-
 /// @nodoc
 mixin _$AnimationKey {
 
@@ -187,7 +186,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationKey&&(identical(other.cameraPosition, _this.cameraPosition) || other.cameraPosition == _this.cameraPosition)&&(identical(other.cameraZoom, _this.cameraZoom) || other.cameraZoom == _this.cameraZoom)&&(identical(other.breakpoint, _this.breakpoint) || other.breakpoint == _this.breakpoint));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as AnimationKey;
@@ -208,7 +207,7 @@ abstract mixin class $AnimationKeyCopyWith<$Res>  {
   factory $AnimationKeyCopyWith(AnimationKey value, $Res Function(AnimationKey) _then) = _$AnimationKeyCopyWithImpl;
 @useResult
 $Res call({
- Point<double>? cameraPosition, double? cameraZoom, bool breakpoint
+@DoublePointJsonConverter() Point<double>? cameraPosition, double? cameraZoom, bool breakpoint
 });
 
 
@@ -237,5 +236,77 @@ as bool,
 }
 
 
+
+/// @nodoc
+
+
+class _AnimationKey extends AnimationKey {
+  const _AnimationKey({@DoublePointJsonConverter() this.cameraPosition, this.cameraZoom, this.breakpoint = false}): super(cameraPosition: cameraPosition, cameraZoom: cameraZoom, breakpoint: breakpoint);
+  
+
+@override@DoublePointJsonConverter() final  Point<double>? cameraPosition;
+@override final  double? cameraZoom;
+@override final  bool breakpoint;
+
+/// Create a copy of AnimationKey
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AnimationKeyCopyWith<_AnimationKey> get copyWith => __$AnimationKeyCopyWithImpl<_AnimationKey>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnimationKey&&(identical(other.cameraPosition, cameraPosition) || other.cameraPosition == cameraPosition)&&(identical(other.cameraZoom, cameraZoom) || other.cameraZoom == cameraZoom)&&(identical(other.breakpoint, breakpoint) || other.breakpoint == breakpoint));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,cameraPosition,cameraZoom,breakpoint);
+}
+
+@override
+String toString() {
+    return 'AnimationKey(cameraPosition: $cameraPosition, cameraZoom: $cameraZoom, breakpoint: $breakpoint)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AnimationKeyCopyWith<$Res> implements $AnimationKeyCopyWith<$Res> {
+  factory _$AnimationKeyCopyWith(_AnimationKey value, $Res Function(_AnimationKey) _then) = __$AnimationKeyCopyWithImpl;
+@override @useResult
+$Res call({
+@DoublePointJsonConverter() Point<double>? cameraPosition, double? cameraZoom, bool breakpoint
+});
+
+
+
+
+}
+/// @nodoc
+class __$AnimationKeyCopyWithImpl<$Res>
+    implements _$AnimationKeyCopyWith<$Res> {
+  __$AnimationKeyCopyWithImpl(this._self, this._then);
+
+  final _AnimationKey _self;
+  final $Res Function(_AnimationKey) _then;
+
+/// Create a copy of AnimationKey
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? cameraPosition = freezed,Object? cameraZoom = freezed,Object? breakpoint = null,}) {
+  return _then(_AnimationKey(
+cameraPosition: freezed == cameraPosition ? _self.cameraPosition : cameraPosition // ignore: cast_nullable_to_non_nullable
+as Point<double>?,cameraZoom: freezed == cameraZoom ? _self.cameraZoom : cameraZoom // ignore: cast_nullable_to_non_nullable
+as double?,breakpoint: null == breakpoint ? _self.breakpoint : breakpoint // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 // dart format on

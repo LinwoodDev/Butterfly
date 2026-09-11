@@ -156,16 +156,16 @@ Future<void> _addDirectoryToArchive(
   }
 }
 
-class BackupService {
-  final ButterflyFileSystem fileSystem;
-  final DateTime Function() _now;
-
+class BackupService(
+  final ButterflyFileSystem fileSystem, {
+  final DateTime Function() _now = DateTime.now,
+}) {
   Timer? _timer;
   StreamSubscription<ButterflySettings>? _settingsSubscription;
   Future<String>? _activeBackup;
   bool _disposed = false;
 
-  new(this.fileSystem, {this._now = DateTime.now}) {
+  this {
     _settingsSubscription = fileSystem.settingsCubit.stream.listen(
       _configureSchedule,
     );

@@ -589,7 +589,7 @@ as bool,
 
 
 class _DocumentSaveState extends DocumentSaveState {
-  const _DocumentSaveState({this.isSaveDelayed = false, this.location = _defaultDocumentLocation, this.embedding, this.fullScreen = false, this.saved = SaveState.saved, this.isCreating = false}): super._();
+  const _DocumentSaveState({this.isSaveDelayed = false, this.location = _defaultDocumentLocation, this.embedding, this.fullScreen = false, this.saved = SaveState.saved, this.isCreating = false}): super(isSaveDelayed: isSaveDelayed, location: location, embedding: embedding, fullScreen: fullScreen, saved: saved, isCreating: isCreating);
   
 
 @override final  bool isSaveDelayed;

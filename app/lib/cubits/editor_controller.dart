@@ -8,7 +8,6 @@ import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/services/logger.dart';
-import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
@@ -22,6 +21,7 @@ export 'editor_runtime.dart'
     show
         DocumentSaveCubit,
         DocumentSaveState,
+        DocumentSaveStateProperties,
         EditorInputCubit,
         EditorInputState,
         EditorRuntimeContext,
@@ -36,68 +36,53 @@ export 'editor_runtime.dart'
         ToolCubit,
         ToolRuntimeState;
 
-class EditorController implements EditorRuntimeContext {
-  final FocusNode focusNode = FocusNode();
+class EditorController(
+  @override final SettingsCubit settingsCubit,
+  final TransformCubit transformCubit,
+  CameraViewport viewport, {
+  Embedding? embedding,
+  var NetworkingService? _networkingService,
+  final EditorSessionCubit? editorSessionCubit,
+  bool absolute = false,
+}) implements EditorRuntimeContext {
+  final FocusNode focusNode = .new();
+  NetworkingService get networkingService => _networkingService ??= .new();
+  @override
+  final RendererCubit rendererCubit = RendererCubit(
+    settingsCubit,
+    RendererRuntimeState(cameraViewport: viewport),
+  );
+  final ToolCubit toolCubit = ToolCubit(
+    ToolRuntimeState(
+      index: editorSessionCubit?.state.selectedTool.toolIndex,
+      handler: HandHandler(),
+    ),
+  );
+  @override
+  final EditorInputCubit inputCubit = EditorInputCubit(settingsCubit);
+  final DocumentSaveCubit saveCubit = DocumentSaveCubit(
+    settingsCubit,
+    DocumentSaveState(
+      embedding: embedding,
+      fullScreen: embedding?.fullScreen.initialLayout ?? false,
+      saved: absolute ? .absoluteRead : .saved,
+    ),
+  );
+  @override
+  final EditorViewCubit viewCubit = EditorViewCubit(
+    editorSessionCubit: editorSessionCubit,
+    initial: EditorViewState(
+      locks: editorSessionCubit?.state.locks ?? const PersistentLockState(),
+      navigatorEnabled: editorSessionCubit?.state.navigator.enabled ?? false,
+      navigatorPage: editorSessionCubit?.navigatorPage ?? .waypoints,
+      areaNavigatorCreate:
+          editorSessionCubit?.state.areaNavigator.create ?? true,
+      areaNavigatorExact: editorSessionCubit?.state.areaNavigator.exact ?? true,
+      areaNavigatorAsk: editorSessionCubit?.state.areaNavigator.ask ?? false,
+    ),
+  );
 
-  @override
-  final SettingsCubit settingsCubit;
-  final TransformCubit transformCubit;
-  final NetworkingService networkingService;
-  final EditorSessionCubit? editorSessionCubit;
-  @override
-  final RendererCubit rendererCubit;
-  final ToolCubit toolCubit;
-  @override
-  final EditorInputCubit inputCubit;
-  final DocumentSaveCubit saveCubit;
-  @override
-  final EditorViewCubit viewCubit;
-
-  EditorController(
-    this.settingsCubit,
-    this.transformCubit,
-    CameraViewport viewport, {
-    Embedding? embedding,
-    NetworkingService? networkingService,
-    this.editorSessionCubit,
-    bool absolute = false,
-  }) : networkingService = networkingService ?? NetworkingService(),
-       rendererCubit = RendererCubit(
-         settingsCubit,
-         RendererRuntimeState(cameraViewport: viewport),
-       ),
-       toolCubit = ToolCubit(
-         ToolRuntimeState(
-           index: editorSessionCubit?.state.selectedTool.toolIndex,
-           handler: HandHandler(),
-         ),
-       ),
-       inputCubit = EditorInputCubit(settingsCubit),
-       saveCubit = DocumentSaveCubit(
-         settingsCubit,
-         DocumentSaveState(
-           embedding: embedding,
-           fullScreen: embedding?.fullScreen.initialLayout ?? false,
-           saved: absolute ? SaveState.absoluteRead : SaveState.saved,
-         ),
-       ),
-       viewCubit = EditorViewCubit(
-         editorSessionCubit: editorSessionCubit,
-         initial: EditorViewState(
-           locks:
-               editorSessionCubit?.state.locks ?? const PersistentLockState(),
-           navigatorEnabled:
-               editorSessionCubit?.state.navigator.enabled ?? false,
-           navigatorPage:
-               editorSessionCubit?.navigatorPage ?? NavigatorPage.waypoints,
-           areaNavigatorCreate:
-               editorSessionCubit?.state.areaNavigator.create ?? true,
-           areaNavigatorExact:
-               editorSessionCubit?.state.areaNavigator.exact ?? true,
-           areaNavigatorAsk:
-               editorSessionCubit?.state.areaNavigator.ask ?? false,
-         ),
-       ) {
+  this {
     rendererCubit.bindController(this);
     toolCubit.bindController(this);
     inputCubit.bindToolCubit(toolCubit);

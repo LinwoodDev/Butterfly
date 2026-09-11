@@ -2,9 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../helpers/string.dart';
 
-class IdJsonConverter extends JsonConverter<String?, String?> {
-  const IdJsonConverter();
-
+class const IdJsonConverter() extends JsonConverter<String?, String?> {
   @override
   String? fromJson(String? json) {
     json ??= '';

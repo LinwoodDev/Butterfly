@@ -12,7 +12,6 @@ part of 'persisted_document_state.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$PersistedToolSelection {
 
@@ -31,7 +30,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedToolSelection&&(identical(other.toolId, _this.toolId) || other.toolId == _this.toolId)&&(identical(other.toolIndex, _this.toolIndex) || other.toolIndex == _this.toolIndex));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as PersistedToolSelection;
@@ -81,6 +80,75 @@ as int?,
 
 
 
+/// @nodoc
+
+
+class _PersistedToolSelection extends PersistedToolSelection {
+  const _PersistedToolSelection({this.toolId, this.toolIndex}): super(toolId: toolId, toolIndex: toolIndex);
+  
+
+@override final  String? toolId;
+@override final  int? toolIndex;
+
+/// Create a copy of PersistedToolSelection
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PersistedToolSelectionCopyWith<_PersistedToolSelection> get copyWith => __$PersistedToolSelectionCopyWithImpl<_PersistedToolSelection>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedToolSelection&&(identical(other.toolId, toolId) || other.toolId == toolId)&&(identical(other.toolIndex, toolIndex) || other.toolIndex == toolIndex));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,toolId,toolIndex);
+}
+
+@override
+String toString() {
+    return 'PersistedToolSelection(toolId: $toolId, toolIndex: $toolIndex)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PersistedToolSelectionCopyWith<$Res> implements $PersistedToolSelectionCopyWith<$Res> {
+  factory _$PersistedToolSelectionCopyWith(_PersistedToolSelection value, $Res Function(_PersistedToolSelection) _then) = __$PersistedToolSelectionCopyWithImpl;
+@override @useResult
+$Res call({
+ String? toolId, int? toolIndex
+});
+
+
+
+
+}
+/// @nodoc
+class __$PersistedToolSelectionCopyWithImpl<$Res>
+    implements _$PersistedToolSelectionCopyWith<$Res> {
+  __$PersistedToolSelectionCopyWithImpl(this._self, this._then);
+
+  final _PersistedToolSelection _self;
+  final $Res Function(_PersistedToolSelection) _then;
+
+/// Create a copy of PersistedToolSelection
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? toolId = freezed,Object? toolIndex = freezed,}) {
+  return _then(_PersistedToolSelection(
+toolId: freezed == toolId ? _self.toolId : toolId // ignore: cast_nullable_to_non_nullable
+as String?,toolIndex: freezed == toolIndex ? _self.toolIndex : toolIndex // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$PersistedCameraState {
@@ -100,7 +168,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedCameraState&&(identical(other.positionX, _this.positionX) || other.positionX == _this.positionX)&&(identical(other.positionY, _this.positionY) || other.positionY == _this.positionY)&&(identical(other.zoom, _this.zoom) || other.zoom == _this.zoom)&&(identical(other.rotation, _this.rotation) || other.rotation == _this.rotation));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as PersistedCameraState;
@@ -152,6 +220,79 @@ as double,
 
 
 
+/// @nodoc
+
+
+class _PersistedCameraState extends PersistedCameraState {
+  const _PersistedCameraState({this.positionX = 0.0, this.positionY = 0.0, this.zoom = 1.0, this.rotation = 0.0}): super(positionX: positionX, positionY: positionY, zoom: zoom, rotation: rotation);
+  
+
+@override final  double positionX;
+@override final  double positionY;
+@override final  double zoom;
+@override final  double rotation;
+
+/// Create a copy of PersistedCameraState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PersistedCameraStateCopyWith<_PersistedCameraState> get copyWith => __$PersistedCameraStateCopyWithImpl<_PersistedCameraState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedCameraState&&(identical(other.positionX, positionX) || other.positionX == positionX)&&(identical(other.positionY, positionY) || other.positionY == positionY)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&(identical(other.rotation, rotation) || other.rotation == rotation));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,positionX,positionY,zoom,rotation);
+}
+
+@override
+String toString() {
+    return 'PersistedCameraState(positionX: $positionX, positionY: $positionY, zoom: $zoom, rotation: $rotation)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PersistedCameraStateCopyWith<$Res> implements $PersistedCameraStateCopyWith<$Res> {
+  factory _$PersistedCameraStateCopyWith(_PersistedCameraState value, $Res Function(_PersistedCameraState) _then) = __$PersistedCameraStateCopyWithImpl;
+@override @useResult
+$Res call({
+ double positionX, double positionY, double zoom, double rotation
+});
+
+
+
+
+}
+/// @nodoc
+class __$PersistedCameraStateCopyWithImpl<$Res>
+    implements _$PersistedCameraStateCopyWith<$Res> {
+  __$PersistedCameraStateCopyWithImpl(this._self, this._then);
+
+  final _PersistedCameraState _self;
+  final $Res Function(_PersistedCameraState) _then;
+
+/// Create a copy of PersistedCameraState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? positionX = null,Object? positionY = null,Object? zoom = null,Object? rotation = null,}) {
+  return _then(_PersistedCameraState(
+positionX: null == positionX ? _self.positionX : positionX // ignore: cast_nullable_to_non_nullable
+as double,positionY: null == positionY ? _self.positionY : positionY // ignore: cast_nullable_to_non_nullable
+as double,zoom: null == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
+as double,rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$PersistentLockState {
@@ -171,7 +312,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistentLockState&&(identical(other.lockCollection, _this.lockCollection) || other.lockCollection == _this.lockCollection)&&(identical(other.lockLayer, _this.lockLayer) || other.lockLayer == _this.lockLayer)&&(identical(other.lockZoom, _this.lockZoom) || other.lockZoom == _this.lockZoom)&&(identical(other.lockHorizontal, _this.lockHorizontal) || other.lockHorizontal == _this.lockHorizontal)&&(identical(other.lockVertical, _this.lockVertical) || other.lockVertical == _this.lockVertical)&&(identical(other.lockRotation, _this.lockRotation) || other.lockRotation == _this.lockRotation));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as PersistentLockState;
@@ -225,6 +366,83 @@ as bool,
 
 
 
+/// @nodoc
+
+
+class _PersistentLockState extends PersistentLockState {
+  const _PersistentLockState({this.lockCollection = false, this.lockLayer = false, this.lockZoom = false, this.lockHorizontal = false, this.lockVertical = false, this.lockRotation = false}): super(lockCollection: lockCollection, lockLayer: lockLayer, lockZoom: lockZoom, lockHorizontal: lockHorizontal, lockVertical: lockVertical, lockRotation: lockRotation);
+  
+
+@override final  bool lockCollection;
+@override final  bool lockLayer;
+@override final  bool lockZoom;
+@override final  bool lockHorizontal;
+@override final  bool lockVertical;
+@override final  bool lockRotation;
+
+/// Create a copy of PersistentLockState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PersistentLockStateCopyWith<_PersistentLockState> get copyWith => __$PersistentLockStateCopyWithImpl<_PersistentLockState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistentLockState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.lockRotation, lockRotation) || other.lockRotation == lockRotation));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,lockRotation);
+}
+
+@override
+String toString() {
+    return 'PersistentLockState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, lockRotation: $lockRotation)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PersistentLockStateCopyWith<$Res> implements $PersistentLockStateCopyWith<$Res> {
+  factory _$PersistentLockStateCopyWith(_PersistentLockState value, $Res Function(_PersistentLockState) _then) = __$PersistentLockStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical, bool lockRotation
+});
+
+
+
+
+}
+/// @nodoc
+class __$PersistentLockStateCopyWithImpl<$Res>
+    implements _$PersistentLockStateCopyWith<$Res> {
+  __$PersistentLockStateCopyWithImpl(this._self, this._then);
+
+  final _PersistentLockState _self;
+  final $Res Function(_PersistentLockState) _then;
+
+/// Create a copy of PersistentLockState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,Object? lockRotation = null,}) {
+  return _then(_PersistentLockState(
+lockCollection: null == lockCollection ? _self.lockCollection : lockCollection // ignore: cast_nullable_to_non_nullable
+as bool,lockLayer: null == lockLayer ? _self.lockLayer : lockLayer // ignore: cast_nullable_to_non_nullable
+as bool,lockZoom: null == lockZoom ? _self.lockZoom : lockZoom // ignore: cast_nullable_to_non_nullable
+as bool,lockHorizontal: null == lockHorizontal ? _self.lockHorizontal : lockHorizontal // ignore: cast_nullable_to_non_nullable
+as bool,lockVertical: null == lockVertical ? _self.lockVertical : lockVertical // ignore: cast_nullable_to_non_nullable
+as bool,lockRotation: null == lockRotation ? _self.lockRotation : lockRotation // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$PersistedNavigatorState {
@@ -244,7 +462,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedNavigatorState&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.page, _this.page) || other.page == _this.page));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as PersistedNavigatorState;
@@ -293,6 +511,76 @@ as String,
 }
 
 
+
+/// @nodoc
+
+
+class _PersistedNavigatorState extends PersistedNavigatorState {
+  const _PersistedNavigatorState({this.enabled = false, this.page = 'waypoints'}): super(enabled: enabled, page: page);
+  
+
+@override final  bool enabled;
+@override final  String page;
+
+/// Create a copy of PersistedNavigatorState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PersistedNavigatorStateCopyWith<_PersistedNavigatorState> get copyWith => __$PersistedNavigatorStateCopyWithImpl<_PersistedNavigatorState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedNavigatorState&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.page, page) || other.page == page));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,enabled,page);
+}
+
+@override
+String toString() {
+    return 'PersistedNavigatorState(enabled: $enabled, page: $page)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PersistedNavigatorStateCopyWith<$Res> implements $PersistedNavigatorStateCopyWith<$Res> {
+  factory _$PersistedNavigatorStateCopyWith(_PersistedNavigatorState value, $Res Function(_PersistedNavigatorState) _then) = __$PersistedNavigatorStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool enabled, String page
+});
+
+
+
+
+}
+/// @nodoc
+class __$PersistedNavigatorStateCopyWithImpl<$Res>
+    implements _$PersistedNavigatorStateCopyWith<$Res> {
+  __$PersistedNavigatorStateCopyWithImpl(this._self, this._then);
+
+  final _PersistedNavigatorState _self;
+  final $Res Function(_PersistedNavigatorState) _then;
+
+/// Create a copy of PersistedNavigatorState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? page = null,}) {
+  return _then(_PersistedNavigatorState(
+enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
+as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 
 /// @nodoc
@@ -447,7 +735,6 @@ as Set<String>,
 
 }
 
-
 /// @nodoc
 mixin _$PersistedAreaNavigatorState {
 
@@ -466,7 +753,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedAreaNavigatorState&&(identical(other.create, _this.create) || other.create == _this.create)&&(identical(other.exact, _this.exact) || other.exact == _this.exact)&&(identical(other.ask, _this.ask) || other.ask == _this.ask));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as PersistedAreaNavigatorState;
@@ -516,6 +803,78 @@ as bool,
 }
 
 
+
+/// @nodoc
+
+
+class _PersistedAreaNavigatorState extends PersistedAreaNavigatorState {
+  const _PersistedAreaNavigatorState({this.create = true, this.exact = true, this.ask = false}): super(create: create, exact: exact, ask: ask);
+  
+
+@override final  bool create;
+@override final  bool exact;
+@override final  bool ask;
+
+/// Create a copy of PersistedAreaNavigatorState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PersistedAreaNavigatorStateCopyWith<_PersistedAreaNavigatorState> get copyWith => __$PersistedAreaNavigatorStateCopyWithImpl<_PersistedAreaNavigatorState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedAreaNavigatorState&&(identical(other.create, create) || other.create == create)&&(identical(other.exact, exact) || other.exact == exact)&&(identical(other.ask, ask) || other.ask == ask));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,create,exact,ask);
+}
+
+@override
+String toString() {
+    return 'PersistedAreaNavigatorState(create: $create, exact: $exact, ask: $ask)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PersistedAreaNavigatorStateCopyWith<$Res> implements $PersistedAreaNavigatorStateCopyWith<$Res> {
+  factory _$PersistedAreaNavigatorStateCopyWith(_PersistedAreaNavigatorState value, $Res Function(_PersistedAreaNavigatorState) _then) = __$PersistedAreaNavigatorStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool create, bool exact, bool ask
+});
+
+
+
+
+}
+/// @nodoc
+class __$PersistedAreaNavigatorStateCopyWithImpl<$Res>
+    implements _$PersistedAreaNavigatorStateCopyWith<$Res> {
+  __$PersistedAreaNavigatorStateCopyWithImpl(this._self, this._then);
+
+  final _PersistedAreaNavigatorState _self;
+  final $Res Function(_PersistedAreaNavigatorState) _then;
+
+/// Create a copy of PersistedAreaNavigatorState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? create = null,Object? exact = null,Object? ask = null,}) {
+  return _then(_PersistedAreaNavigatorState(
+create: null == create ? _self.create : create // ignore: cast_nullable_to_non_nullable
+as bool,exact: null == exact ? _self.exact : exact // ignore: cast_nullable_to_non_nullable
+as bool,ask: null == ask ? _self.ask : ask // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 
 /// @nodoc

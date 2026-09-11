@@ -16,9 +16,10 @@ sealed class RendererRuntimeState with _$RendererRuntimeState {
   };
 }
 
-class _RendererSpatialIndex {
-  _RendererSpatialIndex(List<Renderer<PadElement>> renderers)
-    : _bounds = List.filled(renderers.length, null) {
+class _RendererSpatialIndex(List<Renderer<PadElement>> renderers) {
+  final List<Rect?> _bounds = List.filled(renderers.length, null);
+
+  this {
     for (var index = 0; index < renderers.length; index++) {
       final bounds = renderers[index].expandedRect;
       _bounds[index] = bounds;
@@ -49,8 +50,6 @@ class _RendererSpatialIndex {
   final Map<(int, int), List<int>> _cells = {};
   final List<int> _large = [];
   final List<int> _unbounded = [];
-  final List<Rect?> _bounds;
-
   bool _isVisible(int index, Rect rect) =>
       _bounds[index]?.overlaps(rect) ?? true;
 
@@ -84,14 +83,10 @@ class _RendererSpatialIndex {
   }
 }
 
-class RendererCubit extends Cubit<RendererRuntimeState> {
-  RendererCubit(
-    this.settingsCubit, [
-    super.initial = const RendererRuntimeState(),
-  ]);
-
-  final SettingsCubit settingsCubit;
-
+class RendererCubit(
+  final SettingsCubit settingsCubit, [
+  super.initial = const RendererRuntimeState(),
+]) extends Cubit<RendererRuntimeState> {
   final initializedElements = <Renderer<PadElement>>{};
   final bakeLock = Lock();
   final delayedBakeRunner = CoalescedAsyncRunner(

@@ -13,25 +13,16 @@ const kBundledFontFamilies = {
 
 String customFontFamily(String name) => '$kCustomFontPrefix$name';
 
-class AvailableFontFamily {
-  final String name;
-  final bool bundled;
-  final bool system;
+class const AvailableFontFamily({
+  required final String name,
+  required final bool bundled,
+  required final bool system,
+}) {}
 
-  const AvailableFontFamily({
-    required this.name,
-    required this.bundled,
-    required this.system,
-  });
-}
-
-class FontService {
-  final ButterflyFileSystem _fileSystem;
+class FontService(final ButterflyFileSystem _fileSystem) {
   Future<List<String>>? _systemFonts;
   final Map<String, Future<void>> _loadedFonts = {};
   final Set<String> _customFonts = {};
-
-  FontService(this._fileSystem);
 
   Future<List<String>> getSystemFonts() => _systemFonts ??= _fetchSystemFonts();
 

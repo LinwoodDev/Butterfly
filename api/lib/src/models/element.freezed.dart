@@ -12,7 +12,6 @@ part of 'element.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$ElementConstraint {
 
@@ -31,7 +30,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementConstraint&&(identical(other.size, _this.size) || other.size == _this.size)&&(identical(other.length, _this.length) || other.length == _this.length)&&(identical(other.includeArea, _this.includeArea) || other.includeArea == _this.includeArea));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as ElementConstraint;
@@ -81,6 +80,78 @@ as bool,
 }
 
 
+
+/// @nodoc
+
+
+class _ElementConstraint extends ElementConstraint {
+  const _ElementConstraint({this.size = 0.0, this.length = 0.0, this.includeArea = true}): super(size: size, length: length, includeArea: includeArea);
+  
+
+@override final  double size;
+@override final  double length;
+@override final  bool includeArea;
+
+/// Create a copy of ElementConstraint
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ElementConstraintCopyWith<_ElementConstraint> get copyWith => __$ElementConstraintCopyWithImpl<_ElementConstraint>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementConstraint&&(identical(other.size, size) || other.size == size)&&(identical(other.length, length) || other.length == length)&&(identical(other.includeArea, includeArea) || other.includeArea == includeArea));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,size,length,includeArea);
+}
+
+@override
+String toString() {
+    return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ElementConstraintCopyWith<$Res> implements $ElementConstraintCopyWith<$Res> {
+  factory _$ElementConstraintCopyWith(_ElementConstraint value, $Res Function(_ElementConstraint) _then) = __$ElementConstraintCopyWithImpl;
+@override @useResult
+$Res call({
+ double size, double length, bool includeArea
+});
+
+
+
+
+}
+/// @nodoc
+class __$ElementConstraintCopyWithImpl<$Res>
+    implements _$ElementConstraintCopyWith<$Res> {
+  __$ElementConstraintCopyWithImpl(this._self, this._then);
+
+  final _ElementConstraint _self;
+  final $Res Function(_ElementConstraint) _then;
+
+/// Create a copy of ElementConstraint
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? size = null,Object? length = null,Object? includeArea = null,}) {
+  return _then(_ElementConstraint(
+size: null == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
+as double,length: null == length ? _self.length : length // ignore: cast_nullable_to_non_nullable
+as double,includeArea: null == includeArea ? _self.includeArea : includeArea // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 ElementConstraints _$ElementConstraintsFromJson(
   Map<String, dynamic> json
@@ -378,7 +449,6 @@ as bool,
 
 }
 
-
 /// @nodoc
 mixin _$TableBorderProperty {
 
@@ -397,7 +467,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is TableBorderProperty&&(identical(other.width, _this.width) || other.width == _this.width)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.strokeStyle, _this.strokeStyle) || other.strokeStyle == _this.strokeStyle)&&(identical(other.dashMultiplier, _this.dashMultiplier) || other.dashMultiplier == _this.dashMultiplier)&&(identical(other.gapMultiplier, _this.gapMultiplier) || other.gapMultiplier == _this.gapMultiplier));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as TableBorderProperty;
@@ -418,7 +488,7 @@ abstract mixin class $TableBorderPropertyCopyWith<$Res>  {
   factory $TableBorderPropertyCopyWith(TableBorderProperty value, $Res Function(TableBorderProperty) _then) = _$TableBorderPropertyCopyWithImpl;
 @useResult
 $Res call({
- double width, SRGBColor color, StrokeStyle strokeStyle, double dashMultiplier, double gapMultiplier
+ double width,@ColorJsonConverter() SRGBColor color, StrokeStyle strokeStyle, double dashMultiplier, double gapMultiplier
 });
 
 
@@ -450,6 +520,81 @@ as double,
 
 
 
+/// @nodoc
+
+
+class _TableBorderProperty extends TableBorderProperty {
+  const _TableBorderProperty({this.width = 1.0, @ColorJsonConverter() this.color = SRGBColor.black, this.strokeStyle = StrokeStyle.solid, this.dashMultiplier = 1.0, this.gapMultiplier = 1.0}): super(width: width, color: color, strokeStyle: strokeStyle, dashMultiplier: dashMultiplier, gapMultiplier: gapMultiplier);
+  
+
+@override final  double width;
+@override@ColorJsonConverter() final  SRGBColor color;
+@override final  StrokeStyle strokeStyle;
+@override final  double dashMultiplier;
+@override final  double gapMultiplier;
+
+/// Create a copy of TableBorderProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TableBorderPropertyCopyWith<_TableBorderProperty> get copyWith => __$TableBorderPropertyCopyWithImpl<_TableBorderProperty>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableBorderProperty&&(identical(other.width, width) || other.width == width)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle)&&(identical(other.dashMultiplier, dashMultiplier) || other.dashMultiplier == dashMultiplier)&&(identical(other.gapMultiplier, gapMultiplier) || other.gapMultiplier == gapMultiplier));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,width,color,strokeStyle,dashMultiplier,gapMultiplier);
+}
+
+@override
+String toString() {
+    return 'TableBorderProperty(width: $width, color: $color, strokeStyle: $strokeStyle, dashMultiplier: $dashMultiplier, gapMultiplier: $gapMultiplier)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TableBorderPropertyCopyWith<$Res> implements $TableBorderPropertyCopyWith<$Res> {
+  factory _$TableBorderPropertyCopyWith(_TableBorderProperty value, $Res Function(_TableBorderProperty) _then) = __$TableBorderPropertyCopyWithImpl;
+@override @useResult
+$Res call({
+ double width,@ColorJsonConverter() SRGBColor color, StrokeStyle strokeStyle, double dashMultiplier, double gapMultiplier
+});
+
+
+
+
+}
+/// @nodoc
+class __$TableBorderPropertyCopyWithImpl<$Res>
+    implements _$TableBorderPropertyCopyWith<$Res> {
+  __$TableBorderPropertyCopyWithImpl(this._self, this._then);
+
+  final _TableBorderProperty _self;
+  final $Res Function(_TableBorderProperty) _then;
+
+/// Create a copy of TableBorderProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? color = null,Object? strokeStyle = null,Object? dashMultiplier = null,Object? gapMultiplier = null,}) {
+  return _then(_TableBorderProperty(
+width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
+as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor,strokeStyle: null == strokeStyle ? _self.strokeStyle : strokeStyle // ignore: cast_nullable_to_non_nullable
+as StrokeStyle,dashMultiplier: null == dashMultiplier ? _self.dashMultiplier : dashMultiplier // ignore: cast_nullable_to_non_nullable
+as double,gapMultiplier: null == gapMultiplier ? _self.gapMultiplier : gapMultiplier // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$TableCellProperty {
@@ -469,7 +614,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is TableCellProperty&&(identical(other.fillColor, _this.fillColor) || other.fillColor == _this.fillColor));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode {
   final _this = this as TableCellProperty;
@@ -490,7 +635,7 @@ abstract mixin class $TableCellPropertyCopyWith<$Res>  {
   factory $TableCellPropertyCopyWith(TableCellProperty value, $Res Function(TableCellProperty) _then) = _$TableCellPropertyCopyWithImpl;
 @useResult
 $Res call({
- SRGBColor fillColor
+@ColorJsonConverter() SRGBColor fillColor
 });
 
 
@@ -517,6 +662,74 @@ as SRGBColor,
 }
 
 
+
+/// @nodoc
+
+
+class _TableCellProperty extends TableCellProperty {
+  const _TableCellProperty({@ColorJsonConverter() this.fillColor = SRGBColor.transparent}): super(fillColor: fillColor);
+  
+
+@override@ColorJsonConverter() final  SRGBColor fillColor;
+
+/// Create a copy of TableCellProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TableCellPropertyCopyWith<_TableCellProperty> get copyWith => __$TableCellPropertyCopyWithImpl<_TableCellProperty>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TableCellProperty&&(identical(other.fillColor, fillColor) || other.fillColor == fillColor));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,fillColor);
+}
+
+@override
+String toString() {
+    return 'TableCellProperty(fillColor: $fillColor)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TableCellPropertyCopyWith<$Res> implements $TableCellPropertyCopyWith<$Res> {
+  factory _$TableCellPropertyCopyWith(_TableCellProperty value, $Res Function(_TableCellProperty) _then) = __$TableCellPropertyCopyWithImpl;
+@override @useResult
+$Res call({
+@ColorJsonConverter() SRGBColor fillColor
+});
+
+
+
+
+}
+/// @nodoc
+class __$TableCellPropertyCopyWithImpl<$Res>
+    implements _$TableCellPropertyCopyWith<$Res> {
+  __$TableCellPropertyCopyWithImpl(this._self, this._then);
+
+  final _TableCellProperty _self;
+  final $Res Function(_TableCellProperty) _then;
+
+/// Create a copy of TableCellProperty
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fillColor = null,}) {
+  return _then(_TableCellProperty(
+fillColor: null == fillColor ? _self.fillColor : fillColor // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+
+}
 
 PadElement _$PadElementFromJson(
   Map<String, dynamic> json

@@ -42,74 +42,52 @@ String _normalizeDocumentStatePath(String path) {
 
 @freezed
 @JsonSerializable()
-class PersistedToolSelection with _$PersistedToolSelection {
-  const new({this.toolId, this.toolIndex});
-
-  final String? toolId;
-  final int? toolIndex;
-
-  factory PersistedToolSelection.fromJson(Map<String, dynamic> json) =>
-      _$PersistedToolSelectionFromJson(json);
+class const PersistedToolSelection({final String? toolId, final int? toolIndex})
+    with _$PersistedToolSelection {
+  static PersistedToolSelection fromJson(Map json) =>
+      _$PersistedToolSelectionFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PersistedToolSelectionToJson(this);
 }
 
 @freezed
 @JsonSerializable()
-class PersistedCameraState with _$PersistedCameraState {
-  const new({
-    this.positionX = 0,
-    this.positionY = 0,
-    this.zoom = 1,
-    this.rotation = 0,
-  });
-
-  final double positionX;
-  final double positionY;
-  final double zoom;
-  final double rotation;
-
-  factory PersistedCameraState.fromJson(Map<String, dynamic> json) =>
-      _$PersistedCameraStateFromJson(json);
+class const PersistedCameraState({
+  final double positionX = 0,
+  final double positionY = 0,
+  final double zoom = 1,
+  final double rotation = 0,
+}) with _$PersistedCameraState {
+  static PersistedCameraState fromJson(Map json) =>
+      _$PersistedCameraStateFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PersistedCameraStateToJson(this);
 }
 
 @freezed
 @JsonSerializable()
-class PersistentLockState with _$PersistentLockState {
-  const new({
-    this.lockCollection = false,
-    this.lockLayer = false,
-    this.lockZoom = false,
-    this.lockHorizontal = false,
-    this.lockVertical = false,
-    this.lockRotation = false,
-  });
-
-  final bool lockCollection;
-  final bool lockLayer;
-  final bool lockZoom;
-  final bool lockHorizontal;
-  final bool lockVertical;
-  final bool lockRotation;
-
-  factory PersistentLockState.fromJson(Map<String, dynamic> json) =>
-      _$PersistentLockStateFromJson(json);
+class const PersistentLockState({
+  final bool lockCollection = false,
+  final bool lockLayer = false,
+  final bool lockZoom = false,
+  final bool lockHorizontal = false,
+  final bool lockVertical = false,
+  final bool lockRotation = false,
+}) with _$PersistentLockState {
+  static PersistentLockState fromJson(Map json) =>
+      _$PersistentLockStateFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PersistentLockStateToJson(this);
 }
 
 @freezed
 @JsonSerializable()
-class PersistedNavigatorState with _$PersistedNavigatorState {
-  const new({this.enabled = false, this.page = 'waypoints'});
-
-  final bool enabled;
-  final String page;
-
-  factory PersistedNavigatorState.fromJson(Map<String, dynamic> json) =>
-      _$PersistedNavigatorStateFromJson(json);
+class const PersistedNavigatorState({
+  final bool enabled = false,
+  final String page = 'waypoints',
+}) with _$PersistedNavigatorState {
+  static PersistedNavigatorState fromJson(Map json) =>
+      _$PersistedNavigatorStateFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PersistedNavigatorStateToJson(this);
 }
@@ -128,15 +106,13 @@ sealed class PersistedLayerState with _$PersistedLayerState {
 
 @freezed
 @JsonSerializable()
-class PersistedAreaNavigatorState with _$PersistedAreaNavigatorState {
-  const new({this.create = true, this.exact = true, this.ask = false});
-
-  final bool create;
-  final bool exact;
-  final bool ask;
-
-  factory PersistedAreaNavigatorState.fromJson(Map<String, dynamic> json) =>
-      _$PersistedAreaNavigatorStateFromJson(json);
+class const PersistedAreaNavigatorState({
+  final bool create = true,
+  final bool exact = true,
+  final bool ask = false,
+}) with _$PersistedAreaNavigatorState {
+  static PersistedAreaNavigatorState fromJson(Map json) =>
+      _$PersistedAreaNavigatorStateFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PersistedAreaNavigatorStateToJson(this);
 }

@@ -28,9 +28,7 @@ typedef XpsProcessRunner = Future<ProcessResult> Function(
   List<String> arguments,
 );
 
-class XpsToPdfNotInstalledException implements Exception {
-  const XpsToPdfNotInstalledException();
-
+class const XpsToPdfNotInstalledException() implements Exception {
   @override
   String toString() => 'xpstopdf is not installed';
 }
@@ -279,12 +277,12 @@ String _fileExtension(String? value) {
   return cleaned.isEmpty ? 'bin' : cleaned;
 }
 
-class _OneNoteConverter {
+class _OneNoteConverter(
+  final String name,
+  final Map<Uint8List, Uint8List?> xpsFiles,
+) {
   NoteData _document;
-  final String name;
-  final Map<Uint8List, Uint8List?> xpsFiles;
-
-  _OneNoteConverter(this.name, this.xpsFiles)
+  this
     : _document = DocumentDefaults.createDocument(
         name: name,
         createDefaultPage: false,
@@ -360,13 +358,12 @@ class _OneNoteConverter {
   }
 }
 
-class _OneNotePageBuilder {
-  NoteData document;
-  final Map<Uint8List, Uint8List?> xpsFiles;
+class _OneNotePageBuilder(
+  var NoteData document,
+  final Map<Uint8List, Uint8List?> xpsFiles,
+) {
   final List<PadElement> _elements = [];
   final List<Background> _backgrounds = [];
-
-  _OneNotePageBuilder(this.document, this.xpsFiles);
 
   DocumentPage convert(one.OneNotePage page) {
     for (final content in page.contents) {

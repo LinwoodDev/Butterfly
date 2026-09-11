@@ -8,23 +8,18 @@ class const DocumentSaveState({
   final AssetLocation location = _defaultDocumentLocation,
   final Embedding? embedding,
   final bool fullScreen = false,
-  final SaveState saved = SaveState.saved,
+  final SaveState saved = .saved,
   final bool isCreating = false,
-}) with _$DocumentSaveState {
-  // Freezed uses this redirecting constructor to inherit custom members.
-  const new _() : this();
+}) with _$DocumentSaveState {}
 
-  bool get absolute => saved == SaveState.absoluteRead;
+extension DocumentSaveStateProperties on DocumentSaveState {
+  bool get absolute => saved == .absoluteRead;
 }
 
-class DocumentSaveCubit extends Cubit<DocumentSaveState> {
-  DocumentSaveCubit(
-    this.settingsCubit, [
-    super.initial = const DocumentSaveState(),
-  ]);
-
-  final SettingsCubit settingsCubit;
-
+class DocumentSaveCubit(
+  final SettingsCubit settingsCubit, [
+  super.initial = const DocumentSaveState(),
+]) extends Cubit<DocumentSaveState> {
   final savingLock = Lock();
 
   void replace(DocumentSaveState state) => emit(state);
@@ -77,8 +72,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
     final absolute = state.absolute;
     if (location == null &&
         !force &&
-        (state.saved == SaveState.saved ||
-            state.saved == SaveState.absoluteRead)) {
+        (state.saved == .saved || state.saved == .absoluteRead)) {
       await editorSessionCubit?.saveNow();
       return state.location;
     }
@@ -102,8 +96,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
     return savingLock.synchronized(() async {
       if (location == null &&
           !force &&
-          (state.saved == SaveState.saved ||
-              state.saved == SaveState.absoluteRead)) {
+          (state.saved == .saved || state.saved == .absoluteRead)) {
         await editorSessionCubit?.saveNow();
         return state.location;
       }
@@ -143,7 +136,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
       } else {
         final (file, hash) = await compute(_toFileWithContentHash, (
           currentData,
-          current.fileType == AssetFileType.textNote,
+          current.fileType == .textNote,
         ));
         await fileSystem.updateFile(current.path, file);
         contentHash = hash;
@@ -157,7 +150,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
         return current;
       }
       setSaveState(
-        saved: state.saved == SaveState.saving ? SaveState.saved : state.saved,
+        saved: state.saved == .saving ? .saved : state.saved,
         location: current,
       );
       return current;

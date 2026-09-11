@@ -78,7 +78,7 @@ extension AssetFileTypeHelper on AssetFileType {
 
   bool isMimeType(String mimeType) => getMimeTypes().contains(mimeType);
 
-  bool isNote() => this == AssetFileType.note || this == AssetFileType.textNote;
+  bool isNote() => this == .note || this == .textNote;
 
   static AssetFileType? fromFileExtension(String? ext) {
     if (ext?.startsWith('.') ?? false) {

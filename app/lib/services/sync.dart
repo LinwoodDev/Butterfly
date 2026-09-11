@@ -21,10 +21,10 @@ enum SyncFileSystemType { documents, documentStates, templates, packs }
 
 extension SyncFileSystemTypeHelper on SyncFileSystemType {
   String get cacheVariant => switch (this) {
-    SyncFileSystemType.documents => 'documents',
-    SyncFileSystemType.documentStates => 'documentstates',
-    SyncFileSystemType.templates => 'templates',
-    SyncFileSystemType.packs => 'packs',
+    .documents => 'documents',
+    .documentStates => 'documentstates',
+    .templates => 'templates',
+    .packs => 'packs',
   };
 }
 
@@ -48,35 +48,25 @@ enum SyncStatus {
 /// This immutable class holds all state related to synchronization
 /// including progress, pending files, conflicts, and error information.
 @immutable
-class RemoteSyncState {
+class const RemoteSyncState({
   /// The remote storage configuration this state belongs to.
-  final ExternalStorage storage;
+  required final ExternalStorage storage,
 
   /// Current sync progress for each file system type.
-  final Map<SyncFileSystemType, SyncProgress> progress;
+  final Map<SyncFileSystemType, SyncProgress> progress = const {},
 
   /// Files pending synchronization for each file system type.
-  final Map<SyncFileSystemType, List<SyncFile>> files;
+  final Map<SyncFileSystemType, List<SyncFile>> files = const {},
 
   /// Unresolved conflicts for each file system type.
-  final Map<SyncFileSystemType, List<SyncConflict>> conflicts;
+  final Map<SyncFileSystemType, List<SyncConflict>> conflicts = const {},
 
   /// Whether any sync operation is currently in progress.
-  final bool isSyncing;
+  final bool isSyncing = false,
 
   /// The last error message, if any sync operation failed.
-  final String? lastError;
-
-  /// Creates a new [RemoteSyncState].
-  const RemoteSyncState({
-    required this.storage,
-    this.progress = const {},
-    this.files = const {},
-    this.conflicts = const {},
-    this.isSyncing = false,
-    this.lastError,
-  });
-
+  final String? lastError,
+}) {
   /// Creates a copy of this state with the given fields replaced.
   ///
   /// Note: [lastError] is always replaced (not merged) to allow clearing errors.
@@ -88,7 +78,7 @@ class RemoteSyncState {
     bool? isSyncing,
     String? lastError,
   }) {
-    return RemoteSyncState(
+    return .new(
       storage: storage ?? this.storage,
       progress: progress ?? this.progress,
       files: files ?? this.files,
@@ -100,9 +90,9 @@ class RemoteSyncState {
 
   /// Computes the aggregate sync status based on current state.
   SyncStatus get status => switch (lastError) {
-    != null => SyncStatus.error,
-    _ when isSyncing => SyncStatus.syncing,
-    _ => SyncStatus.synced,
+    != null => .error,
+    _ when isSyncing => .syncing,
+    _ => .synced,
   };
 
   /// Returns `true` if there are any unresolved conflicts.
@@ -122,7 +112,7 @@ class RemoteSyncState {
   );
 
   bool _isVisibleSyncFile(SyncFileSystemType type, SyncFile file) {
-    if (type == SyncFileSystemType.documents) return true;
+    if (type == .documents) return true;
     final path = file.location.path;
     return path.isNotEmpty && path != '/' && path != '.';
   }
@@ -141,16 +131,11 @@ class RemoteSyncState {
 }
 
 @immutable
-class SyncOverview {
-  final SyncStatus status;
-  final int pendingFiles, cachedFiles;
-
-  const SyncOverview({
-    required this.status,
-    required this.pendingFiles,
-    required this.cachedFiles,
-  });
-}
+class const SyncOverview({
+  required final SyncStatus status,
+  required final int pendingFiles,
+  required final int cachedFiles,
+}) {}
 
 /// Manages synchronization for a single remote storage.
 ///
@@ -160,24 +145,26 @@ class SyncOverview {
 /// - Detecting and tracking conflicts
 /// - Providing streams for UI updates
 /// - Managing online/offline status
-class RemoteSync {
-  final ButterflyFileSystem fileSystem;
-  final ExternalStorage storage;
-
-  final BehaviorSubject<RemoteSyncState> _stateSubject;
+class RemoteSync(
+  final ButterflyFileSystem fileSystem,
+  final ExternalStorage storage,
+) {
+  final BehaviorSubject<RemoteSyncState> _stateSubject = BehaviorSubject.seeded(
+    RemoteSyncState(storage: storage),
+  );
   final List<StreamSubscription<dynamic>> _subscriptions = [];
 
-  final DocumentFileSystem documentSystem;
-  final TemplateFileSystem templateSystem;
-  final PackFileSystem packSystem;
-  final DocumentStateFileSystem documentStateSystem;
+  final DocumentFileSystem documentSystem = fileSystem.buildDocumentSystem(
+    storage,
+  );
+  final TemplateFileSystem templateSystem = fileSystem.buildTemplateSystem(
+    storage,
+  );
+  final PackFileSystem packSystem = fileSystem.buildPackSystem(storage);
+  final DocumentStateFileSystem documentStateSystem = fileSystem
+      .buildDocumentStateSystem(storage);
 
-  RemoteSync(this.fileSystem, this.storage)
-    : _stateSubject = BehaviorSubject.seeded(RemoteSyncState(storage: storage)),
-      documentSystem = fileSystem.buildDocumentSystem(storage),
-      templateSystem = fileSystem.buildTemplateSystem(storage),
-      packSystem = fileSystem.buildPackSystem(storage),
-      documentStateSystem = fileSystem.buildDocumentStateSystem(storage) {
+  this {
     _initFileSystems();
     unawaited(refreshFiles());
   }
@@ -232,10 +219,10 @@ class RemoteSync {
 
   RemoteFileSystem? _getRemoteSystem(SyncFileSystemType type) {
     final system = switch (type) {
-      SyncFileSystemType.documents => documentSystem.remoteSystem,
-      SyncFileSystemType.documentStates => documentStateSystem.remoteSystem,
-      SyncFileSystemType.templates => templateSystem.remoteSystem,
-      SyncFileSystemType.packs => packSystem.remoteSystem,
+      .documents => documentSystem.remoteSystem,
+      .documentStates => documentStateSystem.remoteSystem,
+      .templates => templateSystem.remoteSystem,
+      .packs => packSystem.remoteSystem,
     };
     return system;
   }
@@ -397,9 +384,9 @@ class RemoteSync {
   /// - [SyncMode.noMobile]: Sync is skipped when on mobile data.
   /// - Other modes: Sync is performed immediately.
   Future<void> autoSync(SyncMode mode) async {
-    if (mode == SyncMode.manual) return;
+    if (mode == .manual) return;
 
-    if (mode == SyncMode.noMobile) {
+    if (mode == .noMobile) {
       final connectivity = await Connectivity().checkConnectivity();
       final isMobile = connectivity.contains(ConnectivityResult.mobile);
 
@@ -440,25 +427,19 @@ class RemoteSync {
 /// - Monitors connectivity changes and updates online status
 /// - Aggregates sync status from all remotes
 /// - Handles settings changes (adding/removing remotes)
-class SyncService {
-  final BuildContext context;
-  final ButterflyFileSystem fileSystem;
-
+class SyncService(
+  final BuildContext context,
+  final ButterflyFileSystem fileSystem,
+) {
   final Map<String, RemoteSync> _syncs = {};
-  final BehaviorSubject<SyncStatus> _statusSubject = BehaviorSubject.seeded(
-    SyncStatus.synced,
-  );
-  final BehaviorSubject<SyncOverview> _overviewSubject = BehaviorSubject.seeded(
-    const SyncOverview(
-      status: SyncStatus.synced,
-      pendingFiles: 0,
-      cachedFiles: 0,
-    ),
+  final BehaviorSubject<SyncStatus> _statusSubject = .seeded(.synced);
+  final BehaviorSubject<SyncOverview> _overviewSubject = .seeded(
+    const .new(status: .synced, pendingFiles: 0, cachedFiles: 0),
   );
   final List<StreamSubscription<dynamic>> _subscriptions = [];
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
-  SyncService(this.context, this.fileSystem) {
+  this {
     _init();
   }
 
