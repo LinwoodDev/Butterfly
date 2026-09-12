@@ -30,6 +30,7 @@ import showcasePhone from '@assets/img/showcase-phone.png';
 import showcaseTemplates from '@assets/img/showcase-templates.png';
 import showcaseTools from '@assets/img/showcase-tools.png';
 
+import crossplatform from '@assets/img/homepage/crossplatform.png'
 import collageLightBg from '@assets/img/homepage/collage-bg.png';
 import desktop2Light from '@assets/img/homepage/Desktop2-light.png';
 import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
@@ -67,9 +68,8 @@ The above feels out of place. especially for an opening.
 <LandingFeature
   image={desktop2LightRuler}
   alt="Image showcasing a note made in Butterfly"
-  style="box-shadow: var(--sl-shadow-md);"
 >
-  ### Butterfly is *the* workspace for people who think visually.
+  ### Butterfly is a workspace for visual thinkers.
 
   Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document.
 
@@ -86,7 +86,7 @@ The above feels out of place. especially for an opening.
 >
   ### Tune every stroke
 
-  Draw with a stylus, touch, or mouse. Adjust stroke width, color, smoothing, and texture. If a mark is not quite right, select it and keep editing instead of starting over.
+  Draw with a stylus, touch, or mouse. Adjust stroke width, color, smoothing, and texture. If a mark is not quite right, edit it instead of starting over.
 </LandingFeature>
 
 {/* <LandingFeature
@@ -103,17 +103,7 @@ The above feels out of place. especially for an opening.
 {/* The above card needs a better rewrite.
 The features mentioned in the card above is already mentioned again below, so it makes sense to hide this.*/}
 
-<LandingFeature
-  image={collageLightBg}
-  alt="The Butterfly template browser with several canvas styles"
->
-  ### Make Butterfly fit your workflow
 
-  Create templates that remember contents, backgrounds, tools, settings, layers, areas, and pages. Save frequently used elements as reusable components in packs, build custom color palettes and text styles, and arrange the toolbar around what you actually use.
-</LandingFeature>
-{/*
-Maybe this belongs to the "Powerful when your projects grow" section
-*/}
 
 ## Powerful when your projects grow
 
@@ -140,15 +130,26 @@ This can be removed without losing details.
   </Card>
 </CardGrid>
 
+
 <LandingFeature
-  image={mobileLight}
+  image={collageLightBg}
+  alt="The Butterfly template browser with several canvas styles"
+>
+  ### Make Butterfly fit your workflow
+
+  Create templates for anything frequently used, like contents, backgrounds, tools, settings, layers, areas, and pages.
+</LandingFeature>
+
+
+<LandingFeature
+  image={crossplatform}
   alt="A handwritten Butterfly document on a phone"
   reverse
-  portrait
 >
   ### Works everywhere
 
-  Use the same adaptable workspace on Android, iOS, Windows, macOS, Linux, and the web. Butterfly is equally at home with a phone in your hand, a stylus on a tablet, or a keyboard and mouse at your desk.
+  Butterfly is cross-platform, it runs on Android, iOS, Windows, macOS, Linux, and on the browser.
+  
 </LandingFeature>
 
 ## Your work belongs to you
@@ -174,7 +175,7 @@ To keep consistency since the previous one was hidden*/}
   </Card>
 </CardGrid>
 
-<h1 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0px 0px 5px var(--sl-color-accent);"> Butterfly, the limitless canvas for visual thinking. </h1>
+<h1 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly, the limitless canvas for visual thinking.</h1>
 
 
 <CardGrid>
