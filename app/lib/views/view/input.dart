@@ -5,6 +5,7 @@ class _ViewportInputCoordinator {
 
   final void Function(TransformCubit transformCubit) _settleSlide;
   final Map<int, PointerDeviceKind> _pointerKinds = {};
+  final Map<int, int> _stylusHoverButtonState = {};
   final PointerShortcutManager _shortcutManager = PointerShortcutManager();
 
   double _gestureScale = 1;
@@ -19,6 +20,7 @@ class _ViewportInputCoordinator {
   void reset() {
     _shortcutManager.reset();
     _pointerKinds.clear();
+    _stylusHoverButtonState.clear();
     _resetRulerInteraction();
     _handlerHandlesScaleGesture = null;
   }
@@ -72,8 +74,13 @@ class _ViewportInputCoordinator {
     }
 
     _pointerKinds[event.pointer] = event.kind;
+    final effectiveButtons = mergeStylusButtonState(
+      kind: event.kind,
+      eventButtons: event.buttons,
+      hoverButtons: _stylusHoverButtonState[event.device] ?? 0,
+    );
     cubit.inputCubit.addPointer(event.pointer);
-    cubit.inputCubit.setButtons(event.buttons);
+    cubit.inputCubit.setButtons(effectiveButtons);
     final handler = getHandler();
     final eventContext = getEventContext();
     final ruler = RulerHandler.getInteractiveRuler(
@@ -89,11 +96,25 @@ class _ViewportInputCoordinator {
       return;
     }
     if (handler.canChange(event, eventContext)) {
-      await _changeTemporaryTool(event.kind, event.buttons, input);
+      await _changeTemporaryTool(event.kind, effectiveButtons, input);
     }
     if (_isHandlerGesture) {
       await getHandler().onPointerDown(event, eventContext);
     }
+  }
+
+  void handlePointerHover(PointerHoverEvent event, _PointerInputContext input) {
+    final cubit = input.cubit;
+    if (event.kind == PointerDeviceKind.stylus ||
+        event.kind == PointerDeviceKind.invertedStylus) {
+      if (event.buttons == 0) {
+        _stylusHoverButtonState.remove(event.device);
+      } else {
+        _stylusHoverButtonState[event.device] = event.buttons;
+      }
+    }
+    cubit.inputCubit.updateLastPosition(event.localPosition);
+    input.getHandler().onPointerHover(event, input.getEventContext());
   }
 
   Future<void> handlePointerMove(
@@ -164,6 +185,10 @@ class _ViewportInputCoordinator {
     if (!wasRulerInteraction && _isHandlerGesture) {
       await input.getHandler().onPointerUp(event, input.getEventContext());
     }
+    if (event.kind == PointerDeviceKind.stylus ||
+        event.kind == PointerDeviceKind.invertedStylus) {
+      _stylusHoverButtonState.remove(event.device);
+    }
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     if (wasRulerInteraction) cubit.inputCubit.removeButtons();
@@ -191,6 +216,10 @@ class _ViewportInputCoordinator {
   void handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
     if (_shortcutManager.pointerCancel(event)) return;
     _resetRulerInteraction();
+    if (event.kind == PointerDeviceKind.stylus ||
+        event.kind == PointerDeviceKind.invertedStylus) {
+      _stylusHoverButtonState.remove(event.device);
+    }
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     cubit.inputCubit.removeButtons();
