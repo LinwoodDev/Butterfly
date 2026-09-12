@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 interface Props {
   image: ImageMetadata;
@@ -12,12 +12,17 @@ interface Props {
 const { image, alt, reverse = false, portrait = false } = Astro.props;
 ---
 
-<section class:list={['landing-feature', { reverse, portrait }]}>
+<section class:list={["landing-feature", { reverse, portrait }]}>
   <div class="landing-feature__copy">
     <slot />
   </div>
   <div class="landing-feature__visual">
-    <Image src={image} alt={alt} widths={[480, 720, 960]} sizes="(min-width: 50rem) 52vw, 100vw" />
+    <Image
+      src={image}
+      alt={alt}
+      widths={[480, 720, 960]}
+      sizes="(min-width: 50rem) 52vw, 100vw"
+    />
   </div>
 </section>
 
@@ -63,9 +68,9 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
     width: 100%;
     max-height: 40rem;
     object-fit: contain;
-    border: 1px solid var(--sl-color-gray-5);
     border-radius: 1rem;
-    box-shadow: var(--sl-shadow-md);
+    /* border: 1px solid var(--sl-color-gray-5); */
+    /* box-shadow: var(--sl-shadow-md); */
   }
 
   .landing-feature.portrait .landing-feature__visual :global(img) {
@@ -136,7 +141,9 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
     overflow: hidden;
   }
 
-  :global(html:has(.landing-feature) .sl-markdown-content > p:has(> img) + .card-grid) {
+  :global(
+    html:has(.landing-feature) .sl-markdown-content > p:has(> img) + .card-grid
+  ) {
     margin-top: clamp(1.5rem, 4vw, 3rem) !important;
   }
 
