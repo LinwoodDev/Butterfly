@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Обведення",
   "label": "Мітка",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Робить точне заповнення та масштабування, спрощуючи полотно під час руху.",
   "edgePanAreaSwitchingDescription": "Перемикання на сусідню ділянку, коли ви стукаєте біля краю полотна.",
   "collaborationDescription": "Дозволяє декільком людям редагувати однакову нотатку в реальному часі.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Містить детальні діагностичні повідомлення в полі перегляду і консолі. Ці повідомлення можуть допомогти при усуненні проблеми.",
   "bringMovedElementsToFrontDescription": "Поміщає елемент вище елементів перекриття після переміщення.",
   "persistenceDocumentStatesDescription": "Визначає, які частини вашої робочої області пам'ятають члени метелика для кожної нотатки, наприклад поточна сторінка, масштаб і обраний інструмент.",
   "persistentStatesEnabledDescription": "Зберігати інформацію про стан документів між додатками",
   "persistentStateCurrentPageDescription": "Запам'ятати поточну сторінку при повторному відкритті файлу",
-  "persistentStateViewportDescription": "Запам'ятати положення і масштабування вікна перегляду",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Запам'ятати обраний інструмент, коли повторно відкрити файл",
   "persistentStateLocksDescription": "Пам'ятати параметри блокування при повторному відкритті файлу",
   "persistentStateNavigatorDescription": "Запам'ятовувати стан навігації при повторному відкритті файлу",

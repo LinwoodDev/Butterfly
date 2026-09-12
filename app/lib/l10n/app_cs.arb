@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Zdvih",
   "label": "Štítek",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Zjednodušením plátna během pohybu panování a přiblížění se cítí plynulé.",
   "edgePanAreaSwitchingDescription": "Přepne do sousední oblasti, když se poblíž okraje plátna.",
   "collaborationDescription": "Umožňuje více lidí upravovat stejnou poznámku společně v reálném čase.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Obsahuje podrobné diagnostické zprávy v zobrazení logu a konzoli. Tyto zprávy mohou pomoci při řešení problému.",
   "bringMovedElementsToFrontDescription": "Umístí prvek nad překrývající se prvky po přesunutí prvku.",
   "persistenceDocumentStatesDescription": "Určuje, které části vašeho pracovního prostoru Butterfly si pamatují na každou poznámku, jako je aktuální stránka, zoom a vybraný nástroj.",
   "persistentStatesEnabledDescription": "Ukládat informace o stavu dokumentu mezi relacemi aplikací",
   "persistentStateCurrentPageDescription": "Zapamatovat si aktuální stránku při opětovném otevření souboru",
-  "persistentStateViewportDescription": "Pamatovat si pozici zobrazení a přiblížení",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Zapamatovat si vybraný nástroj při opětovném otevření souboru",
   "persistentStateLocksDescription": "Zapamatovat si nastavení zámku při opětovném otevření souboru",
   "persistentStateNavigatorDescription": "Zapamatovat si stav navigátoru při opětovném otevření souboru",

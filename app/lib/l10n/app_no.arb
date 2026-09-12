@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Slag",
   "label": "Etikett",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Gjør at du panorerer og zoomer røyke ved å forenkle lerretet mens det beveger seg.",
   "edgePanAreaSwitchingDescription": "Bytter til et naboområde når du panorerer nær kanten av lerretet.",
   "collaborationDescription": "Lar flere personer redigere det samme notatet sammen i sanntid.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Inneholder detaljerte diagnose-meldinger i loggvisningen og konsollen. Disse meldingene kan hjelpe når du feilsøker et problem.",
   "bringMovedElementsToFrontDescription": "Plasserer et element over overlappende elementer etter at du har flyttet det.",
   "persistenceDocumentStatesDescription": "Kontrollerer hvilke deler av arbeidsområdet som husker det for hvert notat, for eksempel gjeldende side, zoom og valgt verktøy.",
   "persistentStatesEnabledDescription": "Lagre dokumentstatus informasjon mellom appsesjoner",
   "persistentStateCurrentPageDescription": "Husk gjeldende side ved gjenåpning av en fil",
-  "persistentStateViewportDescription": "Husk visningsposisjon og zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Husk det valgte verktøyet ved gjenåpning av en fil",
   "persistentStateLocksDescription": "Husk låsinnstillinger når du gjenåpner en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden når du gjenåpner en fil",

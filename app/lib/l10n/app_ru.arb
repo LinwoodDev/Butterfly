@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Штрих",
   "label": "Подпись",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Делает перекачивание и масштабирование чувствует себя гладко, упрощая холст во время движения.",
   "edgePanAreaSwitchingDescription": "Переключается на соседний участок, когда Вы ошеломитесь рядом с краем холста.",
   "collaborationDescription": "Позволяет нескольким людям редактировать одну и ту же запись вместе в реальном времени.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Включает подробные диагностические сообщения в журнал просмотра и консоли. Эти сообщения могут помочь при диагностике проблемы.",
   "bringMovedElementsToFrontDescription": "Размещает элемент над перекрывающимися элементами после его перемещения.",
   "persistenceDocumentStatesDescription": "Контролирует какие части вашей рабочей области Butterfly запоминаются для каждой записи, такой как текущая страница, масштаб и выбранный инструмент.",
   "persistentStatesEnabledDescription": "Сохранять информацию о состоянии документа между сессиями приложения",
   "persistentStateCurrentPageDescription": "Запомнить текущую страницу при повторном открытии файла",
-  "persistentStateViewportDescription": "Запомнить расположение и масштаб видового порта",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Запомнить выбранный инструмент при переоткрытии файла",
   "persistentStateLocksDescription": "Запомнить настройки блокировки при переоткрытии файла",
   "persistentStateNavigatorDescription": "Запомнить состояние навигатора при повторном открытии файла",

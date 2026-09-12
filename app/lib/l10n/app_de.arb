@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Strich",
   "label": "Beschriftung",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Durch die Vereinfachung der Leinwand während der Bewegung fühlt sich das Vergrößern glatter an.",
   "edgePanAreaSwitchingDescription": "Wechselt zu einem benachbarten Gebiet, wenn Sie am Rand der Leinwand schwenken.",
   "collaborationDescription": "Erlaubt mehreren Personen die gleiche Notiz in Echtzeit zu bearbeiten.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Enthält detaillierte Diagnosemeldungen in der Protokollansicht und Konsole. Diese Nachrichten können helfen, wenn ein Problem behoben wird.",
   "bringMovedElementsToFrontDescription": "Platziert ein Element über sich überlappende Elemente, nachdem Sie es verschoben haben.",
   "persistenceDocumentStatesDescription": "Legt fest, welche Teile Ihres Arbeitsbereiches sich für jede Notiz wie die aktuelle Seite, den Zoom und das ausgewählte Werkzeug merkt.",
   "persistentStatesEnabledDescription": "Dokumenten-Statusinformationen zwischen App-Sitzungen speichern",
   "persistentStateCurrentPageDescription": "Die aktuelle Seite beim erneuten Öffnen einer Datei merken",
-  "persistentStateViewportDescription": "Position des Viewports merken und zoomen",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Ausgewähltes Werkzeug beim Wiederöffnen einer Datei merken",
   "persistentStateLocksDescription": "Sperreinstellungen beim erneuten Öffnen einer Datei merken",
   "persistentStateNavigatorDescription": "Navigator-Status beim Wiederöffnen einer Datei merken",

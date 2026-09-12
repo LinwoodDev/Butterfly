@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Trait",
   "label": "Étiquette",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Rend la panne et le zoom plus lisse en simplifiant la toile pendant son déplacement.",
   "edgePanAreaSwitchingDescription": "Bascule vers une zone voisine lorsque vous faites une casserole près du bord de la toile.",
   "collaborationDescription": "Permet à plusieurs personnes de modifier la même note ensemble en temps réel.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Inclut des messages de diagnostic détaillés dans la vue journal et la console. Ces messages peuvent aider lors du dépannage d'un problème.",
   "bringMovedElementsToFrontDescription": "Place un élément au-dessus des éléments qui se chevauchent après le déplacer.",
   "persistenceDocumentStatesDescription": "Contrôle quelles parties de votre espace de travail se rapportent à chaque note, comme la page courante, le zoom et l'outil sélectionné.",
   "persistentStatesEnabledDescription": "Stocker les informations d'état du document entre les sessions de l'application",
   "persistentStateCurrentPageDescription": "Se souvenir de la page en cours lors de la réouverture d'un fichier",
-  "persistentStateViewportDescription": "Se souvenir de la position de la vue et du zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Se souvenir de l'outil sélectionné lors de la réouverture d'un fichier",
   "persistentStateLocksDescription": "Se souvenir des paramètres de verrouillage lors de la réouverture d'un fichier",
   "persistentStateNavigatorDescription": "Se souvenir de l'état du navigateur lors de la réouverture d'un fichier",

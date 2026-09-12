@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Braçada",
   "label": "Descrição",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Faz com que uma panela e zoom pareçam mais suaves simplificando a tela enquanto ela está em movimento.",
   "edgePanAreaSwitchingDescription": "Muda para uma área de vizinhança quando você virar para perto da borda da tela.",
   "collaborationDescription": "Permite que várias pessoas editem a mesma nota juntos em tempo real.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Inclui mensagens detalhadas de diagnóstico na visualização de log e no console. Estas mensagens podem ajudar quando solucionar um problema.",
   "bringMovedElementsToFrontDescription": "Coloca um elemento acima da sobreposição de elementos após movê-lo.",
   "persistenceDocumentStatesDescription": "Controla quais partes do seu espaço de trabalho Borboleta se lembra de cada nota, como a página atual, zoom, e ferramenta selecionada.",
   "persistentStatesEnabledDescription": "Armazenar informações do documento entre sessões de app",
   "persistentStateCurrentPageDescription": "Lembrar a página atual ao reabrir um arquivo",
-  "persistentStateViewportDescription": "Lembrar posição e zoom do visualizador",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Lembrar a ferramenta selecionada quando reabrir um arquivo",
   "persistentStateLocksDescription": "Lembrar configurações de bloqueio ao reabrir um arquivo",
   "persistentStateNavigatorDescription": "Lembrar o estado do navegador ao reabrir um arquivo",

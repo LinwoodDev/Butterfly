@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Udar",
   "label": "Etykieta",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Sprawia, że panowanie i powiększanie czują się łagodniejsze poprzez upraszczanie płótna podczas jego ruszania.",
   "edgePanAreaSwitchingDescription": "Przełącza się na sąsiednie miejsce, gdy mieścisz się w pobliżu krawędzi płótna.",
   "collaborationDescription": "Pozwala wielu osobom edytować tę samą notatkę razem w czasie rzeczywistym.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Zawiera szczegółowe komunikaty diagnostyczne w widoku dziennika i konsoli. Te wiadomości mogą pomóc w rozwiązaniu problemu.",
   "bringMovedElementsToFrontDescription": "Umieszcza element powyżej nakładających się elementów po przeniesieniu.",
   "persistenceDocumentStatesDescription": "Kontroluje, które części Twojego obszaru roboczego Motylki pamiętają dla każdej notatki, takie jak bieżąca strona, powiększenie i wybrane narzędzie.",
   "persistentStatesEnabledDescription": "Przechowuj informacje o stanie dokumentu pomiędzy sesjami aplikacji",
   "persistentStateCurrentPageDescription": "Zapamiętaj bieżącą stronę podczas ponownego otwierania pliku",
-  "persistentStateViewportDescription": "Zapamiętaj pozycję i powiększenie widoku",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Zapamiętaj wybrane narzędzie podczas ponownego otwierania pliku",
   "persistentStateLocksDescription": "Zapamiętaj ustawienia blokady podczas ponownego otwierania pliku",
   "persistentStateNavigatorDescription": "Zapamiętaj stan nawigatora podczas ponownego otwierania pliku",

@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Slagtilfælde",
   "label": "Etiket",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Gør panorering og zoom føle sig glattere ved at forenkle lærredet, mens det bevæger sig.",
   "edgePanAreaSwitchingDescription": "Skifter til et naboområde, når du panorerer nær kanten af lærredet.",
   "collaborationDescription": "Tillader flere personer at redigere den samme note sammen i realtid.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Inkluderer detaljerede diagnostiske beskeder i logvisningen og konsollen. Disse meddelelser kan hjælpe ved fejlfinding af et problem.",
   "bringMovedElementsToFrontDescription": "Placerer et element over overlappende elementer, når du flytter det.",
   "persistenceDocumentStatesDescription": "Kontrollerer, hvilke dele af dit arbejdsområde Butterfly husker for hver note, såsom den aktuelle side, zoom og valgte værktøj.",
   "persistentStatesEnabledDescription": "Gem dokumentstatus mellem app-sessioner",
   "persistentStateCurrentPageDescription": "Husk den aktuelle side ved genåbning af en fil",
-  "persistentStateViewportDescription": "Husk viewport position og zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Husk det valgte værktøj ved genåbning af en fil",
   "persistentStateLocksDescription": "Husk låseindstillinger ved genåbning af en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden ved genåbning af en fil",

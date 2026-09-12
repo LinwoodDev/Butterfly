@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Accident",
   "label": "Etichetă",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Face să se simtă mai liniştite prin simplificarea pânzei în timp ce se mişcă.",
   "edgePanAreaSwitchingDescription": "Comută la o zonă vecină când urci lângă marginea pânzilor.",
   "collaborationDescription": "Permite mai multor persoane să editeze aceeași notă împreună în timp real.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Include mesaje detaliate de diagnosticare in vizualizarea jurnalului si consola. Aceste mesaje pot ajuta cand depanati o problema.",
   "bringMovedElementsToFrontDescription": "Plasează un element deasupra elementelor suprapuse după ce îl muți.",
   "persistenceDocumentStatesDescription": "Controlează ce părţi din spaţiul tău de lucru îşi aminteşte fluturaşul pentru fiecare notă, cum ar fi pagina curentă, zoom-ul şi unealta selectată.",
   "persistentStatesEnabledDescription": "Salvați informații despre starea documentului între sesiunile aplicațiilor",
   "persistentStateCurrentPageDescription": "Amintiţi-vă pagina curentă la redeschiderea unui fişier",
-  "persistentStateViewportDescription": "Amintește-ți poziția viewport-ului și zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Reține instrumentul selectat la redeschiderea unui fișier",
   "persistentStateLocksDescription": "Reține setările de blocare la redeschiderea unui fișier",
   "persistentStateNavigatorDescription": "Amintiţi-vă starea navigatorului la redeschiderea unui fişier",

@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Delinea",
   "label": "Etichetta",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Rende il panning e lo zoom si sentono più fluidi semplificando la tela mentre è in movimento.",
   "edgePanAreaSwitchingDescription": "Passa a un'area vicina quando si pan vicino al bordo della tela.",
   "collaborationDescription": "Consente a più persone di modificare la stessa nota insieme in tempo reale.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Include messaggi diagnostici dettagliati nella vista log e nella console. Questi messaggi possono aiutare quando si risolve un problema.",
   "bringMovedElementsToFrontDescription": "Posiziona un elemento sopra gli elementi sovrapposti dopo averlo spostato.",
   "persistenceDocumentStatesDescription": "Controlla quali parti del tuo workspace Butterfly si ricorda per ogni nota, come la pagina corrente, lo zoom e lo strumento selezionato.",
   "persistentStatesEnabledDescription": "Memorizza le informazioni sullo stato del documento tra le sessioni dell'app",
   "persistentStateCurrentPageDescription": "Ricorda la pagina corrente quando riapri un file",
-  "persistentStateViewportDescription": "Ricorda la posizione della vista e lo zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Ricorda lo strumento selezionato quando riapri un file",
   "persistentStateLocksDescription": "Ricorda le impostazioni di blocco quando riapri un file",
   "persistentStateNavigatorDescription": "Ricorda lo stato dell'esploratore quando riapri un file",

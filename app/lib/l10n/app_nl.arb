@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Stijl",
   "label": "Omschrijving",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Maakt het gieten en zoomen soepeler door het doek te vereenvoudigen terwijl het beweegt.",
   "edgePanAreaSwitchingDescription": "Schakelt over naar een buurgebied als je vlakbij de rand van het doek.",
   "collaborationDescription": "Laat meerdere mensen toe om dezelfde notitie in real time te bewerken.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Bevat gedetailleerde diagnostische berichten in de logweergave en console. Deze berichten kunnen helpen bij het oplossen van een probleem.",
   "bringMovedElementsToFrontDescription": "Plaatst een element boven overlappende elementen nadat je het verplaatst.",
   "persistenceDocumentStatesDescription": "Bepaalt welke delen van de werkruimte zich voor elk bericht heronthouden, zoals de huidige pagina, zoom en de geselecteerde tool.",
   "persistentStatesEnabledDescription": "Documentgegevens tussen app-sessies opslaan",
   "persistentStateCurrentPageDescription": "Huidige pagina onthouden bij heropenen van een bestand",
-  "persistentStateViewportDescription": "Onthoud de viewport positie en zoom",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Onthoud het geselecteerde gereedschap bij het heropenen van een bestand",
   "persistentStateLocksDescription": "Vergrendelingsinstellingen onthouden bij het heropenen van een bestand",
   "persistentStateNavigatorDescription": "Onthoud de navigator status bij het heropenen van een bestand",

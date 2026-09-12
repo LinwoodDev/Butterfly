@@ -59,7 +59,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Stroke",
+  "stroke": "Εγκεφαλικό",
   "label": "Ετικέτα",
   "@label": {
     "description": "Label tool"
@@ -1562,12 +1562,13 @@
   "smoothNavigationDescription": "Κάνει το panning και το zooming αισθάνονται ομαλότερο απλοποιώντας τον καμβά ενώ κινείται.",
   "edgePanAreaSwitchingDescription": "Μετάβαση σε μια γειτονική περιοχή, όταν τηγανίζετε κοντά στην άκρη του καμβά.",
   "collaborationDescription": "Επιτρέπει σε πολλά άτομα να επεξεργάζονται την ίδια σημείωση μαζί σε πραγματικό χρόνο.",
+  "verbose": "Verbose",
   "showVerboseLogsDescription": "Περιλαμβάνει λεπτομερή διαγνωστικά μηνύματα στην προβολή αρχείου καταγραφής και στην κονσόλα. Αυτά τα μηνύματα μπορούν να βοηθήσουν στην αντιμετώπιση προβλημάτων.",
   "bringMovedElementsToFrontDescription": "Τοποθετεί ένα στοιχείο πάνω από επικαλυπτόμενα στοιχεία αφού το μετακινήσετε.",
   "persistenceDocumentStatesDescription": "Ελέγχει ποια μέρη του χώρου εργασίας σας Butterfly θυμάται για κάθε σημείωση, όπως η τρέχουσα σελίδα, ζουμ και επιλεγμένο εργαλείο.",
   "persistentStatesEnabledDescription": "Αποθήκευση πληροφοριών κατάστασης εγγράφου μεταξύ των συνεδριών εφαρμογών",
   "persistentStateCurrentPageDescription": "Απομνημόνευση της τρέχουσας σελίδας κατά την επανεκκίνηση ενός αρχείου",
-  "persistentStateViewportDescription": "Απομνημόνευση της θέσης προβολής και μεγέθυνση",
+  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "Απομνημόνευση του επιλεγμένου εργαλείου κατά την επανεκκίνηση ενός αρχείου",
   "persistentStateLocksDescription": "Απομνημόνευση ρυθμίσεων κλειδώματος όταν ανοίγετε ξανά ένα αρχείο",
   "persistentStateNavigatorDescription": "Απομνημόνευση της κατάστασης πλοήγησης κατά το άνοιγμα ενός αρχείου",
