@@ -90,7 +90,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
                     : Image.memory(remote.icon!, width: 24),
                 child: Text(
                   remote.identifier,
-                  overflow: TextOverflow.clip,
+                  overflow: .clip,
                   style: _currentConnection?.identifier == remote.identifier
                       ? selected
                       : null,

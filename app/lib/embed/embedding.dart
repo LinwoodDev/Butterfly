@@ -39,7 +39,7 @@ class Embedding {
   Embedding({
     this.save = true,
     this.editable = true,
-    this.fullScreen = EmbedFullScreen.enabled,
+    this.fullScreen = .enabled,
     this.language = 'user',
     this.theme = 'user',
     this.fileName = '',

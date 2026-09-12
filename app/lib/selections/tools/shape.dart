@@ -63,7 +63,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
             Expanded(
               child: Text(
                 AppLocalizations.of(context).aspectRatio,
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             ),
             MenuAnchor(
@@ -412,7 +412,7 @@ class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
   @override
   Widget build(BuildContext context) {
     final property = widget.property;
-    final isStyled = property.strokeStyle != StrokeStyle.solid;
+    final isStyled = property.strokeStyle != .solid;
 
     return ExpansionPanelList(
       expansionCallback: (index, isExpanded) {

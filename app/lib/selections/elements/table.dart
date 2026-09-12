@@ -64,7 +64,7 @@ class TableElementSelection extends ElementSelection<TableElement> {
     TableLineTarget(:final axis, :final line) => [
       _TableBorderControls(
         value: element.borderAt(axis, line, 0),
-        title: axis == TableAxis.horizontal
+        title: axis == .horizontal
             ? AppLocalizations.of(context).horizontalBorder
             : AppLocalizations.of(context).verticalBorder,
         onChanged: (border) => updateElements(context, [

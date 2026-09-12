@@ -2,12 +2,12 @@ part of 'editor_runtime.dart';
 
 @freezed
 class const EditorViewState({
-  final PersistentLockState locks = const PersistentLockState(),
+  final PersistentLockState locks = const .new(),
   final bool areaNavigatorCreate = true,
   final bool areaNavigatorExact = true,
   final bool areaNavigatorAsk = false,
   final bool navigatorEnabled = false,
-  final NavigatorPage navigatorPage = NavigatorPage.waypoints,
+  final NavigatorPage navigatorPage = .waypoints,
   final String userName = '',
 }) with _$EditorViewState {}
 

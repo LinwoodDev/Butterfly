@@ -27,7 +27,7 @@ class RecentFilesView extends StatefulWidget {
 class RecentFilesViewState extends State<RecentFilesView> {
   late Stream<List<FileSystemEntity<NoteFile>>> _stream;
   late final ButterflyFileSystem _fileSystem;
-  final ScrollController _recentScrollController = ScrollController();
+  final ScrollController _recentScrollController = .new();
 
   @override
   void initState() {
@@ -114,7 +114,7 @@ class RecentFilesViewState extends State<RecentFilesView> {
                     controller: _recentScrollController,
                     child: ListView.builder(
                       controller: _recentScrollController,
-                      scrollDirection: Axis.horizontal,
+                      scrollDirection: .horizontal,
                       itemCount: files.length,
                       itemBuilder: (context, index) => _getItem(files[index]),
                     ),

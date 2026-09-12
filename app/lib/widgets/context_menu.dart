@@ -49,7 +49,7 @@ class ContextMenu extends StatefulWidget {
 
   const ContextMenu({
     super.key,
-    this.position = Offset.zero,
+    this.position = .zero,
     required this.builder,
     this.maxHeight = 300,
     this.maxWidth = 300,
@@ -98,7 +98,7 @@ class _ContextMenuState extends State<ContextMenu>
       child: SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(0, -.5),
-          end: Offset.zero,
+          end: .zero,
         ).animate(_animation),
         transformHitTests: false,
         child: ConstrainedBox(
@@ -109,7 +109,7 @@ class _ContextMenuState extends State<ContextMenu>
           child: Material(
             borderRadius: const BorderRadius.all(Radius.circular(12)),
             child: ListView(
-              scrollDirection: isMobile ? Axis.horizontal : Axis.vertical,
+              scrollDirection: isMobile ? Axis.horizontal : .vertical,
               shrinkWrap: true,
               children: entries
                   .map((entry) => buildMenuItem(context, entry, isMobile, true))
@@ -167,7 +167,7 @@ Widget buildMenuItem(
 
 Future<T?> showContextMenu<T>({
   required BuildContext context,
-  Offset position = Offset.zero,
+  Offset position = .zero,
   required ContextMenuBuilder builder,
   double maxHeight = 400,
   double maxWidth = 300,

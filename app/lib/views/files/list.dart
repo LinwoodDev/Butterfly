@@ -86,7 +86,7 @@ class FileSyncStatusButton extends StatelessWidget {
             final tooltip = !cached
                 ? label
                 : '${AppLocalizations.of(context).caches} · $label';
-            final onPressed = sync.status == SyncStatus.syncing
+            final onPressed = sync.status == .syncing
                 ? null
                 : () => _toggleSync(syncService, settingsCubit, cached);
 
@@ -94,7 +94,7 @@ class FileSyncStatusButton extends StatelessWidget {
               return MenuItemButton(
                 leadingIcon: PhosphorIcon(
                   icon,
-                  textDirection: TextDirection.ltr,
+                  textDirection: .ltr,
                   color: color,
                 ),
                 onPressed: onPressed,
@@ -103,11 +103,7 @@ class FileSyncStatusButton extends StatelessWidget {
             }
 
             final button = IconButton(
-              icon: PhosphorIcon(
-                icon,
-                textDirection: TextDirection.ltr,
-                color: color,
-              ),
+              icon: PhosphorIcon(icon, textDirection: .ltr, color: color),
               tooltip: tooltip,
               onPressed: onPressed,
             );
@@ -148,9 +144,7 @@ class FileSyncStatusButton extends StatelessWidget {
 
 extension on FileSyncStatus {
   bool get needsSync =>
-      this == FileSyncStatus.localLatest ||
-      this == FileSyncStatus.remoteLatest ||
-      this == FileSyncStatus.conflict;
+      this == .localLatest || this == .remoteLatest || this == .conflict;
 }
 
 class FileEntityListTile extends StatelessWidget {
@@ -215,7 +209,7 @@ class FileEntityListTile extends StatelessWidget {
                 surfaceTintColor: highlighted
                     ? colorScheme.surfaceContainerHighest
                     : colorScheme.secondaryContainer,
-                clipBehavior: Clip.hardEdge,
+                clipBehavior: .hardEdge,
                 child: InkWell(
                   onTap: onTap,
                   highlightColor: active ? colorScheme.primaryContainer : null,
@@ -231,7 +225,7 @@ class FileEntityListTile extends StatelessWidget {
                             Tooltip(
                               message: AppLocalizations.of(context).modified,
                               child: Row(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: .min,
                                 children: [
                                   PhosphorIcon(
                                     PhosphorIconsLight.clockCounterClockwise,
@@ -251,7 +245,7 @@ class FileEntityListTile extends StatelessWidget {
                             Tooltip(
                               message: AppLocalizations.of(context).created,
                               child: Row(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: .min,
                                 children: [
                                   PhosphorIcon(
                                     PhosphorIconsLight.plus,
@@ -273,8 +267,8 @@ class FileEntityListTile extends StatelessWidget {
                           color: colorScheme.outline,
                         );
                         final fileName = Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: .min,
+                          crossAxisAlignment: .center,
                           children: [
                             SizedBox(
                               width: 64,
@@ -287,7 +281,7 @@ class FileEntityListTile extends StatelessWidget {
                                         ),
                                         child: Image.memory(
                                           thumbnail!,
-                                          fit: BoxFit.cover,
+                                          fit: .cover,
                                           gaplessPlayback: true,
                                           cacheHeight: kThumbnailHeight,
                                           cacheWidth: kThumbnailWidth,
@@ -371,7 +365,7 @@ class FileEntityListTile extends StatelessWidget {
                                           },
                                           icon: const PhosphorIcon(
                                             PhosphorIconsLight.check,
-                                            textDirection: TextDirection.ltr,
+                                            textDirection: .ltr,
                                           ),
                                           tooltip: AppLocalizations.of(context)
                                               .save,
@@ -386,7 +380,7 @@ class FileEntityListTile extends StatelessWidget {
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisSize: .min,
                                         children: [
                                           Tooltip(
                                             message: entity.fileName,
@@ -409,7 +403,7 @@ class FileEntityListTile extends StatelessWidget {
                         final edit = editable
                             ? Container()
                             : Row(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: .min,
                                 children: [
                                   IconButton(
                                     onPressed: () {
@@ -425,8 +419,8 @@ class FileEntityListTile extends StatelessWidget {
                                 ],
                               );
                         final actions = Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: .min,
+                          mainAxisAlignment: .end,
                           children: [
                             if (remote is RemoteStorage)
                               FileSyncStatusButton(
@@ -484,7 +478,7 @@ class FileEntityListTile extends StatelessWidget {
                         );
                         if (isDesktop) {
                           return Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: .center,
                             children: [
                               selectionCheckbox,
                               const SizedBox(width: 8),
@@ -499,7 +493,7 @@ class FileEntityListTile extends StatelessWidget {
                               if (!collapsed) ...[
                                 const SizedBox(width: 32),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  crossAxisAlignment: .end,
                                   spacing: 4,
                                   children: info,
                                 ),
@@ -511,8 +505,8 @@ class FileEntityListTile extends StatelessWidget {
                           );
                         } else if (isTablet) {
                           return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: .spaceBetween,
+                            crossAxisAlignment: .center,
                             children: [
                               selectionCheckbox,
                               const SizedBox(width: 8),
@@ -551,8 +545,8 @@ class FileEntityListTile extends StatelessWidget {
               SizedBox(
                 width: 96,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: .end,
+                  mainAxisSize: .min,
                   children: [
                     if (entity is FileSystemFile<NoteFile>)
                       IconButton(

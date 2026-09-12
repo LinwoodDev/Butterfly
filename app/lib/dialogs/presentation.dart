@@ -12,7 +12,7 @@ class PresentationControlsDialog extends StatelessWidget {
       title: Text(AppLocalizations.of(context).presentationControls),
       scrollable: true,
       content: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           ...[
             (

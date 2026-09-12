@@ -142,7 +142,7 @@ class _OptionButtonState extends State<OptionButton>
                       : null,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
                     Stack(
                       children: [
@@ -157,7 +157,7 @@ class _OptionButtonState extends State<OptionButton>
                       ],
                     ),
                     SizeTransition(
-                      axis: Axis.vertical,
+                      axis: .vertical,
                       sizeFactor: _animation,
                       child: Column(
                         children: [const SizedBox(height: 4), selectedBottom],

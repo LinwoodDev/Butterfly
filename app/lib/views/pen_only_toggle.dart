@@ -43,7 +43,7 @@ class PenOnlyToggle extends StatelessWidget {
                     // - Setting to show toggle is disabled
                     // - Document is not loaded
                     if (!inputState.penDetected ||
-                        inputState.hideUi != HideState.visible ||
+                        inputState.hideUi != .visible ||
                         !settings.showPenOnlyToggle ||
                         !loaded) {
                       return const SizedBox.shrink();

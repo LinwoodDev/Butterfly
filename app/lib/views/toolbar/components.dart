@@ -28,7 +28,7 @@ class ComponentsToolbarView extends StatefulWidget
 
 class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   late final PackFileSystem _packSystem;
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = .new();
   String? currentPack;
   Future<List<PackItem<ButterflyComponent>>>? _componentsFuture;
 
@@ -79,8 +79,8 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
           return Center(child: Text(AppLocalizations.of(context).noElements));
         }
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: .spaceBetween,
+          crossAxisAlignment: .stretch,
           children: [
             if (value != null &&
                 !components.map((e) => e.toNamed()).contains(value)) ...[
@@ -96,7 +96,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                 controller: _scrollController,
                 child: ListView(
                   controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: .horizontal,
                   children: [
                     ...List.generate(components.length, (index) {
                       final current = components[index];
@@ -183,7 +183,7 @@ class _ComponentsButton extends StatelessWidget {
                     thumbnail,
                     width: 48,
                     height: 48,
-                    fit: BoxFit.contain,
+                    fit: .contain,
                     errorBuilder: (context, error, stackTrace) =>
                         fallbackWidget,
                   ),

@@ -36,7 +36,7 @@ class _NoteImportDialogState extends State<NoteImportDialog> {
         child: DefaultTabController(
           length: 2,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               Header(title: Text(AppLocalizations.of(context).import)),
               TabBar(
@@ -98,7 +98,7 @@ class _NoteImportDialogState extends State<NoteImportDialog> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: .end,
                   children: [
                     TextButton(
                       child: Text(

@@ -23,36 +23,30 @@ enum NavigatorPage {
   files;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
-    NavigatorPage.areas => AppLocalizations.of(context).areas,
-    NavigatorPage.layers => AppLocalizations.of(context).layers,
-    NavigatorPage.pages => AppLocalizations.of(context).pages,
-    NavigatorPage.files => AppLocalizations.of(context).files,
-    NavigatorPage.components => AppLocalizations.of(context).components,
+    .waypoints => AppLocalizations.of(context).waypoints,
+    .areas => AppLocalizations.of(context).areas,
+    .layers => AppLocalizations.of(context).layers,
+    .pages => AppLocalizations.of(context).pages,
+    .files => AppLocalizations.of(context).files,
+    .components => AppLocalizations.of(context).components,
   };
 
   (List<String>, String?) getHelp() => switch (this) {
-    NavigatorPage.waypoints => (['waypoints'], null),
-    NavigatorPage.areas => (['areas'], null),
-    NavigatorPage.layers => (['layers'], null),
-    NavigatorPage.pages => (['pages'], null),
-    NavigatorPage.files => (['storage'], null),
-    NavigatorPage.components => (['pack'], 'components'),
+    .waypoints => (['waypoints'], null),
+    .areas => (['areas'], null),
+    .layers => (['layers'], null),
+    .pages => (['pages'], null),
+    .files => (['storage'], null),
+    .components => (['pack'], 'components'),
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    NavigatorPage.waypoints =>
-      filled ? PhosphorIconsFill.mapPin : PhosphorIconsLight.mapPin,
-    NavigatorPage.areas =>
-      filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
-    NavigatorPage.layers =>
-      filled ? PhosphorIconsFill.stack : PhosphorIconsLight.stack,
-    NavigatorPage.pages =>
-      filled ? PhosphorIconsFill.book : PhosphorIconsLight.book,
-    NavigatorPage.files =>
-      filled ? PhosphorIconsFill.file : PhosphorIconsLight.file,
-    NavigatorPage.components =>
-      filled ? PhosphorIconsFill.cube : PhosphorIconsLight.cube,
+    .waypoints => filled ? PhosphorIconsFill.mapPin : PhosphorIconsLight.mapPin,
+    .areas => filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
+    .layers => filled ? PhosphorIconsFill.stack : PhosphorIconsLight.stack,
+    .pages => filled ? PhosphorIconsFill.book : PhosphorIconsLight.book,
+    .files => filled ? PhosphorIconsFill.file : PhosphorIconsLight.file,
+    .components => filled ? PhosphorIconsFill.cube : PhosphorIconsLight.cube,
   };
 }
 
@@ -93,7 +87,7 @@ class _NavigatorViewState extends State<NavigatorView>
       (cubit) => cubit.state.embedding != null,
     );
     final pages = NavigatorPage.values
-        .where((page) => !embedded || page != NavigatorPage.files)
+        .where((page) => !embedded || page != .files)
         .toList();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
@@ -111,18 +105,16 @@ class _NavigatorViewState extends State<NavigatorView>
                 _animationController.reverse();
               }
               return Row(
-                textDirection:
-                    settings.navigatorPosition == NavigatorPosition.left
+                textDirection: settings.navigatorPosition == .left
                     ? TextDirection.rtl
-                    : TextDirection.ltr,
-                mainAxisAlignment:
-                    settings.navigatorPosition == NavigatorPosition.left
+                    : .ltr,
+                mainAxisAlignment: settings.navigatorPosition == .left
                     ? MainAxisAlignment.start
-                    : MainAxisAlignment.end,
+                    : .end,
                 children: [
                   SizeTransition(
                     sizeFactor: _animation,
-                    axis: Axis.horizontal,
+                    axis: .horizontal,
                     alignment: Alignment.centerLeft,
                     child: AnimatedBuilder(
                       animation: _animation,
@@ -194,16 +186,16 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
       buildWhen: (previous, current) =>
           previous.navigatorPage != current.navigatorPage,
       builder: (context, viewState) {
-        final page = embedded && viewState.navigatorPage == NavigatorPage.files
+        final page = embedded && viewState.navigatorPage == .files
             ? NavigatorPage.waypoints
             : viewState.navigatorPage;
         final body = switch (page) {
-          NavigatorPage.waypoints => const WaypointsView(),
-          NavigatorPage.areas => const AreasView(),
-          NavigatorPage.layers => const LayersView(),
-          NavigatorPage.pages => const PagesView(),
-          NavigatorPage.files => const FilesNavigatorPage(),
-          NavigatorPage.components => const ComponentsView(),
+          .waypoints => const WaypointsView(),
+          .areas => const AreasView(),
+          .layers => const LayersView(),
+          .pages => const PagesView(),
+          .files => const FilesNavigatorPage(),
+          .components => const ComponentsView(),
         };
         final content = Scaffold(
           key: ValueKey(('navigator', page)),

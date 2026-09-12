@@ -28,7 +28,7 @@ class FileSystemAssetMoveDialog extends StatefulWidget {
 }
 
 class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = .new();
   late String selectedPath;
   late String selectedRemote;
 
@@ -162,8 +162,8 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   @override
   Widget build(BuildContext context) {
     String title = switch (widget.moveMode) {
-      MoveMode.duplicate => AppLocalizations.of(context).duplicate,
-      MoveMode.move => AppLocalizations.of(context).move,
+      .duplicate => AppLocalizations.of(context).duplicate,
+      .move => AppLocalizations.of(context).move,
       _ => AppLocalizations.of(context).changeDocumentPath,
     };
     final settings = context.watch<SettingsCubit>().state;
@@ -177,7 +177,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
         if (widget.moveMode != null)
           ElevatedButton(
             child: Text(MaterialLocalizations.of(context).okButtonLabel),
-            onPressed: () => _move(widget.moveMode == MoveMode.duplicate),
+            onPressed: () => _move(widget.moveMode == .duplicate),
           ),
         if (widget.moveMode == null) ...[
           ElevatedButton(
@@ -193,7 +193,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       title: Text(title),
       scrollable: true,
       content: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           if (settings.connections.isNotEmpty)
             DropdownMenu<String>(

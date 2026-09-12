@@ -638,7 +638,7 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
     EditorController controller,
     int index, {
     DocumentBloc? bloc,
-    TemporaryState temporaryState = TemporaryState.allowClick,
+    TemporaryState temporaryState = .allowClick,
     bool force = false,
   }) async {
     bloc ??= context.read<DocumentBloc>();
@@ -668,7 +668,7 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
     T tool, {
     DocumentBloc? bloc,
     int? index,
-    TemporaryState temporaryState = TemporaryState.allowClick,
+    TemporaryState temporaryState = .allowClick,
   }) async {
     bloc ??= context.read<DocumentBloc>();
     final handler = Handler.fromTool(tool);

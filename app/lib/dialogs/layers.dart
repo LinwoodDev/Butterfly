@@ -22,7 +22,7 @@ class MoveToLayerDialogState extends State<MoveToLayerDialog> {
       title: Text(AppLocalizations.of(context).moveToLayer),
       scrollable: true,
       content: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children:
             layers?.reversed
                 .map(

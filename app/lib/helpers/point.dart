@@ -31,10 +31,8 @@ extension PathPointHelper on PathPoint {
 
   Offset toOffset() => Offset(x, y);
 
-  PathPoint scale(double zoom, Offset center) => PathPoint.fromPoint(
-    toOffset().scaleFromCenter(zoom, center).toPoint(),
-    pressure,
-  );
+  PathPoint scale(double zoom, Offset center) =>
+      .fromPoint(toOffset().scaleFromCenter(zoom, center).toPoint(), pressure);
 
   PathPoint rotate(Offset center, double radians) {
     final rotated = toOffset().rotate(center, radians);

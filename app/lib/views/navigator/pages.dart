@@ -82,9 +82,9 @@ class PagesView extends StatefulWidget {
 }
 
 class _PagesViewState extends State<PagesView> {
-  final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _rangeController = TextEditingController();
-  final FocusNode _rangeFocusNode = FocusNode();
+  final TextEditingController _locationController = .new();
+  final TextEditingController _rangeController = .new();
+  final FocusNode _rangeFocusNode = .new();
   final MultiSelectController<String> _selectionController =
       MultiSelectController<String>();
   String? _rangeError;
@@ -105,7 +105,7 @@ class _PagesViewState extends State<PagesView> {
     _updatingRangeText = true;
     _rangeController.value = TextEditingValue(
       text: text,
-      selection: TextSelection.collapsed(offset: text.length),
+      selection: .collapsed(offset: text.length),
     );
     _updatingRangeText = false;
   }
@@ -241,7 +241,7 @@ class _PagesViewState extends State<PagesView> {
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).location,
                 suffixIcon: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   children: [
                     IconButton(
                       icon: const Icon(PhosphorIconsLight.listNumbers),
@@ -275,7 +275,7 @@ class _PagesViewState extends State<PagesView> {
                 builder: (context, value, child) {
                   final all = buildPageEntitiesForLocation(pages, value.text);
                   return Material(
-                    type: MaterialType.transparency,
+                    type: .transparency,
                     child: MultiSelectRegion<String>(
                       controller: _selectionController,
                       builder: (context, controller, child) =>
@@ -452,7 +452,7 @@ class _PagesSelectionBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Row(
               children: [
@@ -466,7 +466,7 @@ class _PagesSelectionBar extends StatelessWidget {
                   child: Text(
                     loc.countPages(controller.selectedIds.length),
                     style: TextTheme.of(context).titleSmall,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: .ellipsis,
                   ),
                 ),
                 IconButton.filledTonal(
@@ -527,7 +527,7 @@ class _PagesCreateBar extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -546,7 +546,7 @@ class _PagesCreateBar extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                    scrollDirection: .horizontal,
                     child: Row(
                       children: [
                         IconButton.filledTonal(
@@ -653,7 +653,7 @@ class _PageEntityListTile extends StatelessWidget {
                     editable
                         ? PhosphorIconsLight.file
                         : PhosphorIconsLight.folderSimple,
-                    textDirection: TextDirection.ltr,
+                    textDirection: .ltr,
                   );
                 },
               ),

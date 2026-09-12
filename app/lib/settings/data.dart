@@ -31,7 +31,7 @@ Widget buildDataDirectorySetting(
     title: Text(AppLocalizations.of(context).dataDirectory),
     leading: const PhosphorIcon(PhosphorIconsLight.folder),
     subtitle: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         state.documentPath.isNotEmpty
             ? FutureBuilder<String>(
@@ -147,8 +147,8 @@ Future<void> changePath(
       title: Text(AppLocalizations.of(context).warning),
       scrollable: true,
       content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: .min,
+        crossAxisAlignment: .stretch,
         children: [
           Text(AppLocalizations.of(context).changeDataDirectoryWarningContent),
           const SizedBox(height: 16),
@@ -156,7 +156,7 @@ Future<void> changePath(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   Text(
                     oldPath,
@@ -330,7 +330,7 @@ Future<void> exportData(BuildContext context) async {
           return AlertDialog(
             title: Text(localizations.exportAllFiles),
             content: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: .min,
               children: [
                 CheckboxListTile(
                   title: Text(localizations.files),
@@ -424,7 +424,7 @@ Future<void> exportData(BuildContext context) async {
 void importSettings(BuildContext context) async {
   final settingsCubit = context.read<SettingsCubit>();
   final result = await FilePicker.pickFile(
-    type: FileType.custom,
+    type: .custom,
     allowedExtensions: ['json'],
   );
   final bytes = await result?.readAsBytes();

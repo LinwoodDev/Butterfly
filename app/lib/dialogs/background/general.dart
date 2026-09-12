@@ -19,7 +19,7 @@ class _GeneralBackgroundPropertiesViewState
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_initialized) {
-      _showDark = Theme.of(context).brightness == Brightness.dark;
+      _showDark = Theme.of(context).brightness == .dark;
       _initialized = true;
     }
   }
@@ -28,9 +28,9 @@ class _GeneralBackgroundPropertiesViewState
   Widget build(BuildContext context) {
     final patterns = PatternTemplate.values.where((element) {
       if (_showDark) {
-        return element.background == PatternBackground.dark;
+        return element.background == .dark;
       } else {
-        return element.background != PatternBackground.dark;
+        return element.background != .dark;
       }
     }).toList();
 
@@ -113,7 +113,7 @@ class _GeneralBackgroundPropertiesViewState
                 title: AppLocalizations.of(context).svg,
                 icon: const Icon(
                   PhosphorIconsLight.fileSvg,
-                  textDirection: TextDirection.ltr,
+                  textDirection: .ltr,
                   size: 48,
                 ),
                 onTap: () async {
@@ -170,7 +170,7 @@ class _BackgroundCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: .antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         side: BorderSide.none,
@@ -178,24 +178,24 @@ class _BackgroundCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: .stretch,
           children: [
             AspectRatio(
               aspectRatio: kThumbnailRatio,
               child: image != null
-                  ? Image(image: image!, fit: BoxFit.cover)
+                  ? Image(image: image!, fit: .cover)
                   : Center(child: icon),
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: .center,
                 children: [
                   Text(
                     title,
                     style: Theme.of(context).textTheme.titleMedium,
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
+                    overflow: .ellipsis,
+                    textAlign: .center,
                   ),
                 ],
               ),

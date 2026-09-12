@@ -130,7 +130,7 @@ class _AddDialogState extends State<AddDialog> {
                 maxHeight: _dialogMaxHeight,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: .stretch,
                 children: [
                   _buildHeader(context, isMobile: isMobile),
                   if (isMobile) _buildMobileSearchBar(context),
@@ -164,7 +164,7 @@ class _AddDialogState extends State<AddDialog> {
         height: _headerHeight,
         child: NavigationToolbar(
           leading: Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             spacing: 8,
             children: [
               IconButton.outlined(
@@ -176,7 +176,7 @@ class _AddDialogState extends State<AddDialog> {
                 constraints: BoxConstraints(maxWidth: isMobile ? 220 : 360),
                 child: Text(
                   localizations.addTool,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                   style: textTheme.headlineSmall,
                 ),
               ),
@@ -235,7 +235,7 @@ class _AddDialogState extends State<AddDialog> {
             controller: _chipScrollController,
             child: SingleChildScrollView(
               controller: _chipScrollController,
-              scrollDirection: Axis.horizontal,
+              scrollDirection: .horizontal,
               padding: const EdgeInsets.symmetric(horizontal: _gap),
               child: Row(
                 children: [
@@ -314,23 +314,21 @@ class _AddDialogState extends State<AddDialog> {
 
       return BoxTile(
         size: _tileSize,
-        title: Text(title, textAlign: TextAlign.center),
+        title: Text(title, textAlign: .center),
         subtitle: details.isEmpty
             ? null
             : Text(
                 details,
                 maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
+                overflow: .ellipsis,
+                textAlign: .center,
               ),
         icon: Padding(
           padding: const EdgeInsets.all(4),
           child: PhosphorIcon(
             handler.getIcon(bloc) ?? tool.icon(),
-            color: status == ToolStatus.disabled
-                ? Theme.of(context).disabledColor
-                : null,
-            textDirection: TextDirection.ltr,
+            color: status == .disabled ? Theme.of(context).disabledColor : null,
+            textDirection: .ltr,
           ),
         ),
         leading: showFavorite
@@ -359,19 +357,16 @@ class _AddDialogState extends State<AddDialog> {
     Widget buildImport(ImportType type) {
       return BoxTile(
         size: _tileSize,
-        title: Text(
-          type.getLocalizedName(context),
-          textAlign: TextAlign.center,
-        ),
+        title: Text(type.getLocalizedName(context), textAlign: .center),
         trailing: IconButton(
           onPressed: () => addTool(Tool.asset(importType: type)),
           tooltip: AppLocalizations.of(context).pin,
           icon: const PhosphorIcon(
             PhosphorIconsLight.pushPin,
-            textDirection: TextDirection.ltr,
+            textDirection: .ltr,
           ),
         ),
-        icon: PhosphorIcon(type.icon(), textDirection: TextDirection.ltr),
+        icon: PhosphorIcon(type.icon(), textDirection: .ltr),
         onTap: () async {
           final bloc = context.read<DocumentBloc>();
           final importService = context.read<ImportService>();
@@ -384,14 +379,14 @@ class _AddDialogState extends State<AddDialog> {
 
     return Material(
       key: ValueKey(('add-dialog-body', _packFilter)),
-      type: MaterialType.transparency,
+      type: .transparency,
       child: ValueListenableBuilder<TextEditingValue>(
         valueListenable: _searchController,
         builder: (context, value, _) {
           return FutureBuilder<(List<ImportType>, List<PackItem<Tool>>)>(
             future: _dialogItemsFuture,
             builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
+              if (snapshot.connectionState != .done) {
                 return const Center(child: CircularProgressIndicator());
               }
 
@@ -450,7 +445,7 @@ class _AddDialogState extends State<AddDialog> {
                     context,
                     title: category.getLocalizedName(context),
                     icon: category.icon(),
-                    children: category == ToolCategory.import
+                    children: category == .import
                         ? [
                             ...importItems,
                             ...categorizedTools[category]!.map(buildTool),
@@ -492,7 +487,7 @@ class _AddDialogState extends State<AddDialog> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
         child: Text(
           AppLocalizations.of(context).noElements,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
@@ -505,7 +500,7 @@ class _AddDialogState extends State<AddDialog> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 64),
         child: Text(
           'Failed to load elements',
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
@@ -533,10 +528,10 @@ class _AddDialogState extends State<AddDialog> {
             child: SizedBox(
               width: sectionWidth,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: .min,
                     spacing: 8,
                     children: [
                       PhosphorIcon(icon, size: 18),

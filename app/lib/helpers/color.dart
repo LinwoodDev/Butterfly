@@ -2,7 +2,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_leap/material_leap.dart';
 
 SRGBColor getDefaultColor(SRGBColor background) {
-  return background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
+  return background.toColor().isDark() ? SRGBColor.white : .black;
 }
 
 SRGBColor _updateColor(
@@ -10,7 +10,7 @@ SRGBColor _updateColor(
   SRGBColor defaultColor, {
   bool force = false,
 }) {
-  return force || color == SRGBColor.black ? defaultColor : color;
+  return force || color == .black ? defaultColor : color;
 }
 
 ElementPaint _updatePaintDefaultColor(

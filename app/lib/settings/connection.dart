@@ -61,14 +61,14 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
                   HorizontalTab(
                     icon: const PhosphorIcon(
                       PhosphorIconsLight.gear,
-                      textDirection: TextDirection.ltr,
+                      textDirection: .ltr,
                     ),
                     label: Text(AppLocalizations.of(context).general),
                   ),
                   HorizontalTab(
                     icon: const PhosphorIcon(
                       PhosphorIconsLight.files,
-                      textDirection: TextDirection.ltr,
+                      textDirection: .ltr,
                     ),
                     label: Text(AppLocalizations.of(context).caches),
                   ),
@@ -152,7 +152,7 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
               child: Padding(
                 padding: settingsCardPadding,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: .stretch,
                   children: [
                     Text(
                       AppLocalizations.of(context).manage,

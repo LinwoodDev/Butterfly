@@ -55,7 +55,7 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
   double _width = AreaSizePreset.a4.width;
   double _height = AreaSizePreset.a4.height;
   bool _areaAsInitial = false;
-  AreaPositionMode _positionMode = AreaPositionMode.currentCenter;
+  AreaPositionMode _positionMode = .currentCenter;
 
   @override
   void initState() {
@@ -109,14 +109,14 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
     final content = ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 640),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .stretch,
+        mainAxisSize: .min,
         children: [
           if (widget.onCreate != null) ...[
             Text(
               locale.createAreas,
               style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.center,
+              textAlign: .center,
             ),
             const SizedBox(height: 16),
           ],
@@ -141,7 +141,7 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
           ),
           if (widget.showAsInitial)
             CheckboxListTile(
-              contentPadding: EdgeInsets.zero,
+              contentPadding: .zero,
               title: Text(locale.areaAsInitial),
               value: _areaAsInitial,
               onChanged: (value) {

@@ -74,7 +74,7 @@ sealed class NetworkingUser with _$NetworkingUser {
 }
 
 enum NetworkEvent({
-  @override final RpcNetworkerMode mode = RpcNetworkerMode.authority,
+  @override final RpcNetworkerMode mode = .authority,
   @override final bool canRunLocally = false,
 }) with RpcFunctionName {
   event(mode: RpcNetworkerMode.any, canRunLocally: false),
@@ -102,7 +102,7 @@ class NetworkingService({final Duration timeout = kTimeout})
   StreamSubscription<Uint8List>? _resetSubscription;
   StreamSubscription<void>? _clientClosedSubscription;
   String _userName = '';
-  final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
+  final BehaviorSubject<Set<Channel>> _connections = .seeded({});
   final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
 
@@ -490,8 +490,8 @@ class NetworkingService({final Duration timeout = kTimeout})
     Uri uri, [
     ConnectionTechnology? technology,
   ]) => switch (technology ?? ConnectionTechnology.fromScheme(uri.scheme)) {
-    ConnectionTechnology.webSocket => createSocketClient(uri),
-    ConnectionTechnology.swamp => createSwampClient(uri),
+    .webSocket => createSocketClient(uri),
+    .swamp => createSwampClient(uri),
   };
 
   NetworkingUser getUser(Channel channel) =>

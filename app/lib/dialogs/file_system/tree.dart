@@ -63,7 +63,7 @@ class FileSystemDirectoryTreeViewState
     return FutureBuilder<FileSystemDirectory>(
       future: _directoryFuture,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == .waiting) {
           return const Align(
             alignment: Alignment.center,
             child: CircularProgressIndicator(),
@@ -77,7 +77,7 @@ class FileSystemDirectoryTreeViewState
             name = '/';
           }
           return Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               ListTile(
                 leading: _expanded
@@ -108,7 +108,7 @@ class FileSystemDirectoryTreeViewState
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 5.0),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: .min,
                     children: List.generate(children.length, (index) {
                       var current = children.elementAt(index);
                       return FileSystemDirectoryTreeView(

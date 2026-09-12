@@ -83,16 +83,16 @@ Future<void> main([List<String> args = const []]) async {
   if (initialLocation == '/') {
     final settings = settingsCubit.state;
     switch (settings.onStartup) {
-      case StartupBehavior.openHomeScreen:
+      case .openHomeScreen:
         break;
-      case StartupBehavior.openLastNote:
+      case .openLastNote:
         final lastNote = settings.history.firstOrNull;
         if (lastNote == null) break;
         initialLocation = Uri(
           path: '/new',
           queryParameters: {'remote': lastNote.remote, 'path': lastNote.path},
         ).toString();
-      case StartupBehavior.openNewNote:
+      case .openNewNote:
         initialLocation = '/new';
     }
   }
@@ -171,7 +171,7 @@ class ButterflyApp extends StatelessWidget {
     return buildEntries(tree.pages).toList();
   }
 
-  late final GoRouter _router = GoRouter(
+  late final GoRouter _router = .new(
     initialLocation: initialLocation,
     initialExtra: initialExtra,
     restorationScopeId: 'router',
@@ -298,7 +298,7 @@ class ButterflyApp extends StatelessWidget {
           return FutureBuilder<(String, Object)?>(
             future: intent,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.connectionState == .done) {
                 final type = snapshot.data?.$1;
                 final data = snapshot.data?.$2;
                 return ProjectPage(

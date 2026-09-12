@@ -50,15 +50,15 @@ class FilesView extends StatefulWidget {
 }
 
 class FilesViewState extends State<FilesView> {
-  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _locationController = .new();
   late final ButterflyFileSystem _fileSystem;
   late Future<List<FileSystemFile<NoteData>>> _templatesFuture;
   late DocumentFileSystem _documentSystem;
   late TemplateFileSystem _templateSystem;
   final GlobalKey<RecentFilesViewState> _recentFilesKey = GlobalKey();
 
-  SortBy _sortBy = SortBy.name;
-  SortOrder _sortOrder = SortOrder.ascending;
+  SortBy _sortBy = .name;
+  SortOrder _sortOrder = .ascending;
   ExternalStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
@@ -101,15 +101,15 @@ class FilesViewState extends State<FilesView> {
   }
 
   String getLocalizedNameOfSortBy(SortBy sortBy) => switch (sortBy) {
-    SortBy.name => LeapLocalizations.of(context).name,
-    SortBy.created => AppLocalizations.of(context).created,
-    SortBy.modified => AppLocalizations.of(context).modified,
+    .name => LeapLocalizations.of(context).name,
+    .created => AppLocalizations.of(context).created,
+    .modified => AppLocalizations.of(context).modified,
   };
 
   PhosphorIconData getIconOfSortBy(SortBy sortBy) => switch (sortBy) {
-    SortBy.name => PhosphorIconsLight.file,
-    SortBy.created => PhosphorIconsLight.calendar,
-    SortBy.modified => PhosphorIconsLight.clock,
+    .name => PhosphorIconsLight.file,
+    .created => PhosphorIconsLight.calendar,
+    .modified => PhosphorIconsLight.clock,
   };
 
   void _setFilesStream() {
@@ -198,19 +198,19 @@ class FilesViewState extends State<FilesView> {
               final text = Text(
                 AppLocalizations.of(context).files,
                 style: TextTheme.of(context).headlineMedium,
-                textAlign: TextAlign.start,
+                textAlign: .start,
               );
               final orderButton = IconButton(
                 icon: PhosphorIcon(
-                  _sortOrder == SortOrder.ascending
+                  _sortOrder == .ascending
                       ? PhosphorIconsLight.sortAscending
                       : PhosphorIconsLight.sortDescending,
                 ),
-                tooltip: _sortOrder == SortOrder.ascending
+                tooltip: _sortOrder == .ascending
                     ? AppLocalizations.of(context).ascending
                     : AppLocalizations.of(context).descending,
                 onPressed: () => setState(() {
-                  _sortOrder = _sortOrder == SortOrder.ascending
+                  _sortOrder = _sortOrder == .ascending
                       ? SortOrder.descending
                       : SortOrder.ascending;
                   _settingsCubit.changeSortOrder(_sortOrder);
@@ -221,7 +221,7 @@ class FilesViewState extends State<FilesView> {
                 overflowSpacing: 8,
                 children: [
                   Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: .min,
                     children: [
                       Text(AppLocalizations.of(context).switchView),
                       const SizedBox(width: 8),
@@ -238,8 +238,8 @@ class FilesViewState extends State<FilesView> {
                     buildWhen: (previous, current) =>
                         previous.connections != current.connections,
                     builder: (context, state) => Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: .min,
+                      crossAxisAlignment: .center,
                       children: [
                         DropdownMenu<String?>(
                           label: Text(AppLocalizations.of(context).source),
@@ -354,13 +354,13 @@ class FilesViewState extends State<FilesView> {
               );
               final locationBar = _buildLocationBar(parent);
               final content = Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: .stretch,
                 children: [
                   if (!widget.isPage) ...[
                     widget.collapsed
                         ? Center(child: mobileActions)
                         : OverflowBar(
-                            alignment: MainAxisAlignment.spaceBetween,
+                            alignment: .spaceBetween,
                             children: [
                               text,
                               isDesktop ? desktopActions : mobileActions,
@@ -386,7 +386,7 @@ class FilesViewState extends State<FilesView> {
                   const SizedBox(height: 16),
                   isTablet
                       ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: .center,
                           spacing: 8,
                           children: [
                             Expanded(child: locationBar),
@@ -402,7 +402,7 @@ class FilesViewState extends State<FilesView> {
                           ],
                         )
                       : Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          crossAxisAlignment: .stretch,
                           children: [
                             searchBar,
                             const SizedBox(height: 16),
@@ -470,7 +470,7 @@ class FilesViewState extends State<FilesView> {
                                 child: Wrap(
                                   spacing: 4,
                                   runSpacing: 4,
-                                  crossAxisAlignment: WrapCrossAlignment.start,
+                                  crossAxisAlignment: .start,
                                   children: assets.map((e) {
                                     final active =
                                         widget.activeAsset == e.location;
@@ -535,7 +535,7 @@ class FilesViewState extends State<FilesView> {
                   ),
                   body: SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: .symmetric(horizontal: 8),
                       child: content,
                     ),
                   ),
@@ -556,7 +556,7 @@ class FilesViewState extends State<FilesView> {
           ? BlocBuilder<SettingsCubit, ButterflySettings>(
               buildWhen: (previous, current) => previous.flags != current.flags,
               builder: (context, settings) => Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: .min,
                 children: [
                   MenuAnchor(
                     menuChildren: [
@@ -588,7 +588,7 @@ class FilesViewState extends State<FilesView> {
                         ),
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.filePlus,
-                          textDirection: TextDirection.ltr,
+                          textDirection: .ltr,
                         ),
                         child: Text(AppLocalizations.of(context).newNote),
                       ),
@@ -597,7 +597,7 @@ class FilesViewState extends State<FilesView> {
                         builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.file,
-                            textDirection: TextDirection.ltr,
+                            textDirection: .ltr,
                           ),
                           menuChildren:
                               snapshot.data?.map((e) {
@@ -634,7 +634,7 @@ class FilesViewState extends State<FilesView> {
                         builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.fileTxt,
-                            textDirection: TextDirection.ltr,
+                            textDirection: .ltr,
                           ),
                           menuChildren:
                               snapshot.data?.map((e) {
@@ -821,7 +821,7 @@ class FilesViewState extends State<FilesView> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: .spaceBetween,
                     children: [
                       Row(
                         children: [
@@ -1047,10 +1047,10 @@ class FilesViewState extends State<FilesView> {
       }
 
       switch (_sortBy) {
-        case SortBy.name:
+        case .name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
-          return _sortOrder == SortOrder.ascending ? compared : -compared;
-        case SortBy.created:
+          return _sortOrder == .ascending ? compared : -compared;
+        case .created:
           final aCreatedAt = metadata(aFile)?.createdAt ?? aFile.creationTime;
           final bCreatedAt = metadata(bFile)?.createdAt ?? bFile.creationTime;
           if (aCreatedAt == null && bCreatedAt == null) {
@@ -1063,8 +1063,8 @@ class FilesViewState extends State<FilesView> {
             return -1;
           }
           final compared = bCreatedAt.compareTo(aCreatedAt);
-          return _sortOrder == SortOrder.ascending ? compared : -compared;
-        case SortBy.modified:
+          return _sortOrder == .ascending ? compared : -compared;
+        case .modified:
           final aModifiedAt = metadata(aFile)?.updatedAt ?? aFile.lastModified;
           final bModifiedAt = metadata(bFile)?.updatedAt ?? bFile.lastModified;
           if (aModifiedAt == null && bModifiedAt == null) {
@@ -1077,7 +1077,7 @@ class FilesViewState extends State<FilesView> {
             return -1;
           }
           final compared = bModifiedAt.compareTo(aModifiedAt);
-          return _sortOrder == SortOrder.ascending ? compared : -compared;
+          return _sortOrder == .ascending ? compared : -compared;
       }
     } catch (e) {
       return 0;

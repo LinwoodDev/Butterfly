@@ -45,7 +45,7 @@ class const CameraTransform([
   CameraTransform withPointPosition(Point<double> position) =>
       CameraTransform(pixelRatio, position.toOffset(), size, rotation);
 
-  CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
+  CameraTransform withSize(double size, [Offset cursor = .zero]) {
     // Set size and focus on cursor if provided
     final double newSize = size.clamp(kMinZoom, kMaxZoom);
     return CameraTransform(
@@ -56,7 +56,7 @@ class const CameraTransform([
     );
   }
 
-  CameraTransform withRotation(double rotation, [Offset cursor = Offset.zero]) {
+  CameraTransform withRotation(double rotation, [Offset cursor = .zero]) {
     final normalized = (rotation + pi) % (2 * pi) - pi;
     return CameraTransform(
       pixelRatio,
@@ -190,17 +190,17 @@ class TransformCubit(double pixelRatio, [Offset? position])
         .withRotation(rotation ?? state.rotation),
   );
 
-  void zoom(double delta, [Offset cursor = Offset.zero]) =>
+  void zoom(double delta, [Offset cursor = .zero]) =>
       emit(state.withSize(state.size * delta, cursor));
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
 
-  void rotate(double delta, [Offset cursor = Offset.zero]) =>
+  void rotate(double delta, [Offset cursor = .zero]) =>
       emit(state.withRotation(state.rotation + delta, cursor));
 
   void reset() => emit(CameraTransform(state.pixelRatio));
 
-  void size(double size, [Offset cursor = Offset.zero]) =>
+  void size(double size, [Offset cursor = .zero]) =>
       emit(state.withSize(size, cursor));
 
   void teleportToWaypoint(Waypoint waypoint) =>
@@ -209,7 +209,7 @@ class TransformCubit(double pixelRatio, [Offset? position])
   void teleportToArea(
     Area area, [
     Size? screen,
-    RenderResolution resolution = RenderResolution.performance,
+    RenderResolution resolution = .performance,
   ]) {
     if (screen == null || area.width <= 0 || area.height <= 0) {
       teleport(area.position.toOffset(), state.size);
@@ -272,8 +272,8 @@ class TransformCubit(double pixelRatio, [Offset? position])
     final settings = runtime.settingsCubit.state;
     final viewport = runtime.rendererCubit.state.cameraViewport;
     return settings.navigationRail &&
-        settings.navigatorPosition == NavigatorPosition.left &&
-        runtime.inputCubit.state.hideUi == HideState.visible &&
+        settings.navigatorPosition == .left &&
+        runtime.inputCubit.state.hideUi == .visible &&
         (viewport.width ?? 0) >= LeapBreakpoints.expanded &&
         (viewport.height ?? 0) >= 400;
   }
@@ -541,7 +541,7 @@ class TransformCubit(double pixelRatio, [Offset? position])
   void zoomConstrained(
     double delta, {
     required EditorRuntimeContext runtime,
-    Offset cursor = Offset.zero,
+    Offset cursor = .zero,
     bool force = false,
   }) {
     final locks = runtime.viewCubit.state.locks;
@@ -563,7 +563,7 @@ class TransformCubit(double pixelRatio, [Offset? position])
   void rotateConstrained(
     double delta, {
     required EditorRuntimeContext runtime,
-    Offset cursor = Offset.zero,
+    Offset cursor = .zero,
     bool force = false,
   }) {
     if (delta == 0 || (runtime.viewCubit.state.locks.lockRotation && !force)) {
@@ -575,7 +575,7 @@ class TransformCubit(double pixelRatio, [Offset? position])
   void sizeConstrained(
     double size, {
     required EditorRuntimeContext runtime,
-    Offset cursor = Offset.zero,
+    Offset cursor = .zero,
     bool force = false,
   }) {
     final locks = runtime.viewCubit.state.locks;

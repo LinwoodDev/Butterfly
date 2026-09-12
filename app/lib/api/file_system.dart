@@ -22,7 +22,7 @@ export 'connection_encryption.dart';
 
 Uint8List encodeNoteData(NoteData data) =>
     Uint8List.fromList(data.exportAsBytes());
-NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
+NoteData decodeNoteData(Uint8List data) => .fromData(data);
 
 Uint8List encodeNoteFile(NoteFile file) => file.data;
 NoteFile decodeNoteFile(Uint8List data) => NoteFile(data);

@@ -53,7 +53,7 @@ class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
           child: AlertDialog(
             title: Text(AppLocalizations.of(context).selectAsset),
             content: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: .min,
               children: _getAssets(packs)
                   .map(
                     (e) => ListTile(

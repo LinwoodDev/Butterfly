@@ -67,13 +67,13 @@ class _HomePageState extends State<HomePage> {
           builder: (context, snapshot) {
             final hasNewerVersion = snapshot.data ?? false;
             final showBanner =
-                settings.bannerVisibility == BannerVisibility.always ||
-                (settings.bannerVisibility == BannerVisibility.onlyOnUpdates &&
+                settings.bannerVisibility == .always ||
+                (settings.bannerVisibility == .onlyOnUpdates &&
                     hasNewerVersion);
             final appBar = WindowTitleBar<SettingsCubit, ButterflySettings>(
               title: isMobile || !showBanner
                   ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
                       children: [
                         Text(shortApplicationName),
                         Text(
@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                           margin: const EdgeInsets.symmetric(horizontal: 16),
                           constraints: const BoxConstraints(maxWidth: 1400),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            crossAxisAlignment: .stretch,
                             children: [
                               _HeaderHomeView(
                                 hasNewerVersion: hasNewerVersion,
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(height: 16),
                               if (isDesktop)
                                 Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: .start,
                                   children: [
                                     Expanded(
                                       child: FilesView(

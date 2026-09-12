@@ -20,8 +20,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   @override
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
     final visiblity = bloc.state.settingsCubit.state.simpleToolbarVisibility;
-    if (visiblity == SimpleToolbarVisibility.hide ||
-        (_startedDrawing && visiblity == SimpleToolbarVisibility.temporary)) {
+    if (visiblity == .hide || (_startedDrawing && visiblity == .temporary)) {
       return null;
     }
     return ColorToolbarView(
@@ -322,7 +321,7 @@ mixin PointerManipulationHandler<T> on Handler<T> {
   Offset getPointerPosition(
     Offset position,
     Size viewportSize, [
-    CameraTransform transform = const CameraTransform(),
+    CameraTransform transform = const .new(),
   ]) {
     return position;
   }
@@ -331,7 +330,7 @@ mixin PointerManipulationHandler<T> on Handler<T> {
     ToolRuntimeState index,
     Offset position,
     Size viewportSize, [
-    CameraTransform transform = const CameraTransform(),
+    CameraTransform transform = const .new(),
   ]) {
     return index.toggleableHandlers.values
         .whereType<PointerManipulationHandler>()

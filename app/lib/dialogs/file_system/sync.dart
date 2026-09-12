@@ -23,7 +23,7 @@ class SyncButton extends StatelessWidget {
         final pendingFiles = overview?.pendingFiles ?? 0;
         final cachedFiles = overview?.cachedFiles ?? 0;
         final button = IconButton(
-          icon: status == SyncStatus.syncing
+          icon: status == .syncing
               ? SizedBox.square(
                   dimension: 20,
                   child: CircularProgressIndicator(
@@ -33,7 +33,7 @@ class SyncButton extends StatelessWidget {
                 )
               : PhosphorIcon(
                   status.getIcon(),
-                  textDirection: TextDirection.ltr,
+                  textDirection: .ltr,
                   color: status?.getColor(ColorScheme.of(context)),
                 ),
           tooltip:

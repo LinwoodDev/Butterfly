@@ -264,10 +264,7 @@ abstract class Handler<T> {
 
   void onContextMenu(Offset localPosition, EventContext context) =>
       onSecondaryTapUp(
-        TapUpDetails(
-          localPosition: localPosition,
-          kind: PointerDeviceKind.mouse,
-        ),
+        TapUpDetails(localPosition: localPosition, kind: .mouse),
         context,
       );
 
@@ -299,7 +296,7 @@ abstract class Handler<T> {
 
   FutureOr<void> resetInput(DocumentBloc bloc) {}
 
-  ToolStatus getStatus(DocumentBloc bloc) => ToolStatus.normal;
+  ToolStatus getStatus(DocumentBloc bloc) => .normal;
 
   PhosphorIconData? getIcon(DocumentBloc bloc) => null;
 
@@ -362,9 +359,7 @@ abstract class Handler<T> {
 double getPressureOfEvent(PointerEvent event) {
   var range = event.pressureMax - event.pressureMin;
   if (range <= 0) range = 1;
-  final pressure =
-      event.kind == PointerDeviceKind.stylus ||
-          event.kind == PointerDeviceKind.invertedStylus
+  final pressure = event.kind == .stylus || event.kind == .invertedStylus
       ? (event.pressure - event.pressureMin) / range
       : 0.5;
   if (pressure.isNaN || pressure <= 0) return 0.5;

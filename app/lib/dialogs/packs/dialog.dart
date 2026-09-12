@@ -87,7 +87,7 @@ class _PacksDialogState extends State<PacksDialog>
             MenuItemButton(
               leadingIcon: const PhosphorIcon(
                 PhosphorIconsLight.file,
-                textDirection: TextDirection.ltr,
+                textDirection: .ltr,
               ),
               child: Text(AppLocalizations.of(context).rawFile),
               onPressed: () async {
@@ -121,7 +121,7 @@ class _PacksDialogState extends State<PacksDialog>
             child: Stack(
               children: [
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   children: [
                     FutureBuilder<List<FileSystemFile<NoteData>>>(
                       future: _packsFuture,
@@ -171,7 +171,7 @@ class _PacksDialogState extends State<PacksDialog>
                                 if (data == null) return;
                                 final pack = NoteData.fromData(data);
                                 final metadata = pack.getMetadata();
-                                if (metadata?.type != NoteFileType.pack) {
+                                if (metadata?.type != .pack) {
                                   return;
                                 }
                                 if (!mounted) return;
@@ -347,7 +347,7 @@ class __PacksListState extends State<_PacksList> {
                   MenuItemButton(
                     leadingIcon: const PhosphorIcon(
                       PhosphorIconsLight.file,
-                      textDirection: TextDirection.ltr,
+                      textDirection: .ltr,
                     ),
                     child: Text(AppLocalizations.of(context).rawFile),
                     onPressed: () async {
@@ -374,7 +374,7 @@ class __PacksListState extends State<_PacksList> {
                 getPackDisplayName(pack, file.pathWithoutLeadingSlash),
               ),
               subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: .start,
                 children: [
                   if (metadata.author.isNotEmpty)
                     Text(

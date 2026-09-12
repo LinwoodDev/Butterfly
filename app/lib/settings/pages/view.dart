@@ -195,6 +195,6 @@ Widget _toolbarRowsSetting(BuildContext context, ButterflySettings state) {
 
 String _navigatorPositionName(BuildContext context, NavigatorPosition value) =>
     switch (value) {
-      NavigatorPosition.left => AppLocalizations.of(context).left,
-      NavigatorPosition.right => AppLocalizations.of(context).right,
+      .left => AppLocalizations.of(context).left,
+      .right => AppLocalizations.of(context).right,
     };

@@ -19,7 +19,7 @@ class ToolbarsView extends StatefulWidget {
 }
 
 class _ToolbarsViewState extends State<ToolbarsView> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = .new();
   final List<String> selectedPacks = [];
   late final PackFileSystem _packSystem;
   Future<List<PackItem<Toolbar>>>? _toolbarsFuture;
@@ -94,7 +94,7 @@ class _ToolbarsViewState extends State<ToolbarsView> {
             final isCustom = currentToolbar == null;
 
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: .center,
               children: [
                 const SizedBox(height: 8),
                 SearchBar(

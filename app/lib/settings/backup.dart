@@ -144,7 +144,7 @@ Future<void> _changeBackupInterval(
         content: Form(
           key: formKey,
           child: Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               Expanded(
                 child: TextFormField(

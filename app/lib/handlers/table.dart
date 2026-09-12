@@ -604,11 +604,11 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     );
     final previousLocal = renderer.tablePosition(previous);
     final currentLocal = renderer.tablePosition(current);
-    final extent = target.axis == TableAxis.horizontal
+    final extent = target.axis == .horizontal
         ? renderer.rect.height
         : renderer.rect.width;
     if (extent <= 0) return;
-    final delta = target.axis == TableAxis.horizontal
+    final delta = target.axis == .horizontal
         ? currentLocal.dy - previousLocal.dy
         : currentLocal.dx - previousLocal.dx;
     final updated = renderer.element.moveBorder(
@@ -641,8 +641,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
 
   @override
   bool canChange(PointerDownEvent event, EventContext context) =>
-      event.kind == PointerDeviceKind.mouse &&
-      event.buttons != kSecondaryMouseButton;
+      event.kind == .mouse && event.buttons != kSecondaryMouseButton;
 
   @override
   MouseCursor? get cursor => switch (_hoverTarget) {

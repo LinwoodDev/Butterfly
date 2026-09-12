@@ -64,7 +64,7 @@ class _LoadingDialogState extends State<LoadingDialog> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: .min,
               children: [
                 LinearProgressIndicator(value: _progress),
                 const SizedBox(height: 16),

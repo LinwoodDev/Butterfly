@@ -542,13 +542,13 @@ final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
                 displayName: (context) =>
                     _getIgnorePressureName(value, context),
                 descriptionBuilder: (context) => switch (value) {
-                  IgnorePressure.never => AppLocalizations.of(
+                  .never => AppLocalizations.of(
                     context,
                   ).ignorePressureNeverDescription,
-                  IgnorePressure.first => AppLocalizations.of(
+                  .first => AppLocalizations.of(
                     context,
                   ).ignoreFirstPressureDescription,
-                  IgnorePressure.always => AppLocalizations.of(
+                  .always => AppLocalizations.of(
                     context,
                   ).ignorePressureAlwaysDescription,
                 },
@@ -684,9 +684,9 @@ String _getIgnorePressureName(
   IgnorePressure ignorePressure,
   BuildContext context,
 ) => switch (ignorePressure) {
-  IgnorePressure.never => AppLocalizations.of(context).never,
-  IgnorePressure.first => AppLocalizations.of(context).first,
-  IgnorePressure.always => AppLocalizations.of(context).always,
+  .never => AppLocalizations.of(context).never,
+  .first => AppLocalizations.of(context).first,
+  .always => AppLocalizations.of(context).always,
 };
 
 SettingsLeapListSetting<ButterflySettings, InputMapping> _inputMappingSetting({
@@ -859,16 +859,16 @@ Widget _buildHoldShortcutsSection(
     child: Padding(
       padding: settingsCardPadding,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: .stretch,
         children: [
           Padding(
             padding: settingsCardTitlePadding,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       Text(
                         AppLocalizations.of(context).holdShortcuts,
@@ -987,7 +987,7 @@ Widget _buildKeyboardShortcutSection(
       child: Padding(
         padding: settingsCardPadding,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: .stretch,
           children: [
             Padding(
               padding: settingsCardTitlePadding,
@@ -1143,7 +1143,7 @@ class __PointerTestState extends State<_PointerTest> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: .stretch,
       children: [
         Padding(
           padding: settingsCardTitlePadding,
@@ -1170,13 +1170,11 @@ class __PointerTestState extends State<_PointerTest> {
         ListTile(
           title: Text(AppLocalizations.of(context).type),
           subtitle: Text(switch (_kind) {
-            PointerDeviceKind.touch => AppLocalizations.of(context).touch,
-            PointerDeviceKind.mouse => AppLocalizations.of(context).mouse,
-            PointerDeviceKind.stylus => AppLocalizations.of(context).stylus,
-            PointerDeviceKind.invertedStylus => AppLocalizations.of(
-              context,
-            ).invert,
-            PointerDeviceKind.unknown => AppLocalizations.of(context).error,
+            .touch => AppLocalizations.of(context).touch,
+            .mouse => AppLocalizations.of(context).mouse,
+            .stylus => AppLocalizations.of(context).stylus,
+            .invertedStylus => AppLocalizations.of(context).invert,
+            .unknown => AppLocalizations.of(context).error,
             _ => AppLocalizations.of(context).none,
           }),
         ),

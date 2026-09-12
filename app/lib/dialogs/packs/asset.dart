@@ -80,8 +80,8 @@ class _AssetDialogState extends State<AssetDialog> {
             ),
             scrollable: true,
             content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: .min,
+              crossAxisAlignment: .stretch,
               children: [
                 Row(
                   children: [

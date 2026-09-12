@@ -65,7 +65,7 @@ class _ViewportCanvasState extends State<_ViewportCanvas>
     );
     _positionAnimation = Tween<Offset>(
       begin: friction.beginOffset - (_positionAnimation?.value ?? Offset.zero),
-      end: Offset.zero,
+      end: .zero,
     ).animate(curve);
     _sizeAnimation = Tween<double>(
       begin: friction.beginSize - (_sizeAnimation?.value ?? 0),

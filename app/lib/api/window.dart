@@ -14,7 +14,7 @@ Future<void> applyNativeTitleBar(bool nativeTitleBar) async {
     windowButtonVisibility: nativeTitleBar,
   );
 
-  if (defaultTargetPlatform == TargetPlatform.linux) {
+  if (defaultTargetPlatform == .linux) {
     // gtk_window_set_decorated() is ineffective in GTK 3's Wayland backend.
     // Ask GDK to negotiate KDE's server/client decoration mode directly.
     await _windowChannel.invokeMethod<void>(

@@ -261,7 +261,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                                 );
                               }
                               return Row(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                crossAxisAlignment: .stretch,
                                 children: [
                                   Expanded(child: _buildPreview()),
                                   Expanded(
@@ -361,7 +361,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               icon: const PhosphorIcon(PhosphorIconsLight.userRectangle),
               tooltip: AppLocalizations.of(context).view,
               selectedIcon: const PhosphorIcon(PhosphorIconsFill.userRectangle),
-              isSelected: _preset == ExportTransformPreset.view,
+              isSelected: _preset == .view,
             ),
             IconButton.filledTonal(
               onPressed: () {
@@ -397,11 +397,11 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               },
               icon: const PhosphorIcon(
                 PhosphorIconsLight.file,
-                textDirection: TextDirection.ltr,
+                textDirection: .ltr,
               ),
               tooltip: AppLocalizations.of(context).page,
               selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
-              isSelected: _preset == ExportTransformPreset.page,
+              isSelected: _preset == .page,
             ),
           ],
         ),
@@ -414,7 +414,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               }
               return SizedBox.expand(
                 child: Image(
-                  fit: BoxFit.contain,
+                  fit: .contain,
                   image: MemoryImage(_previewImage!.buffer.asUint8List()),
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
@@ -439,7 +439,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   );
 
   Widget _buildProperties() => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: .start,
     children: [
       OffsetListTile(
         value: Offset(_options.x, _options.y),

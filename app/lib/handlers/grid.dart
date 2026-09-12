@@ -21,7 +21,7 @@ class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
   Offset getPointerPosition(
     Offset position,
     Size viewportSize, [
-    CameraTransform transform = const CameraTransform(),
+    CameraTransform transform = const .new(),
   ]) {
     final grid = _gridGeometry(data, transform);
     final point = transform.localToGlobal(position);

@@ -35,7 +35,7 @@ sealed class LabelContext with _$LabelContext {
     if (tool.mode == mode) return this;
     final newTool = tool.copyWith(mode: mode);
     switch (mode) {
-      case LabelMode.text:
+      case .text:
         return TextContext(
           tool: newTool,
           textPainter: textPainter,
@@ -65,7 +65,7 @@ sealed class LabelContext with _$LabelContext {
                     ),
           },
         );
-      case LabelMode.markdown:
+      case .markdown:
         return MarkdownContext(
           tool: newTool,
           textPainter: textPainter,

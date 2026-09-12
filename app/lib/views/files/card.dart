@@ -35,14 +35,14 @@ class AssetCard extends StatelessWidget {
           aspectRatio: kThumbnailRatio,
           child: Card(
             elevation: 5,
-            clipBehavior: Clip.hardEdge,
+            clipBehavior: .hardEdge,
             child: Stack(
               children: [
                 if (thumbnail?.isNotEmpty ?? false)
                   Align(
                     child: Image.memory(
                       thumbnail!,
-                      fit: BoxFit.cover,
+                      fit: .cover,
                       width: 640,
                       gaplessPlayback: true,
                       alignment: Alignment.center,
@@ -79,7 +79,7 @@ class AssetCard extends StatelessWidget {
                   ),
                 Positioned.fill(
                   child: Material(
-                    type: MaterialType.transparency,
+                    type: .transparency,
                     child: InkWell(onTap: onTap),
                   ),
                 ),

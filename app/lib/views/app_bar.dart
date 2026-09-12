@@ -65,10 +65,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: windowTitleBar,
-      ),
+      child: Directionality(textDirection: .ltr, child: windowTitleBar),
     );
   }
 
@@ -126,9 +123,9 @@ class _AppBarTitle extends StatefulWidget {
 }
 
 class _AppBarTitleState extends State<_AppBarTitle> {
-  final TextEditingController _nameController = TextEditingController(),
+  final TextEditingController _nameController = .new(),
       _areaController = TextEditingController();
-  final FocusNode _nameFocusNode = FocusNode(), _areaFocusNode = FocusNode();
+  final FocusNode _nameFocusNode = .new(), _areaFocusNode = FocusNode();
 
   @override
   void dispose() {
@@ -190,8 +187,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                     previous.showSaveButton != current.showSaveButton,
                 builder: (context, settings) => LayoutBuilder(
                   builder: (context, constraints) => Row(
-                    textDirection: TextDirection.ltr,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    textDirection: .ltr,
+                    mainAxisAlignment: .center,
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(
@@ -254,7 +251,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
   ) {
     final cubit = context.read<EditorController>();
     return Row(
-      textDirection: TextDirection.ltr,
+      textDirection: .ltr,
       children: [
         Flexible(
           child: StreamBuilder<NetworkState?>(
@@ -322,9 +319,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   }
 
                   Widget title = Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: .start,
+                    crossAxisAlignment: .stretch,
+                    mainAxisSize: .min,
                     children: [
                       Focus(
                         onFocusChange: (hasFocus) {
@@ -416,26 +413,23 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               child: Builder(
                 builder: (context) {
                   Widget icon = PhosphorIcon(switch (currentIndex.saved) {
-                    SaveState.saving => PhosphorIconsLight.download,
+                    .saving => PhosphorIconsLight.download,
                     _ when currentIndex.isSaveDelayed =>
                       PhosphorIconsLight.clock,
-                    SaveState.saved => PhosphorIconsFill.floppyDisk,
-                    SaveState.unsaved ||
-                    SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
+                    .saved => PhosphorIconsFill.floppyDisk,
+                    .unsaved || .absoluteRead => PhosphorIconsLight.floppyDisk,
                   });
                   String tooltip = switch (currentIndex.saved) {
-                    SaveState.saving => AppLocalizations.of(context).saving,
+                    .saving => AppLocalizations.of(context).saving,
                     _ when currentIndex.isSaveDelayed => AppLocalizations.of(
                       context,
                     ).saveDelayed,
-                    SaveState.saved => AppLocalizations.of(context).saved,
-                    SaveState.unsaved => AppLocalizations.of(context).unsaved,
-                    SaveState.absoluteRead => AppLocalizations.of(
-                      context,
-                    ).readOnly,
+                    .saved => AppLocalizations.of(context).saved,
+                    .unsaved => AppLocalizations.of(context).unsaved,
+                    .absoluteRead => AppLocalizations.of(context).readOnly,
                   };
                   final canSave =
-                      currentIndex.saved == SaveState.unsaved ||
+                      currentIndex.saved == .unsaved ||
                       currentIndex.isSaveDelayed;
                   return IconButton(
                     icon: icon,
@@ -548,7 +542,7 @@ class MainPopupMenu extends StatelessWidget {
                             LeapBreakpoints.expanded ||
                         !navigatorRailEnabled ||
                         effectiveFullScreen ||
-                        hideUi != HideState.visible;
+                        hideUi != .visible;
                     return MenuAnchor(
                       menuChildren: [
                         ...[
@@ -610,7 +604,7 @@ class MainPopupMenu extends StatelessWidget {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.file,
-                                  textDirection: TextDirection.ltr,
+                                  textDirection: .ltr,
                                 ),
                                 shortcut: const SingleActivator(
                                   LogicalKeyboardKey.keyE,
@@ -630,7 +624,7 @@ class MainPopupMenu extends StatelessWidget {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.fileSvg,
-                                  textDirection: TextDirection.ltr,
+                                  textDirection: .ltr,
                                 ),
                                 shortcut: const SingleActivator(
                                   LogicalKeyboardKey.keyE,
@@ -648,7 +642,7 @@ class MainPopupMenu extends StatelessWidget {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.fileImage,
-                                  textDirection: TextDirection.ltr,
+                                  textDirection: .ltr,
                                 ),
                                 shortcut: const SingleActivator(
                                   LogicalKeyboardKey.keyE,
@@ -667,7 +661,7 @@ class MainPopupMenu extends StatelessWidget {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.filePdf,
-                                  textDirection: TextDirection.ltr,
+                                  textDirection: .ltr,
                                 ),
                                 shortcut: const SingleActivator(
                                   LogicalKeyboardKey.keyP,
@@ -730,7 +724,7 @@ class MainPopupMenu extends StatelessWidget {
                               .where(
                                 (page) =>
                                     saveState.embedding == null ||
-                                    page != NavigatorPage.files,
+                                    page != .files,
                               )
                               .map(
                                 (e) => MenuItemButton(
@@ -794,7 +788,7 @@ class MainPopupMenu extends StatelessWidget {
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.filePlus,
-                              textDirection: TextDirection.ltr,
+                              textDirection: .ltr,
                             ),
                             shortcut: const SingleActivator(
                               LogicalKeyboardKey.keyN,
@@ -813,7 +807,7 @@ class MainPopupMenu extends StatelessWidget {
                           MenuItemButton(
                             leadingIcon: const PhosphorIcon(
                               PhosphorIconsLight.file,
-                              textDirection: TextDirection.ltr,
+                              textDirection: .ltr,
                             ),
                             shortcut: const SingleActivator(
                               LogicalKeyboardKey.keyN,

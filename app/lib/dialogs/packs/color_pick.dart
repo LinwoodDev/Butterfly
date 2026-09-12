@@ -21,7 +21,7 @@ class ColorPalettePickerDialog extends StatefulWidget {
 
   const ColorPalettePickerDialog({
     super.key,
-    this.value = SRGBColor.white,
+    this.value = .white,
     this.viewMode = false,
     this.bloc,
     this.palette,
@@ -113,7 +113,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
         final color = _palette!.colors[index];
         final colorText = color.toHexString(alpha: false);
         return Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -193,11 +193,11 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
         constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: .center,
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: .spaceBetween,
+                crossAxisAlignment: .stretch,
                 children: [
                   Material(
                     shape: const RoundedRectangleBorder(
@@ -300,7 +300,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                   Align(
                     alignment: Alignment.center,
                     child: Wrap(
-                      alignment: WrapAlignment.start,
+                      alignment: .start,
                       children: [
                         ...List.generate(
                           _palette?.colors.length ?? 0,

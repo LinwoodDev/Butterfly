@@ -7,7 +7,7 @@ Rect _getRulerRect(
   RulerTool ruler,
   Size size,
   Offset position, [
-  CameraTransform transform = const CameraTransform(),
+  CameraTransform transform = const .new(),
 ]) {
   return transform.localToGlobalRect(
     Rect.fromLTWH(
@@ -41,12 +41,12 @@ Color resolveRulerForegroundColor(RulerTool ruler, Color background) {
 }
 
 class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
-  Offset _position = Offset.zero;
+  Offset _position = .zero;
   double _rotation = 0;
   bool _snapRotation = false;
   double _previousGestureRotation = 0;
-  Offset _transformStartPosition = Offset.zero;
-  Offset _transformStartPointer = Offset.zero;
+  Offset _transformStartPosition = .zero;
+  Offset _transformStartPointer = .zero;
 
   Offset get position => _position;
   double get rotation => _snapRotation
@@ -145,10 +145,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
     }
   }
 
-  Rect getRect(
-    Size size, [
-    CameraTransform transform = const CameraTransform(),
-  ]) {
+  Rect getRect(Size size, [CameraTransform transform = const .new()]) {
     return _getRulerRect(data, size, _position, transform);
   }
 
@@ -163,7 +160,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   Offset getPointerPosition(
     Offset position,
     Size viewportSize, [
-    CameraTransform transform = const CameraTransform(),
+    CameraTransform transform = const .new(),
   ]) {
     if (!isPointerInside(position, viewportSize)) {
       return position;
@@ -216,11 +213,7 @@ class RulerRenderer extends Renderer<RulerTool> {
   final Offset position;
   final double rulerRotation;
 
-  RulerRenderer(
-    super.element, {
-    this.position = Offset.zero,
-    this.rulerRotation = 0,
-  });
+  RulerRenderer(super.element, {this.position = .zero, this.rulerRotation = 0});
 
   @override
   void build(

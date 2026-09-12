@@ -131,7 +131,7 @@ class _HandlerRuntimeProperties extends StatelessWidget {
         final handler = context.read<ToolCubit>().getHandlerForTool(toolId);
         if (handler == null) return const SizedBox.shrink();
         return Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: handler.getRuntimeProperties(context),
         );
       },

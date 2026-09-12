@@ -15,7 +15,7 @@ class ToolbarView extends StatefulWidget {
 
 class _ToolbarViewState extends State<ToolbarView> {
   String? currentPalette;
-  final GlobalKey _animatedKey = GlobalKey();
+  final GlobalKey _animatedKey = .new();
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ class _ViewportInputCoordinator {
 
   final void Function(TransformCubit transformCubit) _settleSlide;
   final Map<int, PointerDeviceKind> _pointerKinds = {};
-  final PointerShortcutManager _shortcutManager = PointerShortcutManager();
+  final PointerShortcutManager _shortcutManager = .new();
 
   double _gestureScale = 1;
   double _gestureRotation = 0;
@@ -41,7 +41,7 @@ class _ViewportInputCoordinator {
   bool _isTouchMoveGesture(EditorController controller) =>
       controller.inputCubit.moveEnabled &&
       controller.inputCubit.state.pointers.every(
-        (pointer) => _pointerKinds[pointer] == PointerDeviceKind.touch,
+        (pointer) => _pointerKinds[pointer] == .touch,
       );
 
   Future<void> handlePointerDown(
@@ -54,13 +54,10 @@ class _ViewportInputCoordinator {
     final getEventContext = input.getEventContext;
     if (!skipShortcuts && cubit.inputCubit.state.pointers.isEmpty) {
       _settleSlide(cubit.transformCubit);
-      _handlerHandlesScaleGesture = event.kind == PointerDeviceKind.trackpad
-          ? false
-          : null;
+      _handlerHandlesScaleGesture = event.kind == .trackpad ? false : null;
     }
     if (!skipShortcuts) {
-      if (event.kind == PointerDeviceKind.stylus ||
-          event.kind == PointerDeviceKind.invertedStylus) {
+      if (event.kind == .stylus || event.kind == .invertedStylus) {
         cubit.inputCubit.detectPen(true);
       }
       final result = _shortcutManager.pointerDown(
@@ -82,7 +79,7 @@ class _ViewportInputCoordinator {
       event.localPosition,
       eventContext.viewportSize,
     );
-    if (event.kind != PointerDeviceKind.touch && ruler != null) {
+    if (event.kind != .touch && ruler != null) {
       _ruler = ruler;
       _rulerPointer = event.pointer;
       ruler.beginTransform(event.localPosition);
@@ -116,7 +113,7 @@ class _ViewportInputCoordinator {
     }
     cubit.inputCubit.updateLastPosition(event.localPosition);
     final ruler = _ruler;
-    if (ruler != null && event.kind != PointerDeviceKind.touch) {
+    if (ruler != null && event.kind != .touch) {
       ruler.transformWithPointerMove(input.getEventContext(), event);
       return;
     }
@@ -398,9 +395,9 @@ class _ViewportInputCoordinator {
 
     switch (mapping?.getCategory()) {
       case null:
-      case InputMappingCategory.activeTool:
+      case .activeTool:
         return;
-      case InputMappingCategory.handTool:
+      case .handTool:
         cubit.toolCubit.changeTemporaryHandlerMove(cubit.rendererCubit);
         return;
       default:

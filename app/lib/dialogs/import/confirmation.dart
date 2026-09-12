@@ -13,7 +13,7 @@ class PackImportConfirmationDialog extends StatelessWidget {
       title: Text(AppLocalizations.of(context).sureImportPack),
       scrollable: true,
       content: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Text(pack.name, style: TextTheme.of(context).titleLarge),
           Text(AppLocalizations.of(context).byAuthor(pack.author)),
@@ -45,7 +45,7 @@ class TemplateImportConfirmationDialog extends StatelessWidget {
       title: Text(AppLocalizations.of(context).sureImportTemplate),
       scrollable: true,
       content: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Text(template.name, style: TextTheme.of(context).titleLarge),
           Text(template.description),

@@ -29,7 +29,7 @@ class ReorderableListItem extends StatelessWidget {
               index: index,
               enabled: enabled,
               child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                padding: .symmetric(horizontal: 8.0),
                 child: PhosphorIcon(PhosphorIconsLight.dotsSix),
               ),
             ),

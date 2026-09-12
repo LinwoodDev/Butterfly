@@ -13,7 +13,7 @@ void drawSurfaceTextureOnCanvas(
   double scale,
   Offset offset,
   Size size, [
-  Offset translation = Offset.zero,
+  Offset translation = .zero,
   bool extraLines = false,
 ]) => switch (texture) {
   PatternTexture e => drawPatternTextureOnCanvas(
@@ -32,7 +32,7 @@ void drawSurfaceTextureOnSvg(
   XmlDocument xml,
   Offset offset,
   Size size, [
-  Offset translation = Offset.zero,
+  Offset translation = .zero,
   bool extraLines = false,
 ]) => switch (texture) {
   PatternTexture e => drawPatternTextureOnSvg(

@@ -220,7 +220,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
       if (boxes.isEmpty) continue;
       result.add((
         table: layout.table,
-        rect: Rect.fromLTRB(
+        rect: .fromLTRB(
           paintOffset.dx,
           paintOffset.dy + boxes.first.top,
           paintOffset.dx + rect.width,
@@ -344,7 +344,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
                   : FontWeight.normal,
             ),
           ),
-          textDirection: TextDirection.ltr,
+          textDirection: .ltr,
           maxLines: 1,
           ellipsis: '…',
         )..layout(maxWidth: bounds.width);

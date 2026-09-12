@@ -30,9 +30,9 @@ class _CameraDialogState extends State<CameraDialog>
     if (!(_controller?.value.isInitialized ?? false)) {
       return;
     }
-    if (state == AppLifecycleState.inactive) {
+    if (state == .inactive) {
       _controller?.dispose();
-    } else if (state == AppLifecycleState.resumed) {
+    } else if (state == .resumed) {
       if (_controller != null) {
         onNewCameraSelected(_controller!.description);
       }
@@ -74,9 +74,9 @@ class _CameraDialogState extends State<CameraDialog>
 
   Widget _buildCameraToggles(List<CameraDescription> cameras) =>
       SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: .horizontal,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: cameras
               .map((camera) => _buildCameraToggle(camera))
               .toList(),
@@ -84,7 +84,7 @@ class _CameraDialogState extends State<CameraDialog>
       );
   Widget _buildCameraToggle(CameraDescription camera) => IconButton(
     icon: PhosphorIcon(
-      camera.lensDirection == CameraLensDirection.front
+      camera.lensDirection == .front
           ? PhosphorIconsLight.userFocus
           : PhosphorIconsLight.image,
       // Test if camera is selected
@@ -163,14 +163,14 @@ class _CameraDialogState extends State<CameraDialog>
                       );
                     }
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: .stretch,
                       children: [
                         Expanded(child: _buildCameraPreview()),
                         const Divider(),
                         _buildCameraToggles(snapshot.data!),
                         const Divider(),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: .end,
                           children: [
                             TextButton(
                               child: Text(

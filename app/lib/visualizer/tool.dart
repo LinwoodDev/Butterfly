@@ -15,86 +15,77 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ToolCategoryVisualizer on ToolCategory {
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    ToolCategory.normal =>
+    .normal =>
       filled ? PhosphorIconsFill.paintBrush : PhosphorIconsLight.paintBrush,
-    ToolCategory.import =>
+    .import =>
       filled
           ? PhosphorIconsFill.arrowSquareIn
           : PhosphorIconsLight.arrowSquareIn,
-    ToolCategory.surface =>
-      filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
-    ToolCategory.action =>
-      filled ? PhosphorIconsFill.play : PhosphorIconsLight.play,
-    ToolCategory.view =>
-      filled ? PhosphorIconsFill.eye : PhosphorIconsLight.eye,
+    .surface => filled ? PhosphorIconsFill.monitor : PhosphorIconsLight.monitor,
+    .action => filled ? PhosphorIconsFill.play : PhosphorIconsLight.play,
+    .view => filled ? PhosphorIconsFill.eye : PhosphorIconsLight.eye,
   };
 
   String getLocalizedName(BuildContext context) => switch (this) {
-    ToolCategory.normal => AppLocalizations.of(context).normal,
-    ToolCategory.import => AppLocalizations.of(context).import,
-    ToolCategory.surface => AppLocalizations.of(context).surface,
-    ToolCategory.action => AppLocalizations.of(context).action,
-    ToolCategory.view => AppLocalizations.of(context).view,
+    .normal => AppLocalizations.of(context).normal,
+    .import => AppLocalizations.of(context).import,
+    .surface => AppLocalizations.of(context).surface,
+    .action => AppLocalizations.of(context).action,
+    .view => AppLocalizations.of(context).view,
   };
 }
 
 extension BarcodeTypeVisualizer on BarcodeType {
   String getLocalizedName(BuildContext context) => switch (this) {
-    BarcodeType.qrCode => AppLocalizations.of(context).qrCode,
-    BarcodeType.dataMatrix => AppLocalizations.of(context).dataMatrix,
-    BarcodeType.code128 => AppLocalizations.of(context).code128,
+    .qrCode => AppLocalizations.of(context).qrCode,
+    .dataMatrix => AppLocalizations.of(context).dataMatrix,
+    .code128 => AppLocalizations.of(context).code128,
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    BarcodeType.qrCode =>
-      filled ? PhosphorIconsFill.qrCode : PhosphorIconsLight.qrCode,
-    BarcodeType.dataMatrix =>
-      filled ? PhosphorIconsFill.scan : PhosphorIconsLight.scan,
-    BarcodeType.code128 =>
-      filled ? PhosphorIconsFill.barcode : PhosphorIconsLight.barcode,
+    .qrCode => filled ? PhosphorIconsFill.qrCode : PhosphorIconsLight.qrCode,
+    .dataMatrix => filled ? PhosphorIconsFill.scan : PhosphorIconsLight.scan,
+    .code128 => filled ? PhosphorIconsFill.barcode : PhosphorIconsLight.barcode,
   };
 }
 
 extension SelectModeVisualizer on SelectMode {
   String getLocalizedName(BuildContext context) => switch (this) {
-    SelectMode.rectangle => AppLocalizations.of(context).rectangle,
-    SelectMode.lasso => AppLocalizations.of(context).lasso,
+    .rectangle => AppLocalizations.of(context).rectangle,
+    .lasso => AppLocalizations.of(context).lasso,
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    SelectMode.rectangle =>
+    .rectangle =>
       filled ? PhosphorIconsFill.selection : PhosphorIconsLight.selection,
-    SelectMode.lasso =>
-      filled ? PhosphorIconsFill.lasso : PhosphorIconsLight.lasso,
+    .lasso => filled ? PhosphorIconsFill.lasso : PhosphorIconsLight.lasso,
   };
 }
 
 extension EraserModeVisualizer on EraserMode {
   String getLocalizedName(BuildContext context) => switch (this) {
-    EraserMode.stroke => AppLocalizations.of(context).stroke,
-    EraserMode.path => AppLocalizations.of(context).path,
+    .stroke => AppLocalizations.of(context).stroke,
+    .path => AppLocalizations.of(context).path,
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    EraserMode.stroke =>
-      filled ? PhosphorIconsFill.eraser : PhosphorIconsLight.eraser,
-    EraserMode.path =>
-      filled ? PhosphorIconsFill.path : PhosphorIconsLight.path,
+    .stroke => filled ? PhosphorIconsFill.eraser : PhosphorIconsLight.eraser,
+    .path => filled ? PhosphorIconsFill.path : PhosphorIconsLight.path,
   };
 }
 
 extension Axis2DVisualizer on Axis2D {
   String getLocalizedName(BuildContext context) => switch (this) {
-    Axis2D.horizontal => AppLocalizations.of(context).horizontal,
-    Axis2D.vertical => AppLocalizations.of(context).vertical,
+    .horizontal => AppLocalizations.of(context).horizontal,
+    .vertical => AppLocalizations.of(context).vertical,
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    Axis2D.horizontal =>
+    .horizontal =>
       filled
           ? PhosphorIconsFill.splitHorizontal
           : PhosphorIconsLight.splitHorizontal,
-    Axis2D.vertical =>
+    .vertical =>
       filled
           ? PhosphorIconsFill.splitVertical
           : PhosphorIconsLight.splitVertical,
@@ -157,7 +148,7 @@ extension ToolVisualizer on Tool {
   PhosphorIconData icon({bool filled = false}) => switch (this) {
     HandTool() => filled ? PhosphorIconsFill.hand : PhosphorIconsLight.hand,
     SelectTool tool =>
-      tool.mode == SelectMode.lasso
+      tool.mode == .lasso
           ? (filled ? PhosphorIconsFill.lasso : PhosphorIconsLight.lasso)
           : (filled
                 ? PhosphorIconsFill.selection
@@ -175,7 +166,7 @@ extension ToolVisualizer on Tool {
           ? PhosphorIconsFill.arrowClockwise
           : PhosphorIconsLight.arrowClockwise,
     LabelTool tool =>
-      tool.mode == LabelMode.markdown
+      tool.mode == .markdown
           ? (filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox)
           : (filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT),
     PenTool tool => DisplayIcons.from(tool, filled: filled),
@@ -189,7 +180,7 @@ extension ToolVisualizer on Tool {
     ShapeTool tool => tool.property.shape.icon(filled: filled),
     TableTool() => filled ? PhosphorIconsFill.table : PhosphorIconsLight.table,
     SpacerTool tool =>
-      tool.axis == Axis2D.horizontal
+      tool.axis == .horizontal
           ? (filled
                 ? PhosphorIconsFill.splitHorizontal
                 : PhosphorIconsLight.splitHorizontal)
@@ -225,8 +216,8 @@ extension ToolVisualizer on Tool {
       TableTool() => null,
       StampTool() => 'stamp',
       EraserTool e => switch (e.mode) {
-        EraserMode.stroke => 'eraser',
-        EraserMode.path => 'path_eraser',
+        .stroke => 'eraser',
+        .path => 'path_eraser',
       },
       LabelTool() => 'label',
       AreaTool() => 'area',
@@ -266,42 +257,37 @@ extension ToolVisualizer on Tool {
 
 extension ImportTypeVisualizer on ImportType {
   String getLocalizedName(BuildContext context) => switch (this) {
-    ImportType.file => AppLocalizations.of(context).import,
-    ImportType.oneNote => 'OneNote',
-    ImportType.document => AppLocalizations.of(context).document,
-    ImportType.image => AppLocalizations.of(context).image,
-    ImportType.pdf => AppLocalizations.of(context).pdf,
-    ImportType.svg => AppLocalizations.of(context).svg,
-    ImportType.svgText => AppLocalizations.of(context).svgText,
-    ImportType.camera => AppLocalizations.of(context).camera,
-    ImportType.markdown => AppLocalizations.of(context).markdown,
-    ImportType.xopp => 'Xournal++',
+    .file => AppLocalizations.of(context).import,
+    .oneNote => 'OneNote',
+    .document => AppLocalizations.of(context).document,
+    .image => AppLocalizations.of(context).image,
+    .pdf => AppLocalizations.of(context).pdf,
+    .svg => AppLocalizations.of(context).svg,
+    .svgText => AppLocalizations.of(context).svgText,
+    .camera => AppLocalizations.of(context).camera,
+    .markdown => AppLocalizations.of(context).markdown,
+    .xopp => 'Xournal++',
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    ImportType.file =>
+    .file =>
       filled ? PhosphorIconsFill.fileArrowUp : PhosphorIconsLight.fileArrowUp,
-    ImportType.oneNote || ImportType.xopp =>
+    .oneNote || ImportType.xopp =>
       filled ? PhosphorIconsFill.notebook : PhosphorIconsLight.notebook,
-    ImportType.document =>
+    .document =>
       filled ? PhosphorIconsFill.fileText : PhosphorIconsLight.fileText,
-    ImportType.image =>
-      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
-    ImportType.pdf =>
-      filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf,
-    ImportType.svg =>
-      filled ? PhosphorIconsFill.fileSvg : PhosphorIconsLight.fileSvg,
-    ImportType.svgText =>
-      filled ? PhosphorIconsFill.article : PhosphorIconsLight.article,
-    ImportType.camera =>
-      filled ? PhosphorIconsFill.camera : PhosphorIconsLight.camera,
-    ImportType.markdown =>
+    .image => filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
+    .pdf => filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf,
+    .svg => filled ? PhosphorIconsFill.fileSvg : PhosphorIconsLight.fileSvg,
+    .svgText => filled ? PhosphorIconsFill.article : PhosphorIconsLight.article,
+    .camera => filled ? PhosphorIconsFill.camera : PhosphorIconsLight.camera,
+    .markdown =>
       filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox,
   };
 
   Future<bool> isAvailable() async {
     return switch (this) {
-      ImportType.camera =>
+      .camera =>
         kIsWeb || Platform.isWindows || Platform.isAndroid || Platform.isIOS,
       _ => true,
     };

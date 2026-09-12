@@ -19,10 +19,10 @@ class ParagraphStyleView extends StatelessWidget {
         const SizedBox(height: 16),
         ToggleButtons(
           isSelected: [
-            value.alignment == HorizontalAlignment.left,
-            value.alignment == HorizontalAlignment.center,
-            value.alignment == HorizontalAlignment.right,
-            value.alignment == HorizontalAlignment.justify,
+            value.alignment == .left,
+            value.alignment == .center,
+            value.alignment == .right,
+            value.alignment == .justify,
           ],
           onPressed: (index) {
             var alignments = [

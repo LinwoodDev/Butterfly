@@ -48,19 +48,19 @@ class EditorController(
   final FocusNode focusNode = .new();
   NetworkingService get networkingService => _networkingService ??= .new();
   @override
-  final RendererCubit rendererCubit = RendererCubit(
+  final RendererCubit rendererCubit = .new(
     settingsCubit,
     RendererRuntimeState(cameraViewport: viewport),
   );
-  final ToolCubit toolCubit = ToolCubit(
+  final ToolCubit toolCubit = .new(
     ToolRuntimeState(
       index: editorSessionCubit?.state.selectedTool.toolIndex,
       handler: HandHandler(),
     ),
   );
   @override
-  final EditorInputCubit inputCubit = EditorInputCubit(settingsCubit);
-  final DocumentSaveCubit saveCubit = DocumentSaveCubit(
+  final EditorInputCubit inputCubit = .new(settingsCubit);
+  final DocumentSaveCubit saveCubit = .new(
     settingsCubit,
     DocumentSaveState(
       embedding: embedding,
@@ -69,7 +69,7 @@ class EditorController(
     ),
   );
   @override
-  final EditorViewCubit viewCubit = EditorViewCubit(
+  final EditorViewCubit viewCubit = .new(
     editorSessionCubit: editorSessionCubit,
     initial: EditorViewState(
       locks: editorSessionCubit?.state.locks ?? const PersistentLockState(),

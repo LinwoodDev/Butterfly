@@ -416,9 +416,7 @@ class SelectHandler extends Handler<SelectTool> {
       return true;
     }
     _rectangleSelectionRotation = cameraTransform.rotation;
-    _rectangleFreeSelectionStart = data.mode == SelectMode.rectangle
-        ? globalPos
-        : null;
+    _rectangleFreeSelectionStart = data.mode == .rectangle ? globalPos : null;
     context.refresh();
     return true;
   }
@@ -471,7 +469,7 @@ class SelectHandler extends Handler<SelectTool> {
       return;
     }
     final start = _rectangleFreeSelectionStart ?? globalPos;
-    if (data.mode == SelectMode.rectangle) {
+    if (data.mode == .rectangle) {
       final angle = _rectangleSelectionRotation;
       final rect = Rect.fromPoints(start, globalPos.rotate(start, angle));
       _rectangleFreeSelection = RectSelectionForegroundRenderer(
@@ -481,7 +479,7 @@ class SelectHandler extends Handler<SelectTool> {
     } else {
       _rectangleFreeSelection = null;
     }
-    if (data.mode == SelectMode.lasso) {
+    if (data.mode == .lasso) {
       _lassoFreeSelection ??= [];
       _lassoFreeSelection!.add(globalPos);
     } else {

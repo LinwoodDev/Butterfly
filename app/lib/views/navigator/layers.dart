@@ -128,7 +128,7 @@ class _LayersViewState extends State<LayersView> {
                             ? PhosphorIconsLight.eye
                             : PhosphorIconsLight.eyeSlash,
                       ),
-                      title: Text(name, overflow: TextOverflow.ellipsis),
+                      title: Text(name, overflow: .ellipsis),
                       subtitle: Text(
                         AppLocalizations.of(context)
                             .countElements(layer.content.length),
@@ -360,7 +360,7 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
               ? null
               : state.page.getLayer(widget.main!);
           return Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               if (mainLayer != null) ...[
                 ListTile(

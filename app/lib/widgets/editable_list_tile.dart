@@ -41,7 +41,7 @@ class EditableListTile extends StatefulWidget {
 
 class _EditableListTileState extends State<EditableListTile> {
   TextEditingController? _internalController;
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = .new();
   bool _isEditing = false;
 
   TextEditingController get _controller =>
@@ -139,14 +139,10 @@ class _EditableListTileState extends State<EditableListTile> {
                   return Tooltip(
                     message: text,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: .center,
+                      crossAxisAlignment: .stretch,
                       children: [
-                        Text(
-                          text,
-                          style: currentStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        Text(text, style: currentStyle, overflow: .ellipsis),
                       ],
                     ),
                   );
@@ -177,7 +173,7 @@ class _EditableListTileState extends State<EditableListTile> {
                     _isEditing
                         ? PhosphorIconsLight.check
                         : PhosphorIconsLight.pencil,
-                    textDirection: TextDirection.ltr,
+                    textDirection: .ltr,
                   ),
                   tooltip: _isEditing
                       ? AppLocalizations.of(context).save

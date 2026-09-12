@@ -2,7 +2,7 @@ part of 'handler.dart';
 
 mixin GeneralPresentationHandler {
   Timer? _timer;
-  PresentationRunningState _state = PresentationRunningState.paused;
+  PresentationRunningState _state = .paused;
 
   int get currentFrame;
 
@@ -13,7 +13,7 @@ mixin GeneralPresentationHandler {
     if (animation == null) return;
     final milliseconds = 1000 ~/ animation.fps;
     _timer ??= Timer.periodic(Duration(milliseconds: milliseconds), (timer) {
-      if (_state != PresentationRunningState.paused) {
+      if (_state != .paused) {
         onTick(bloc, animation);
       }
     });
@@ -46,7 +46,7 @@ mixin GeneralPresentationHandler {
   }
 
   void play(DocumentBloc bloc) {
-    if (_state == PresentationRunningState.running) return;
+    if (_state == .running) return;
     _state = PresentationRunningState.running;
     _timer?.cancel();
     _timer = null;
@@ -55,7 +55,7 @@ mixin GeneralPresentationHandler {
   }
 
   void playReverse(DocumentBloc bloc) {
-    if (_state == PresentationRunningState.reversed) return;
+    if (_state == .reversed) return;
     _state = PresentationRunningState.reversed;
     _timer?.cancel();
     _timer = null;
@@ -65,11 +65,11 @@ mixin GeneralPresentationHandler {
 
   void toggle(DocumentBloc bloc) {
     switch (_state) {
-      case PresentationRunningState.running:
-      case PresentationRunningState.reversed:
+      case .running:
+      case .reversed:
         pause(bloc);
         break;
-      case PresentationRunningState.paused:
+      case .paused:
         play(bloc);
         break;
     }
@@ -87,21 +87,21 @@ mixin GeneralPresentationHandler {
 
     var frame = currentFrame;
     switch (_state) {
-      case PresentationRunningState.running:
+      case .running:
         if (frame < animation.duration) {
           frame++;
         } else {
           pause(bloc);
         }
         break;
-      case PresentationRunningState.reversed:
+      case .reversed:
         if (frame > 0) {
           frame--;
         } else {
           pause(bloc);
         }
         break;
-      case PresentationRunningState.paused:
+      case .paused:
         return;
     }
     changeFrame(bloc, animation, frame);
@@ -113,7 +113,7 @@ mixin GeneralPresentationHandler {
   void changeFrame(DocumentBloc bloc, AnimationTrack animation, int frame);
 
   void pause(DocumentBloc bloc) {
-    if (_state == PresentationRunningState.paused) return;
+    if (_state == .paused) return;
     _state = PresentationRunningState.paused;
     _timer?.cancel();
     _timer = null;
@@ -181,13 +181,13 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
     runningState: _state,
     onRunningStateChanged: (value) {
       switch (value) {
-        case PresentationRunningState.running:
+        case .running:
           play(bloc);
           break;
-        case PresentationRunningState.reversed:
+        case .reversed:
           playReverse(bloc);
           break;
-        case PresentationRunningState.paused:
+        case .paused:
           pause(bloc);
           break;
       }
@@ -258,9 +258,8 @@ class PresentationStateHandler extends Handler<AnimationTrack>
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
-    if (details.kind == PointerDeviceKind.mouse) {
-      if (_state == PresentationRunningState.reversed ||
-          _state == PresentationRunningState.paused) {
+    if (details.kind == .mouse) {
+      if (_state == .reversed || _state == .paused) {
         play(bloc);
       } else {
         pause(bloc);

@@ -53,14 +53,14 @@ class TemplateDialog extends StatefulWidget {
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _templateSystem;
   late final ButterflyFileSystem _fileSystem;
-  Future<List<dynamic>> _combinedFuture = Future.value([
+  Future<List<dynamic>> _combinedFuture = .value([
     <FileSystemFile<NoteData>>[],
     <NoteData>[],
   ]);
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = .new();
   final List<String> _selectedTemplates = [];
   NoteData? _clickedTemplate;
-  PatternBackground _selectedBackground = PatternBackground.light;
+  PatternBackground _selectedBackground = .light;
 
   @override
   void initState() {
@@ -70,7 +70,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final brightness = Theme.of(context).brightness;
       setState(() {
-        _selectedBackground = brightness == Brightness.light
+        _selectedBackground = brightness == .light
             ? PatternBackground.light
             : PatternBackground.dark;
       });
@@ -89,7 +89,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
       final userFuture = _templateSystem.initialize().then((value) async {
         return (await _templateSystem.getFiles()).toList();
       });
-      Future<List<NoteData>> coreFuture = Future.value([]);
+      Future<List<NoteData>> coreFuture = .value([]);
       if (context.mounted) {
         coreFuture = DocumentDefaults.getCoreTemplates(
           context,
@@ -136,7 +136,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             MenuItemButton(
               leadingIcon: const PhosphorIcon(
                 PhosphorIconsLight.file,
-                textDirection: TextDirection.ltr,
+                textDirection: .ltr,
               ),
               child: Text(AppLocalizations.of(context).rawFile),
               onPressed: () async {
@@ -286,7 +286,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   : null;
               const fallback = PhosphorIcon(
                 PhosphorIconsLight.file,
-                textDirection: TextDirection.ltr,
+                textDirection: .ltr,
                 size: 48,
               );
               return thumbnail != null
@@ -298,7 +298,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         ),
                         child: Image.memory(
                           thumbnail,
-                          fit: BoxFit.cover,
+                          fit: .cover,
                           cacheHeight: kThumbnailHeight,
                           cacheWidth: kThumbnailWidth,
                         ),
@@ -463,7 +463,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             spacing: 8,
             children: [
               AnimatedSwitcher(
@@ -474,7 +474,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         child: Padding(
                           padding: const EdgeInsets.all(8),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: .spaceBetween,
                             children: [
                               Row(
                                 children: [
@@ -569,7 +569,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       MenuItemButton(
                                         leadingIcon: const PhosphorIcon(
                                           PhosphorIconsLight.file,
-                                          textDirection: TextDirection.ltr,
+                                          textDirection: .ltr,
                                         ),
                                         child: Text(
                                           AppLocalizations.of(context).rawFile,
@@ -641,14 +641,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
           IconButton(
             icon: Icon(
-              _selectedBackground == PatternBackground.light
+              _selectedBackground == .light
                   ? PhosphorIconsLight.sun
                   : PhosphorIconsLight.moon,
             ),
             onPressed: () {
               setState(() {
-                _selectedBackground =
-                    _selectedBackground == PatternBackground.light
+                _selectedBackground = _selectedBackground == .light
                     ? PatternBackground.dark
                     : PatternBackground.light;
                 load();
@@ -680,7 +679,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             child: SizedBox(
               width: 500,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: .min,
                 children: [
                   Text(AppLocalizations.of(context).createTemplateContent),
                   const SizedBox(height: 16),
@@ -795,7 +794,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
         : null;
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
-      textDirection: TextDirection.ltr,
+      textDirection: .ltr,
       size: 48,
     );
     final thumbnailWidget = thumbnail != null
@@ -805,7 +804,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Image.memory(
                 thumbnail,
-                fit: BoxFit.cover,
+                fit: .cover,
                 cacheHeight: kThumbnailHeight,
                 cacheWidth: kThumbnailWidth,
               ),
@@ -835,7 +834,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
           child: SizedBox(
             height: 42,
             child: ListView(
-              scrollDirection: Axis.horizontal,
+              scrollDirection: .horizontal,
               children: [
                 for (final tool in info?.tools ?? <Tool>[])
                   SizedBox.square(
@@ -934,13 +933,13 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     Center(
                       child: ConstrainedBox(
@@ -1022,7 +1021,7 @@ class _TemplateItem extends StatelessWidget {
         : null;
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
-      textDirection: TextDirection.ltr,
+      textDirection: .ltr,
       size: 48,
     );
     final leading = thumbnail != null
@@ -1032,7 +1031,7 @@ class _TemplateItem extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Image.memory(
                 thumbnail,
-                fit: BoxFit.cover,
+                fit: .cover,
                 cacheHeight: kThumbnailHeight,
                 cacheWidth: kThumbnailWidth,
               ),
@@ -1047,7 +1046,7 @@ class _TemplateItem extends StatelessWidget {
       leading: SizedBox(
         width: 100,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: .center,
           children: [
             if (!isCore && selectionMode)
               Checkbox(
@@ -1159,7 +1158,7 @@ class _TemplateCard extends StatelessWidget {
         : null;
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
-      textDirection: TextDirection.ltr,
+      textDirection: .ltr,
       size: 48,
     );
 
@@ -1181,7 +1180,7 @@ class _TemplateCard extends StatelessWidget {
         ),
       ],
       builder: (context, button, controller) => Card(
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: .antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           side: isActive
@@ -1201,17 +1200,17 @@ class _TemplateCard extends StatelessWidget {
                 remote: fileSystem.storage?.identifier,
               ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: [
               AspectRatio(
                 aspectRatio: kThumbnailRatio,
                 child: Stack(
-                  fit: StackFit.expand,
+                  fit: .expand,
                   children: [
                     thumbnail != null
                         ? Image.memory(
                             thumbnail,
-                            fit: BoxFit.cover,
+                            fit: .cover,
                             cacheHeight: kThumbnailHeight,
                             cacheWidth: kThumbnailWidth,
                           )
@@ -1260,21 +1259,21 @@ class _TemplateCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: .end,
+                          crossAxisAlignment: .start,
                           children: [
                             Text(
                               metadata.name,
                               style: Theme.of(context).textTheme.titleMedium,
                               maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                              overflow: .ellipsis,
                             ),
                             if (metadata.description.isNotEmpty)
                               Text(
                                 metadata.description,
                                 style: Theme.of(context).textTheme.bodySmall,
                                 maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                                overflow: .ellipsis,
                               ),
                           ],
                         ),

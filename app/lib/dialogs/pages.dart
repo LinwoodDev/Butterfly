@@ -62,7 +62,7 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
     if (_rangeController.text == text) return;
     _rangeController.value = TextEditingValue(
       text: text,
-      selection: TextSelection.collapsed(offset: text.length),
+      selection: .collapsed(offset: text.length),
     );
   }
 
@@ -155,7 +155,7 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
             const SizedBox(height: 12),
             Expanded(
               child: Material(
-                type: MaterialType.transparency,
+                type: .transparency,
                 child: ListView.separated(
                   itemCount: widget.pages.length,
                   separatorBuilder: (context, index) =>
@@ -164,7 +164,7 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
                     final page = widget.pages[index];
                     final id = page.$2;
                     return CheckboxListTile(
-                      contentPadding: EdgeInsets.zero,
+                      contentPadding: .zero,
                       title: Text(page.$1.isEmpty ? loc.page : page.$1),
                       subtitle: Text(loc.pageIndex(index + 1)),
                       value: _selected.contains(id),

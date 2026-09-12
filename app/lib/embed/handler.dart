@@ -95,7 +95,7 @@ class EmbedHandler {
     queryParameters: {
       if (!embedding.save) 'save': 'false',
       if (!embedding.editable) 'editable': 'false',
-      if (embedding.fullScreen != EmbedFullScreen.enabled)
+      if (embedding.fullScreen != .enabled)
         'fullScreen': embedding.fullScreen.queryValue,
       if (embedding.language.isNotEmpty) 'language': embedding.language,
       if (embedding.theme.isNotEmpty) 'theme': embedding.theme,
@@ -106,7 +106,7 @@ class EmbedHandler {
   void register(BuildContext context, DocumentBloc bloc) {
     _blocSubscription ??= bloc.stream.listen((state) {
       if (state is DocumentLoadSuccess &&
-          bloc.editorController.saveCubit.state.saved == SaveState.unsaved) {
+          bloc.editorController.saveCubit.state.saved == .unsaved) {
         _changeDebounceTimer?.cancel();
         _changeDebounceTimer = Timer(
           const Duration(milliseconds: 500),
@@ -152,7 +152,7 @@ class EmbedHandler {
         final viewportSize = _renderViewportSize(context, controller);
         double x = transform.position.dx, y = transform.position.dy;
         double scale = transform.size, rotation = transform.rotation;
-        ExportPadding padding = const ExportPadding();
+        ExportPadding padding = const .new();
         double width = viewportSize.width, height = viewportSize.height;
         bool renderBackground = true;
         final map = _messageToMap(message);
@@ -213,7 +213,7 @@ class EmbedHandler {
         final viewportSize = _renderViewportSize(context, controller);
         double x = transform.position.dx, y = transform.position.dy;
         double scale = transform.size, rotation = transform.rotation;
-        ExportPadding padding = const ExportPadding();
+        ExportPadding padding = const .new();
         double width = viewportSize.width, height = viewportSize.height;
         bool renderBackground = true;
         final map = _messageToMap(message);

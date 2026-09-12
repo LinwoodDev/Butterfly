@@ -14,7 +14,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:reorderable_grid/reorderable_grid.dart';
 
 import '../cubits/settings.dart';
-import '../handlers/handler.dart';
 import 'app_bar.dart';
 
 class EditToolbar extends StatefulWidget {
@@ -26,7 +25,7 @@ class EditToolbar extends StatefulWidget {
     super.key,
     required this.isMobile,
     this.centered,
-    this.direction = Axis.horizontal,
+    this.direction = .horizontal,
   });
 
   @override
@@ -36,7 +35,7 @@ class EditToolbar extends StatefulWidget {
 enum _MouseState { normal, multi }
 
 class _EditToolbarState extends State<EditToolbar> {
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = .new();
 
   _MouseState _mouseState = _MouseState.normal;
 
@@ -68,7 +67,7 @@ class _EditToolbarState extends State<EditToolbar> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.ltr,
+      textDirection: .ltr,
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.inputConfiguration != current.inputConfiguration ||
@@ -147,8 +146,8 @@ class _EditToolbarState extends State<EditToolbar> {
     }
     tooltip ??= '';
     return SizedBox(
-      height: direction == Axis.horizontal ? fullSize : null,
-      width: direction == Axis.horizontal ? null : fullSize,
+      height: direction == .horizontal ? fullSize : null,
+      width: direction == .horizontal ? null : fullSize,
       child: Scrollbar(
         controller: _scrollController,
         child: CustomScrollView(
@@ -204,7 +203,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   if (tools.length <= i) {
                     final add = Padding(
                       key: ObjectKey('add-button'),
-                      padding: direction == Axis.horizontal
+                      padding: direction == .horizontal
                           ? const EdgeInsets.only(
                               right: 4,
                               left: 8,
@@ -263,7 +262,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                           position:
                                               Tween<Offset>(
                                                     begin: const Offset(0, 1),
-                                                    end: Offset.zero,
+                                                    end: .zero,
                                                   )
                                                   .chain(
                                                     CurveTween(
@@ -312,10 +311,9 @@ class _EditToolbarState extends State<EditToolbar> {
                             final status = handler.getStatus(bloc);
                             final theme = Theme.of(context);
                             final color = switch (status) {
-                              ToolStatus.normal => null,
-                              ToolStatus.disabled => theme.disabledColor,
-                              ToolStatus.selected =>
-                                theme.colorScheme.secondary,
+                              .normal => null,
+                              .disabled => theme.disabledColor,
+                              .selected => theme.colorScheme.secondary,
                             };
                             var handlerIcon = handler.getIcon(bloc);
                             return Padding(
@@ -353,14 +351,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                             ? PhosphorIconsLight.caretUp
                                             : switch (settings
                                                   .toolbarPosition) {
-                                                ToolbarPosition.top ||
-                                                ToolbarPosition.inline =>
+                                                .top || .inline =>
                                                   PhosphorIconsLight.caretDown,
-                                                ToolbarPosition.bottom =>
+                                                .bottom =>
                                                   PhosphorIconsLight.caretUp,
-                                                ToolbarPosition.left =>
+                                                .left =>
                                                   PhosphorIconsLight.caretRight,
-                                                ToolbarPosition.right =>
+                                                .right =>
                                                   PhosphorIconsLight.caretLeft,
                                               },
                                       )
@@ -524,11 +521,8 @@ class _EditToolbarState extends State<EditToolbar> {
                           isLarge: !isMobile,
                         ),
                     ];
-                    if (direction == Axis.horizontal) {
-                      return Row(
-                        textDirection: TextDirection.ltr,
-                        children: children,
-                      );
+                    if (direction == .horizontal) {
+                      return Row(textDirection: .ltr, children: children);
                     }
                     return Column(children: children);
                   },

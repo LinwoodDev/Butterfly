@@ -19,7 +19,7 @@ class ToolbarsPackView extends StatelessWidget {
       children: [
         const SizedBox(height: 8),
         Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: value
               .getToolbars()
               .map(

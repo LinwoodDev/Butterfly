@@ -29,15 +29,11 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
               context.read<SettingsCubit>().changeSyncMode(value),
           valueLabel: (context, value) => value.getLocalizedName(context),
           valueDescription: (context, value) => switch (value) {
-            SyncMode.always => AppLocalizations.of(
-              context,
-            ).syncModeAlwaysDescription,
-            SyncMode.noMobile => AppLocalizations.of(
+            .always => AppLocalizations.of(context).syncModeAlwaysDescription,
+            .noMobile => AppLocalizations.of(
               context,
             ).syncModeNoMobileDescription,
-            SyncMode.manual => AppLocalizations.of(
-              context,
-            ).syncModeManualDescription,
+            .manual => AppLocalizations.of(context).syncModeManualDescription,
           },
         ),
         SettingsLeapCustomSetting(

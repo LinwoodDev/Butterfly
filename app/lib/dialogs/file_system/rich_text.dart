@@ -14,8 +14,8 @@ class FileSystemFileRichText extends StatelessWidget {
       return Container();
     }
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: .start,
+      crossAxisAlignment: .stretch,
       children: [
         if (metadata.createdAt != null)
           Text(AppLocalizations.of(context).createdAt(metadata.createdAt!)),

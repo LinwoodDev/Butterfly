@@ -59,7 +59,7 @@ extension TransformResultGeometry on TransformResult {
         Offset(relative.dx * scaleX, relative.dy * scaleY);
   }
 
-  Rect scaleRect(Rect rect, Rect selection) => Rect.fromPoints(
+  Rect scaleRect(Rect rect, Rect selection) => .fromPoints(
     scalePoint(rect.topLeft, selection),
     scalePoint(rect.bottomRight, selection),
   );
@@ -67,8 +67,8 @@ extension TransformResultGeometry on TransformResult {
 
 class RectSelectionForegroundManager {
   final bool enableRotation;
-  Rect _selection = Rect.zero;
-  SelectionScaleMode _scaleMode = SelectionScaleMode.scale;
+  Rect _selection = .zero;
+  SelectionScaleMode _scaleMode = .scale;
   bool _proportionalModifier = false;
   bool _centeredModifier = false;
   double _viewportRotation = 0;
@@ -142,7 +142,7 @@ class RectSelectionForegroundManager {
     if (!isValid) return null;
     final hits = SelectionTransformCorner.values.where((corner) {
       final cornerPosition = corner.getFromRect(_selection, scale: scale);
-      if (corner == SelectionTransformCorner.center && !enableRotation) {
+      if (corner == .center && !enableRotation) {
         return false;
       }
       return Rect.fromCenter(
@@ -176,7 +176,7 @@ class RectSelectionForegroundManager {
   }
 
   SelectionScaleMode get _effectiveScaleMode =>
-      (_scaleMode == SelectionScaleMode.scaleProp) != _proportionalModifier
+      (_scaleMode == .scaleProp) != _proportionalModifier
       ? SelectionScaleMode.scaleProp
       : SelectionScaleMode.scale;
 
@@ -217,14 +217,10 @@ class RectSelectionForegroundManager {
   Offset get pivot => _selection.center;
   MouseCursor? get cursor {
     final angle = switch (corner) {
-      SelectionTransformCorner.centerLeft ||
-      SelectionTransformCorner.centerRight => 0.0,
-      SelectionTransformCorner.topLeft ||
-      SelectionTransformCorner.bottomRight => pi / 4,
-      SelectionTransformCorner.topCenter ||
-      SelectionTransformCorner.bottomCenter => pi / 2,
-      SelectionTransformCorner.topRight ||
-      SelectionTransformCorner.bottomLeft => 3 * pi / 4,
+      .centerLeft || .centerRight => 0.0,
+      .topLeft || .bottomRight => pi / 4,
+      .topCenter || .bottomCenter => pi / 2,
+      .topRight || .bottomLeft => 3 * pi / 4,
       _ => null,
     };
     if (angle != null) {
@@ -237,7 +233,7 @@ class RectSelectionForegroundManager {
         _ => SystemMouseCursors.resizeUpRightDownLeft,
       };
     }
-    return corner == SelectionTransformCorner.center
+    return corner == .center
         ? SystemMouseCursors.grab
         : (isInsideSelection ? SystemMouseCursors.move : null);
   }
@@ -254,30 +250,30 @@ class RectSelectionForegroundManager {
     var moved = Offset.zero;
     var rotation = 0.0;
     switch (_corner) {
-      case SelectionTransformCorner.topLeft:
+      case .topLeft:
         moved = delta;
         scaleX += -delta.dx / _selection.size.width;
         scaleY += -delta.dy / _selection.size.height;
-      case SelectionTransformCorner.topCenter:
+      case .topCenter:
         scaleY += -delta.dy / _selection.size.height;
         moved = Offset(0, delta.dy);
-      case SelectionTransformCorner.topRight:
+      case .topRight:
         moved = Offset(0, delta.dy);
         scaleX += delta.dx / _selection.size.width;
         scaleY += -delta.dy / _selection.size.height;
-      case SelectionTransformCorner.centerLeft:
+      case .centerLeft:
         moved = Offset(delta.dx, 0);
         scaleX += -delta.dx / _selection.size.width;
         break;
-      case SelectionTransformCorner.centerRight:
+      case .centerRight:
         scaleX += delta.dx / _selection.size.width;
-      case SelectionTransformCorner.bottomLeft:
+      case .bottomLeft:
         moved = Offset(delta.dx, 0);
         scaleX += -delta.dx / _selection.size.width;
         scaleY += delta.dy / _selection.size.height;
-      case SelectionTransformCorner.bottomCenter:
+      case .bottomCenter:
         scaleY += delta.dy / _selection.size.height;
-      case SelectionTransformCorner.bottomRight:
+      case .bottomRight:
         scaleX += delta.dx / _selection.size.width;
         scaleY += delta.dy / _selection.size.height;
       case SelectionTransformCorner.center when enableRotation:
@@ -288,31 +284,21 @@ class RectSelectionForegroundManager {
       default:
         moved = delta;
     }
-    if (_effectiveScaleMode == SelectionScaleMode.scaleProp) {
+    if (_effectiveScaleMode == .scaleProp) {
       final scale = (scaleX - 1).abs() > (scaleY - 1).abs() ? scaleX : scaleY;
       scaleX = scale;
       scaleY = scale;
       moved = switch (_corner) {
-        SelectionTransformCorner.topLeft => Offset(
+        .topLeft => Offset(
           _selection.width * (1 - scale),
           _selection.height * (1 - scale),
         ),
-        SelectionTransformCorner.topCenter ||
-        SelectionTransformCorner.topRight => Offset(
-          0,
-          _selection.height * (1 - scale),
-        ),
-        SelectionTransformCorner.centerLeft ||
-        SelectionTransformCorner.bottomLeft => Offset(
-          _selection.width * (1 - scale),
-          0,
-        ),
+        .topCenter || .topRight => Offset(0, _selection.height * (1 - scale)),
+        .centerLeft || .bottomLeft => Offset(_selection.width * (1 - scale), 0),
         _ => Offset.zero,
       };
     }
-    if (_centeredModifier &&
-        _corner != null &&
-        _corner != SelectionTransformCorner.center) {
+    if (_centeredModifier && _corner != null && _corner != .center) {
       scaleX = 1 + 2 * (scaleX - 1);
       scaleY = 1 + 2 * (scaleY - 1);
       moved = Offset(
@@ -417,9 +403,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
         paint,
       );
     }
-    final color = transformMode == SelectionScaleMode.scaleProp
-        ? Colors.red
-        : Colors.blue;
+    final color = transformMode == .scaleProp ? Colors.red : Colors.blue;
     final transformPaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
@@ -433,7 +417,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
         .where((element) => !element.isCenter() || showCenter)
         .forEach((corner) {
           final position = corner.getFromRect(element, scale: transform.size);
-          if (corner == SelectionTransformCorner.center) {
+          if (corner == .center) {
             if (!enableRotation) return;
             canvas.drawCircle(
               position,
@@ -441,7 +425,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
               transformPaint
                 ..style = corner == transformCorner
                     ? PaintingStyle.fill
-                    : PaintingStyle.stroke,
+                    : .stroke,
             );
           } else {
             canvas.drawRect(
@@ -453,16 +437,16 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
               transformPaint
                 ..style = corner == transformCorner
                     ? PaintingStyle.fill
-                    : PaintingStyle.stroke,
+                    : .stroke,
             );
           }
         });
 
-    final icon = transformMode == SelectionScaleMode.scaleProp
+    final icon = transformMode == .scaleProp
         ? PhosphorIconsFill.lock
         : PhosphorIconsLight.lockOpen;
     final textPainter = TextPainter(
-      textDirection: TextDirection.ltr,
+      textDirection: .ltr,
       text: TextSpan(
         text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
@@ -499,46 +483,35 @@ enum SelectionTransformCorner {
 
 extension SelectionTransformCornerExtension on SelectionTransformCorner? {
   bool isCenter() => switch (this) {
-    SelectionTransformCorner.topCenter ||
-    SelectionTransformCorner.centerLeft ||
-    SelectionTransformCorner.centerRight ||
-    SelectionTransformCorner.bottomCenter => true,
+    .topCenter || .centerLeft || .centerRight || .bottomCenter => true,
     _ => false,
   };
 
   Offset getFromRect(Rect rect, {double? scale}) {
     if (scale == null) {
       return switch (this) {
-        SelectionTransformCorner.topLeft => rect.topLeft,
-        SelectionTransformCorner.topCenter => rect.topCenter,
-        SelectionTransformCorner.topRight => rect.topRight,
-        SelectionTransformCorner.centerLeft => rect.centerLeft,
-        SelectionTransformCorner.centerRight => rect.centerRight,
-        SelectionTransformCorner.bottomLeft => rect.bottomLeft,
-        SelectionTransformCorner.bottomCenter => rect.bottomCenter,
-        SelectionTransformCorner.bottomRight => rect.bottomRight,
+        .topLeft => rect.topLeft,
+        .topCenter => rect.topCenter,
+        .topRight => rect.topRight,
+        .centerLeft => rect.centerLeft,
+        .centerRight => rect.centerRight,
+        .bottomLeft => rect.bottomLeft,
+        .bottomCenter => rect.bottomCenter,
+        .bottomRight => rect.bottomRight,
         _ => rect.topCenter + const Offset(0, -100),
       };
     }
 
     final spacing = rect.transformHandleSpacing(scale);
     final handlePosition = switch (this) {
-      SelectionTransformCorner.topLeft =>
-        rect.topLeft + Offset(-spacing.dx, -spacing.dy),
-      SelectionTransformCorner.topCenter =>
-        rect.topCenter + Offset(0, -spacing.dy),
-      SelectionTransformCorner.topRight =>
-        rect.topRight + Offset(spacing.dx, -spacing.dy),
-      SelectionTransformCorner.centerLeft =>
-        rect.centerLeft + Offset(-spacing.dx, 0),
-      SelectionTransformCorner.centerRight =>
-        rect.centerRight + Offset(spacing.dx, 0),
-      SelectionTransformCorner.bottomLeft =>
-        rect.bottomLeft + Offset(-spacing.dx, spacing.dy),
-      SelectionTransformCorner.bottomCenter =>
-        rect.bottomCenter + Offset(0, spacing.dy),
-      SelectionTransformCorner.bottomRight =>
-        rect.bottomRight + Offset(spacing.dx, spacing.dy),
+      .topLeft => rect.topLeft + Offset(-spacing.dx, -spacing.dy),
+      .topCenter => rect.topCenter + Offset(0, -spacing.dy),
+      .topRight => rect.topRight + Offset(spacing.dx, -spacing.dy),
+      .centerLeft => rect.centerLeft + Offset(-spacing.dx, 0),
+      .centerRight => rect.centerRight + Offset(spacing.dx, 0),
+      .bottomLeft => rect.bottomLeft + Offset(-spacing.dx, spacing.dy),
+      .bottomCenter => rect.bottomCenter + Offset(0, spacing.dy),
+      .bottomRight => rect.bottomRight + Offset(spacing.dx, spacing.dy),
       _ =>
         rect.topCenter +
             Offset(0, -(_rotationButtonDistance / scale + spacing.dy)),

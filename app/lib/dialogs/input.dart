@@ -97,7 +97,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                   decimal: false,
                 ),
                 decoration: InputDecoration(filled: true),
-                enabled: _category == InputMappingCategory.toolOnToolbar,
+                enabled: _category == .toolOnToolbar,
                 controller: _toolbarToolPositionController,
                 onTap: () {
                   _toolbarToolPositionController.selection = TextSelection(
@@ -113,7 +113,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                   FocusScope.of(context).unfocus();
                 },
                 onChanged: _toolbarToolPositionChanged,
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             ),
           ),

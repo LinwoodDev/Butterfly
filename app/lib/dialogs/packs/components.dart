@@ -22,7 +22,7 @@ class ComponentsPackView extends StatelessWidget {
       children: [
         const SizedBox(height: 8),
         Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: value
               .getComponents()
               .map(
@@ -88,7 +88,7 @@ class ComponentCard extends StatelessWidget {
     );
     final thumbnail = component.thumbnail;
     return Card(
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: .antiAlias,
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -113,7 +113,7 @@ class ComponentCard extends StatelessWidget {
                         thumbnail,
                         width: 48,
                         height: 48,
-                        fit: BoxFit.contain,
+                        fit: .contain,
                         errorBuilder: (context, error, stackTrace) =>
                             fallbackWidget,
                       ),
@@ -122,7 +122,7 @@ class ComponentCard extends StatelessWidget {
               Text(
                 name,
                 style: TextTheme.of(context).titleMedium,
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             ],
           ),

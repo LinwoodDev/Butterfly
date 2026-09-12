@@ -129,7 +129,7 @@ class TexturePaintField extends StatelessWidget {
                     ElementGradientStop(offset: 0, color: nextColor),
                     ElementGradientStop(
                       offset: 1,
-                      color: SRGBColor.white.withValues(a: nextColor.a),
+                      color: .white.withValues(a: nextColor.a),
                     ),
                   ],
                 ),

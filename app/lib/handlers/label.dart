@@ -7,7 +7,7 @@ class LabelHandler extends Handler<LabelTool>
   String? _editingElementId;
   Offset? _textAnchor;
   bool _isSelecting = false;
-  TextRange _composing = TextRange.empty;
+  TextRange _composing = .empty;
 
   bool get isCurrentlyEditing => _context?.element != null;
 
@@ -36,7 +36,7 @@ class LabelHandler extends Handler<LabelTool>
         await fileSystem.findDefaultStyleSheet().then((e) => e?.toNamed());
     final tool = data.copyWith(styleSheet: data.styleSheet ?? styleSheet);
     switch (mode) {
-      case LabelMode.text:
+      case .text:
         final forced = switch (_context) {
           TextContext e => e.forcedProperty,
           _ => null,
@@ -66,7 +66,7 @@ class LabelHandler extends Handler<LabelTool>
           textPainter: TextPainter(),
           forcedProperty: forced,
         );
-      case LabelMode.markdown:
+      case .markdown:
         return MarkdownContext(
           tool: tool,
           element:
@@ -129,7 +129,7 @@ class LabelHandler extends Handler<LabelTool>
         labelPos - Offset(hitRect!.left, hitRect.top),
       );
       _context = _context!.copyWith(
-        selection: TextSelection.collapsed(offset: position.offset),
+        selection: .collapsed(offset: position.offset),
       );
       context.refreshForegrounds();
     }
@@ -173,8 +173,7 @@ class LabelHandler extends Handler<LabelTool>
 
   @override
   bool canChange(PointerDownEvent event, EventContext context) =>
-      event.kind == PointerDeviceKind.mouse &&
-      event.buttons != kSecondaryMouseButton;
+      event.kind == .mouse && event.buttons != kSecondaryMouseButton;
 
   Future<void> create(
     EventContext context,
@@ -245,7 +244,7 @@ class LabelHandler extends Handler<LabelTool>
         labelPos - Offset(hitRect!.left, hitRect.top),
       );
       _context = _context!.copyWith(
-        selection: TextSelection.collapsed(offset: position.offset),
+        selection: .collapsed(offset: position.offset),
       );
     }
     final viewId = View.of(context.buildContext).viewId;
@@ -272,8 +271,8 @@ class LabelHandler extends Handler<LabelTool>
                 fontFamily: style.fontFamily,
                 fontSize: style.fontSize! * pixelRatio,
                 fontWeight: style.fontWeight,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.left,
+                textDirection: .ltr,
+                textAlign: .left,
               ),
             );
     } else {
@@ -396,7 +395,7 @@ class LabelHandler extends Handler<LabelTool>
 
   @override
   void onLongPressDown(LongPressDownDetails details, EventContext context) {
-    _startLongPress = details.kind != PointerDeviceKind.mouse;
+    _startLongPress = details.kind != .mouse;
   }
 
   @override
@@ -490,8 +489,8 @@ class LabelHandler extends Handler<LabelTool>
   @override
   void performAction(TextInputAction action) {
     switch (action) {
-      case TextInputAction.newline:
-      case TextInputAction.done:
+      case .newline:
+      case .done:
         if (HardwareKeyboard.instance.isControlPressed) {
           _newElement();
         }
@@ -758,7 +757,7 @@ class LabelHandler extends Handler<LabelTool>
 
               _context = e.copyWith(
                 element: newElement,
-                selection: TextSelection.collapsed(offset: start),
+                selection: .collapsed(offset: start),
               );
             case MarkdownContext e:
               var element = e.element;
@@ -768,7 +767,7 @@ class LabelHandler extends Handler<LabelTool>
               );
               _context = e.copyWith(
                 element: element,
-                selection: TextSelection.collapsed(offset: start),
+                selection: .collapsed(offset: start),
               );
             default:
               return null;
@@ -920,7 +919,7 @@ class LabelHandler extends Handler<LabelTool>
 
                   _context = e.copyWith(
                     element: newElement,
-                    selection: TextSelection.collapsed(offset: start),
+                    selection: .collapsed(offset: start),
                   );
                   break;
                 case MarkdownContext e:
@@ -934,7 +933,7 @@ class LabelHandler extends Handler<LabelTool>
 
                   _context = e.copyWith(
                     element: element.copyWith(text: text),
-                    selection: TextSelection.collapsed(offset: start),
+                    selection: .collapsed(offset: start),
                   );
                 default:
                   return null;

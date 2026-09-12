@@ -57,7 +57,7 @@ class FontStyleField extends StatelessWidget {
     initialSelection: fontFamily,
     enableFilter: true,
     requestFocusOnTap: true,
-    expandedInsets: compact ? null : EdgeInsets.zero,
+    expandedInsets: compact ? null : .zero,
     label: Text(AppLocalizations.of(context).fontFamily),
     leadingIcon: const PhosphorIcon(PhosphorIconsLight.textAa),
     dropdownMenuEntries: fonts.map((availableFont) {
@@ -136,7 +136,7 @@ class FontStyleField extends StatelessWidget {
         final fonts = _availableFonts(snapshot.data ?? const []);
         if (compact) {
           return Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               _buildFontMenu(context, fonts),
               _buildFallbackMenu(fonts),
@@ -144,7 +144,7 @@ class FontStyleField extends StatelessWidget {
           );
         }
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: .stretch,
           children: [
             _buildFontMenu(context, fonts),
             const SizedBox(height: 8),

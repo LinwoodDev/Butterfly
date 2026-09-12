@@ -25,8 +25,8 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
       title: Text(AppLocalizations.of(context).collections),
       constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
       content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: .min,
+        crossAxisAlignment: .stretch,
         children: [
           Flexible(
             fit: isMobile ? FlexFit.tight : FlexFit.loose,
@@ -69,8 +69,8 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: .center,
+                crossAxisAlignment: .center,
                 children: [
                   IconButton(
                     onPressed: () async {

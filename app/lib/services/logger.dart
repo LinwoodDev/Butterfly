@@ -21,9 +21,7 @@ Future<void> _saveLogsToFile() async {
   try {
     final file = await _getLogFile();
     final logs = talker.history
-        .where(
-          (e) => e.logLevel != LogLevel.verbose && e.logLevel != LogLevel.debug,
-        )
+        .where((e) => e.logLevel != .verbose && e.logLevel != .debug)
         .take(_maxLogEntries)
         .map((log) {
           return {

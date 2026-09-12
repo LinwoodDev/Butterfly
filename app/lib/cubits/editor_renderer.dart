@@ -17,7 +17,7 @@ sealed class RendererRuntimeState with _$RendererRuntimeState {
 }
 
 class _RendererSpatialIndex(List<Renderer<PadElement>> renderers) {
-  final List<Rect?> _bounds = List.filled(renderers.length, null);
+  final List<Rect?> _bounds = .filled(renderers.length, null);
 
   this {
     for (var index = 0; index < renderers.length; index++) {

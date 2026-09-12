@@ -149,7 +149,7 @@ class RemoteSync(
   final ButterflyFileSystem fileSystem,
   final ExternalStorage storage,
 ) {
-  final BehaviorSubject<RemoteSyncState> _stateSubject = BehaviorSubject.seeded(
+  final BehaviorSubject<RemoteSyncState> _stateSubject = .seeded(
     RemoteSyncState(storage: storage),
   );
   final List<StreamSubscription<dynamic>> _subscriptions = [];
@@ -253,7 +253,7 @@ class RemoteSync(
   ///
   /// [conflictResolution] determines how conflicts are handled.
   Future<Map<SyncFileSystemType, FullSyncResult?>> sync({
-    ConflictResolution conflictResolution = ConflictResolution.skip,
+    ConflictResolution conflictResolution = .skip,
   }) async {
     talker.info('Syncing remote: ${storage.identifier}');
 
@@ -302,7 +302,7 @@ class RemoteSync(
   /// Throws if the sync operation fails.
   Future<FullSyncResult?> syncFileSystem(
     SyncFileSystemType type, {
-    ConflictResolution conflictResolution = ConflictResolution.skip,
+    ConflictResolution conflictResolution = .skip,
   }) async {
     final remoteSystem = _getRemoteSystem(type);
     if (remoteSystem == null) {
@@ -506,9 +506,7 @@ class SyncService(
   }
 
   /// Sync all remotes
-  Future<void> sync({
-    ConflictResolution conflictResolution = ConflictResolution.skip,
-  }) async {
+  Future<void> sync({ConflictResolution conflictResolution = .skip}) async {
     talker.info('Syncing all remotes');
     if (kIsWeb) return;
 
@@ -520,7 +518,7 @@ class SyncService(
   /// Sync a specific remote
   Future<void> syncRemote(
     String remote, {
-    ConflictResolution conflictResolution = ConflictResolution.skip,
+    ConflictResolution conflictResolution = .skip,
   }) async {
     final sync = getSync(remote);
     if (sync != null) {

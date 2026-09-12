@@ -43,7 +43,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
     final info = FutureBuilder<Uri>(
       future: _shareAddress,
       builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
+        if (snapshot.connectionState != .done) {
           return const SizedBox(
             height: 208,
             child: Center(child: CircularProgressIndicator()),
@@ -55,7 +55,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
             child: Center(
               child: Text(
                 '${AppLocalizations.of(context).error}: ${snapshot.error}',
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
             ),
           );
@@ -66,7 +66,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
         final qr = Barcode.qrCode();
         final svg = qr.toSvg(connect, width: 256, height: 256);
         return Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             SizedBox(
               height: 208,
@@ -83,7 +83,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Stack(
                         alignment: Alignment.center,
-                        fit: StackFit.expand,
+                        fit: .expand,
                         children: [
                           ColoredBox(color: Colors.white),
                           Padding(
@@ -146,7 +146,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
         if (connections.isEmpty) {
           return Text(
             AppLocalizations.of(context).noConnections,
-            textAlign: TextAlign.center,
+            textAlign: .center,
           );
         }
         return ListView.builder(
@@ -181,9 +181,9 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
     final isMobile = size.width < LeapBreakpoints.medium;
     return ResponsiveAlertDialog(
       title: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: .center,
+        mainAxisAlignment: .center,
+        mainAxisSize: .min,
         children: [
           Text(AppLocalizations.of(context).collaboration),
           Text(
@@ -215,7 +215,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
       content: isMobile
           ? ListView(children: [info, const Divider(), userList])
           : Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: .stretch,
               children: [
                 Expanded(
                   child: Center(child: SingleChildScrollView(child: info)),

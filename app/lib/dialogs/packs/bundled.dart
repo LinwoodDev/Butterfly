@@ -39,7 +39,7 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: .min,
                 children: [
                   Row(
                     children: [
@@ -88,7 +88,7 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
                   return ListTile(
                     title: Text(name),
                     subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
                       children: [
                         if (metadata.author.isNotEmpty)
                           Text(

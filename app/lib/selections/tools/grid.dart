@@ -31,7 +31,7 @@ class GridToolSelection extends ToolSelection<GridTool> {
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
         value: selected.first.color.withValues(a: 255),
-        defaultColor: SRGBColor.transparent,
+        defaultColor: .transparent,
         onChanged: (color) => update(
           context,
           selected

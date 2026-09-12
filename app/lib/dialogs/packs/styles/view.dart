@@ -29,7 +29,7 @@ class StylesPackView extends StatelessWidget {
             children: [
               const SizedBox(height: 8),
               Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: .min,
                 children: value
                     .getNamedStyles()
                     .map(

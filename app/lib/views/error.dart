@@ -25,19 +25,19 @@ class ErrorPage extends StatelessWidget {
                   maxWidth: 600,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: .center,
+                  crossAxisAlignment: .stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: .center,
                         children: [
                           Flexible(
                             child: Text(
                               message,
                               style: TextTheme.of(context).titleLarge,
-                              textAlign: TextAlign.center,
+                              textAlign: .center,
                             ),
                           ),
                           IconButton(
@@ -54,7 +54,7 @@ class ErrorPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: .center,
                           children: [
                             Flexible(child: Text(stackTrace.toString())),
                             IconButton(
@@ -70,7 +70,7 @@ class ErrorPage extends StatelessWidget {
                         ),
                       ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: .center,
                       children: [
                         OutlinedButton(
                           onPressed: () => launchUrl(

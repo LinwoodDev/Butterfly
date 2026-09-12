@@ -1,4 +1,3 @@
-import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
@@ -164,7 +163,7 @@ class ForegroundPainter extends CustomPainter {
     this.colorScheme, [
     this.transform = const CameraTransform(),
     this.selection,
-    this.navigatorPosition = NavigatorPosition.left,
+    this.navigatorPosition = .left,
   ]);
 
   @override
@@ -194,7 +193,7 @@ class ForegroundPainter extends CustomPainter {
     // Don't allow drawing outside the bounds of the viewport.
     var viewport =
         Offset.zero & Size(size.width - kNavigationRailWidth, size.height);
-    if (navigatorPosition == NavigatorPosition.left) {
+    if (navigatorPosition == .left) {
       viewport = viewport.translate(kNavigationRailWidth, 0);
     }
     final bounds = transform.localToGlobalRect(viewport);
@@ -308,7 +307,7 @@ class ViewPainter extends CustomPainter {
     final renderers = cameraViewport.visibleUnbakedElements.where((renderer) {
       final state = cameraViewport.rendererStates[renderer.id];
       return !(invisibleLayers?.contains(renderer.layer) ?? false) &&
-          state != RendererState.hidden;
+          state != .hidden;
     });
     _paintRenderers(
       canvas,

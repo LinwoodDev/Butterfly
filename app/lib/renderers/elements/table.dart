@@ -154,7 +154,7 @@ class TableRenderer extends Renderer<TableElement> {
   ) {
     final rows = _rowBoundaries;
     final columns = _columnBoundaries;
-    if (axis == TableAxis.horizontal) {
+    if (axis == .horizontal) {
       return (
         start: Offset(columns[segment], rows[line]),
         end: Offset(columns[segment + 1], rows[line]),
@@ -169,7 +169,7 @@ class TableRenderer extends Renderer<TableElement> {
   ({Offset start, Offset end}) fullBorderLine(TableAxis axis, int line) {
     final rows = _rowBoundaries;
     final columns = _columnBoundaries;
-    return axis == TableAxis.horizontal
+    return axis == .horizontal
         ? (
             start: Offset(columns.first, rows[line]),
             end: Offset(columns.last, rows[line]),
@@ -251,11 +251,11 @@ class TableRenderer extends Renderer<TableElement> {
     final paint = Paint()
       ..color = border.color.toColor()
       ..style = PaintingStyle.stroke
-      ..strokeCap = border.strokeStyle == StrokeStyle.dotted
+      ..strokeCap = border.strokeStyle == .dotted
           ? StrokeCap.round
           : StrokeCap.butt
       ..strokeWidth = border.width;
-    if (border.strokeStyle == StrokeStyle.solid) {
+    if (border.strokeStyle == .solid) {
       canvas.drawLine(start, end, paint);
       return;
     }
@@ -345,7 +345,7 @@ class TableRenderer extends Renderer<TableElement> {
     TableBorderProperty border,
   ) {
     if (border.width <= 0) return;
-    final dashArray = border.strokeStyle == StrokeStyle.solid
+    final dashArray = border.strokeStyle == .solid
         ? null
         : '${border.width * max(0.1, border.dashMultiplier)},'
               '${border.width * 2 * max(0.1, border.gapMultiplier)}';
@@ -360,9 +360,7 @@ class TableRenderer extends Renderer<TableElement> {
         'stroke-opacity': '${border.color.a / 255}',
         'stroke-width': '${border.width}',
         'stroke-dasharray': ?dashArray,
-        'stroke-linecap': border.strokeStyle == StrokeStyle.dotted
-            ? 'round'
-            : 'butt',
+        'stroke-linecap': border.strokeStyle == .dotted ? 'round' : 'butt',
       },
     );
   }

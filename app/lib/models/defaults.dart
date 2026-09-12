@@ -95,7 +95,7 @@ class DocumentDefaults {
   }) async {
     PatternTexture createRedLinedPattern() {
       return PatternTexture(
-        boxColor: SRGBColor.transparent,
+        boxColor: .transparent,
         boxXColor: BasicColors.red,
         boxWidth: 1200,
         boxXCount: 1,
@@ -244,7 +244,7 @@ class DocumentDefaults {
   }
 
   static FileMetadata createMetadata({
-    NoteFileType type = NoteFileType.document,
+    NoteFileType type = .document,
     String name = '',
   }) => FileMetadata(
     name: name,

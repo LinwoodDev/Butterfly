@@ -129,7 +129,7 @@ class EraserHandler extends Handler<EraserTool> {
   ]) => [
     if (_currentPos != null)
       EraserCursor(ToolCursorData(EraserInfo.fromEraser(data), _currentPos!)),
-    if (data.mode == EraserMode.stroke)
+    if (data.mode == .stroke)
       ..._pendingChanges.values.expand(
         (elements) => elements.map((e) => Renderer.fromInstance(e)),
       ),
@@ -137,10 +137,10 @@ class EraserHandler extends Handler<EraserTool> {
 
   @override
   Map<String, RendererState> get rendererStates => switch (data.mode) {
-    EraserMode.stroke => Map.fromEntries(
+    .stroke => Map.fromEntries(
       _pendingChanges.keys.map((e) => MapEntry(e, RendererState.hidden)),
     ),
-    EraserMode.path => Map.fromEntries(
+    .path => Map.fromEntries(
       _erased.map((e) => MapEntry(e, RendererState.hidden)),
     ),
   };
@@ -234,9 +234,9 @@ class EraserHandler extends Handler<EraserTool> {
     if (!data.eraseElements) elements = elements.where((e) => e.isStroke());
 
     switch (data.mode) {
-      case EraserMode.stroke:
+      case .stroke:
         _changeStrokeElements(elements, globalPos, sizeSquared, context);
-      case EraserMode.path:
+      case .path:
         await _erasePathElements(elements, context);
     }
     if (!gesture.cancelled) gesture.lastErased = globalPos;
@@ -331,14 +331,14 @@ class EraserHandler extends Handler<EraserTool> {
     await _erase(event.localPosition, context, force: true);
     if (_disposed || gesture.cancelled) return;
     switch (data.mode) {
-      case EraserMode.stroke:
+      case .stroke:
         if (_pendingChanges.isNotEmpty) {
           context.getDocumentBloc().add(
             ElementsChanged(Map.from(_pendingChanges)),
           );
           _pendingChanges.clear();
         }
-      case EraserMode.path:
+      case .path:
         if (_erased.isEmpty) return;
         final bloc = _bloc = context.getDocumentBloc();
         bloc.add(ElementsRemoved(_erased.toList()));

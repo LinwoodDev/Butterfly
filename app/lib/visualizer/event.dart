@@ -7,21 +7,20 @@ extension ArangementVisualizer on Arrangement {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return switch (this) {
-      Arrangement.back => loc.sendToBack,
-      Arrangement.front => loc.bringToFront,
-      Arrangement.backward => loc.sendBackward,
-      Arrangement.forward => loc.bringForward,
+      .back => loc.sendToBack,
+      .front => loc.bringToFront,
+      .backward => loc.sendBackward,
+      .forward => loc.bringForward,
     };
   }
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    Arrangement.back =>
+    .back =>
       filled ? PhosphorIconsFill.arrowDown : PhosphorIconsLight.arrowDown,
-    Arrangement.front =>
-      filled ? PhosphorIconsFill.arrowUp : PhosphorIconsLight.arrowUp,
-    Arrangement.backward =>
+    .front => filled ? PhosphorIconsFill.arrowUp : PhosphorIconsLight.arrowUp,
+    .backward =>
       filled ? PhosphorIconsFill.arrowLeft : PhosphorIconsLight.arrowLeft,
-    Arrangement.forward =>
+    .forward =>
       filled ? PhosphorIconsFill.arrowRight : PhosphorIconsLight.arrowRight,
   };
 }

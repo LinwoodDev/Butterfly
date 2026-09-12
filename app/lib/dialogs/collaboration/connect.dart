@@ -16,7 +16,7 @@ class ConnectCollaborationDialog extends StatefulWidget {
 class ConnectCollaborationDialogState
     extends State<ConnectCollaborationDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final TextEditingController _urlController = TextEditingController();
+  final TextEditingController _urlController = .new();
 
   @override
   void dispose() {

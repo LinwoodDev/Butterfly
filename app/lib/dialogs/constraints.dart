@@ -284,7 +284,7 @@ class _ConstraintViewState extends State<ConstraintView> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Text(
             AppLocalizations.of(context).constraint,

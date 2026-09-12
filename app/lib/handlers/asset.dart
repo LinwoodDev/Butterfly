@@ -60,25 +60,25 @@ Future<void> showImportAssetWizard(
   if (!await type.isAvailable()) return;
 
   switch (type) {
-    case ImportType.file:
+    case .file:
       return importWithDialog(AssetFileType.values);
-    case ImportType.oneNote:
+    case .oneNote:
       return importWithDialog([
         AssetFileType.oneNote,
         AssetFileType.oneNotePackage,
       ]);
-    case ImportType.image:
+    case .image:
       return importWithDialog([AssetFileType.image]);
-    case ImportType.camera:
+    case .camera:
       final content = await showDialog<Uint8List>(
         context: context,
         builder: (context) => const CameraDialog(),
       );
       if (content == null) return;
       return importAsset(AssetFileType.image, content);
-    case ImportType.svg:
+    case .svg:
       return importWithDialog([AssetFileType.svg]);
-    case ImportType.svgText:
+    case .svgText:
       final controller = TextEditingController();
       final result = await showDialog<bool>(
         context: context,
@@ -120,18 +120,18 @@ Future<void> showImportAssetWizard(
       );
       if (result != true) return;
       return importAsset(AssetFileType.svg, utf8.encode(controller.text));
-    case ImportType.pdf:
+    case .pdf:
       return importWithDialog([AssetFileType.pdf]);
-    case ImportType.document:
+    case .document:
       return importWithDialog([
         AssetFileType.note,
         AssetFileType.textNote,
         AssetFileType.oneNote,
         AssetFileType.oneNotePackage,
       ]);
-    case ImportType.markdown:
+    case .markdown:
       return importWithDialog([AssetFileType.markdown]);
-    case ImportType.xopp:
+    case .xopp:
       return importWithDialog([AssetFileType.xopp]);
   }
 }

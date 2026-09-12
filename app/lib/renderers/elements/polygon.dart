@@ -2,7 +2,7 @@ part of '../renderer.dart';
 
 Rect calculatePolygonRect(List<PolygonPoint> points) {
   if (points.isEmpty) return Rect.zero;
-  Rect rect = Rect.fromPoints(
+  Rect rect = .fromPoints(
     Offset(points.first.x, points.first.y),
     Offset(points.first.x, points.first.y),
   );
@@ -34,7 +34,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   final _strokePaint = ElementPaintRenderer();
   final _fillPaint = ElementPaintRenderer();
 
-  PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
+  PolygonRenderer(super.element, [super.layer, this.rect = .zero]);
 
   @override
   Rect get expandedRect => Renderer._expandedAabbFor(
@@ -143,17 +143,13 @@ class PolygonRenderer extends Renderer<PolygonElement> {
       final fillPaint = _fillPaint.build(
         property.fillPaint,
         rect,
-        style: PaintingStyle.fill,
+        style: .fill,
       );
       canvas.drawPath(path, fillPaint);
     }
     if (property.paint.previewColor.a > 0) {
       final paint =
-          _strokePaint.build(
-              property.paint,
-              expandedRect,
-              style: PaintingStyle.stroke,
-            )
+          _strokePaint.build(property.paint, expandedRect, style: .stroke)
             ..strokeWidth = property.strokeWidth
             ..strokeCap = StrokeCap.round
             ..strokeJoin = StrokeJoin.round;
@@ -426,9 +422,9 @@ class PolygonHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(
     List<Offset> polygon, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+    HitElementMode hitElementMode = .touchAnywhere,
   }) {
-    if (hitElementMode == HitElementMode.none) return false;
+    if (hitElementMode == .none) return false;
     if (polygon.isEmpty || _points.isEmpty) return false;
     if (!_bounds
         .inflate(1e-7)

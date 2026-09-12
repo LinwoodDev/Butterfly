@@ -2,7 +2,7 @@ part of 'handler.dart';
 
 class ImportHandler extends Handler<ImportTool> {
   final List<Renderer<PadElement>> _renderers;
-  Offset _offset = Offset.zero;
+  Offset _offset = .zero;
 
   ImportHandler(super.data)
     : _renderers = data.elements

@@ -21,7 +21,7 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
           );
         }
         return Material(
-          type: MaterialType.transparency,
+          type: .transparency,
           child: ListView.builder(
             itemCount: state.connections.length,
             itemBuilder: (context, index) {
@@ -150,7 +150,7 @@ class _AddRemoteDialog extends StatefulWidget {
 }
 
 class __AddRemoteDialogState extends State<_AddRemoteDialog> {
-  final TextEditingController _nameController = TextEditingController(),
+  final TextEditingController _nameController = .new(),
       _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
@@ -167,7 +167,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _syncRootDirectory = false;
 
   bool get _isRemote => widget.storage is! LocalStorage;
-  final HttpClient _httpClient = HttpClient();
+  final HttpClient _httpClient = .new();
 
   @override
   void initState() {
@@ -353,8 +353,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   Future<Uint8List?> _decodeIcon(Uint8List bytes) async {
     try {
       final image = await decodeImageFromList(bytes);
-      return (await image.toByteData(format: ImageByteFormat.png))?.buffer
-          .asUint8List();
+      return (await image.toByteData(format: .png))?.buffer.asUint8List();
     } catch (_) {
       final decoded = img.decodeImage(bytes);
       if (decoded == null) return null;
@@ -422,7 +421,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).errorWhileCreatingConnection),
         content: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Text(error),
             if (e != null)
@@ -615,7 +614,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                               .documentsDirectory,
                           icon: const PhosphorIcon(
                             PhosphorIconsLight.file,
-                            textDirection: TextDirection.ltr,
+                            textDirection: .ltr,
                           ),
                           onPick: _directoryController.text.isEmpty
                               ? () async {
@@ -634,7 +633,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                               .templatesDirectory,
                           icon: const PhosphorIcon(
                             PhosphorIconsLight.fileDashed,
-                            textDirection: TextDirection.ltr,
+                            textDirection: .ltr,
                           ),
                           onPick: _directoryController.text.isEmpty
                               ? () async {

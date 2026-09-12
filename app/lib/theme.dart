@@ -22,13 +22,9 @@ const kClassicThemeData = FlexSchemeData(
   dark: kClassicTheme,
 );
 
-const EdgeInsets settingsCardMargin = EdgeInsets.all(8);
-const EdgeInsets settingsCardPadding = EdgeInsets.all(16);
-const EdgeInsets settingsCardTitlePadding = EdgeInsets.only(
-  left: 12,
-  top: 8,
-  right: 12,
-);
+const EdgeInsets settingsCardMargin = .all(8);
+const EdgeInsets settingsCardPadding = .all(16);
+const EdgeInsets settingsCardTitlePadding = .only(left: 12, top: 8, right: 12);
 
 ThemeData getThemeData(
   String name,

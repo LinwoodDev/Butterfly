@@ -304,7 +304,7 @@ class ImportService(
     final realDocument =
         document ?? bloc?.state.data ?? DocumentDefaults.createDocument();
     return switch (type) {
-      AssetFileType.note || AssetFileType.textNote => importBfly(
+      .note || AssetFileType.textNote => importBfly(
         bytes,
         document: document,
         position: position,
@@ -314,46 +314,42 @@ class ImportService(
         name: name,
         preserveEncrypted: preserveEncrypted,
       ),
-      AssetFileType.image => importImage(
-        bytes,
-        realDocument,
-        position: position,
-      ),
-      AssetFileType.svg => importSvg(bytes, realDocument, position: position),
-      AssetFileType.markdown => importText(
+      .image => importImage(bytes, realDocument, position: position),
+      .svg => importSvg(bytes, realDocument, position: position),
+      .markdown => importText(
         bytes,
         realDocument,
         position: position,
         isMarkdown: true,
       ),
-      AssetFileType.pdf => importPdf(
+      .pdf => importPdf(
         bytes,
         realDocument,
         position: position,
         advanced: advanced,
         name: name,
       ),
-      AssetFileType.page => importPage(bytes, realDocument, position: position),
-      AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
-      AssetFileType.oneNote => importOneNote(
+      .page => importPage(bytes, realDocument, position: position),
+      .xopp => importXopp(bytes, realDocument, position: position),
+      .oneNote => importOneNote(
         bytes,
         isPackage: false,
         document: document,
         advanced: advanced,
         name: name,
       ),
-      AssetFileType.oneNotePackage => importOneNote(
+      .oneNotePackage => importOneNote(
         bytes,
         isPackage: true,
         document: document,
         advanced: advanced,
         name: name,
       ),
-      AssetFileType.archive => importArchive(
+      .archive => importArchive(
         bytes,
         fileSystem: fileSystem,
       ).then((value) => null),
-      AssetFileType.rawText => importText(
+      .rawText => importText(
         bytes,
         realDocument,
         position: position,
@@ -447,13 +443,13 @@ class ImportService(
       }
       final type = data.getMetadata()?.type;
       return await switch (type) {
-        NoteFileType.document => _importDocument(
+        .document => _importDocument(
           data,
           document: document,
           advanced: advanced,
         ),
-        NoteFileType.template => _importTemplate(data, templateSystem),
-        NoteFileType.pack => _importPack(
+        .template => _importTemplate(data, templateSystem),
+        .pack => _importPack(
           data,
           document,
           packSystem,
@@ -841,7 +837,7 @@ class ImportService(
             case _OneNoteManualXpsAction.selectPdf:
               final converted = await FilePicker.pickFile(
                 dialogTitle: 'Select the PDF converted from $fileName',
-                type: FileType.custom,
+                type: .custom,
                 allowedExtensions: const ['pdf'],
               );
               if (converted == null) {
@@ -1063,7 +1059,7 @@ class ImportService(
       pdfDocument = await PdfDocument.openData(bytes);
       final elements = pdfDocument.pages;
       if (!context.mounted) return null;
-      List<int> pages = List.generate(elements.length, (index) => index);
+      List<int> pages = .generate(elements.length, (index) => index);
       bool spreadToPages = getSettingsCubit().state.spreadPages,
           createAreas = true,
           createExportPreset = true,
@@ -1218,11 +1214,11 @@ class ImportService(
     final editorController = bloc!.editorController;
     final viewport = editorController.rendererCubit.state.cameraViewport;
     switch (fileType) {
-      case AssetFileType.note:
-      case AssetFileType.textNote:
+      case .note:
+      case .textNote:
         exportData(context, await state.saveData());
         break;
-      case AssetFileType.image:
+      case .image:
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
@@ -1238,7 +1234,7 @@ class ImportService(
             ),
           ),
         );
-      case AssetFileType.pdf:
+      case .pdf:
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
@@ -1250,7 +1246,7 @@ class ImportService(
             ),
           ),
         );
-      case AssetFileType.svg:
+      case .svg:
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(

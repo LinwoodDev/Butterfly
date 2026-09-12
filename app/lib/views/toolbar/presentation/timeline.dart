@@ -64,7 +64,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
               setState(() => _zoom = computedZoom * (1 - delta / 100 / 10));
             },
             child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
+              behavior: .opaque,
               child: ClipRect(
                 child: CustomPaint(
                   size: Size.infinite,

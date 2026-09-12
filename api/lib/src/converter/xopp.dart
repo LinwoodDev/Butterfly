@@ -43,7 +43,7 @@ List<PathPoint> _points(XmlElement element) {
   return points;
 }
 
-SRGBColor _importColor(String? value, [SRGBColor fallback = SRGBColor.black]) {
+SRGBColor _importColor(String? value, [SRGBColor fallback = .black]) {
   const namedColors = {
     'black': SRGBColor.black,
     'blue': SRGBColor.blue,

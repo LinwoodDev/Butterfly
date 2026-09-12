@@ -15,9 +15,9 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
     ).then((value) {
       if (value == null) return;
       final barcode = switch (data.barcodeType) {
-        BarcodeType.dataMatrix => Barcode.dataMatrix(),
-        BarcodeType.qrCode => Barcode.qrCode(),
-        BarcodeType.code128 => Barcode.code128(),
+        .dataMatrix => Barcode.dataMatrix(),
+        .qrCode => Barcode.qrCode(),
+        .code128 => Barcode.code128(),
       };
       final width = data.barcodeType.width;
       final height = data.barcodeType.height;

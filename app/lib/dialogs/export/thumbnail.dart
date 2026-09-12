@@ -263,7 +263,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                       }
                     },
                     child: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
+                      behavior: .translucent,
                       onScaleStart: (details) {
                         _baseCropRect = _cropRect;
                         _baseFocalPoint = details.localFocalPoint;
@@ -447,7 +447,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                         });
                       },
                       child: Stack(
-                        fit: StackFit.expand,
+                        fit: .expand,
                         children: [
                           CustomPaint(
                             painter: ViewPainter(
@@ -533,7 +533,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
           SnackBar(
             behavior: SnackBarBehavior.floating,
             content: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: .min,
               spacing: 8,
               children: [
                 Image.memory(bytes, height: 42),

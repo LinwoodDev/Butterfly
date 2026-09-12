@@ -7,9 +7,7 @@ class SpacerHandler extends Handler<SpacerTool> {
   double _rotation = 0;
 
   Offset get _movement =>
-      (data.axis == Axis2D.horizontal
-              ? Offset(_spacing, 0)
-              : Offset(0, _spacing))
+      (data.axis == .horizontal ? Offset(_spacing, 0) : Offset(0, _spacing))
           .rotate(Offset.zero, -_rotation);
 
   SpacerHandler(super.data);
@@ -78,8 +76,8 @@ class SpacerHandler extends Handler<SpacerTool> {
     final start = _startPosition;
     if (start == null) return;
     final delta = (globalPos - start).rotate(Offset.zero, _rotation);
-    _spacing = data.axis == Axis2D.horizontal ? delta.dx : delta.dy;
-    final perpendicular = data.axis == Axis2D.horizontal
+    _spacing = data.axis == .horizontal ? delta.dx : delta.dy;
+    final perpendicular = data.axis == .horizontal
         ? Offset(0, delta.dy)
         : Offset(delta.dx, 0);
     _startPosition = start + perpendicular.rotate(Offset.zero, -_rotation);
@@ -130,7 +128,7 @@ class SpacerHandler extends Handler<SpacerTool> {
       }
     }
     if (bounds == null) return null;
-    final halfPlane = data.axis == Axis2D.horizontal
+    final halfPlane = data.axis == .horizontal
         ? Rect.fromLTRB(
             _spacing > 0 ? start.dx : -double.infinity,
             -double.infinity,

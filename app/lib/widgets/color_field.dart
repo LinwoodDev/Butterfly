@@ -18,7 +18,7 @@ class ColorField extends StatelessWidget {
 
   const ColorField({
     super.key,
-    this.value = SRGBColor.white,
+    this.value = .white,
     this.defaultColor,
     this.custom = false,
     this.enabled = true,
@@ -58,7 +58,7 @@ class ColorField extends StatelessWidget {
       title: title,
       subtitle: subtitle,
       trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           Container(
             width: 30,

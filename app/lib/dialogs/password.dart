@@ -63,7 +63,7 @@ class _PasswordDialogState extends State<_PasswordDialog> {
       content: Form(
         key: _formKey,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             if (widget.warning != null) ...[
               Row(

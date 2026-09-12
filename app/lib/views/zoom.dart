@@ -21,8 +21,8 @@ class ZoomView extends StatefulWidget {
 class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _controller;
-  final FocusNode _focusNode = FocusNode();
-  final TextEditingController _zoomController = TextEditingController();
+  final FocusNode _focusNode = .new();
+  final TextEditingController _zoomController = .new();
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
       // Reset animation to 100%
       _controller.stop();
       _controller.value = 1;
-    } else if (_controller.status != AnimationStatus.completed) {
+    } else if (_controller.status != .completed) {
       _controller.reverse(from: 1);
     }
   }
@@ -91,7 +91,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
         !settings.zoomEnabled ||
         windowState.fullScreen ||
         saveState.fullScreen ||
-        inputState.hideUi != HideState.visible;
+        inputState.hideUi != .visible;
     if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
       _controller.reverse();
     }
@@ -133,12 +133,12 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                               return LayoutBuilder(
                                 builder: (context, constraints) {
                                   return Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: .center,
                                     children: [
                                       SizedBox(
                                         width: 75,
                                         child: TextFormField(
-                                          textAlign: TextAlign.center,
+                                          textAlign: .center,
                                           controller: _zoomController,
                                           keyboardType: TextInputType.number,
                                           focusNode: _focusNode,

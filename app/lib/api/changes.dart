@@ -21,7 +21,7 @@ Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
         content: SizedBox(
           width: 400,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             children: [
               Text(
                 AppLocalizations.of(context)

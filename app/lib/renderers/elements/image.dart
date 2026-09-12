@@ -226,11 +226,10 @@ class ImageRenderer extends Renderer<ImageElement> {
     }
 
     return {
-      RendererOperation.invert: (bloc, context) =>
-          updateImage(bloc, (cmd) => cmd.invert()),
-      RendererOperation.background: (bloc, context) =>
+      .invert: (bloc, context) => updateImage(bloc, (cmd) => cmd.invert()),
+      .background: (bloc, context) =>
           updateImage(bloc, (cmd) => cmd.filter(updateImageBackground())),
-      RendererOperation.grayscale: (bloc, context) =>
+      .grayscale: (bloc, context) =>
           updateImage(bloc, (cmd) => cmd.grayscale()),
     };
   }

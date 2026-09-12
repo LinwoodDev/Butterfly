@@ -42,7 +42,7 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
 
 class _ColorToolbarViewState extends State<ColorToolbarView> {
   late final ButterflyFileSystem _fileSystem;
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = .new();
   Future<PackItem<ColorPalette>?>? _colorPalette;
 
   @override
@@ -127,12 +127,12 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         );
     if (response == null) return;
     final srgb = response.toSRGB();
-    if (response.action == ColorPickerToolbarAction.eyeDropper) {
+    if (response.action == .eyeDropper) {
       widget.onEyeDropper?.call(context);
       return;
     }
     widget.onChanged(srgb);
-    if (response.action != ColorPickerToolbarAction.pin) {
+    if (response.action != .pin) {
       settingsCubit.addRecentColors(srgb);
       return;
     }
@@ -167,7 +167,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
           ),
         );
     if (response == null) return;
-    if (response.action == ColorPickerToolbarAction.delete) {
+    if (response.action == .delete) {
       _updatePalette(
         palette,
         palette.item.copyWith(
@@ -195,7 +195,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     return FutureBuilder<PackItem<ColorPalette>?>(
       future: _colorPalette,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == .waiting) {
           return const SizedBox.shrink();
         }
         final selected = snapshot.data;
@@ -203,10 +203,10 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         return Scrollbar(
           controller: _scrollController,
           child: Directionality(
-            textDirection: TextDirection.ltr,
+            textDirection: .ltr,
             child: ListView(
               shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
+              scrollDirection: .horizontal,
               controller: _scrollController,
               children: [
                 if (widget.actions.isNotEmpty) ...[

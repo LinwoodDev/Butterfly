@@ -1,7 +1,7 @@
 part of 'handler.dart';
 
 class StampHandler extends PastingHandler<StampTool> {
-  Rect rect = Rect.zero;
+  Rect rect = .zero;
   List<Renderer<PadElement>>? _elements;
   StampHandler(super.data);
 

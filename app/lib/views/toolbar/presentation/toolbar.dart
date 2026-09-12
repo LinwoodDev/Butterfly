@@ -31,7 +31,7 @@ class PresentationToolbarView extends StatefulWidget
     this.onAnimationChanged,
     this.animation,
     this.frame = 0,
-    this.runningState = PresentationRunningState.paused,
+    this.runningState = .paused,
     this.onRunningStateChanged,
   });
 
@@ -44,8 +44,8 @@ class PresentationToolbarView extends StatefulWidget
 }
 
 class _PresentationToolbarViewState extends State<PresentationToolbarView> {
-  final ScrollController _scrollController = ScrollController();
-  final TextEditingController _frameController = TextEditingController(),
+  final ScrollController _scrollController = .new();
+  final TextEditingController _frameController = .new(),
       _durationController = TextEditingController(),
       _fpsController = TextEditingController();
   late final DocumentBloc _bloc;
@@ -154,15 +154,15 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
             controller: _scrollController,
             child: SingleChildScrollView(
               controller: _scrollController,
-              scrollDirection: Axis.horizontal,
+              scrollDirection: .horizontal,
               child: ConstrainedBox(
                 constraints: BoxConstraints(minWidth: constraints.maxWidth),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: .min,
+                  mainAxisAlignment: .spaceAround,
                   children: [
                     Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: .min,
                       children: [
                         DropdownMenu<String>(
                           width: 150,
@@ -477,7 +477,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                     ),
                     if (_animation != null)
                       Row(
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
                           MenuAnchor(
                             builder: defaultMenuButton(
@@ -507,7 +507,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                             ).fps,
                                           ),
                                           controller: _fpsController,
-                                          textAlign: TextAlign.center,
+                                          textAlign: .center,
                                           keyboardType: TextInputType.number,
                                           onFieldSubmitted: (value) {
                                             final fps = int.tryParse(
@@ -539,7 +539,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                             ).frame,
                                           ),
                                           controller: _frameController,
-                                          textAlign: TextAlign.center,
+                                          textAlign: .center,
                                           keyboardType: TextInputType.number,
                                           onFieldSubmitted: (value) {
                                             final frame = int.tryParse(
@@ -561,7 +561,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                             ).duration,
                                           ),
                                           controller: _durationController,
-                                          textAlign: TextAlign.center,
+                                          textAlign: .center,
                                           keyboardType: TextInputType.number,
                                           onFieldSubmitted: (value) {
                                             final duration = int.tryParse(
@@ -648,7 +648,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.file,
-                                  textDirection: TextDirection.ltr,
+                                  textDirection: .ltr,
                                 ),
                                 child: Text(AppLocalizations.of(context).pdf),
                                 onPressed: () {

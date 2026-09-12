@@ -96,7 +96,7 @@ abstract class Selection<T> {
     return current;
   }
 
-  Selection? replaceSelected(List<T>? selected) => Selection.fromList(selected);
+  Selection? replaceSelected(List<T>? selected) => .fromList(selected);
 
   String getLocalizedName(BuildContext context);
 

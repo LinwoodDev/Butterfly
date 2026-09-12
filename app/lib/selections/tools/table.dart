@@ -156,7 +156,7 @@ class _TableBorderControlsState extends State<_TableBorderControls> {
             },
           ),
         ),
-        if (value.strokeStyle != StrokeStyle.solid) ...[
+        if (value.strokeStyle != .solid) ...[
           ExactSlider(
             header: Text(AppLocalizations.of(context).dashLength),
             value: value.dashMultiplier,
@@ -251,7 +251,7 @@ class _TableCountTile extends StatelessWidget {
       title: Text(title),
       subtitle: Text('$value'),
       trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           IconButton(
             tooltip: AppLocalizations.of(context).remove,

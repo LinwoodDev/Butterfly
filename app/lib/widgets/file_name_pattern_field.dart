@@ -95,7 +95,7 @@ class _FileNamePatternFieldState extends State<FileNamePatternField> {
     final timeExample = resolveTemplateFileName('{time}', exampleDate);
     final colorScheme = Theme.of(context).colorScheme;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: .stretch,
       children: [
         TextFormField(
           initialValue: widget.initialValue,
@@ -116,7 +116,7 @@ class _FileNamePatternFieldState extends State<FileNamePatternField> {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 PhosphorIcon(
                   PhosphorIconsLight.info,
@@ -126,7 +126,7 @@ class _FileNamePatternFieldState extends State<FileNamePatternField> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       Text(
                         localizations.templateFileNameDescription(

@@ -89,13 +89,13 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
               context.read<SettingsCubit>().changeStartupBehavior(value),
           valueLabel: _startupBehaviorName,
           valueDescription: (context, value) => switch (value) {
-            StartupBehavior.openHomeScreen => AppLocalizations.of(
+            .openHomeScreen => AppLocalizations.of(
               context,
             ).onStartupHomeScreenDescription,
-            StartupBehavior.openLastNote => AppLocalizations.of(
+            .openLastNote => AppLocalizations.of(
               context,
             ).onStartupLastNoteDescription,
-            StartupBehavior.openNewNote => AppLocalizations.of(
+            .openNewNote => AppLocalizations.of(
               context,
             ).onStartupNewNoteDescription,
           },
@@ -177,15 +177,9 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
               context.read<SettingsCubit>().changeRenderResolution(value),
           valueLabel: _renderResolutionName,
           valueDescription: (context, value) => switch (value) {
-            RenderResolution.performance => AppLocalizations.of(
-              context,
-            ).performanceDescription,
-            RenderResolution.normal => AppLocalizations.of(
-              context,
-            ).normalDescription,
-            RenderResolution.high => AppLocalizations.of(
-              context,
-            ).highDescription,
+            .performance => AppLocalizations.of(context).performanceDescription,
+            .normal => AppLocalizations.of(context).normalDescription,
+            .high => AppLocalizations.of(context).highDescription,
           },
         ),
         SettingsLeapBoolSetting(
@@ -241,9 +235,9 @@ _AutosaveMode _readAutosaveMode(ButterflySettings state) {
 
 String _renderResolutionName(BuildContext context, RenderResolution value) =>
     switch (value) {
-      RenderResolution.performance => AppLocalizations.of(context).performance,
-      RenderResolution.normal => AppLocalizations.of(context).normal,
-      RenderResolution.high => AppLocalizations.of(context).high,
+      .performance => AppLocalizations.of(context).performance,
+      .normal => AppLocalizations.of(context).normal,
+      .high => AppLocalizations.of(context).high,
     };
 
 Widget _autosaveDelaySetting(BuildContext context, ButterflySettings state) {

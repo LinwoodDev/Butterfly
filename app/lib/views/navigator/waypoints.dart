@@ -19,7 +19,7 @@ class WaypointsView extends StatefulWidget {
 }
 
 class _WaypointsViewState extends State<WaypointsView> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = .new();
 
   @override
   void dispose() {
@@ -35,7 +35,7 @@ class _WaypointsViewState extends State<WaypointsView> {
           buildWhen: (previous, current) =>
               previous.page?.waypoints != current.page?.waypoints,
           builder: (context, state) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -50,7 +50,7 @@ class _WaypointsViewState extends State<WaypointsView> {
               const Divider(),
               Expanded(
                 child: Material(
-                  type: MaterialType.transparency,
+                  type: .transparency,
                   child: ListenableBuilder(
                     listenable: _searchController,
                     builder: (context, child) {
@@ -335,7 +335,7 @@ class WaypointCreateDialog extends StatefulWidget {
 class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
   bool _replacing = false;
   bool _saveScale = false;
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = .new();
 
   @override
   void initState() {
@@ -359,7 +359,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
             : LeapLocalizations.of(context).create,
       ),
       content: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           if (!_replacing) ...[
             TextField(
@@ -375,7 +375,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
           CheckboxListTile(
             title: Text(AppLocalizations.of(context).scale),
             value: _saveScale,
-            controlAffinity: ListTileControlAffinity.leading,
+            controlAffinity: .leading,
             onChanged: (value) =>
                 setState(() => _saveScale = value ?? _saveScale),
           ),

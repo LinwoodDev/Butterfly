@@ -18,7 +18,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     _lastChanged = DateTime.now();
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
-      final DateTime now = DateTime.now();
+      final DateTime now = .now();
       // Test if the last change was more than [duration] seconds ago
       final difference = now.difference(_lastChanged!);
       if (difference > _getFullDuration()) {
@@ -35,7 +35,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final double delta =
         ((difference - duration).inMilliseconds / hideDuration.inMilliseconds)
             .clamp(0, 1);
-    if (data.animation == LaserAnimation.path) {
+    if (data.animation == .path) {
       final points = element.points;
       final subPoints = points.sublist(
         (points.length * delta).round(),
@@ -142,9 +142,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       viewportSize,
       transform,
     );
-    if (penOnlyInput &&
-        (kind != PointerDeviceKind.stylus &&
-            kind != PointerDeviceKind.invertedStylus)) {
+    if (penOnlyInput && (kind != .stylus && kind != .invertedStylus)) {
       return;
     }
     if (!_elements.containsKey(pointer) && !forceCreate) {
@@ -180,8 +178,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     context.refreshForegrounds();
     final cubit = context.getEditorController();
-    if (cubit.inputCubit.moveEnabled &&
-        event.kind != PointerDeviceKind.stylus) {
+    if (cubit.inputCubit.moveEnabled && event.kind != .stylus) {
       _elements.clear();
       return;
     }

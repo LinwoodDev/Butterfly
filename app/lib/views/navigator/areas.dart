@@ -38,7 +38,7 @@ class AreasView extends StatefulWidget {
 
 class _AreasViewState extends State<AreasView> {
   String _currentGroup = '';
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = .new();
   bool _showAllPages = false;
 
   List<Area> _getAreasInGroup(List<Area> areas) {
@@ -72,7 +72,7 @@ class _AreasViewState extends State<AreasView> {
     final name = config.name;
     if (name.isEmpty) return;
     Offset position;
-    if (config.positionMode == AreaPositionMode.currentCenter) {
+    if (config.positionMode == .currentCenter) {
       final center = context
           .read<EditorController>()
           .rendererCubit
@@ -351,7 +351,7 @@ class _AreasViewState extends State<AreasView> {
             final areasInGroup = _getAreasInGroup(state.page.areas);
 
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: .stretch,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -414,7 +414,7 @@ class _AreasViewState extends State<AreasView> {
                 ],
                 Expanded(
                   child: Material(
-                    type: MaterialType.transparency,
+                    type: .transparency,
                     child: MultiSelectRegion<AreaPreset>(
                       toolbarBuilder: (context, controller) => Padding(
                         padding: const EdgeInsets.symmetric(
@@ -529,7 +529,7 @@ class _AreasViewState extends State<AreasView> {
                           vertical: 8,
                         ),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          crossAxisAlignment: .stretch,
                           children: [
                             Expanded(
                               child: MenuAnchor(
@@ -577,7 +577,7 @@ class _AreasViewState extends State<AreasView> {
                                           horizontal: 8.0,
                                         ),
                                         child: Row(
-                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisSize: .min,
                                           spacing: 8,
                                           children: [
                                             PhosphorIcon(

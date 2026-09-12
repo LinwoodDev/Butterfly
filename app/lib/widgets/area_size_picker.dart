@@ -121,8 +121,8 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
     final locale = AppLocalizations.of(context);
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: .stretch,
+      mainAxisSize: .min,
       children: [
         DropdownMenuFormField<AreaSizePreset>(
           initialSelection: _selectedPreset, // Can be null
@@ -136,7 +136,7 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
               )
               .toList(),
           label: Text(locale.presets),
-          expandedInsets: EdgeInsets.zero,
+          expandedInsets: .zero,
           onSelected: (preset) {
             if (preset == null) return;
             setState(() => _applyPreset(preset));

@@ -27,14 +27,14 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (context, value) =>
               context.read<SettingsCubit>().changeTheme(value, context),
           valueLabel: (context, value) => switch (value) {
-            ThemeMode.system => AppLocalizations.of(context).systemTheme,
-            ThemeMode.light => AppLocalizations.of(context).lightTheme,
-            ThemeMode.dark => AppLocalizations.of(context).darkTheme,
+            .system => AppLocalizations.of(context).systemTheme,
+            .light => AppLocalizations.of(context).lightTheme,
+            .dark => AppLocalizations.of(context).darkTheme,
           },
           valueLeadingBuilder: (context, value) => PhosphorIcon(switch (value) {
-            ThemeMode.system => PhosphorIconsLight.power,
-            ThemeMode.light => PhosphorIconsLight.sun,
-            ThemeMode.dark => PhosphorIconsLight.moon,
+            .system => PhosphorIconsLight.power,
+            .light => PhosphorIconsLight.sun,
+            .dark => PhosphorIconsLight.moon,
           }),
         ),
         SettingsLeapListSetting<ButterflySettings, String>(
@@ -104,14 +104,14 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (context, value) =>
               context.read<SettingsCubit>().changePlatformTheme(value),
           valueLabel: (context, value) => switch (value) {
-            PlatformTheme.system => AppLocalizations.of(context).systemTheme,
-            PlatformTheme.desktop => AppLocalizations.of(context).desktop,
-            PlatformTheme.mobile => AppLocalizations.of(context).mobile,
+            .system => AppLocalizations.of(context).systemTheme,
+            .desktop => AppLocalizations.of(context).desktop,
+            .mobile => AppLocalizations.of(context).mobile,
           },
           valueLeadingBuilder: (context, value) => PhosphorIcon(switch (value) {
-            PlatformTheme.system => PhosphorIconsLight.power,
-            PlatformTheme.desktop => PhosphorIconsLight.desktop,
-            PlatformTheme.mobile => PhosphorIconsLight.phone,
+            .system => PhosphorIconsLight.power,
+            .desktop => PhosphorIconsLight.desktop,
+            .mobile => PhosphorIconsLight.phone,
           }),
         ),
         SettingsLeapEnumSetting(
@@ -124,16 +124,12 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (context, value) =>
               context.read<SettingsCubit>().changeDensity(value),
           valueLabel: (context, value) => switch (value) {
-            ThemeDensity.system => AppLocalizations.of(context).systemTheme,
-            ThemeDensity.maximize => AppLocalizations.of(
-              context,
-            ).densityMaximize,
-            ThemeDensity.desktop => AppLocalizations.of(context).desktop,
-            ThemeDensity.compact => AppLocalizations.of(context).compact,
-            ThemeDensity.standard => AppLocalizations.of(context).standard,
-            ThemeDensity.comfortable => AppLocalizations.of(
-              context,
-            ).comfortable,
+            .system => AppLocalizations.of(context).systemTheme,
+            .maximize => AppLocalizations.of(context).densityMaximize,
+            .desktop => AppLocalizations.of(context).desktop,
+            .compact => AppLocalizations.of(context).compact,
+            .standard => AppLocalizations.of(context).standard,
+            .comfortable => AppLocalizations.of(context).comfortable,
           },
         ),
         SettingsLeapBoolSetting(

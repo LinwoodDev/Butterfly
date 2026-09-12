@@ -175,7 +175,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
           MenuItemButton(
             leadingIcon: const PhosphorIcon(
               PhosphorIconsLight.fileSvg,
-              textDirection: TextDirection.ltr,
+              textDirection: .ltr,
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
@@ -199,7 +199,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
           MenuItemButton(
             leadingIcon: const PhosphorIcon(
               PhosphorIconsLight.fileImage,
-              textDirection: TextDirection.ltr,
+              textDirection: .ltr,
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
@@ -224,7 +224,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
           MenuItemButton(
             leadingIcon: const PhosphorIcon(
               PhosphorIconsLight.filePdf,
-              textDirection: TextDirection.ltr,
+              textDirection: .ltr,
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();

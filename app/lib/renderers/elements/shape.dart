@@ -26,7 +26,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     CircleShape(:final fillPaint) => fillPaint,
     RectangleShape(:final fillPaint) => fillPaint,
     TriangleShape(:final fillPaint) => fillPaint,
-    _ => const ElementPaint.solid(color: SRGBColor.transparent),
+    _ => const ElementPaint.solid(color: .transparent),
   };
 
   @override
@@ -69,7 +69,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   /// Creates a dotted path from the source path based on stroke style
   Path _createDashedPath(Path source, StrokeStyle strokeStyle) {
-    if (strokeStyle == StrokeStyle.solid) return source;
+    if (strokeStyle == .solid) return source;
 
     final property = element.property;
     final strokeWidth = property.strokeWidth;
@@ -98,7 +98,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   /// Draws a path with the appropriate stroke style (solid, dashed, or dotted)
   void _drawStyledPath(Canvas canvas, Path path, Paint paint) {
     final strokeStyle = element.property.strokeStyle;
-    if (strokeStyle == StrokeStyle.solid) {
+    if (strokeStyle == .solid) {
       canvas.drawPath(path, paint);
     } else {
       final dashedPath = _createDashedPath(path, strokeStyle);
@@ -143,7 +143,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           bottomLeft: bottomLeftCornerRadius,
           bottomRight: bottomRightCornerRadius,
         ),
-        _buildPaint(paint: shape.fillPaint, style: PaintingStyle.fill),
+        _buildPaint(paint: shape.fillPaint, style: .fill),
       );
       if (strokeWidth > 0) {
         final rrect = RRect.fromRectAndCorners(
@@ -159,7 +159,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     } else if (shape is CircleShape) {
       canvas.drawOval(
         drawRect,
-        _buildPaint(paint: shape.fillPaint, style: PaintingStyle.fill),
+        _buildPaint(paint: shape.fillPaint, style: .fill),
       );
       if (strokeWidth > 0) {
         final path = Path()..addOval(drawRect);
@@ -177,10 +177,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ..lineTo(points.right.dx, points.right.dy)
         ..lineTo(points.left.dx, points.left.dy)
         ..close();
-      canvas.drawPath(
-        path,
-        _buildPaint(paint: shape.fillPaint, style: PaintingStyle.fill),
-      );
+      canvas.drawPath(path, _buildPaint(paint: shape.fillPaint, style: .fill));
       if (strokeWidth > 0) {
         _drawStyledPath(canvas, path, paint);
       }
@@ -190,7 +187,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   Paint _buildPaint({ElementPaint? paint, PaintingStyle? style}) {
     final renderer = paint == null ? _strokePaint : _fillPaint;
     final effectiveStyle = style ?? PaintingStyle.stroke;
-    final bounds = effectiveStyle == PaintingStyle.stroke ? expandedRect : rect;
+    final bounds = effectiveStyle == .stroke ? expandedRect : rect;
     final result = renderer.build(
       paint ?? element.property.paint,
       bounds,
@@ -209,8 +206,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final dashMultiplier = property.dashMultiplier;
     final gapMultiplier = property.gapMultiplier;
     return switch (property.strokeStyle) {
-      StrokeStyle.solid => null,
-      StrokeStyle.dotted =>
+      .solid => null,
+      .dotted =>
         '${strokeWidth * dashMultiplier},${strokeWidth * 2 * gapMultiplier}',
     };
   }
@@ -382,7 +379,7 @@ class ShapeHitCalculator extends HitCalculator {
         rect.topLeft,
         rect.bottomRight,
       ].map((point) => point.rotate(rect.center, rotation)).toList();
-      return mode == HitElementMode.full
+      return mode == .full
           ? ends.every((point) => isPointInPolygon(polygon, point))
           : isPolygonInPolygon(polygon, ends);
     }
@@ -406,20 +403,20 @@ class ShapeHitCalculator extends HitCalculator {
     final containsCenter = isPointInPolygon(points, Offset.zero);
     final overlaps = containsCenter || nearest <= 1 + 1e-10;
     return switch (mode) {
-      HitElementMode.full => containsCenter && nearest >= 1 - 1e-10,
-      HitElementMode.touchEdges =>
+      .full => containsCenter && nearest >= 1 - 1e-10,
+      .touchEdges =>
         overlaps && !points.every((point) => point.distanceSquared < 1 - 1e-10),
-      HitElementMode.touchAnywhere => overlaps,
-      HitElementMode.none => false,
+      .touchAnywhere => overlaps,
+      .none => false,
     };
   }
 
   @override
   bool hitPolygon(
     List<ui.Offset> polygon, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+    HitElementMode hitElementMode = .touchAnywhere,
   }) {
-    if (hitElementMode == HitElementMode.none) return false;
+    if (hitElementMode == .none) return false;
     final center = rect.center;
     if (_isPointShape) return isPointInPolygon(polygon, center);
     switch (element.property.shape) {
@@ -435,11 +432,11 @@ class ShapeHitCalculator extends HitCalculator {
         final linePoints = [firstPosition, secondPosition];
         final inside = isPolygonInPolygon(polygon, linePoints);
         return switch (hitElementMode) {
-          HitElementMode.full =>
+          .full =>
             inside &&
                 isPointInPolygon(polygon, firstPosition) &&
                 isPointInPolygon(polygon, secondPosition),
-          HitElementMode.touchEdges || HitElementMode.touchAnywhere => inside,
+          .touchEdges || HitElementMode.touchAnywhere => inside,
           _ => false, // this shouldn't happen
         };
       case CircleShape():

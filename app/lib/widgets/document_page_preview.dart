@@ -408,7 +408,7 @@ class DocumentPagePreview extends StatelessWidget {
       child: Container(
         width: _previewWidth,
         height: _previewHeight,
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: .antiAlias,
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(6),
@@ -421,12 +421,12 @@ class DocumentPagePreview extends StatelessWidget {
             if (bytes != null) {
               return Image.memory(
                 bytes,
-                fit: BoxFit.contain,
+                fit: .contain,
                 gaplessPlayback: true,
-                filterQuality: FilterQuality.low,
+                filterQuality: .low,
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == .waiting) {
               return Center(
                 child: PhosphorIcon(
                   PhosphorIconsLight.image,

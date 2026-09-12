@@ -17,7 +17,7 @@ class ComponentsView extends StatefulWidget {
 }
 
 class _ComponentsViewState extends State<ComponentsView> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = .new();
   final List<String> selectedPacks = [];
   late final PackFileSystem _packSystem;
   Future<List<PackItem<ButterflyComponent>>>? _componentsFuture;
@@ -75,7 +75,7 @@ class _ComponentsViewState extends State<ComponentsView> {
           builder: (context, toolState) {
             final handler = toolState.temporaryHandler;
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: .center,
               children: [
                 const SizedBox(height: 8),
                 SearchBar(
@@ -106,7 +106,7 @@ class _ComponentsViewState extends State<ComponentsView> {
                 const SizedBox(height: 8),
                 Expanded(
                   child: Material(
-                    type: MaterialType.transparency,
+                    type: .transparency,
                     child: Wrap(
                       children: components.nonNulls.map((e) {
                         final named = e.toNamed();

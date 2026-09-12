@@ -128,7 +128,7 @@ class _AspectRatioInputState extends State<AspectRatioInput> {
     return TextField(
       controller: _controller,
       keyboardType: TextInputType.text,
-      textAlign: TextAlign.center,
+      textAlign: .center,
       decoration: InputDecoration(
         filled: true,
         hintText: AppLocalizations.of(context).aspectRatioHint,

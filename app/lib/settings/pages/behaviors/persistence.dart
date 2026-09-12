@@ -326,7 +326,7 @@ Future<_CleanupResult?> _showCleanupTargetsDialog(
         title: Text(AppLocalizations.of(context).persistentStateCleanup),
         scrollable: true,
         content: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             if (cleaning) ...[
               const LinearProgressIndicator(),
@@ -352,7 +352,7 @@ Future<_CleanupResult?> _showCleanupTargetsDialog(
                       : PhosphorIconsLight.cloud,
                 ),
                 title: Text(target.label),
-                controlAffinity: ListTileControlAffinity.leading,
+                controlAffinity: .leading,
               ),
           ],
         ),

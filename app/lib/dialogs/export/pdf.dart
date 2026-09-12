@@ -52,8 +52,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             }
             final currentIndex = context.read<DocumentBloc>().editorController;
             return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: .min,
+              crossAxisAlignment: .stretch,
               children: [
                 Header(
                   title: Text(AppLocalizations.of(context).exportPdf),
@@ -144,8 +144,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       vertical: 15,
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: .min,
+                      crossAxisAlignment: .stretch,
                       children: [
                         Flexible(
                           child: _areas.isEmpty
@@ -154,10 +154,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         ),
                         const Divider(),
                         Wrap(
-                          alignment: WrapAlignment.end,
+                          alignment: .end,
                           spacing: 8,
                           runSpacing: 8,
-                          crossAxisAlignment: WrapCrossAlignment.center,
+                          crossAxisAlignment: .center,
                           children: [
                             TextButton(
                               child: Text(
@@ -287,10 +287,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         .toList();
     Widget documentButton = ElevatedButton.icon(
       label: Text(AppLocalizations.of(context).document),
-      icon: const PhosphorIcon(
-        PhosphorIconsLight.file,
-        textDirection: TextDirection.ltr,
-      ),
+      icon: const PhosphorIcon(PhosphorIconsLight.file, textDirection: .ltr),
       onPressed: documentAreas.isEmpty
           ? null
           : () {
@@ -308,12 +305,12 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
       );
     }
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: .center,
+      crossAxisAlignment: .stretch,
       children: [
         Text(
           AppLocalizations.of(context).noElements,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: TextTheme.of(context).headlineMedium,
         ),
         Align(
@@ -324,12 +321,12 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         ),
         Text(
           AppLocalizations.of(context).pdfEmptyDescription,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           style: TextTheme.of(context).bodyMedium,
         ),
         const SizedBox(height: 16),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [pageButton, const SizedBox(width: 8), documentButton],
         ),
       ],
@@ -480,7 +477,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                 builder: (context, constraints) {
                   final isSmall = constraints.maxWidth < 450;
                   return Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: .min,
                     children: [
                       Row(
                         children: [
@@ -498,20 +495,20 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                     .outlineVariant,
                               ),
                             ),
-                            clipBehavior: Clip.antiAlias,
+                            clipBehavior: .antiAlias,
                             child: image == null
                                 ? const Center(
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                     ),
                                   )
-                                : Image.memory(image, fit: BoxFit.contain),
+                                : Image.memory(image, fit: .contain),
                           ),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: .start,
+                              mainAxisSize: .min,
                               children: [
                                 Text(
                                   widget.area.name.isEmpty
@@ -520,7 +517,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                   style: Theme.of(context).textTheme.titleSmall
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                   maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  overflow: .ellipsis,
                                 ),
                                 Text(
                                   pageName,
@@ -535,7 +532,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                                   .onSurfaceVariant,
                                       ),
                                   maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  overflow: .ellipsis,
                                 ),
                               ],
                             ),
@@ -549,7 +546,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                 min: 1,
                                 max: 10,
                                 onChangeEnd: widget.onQualityChanged,
-                                contentPadding: EdgeInsets.zero,
+                                contentPadding: .zero,
                                 header: Text(
                                   AppLocalizations.of(context).quality,
                                   style: Theme.of(context).textTheme.bodySmall,
@@ -579,7 +576,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                   min: 1,
                                   max: 10,
                                   onChangeEnd: widget.onQualityChanged,
-                                  contentPadding: EdgeInsets.zero,
+                                  contentPadding: .zero,
                                   header: Text(
                                     AppLocalizations.of(context).quality,
                                     style: Theme.of(context)
@@ -624,7 +621,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 500, maxWidth: 400),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Header(
               title: Text(AppLocalizations.of(context).selectArea),
@@ -658,7 +655,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
             ),
             Flexible(
               child: Material(
-                type: MaterialType.transparency,
+                type: .transparency,
                 child: BlocBuilder<DocumentBloc, DocumentState>(
                   buildWhen: (previous, current) =>
                       previous.page != current.page ||
@@ -762,7 +759,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: .end,
                 children: [
                   TextButton(
                     child: Text(
@@ -805,7 +802,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 500, maxWidth: 300),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Header(
               title: Text(AppLocalizations.of(context).presets),
@@ -851,7 +848,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
             ),
             Flexible(
               child: Material(
-                type: MaterialType.transparency,
+                type: .transparency,
                 child: BlocBuilder<DocumentBloc, DocumentState>(
                   buildWhen: (previous, current) =>
                       previous.info?.exportPresets !=

@@ -132,7 +132,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
     super.metadata,
     super.info,
     super.absolute = false,
-    this.storageType = StorageType.local,
+    this.storageType = .local,
     String? currentAreaName,
     this.currentCollection = '',
     String? currentLayer,

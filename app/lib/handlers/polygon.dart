@@ -28,7 +28,7 @@ class PolygonSelectionRenderer extends Renderer<PolygonElement> {
       final isSelected = selectedPointIndex == i;
       final paint = Paint()
         ..color = colorScheme?.primary ?? Colors.blue
-        ..style = isSelected ? PaintingStyle.fill : PaintingStyle.stroke
+        ..style = isSelected ? PaintingStyle.fill : .stroke
         ..strokeWidth = strokeWidth / 2 / transform.size;
       final handlePaint = Paint()
         ..color = colorScheme?.secondary ?? Colors.green

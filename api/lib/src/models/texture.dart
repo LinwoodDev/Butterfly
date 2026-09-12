@@ -35,42 +35,42 @@ extension PatternTemplateExtension on PatternTemplate {
       '${name.replaceAllMapped(RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}')}.png';
 
   PatternBackground get background => switch (this) {
-    PatternTemplate.plain ||
-    PatternTemplate.ruled ||
-    PatternTemplate.ruledSimple ||
-    PatternTemplate.quad ||
-    PatternTemplate.quadSimple ||
-    PatternTemplate.music ||
-    PatternTemplate.dotted => PatternBackground.light,
-    PatternTemplate.plainDark ||
-    PatternTemplate.ruledDark ||
-    PatternTemplate.ruledSimpleDark ||
-    PatternTemplate.quadDark ||
-    PatternTemplate.quadSimpleDark ||
-    PatternTemplate.musicDark ||
-    PatternTemplate.dottedDark => PatternBackground.dark,
+    .plain ||
+    .ruled ||
+    .ruledSimple ||
+    .quad ||
+    .quadSimple ||
+    .music ||
+    .dotted => PatternBackground.light,
+    .plainDark ||
+    .ruledDark ||
+    .ruledSimpleDark ||
+    .quadDark ||
+    .quadSimpleDark ||
+    .musicDark ||
+    .dottedDark => PatternBackground.dark,
   };
 
   PatternTexture create() {
     switch (this) {
-      case PatternTemplate.plain:
+      case .plain:
         return const PatternTexture(boxColor: SRGBColor.white);
-      case PatternTemplate.ruled:
+      case .ruled:
         return const PatternTexture(boxColor: SRGBColor.white, boxHeight: 40);
-      case PatternTemplate.ruledSimple:
+      case .ruledSimple:
         return const PatternTexture(
           boxColor: SRGBColor.white,
           boxHeight: 40,
           boxXColor: BasicColors.dark,
           boxYColor: BasicColors.dark,
         );
-      case PatternTemplate.quad:
+      case .quad:
         return const PatternTexture(
           boxColor: SRGBColor.white,
           boxHeight: 40,
           boxWidth: 40,
         );
-      case PatternTemplate.quadSimple:
+      case .quadSimple:
         return const PatternTexture(
           boxColor: SRGBColor.white,
           boxHeight: 40,
@@ -78,7 +78,7 @@ extension PatternTemplateExtension on PatternTemplate {
           boxXColor: BasicColors.dark,
           boxYColor: BasicColors.dark,
         );
-      case PatternTemplate.music:
+      case .music:
         return const PatternTexture(
           boxColor: SRGBColor.white,
           boxHeight: 40,
@@ -86,7 +86,7 @@ extension PatternTemplateExtension on PatternTemplate {
           boxYSpace: 80,
           boxYCount: 5,
         );
-      case PatternTemplate.dotted:
+      case .dotted:
         return const PatternTexture(
           boxColor: SRGBColor.white,
           boxWidth: 40,
@@ -98,24 +98,24 @@ extension PatternTemplateExtension on PatternTemplate {
           boxXColor: BasicColors.light,
           boxYColor: SRGBColor.white,
         );
-      case PatternTemplate.plainDark:
+      case .plainDark:
         return const PatternTexture(boxColor: SRGBColor.black);
-      case PatternTemplate.ruledDark:
+      case .ruledDark:
         return const PatternTexture(boxColor: SRGBColor.black, boxHeight: 40);
-      case PatternTemplate.ruledSimpleDark:
+      case .ruledSimpleDark:
         return const PatternTexture(
           boxColor: SRGBColor.black,
           boxHeight: 40,
           boxXColor: BasicColors.dark,
           boxYColor: BasicColors.dark,
         );
-      case PatternTemplate.quadDark:
+      case .quadDark:
         return const PatternTexture(
           boxColor: SRGBColor.black,
           boxWidth: 40,
           boxHeight: 40,
         );
-      case PatternTemplate.quadSimpleDark:
+      case .quadSimpleDark:
         return const PatternTexture(
           boxColor: SRGBColor.black,
           boxWidth: 40,
@@ -123,7 +123,7 @@ extension PatternTemplateExtension on PatternTemplate {
           boxXColor: BasicColors.dark,
           boxYColor: BasicColors.dark,
         );
-      case PatternTemplate.musicDark:
+      case .musicDark:
         return const PatternTexture(
           boxColor: SRGBColor.black,
           boxYColor: SRGBColor.white,
@@ -131,7 +131,7 @@ extension PatternTemplateExtension on PatternTemplate {
           boxYSpace: 80,
           boxYCount: 5,
         );
-      case PatternTemplate.dottedDark:
+      case .dottedDark:
         return const PatternTexture(
           boxColor: SRGBColor.black,
           boxWidth: 40,

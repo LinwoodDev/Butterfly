@@ -16,13 +16,13 @@ class FileNameDisplay extends StatelessWidget {
           previous.hideExtension != current.hideExtension,
       builder: (context, state) {
         return Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Flexible(
               child: Text(
                 entity.fileNameWithoutExtension,
                 maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+                overflow: .ellipsis,
                 style: style,
               ),
             ),

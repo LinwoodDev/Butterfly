@@ -100,7 +100,7 @@ class _ProjectDocumentRuntime {
 
 class _ProjectPageState extends State<ProjectPage> {
   _ProjectDocumentRuntime? _runtime;
-  final SearchController _searchController = SearchController();
+  final SearchController _searchController = .new();
   late final CloseSubscription _closeSubscription;
   final GlobalKey<MainViewViewportState> _viewportKey = GlobalKey();
   int _loadGeneration = 0;
@@ -711,7 +711,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 state is DocumentPresentationState ||
                                                     fullScreen ||
                                                     saveState.fullScreen ||
-                                                    hideUi != HideState.visible
+                                                    hideUi != .visible
                                                 ? null
                                                 : PadAppBar(
                                                     viewportKey: _viewportKey,
@@ -750,7 +750,7 @@ class _ProjectPageState extends State<ProjectPage> {
   CloseRequest? _preventClose() {
     final saveState = _runtime?.editorController.saveCubit.state;
     final sessionDirty = _runtime?.editorSessionCubit?.isDirty ?? false;
-    return saveState?.saved == SaveState.saved && !sessionDirty
+    return saveState?.saved == .saved && !sessionDirty
         ? null
         : CloseRequest(
             message: AppLocalizations.of(context).thereAreUnsavedChanges,
@@ -762,12 +762,12 @@ class _ProjectPageState extends State<ProjectPage> {
     final runtime = _runtime;
     final bloc = runtime?.bloc;
     if (bloc == null || bloc.isClosed) return false;
-    if (bloc.editorController.saveCubit.state.saved != SaveState.saved) {
+    if (bloc.editorController.saveCubit.state.saved != .saved) {
       await bloc.save(force: true);
     } else {
       await runtime?.editorSessionCubit?.saveNow();
     }
-    return bloc.editorController.saveCubit.state.saved == SaveState.saved &&
+    return bloc.editorController.saveCubit.state.saved == .saved &&
         !(runtime?.editorSessionCubit?.isDirty ?? false);
   }
 
@@ -944,7 +944,7 @@ class _MainBody extends StatelessWidget {
         ((navigatorRailEnabled && !fullScreen) ||
             (navigatorEnabled && (fullScreen || !navigatorRailEnabled))) &&
         state is DocumentLoadSuccess &&
-        inputState.hideUi == HideState.visible;
+        inputState.hideUi == .visible;
 
     return Stack(
       children: [
@@ -952,14 +952,13 @@ class _MainBody extends StatelessWidget {
         _buildSelectionListener(context, toolState),
         SafeArea(
           child: Row(
-            textDirection: TextDirection.ltr,
+            textDirection: .ltr,
             children: [
-              if (showNavigator &&
-                  settings.navigatorPosition == NavigatorPosition.left)
+              if (showNavigator && settings.navigatorPosition == .left)
                 const NavigatorView(),
-              if (settings.toolbarPosition == ToolbarPosition.left &&
+              if (settings.toolbarPosition == .left &&
                   !isMobile &&
-                  inputState.hideUi == HideState.visible)
+                  inputState.hideUi == .visible)
                 toolbar,
               _buildCenterColumn(
                 context,
@@ -969,11 +968,10 @@ class _MainBody extends StatelessWidget {
                 isMobile,
                 toolbar,
               ),
-              if (settings.toolbarPosition == ToolbarPosition.right &&
-                  inputState.hideUi == HideState.visible)
+              if (settings.toolbarPosition == .right &&
+                  inputState.hideUi == .visible)
                 toolbar,
-              if (showNavigator &&
-                  settings.navigatorPosition == NavigatorPosition.right)
+              if (showNavigator && settings.navigatorPosition == .right)
                 const NavigatorView(),
             ],
           ),
@@ -989,7 +987,7 @@ class _MainBody extends StatelessWidget {
     return Listener(
       behavior: toolState.pinned || toolState.selection == null
           ? HitTestBehavior.translucent
-          : HitTestBehavior.opaque,
+          : .opaque,
       onPointerUp: (details) {
         if (toolState.pinned) return;
         context.read<ToolCubit>().resetSelection();
@@ -1008,29 +1006,27 @@ class _MainBody extends StatelessWidget {
     final pos = settings.toolbarPosition;
     final optPos = settings.optionsPanelPosition;
     final showToolbar =
-        (((fullScreen || settings.toolbarRows > 1) &&
-                    pos == ToolbarPosition.inline ||
-                pos == ToolbarPosition.top) &&
+        (((fullScreen || settings.toolbarRows > 1) && pos == .inline ||
+                pos == .top) &&
             !isMobile) &&
-        inputState.hideUi == HideState.visible;
+        inputState.hideUi == .visible;
     final shareToolbarAndZoomEdge =
         !isMobile &&
-        inputState.hideUi == HideState.visible &&
+        inputState.hideUi == .visible &&
         _toolbarAndZoomShareVerticalEdge(settings);
     final combineTopToolbarAndZoom = showToolbar && shareToolbarAndZoomEdge;
     final combineBottomToolbarAndZoom =
-        pos == ToolbarPosition.bottom && shareToolbarAndZoomEdge;
+        pos == .bottom && shareToolbarAndZoomEdge;
 
     return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: .center,
         children: [
           if (showToolbar)
             combineTopToolbarAndZoom
                 ? _buildCombinedToolbarAndZoom(settings, toolbar)
                 : toolbar,
-          if (optPos == OptionsPanelPosition.top &&
-              inputState.hideUi == HideState.visible)
+          if (optPos == .top && inputState.hideUi == .visible)
             const ToolbarView(),
           Expanded(
             child: Stack(
@@ -1045,21 +1041,19 @@ class _MainBody extends StatelessWidget {
                 ),
                 Align(
                   alignment: switch (settings.propertyPosition) {
-                    ZoomPosition.topRight => Alignment.topRight,
-                    ZoomPosition.topLeft => Alignment.topLeft,
-                    ZoomPosition.bottomRight => Alignment.bottomRight,
-                    ZoomPosition.bottomLeft => Alignment.bottomLeft,
+                    .topRight => Alignment.topRight,
+                    .topLeft => Alignment.topLeft,
+                    .bottomRight => Alignment.bottomRight,
+                    .bottomLeft => Alignment.bottomLeft,
                   },
                   child: PropertyView(position: settings.propertyPosition),
                 ),
               ],
             ),
           ),
-          if (optPos == OptionsPanelPosition.bottom &&
-              inputState.hideUi == HideState.visible)
+          if (optPos == .bottom && inputState.hideUi == .visible)
             const ToolbarView(),
-          if ((isMobile || pos == ToolbarPosition.bottom) &&
-              inputState.hideUi == HideState.visible)
+          if ((isMobile || pos == .bottom) && inputState.hideUi == .visible)
             combineBottomToolbarAndZoom
                 ? _buildCombinedToolbarAndZoom(settings, toolbar)
                 : toolbar,
@@ -1070,12 +1064,12 @@ class _MainBody extends StatelessWidget {
 
   bool _toolbarAndZoomShareVerticalEdge(ButterflySettings settings) =>
       switch (settings.toolbarPosition) {
-        ToolbarPosition.top =>
-          settings.zoomPosition == ZoomPosition.topLeft ||
-              settings.zoomPosition == ZoomPosition.topRight,
-        ToolbarPosition.bottom =>
-          settings.zoomPosition == ZoomPosition.bottomLeft ||
-              settings.zoomPosition == ZoomPosition.bottomRight,
+        .top =>
+          settings.zoomPosition == .topLeft ||
+              settings.zoomPosition == .topRight,
+        .bottom =>
+          settings.zoomPosition == .bottomLeft ||
+              settings.zoomPosition == .bottomRight,
         _ => false,
       };
 
@@ -1084,8 +1078,8 @@ class _MainBody extends StatelessWidget {
     Widget toolbar,
   ) {
     final isLeft =
-        settings.zoomPosition == ZoomPosition.topLeft ||
-        settings.zoomPosition == ZoomPosition.bottomLeft;
+        settings.zoomPosition == .topLeft ||
+        settings.zoomPosition == .bottomLeft;
     final zoomTools = SizedBox(
       width: 400,
       child: _buildZoomToolsRow(settings, false),
@@ -1114,24 +1108,22 @@ class _MainBody extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Align(
         alignment: switch (settings.zoomPosition) {
-          ZoomPosition.topRight => Alignment.topRight,
-          ZoomPosition.topLeft => Alignment.topLeft,
-          ZoomPosition.bottomRight => Alignment.bottomRight,
-          ZoomPosition.bottomLeft => Alignment.bottomLeft,
+          .topRight => Alignment.topRight,
+          .topLeft => Alignment.topLeft,
+          .bottomRight => Alignment.bottomRight,
+          .bottomLeft => Alignment.bottomLeft,
         },
         child: SizedBox(
           width: isMobile ? 100 : 400,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: .min,
             crossAxisAlignment: switch (settings.zoomPosition) {
-              ZoomPosition.topRight ||
-              ZoomPosition.bottomRight => CrossAxisAlignment.end,
-              ZoomPosition.topLeft ||
-              ZoomPosition.bottomLeft => CrossAxisAlignment.start,
+              .topRight || .bottomRight => CrossAxisAlignment.end,
+              .topLeft || .bottomLeft => CrossAxisAlignment.start,
             },
             children: [
               if (!hideZoomTools) _buildZoomToolsRow(settings, isMobile),
-              if (inputState.hideUi == HideState.touch)
+              if (inputState.hideUi == .touch)
                 FloatingActionButton.small(
                   tooltip: AppLocalizations.of(context).exit,
                   child: const Icon(PhosphorIconsLight.door),
@@ -1148,16 +1140,14 @@ class _MainBody extends StatelessWidget {
 
   Widget _buildZoomToolsRow(ButterflySettings settings, bool isMobile) {
     final isLeft =
-        settings.zoomPosition == ZoomPosition.topLeft ||
-        settings.zoomPosition == ZoomPosition.bottomLeft;
+        settings.zoomPosition == .topLeft ||
+        settings.zoomPosition == .bottomLeft;
     final children = [
       const PenOnlyToggle(),
       if (settings.zoomEnabled) Flexible(child: ZoomView(isMobile: isMobile)),
     ];
     return Row(
-      mainAxisAlignment: isLeft
-          ? MainAxisAlignment.start
-          : MainAxisAlignment.end,
+      mainAxisAlignment: isLeft ? MainAxisAlignment.start : .end,
       spacing: 8,
       children: isLeft ? children.reversed.toList() : children,
     );

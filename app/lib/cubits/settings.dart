@@ -222,18 +222,14 @@ sealed class FavoriteLocation with _$FavoriteLocation {
 }
 
 class const InputMappingDefault._() {
-  static const InputMapping leftMouse = InputMapping(
-    InputMapping.activeToolValue,
-  );
-  static const InputMapping middleMouse = InputMapping(
-    InputMapping.handToolValue,
-  );
-  static const InputMapping rightMouse = InputMapping(1);
-  static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
-  static const InputMapping invertedPen = InputMapping(3);
-  static const InputMapping firstPenButton = InputMapping(2);
-  static const InputMapping secondPenButton = InputMapping(1);
-  static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping leftMouse = .new(InputMapping.activeToolValue);
+  static const InputMapping middleMouse = .new(InputMapping.handToolValue);
+  static const InputMapping rightMouse = .new(1);
+  static const InputMapping pen = .new(InputMapping.activeToolValue);
+  static const InputMapping invertedPen = .new(3);
+  static const InputMapping firstPenButton = .new(2);
+  static const InputMapping secondPenButton = .new(1);
+  static const InputMapping touch = .new(InputMapping.activeToolValue);
 }
 
 extension type const InputMapping(int value) {
@@ -245,11 +241,11 @@ extension type const InputMapping(int value) {
     int? toolNumber, // 1-indexed
   ]) {
     switch (category) {
-      case InputMappingCategory.activeTool:
+      case .activeTool:
         return InputMapping(activeToolValue);
-      case InputMappingCategory.handTool:
+      case .handTool:
         return InputMapping(handToolValue);
-      case InputMappingCategory.toolOnToolbar:
+      case .toolOnToolbar:
         return InputMapping(toolNumber?.clamp(1, 99).subtract(1) ?? 0);
     }
   }
@@ -267,14 +263,12 @@ extension type const InputMapping(int value) {
 
   // 0-indexed
   int? getToolPositionIndex() {
-    return getCategory() == InputMappingCategory.toolOnToolbar ? value : null;
+    return getCategory() == .toolOnToolbar ? value : null;
   }
 
   // 1-indexed, for displaying to the user
   int? getToolDisplayPosition() {
-    return getCategory() == InputMappingCategory.toolOnToolbar
-        ? value + 1
-        : null;
+    return getCategory() == .toolOnToolbar ? value + 1 : null;
   }
 
   String getDescription(BuildContext context) {
@@ -376,16 +370,16 @@ sealed class InputConfiguration with _$InputConfiguration {
 
   InputMapping? getPointerMapping(PointerDeviceKind kind, int buttons) =>
       switch (kind) {
-        PointerDeviceKind.touch => touch,
-        PointerDeviceKind.mouse => getMouseMapping(buttons),
+        .touch => touch,
+        .mouse => getMouseMapping(buttons),
         PointerDeviceKind.stylus
             when (buttons & kSecondaryStylusButton) != 0 ||
                 (buttons & kFallbackSecondaryStylusButton) != 0 =>
           secondPenButton,
         PointerDeviceKind.stylus when (buttons & kPrimaryStylusButton) != 0 =>
           firstPenButton,
-        PointerDeviceKind.stylus => pen,
-        PointerDeviceKind.invertedStylus => invertedPen,
+        .stylus => pen,
+        .invertedStylus => invertedPen,
         _ => null,
       };
 
@@ -420,10 +414,7 @@ sealed class InputConfiguration with _$InputConfiguration {
     if (tapCount != 2 && tapCount != 3) return null;
     final isDoubleTap = tapCount == 2;
     return switch (kind) {
-      PointerDeviceKind.mouse => getMouseShortcut(
-        buttons,
-        isDoubleTap: isDoubleTap,
-      ),
+      .mouse => getMouseShortcut(buttons, isDoubleTap: isDoubleTap),
       PointerDeviceKind.stylus
           when (buttons & kSecondaryStylusButton) != 0 ||
               (buttons & kFallbackSecondaryStylusButton) != 0 =>
@@ -434,12 +425,10 @@ sealed class InputConfiguration with _$InputConfiguration {
         isDoubleTap
             ? doubleFirstPenButtonShortcut
             : tripleFirstPenButtonShortcut,
-      PointerDeviceKind.stylus =>
-        isDoubleTap ? doublePenShortcut : triplePenShortcut,
-      PointerDeviceKind.invertedStylus =>
+      .stylus => isDoubleTap ? doublePenShortcut : triplePenShortcut,
+      .invertedStylus =>
         isDoubleTap ? doubleInvertedPenShortcut : tripleInvertedPenShortcut,
-      PointerDeviceKind.touch =>
-        isDoubleTap ? doubleTouchShortcut : tripleTouchShortcut,
+      .touch => isDoubleTap ? doubleTouchShortcut : tripleTouchShortcut,
       _ => null,
     };
   }
@@ -685,7 +674,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               prefs.getString('theme_mode'),
               ThemeMode.system,
             )
-          : ThemeMode.system,
+          : .system,
       density: prefs.containsKey('theme_density')
           ? _enumByNameOr(
               ThemeDensity.values,
@@ -921,8 +910,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     return connections.map((e) => e.identifier).toList();
   }
 
-  bool get isInline =>
-      toolbarPosition == ToolbarPosition.inline && toolbarRows <= 1;
+  bool get isInline => toolbarPosition == .inline && toolbarRows <= 1;
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
@@ -1110,9 +1098,9 @@ class SettingsCubit(SharedPreferences prefs)
   void setTheme(BuildContext context, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
     final brightness = switch (theme ?? state.theme) {
-      ThemeMode.light => Brightness.light,
-      ThemeMode.dark => Brightness.dark,
-      ThemeMode.system => MediaQuery.platformBrightnessOf(context),
+      .light => Brightness.light,
+      .dark => Brightness.dark,
+      .system => MediaQuery.platformBrightnessOf(context),
     };
     windowManager.setBrightness(brightness);
   }

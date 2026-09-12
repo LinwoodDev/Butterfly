@@ -41,7 +41,7 @@ Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
           ),
         ),
         Dialog(
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: .antiAlias,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxHeight: 800, maxWidth: 1000),
             child: const SettingsPage(inView: true),
@@ -58,7 +58,7 @@ Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(0, 1),
-        end: Offset.zero,
+        end: .zero,
       ).chain(CurveTween(curve: Curves.easeOutQuart)).animate(animation),
       child: child,
     );

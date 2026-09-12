@@ -32,7 +32,7 @@ class UserCursor extends Renderer<NetworkingUser> {
     final iconSize = 16 / transform.size;
     final iconColor = getRandomColor(userId ?? 0);
     final iconPainter = TextPainter(
-      textDirection: TextDirection.rtl,
+      textDirection: .rtl,
       text: TextSpan(
         text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
@@ -43,7 +43,7 @@ class UserCursor extends Renderer<NetworkingUser> {
           fontStyle: FontStyle.normal,
         ),
       ),
-      textAlign: TextAlign.center,
+      textAlign: .center,
     );
     iconPainter.layout();
     iconPainter.paint(canvas, position);

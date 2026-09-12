@@ -133,7 +133,7 @@ class _MultiSelectRegionState<T> extends State<MultiSelectRegion<T>> {
         listenable: _controller,
         builder: (context, _) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: [
               if (widget.toolbarBuilder != null && _controller.selectionMode)
                 widget.toolbarBuilder!(context, _controller),

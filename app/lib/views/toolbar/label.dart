@@ -36,12 +36,12 @@ class LabelToolbarView extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _LabelToolbarViewState extends State<LabelToolbarView> {
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = .new();
 
-  final TextEditingController _sizeController = TextEditingController(),
+  final TextEditingController _sizeController = .new(),
       _scaleController = TextEditingController();
 
-  final GlobalKey _paragraphKey = GlobalKey(), _spanKey = GlobalKey();
+  final GlobalKey _paragraphKey = .new(), _spanKey = GlobalKey();
 
   @override
   void dispose() {
@@ -225,16 +225,16 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         controller: _scrollController,
         child: SingleChildScrollView(
           controller: _scrollController,
-          scrollDirection: Axis.horizontal,
+          scrollDirection: .horizontal,
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minWidth: constraints.maxWidth,
               minHeight: constraints.maxHeight,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              textDirection: TextDirection.ltr,
+              mainAxisAlignment: .spaceEvenly,
+              crossAxisAlignment: .center,
+              textDirection: .ltr,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -332,7 +332,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 FloatingLabelAlignment.center,
                             alignLabelWithHint: true,
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: .center,
                           keyboardType: TextInputType.number,
                           controller: _scaleController,
                           onFieldSubmitted: (current) {
@@ -572,7 +572,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         ),
                         const SizedBox(width: 16),*/
                         Directionality(
-                          textDirection: TextDirection.ltr,
+                          textDirection: .ltr,
                           child: ToggleButtons(
                             isSelected: text.HorizontalAlignment.values
                                 .map((e) => e == paragraph.alignment)
@@ -635,7 +635,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                   FloatingLabelAlignment.center,
                               alignLabelWithHint: true,
                             ),
-                            textAlign: TextAlign.center,
+                            textAlign: .center,
                             keyboardType: TextInputType.number,
                             controller: _sizeController,
                             onFieldSubmitted: (current) {
@@ -688,7 +688,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         ),
                         const SizedBox(width: 16),
                         Directionality(
-                          textDirection: TextDirection.ltr,
+                          textDirection: .ltr,
                           child: ToggleButtons(
                             isSelected: [
                               property.getFontWeight(paragraph) !=
@@ -824,7 +824,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                       element: value.element?.copyWith(
                                         text: newText,
                                       ),
-                                      selection: TextSelection.collapsed(
+                                      selection: .collapsed(
                                         offset: newSelection,
                                       ),
                                     ),

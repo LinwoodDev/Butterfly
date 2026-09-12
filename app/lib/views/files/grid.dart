@@ -66,7 +66,7 @@ class FileEntityGridItem extends StatelessWidget {
       surfaceTintColor: highlighted
           ? colorScheme.surfaceContainerHighest
           : colorScheme.secondaryContainer,
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: .hardEdge,
       child: InkWell(
         onTap: onTap,
         highlightColor: active ? colorScheme.primaryContainer : null,
@@ -74,7 +74,7 @@ class FileEntityGridItem extends StatelessWidget {
           width: 160,
           height: 192,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: [
               Stack(
                 children: [
@@ -96,7 +96,7 @@ class FileEntityGridItem extends StatelessWidget {
                                 ),
                                 child: Image.memory(
                                   thumbnail!,
-                                  fit: BoxFit.cover,
+                                  fit: .cover,
                                   gaplessPlayback: true,
                                   cacheHeight: kThumbnailHeight,
                                   cacheWidth: kThumbnailWidth,
@@ -139,8 +139,8 @@ class FileEntityGridItem extends StatelessWidget {
                     horizontal: 12,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: .end,
+                    crossAxisAlignment: .stretch,
                     children: [
                       SizedBox(
                         height: 16,
@@ -255,7 +255,7 @@ class FileEntityGridItem extends StatelessWidget {
                                       },
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.check,
-                                        textDirection: TextDirection.ltr,
+                                        textDirection: .ltr,
                                       ),
                                       tooltip: AppLocalizations.of(context)
                                           .save,

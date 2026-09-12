@@ -16,7 +16,7 @@ class _QuickstartHomeView extends StatefulWidget {
 }
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = .new();
   late TemplateFileSystem _templateSystem;
   Future<List<({NoteData file, String remote})>>? _templatesFuture;
 
@@ -95,9 +95,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         borderRadius: const BorderRadius.all(Radius.circular(24)),
       ),
       child: Padding(
-        padding: EdgeInsets.all(widget.isMobile ? 12 : 32),
+        padding: .all(widget.isMobile ? 12 : 32),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: .stretch,
           children: [
             Row(
               children: [
@@ -131,7 +131,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }
-                if (snapshot.connectionState == ConnectionState.none) {
+                if (snapshot.connectionState == .none) {
                   return ElevatedButton(
                     child: Text(AppLocalizations.of(context).view),
                     onPressed: () => setState(() {
@@ -139,7 +139,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     }),
                   );
                 }
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (snapshot.connectionState == .waiting) {
                   return const Align(
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(),
@@ -148,7 +148,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                 final templates = snapshot.data ?? [];
                 if (templates.isEmpty) {
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: .center,
                     children: [
                       Text(
                         AppLocalizations.of(context).noTemplates,
@@ -200,7 +200,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                       controller: _scrollController,
                       child: ListView(
                         controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
+                        scrollDirection: .horizontal,
                         children: children,
                       ),
                     ),

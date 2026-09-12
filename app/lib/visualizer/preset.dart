@@ -5,40 +5,34 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension PatternTemplateHelper on PatternTemplate {
   String getLocalizedName(BuildContext context) => switch (this) {
-    PatternTemplate.plain => AppLocalizations.of(context).plain,
-    PatternTemplate.ruled => AppLocalizations.of(context).ruled,
-    PatternTemplate.quad => AppLocalizations.of(context).quad,
-    PatternTemplate.music => AppLocalizations.of(context).music,
-    PatternTemplate.dotted => AppLocalizations.of(context).dotted,
-    PatternTemplate.ruledSimple => AppLocalizations.of(context).ruledSimple,
-    PatternTemplate.quadSimple => AppLocalizations.of(context).quadSimple,
-    PatternTemplate.plainDark => AppLocalizations.of(context).plainDark,
-    PatternTemplate.ruledDark => AppLocalizations.of(context).ruledDark,
-    PatternTemplate.quadDark => AppLocalizations.of(context).quadDark,
-    PatternTemplate.musicDark => AppLocalizations.of(context).musicDark,
-    PatternTemplate.dottedDark => AppLocalizations.of(context).dottedDark,
-    PatternTemplate.ruledSimpleDark => AppLocalizations.of(
-      context,
-    ).ruledSimpleDark,
-    PatternTemplate.quadSimpleDark => AppLocalizations.of(
-      context,
-    ).quadSimpleDark,
+    .plain => AppLocalizations.of(context).plain,
+    .ruled => AppLocalizations.of(context).ruled,
+    .quad => AppLocalizations.of(context).quad,
+    .music => AppLocalizations.of(context).music,
+    .dotted => AppLocalizations.of(context).dotted,
+    .ruledSimple => AppLocalizations.of(context).ruledSimple,
+    .quadSimple => AppLocalizations.of(context).quadSimple,
+    .plainDark => AppLocalizations.of(context).plainDark,
+    .ruledDark => AppLocalizations.of(context).ruledDark,
+    .quadDark => AppLocalizations.of(context).quadDark,
+    .musicDark => AppLocalizations.of(context).musicDark,
+    .dottedDark => AppLocalizations.of(context).dottedDark,
+    .ruledSimpleDark => AppLocalizations.of(context).ruledSimpleDark,
+    .quadSimpleDark => AppLocalizations.of(context).quadSimpleDark,
   };
 }
 
 extension AspectRatioPresetVisualizer on AspectRatioPreset {
   String getLocalizedName(BuildContext context) => switch (this) {
-    AspectRatioPreset.square => AppLocalizations.of(context).square,
-    AspectRatioPreset.portrait => AppLocalizations.of(context).pagePortrait,
-    AspectRatioPreset.landscape => AppLocalizations.of(context).pageLandscape,
+    .square => AppLocalizations.of(context).square,
+    .portrait => AppLocalizations.of(context).pagePortrait,
+    .landscape => AppLocalizations.of(context).pageLandscape,
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    AspectRatioPreset.square =>
-      filled ? PhosphorIconsFill.square : PhosphorIconsLight.square,
-    AspectRatioPreset.portrait =>
+    .square => filled ? PhosphorIconsFill.square : PhosphorIconsLight.square,
+    .portrait =>
       filled ? PhosphorIconsFill.userFocus : PhosphorIconsLight.userFocus,
-    AspectRatioPreset.landscape =>
-      filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
+    .landscape => filled ? PhosphorIconsFill.image : PhosphorIconsLight.image,
   };
 }

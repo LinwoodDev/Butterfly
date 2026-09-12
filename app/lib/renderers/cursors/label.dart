@@ -43,7 +43,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
     final iconColor =
         property.span.color ?? colorScheme?.primary.toSRGB() ?? SRGBColor.black;
     final iconPainter = TextPainter(
-      textDirection: TextDirection.rtl,
+      textDirection: .rtl,
       text: TextSpan(
         text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
@@ -56,7 +56,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
               : FontStyle.normal,
         ),
       ),
-      textAlign: TextAlign.center,
+      textAlign: .center,
     );
     iconPainter.layout();
     final position = transform.localToGlobal(element.position);

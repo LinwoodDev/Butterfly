@@ -64,7 +64,7 @@ class _LoadedViewport extends StatelessWidget {
       onLongPressEnd: (details) =>
           getHandler().onLongPressEnd(details, getEventContext()),
       child: Listener(
-        behavior: HitTestBehavior.translucent,
+        behavior: .translucent,
         onPointerSignal: (event) =>
             input.handlePointerSignal(event, pointerInput),
         onPointerPanZoomStart: (_) => input.beginTrackpadGesture(),

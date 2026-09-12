@@ -210,15 +210,13 @@ class _TextureViewState extends State<TextureView> {
             ),
           ];
           return Column(
-            mainAxisSize: widget.scrollable
-                ? MainAxisSize.max
-                : MainAxisSize.min,
+            mainAxisSize: widget.scrollable ? MainAxisSize.max : .min,
             children: [
               TabBar.secondary(isScrollable: true, tabs: tabs),
               if (widget.scrollable)
                 Expanded(
                   child: Material(
-                    type: MaterialType.transparency,
+                    type: .transparency,
                     child: TabBarView(
                       children: children
                           .map((children) => ListView(children: children))
@@ -228,12 +226,12 @@ class _TextureViewState extends State<TextureView> {
                 )
               else
                 Material(
-                  type: MaterialType.transparency,
+                  type: .transparency,
                   child: AnimatedBuilder(
                     animation: tabController,
                     builder: (context, child) => Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: .min,
+                      crossAxisAlignment: .stretch,
                       children: children[tabController.index],
                     ),
                   ),

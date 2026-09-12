@@ -25,7 +25,7 @@ class NumberInput extends StatefulWidget {
 }
 
 class _NumberInputState extends State<NumberInput> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = .new();
   Timer? _stepTimer;
   late double _value;
   bool _invalid = false;
@@ -118,7 +118,7 @@ class _NumberInputState extends State<NumberInput> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: [
         _buildStepButton(
           delta: -widget.step,
@@ -142,7 +142,7 @@ class _NumberInputState extends State<NumberInput> {
               signed: true,
               decimal: true,
             ),
-            textAlign: TextAlign.center,
+            textAlign: .center,
             onSubmitted: (_) => _commitTextValue(),
             onTapOutside: (_) => _commitTextValue(),
           ),

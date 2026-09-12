@@ -67,12 +67,12 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
                 (e) => DropdownMenuEntry(
                   value: e,
                   label: switch (e) {
-                    LaserAnimation.fade => LeapLocalizations.of(context).color,
-                    LaserAnimation.path => AppLocalizations.of(context).path,
+                    .fade => LeapLocalizations.of(context).color,
+                    .path => AppLocalizations.of(context).path,
                   },
                   leadingIcon: Icon(switch (e) {
-                    LaserAnimation.fade => PhosphorIconsLight.palette,
-                    LaserAnimation.path => PhosphorIconsLight.path,
+                    .fade => PhosphorIconsLight.palette,
+                    .path => PhosphorIconsLight.path,
                   }),
                 ),
               )

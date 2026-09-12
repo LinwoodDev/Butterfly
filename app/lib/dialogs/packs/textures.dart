@@ -53,13 +53,13 @@ class TexturesPackView extends StatelessWidget {
                         : name.toLowerCase().endsWith('.svg')
                         ? SvgPicture.memory(
                             data,
-                            fit: BoxFit.cover,
+                            fit: .cover,
                             placeholderBuilder: (context) =>
                                 const PhosphorIcon(PhosphorIconsLight.image),
                           )
                         : Image.memory(
                             data,
-                            fit: BoxFit.cover,
+                            fit: .cover,
                             errorBuilder: (context, error, stackTrace) =>
                                 const PhosphorIcon(PhosphorIconsLight.image),
                           ),

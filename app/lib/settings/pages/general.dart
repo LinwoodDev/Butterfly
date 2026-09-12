@@ -166,7 +166,7 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
                 subtitle: Text('${snapshot.error}'),
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == .waiting) {
               return const Center(child: CircularProgressIndicator());
             }
             if (!snapshot.hasData) {
@@ -234,5 +234,4 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
   }
 }
 
-Future<void> _openUrl(Uri uri) =>
-    launchUrl(uri, mode: LaunchMode.externalApplication);
+Future<void> _openUrl(Uri uri) => launchUrl(uri, mode: .externalApplication);

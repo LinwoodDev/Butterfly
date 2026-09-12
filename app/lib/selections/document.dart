@@ -41,8 +41,8 @@ class _UtilitiesView extends StatefulWidget {
 class _UtilitiesViewState extends State<_UtilitiesView>
     with TickerProviderStateMixin {
   late final TabController _tabController;
-  final TextEditingController _descriptionController = TextEditingController();
-  final FocusNode _descriptionFocusNode = FocusNode();
+  final TextEditingController _descriptionController = .new();
+  final FocusNode _descriptionFocusNode = .new();
 
   @override
   void initState() {
@@ -111,10 +111,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                   ]
                   .map(
                     (e) => HorizontalTab(
-                      icon: PhosphorIcon(
-                        e.$1,
-                        textDirection: TextDirection.ltr,
-                      ),
+                      icon: PhosphorIcon(e.$1, textDirection: .ltr),
                       label: Text(e.$2),
                     ),
                   )
@@ -185,7 +182,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         SnackBar(
                           behavior: SnackBarBehavior.floating,
                           content: Row(
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisSize: .min,
                             spacing: 8,
                             children: [
                               Image.memory(bytes, height: 42),

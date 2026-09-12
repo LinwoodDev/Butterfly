@@ -56,8 +56,8 @@ class _SyncDialogState extends State<SyncDialog> {
           child: SizedBox(
             width: useDesktopWidth ? LeapBreakpoints.large : null,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: .min,
+              crossAxisAlignment: .stretch,
               children: [
                 Header(
                   title: Text(status.getLocalizedName(context)),
@@ -82,22 +82,19 @@ class _SyncDialogState extends State<SyncDialog> {
                       icon: const PhosphorIcon(
                         PhosphorIconsLight.arrowsClockwise,
                       ),
-                      onPressed: selectedSync?.status == SyncStatus.syncing
+                      onPressed: selectedSync?.status == .syncing
                           ? null
                           : () => selectedSync?.sync(),
                       tooltip: selectedSync?.status.getLocalizedName(context),
                     ),
                     IconButton(
-                      icon: status == SyncStatus.syncing
+                      icon: status == .syncing
                           ? const SizedBox.square(
                               dimension: 20,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : PhosphorIcon(
-                              status.getIcon(),
-                              textDirection: TextDirection.ltr,
-                            ),
-                      onPressed: status == SyncStatus.syncing
+                          : PhosphorIcon(status.getIcon(), textDirection: .ltr),
+                      onPressed: status == .syncing
                           ? null
                           : () => service.sync(),
                       tooltip: AppLocalizations.of(context).connections,
@@ -115,18 +112,18 @@ class _SyncDialogState extends State<SyncDialog> {
                     padding: const EdgeInsets.all(24),
                     child: Text(
                       AppLocalizations.of(context).noConnections,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                     ),
                   )
                 else ...[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: .stretch,
                       children: [
                         DropdownMenu<String>(
                           initialSelection: selectedSync?.storage.identifier,
-                          expandedInsets: EdgeInsets.zero,
+                          expandedInsets: .zero,
                           label: Text(AppLocalizations.of(context).connections),
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.cloud,
@@ -180,7 +177,7 @@ class _RemoteSyncViewState extends State<_RemoteSyncView> {
         if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         }
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == .waiting) {
           return const Align(
             alignment: Alignment.center,
             child: CircularProgressIndicator(),
@@ -294,7 +291,7 @@ class _RemoteSyncViewState extends State<_RemoteSyncView> {
               return Padding(
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     SizedBox(
                       width: 360,
@@ -381,10 +378,10 @@ class _RemoteSummaryCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: .stretch,
           children: [
             ListTile(
-              contentPadding: EdgeInsets.zero,
+              contentPadding: .zero,
               leading: PhosphorIcon(
                 state.status.getIcon(),
                 color: state.status.getColor(colorScheme),
@@ -477,12 +474,10 @@ class _ProgressTile extends StatelessWidget {
 
   String _getFileSystemTypeLabel(BuildContext context) {
     return switch (type) {
-      SyncFileSystemType.documents => AppLocalizations.of(context).document,
-      SyncFileSystemType.documentStates => AppLocalizations.of(
-        context,
-      ).documentStates,
-      SyncFileSystemType.templates => AppLocalizations.of(context).templates,
-      SyncFileSystemType.packs => AppLocalizations.of(context).packs,
+      .documents => AppLocalizations.of(context).document,
+      .documentStates => AppLocalizations.of(context).documentStates,
+      .templates => AppLocalizations.of(context).templates,
+      .packs => AppLocalizations.of(context).packs,
     };
   }
 
@@ -501,7 +496,7 @@ class _ProgressTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: .stretch,
           children: [
             Row(
               children: [
@@ -509,7 +504,7 @@ class _ProgressTile extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       Text(_getFileSystemTypeLabel(context)),
                       if (files.isNotEmpty)
@@ -539,7 +534,7 @@ class _ProgressTile extends StatelessWidget {
                 Text(
                   '${progress?.currentAction?.name ?? AppLocalizations.of(context).syncing}: ${progress!.currentFile}',
                   style: TextTheme.of(context).bodySmall,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                 ),
               ],
             ],
@@ -550,10 +545,10 @@ class _ProgressTile extends StatelessWidget {
   }
 
   PhosphorIconData _getIcon() => switch (type) {
-    SyncFileSystemType.documents => PhosphorIconsLight.file,
-    SyncFileSystemType.documentStates => PhosphorIconsLight.database,
-    SyncFileSystemType.templates => PhosphorIconsLight.fileDashed,
-    SyncFileSystemType.packs => PhosphorIconsLight.package,
+    .documents => PhosphorIconsLight.file,
+    .documentStates => PhosphorIconsLight.database,
+    .templates => PhosphorIconsLight.fileDashed,
+    .packs => PhosphorIconsLight.package,
   };
 }
 
@@ -587,12 +582,10 @@ class _SyncFileCard extends StatelessWidget {
 
   String _getFileSystemTypeLabel(BuildContext context) {
     return switch (fileSystemType) {
-      SyncFileSystemType.documents => AppLocalizations.of(context).document,
-      SyncFileSystemType.documentStates => AppLocalizations.of(
-        context,
-      ).documentStates,
-      SyncFileSystemType.templates => AppLocalizations.of(context).templates,
-      SyncFileSystemType.packs => AppLocalizations.of(context).packs,
+      .documents => AppLocalizations.of(context).document,
+      .documentStates => AppLocalizations.of(context).documentStates,
+      .templates => AppLocalizations.of(context).templates,
+      .packs => AppLocalizations.of(context).packs,
     };
   }
 
@@ -607,7 +600,7 @@ class _SyncFileCard extends StatelessWidget {
         file.syncedLastModified;
     return Card(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: <Widget>[
           ListTile(
             title: Text(file.location.path),
@@ -623,9 +616,9 @@ class _SyncFileCard extends StatelessWidget {
               color: file.status.getColor(ColorScheme.of(context)),
             ),
           ),
-          if (file.status == FileSyncStatus.conflict) ...[
+          if (file.status == .conflict) ...[
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: .end,
               children: [
                 TextButton(
                   onPressed: () => sync.resolveConflict(

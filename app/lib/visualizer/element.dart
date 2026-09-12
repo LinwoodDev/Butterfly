@@ -82,15 +82,14 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
 
 extension LabelModeVisualizer on LabelMode {
   String getLocalizedName(BuildContext context) => switch (this) {
-    LabelMode.markdown => AppLocalizations.of(context).markdown,
-    LabelMode.text => AppLocalizations.of(context).text,
+    .markdown => AppLocalizations.of(context).markdown,
+    .text => AppLocalizations.of(context).text,
   };
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    LabelMode.markdown =>
+    .markdown =>
       filled ? PhosphorIconsFill.textbox : PhosphorIconsLight.textbox,
-    LabelMode.text =>
-      filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT,
+    .text => filled ? PhosphorIconsFill.textT : PhosphorIconsLight.textT,
   };
 }
 

@@ -63,7 +63,7 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 500),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             Header(
               title: Text(
@@ -139,7 +139,7 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
                           ),
                           child: RawImage(
                             image: widget.pages[index],
-                            fit: BoxFit.cover,
+                            fit: .cover,
                           ),
                         ),
                       );
@@ -198,7 +198,7 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: .end,
                 children: [
                   TextButton(
                     child: Text(

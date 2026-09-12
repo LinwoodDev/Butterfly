@@ -96,7 +96,7 @@ class _ShapeElementStrokeStyleSectionState
   @override
   Widget build(BuildContext context) {
     final property = widget.property;
-    final isStyled = property.strokeStyle != StrokeStyle.solid;
+    final isStyled = property.strokeStyle != .solid;
 
     return ExpansionPanelList(
       expansionCallback: (index, isExpanded) {

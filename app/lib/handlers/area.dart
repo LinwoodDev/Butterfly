@@ -68,8 +68,7 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   bool canChange(PointerDownEvent event, EventContext context) =>
-      event.kind == PointerDeviceKind.mouse &&
-      event.buttons != kSecondaryMouseButton;
+      event.kind == .mouse && event.buttons != kSecondaryMouseButton;
 
   @override
   List<Renderer> createForegrounds(
@@ -247,7 +246,7 @@ class AreaHandler extends Handler<AreaTool> {
       final moved =
           _selectionManager.isMoving &&
           transform != null &&
-          transform.position != Offset.zero;
+          transform.position != .zero;
       _updateArea();
       final area = _currentArea;
       if (area != null) {
@@ -288,7 +287,7 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   void onLongPressDown(LongPressDownDetails details, EventContext context) {
-    _startLongPress = details.kind != PointerDeviceKind.mouse;
+    _startLongPress = details.kind != .mouse;
   }
 
   @override

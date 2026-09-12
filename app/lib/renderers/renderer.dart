@@ -183,9 +183,9 @@ class DefaultHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(
     List<ui.Offset> polygon, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+    HitElementMode hitElementMode = .touchAnywhere,
   }) {
-    if (rect == null || hitElementMode == HitElementMode.none) return false;
+    if (rect == null || hitElementMode == .none) return false;
     return hitShape(
       polygon,
       rect!.toPolygon(rotation: rotation),
@@ -215,7 +215,7 @@ class TransformedHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(
     List<Offset> polygon, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+    HitElementMode hitElementMode = .touchAnywhere,
   }) => delegate.hitPolygon(
     polygon.map(_inverse).toList(),
     hitElementMode: hitElementMode,
@@ -225,7 +225,7 @@ class TransformedHitCalculator extends HitCalculator {
 abstract class HitCalculator {
   bool hitPolygon(
     List<Offset> polygon, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+    HitElementMode hitElementMode = .touchAnywhere,
   });
 
   bool hitShape(
@@ -233,14 +233,14 @@ abstract class HitCalculator {
     List<Offset> outline,
     HitElementMode mode,
   ) => switch (mode) {
-    HitElementMode.full =>
+    .full =>
       outline.isNotEmpty &&
           outline.every((point) => isPointInPolygon(selection, point)),
-    HitElementMode.touchEdges => _edgesOf(
+    .touchEdges => _edgesOf(
       outline,
     ).any((edge) => isPolygonInPolygon(selection, [edge.$1, edge.$2])),
-    HitElementMode.touchAnywhere => isPolygonInPolygon(selection, outline),
-    HitElementMode.none => false,
+    .touchAnywhere => isPolygonInPolygon(selection, outline),
+    .none => false,
   };
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
@@ -380,32 +380,32 @@ enum RendererOperation {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return switch (this) {
-      RendererOperation.invert => loc.invert,
-      RendererOperation.background => loc.background,
-      RendererOperation.grayscale => loc.grayscale,
-      RendererOperation.flipHorizontal => loc.flipHorizontal,
-      RendererOperation.flipVertical => loc.flipVertical,
+      .invert => loc.invert,
+      .background => loc.background,
+      .grayscale => loc.grayscale,
+      .flipHorizontal => loc.flipHorizontal,
+      .flipVertical => loc.flipVertical,
     };
   }
 
   PhosphorIconData icon({bool filled = false}) => switch (this) {
-    RendererOperation.invert =>
+    .invert =>
       filled ? PhosphorIconsFill.circleHalf : PhosphorIconsLight.circleHalf,
-    RendererOperation.background =>
+    .background =>
       filled ? PhosphorIconsFill.paintBucket : PhosphorIconsLight.paintBucket,
-    RendererOperation.grayscale =>
+    .grayscale =>
       filled ? PhosphorIconsFill.palette : PhosphorIconsLight.palette,
-    RendererOperation.flipHorizontal =>
+    .flipHorizontal =>
       filled
           ? PhosphorIconsFill.flipHorizontal
           : PhosphorIconsLight.flipHorizontal,
-    RendererOperation.flipVertical =>
+    .flipVertical =>
       filled ? PhosphorIconsFill.flipVertical : PhosphorIconsLight.flipVertical,
   };
 
   Axis? get flipAxis => switch (this) {
-    RendererOperation.flipHorizontal => Axis.horizontal,
-    RendererOperation.flipVertical => Axis.vertical,
+    .flipHorizontal => Axis.horizontal,
+    .flipVertical => Axis.vertical,
     _ => null,
   };
 }
@@ -715,19 +715,16 @@ abstract class Renderer<T> {
     final bounds = expandedRect ?? rect;
     if (bounds == null) return null;
     final offset = switch (axis) {
-      Axis.horizontal => Offset(
+      .horizontal => Offset(
         2 * (selectionRect.center.dx - bounds.center.dx),
         0,
       ),
-      Axis.vertical => Offset(
-        0,
-        2 * (selectionRect.center.dy - bounds.center.dy),
-      ),
+      .vertical => Offset(0, 2 * (selectionRect.center.dy - bounds.center.dy)),
     };
     return transform(
       position: offset,
-      scaleX: axis == Axis.horizontal ? -1 : 1,
-      scaleY: axis == Axis.vertical ? -1 : 1,
+      scaleX: axis == .horizontal ? -1 : 1,
+      scaleY: axis == .vertical ? -1 : 1,
       positionIsBounds: true,
     );
   }
@@ -774,7 +771,7 @@ abstract class Renderer<T> {
 Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
   final repaintBoundary = RenderRepaintBoundary();
   final pipelineOwner = PipelineOwner();
-  final BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
+  final BuildOwner buildOwner = .new(focusManager: FocusManager());
   RenderView? renderView;
 
   try {
@@ -785,7 +782,7 @@ Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
         child: repaintBoundary,
       ),
       configuration: ViewConfiguration(
-        logicalConstraints: BoxConstraints.tightFor(),
+        logicalConstraints: .tightFor(),
         devicePixelRatio: pixelRatio,
       ),
     );
@@ -797,7 +794,7 @@ Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
       container: repaintBoundary,
       child: MediaQuery(
         data: MediaQueryData(),
-        child: Directionality(textDirection: TextDirection.ltr, child: widget),
+        child: Directionality(textDirection: .ltr, child: widget),
       ),
     ).attachToRenderTree(buildOwner);
     buildOwner.buildScope(rootElement);

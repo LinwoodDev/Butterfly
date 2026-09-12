@@ -12,7 +12,7 @@ class StartCollaborationDialog extends StatefulWidget {
 
 class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  ConnectionTechnology _connectionTechnology = ConnectionTechnology.swamp;
+  ConnectionTechnology _connectionTechnology = .swamp;
   late final SettingsCubit _settingsCubit;
   late String _defaultSwamp;
   final TextEditingController _webSocketAddressController =
@@ -35,7 +35,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
     setState(() => _isStarting = true);
     try {
       switch (_connectionTechnology) {
-        case ConnectionTechnology.swamp:
+        case .swamp:
           final swamp = _swampAddressController.text.trim();
           final uri = Uri.tryParse(swamp);
           if (uri == null) return;
@@ -44,7 +44,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
             await _settingsCubit.changeSwamp(swamp);
             _defaultSwamp = swamp;
           }
-        case ConnectionTechnology.webSocket:
+        case .webSocket:
           await widget.service.createSocketServer(
             _webSocketAddressController.text.trim(),
             int.parse(_webSocketPortController.text),
@@ -114,17 +114,13 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                     .map(
                       (e) => DropdownMenuEntry(
                         label: switch (e) {
-                          ConnectionTechnology.swamp => 'Swamp',
-                          ConnectionTechnology.webSocket => AppLocalizations.of(
-                            context,
-                          ).webSocket,
+                          .swamp => 'Swamp',
+                          .webSocket => AppLocalizations.of(context).webSocket,
                         },
                         value: e,
                         leadingIcon: Icon(switch (e) {
-                          ConnectionTechnology.swamp =>
-                            PhosphorIconsLight.globe,
-                          ConnectionTechnology.webSocket =>
-                            PhosphorIconsLight.wifiHigh,
+                          .swamp => PhosphorIconsLight.globe,
+                          .webSocket => PhosphorIconsLight.wifiHigh,
                         }),
                       ),
                     )
@@ -135,7 +131,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: .min,
                     children: [
                       Row(
                         children: [
@@ -151,10 +147,8 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                       ),
                       const SizedBox(height: 8),
                       Text(switch (_connectionTechnology) {
-                        ConnectionTechnology.swamp => AppLocalizations.of(
-                          context,
-                        ).swampDescription,
-                        ConnectionTechnology.webSocket => AppLocalizations.of(
+                        .swamp => AppLocalizations.of(context).swampDescription,
+                        .webSocket => AppLocalizations.of(
                           context,
                         ).webSocketDescription,
                       }),
@@ -163,7 +157,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                 ),
               ),
               const SizedBox(height: 8),
-              if (_connectionTechnology == ConnectionTechnology.swamp)
+              if (_connectionTechnology == .swamp)
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).address,
@@ -186,7 +180,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                 kIsWeb
                     ? Text(
                         AppLocalizations.of(context).webNotSupported,
-                        textAlign: TextAlign.center,
+                        textAlign: .center,
                       )
                     : ExpansionPanelList.radio(
                         children: [

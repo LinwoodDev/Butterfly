@@ -6,7 +6,7 @@ void drawPatternTextureOnCanvas(
   double scale,
   Offset offset,
   Size size, [
-  Offset translation = Offset.zero,
+  Offset translation = .zero,
   bool extraLines = false,
 ]) {
   canvas.drawRect(
@@ -78,7 +78,7 @@ void drawPatternTextureOnSvg(
   XmlDocument xml,
   Offset offset,
   Size size, [
-  Offset translation = Offset.zero,
+  Offset translation = .zero,
   bool extraLines = false,
 ]) {
   final id = createUniqueId();

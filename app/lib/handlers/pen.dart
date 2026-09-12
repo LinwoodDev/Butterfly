@@ -166,12 +166,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final penOnlyInput = editorController.inputCubit.effectivePenOnlyInput;
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
-    if (penOnlyInput &&
-        (kind != PointerDeviceKind.stylus &&
-            kind != PointerDeviceKind.invertedStylus)) {
+    if (penOnlyInput && (kind != .stylus && kind != .invertedStylus)) {
       return;
     }
-    if (settings.ignorePressure == IgnorePressure.always) {
+    if (settings.ignorePressure == .always) {
       pressure = 1;
     }
     double zoom = data.zoomDependent ? transform.size : 1;
@@ -182,8 +180,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (element != null) {
       final points = _elementPoints[pointer] ?? element.points.toList();
       points.add(point);
-      if (points.length == 2 &&
-          settings.ignorePressure == IgnorePressure.first) {
+      if (points.length == 2 && settings.ignorePressure == .first) {
         points[0] = points[0].copyWith(pressure: pressure);
       }
       _elementPoints[pointer] = points;
@@ -213,8 +210,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    if (cubit.inputCubit.moveEnabled &&
-        event.kind != PointerDeviceKind.stylus) {
+    if (cubit.inputCubit.moveEnabled && event.kind != .stylus) {
       elements.clear();
       context.refreshForegrounds();
       return;
@@ -266,7 +262,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       SnackBar(
         width: MediaQuery.sizeOf(context.buildContext).width * 0.1,
         behavior: SnackBarBehavior.floating,
-        content: Text(textAlign: TextAlign.center, recognizedShape),
+        content: Text(textAlign: .center, recognizedShape),
         duration: const Duration(milliseconds: 300),
       ),
     );
@@ -300,7 +296,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     }
     PadElement? shapeElement;
     switch (recognized.name) {
-      case DefaultUnistrokeNames.line:
+      case .line:
         double startX = points.first.dx;
         double startY = points.first.dy;
         double endX = points.last.dx;
@@ -332,13 +328,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
         // Show dialog
         showMessage(context, AppLocalizations.of(context.buildContext).line);
-      case DefaultUnistrokeNames.circle:
+      case .circle:
         // Calculate the center of the circle as the average of the points
         double centerX =
             points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
         double centerY =
             points.map((p) => p.dy).reduce((a, b) => a + b) / points.length;
-        Offset center = Offset(centerX, centerY);
+        Offset center = .new(centerX, centerY);
 
         // Calculate the radius as the average of the distances of the points from the center
         double radius =
@@ -377,7 +373,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
         // Show dialog
         showMessage(context, AppLocalizations.of(context.buildContext).circle);
-      case DefaultUnistrokeNames.rectangle:
+      case .rectangle:
         double minX = points.map((p) => p.dx).reduce(min);
         double maxX = points.map((p) => p.dx).reduce(max);
         double minY = points.map((p) => p.dy).reduce(min);
@@ -406,7 +402,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           ),
           collection: currentCollection,
         );
-      case DefaultUnistrokeNames.triangle:
+      case .triangle:
         double minX = points.map((p) => p.dx).reduce(min);
         double maxX = points.map((p) => p.dx).reduce(max);
         double minY = points.map((p) => p.dy).reduce(min);

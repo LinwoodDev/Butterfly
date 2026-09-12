@@ -7,8 +7,8 @@ class PenRenderer extends Renderer<PenElement> {
   PenRenderer(
     super.element, [
     super.layer,
-    this.rect = Rect.zero,
-    Rect expandedRect = Rect.zero,
+    this.rect = .zero,
+    Rect expandedRect = .zero,
   ]) : expandedRect = expandedRect,
        _localExpandedRect = expandedRect {
     if (rotation != 0 || shear != 0) {
@@ -199,19 +199,14 @@ class PenRenderer extends Renderer<PenElement> {
     }
 
     if (property.fillPaint.previewColor.a > 0 && _cachedFillPath != null) {
-      final paint =
-          _fillPaint.build(property.fillPaint, rect, style: PaintingStyle.fill)
-            ..strokeCap = StrokeCap.round
-            ..blendMode = blendMode ?? BlendMode.srcOver;
+      final paint = _fillPaint.build(property.fillPaint, rect, style: .fill)
+        ..strokeCap = StrokeCap.round
+        ..blendMode = blendMode ?? BlendMode.srcOver;
       canvas.drawPath(_cachedFillPath!, paint);
     }
     if (property.paint.previewColor.a > 0 && _cachedStrokePath != null) {
       final paint =
-          _strokePaint.build(
-              property.paint,
-              expandedRect,
-              style: PaintingStyle.fill,
-            )
+          _strokePaint.build(property.paint, expandedRect, style: .fill)
             ..strokeCap = StrokeCap.round
             ..blendMode = blendMode ?? BlendMode.srcOver;
       canvas.drawPath(_cachedStrokePath!, paint);
@@ -378,15 +373,13 @@ class PathHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(
     List<ui.Offset> polygon, {
-    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+    HitElementMode hitElementMode = .touchAnywhere,
   }) {
-    if (points.isEmpty ||
-        polygon.isEmpty ||
-        hitElementMode == HitElementMode.none) {
+    if (points.isEmpty || polygon.isEmpty || hitElementMode == .none) {
       return false;
     }
     final path = points.map(_rotatePoint).toList();
-    if (hitElementMode == HitElementMode.full) {
+    if (hitElementMode == .full) {
       return path.every((point) => isPointInPolygon(polygon, point));
     }
     if (path.length == 1) return isPointInPolygon(polygon, path.first);

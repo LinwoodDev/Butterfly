@@ -31,7 +31,7 @@ const minSize = 480.0;
 
 class _PropertyViewState extends State<PropertyView>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
+  late final AnimationController _controller = .new(
     duration: const Duration(milliseconds: 200),
     vsync: this,
   );
@@ -107,12 +107,10 @@ class _PropertyViewState extends State<PropertyView>
   }
 
   Animation<Offset> get _offsetAnimation => Tween<Offset>(
-    begin: Offset.zero,
+    begin: .zero,
     end: switch (widget.position) {
-      ZoomPosition.topRight ||
-      ZoomPosition.bottomRight => const Offset(1.5, 0.0),
-      ZoomPosition.topLeft ||
-      ZoomPosition.bottomLeft => const Offset(-1.5, 0.0),
+      .topRight || .bottomRight => const Offset(1.5, 0.0),
+      .topLeft || .bottomLeft => const Offset(-1.5, 0.0),
     },
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
 }
@@ -137,8 +135,8 @@ class _PropertyCard extends StatefulWidget {
 }
 
 class _PropertyCardState extends State<_PropertyCard> {
-  final MenuController _menuController = MenuController();
-  final TextEditingController _nameController = TextEditingController();
+  final MenuController _menuController = .new();
+  final TextEditingController _nameController = .new();
 
   @override
   void dispose() {
@@ -179,10 +177,7 @@ class _PropertyCardState extends State<_PropertyCard> {
         : DisplayIcons.recommended(selected)
               .map(
                 (e) => IconButton(
-                  icon: PhosphorIcon(
-                    e.icon(),
-                    textDirection: TextDirection.ltr,
-                  ),
+                  icon: PhosphorIcon(e.icon(), textDirection: .ltr),
                   iconSize: 26,
                   onPressed: selected is! Tool
                       ? null
@@ -213,7 +208,7 @@ class _PropertyCardState extends State<_PropertyCard> {
           ? PhosphorIcon(
               icon,
               color: Theme.of(context).iconTheme.color,
-              textDirection: TextDirection.ltr,
+              textDirection: .ltr,
             )
           : Center(
               child: MenuAnchor(
@@ -224,7 +219,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                       PhosphorIcon(
                         icon,
                         color: Theme.of(context).colorScheme.onPrimary,
-                        textDirection: TextDirection.ltr,
+                        textDirection: .ltr,
                       ),
                       const SizedBox(width: 8),
                       PhosphorIcon(
@@ -247,7 +242,7 @@ class _PropertyCardState extends State<_PropertyCard> {
         ? EditableListTile(
             controller: _nameController,
             textStyle: textStyle,
-            contentPadding: EdgeInsets.only(left: 4),
+            contentPadding: .only(left: 4),
             subtitle: caption.isEmpty ? SizedBox() : Text(caption),
             onSaved: (value) => selection.setName(context, value),
             textFormatter: (value) => selection.nameFormatter(context, value),
@@ -256,8 +251,8 @@ class _PropertyCardState extends State<_PropertyCard> {
         : SizedBox(
             height: 60,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: .stretch,
+              mainAxisAlignment: .center,
               children: [
                 Flexible(child: Text(name, style: textStyle)),
                 if (caption.isNotEmpty)
@@ -274,7 +269,7 @@ class _PropertyCardState extends State<_PropertyCard> {
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 200),
           child: Row(
-            textDirection: TextDirection.ltr,
+            textDirection: .ltr,
             children: [
               if (!widget.isMobile)
                 MouseRegion(
@@ -291,11 +286,11 @@ class _PropertyCardState extends State<_PropertyCard> {
                 ),
               Expanded(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: .min,
+                  crossAxisAlignment: .stretch,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
                       children: [
                         leading,
                         const SizedBox(width: 8),

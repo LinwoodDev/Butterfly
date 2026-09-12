@@ -595,9 +595,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       }
 
-      if (event.arrangement == Arrangement.front ||
-          event.arrangement == Arrangement.back) {
-        final moveToFront = event.arrangement == Arrangement.front;
+      if (event.arrangement == .front || event.arrangement == .back) {
+        final moveToFront = event.arrangement == .front;
         final newPage = current.page.mapLayers((e) {
           final content = List<PadElement>.from(e.content);
           for (final id in event.elements) {
@@ -645,9 +644,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               hitElementMode: HitElementMode.touchAnywhere,
             )).map((e) => e.element).toList();
             final hitIndex = hits.indexOf(renderer.element);
-            if (event.arrangement == Arrangement.backward && hitIndex > 0) {
+            if (event.arrangement == .backward && hitIndex > 0) {
               newIndex = content.indexOf(hits[hitIndex - 1]);
-            } else if (event.arrangement == Arrangement.forward &&
+            } else if (event.arrangement == .forward &&
                 hitIndex >= 0 &&
                 hitIndex < hits.length - 1) {
               newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
@@ -1438,7 +1437,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           event.area.position.x - oldArea.position.x,
           event.area.position.y - oldArea.position.y,
         );
-        if (delta != Offset.zero) {
+        if (delta != .zero) {
           for (final renderer in editorController.rendererCubit.renderers) {
             final id = renderer.element.id;
             final rect = renderer.expandedRect ?? renderer.rect;

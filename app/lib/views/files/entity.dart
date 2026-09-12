@@ -66,15 +66,12 @@ void deleteEntities({
     bodyBuilder: (ctx) => Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         children: [
-          Text(
-            AppLocalizations.of(context).areYouSure,
-            textAlign: TextAlign.center,
-          ),
+          Text(AppLocalizations.of(context).areYouSure, textAlign: .center),
           const SizedBox(height: 16),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: .spaceEvenly,
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -99,7 +96,7 @@ void deleteEntities({
                 },
                 child: const PhosphorIcon(
                   PhosphorIconsLight.check,
-                  textDirection: TextDirection.ltr,
+                  textDirection: .ltr,
                 ),
               ),
             ],
@@ -111,7 +108,7 @@ void deleteEntities({
 }
 
 class _FileEntityItemState extends State<FileEntityItem> {
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = .new();
   bool _editable = false;
 
   @override
@@ -362,7 +359,7 @@ class ContextFileRegion extends StatelessWidget {
             onPressed: onSelect,
             leadingIcon: const PhosphorIcon(
               PhosphorIconsLight.check,
-              textDirection: TextDirection.ltr,
+              textDirection: .ltr,
             ),
             child: Text(AppLocalizations.of(context).select),
           ),

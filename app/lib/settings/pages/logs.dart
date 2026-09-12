@@ -91,8 +91,7 @@ class _LogsSettingsContentState extends State<LogsSettingsContent> {
   Widget _buildList(List<TalkerData> allLogs, bool showVerbose) {
     final logs = allLogs.where((element) {
       if (showVerbose) return true;
-      return element.logLevel != LogLevel.verbose &&
-          element.logLevel != LogLevel.debug;
+      return element.logLevel != .verbose && element.logLevel != .debug;
     }).toList();
     if (logs.isEmpty) {
       return const Center(child: Text('No logs'));
@@ -128,7 +127,7 @@ class _LogsSettingsContentState extends State<LogsSettingsContent> {
                       ),
                       child: DropdownMenuFormField<File?>(
                         initialSelection: _selectedFile,
-                        expandedInsets: EdgeInsets.zero,
+                        expandedInsets: .zero,
                         dropdownMenuEntries: [
                           DropdownMenuEntry(
                             value: null,
@@ -205,18 +204,18 @@ class _LogTile extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? color;
     switch (log.logLevel) {
-      case LogLevel.error:
-      case LogLevel.critical:
+      case .error:
+      case .critical:
         color = Colors.red;
         break;
-      case LogLevel.warning:
+      case .warning:
         color = Colors.orange;
         break;
-      case LogLevel.verbose:
-      case LogLevel.debug:
+      case .verbose:
+      case .debug:
         color = Colors.grey;
         break;
-      case LogLevel.info:
+      case .info:
       default:
         break;
     }
@@ -226,7 +225,7 @@ class _LogTile extends StatelessWidget {
         log.generateTextMessage(),
         style: TextStyle(color: color),
         maxLines: 3,
-        overflow: TextOverflow.ellipsis,
+        overflow: .ellipsis,
       ),
       subtitle: Text(DateFormat('HH:mm:ss').format(log.time)),
       trailing: IconButton(
@@ -275,7 +274,7 @@ class _LogTile extends StatelessWidget {
 
 String _startupBehaviorName(BuildContext context, StartupBehavior value) =>
     switch (value) {
-      StartupBehavior.openHomeScreen => AppLocalizations.of(context).homeScreen,
-      StartupBehavior.openLastNote => AppLocalizations.of(context).lastNote,
-      StartupBehavior.openNewNote => AppLocalizations.of(context).newNote,
+      .openHomeScreen => AppLocalizations.of(context).homeScreen,
+      .openLastNote => AppLocalizations.of(context).lastNote,
+      .openNewNote => AppLocalizations.of(context).newNote,
     };

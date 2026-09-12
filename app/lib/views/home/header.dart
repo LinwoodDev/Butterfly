@@ -2,18 +2,18 @@ part of 'page.dart';
 
 PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) =>
     switch (visibility) {
-      BannerVisibility.always => PhosphorIconsLight.caretDown,
-      BannerVisibility.never => PhosphorIconsLight.caretUp,
-      BannerVisibility.onlyOnUpdates => PhosphorIconsLight.caretRight,
+      .always => PhosphorIconsLight.caretDown,
+      .never => PhosphorIconsLight.caretUp,
+      .onlyOnUpdates => PhosphorIconsLight.caretRight,
     };
 
 String _getLocalizedNameOfBannerVisibility(
   BuildContext context,
   BannerVisibility visibility,
 ) => switch (visibility) {
-  BannerVisibility.always => AppLocalizations.of(context).always,
-  BannerVisibility.never => AppLocalizations.of(context).never,
-  BannerVisibility.onlyOnUpdates => AppLocalizations.of(context).onlyOnUpdates,
+  .always => AppLocalizations.of(context).always,
+  .never => AppLocalizations.of(context).never,
+  .onlyOnUpdates => AppLocalizations.of(context).onlyOnUpdates,
 };
 
 Widget _getBannerVisibilityWidget(
@@ -94,8 +94,8 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
     final actions = Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: .min,
+      mainAxisAlignment: .center,
       children: [
         TextButton.icon(
           onPressed: () => openHelp(['intro']),
@@ -119,7 +119,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     }
 
     final whatsNew = Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: [
         widget.hasNewerVersion
             ? FilledButton(
@@ -159,21 +159,21 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
       ],
     );
     final logo = Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       spacing: 16,
       children: [
         Image.asset(logoAsset, width: 64),
         Expanded(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: .center,
+            crossAxisAlignment: .start,
+            mainAxisSize: .min,
             children: [
               Text(
                 AppLocalizations.of(context).welcome(applicationVersionName),
                 style: TextTheme.of(context).titleLarge
                     ?.copyWith(color: colorScheme.onSecondary),
-                overflow: TextOverflow.clip,
+                overflow: .clip,
               ),
               Text(
                 AppLocalizations.of(context).welcomeContent,
@@ -218,7 +218,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     );
     final child = widget.isDesktop
         ? Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: .center,
             children: [
               Expanded(child: card),
               const SizedBox(width: 32),
@@ -226,7 +226,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
             ],
           )
         : Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: [card, const SizedBox(height: 32), actions],
           );
     return SizeTransition(

@@ -50,7 +50,7 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
 
 Widget _experimentsHeader(BuildContext context, ButterflySettings state) {
   return Row(
-    mainAxisSize: MainAxisSize.min,
+    mainAxisSize: .min,
     spacing: 16,
     children: [
       const Icon(PhosphorIconsLight.warning),
