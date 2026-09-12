@@ -378,7 +378,7 @@
   "createTemplateContent": "هل تريد حقاً إنشاء قالب من هذا المستند؟ سيتم حذف المستند الأصلي.",
   "fileName": "اسم الملف",
   "defaultFileName": "اسم الملف الافتراضي",
-  "templateFileNameDescription": "المستندات المفتوحة من منتقي القالب يتم حفظها تلقائيًا مع هذا الاسم. القوالب بدون اسم تستخدم التكوين الافتراضي في إعدادات البيانات. دمج النص الخاص بك مع {dateExample} و {timeExample}. سيتم رفض الأحرف غير المسموح بها في أسماء الملفات.",
+  "templateFileNameDescription": "يتم حفظ المستندات التي يتم فتحها من أداة اختيار القوالب تلقائيًا بهذا الاسم. أما القوالب التي لا تحمل اسمًا، فتستخدم الاسم الافتراضي المُعد في إعدادات البيانات. ادمج النص الخاص بك مع {dateExample} و{timeExample}. سيتم رفض الأحرف غير المسموح بها في أسماء الملفات.",
   "@templateFileNameDescription": {
     "placeholders": {
       "dateExample": {
@@ -571,7 +571,7 @@
   "password": "كلمة المرور",
   "authenticationPassword": "كلمة مرور المصادقة",
   "documentEncryptionPassword": "كلمة مرور تشفير المستند",
-  "documentEncryptionPasswordDescription": "تشفير المستندات المخزنة في هذا الاتصال. اتركها فارغة لإبقائها غير مشفرة",
+  "documentEncryptionPasswordDescription": "يقوم بتشفير المستندات المخزنة في هذا الاتصال. اتركه فارغًا لإبقائها غير مشفرة",
   "documentEncryptionEnabled": "تم تمكين تشفير المستند",
   "reauthenticate": "إعادة التوثيق",
   "addDocumentEncryptionPassword": "إضافة كلمة مرور تشفير المستند",
@@ -581,8 +581,8 @@
   "symmetric": "متماثل",
   "perSide": "لكل جانب",
   "directory": "المُجلد",
-  "connectionNameDescription": "يستخدم فقط لتحديد هذا الاتصال في الفراشة",
-  "connectionDirectoryDescription": "مجلد القاعدة لهذا الاتصال. مسارات الدليل المتقدمة نسبية إليه؛ اتركه فارغاً لاستخدام المسارات المطلقة",
+  "connectionNameDescription": "اسمٌ يستخدم فقط لتمييز هذا الاتصال",
+  "connectionDirectoryDescription": "المجلد الأساسي لهذا الاتصال. مسارات الملفات المتقدمة تكون بالنسبة إليه؛ اتركه فارغًا لاستخدام المسارات المطلقة",
   "documentsDirectory": "مجلد المستندات",
   "templatesDirectory": "مجلد القوالب",
   "errorWhileCreatingConnection": "حدث خطأ أثناء إنشاء الاتصال",
@@ -592,7 +592,7 @@
   "@icon": {
     "description": "Icon property"
   },
-  "connectionIconDescription": "اختيار عنوان URL لصورة لاستخدامها كأيقونة اتصال",
+  "connectionIconDescription": "رابط URL اختياري لصورة يتم استخدامها كرمز للاتصال",
   "update": "تحديث",
   "@update": {
     "description": "Update action"
@@ -616,14 +616,14 @@
   "@shape": {
     "description": "Shape tool"
   },
-  "table": "الجدول",
+  "table": "جدول",
   "@table": {
     "description": "Table tool and element"
   },
-  "rows": "الصفوف",
-  "columns": "الأعمدة",
+  "rows": "صفوف",
+  "columns": "أعمدة",
   "row": "صف",
-  "column": "العمود",
+  "column": "عمود",
   "insertRowBefore": "إدراج صف قبل",
   "insertRowAfter": "إدراج صف بعد",
   "insertColumnBefore": "إدراج العمود قبل",
@@ -631,13 +631,13 @@
   "deleteRow": "حذف الصف",
   "deleteColumn": "حذف العمود",
   "cellColor": "لون الخلية",
-  "cellBorders": "حدود الخلية",
-  "cellBorder": "حدود الخلية",
-  "horizontalBorder": "الحدود الأفقية",
-  "verticalBorder": "الحدود العمودية",
+  "cellBorders": "إطارات الخلية",
+  "cellBorder": "إطار الخلية",
+  "horizontalBorder": "الإطار الأفقي",
+  "verticalBorder": "الإطار العمودي",
   "rowHeight": "ارتفاع الصف",
   "columnWidth": "عرض العمود",
-  "border": "Border",
+  "border": "إطار",
   "circle": "دائرة",
   "@circle": {
     "description": "Shape type"
@@ -1226,11 +1226,11 @@
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
-  "showNavigatorPreviews": "إظهار معاينات التصفح",
+  "showNavigatorPreviews": "إظهار معاينات التنقل",
   "@showNavigatorPreviews": {
     "description": "Show cached preview thumbnails in the areas and pages navigators"
   },
-  "showNavigatorPreviewsDescription": "إظهار الصور المصغرة للمعاينة المخزنة مؤقتاً في المناطق والصفحات للملاحين",
+  "showNavigatorPreviewsDescription": "إظهار صور مصغرة مخزنة مؤقتاً في المناطق والصفحات",
   "highContrast": "تباين عالي",
   "@highContrast": {
     "description": "Use stronger contrast in the app theme"
@@ -1395,7 +1395,7 @@
   "moveOnGesture": "إيماءة التحريك",
   "exportAllFiles": "تصدير جميع الملفات",
   "restoreSettingsFromFile": "استعادة الإعدادات من ملف",
-  "resetAllSettings": "إعادة تعيين كافة الإعدادات",
+  "resetAllSettings": "إعادة تعيين جميع الإعدادات",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "barcode": "الرمز الشريطي (الباركود)",
   "@barcode": {
@@ -1510,8 +1510,8 @@
   "fullScreenShortcut": "ملء الشاشة",
   "doublePressAction": "إجراء الضغط المزدوج",
   "triplePressAction": "إجراء الضغط الثلاثي",
-  "twoFingerTap": "ضغطتين على إصبعين",
-  "threeFingerTap": "ضغطة ثلاثية الأصابع",
+  "twoFingerTap": "النقر باصبعين",
+  "threeFingerTap": "النقر بثلاث أصابع",
   "longPress": "ضغط مطوّل",
   "toolNumber": "الأداة {number}",
   "@toolNumber": {
@@ -1539,7 +1539,7 @@
   "persistentStateCleanupDescription": "حذف السجلات الأقدم من الحدود أعلاه",
   "persistentStateCleanupInProgress": "تنظيف...",
   "persistentStateDefaultLocks": "الأقفال الافتراضية",
-  "persistentStateDefaultLocksDescription": "تطبيق هذه الأقفال عندما لا يكون المستند محفوظ الحالة",
+  "persistentStateDefaultLocksDescription": "طبق هذه الأقفال عندما لا يحتوي المستند اي حاله محفوظه",
   "persistentStateCleanupFeedback": "{locations, plural, =1{تم تنظيف موقع تخزين واحد} other{تم تنظيف {locations} مواقع تخزين}}; {records, plural, =1{حُذف سجل واحد} other{حُذفت {records} سجلات}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
@@ -1562,7 +1562,7 @@
   "smoothNavigationDescription": "يجعل الإنحناء والتصوير يشعران بالسلاسة من خلال تبسيط الكانفا أثناء تحركه.",
   "edgePanAreaSwitchingDescription": "التبديل إلى منطقة مجاورة عندما تقرب من حافة الكانفاس.",
   "collaborationDescription": "يسمح لأشخاص متعددين بتحرير نفس الملاحظة معا في الوقت الحقيقي.",
-  "verbose": "Verbose",
+  "verbose": "مُفصّل",
   "showVerboseLogsDescription": "يتضمن رسائل تشخيصية مفصلة في طريقة عرض السجل و وحدة التحكم. يمكن أن تساعد هذه الرسائل عند اكتشاف مشكلة ما.",
   "bringMovedElementsToFrontDescription": "يضع عنصرا فوق العناصر المتداخلة بعد نقله.",
   "persistenceDocumentStatesDescription": "يتحكم في أجزاء من مساحة العمل الخاصة بك تتذكر الفراشة لكل ملاحظة، مثل الصفحة الحالية، وتكبير، والأداة المحددة.",
@@ -1570,7 +1570,7 @@
   "persistentStateCurrentPageDescription": "تذكر الصفحة الحالية عند إعادة فتح ملف",
   "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
   "persistentStateSelectedToolDescription": "تذكر الأداة المحددة عند إعادة فتح ملف",
-  "persistentStateLocksDescription": "تذكر إعدادات القفل عند إعادة فتح ملف",
+  "persistentStateLocksDescription": "تذكر إعدادات الأقفال عند إعادة فتح الملف",
   "persistentStateNavigatorDescription": "تذكر حالة التنقل عند إعادة فتح الملف",
   "persistentStateLayersDescription": "تذكر حالة لوحة الطبقة عند إعادة فتح الملف",
   "persistentStateAreasDescription": "تذكر حالة لوحة المنطقة عند إعادة فتح الملف",
@@ -1585,13 +1585,13 @@
   "highContrastDescription": "يستخدم اختلافات ألوان أقوى لجعل الضوابط والنص أسهل لتمييزها.",
   "nativeTitleBarDescription": "يستخدم شريط عنوان النافذة القياسي لنظام التشغيل الخاص بك بدلاً من شريط العنوان المخصص الخاص بفرشلة.",
   "propertiesDescription": "يحدد المكان الذي يظهر فيه اللوحة لتعديل الأداة أو العنصر المحدد.",
-  "navigationRailDescription": "يعرض شريط تنقل دائم على شاشات واسعة للوصول السريع إلى أقسام التطبيقات.",
-  "optionsPanelPositionDescription": "يحدد ما إذا كانت خيارات الأداة تظهر أعلاه أو أسفل الكانفاس.",
-  "simpleToolbarVisibilityDescription": "التحكم عندما يظهر شريط الأدوات الأصغر والمبسطة أثناء تحرير الملاحظة.",
+  "navigationRailDescription": "يعرض شريط تنقل دائم على الشاشات الواسعة للوصول السريع إلى أقسام التطبيقات.",
+  "optionsPanelPositionDescription": "يحدد ما إذا كانت خيارات الأداة تظهر أعلى أو أسفل اللوحة.",
+  "simpleToolbarVisibilityDescription": "يحدد متى يظهر شريط الأدوات الأصغر حجمًا والمبسط أثناء تحرير الملاحظة.",
   "penOnlyInputDescription": "يمنع ظهور علامات غير مقصودة ناتجة عن يدك أو الفأرة من خلال تحديد متى يمّكن وضع \"القلم فقط\".",
   "showPenOnlyToggleDescription": "يعرض تبديلاً سريعاً إلى وضع  ”القلم فقط“ في المحرر عندما يكتشف Butterfly وجود قلم.",
   "ignorePressureDescription": "يحدد ما إذا كان لضغط القلم تأثير على شكل الخط، كما يقلل من تأثير قراءات الضغط الغير الدقيقة التي تنتج من بعض الأقلام.",
-  "moveOnGestureDescription": "يتيح إيماءات اللمس المتعددة تحريك الكانفا بدلاً من التفاعل مع محتوى الملاحظة.",
-  "spreadPagesDescription": "تقسيم الواردات متعددة الصفحات عبر صفحات ملاحظات منفصلة بدلاً من وضع كل شيء على صفحة واحدة.",
-  "shear": "القصة"
+  "moveOnGestureDescription": "يتيح لإيماءات اللمس تحريك اللوحة بدلاً من التفاعل مع محتوى الملاحظة.",
+  "spreadPagesDescription": "يقوم بتقسيم عمليات الاستيراد المكونة من عدة صفحات إلى صفحات منفصلة بدلاً من وضع كل شيء في صفحة واحدة.",
+  "shear": "قَصه"
 }
