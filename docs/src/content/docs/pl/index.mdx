@@ -1,22 +1,24 @@
 ---
 title: Linwood Butterfly
-description: 🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨
+description: Take notes, draw freely, and organize ideas across an endless workspace
 template: splash
 hero:
-  tagline: 🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨
+  tagline: Your ideas should not have to fit inside a page. Handwrite, sketch, annotate, and organize on an infinite canvas that stays yours.
   image:
     file: /public/img/logo.svg
   actions:
-    - text: Download
+    - text: Download Butterfly
       link: /downloads/
       icon: download
       variant: primary
-    - text: Pierwsze kroki
-      link: /docs/v2/intro/
-      icon: document
-    - text: Web App
+    - text: Try the web app
       link: https://web.butterfly.linwood.dev
-      icon: rocket
+      icon: external
+      variant: secondary
+    - text: Dokumentacja
+      link: /docs/v2/intro/
+      icon: open-book
+      variant: secondary
     - text: Blog
       link: https://linwood.dev/butterfly
       icon: external
@@ -24,39 +26,99 @@ hero:
 ---
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
+import LandingFeature from '@components/LandingFeature.astro';
+import crossplatform from '@assets/img/homepage/crossplatform.png';
+import collageLight from '@assets/img/homepage/collage-light.png';
+import collageDark from '@assets/img/homepage/collagedark.png';
+import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
+import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
+import penLight from '@assets/img/homepage/Pen-light.png';
+import penDark from '@assets/img/homepage/Pen-dark.png';
 
-## Principles
+<LandingFeature image={desktop2LightRuler} darkImage={desktop2DarkRuler} alt="A Butterfly canvas with handwritten notes, diagrams, and a ruler">
+
+
+
+
+  ## A workspace for visual thinkers
+
+  Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document.
+
+</LandingFeature>
+
+<LandingFeature image={penLight} darkImage={penDark} alt="Pen settings for a Butterfly drawing tool" reverse>
+
+
+
+
+
+  ## Tune every stroke
+
+  Draw with a stylus, touch, or mouse. Adjust stroke width, color, smoothing, and texture. If a mark is not quite right, edit it instead of starting over.
+</LandingFeature>
+
+## Powerful when your projects grow
 
 <CardGrid stagger>
-  <Card title="Cross platform" icon="laptop">
-    You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.
+  <Card title="Every element stays editable" icon="pencil">
+    Move, resize, recolor, and reorganize content after placing it. Your first attempt never has to be your final one.
   </Card>
-  <Card title="Simple and intuitive" icon="puzzle">
-    Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
+  <Card title="Common media in one document" icon="document">
+    Import camera photos, gallery images, PDFs, and SVGs. Combine them with your own notes and export clean results in common formats.
   </Card>
-  <Card title="Customizable" icon="pencil">
-    Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+  <Card title="Reusable building blocks" icon="puzzle">
+    Turn favorite layouts into templates and frequently used content into packs, stamps, palettes, and styles available across documents.
   </Card>
-  <Card title="Choose where your data is stored" icon="open-book">
-    You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
+  <Card title="Tools for every idea" icon="open-book">
+    Go beyond pen and eraser with labels, shapes, polygons, rulers, grids, textures, stamps, a laser pointer, presentation tools, and more.
   </Card>
 </CardGrid>
 
-## Features
+<LandingFeature image={collageLight} darkImage={collageDark} alt="Butterfly templates and packs with reusable canvas styles">
 
-<div class="dark:sl-hidden">
-![Main view](@assets/img/main.png)
-</div>
 
-<div class="light:sl-hidden">
-![Main view](@assets/img/main_dark.png)
-</div>
 
-<CardGrid stagger>
-  <Card title="Let your ideas flow on an infinite canvas" />
-  <Card title="Use your pen, markdown or rich text to let your ideas flow" />
-  <Card title="Load PDF, SVG, PNG and more files into your notes or take pictures from the camera" />
-  <Card title="Structure your notes by adding areas and waypoints or use multiple pages" />
+
+  ## Make Butterfly fit your workflow
+
+  Start with a template that brings together your favorite backgrounds, tools, layers, areas, and pages. Save reusable content in packs so your next project starts with everything you need.
+</LandingFeature>
+
+<LandingFeature image={crossplatform} alt="A handwritten Butterfly document on a phone and on a desktop" reverse>
+
+
+
+
+  ## Works everywhere
+
+  Take your canvas from your desk to your next class or meeting. Butterfly runs on Android, Windows, macOS, Linux, and in your browser, with an iOS preview also available.
+
+</LandingFeature>
+
+## Your work belongs to you
+
+<CardGrid>
+  <Card title="Local by default" icon="laptop">
+    Keep working without an internet connection. Your documents live on your device unless you choose to save them somewhere else.
+  </Card>
+  <Card title="Bring your own cloud" icon="rocket">
+    Connect WebDAV services like Nextcloud to sync, back up, and edit your notes anywhere.
+  </Card>
+  <Card title="Open source software" icon="code-branch">
+    Butterfly is free and open source under the GNU AGPL-3.0 license. Keep your documents in its documented `.bfly` and `.tbfly` formats.
+  </Card>
+  <Card title="Create together" icon="comment">
+    Experimental collaboration supports end-to-end encrypted sessions through Swamp or a WebSocket server you host yourself.
+  </Card>
 </CardGrid>
 
-<LinkCard title="Download today" href="/downloads/" />
+<h2 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly, the limitless canvas for visual thinking.</h2>
+
+<CardGrid>
+  <LinkCard class="landing-action" title="Download Butterfly" description="Install the app on your phone, tablet, or computer." href="/downloads/" />
+  <LinkCard class="landing-action" title="Try the web app" description="Start a canvas in your browser without installing anything. Chromium-based browsers are recommended." href="https://web.butterfly.linwood.dev" target="_blank" />
+  <LinkCard title="Read the Butterfly blog" description="Follow releases, project news, and stories from development." href="https://linwood.dev/butterfly" target="_blank" />
+  <LinkCard title="Learn the essentials" description="Create your first document and explore the complete toolbox." href="/docs/v2/intro/" />
+</CardGrid>
+
+Butterfly is built in the open and available in many languages. [Join the community](/community/) to share feedback, help with translations, or contribute to the project.
