@@ -11,6 +11,10 @@ hero:
       link: /downloads/
       icon: download
       variant: primary
+    - text: Try the web app
+      link: https://web.butterfly.linwood.dev
+      icon: external
+      variant: secondary
     - text: Documentation
       link: /docs/v2/intro/
       icon: open-book
@@ -23,97 +27,37 @@ hero:
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
 import LandingFeature from '@components/LandingFeature.astro';
-import LandingText from '@components/LandingText.astro';
-import showcaseAdd from '@assets/img/showcase-add.png';
-import showcaseHome from '@assets/img/showcase-home.png';
-import showcasePhone from '@assets/img/showcase-phone.png';
-import showcaseTemplates from '@assets/img/showcase-templates.png';
-import showcaseTools from '@assets/img/showcase-tools.png';
-
-import crossplatform from '@assets/img/homepage/crossplatform.png'
-import collageLightBg from '@assets/img/homepage/collage-bg.png';
-import desktop2Light from '@assets/img/homepage/Desktop2-light.png';
+import crossplatform from '@assets/img/homepage/crossplatform.png';
+import collageLight from '@assets/img/homepage/collage-light.png';
+import collageDark from '@assets/img/homepage/collagedark.png';
 import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
-import desktopLight from '@assets/img/homepage/Desktop-light.png';
-import mobileLight from '@assets/img/homepage/Mobile-light.png';
-import packsLight from '@assets/img/homepage/Packs-light.png';
+import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
 import penLight from '@assets/img/homepage/Pen-light.png';
+import penDark from '@assets/img/homepage/Pen-dark.png';
 
-{/* // import collageDark from '@assets/img/homepage/collagedark.png';
-// import collageLight from '@assets/img/homepage/collage-light.png';
-// import desktop2Dark from '@assets/img/homepage/Desktop2-dark.png';
-// import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
-// import desktopDark from '@assets/img/homepage/Desktop-dark.png';
-// import mobileDark from '@assets/img/homepage/Mobile-dark.png';
-// import packsDark from '@assets/img/homepage/Packs-dark.png';
-// import penDark from '@assets/img/homepage/Pen-dark.png';
-// import templateDark from '@assets/img/homepage/Template-dark.png';
-// import templateLight from '@assets/img/homepage/Template-light.png'; */}
-
-
-{/* ## Butterfly is **the** workspace for people who think *visually*.
-Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document.
-
-The above feels out of place. especially for an opening.
-*/}
-
-{/* The image here should showcase most available features.
-- PDF
-- Images
-- Shapes
-- Gradients
-- Unique elements
-- etc.
-*/}
 <LandingFeature
   image={desktop2LightRuler}
-  alt="Image showcasing a note made in Butterfly"
+  darkImage={desktop2DarkRuler}
+  alt="A Butterfly canvas with handwritten notes, diagrams, and a ruler"
 >
-  ### Butterfly is the workspace for visual thinkers.
+  ## A workspace for visual thinkers
 
   Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document.
 
 </LandingFeature>
 
-{/* <LandingText>
-  Butterfly is a creative workspace for people who think visually. Capture lecture notes with a stylus, mark up a PDF, sketch an interface, build a diagram, plan a project, or mix all of them in the same document. Everything remains movable, resizable, recolorable, and ready to evolve with your idea.
-</LandingText> */}
-
 <LandingFeature
   image={penLight}
+  darkImage={penDark}
   alt="Pen settings for a Butterfly drawing tool"
   reverse
 >
-  ### Tune every stroke
+  ## Tune every stroke
 
   Draw with a stylus, touch, or mouse. Adjust stroke width, color, smoothing, and texture. If a mark is not quite right, edit it instead of starting over.
 </LandingFeature>
 
-{/* <LandingFeature
-  image={showcaseAdd}
-  alt="The Butterfly add menu with import and creative tool options"
-  reverse
->
-  ### Mix strokes, text, shapes, and media
-
-  Handwrite with customizable stokes, write formatted text with Markdown and rich text.
-  Add shapes, lines, and polygons for geometric needs.
-  Import PDFs, SVGs, and images to annotate existing work, then export the result as PDF, SVG, or an image when it is ready to share.
-</LandingFeature> */}
-{/* The above card needs a better rewrite.
-The features mentioned in the card above is already mentioned again below, so it makes sense to hide this.*/}
-
-
-
 ## Powerful when your projects grow
-
-{/* <LandingText>
-  An infinite canvas should still be easy to navigate. Butterfly lets one document contain multiple infinite pages, page folders, layers, named areas, and waypoints. Move from the big picture to one exact detail without losing your place.
-</LandingText> 
-
-My plan here is to keep a balance.
-This can be removed without losing details.
-*/}
 
 <CardGrid stagger>
   <Card title="Every element stays editable" icon="pencil">
@@ -125,40 +69,33 @@ This can be removed without losing details.
   <Card title="Reusable building blocks" icon="puzzle">
     Turn favorite layouts into templates and frequently used content into packs, stamps, palettes, and styles available across documents.
   </Card>
-  <Card title="A lot of tools for everything" icon="open-book">
+  <Card title="Tools for every idea" icon="open-book">
     Go beyond pen and eraser with labels, shapes, polygons, rulers, grids, textures, stamps, a laser pointer, presentation tools, and more.
   </Card>
 </CardGrid>
 
-
 <LandingFeature
-  image={collageLightBg}
-  alt="The Butterfly template browser with several canvas styles"
+  image={collageLight}
+  darkImage={collageDark}
+  alt="Butterfly templates and packs with reusable canvas styles"
 >
-  ### Make Butterfly fit your workflow
+  ## Make Butterfly fit your workflow
 
-  Create templates for anything frequently used, like contents, backgrounds, tools, settings, layers, areas, and pages.
+  Start with a template that brings together your favorite backgrounds, tools, layers, areas, and pages. Save reusable content in packs so your next project starts with everything you need.
 </LandingFeature>
-
 
 <LandingFeature
   image={crossplatform}
   alt="A handwritten Butterfly document on a phone and on a desktop"
   reverse
 >
-  ### Works everywhere
+  ## Works everywhere
 
-  Butterfly is cross-platform, it runs on Android, iOS, Windows, macOS, Linux, and on the browser.
-  
+  Take your canvas from your desk to your next class or meeting. Butterfly runs on Android, Windows, macOS, Linux, and in your browser, with an iOS preview also available.
+
 </LandingFeature>
 
 ## Your work belongs to you
-
-{/* <LandingText>
-  Butterfly is offline-first, free, and open source. Save documents directly on your device, choose a different data directory, connect your own WebDAV server, or keep readable `.tbfly` files in version control. There is no required account and no proprietary cloud standing between you and your notes.
-</LandingText> 
-
-To keep consistency since the previous one was hidden*/}
 
 <CardGrid>
   <Card title="Local by default" icon="laptop">
@@ -168,23 +105,24 @@ To keep consistency since the previous one was hidden*/}
     Connect WebDAV services like Nextcloud to sync, back up, and edit your notes anywhere.
   </Card>
   <Card title="Open source software" icon="code-branch">
-    Butterfly and its custom file formats `.bfly` `.tbfly` are open source under the GNU AGPL-3.0
+    Butterfly is free and open source under the GNU AGPL-3.0 license. Keep your documents in its documented `.bfly` and `.tbfly` formats.
   </Card>
   <Card title="Create together" icon="comment">
     Experimental collaboration supports end-to-end encrypted sessions through Swamp or a WebSocket server you host yourself.
   </Card>
 </CardGrid>
 
-<h1 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly, the limitless canvas for visual thinking.</h1>
-
+<h2 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly, the limitless canvas for visual thinking.</h2>
 
 <CardGrid>
   <LinkCard
+    class="landing-action"
     title="Download Butterfly"
     description="Install the app on your phone, tablet, or computer."
     href="/downloads/"
   />
   <LinkCard
+    class="landing-action"
     title="Try the web app"
     description="Start a canvas in your browser without installing anything. Chromium-based browsers are recommended."
     href="https://web.butterfly.linwood.dev"

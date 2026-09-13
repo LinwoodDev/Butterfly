@@ -4,12 +4,13 @@ import type { ImageMetadata } from "astro";
 
 interface Props {
   image: ImageMetadata;
+  darkImage?: ImageMetadata;
   alt: string;
   reverse?: boolean;
   portrait?: boolean;
 }
 
-const { image, alt, reverse = false, portrait = false } = Astro.props;
+const { image, darkImage, alt, reverse = false, portrait = false } = Astro.props;
 ---
 
 <section class:list={["landing-feature", { reverse, portrait }]}>
@@ -18,11 +19,21 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
   </div>
   <div class="landing-feature__visual">
     <Image
+      class:list={{ "dark:sl-hidden": Boolean(darkImage) }}
       src={image}
       alt={alt}
       widths={[480, 720, 960]}
       sizes="(min-width: 50rem) 52vw, 100vw"
     />
+    {darkImage && (
+      <Image
+        class="light:sl-hidden"
+        src={darkImage}
+        alt={alt}
+        widths={[480, 720, 960]}
+        sizes="(min-width: 50rem) 52vw, 100vw"
+      />
+    )}
   </div>
 </section>
 
@@ -49,6 +60,7 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
     order: -1;
   }
 
+  .landing-feature__copy :global(h2),
   .landing-feature__copy :global(h3) {
     margin-top: 0;
     font-size: clamp(1.6rem, 3vw, 2.35rem);
@@ -69,8 +81,7 @@ const { image, alt, reverse = false, portrait = false } = Astro.props;
     max-height: 40rem;
     object-fit: contain;
     border-radius: 1rem;
-    /* border: 1px solid var(--sl-color-gray-5); */
-    /* box-shadow: var(--sl-shadow-md); */
+    margin: 0;
   }
 
   .landing-feature.portrait .landing-feature__visual :global(img) {
