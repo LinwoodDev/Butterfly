@@ -12,3 +12,28 @@
   --sl-color-accent-high: #462c00;
   --sl-color-white: #151915;
 }
+
+.sl-link-card:has(a.landing-action) {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 30%, var(--sl-color-gray-5));
+  background: color-mix(in srgb, var(--sl-color-accent) 5%, var(--sl-color-bg));
+
+  .title {
+    color: var(--sl-color-white);
+  }
+
+  .description,
+  .icon {
+    color: var(--sl-color-gray-2);
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: color-mix(in srgb, var(--sl-color-accent) 50%, var(--sl-color-gray-5));
+    background: color-mix(in srgb, var(--sl-color-accent) 8%, var(--sl-color-bg));
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+}

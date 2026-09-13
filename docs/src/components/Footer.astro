@@ -7,55 +7,65 @@ import { Image } from "astro:assets";
   <slot />
 </StarlightFooter>
 <footer class="real-footer">
-  <a href="https://linwood.dev" target="_blank">
+  <a class="brand" href="https://linwood.dev" target="_blank">
     <Image
       src="https://www.linwood.dev/logos/logo.png"
       width="32"
       height="32"
-      alt="Linwood"
+      alt=""
     />
+    <strong>Linwood</strong>
   </a>
-  <div class="row">
-    <a target="_blank" class="btn" href="https://linwood.dev/imprint">Impressum</a
-    >
-    <a target="_blank" class="btn" href="https://linwood.dev/privacypolicy"
-      >Datenschutzerklärung</a
-    >
+  <div class="links">
+    <a target="_blank" class="btn" href="https://linwood.dev/imprint">Imprint</a>
+    <a target="_blank" class="btn" href="https://linwood.dev/privacypolicy">
+      Privacy policy
+    </a>
   </div>
 </footer>
 
 <style lang="scss">
   .real-footer {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 0.75rem 1.25rem;
     width: fit-content;
-    border-radius: 0.4rem;
     margin-top: 5rem;
-    background-color: var(--sl-color-gray-6);
-    padding: 0.5rem 1rem;
     margin-left: auto;
     margin-right: auto;
+    padding: 1rem;
+    background-color: var(--sl-color-gray-6);
+    border-radius: 1rem;
   }
-  .row {
+
+  .brand {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
   }
-  .divider {
-    align-self: stretch;
-    width: 2px;
-    background-color: var(--sl-color-gray-4);
+
+  .brand:hover {
+    text-decoration: none;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
   .btn {
-    color: var(--sl-color-gray-10);
+    color: var(--sl-color-white);
     font-weight: 500;
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
+  }
+
+  .btn:hover {
+    text-decoration: none;
   }
 </style>
