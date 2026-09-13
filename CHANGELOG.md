@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-rc.1 (2026-09-13)
+
+* Add per-page viewport persistence
+* Add table cell range selection with shared formatting controls
+* Respect viewport rotation in element creation, selection, and spacer tools
+* Assign new text and markdown elements to the current collection
+* Improve hit testing for rotated, curved, and zero-size elements
+* Improve table selection, deselection, and border resizing behavior
+* Use sidebar for full screen and disabled navigation rail on desktop ([#1256](https://github.com/LinwoodDev/Butterfly/issues/1256))
+* Navigate to root directory after connection change ([#1256](https://github.com/LinwoodDev/Butterfly/issues/1256))
+* Fix applying backgrounds from custom templates
+* Fix current tool not updated after toolbar change
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.1
+
 ## 2.6.0-rc.0 (2026-09-07)
 
 * Add full screen embed option and restore missing embed menu items

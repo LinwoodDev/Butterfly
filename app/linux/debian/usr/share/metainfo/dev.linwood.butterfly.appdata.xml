@@ -74,6 +74,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-rc.1" type="development" date="2026-09-13">
+			<description>
+				<ul>
+					<li>Add per-page viewport persistence</li>
+					<li>Add table cell range selection with shared formatting controls</li>
+					<li>Respect viewport rotation in element creation, selection, and spacer tools</li>
+					<li>Assign new text and markdown elements to the current collection</li>
+					<li>Improve hit testing for rotated, curved, and zero-size elements</li>
+					<li>Improve table selection, deselection, and border resizing behavior</li>
+					<li>Use sidebar for full screen and disabled navigation rail on desktop (#1256)</li>
+					<li>Navigate to root directory after connection change (#1256)</li>
+					<li>Fix applying backgrounds from custom templates</li>
+					<li>Fix current tool not updated after toolbar change</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.1</url>
+		</release>
 		<release version="2.6.0-rc.0" type="development" date="2026-09-07">
 			<description>
 				<ul>
@@ -142,23 +159,7 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.4</url>
 		</release>
-		<release version="2.6.0-beta.3" type="development" date="2026-07-27">
-			<description>
-				<ul>
-					<li>Add shear property for elements</li>
-					<li>Add camera rotation support (#977)</li>
-					<li>Add custom fonts to label (#1011)</li>
-					<li>Add option to customize default file name globally and in template (#1041)</li>
-					<li>Add flip horizontal and vertical to all elements (#1058)</li>
-					<li>Improve negative scaling</li>
-					<li>Improve rotated elements transformtion (#1099)</li>
-					<li>Improve rendering reliability if baking fails</li>
-					<li>Fix embed/web loading errors (#1167)</li>
-					<li>Fix file previews resetting the language to the system locale</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.3</url>
-		</release>
+		<release version="2.6.0-beta.3" type="development" date="2026-07-27" />
 		<release version="2.6.0-beta.2" type="development" date="2026-07-13" />
 		<release version="2.6.0-beta.1" type="development" date="2026-07-06" />
 		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
