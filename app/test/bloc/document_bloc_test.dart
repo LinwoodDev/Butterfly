@@ -152,6 +152,26 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
   }
 }
 
+// Models PDF rasterization without relying on native PDF timing.
+class _DelayedVisibleRenderer extends _VisibleTrackingRenderer {
+  _DelayedVisibleRenderer(super.element);
+  final started = Completer<void>();
+  final release = Completer<void>();
+  @override
+  Future<void> onVisible(
+    EditorController controller,
+    DocumentLoaded state,
+    CameraTransform transform,
+    Size size,
+  ) async {
+    if (!started.isCompleted) {
+      started.complete();
+      await release.future;
+    }
+    await super.onVisible(controller, state, transform, size);
+  }
+}
+
 class _BlockingReloadEditorController extends EditorController {
   _BlockingReloadEditorController(
     super.settingsCubit,
@@ -553,6 +573,100 @@ void main() {
       expect(points[0].dy, closeTo(100, 1e-6));
       expect(points[1].dx, closeTo(360, 1e-6));
       expect(points[1].dy, closeTo(200, 1e-6));
+    },
+  );
+
+  test('slow visibility update cannot discard a new stroke', () async {
+    final renderer = _DelayedVisibleRenderer(ShapeElement(id: 'pdf'));
+    final cubit = editorController.rendererCubit;
+    cubit.setViewport(
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        width: 100,
+        height: 100,
+        viewportSize: const Size(100, 100),
+      ),
+    );
+    final updating = cubit.updateVisibleElements(editorController, bloc);
+    await renderer.started.future;
+    final stroke = _VisibleTrackingRenderer(PenElement(id: 'stroke'));
+    final adding = cubit.addUnbaked(
+      editorController,
+      bloc.state as DocumentLoaded,
+      [stroke],
+    );
+    await adding;
+    renderer.release.complete();
+    await updating;
+    cubit.cancelDelayedBake();
+    expect(cubit.renderers, contains(stroke));
+    expect(cubit.state.cameraViewport.visibleUnbakedElements, contains(stroke));
+  });
+
+  test('slow initialization cannot replace a newer camera cache', () async {
+    final renderer = _DelayedVisibleRenderer(ShapeElement(id: 'pdf'));
+    final cubit = editorController.rendererCubit;
+    final adding = cubit.addUnbaked(
+      editorController,
+      bloc.state as DocumentLoaded,
+      [renderer],
+      [renderer],
+    );
+    await renderer.started.future;
+    final movedViewport = cubit.state.cameraViewport.copyWith(x: 40, y: 20);
+    cubit.setViewport(movedViewport);
+    renderer.release.complete();
+    await adding;
+    expect(cubit.state.cameraViewport, same(movedViewport));
+  });
+
+  test(
+    'initial bake exposes content before slow PDF rendering finishes',
+    () async {
+      final renderer = _DelayedVisibleRenderer(ShapeElement(id: 'pdf'));
+      final cubit = editorController.rendererCubit;
+      cubit.setViewport(CameraViewport.unbaked(unbakedElements: [renderer]));
+      final baking = cubit.bake(
+        editorController,
+        bloc.state as DocumentLoaded,
+        viewportSize: const Size(100, 100),
+      );
+      await renderer.started.future;
+      try {
+        expect(
+          cubit.state.cameraViewport.visibleUnbakedElements,
+          contains(renderer),
+        );
+        expect(cubit.state.cameraViewport.viewportSize, const Size(100, 100));
+      } finally {
+        renderer.release.complete();
+        await baking;
+      }
+      expect(cubit.state.cameraViewport.baked, isTrue);
+    },
+  );
+
+  test(
+    'visible loading batch repaints once after all elements finish',
+    () async {
+      final slow = _DelayedVisibleRenderer(ShapeElement(id: 'slow'));
+      final ready = _VisibleTrackingRenderer(ShapeElement(id: 'ready'));
+      final cubit = editorController.rendererCubit;
+      var repaints = 0;
+      void onRepaint() => repaints++;
+      cubit.repaint.addListener(onRepaint);
+      final updating = cubit.updateOnVisible(
+        editorController,
+        CameraViewport.unbaked(visibleElements: [slow, ready]),
+        bloc.state as DocumentLoaded,
+      );
+      await slow.started.future;
+      await _settleBlocEvents();
+      expect(repaints, 0);
+      slow.release.complete();
+      await updating;
+      expect(repaints, 1);
+      cubit.repaint.removeListener(onRepaint);
     },
   );
 

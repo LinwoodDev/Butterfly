@@ -120,6 +120,7 @@ class _ViewportCanvasState extends State<_ViewportCanvas>
                       state.data,
                       state.page,
                       state.info,
+                      repaint: context.read<RendererCubit>().repaint,
                       cameraViewport: widget.rendererState.cameraViewport,
                       transform: visibleTransform,
                       invisibleLayers: state.invisibleLayers,

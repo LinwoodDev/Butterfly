@@ -85,6 +85,30 @@ void main() {
     await settings.close();
   });
 
+  test('visibility uses measured viewport size after a rotated bake', () async {
+    SharedPreferences.setMockInitialValues({});
+    final settings = SettingsCubit(await SharedPreferences.getInstance());
+    final cubit = RendererCubit(
+      settings,
+      const RendererRuntimeState(
+        cameraViewport: CameraViewport.unbaked(
+          width: 1500,
+          height: 1500,
+          viewportSize: Size(800, 600),
+        ),
+      ),
+    );
+    final transform = TransformCubit(1)
+      ..teleport(const Offset(20, 40), 1, pi / 4);
+    expect(
+      cubit.getViewportRect(transform),
+      cubit.getViewportRect(transform, viewportSize: const Size(800, 600)),
+    );
+    await transform.close();
+    await cubit.close();
+    await settings.close();
+  });
+
   test('rotated viewport snapping does not amplify its bounds', () async {
     SharedPreferences.setMockInitialValues({});
     final preferences = await SharedPreferences.getInstance();

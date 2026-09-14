@@ -1,0 +1,4 @@
+* Show initial document content while PDFs load and repaint once the visible batch is ready
+* Fix strokes disappearing during PDF rendering and stale viewport updates after navigation ([#1259](https://github.com/LinwoodDev/Butterfly/issues/1259))
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.2

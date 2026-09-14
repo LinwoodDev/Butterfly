@@ -231,6 +231,7 @@ class ViewPainter extends CustomPainter {
     this.document,
     this.page,
     this.info, {
+    super.repaint,
     this.currentArea,
     this.invisibleLayers,
     this.renderBackground = true,

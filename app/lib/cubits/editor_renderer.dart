@@ -83,12 +83,19 @@ class _RendererSpatialIndex(List<Renderer<PadElement>> renderers) {
   }
 }
 
+class _RendererRepaint extends ChangeNotifier {
+  void refresh() => notifyListeners();
+}
+
 class RendererCubit(
   final SettingsCubit settingsCubit, [
   super.initial = const RendererRuntimeState(),
 ]) extends Cubit<RendererRuntimeState> {
   final initializedElements = <Renderer<PadElement>>{};
   final bakeLock = Lock();
+  final _repaint = _RendererRepaint();
+  Listenable get repaint => _repaint;
+
   final delayedBakeRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 100),
   );
@@ -239,7 +246,8 @@ class RendererCubit(
   }
 
   Rect getViewportRect(TransformCubit transformCubit, {Size? viewportSize}) {
-    var size = viewportSize ?? state.cameraViewport.toSize();
+    final viewport = state.cameraViewport;
+    var size = viewportSize ?? viewport.viewportSize ?? viewport.toRealSize();
     final transform = transformCubit.state;
     final resolution = settingsCubit.state.renderResolution;
     final friction = transform.friction;
@@ -344,6 +352,8 @@ class RendererCubit(
       visibleUnbakedElements: visibleUnbaked,
     );
 
+    setViewport(newViewport);
+
     final docState = bloc?.state;
     if (docState is DocumentLoaded) {
       await updateOnVisible(controller, newViewport, docState);
@@ -351,10 +361,6 @@ class RendererCubit(
         bloc.delayedBake();
       }
     }
-
-    if (controller.isClosed) return;
-
-    setViewport(newViewport);
   }
 
   Future<void> updateOnVisible(
@@ -401,7 +407,11 @@ class RendererCubit(
           return null;
         }),
       );
+      if (controller.isClosed || isClosed) return;
       initializedElements.addAll(initialized.nonNulls);
+      // The initial viewport is already visible. Repaint once after the entire
+      // visible batch is ready, rather than once for every loaded element.
+      _repaint.refresh();
     }
 
     if (newlyHidden.isNotEmpty) {
@@ -454,7 +464,7 @@ class RendererCubit(
     if (controller.isClosed) return;
     var cameraViewport = rendererCubit.state.cameraViewport;
     final startTransform = transformCubit.state;
-    final startViewport = cameraViewport;
+    var startViewport = cameraViewport;
     final resolution = settingsCubit.state.renderResolution;
     final measuredViewportSize = viewportSize ?? cameraViewport.viewportSize;
     var size = measuredViewportSize ?? cameraViewport.toSize();
@@ -574,6 +584,18 @@ class RendererCubit(
                 !oldVisibleSet.contains(renderer) && renderer.isVisible(rect),
           ),
         );
+    }
+
+    // Initial layout has no cache to display while PDFs rasterize. Publish
+    // measured visibility first so strokes and ready pages can paint directly.
+    if (cameraViewport.image == null && !cameraViewport.baked) {
+      cameraViewport = cameraViewport.copyWith(
+        viewportSize: measuredViewportSize,
+        visibleElements: visibleElements,
+        visibleUnbakedElements: visibleElements,
+      );
+      rendererCubit.setViewport(cameraViewport);
+      startViewport = cameraViewport;
     }
 
     await rendererCubit.updateOnVisible(
@@ -989,8 +1011,8 @@ class RendererCubit(
           .toList(),
       backgrounds: backgrounds,
     );
-    await rendererCubit.updateOnVisible(controller, newViewport, blocState);
     rendererCubit.setViewport(newViewport);
+    await rendererCubit.updateOnVisible(controller, newViewport, blocState);
   }
 
   Future<void> replaceUnbaked(
@@ -1013,8 +1035,8 @@ class RendererCubit(
       visibleUnbakedElements: visibleElements,
       backgrounds: backgrounds,
     );
-    await rendererCubit.updateOnVisible(controller, newViewport, blocState);
     rendererCubit.setViewport(newViewport);
+    await rendererCubit.updateOnVisible(controller, newViewport, blocState);
   }
 
   Future<void> loadElements(
@@ -1090,13 +1112,13 @@ class RendererCubit(
       visibleElements: visibleElements,
       backgrounds: backgrounds,
     );
+    rendererCubit.setViewport(newViewport);
     await rendererCubit.updateOnVisible(controller, newViewport, docState);
     controller.saveCubit.setSaveState(
       location:
           controller.saveCubit.state.embedding?.location ??
           controller.saveCubit.state.location,
     );
-    rendererCubit.setViewport(newViewport);
   }
 
   Future<void> addUnbaked(
@@ -1127,8 +1149,8 @@ class RendererCubit(
         ...visibleElements,
       ],
     );
-    await rendererCubit.updateOnVisible(controller, newViewport, blocState);
     rendererCubit.setViewport(newViewport);
+    await rendererCubit.updateOnVisible(controller, newViewport, blocState);
   }
 
   Future<Uint8List?> renderPDF(
@@ -1233,6 +1255,7 @@ class RendererCubit(
     _transformDebounceTimer?.cancel();
     _transformDebounceTimer = null;
     _controller = null;
+    _repaint.dispose();
     return super.close();
   }
 }
