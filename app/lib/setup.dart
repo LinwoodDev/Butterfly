@@ -9,7 +9,7 @@ import 'package:window_manager/window_manager.dart';
 import 'main.dart';
 
 Future<void> setup({required bool nativeTitleBar}) async {
-  pdfrxFlutterInitialize();
+  await pdfrxFlutterInitialize();
   if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
     const windowOptions = WindowOptions(

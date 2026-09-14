@@ -1053,7 +1053,10 @@ class ImportService(
   }) async {
     LoadingDialogHandler? dialog;
     PdfDocument? pdfDocument;
+    final images = <ui.Image>[];
     try {
+      if (!context.mounted) return null;
+      dialog = showLoadingDialog(context);
       final firstPos = position ?? Offset.zero;
       final localizations = AppLocalizations.of(context);
       pdfDocument = await PdfDocument.openData(bytes);
@@ -1066,28 +1069,36 @@ class ImportService(
           invert = false;
       SRGBColor background = BasicColors.whiteTransparent;
       if (advanced) {
-        List<ui.Image> images = [];
-        final dialog = showLoadingDialog(context);
-
         for (int i = 0; i < elements.length; i++) {
           final raster = elements[i];
           dialog?.setProgress(i / elements.length);
-          final pdfImage = await raster.render();
-          if (pdfImage == null) continue;
-          images.add(await pdfImage.createImage());
-          pdfImage.dispose();
+          // Selection only needs thumbnails, not full-resolution page images.
+          final scale = min(1.0, 512 / max(raster.width, raster.height));
+          final width = max(1, (raster.width * scale).round());
+          final height = max(1, (raster.height * scale).round());
+          final pdfImage = await raster.render(
+            width: width,
+            height: height,
+            fullWidth: width.toDouble(),
+            fullHeight: height.toDouble(),
+          );
+          if (pdfImage == null) {
+            throw StateError('Failed to render PDF page ${i + 1}');
+          }
+          try {
+            images.add(await pdfImage.createImage());
+          } finally {
+            pdfImage.dispose();
+          }
+          if (!context.mounted) return null;
         }
         dialog?.close();
+        dialog = null;
         final callback = await showDialog<PageDialogCallback>(
           context: context,
           builder: (context) => ImportPagesDialog(pages: images, name: name),
         );
-        for (var image in images) {
-          try {
-            image.dispose();
-          } catch (_) {}
-        }
-        if (callback == null) return null;
+        if (callback == null || !context.mounted) return null;
         pages = callback.pages;
         spreadToPages = callback.spreadToPages;
         createAreas = callback.createAreas;
@@ -1101,7 +1112,7 @@ class ImportService(
         return '$name ${index + 1}';
       }
 
-      dialog = showLoadingDialog(context);
+      dialog ??= showLoadingDialog(context);
       final selectedElements = <PdfElement>[];
       final areas = <Area>[];
       final documentPages = <(String?, DocumentPage)>[];
@@ -1195,12 +1206,18 @@ class ImportService(
       );
     } catch (e) {
       dialog?.close();
-      showDialog(
+      dialog = null;
+      if (!context.mounted) return null;
+      await showDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
       );
     } finally {
+      dialog?.close();
+      for (final image in images) {
+        image.dispose();
+      }
       await pdfDocument?.dispose();
     }
     return null;
