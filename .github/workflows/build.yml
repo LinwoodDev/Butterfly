@@ -34,7 +34,7 @@ jobs:
           java-version: "21"
           distribution: "temurin"
       - name: 🦀 Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -183,7 +183,7 @@ jobs:
           choco install yq
           choco install innosetup
       - name: 🦀 Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -252,7 +252,7 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
       - name: 🦀 Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -325,7 +325,7 @@ jobs:
             libjsoncpp-dev \
             rpm
       - name: 🦀 Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -496,7 +496,7 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
       - name: 🦀 Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -555,7 +555,7 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
       - name: 🦀 Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
