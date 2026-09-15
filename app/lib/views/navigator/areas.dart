@@ -236,7 +236,7 @@ class _AreasViewState extends State<AreasView> {
   Widget buildAreaFolder(String name, String path) {
     return ListTile(
       title: Text(name),
-      leading: const PhosphorIcon(PhosphorIconsLight.folder),
+      leading: const PhosphorIcon(PhosphorIconsLight.folder, textDirection: .ltr),
       onTap: () {
         setState(() {
           _currentGroup = path;
@@ -363,7 +363,10 @@ class _AreasViewState extends State<AreasView> {
                     ),
                     trailing: [
                       IconButton(
-                        icon: const PhosphorIcon(PhosphorIconsLight.files),
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.files,
+                          textDirection: .ltr,
+                        ),
                         isSelected: _showAllPages,
                         tooltip: AppLocalizations.of(context).pages,
                         onPressed: () => setState(() {

@@ -77,6 +77,7 @@ class ColorField extends StatelessWidget {
             IconButton(
               icon: const PhosphorIcon(
                 PhosphorIconsLight.clockCounterClockwise,
+                textDirection: .ltr,
               ),
               tooltip: LeapLocalizations.of(context).reset,
               onPressed: () async {

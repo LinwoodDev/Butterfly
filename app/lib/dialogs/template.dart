@@ -1329,7 +1329,10 @@ List<Widget> _buildTemplateMenuChildren(
       ),
     if (bloc != null && !isCore)
       MenuItemButton(
-        leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsClockwise),
+        leadingIcon: const PhosphorIcon(
+          PhosphorIconsLight.arrowsClockwise,
+          textDirection: .ltr,
+        ),
         child: Text(AppLocalizations.of(context).replace),
         onPressed: () async {
           final result = await showDialog<bool>(
@@ -1392,7 +1395,10 @@ List<Widget> _buildTemplateMenuChildren(
       ),
     if (!isCore)
       MenuItemButton(
-        leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileText),
+        leadingIcon: const PhosphorIcon(
+          PhosphorIconsLight.fileText,
+          textDirection: .ltr,
+        ),
         child: Text(AppLocalizations.of(context).fileName),
         onPressed: () async {
           final result = await showFileNamePatternDialog(
@@ -1442,7 +1448,10 @@ List<Widget> _buildTemplateMenuChildren(
             },
           ),
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+            leadingIcon: const PhosphorIcon(
+              PhosphorIconsLight.file,
+              textDirection: .ltr,
+            ),
             child: Text(AppLocalizations.of(context).rawFile),
             onPressed: () async {
               await exportData(context, file.data!, isTextBased: true);

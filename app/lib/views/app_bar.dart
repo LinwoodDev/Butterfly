@@ -464,7 +464,10 @@ class _AppBarTitleState extends State<_AppBarTitle> {
           if (currentIndex.location.path != '' &&
               currentIndex.embedding == null) ...[
             IconButton(
-              icon: const PhosphorIcon(PhosphorIconsLight.folder),
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.folder,
+                textDirection: .ltr,
+              ),
               onPressed: () {
                 Actions.maybeInvoke<ChangePathIntent>(
                   context,

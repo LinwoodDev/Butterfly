@@ -360,6 +360,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 .right =>
                                                   PhosphorIconsLight.caretLeft,
                                               },
+                                        textDirection: tool.isAction()
+                                            ? .ltr
+                                            : null,
                                       )
                                     : null,
                                 selectedIcon: _buildIcon(

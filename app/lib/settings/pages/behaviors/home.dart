@@ -256,7 +256,10 @@ Widget _autosaveDelaySetting(BuildContext context, ButterflySettings state) {
 
 Widget _rotationStepSetting(BuildContext context, ButterflySettings state) {
   return ExactSlider(
-    leading: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+    leading: const PhosphorIcon(
+      PhosphorIconsLight.arrowClockwise,
+      textDirection: .ltr,
+    ),
     min: 1,
     max: 90,
     defaultValue: kDefaultRotationStep,

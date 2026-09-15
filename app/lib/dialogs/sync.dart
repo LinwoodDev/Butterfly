@@ -81,6 +81,7 @@ class _SyncDialogState extends State<SyncDialog> {
                     IconButton(
                       icon: const PhosphorIcon(
                         PhosphorIconsLight.arrowsClockwise,
+                        textDirection: .ltr,
                       ),
                       onPressed: selectedSync?.status == .syncing
                           ? null
@@ -242,7 +243,10 @@ class _RemoteSyncViewState extends State<_RemoteSyncView> {
                 segments: [
                   ButtonSegment(
                     value: _SyncFileFilter.all,
-                    icon: const PhosphorIcon(PhosphorIconsLight.files),
+                    icon: const PhosphorIcon(
+                      PhosphorIconsLight.files,
+                      textDirection: .ltr,
+                    ),
                     label: Text('${allFiles.length}'),
                     tooltip: AppLocalizations.of(context).files,
                   ),

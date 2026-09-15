@@ -17,16 +17,6 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-subprojects {
-    // Some plugins skip their Kotlin plugin on AGP 9 even when the Flutter
-    // project has explicitly opted into the legacy Kotlin plugin.
-    if (name in setOf("cryptography_flutter_plus", "jni")) {
-        pluginManager.withPlugin("com.android.library") {
-            pluginManager.apply("org.jetbrains.kotlin.android")
-        }
-    }
-}
-
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }

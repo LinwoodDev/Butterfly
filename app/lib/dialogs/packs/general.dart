@@ -30,7 +30,10 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: LeapLocalizations.of(context).name,
-            icon: const PhosphorIcon(PhosphorIconsLight.textT),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.textT,
+              textDirection: .ltr,
+            ),
             filled: true,
           ),
           initialValue: metadata.name,
@@ -62,7 +65,10 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).description,
-            icon: const PhosphorIcon(PhosphorIconsLight.paragraph),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.paragraph,
+              textDirection: .ltr,
+            ),
             border: const OutlineInputBorder(),
           ),
           minLines: 3,

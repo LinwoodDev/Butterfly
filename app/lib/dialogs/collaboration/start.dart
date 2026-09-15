@@ -297,7 +297,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                       dimension: 18,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Icon(PhosphorIconsLight.play),
+                  : Icon(PhosphorIconsLight.play, textDirection: .ltr),
               label: Text(
                 _isStarting
                     ? AppLocalizations.of(context).loading

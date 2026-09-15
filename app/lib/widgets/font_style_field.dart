@@ -59,7 +59,10 @@ class FontStyleField extends StatelessWidget {
     requestFocusOnTap: true,
     expandedInsets: compact ? null : .zero,
     label: Text(AppLocalizations.of(context).fontFamily),
-    leadingIcon: const PhosphorIcon(PhosphorIconsLight.textAa),
+    leadingIcon: const PhosphorIcon(
+      PhosphorIconsLight.textAa,
+      textDirection: .ltr,
+    ),
     dropdownMenuEntries: fonts.map((availableFont) {
       final font = availableFont.name;
       final fallbackIndex = fontFamilyFallback.indexOf(font);

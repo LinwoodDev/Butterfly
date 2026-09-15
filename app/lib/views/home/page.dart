@@ -125,8 +125,14 @@ class _HomePageState extends State<HomePage> {
                           label: AppLocalizations.of(context).home,
                         ),
                         NavigationDestination(
-                          icon: const Icon(PhosphorIconsLight.folder),
-                          selectedIcon: const Icon(PhosphorIconsFill.folder),
+                          icon: const Icon(
+                            PhosphorIconsLight.folder,
+                            textDirection: .ltr,
+                          ),
+                          selectedIcon: const Icon(
+                            PhosphorIconsFill.folder,
+                            textDirection: .ltr,
+                          ),
                           label: AppLocalizations.of(context).files,
                         ),
                         NavigationDestination(
@@ -157,9 +163,13 @@ class _HomePageState extends State<HomePage> {
                                 label: Text(AppLocalizations.of(context).home),
                               ),
                               NavigationRailDestination(
-                                icon: const Icon(PhosphorIconsLight.folder),
+                                icon: const Icon(
+                                  PhosphorIconsLight.folder,
+                                  textDirection: .ltr,
+                                ),
                                 selectedIcon: const Icon(
                                   PhosphorIconsFill.folder,
+                                  textDirection: .ltr,
                                 ),
                                 label: Text(AppLocalizations.of(context).files),
                               ),

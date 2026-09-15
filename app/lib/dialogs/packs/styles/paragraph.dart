@@ -34,10 +34,16 @@ class ParagraphStyleView extends StatelessWidget {
             onChanged(value.copyWith(alignment: alignments[index]));
           },
           children: const [
-            PhosphorIcon(PhosphorIconsLight.textAlignLeft),
+            PhosphorIcon(PhosphorIconsLight.textAlignLeft, textDirection: .ltr),
             PhosphorIcon(PhosphorIconsLight.textAlignCenter),
-            PhosphorIcon(PhosphorIconsLight.textAlignRight),
-            PhosphorIcon(PhosphorIconsLight.textAlignJustify),
+            PhosphorIcon(
+              PhosphorIconsLight.textAlignRight,
+              textDirection: .ltr,
+            ),
+            PhosphorIcon(
+              PhosphorIconsLight.textAlignJustify,
+              textDirection: .ltr,
+            ),
           ],
         ),
         const SizedBox(height: 16),

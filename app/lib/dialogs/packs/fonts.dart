@@ -60,7 +60,10 @@ class FontsPackView extends StatelessWidget {
           children: fonts
               .map(
                 (name) => ListTile(
-                  leading: const PhosphorIcon(PhosphorIconsLight.textAa),
+                  leading: const PhosphorIcon(
+                    PhosphorIconsLight.textAa,
+                    textDirection: .ltr,
+                  ),
                   title: Text(name),
                   subtitle: Text(customFontFamily(_baseName(name))),
                   trailing: IconButton(

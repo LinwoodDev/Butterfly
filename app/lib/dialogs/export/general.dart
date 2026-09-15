@@ -400,7 +400,10 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 textDirection: .ltr,
               ),
               tooltip: AppLocalizations.of(context).page,
-              selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
+              selectedIcon: const PhosphorIcon(
+                PhosphorIconsFill.file,
+                textDirection: .ltr,
+              ),
               isSelected: _preset == .page,
             ),
           ],

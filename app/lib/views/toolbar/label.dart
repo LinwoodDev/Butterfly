@@ -361,9 +361,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                       if (value is TextContext) ...[
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.article),
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.article,
+                            textDirection: .ltr,
+                          ),
                           selectedIcon: const PhosphorIcon(
                             PhosphorIconsFill.article,
+                            textDirection: .ltr,
                           ),
                           tooltip: AppLocalizations.of(context).paragraph,
                           isSelected: value.isParagraph(),
@@ -700,6 +704,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               GestureDetector(
                                 child: const PhosphorIcon(
                                   PhosphorIconsLight.textB,
+                                  textDirection: .ltr,
                                 ),
                                 onLongPressEnd: (details) {
                                   final RenderObject? overlay = Overlay.of(
@@ -758,9 +763,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                   );
                                 },
                               ),
-                              const PhosphorIcon(PhosphorIconsLight.textItalic),
+                              const PhosphorIcon(
+                                PhosphorIconsLight.textItalic,
+                                textDirection: .ltr,
+                              ),
                               const PhosphorIcon(
                                 PhosphorIconsLight.textUnderline,
+                                textDirection: .ltr,
                               ),
                             ],
                             onPressed: (current) => switch (current) {

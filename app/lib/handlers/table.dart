@@ -409,7 +409,10 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
             ),
             ContextMenuItem(
               label: loc.insertColumnBefore,
-              icon: const PhosphorIcon(PhosphorIconsLight.columnsPlusLeft),
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.columnsPlusLeft,
+                textDirection: .ltr,
+              ),
               onPressed: () {
                 close();
                 _replaceElement(bloc, element, element.insertColumn(column));
@@ -417,7 +420,10 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
             ),
             ContextMenuItem(
               label: loc.insertColumnAfter,
-              icon: const PhosphorIcon(PhosphorIconsLight.columnsPlusRight),
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.columnsPlusRight,
+                textDirection: .ltr,
+              ),
               onPressed: () {
                 close();
                 _replaceElement(

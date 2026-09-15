@@ -69,7 +69,10 @@ Widget _buildPersistenceSettingsSection(
                 const Divider(),
                 SwitchListTile(
                   value: settings.page,
-                  secondary: const PhosphorIcon(PhosphorIconsLight.file),
+                  secondary: const PhosphorIcon(
+                    PhosphorIconsLight.file,
+                    textDirection: .ltr,
+                  ),
                   title: Text(
                     AppLocalizations.of(context).persistentStateCurrentPage,
                   ),

@@ -89,7 +89,10 @@ class _EditableListTileState extends State<EditableListTile> {
         menuChildren: [
           if (widget.onSaved != null)
             MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+              leadingIcon: const PhosphorIcon(
+                PhosphorIconsLight.textT,
+                textDirection: .ltr,
+              ),
               onPressed: _startEditing,
               child: Text(AppLocalizations.of(context).rename),
             ),

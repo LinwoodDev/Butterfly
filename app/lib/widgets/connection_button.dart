@@ -59,7 +59,10 @@ class _ConnectionButtonState extends State<ConnectionButton> {
         if (settings.connections.isEmpty || kIsWeb) {
           return IconButton(
             onPressed: () => widget.onChanged(_currentConnection),
-            icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.arrowClockwise,
+              textDirection: .ltr,
+            ),
             tooltip: AppLocalizations.of(context).refresh,
           );
         }

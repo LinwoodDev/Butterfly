@@ -346,7 +346,10 @@ class _AddDialogState extends State<AddDialog> {
                   Navigator.of(context).pop();
                   handler.onSelected(context, false);
                 },
-                icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
+                icon: const PhosphorIcon(
+                  PhosphorIconsLight.playCircle,
+                  textDirection: .ltr,
+                ),
                 tooltip: AppLocalizations.of(context).play,
               )
             : null,

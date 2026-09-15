@@ -31,7 +31,7 @@ ContextMenuBuilder buildAreaContextMenu(
   return [
     if (includeRenameAndEnterArea) ...[
       ContextMenuItem(
-        icon: const PhosphorIcon(PhosphorIconsLight.textT),
+        icon: const PhosphorIcon(PhosphorIconsLight.textT, textDirection: .ltr),
         label: AppLocalizations.of(context).rename,
         onPressed: () async {
           if (pop) Navigator.of(context).pop();
@@ -149,7 +149,10 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
           );
         },
-        icon: const PhosphorIcon(PhosphorIconsLight.folder),
+        icon: const PhosphorIcon(
+          PhosphorIconsLight.folder,
+          textDirection: .ltr,
+        ),
         label: AppLocalizations.of(context).changeCollection,
       ),
       ContextMenuItem(

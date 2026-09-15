@@ -249,7 +249,10 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context).clearCaches),
-                        leading: const PhosphorIcon(PhosphorIconsLight.fileX),
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.fileX,
+                          textDirection: .ltr,
+                        ),
                         onTap: () {
                           context.read<SettingsCubit>().clearCaches(identifier);
                         },

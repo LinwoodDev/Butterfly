@@ -27,7 +27,10 @@ class GeneralStyleView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: LeapLocalizations.of(context).name,
-            icon: const PhosphorIcon(PhosphorIconsLight.textT),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.textT,
+              textDirection: .ltr,
+            ),
             filled: true,
           ),
           initialValue: name,

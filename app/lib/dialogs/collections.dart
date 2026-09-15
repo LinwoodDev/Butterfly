@@ -134,7 +134,10 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       if (name == null) return;
                       bloc.add(CollectionRenamed(current, name));
                     },
-                    icon: const PhosphorIcon(PhosphorIconsLight.textT),
+                    icon: const PhosphorIcon(
+                      PhosphorIconsLight.textT,
+                      textDirection: .ltr,
+                    ),
                     tooltip: AppLocalizations.of(context).rename,
                   ),
                   IconButton(

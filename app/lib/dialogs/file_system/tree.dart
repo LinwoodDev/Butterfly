@@ -81,11 +81,20 @@ class FileSystemDirectoryTreeViewState
             children: [
               ListTile(
                 leading: _expanded
-                    ? const PhosphorIcon(PhosphorIconsLight.folderOpen)
-                    : const PhosphorIcon(PhosphorIconsLight.folder),
+                    ? const PhosphorIcon(
+                        PhosphorIconsLight.folderOpen,
+                        textDirection: .ltr,
+                      )
+                    : const PhosphorIcon(
+                        PhosphorIconsLight.folder,
+                        textDirection: .ltr,
+                      ),
                 title: Text(name),
                 trailing: IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.folderPlus),
+                  icon: const PhosphorIcon(
+                    PhosphorIconsLight.folderPlus,
+                    textDirection: .ltr,
+                  ),
                   onPressed: _newFolder,
                   tooltip: AppLocalizations.of(context).newFolder,
                 ),

@@ -296,7 +296,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           icon:
                               widget.runningState !=
                                   PresentationRunningState.running
-                              ? const PhosphorIcon(PhosphorIconsLight.play)
+                              ? const PhosphorIcon(
+                                  PhosphorIconsLight.play,
+                                  textDirection: .ltr,
+                                )
                               : const PhosphorIcon(PhosphorIconsLight.pause),
                           tooltip:
                               widget.runningState !=

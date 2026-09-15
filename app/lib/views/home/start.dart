@@ -116,7 +116,10 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   ),
                 ),
                 IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+                  icon: const PhosphorIcon(
+                    PhosphorIconsLight.arrowClockwise,
+                    textDirection: .ltr,
+                  ),
                   tooltip: AppLocalizations.of(context).refresh,
                   onPressed: () => setState(() {
                     _templatesFuture = _fetchTemplates();

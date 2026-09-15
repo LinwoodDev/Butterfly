@@ -559,7 +559,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 helperText: AppLocalizations.of(context)
                     .connectionNameDescription,
                 filled: true,
-                icon: const PhosphorIcon(PhosphorIconsLight.textAa),
+                icon: const PhosphorIcon(
+                  PhosphorIconsLight.textAa,
+                  textDirection: .ltr,
+                ),
               ),
             ),
             ListenableBuilder(
@@ -581,7 +584,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   label: AppLocalizations.of(context).directory,
                   helperText: AppLocalizations.of(context)
                       .connectionDirectoryDescription,
-                  icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                  icon: const PhosphorIcon(
+                    PhosphorIconsLight.folder,
+                    textDirection: .ltr,
+                  ),
                   onPick: shouldShowPicker
                       ? () async {
                           final result = await FilePicker.getDirectoryPath();
@@ -741,7 +747,10 @@ class _DirectoryField extends StatelessWidget {
         suffixIcon: onPick == null
             ? null
             : IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                icon: const PhosphorIcon(
+                  PhosphorIconsLight.folder,
+                  textDirection: .ltr,
+                ),
                 onPressed: onPick,
               ),
       ),

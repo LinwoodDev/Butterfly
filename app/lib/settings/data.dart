@@ -29,7 +29,7 @@ Widget buildDataDirectorySetting(
 ) {
   return ListTile(
     title: Text(AppLocalizations.of(context).dataDirectory),
-    leading: const PhosphorIcon(PhosphorIconsLight.folder),
+    leading: const PhosphorIcon(PhosphorIconsLight.folder, textDirection: .ltr),
     subtitle: Column(
       crossAxisAlignment: .start,
       children: [
@@ -59,7 +59,10 @@ Widget buildDataDirectorySetting(
     onTap: () => changeDataDirectory(context),
     trailing: state.documentPath.isNotEmpty
         ? IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.clockClockwise,
+              textDirection: .ltr,
+            ),
             tooltip: AppLocalizations.of(context).defaultPath,
             onPressed: () =>
                 changePath(context, context.read<SettingsCubit>(), ''),
@@ -73,14 +76,20 @@ Widget buildDefaultFileNameSetting(
   ButterflySettings state,
 ) {
   return ListTile(
-    leading: const PhosphorIcon(PhosphorIconsLight.fileText),
+    leading: const PhosphorIcon(
+      PhosphorIconsLight.fileText,
+      textDirection: .ltr,
+    ),
     title: Text(AppLocalizations.of(context).defaultFileName),
     subtitle: Text(state.defaultFileName),
     onTap: () => _changeDefaultFileName(context, state.defaultFileName),
     trailing: state.defaultFileName == kDefaultFileName
         ? null
         : IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.arrowCounterClockwise),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.arrowCounterClockwise,
+              textDirection: .ltr,
+            ),
             tooltip: LeapLocalizations.of(context).reset,
             onPressed: () => context
                 .read<SettingsCubit>()

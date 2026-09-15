@@ -97,7 +97,10 @@ class TexturePaintField extends StatelessWidget {
           ),
           ButtonSegment(
             value: _PaintKind.svg,
-            icon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.fileSvg,
+              textDirection: .ltr,
+            ),
             tooltip: loc.svg,
           ),
           ButtonSegment(
@@ -265,7 +268,10 @@ class TexturePaintField extends StatelessWidget {
           ),
         ] else if (value case SvgElementPaint(:final source, :final scale)) ...[
           ListTile(
-            leading: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+            leading: const PhosphorIcon(
+              PhosphorIconsLight.fileSvg,
+              textDirection: .ltr,
+            ),
             title: Text(loc.svg),
             subtitle: Text(source.isEmpty ? loc.noSvgSelected : source),
             trailing: FilledButton.icon(

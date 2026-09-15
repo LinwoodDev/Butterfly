@@ -324,7 +324,10 @@ class ContextFileRegion extends StatelessWidget {
                 );
               }
             },
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.folderOpen),
+            leadingIcon: const PhosphorIcon(
+              PhosphorIconsLight.folderOpen,
+              textDirection: .ltr,
+            ),
             child: Text(AppLocalizations.of(context).revealInFileExplorer),
           ),
         if (remote is RemoteStorage)
