@@ -1,11 +1,11 @@
-Butterfly is an open-source app for people who think better with space around their ideas. Instead of writing everything from top to bottom on a fixed page, you get an endless workspace where you can place notes, sketches, diagrams, images, and documents wherever they make sense.
+Butterfly هو تطبيق مفتوح المصدر يمنح أفكارك المساحة التي تحتاجها. اكتب الملاحظات وارسم المخططات وأضف الصور والمستندات ورتّبها بحرية على مساحة عمل تمتد معك.
 
-Use it for class notes, meeting notes, research, math, worksheets, planning, whiteboarding, storyboards, product sketches, or any project that starts messy and needs room to grow. Write by hand with a stylus, touch, or mouse, type text and Markdown, add shapes and lines, place images and photos, import PDFs, SVGs, and image files, then export your work as PDF, SVG, images, or portable Butterfly files.
+استخدمه لتدوين ملاحظات الفصل الدراسي أو ملاحظات الاجتماع أو البحث أو الرياضيات أو أوراق العمل أو التخطيط أو السبورة البيضاء أو القصص المصورة أو رسومات المنتج أو أي مشروع يبدأ بشكل فوضوي ويحتاج إلى مساحة للنمو. اكتب يدويًا باستخدام القلم أو اللمس أو الماوس، واكتب النص وMarkdown، وأضف الأشكال والخطوط، وضع الصور والصور، واستورد ملفات PDF، وSVG، وملفات الصور، ثم قم بتصدير عملك بتنسيق PDF، أو SVG، أو صور، أو ملفات الفراشة المحمولة.
 
-Butterfly tries to stay out of your way while you work. Recent files, quick-start templates, search, folders, imports, page navigation, and tool settings are close when you need them, but the document stays at the center. You can begin with a plain page, ruled paper, a grid, dotted paper, music paper, or your own template.
+تحاول الفراشة الابتعاد عن طريقك أثناء عملك. يتم إغلاق الملفات الحديثة وقوالب البدء السريع والبحث والمجلدات وعمليات الاستيراد والتنقل في الصفحة وإعدادات الأداة عندما تحتاج إليها، ولكن يظل المستند في المنتصف. يمكنك البدء بصفحة عادية، أو ورق مسطر، أو شبكة، أو ورق منقط، أو ورق موسيقى، أو القالب الخاص بك.
 
-As your document grows, Butterfly gives you ways to keep it understandable. Split work into pages and page folders, use layers, mark important places with areas and waypoints, save reusable parts in packs, and keep palettes and text styles ready for the next document. Almost everything you add remains editable, so you can move, resize, recolor, reorder, and refine your work later instead of starting over.
+مع نمو مستندك، يوفر لك تطبيق Butterfly طرقًا لإبقائه مفهومًا. قم بتقسيم العمل إلى صفحات ومجلدات صفحات، واستخدم الطبقات، وحدد الأماكن المهمة بالمناطق ونقاط الطريق، واحفظ الأجزاء القابلة لإعادة الاستخدام في حزم، واحتفظ باللوحات وأنماط النص جاهزة للمستند التالي. يظل كل ما تضيفه تقريبًا قابلاً للتحرير، حتى تتمكن من نقل عملك وتغيير حجمه وإعادة تلوينه وإعادة ترتيبه وتحسينه لاحقًا بدلاً من البدء من جديد.
 
-Your files stay under your control. Work offline, store documents on your device, choose a different data directory, or connect WebDAV and Nextcloud if you want your own sync setup. There is no required account, no required subscription, and no required proprietary cloud.
+تظل ملفاتك تحت سيطرتك. يمكنك العمل دون الاتصال بالإنترنت، أو تخزين المستندات على جهازك، أو اختيار دليل بيانات مختلف، أو الاتصال بـ WebDAV وNextcloud إذا كنت تريد إعداد المزامنة الخاص بك. لا يوجد حساب مطلوب، ولا اشتراك مطلوب، ولا توجد سحابة خاصة مطلوبة.
 
-Butterfly is free, community translated, available on phones, tablets, desktops, and the web, and developed in public under the AGPL-3.0 license.
+الفراشة مجانية، ومترجمة من قبل المجتمع، ومتاحة على الهواتف، والأجهزة اللوحية، وأجهزة الكمبيوتر المكتبية، والويب، وتم تطويرها للعامة بموجب ترخيص AGPL-3.0.

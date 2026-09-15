@@ -1,11 +1,11 @@
-Butterfly is an open-source app for people who think better with space around their ideas. Instead of writing everything from top to bottom on a fixed page, you get an endless workspace where you can place notes, sketches, diagrams, images, and documents wherever they make sense.
+Butterfly เป็นแอปโอเพนซอร์สที่เปิดพื้นที่ให้ไอเดียของคุณเติบโต จดบันทึก วาดภาพร่าง สร้างไดอะแกรม และวางรูปภาพกับเอกสารได้อย่างอิสระบนพื้นที่ทำงานที่ขยายได้ตามต้องการ
 
-Use it for class notes, meeting notes, research, math, worksheets, planning, whiteboarding, storyboards, product sketches, or any project that starts messy and needs room to grow. Write by hand with a stylus, touch, or mouse, type text and Markdown, add shapes and lines, place images and photos, import PDFs, SVGs, and image files, then export your work as PDF, SVG, images, or portable Butterfly files.
+ใช้สำหรับบันทึกในชั้นเรียน บันทึกการประชุม การค้นคว้า คณิตศาสตร์ แผ่นงาน การวางแผน ไวท์บอร์ด กระดานเรื่องราว ภาพร่างผลิตภัณฑ์ หรือโครงการใดๆ ที่เริ่มยุ่งเหยิงและต้องการพื้นที่ในการเติบโต เขียนด้วยมือด้วยสไตลัส สัมผัส หรือเมาส์ พิมพ์ข้อความและมาร์กดาวน์ เพิ่มรูปร่างและเส้น วางรูปภาพและภาพถ่าย นำเข้า PDF, SVG และไฟล์รูปภาพ จากนั้นส่งออกงานของคุณเป็น PDF, SVG, รูปภาพ หรือไฟล์ Butterfly แบบพกพา
 
-Butterfly tries to stay out of your way while you work. Recent files, quick-start templates, search, folders, imports, page navigation, and tool settings are close when you need them, but the document stays at the center. You can begin with a plain page, ruled paper, a grid, dotted paper, music paper, or your own template.
+บัตเตอร์ฟลายพยายามไม่เกะกะในขณะที่คุณทำงาน ไฟล์ล่าสุด เทมเพลตเริ่มต้นอย่างรวดเร็ว การค้นหา โฟลเดอร์ การนำเข้า การนำทางหน้า และการตั้งค่าเครื่องมือจะปิดลงเมื่อคุณต้องการ แต่เอกสารจะยังคงอยู่ตรงกลาง คุณสามารถเริ่มต้นด้วยหน้าธรรมดา กระดาษมีเส้นตาราง กระดาษจุด กระดาษโน้ตเพลง หรือเทมเพลตของคุณเอง
 
-As your document grows, Butterfly gives you ways to keep it understandable. Split work into pages and page folders, use layers, mark important places with areas and waypoints, save reusable parts in packs, and keep palettes and text styles ready for the next document. Almost everything you add remains editable, so you can move, resize, recolor, reorder, and refine your work later instead of starting over.
+เมื่อเอกสารของคุณขยายใหญ่ขึ้น Butterfly ก็มอบวิธีให้คุณทำให้เอกสารเข้าใจได้ แบ่งงานออกเป็นหน้าและโฟลเดอร์หน้า ใช้เลเยอร์ ทำเครื่องหมายสถานที่สำคัญด้วยพื้นที่และเวย์พอยท์ บันทึกส่วนที่นำมาใช้ซ้ำเป็นแพ็ค และเตรียมจานสีและสไตล์ข้อความให้พร้อมสำหรับเอกสารถัดไป เกือบทุกสิ่งที่คุณเพิ่มยังคงสามารถแก้ไขได้ ดังนั้นคุณจึงสามารถย้าย ปรับขนาด เปลี่ยนสี เรียงลำดับใหม่ และปรับแต่งงานของคุณในภายหลังแทนที่จะเริ่มต้นใหม่
 
-Your files stay under your control. Work offline, store documents on your device, choose a different data directory, or connect WebDAV and Nextcloud if you want your own sync setup. There is no required account, no required subscription, and no required proprietary cloud.
+ไฟล์ของคุณอยู่ภายใต้การควบคุมของคุณ ทำงานแบบออฟไลน์ จัดเก็บเอกสารบนอุปกรณ์ของคุณ เลือกไดเร็กทอรีข้อมูลอื่น หรือเชื่อมต่อ WebDAV และ Nextcloud หากคุณต้องการตั้งค่าการซิงค์ของคุณเอง ไม่จำเป็นต้องมีบัญชี ไม่ต้องสมัครสมาชิก และไม่มีคลาวด์ที่เป็นกรรมสิทธิ์
 
-Butterfly is free, community translated, available on phones, tablets, desktops, and the web, and developed in public under the AGPL-3.0 license.
+Butterfly เป็นบริการฟรี แปลโดยชุมชน พร้อมใช้งานบนโทรศัพท์ แท็บเล็ต เดสก์ท็อป และเว็บ และพัฒนาต่อสาธารณะภายใต้ใบอนุญาต AGPL-3.0

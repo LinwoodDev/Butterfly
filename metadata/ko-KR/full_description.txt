@@ -1,11 +1,11 @@
-Butterfly is an open-source app for people who think better with space around their ideas. Instead of writing everything from top to bottom on a fixed page, you get an endless workspace where you can place notes, sketches, diagrams, images, and documents wherever they make sense.
+Butterfly는 아이디어를 자유롭게 펼칠 수 있는 오픈 소스 앱입니다. 메모와 스케치, 다이어그램을 만들고 이미지와 문서를 원하는 곳에 배치하며 작업 공간을 자유롭게 확장해 보세요.
 
-Use it for class notes, meeting notes, research, math, worksheets, planning, whiteboarding, storyboards, product sketches, or any project that starts messy and needs room to grow. Write by hand with a stylus, touch, or mouse, type text and Markdown, add shapes and lines, place images and photos, import PDFs, SVGs, and image files, then export your work as PDF, SVG, images, or portable Butterfly files.
+수업 노트, 회의 노트, 연구, 수학, 워크시트, 계획, 화이트보드, 스토리보드, 제품 스케치 또는 지저분하게 시작하고 성장할 공간이 필요한 모든 프로젝트에 사용하세요. 스타일러스, 터치 또는 마우스를 사용하여 손으로 작성하고, 텍스트 및 마크다운을 입력하고, 모양과 선을 추가하고, 이미지와 사진을 배치하고, PDF, SVG 및 이미지 파일을 가져온 다음 작업을 PDF, SVG, 이미지 또는 휴대용 Butterfly 파일로 내보냅니다.
 
-Butterfly tries to stay out of your way while you work. Recent files, quick-start templates, search, folders, imports, page navigation, and tool settings are close when you need them, but the document stays at the center. You can begin with a plain page, ruled paper, a grid, dotted paper, music paper, or your own template.
+Butterfly는 당신이 일하는 동안 방해가 되지 않도록 노력합니다. 최근 파일, 빠른 시작 템플릿, 검색, 폴더, 가져오기, 페이지 탐색, 도구 설정은 필요할 때 닫혀 있지만 문서는 중앙에 유지됩니다. 일반 페이지, 괘지, 격자선, 점선 용지, 오선지 또는 자신만의 템플릿으로 시작할 수 있습니다.
 
-As your document grows, Butterfly gives you ways to keep it understandable. Split work into pages and page folders, use layers, mark important places with areas and waypoints, save reusable parts in packs, and keep palettes and text styles ready for the next document. Almost everything you add remains editable, so you can move, resize, recolor, reorder, and refine your work later instead of starting over.
+문서가 커짐에 따라 Butterfly는 문서를 이해하기 쉽게 유지할 수 있는 방법을 제공합니다. 작업을 페이지와 페이지 폴더로 분할하고, 레이어를 사용하고, 영역과 중간 지점으로 중요한 장소를 표시하고, 재사용 가능한 부품을 팩에 저장하고, 다음 문서에 사용할 팔레트와 텍스트 스타일을 준비하세요. 추가한 거의 모든 항목은 편집 가능한 상태로 유지되므로 처음부터 다시 시작하지 않고도 나중에 작업을 이동하고, 크기를 조정하고, 색상을 변경하고, 순서를 바꾸고, 다듬을 수 있습니다.
 
-Your files stay under your control. Work offline, store documents on your device, choose a different data directory, or connect WebDAV and Nextcloud if you want your own sync setup. There is no required account, no required subscription, and no required proprietary cloud.
+귀하의 파일은 귀하의 통제 하에 있습니다. 오프라인으로 작업하고, 장치에 문서를 저장하고, 다른 데이터 디렉터리를 선택하거나, 나만의 동기화 설정을 원하는 경우 WebDAV와 Nextcloud를 연결하세요. 필수 계정, 필수 구독, 필수 독점 클라우드가 없습니다.
 
-Butterfly is free, community translated, available on phones, tablets, desktops, and the web, and developed in public under the AGPL-3.0 license.
+Butterfly는 무료이며 커뮤니티 번역이며 휴대폰, 태블릿, 데스크톱 및 웹에서 사용할 수 있으며 AGPL-3.0 라이선스에 따라 공개적으로 개발되었습니다.
