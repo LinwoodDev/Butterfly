@@ -1,4 +1,4 @@
-Butterfly é um aplicativo de código aberto que dá espaço para suas ideias. Faça anotações, desenhe, crie diagramas e organize imagens e documentos livremente em um espaço de trabalho que acompanha o crescimento do seu projeto.
+Butterfly é um aplicativo de código aberto que dá espaço para suas ideias. Instead of writing everything from top to bottom on a fixed page, you get an endless workspace where you can place notes, sketches, diagrams, images, and documents wherever they make sense.
 
 Use-o para anotações de aula, anotações de reuniões, pesquisas, matemática, planilhas, planejamento, quadros brancos, storyboards, esboços de produtos ou qualquer projeto que comece confuso e precise de espaço para crescer. Escreva à mão com uma caneta, toque ou mouse, digite texto e Markdown, adicione formas e linhas, coloque imagens e fotos, importe PDFs, SVGs e arquivos de imagem e exporte seu trabalho como PDF, SVG, imagens ou arquivos Butterfly portáteis.
 
