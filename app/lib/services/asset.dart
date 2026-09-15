@@ -16,6 +16,17 @@ class AssetService() {
   final Map<String, Future<ui.Image?>> _images = {};
   final Map<String, Future<Uint8List?>> _dataCache = {};
   final Map<String, Future<PdfDocument?>> _pdfs = {};
+  bool _disposed = false;
+
+  Future<void> removeUnusedSources(DocumentPage page) async {
+    final sources = page.sources;
+    final unused = {
+      ..._images.keys,
+      ..._dataCache.keys,
+      ..._pdfs.keys,
+    }.difference(sources);
+    await Future.wait(unused.map(invalidate));
+  }
 
   Future<ui.Image?> getImage(String path, NoteData document) async {
     if (_images.containsKey(path)) {
@@ -65,14 +76,27 @@ class AssetService() {
         image?.dispose();
       }
     } catch (_) {}
-    _images.remove(path);
   }
 
   Future<Uint8List?> computeDataFromSource(String source, NoteData document) {
     if (_dataCache.containsKey(source)) {
       return _dataCache[source]!;
     }
-    final data = element_helper.computeDataFromSource(document, source);
+    late final Future<Uint8List?> data;
+    data = element_helper
+        .computeDataFromSource(document, source)
+        .then(
+          (bytes) {
+            if (bytes == null && identical(_dataCache[source], data)) {
+              _dataCache.remove(source);
+            }
+            return bytes;
+          },
+          onError: (Object error, StackTrace stackTrace) {
+            if (identical(_dataCache[source], data)) _dataCache.remove(source);
+            Error.throwWithStackTrace(error, stackTrace);
+          },
+        );
     _dataCache[source] = data;
     return data;
   }
@@ -82,17 +106,25 @@ class AssetService() {
   }
 
   Future<PdfDocument?> getPdfDocument(String source, NoteData document) async {
+    if (_disposed) return null;
     final cached = _pdfs[source];
     if (cached != null) return cached;
-    final future = _loadPdfDocument(source, document);
+    late final Future<PdfDocument?> future;
+    future = _loadPdfDocument(source, document).then(
+      (pdf) {
+        if (pdf == null && identical(_pdfs[source], future)) {
+          _pdfs.remove(source);
+        }
+        return pdf;
+      },
+      onError: (Object error, StackTrace stackTrace) {
+        if (identical(_pdfs[source], future)) _pdfs.remove(source);
+        talker.error('Failed to load PDF document $source', error, stackTrace);
+        return null;
+      },
+    );
     _pdfs[source] = future;
-    try {
-      return await future;
-    } catch (error, stackTrace) {
-      _pdfs.remove(source);
-      talker.error('Failed to load PDF document $source', error, stackTrace);
-      return null;
-    }
+    return future;
   }
 
   Future<PdfDocument?> _loadPdfDocument(
@@ -106,30 +138,27 @@ class AssetService() {
   }
 
   Future<void> invalidatePdfDocument(String source) async {
-    return _pdfs.remove(source)?.then((pdf) => pdf?.dispose());
+    final pdf = await _pdfs.remove(source);
+    await pdf?.dispose();
   }
 
   Future<void> invalidate(String source) async {
     invalidateData(source);
-    await invalidateImage(source);
-    await invalidatePdfDocument(source);
+    await Future.wait([invalidatePdfDocument(source), invalidateImage(source)]);
   }
 
   Future<void> dispose() async {
+    _disposed = true;
     final imageFutures = _images.values.toList();
     _images.clear();
     _dataCache.clear();
-    final pdfFutures = _pdfs.values.toList();
-    _pdfs.clear();
+    final pdfSources = _pdfs.keys.toList();
     await Future.wait([
       ...imageFutures.map((future) async {
         final image = await future;
         image?.dispose();
       }),
-      ...pdfFutures.map((future) async {
-        final pdf = await future;
-        await pdf?.dispose();
-      }),
+      ...pdfSources.map(invalidatePdfDocument),
     ]);
   }
 }

@@ -44,3 +44,10 @@ sealed class Background with _$Background {
     _ => SRGBColor.white,
   };
 }
+
+/// Asset sources referenced by a background.
+extension BackgroundSources on Background {
+  Iterable<String> get sources sync* {
+    if (this case SourcedElement(:final source)) yield source;
+  }
+}

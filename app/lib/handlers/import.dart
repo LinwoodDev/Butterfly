@@ -15,8 +15,10 @@ class ImportHandler extends Handler<ImportTool> {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     final assetService = state.assetService;
-    for (final element in data.elements.whereType<SourcedElement>()) {
-      assetService.invalidate(element.source);
+    final sources = data.elements.expand((element) => element.sources).toSet();
+    sources.removeAll(state.page.sources);
+    for (final source in sources) {
+      assetService.invalidate(source);
     }
   }
 

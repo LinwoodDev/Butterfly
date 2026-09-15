@@ -1479,12 +1479,13 @@ void _applyTemplateBackgroundsToPages(
   if (state is! DocumentLoadSuccess) return;
   final backgrounds =
       template.getFirstPage()?.backgrounds ?? const <Background>[];
-  for (final background in backgrounds.whereType<SourcedElement>()) {
-    final uri = Uri.tryParse(background.source);
+  for (final source
+      in backgrounds.expand((background) => background.sources).toSet()) {
+    final uri = Uri.tryParse(source);
     if (uri?.scheme.isNotEmpty ?? true) continue;
-    final asset = template.getAsset(background.source);
+    final asset = template.getAsset(source);
     if (asset != null) {
-      bloc.add(AssetUpdated(background.source, asset));
+      bloc.add(AssetUpdated(source, asset));
     }
   }
   final originalPageName = state.pageName;

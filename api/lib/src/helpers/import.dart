@@ -34,7 +34,6 @@ typedef ImportAssetOptions = (
 
   String importAsset(SourcedElement element, String fileExtension) {
     final source = element.source;
-    options.onInvalidate?.call(source);
     if (imported.containsKey(source)) {
       return imported[source]!;
     }

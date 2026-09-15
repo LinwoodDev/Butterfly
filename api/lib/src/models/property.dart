@@ -201,3 +201,36 @@ sealed class PathShape with _$PathShape {
   factory PathShape.fromJson(Map<String, dynamic> json) =>
       _$PathShapeFromJson(json);
 }
+
+/// Asset sources referenced by a paint.
+extension ElementPaintSources on ElementPaint {
+  Iterable<String> get sources => switch (this) {
+    ImageElementPaint(:final source) ||
+    SvgElementPaint(:final source) => [source],
+    SolidElementPaint() || GradientElementPaint() => const [],
+  };
+}
+
+extension PathShapeSources on PathShape {
+  Iterable<String> get sources => switch (this) {
+    CircleShape(:final fillPaint) ||
+    RectangleShape(:final fillPaint) ||
+    TriangleShape(:final fillPaint) => fillPaint.sources,
+    LineShape() => const [],
+  };
+}
+
+extension PropertySources on Property {
+  Iterable<String> get sources => switch (this) {
+    PenProperty(:final paint, :final fillPaint) ||
+    PolygonProperty(
+      :final paint,
+      :final fillPaint,
+    ) => [...paint.sources, ...fillPaint.sources],
+    PathProperty(:final paint) => paint.sources,
+    ShapeProperty(:final paint, :final shape) => [
+      ...paint.sources,
+      ...shape.sources,
+    ],
+  };
+}

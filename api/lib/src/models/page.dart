@@ -42,16 +42,13 @@ sealed class DocumentPage with _$DocumentPage {
     return animations.firstWhereOrNull((e) => e.name == name);
   }
 
-  bool usesSource(String source) {
-    return backgrounds.whereType<SourcedElement>().any(
-          (e) => e.source == source,
-        ) ||
-        layers.any(
-          (e) => e.content.whereType<SourcedElement>().any(
-            (e) => e.source == source,
-          ),
-        );
-  }
+  /// All asset sources referenced by this page, including paints and backgrounds.
+  Set<String> get sources => {
+    for (final background in backgrounds) ...background.sources,
+    for (final element in content) ...element.sources,
+  };
+
+  bool usesSource(String source) => sources.contains(source);
 
   DocumentLayer getLayer(String id) {
     return layers.where((e) => e.id == id).firstOrNull ?? DocumentLayer(id: id);

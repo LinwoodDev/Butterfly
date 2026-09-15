@@ -114,6 +114,20 @@ extension LabelElementProperties on LabelElement {
 sealed class PadElement with _$PadElement {
   const PadElement._();
 
+  /// Asset sources used directly by this element or by its paints.
+  Iterable<String> get sources => switch (this) {
+    PdfElement(:final source) ||
+    ImageElement(:final source) ||
+    SvgElement(:final source) => [source],
+    PenElement(:final property) => property.sources,
+    PolygonElement(:final property) => property.sources,
+    ShapeElement(:final property) => property.sources,
+    TextElement() ||
+    TextureElement() ||
+    TableElement() ||
+    MarkdownElement() => const [],
+  };
+
   @Implements<PathElement>()
   factory PadElement.pen({
     @Default(0) double rotation,

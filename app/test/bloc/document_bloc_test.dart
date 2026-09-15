@@ -242,6 +242,22 @@ class _ThrowingVisibleRenderer extends Renderer<PadElement> {
   ]) {}
 }
 
+class _TrackingAssetService extends AssetService {
+  int disposals = 0;
+  final trimmedPage = Completer<DocumentPage>();
+  @override
+  Future<void> removeUnusedSources(DocumentPage page) async {
+    await super.removeUnusedSources(page);
+    if (!trimmedPage.isCompleted) trimmedPage.complete(page);
+  }
+
+  @override
+  Future<void> dispose() async {
+    disposals++;
+    await super.dispose();
+  }
+}
+
 class _ThrowingPdfAssetService extends AssetService {
   int pdfLoads = 0;
 
@@ -1523,6 +1539,64 @@ void main() {
     expect(viewport.bakedElements.single.rotation, 90);
     expect(viewport.unbakedElements, isEmpty);
   });
+
+  test('page navigation keeps the shared asset service alive', () async {
+    final state = bloc.state as DocumentLoadSuccess;
+    final data = state.data;
+    final target = data.getPages(true).firstWhere((p) => p != state.pageName);
+    final assets = _TrackingAssetService();
+    await bloc.close();
+    await editorController.close();
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      const CameraViewport.unbaked(),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'shared-assets.bfly'),
+      assets,
+      state.page,
+      state.pageName,
+    );
+    final switched = bloc.stream.firstWhere(
+      (s) => s is DocumentLoadSuccess && s.pageName == target,
+    );
+    bloc.add(PageChanged(target));
+    await switched;
+    await _settleBlocEvents();
+    expect((bloc.state as DocumentLoadSuccess).assetService, same(assets));
+    expect(
+      await assets.trimmedPage.future,
+      (bloc.state as DocumentLoadSuccess).page,
+    );
+    expect(assets.disposals, 0);
+  });
+
+  test(
+    'importing existing PDF references does not invalidate shared bytes',
+    () {
+      final invalidated = <String>[];
+      final source = '$kPdfArchiveDirectory/shared.pdf';
+      final data = NoteData(Archive())
+          .setAsset(source, Uint8List.fromList([1, 2]));
+      final (_, elements) = importAssets((
+        data,
+        [
+          PdfElement(source: source, page: 0, width: 100, height: 100),
+          PdfElement(source: source, page: 1, width: 100, height: 100),
+        ],
+        onInvalidate: invalidated.add,
+        alreadyImported: null,
+        assets: null,
+      ));
+      expect(elements, hasLength(2));
+      expect(invalidated, isEmpty);
+    },
+  );
 
   test('switching pages reloads the renderer in embeds', () async {
     await bloc.close();

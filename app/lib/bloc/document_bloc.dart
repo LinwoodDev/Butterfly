@@ -339,7 +339,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         page = _decodePage(rawPage);
       }
       if (page == null) return;
-      current.assetService.dispose();
       final data = current.data.setRawPage(encodedPage, current.pageName).$1;
       await _saveState(
         emit,
@@ -351,6 +350,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
         reset: true,
       );
+      // Reload disposes the old page renderers before evicting their sources.
+      // A superseded page change must not evict assets for the newer page.
+      if (!emit.isDone) {
+        final latest = state;
+        if (latest is DocumentLoadSuccess) {
+          await latest.assetService.removeUnusedSources(latest.page);
+        }
+      }
     }, transformer: restartable());
     on<PageReordered>((event, emit) {
       final current = state;
@@ -535,11 +542,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final updated = elements[id];
         if (updated != null) {
           final oldElement = renderer.element;
-          if (oldElement is SourcedElement) {
-            final source = (oldElement as SourcedElement).source;
+          for (final source in oldElement.sources) {
             final uri = Uri.tryParse(source);
-            if (uri?.scheme == '' && !newPage.usesSource(source)) {
-              unusedAssets.add(source);
+            if (uri?.scheme == '' &&
+                !newPage.usesSource(source) &&
+                unusedAssets.add(source)) {
               current.assetService.invalidate(source);
             }
           }
@@ -690,11 +697,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           .toList();
       for (final renderer in removedRenderers) {
         final element = renderer.element;
-        if (element is SourcedElement) {
-          final source = (element as SourcedElement).source;
+        for (final source in element.sources) {
           final uri = Uri.tryParse(source);
-          if (uri?.scheme == '' && !newPage.usesSource(source)) {
-            unusedAssets.add(source);
+          if (uri?.scheme == '' &&
+              !newPage.usesSource(source) &&
+              unusedAssets.add(source)) {
             current.assetService.invalidate(source);
           }
         }
@@ -898,13 +905,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final newPage = current.page.copyWith(backgrounds: event.backgrounds);
       // Remove unused assets
       final unusedAssets = <String>{};
-      current.page.backgrounds.whereType<SourcedElement>().forEach((element) {
-        final uri = Uri.tryParse(element.source);
-        if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
-          unusedAssets.add(element.source);
-          current.assetService.invalidate(element.source);
+      for (final source in current.page.backgrounds.expand((e) => e.sources)) {
+        final uri = Uri.tryParse(source);
+        if (uri?.scheme == '' &&
+            !newPage.usesSource(source) &&
+            unusedAssets.add(source)) {
+          current.assetService.invalidate(source);
         }
-      });
+      }
       final data = current.data.removeAssets(unusedAssets.toList());
       for (final bg
           in editorController.rendererCubit.state.cameraViewport.backgrounds) {
