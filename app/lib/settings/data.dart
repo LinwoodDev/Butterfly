@@ -12,7 +12,7 @@ import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly/widgets/file_name_pattern_field.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';

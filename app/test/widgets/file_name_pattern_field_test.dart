@@ -1,6 +1,6 @@
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/widgets/file_name_pattern_field.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
