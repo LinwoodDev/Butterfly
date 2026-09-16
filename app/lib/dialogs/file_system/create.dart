@@ -1,6 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/defaults.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 
 class FileSystemAssetCreateDialog extends StatefulWidget {
