@@ -63,6 +63,18 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.0-rc.2" type="development" date="2026-09-16">
+			<description>
+				<ul>
+					<li>Show initial document content while PDFs load and repaint once the visible batch is ready</li>
+					<li>Fix strokes disappearing during PDF rendering and stale viewport updates after navigation (#1259)</li>
+					<li>Fix PDF import initialization and loading dialog cleanup after preview failures (#1260)</li>
+					<li>Preserve shared PDFs across page changes, release unused sources, and retry failed asset loads (#1261)</li>
+					<li>Fix rtl icon mirroring on multiple views</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.2</url>
+		</release>
 		<release version="2.6.0-rc.1" type="development" date="2026-09-13">
 			<description>
 				<ul>
@@ -131,23 +143,7 @@
 			</description>
 			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.5</url>
 		</release>
-		<release version="2.6.0-beta.4" type="development" date="2026-08-03">
-			<description>
-				<ul>
-					<li>Add table tool and elements (#1155)</li>
-					<li>Add Markdown table parsing and rendering</li>
-					<li>Add preview images to the pages and areas navigators (#1151)</li>
-					<li>Add color option to the area tool (#1175)</li>
-					<li>Add foreground color option to the ruler tool with automatic contrast (#1168)</li>
-					<li>Add reset to setting pages (#1190)</li>
-					<li>Add focal support to radial gradients (#1193)</li>
-					<li>Add back and forward mouse button mappings (#1169)</li>
-					<li>Add two- and three-finger touch shortcuts (#976)</li>
-					<li>Add configurable canvas rotation keyboard shortcuts (#1170)</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.4</url>
-		</release>
+		<release version="2.6.0-beta.4" type="development" date="2026-08-03" />
 		<release version="2.6.0-beta.3" type="development" date="2026-07-27" />
 		<release version="2.6.0-beta.2" type="development" date="2026-07-13" />
 		<release version="2.6.0-beta.1" type="development" date="2026-07-06" />

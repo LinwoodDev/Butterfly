@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-rc.2 (2026-09-16)
+
+* Show initial document content while PDFs load and repaint once the visible batch is ready
+* Fix strokes disappearing during PDF rendering and stale viewport updates after navigation ([#1259](https://github.com/LinwoodDev/Butterfly/issues/1259))
+* Fix PDF import initialization and loading dialog cleanup after preview failures ([#1260](https://github.com/LinwoodDev/Butterfly/issues/1260))
+* Preserve shared PDFs across page changes, release unused sources, and retry failed asset loads ([#1261](https://github.com/LinwoodDev/Butterfly/issues/1261))
+* Fix rtl icon mirroring on multiple views
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.2
+
 ## 2.6.0-rc.1 (2026-09-13)
 
 * Add per-page viewport persistence
