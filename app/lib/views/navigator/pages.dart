@@ -6,7 +6,7 @@ import '../../widgets/multi_select.dart';
 import '../../widgets/reorderable_list_item.dart';
 
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';

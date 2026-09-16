@@ -1,5 +1,5 @@
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 extension DocumentPageHelper on DocumentPage {

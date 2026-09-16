@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:butterfly/api/close.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:window_manager/window_manager.dart';

@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:archive/archive.dart';
 import 'package:butterfly/helpers/color.dart';
 import 'package:butterfly/visualizer/preset.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';

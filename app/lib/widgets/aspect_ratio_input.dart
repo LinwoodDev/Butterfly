@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AspectRatioInput extends StatefulWidget {
   final double aspectRatio;
