@@ -4,7 +4,7 @@ Ob Unterrichts- oder Besprechungsnotizen, Recherche, Mathematik, Arbeitsblätter
 
 Butterfly hält sich während Ihrer Arbeit angenehm im Hintergrund. Zuletzt verwendete Dateien, Schnellstartvorlagen, Suche, Ordner, Importe, Seitennavigation und Werkzeugeinstellungen sind schnell zur Hand, wenn Sie sie brauchen – das Dokument bleibt dabei im Mittelpunkt. Beginnen Sie mit einer leeren Seite, liniertem, kariertem oder gepunktetem Papier, Notenpapier oder Ihrer eigenen Vorlage.
 
-Wenn Ihr Dokument wächst, hilft Butterfly Ihnen, den Überblick zu behalten. Teilen Sie Ihre Arbeit in Seiten und Seitenordner auf, verwenden Sie Ebenen, markieren Sie wichtige Stellen mit Bereichen und Wegpunkten und speichern Sie wiederverwendbare Inhalte in Paketen. Farbpaletten und Textstile stehen Ihnen auch im nächsten Dokument zur Verfügung. Fast alles bleibt bearbeitbar: Sie können Inhalte später verschieben, skalieren, umfärben, neu anordnen und weiter verfeinern, statt von vorne anzufangen.
+Wenn Ihr Dokument wächst, hilft Butterfly Ihnen, den Überblick zu behalten. Teilen Sie Ihre Arbeit in Seiten und Seitenordner auf, verwenden Sie Ebenen, markieren Sie wichtige Stellen mit Bereichen und Wegpunkten und speichern Sie wiederverwendbare Inhalte in Paketen. Fast alles bleibt bearbeitbar: Sie können Inhalte später verschieben, skalieren, umfärben, neu anordnen und weiter verfeinern, statt von vorne anzufangen.
 
 Ihre Dateien bleiben unter Ihrer Kontrolle. Arbeiten Sie offline, speichern Sie Dokumente auf Ihrem Gerät, wählen Sie ein anderes Datenverzeichnis oder verbinden Sie WebDAV und Nextcloud für Ihre eigene Synchronisation. Sie benötigen weder ein Konto noch ein Abonnement oder eine proprietäre Cloud.
 

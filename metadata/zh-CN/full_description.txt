@@ -1,11 +1,11 @@
-Butterfly 是一款开源应用，让您的想法拥有充分的发挥空间。您可以记笔记、画草图、制作图表，并在可随工作不断延展的工作空间中自由放置图片和文档。
+Butterfly 是一款开源应用，让您的想法拥有充分的发挥空间。您可以记笔记、画草图、制作图表，并在可随工作不断延展的工作空间中自由放置图片和文档。 Instead of writing everything from top to bottom on a fixed page, you get an endless workspace where you can place notes, sketches, diagrams, images, and documents wherever they make sense.
 
-将其用于课堂笔记、会议笔记、研究、数学、工作表、规划、白板、故事板、产品草图或任何开始混乱且需要成长空间的项目。使用手写笔、触摸屏或鼠标进行手写，输入文本和 Markdown，添加形状和线条，放置图像和照片，导入 PDF、SVG 和图像文件，然后将您的作品导出为 PDF、SVG、图像或便携式 Butterfly 文件。
+Use it for class notes, meeting notes, research, math, worksheets, planning, whiteboarding, storyboards, product sketches, or any project that starts messy and needs room to grow. Write by hand with a stylus, touch, or mouse, type text and Markdown, add shapes and lines, place images and photos, import PDFs, SVGs, and image files, then export your work as PDF, SVG, images, or portable Butterfly files.
 
-当你工作时，蝴蝶会尽量不妨碍你。最近的文件、快速启动模板、搜索、文件夹、导入、页面导航和工具设置在您需要时就在附近，但文档仍位于中心。您可以从普通纸、直纹纸、网格纸、点线纸、乐谱纸或您自己的模板开始。
+Butterfly tries to stay out of your way while you work. Recent files, quick-start templates, search, folders, imports, page navigation, and tool settings are close when you need them, but the document stays at the center. You can begin with a plain page, ruled paper, a grid, dotted paper, music paper, or your own template.
 
-随着文档的增长，Butterfly 为您提供了使其易于理解的方法。将工作拆分为页面和页面文件夹，使用图层，用区域和路径点标记重要位置，将可重复使用的部分保存在包中，并为下一个文档准备好调色板和文本样式。几乎您添加的所有内容都保持可编辑状态，因此您可以在以后移动、调整大小、重新着色、重新排序和完善您的工作，而无需重新开始。
+As your document grows, Butterfly gives you ways to keep it understandable. Split work into pages and page folders, use layers, mark important places with areas and waypoints, save reusable parts in packs, and keep palettes and text styles ready for the next document. Almost everything you add remains editable, so you can move, resize, recolor, reorder, and refine your work later instead of starting over.
 
-您的文件由您掌控。离线工作、在设备上存储文档、选择不同的数据目录，或者如果您想要自己的同步设置，则连接 WebDAV 和 Nextcloud。不需要帐户，不需要订阅，也不需要专有云。
+Your files stay under your control. 您的文件由您掌控。离线工作、在设备上存储文档、选择不同的数据目录，或者如果您想要自己的同步设置，则连接 WebDAV 和 Nextcloud。不需要帐户，不需要订阅，也不需要专有云。 There is no required account, no required subscription, and no required proprietary cloud.
 
 Butterfly 是免费的，经过社区翻译，可在手机、平板电脑、台式机和网络上使用，并根据 AGPL-3.0 许可证公开开发。

@@ -1,4 +1,4 @@
-Butterfly è un’app open source che lascia spazio alle vostre idee. Prendete appunti, fate schizzi, create diagrammi e disponete liberamente immagini e documenti in uno spazio di lavoro che cresce con voi.
+Butterfly è un’app open source che lascia spazio alle vostre idee. Instead of writing everything from top to bottom on a fixed page, you get an endless workspace where you can place notes, sketches, diagrams, images, and documents wherever they make sense.
 
 Usalo per appunti di classe, appunti di riunione, ricerche, matematica, fogli di lavoro, pianificazione, lavagne, storyboard, schizzi di prodotti o qualsiasi progetto che inizia in modo disordinato e ha bisogno di spazio per crescere. Scrivi a mano con uno stilo, un tocco o un mouse, digita testo e Markdown, aggiungi forme e linee, posiziona immagini e foto, importa PDF, SVG e file di immagine, quindi esporta il tuo lavoro come PDF, SVG, immagini o file Butterfly portatili.
 
