@@ -5,7 +5,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditorSessionCubit({

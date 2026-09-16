@@ -10,7 +10,7 @@ import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:intl/intl.dart' hide TextDirection;

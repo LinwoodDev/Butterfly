@@ -5,7 +5,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 

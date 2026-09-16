@@ -29,18 +29,18 @@ packages:
     dependency: transitive
     description:
       name: android_file_picker
-      sha256: "014c74ab48d452c3252465682375a7fe6ddf56abb908ec361f207a3c4ffb2444"
+      sha256: "14ab27769b54c48d5a8a71aa9858372b7a3ae77572ea0a8aee744643c5d8c53d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "2.0.0"
   animations:
     dependency: "direct main"
     description:
       name: animations
-      sha256: "9cb469212ea51be27097f23b519d594c01171721347b55df9334fff653659e7f"
+      sha256: "5ec868ffa78851e6f3f32e9377b780c7ae2087a5523d8b5e6df59bd8287ac5dd"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   ansicolor:
     dependency: transitive
     description:
@@ -336,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  cupertino_ui:
+    dependency: transitive
+    description:
+      name: cupertino_ui
+      sha256: c6747018d37d32feeeb858a1d7043831cb541460ebe1a890a995cdb8df8ea5a5
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   dart_leap:
     dependency: transitive
     description:
@@ -373,10 +381,10 @@ packages:
     dependency: "direct main"
     description:
       name: dynamic_color
-      sha256: "4aeb76de323e8eb660bab5557d826ad7ebbf1434a598f0c6aa8a11a9696a6757"
+      sha256: "869b3bce0100eb519768ecd71c0111f0b5ea679f5f62e1f59c49d80067e730c5"
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0"
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -413,42 +421,42 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "9be6aac79508dbcf8dac80a4fb20f27ce6f910837ca27e3670b9295995cc0110"
+      sha256: "98c0b156b6380ba55bc767a14e2e6b3feb246e713ad40092424596fa79005bea"
       url: "https://pub.dev"
     source: hosted
-    version: "12.3.0"
+    version: "13.1.0"
   file_picker_darwin:
     dependency: transitive
     description:
       name: file_picker_darwin
-      sha256: "59fa5394cfa5b6dc8bf491630cb17077b77b844adbb840df371e7be5355d6cf6"
+      sha256: deb3ff69d58656b885c85bc1627f09ecb79860f272a5e7577149582ede4dce5d
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "2.1.0"
   file_picker_linux:
     dependency: transitive
     description:
       name: file_picker_linux
-      sha256: bd52ff1e0048f29df95f913c55ad2991c72791d93e6c42241912c4bdee946cb9
+      sha256: e7db600f50672ce5ebbe422ac0906e0f3d2a476188cc93e7126afee12bf08063
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.0"
   file_picker_platform_interface:
     dependency: transitive
     description:
       name: file_picker_platform_interface
-      sha256: "0355558fd9af6da499d18e333d6b3beb44b0bf19e00933fccd15d18eb8d0e9ca"
+      sha256: bbdc085a6f168e63f147e9ce8988f79fa0800a58e7f25a48f762c60837107ba5
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "4.0.0"
   file_picker_web:
     dependency: transitive
     description:
       name: file_picker_web
-      sha256: "935560a9d29fa6f006f2855addebb88e88d438e13627d4cc24187033c106f227"
+      sha256: b3004268da0c1b52baa18df430e7ec4438194de855a807d26b447cbf07ef3496
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "4.0.0"
   fixnum:
     dependency: transitive
     description:
@@ -461,18 +469,18 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: ab854146f201d2d62cc251fd525ef023b84182c4a0bfe4ae4c18ffc505b412d3
+      sha256: "77973145524ae7aab669cd1debe4971f4ec256771b205f3da1ac33f147df5f79"
       url: "https://pub.dev"
     source: hosted
-    version: "8.4.0"
+    version: "9.0.0"
   flex_seed_scheme:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: a3183753bbcfc3af106224bff3ab3e1844b73f58062136b7499919f49f3667e7
+      sha256: "08f9ee11f9a08c2dee76d0a07ea824c8a09ea4db9456e32ac4f6dfb34d28392c"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "5.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -548,18 +556,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_secure_storage
-      sha256: fe638107c5f69119156ada2db5a57734385fac3f64430bd7252a00d3ead2ca4b
+      sha256: d4e1fb6b2cb524868929e78dc0282fa000554b22060fb53789dc481c9fc95bb8
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.4"
+    version: "11.2.0"
   flutter_secure_storage_darwin:
     dependency: transitive
     description:
       name: flutter_secure_storage_darwin
-      sha256: "82329fa5cdf343773b1b6897dea959105a29f092454259edff92f9f6637e8149"
+      sha256: a031ceac9b070e62ef183cd7f7d1a8798ebde402d5049f0fe6eb3a51bd797a21
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.3"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
@@ -651,10 +659,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: d7a3576cb312649eaa51f2356450aed686085fb58fcdebda5b359aa951eef7ea
+      sha256: "008ab21d89d0de8ccd79586838f7533f126c2d894f50bf25f2947888d3c225b5"
       url: "https://pub.dev"
     source: hosted
-    version: "17.5.0"
+    version: "18.0.1"
   graphs:
     dependency: transitive
     description:
@@ -859,8 +867,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: "4504590d871958c48a93969461193691ea88cb18"
-      resolved-ref: "4504590d871958c48a93969461193691ea88cb18"
+      ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
+      resolved-ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -892,11 +900,19 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "2195d9d509f5ba2c5c823491d93cac4d6136b597"
-      resolved-ref: "2195d9d509f5ba2c5c823491d93cac4d6136b597"
+      ref: "8762753ddaa3843065cadce49c81f9b13a654a40"
+      resolved-ref: "8762753ddaa3843065cadce49c81f9b13a654a40"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
+  material_ui:
+    dependency: "direct main"
+    description:
+      name: material_ui
+      sha256: "6d056d60ce745335fcf1c726a4fc46a481a62229f202b65dbc2db5edbbabc7e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   meta:
     dependency: transitive
     description:
@@ -1113,34 +1129,34 @@ packages:
     dependency: transitive
     description:
       name: pdfium_dart
-      sha256: "86e95c66b09f3245b95c4924f2edce8d4f7c9786876e5c5ee8e36b104a94bbb0"
+      sha256: ed25295fd2624bbf54b8e6bd3cd3d0fc644412d3d5e79ca2485cb36e65f20eb2
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5"
+    version: "0.3.0"
   pdfium_flutter:
     dependency: transitive
     description:
       name: pdfium_flutter
-      sha256: "0b115c0917aef9cf6bb9c4d47d0efc61d97f44844cd76287c921f997c26cf15d"
+      sha256: "2b1f27e30d29d0bb1d57a37c351b0cfa605cf5d2334aa565af370fa5b1eba8f4"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.3.0"
   pdfrx:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "85a87117ae6358e0ef2cc90d4db9f5e689eabbd7f19ab98c97164584d0be4a4a"
+      sha256: "5eed06c4318157ea6791666c2ea4b01a35adac554b0aac7ca6b6d0cd80ba8e15"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.8"
+    version: "2.6.1"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: "4399846809a75aed03881d8b8a19e5e70addd4b46b22fd94a0effd8859258f07"
+      sha256: f7b80b9af7d72188cecc15b31a91558d216cb15f97980b24146fd0c36cd6d049
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.7"
+    version: "0.6.0"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1330,8 +1346,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/settings_leap"
-      ref: "855133902c6893903ff4ea36a99ef8279ded5121"
-      resolved-ref: "855133902c6893903ff4ea36a99ef8279ded5121"
+      ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
+      resolved-ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.1.0"
@@ -1761,10 +1777,10 @@ packages:
     dependency: transitive
     description:
       name: windows_file_picker
-      sha256: "62e6e6e115231d1d1d71c7b5883b4091ce3e0190e49548dfb0ff8cba8d91ad96"
+      sha256: "9f3aa833068b09e380fdc59560ad260a4a14e9397173abb533699f967443602e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
+    version: "2.0.0"
   xdg_directories:
     dependency: transitive
     description:

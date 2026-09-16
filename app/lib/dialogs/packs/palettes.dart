@@ -1,6 +1,6 @@
 import 'package:butterfly/dialogs/packs/color_pick.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';

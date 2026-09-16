@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Controller for managing multiple selection state.
 class MultiSelectController<T> extends ChangeNotifier {
