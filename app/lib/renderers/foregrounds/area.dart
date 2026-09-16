@@ -1,7 +1,7 @@
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 
 class AreaForegroundRenderer extends Renderer<Area> {
