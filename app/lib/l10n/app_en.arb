@@ -916,9 +916,42 @@
   "presentation": "Presentation",
   "simple": "Simple",
   "createPresentation": "Create presentation",
-  "addSlide": "Add slide",
+  "addSlide": "Add new slide",
   "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {"type": "String"}
+    }
+  },
   "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {"type": "int"}
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {"type": "int"}
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {"type": "int"},
+      "frame": {"type": "int"}
+    }
+  },
   "slideOf": "Slide {current} of {total}",
   "@slideOf": {
     "placeholders": {
