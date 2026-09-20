@@ -48,8 +48,8 @@ sealed class AnimationTrack with _$AnimationTrack {
     final first = entries.lastWhereOrNull((entry) => entry.key <= frame);
 
     if (first == null) {
-      final result = entries.last.value;
-      final firstFrame = entries.last.key;
+      final result = entries.first.value;
+      final firstFrame = entries.first.key;
       return _InterpolationResult(result, result, firstFrame, firstFrame);
     }
     final second = entries.firstWhereOrNull((entry) => entry.key >= frame);
@@ -101,6 +101,23 @@ sealed class AnimationTrack with _$AnimationTrack {
     return result.first.cameraZoom! + delta * progress;
   }
 
+  double? interpolateCameraRotation(int frame) {
+    final result = _interpolate(frame, (key) => key.cameraRotation != null);
+    if (result == null ||
+        result.first.cameraRotation == null ||
+        result.second.cameraRotation == null) {
+      return null;
+    }
+    if (result.delta == 0) {
+      return result.first.cameraRotation;
+    }
+    final first = result.first.cameraRotation!;
+    final second = result.second.cameraRotation!;
+    final delta = (second - first + pi) % (2 * pi) - pi;
+    final progress = (frame - result.firstFrame) / result.delta;
+    return (first + delta * progress + pi) % (2 * pi) - pi;
+  }
+
   bool isBreakpoint(int frame) => keys[frame]?.breakpoint ?? false;
 }
 
@@ -109,6 +126,7 @@ sealed class AnimationTrack with _$AnimationTrack {
 class const AnimationKey({
   @DoublePointJsonConverter() final Point<double>? cameraPosition,
   final double? cameraZoom,
+  final double? cameraRotation,
   final bool breakpoint = false,
 }) with _$AnimationKey {
   static AnimationKey fromJson(Map json) =>

@@ -11,7 +11,7 @@ class TogglePresentationIntent extends Intent {
 const togglePresentationShortcut = ShortcutDefinition(
   id: 'toggle_presentation',
   intent: TogglePresentationIntent(),
-  defaultActivator: SingleActivator(LogicalKeyboardKey.space, control: true),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.space),
 );
 
 class TogglePresentationAction extends Action<TogglePresentationIntent> {
