@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 
 class PresentationTimelineView extends StatefulWidget {
   final List<int> animationKeys;
+  final List<int> slideFrames;
   final int currentFrame;
   final int duration;
   final ValueChanged<int>? onFrameChanged;
@@ -10,6 +11,7 @@ class PresentationTimelineView extends StatefulWidget {
   const PresentationTimelineView({
     super.key,
     required this.animationKeys,
+    this.slideFrames = const [],
     required this.currentFrame,
     required this.duration,
     this.onFrameChanged,
@@ -112,12 +114,14 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
                     size: Size.infinite,
                     painter: PresentationTimelinePainter(
                       animationKeys: widget.animationKeys,
+                      slideFrames: widget.slideFrames,
                       currentFrame: widget.currentFrame,
                       duration: widget.duration,
                       zoom: computedZoom,
                       position: computedPosition,
                       cursorColor: colorScheme.primary,
                       keyColor: colorScheme.secondary,
+                      slideColor: colorScheme.tertiary,
                       backgroundColor: colorScheme.surface,
                     ),
                   ),
@@ -169,67 +173,89 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
 
 class PresentationTimelinePainter extends CustomPainter {
   final List<int> animationKeys;
+  final List<int> slideFrames;
   final int currentFrame;
   final int duration;
   final double zoom;
   final double position;
-  final Color cursorColor, keyColor, backgroundColor;
+  final Color cursorColor, keyColor, slideColor, backgroundColor;
 
   PresentationTimelinePainter({
     required this.animationKeys,
+    this.slideFrames = const [],
     required this.currentFrame,
     required this.duration,
     required this.zoom,
     required this.position,
     required this.cursorColor,
     required this.keyColor,
+    required this.slideColor,
     required this.backgroundColor,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    // set zoom relative to duration
-    canvas.scale(zoom, 1);
-    canvas.translate(position / zoom, 0);
     final backgroundPaint = Paint()
       ..color = backgroundColor
-      ..strokeWidth = 1 / zoom
       ..style = PaintingStyle.fill;
-    canvas.drawRect(
-      Offset.zero & Size(duration.toDouble(), size.height),
-      backgroundPaint,
-    );
-    final cursorPaint = Paint()
-      ..color = cursorColor
-      ..strokeWidth = 1 / zoom
-      ..style = PaintingStyle.stroke;
-    canvas.drawLine(
-      Offset(currentFrame.toDouble(), 0),
-      Offset(currentFrame.toDouble(), size.height),
-      cursorPaint,
-    );
+    canvas.drawRect(Offset.zero & size, backgroundPaint);
+
+    final slideSet = slideFrames.toSet();
     final keyPaint = Paint()
-      ..color = keyColor
-      ..strokeWidth = 1 / zoom
-      ..style = PaintingStyle.fill;
-    for (final key in animationKeys) {
+      ..color = keyColor.withValues(alpha: 0.75)
+      ..strokeWidth = 1;
+    final sortedKeys =
+        animationKeys.where((key) => !slideSet.contains(key)).toList()..sort();
+    var lastKeyX = double.negativeInfinity;
+    for (final key in sortedKeys) {
+      final x = key * zoom + position;
+      if (x < 0 || x > size.width || x - lastKeyX < 2) continue;
       canvas.drawLine(
-        Offset(key.toDouble(), 0),
-        Offset(key.toDouble(), size.height * 0.5),
+        Offset(x, size.height * 0.58),
+        Offset(x, size.height),
         keyPaint,
       );
+      lastKeyX = x;
     }
+
+    final slidePaint = Paint()
+      ..color = slideColor
+      ..strokeWidth = 2;
+    final sortedSlides = slideFrames.toList()..sort();
+    var lastSlideX = double.negativeInfinity;
+    for (final frame in sortedSlides) {
+      final x = frame * zoom + position;
+      if (x < 0 || x > size.width || x - lastSlideX < 4) continue;
+      canvas.drawLine(
+        Offset(x, size.height * 0.18),
+        Offset(x, size.height),
+        slidePaint,
+      );
+      lastSlideX = x;
+    }
+
+    final cursorPaint = Paint()
+      ..color = cursorColor
+      ..strokeWidth = 2;
+    final cursorX = currentFrame * zoom + position;
+    canvas.drawLine(
+      Offset(cursorX, 0),
+      Offset(cursorX, size.height),
+      cursorPaint,
+    );
   }
 
   @override
   bool shouldRepaint(covariant PresentationTimelinePainter oldDelegate) {
     return oldDelegate.animationKeys != animationKeys ||
+        oldDelegate.slideFrames != slideFrames ||
         oldDelegate.currentFrame != currentFrame ||
         oldDelegate.duration != duration ||
         oldDelegate.zoom != zoom ||
         oldDelegate.position != position ||
         oldDelegate.cursorColor != cursorColor ||
         oldDelegate.keyColor != keyColor ||
+        oldDelegate.slideColor != slideColor ||
         oldDelegate.backgroundColor != backgroundColor;
   }
 }
