@@ -21,17 +21,29 @@ class PresentationTimelineView extends StatefulWidget {
 }
 
 class _PresentationTimelineViewState extends State<PresentationTimelineView> {
+  static const _minimumZoom = 0.05;
+  static const _maximumZoom = 1000.0;
+
   double? _zoom;
   double _baseZoom = 1;
+  double _basePosition = 0;
+  double _scaleFocalPoint = 0;
   double _position = 0;
+
+  double _clampZoom(double value) => value.clamp(_minimumZoom, _maximumZoom);
+
+  double _clampPosition(double value, double width, double zoom) {
+    final contentWidth = widget.duration * zoom;
+    if (contentWidth <= width) return 0;
+    return value.clamp(width - contentWidth, 0);
+  }
 
   @override
   void didUpdateWidget(covariant PresentationTimelineView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.currentFrame != oldWidget.currentFrame ||
-        widget.duration != oldWidget.duration) {
-      if (widget.duration != oldWidget.duration) _zoom = null;
-      setState(() {});
+    if (widget.duration != oldWidget.duration) {
+      _zoom = null;
+      _position = 0;
     }
   }
 
@@ -47,53 +59,106 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
       padding: const EdgeInsets.all(2),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final computedZoom =
-              _zoom ??
-              (widget.duration > 0
-                  ? constraints.maxWidth / widget.duration
-                  : 1.0);
-          return Listener(
-            onPointerSignal: (event) {
-              if (event is! PointerScrollEvent) {
-                return;
-              }
-              final delta = event.scrollDelta.dx + event.scrollDelta.dy;
-              if (delta == 0) {
-                return;
-              }
-              setState(() => _zoom = computedZoom * (1 - delta / 100 / 10));
-            },
-            child: GestureDetector(
-              behavior: .opaque,
-              child: ClipRect(
-                child: CustomPaint(
-                  size: Size.infinite,
-                  painter: PresentationTimelinePainter(
-                    animationKeys: widget.animationKeys,
-                    currentFrame: widget.currentFrame,
-                    duration: widget.duration,
-                    zoom: computedZoom,
-                    position: _position,
-                    cursorColor: colorScheme.primary,
-                    keyColor: colorScheme.secondary,
-                    backgroundColor: colorScheme.surface,
+          final fitZoom = widget.duration > 0
+              ? constraints.maxWidth / widget.duration
+              : 1.0;
+          final computedZoom = _clampZoom(_zoom ?? fitZoom);
+          final computedPosition = _clampPosition(
+            _position,
+            constraints.maxWidth,
+            computedZoom,
+          );
+          return Semantics(
+            key: const ValueKey('presentationTimelineSemantics'),
+            slider: true,
+            value: widget.currentFrame.toString(),
+            increasedValue: (widget.currentFrame + 1)
+                .clamp(0, widget.duration)
+                .toString(),
+            decreasedValue: (widget.currentFrame - 1)
+                .clamp(0, widget.duration)
+                .toString(),
+            onIncrease: () => widget.onFrameChanged?.call(
+              (widget.currentFrame + 1).clamp(0, widget.duration),
+            ),
+            onDecrease: () => widget.onFrameChanged?.call(
+              (widget.currentFrame - 1).clamp(0, widget.duration),
+            ),
+            child: Listener(
+              onPointerSignal: (event) {
+                if (event is! PointerScrollEvent) {
+                  return;
+                }
+                final delta = event.scrollDelta.dx + event.scrollDelta.dy;
+                if (delta == 0) {
+                  return;
+                }
+                final zoom = _clampZoom(computedZoom * (1 - delta / 1000));
+                final frameAtPointer =
+                    (event.localPosition.dx - computedPosition) / computedZoom;
+                setState(() {
+                  _zoom = zoom;
+                  _position = _clampPosition(
+                    event.localPosition.dx - frameAtPointer * zoom,
+                    constraints.maxWidth,
+                    zoom,
+                  );
+                });
+              },
+              child: GestureDetector(
+                behavior: .opaque,
+                child: ClipRect(
+                  child: CustomPaint(
+                    size: Size.infinite,
+                    painter: PresentationTimelinePainter(
+                      animationKeys: widget.animationKeys,
+                      currentFrame: widget.currentFrame,
+                      duration: widget.duration,
+                      zoom: computedZoom,
+                      position: computedPosition,
+                      cursorColor: colorScheme.primary,
+                      keyColor: colorScheme.secondary,
+                      backgroundColor: colorScheme.surface,
+                    ),
                   ),
                 ),
+                onHorizontalDragUpdate: (details) {
+                  setState(
+                    () => _position = _clampPosition(
+                      computedPosition + details.delta.dx,
+                      constraints.maxWidth,
+                      computedZoom,
+                    ),
+                  );
+                },
+                onScaleStart: (details) {
+                  _baseZoom = computedZoom;
+                  _basePosition = computedPosition;
+                  _scaleFocalPoint = details.localFocalPoint.dx;
+                },
+                onScaleUpdate: (details) {
+                  final zoom = _clampZoom(_baseZoom * details.scale);
+                  final frameAtFocal =
+                      (_scaleFocalPoint - _basePosition) / _baseZoom;
+                  setState(() {
+                    _zoom = zoom;
+                    _position = _clampPosition(
+                      details.localFocalPoint.dx - frameAtFocal * zoom,
+                      constraints.maxWidth,
+                      zoom,
+                    );
+                  });
+                },
+                onDoubleTap: () => setState(() {
+                  _zoom = null;
+                  _position = 0;
+                }),
+                onTapUp: (details) {
+                  final x = details.localPosition.dx - computedPosition;
+                  final frame = (x / computedZoom).round();
+                  widget.onFrameChanged?.call(frame.clamp(0, widget.duration));
+                },
               ),
-              onHorizontalDragUpdate: (details) {
-                setState(() => _position += details.delta.dx);
-              },
-              onScaleStart: (details) {
-                _baseZoom = computedZoom;
-              },
-              onScaleUpdate: (details) {
-                setState(() => _zoom = _baseZoom * details.scale);
-              },
-              onTapUp: (details) {
-                final x = details.localPosition.dx - _position;
-                final frame = (x / computedZoom).round();
-                widget.onFrameChanged?.call(frame.clamp(0, widget.duration));
-              },
             ),
           );
         },
