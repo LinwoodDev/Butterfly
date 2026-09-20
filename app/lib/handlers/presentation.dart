@@ -11,8 +11,8 @@ mixin GeneralPresentationHandler {
   void _createTimer(DocumentBloc bloc) {
     final animation = getAnimation(bloc);
     if (animation == null) return;
-    final milliseconds = 1000 ~/ animation.fps;
-    _timer ??= Timer.periodic(Duration(milliseconds: milliseconds), (timer) {
+    final microseconds = max(1, 1000000 ~/ max(1, animation.fps));
+    _timer ??= Timer.periodic(Duration(microseconds: microseconds), (timer) {
       if (_state != .paused) {
         onTick(bloc, animation);
       }
@@ -78,13 +78,6 @@ mixin GeneralPresentationHandler {
   void onTick(DocumentBloc bloc, AnimationTrack animation) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    _applyAnimation(
-      animation,
-      bloc,
-      bloc.editorController,
-      bloc.transformCubit,
-    );
-
     var frame = currentFrame;
     switch (_state) {
       case .running:
@@ -92,6 +85,7 @@ mixin GeneralPresentationHandler {
           frame++;
         } else {
           pause(bloc);
+          return;
         }
         break;
       case .reversed:
@@ -99,12 +93,20 @@ mixin GeneralPresentationHandler {
           frame--;
         } else {
           pause(bloc);
+          return;
         }
         break;
       case .paused:
         return;
     }
     changeFrame(bloc, animation, frame);
+    _applyAnimation(
+      animation,
+      bloc,
+      bloc.editorController,
+      bloc.transformCubit,
+      frame,
+    );
     if (animation.keys[frame]?.breakpoint ?? false) {
       pause(bloc);
     }
@@ -131,15 +133,21 @@ mixin GeneralPresentationHandler {
     AnimationTrack animation,
     DocumentBloc bloc,
     EditorController cubit,
-    TransformCubit transformCubit,
-  ) {
+    TransformCubit transformCubit, [
+    int? frame,
+  ]) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final position = animation.interpolateCameraPosition(currentFrame);
-    final zoom = animation.interpolateCameraZoom(currentFrame);
-    if (position == null && zoom == null) return;
-    if (position != null) transformCubit.teleport(position.toOffset());
-    if (zoom != null) transformCubit.size(zoom);
+    final targetFrame = frame ?? currentFrame;
+    final position = animation.interpolateCameraPosition(targetFrame);
+    final zoom = animation.interpolateCameraZoom(targetFrame);
+    final rotation = animation.interpolateCameraRotation(targetFrame);
+    if (position == null && zoom == null && rotation == null) return;
+    transformCubit.teleport(
+      position?.toOffset() ?? transformCubit.state.position,
+      zoom,
+      rotation,
+    );
     bloc.delayedBake(testTransform: true);
   }
 
@@ -161,38 +169,42 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
     with GeneralPresentationHandler {
   int _currentFrame = 0;
   String? _currentAnimation;
+  bool _selectionInitialized = false;
 
   PresentationHandler(super.data);
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => PresentationToolbarView(
-    animation: _currentAnimation,
-    frame: _currentFrame,
-    onAnimationChanged: (animation) {
-      _currentAnimation = animation;
-      _refreshToolbar(bloc);
-      _applyAnimationFromBloc(bloc);
-    },
-    onFrameChanged: (frame) {
-      _currentFrame = frame;
-      _refreshToolbar(bloc);
-      _applyAnimationFromBloc(bloc);
-    },
-    runningState: _state,
-    onRunningStateChanged: (value) {
-      switch (value) {
-        case .running:
-          play(bloc);
-          break;
-        case .reversed:
-          playReverse(bloc);
-          break;
-        case .paused:
-          pause(bloc);
-          break;
-      }
-    },
-  );
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) {
+    getAnimation(bloc);
+    return PresentationToolbarView(
+      animation: _currentAnimation,
+      frame: _currentFrame,
+      onAnimationChanged: (animation) {
+        _selectionInitialized = true;
+        _currentAnimation = animation;
+        _refreshToolbar(bloc);
+      },
+      onFrameChanged: (frame) {
+        _currentFrame = frame;
+        _refreshToolbar(bloc);
+        _applyAnimationFromBloc(bloc);
+      },
+      runningState: _state,
+      onRunningStateChanged: (value) {
+        switch (value) {
+          case .running:
+            play(bloc);
+            break;
+          case .reversed:
+            playReverse(bloc);
+            break;
+          case .paused:
+            pause(bloc);
+            break;
+        }
+      },
+    );
+  }
 
   @override
   void dispose(DocumentBloc bloc) {
@@ -203,7 +215,10 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
   @override
   AnimationTrack? getAnimation(DocumentBloc bloc) {
     final state = bloc.state;
-    _currentAnimation ??= state.page?.animations.firstOrNull?.name;
+    if (!_selectionInitialized) {
+      _currentAnimation = state.page?.animations.firstOrNull?.name;
+      _selectionInitialized = true;
+    }
     if (state is! DocumentLoadSuccess || _currentAnimation == null) return null;
     final animation = state.page.getAnimation(_currentAnimation!);
     return animation;
@@ -272,7 +287,7 @@ class PresentationStateHandler extends Handler<AnimationTrack>
   bool _checkSlideChange(ScaleEndDetails details, EventContext context) {
     final dx = details.velocity.pixelsPerSecond.dx;
     if (dx.abs() < 100) return false;
-    if (dx < 0) {
+    if (dx > 0) {
       next(bloc, context.buildContext);
     } else {
       previous(bloc, context.buildContext);

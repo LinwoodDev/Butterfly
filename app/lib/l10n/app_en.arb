@@ -914,6 +914,18 @@
   "smoothing": "Smoothing",
   "streamline": "Streamline",
   "presentation": "Presentation",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add slide",
+  "updateSlide": "Update slide",
+  "configureKeyframe": "Configure keyframe",
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
   "selectAsset": "Select asset",
   "clearStyle": "Clear style",
   "unknownImportType": "Unknown import type",
