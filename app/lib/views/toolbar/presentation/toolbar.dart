@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/presentation.dart';
 import 'package:butterfly/dialogs/presentation/keyframe.dart';
+import 'package:butterfly/dialogs/presentation/transition.dart';
+import 'package:butterfly/helpers/presentation.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -54,7 +56,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   AnimationTrack? _animation;
   AnimationKey? _key;
   int _frame = 0;
-  bool _advanced = false;
+  double _newSlideDuration = 1;
 
   @override
   void initState() {
@@ -150,16 +152,38 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   }
 
   List<int> get _slideFrames =>
-      (_animation?.keys.entries ?? const <MapEntry<int, AnimationKey>>[])
-          .where((entry) => entry.value.breakpoint)
-          .map((entry) => entry.key)
-          .sorted((a, b) => a.compareTo(b));
+      _animation == null ? const [] : presentationSlideFrames(_animation!);
 
-  AnimationKey _cameraKey(CameraTransform transform) => AnimationKey(
+  double get _transitionDuration {
+    final animation = _animation;
+    if (animation == null) return _newSlideDuration;
+    final next = _slideFrames.firstWhereOrNull((frame) => frame > _frame);
+    if (next == null) return _newSlideDuration;
+    return (next - _frame) / max(1, animation.fps);
+  }
+
+  bool _cameraMatchesKey(CameraTransform transform, AnimationKey? key) {
+    if (key?.cameraPosition == null ||
+        key?.cameraZoom == null ||
+        key?.cameraRotation == null) {
+      return false;
+    }
+    const epsilon = 0.0001;
+    final position = key!.cameraPosition!;
+    return (position.x - transform.position.dx).abs() < epsilon &&
+        (position.y - transform.position.dy).abs() < epsilon &&
+        (key.cameraZoom! - transform.size).abs() < epsilon &&
+        (key.cameraRotation! - transform.rotation).abs() < epsilon;
+  }
+
+  AnimationKey _cameraKey(
+    CameraTransform transform, {
+    bool breakpoint = true,
+  }) => AnimationKey(
     cameraPosition: transform.position.toPoint(),
     cameraZoom: transform.size,
     cameraRotation: transform.rotation,
-    breakpoint: true,
+    breakpoint: breakpoint,
   );
 
   void _createQuickPresentation(
@@ -187,23 +211,109 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final animation = _animation;
     if (animation == null) return;
     final frames = _slideFrames;
-    final spacing = max(1, animation.fps * 2).toInt();
-    final frame = frames.isEmpty ? 0 : frames.last + spacing;
-    final updated = animation.copyWith(
-      duration: max(animation.duration, frame).toInt(),
-      keys: Map.of(animation.keys)..[frame] = _cameraKey(transform),
+    if (frames.isEmpty) {
+      _setFrame(0);
+      _setKey(_cameraKey(transform));
+      return;
+    }
+    final afterFrame = frames.contains(_frame) ? _frame : frames.last;
+    final durationFrames = max(
+      1,
+      (_transitionDuration * animation.fps).round(),
+    ).toInt();
+    final updated = insertPresentationSlide(
+      animation,
+      afterFrame: afterFrame,
+      durationFrames: durationFrames,
+      key: _cameraKey(transform),
     );
+    final frame = afterFrame + durationFrames;
     _bloc.add(AnimationUpdated(animation.name, updated));
-    setState(() => _animation = updated);
+    setState(() {
+      _animation = updated;
+      _durationController.text = updated.duration.toString();
+    });
     _setFrame(frame);
   }
 
-  void _updateSlide(CameraTransform transform) {
+  void _updateKeyframe(CameraTransform transform) {
+    final key = _key;
+    if (_animation == null || key == null) return;
+    _setKey(_cameraKey(transform, breakpoint: key.breakpoint));
+  }
+
+  Future<void> _configureTransition() async {
     final animation = _animation;
-    if (animation == null || !(animation.keys[_frame]?.breakpoint ?? false)) {
+    if (animation == null) return;
+    final duration = await showDialog<double>(
+      context: context,
+      builder: (context) =>
+          TransitionDurationDialog(duration: _transitionDuration),
+    );
+    if (duration == null || !mounted) return;
+    final next = _slideFrames.firstWhereOrNull((frame) => frame > _frame);
+    if (next == null) {
+      setState(() => _newSlideDuration = duration);
       return;
     }
-    _setKey(_cameraKey(transform));
+    final updated = setPresentationTransitionDuration(
+      animation,
+      fromFrame: _frame,
+      durationFrames: max(1, (duration * animation.fps).round()).toInt(),
+    );
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _durationController.text = updated.duration.toString();
+    });
+  }
+
+  Future<void> _deleteSlide() async {
+    final animation = _animation;
+    final frames = _slideFrames;
+    if (animation == null || !frames.contains(_frame)) return;
+    final remove = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).deleteSlide),
+        content: Text(AppLocalizations.of(context).removeConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(AppLocalizations.of(context).delete),
+          ),
+        ],
+      ),
+    );
+    if (remove != true || !mounted) return;
+    final index = frames.indexOf(_frame);
+    final target = index <= 0 ? 0 : frames[index - 1];
+    final updated = frames.length == 1
+        ? animation.copyWith(keys: Map.of(animation.keys)..remove(_frame))
+        : removePresentationSlide(animation, _frame);
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _durationController.text = updated.duration.toString();
+    });
+    _setFrame(target);
+  }
+
+  void _deleteKeyframe() {
+    final animation = _animation;
+    if (animation == null || _key == null) return;
+    final updated = animation.copyWith(
+      keys: Map.of(animation.keys)..remove(_frame),
+    );
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _key = null;
+    });
   }
 
   void _jumpSlide(int direction) {
@@ -229,21 +339,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ColorScheme.of(context);
-    final defaultKey = _key ?? const AnimationKey();
-    final keyframeEnabled =
-        defaultKey.cameraPosition != null &&
-        defaultKey.cameraZoom != null &&
-        defaultKey.cameraRotation != null &&
-        defaultKey.breakpoint;
-    final cameraEnabled =
-        defaultKey.cameraPosition != null &&
-        defaultKey.cameraZoom != null &&
-        defaultKey.cameraRotation != null;
-
     final animations = _bloc.state.page?.animations ?? [];
     final slideFrames = _slideFrames;
     final slideIndex = slideFrames.indexOf(_frame);
+    final currentIsSlide = slideIndex >= 0;
 
     return BlocBuilder<TransformCubit, CameraTransform>(
       builder: (context, transform) => Padding(
@@ -263,25 +362,6 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                     Row(
                       mainAxisSize: .min,
                       children: [
-                        SegmentedButton<bool>(
-                          showSelectedIcon: false,
-                          segments: [
-                            ButtonSegment(
-                              value: false,
-                              label: Text(AppLocalizations.of(context).simple),
-                            ),
-                            ButtonSegment(
-                              value: true,
-                              label: Text(
-                                AppLocalizations.of(context).advanced,
-                              ),
-                            ),
-                          ],
-                          selected: {_advanced},
-                          onSelectionChanged: (selection) =>
-                              setState(() => _advanced = selection.first),
-                        ),
-                        const SizedBox(width: 8),
                         DropdownMenu<String>(
                           width: 150,
                           inputDecorationTheme: const InputDecorationTheme(
@@ -445,16 +525,15 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                           ],
                         ),
-                        if (!_advanced)
-                          IconButton(
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.caretLeft,
-                            ),
-                            tooltip: AppLocalizations.of(context).previousSlide,
-                            onPressed: slideFrames.isEmpty
-                                ? null
-                                : () => _jumpSlide(-1),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.caretLeft,
                           ),
+                          tooltip: AppLocalizations.of(context).previousSlide,
+                          onPressed: slideFrames.isEmpty
+                              ? null
+                              : () => _jumpSlide(-1),
+                        ),
                         IconButton(
                           icon:
                               widget.runningState !=
@@ -467,7 +546,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           tooltip:
                               widget.runningState !=
                                   PresentationRunningState.running
-                              ? AppLocalizations.of(context).play
+                              ? AppLocalizations.of(context).preview
                               : AppLocalizations.of(context).pause,
                           onPressed: _animation == null
                               ? null
@@ -487,17 +566,16 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   }
                                 },
                         ),
-                        if (!_advanced)
-                          IconButton(
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.caretRight,
-                            ),
-                            tooltip: AppLocalizations.of(context).nextSlide,
-                            onPressed: slideFrames.isEmpty
-                                ? null
-                                : () => _jumpSlide(1),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.caretRight,
                           ),
-                        if (!_advanced && _animation == null)
+                          tooltip: AppLocalizations.of(context).nextSlide,
+                          onPressed: slideFrames.isEmpty
+                              ? null
+                              : () => _jumpSlide(1),
+                        ),
+                        if (_animation == null)
                           FilledButton.icon(
                             onPressed: () =>
                                 _createQuickPresentation(transform, animations),
@@ -508,53 +586,64 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               AppLocalizations.of(context).createPresentation,
                             ),
                           ),
-                        if (!_advanced && _animation != null)
+                        if (_animation != null)
                           FilledButton.tonalIcon(
                             onPressed: () => _addSlide(transform),
                             icon: const PhosphorIcon(PhosphorIconsLight.plus),
                             label: Text(AppLocalizations.of(context).addSlide),
                           ),
-                        if (!_advanced && _animation != null)
-                          IconButton(
-                            onPressed: _key?.breakpoint ?? false
-                                ? () => _updateSlide(transform)
-                                : null,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.floppyDisk,
-                            ),
-                            tooltip: AppLocalizations.of(context).updateSlide,
-                          ),
-                        if (!_advanced && _animation != null)
-                          IconButton(
-                            onPressed: () => _configureKeyframe(transform),
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.sliders,
-                            ),
-                            tooltip: AppLocalizations.of(context)
-                                .configureKeyframe,
-                          ),
-                        if (_advanced)
-                          IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.stop),
-                            tooltip: AppLocalizations.of(context).stop,
-                            onPressed: _animation == null
-                                ? null
-                                : () {
-                                    _setFrame(0);
-                                    widget.onRunningStateChanged?.call(
-                                      PresentationRunningState.paused,
-                                    );
-                                  },
-                          ),
-                        if (_advanced && _animation != null)
+                      ],
+                    ),
+                    if (_animation != null)
+                      Row(
+                        mainAxisSize: .min,
+                        children: [
                           MenuAnchor(
-                            builder: defaultMenuButton(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.record,
-                              ),
-                              tooltip: AppLocalizations.of(context).keyframe,
-                            ),
+                            builder: (context, controller, child) =>
+                                TextButton.icon(
+                                  onPressed: controller.isOpen
+                                      ? controller.close
+                                      : controller.open,
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.record,
+                                  ),
+                                  label: Text(
+                                    currentIsSlide
+                                        ? AppLocalizations.of(
+                                            context,
+                                          ).slideAtFrame(slideIndex + 1, _frame)
+                                        : _key != null
+                                        ? AppLocalizations.of(context)
+                                              .keyframeAtFrame(_frame)
+                                        : AppLocalizations.of(context)
+                                              .frameValue(_frame),
+                                  ),
+                                ),
                             menuChildren: [
+                              if (_key == null)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.plus,
+                                  ),
+                                  onPressed: () => _setKey(
+                                    _cameraKey(transform, breakpoint: false),
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context).addKeyframe,
+                                  ),
+                                ),
+                              if (_key != null)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.camera,
+                                  ),
+                                  onPressed: !_cameraMatchesKey(transform, _key)
+                                      ? () => _updateKeyframe(transform)
+                                      : null,
+                                  child: Text(
+                                    AppLocalizations.of(context).updateKeyframe,
+                                  ),
+                                ),
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.sliders,
@@ -565,377 +654,217 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       .configureKeyframe,
                                 ),
                               ),
-                              const Divider(),
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.record,
+                                  PhosphorIconsLight.presentation,
                                 ),
+                                onPressed: () {
+                                  final key = _key;
+                                  _setKey(
+                                    key == null
+                                        ? _cameraKey(transform)
+                                        : key.copyWith(
+                                            breakpoint: !key.breakpoint,
+                                          ),
+                                  );
+                                },
                                 child: Text(
-                                  AppLocalizations.of(context).keyframe,
-                                  style: TextStyle(
-                                    color: keyframeEnabled
-                                        ? colorScheme.primary
-                                        : null,
-                                  ),
-                                ),
-                                onPressed: () => _setKey(
-                                  keyframeEnabled
-                                      ? defaultKey.copyWith(
-                                          cameraPosition: null,
-                                          cameraZoom: null,
-                                          cameraRotation: null,
-                                          breakpoint: false,
-                                        )
-                                      : defaultKey.copyWith(
-                                          cameraPosition: transform.position
-                                              .toPoint(),
-                                          cameraZoom: transform.size,
-                                          cameraRotation: transform.rotation,
-                                          breakpoint: true,
-                                        ),
+                                  currentIsSlide
+                                      ? AppLocalizations.of(context)
+                                            .removeSlideMarker
+                                      : AppLocalizations.of(context)
+                                            .markAsSlide,
                                 ),
                               ),
-                              const Divider(),
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.flowArrow,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).camera,
-                                  style: TextStyle(
-                                    color: cameraEnabled
-                                        ? colorScheme.primary
-                                        : null,
+                              if (currentIsSlide)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.timer,
+                                  ),
+                                  onPressed: _configureTransition,
+                                  child: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    ).transitionDurationValue(
+                                      _transitionDuration.toStringAsFixed(1),
+                                    ),
                                   ),
                                 ),
-                                onPressed: () => _setKey(
-                                  cameraEnabled
-                                      ? defaultKey.copyWith(
-                                          cameraPosition: null,
-                                          cameraZoom: null,
-                                          cameraRotation: null,
-                                        )
-                                      : defaultKey.copyWith(
-                                          cameraPosition: transform.position
-                                              .toPoint(),
-                                          cameraZoom: transform.size,
-                                          cameraRotation: transform.rotation,
-                                        ),
-                                ),
-                              ),
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.camera,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).breakpoint,
-                                  style: TextStyle(
-                                    color: defaultKey.breakpoint
-                                        ? colorScheme.primary
-                                        : null,
-                                  ),
-                                ),
-                                onPressed: () => _setKey(
-                                  defaultKey.copyWith(
-                                    breakpoint: !defaultKey.breakpoint,
-                                  ),
-                                ),
-                              ),
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.arrowClockwise,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).rotation,
-                                  style: TextStyle(
-                                    color: defaultKey.cameraRotation != null
-                                        ? colorScheme.primary
-                                        : null,
-                                  ),
-                                ),
-                                onPressed: () => _setKey(
-                                  defaultKey.copyWith(
-                                    cameraRotation: transform.rotation,
-                                  ),
-                                ),
-                              ),
-                              const Divider(),
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.arrowsOutCardinal,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).position,
-                                  style: TextStyle(
-                                    color: defaultKey.cameraPosition != null
-                                        ? colorScheme.primary
-                                        : null,
-                                  ),
-                                ),
-                                onPressed: () => _setKey(
-                                  defaultKey.copyWith(
-                                    cameraPosition: transform.position
-                                        .toPoint(),
-                                  ),
-                                ),
-                              ),
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.magnifyingGlass,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).zoom,
-                                  style: TextStyle(
-                                    color: defaultKey.cameraZoom != null
-                                        ? colorScheme.primary
-                                        : null,
-                                  ),
-                                ),
-                                onPressed: () => _setKey(
-                                  defaultKey.copyWith(
-                                    cameraZoom: transform.size,
-                                  ),
-                                ),
-                              ),
                               const Divider(),
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.trash,
                                 ),
-                                onPressed: _key == null
-                                    ? null
-                                    : () {
-                                        final bloc = context
-                                            .read<DocumentBloc>();
-                                        final updated = _animation!.copyWith(
-                                          keys: Map.from(_animation!.keys)
-                                            ..remove(_frame),
-                                        );
-                                        bloc.add(
-                                          AnimationUpdated(
-                                            _animation!.name,
-                                            updated,
-                                          ),
-                                        );
-                                        setState(() {
-                                          _animation = updated;
-                                          _key = null;
-                                        });
-                                      },
+                                onPressed: currentIsSlide
+                                    ? _deleteSlide
+                                    : (_key != null ? _deleteKeyframe : null),
                                 child: Text(
-                                  AppLocalizations.of(context).delete,
+                                  currentIsSlide
+                                      ? AppLocalizations.of(context).deleteSlide
+                                      : AppLocalizations.of(context)
+                                            .deleteKeyframe,
                                 ),
                               ),
                             ],
                           ),
-                      ],
-                    ),
-                    if (_animation != null)
-                      Row(
-                        mainAxisSize: .min,
-                        children: [
-                          if (!_advanced)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
+                          MenuAnchor(
+                            builder: defaultMenuButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.faders,
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context).slideOf(
-                                      slideIndex < 0 ? 0 : slideIndex + 1,
-                                      slideFrames.length,
-                                    ),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  ...slideFrames.indexed.map(
-                                    (entry) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 2,
-                                      ),
-                                      child: Tooltip(
-                                        message: AppLocalizations.of(context)
-                                            .slideOf(
-                                              entry.$1 + 1,
-                                              slideFrames.length,
-                                            ),
-                                        child: ChoiceChip(
-                                          label: Text('${entry.$1 + 1}'),
-                                          selected: entry.$2 == _frame,
-                                          onSelected: (_) =>
-                                              _setFrame(entry.$2),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              tooltip: AppLocalizations.of(context).settings,
                             ),
-                          if (_advanced)
-                            MenuAnchor(
-                              builder: defaultMenuButton(
-                                icon: const PhosphorIcon(
-                                  PhosphorIconsLight.faders,
+                            menuChildren: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
                                 ),
-                                tooltip: AppLocalizations.of(context).settings,
-                              ),
-                              menuChildren: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 300,
                                   ),
-                                  child: ConstrainedBox(
-                                    constraints: const BoxConstraints(
-                                      maxWidth: 300,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              labelText: AppLocalizations.of(
-                                                context,
-                                              ).fps,
-                                            ),
-                                            controller: _fpsController,
-                                            textAlign: .center,
-                                            keyboardType: TextInputType.number,
-                                            onFieldSubmitted: (value) {
-                                              final fps = int.tryParse(
-                                                value.trim(),
-                                              );
-                                              if (fps != null && fps > 0) {
-                                                final updated = _animation!
-                                                    .copyWith(fps: fps);
-                                                context
-                                                    .read<DocumentBloc>()
-                                                    .add(
-                                                      AnimationUpdated(
-                                                        _animation!.name,
-                                                        updated,
-                                                      ),
-                                                    );
-                                                setState(
-                                                  () => _animation = updated,
-                                                );
-                                              } else {
-                                                _fpsController.text =
-                                                    _animation!.fps.toString();
-                                              }
-                                            },
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            labelText: AppLocalizations.of(
+                                              context,
+                                            ).fps,
                                           ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Expanded(
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              labelText: AppLocalizations.of(
-                                                context,
-                                              ).frame,
-                                            ),
-                                            controller: _frameController,
-                                            textAlign: .center,
-                                            keyboardType: TextInputType.number,
-                                            onFieldSubmitted: (value) {
-                                              final frame = int.tryParse(
-                                                value.trim(),
+                                          controller: _fpsController,
+                                          textAlign: .center,
+                                          keyboardType: TextInputType.number,
+                                          onFieldSubmitted: (value) {
+                                            final fps = int.tryParse(
+                                              value.trim(),
+                                            );
+                                            if (fps != null && fps > 0) {
+                                              final updated = _animation!
+                                                  .copyWith(fps: fps);
+                                              context.read<DocumentBloc>().add(
+                                                AnimationUpdated(
+                                                  _animation!.name,
+                                                  updated,
+                                                ),
                                               );
-                                              if (frame != null) {
-                                                _setFrame(frame);
-                                              } else {
-                                                _frameController.text = _frame
-                                                    .toString();
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Expanded(
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              labelText: AppLocalizations.of(
-                                                context,
-                                              ).duration,
-                                            ),
-                                            controller: _durationController,
-                                            textAlign: .center,
-                                            keyboardType: TextInputType.number,
-                                            onFieldSubmitted: (value) {
-                                              final duration = int.tryParse(
-                                                value.trim(),
+                                              setState(
+                                                () => _animation = updated,
                                               );
-                                              final lastKey = _animation!
-                                                  .keys
-                                                  .keys
-                                                  .fold(0, max);
-                                              if (duration != null &&
-                                                  duration > 0 &&
-                                                  duration >= lastKey) {
-                                                final updated = _animation!
-                                                    .copyWith(
-                                                      duration: duration,
-                                                    );
-                                                context
-                                                    .read<DocumentBloc>()
-                                                    .add(
-                                                      AnimationUpdated(
-                                                        _animation!.name,
-                                                        updated,
-                                                      ),
-                                                    );
-                                                setState(
-                                                  () => _animation = updated,
-                                                );
-                                                if (_frame > duration) {
-                                                  _setFrame(duration);
-                                                }
-                                              } else {
-                                                _durationController.text =
-                                                    _animation!.duration
-                                                        .toString();
-                                              }
-                                            },
-                                          ),
+                                            } else {
+                                              _fpsController.text = _animation!
+                                                  .fps
+                                                  .toString();
+                                            }
+                                          },
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            labelText: AppLocalizations.of(
+                                              context,
+                                            ).frame,
+                                          ),
+                                          controller: _frameController,
+                                          textAlign: .center,
+                                          keyboardType: TextInputType.number,
+                                          onFieldSubmitted: (value) {
+                                            final frame = int.tryParse(
+                                              value.trim(),
+                                            );
+                                            if (frame != null) {
+                                              _setFrame(frame);
+                                            } else {
+                                              _frameController.text = _frame
+                                                  .toString();
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            labelText: AppLocalizations.of(
+                                              context,
+                                            ).duration,
+                                          ),
+                                          controller: _durationController,
+                                          textAlign: .center,
+                                          keyboardType: TextInputType.number,
+                                          onFieldSubmitted: (value) {
+                                            final duration = int.tryParse(
+                                              value.trim(),
+                                            );
+                                            final lastKey = _animation!
+                                                .keys
+                                                .keys
+                                                .fold(0, max);
+                                            if (duration != null &&
+                                                duration > 0 &&
+                                                duration >= lastKey) {
+                                              final updated = _animation!
+                                                  .copyWith(duration: duration);
+                                              context.read<DocumentBloc>().add(
+                                                AnimationUpdated(
+                                                  _animation!.name,
+                                                  updated,
+                                                ),
+                                              );
+                                              setState(
+                                                () => _animation = updated,
+                                              );
+                                              if (_frame > duration) {
+                                                _setFrame(duration);
+                                              }
+                                            } else {
+                                              _durationController.text =
+                                                  _animation!.duration
+                                                      .toString();
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          if (_advanced) const SizedBox(width: 8),
-                          if (_advanced)
-                            SizedBox(
-                              width: max(150, constraints.maxWidth * 0.4),
-                              child: PresentationTimelineView(
-                                animationKeys: _animation!.keys.keys.toList(),
-                                currentFrame: _frame,
-                                duration: _animation!.duration,
-                                onFrameChanged: _setFrame,
                               ),
+                            ],
+                          ),
+                          const SizedBox(width: 8),
+                          SizedBox(
+                            width: max(150, constraints.maxWidth * 0.4),
+                            child: PresentationTimelineView(
+                              animationKeys: _animation!.keys.keys.toList(),
+                              slideFrames: slideFrames,
+                              currentFrame: _frame,
+                              duration: _animation!.duration,
+                              onFrameChanged: _setFrame,
                             ),
+                          ),
                           const SizedBox(width: 8),
                           MenuAnchor(
                             builder: defaultMenuButton(
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.presentation,
                               ),
-                              tooltip: AppLocalizations.of(context).export,
+                              tooltip: AppLocalizations.of(context)
+                                  .presentation,
                             ),
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.playCircle,
                                 ),
-                                child: Text(AppLocalizations.of(context).play),
+                                child: Text(
+                                  AppLocalizations.of(context).presentation,
+                                ),
                                 onPressed: () async {
                                   final bloc = context.read<DocumentBloc>();
                                   final fullScreen = await isFullScreen();
