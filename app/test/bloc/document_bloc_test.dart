@@ -2705,7 +2705,7 @@ void main() {
   );
 
   test(
-    'renderImage keeps all four export corners when quality changes',
+    'renderImage keeps all four corners when raster size is clamped',
     () async {
       await bloc.close();
       await editorController.close();
@@ -2799,6 +2799,21 @@ void main() {
       );
 
       for (final quality in [0.5, 2.0, 10.0]) {
+        final rasterSizes = <Size>[];
+        Future<ui.Image> cappedPictureToImage(
+          ui.Picture picture,
+          int width,
+          int height,
+        ) {
+          rasterSizes.add(Size(width.toDouble(), height.toDouble()));
+          const maxDimension = 128;
+          final scale = min(1.0, maxDimension / max(width, height));
+          return picture.toImage(
+            max(1, (width * scale).floor()),
+            max(1, (height * scale).floor()),
+          );
+        }
+
         final png = await editorController.rendererCubit.render(
           editorController,
           data,
@@ -2812,14 +2827,21 @@ void main() {
             quality: quality,
           ),
           docState: state,
+          pictureToImage: quality == 10 ? cappedPictureToImage : null,
         );
         expect(png, isNotNull, reason: 'quality $quality');
         final codec = await ui.instantiateImageCodec(png!.buffer.asUint8List());
         final frame = await codec.getNextFrame();
         final image = frame.image;
         try {
-          expect(image.width, (100 * quality).ceil());
-          expect(image.height, (100 * quality).ceil());
+          final expectedDimension = quality == 10
+              ? 128
+              : (100 * quality).ceil();
+          expect(image.width, expectedDimension);
+          expect(image.height, expectedDimension);
+          if (quality == 10) {
+            expect(rasterSizes, const [Size(1000, 1000), Size(128, 128)]);
+          }
           final pixelData = await image.toByteData(
             format: ui.ImageByteFormat.rawRgba,
           );

@@ -808,6 +808,9 @@ class RendererCubit(
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
     DocumentLoaded? docState,
+    @visibleForTesting
+    Future<ui.Image> Function(ui.Picture picture, int width, int height)?
+    pictureToImage,
   }) async {
     final rendererCubit = this;
     final exportSize = _exportSize(options);
@@ -819,13 +822,10 @@ class RendererCubit(
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
     }
-    final recorder = ui.PictureRecorder();
-    final canvas = Canvas(
-      recorder,
-      Offset.zero & Size(realWidth.toDouble(), realHeight.toDouble()),
-    );
-    canvas.scale(options.quality);
-    final transform = _exportTransform(options, pixelRatio: options.quality);
+    var rasterQuality = options.quality;
+    var rasterWidth = realWidth;
+    var rasterHeight = realHeight;
+    var transform = _exportTransform(options, pixelRatio: rasterQuality);
     final viewport = cameraViewport != null
         ? cameraViewport.unbake(rendererStates: const {})
         : rendererCubit.state.cameraViewport.unbake(
@@ -834,10 +834,12 @@ class RendererCubit(
           );
     final hiddenRenderers = <Renderer<PadElement>>[];
     final updatedRenderers = <Renderer<PadElement>>[];
+    final visibleRenderers = <Renderer<PadElement>>[];
     if (docState != null) {
       final exportRect = transform.localToGlobalRect(Offset.zero & exportSize);
       for (final renderer in viewport.unbakedElements) {
         if (renderer.isVisible(exportRect)) {
+          visibleRenderers.add(renderer);
           final wasInitialized = rendererCubit.initializedElements.contains(
             renderer,
           );
@@ -861,22 +863,72 @@ class RendererCubit(
         }
       }
     }
-    final painter = ViewPainter(
-      document,
-      page,
-      info,
-      renderBackground: options.renderBackground,
-      invisibleLayers: invisibleLayers,
-      cameraViewport: viewport,
-      transform: transform,
-    );
-    painter.paint(canvas, exportSize);
-    final picture = recorder.endRecording();
+
+    Future<ui.Image> rasterize() async {
+      final recorder = ui.PictureRecorder();
+      final canvas = Canvas(
+        recorder,
+        Offset.zero & Size(rasterWidth.toDouble(), rasterHeight.toDouble()),
+      )..scale(rasterQuality);
+      ViewPainter(
+        document,
+        page,
+        info,
+        renderBackground: options.renderBackground,
+        invisibleLayers: invisibleLayers,
+        cameraViewport: viewport,
+        transform: transform,
+      ).paint(canvas, exportSize);
+      final picture = recorder.endRecording();
+      try {
+        return await (pictureToImage?.call(
+              picture,
+              rasterWidth,
+              rasterHeight,
+            ) ??
+            picture.toImage(rasterWidth, rasterHeight));
+      } finally {
+        picture.dispose();
+      }
+    }
+
     ui.Image? image;
     try {
-      image = await picture.toImage(realWidth, realHeight);
+      image = await rasterize();
+      if (image.width != rasterWidth || image.height != rasterHeight) {
+        // Impeller scales oversized snapshots down to the GPU's maximum
+        // texture size without scaling the recorded display list with it. Use
+        // the returned dimensions to record again at the supported quality so
+        // the whole export is fitted instead of clipping its right and bottom.
+        final supportedQuality = min(
+          image.width / exportSize.width,
+          image.height / exportSize.height,
+        );
+        if (supportedQuality > 0 && supportedQuality < rasterQuality) {
+          image.dispose();
+          image = null;
+          rasterQuality = supportedQuality;
+          rasterWidth = max(1, (exportSize.width * rasterQuality).floor());
+          rasterHeight = max(1, (exportSize.height * rasterQuality).floor());
+          transform = _exportTransform(options, pixelRatio: rasterQuality);
+          if (docState != null) {
+            await Future.wait(
+              visibleRenderers.map(
+                (renderer) => Future.sync(
+                  () => renderer.updateView(
+                    controller,
+                    docState,
+                    transform,
+                    exportSize,
+                  ),
+                ),
+              ),
+            );
+          }
+          image = await rasterize();
+        }
+      }
     } finally {
-      picture.dispose();
       if (docState != null) {
         await Future.wait([
           ...hiddenRenderers.map(
@@ -914,6 +966,9 @@ class RendererCubit(
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
     DocumentLoaded? docState,
+    @visibleForTesting
+    Future<ui.Image> Function(ui.Picture picture, int width, int height)?
+    pictureToImage,
   }) async {
     final image = await renderImage(
       controller,
@@ -924,6 +979,7 @@ class RendererCubit(
       cameraViewport: cameraViewport,
       invisibleLayers: invisibleLayers,
       docState: docState,
+      pictureToImage: pictureToImage,
     );
     ByteData? bytes;
     try {
