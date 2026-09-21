@@ -92,6 +92,7 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
   int onHiddenCalls = 0;
   int disposeCalls = 0;
   int buildCalls = 0;
+  final List<CameraTransform> updateViewTransforms = [];
   CameraTransform? lastVisibleTransform;
   Size? lastVisibleSize;
 
@@ -129,6 +130,16 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
     Size size,
   ) async {
     onHiddenCalls++;
+  }
+
+  @override
+  void updateView(
+    EditorController editorController,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    Size size,
+  ) {
+    updateViewTransforms.add(renderTransform);
   }
 
   @override
@@ -2622,6 +2633,232 @@ void main() {
       expect(renderer.lastVisibleTransform?.position, const Offset(10, 20));
       expect(renderer.lastVisibleTransform?.size, 1);
       expect(renderer.lastVisibleTransform?.pixelRatio, 10);
+    },
+  );
+
+  test(
+    'renderImage refreshes initialized renderers at export quality',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      final element = ShapeElement(
+        id: 'scale-aware',
+        firstPosition: const Point(0, 0),
+        secondPosition: const Point(100, 100),
+      );
+      final renderer = _VisibleTrackingRenderer(element);
+      final renderers = <Renderer<PadElement>>[renderer];
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [element]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      editorController = EditorController(
+        settingsCubit,
+        TransformCubit(3),
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      final state = bloc.state as DocumentLoadSuccess;
+
+      await editorController.rendererCubit.bake(
+        editorController,
+        state,
+        viewportSize: const Size(100, 100),
+        pixelRatio: 3,
+        reset: true,
+      );
+      renderer.updateViewTransforms.clear();
+
+      final image = await editorController.rendererCubit.renderImage(
+        editorController,
+        data,
+        page,
+        state.info,
+        const ImageExportOptions(width: 100, height: 100, quality: 2),
+        docState: state,
+      );
+      addTearDown(() => image?.dispose());
+
+      expect(
+        renderer.updateViewTransforms.map((transform) => transform.pixelRatio),
+        [2, 3],
+      );
+    },
+  );
+
+  test(
+    'renderImage keeps all four export corners when quality changes',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      final elements = <ShapeElement>[
+        ShapeElement(
+          id: 'top-left',
+          firstPosition: Point(10, 20),
+          secondPosition: Point(20, 30),
+          property: const ShapeProperty(
+            strokeWidth: 0,
+            shape: RectangleShape(
+              fillPaint: ElementPaint.solid(color: SRGBColor(0xFFF44336)),
+            ),
+          ),
+        ),
+        ShapeElement(
+          id: 'top-right',
+          firstPosition: Point(100, 20),
+          secondPosition: Point(110, 30),
+          property: const ShapeProperty(
+            strokeWidth: 0,
+            shape: RectangleShape(
+              fillPaint: ElementPaint.solid(color: SRGBColor(0xFFF44336)),
+            ),
+          ),
+        ),
+        ShapeElement(
+          id: 'bottom-left',
+          firstPosition: Point(10, 110),
+          secondPosition: Point(20, 120),
+          property: const ShapeProperty(
+            strokeWidth: 0,
+            shape: RectangleShape(
+              fillPaint: ElementPaint.solid(color: SRGBColor(0xFFF44336)),
+            ),
+          ),
+        ),
+        ShapeElement(
+          id: 'bottom-right',
+          firstPosition: Point(100, 110),
+          secondPosition: Point(110, 120),
+          property: const ShapeProperty(
+            strokeWidth: 0,
+            shape: RectangleShape(
+              fillPaint: ElementPaint.solid(color: SRGBColor(0xFFF44336)),
+            ),
+          ),
+        ),
+      ];
+      final renderers = elements
+          .map((element) => Renderer<PadElement>.fromInstance(element))
+          .toList();
+      final page = DocumentPage(
+        layers: [DocumentLayer(id: 'layer', content: elements)],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      editorController = EditorController(
+        settingsCubit,
+        TransformCubit(1),
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      final state = bloc.state as DocumentLoadSuccess;
+      await Future.wait(
+        renderers.map(
+          (renderer) => Future.sync(
+            () => renderer.setup(
+              editorController.transformCubit,
+              data,
+              state.assetService,
+              page,
+            ),
+          ),
+        ),
+      );
+
+      for (final quality in [0.5, 2.0, 10.0]) {
+        final png = await editorController.rendererCubit.render(
+          editorController,
+          data,
+          page,
+          state.info,
+          ImageExportOptions(
+            width: 100,
+            height: 100,
+            x: 10,
+            y: 20,
+            quality: quality,
+          ),
+          docState: state,
+        );
+        expect(png, isNotNull, reason: 'quality $quality');
+        final codec = await ui.instantiateImageCodec(png!.buffer.asUint8List());
+        final frame = await codec.getNextFrame();
+        final image = frame.image;
+        try {
+          expect(image.width, (100 * quality).ceil());
+          expect(image.height, (100 * quality).ceil());
+          final pixelData = await image.toByteData(
+            format: ui.ImageByteFormat.rawRgba,
+          );
+          final pixels = pixelData!.buffer.asUint8List();
+          Color pixelAt(int x, int y) {
+            final offset = (y * image.width + x) * 4;
+            return Color.fromARGB(
+              pixels[offset + 3],
+              pixels[offset],
+              pixels[offset + 1],
+              pixels[offset + 2],
+            );
+          }
+
+          expect(
+            pixelAt(0, 0),
+            const Color(0xFFF44336),
+            reason: 'top-left at quality $quality',
+          );
+          expect(
+            pixelAt(image.width - 1, 0),
+            const Color(0xFFF44336),
+            reason: 'top-right at quality $quality',
+          );
+          expect(
+            pixelAt(0, image.height - 1),
+            const Color(0xFFF44336),
+            reason: 'bottom-left at quality $quality',
+          );
+          expect(
+            pixelAt(image.width - 1, image.height - 1),
+            const Color(0xFFF44336),
+            reason: 'bottom-right at quality $quality',
+          );
+        } finally {
+          image.dispose();
+          codec.dispose();
+        }
+      }
     },
   );
 

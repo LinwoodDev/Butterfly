@@ -19,7 +19,7 @@ class DocumentDefaults {
   static Future<Uint8List> _createPlainThumnail(SRGBColor color) async {
     final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
     final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder);
+    final canvas = Canvas(recorder, Offset.zero & size);
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.width, size.height),
       Paint()..color = color.toColor(),

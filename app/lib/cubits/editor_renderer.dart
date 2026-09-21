@@ -629,7 +629,10 @@ class RendererCubit(
     ui.Image? newImage;
     if (!reset || currentLayerElements.isNotEmpty) {
       final recorder = ui.PictureRecorder();
-      final canvas = ui.Canvas(recorder);
+      final canvas = ui.Canvas(
+        recorder,
+        ui.Offset.zero & ui.Size(imageWidth.toDouble(), imageHeight.toDouble()),
+      );
       if (!reset) {
         // Preserve already baked pixels exactly. Routing this image through
         // ViewPainter would transform and resample the full cache on every
@@ -698,7 +701,11 @@ class RendererCubit(
       ) async {
         if (elements.isEmpty) return null;
         final recorder = ui.PictureRecorder();
-        final canvas = ui.Canvas(recorder)..scale(ratio);
+        final canvas = ui.Canvas(
+          recorder,
+          ui.Offset.zero &
+              ui.Size(imageWidth.toDouble(), imageHeight.toDouble()),
+        )..scale(ratio);
         ViewPainter(
           document,
           page,
@@ -813,7 +820,10 @@ class RendererCubit(
       return null;
     }
     final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder);
+    final canvas = Canvas(
+      recorder,
+      Offset.zero & Size(realWidth.toDouble(), realHeight.toDouble()),
+    );
     canvas.scale(options.quality);
     final transform = _exportTransform(options, pixelRatio: options.quality);
     final viewport = cameraViewport != null
@@ -823,6 +833,7 @@ class RendererCubit(
             rendererStates: const {},
           );
     final hiddenRenderers = <Renderer<PadElement>>[];
+    final updatedRenderers = <Renderer<PadElement>>[];
     if (docState != null) {
       final exportRect = transform.localToGlobalRect(Offset.zero & exportSize);
       for (final renderer in viewport.unbakedElements) {
@@ -838,6 +849,14 @@ class RendererCubit(
               exportSize,
             );
             hiddenRenderers.add(renderer);
+          } else {
+            await renderer.updateView(
+              controller,
+              docState,
+              transform,
+              exportSize,
+            );
+            updatedRenderers.add(renderer);
           }
         }
       }
@@ -852,15 +871,36 @@ class RendererCubit(
       transform: transform,
     );
     painter.paint(canvas, exportSize);
-    for (final renderer in hiddenRenderers) {
-      await renderer.onHidden(controller, docState!, transform, exportSize);
-    }
     final picture = recorder.endRecording();
     ui.Image? image;
     try {
       image = await picture.toImage(realWidth, realHeight);
     } finally {
       picture.dispose();
+      if (docState != null) {
+        await Future.wait([
+          ...hiddenRenderers.map(
+            (renderer) => Future.sync(
+              () => renderer.onHidden(
+                controller,
+                docState,
+                transform,
+                exportSize,
+              ),
+            ),
+          ),
+          ...updatedRenderers.map(
+            (renderer) => Future.sync(
+              () => renderer.updateView(
+                controller,
+                docState,
+                controller.transformCubit.state,
+                rendererCubit.state.cameraViewport.toSize(),
+              ),
+            ),
+          ),
+        ]);
+      }
     }
     return image;
   }

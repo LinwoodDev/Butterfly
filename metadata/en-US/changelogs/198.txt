@@ -1,0 +1,4 @@
+* Fix image exports reusing screen-resolution renderer caches at different quality settings ([#1269](https://github.com/LinwoodDev/Butterfly/issues/1269))
+* Add explicit raster bounds to offscreen canvas recordings
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.3
