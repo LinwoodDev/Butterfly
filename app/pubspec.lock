@@ -196,10 +196,10 @@ packages:
     dependency: transitive
     description:
       name: camera_platform_interface
-      sha256: "4524ca6eb4176b066864036ad4fe02c3e4863e63b77eadc21a5bf56824f43498"
+      sha256: "9365babc7488a9e93d0ed6dcccd917619fb12ea6f9e601519e1191d4890ee2fe"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.1"
+    version: "2.14.0"
   camera_web:
     dependency: transitive
     description:
@@ -252,10 +252,10 @@ packages:
     dependency: transitive
     description:
       name: code_assets
-      sha256: cfd4f5f575a49c5f10ca856e9846073f1e6c3ee94912377eea5f6cefc5272941
+      sha256: "828110d598123b5ea96c00c9f3c72105bf79f8ee36c20a39b26209ade421ec57"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   collection:
     dependency: "direct main"
     description:
@@ -340,10 +340,10 @@ packages:
     dependency: transitive
     description:
       name: cupertino_ui
-      sha256: c6747018d37d32feeeb858a1d7043831cb541460ebe1a890a995cdb8df8ea5a5
+      sha256: c23816577a1280cff409e989541767887011f8f1d8c1863a794ed308af46f2a9
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   dart_leap:
     dependency: transitive
     description:
@@ -429,10 +429,10 @@ packages:
     dependency: transitive
     description:
       name: file_picker_darwin
-      sha256: deb3ff69d58656b885c85bc1627f09ecb79860f272a5e7577149582ede4dce5d
+      sha256: "51aef9f4c80449c736e7cc02198675fda73689f0bd45a84da642cfeab0250d46"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.2"
   file_picker_linux:
     dependency: transitive
     description:
@@ -622,10 +622,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "541a82723c84298f3ca46a6c2186935aa21ad529ad1f1423d67af18040494f51"
+      sha256: "3af98c92d7d4dd182ea1393193e69a840fcbaee1f66f1158bd20504e5f3f6f4f"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -643,10 +643,10 @@ packages:
     dependency: transitive
     description:
       name: get_it
-      sha256: "568d62f0e68666fb5d95519743b3c24a34c7f19d834b0658c46e26d778461f66"
+      sha256: "2b5c6b077aad30bba9782178baff6076a2044141f1d5f2f15b43bca3fbe74874"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.1"
+    version: "9.3.0"
   glob:
     dependency: transitive
     description:
@@ -800,8 +800,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/keybinder"
-      ref: "81eed1f96a53956b10f3ccfe4bc573bc17da5979"
-      resolved-ref: "81eed1f96a53956b10f3ccfe4bc573bc17da5979"
+      ref: "854c9afdc5263cac889cf3a74bc11709fcfee923"
+      resolved-ref: "854c9afdc5263cac889cf3a74bc11709fcfee923"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -900,8 +900,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "8762753ddaa3843065cadce49c81f9b13a654a40"
-      resolved-ref: "8762753ddaa3843065cadce49c81f9b13a654a40"
+      ref: af154328e0c246a4f155a4dfe50958ae5e5ab106
+      resolved-ref: af154328e0c246a4f155a4dfe50958ae5e5ab106
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -909,10 +909,10 @@ packages:
     dependency: "direct main"
     description:
       name: material_ui
-      sha256: "6d056d60ce745335fcf1c726a4fc46a481a62229f202b65dbc2db5edbbabc7e2"
+      sha256: "134ab2f0843545c4e661e4ba2753fe1bcf0753cb690d5a9ee4870638a40411e9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
+    version: "1.4.0"
   meta:
     dependency: transitive
     description:
@@ -1129,34 +1129,34 @@ packages:
     dependency: transitive
     description:
       name: pdfium_dart
-      sha256: ed25295fd2624bbf54b8e6bd3cd3d0fc644412d3d5e79ca2485cb36e65f20eb2
+      sha256: e296a26c030e6e0fb34b32ce7481a3cfa0c2d35ce80f6269551c685759f4c91f
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.3.1"
   pdfium_flutter:
     dependency: transitive
     description:
       name: pdfium_flutter
-      sha256: "2b1f27e30d29d0bb1d57a37c351b0cfa605cf5d2334aa565af370fa5b1eba8f4"
+      sha256: "59897274513984b347fc98e7bf71ba457678daea8b5568cd7c688979aeb77765"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.3.1"
   pdfrx:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "5eed06c4318157ea6791666c2ea4b01a35adac554b0aac7ca6b6d0cd80ba8e15"
+      sha256: "52e78d84a706e5d63d2502689fe8e800d823bc780ac4341b2d3683a4d726505a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1"
+    version: "2.6.5"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: f7b80b9af7d72188cecc15b31a91558d216cb15f97980b24146fd0c36cd6d049
+      sha256: f74ca9ea4ec722545f054a1d6ee1bf01222409ecd9458e5945c0cc5feaa3d2c6
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "0.6.1"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1177,8 +1177,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: f7479596c67239e755ab1fe3bade84895bfd6222
-      resolved-ref: f7479596c67239e755ab1fe3bade84895bfd6222
+      ref: "571650ac818f95a6c1f48f1bf3d33a010505d2c9"
+      resolved-ref: "571650ac818f95a6c1f48f1bf3d33a010505d2c9"
       url: "https://github.com/CodeDoctorDE/phosphor-flutter.git"
     source: git
     version: "2.1.0"
@@ -1338,16 +1338,16 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "7a836961af5e1aefd2498bc08501737cbea75b90019d5fd6f705cb28ec9ef526"
+      sha256: a976f04d492b82b06c74b3c654795ca5bbf9b670468081a339f6035f121359a3
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.10"
+    version: "3.8.11"
   settings_leap:
     dependency: "direct main"
     description:
       path: "packages/settings_leap"
-      ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
-      resolved-ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
+      ref: "854c9afdc5263cac889cf3a74bc11709fcfee923"
+      resolved-ref: "854c9afdc5263cac889cf3a74bc11709fcfee923"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.1.0"
@@ -1705,10 +1705,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: f36f9f3be64c6198714492bb455c11056e33e2f85d9a0b676a48301e44fdcf47
+      sha256: "92b9910f66ed1057fd4da7b040ae7c74cafacf885bdc81be496928d5049b032d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   vm_service:
     dependency: transitive
     description:
