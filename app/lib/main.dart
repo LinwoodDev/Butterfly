@@ -361,10 +361,11 @@ class ButterflyApp extends StatelessWidget {
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         localizationsDelegates: const [
-          ...AppLocalizations.localizationsDelegates,
+          AppLocalizations.delegate,
           LocaleNamesLocalizationsDelegate(),
           LeapLocalizations.delegate,
           KeybinderLocalizations.delegate,
+          ...GlobalMaterialLocalizations.delegates,
         ],
         builder: (context, child) {
           if (!state.nativeTitleBar) {
