@@ -64,7 +64,7 @@ dependencies:
   settings_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 854c9afdc5263cac889cf3a74bc11709fcfee923
+      ref: 289157ee036e3fe108cb628584bb7ac5196c74ab
       path: packages/settings_leap
   material_leap:
     git:
@@ -104,7 +104,7 @@ dependencies:
   keybinder:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 854c9afdc5263cac889cf3a74bc11709fcfee923
+      ref: 401cae032d1d5fb24bde61fae5bdd63d55bb5102
       path: packages/keybinder
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^3.0.0
