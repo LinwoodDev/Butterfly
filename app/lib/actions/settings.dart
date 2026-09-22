@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:butterfly/settings/home.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:keybinder/keybinder.dart';
+import 'package:settings_leap/settings_leap.dart';
 
 class SettingsIntent extends Intent {
   const SettingsIntent();
@@ -28,39 +27,7 @@ class SettingsAction extends Action<SettingsIntent> {
   Future<void> invoke(SettingsIntent intent) => openSettings(context);
 }
 
-Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
+Future<void> openSettings(BuildContext context) => showSettingsLeapDialog<void>(
   context: context,
-  pageBuilder: (context, animation, secondaryAnimation) => ScaffoldMessenger(
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned.fill(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: const SizedBox.expand(),
-          ),
-        ),
-        Dialog(
-          clipBehavior: .antiAlias,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 800, maxWidth: 1000),
-            child: const SettingsPage(inView: true),
-          ),
-        ),
-      ],
-    ),
-  ),
-  barrierDismissible: true,
-  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-  transitionDuration: const Duration(milliseconds: 200),
-  transitionBuilder: (context, animation, secondaryAnimation, child) {
-    // Animate the dialog from bottom to center
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(0, 1),
-        end: .zero,
-      ).chain(CurveTween(curve: Curves.easeOutQuart)).animate(animation),
-      child: child,
-    );
-  },
+  child: const SettingsPage(inView: true),
 );
