@@ -175,7 +175,7 @@ Widget _imageScaleSetting(BuildContext context, ButterflySettings state) {
 }
 
 void _openPersistenceSettings(BuildContext context) =>
-    context.push('/settings/behaviors/persistence');
+    openSettingsPage(context, 'behaviors.persistence');
 
 Widget _toolbarRowsSetting(BuildContext context, ButterflySettings state) {
   return ExactSlider(

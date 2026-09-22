@@ -45,10 +45,8 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
                   leading: remote.icon?.isEmpty ?? true
                       ? PhosphorIcon(remote.typeIcon())
                       : Image.memory(remote.icon!),
-                  onTap: () => context.pushNamed(
-                    'connection',
-                    pathParameters: {'id': remote.identifier},
-                  ),
+                  onTap: () =>
+                      openConnectionSettings(context, remote.identifier),
                   trailing: IconButton(
                     icon: remote.identifier == state.defaultRemote
                         ? const PhosphorIcon(PhosphorIconsFill.cloud)

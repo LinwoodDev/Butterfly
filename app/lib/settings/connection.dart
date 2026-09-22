@@ -12,7 +12,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ConnectionSettingsPage extends StatefulWidget {
   final String remote;
-  const ConnectionSettingsPage({super.key, required this.remote});
+  final bool inView;
+  const ConnectionSettingsPage({
+    super.key,
+    required this.remote,
+    this.inView = false,
+  });
 
   @override
   State<ConnectionSettingsPage> createState() => _ConnectionSettingsPageState();
@@ -48,35 +53,40 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
       icon: const PhosphorIcon(PhosphorIconsLight.plus),
     ),
   ];
+
+  PreferredSizeWidget? _buildTabs() => (_isRemote ?? false)
+      ? TabBar(
+          controller: _tabController,
+          onTap: (_) => setState(() {}),
+          tabs: [
+            HorizontalTab(
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.gear,
+                textDirection: .ltr,
+              ),
+              label: Text(AppLocalizations.of(context).general),
+            ),
+            HorizontalTab(
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.files,
+                textDirection: .ltr,
+              ),
+              label: Text(AppLocalizations.of(context).caches),
+            ),
+          ],
+          isScrollable: true,
+        )
+      : null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-        title: Text(widget.remote),
-        bottom: (_isRemote ?? false)
-            ? TabBar(
-                controller: _tabController,
-                onTap: (_) => setState(() {}),
-                tabs: [
-                  HorizontalTab(
-                    icon: const PhosphorIcon(
-                      PhosphorIconsLight.gear,
-                      textDirection: .ltr,
-                    ),
-                    label: Text(AppLocalizations.of(context).general),
-                  ),
-                  HorizontalTab(
-                    icon: const PhosphorIcon(
-                      PhosphorIconsLight.files,
-                      textDirection: .ltr,
-                    ),
-                    label: Text(AppLocalizations.of(context).caches),
-                  ),
-                ],
-                isScrollable: true,
-              )
-            : null,
-      ),
+      appBar: widget.inView
+          ? AppBar(title: Text(widget.remote), bottom: _buildTabs())
+          : WindowTitleBar<SettingsCubit, ButterflySettings>(
+              title: Text(widget.remote),
+              bottom: _buildTabs(),
+            ),
       body: _isRemote == null
           ? Center(child: Text(AppLocalizations.of(context).noConnections))
           : TabBarView(
