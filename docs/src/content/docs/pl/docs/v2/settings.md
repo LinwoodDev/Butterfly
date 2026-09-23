@@ -16,13 +16,13 @@ The **Document states** page under Behaviors controls which editor state Butterf
 
 Other Behavior settings control canvas navigation, rendering, and how imported material is placed. For example, **Spread to pages** affects page based imports, while **Image scale** changes the size used for imported images.
 
-## Inputs and View
+## Inputs and View {#inputs-and-view}
 
 **Inputs** has separate Mouse, Touch, Keyboard, and Stylus pages. Assign tool activators and document actions, adjust input sensitivity, and use the pointer test to inspect input events. See [Shortcuts](../shortcuts/) and [Stylus support](../stylus-support/) for detailed controls.
 
 **View** changes the layout of the editor: zoom controls, properties panel, toolbar position and size, navigation rail, and navigator previews. Its Home section controls file thumbnails and whether file extensions are shown. These settings affect the interface across documents; the [Utilities camera tab](../utilities/#camera) changes the view of the current document.
 
-## Data and Connections
+## Data and Connections {#data-and-connections}
 
 **Data** contains backup and data directory options, template and pack management, file export, and settings import, export, or reset. Before changing the data directory, see [Storage](../storage/#data-directory) for where Butterfly keeps documents and reusable assets.
 
