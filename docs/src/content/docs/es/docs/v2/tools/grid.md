@@ -20,6 +20,6 @@ Inputs get snapped to the grid.
 |                  Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |                   Color |            Negro            | El color de la rejilla.                                                                |
 |                    Alfa |             255             | La opacidad de las líneas de la rejilla.                                               |
-|                  Stroke |              1              | El grosor de las líneas de la rejilla.                                                 |
+|         Ancho del trazo |              1              | El grosor de las líneas de la rejilla.                                                 |
 |     Dependiente de zoom |            falso            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | Dependiendo de posición |            falso            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
