@@ -15,7 +15,7 @@ Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden kön
 |      Version | Die Version des Packs        |
 | Beschreibung | Eine Beschreibung des Pakets |
 
-## Komponenten
+## Components {#components}
 
 Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
 
