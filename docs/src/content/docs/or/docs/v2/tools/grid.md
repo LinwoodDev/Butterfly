@@ -20,6 +20,6 @@ Inputs get snapped to the grid.
 |        Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |          ରଙ୍ଗ |            Black            | The color of the grid.                                                                 |
 |          ଆଲଫା |             255             | The opacity of the grid lines.                                                         |
-|        Stroke |              1              | The width of the grid lines.                                                           |
+|  ଲାଇନ୍ ପ୍ରସ୍ଥ |              1              | The width of the grid lines.                                                           |
 |   ଜୁମ୍ ନିର୍ଭର |            false            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | ସ୍ଥିତି ନିର୍ଭର |            false            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
