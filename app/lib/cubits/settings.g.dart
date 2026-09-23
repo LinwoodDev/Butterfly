@@ -139,6 +139,7 @@ _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
   navigator: json['navigator'] as bool? ?? true,
   layers: json['layers'] as bool? ?? true,
   areas: json['areas'] as bool? ?? true,
+  autoThumbnail: json['autoThumbnail'] as bool? ?? true,
   defaultLocks: json['defaultLocks'] == null
       ? const PersistentLockState()
       : PersistentLockState.fromJson(json['defaultLocks'] as Map),
@@ -157,6 +158,7 @@ Map<String, dynamic> _$DocumentStatePersistenceSettingsToJson(
   'navigator': instance.navigator,
   'layers': instance.layers,
   'areas': instance.areas,
+  'autoThumbnail': instance.autoThumbnail,
   'defaultLocks': instance.defaultLocks.toJson(),
   'maxEntries': instance.maxEntries,
   'maxAgeDays': instance.maxAgeDays,

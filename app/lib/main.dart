@@ -201,6 +201,9 @@ class ButterflyApp extends StatelessWidget {
                   .defaultRemote;
               return ProjectPage(
                 data: state.extra,
+                isNewDocument:
+                    state.extra != null ||
+                    (state.uri.queryParameters['path']?.isEmpty ?? true),
                 location: AssetLocation(
                   remote: state.uri.queryParameters['remote'] ?? defaultRemote,
                   path: state.uri.queryParameters['path'] ?? '',

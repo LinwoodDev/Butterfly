@@ -44,6 +44,7 @@ import 'zoom.dart';
 
 class ProjectPage extends StatefulWidget {
   final bool absolute;
+  final bool isNewDocument;
   final AssetLocation? location;
   final Embedding? embedding;
   final String type;
@@ -58,6 +59,7 @@ class ProjectPage extends StatefulWidget {
     this.data,
     this.uri,
     this.absolute = false,
+    this.isNewDocument = false,
   });
 
   @override
@@ -88,6 +90,12 @@ class _ProjectDocumentRuntime {
     if (_closed) return;
     _closed = true;
     clearDocumentPagePreviewCache(bloc);
+    try {
+      await bloc.captureAutomaticThumbnail();
+    } catch (error, stackTrace) {
+      debugPrint('Could not update automatic thumbnail: $error');
+      debugPrintStack(stackTrace: stackTrace);
+    }
     embedding?.handler?.unregister();
     if (!bloc.isClosed) {
       await bloc.close();
@@ -116,6 +124,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void didUpdateWidget(ProjectPage oldWidget) {
     if (oldWidget.location != widget.location ||
         oldWidget.absolute != widget.absolute ||
+        oldWidget.isNewDocument != widget.isNewDocument ||
         oldWidget.type != widget.type ||
         !identical(oldWidget.data, widget.data) ||
         oldWidget.uri != widget.uri) {
@@ -432,16 +441,23 @@ class _ProjectPageState extends State<ProjectPage> {
           : fallbackPageName;
       final page =
           document.getPage(pageName ?? '') ?? DocumentDefaults.createPage();
-      final initialSession = EditorSessionCubit.buildInitial(
-        restored: restoredSession,
-        document: document,
-        page: page,
-        fallbackPageName: pageName,
-        fallbackLocks:
-            settingsCubit.state.documentStatePersistence.defaultLocks,
-        pathKey: pathKey,
-        contentHash: contentHash,
-      );
+      final initialSession =
+          EditorSessionCubit.buildInitial(
+            restored: restoredSession,
+            document: document,
+            page: page,
+            fallbackPageName: pageName,
+            fallbackLocks:
+                settingsCubit.state.documentStatePersistence.defaultLocks,
+            pathKey: pathKey,
+            contentHash: contentHash,
+          ).copyWith(
+            autoThumbnail:
+                restoredSession?.autoThumbnail ??
+                ((widget.isNewDocument || !documentOpened) &&
+                    embedding == null &&
+                    !absolute),
+          );
       final renderers = page.layers
           .expand(
             (layer) => layer.content.map(

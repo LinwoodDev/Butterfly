@@ -87,6 +87,13 @@ class EditorSessionCubit({
     );
   }
 
+  void updateAutoThumbnail(bool enabled) {
+    if (state.autoThumbnail == enabled) return;
+    emit(state.copyWith(autoThumbnail: enabled));
+    _dirty = true;
+    scheduleSave();
+  }
+
   CameraTransform get cameraTransform => CameraTransform(
     _transformCubit.state.pixelRatio,
     Offset(state.camera.positionX, state.camera.positionY),

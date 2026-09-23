@@ -207,7 +207,8 @@ class DocumentStateService(
         settings.tool &&
         settings.navigator &&
         settings.layers &&
-        settings.areas) {
+        settings.areas &&
+        settings.autoThumbnail) {
       return state;
     }
     final existing = await _getFileOrNull(key);
@@ -223,6 +224,9 @@ class DocumentStateService(
       areaNavigator: settings.areas
           ? state.areaNavigator
           : existing.areaNavigator,
+      autoThumbnail: settings.autoThumbnail
+          ? state.autoThumbnail
+          : existing.autoThumbnail,
     );
   }
 
@@ -249,6 +253,7 @@ class DocumentStateService(
     areaNavigator: settings.areas
         ? state.areaNavigator
         : const PersistedAreaNavigatorState(),
+    autoThumbnail: settings.autoThumbnail && state.autoThumbnail,
   );
 
   Future<PersistedDocumentState?> _getFileOrNull(String key) async {
