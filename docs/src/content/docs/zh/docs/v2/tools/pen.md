@@ -63,5 +63,5 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |   细化 |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |  平滑化 |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
 |  流线化 |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
-|   颜色 |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
-|   填充 |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |
+|   笔画 |                 Solid Color (Black)                 | [Paint](../../paints/) used along the pen path.                                                                         |
+|   填充 |              Solid Color (Transparent)              | [Paint](../../paints/) used inside an enclosed path.                                                                    |
