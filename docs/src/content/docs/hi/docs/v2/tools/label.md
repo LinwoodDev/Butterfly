@@ -68,6 +68,7 @@ $$
 | -------------: | :------: | :------------------------------------------------------------------------------------- |
 |           Mode |  टेक्स्ट | The label mode. Available modes are Text and Markdown. |
 |       अग्रभूमि |   Black  | The text color.                                                        |
+|         अल्फ़ा |    255   | Opacity of the foreground color.                                       |
 |          स्केल |     2    | The scale of the label.                                                |
 | ज़ूम पर निर्भर |   false  | Changes the label size based on the zoom level.                        |
 |    Style sheet | कोई नहीं | The style sheet used for the label.                                    |
