@@ -20,6 +20,6 @@ Inputs get snapped to the grid.
 |               Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |                Color |            Black            | The color of the grid.                                                                 |
 |                 Alfa |             255             | The opacity of the grid lines.                                                         |
-|               Stroke |              1              | The width of the grid lines.                                                           |
+|     Amplada del traç |              1              | The width of the grid lines.                                                           |
 |    Depenent del zoom |            false            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | Depend de la posició |            false            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
