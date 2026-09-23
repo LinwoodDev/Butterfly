@@ -7,7 +7,6 @@ Utilizzare un pacchetto esistente, creare il proprio o importare un pacchetto pe
 
 ## Configurazione
 
-|  Proprietà | Predefinito | Descrizione                                                 |
-| ---------: | :---------: | :---------------------------------------------------------- |
-|  Pacchetto |   Nessuno   | La confezione dove si trova il componente.  |
-| Componente |   Nessuno   | Il componente che verrà aggiunto alla tela. |
+| Proprietà  | Predefinito | Descrizione                                                                                                                                     |
+| ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Componente | Nessuno     | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
