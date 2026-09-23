@@ -9,6 +9,6 @@ It can't be selected permanently and will run the action immediately when you cl
 
 :::
 
-Wenn Sie auf dieses Werkzeug klicken, können Sie die Farbe des angeklickten Bereichs ermitteln. Die Farbe wird in die Zwischenablage kopiert.
+Wenn Sie auf dieses Werkzeug klicken, können Sie die Farbe des angeklickten Bereichs ermitteln. Die Farbe wird in die Zwischenablage kopiert. You can also choose colors directly with the [color picker](../../colors/).
 
 If used as a [temporary tool](../#temporary-tools), the color will be applied to the primary selected tool.
