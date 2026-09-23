@@ -4,6 +4,15 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+Offset _positionTooltipOutsideCard(TooltipPositionContext context) =>
+    positionDependentBox(
+      size: context.overlaySize,
+      childSize: context.tooltipSize,
+      target: context.target,
+      verticalOffset: context.targetSize.height / 2 + 8,
+      preferBelow: context.preferBelow,
+    );
+
 class AssetCard extends StatelessWidget {
   const AssetCard({
     super.key,
@@ -29,6 +38,7 @@ class AssetCard extends StatelessWidget {
     return Tooltip(
       message: tooltip ?? name ?? metadata?.name,
       waitDuration: const Duration(seconds: 1),
+      positionDelegate: _positionTooltipOutsideCard,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: height),
         child: AspectRatio(

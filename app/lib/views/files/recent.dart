@@ -88,7 +88,8 @@ class RecentFilesViewState extends State<RecentFilesView> {
     return BlocListener<SettingsCubit, ButterflySettings>(
       listenWhen: (previous, current) =>
           previous.history != current.history ||
-          previous.hideExtension != current.hideExtension,
+          previous.hideExtension != current.hideExtension ||
+          previous.showThumbnails != current.showThumbnails,
       listener: (_, state) => reload(state),
       child: StreamBuilder<List<FileSystemEntity<NoteFile>>>(
         stream: _stream,
