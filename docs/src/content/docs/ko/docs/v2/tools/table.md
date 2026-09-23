@@ -6,7 +6,7 @@ Use the Table tool to add a grid of cells to the canvas. Add it from **Add → S
 
 ## Configure the tool
 
-Select the Table tool again to open its properties. You can set the number of rows and columns, width and height, border color, stroke width and style, fill color, and whether its appearance depends on zoom. These settings apply to tables you create with that tool.
+Select the Table tool again to open its properties. You can set the number of rows and columns, width and height, border color, stroke width and style, fill color, and whether its appearance depends on zoom. Use the [color picker](../../colors/) for border and fill colors. These settings apply to tables you create with that tool.
 
 ## Edit an existing table
 
