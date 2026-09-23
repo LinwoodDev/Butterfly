@@ -68,6 +68,7 @@ $$
 | ----------: | :--------: | :------------------------------------------------------------------------------------- |
 |        Mode |    ପାଠ୍ୟ   | The label mode. Available modes are Text and Markdown. |
 |      ସାମ୍ନା |    Black   | The text color.                                                        |
+|        ଆଲଫା |     255    | Opacity of the foreground color.                                       |
 |      ପ୍ରମାଣ |      2     | The scale of the label.                                                |
 | ଜୁମ୍ ନିର୍ଭର |    false   | Changes the label size based on the zoom level.                        |
 | Style sheet | କିଛି ନୁହେଁ | The style sheet used for the label.                                    |
