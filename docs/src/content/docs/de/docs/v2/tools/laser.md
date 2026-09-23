@@ -5,6 +5,8 @@ title: Laserwerkzeug
 Mit diesem Werkzeug können Sie temporär auf Ihrer Arbeitsfläche zeichnen. Nach einer Weile verschwindet die Zeichnung.
 Add a new drawing to the paper to cancel the previous laser stroke.
 
+For marks that should remain in the document, use the [Pen tool](../pen/) instead.
+
 ## Konfiguration
 
 |           Objekt |       Standard      | Beschreibung                                                                                                          |
