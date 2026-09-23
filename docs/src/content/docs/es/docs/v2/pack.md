@@ -15,7 +15,7 @@ Packs are saved globally, so you can use them in any document. If you want to sh
 |     Versión | The version of the pack     |
 | Descripción | Una descripción del paquete |
 
-## Componentes
+## Components {#components}
 
 Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
