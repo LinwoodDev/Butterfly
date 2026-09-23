@@ -5,6 +5,8 @@ title: Herramienta láser
 Con esta herramienta se puede dibujar temporalmente sobre este papel. Después de un tiempo, el dibujo se desvanece.
 Add a new drawing to the paper to cancel the previous laser stroke.
 
+For marks that should remain in the document, use the [Pen tool](../pen/) instead.
+
 ## Configuración
 
 |        Propiedad |     Por defecto     | Descripción                                                                                                           |
