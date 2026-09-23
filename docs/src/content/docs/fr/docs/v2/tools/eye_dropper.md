@@ -9,6 +9,6 @@ It can't be selected permanently and will run the action immediately when you cl
 
 :::
 
-Lorsque vous cliquez sur cet outil, vous pouvez trouver la couleur de l'élément cliqué. La couleur sera copiée dans le presse-papier.
+Lorsque vous cliquez sur cet outil, vous pouvez trouver la couleur de l'élément cliqué. La couleur sera copiée dans le presse-papier. You can also choose colors directly with the [color picker](../../colors/).
 
 If used as a [temporary tool](../#temporary-tools), the color will be applied to the primary selected tool.
