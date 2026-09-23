@@ -54,14 +54,14 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 ## 設定
 
-|         属性 |                                  デフォルト                                 | 説明                                                                                                                                      |
-| ---------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|   ズームに依存する |                                  false                                 | これにより、ズームレベルに基づいてストローク幅が変更されます。                                                                                                         |
-|      パスを結合 |                                  false                                 | This will merge all strokes it touches into one path                                                                                    |
-|     シェイプ検出 | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
-|    ストロークの幅 |                                    5                                   | ストロークの幅                                                                                                                                 |
-|        薄肉化 |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
-|     スムージング |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
-| Streamline |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
-|          色 |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
-|      塗りつぶし |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |
+|                                       属性 |                                  デフォルト                                 | 説明                                                                                                                                      |
+| ---------------------------------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|                                 ズームに依存する |                                  false                                 | これにより、ズームレベルに基づいてストローク幅が変更されます。                                                                                                         |
+|                                    パスを結合 |                                  false                                 | This will merge all strokes it touches into one path                                                                                    |
+|                                   シェイプ検出 | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
+|                                  ストロークの幅 |                                    5                                   | ストロークの幅                                                                                                                                 |
+|                                      薄肉化 |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
+|                                   スムージング |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
+|                               Streamline |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
+| ストロークformat@@0 |                 Solid Color (Black)                 | [Paint](../../paints/) used along the pen path.                                                                         |
+|                                    塗りつぶし |              Solid Color (Transparent)              | [Paint](../../paints/) used inside an enclosed path.                                                                    |
