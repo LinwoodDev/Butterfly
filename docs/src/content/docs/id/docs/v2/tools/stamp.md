@@ -7,7 +7,6 @@ Use an existing pack, create your own or import a pack to use it. Read more [her
 
 ## Configuration
 
-|  Property |  Default  | Deskripsi                                                       |
-| --------: | :-------: | :-------------------------------------------------------------- |
-|     Paket | Tidak ada | The pack where the component is located.        |
-| Component | Tidak ada | The component that will be added to the canvas. |
+| Property  | Default   | Deskripsi                                                                                                                                       |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component | Tidak ada | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
