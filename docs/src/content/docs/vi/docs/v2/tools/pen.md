@@ -63,5 +63,5 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |            Làm mảnh |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |            Làm mượt |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
 |           Làm thẳng |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
-|             Màu sắc |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
-|                  Tô |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |
+|              Stroke |                 Solid Color (Black)                 | [Paint](../../paints/) used along the pen path.                                                                         |
+|                  Tô |              Solid Color (Transparent)              | [Paint](../../paints/) used inside an enclosed path.                                                                    |
