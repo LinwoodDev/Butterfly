@@ -14,12 +14,12 @@ Inputs get snapped to the grid.
 
 ## Konfigurasjon
 
-|          Egenskap |           Standard          | Beskrivelse                                                                                            |
-| ----------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
-|         Størrelse | (20, 20) | The size of the grid cells on the x and y axis.                                        |
-|            Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
-|             Farge |            Svart            | The color of the grid.                                                                 |
-|              Alfa |             255             | The opacity of the grid lines.                                                         |
-|            Stroke |              1              | The width of the grid lines.                                                           |
-|     Zoom avhengig |            usann            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
-| Posisjon avhengig |            usann            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
+|             Egenskap |           Standard          | Beskrivelse                                                                                            |
+| -------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|            Størrelse | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|               Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|                Farge |            Svart            | The color of the grid.                                                                 |
+|                 Alfa |             255             | The opacity of the grid lines.                                                         |
+| Bredde på slagbredde |              1              | The width of the grid lines.                                                           |
+|        Zoom avhengig |            usann            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
+|    Posisjon avhengig |            usann            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
