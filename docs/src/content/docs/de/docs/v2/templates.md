@@ -4,7 +4,7 @@ title: Vorlagen
 
 In Butterfly sind Vorlagen eine hilfreiche Möglichkeit, ein Dokument als Ausgangspunkt für die schnelle Nutzung zu verwenden.
 
-Wenn Sie zum Beispiel beim Notieren gerne ein Textmarker-Werkzeug und einen gepunkteten Hintergrund verwenden, können Sie mit Vorlagen schnell die benötigten Werkzeuge und den gewünschten Hintergrund anwenden.
+For example, if you like having a [highlighter](../tools/pen/) and a dotted [background](../background/) when taking notes, you can use templates to quickly apply the tools you need and the specific background you like.
 
 ## Was speichern Vorlagen?
 
@@ -12,12 +12,12 @@ Vorlagen sind im Grunde Dokumente, die Sie als Ausgangspunkt verwenden.
 
 They store everything a normal Dokument does, including:
 
-- Werkzeuge
+- [Tools](../tools/)
 - Dokumentinhalt wie Bilder, Zeichnungen, Striche usw.
 - Die Einstellungen für jedes Werkzeug
-- Ebenen
-- Flächen
-- Seiten
+- [Layers](../layers/)
+- [Areas](../areas/)
+- [Pages](../pages/)
 
 ## Wie erstellt man eine Vorlage?
 
