@@ -7,7 +7,6 @@ Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Re
 
 ## Configuração
 
-| Propriedade |  Padrão | Descrição                                                   |
-| ----------: | :-----: | :---------------------------------------------------------- |
-|      Pacote | Nenhuma | O pacote onde o componente está localizado. |
-|  Componente | Nenhuma | O componente que será adicionado à tela.    |
+| Propriedade | Padrão  | Descrição                                                                                                                                       |
+| ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Componente  | Nenhuma | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
