@@ -68,6 +68,7 @@ $$
 | --------------------: | :-------: | :------------------------------------------------------------------------------------- |
 |                  Mode |   Teksti  | The label mode. Available modes are Text and Markdown. |
 |                Etuala |   Musta   | The text color.                                                        |
+|                  Alfa |    255    | Opacity of the foreground color.                                       |
 |               Skaalaa |     2     | The scale of the label.                                                |
 | Lähennys riippuvainen |  epätosi  | Changes the label size based on the zoom level.                        |
 |           Style sheet | Ei Mitään | The style sheet used for the label.                                    |
