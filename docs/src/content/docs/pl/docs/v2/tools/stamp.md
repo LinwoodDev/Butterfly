@@ -7,7 +7,6 @@ Użyj istniejącej paczki, utwórz własną lub zaimportuj paczkę, aby ją uży
 
 ## Konfiguracja
 
-|  Własność | Domyślny | Opis                                                       |
-| --------: | :------: | :--------------------------------------------------------- |
-|    Paczka |   Brak   | Pakiet, w którym znajduje się komponent.   |
-| Komponent |   Brak   | Składnik, który zostanie dodany do płótna. |
+| Własność  | Domyślny | Opis                                                                                                                                            |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponent | Brak     | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
