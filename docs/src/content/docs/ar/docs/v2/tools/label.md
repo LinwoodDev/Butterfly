@@ -68,6 +68,7 @@ $$
 | ----------------: | :-------: | :------------------------------------------------------------------------------------- |
 |              Mode |     نص    | The label mode. Available modes are Text and Markdown. |
 |           الأمامي |    أسود   | The text color.                                                        |
+|          الشفافية |    255    | Opacity of the foreground color.                                       |
 |              مقاس |     2     | The scale of the label.                                                |
 | يتغير حسب التكبير |    خاطئ   | Changes the label size based on the zoom level.                        |
 |       Style sheet |  لا شَيْء | The style sheet used for the label.                                    |
