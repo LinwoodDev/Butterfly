@@ -8,7 +8,6 @@ Lire plus [ici](../../pack).
 
 ## Configuration
 
-| Propriété | Par défaut | Libellé                                                  |
-| --------: | :--------: | :------------------------------------------------------- |
-|    Paquet |    Aucun   | Le pack où se trouve le composant.       |
-| Composant |    Aucun   | Le composant qui sera ajouté à la toile. |
+| Propriété | Par défaut | Libellé                                                                                                                                         |
+| --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Composant | Aucun      | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
