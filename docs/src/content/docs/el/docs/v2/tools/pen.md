@@ -63,5 +63,5 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |             Λέπτυνση |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |           Εξομάλυνση |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
 |                  Ροή |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
-|                Χρώμα |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
-|              Γέμισμα |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |
+|           Εγκεφαλικό |                 Solid Color (Black)                 | [Paint](../../paints/) used along the pen path.                                                                         |
+|              Γέμισμα |              Solid Color (Transparent)              | [Paint](../../paints/) used inside an enclosed path.                                                                    |
