@@ -3,7 +3,7 @@ title: Stempelwerkzeug
 ---
 
 Mit dem Stempelwerkzeug können Sie Komponenten zu Ihrer Leinwand hinzufügen.
-Benutzen Sie ein bestehendes Paket, erstellen Sie Ihr eigenes oder importieren Sie ein Paket, um es zu verwenden. Lies [hier](../../pack) mehr darüber.
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## Konfiguration
 
