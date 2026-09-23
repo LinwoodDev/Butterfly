@@ -7,7 +7,6 @@ Mevcut bir paketi kullanın, kendi paketinizi oluşturun veya kullanmak için bi
 
 ## Yapılandırma
 
-|   Özellik | Varsayılan | Tanım                                                           |
-| --------: | :--------: | :-------------------------------------------------------------- |
-|     Paket |     Yok    | The pack where the component is located.        |
-| Component |     Yok    | The component that will be added to the canvas. |
+| Özellik   | Varsayılan | Tanım                                                                                                                                           |
+| --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component | Yok        | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
