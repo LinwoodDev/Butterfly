@@ -8,7 +8,7 @@ With this tool you can erase the elements on the paper.
 
 |     属性 |      默认设置      | 描述                                                                                                                                                                          |
 | -----: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|   Mode |       笔画       | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |   笔画宽度 |        5       | 笔画的宽度                                                                                                                                                                       |
 |   擦除形状 | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | 删除所有元素 |      false     | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
