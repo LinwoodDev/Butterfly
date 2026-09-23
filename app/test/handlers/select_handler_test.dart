@@ -9,6 +9,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,7 +25,61 @@ class _Bloc extends Mock implements DocumentBloc {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  setUpAll(() => registerFallbackValue(Rect.zero));
+  setUpAll(() {
+    registerFallbackValue(Rect.zero);
+    registerFallbackValue(Offset.zero);
+  });
+
+  test(
+    'clicking outside a selection removes its transform hit target',
+    () async {
+      final context = _Context();
+      final bloc = _Bloc();
+      final handler = SelectHandler(SelectTool());
+      const camera = CameraTransform(1, Offset.zero, 1, 0);
+      final selected = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(100, 100),
+          secondPosition: const Point(200, 200),
+        ),
+      );
+      when(() => context.getCameraTransform()).thenReturn(camera);
+      when(() => context.getSettings()).thenReturn(const ButterflySettings());
+      when(() => context.getViewState()).thenReturn(const EditorViewState());
+      when(() => context.getDocumentBloc()).thenReturn(bloc);
+      when(() => context.isCtrlPressed).thenReturn(false);
+      when(() => context.refresh()).thenAnswer((_) async {});
+      when(
+        () => bloc.rayCast(any(), any(), useCollection: false, useLayer: false),
+      ).thenAnswer((invocation) async {
+        final position = invocation.positionalArguments.first as Offset;
+        return position == const Offset(150, 150) ? {selected} : {};
+      });
+
+      handler.onTapUp(
+        TapUpDetails(
+          localPosition: const Offset(150, 150),
+          kind: PointerDeviceKind.mouse,
+        ),
+        context,
+      );
+      await pumpEventQueue();
+      final inside = PointerDownEvent(position: const Offset(150, 150));
+      expect(handler.getSelectionRect(), isNotNull);
+      expect(handler.canChange(inside, context), isFalse);
+
+      handler.onTapUp(
+        TapUpDetails(
+          localPosition: const Offset(400, 400),
+          kind: PointerDeviceKind.mouse,
+        ),
+        context,
+      );
+      await pumpEventQueue();
+      expect(handler.getSelectionRect(), isNull);
+      expect(handler.canChange(inside, context), isTrue);
+    },
+  );
 
   test(
     'rotated rectangle preview and hit test match both drag directions',

@@ -296,7 +296,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
         _selected.clear();
-        _selectionManager.resetTransform();
+        _updateSelectionRect();
         context.refresh();
       }
       return;
@@ -312,7 +312,7 @@ class SelectHandler extends Handler<SelectTool> {
       _selected.clear();
       _selected.add(hit);
     }
-    _selectionManager.resetTransform();
+    _updateSelectionRect();
     context.refresh();
   }
 
