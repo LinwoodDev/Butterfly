@@ -7,7 +7,6 @@ Bruk en eksisterende pakke, lag en egen eller importer en pakke for å bruke den
 
 ## Konfigurasjon
 
-|  Egenskap | Standard | Beskrivelse                                                |
-| --------: | :------: | :--------------------------------------------------------- |
-|     Pakke |   Ingen  | Pakken hvor komponenten er lokalisert.     |
-| Komponent |   Ingen  | Komponenten som vil bli lagt til lerretet. |
+| Egenskap  | Standard | Beskrivelse                                                                                                                                     |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponent | Ingen    | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
