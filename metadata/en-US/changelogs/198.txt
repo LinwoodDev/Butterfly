@@ -1,5 +1,6 @@
+* Add explicit raster bounds to offscreen canvas recordings
 * Fix high-quality image exports being cropped at GPU texture limits ([#1269](https://github.com/LinwoodDev/Butterfly/issues/1269))
 * Fix image exports reusing screen-resolution renderer caches at different quality settings
-* Add explicit raster bounds to offscreen canvas recordings
+* Add reset functionality to embeds
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.3

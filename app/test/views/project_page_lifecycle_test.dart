@@ -174,7 +174,7 @@ void main() {
             GoRoute(
               path: 'embed',
               builder: (context, state) => ProjectPage(
-                data: document.toFile(),
+                data: state.extra ?? document.toFile(),
                 embedding: Embedding(
                   internal: true,
                   fileName: embedFileName,
@@ -1293,6 +1293,39 @@ void main() {
     expect(stored?.camera.positionX, 100);
     expect(stored?.camera.positionY, 200);
     expect(stored?.camera.zoom, 3);
+  });
+
+  testWidgets('embed can replace a used document with a blank document', (
+    tester,
+  ) async {
+    final usedDocument = DocumentDefaults.createDocument(name: 'Used document');
+    await tester.pumpWidget(buildApp(embedDocument: usedDocument));
+
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'used embedded document open',
+    );
+    final previousBloc = observer.lastDocumentBloc!;
+    expect(
+      (previousBloc.state as DocumentLoadSuccess).data.getMetadata()?.name,
+      'Used document',
+    );
+
+    router.go('/embed', extra: DocumentDefaults.createDocument());
+    await pumpUntil(
+      tester,
+      () =>
+          observer.documentBlocCreates == 2 &&
+          observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'blank embedded document open',
+    );
+
+    expect(previousBloc.isClosed, isTrue);
+    final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
+    expect(state.data.getMetadata()?.name, isEmpty);
+    expect(state.page.content, isEmpty);
   });
 }
 

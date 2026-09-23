@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,7 @@ class EmbedHandler {
   EmbedHandler();
   EventListener? getDataListener,
       setDataListener,
+      resetListener,
       renderListener,
       renderSVGListener;
   StreamSubscription? _blocSubscription;
@@ -103,6 +105,16 @@ class EmbedHandler {
     },
   );
 
+  void _replaceDocument(BuildContext context, DocumentBloc bloc, Object data) {
+    final embedding = bloc.editorController.saveCubit.state.embedding;
+    if (embedding == null) return;
+    GoRouter.of(context).go(_buildEmbedUri(embedding).toString(), extra: data);
+  }
+
+  void _resetDocument(BuildContext context, DocumentBloc bloc) {
+    _replaceDocument(context, bloc, DocumentDefaults.createDocument());
+  }
+
   void register(BuildContext context, DocumentBloc bloc) {
     _blocSubscription ??= bloc.stream.listen((state) {
       if (state is DocumentLoadSuccess &&
@@ -130,6 +142,10 @@ class EmbedHandler {
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
+      if (message == null) {
+        _resetDocument(context, bloc);
+        return;
+      }
       final bytes = _messageToBytes(message);
       if (bytes == null) return;
       if (!_isValidDocumentData(bytes)) {
@@ -139,10 +155,10 @@ class EmbedHandler {
         });
         return;
       }
-      final embedding = bloc.editorController.saveCubit.state.embedding;
-      if (embedding == null) return;
-      GoRouter.of(context)
-          .go(_buildEmbedUri(embedding).toString(), extra: bytes);
+      _replaceDocument(context, bloc, bytes);
+    });
+    resetListener ??= onEmbedMessage('reset', (message) {
+      _resetDocument(context, bloc);
     });
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;
@@ -263,6 +279,10 @@ class EmbedHandler {
     if (setDataListener != null) {
       removeEmbedMessageListener(setDataListener!);
       setDataListener = null;
+    }
+    if (resetListener != null) {
+      removeEmbedMessageListener(resetListener!);
+      resetListener = null;
     }
     if (renderListener != null) {
       removeEmbedMessageListener(renderListener!);
