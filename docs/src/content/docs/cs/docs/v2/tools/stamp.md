@@ -7,7 +7,6 @@ Použijte existující balíček, vytvořte si vlastní nebo importujte balíče
 
 ## Konfigurace
 
-|    Majetek | Výchozí | Popis                                                     |
-| ---------: | :-----: | :-------------------------------------------------------- |
-|     Balení |   Nic   | Balení, kde se komponenta nachází.        |
-| Komponenty |   Nic   | Komponenta, která bude přidána do plátna. |
+| Majetek    | Výchozí | Popis                                                                                                                                           |
+| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponenty | Nic     | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
