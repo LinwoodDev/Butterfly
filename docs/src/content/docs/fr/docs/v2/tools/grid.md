@@ -20,6 +20,6 @@ Les entrées sont alignées sur la grille.
 |                 Décalage |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |                  Couleur |             Noir            | The color of the grid.                                                                 |
 |          Alphabétisation |             255             | The opacity of the grid lines.                                                         |
-|                   Stroke |              1              | The width of the grid lines.                                                           |
+|         Largeur du trait |              1              | The width of the grid lines.                                                           |
 |        Dépendant du zoom |          Désactivé          | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | Dépendant de la position |          Désactivé          | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
