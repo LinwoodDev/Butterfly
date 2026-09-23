@@ -14,6 +14,7 @@ import 'embedding.dart';
 class EmbedHandler {
   EmbedHandler();
   EventListener? getDataListener,
+      getThumbnailListener,
       setDataListener,
       renderListener,
       renderSVGListener;
@@ -128,6 +129,42 @@ class EmbedHandler {
       if (state is DocumentLoadSuccess) {
         sendEmbedMessage('getData', (await state.saveData()).exportAsBytes());
       }
+    });
+    getThumbnailListener ??= onEmbedMessage('getThumbnail', (message) {
+      final state = bloc.state;
+      if (state is! DocumentLoadSuccess) {
+        sendEmbedMessage('getThumbnail', null);
+        return;
+      }
+      final options = _messageToMap(message);
+      final format =
+          (options == null ? message : options['format'])
+              ?.toString()
+              .toLowerCase() ??
+          'png';
+      if (format != 'png' && format != 'svg') {
+        sendEmbedMessage('error', {
+          'method': 'getThumbnail',
+          'message': 'Unsupported thumbnail format: $format',
+        });
+        return;
+      }
+      final bytes = state.data.getThumbnail();
+      if (bytes == null || bytes.isEmpty) {
+        sendEmbedMessage('getThumbnail', null);
+        return;
+      }
+      final png = base64.encode(bytes);
+      sendEmbedMessage(
+        'getThumbnail',
+        format == 'svg'
+            ? '<svg xmlns="http://www.w3.org/2000/svg" '
+                  'width="$kThumbnailWidth" height="$kThumbnailHeight" '
+                  'viewBox="0 0 $kThumbnailWidth $kThumbnailHeight">'
+                  '<image width="$kThumbnailWidth" height="$kThumbnailHeight" '
+                  'href="data:image/png;base64,$png"/></svg>'
+            : png,
+      );
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
       final bytes = _messageToBytes(message);
@@ -259,6 +296,10 @@ class EmbedHandler {
     if (getDataListener != null) {
       removeEmbedMessageListener(getDataListener!);
       getDataListener = null;
+    }
+    if (getThumbnailListener != null) {
+      removeEmbedMessageListener(getThumbnailListener!);
+      getThumbnailListener = null;
     }
     if (setDataListener != null) {
       removeEmbedMessageListener(setDataListener!);

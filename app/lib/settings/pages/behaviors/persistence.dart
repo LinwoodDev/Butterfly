@@ -162,6 +162,21 @@ Widget _buildPersistenceSettingsSection(
                       ? (value) => change(settings.copyWith(areas: value))
                       : null,
                 ),
+                SwitchListTile(
+                  value: settings.autoThumbnail,
+                  secondary: const PhosphorIcon(PhosphorIconsLight.camera),
+                  title: Text(
+                    AppLocalizations.of(context).persistentStateAutoThumbnail,
+                  ),
+                  subtitle: Text(
+                    AppLocalizations.of(context)
+                        .persistentStateAutoThumbnailDescription,
+                  ),
+                  onChanged: settings.enabled
+                      ? (value) =>
+                            change(settings.copyWith(autoThumbnail: value))
+                      : null,
+                ),
                 const Divider(),
                 ExpansionTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.lockKeyOpen),
