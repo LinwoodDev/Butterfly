@@ -3,8 +3,7 @@ title: Stamp tool
 ---
 
 Libellé
-Utilisez un pack existant, créez le vôtre ou importez un pack pour l'utiliser.
-Lire plus [ici](../../pack).
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## Configuration
 
