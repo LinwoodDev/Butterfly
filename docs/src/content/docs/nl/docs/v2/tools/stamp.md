@@ -7,7 +7,6 @@ Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om he
 
 ## Configuratie
 
-| Eigenschap | Standaard | Beschrijving                                                            |
-| ---------: | :-------: | :---------------------------------------------------------------------- |
-|     Pakket |    geen   | Het pakket waar het onderdeel zich bevindt.             |
-|  Onderdeel |    geen   | Het onderdeel dat aan het canvas zal worden toegevoegd. |
+| Eigenschap | Standaard | Beschrijving                                                                                                                                    |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Onderdeel  | geen      | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
