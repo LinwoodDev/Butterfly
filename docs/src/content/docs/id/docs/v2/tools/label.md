@@ -68,6 +68,7 @@ $$
 | -------------------: | :-------: | :------------------------------------------------------------------------------------- |
 |                 Mode |    Teks   | The label mode. Available modes are Text and Markdown. |
 |          Latar depan |   Black   | The text color.                                                        |
+|                 Alfa |    255    | Opacity of the foreground color.                                       |
 |                Skala |     2     | The scale of the label.                                                |
 | Bergantung pada zoom |   false   | Changes the label size based on the zoom level.                        |
 |          Style sheet | Tidak ada | The style sheet used for the label.                                    |
