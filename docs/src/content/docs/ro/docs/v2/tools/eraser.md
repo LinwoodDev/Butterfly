@@ -8,7 +8,7 @@ With this tool you can erase the elements on the paper.
 
 |             Proprietate |    Implicit    | Descriere                                                                                                                                                                   |
 | ----------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                    Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                    Mode |    Accident    | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |      Lățimea conturului |        5       | Lățimea conturului                                                                                                                                                          |
 |            Șterge forme | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Şterge toate elementele |      fals      | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
