@@ -15,7 +15,7 @@ Packs are saved globally, so you can use them in any document. If you want to sh
 | เวอร์ชัน | The version of the pack   |
 | คำอธิบาย | A description of the pack |
 
-## คอมโพเนนต์
+## Components {#components}
 
 Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
