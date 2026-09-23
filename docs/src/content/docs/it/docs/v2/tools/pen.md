@@ -63,5 +63,5 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |          Sottigliezza |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |            Smussatura |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
 |  Flusso d' inchiostro |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
-|                Colore |                 Solid Color (Black)                 | [Customization](../../colors/#further-customization) for the color of the stroke                                                        |
-|                Riempi |              Solid Color (Transparent)              | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                       |
+|               Delinea |                 Solid Color (Black)                 | [Paint](../../paints/) used along the pen path.                                                                         |
+|                Riempi |              Solid Color (Transparent)              | [Paint](../../paints/) used inside an enclosed path.                                                                    |
