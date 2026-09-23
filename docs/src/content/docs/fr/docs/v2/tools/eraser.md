@@ -8,7 +8,7 @@ Avec cet outil vous pouvez effacer des éléments du document.
 
 |                 Propriété |   Par défaut   | Libellé                                                                                                                                                                     |
 | ------------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                      Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                      Mode |      Trait     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |          Largeur du trait |        5       | La largeur du trait                                                                                                                                                         |
 |        Effacer les formes | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Effacer tous les éléments |    Désactivé   | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
