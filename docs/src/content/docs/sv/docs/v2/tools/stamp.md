@@ -7,7 +7,6 @@ Använd ett befintligt paket, skapa din egen eller importera ett paket för att 
 
 ## Konfiguration
 
-|  Egenskap | Standard | Beskrivning                                                     |
-| --------: | :------: | :-------------------------------------------------------------- |
-|     Paket |   Ingen  | Paketet där komponenten finns.                  |
-| Komponent |   Ingen  | Komponenten som kommer att läggas till i duken. |
+| Egenskap  | Standard | Beskrivning                                                                                                                                     |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponent | Ingen    | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
