@@ -68,6 +68,7 @@ $$
 | ----------------: | :-----: | :------------------------------------------------------------------------------------- |
 |              Mode |   Text  | The label mode. Available modes are Text and Markdown. |
 |        Primer pla |  Black  | The text color.                                                        |
+|              Alfa |   255   | Opacity of the foreground color.                                       |
 |            Escala |    2    | The scale of the label.                                                |
 | Depenent del zoom |  false  | Changes the label size based on the zoom level.                        |
 |       Style sheet |   Cap   | The style sheet used for the label.                                    |
