@@ -6,6 +6,8 @@ Mit Wegpunkten können Sie wichtige Orte in Ihren Notizen speichern und schnell 
 
 Öffnen Sie den Wegpunkt-Dialog, indem Sie auf die Butterfly-Schaltfläche klicken und „Wegpunkte“ auswählen, oder wählen Sie das Wegpunkt-Symbol in der Navigationsleiste, wenn es aktiviert ist.
 
+For a precise camera position or zoom before saving a waypoint, use [Utilities → Camera](../utilities/#camera).
+
 Um einen Wegpunkt zu erstellen, bewegen Sie sich zur Position auf der Leinwand wo Sie den Wegpunkt platzieren möchten öffnen Sie den Wegpunkt-Dialog und wählen Sie "Erstellen". Wenn Skalierung aktiviert ist, wird der aktuelle Zoombetrag der Leinwand im Wegpunkt gespeichert und die Leinwand kehrt zu dem gleichen Zoombetrag zurück, wenn Sie zum Wegpunkt navigieren.
 
 Um einen vorhandenen Wegpunkt zu ersetzen/zu überschreiben, bewegen Sie sich auf der Leinwand auf eine neue Position, öffnen Sie den Wegpunkt-Dialog und wählen Sie Ersetzen.
