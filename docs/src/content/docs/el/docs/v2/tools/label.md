@@ -68,6 +68,7 @@ $$
 | ------------------: | :--------: | :------------------------------------------------------------------------------------- |
 |                Mode |   Κείμενο  | The label mode. Available modes are Text and Markdown. |
 |           Προσκήνιο |    Μαύρο   | The text color.                                                        |
+|                Άλφα |     255    | Opacity of the foreground color.                                       |
 |             Κλίμακα |      2     | The scale of the label.                                                |
 | Εξαρτώμενο από ζουμ |   ψευδές   | Changes the label size based on the zoom level.                        |
 |         Style sheet |   Κανένα   | The style sheet used for the label.                                    |
