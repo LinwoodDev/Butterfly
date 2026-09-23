@@ -7,7 +7,6 @@ Brug en eksisterende pakke, opret din egen eller importér en pakke for at bruge
 
 ## Konfiguration
 
-|  Egenskab | Standard | Varebeskrivelse                                                     |
-| --------: | :------: | :------------------------------------------------------------------ |
-|     Pakke |   Ingen  | Pakken hvor komponenten er placeret.                |
-| Komponent |   Ingen  | Den komponent, der vil blive tilføjet til lærredet. |
+| Egenskab  | Standard | Varebeskrivelse                                                                                                                                 |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponent | Ingen    | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
