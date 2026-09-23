@@ -6,10 +6,7 @@ Farben können auf zwei Arten ausgewählt werden: über die Farb-Symbolleiste un
 
 Um die Farbpalette zu aktualisieren, lies die [Pack-Dokumentation](/docs/v2/pack).
 
-For some [surface tools](../add/#surfaces) like the [Pen](../tools/pen/), [Shape](../tools/shape/)
-and [Polygon](../tools/polygon) tools, you can further customize the coloring of the tool. This
-section will cover the different modes for both the **color** and the **fill** properties with
-gradients or images. See [Further customization](#further-customization).
+The Pen, Shape, and Polygon tools also offer solid, gradient, image, and SVG paint for strokes and fills. See [Paints](../paints/) for when to use each type and how its controls work.
 
 ## Farb-Werkzeugleiste
 
