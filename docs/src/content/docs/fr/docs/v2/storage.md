@@ -11,7 +11,7 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 The data directory is the directory where documents, templates, and packs are stored.
 On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 Sur mobile, c'est dans `getExternalFilesDir(null)/Linwood/Butterfly`.
-Vous pouvez également le modifier dans les paramètres sous `Data`.
+You can also change it under [Settings → Data](../settings/#data-and-connections).
 
 Dans ce répertoire, vous trouverez un dossier `Documents`, `Templates` et `Packs`.
 
@@ -34,7 +34,7 @@ Cette fonctionnalité n'est pas disponible sur le Web.
 
 The application data can be stored on a remote server. Ceci est utile si vous voulez partager les données avec d'autres personnes ou si vous avez plusieurs ordinateurs. Actuellement, seul le protocole `WebDAV` est pris en charge.
 
-Pour ajouter un serveur distant, allez dans les paramètres et cliquez sur `Remotes`. Puis cliquez sur `Ajouter une télécommande`.
+To add a remote server, open [Settings → Connections](../settings/#data-and-connections) and add a connection.
 Ajoute l'URL du serveur distant et le nom d'utilisateur et le mot de passe. Ensuite, vous pouvez spécifier le dossier où les données sont stockées.
 
 To get the WebDAV URL, please visit the documentation:
@@ -109,9 +109,11 @@ Si vous êtes sur un périphérique natif, vous pouvez également synchroniser l
 Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
 On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
-## Supported file types
+## Supported file types {#supported-file-types}
 
 Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+For the steps to bring files into a document or create output files, see [Importing](../importing/) and [Exporting](../exporting/).
 
 ### Butterfly Note (.bfly)
 
