@@ -20,6 +20,6 @@ Inputs get snapped to the grid.
 |                 Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |                  Колір |         Чорний колір        | The color of the grid.                                                                 |
 |                  Альфа |             255             | The opacity of the grid lines.                                                         |
-|                 Stroke |              1              | The width of the grid lines.                                                           |
+|          Ширина штриха |              1              | The width of the grid lines.                                                           |
 |    Залежність масштабу |           хибність          | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | Залежність від позиції |           хибність          | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
