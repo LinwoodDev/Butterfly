@@ -14,6 +14,8 @@ This page collects the current stylus-input behavior in Butterfly.
 
 You can find stylus-related options in **Settings → Input → Stylus**:
 
+See [Settings](../settings/#inputs-and-view) for the other input and view controls.
+
 - **Stylus-only input** (changed in 2.5): helps avoid accidental finger/touch drawing when using a stylus.
 - **Stylus-only toggle on stylus detection:** when a stylus is detected, a quick Stylus-only toggle is activated; you can still disable it in **Settings → Input → Stylus**.
 - **Druck ignorieren:** Nützlich, wenn Druckdaten unzuverlässig sind. Dies ist gesetzt, um in Fällen zu helfen, in denen Firefox bei der ersten Eingabe falschen Druck meldet.
@@ -22,6 +24,8 @@ You can find stylus-related options in **Settings → Input → Stylus**:
 ## Stylus shortcuts and pointer test
 
 Butterfly supports stylus shortcuts (button mappings can vary by device/OS). Wenn Kurzbefehle nicht wie erwartet funktionieren, öffnen Sie zuerst den **Eingabetest** und prüfen Sie die Schaltflächenwerte:
+
+You can assign the buttons to [tool activators and document actions](../shortcuts/#tool-activators).
 
 - **Primary Schaltfläche** commonly appears as `10` (`2`)
 - **Sekundäre Schaltfläche** erscheint häufig als `100` (`4`) oder `100000` (`32`)
