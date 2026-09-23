@@ -213,7 +213,7 @@ extension ToolVisualizer on Tool {
       PenTool() => 'pen',
       LaserTool() => 'laser',
       ShapeTool() => 'shape',
-      TableTool() => null,
+      TableTool() => 'table',
       StampTool() => 'stamp',
       EraserTool e => switch (e.mode) {
         .stroke => 'eraser',
@@ -227,17 +227,19 @@ extension ToolVisualizer on Tool {
       CollectionTool() => 'collection',
       PresentationTool() => 'presentation',
       FullScreenTool() => 'full_screen',
-      ImportTool() => null,
+      ImportTool() => 'importing',
       SpacerTool() => 'spacer',
-      AssetTool() => null,
-      ExportTool() => null,
+      AssetTool() => 'importing',
+      ExportTool() => 'exporting',
       EyeDropperTool() => 'eye_dropper',
       GridTool() => 'grid',
       RulerTool() => 'ruler',
       BarcodeTool() => 'barcode',
       PolygonTool() => 'polygon',
     };
-    if (page == null) return [];
+    if (this is ImportTool || this is AssetTool || this is ExportTool) {
+      return [page];
+    }
     return ['tools', page];
   }
 

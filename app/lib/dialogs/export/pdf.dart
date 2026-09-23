@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/load.dart';
@@ -58,6 +59,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                 Header(
                   title: Text(AppLocalizations.of(context).exportPdf),
                   actions: [
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                      tooltip: AppLocalizations.of(context).help,
+                      onPressed: () => openHelp(['exporting'], 'export-a-pdf'),
+                    ),
                     if (_areas.isNotEmpty)
                       IconButton(
                         icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),

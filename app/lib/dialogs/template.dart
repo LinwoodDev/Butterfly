@@ -2,6 +2,7 @@ import 'dart:math' show Point;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/actions/new.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -117,6 +118,11 @@ class _TemplateDialogState extends State<TemplateDialog> {
         tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
       ),
       headerActions: [
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+          tooltip: AppLocalizations.of(context).help,
+          onPressed: () => openHelp(['templates']),
+        ),
         ConnectionButton(
           currentRemote: _templateSystem.storage?.identifier ?? '',
           onChanged: (value) {

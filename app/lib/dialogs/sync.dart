@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,6 +63,11 @@ class _SyncDialogState extends State<SyncDialog> {
                 Header(
                   title: Text(status.getLocalizedName(context)),
                   actions: [
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                      tooltip: AppLocalizations.of(context).help,
+                      onPressed: () => openHelp(['storage'], 'offline'),
+                    ),
                     IconButton(
                       icon: const PhosphorIcon(PhosphorIconsLight.gear),
                       onPressed: selectedSync == null

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -224,6 +225,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                   title: Text(AppLocalizations.of(context).export),
                   leading: const PhosphorIcon(PhosphorIconsLight.export),
                   actions: [
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                      tooltip: AppLocalizations.of(context).help,
+                      onPressed: () =>
+                          openHelp(['exporting'], 'export-an-image-or-svg'),
+                    ),
                     IconButton(
                       icon: const Icon(PhosphorIconsLight.pushPin),
                       tooltip: AppLocalizations.of(context).pin,

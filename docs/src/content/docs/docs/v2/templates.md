@@ -5,7 +5,7 @@ title: Templates
 
 In Butterfly, templates are a helpful way to make a document a starting point for quick use.
 
-For example, if you like having a highlighter tool and a dotted background when taking notes, you can use templates to quickly apply the tools you need and the specific background you like.
+For example, if you like having a [highlighter](../tools/pen/) and a dotted [background](../background/) when taking notes, you can use templates to quickly apply the tools you need and the specific background you like.
 
 ## What do templates store?
 
@@ -13,12 +13,12 @@ Templates are basically documents that you use as a starting point.
 
 They store everything a normal document does, including:
 
-- Tools
+- [Tools](../tools/)
 - Document Content like pictures, drawings, strokes, etc.
 - The settings for each tool
-- Layers
-- Areas
-- Pages
+- [Layers](../layers/)
+- [Areas](../areas/)
+- [Pages](../pages/)
 
 ## How to make a template?
 

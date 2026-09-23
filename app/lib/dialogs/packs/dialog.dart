@@ -60,6 +60,11 @@ class _PacksDialogState extends State<PacksDialog>
       ),
       title: Text(AppLocalizations.of(context).packs),
       headerActions: [
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+          tooltip: AppLocalizations.of(context).help,
+          onPressed: () => openHelp(['pack']),
+        ),
         if (!widget.globalOnly)
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.cube),

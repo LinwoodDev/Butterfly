@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly/dialogs/layers.dart';
@@ -24,6 +25,13 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).collections),
       constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
+      headerActions: [
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+          tooltip: AppLocalizations.of(context).help,
+          onPressed: () => openHelp(['tools', 'collection']),
+        ),
+      ],
       content: Column(
         mainAxisSize: .min,
         crossAxisAlignment: .stretch,
