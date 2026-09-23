@@ -15,7 +15,7 @@ Use **Export** in the Butterfly menu while a document is open. Pick a Butterfly 
 
 See [Storage](../storage/#supported-file-types) for more about Butterfly note files. Image, SVG, PDF, and Xournal++ exports should be treated as output copies rather than substitutes for your editable Butterfly note.
 
-## Export an image or SVG
+## Export an image or SVG {#export-an-image-or-svg}
 
 1. Open the Butterfly menu and choose **Export → Image** or **Export → SVG**.
 2. In the preview dialog, select **View** to use the current viewport or **Page** to fit the page content.
@@ -26,7 +26,7 @@ The pin button in this dialog adds an Export action to the document toolbar usin
 
 You can also use an [area](../areas/) to define a particular region of the canvas for export.
 
-## Export a PDF
+## Export a PDF {#export-a-pdf}
 
 Choose **Export → PDF**. The PDF dialog contains a list of areas to export. Add areas from the document, adjust their order and settings, and export the result. You can save the area list as a preset and reuse an existing preset later.
 
