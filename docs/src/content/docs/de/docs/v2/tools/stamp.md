@@ -7,7 +7,6 @@ Benutzen Sie ein bestehendes Paket, erstellen Sie Ihr eigenes oder importieren S
 
 ## Konfiguration
 
-|     Objekt | Standard | Beschreibung                                                       |
-| ---------: | :------: | :----------------------------------------------------------------- |
-|      Paket |   Keine  | Das Paket, in dem sich die Komponente befindet.    |
-| Komponente |   Keine  | Die Komponente, die der Leinwand hinzugefügt wird. |
+| Objekt     | Standard | Beschreibung                                                                                                                                    |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponente | Keine    | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
