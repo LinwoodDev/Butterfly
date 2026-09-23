@@ -68,6 +68,7 @@ $$
 |---------------:|:-------:|:-------------------------------------------------------|
 |           Mode |  Text   | The label mode. Available modes are Text and Markdown. |
 |     Foreground |  Black  | The text color.                                        |
+|          Alpha |   255   | Opacity of the foreground color.                       |
 |          Scale |    2    | The scale of the label.                                |
 | Zoom dependent |  false  | Changes the label size based on the zoom level.        |
 |    Style sheet |  None   | The style sheet used for the label.                    |

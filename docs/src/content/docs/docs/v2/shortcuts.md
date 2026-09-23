@@ -43,10 +43,10 @@ the Label tool, and the Area tool.
 * `Save`: Saves the document state
 * `Change path`: Changes where the document is stored relative to the `Documents` folder
   in [Data directory](../storage/#data-directory).
-* `Zoom in`: Zooms into the canvas at the current position. See [Camera](../utilities/camera).
-* `Zoom out`: Zooms out of the canvas at the current position. See [Camera](../utilities/camera).
-* `Rotate left`: Rotates the canvas counter-clockwise. See [Camera](../utilities/camera).
-* `Rotate right`: Rotates the canvas clockwise. See [Camera](../utilities/camera).
+* `Zoom in`: Zooms into the canvas at the current position. See [Camera](../utilities/#camera).
+* `Zoom out`: Zooms out of the canvas at the current position. See [Camera](../utilities/#camera).
+* `Rotate left`: Rotates the canvas counter-clockwise. See [Camera](../utilities/#camera).
+* `Rotate right`: Rotates the canvas clockwise. See [Camera](../utilities/#camera).
 * `Full screen`: Toggles [Full screen](../tools/full_screen)
 * `Hide UI`: Hides everything except the canvas. To leave this view, click the `Exit` button on the
   bottom right.

@@ -103,6 +103,7 @@ export default defineConfig({
               ...getSidebarTranslatedLabel("Introduction"),
               link: "/docs/v2/intro",
             },
+            { label: "Settings", link: "/docs/v2/settings/" },
             {
               ...getSidebarTranslatedLabel("Context menu"),
               link: "/docs/v2/context_menu",
@@ -119,6 +120,7 @@ export default defineConfig({
               ...getSidebarTranslatedLabel("Colors"),
               link: "/docs/v2/colors/",
             },
+            { label: "Paints", link: "/docs/v2/paints/" },
             {
               ...getSidebarTranslatedLabel("Layers"),
               link: "/docs/v2/layers/",
@@ -155,6 +157,8 @@ export default defineConfig({
               ...getSidebarTranslatedLabel("Add"),
               link: "/docs/v2/add/",
             },
+            { label: "Importing", link: "/docs/v2/importing/" },
+            { label: "Exporting", link: "/docs/v2/exporting/" },
             {
               ...getSidebarTranslatedLabel("Utilities"),
               link: "/docs/v2/utilities/",
@@ -210,6 +214,7 @@ export default defineConfig({
                   ...getSidebarTranslatedLabel("Shape"),
                   link: "/docs/v2/tools/shape/",
                 },
+                { label: "Table", link: "/docs/v2/tools/table/" },
                 {
                   ...getSidebarTranslatedLabel("Polygon"),
                   link: "/docs/v2/tools/polygon/",
