@@ -8,7 +8,7 @@ With this tool you can erase the elements on the paper.
 
 |             Свойства |  По умолчанию  | Описание                                                                                                                                                                    |
 | -------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                 Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                 Mode |      Штрих     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |        Ширина штриха |        5       | Толщина линии                                                                                                                                                               |
 |       Удалить фигуры | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Удалить все элементы |      ложь      | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
