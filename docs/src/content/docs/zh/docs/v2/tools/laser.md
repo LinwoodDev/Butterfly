@@ -5,6 +5,8 @@ title: Laser tool
 With this tool you can draw on this paper temporarily. 一段时间后，抽取消失了。
 Add a new drawing to the paper to cancel the previous laser stroke.
 
+For marks that should remain in the document, use the [Pen tool](../pen/) instead.
+
 ## 配置
 
 |     属性 |         默认设置        | 描述                                                                                                                    |
