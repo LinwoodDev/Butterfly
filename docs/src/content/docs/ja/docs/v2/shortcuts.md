@@ -4,6 +4,8 @@ title: ショートカット
 
 Shortcuts are a way to map specific inputs to an action that influences the editor.
 
+## Configure shortcuts {#configure}
+
 To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such
 as `Mouse`, `Touch`, `Keyboard` or `Stylus`. You will be presented with a list of configurable inputs
 and the actions they are currently mapped to.
@@ -117,7 +119,7 @@ _By default, the touch document actions are all set to `None`._
 - `Two finger tap`: A simultaneous two-finger tap
 - `Three finger tap`: A simultaneous three-finger tap
 
-## Keyboard
+## Keyboard {#keyboard}
 
 Keyboard actions are divided into the categories hold shortcuts
 for **tool activators**, general and project
