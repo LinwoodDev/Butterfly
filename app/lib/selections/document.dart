@@ -77,6 +77,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
+    final session = bloc.editorController.editorSessionCubit;
     final metadata = state.metadata;
     if (!_descriptionFocusNode.hasFocus &&
         _descriptionController.text != metadata.description) {
@@ -144,39 +145,9 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ListTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.camera),
                   onTap: () async {
-                    final cubit = context.read<DocumentBloc>().editorController;
-                    final viewport = cubit.rendererCubit.state.cameraViewport;
-                    final rect = viewport.toRealRect();
-                    final targetAspectRatio =
-                        kThumbnailWidth / kThumbnailHeight;
-                    var captureWidth = rect.width;
-                    var captureHeight = captureWidth / targetAspectRatio;
-                    if (captureHeight > rect.height) {
-                      captureHeight = rect.height;
-                      captureWidth = captureHeight * targetAspectRatio;
-                    }
-                    final widthOffset = (rect.width - captureWidth) / 2;
-                    final heightOffset = (rect.height - captureHeight) / 2;
-                    final quality =
-                        kThumbnailWidth / (captureWidth * viewport.scale);
-                    final thumbnail = await cubit.rendererCubit.render(
-                      cubit,
-                      state.data,
-                      state.page,
-                      state.info,
-                      ImageExportOptions(
-                        width: captureWidth * viewport.scale,
-                        height: captureHeight * viewport.scale,
-                        quality: quality,
-                        scale: viewport.scale,
-                        x: rect.left + widthOffset,
-                        y: rect.top + heightOffset,
-                      ),
-                      docState: state,
-                    );
-                    if (thumbnail == null) return;
-                    final bytes = thumbnail.buffer.asUint8List();
-                    context.read<DocumentBloc>().add(ThumbnailCaptured(bytes));
+                    final bytes = await bloc.renderCurrentViewThumbnail();
+                    if (bytes == null || bloc.isClosed) return;
+                    bloc.add(ThumbnailCaptured(bytes));
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -213,6 +184,33 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     },
                   ),
                 ),
+                if (session != null)
+                  BlocSelector<SettingsCubit, ButterflySettings, bool>(
+                    bloc: bloc.editorController.settingsCubit,
+                    selector: (settings) =>
+                        settings.documentStatePersistence.enabled &&
+                        settings.documentStatePersistence.autoThumbnail,
+                    builder: (context, enabled) => enabled
+                        ? BlocBuilder<
+                            EditorSessionCubit,
+                            PersistedDocumentState
+                          >(
+                            bloc: session,
+                            builder: (context, persistedState) =>
+                                SwitchListTile(
+                                  title: Text(
+                                    AppLocalizations.of(context).autoThumbnail,
+                                  ),
+                                  subtitle: Text(
+                                    AppLocalizations.of(context)
+                                        .autoThumbnailDescription,
+                                  ),
+                                  value: persistedState.autoThumbnail,
+                                  onChanged: session.updateAutoThumbnail,
+                                ),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
                 BlocSelector<DocumentBloc, DocumentState, bool>(
                   selector: (state) =>
                       state is DocumentLoadSuccess && state.data.isEncrypted,

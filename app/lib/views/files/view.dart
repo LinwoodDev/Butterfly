@@ -6,6 +6,7 @@ import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly/widgets/connection_button.dart';
@@ -146,12 +147,28 @@ class FilesViewState extends State<FilesView> {
     );
     if (name == null) return;
     final path = _locationController.text;
-    await _documentSystem.createFileWithName(
+    final file = await _documentSystem.createFileWithName(
       directory: path,
       name: name,
       suffix: isTextBased ? '.tbfly' : '.bfly',
       template.createDocument(name: name).toFile(isTextBased: isTextBased),
     );
+    final pathKey = documentStatePathKeyOrNull(file.location);
+    if (pathKey != null) {
+      try {
+        await DocumentStateService(
+          _fileSystem.buildDocumentStateSystem(_remote),
+          settingsProvider: () => _settingsCubit.state.documentStatePersistence,
+        ).save(
+          const PersistedDocumentState(autoThumbnail: true)
+              .touch(pathKey: pathKey),
+          pathKey: pathKey,
+          persistentChanged: true,
+        );
+      } catch (error) {
+        debugPrint('Could not save automatic thumbnail setting: $error');
+      }
+    }
     reloadFileSystem();
   }
 

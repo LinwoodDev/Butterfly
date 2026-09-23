@@ -145,6 +145,7 @@ sealed class PersistedDocumentState with _$PersistedDocumentState {
     @Default(PersistedLayerState()) PersistedLayerState layers,
     @Default(PersistedAreaNavigatorState())
     PersistedAreaNavigatorState areaNavigator,
+    @Default(false) bool autoThumbnail,
     DateTime? updatedAt,
   }) = _PersistedDocumentState;
 

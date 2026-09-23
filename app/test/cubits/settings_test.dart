@@ -120,6 +120,22 @@ void main() {
     );
   });
 
+  test('persists the automatic thumbnail state setting', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+    addTearDown(cubit.close);
+
+    await cubit.changeDocumentStatePersistence(
+      const DocumentStatePersistenceSettings(autoThumbnail: false),
+    );
+
+    expect(
+      ButterflySettings.fromPrefs(prefs).documentStatePersistence.autoThumbnail,
+      isFalse,
+    );
+  });
+
   group('SettingsCubit resets', () {
     test(
       'resets selected settings while preserving unrelated values',

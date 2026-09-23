@@ -132,6 +132,7 @@ _PersistedDocumentState _$PersistedDocumentStateFromJson(Map json) =>
       areaNavigator: json['areaNavigator'] == null
           ? const PersistedAreaNavigatorState()
           : PersistedAreaNavigatorState.fromJson(json['areaNavigator'] as Map),
+      autoThumbnail: json['autoThumbnail'] as bool? ?? false,
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
@@ -149,5 +150,6 @@ Map<String, dynamic> _$PersistedDocumentStateToJson(
   'navigator': instance.navigator.toJson(),
   'layers': instance.layers.toJson(),
   'areaNavigator': instance.areaNavigator.toJson(),
+  'autoThumbnail': instance.autoThumbnail,
   'updatedAt': instance.updatedAt?.toIso8601String(),
 };
