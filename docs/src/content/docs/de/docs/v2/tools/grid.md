@@ -12,6 +12,8 @@ It can't be selected and will run the action immediately when you click on it.
 Mit diesem Werkzeug können Sie ein Raster über der Leinwand anzeigen.
 Eingaben werden am Raster ausgerichtet.
 
+The grid is a canvas aid. To draw straight lines at a chosen angle, use the [Ruler tool](../ruler/). To make a grid part of the page itself, configure a [pattern background](../../background/#pattern-layers).
+
 ## Konfiguration
 
 |            Objekt |           Standard          | Beschreibung                                                                                           |
