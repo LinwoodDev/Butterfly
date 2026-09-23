@@ -20,6 +20,6 @@ Inputs get snapped to the grid.
 |            Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |                สี |            Black            | The color of the grid.                                                                 |
 |             แอลฟา |             255             | The opacity of the grid lines.                                                         |
-|            Stroke |              1              | The width of the grid lines.                                                           |
+|  ความกว้างของเส้น |              1              | The width of the grid lines.                                                           |
 | ขึ้นอยู่กับการซูม |           ไม่จริง           | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 |    ขึ้นกับตำแหน่ง |           ไม่จริง           | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
