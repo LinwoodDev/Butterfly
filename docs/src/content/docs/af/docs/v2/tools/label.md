@@ -68,6 +68,7 @@ $$
 | -------------: | :-----: | :------------------------------------------------------------------------------------- |
 |           Mode |   Teks  | The label mode. Available modes are Text and Markdown. |
 |      Voorgrond |  Black  | The text color.                                                        |
+|           Alfa |   255   | Opacity of the foreground color.                                       |
 |          Skaal |    2    | The scale of the label.                                                |
 | Zoem-afhanklik |  false  | Changes the label size based on the zoom level.                        |
 |    Style sheet |   Geen  | The style sheet used for the label.                                    |
