@@ -12,6 +12,8 @@ It can't be selected and will run the action immediately when you click on it.
 With this tool you can show a grid over the canvas.
 Inputs get snapped to the grid.
 
+The grid is a canvas aid. To draw straight lines at a chosen angle, use the [Ruler tool](../ruler/). To make a grid part of the page itself, configure a [pattern background](../../background/#pattern-layers).
+
 ## Yapılandırma
 
 |               Özellik |          Varsayılan         | Tanım                                                                                                  |
