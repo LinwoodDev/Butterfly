@@ -7,7 +7,6 @@ Folosiți un pachet existent, creați-vă propriul pachet sau importați un pach
 
 ## Configurare
 
-| Proprietate | Implicit | Descriere                                                |
-| ----------: | :------: | :------------------------------------------------------- |
-|      Pachet | Niciunul | Pachetul în care se află componenta.     |
-|  Componentă | Niciunul | Componenta care va fi adăugată la pânză. |
+| Proprietate | Implicit | Descriere                                                                                                                                       |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Componentă  | Niciunul | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |
