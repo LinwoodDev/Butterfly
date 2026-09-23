@@ -20,6 +20,6 @@ Eingaben werden am Raster ausgerichtet.
 |           Versatz |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |             Farbe |           Schwarz           | The color of the grid.                                                                 |
 |             Alpha |             255             | The opacity of the grid lines.                                                         |
-|            Stroke |              1              | The width of the grid lines.                                                           |
+|      Strichbreite |              1              | The width of the grid lines.                                                           |
 |      Zoomabhängig |            falsch           | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 | Positionsabhängig |            falsch           | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
