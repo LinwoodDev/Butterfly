@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/cubits/editor_session.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/dialogs/password.dart';

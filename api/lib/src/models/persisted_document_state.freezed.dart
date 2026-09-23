@@ -880,7 +880,7 @@ as bool,
 /// @nodoc
 mixin _$PersistedDocumentState {
 
- int get version;@JsonKey(includeFromJson: false, includeToJson: false) String? get pathKey;@JsonKey(includeFromJson: false, includeToJson: false) String? get contentHash; String? get pageName; PersistedCameraState get camera; Map<String, PersistedCameraState> get pageCameras; PersistentLockState get locks; PersistedToolSelection get selectedTool; PersistedNavigatorState get navigator; PersistedLayerState get layers; PersistedAreaNavigatorState get areaNavigator; DateTime? get updatedAt;
+ int get version;@JsonKey(includeFromJson: false, includeToJson: false) String? get pathKey;@JsonKey(includeFromJson: false, includeToJson: false) String? get contentHash; String? get pageName; PersistedCameraState get camera; Map<String, PersistedCameraState> get pageCameras; PersistentLockState get locks; PersistedToolSelection get selectedTool; PersistedNavigatorState get navigator; PersistedLayerState get layers; PersistedAreaNavigatorState get areaNavigator; bool get autoThumbnail; DateTime? get updatedAt;
 /// Create a copy of PersistedDocumentState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -894,20 +894,20 @@ $PersistedDocumentStateCopyWith<PersistedDocumentState> get copyWith => _$Persis
 @override
 bool operator ==(Object other) {
   final _this = this as PersistedDocumentState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedDocumentState&&(identical(other.version, _this.version) || other.version == _this.version)&&(identical(other.pathKey, _this.pathKey) || other.pathKey == _this.pathKey)&&(identical(other.contentHash, _this.contentHash) || other.contentHash == _this.contentHash)&&(identical(other.pageName, _this.pageName) || other.pageName == _this.pageName)&&(identical(other.camera, _this.camera) || other.camera == _this.camera)&&const DeepCollectionEquality().equals(other.pageCameras, _this.pageCameras)&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.selectedTool, _this.selectedTool) || other.selectedTool == _this.selectedTool)&&(identical(other.navigator, _this.navigator) || other.navigator == _this.navigator)&&(identical(other.layers, _this.layers) || other.layers == _this.layers)&&(identical(other.areaNavigator, _this.areaNavigator) || other.areaNavigator == _this.areaNavigator)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersistedDocumentState&&(identical(other.version, _this.version) || other.version == _this.version)&&(identical(other.pathKey, _this.pathKey) || other.pathKey == _this.pathKey)&&(identical(other.contentHash, _this.contentHash) || other.contentHash == _this.contentHash)&&(identical(other.pageName, _this.pageName) || other.pageName == _this.pageName)&&(identical(other.camera, _this.camera) || other.camera == _this.camera)&&const DeepCollectionEquality().equals(other.pageCameras, _this.pageCameras)&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.selectedTool, _this.selectedTool) || other.selectedTool == _this.selectedTool)&&(identical(other.navigator, _this.navigator) || other.navigator == _this.navigator)&&(identical(other.layers, _this.layers) || other.layers == _this.layers)&&(identical(other.areaNavigator, _this.areaNavigator) || other.areaNavigator == _this.areaNavigator)&&(identical(other.autoThumbnail, _this.autoThumbnail) || other.autoThumbnail == _this.autoThumbnail)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as PersistedDocumentState;
-  return Object.hash(runtimeType,_this.version,_this.pathKey,_this.contentHash,_this.pageName,_this.camera,const DeepCollectionEquality().hash(_this.pageCameras),_this.locks,_this.selectedTool,_this.navigator,_this.layers,_this.areaNavigator,_this.updatedAt);
+  return Object.hash(runtimeType,_this.version,_this.pathKey,_this.contentHash,_this.pageName,_this.camera,const DeepCollectionEquality().hash(_this.pageCameras),_this.locks,_this.selectedTool,_this.navigator,_this.layers,_this.areaNavigator,_this.autoThumbnail,_this.updatedAt);
 }
 
 @override
 String toString() {
   final _this = this as PersistedDocumentState;
-  return 'PersistedDocumentState(version: ${_this.version}, pathKey: ${_this.pathKey}, contentHash: ${_this.contentHash}, pageName: ${_this.pageName}, camera: ${_this.camera}, pageCameras: ${_this.pageCameras}, locks: ${_this.locks}, selectedTool: ${_this.selectedTool}, navigator: ${_this.navigator}, layers: ${_this.layers}, areaNavigator: ${_this.areaNavigator}, updatedAt: ${_this.updatedAt})';
+  return 'PersistedDocumentState(version: ${_this.version}, pathKey: ${_this.pathKey}, contentHash: ${_this.contentHash}, pageName: ${_this.pageName}, camera: ${_this.camera}, pageCameras: ${_this.pageCameras}, locks: ${_this.locks}, selectedTool: ${_this.selectedTool}, navigator: ${_this.navigator}, layers: ${_this.layers}, areaNavigator: ${_this.areaNavigator}, autoThumbnail: ${_this.autoThumbnail}, updatedAt: ${_this.updatedAt})';
 }
 
 
@@ -918,7 +918,7 @@ abstract mixin class $PersistedDocumentStateCopyWith<$Res>  {
   factory $PersistedDocumentStateCopyWith(PersistedDocumentState value, $Res Function(PersistedDocumentState) _then) = _$PersistedDocumentStateCopyWithImpl;
 @useResult
 $Res call({
- int version,@JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,@JsonKey(includeFromJson: false, includeToJson: false) String? contentHash, String? pageName, PersistedCameraState camera, Map<String, PersistedCameraState> pageCameras, PersistentLockState locks, PersistedToolSelection selectedTool, PersistedNavigatorState navigator, PersistedLayerState layers, PersistedAreaNavigatorState areaNavigator, DateTime? updatedAt
+ int version,@JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,@JsonKey(includeFromJson: false, includeToJson: false) String? contentHash, String? pageName, PersistedCameraState camera, Map<String, PersistedCameraState> pageCameras, PersistentLockState locks, PersistedToolSelection selectedTool, PersistedNavigatorState navigator, PersistedLayerState layers, PersistedAreaNavigatorState areaNavigator, bool autoThumbnail, DateTime? updatedAt
 });
 
 
@@ -935,7 +935,7 @@ class _$PersistedDocumentStateCopyWithImpl<$Res>
 
 /// Create a copy of PersistedDocumentState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? version = null,Object? pathKey = freezed,Object? contentHash = freezed,Object? pageName = freezed,Object? camera = null,Object? pageCameras = null,Object? locks = null,Object? selectedTool = null,Object? navigator = null,Object? layers = null,Object? areaNavigator = null,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? version = null,Object? pathKey = freezed,Object? contentHash = freezed,Object? pageName = freezed,Object? camera = null,Object? pageCameras = null,Object? locks = null,Object? selectedTool = null,Object? navigator = null,Object? layers = null,Object? areaNavigator = null,Object? autoThumbnail = null,Object? updatedAt = freezed,}) {
   return _then(PersistedDocumentState(
 version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as int,pathKey: freezed == pathKey ? _self.pathKey : pathKey // ignore: cast_nullable_to_non_nullable
@@ -948,7 +948,8 @@ as PersistentLockState,selectedTool: null == selectedTool ? _self.selectedTool :
 as PersistedToolSelection,navigator: null == navigator ? _self.navigator : navigator // ignore: cast_nullable_to_non_nullable
 as PersistedNavigatorState,layers: null == layers ? _self.layers : layers // ignore: cast_nullable_to_non_nullable
 as PersistedLayerState,areaNavigator: null == areaNavigator ? _self.areaNavigator : areaNavigator // ignore: cast_nullable_to_non_nullable
-as PersistedAreaNavigatorState,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as PersistedAreaNavigatorState,autoThumbnail: null == autoThumbnail ? _self.autoThumbnail : autoThumbnail // ignore: cast_nullable_to_non_nullable
+as bool,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -1015,7 +1016,7 @@ $PersistedAreaNavigatorStateCopyWith<$Res> get areaNavigator {
 @JsonSerializable()
 
 class _PersistedDocumentState extends PersistedDocumentState {
-  const _PersistedDocumentState({this.version = kPersistedDocumentStateVersion, @JsonKey(includeFromJson: false, includeToJson: false) this.pathKey, @JsonKey(includeFromJson: false, includeToJson: false) this.contentHash, this.pageName, this.camera = const PersistedCameraState(),  Map<String, PersistedCameraState> pageCameras = const {}, this.locks = const PersistentLockState(), this.selectedTool = const PersistedToolSelection(), this.navigator = const PersistedNavigatorState(), this.layers = const PersistedLayerState(), this.areaNavigator = const PersistedAreaNavigatorState(), this.updatedAt}): _pageCameras = pageCameras,super._();
+  const _PersistedDocumentState({this.version = kPersistedDocumentStateVersion, @JsonKey(includeFromJson: false, includeToJson: false) this.pathKey, @JsonKey(includeFromJson: false, includeToJson: false) this.contentHash, this.pageName, this.camera = const PersistedCameraState(),  Map<String, PersistedCameraState> pageCameras = const {}, this.locks = const PersistentLockState(), this.selectedTool = const PersistedToolSelection(), this.navigator = const PersistedNavigatorState(), this.layers = const PersistedLayerState(), this.areaNavigator = const PersistedAreaNavigatorState(), this.autoThumbnail = false, this.updatedAt}): _pageCameras = pageCameras,super._();
   factory _PersistedDocumentState.fromJson(Map<String, dynamic> json) => _$PersistedDocumentStateFromJson(json);
 
 @override@JsonKey() final  int version;
@@ -1035,6 +1036,7 @@ class _PersistedDocumentState extends PersistedDocumentState {
 @override@JsonKey() final  PersistedNavigatorState navigator;
 @override@JsonKey() final  PersistedLayerState layers;
 @override@JsonKey() final  PersistedAreaNavigatorState areaNavigator;
+@override@JsonKey() final  bool autoThumbnail;
 @override final  DateTime? updatedAt;
 
 /// Create a copy of PersistedDocumentState
@@ -1050,18 +1052,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedDocumentState&&(identical(other.version, version) || other.version == version)&&(identical(other.pathKey, pathKey) || other.pathKey == pathKey)&&(identical(other.contentHash, contentHash) || other.contentHash == contentHash)&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.camera, camera) || other.camera == camera)&&const DeepCollectionEquality().equals(other.pageCameras, _pageCameras)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.selectedTool, selectedTool) || other.selectedTool == selectedTool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areaNavigator, areaNavigator) || other.areaNavigator == areaNavigator)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersistedDocumentState&&(identical(other.version, version) || other.version == version)&&(identical(other.pathKey, pathKey) || other.pathKey == pathKey)&&(identical(other.contentHash, contentHash) || other.contentHash == contentHash)&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.camera, camera) || other.camera == camera)&&const DeepCollectionEquality().equals(other.pageCameras, _pageCameras)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.selectedTool, selectedTool) || other.selectedTool == selectedTool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areaNavigator, areaNavigator) || other.areaNavigator == areaNavigator)&&(identical(other.autoThumbnail, autoThumbnail) || other.autoThumbnail == autoThumbnail)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,version,pathKey,contentHash,pageName,camera,const DeepCollectionEquality().hash(_pageCameras),locks,selectedTool,navigator,layers,areaNavigator,updatedAt);
+    return Object.hash(runtimeType,version,pathKey,contentHash,pageName,camera,const DeepCollectionEquality().hash(_pageCameras),locks,selectedTool,navigator,layers,areaNavigator,autoThumbnail,updatedAt);
 }
 
 @override
 String toString() {
-    return 'PersistedDocumentState(version: $version, pathKey: $pathKey, contentHash: $contentHash, pageName: $pageName, camera: $camera, pageCameras: $pageCameras, locks: $locks, selectedTool: $selectedTool, navigator: $navigator, layers: $layers, areaNavigator: $areaNavigator, updatedAt: $updatedAt)';
+    return 'PersistedDocumentState(version: $version, pathKey: $pathKey, contentHash: $contentHash, pageName: $pageName, camera: $camera, pageCameras: $pageCameras, locks: $locks, selectedTool: $selectedTool, navigator: $navigator, layers: $layers, areaNavigator: $areaNavigator, autoThumbnail: $autoThumbnail, updatedAt: $updatedAt)';
 }
 
 
@@ -1072,7 +1074,7 @@ abstract mixin class _$PersistedDocumentStateCopyWith<$Res> implements $Persiste
   factory _$PersistedDocumentStateCopyWith(_PersistedDocumentState value, $Res Function(_PersistedDocumentState) _then) = __$PersistedDocumentStateCopyWithImpl;
 @override @useResult
 $Res call({
- int version,@JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,@JsonKey(includeFromJson: false, includeToJson: false) String? contentHash, String? pageName, PersistedCameraState camera, Map<String, PersistedCameraState> pageCameras, PersistentLockState locks, PersistedToolSelection selectedTool, PersistedNavigatorState navigator, PersistedLayerState layers, PersistedAreaNavigatorState areaNavigator, DateTime? updatedAt
+ int version,@JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,@JsonKey(includeFromJson: false, includeToJson: false) String? contentHash, String? pageName, PersistedCameraState camera, Map<String, PersistedCameraState> pageCameras, PersistentLockState locks, PersistedToolSelection selectedTool, PersistedNavigatorState navigator, PersistedLayerState layers, PersistedAreaNavigatorState areaNavigator, bool autoThumbnail, DateTime? updatedAt
 });
 
 
@@ -1089,7 +1091,7 @@ class __$PersistedDocumentStateCopyWithImpl<$Res>
 
 /// Create a copy of PersistedDocumentState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? version = null,Object? pathKey = freezed,Object? contentHash = freezed,Object? pageName = freezed,Object? camera = null,Object? pageCameras = null,Object? locks = null,Object? selectedTool = null,Object? navigator = null,Object? layers = null,Object? areaNavigator = null,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? version = null,Object? pathKey = freezed,Object? contentHash = freezed,Object? pageName = freezed,Object? camera = null,Object? pageCameras = null,Object? locks = null,Object? selectedTool = null,Object? navigator = null,Object? layers = null,Object? areaNavigator = null,Object? autoThumbnail = null,Object? updatedAt = freezed,}) {
   return _then(_PersistedDocumentState(
 version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as int,pathKey: freezed == pathKey ? _self.pathKey : pathKey // ignore: cast_nullable_to_non_nullable
@@ -1102,7 +1104,8 @@ as PersistentLockState,selectedTool: null == selectedTool ? _self.selectedTool :
 as PersistedToolSelection,navigator: null == navigator ? _self.navigator : navigator // ignore: cast_nullable_to_non_nullable
 as PersistedNavigatorState,layers: null == layers ? _self.layers : layers // ignore: cast_nullable_to_non_nullable
 as PersistedLayerState,areaNavigator: null == areaNavigator ? _self.areaNavigator : areaNavigator // ignore: cast_nullable_to_non_nullable
-as PersistedAreaNavigatorState,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as PersistedAreaNavigatorState,autoThumbnail: null == autoThumbnail ? _self.autoThumbnail : autoThumbnail // ignore: cast_nullable_to_non_nullable
+as bool,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

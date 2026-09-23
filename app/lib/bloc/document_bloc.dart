@@ -439,6 +439,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ThumbnailCaptured>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      editorController.editorSessionCubit?.updateAutoThumbnail(false);
       final newData = current.data.setThumbnail(event.data);
       _saveState(emit, state: current.copyWith(data: newData));
     });
@@ -1893,6 +1894,62 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   Future<void> reload() async {
     return _editorController?.reload(this);
+  }
+
+  Future<Uint8List?> renderCurrentViewThumbnail() async {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return null;
+    final controller = editorController;
+    final viewport = controller.rendererCubit.state.cameraViewport;
+    final rect = viewport.toRealRect();
+    if (rect.width <= 0 || rect.height <= 0 || viewport.scale <= 0) {
+      return null;
+    }
+    const targetAspectRatio = kThumbnailWidth / kThumbnailHeight;
+    var captureWidth = rect.width;
+    var captureHeight = captureWidth / targetAspectRatio;
+    if (captureHeight > rect.height) {
+      captureHeight = rect.height;
+      captureWidth = captureHeight * targetAspectRatio;
+    }
+    final widthOffset = (rect.width - captureWidth) / 2;
+    final heightOffset = (rect.height - captureHeight) / 2;
+    final quality = kThumbnailWidth / (captureWidth * viewport.scale);
+    final thumbnail = await controller.rendererCubit.render(
+      controller,
+      current.data,
+      current.page,
+      current.info,
+      ImageExportOptions(
+        width: captureWidth * viewport.scale,
+        height: captureHeight * viewport.scale,
+        quality: quality,
+        scale: viewport.scale,
+        x: rect.left + widthOffset,
+        y: rect.top + heightOffset,
+      ),
+      invisibleLayers: current.invisibleLayers,
+      docState: current,
+    );
+    return thumbnail?.buffer.asUint8List();
+  }
+
+  Future<void> captureAutomaticThumbnail() async {
+    final persistence =
+        editorController.settingsCubit.state.documentStatePersistence;
+    if (!persistence.enabled ||
+        !persistence.autoThumbnail ||
+        editorController.editorSessionCubit?.state.autoThumbnail != true ||
+        embedding != null ||
+        editorController.saveCubit.state.saved != SaveState.saved) {
+      return;
+    }
+    final bytes = await renderCurrentViewThumbnail();
+    final current = state;
+    if (bytes == null || current is! DocumentLoadSuccess || isClosed) return;
+    emit(current.copyWith(data: current.data.setThumbnail(bytes)));
+    editorController.saveCubit.setSaveState(saved: SaveState.unsaved);
+    await save(force: true);
   }
 
   void _scheduleHistoryReload() =>

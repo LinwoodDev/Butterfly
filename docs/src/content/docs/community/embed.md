@@ -89,6 +89,11 @@ messages to the iframe and listens for messages from it.
       console.log('Current document bytes', message);
     }
 
+    if (type === 'getThumbnail') {
+      // null means that the document has no captured thumbnail.
+      console.log('Captured thumbnail', message);
+    }
+
     if (type === 'render') {
       const image = new Image();
       image.src = `data:image/png;base64,${message}`;
@@ -179,6 +184,18 @@ data send another message back with the same `type`.
 
 No parameters.
 Returns: `List<int>`
+
+### getThumbnail
+
+> The `getThumbnail` method returns the document's captured thumbnail without rendering the canvas.
+
+Pass `"png"` or `{ format: "png" }` to receive a Base64 encoded PNG. Pass
+`"svg"` or `{ format: "svg" }` to receive an SVG containing the captured PNG.
+The SVG is a raster image wrapper, not a vector rendering. If the document has
+no captured thumbnail, the response is `null`. Use `render` or `renderSVG` to
+export the current canvas view instead.
+
+Returns: `String | null`
 
 ### setData
 

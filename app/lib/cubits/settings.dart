@@ -542,6 +542,7 @@ sealed class DocumentStatePersistenceSettings
     @Default(true) bool navigator,
     @Default(true) bool layers,
     @Default(true) bool areas,
+    @Default(true) bool autoThumbnail,
     @Default(PersistentLockState()) PersistentLockState defaultLocks,
     @Default(400) int maxEntries,
     @Default(180) int maxAgeDays,
