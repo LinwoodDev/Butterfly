@@ -68,6 +68,7 @@ $$
 | ----------: | :-----: | :------------------------------------------------------------------------------------- |
 |        Mode |   טקסט  | The label mode. Available modes are Text and Markdown. |
 |        חזית |  Black  | The text color.                                                        |
+|        אלפא |   255   | Opacity of the foreground color.                                       |
 |    קנה מידה |    2    | The scale of the label.                                                |
 |    תלוי זום |  false  | Changes the label size based on the zoom level.                        |
 | Style sheet |   ללא   | The style sheet used for the label.                                    |
