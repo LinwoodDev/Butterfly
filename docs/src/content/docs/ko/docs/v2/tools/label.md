@@ -68,6 +68,7 @@ $$
 | ----------: | :-----: | :------------------------------------------------------------------------------------- |
 |        Mode |   텍스트   | The label mode. Available modes are Text and Markdown. |
 |          전경 |  Black  | The text color.                                                        |
+|          알파 |   255   | Opacity of the foreground color.                                       |
 |          배율 |    2    | The scale of the label.                                                |
 |   확대/축소에 따라 |  false  | Changes the label size based on the zoom level.                        |
 | Style sheet |    없음   | The style sheet used for the label.                                    |
