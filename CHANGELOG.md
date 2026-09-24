@@ -2,6 +2,18 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0-rc.3 (2026-09-24)
+
+* Add explicit raster bounds to offscreen canvas recordings
+* Add more contextual help buttons
+* Fix high-quality image exports being cropped at GPU texture limits ([#1269](https://github.com/LinwoodDev/Butterfly/issues/1269))
+* Fix image exports reusing screen-resolution renderer caches at different quality settings
+* Fix recent file tooltips overlapping file names and refresh thumbnails when their setting changes ([#1273](https://github.com/LinwoodDev/Butterfly/issues/1273))
+* Fix hidden selection transform boxes continuing to catch input after deselection ([#1275](https://github.com/LinwoodDev/Butterfly/issues/1275))
+* Add reset functionality to embeds
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.3
+
 ## 2.6.0-rc.2 (2026-09-16)
 
 * Show initial document content while PDFs load and repaint once the visible batch is ready
