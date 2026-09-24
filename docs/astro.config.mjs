@@ -48,7 +48,7 @@ const mdxHeadingAttributes = {
   transform(code, id) {
     if (!id.split("?", 1)[0].endsWith(".mdx")) return;
     const transformed = code.replace(
-      /^(#{1,6})\s+(.+?)\s+\{#([\w-]+)\}\s*$/gm,
+      /^(#{1,6})[ \t]+(.+?)[ \t]+\\?\{#([\w-]+)\\?\}[ \t]*$/gm,
       (_, hashes, heading, headingId) =>
         `<h${hashes.length} id="${headingId}">${heading}</h${hashes.length}>`,
     );
