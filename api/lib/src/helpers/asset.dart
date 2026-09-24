@@ -42,9 +42,10 @@ extension AssetFileTypeHelper on AssetFileType {
     .textNote => ['application/x-text-butterfly', 'application/json'],
     .image => [
       'image/png',
+      // Prefer the lossless Windows DIB fallback over a simultaneous JFIF copy.
+      'image/bmp',
       'image/jpeg',
       'image/gif',
-      'image/bmp',
       'image/x-icon',
       'image/webp',
     ],
