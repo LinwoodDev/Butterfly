@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_preview_name">Butterfly note preview</string>
+    <string name="widget_preview_description">Preview and open a chosen Butterfly note</string>
+    <string name="widget_notes_name">Butterfly recent files</string>
+    <string name="widget_recent_header">Recent files</string>
+    <string name="widget_notes_description">Open recent files and create a note from a chosen template</string>
+    <string name="widget_new_note">New note</string>
+    <string name="widget_choose_preview">Choose a document for this widget</string>
+    <string name="widget_no_recent_files">No recent files</string>
+</resources>

@@ -46,6 +46,8 @@ cp -r build/linux/${DIRECTORY_ARCH}/${BUILD_FLAVOR}/release/bundle build/SOURCES
 chmod 755 build/SOURCES/linwood-butterfly-$RPM_VERSION/butterfly
 mv build/SOURCES/linwood-butterfly-$RPM_VERSION/butterfly build/SOURCES/linwood-butterfly-$RPM_VERSION/linwood-butterfly
 cp linux/rpm/linwood-butterfly.desktop build/SOURCES/linwood-butterfly-$RPM_VERSION/linwood-butterfly.desktop
+cp linux/rpm/dev.linwood.butterfly.thumbnailer build/SOURCES/linwood-butterfly-$RPM_VERSION/dev.linwood.butterfly.thumbnailer
+cp linux/debian/usr/share/mime/packages/dev.linwood.butterfly.xml build/SOURCES/linwood-butterfly-$RPM_VERSION/dev.linwood.butterfly.xml
 
 # Update the .spec file with the correct version without relying on line numbers.
 sed -i "s/^Version:.*/Version:        $RPM_VERSION/" build/SPECS/linwood-butterfly.spec
