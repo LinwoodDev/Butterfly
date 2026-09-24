@@ -6,12 +6,12 @@ With this tool you can erase the elements on the paper.
 
 ## 設定
 
-|        属性 |      デフォルト     | 説明                                                                                                                                                                          |
-| --------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|      Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
-|   ストロークの幅 |        5       | ストロークの幅                                                                                                                                                                     |
-|     図形を消去 | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
-| すべての要素を消去 |      false     | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
+|        属性 |                   デフォルト                  | 説明                                                                                                                                                                          |
+| --------: | :--------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|      Mode | ストロークformat@@0 | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|   ストロークの幅 |                     5                    | ストロークの幅                                                                                                                                                                     |
+|     図形を消去 |              Touch anywhere              | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
+| すべての要素を消去 |                   false                  | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
 
 ### Erase shapes mode {#erase-shapes-mode}
 

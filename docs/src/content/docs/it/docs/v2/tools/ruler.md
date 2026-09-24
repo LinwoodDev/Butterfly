@@ -9,12 +9,15 @@ You can't select it and it gets toggled if you click on it.
 
 :::
 
-With this tool you can show a ruler over the canvas.
-Inputs get snapped to the ruler.
+Click the Ruler tool to show a ruler over the canvas; click it again to hide it. When the pointer is over the ruler, drawing input snaps to the nearer ruler edge. This makes it easier to draw a straight line with another drawing tool.
+
+Drag the ruler to move it. Rotate it with a touch gesture or with the secondary mouse button while dragging. The angle control in the ruler's properties lets you enter an exact rotation. Rotation snaps near quarter turns to help align the ruler horizontally or vertically.
 
 ## Configurazione
 
-|  Proprietà | Predefinito | Descrizione                                                                                  |
-| ---------: | :---------: | :------------------------------------------------------------------------------------------- |
-| Dimensione |     100     | The size of the ruler                                                                        |
-|     Colore |  _Not set_  | The color of the ruler. If not set, it uses the theme color. |
+| Proprietà   | Predefinito   | Descrizione                                                               |
+| ----------- | ------------- | ------------------------------------------------------------------------- |
+| Dimensione  | 100           | The ruler's height.                                       |
+| Sfondo      | Non impostato | Fill color of the ruler; uses the theme when unset.       |
+| Primo Piano | Non impostato | Color of the ruler marks; chosen for contrast when unset. |
+| Angolo      | 0°            | Runtime angle control shown while the ruler is active.    |

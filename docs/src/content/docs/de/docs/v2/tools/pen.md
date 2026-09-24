@@ -6,6 +6,8 @@ Mit diesem Werkzeug können Sie Striche auf der unendlichen Leinwand zeichnen!
 
 Striche sind die Linien, die Sie mit dem Stift zeichnest.
 
+Choose a solid color, gradient, image, or SVG for the stroke and fill in the tool properties. See [Paints](../../paints/) for the settings of each type.
+
 Dieses Werkzeug hat viele Eigenschaften, sodass Sie mit dem Stiftwerkzeug auch einen Textmarker erstellen können!
 
 ## So wird aus dem ~~Stift~~ ein Textmarker
@@ -39,8 +41,8 @@ Schließlich, nachdem Sie das Aussehen des Werkzeugs angepasst haben. Jetzt ist 
    Glättung ist nichts, was Textmarker verwenden.
 4. Setze die Glättung auf MAX (1),  
    damit die Striche des Textmarkers eher wie Linien aussehen :]
-5. Setze den Alpha-Wert auf 50 oder ähnlich,  
-   damit die Striche unter der Hervorhebung sichtbar bleiben.
+5. Change the [paint alpha](../../paints/#solid-color) to 50 or similar.
+   this makes sure the strokes under the highlighting are visible.
 
 ### Dieses Video zeigt, wie Sie die obige Anleitung anwendest
 
@@ -63,5 +65,5 @@ Schließlich, nachdem Sie das Aussehen des Werkzeugs angepasst haben. Jetzt ist 
 |        Ausdünnung |                      0.4                      | Dies ist der Einfluss des Drucks auf die Strichgröße                                                                                                           |
 |          Glättung |                      0.5                      | Dadurch werden die Kanten des Strichs geglättet.                                                                                               |
 |           Glätten |                      0.3                      | Wie stark der Stift der Mausbewegung folgt.                                                                                                    |
-|             Farbe |             Solid Color (Black)            | [Customization](../../colors/#further-customization) for the color of the stroke                                                                               |
-|            Füllen |          Solid Color (Transparent)         | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                                              |
+|            Strich |             Solid Color (Black)            | [Paint](../../paints/) used along the pen path.                                                                                                |
+|            Füllen |          Solid Color (Transparent)         | [Paint](../../paints/) used inside an enclosed path.                                                                                           |

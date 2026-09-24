@@ -68,6 +68,7 @@ $$
 | -----------: | :---: | :------------------------------------------------------------------------------------- |
 |         Mode |  テキスト | The label mode. Available modes are Text and Markdown. |
 | フォアグラウンド（前面） |  ブラック | The text color.                                                        |
+|         アルファ |  255  | Opacity of the foreground color.                                       |
 |         拡大縮小 |   2   | The scale of the label.                                                |
 |     ズームに依存する | false | Changes the label size based on the zoom level.                        |
 |  Style sheet |   なし  | The style sheet used for the label.                                    |

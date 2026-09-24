@@ -8,7 +8,7 @@ Mit diesem Werkzeug können Sie Elemente auf Ihrer Arbeitsfläche radieren.
 
 |                Objekt |    Standard    | Beschreibung                                                                                                                                                                |
 | --------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                 Modus |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                 Modus |     Strich     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |          Strichbreite |        5       | Die Breite des Strichs                                                                                                                                                      |
 |        Formen löschen | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Alle Elemente löschen |     falsch     | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |

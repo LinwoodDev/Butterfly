@@ -17,7 +17,11 @@ other elements.
 
 ## Configuration
 
-|        Property | Beskrywing                                                                                               |
-| --------------: | :------------------------------------------------------------------------------------------------------- |
-|        Tekstuur | The pattern preset that should be used.                                                  |
-| Pattern options | [Configuration](../../background#pattern-layers) for the background color, horizontal and vertical lines |
+| Property                   | Default           | Beskrywing                                                                        |
+| -------------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| Texture preset             | Blank pattern     | Choose a built-in light or dark pattern, then customize it.       |
+| Background color and alpha | White, 255        | Color and opacity behind the pattern lines.                       |
+| Vertical lines             | Width 0, count 1  | Adjust line color, alpha, spacing, group count, and stroke width. |
+| Horizontal lines           | Height 0, count 1 | Adjust line color, alpha, spacing, group count, and stroke width. |
+
+These are the same pattern controls used for a [page background](../../background/#pattern-layers). The Texture tool creates a separate canvas element; [paint](../../paints/) controls strokes and fills on drawing tools.

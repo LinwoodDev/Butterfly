@@ -9,6 +9,6 @@ It can't be selected permanently and will run the action immediately when you cl
 
 :::
 
-Al hacer clic con esta herramienta puedes encontrar el color de la parte en la que hiciste clic. El color será copiado al portapapeles.
+Al hacer clic con esta herramienta puedes encontrar el color de la parte en la que hiciste clic. El color será copiado al portapapeles. You can also choose colors directly with the [color picker](../../colors/).
 
 If used as a [temporary tool](../#temporary-tools), the color will be applied to the primary selected tool.

@@ -131,6 +131,15 @@ To load document bytes into the embed, send an array of byte values:
 sendToButterfly('setData', documentBytes);
 ```
 
+To replace the current document with a new blank document without reloading the
+iframe, send either of these messages:
+
+```javascript
+sendToButterfly('reset');
+// Equivalent:
+sendToButterfly('setData', null);
+```
+
 ## Eventos
 
 Listen for events with `window.addEventListener('message', ...)`.
@@ -173,11 +182,17 @@ Retorna: `List<int>`
 
 ### setData
 
-> O método `setData` define os dados do documento.
+> The `setData` method replaces the document, or creates a new blank document when passed `null`.
 
 Parâmetros:
 
-- `dados` (Tipo `List<int>`): Os dados do documento.
+- `data` (Type `List<int> | null`): The document bytes, or `null` to reset it.
+
+### reset
+
+> The `reset` method replaces the current document with a new blank document.
+
+Nenhum parâmetro.
 
 ### render
 

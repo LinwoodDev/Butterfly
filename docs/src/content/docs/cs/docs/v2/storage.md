@@ -11,7 +11,7 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 The data directory is the directory where documents, templates, and packs are stored.
 On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 Na mobilu je v `getExternalFilesDir(null)/Linwood/Butterfly`.
-Můžete to také změnit v nastavení pod `Data`.
+You can also change it under [Settings → Data](../settings/#data-and-connections).
 
 V tomto adresáři najdete složku `Documents`, `Templates` a `Packs`.
 
@@ -34,7 +34,7 @@ Tato funkce není dostupná na webu.
 
 The application data can be stored on a remote server. To je užitečné, pokud chcete sdílet data s ostatními lidmi nebo pokud máte více počítačů. V současné době je podporován pouze protokol `WebDAV`.
 
-Chcete-li přidat vzdálený server, přejděte do nastavení a klikněte na "Remotes". Poté klikněte na "Přidat vzdálené".
+To add a remote server, open [Settings → Connections](../settings/#data-and-connections) and add a connection.
 Přidejte URL vzdáleného serveru a uživatelské jméno a heslo. Poté můžete specifikovat složku, kde jsou data uložena.
 
 To get the WebDAV URL, please visit the documentation:
@@ -109,9 +109,11 @@ Pokud jste na nativním zařízení, můžete také synchronizovat adresář apl
 Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
 On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
-## Supported file types
+## Supported file types {#supported-file-types}
 
 Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+For the steps to bring files into a document or create output files, see [Importing](../importing/) and [Exporting](../exporting/).
 
 ### Butterfly Note (.bfly)
 

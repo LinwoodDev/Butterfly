@@ -68,6 +68,7 @@ $$
 | ----------------: | :-----: | :------------------------------------------------------------------------------------- |
 |              Mode | ข้อความ | The label mode. Available modes are Text and Markdown. |
 |          พื้นหน้า |  Black  | The text color.                                                        |
+|             แอลฟา |   255   | Opacity of the foreground color.                                       |
 |              สเกล |    2    | The scale of the label.                                                |
 | ขึ้นอยู่กับการซูม | ไม่จริง | Changes the label size based on the zoom level.                        |
 |       Style sheet |  ไม่มี  | The style sheet used for the label.                                    |

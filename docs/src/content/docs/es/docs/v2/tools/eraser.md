@@ -8,7 +8,7 @@ Con esta herramienta puedes borrar los elementos en el papel.
 
 |                  Propiedad |   Por defecto  | Descripción                                                                                                                                                                 |
 | -------------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                       Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                       Mode |      Trazo     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |            Ancho del trazo |        5       | El ancho del trazo                                                                                                                                                          |
 |              Borrar formas | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Borrar todos los elementos |      falso     | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |

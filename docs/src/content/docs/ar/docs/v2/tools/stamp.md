@@ -3,11 +3,10 @@ title: Stamp tool
 ---
 
 The stamp tool allows you to add components to your canvas.
-استخدم حزمة موجودة, قم بإنشاء حزمة خاصة بك أو قم باستيراد حزمة لاستخدامها. Read more [here](../../pack).
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## الإعدادات
 
-| الممتلكات | الافتراضي | الوصف                                           |
-| --------: | :-------: | :---------------------------------------------- |
-|   حُزْمَة |     لا    | الحزمة التي يوجد فيها العنصر.   |
-|    المكون |     لا    | العنصر الذي سيضاف إلى الكانفاس. |
+| الممتلكات | الافتراضي | الوصف                                                                                                                                           |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| المكون    | لا        | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |

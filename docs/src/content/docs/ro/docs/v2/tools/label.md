@@ -68,6 +68,7 @@ $$
 | --------------: | :------: | :------------------------------------------------------------------------------------- |
 |            Mode |   Text   | The label mode. Available modes are Text and Markdown. |
 |       prim-plan |   Negru  | The text color.                                                        |
+|            Alfa |    255   | Opacity of the foreground color.                                       |
 |           Scala |     2    | The scale of the label.                                                |
 | Depinde de zoom |   fals   | Changes the label size based on the zoom level.                        |
 |     Style sheet | Niciunul | The style sheet used for the label.                                    |

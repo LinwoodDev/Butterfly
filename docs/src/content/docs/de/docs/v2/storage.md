@@ -11,7 +11,7 @@ Entweder über den Speicher Ihres Geräts oder über Cloud-Speicher (WebDAV).
 Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Packs gespeichert werden.
 Auf dem Desktop finden Sie es unter `~/Documents/Linwood/Butterfly`.
 Auf dem Handy ist es in `getExternalFilesDir(null)/Linwood/Butterfly`.
-Sie können es auch in den Einstellungen unter "Data" ändern.
+You can also change it under [Settings → Data](../settings/#data-and-connections).
 
 In diesem Verzeichnis finden Sie einen Ordner `Documents`, `Templates` und `Packs`.
 
@@ -34,7 +34,7 @@ Diese Funktion ist im Web nicht verfügbar.
 
 Die Anwendungsdaten können auf einem Remote-Server gespeichert werden. Dies ist nützlich, wenn Sie die Daten mit anderen Personen teilen möchten oder wenn Sie mehrere Computer haben. Derzeit wird nur das `WebDAV` Protokoll unterstützt.
 
-Um einen entfernten Server hinzuzufügen, gehen Sie zu den Einstellungen und klicken Sie auf `Remotes`. Dann klicken Sie auf `Add remote`.
+To add a remote server, open [Settings → Connections](../settings/#data-and-connections) and add a connection.
 Fügen Sie die URL des entfernten Servers und den Benutzernamen und das Passwort hinzu. Danach können Sie den Ordner angeben, in dem die Daten gespeichert werden.
 
 Um die WebDAV-URL zu erhalten, besuche bitte die Dokumentation:
@@ -109,9 +109,11 @@ Wenn Sie auf einem nativen Gerät sind, können Sie auch das Anwendungsverzeichn
 Google Drive hat unter Windows [eine offizielle App](https://www.google.com/drive/download/), und im Play Store gibt es inoffizielle Apps.
 Unter Linux können Sie auch das native Remote-Speichersystem verwenden und Ihr Datenverzeichnis dorthin ändern oder über die Schaltfläche zum Hinzufügen einer Verbindung einen neuen externen Speicher hinzufügen.
 
-## Unterstützte Dateitypen
+## Supported file types {#supported-file-types}
 
 Butterfly unterstützt den Import von SVG, Butterfly-Notiz (.bfly) und Butterfly-Rohnotiz (.tbfly).
+
+For the steps to bring files into a document or create output files, see [Importing](../importing/) and [Exporting](../exporting/).
 
 ### Butterfly-Notiz (.bfly)
 

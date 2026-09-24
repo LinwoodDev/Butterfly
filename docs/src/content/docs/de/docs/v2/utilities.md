@@ -2,11 +2,11 @@
 title: Hilfsfunktionen
 ---
 
-In dieser Ansicht können Sie allgemeine Dokument- oder Ansichtseinstellungen ändern.
+Open the document settings with the wrench button beside the toolbar. The Utilities panel contains **File**, **Toolbars**, and **Camera** tabs.
 
 :::note
 
-Einige Funktionen wurden kürzlich an andere Stellen verschoben. Weitere Informationen finden Sie auf den jeweiligen Seiten:
+Canvas controls are documented separately:
 
 - [Hintergrund](/docs/v2/background)
 - [Grid](/docs/v2/tools/grid)
@@ -16,13 +16,14 @@ Einige Funktionen wurden kürzlich an andere Stellen verschoben. Weitere Informa
 
 ## Datei
 
-Hier finden Sie alle globalen Eigenschaften, die Sie festlegen können, z. B. Beschreibung und Verschlüsselungseinstellungen.
-Außerdem können Sie ein Vorschaubild aus dem aktuellen Viewport erfassen, um es auf der Startseite zu sehen.
+Use **Description** to add a short summary of the document. The **Capture thumbnail** row takes a preview from the current viewport for the file browser. Its crop button opens a dialog for choosing the thumbnail region more precisely.
 
-## Kamera
+The encryption row shows whether the document is encrypted. Select **Encrypt** to set a password, or **Unencrypt** to remove encryption after confirming the action. Keep the password available when you need to open the encrypted file again.
 
-You can use this tab to:
+## Toolbars {#toolbars}
 
-- Jump to a specific position on the canvas
-- Zoom to certain level
-- Set the rotation of the canvas to a specific value
+This tab lists toolbar layouts stored in your packs. Search or filter by pack, then select a layout to replace the document's current tools. If the current toolbar differs from every saved layout, it appears as **Custom**. Select **Custom** to save that arrangement into a pack for reuse. You can also [add and reorder individual tools](../intro/#customizing-the-toolbar) without saving a layout.
+
+## Camera {#camera}
+
+Use **Position** to jump to canvas coordinates, **Zoom** to set the view scale, and **Rotation** to turn the view by a precise angle. These change the camera view, not the position or rotation of the elements on the canvas. Save a view you want to revisit as a [waypoint](../waypoints/).

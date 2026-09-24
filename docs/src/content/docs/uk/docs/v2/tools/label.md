@@ -68,6 +68,7 @@ $$
 | ------------------: | :----------: | :------------------------------------------------------------------------------------- |
 |                Mode |     Текст    | The label mode. Available modes are Text and Markdown. |
 |      Активний режим | Чорний колір | The text color.                                                        |
+|               Альфа |      255     | Opacity of the foreground color.                                       |
 |             Масштаб |       2      | The scale of the label.                                                |
 | Залежність масштабу |   хибність   | Changes the label size based on the zoom level.                        |
 |         Style sheet |  Без ефекту  | The style sheet used for the label.                                    |

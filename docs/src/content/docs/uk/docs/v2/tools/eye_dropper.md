@@ -9,6 +9,6 @@ It can't be selected permanently and will run the action immediately when you cl
 
 :::
 
-When clicking on this tool you can find the color of the part you clicked on. The color will be copied to the clipboard.
+When clicking on this tool you can find the color of the part you clicked on. The color will be copied to the clipboard. You can also choose colors directly with the [color picker](../../colors/).
 
 If used as a [temporary tool](../#temporary-tools), the color will be applied to the primary selected tool.

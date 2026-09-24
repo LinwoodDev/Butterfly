@@ -2,8 +2,7 @@
 title: 嵌入
 ---
 
-嵌入是一种简单的方式，可以在您的网站中包含应用程序。
-添加以下代码到您的网站：
+嵌入是一种简单的方式，可以在您的网站中包含应用程序。添加以下代码到您的网站：
 
 ```html
 <iframe
@@ -19,10 +18,10 @@ title: 嵌入
 
 | 选项         | 类型                                                                                   | 默认设置    | 描述                                                                                                                     |
 | ---------- | ------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| 保存         | 布尔值(true，false)                                                   | true    | 启用保存。 如果禁用，只显示退出按钮                                                                                                     |
-| 可编辑        | 布尔值(true，false)                                                   | true    | 启用编辑。 如果禁用，文档将只读                                                                                                       |
+| 保存         | 布尔值(true，false)                                                   | true    | 启用保存。如果禁用，只显示退出按钮                                                                                                      |
+| 可编辑        | 布尔值(true，false)                                                   | true    | 启用编辑。如果禁用，文档将只读                                                                                                        |
 | fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)     | enabled | Configure full-screen behavior. Embeds never enter browser or system full screen automatically         |
-| 语言         | 字符串 (..., 系统, 用户) | user    | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项                                                                              |
+| 语言         | 字符串 (..., 系统, 用户) | user    | 文件所用语文。如果系统从浏览器中检测到该语言。如果用户，语言将设置为用户首选项                                                                                |
 | fileName   | String                                                                               |         | Display this file name in the embed title. It is visual only and does not change the document metadata |
 
 ### Full-screen modes
@@ -131,6 +130,15 @@ To load document bytes into the embed, send an array of byte values:
 sendToButterfly('setData', documentBytes);
 ```
 
+To replace the current document with a new blank document without reloading the
+iframe, send either of these messages:
+
+```javascript
+sendToButterfly('reset');
+// Equivalent:
+sendToButterfly('setData', null);
+```
+
 ## 事件
 
 Listen for events with `window.addEventListener('message', ...)`.
@@ -173,11 +181,17 @@ Returns: `List<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> The `setData` method replaces the document, or creates a new blank document when passed `null`.
 
 参数：
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int> | null`): The document bytes, or `null` to reset it.
+
+### reset
+
+> The `reset` method replaces the current document with a new blank document.
+
+没有参数。
 
 ### render
 

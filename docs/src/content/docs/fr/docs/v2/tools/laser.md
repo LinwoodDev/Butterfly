@@ -5,6 +5,8 @@ title: Outil pointeur laser
 Avec cet outil vous pouvez dessiner sur le document temporairement. Après un certain temps, le dessin s'estompe.
 Add a new drawing to the paper to cancel the previous laser stroke.
 
+For marks that should remain in the document, use the [Pen tool](../pen/) instead.
+
 ## Configuration
 
 |        Propriété | Par défaut | Libellé                                                                                                               |

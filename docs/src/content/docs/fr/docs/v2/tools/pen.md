@@ -6,6 +6,8 @@ With this tool you can draw strokes on the infinite canvas!
 
 Strokes are the lines that you draw using the pen.
 
+Choose a solid color, gradient, image, or SVG for the stroke and fill in the tool properties. See [Paints](../../paints/) for the settings of each type.
+
 This tool has many properties, as you can make a highlighter using the pen tool!
 
 ## How to ~~Pen~~ Highlighter
@@ -39,7 +41,7 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
    Smoothing is something that highlighters never make.
 4. Set the streamline to MAX (1)  
    to make the highlighter's strokes look more like lines :]
-5. Change the alpha to 50 or similar,  
+5. Change the [paint alpha](../../paints/#solid-color) to 50 or similar.
    this makes sure the strokes under the highlighting are visible.
 
 ### This video demonstrates how to apply the guide above
@@ -63,5 +65,5 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |        Amincissement |                              0,4                             | This effect of pressure on the stroke size                                                                                                          |
 |              Lissage |                              0,5                             | Cela permettra d'adoucir les contours du trait.                                                                                     |
 |           Streamline |                      0.3                     | Dans quelle mesure le stylo suivra le mouvement de la souris.                                                                       |
-|              Couleur |            Solid Color (Black)            | [Customization](../../colors/#further-customization) for the color of the stroke                                                                    |
-|              Remplir |         Solid Color (Transparent)         | [Customization](../../colors/#further-customization) for the color drawn inside the enclosed area                                                   |
+|                Trait |            Solid Color (Black)            | [Paint](../../paints/) used along the pen path.                                                                                     |
+|              Remplir |         Solid Color (Transparent)         | [Paint](../../paints/) used inside an enclosed path.                                                                                |

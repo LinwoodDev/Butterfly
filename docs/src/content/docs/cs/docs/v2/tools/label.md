@@ -68,6 +68,7 @@ $$
 | -----------------: | :------: | :------------------------------------------------------------------------------------- |
 |               Mode |   Text   | The label mode. Available modes are Text and Markdown. |
 |            Popředí |   Černý  | The text color.                                                        |
+|               Alfa |    255   | Opacity of the foreground color.                                       |
 |            Měřítko |     2    | The scale of the label.                                                |
 | Přiblížení závislé | nepravda | Changes the label size based on the zoom level.                        |
 |        Style sheet |    Nic   | The style sheet used for the label.                                    |

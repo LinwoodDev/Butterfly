@@ -68,6 +68,7 @@ $$
 | -----------------: | :-------: | :------------------------------------------------------------------------------------- |
 |               Mode | Tekstveld | The label mode. Available modes are Text and Markdown. |
 |          Voorgrond |   Zwart   | The text color.                                                        |
+|      Transparantie |    255    | Opacity of the foreground color.                                       |
 |             Schaal |     2     | The scale of the label.                                                |
 | Afhankelijk zoomen |  Onjuist  | Changes the label size based on the zoom level.                        |
 |        Style sheet |    geen   | The style sheet used for the label.                                    |

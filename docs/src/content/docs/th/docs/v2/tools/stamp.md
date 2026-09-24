@@ -3,11 +3,10 @@ title: Stamp tool
 ---
 
 The stamp tool allows you to add components to your canvas.
-Use an existing pack, create your own or import a pack to use it. Read more [here](../../pack).
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## Configuration
 
-|  Property | Default | คำอธิบาย                                                        |
-| --------: | :-----: | :-------------------------------------------------------------- |
-|      แพ็ก |  ไม่มี  | The pack where the component is located.        |
-| Component |  ไม่มี  | The component that will be added to the canvas. |
+| Property  | Default | คำอธิบาย                                                                                                                                        |
+| --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component | ไม่มี   | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |

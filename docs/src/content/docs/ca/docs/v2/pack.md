@@ -2,9 +2,9 @@
 title: Pack
 ---
 
-A pack is a collection of components that can be used in the stamp tool. You can create your own pack or import an existing one. To do this, click the top-left corner and select "Packs".
+A pack holds reusable content for documents. Open the Butterfly menu and select **Packs** to create, import, or manage one. Packs can contain components for the Stamp tool, color palettes, text styles, textures, tool presets, and toolbar layouts.
 
-Packs are saved globally, so you can use them in any document. If you want to share the pack in a document, you can bundle it with the document.
+Packs are saved globally, so you can use them in any document. If you want to share the pack in a document, you can bundle it with the document. The Packs dialog also lets you switch storage connections and export a pack as a packaged or raw Butterfly file.
 
 ## Propietats
 
@@ -15,7 +15,7 @@ Packs are saved globally, so you can use them in any document. If you want to sh
 |     Versió | The version of the pack   |
 | Descripció | A description of the pack |
 
-## Components
+## Components {#components}
 
 Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
@@ -40,3 +40,7 @@ Styles are used to customize the appearance of the text. The paragraph styles ca
 ## Paletes
 
 The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (as mentioned in the [color picker documentation](../colors)) when you edit a color.
+
+## Tools and toolbars
+
+Tool presets from packs appear in the [Add catalog](../add/). Save a configured tool as a preset from its properties view to use those settings again. In [Utilities → Toolbars](../utilities/#toolbars), you can save the current toolbar arrangement into a pack and select a saved layout for the document.

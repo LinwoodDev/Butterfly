@@ -12,6 +12,8 @@ It can't be selected and will run the action immediately when you click on it.
 With this tool you can show a grid over the canvas.
 Inputs get snapped to the grid.
 
+The grid is a canvas aid. To draw straight lines at a chosen angle, use the [Ruler tool](../ruler/). To make a grid part of the page itself, configure a [pattern background](../../background/#pattern-layers).
+
 ## Configuration
 
 |            Property |           Default           | Mô tả                                                                                                  |
@@ -20,6 +22,6 @@ Inputs get snapped to the grid.
 |              Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
 |             Màu sắc |            Black            | The color of the grid.                                                                 |
 |       Độ trong suốt |             255             | The opacity of the grid lines.                                                         |
-|              Stroke |              1              | The width of the grid lines.                                                           |
+|          Độ dày nét |              1              | The width of the grid lines.                                                           |
 | Phụ thuộc thu phóng |            false            | Changes the grid cell spacing and snapping behavior relative to the zoom level.        |
 |    Phụ thuộc vị trí |            false            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

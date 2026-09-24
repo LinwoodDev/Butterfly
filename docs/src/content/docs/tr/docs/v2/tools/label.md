@@ -68,6 +68,7 @@ $$
 | --------------------: | :--------: | :------------------------------------------------------------------------------------- |
 |                  Mode |    Metin   | The label mode. Available modes are Text and Markdown. |
 |               Ön plan |    Siyah   | The text color.                                                        |
+|              Şefaflık |     255    | Opacity of the foreground color.                                       |
 |                 Ölçek |      2     | The scale of the label.                                                |
 | Bağımlı yakınlaştırma |    false   | Changes the label size based on the zoom level.                        |
 |           Style sheet |     Yok    | The style sheet used for the label.                                    |

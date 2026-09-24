@@ -3,12 +3,10 @@ title: Stamp tool
 ---
 
 Libellé
-Utilisez un pack existant, créez le vôtre ou importez un pack pour l'utiliser.
-Lire plus [ici](../../pack).
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## Configuration
 
-| Propriété | Par défaut | Libellé                                                  |
-| --------: | :--------: | :------------------------------------------------------- |
-|    Paquet |    Aucun   | Le pack où se trouve le composant.       |
-| Composant |    Aucun   | Le composant qui sera ajouté à la toile. |
+| Propriété | Par défaut | Libellé                                                                                                                                         |
+| --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Composant | Aucun      | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |

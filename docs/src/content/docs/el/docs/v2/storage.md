@@ -11,7 +11,7 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 The data directory is the directory where documents, templates, and packs are stored.
 On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 Στο κινητό είναι σε `getExternalFilesDir(null)/Linwood/Butterfly`.
-Μπορείτε επίσης να το αλλάξετε στις ρυθμίσεις στην ενότητα `Data`.
+You can also change it under [Settings → Data](../settings/#data-and-connections).
 
 Σε αυτόν τον κατάλογο θα βρείτε έναν φάκελο `Documents`, `Templates` και `Packs`.
 
@@ -34,7 +34,7 @@ By default, the application saves the data in your documents folder in a subfold
 
 The application data can be stored on a remote server. Αυτό είναι χρήσιμο αν θέλετε να μοιραστείτε τα δεδομένα με άλλα άτομα ή αν έχετε πολλαπλούς υπολογιστές. Προς το παρόν υποστηρίζεται μόνο το πρωτόκολλο `WebDAV`.
 
-Για να προσθέσετε έναν απομακρυσμένο διακομιστή, μεταβείτε στις ρυθμίσεις και κάντε κλικ στο κουμπί `Remotes`. Στη συνέχεια, κάντε κλικ στο `Add remote`.
+To add a remote server, open [Settings → Connections](../settings/#data-and-connections) and add a connection.
 Προσθέστε τη διεύθυνση URL του απομακρυσμένου διακομιστή και το όνομα χρήστη και τον κωδικό πρόσβασης. Μετά από αυτό μπορείτε να καθορίσετε το φάκελο όπου αποθηκεύονται τα δεδομένα.
 
 To get the WebDAV URL, please visit the documentation:
@@ -109,9 +109,11 @@ That's it. Syncing to the cloud should work now. 🎉
 Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
 On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
-## Supported file types
+## Supported file types {#supported-file-types}
 
 Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+For the steps to bring files into a document or create output files, see [Importing](../importing/) and [Exporting](../exporting/).
 
 ### Butterfly Note (.bfly)
 

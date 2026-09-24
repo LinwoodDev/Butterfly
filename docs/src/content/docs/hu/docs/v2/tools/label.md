@@ -68,6 +68,7 @@ $$
 | ------------------: | :-----: | :------------------------------------------------------------------------------------- |
 |                Mode |  Szöveg | The label mode. Available modes are Text and Markdown. |
 |              Előtér |  Black  | The text color.                                                        |
+|         Áttetszőség |   255   | Opacity of the foreground color.                                       |
 |            Skálázás |    2    | The scale of the label.                                                |
 | Függőleges nagyítás |  false  | Changes the label size based on the zoom level.                        |
 |         Style sheet |  Nincs  | The style sheet used for the label.                                    |

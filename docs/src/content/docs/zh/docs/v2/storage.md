@@ -11,14 +11,13 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 The data directory is the directory where documents, templates, and packs are stored.
 On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 移动时，它在 `getExternalFilesDir(null)/Linwood/Butterfly` 中。
-您也可以在“数据”下的设置中更改它。
+You can also change it under [Settings → Data](../settings/#data-and-connections).
 
 在这个目录中，你会找到一个文件夹 `Documents`, `Templates` 和 `Packs` 。
 
 ## Web {#web}
 
-应用程序数据存储在您的浏览器。 它存储在本地存储中。
-在您的浏览器中打开开发者工具，您将看到数据。
+应用程序数据存储在您的浏览器。它存储在本地存储中。在您的浏览器中打开开发者工具，您将看到数据。
 
 ## 原生平台
 
@@ -32,10 +31,10 @@ By default, the application saves the data in your documents folder in a subfold
 
 :::
 
-The application data can be stored on a remote server. 如果您想要与其他人分享数据，或者如果您有多台计算机，这是有用的。 目前只支持 `WebDAV` 协议。
+The application data can be stored on a remote server. 如果您想要与其他人分享数据，或者如果您有多台计算机，这是有用的。目前只支持 `WebDAV` 协议。
 
-若要添加远程服务器，请前往设置并点击 "Remotes" 。 然后点击"添加远程"。
-添加远程服务器的 URL 以及用户名和密码。 之后您可以指定存储数据的文件夹。
+To add a remote server, open [Settings → Connections](../settings/#data-and-connections) and add a connection.
+添加远程服务器的 URL 以及用户名和密码。之后您可以指定存储数据的文件夹。
 
 To get the WebDAV URL, please visit the documentation:
 
@@ -95,8 +94,7 @@ That's it. Syncing to the cloud should work now. 🎉
 
 ### 离线同步 {#offline}
 
-此功能允许您在离线时在远程服务器上编辑文件。
-在文件或文件夹中打开弹出菜单，然后点击“同步”。 这将下载文件或文件夹并在本地保存。 同步整个根目录， 点击创建对话框中的复选标记或点击设置中的远程，然后点击管理部分中的复选标记。
+此功能允许您在离线时在远程服务器上编辑文件。在文件或文件夹中打开弹出菜单，然后点击“同步”。这将下载文件或文件夹并在本地保存。同步整个根目录， 点击创建对话框中的复选标记或点击设置中的远程，然后点击管理部分中的复选标记。
 
 有一些限制：
 
@@ -109,9 +107,11 @@ That's it. Syncing to the cloud should work now. 🎉
 Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
 On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
-## Supported file types
+## Supported file types {#supported-file-types}
 
 Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+For the steps to bring files into a document or create output files, see [Importing](../importing/) and [Exporting](../exporting/).
 
 ### Butterfly Note (.bfly)
 

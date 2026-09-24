@@ -2,7 +2,9 @@
 title: Select tool
 ---
 
-With this tool you can select elements and access their [Context menu](../../context_menu).
+Use the Select tool to choose one or more canvas elements, then move, resize, or open their [Context menu](../../context_menu). Choose **Rectangle** mode to drag a rectangular selection region or **Lasso** mode to draw around irregular content.
+
+After selecting an element, open its properties to edit values such as position and rotation. The context menu offers clipboard, arranging, layer, collection, and export actions. If you long press an empty part of the canvas, you can paste clipboard content at that position.
 
 ## Asetukset
 

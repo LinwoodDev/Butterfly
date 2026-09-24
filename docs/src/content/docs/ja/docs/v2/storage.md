@@ -11,14 +11,13 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 The data directory is the directory where documents, templates, and packs are stored.
 On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 モバイルでは、 `getExternalFilesDir(null)/Linwood/Butterfly` にあります。
-`Data` の設定で変更することもできます。
+You can also change it under [Settings → Data](../settings/#data-and-connections).
 
 このディレクトリには、`Documents`、`Templates`、`Packs`フォルダがあります。
 
 ## Web {#web}
 
-アプリケーションデータはブラウザに保存されます。 ローカルストレージに保存されます。
-ブラウザで開発者ツールを開くと、データが表示されます。
+アプリケーションデータはブラウザに保存されます。ローカルストレージに保存されます。ブラウザで開発者ツールを開くと、データが表示されます。
 
 ## ネイティブプラットフォーム
 
@@ -32,10 +31,10 @@ By default, the application saves the data in your documents folder in a subfold
 
 :::
 
-The application data can be stored on a remote server. これは、データを他の人と共有したい場合や、複数のコンピュータをお持ちの場合に便利です。 現在 `WebDAV` プロトコルのみがサポートされています。
+The application data can be stored on a remote server. これは、データを他の人と共有したい場合や、複数のコンピュータをお持ちの場合に便利です。現在 `WebDAV` プロトコルのみがサポートされています。
 
-リモートサーバーを追加するには、設定に移動して `Remotes` をクリックします。 `Add remote` をクリックします。
-リモートサーバーの URL とユーザー名とパスワードを追加します。 その後、データが格納されているフォルダを指定できます。
+To add a remote server, open [Settings → Connections](../settings/#data-and-connections) and add a connection.
+リモートサーバーの URL とユーザー名とパスワードを追加します。その後、データが格納されているフォルダを指定できます。
 
 To get the WebDAV URL, please visit the documentation:
 
@@ -95,8 +94,7 @@ That's it. Syncing to the cloud should work now. 🎉
 
 ### オフライン同期 {#offline}
 
-この機能を使用すると、オフライン中にリモートサーバー上のファイルを編集できます。
-ファイルまたはフォルダのポップアップメニューを開き、`Sync`をクリックします。 ファイルまたはフォルダをダウンロードし、ローカルに保存します。 ルートディレクトリ全体を同期する 作成ダイアログでチェックマークをクリックするか、設定内のリモコンをクリックし、管理セクションのチェックマークをクリックします。
+この機能を使用すると、オフライン中にリモートサーバー上のファイルを編集できます。ファイルまたはフォルダのポップアップメニューを開き、`Sync`をクリックします。ファイルまたはフォルダをダウンロードし、ローカルに保存します。ルートディレクトリ全体を同期する 作成ダイアログでチェックマークをクリックするか、設定内のリモコンをクリックし、管理セクションのチェックマークをクリックします。
 
 いくつかの制限があります。
 
@@ -109,9 +107,11 @@ That's it. Syncing to the cloud should work now. 🎉
 Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
 On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
-## Supported file types
+## Supported file types {#supported-file-types}
 
 Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+For the steps to bring files into a document or create output files, see [Importing](../importing/) and [Exporting](../exporting/).
 
 ### Butterfly Note (.bfly)
 

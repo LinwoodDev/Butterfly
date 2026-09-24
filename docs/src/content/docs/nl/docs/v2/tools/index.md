@@ -2,12 +2,11 @@
 title: "Hulpmiddelen"
 ---
 
-Tools can edit the paper.
+Tools draw, edit, import, or arrange content on the canvas. View tools control how you work with it, while action tools run a command immediately.
 
-Gebruik de zijbalk om meer te weten te komen over de gereedschappen.
+Use the sidebar to learn more about individual tools. For file workflows, see [Importing](../importing/) and [Exporting](../exporting/).
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
-Als u op een geselecteerd hulpmiddel klikt, kunt u het configureren.
+Add a tool with the plus button. Drag toolbar tools to reorder them, and select one to use it. Select a configurable tool again to open its properties. Action tools run immediately when selected.
 
 The name of the tool will be displayed as tooltip on hover on the tool.
 

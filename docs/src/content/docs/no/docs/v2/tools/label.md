@@ -68,6 +68,7 @@ $$
 | ------------: | :------: | :------------------------------------------------------------------------------------- |
 |          Mode |   Tekst  | The label mode. Available modes are Text and Markdown. |
 |      Forgrunn |   Svart  | The text color.                                                        |
+|          Alfa |    255   | Opacity of the foreground color.                                       |
 |         Skala |     2    | The scale of the label.                                                |
 | Zoom avhengig |   usann  | Changes the label size based on the zoom level.                        |
 |   Style sheet |   Ingen  | The style sheet used for the label.                                    |

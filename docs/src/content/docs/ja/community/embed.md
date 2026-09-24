@@ -2,8 +2,7 @@
 title: Embed
 ---
 
-埋め込みはあなたのウェブサイトにアプリを含める簡単な方法です。
-次のコードをウェブサイトに追加します。
+埋め込みはあなたのウェブサイトにアプリを含める簡単な方法です。次のコードをウェブサイトに追加します。
 
 ```html
 <iframe
@@ -22,7 +21,7 @@ title: Embed
 | 保存         | Boolean (true, false)                                               | true    | Enable save. If disabled, only an exit button will be shown                                            |
 | editable   | Boolean (true, false)                                               | true    | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                                              |
 | fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)       | enabled | Configure full-screen behavior. Embeds never enter browser or system full screen automatically         |
-| 言語         | 文字列 (...、システム、ユーザー) | user    | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます                           |
+| 言語         | 文字列 (...、システム、ユーザー) | user    | Language of the document. システムの場合、言語はブラウザから検出されます。ユーザーの場合、言語はユーザーの好みに設定されます                            |
 | fileName   | String                                                                                 |         | Display this file name in the embed title. It is visual only and does not change the document metadata |
 
 ### Full-screen modes
@@ -131,6 +130,15 @@ To load document bytes into the embed, send an array of byte values:
 sendToButterfly('setData', documentBytes);
 ```
 
+To replace the current document with a new blank document without reloading the
+iframe, send either of these messages:
+
+```javascript
+sendToButterfly('reset');
+// Equivalent:
+sendToButterfly('setData', null);
+```
+
 ## イベント
 
 Listen for events with `window.addEventListener('message', ...)`.
@@ -173,11 +181,17 @@ Returns: `List<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> The `setData` method replaces the document, or creates a new blank document when passed `null`.
 
 パラメータ:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int> | null`): The document bytes, or `null` to reset it.
+
+### reset
+
+> The `reset` method replaces the current document with a new blank document.
+
+パラメータはありません。
 
 ### render
 

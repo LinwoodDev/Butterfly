@@ -3,11 +3,10 @@ title: Stamp tool
 ---
 
 The stamp tool allows you to add components to your canvas.
-Folosiți un pachet existent, creați-vă propriul pachet sau importați un pachet pentru a-l folosi. Read more [here](../../pack).
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## Configurare
 
-| Proprietate | Implicit | Descriere                                                |
-| ----------: | :------: | :------------------------------------------------------- |
-|      Pachet | Niciunul | Pachetul în care se află componenta.     |
-|  Componentă | Niciunul | Componenta care va fi adăugată la pânză. |
+| Proprietate | Implicit | Descriere                                                                                                                                       |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Componentă  | Niciunul | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |

@@ -68,6 +68,7 @@ $$
 | ------------------: | :------: | :------------------------------------------------------------------------------------- |
 |                Mode |  Văn bản | The label mode. Available modes are Text and Markdown. |
 |           Tiền cảnh |   Black  | The text color.                                                        |
+|       Độ trong suốt |    255   | Opacity of the foreground color.                                       |
 |               Tỷ lệ |     2    | The scale of the label.                                                |
 | Phụ thuộc thu phóng |   false  | Changes the label size based on the zoom level.                        |
 |         Style sheet | Không có | The style sheet used for the label.                                    |

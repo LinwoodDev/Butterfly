@@ -3,11 +3,10 @@ title: Stamp tool
 ---
 
 The stamp tool allows you to add components to your canvas.
-Brug en eksisterende pakke, opret din egen eller importér en pakke for at bruge den. Read more [here](../../pack).
+Use an existing [pack](../../pack/) or create one with a reusable [component](../../pack/#components).
 
 ## Konfiguration
 
-|  Egenskab | Standard | Varebeskrivelse                                                     |
-| --------: | :------: | :------------------------------------------------------------------ |
-|     Pakke |   Ingen  | Pakken hvor komponenten er placeret.                |
-| Komponent |   Ingen  | Den komponent, der vil blive tilføjet til lærredet. |
+| Egenskab  | Standard | Varebeskrivelse                                                                                                                                 |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komponent | Ingen    | The selected component from a pack to place on the canvas. You can clear the selection in the properties panel. |

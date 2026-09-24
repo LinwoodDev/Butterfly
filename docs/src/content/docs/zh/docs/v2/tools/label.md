@@ -68,6 +68,7 @@ $$
 | ----------: | :---: | :------------------------------------------------------------------------------------- |
 |        Mode |   文本  | The label mode. Available modes are Text and Markdown. |
 |          前景 |   黑色  | The text color.                                                        |
+|        不透明度 |  255  | Opacity of the foreground color.                                       |
 |          缩放 |   2   | The scale of the label.                                                |
 |        依靠缩放 | false | Changes the label size based on the zoom level.                        |
 | Style sheet |   无   | The style sheet used for the label.                                    |

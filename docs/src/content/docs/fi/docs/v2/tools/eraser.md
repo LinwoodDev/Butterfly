@@ -8,7 +8,7 @@ With this tool you can erase the elements on the paper.
 
 |              Ominaisuus |     Oletus     | Kuvaus                                                                                                                                                                      |
 | ----------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                    Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                    Mode |   Aivohalvaus  | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |          Aivojen leveys |        5       | Aivohalvauksen leveys                                                                                                                                                       |
 |            Pyyhi muodot | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Poista kaikki elementit |     epätosi    | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |

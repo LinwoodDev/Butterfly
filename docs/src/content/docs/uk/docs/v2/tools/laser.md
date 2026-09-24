@@ -5,6 +5,8 @@ title: Laser tool
 With this tool you can draw on this paper temporarily. Через деякий час малюнок згасає.
 Add a new drawing to the paper to cancel the previous laser stroke.
 
+For marks that should remain in the document, use the [Pen tool](../pen/) instead.
+
 ## Конфігурація
 
 |          Властивість |        Типово       | Опис                                                                                                                  |

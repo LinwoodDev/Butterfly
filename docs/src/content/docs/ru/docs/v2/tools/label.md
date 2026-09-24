@@ -68,6 +68,7 @@ $$
 | ----------------------: | :----------: | :------------------------------------------------------------------------------------- |
 |                    Mode |     Текст    | The label mode. Available modes are Text and Markdown. |
 |           Передний план |    Черный    | The text color.                                                        |
+|            Прозрачность |      255     | Opacity of the foreground color.                                       |
 |                 Масштаб |       2      | The scale of the label.                                                |
 | Зависимость от масштаба |     ложь     | Changes the label size based on the zoom level.                        |
 |             Style sheet |      Нет     | The style sheet used for the label.                                    |

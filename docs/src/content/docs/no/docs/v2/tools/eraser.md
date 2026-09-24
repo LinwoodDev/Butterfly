@@ -8,7 +8,7 @@ With this tool you can erase the elements on the paper.
 
 |             Egenskap |    Standard    | Beskrivelse                                                                                                                                                                 |
 | -------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                 Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                 Mode |      Slag      | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 | Bredde på slagbredde |        5       | Bredden på slaglengden                                                                                                                                                      |
 |        Slett figurer | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Slett alle elementer |      usann     | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |

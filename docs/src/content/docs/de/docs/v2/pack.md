@@ -2,9 +2,9 @@
 title: Paket
 ---
 
-Ein Pack ist eine Sammlung von Komponenten, die im Stempelwerkzeug verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicken Sie dazu oben links und wählen Sie „Packs“.
+A pack holds reusable content for documents. Open the Butterfly menu and select **Packs** to create, import, or manage one. Packs can contain components for the Stamp tool, color palettes, text styles, textures, tool presets, and toolbar layouts.
 
-Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden können. Wenn Sie das Pack in einem Dokument teilen möchten, können Sie es mit dem Dokument bündeln.
+Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden können. Wenn Sie das Pack in einem Dokument teilen möchten, können Sie es mit dem Dokument bündeln. The Packs dialog also lets you switch storage connections and export a pack as a packaged or raw Butterfly file.
 
 ## Eigenschaften
 
@@ -15,7 +15,7 @@ Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden kön
 |      Version | Die Version des Packs        |
 | Beschreibung | Eine Beschreibung des Pakets |
 
-## Komponenten
+## Components {#components}
 
 Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
 
@@ -40,3 +40,7 @@ Stile werden verwendet, um das Aussehen des Textes anzupassen. Absatzstile könn
 ## Paletten
 
 Mit Farbpaletten können Sie schnell Farben für einfärbbare Werkzeuge auswählen. You will see a color picker overlay (as mentioned in the [color picker documentation](../colors)) when you edit a color.
+
+## Tools and toolbars
+
+Tool presets from packs appear in the [Add catalog](../add/). Save a configured tool as a preset from its properties view to use those settings again. In [Utilities → Toolbars](../utilities/#toolbars), you can save the current toolbar arrangement into a pack and select a saved layout for the document.

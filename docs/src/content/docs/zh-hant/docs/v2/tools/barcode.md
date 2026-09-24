@@ -12,7 +12,7 @@ You can use it to create QR codes, Data Matrix codes, and Code 128 barcodes.
 3. Enter or paste the content that should be encoded.
 4. Click or drag on the canvas to place the barcode.
 
-The generated barcode is added as an element on the canvas. You can move, resize, arrange, or delete it like other elements.
+The generated barcode is added as an element on the canvas. Use the [Select tool](../select/) to move or resize it, and the [context menu](../../context_menu/) to arrange or delete it.
 
 ## Barcode types
 

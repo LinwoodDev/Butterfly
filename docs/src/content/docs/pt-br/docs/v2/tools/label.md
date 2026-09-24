@@ -68,6 +68,7 @@ $$
 | -----------------: | :-----: | :------------------------------------------------------------------------------------- |
 |               Mode |  Texto  | The label mode. Available modes are Text and Markdown. |
 |     Primeiro plano |  Preto  | The text color.                                                        |
+|      Transparência |   255   | Opacity of the foreground color.                                       |
 |             Escala |    2    | The scale of the label.                                                |
 | Dependendo do zoom |  Falso  | Changes the label size based on the zoom level.                        |
 |        Style sheet | Nenhuma | The style sheet used for the label.                                    |

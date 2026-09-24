@@ -2,12 +2,11 @@
 title: "Unelte"
 ---
 
-Tools can edit the paper.
+Tools draw, edit, import, or arrange content on the canvas. View tools control how you work with it, while action tools run a command immediately.
 
-Folosește bara laterală pentru a afla mai multe despre unelte.
+Use the sidebar to learn more about individual tools. For file workflows, see [Importing](../importing/) and [Exporting](../exporting/).
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
-Dacă faceți clic pe o unealtă selectată, o puteți configura.
+Add a tool with the plus button. Drag toolbar tools to reorder them, and select one to use it. Select a configurable tool again to open its properties. Action tools run immediately when selected.
 
 The name of the tool will be displayed as tooltip on hover on the tool.
 

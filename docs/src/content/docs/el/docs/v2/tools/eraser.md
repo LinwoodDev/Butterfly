@@ -8,7 +8,7 @@ With this tool you can erase the elements on the paper.
 
 |                    Ιδιότητα |   Προεπιλογή   | Περιγραφή                                                                                                                                                                   |
 | --------------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                        Mode |     Stroke     | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
+|                        Mode |   Εγκεφαλικό   | `Stroke` cuts touched portions out of strokes and keeps the remaining fragments. `Path` removes the complete touched path or element.       |
 |        Πλάτος περιγράμματος |        5       | Το πλάτος της διαδρομής                                                                                                                                                     |
 |           Διαγραφή σχημάτων | Touch anywhere | [Erase shapes mode](#erase-shapes-mode)                                                                                                                                     |
 | Διαγραφή όλων των στοιχείων |     ψευδές     | Enables erasure for all elements (e.g. images and barcodes), except for those discussed in Erase shapes. |
