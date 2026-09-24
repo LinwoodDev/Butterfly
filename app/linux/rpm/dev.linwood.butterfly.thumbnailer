@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=/usr/share/linwood-butterfly/butterfly-thumbnailer
+Exec=/usr/share/linwood-butterfly/butterfly-thumbnailer %i %o %s
+MimeType=application/x-butterfly;application/x-text-butterfly;
