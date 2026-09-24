@@ -105,6 +105,15 @@ sealed class CameraViewport with _$CameraViewport {
 
   ui.Rect toRect() => toOffset() & toSize(true);
 
+  /// The raster is rounded up to whole pixels when it is baked. Its logical
+  /// content still ends at [width] * [pixelRatio], which can be fractional.
+  ui.Rect toImageSourceRect(ui.Size imageSize) =>
+      ui.Offset.zero &
+      ui.Size(
+        ((width ?? 0) * pixelRatio).clamp(0, imageSize.width),
+        ((height ?? 0) * pixelRatio).clamp(0, imageSize.height),
+      );
+
   ui.Size toRealSize([bool scaled = false]) =>
       toSize(scaled) / resolution.multiplier;
 

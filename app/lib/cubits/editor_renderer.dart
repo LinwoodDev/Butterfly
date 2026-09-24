@@ -533,8 +533,8 @@ class RendererCubit(
         rendererCubit.rectContains(cameraViewport.toRect(), rect);
     final viewChanged =
         !viewportAlreadyCoversRect &&
-        (cameraViewport.width != size.width.ceil() ||
-            cameraViewport.height != size.height.ceil() ||
+        (cameraViewport.width != size.width ||
+            cameraViewport.height != size.height ||
             cameraViewport.pixelRatio != ratio ||
             cameraViewport.resolution != resolution ||
             cameraViewport.x != renderTransform.position.dx ||

@@ -259,11 +259,12 @@ class ViewPainter extends CustomPainter {
     if (renderBakedLayers && belowLayerImage != null) {
       canvas.drawImageRect(
         belowLayerImage,
-        Offset.zero &
-            Size(
-              belowLayerImage.width.toDouble(),
-              belowLayerImage.height.toDouble(),
-            ),
+        cameraViewport.toImageSourceRect(
+          Size(
+            belowLayerImage.width.toDouble(),
+            belowLayerImage.height.toDouble(),
+          ),
+        ),
         bakedRect,
         Paint(),
       );
@@ -299,7 +300,9 @@ class ViewPainter extends CustomPainter {
       try {
         canvas.drawImageRect(
           image,
-          Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+          cameraViewport.toImageSourceRect(
+            Size(image.width.toDouble(), image.height.toDouble()),
+          ),
           bakedRect,
           Paint(),
         );
@@ -324,11 +327,12 @@ class ViewPainter extends CustomPainter {
     if (renderBakedLayers && aboveLayerImage != null) {
       canvas.drawImageRect(
         aboveLayerImage,
-        Offset.zero &
-            Size(
-              aboveLayerImage.width.toDouble(),
-              aboveLayerImage.height.toDouble(),
-            ),
+        cameraViewport.toImageSourceRect(
+          Size(
+            aboveLayerImage.width.toDouble(),
+            aboveLayerImage.height.toDouble(),
+          ),
+        ),
         bakedRect,
         Paint(),
       );
