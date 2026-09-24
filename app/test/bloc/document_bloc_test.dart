@@ -2560,6 +2560,45 @@ void main() {
     expect(renderer.onHiddenCalls, 0);
   });
 
+  test('render crops a PNG encoded larger than the requested image', () async {
+    final state = bloc.state as DocumentLoadSuccess;
+    final png = await editorController.rendererCubit.render(
+      editorController,
+      state.data,
+      state.page,
+      state.info,
+      const ImageExportOptions(width: 100, height: 100),
+      docState: state,
+      imageToByteData: (source) async {
+        final recorder = ui.PictureRecorder();
+        final canvas = Canvas(recorder);
+        canvas.drawImage(source, Offset.zero, Paint());
+        final picture = recorder.endRecording();
+        final oversized = await picture.toImage(200, 200);
+        try {
+          return await oversized.toByteData(format: ui.ImageByteFormat.png);
+        } finally {
+          oversized.dispose();
+          picture.dispose();
+        }
+      },
+    );
+
+    expect(png, isNotNull);
+    expect(png!.getUint32(16), 100);
+    expect(png.getUint32(20), 100);
+    final codec = await ui.instantiateImageCodec(Uint8List.sublistView(png));
+    final image = (await codec.getNextFrame()).image;
+    addTearDown(codec.dispose);
+    addTearDown(image.dispose);
+    final pixels = (await image.toByteData(
+      format: ui.ImageByteFormat.rawRgba,
+    ))!;
+    final edge = ((99 * 100) + 99) * 4;
+    expect(pixels.getUint8(edge), 255);
+    expect(pixels.getUint8(edge + 3), 255);
+  });
+
   test(
     'renderImage passes quality as pixel ratio without offsetting scale',
     () async {

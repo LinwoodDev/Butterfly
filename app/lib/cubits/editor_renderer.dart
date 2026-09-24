@@ -87,6 +87,33 @@ class _RendererRepaint extends ChangeNotifier {
   void refresh() => notifyListeners();
 }
 
+ByteData _cropOversizedPng(ByteData png, ui.Image image) {
+  if (png.lengthInBytes < 24 ||
+      (png.getUint32(16) <= image.width && png.getUint32(20) <= image.height)) {
+    return png;
+  }
+
+  // Chromium can encode at the browser canvas size, leaving the requested
+  // image in the top-left corner.
+  final decoded = img.decodePng(Uint8List.sublistView(png));
+  if (decoded == null ||
+      decoded.width < image.width ||
+      decoded.height < image.height) {
+    return png;
+  }
+  return ByteData.sublistView(
+    img.encodePng(
+      img.copyCrop(
+        decoded,
+        x: 0,
+        y: 0,
+        width: image.width,
+        height: image.height,
+      ),
+    ),
+  );
+}
+
 class RendererCubit(
   final SettingsCubit settingsCubit, [
   super.initial = const RendererRuntimeState(),
@@ -969,6 +996,8 @@ class RendererCubit(
     @visibleForTesting
     Future<ui.Image> Function(ui.Picture picture, int width, int height)?
     pictureToImage,
+    @visibleForTesting
+    Future<ByteData?> Function(ui.Image image)? imageToByteData,
   }) async {
     final image = await renderImage(
       controller,
@@ -981,13 +1010,15 @@ class RendererCubit(
       docState: docState,
       pictureToImage: pictureToImage,
     );
-    ByteData? bytes;
+    if (image == null) return null;
     try {
-      bytes = await image?.toByteData(format: ui.ImageByteFormat.png);
+      final png =
+          await (imageToByteData?.call(image) ??
+              image.toByteData(format: ui.ImageByteFormat.png));
+      return png == null ? null : _cropOversizedPng(png, image);
     } finally {
-      image?.dispose();
+      image.dispose();
     }
-    return bytes;
   }
 
   XmlDocument renderSVG(
