@@ -95,7 +95,7 @@ class MainViewViewportState extends State<MainViewViewport>
     super.initState();
     _input = _ViewportInputCoordinator((transformCubit) {
       _canvasKey.currentState?.settleSlide(transformCubit);
-    });
+    }, context);
     WidgetsBinding.instance.addObserver(this);
   }
 
