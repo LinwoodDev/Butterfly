@@ -25,6 +25,7 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
         value: element.property.strokeWidth,
         min: 0,
         max: 70,
+        sliderStep: 1,
         defaultValue: 5,
         onChangeEnd: (value) => updateElements(
           context,
@@ -133,6 +134,7 @@ class _ShapeElementStrokeStyleSectionState
                 value: property.dashMultiplier,
                 min: 0.1,
                 max: 5,
+                sliderStep: 0.1,
                 defaultValue: 1,
                 onChangeEnd: isStyled
                     ? (value) => widget.onPropertyChanged(
@@ -145,6 +147,7 @@ class _ShapeElementStrokeStyleSectionState
                 value: property.gapMultiplier,
                 min: 0.1,
                 max: 5,
+                sliderStep: 0.1,
                 defaultValue: 1,
                 onChangeEnd: isStyled
                     ? (value) => widget.onPropertyChanged(

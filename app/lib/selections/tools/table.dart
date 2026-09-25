@@ -29,6 +29,7 @@ class TableToolSelection extends ToolSelection<TableTool> {
         value: tool.constrainedWidth,
         min: 0,
         max: 1000,
+        sliderStep: 1,
         defaultValue: 0,
         onChangeEnd: (value) => update(
           context,
@@ -40,6 +41,7 @@ class TableToolSelection extends ToolSelection<TableTool> {
         value: tool.constrainedHeight,
         min: 0,
         max: 1000,
+        sliderStep: 1,
         defaultValue: 0,
         onChangeEnd: (value) => update(
           context,
@@ -134,6 +136,7 @@ class _TableBorderControlsState extends State<_TableBorderControls> {
           value: value.width,
           min: 0,
           max: 20,
+          sliderStep: 1,
           defaultValue: 1,
           onChangeEnd: (width) => _change(value.copyWith(width: width)),
         ),
@@ -162,6 +165,7 @@ class _TableBorderControlsState extends State<_TableBorderControls> {
             value: value.dashMultiplier,
             min: 0.1,
             max: 5,
+            sliderStep: 0.1,
             defaultValue: 1,
             onChangeEnd: (dashMultiplier) =>
                 _change(value.copyWith(dashMultiplier: dashMultiplier)),
@@ -171,6 +175,7 @@ class _TableBorderControlsState extends State<_TableBorderControls> {
             value: value.gapMultiplier,
             min: 0.1,
             max: 5,
+            sliderStep: 0.1,
             defaultValue: 1,
             onChangeEnd: (gapMultiplier) =>
                 _change(value.copyWith(gapMultiplier: gapMultiplier)),
@@ -226,6 +231,7 @@ class _TableColorControlsState extends State<_TableColorControls> {
           fractionDigits: 0,
           min: 0,
           max: 255,
+          sliderStep: 1,
           defaultValue: 255,
           onChangeEnd: (alpha) => _change(value.withValues(a: alpha.toInt())),
         ),

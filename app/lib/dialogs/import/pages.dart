@@ -184,6 +184,7 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
               header: Text(AppLocalizations.of(context).alpha),
               fractionDigits: 0,
               max: 255,
+              sliderStep: 1,
               min: 0,
               defaultValue: 255,
               onChangeEnd: (value) => setState(() {

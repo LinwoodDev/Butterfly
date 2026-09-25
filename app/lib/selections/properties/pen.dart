@@ -14,6 +14,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       value: property.strokeWidth,
       min: 0.1,
       max: 70,
+      sliderStep: 1,
       defaultValue: 5,
       onChangeEnd: (value) =>
           onChanged((property as dynamic).copyWith(strokeWidth: value)),
@@ -23,6 +24,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       value: property.thinning,
       min: 0,
       max: 1,
+      sliderStep: 0.1,
       defaultValue: .4,
       onChangeEnd: (value) =>
           onChanged((property as dynamic).copyWith(thinning: value)),
@@ -32,6 +34,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       value: property.smoothing,
       min: 0,
       max: 1,
+      sliderStep: 0.1,
       defaultValue: .5,
       onChangeEnd: (value) =>
           onChanged((property as dynamic).copyWith(smoothing: value)),
@@ -41,6 +44,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       value: property.streamline,
       min: .1,
       max: 1,
+      sliderStep: 0.1,
       defaultValue: 0.3,
       onChangeEnd: (value) =>
           onChanged((property as dynamic).copyWith(streamline: value)),

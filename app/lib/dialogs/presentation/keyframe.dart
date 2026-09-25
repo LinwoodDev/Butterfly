@@ -116,6 +116,7 @@ class _KeyframeConfigurationDialogState
                 subtitle: Slider(
                   min: -180,
                   max: 180,
+                  divisions: 360,
                   value: _rotation! * 180 / pi,
                   onChanged: (value) =>
                       setState(() => _rotation = value * pi / 180),

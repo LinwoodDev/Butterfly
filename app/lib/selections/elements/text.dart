@@ -12,6 +12,7 @@ class LabelElementSelection extends ElementSelection<PadElement> {
         header: Text(AppLocalizations.of(context).scale),
         min: 0.1,
         max: 15,
+        sliderStep: 0.1,
         value: element.scale,
         defaultValue: 1,
         onChangeEnd: (value) => updateElements(
