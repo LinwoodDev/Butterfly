@@ -71,6 +71,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
       value: rotation,
       min: 0,
       max: 360,
+      sliderStep: 1,
       defaultValue: 0,
       fractionDigits: 1,
       onChangeEnd: (value) async {

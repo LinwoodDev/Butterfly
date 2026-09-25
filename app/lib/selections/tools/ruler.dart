@@ -53,6 +53,7 @@ class RulerToolSelection extends ToolSelection<RulerTool> {
         value: tool.size.toDouble(),
         min: 1,
         max: 500,
+        sliderStep: 1,
         defaultValue: 100,
         fractionDigits: 0,
         onChangeEnd: (value) => update(

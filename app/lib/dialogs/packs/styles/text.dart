@@ -91,6 +91,7 @@ class _TextStyleViewState extends State<TextStyleView> {
           defaultValue: 12,
           min: 6,
           max: 512,
+          sliderStep: 1,
           onChangeEnd: (size) =>
               widget.onChanged(widget.value.copyWith(size: size)),
         ),
@@ -112,6 +113,7 @@ class _TextStyleViewState extends State<TextStyleView> {
           defaultValue: 0,
           min: 0,
           max: 20,
+          sliderStep: 1,
           onChangeEnd: (spacing) =>
               widget.onChanged(widget.value.copyWith(letterSpacing: spacing)),
         ),
@@ -257,6 +259,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                             ),
                       min: 0.1,
                       max: 4,
+                      sliderStep: 0.1,
                       onChangeEnd: (thickness) => widget.onChanged(
                         widget.value.copyWith(decorationThickness: thickness),
                       ),

@@ -75,6 +75,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         defaultValue: 0,
         min: 0,
         max: 360,
+        sliderStep: 1,
         header: Text(AppLocalizations.of(context).rotation),
         onChangeEnd: (value) {
           final rect = selected
@@ -111,6 +112,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         defaultValue: 0,
         min: -90,
         max: 90,
+        sliderStep: 1,
         header: Text(AppLocalizations.of(context).shear),
         onChangeEnd: (value) => updateElements(
           context,

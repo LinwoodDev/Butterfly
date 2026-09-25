@@ -181,6 +181,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                               value: scale.clamp(kMinZoom, 10),
                                               min: kMinZoom,
                                               max: 10,
+                                              divisions: 99,
                                               onChanged: (value) =>
                                                   _zoom(value, false),
                                               onChangeEnd: _zoom,

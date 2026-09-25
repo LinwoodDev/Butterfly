@@ -30,6 +30,7 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
         defaultValue: 255,
         min: 0,
         max: 255,
+        sliderStep: 1,
         fractionDigits: 0,
         onChangeEnd: (value) => update(
           context,

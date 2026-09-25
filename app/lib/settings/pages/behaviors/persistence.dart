@@ -245,6 +245,7 @@ Widget _buildPersistenceSettingsSection(
                   value: settings.maxEntries.toDouble(),
                   min: 20,
                   max: 2000,
+                  sliderStep: 1,
                   defaultValue: 400,
                   fractionDigits: 0,
                   onChangeEnd: (value) =>
@@ -263,6 +264,7 @@ Widget _buildPersistenceSettingsSection(
                   value: settings.maxAgeDays.toDouble(),
                   min: 7,
                   max: 730,
+                  sliderStep: 1,
                   defaultValue: 180,
                   fractionDigits: 0,
                   onChangeEnd: (value) =>

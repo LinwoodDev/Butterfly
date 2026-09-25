@@ -40,6 +40,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
         value: tool.constrainedWidth,
         min: 0,
         max: 500,
+        sliderStep: 1,
         defaultValue: 0,
         onChangeEnd: (value) => update(
           context,
@@ -51,6 +52,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
         value: tool.constrainedHeight,
         min: 0,
         max: 500,
+        sliderStep: 1,
         defaultValue: 0,
         onChangeEnd: (value) => update(
           context,
@@ -93,6 +95,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
         value: tool.constrainedAspectRatio,
         min: 0,
         max: 10,
+        sliderStep: 0.1,
         defaultValue: 0,
         onChangeEnd: (value) => update(
           context,
@@ -106,6 +109,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
         value: property.strokeWidth,
         min: 0,
         max: 70,
+        sliderStep: 1,
         defaultValue: 5,
         onChangeEnd: (value) => update(
           context,
@@ -347,6 +351,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                     defaultValue: 0,
                     min: 0,
                     max: 100,
+                    sliderStep: 1,
                     value: widget.shape.topLeftCornerRadius,
                     header: Text(AppLocalizations.of(context).topLeft),
                     onChangeEnd: (value) => widget.onChanged(
@@ -357,6 +362,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                     defaultValue: 0,
                     min: 0,
                     max: 100,
+                    sliderStep: 1,
                     value: widget.shape.topRightCornerRadius,
                     header: Text(AppLocalizations.of(context).topRight),
                     onChangeEnd: (value) => widget.onChanged(
@@ -367,6 +373,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                     defaultValue: 0,
                     min: 0,
                     max: 100,
+                    sliderStep: 1,
                     value: widget.shape.bottomLeftCornerRadius,
                     header: Text(AppLocalizations.of(context).bottomLeft),
                     onChangeEnd: (value) => widget.onChanged(
@@ -377,6 +384,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                     defaultValue: 0,
                     min: 0,
                     max: 100,
+                    sliderStep: 1,
                     value: widget.shape.bottomRightCornerRadius,
                     header: Text(AppLocalizations.of(context).bottomRight),
                     onChangeEnd: (value) => widget.onChanged(
@@ -450,6 +458,7 @@ class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
                       value: property.dashMultiplier,
                       min: 0.1,
                       max: 5,
+                      sliderStep: 0.1,
                       defaultValue: 1,
                       onChangeEnd: (value) => widget.onPropertyChanged(
                         property.copyWith(dashMultiplier: value),
@@ -460,6 +469,7 @@ class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
                       value: property.gapMultiplier,
                       min: 0.1,
                       max: 5,
+                      sliderStep: 0.1,
                       defaultValue: 1,
                       onChangeEnd: (value) => widget.onPropertyChanged(
                         property.copyWith(gapMultiplier: value),
