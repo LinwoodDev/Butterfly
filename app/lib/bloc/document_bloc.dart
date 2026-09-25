@@ -2163,15 +2163,25 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return result.map((e) => renderers[e]).toSet();
   }
 
+  bool get canSendUndo =>
+      networkingService?.state is ClientNetworkState || canUndo;
+
+  bool get canSendRedo =>
+      networkingService?.state is ClientNetworkState || canRedo;
+
   void sendUndo() {
-    if (!(networkingService?.sendUndo() ?? false)) {
+    final networking = networkingService;
+    if (!canSendUndo) return;
+    if (!(networking?.sendUndo() ?? false)) {
       undo();
       _scheduleHistoryReload();
     }
   }
 
   void sendRedo() {
-    if (!(networkingService?.sendRedo() ?? false)) {
+    final networking = networkingService;
+    if (!canSendRedo) return;
+    if (!(networking?.sendRedo() ?? false)) {
       redo();
       _scheduleHistoryReload();
     }

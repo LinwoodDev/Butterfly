@@ -358,6 +358,24 @@ void main() {
     }
   });
 
+  test('empty undo and redo history does not reload the viewport', () async {
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+    expect(bloc.canUndo, isFalse);
+    expect(bloc.canRedo, isFalse);
+
+    final viewportChanges = <CameraViewport>[];
+    final subscription = editorController.rendererCubit.stream.listen(
+      (state) => viewportChanges.add(state.cameraViewport),
+    );
+    addTearDown(subscription.cancel);
+
+    bloc.sendUndo();
+    bloc.sendRedo();
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+
+    expect(viewportChanges, isEmpty);
+  });
+
   test('rectangle ray casts rotate around their center and preserve spacer queries', () async {
     bloc.add(
       ElementsCreated([
