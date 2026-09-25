@@ -406,7 +406,10 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       final persistDocumentState = embedding == null;
       final pathKey = persistDocumentState
-          ? documentStatePathKeyOrNull(location)
+          ? documentStatePathKeyOrNull(
+              location,
+              remoteStorage: remote is RemoteStorage,
+            )
           : null;
       final contentHash = !persistDocumentState || loadedDocumentBytes == null
           ? null

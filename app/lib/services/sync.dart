@@ -153,6 +153,7 @@ class RemoteSync(
     RemoteSyncState(storage: storage),
   );
   final List<StreamSubscription<dynamic>> _subscriptions = [];
+  Future<Map<SyncFileSystemType, FullSyncResult?>>? _activeSync;
 
   final DocumentFileSystem documentSystem = fileSystem.buildDocumentSystem(
     storage,
@@ -254,7 +255,23 @@ class RemoteSync(
   /// [conflictResolution] determines how conflicts are handled.
   Future<Map<SyncFileSystemType, FullSyncResult?>> sync({
     ConflictResolution conflictResolution = .skip,
-  }) async {
+  }) {
+    return _activeSync ??= _runSync(conflictResolution);
+  }
+
+  Future<Map<SyncFileSystemType, FullSyncResult?>> _runSync(
+    ConflictResolution conflictResolution,
+  ) async {
+    try {
+      return await _performSync(conflictResolution);
+    } finally {
+      _activeSync = null;
+    }
+  }
+
+  Future<Map<SyncFileSystemType, FullSyncResult?>> _performSync(
+    ConflictResolution conflictResolution,
+  ) async {
     talker.info('Syncing remote: ${storage.identifier}');
 
     _stateSubject.add(state.copyWith(isSyncing: true, lastError: null));
@@ -385,6 +402,11 @@ class RemoteSync(
   /// - Other modes: Sync is performed immediately.
   Future<void> autoSync(SyncMode mode) async {
     if (mode == .manual) return;
+    if (SyncFileSystemType.values.every(
+      (type) => _getRemoteSystem(type)?.getPinnedPaths().isEmpty ?? true,
+    )) {
+      return;
+    }
 
     if (mode == .noMobile) {
       final connectivity = await Connectivity().checkConnectivity();
@@ -438,6 +460,11 @@ class SyncService(
   );
   final List<StreamSubscription<dynamic>> _subscriptions = [];
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
+  Timer? _autoSyncTimer;
+  bool _isOnline = true;
+  bool _autoSyncInProgress = false;
+
+  static const autoSyncInterval = Duration(minutes: 5);
 
   this {
     _init();
@@ -454,14 +481,43 @@ class SyncService(
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen(
       _onConnectivityChanged,
     );
+    _autoSyncTimer = Timer.periodic(
+      autoSyncInterval,
+      (_) => unawaited(_autoSyncAll()),
+    );
   }
 
   void _onConnectivityChanged(List<ConnectivityResult> results) {
     final isOnline =
         results.isNotEmpty && !results.contains(ConnectivityResult.none);
+    final wasOnline = _isOnline;
+    _isOnline = isOnline;
 
     for (var sync in _syncs.values) {
       sync.setOnlineStatus(isOnline);
+    }
+    if (!wasOnline && isOnline) unawaited(_autoSyncAll());
+  }
+
+  Future<void> _autoSyncAll() async {
+    if (_isDisposed || !_isOnline || _autoSyncInProgress) return;
+    _autoSyncInProgress = true;
+    try {
+      final mode = settingsCubit.state.syncMode;
+      for (final sync in _syncs.values.toList()) {
+        if (sync.isDisposed) continue;
+        try {
+          await sync.autoSync(mode);
+        } catch (error, stackTrace) {
+          talker.warning(
+            'Failed to auto-sync ${sync.storage.identifier}',
+            error,
+            stackTrace,
+          );
+        }
+      }
+    } finally {
+      _autoSyncInProgress = false;
     }
   }
 
@@ -627,6 +683,8 @@ class SyncService(
   void dispose() {
     if (_isDisposed) return;
     _isDisposed = true;
+    _autoSyncTimer?.cancel();
+    _autoSyncTimer = null;
 
     for (var sync in _syncs.values) {
       sync.dispose();

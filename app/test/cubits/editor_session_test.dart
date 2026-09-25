@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_session.dart';
@@ -18,6 +20,23 @@ class _MockDocumentStateFileSystem extends Mock
 
 void main() {
   group('PersistedDocumentState', () {
+    test('remote state keys do not depend on local connection names', () {
+      const first = AssetLocation(
+        remote: 'Laptop Nextcloud',
+        path: '/notes/example.bfly',
+      );
+      const second = AssetLocation(
+        remote: 'Tablet Nextcloud',
+        path: '/notes/example.bfly',
+      );
+
+      expect(documentStatePathKey(first), isNot(documentStatePathKey(second)));
+      expect(
+        documentStatePathKey(first, remoteStorage: true),
+        documentStatePathKey(second, remoteStorage: true),
+      );
+    });
+
     test('uses schema defaults for sparse json', () {
       final state = PersistedDocumentState.fromJson(const {});
 
@@ -136,6 +155,26 @@ void main() {
         () => offlineFileSystem.getFile(documentStateContentKey('hash-a')),
       );
     });
+
+    test(
+      'ignores invalid optional WebDAV state while opening a note',
+      () async {
+        final remoteFileSystem = _MockDocumentStateFileSystem();
+        when(() => remoteFileSystem.initialize()).thenAnswer((_) async {});
+        when(() => remoteFileSystem.getFile(any())).thenThrow(
+          const FileSystemException(
+            'WebDAV response did not contain the requested asset',
+            'path/a',
+          ),
+        );
+
+        final loaded = await DocumentStateService(remoteFileSystem)
+            .load(contentHash: 'hash-a', pathKey: 'path/a');
+
+        expect(loaded, isNull);
+        verify(() => remoteFileSystem.getFile('path/a')).called(1);
+      },
+    );
 
     test('does not load or save when persistence is disabled', () async {
       const state = PersistedDocumentState(pageName: 'Page 1');

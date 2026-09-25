@@ -143,7 +143,10 @@ class DocumentSaveCubit(
       }
       settingsCubit.addRecentHistory(current);
       await editorSessionCubit?.saveNow(
-        pathKey: documentStatePathKeyOrNull(current),
+        pathKey: documentStatePathKeyOrNull(
+          current,
+          remoteStorage: storage is RemoteStorage,
+        ),
         contentHash: contentHash,
       );
       if (isClosed) {

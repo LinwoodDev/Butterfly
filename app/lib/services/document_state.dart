@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -166,34 +167,33 @@ class DocumentStateService(
     PersistedDocumentState state,
     bool persistentChanged,
   ) async {
-    // No keys to update
     if (oldKey == null && newKey == null) return;
-
-    // Same key and no changes to persist
     if (oldKey == newKey && !persistentChanged) return;
-
-    final key = (newKey ?? oldKey)!;
-    final keyChanged = oldKey != newKey;
-
-    final nextState = await _mergeDisabledSettings(oldKey ?? key, state);
-
-    if (!keyChanged) {
-      // Same key, only update if persistent data changed
-      if (persistentChanged) {
-        await fileSystem.updateFile(key, nextState);
-      }
-    } else if (persistentChanged || oldKey == null) {
-      // Key changed or new key: delete old and create new
-      if (oldKey != null) {
-        await fileSystem.deleteFile(oldKey);
-        await fileSystem.createFile(key, nextState);
-      } else {
-        await fileSystem.updateFile(key, nextState);
-      }
-    } else {
-      // Key changed but persisted data did not.
-      await fileSystem.renameFile(oldKey, key);
+    if (newKey == null) {
+      await fileSystem.deleteFile(oldKey!);
+      return;
     }
+
+    final nextState = await _mergeDisabledSettings(oldKey ?? newKey, state);
+    await _writeFile(newKey, nextState);
+    if (oldKey != null && oldKey != newKey) {
+      await fileSystem.deleteFile(oldKey);
+    }
+  }
+
+  Future<void> _writeFile(String key, PersistedDocumentState state) {
+    final remote = fileSystem.remoteSystem;
+    if (remote != null) {
+      // State keys are deterministic. The typed key filesystem checks the
+      // parent with PROPFIND before writing, which some WebDAV servers answer
+      // with a 207 that omits a missing parent. The remote writer caches the
+      // state and creates missing parents when its queued PUT runs.
+      return remote.updateFile(
+        '$key${fileSystem.config.keySuffix}',
+        fileSystem.onEncode(state),
+      );
+    }
+    return fileSystem.updateFile(key, state);
   }
 
   Future<PersistedDocumentState> _mergeDisabledSettings(
@@ -257,12 +257,21 @@ class DocumentStateService(
     } on FormatException catch (e, stackTrace) {
       talker.warning('Failed to parse document state at $key', e, stackTrace);
       return null;
+    } on FileSystemException catch (e, stackTrace) {
+      // The editor state is optional and may be missing or malformed on a
+      // remote store even when the document itself is available.
+      talker.warning('Failed to read document state at $key', e, stackTrace);
+      return null;
     }
   }
 
   static const _minCleanupInterval = Duration(hours: 1);
 
   void _scheduleCleanupAfterSave({String? contentHash, String? pathKey}) {
+    // Scanning every remote state record after a save is expensive and may
+    // delete state still used by another connected device.
+    if (fileSystem.remoteSystem != null) return;
+
     // Skip if cleanup already scheduled or running
     if (_scheduledCleanup != null || _cleanupStarted) return;
 

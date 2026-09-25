@@ -12,15 +12,26 @@ const kPersistedDocumentStateVersion = 1;
 
 String documentStateContentKey(String contentHash) => 'content/$contentHash';
 
-String documentStatePathKey(AssetLocation location) {
+String documentStatePathKey(
+  AssetLocation location, {
+  bool remoteStorage = false,
+}) {
   final normalized = _normalizeDocumentStatePath(location.path);
-  final bytes = utf8.encode('${location.remote}:$normalized');
+  // Remote state already lives under the connection's own storage path. Its
+  // key must not depend on the connection name, which can differ by device.
+  final identity = remoteStorage
+      ? 'remote:$normalized'
+      : '${location.remote}:$normalized';
+  final bytes = utf8.encode(identity);
   return 'path/${base64Url.encode(bytes)}';
 }
 
-String? documentStatePathKeyOrNull(AssetLocation? location) {
+String? documentStatePathKeyOrNull(
+  AssetLocation? location, {
+  bool remoteStorage = false,
+}) {
   if (location == null || location.path.isEmpty) return null;
-  return documentStatePathKey(location);
+  return documentStatePathKey(location, remoteStorage: remoteStorage);
 }
 
 String documentStateContentHash(Uint8List bytes) =>
