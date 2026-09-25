@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:butterfly/widgets/number_input.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:material_ui/material_ui.dart';
 
 class KeyframeConfigurationDialog extends StatefulWidget {
