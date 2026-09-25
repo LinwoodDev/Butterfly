@@ -160,6 +160,7 @@ class _ScaledConstraintsContent extends StatelessWidget {
           header: const Text('X'),
           min: 0,
           max: 10,
+          sliderStep: 0.1,
           defaultValue: 1,
           value: constraints.scaleX,
           onChangeEnd: (value) =>
@@ -169,6 +170,7 @@ class _ScaledConstraintsContent extends StatelessWidget {
           header: const Text('Y'),
           min: 0,
           max: 10,
+          sliderStep: 0.1,
           defaultValue: 1,
           value: constraints.scaleY,
           onChangeEnd: (value) =>

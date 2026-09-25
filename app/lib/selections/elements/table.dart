@@ -111,6 +111,7 @@ class TableElementSelection extends ElementSelection<TableElement> {
         value: bounds.height,
         min: 10,
         max: 1000,
+        sliderStep: 1,
         defaultValue: 60,
         onChangeEnd: (height) {
           var updated = elements.first;
@@ -125,6 +126,7 @@ class TableElementSelection extends ElementSelection<TableElement> {
         value: bounds.width,
         min: 10,
         max: 1000,
+        sliderStep: 1,
         defaultValue: 120,
         onChangeEnd: (width) {
           var updated = elements.first;
