@@ -15,6 +15,6 @@ class RedoHandler extends Handler<RedoTool> {
 
   @override
   ToolStatus getStatus(DocumentBloc bloc) {
-    return bloc.canRedo ? ToolStatus.normal : ToolStatus.disabled;
+    return bloc.canSendRedo ? ToolStatus.normal : ToolStatus.disabled;
   }
 }
