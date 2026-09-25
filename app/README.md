@@ -58,6 +58,36 @@ lib
 * The `setup.dart` file is used to define the general settings. Here the licenses is defined.
 * The `theme.dart` file is used to define the general theme of the app. Here the colors and the text styles are defined of the classic theme and all themes gets fetched from here.
 
+## Home screen widgets
+
+On Android, add **Butterfly note preview** or **Butterfly recent files** from
+the launcher widget picker. Adding the preview opens Butterfly's file browser
+to select the document shown in that widget. On Android 12 and newer, the
+recent-files widget starts without setup and shows a scrollable list that uses
+the widget's available height. Tapping a preview or recent file opens it in
+Butterfly. The `+` shortcut creates a document with Butterfly's default
+template. Long-press the widget and choose **Reconfigure** to select another
+template or return to the default.
+
+To add a standalone **New note** launcher shortcut, choose Butterfly from the
+launcher's shortcut picker and select a template. Tapping that icon creates a
+document with the selected template. It is a launcher shortcut, not a widget.
+
+The widgets refresh from Butterfly's recent history and saved document
+thumbnails when the app opens or its history changes. They do not add controls
+to the app's home page.
+
+## File manager previews
+
+Windows Explorer can show `.bfly` and `.tbfly` thumbnails and Preview Pane
+images after installation with the setup program or MSIX package. Debian and
+RPM packages install a freedesktop thumbnailer for file managers that support
+that specification. Both integrations extract the PNG already saved in the note,
+including when a `.bfly` ZIP entry is compressed. Notes without a saved
+thumbnail, encrypted notes, and unreadable files retain their normal file icon.
+The native thumbnail helper uses Butterfly's existing Dart `archive` and `image`
+packages; no additional ZIP library is bundled.
+
 ## Rebuilding assets
 
 To rebuild the splash screen use:
