@@ -372,13 +372,17 @@ class NetworkingService({final Duration timeout = kTimeout})
             }),
         );
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {
-      _bloc?.undo();
+      if (state is! ServerNetworkState) return;
+      if (_bloc?.canUndo != true) return;
       _needsInit = true;
+      _bloc?.undo();
       _bloc?.reload();
     });
     rpc.getNamedFunction(NetworkEvent.redo)?.read.listen((_) {
-      _bloc?.redo();
+      if (state is! ServerNetworkState) return;
+      if (_bloc?.canRedo != true) return;
       _needsInit = true;
+      _bloc?.redo();
       _bloc?.reload();
     });
   }
@@ -392,8 +396,9 @@ class NetworkingService({final Duration timeout = kTimeout})
       state.pipe.sendNamedFunction(NetworkEvent.undo, Uint8List(0));
       return true;
     }
-    _bloc?.undo();
+    if (_bloc?.canUndo != true) return true;
     _needsInit = true;
+    _bloc?.undo();
     return true;
   }
 
@@ -404,8 +409,9 @@ class NetworkingService({final Duration timeout = kTimeout})
       state.pipe.sendNamedFunction(NetworkEvent.redo, Uint8List(0));
       return true;
     }
-    _bloc?.redo();
+    if (_bloc?.canRedo != true) return true;
     _needsInit = true;
+    _bloc?.redo();
     return true;
   }
 
