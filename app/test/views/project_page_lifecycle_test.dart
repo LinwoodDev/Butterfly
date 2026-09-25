@@ -742,9 +742,7 @@ void main() {
     await tester.pumpAndSettle();
   });
 
-  testWidgets('hold shortcut resets before the next pointer down', (
-    tester,
-  ) async {
+  testWidgets('hold shortcut resets when the key is released', (tester) async {
     when(() => settingsCubit.state).thenReturn(
       ButterflySettings(
         defaultTemplate: 'default',
@@ -793,11 +791,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(editorController.toolCubit.state.index, 1);
-    expect(editorController.toolCubit.state.temporaryIndex, 2);
-    expect(
-      editorController.toolCubit.state.temporaryState,
-      TemporaryState.removeAfterClick,
-    );
+    expect(editorController.toolCubit.state.temporaryHandler, isNull);
+    expect(editorController.toolCubit.state.temporaryIndex, isNull);
 
     final nextGesture = await tester.startGesture(
       tester.getCenter(viewport),
@@ -817,6 +812,26 @@ void main() {
     expect(editorController.toolCubit.state.temporaryIndex, isNull);
     final state = documentBloc.state as DocumentLoadSuccess;
     expect(state.page.content, hasLength(1));
+
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.digit1);
+    final heldGesture = await tester.startGesture(
+      tester.getCenter(viewport),
+      kind: PointerDeviceKind.mouse,
+    );
+    await tester.pump();
+    expect(editorController.toolCubit.state.temporaryIndex, 2);
+
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.digit1);
+    await tester.pump();
+    expect(editorController.toolCubit.state.temporaryIndex, 2);
+    expect(
+      editorController.toolCubit.state.temporaryState,
+      TemporaryState.removeAfterRelease,
+    );
+
+    await heldGesture.up();
+    await tester.pumpAndSettle();
+    expect(editorController.toolCubit.state.temporaryHandler, isNull);
     await tester.pump(const Duration(seconds: 4));
   });
 
