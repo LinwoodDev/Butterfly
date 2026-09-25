@@ -545,6 +545,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                 value: widget.preset.quality,
                                 min: 1,
                                 max: 10,
+                                sliderStep: 0.1,
                                 onChangeEnd: widget.onQualityChanged,
                                 contentPadding: .zero,
                                 header: Text(
@@ -575,6 +576,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                   value: widget.preset.quality,
                                   min: 1,
                                   max: 10,
+                                  sliderStep: 0.1,
                                   onChangeEnd: widget.onQualityChanged,
                                   contentPadding: .zero,
                                   header: Text(

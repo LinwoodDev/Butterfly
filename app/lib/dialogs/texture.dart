@@ -55,6 +55,7 @@ class _TextureViewState extends State<TextureView> {
                 header: Text(AppLocalizations.of(context).alpha),
                 fractionDigits: 0,
                 max: 255,
+                sliderStep: 1,
                 min: 0,
                 defaultValue: 255,
                 onChanged: (value) => widget.onChanged(
@@ -81,6 +82,7 @@ class _TextureViewState extends State<TextureView> {
                 header: Text(AppLocalizations.of(context).alpha),
                 fractionDigits: 0,
                 max: 255,
+                sliderStep: 1,
                 min: 0,
                 defaultValue: 255,
                 onChanged: (value) => widget.onChanged(
@@ -99,6 +101,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 0,
                 min: 0,
                 max: 500,
+                sliderStep: 1,
               ),
               ExactSlider(
                 onChanged: (value) => widget.onChanged(
@@ -110,6 +113,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 1,
                 min: 0,
                 max: 20,
+                sliderStep: 1,
               ),
               ExactSlider(
                 onChanged: (value) =>
@@ -119,6 +123,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 0,
                 min: 0,
                 max: 500,
+                sliderStep: 1,
               ),
               ExactSlider(
                 onChanged: (value) =>
@@ -128,6 +133,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 0.5,
                 min: 0.1,
                 max: 50,
+                sliderStep: 1,
               ),
             ],
             [
@@ -145,6 +151,7 @@ class _TextureViewState extends State<TextureView> {
                 header: Text(AppLocalizations.of(context).alpha),
                 fractionDigits: 0,
                 max: 255,
+                sliderStep: 1,
                 min: 0,
                 defaultValue: 255,
                 onChanged: (value) => widget.onChanged(
@@ -163,6 +170,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 0,
                 min: 0,
                 max: 500,
+                sliderStep: 1,
               ),
               ExactSlider(
                 onChanged: (value) => widget.onChanged(
@@ -174,6 +182,7 @@ class _TextureViewState extends State<TextureView> {
                 fractionDigits: 0,
                 min: 0,
                 max: 20,
+                sliderStep: 1,
               ),
               ExactSlider(
                 onChanged: (value) =>
@@ -183,6 +192,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 0,
                 min: 0,
                 max: 500,
+                sliderStep: 1,
               ),
               ExactSlider(
                 onChanged: (value) =>
@@ -192,6 +202,7 @@ class _TextureViewState extends State<TextureView> {
                 defaultValue: 0.5,
                 min: 0.1,
                 max: 50,
+                sliderStep: 1,
               ),
             ],
           ];

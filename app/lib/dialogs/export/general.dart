@@ -476,6 +476,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         header: Text(AppLocalizations.of(context).scale),
         min: 0.1,
         max: 10,
+        sliderStep: 0.1,
         value: _options.scale,
         defaultValue: 1,
         onChangeEnd: (value) {
@@ -489,6 +490,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         header: Text(AppLocalizations.of(context).rotation),
         min: -180,
         max: 180,
+        sliderStep: 1,
         value: _options.rotation * 180 / pi,
         defaultValue: 0,
         onChangeEnd: (value) {
@@ -536,6 +538,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
             header: Text(AppLocalizations.of(context).padding),
             min: 0,
             max: max(500.0, _options.padding.top),
+            sliderStep: 1,
             value: _options.padding.top,
             defaultValue: 0,
             onChangeEnd: (value) => _setPadding(
@@ -614,6 +617,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         header: Text(AppLocalizations.of(context).quality),
         min: 0.1,
         max: 10,
+        sliderStep: 0.1,
         value: options.quality,
         defaultValue: 1,
         onChangeEnd: (value) {

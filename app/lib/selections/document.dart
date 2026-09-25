@@ -305,6 +305,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     defaultValue: 100,
                     min: kMinZoom * 100,
                     max: kMaxZoom * 100,
+                    sliderStep: 1,
                     onChangeEnd: (value) {
                       final size = context
                           .read<EditorController>()
@@ -327,6 +328,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     defaultValue: 0,
                     min: -180,
                     max: 180,
+                    sliderStep: 1,
                     fractionDigits: 0,
                     onChanged: (value) {
                       final editorController = context.read<EditorController>();

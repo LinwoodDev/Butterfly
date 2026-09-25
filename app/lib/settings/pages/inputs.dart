@@ -1089,6 +1089,7 @@ Widget _sensitivitySlider(
   return ExactSlider(
     min: 10,
     max: 1000,
+    sliderStep: 1,
     defaultValue: 100,
     fractionDigits: 0,
     value: value * 100,

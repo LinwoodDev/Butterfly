@@ -38,6 +38,7 @@ class EraserToolSelection extends ToolSelection<EraserTool> {
         value: tool.strokeWidth,
         min: 0,
         max: 70,
+        sliderStep: 1,
         defaultValue: 5,
         onChangeEnd: (value) => update(
           context,
