@@ -1,11 +1,15 @@
 part of '../view.dart';
 
 class _ViewportInputCoordinator {
-  _ViewportInputCoordinator(this._settleSlide);
+  _ViewportInputCoordinator(this._settleSlide, this._context) {
+    HardwareKeyboard.instance.addHandler(_handleKey);
+  }
 
   final void Function(TransformCubit transformCubit) _settleSlide;
+  final BuildContext _context;
   final Map<int, PointerDeviceKind> _pointerKinds = {};
   final PointerShortcutManager _shortcutManager = .new();
+  int? _heldShortcutKeyId;
 
   double _gestureScale = 1;
   double _gestureRotation = 0;
@@ -21,9 +25,35 @@ class _ViewportInputCoordinator {
     _pointerKinds.clear();
     _resetRulerInteraction();
     _handlerHandlesScaleGesture = null;
+    _heldShortcutKeyId = null;
   }
 
-  void dispose() => _shortcutManager.dispose();
+  void dispose() {
+    HardwareKeyboard.instance.removeHandler(_handleKey);
+    _shortcutManager.dispose();
+  }
+
+  bool _handleKey(KeyEvent event) {
+    if (event is! KeyUpEvent || event.logicalKey.keyId != _heldShortcutKeyId) {
+      return false;
+    }
+    _releaseHoldShortcut();
+    return false;
+  }
+
+  void _releaseHoldShortcut() {
+    _heldShortcutKeyId = null;
+    final cubit = _context.read<EditorController>();
+    if (cubit.inputCubit.state.pointers.isNotEmpty) {
+      cubit.toolCubit.setTemporaryState(TemporaryState.removeAfterRelease);
+    } else {
+      cubit.toolCubit.resetTemporaryHandler(
+        _context.read<DocumentBloc>(),
+        true,
+        cubit.rendererCubit,
+      );
+    }
+  }
 
   void beginTrackpadGesture() => _handlerHandlesScaleGesture = false;
 
@@ -164,7 +194,9 @@ class _ViewportInputCoordinator {
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     if (wasRulerInteraction) cubit.inputCubit.removeButtons();
-    cubit.toolCubit.resetReleaseHandler(input.bloc, cubit.rendererCubit);
+    if (cubit.inputCubit.state.pointers.isEmpty) {
+      cubit.toolCubit.resetReleaseHandler(input.bloc, cubit.rendererCubit);
+    }
   }
 
   Future<void> _replayPointerEvents(
@@ -193,6 +225,10 @@ class _ViewportInputCoordinator {
     cubit.inputCubit.removeButtons();
     if (cubit.inputCubit.state.pointers.isEmpty) {
       _handlerHandlesScaleGesture = null;
+      cubit.toolCubit.resetReleaseHandler(
+        _context.read<DocumentBloc>(),
+        cubit.rendererCubit,
+      );
     }
   }
 
@@ -386,12 +422,15 @@ class _ViewportInputCoordinator {
     var mapping = config.getPointerMapping(kind, buttons);
 
     final pressedKeys = HardwareKeyboard.instance.logicalKeysPressed;
+    int? holdShortcutKeyId;
     for (final shortcut in config.holdShortcuts) {
       if (pressedKeys.contains(LogicalKeyboardKey(shortcut.keyId))) {
         mapping = shortcut.mapping;
+        holdShortcutKeyId = shortcut.keyId;
         break;
       }
     }
+    _heldShortcutKeyId = holdShortcutKeyId;
 
     switch (mapping?.getCategory()) {
       case null:
@@ -409,6 +448,14 @@ class _ViewportInputCoordinator {
             index,
             temporaryState: TemporaryState.removeAfterClick,
           );
+          if (holdShortcutKeyId != null &&
+              !HardwareKeyboard.instance.logicalKeysPressed.contains(
+                LogicalKeyboardKey(holdShortcutKeyId),
+              ) &&
+              (_heldShortcutKeyId == null ||
+                  _heldShortcutKeyId == holdShortcutKeyId)) {
+            _releaseHoldShortcut();
+          }
         }
     }
   }
