@@ -68,6 +68,7 @@ class __ShapeDetectionViewState extends State<_ShapeDetectionView> {
             value: widget.selected.first.shapeDetectionTime,
             min: 0,
             max: 1,
+            sliderStep: 0.1,
             defaultValue: 0.5,
             onChangeEnd: _updateShapeDetectionTime,
           ),

@@ -1,6 +1,6 @@
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/widgets/area_size_picker.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

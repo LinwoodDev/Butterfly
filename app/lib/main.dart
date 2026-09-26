@@ -9,7 +9,7 @@ import 'package:butterfly/services/backup.dart';
 import 'package:butterfly/settings/connection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -201,6 +201,9 @@ class ButterflyApp extends StatelessWidget {
                   .defaultRemote;
               return ProjectPage(
                 data: state.extra,
+                isNewDocument:
+                    state.extra != null ||
+                    (state.uri.queryParameters['path']?.isEmpty ?? true),
                 location: AssetLocation(
                   remote: state.uri.queryParameters['remote'] ?? defaultRemote,
                   path: state.uri.queryParameters['path'] ?? '',
@@ -361,10 +364,11 @@ class ButterflyApp extends StatelessWidget {
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
         localizationsDelegates: const [
-          ...AppLocalizations.localizationsDelegates,
+          AppLocalizations.delegate,
           LocaleNamesLocalizationsDelegate(),
           LeapLocalizations.delegate,
           KeybinderLocalizations.delegate,
+          ...GlobalMaterialLocalizations.delegates,
         ],
         builder: (context, child) {
           if (!state.nativeTitleBar) {

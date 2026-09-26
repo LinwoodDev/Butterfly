@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/presentation.dart';
+import 'package:butterfly/dialogs/presentation/keyframe.dart';
+import 'package:butterfly/dialogs/presentation/transition.dart';
+import 'package:butterfly/helpers/presentation.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -53,14 +56,14 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   AnimationTrack? _animation;
   AnimationKey? _key;
   int _frame = 0;
+  double _newSlideDuration = 1;
 
   @override
   void initState() {
     super.initState();
     _frame = widget.frame;
     _bloc = context.read<DocumentBloc>();
-    _selected =
-        widget.animation ?? _bloc.state.page?.animations.firstOrNull?.name;
+    _selected = widget.animation;
     _animation = _selected == null
         ? null
         : _bloc.state.page?.getAnimation(_selected!);
@@ -80,9 +83,18 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   void didUpdateWidget(covariant PresentationToolbarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.frame != widget.frame) {
-      setState(() => _frame = widget.frame);
-    } else if (oldWidget.animation != widget.animation) {
-      setState(() => _selected = widget.animation);
+      _frame = _clampFrame(widget.frame);
+      _key = _animation?.keys[_frame];
+      _updateControllers();
+    }
+    if (oldWidget.animation != widget.animation) {
+      _selected = widget.animation;
+      _animation = _selected == null
+          ? null
+          : _bloc.state.page?.getAnimation(_selected!);
+      _frame = _clampFrame(_frame);
+      _key = _animation?.keys[_frame];
+      _updateControllers();
     } else if (oldWidget.runningState != widget.runningState) {
       setState(() {});
     }
@@ -92,34 +104,40 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     if (_animation != null) {
       _durationController.text = _animation!.duration.toString();
       _fpsController.text = _animation!.fps.toString();
+    } else {
+      _durationController.clear();
+      _fpsController.clear();
     }
     _frameController.text = _frame.toString();
   }
 
+  int _clampFrame(int value) => value.clamp(0, _animation?.duration ?? 0);
+
   void _setAnimation(String? value) {
-    final animation = _selected == null
+    final animation = value == null
         ? null
-        : _bloc.state.page?.getAnimation(_selected!);
+        : _bloc.state.page?.getAnimation(value);
+    _selectAnimation(animation);
+  }
+
+  void _selectAnimation(AnimationTrack? animation, {int? frame}) {
     setState(() {
-      _selected = value;
+      _selected = animation?.name;
       _animation = animation;
+      _frame = _clampFrame(frame ?? _frame);
       _key = animation?.keys[_frame];
+      _updateControllers();
     });
-    _updateControllers();
-    widget.onAnimationChanged?.call(value);
+    widget.onAnimationChanged?.call(animation?.name);
+    widget.onFrameChanged?.call(_frame);
   }
 
   void _setFrame(int value) {
-    setState(() => _frame = value);
+    final frame = _clampFrame(value);
+    setState(() => _frame = frame);
     _frameController.text = _frame.toString();
     _key = _animation?.keys[_frame];
-    widget.onFrameChanged?.call(value);
-  }
-
-  void _resetSelection() {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return;
-    _setAnimation(state.page.animations.firstOrNull?.name);
+    widget.onFrameChanged?.call(frame);
   }
 
   void _setKey(AnimationKey key) {
@@ -133,18 +151,198 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     });
   }
 
+  List<int> get _slideFrames =>
+      _animation == null ? const [] : presentationSlideFrames(_animation!);
+
+  double get _transitionDuration {
+    final animation = _animation;
+    if (animation == null) return _newSlideDuration;
+    final next = _slideFrames.firstWhereOrNull((frame) => frame > _frame);
+    if (next == null) return _newSlideDuration;
+    return (next - _frame) / max(1, animation.fps);
+  }
+
+  bool _cameraMatchesKey(CameraTransform transform, AnimationKey? key) {
+    if (key?.cameraPosition == null ||
+        key?.cameraZoom == null ||
+        key?.cameraRotation == null) {
+      return false;
+    }
+    const epsilon = 0.0001;
+    final position = key!.cameraPosition!;
+    return (position.x - transform.position.dx).abs() < epsilon &&
+        (position.y - transform.position.dy).abs() < epsilon &&
+        (key.cameraZoom! - transform.size).abs() < epsilon &&
+        (key.cameraRotation! - transform.rotation).abs() < epsilon;
+  }
+
+  AnimationKey _cameraKey(
+    CameraTransform transform, {
+    bool breakpoint = true,
+  }) => AnimationKey(
+    cameraPosition: transform.position.toPoint(),
+    cameraZoom: transform.size,
+    cameraRotation: transform.rotation,
+    breakpoint: breakpoint,
+  );
+
+  void _createQuickPresentation(
+    CameraTransform transform,
+    List<AnimationTrack> animations,
+  ) {
+    final baseName = AppLocalizations.of(context).presentation;
+    var name = baseName;
+    var suffix = 2;
+    final names = animations.map((animation) => animation.name).toSet();
+    while (names.contains(name)) {
+      name = '$baseName $suffix';
+      suffix++;
+    }
+    final track = AnimationTrack(
+      name: name,
+      keys: {0: _cameraKey(transform)},
+      duration: 0,
+    );
+    _bloc.add(AnimationAdded(track));
+    _selectAnimation(track, frame: 0);
+  }
+
+  void _addSlide(CameraTransform transform) {
+    final animation = _animation;
+    if (animation == null) return;
+    final frames = _slideFrames;
+    if (frames.isEmpty) {
+      _setFrame(0);
+      _setKey(_cameraKey(transform));
+      return;
+    }
+    final afterFrame = frames.contains(_frame) ? _frame : frames.last;
+    final durationFrames = max(
+      1,
+      (_transitionDuration * animation.fps).round(),
+    ).toInt();
+    final updated = insertPresentationSlide(
+      animation,
+      afterFrame: afterFrame,
+      durationFrames: durationFrames,
+      key: _cameraKey(transform),
+    );
+    final frame = afterFrame + durationFrames;
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _durationController.text = updated.duration.toString();
+    });
+    _setFrame(frame);
+  }
+
+  void _updateKeyframe(CameraTransform transform) {
+    final key = _key;
+    if (_animation == null || key == null) return;
+    _setKey(_cameraKey(transform, breakpoint: key.breakpoint));
+  }
+
+  Future<void> _configureTransition() async {
+    final animation = _animation;
+    if (animation == null) return;
+    final duration = await showDialog<double>(
+      context: context,
+      builder: (context) =>
+          TransitionDurationDialog(duration: _transitionDuration),
+    );
+    if (duration == null || !mounted) return;
+    final next = _slideFrames.firstWhereOrNull((frame) => frame > _frame);
+    if (next == null) {
+      setState(() => _newSlideDuration = duration);
+      return;
+    }
+    final updated = setPresentationTransitionDuration(
+      animation,
+      fromFrame: _frame,
+      durationFrames: max(1, (duration * animation.fps).round()).toInt(),
+    );
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _durationController.text = updated.duration.toString();
+    });
+  }
+
+  Future<void> _deleteSlide() async {
+    final animation = _animation;
+    final frames = _slideFrames;
+    if (animation == null || !frames.contains(_frame)) return;
+    final remove = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).deleteSlide),
+        content: Text(AppLocalizations.of(context).removeConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(AppLocalizations.of(context).delete),
+          ),
+        ],
+      ),
+    );
+    if (remove != true || !mounted) return;
+    final index = frames.indexOf(_frame);
+    final target = index <= 0 ? 0 : frames[index - 1];
+    final updated = frames.length == 1
+        ? animation.copyWith(keys: Map.of(animation.keys)..remove(_frame))
+        : removePresentationSlide(animation, _frame);
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _durationController.text = updated.duration.toString();
+    });
+    _setFrame(target);
+  }
+
+  void _deleteKeyframe() {
+    final animation = _animation;
+    if (animation == null || _key == null) return;
+    final updated = animation.copyWith(
+      keys: Map.of(animation.keys)..remove(_frame),
+    );
+    _bloc.add(AnimationUpdated(animation.name, updated));
+    setState(() {
+      _animation = updated;
+      _key = null;
+    });
+  }
+
+  void _jumpSlide(int direction) {
+    final frames = _slideFrames;
+    if (frames.isEmpty) return;
+    final target = direction < 0
+        ? frames.lastWhereOrNull((frame) => frame < _frame) ?? frames.first
+        : frames.firstWhereOrNull((frame) => frame > _frame) ?? frames.last;
+    _setFrame(target);
+  }
+
+  Future<void> _configureKeyframe(CameraTransform transform) async {
+    if (_animation == null) return;
+    final configured = await showDialog<AnimationKey>(
+      context: context,
+      builder: (context) => KeyframeConfigurationDialog(
+        keyframe: _key ?? const AnimationKey(),
+        camera: transform,
+      ),
+    );
+    if (configured != null && mounted) _setKey(configured);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ColorScheme.of(context);
-    final defaultKey = _key ?? const AnimationKey();
-    final keyframeEnabled =
-        defaultKey.cameraPosition != null &&
-        defaultKey.cameraZoom != null &&
-        defaultKey.breakpoint;
-    final cameraEnabled =
-        defaultKey.cameraPosition != null && defaultKey.cameraZoom != null;
-
     final animations = _bloc.state.page?.animations ?? [];
+    final slideFrames = _slideFrames;
+    final slideIndex = slideFrames.indexOf(_frame);
+    final currentIsSlide = slideIndex >= 0;
 
     return BlocBuilder<TransformCubit, CameraTransform>(
       builder: (context, transform) => Padding(
@@ -166,10 +364,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                       children: [
                         DropdownMenu<String>(
                           width: 150,
-                          key: UniqueKey(),
                           inputDecorationTheme: const InputDecorationTheme(
                             filled: true,
                           ),
+                          label: Text(AppLocalizations.of(context).animation),
                           dropdownMenuEntries: animations
                               .map(
                                 (e) => DropdownMenuEntry(
@@ -183,7 +381,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                         ),
                         MenuAnchor(
                           builder: defaultMenuButton(
-                            tooltip: AppLocalizations.of(context).presentation,
+                            tooltip: AppLocalizations.of(context).animation,
                           ),
                           menuChildren: [
                             MenuItemButton(
@@ -194,15 +392,17 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 final bloc = context.read<DocumentBloc>();
                                 final name = await showDialog<String>(
                                   context: context,
-                                  builder: (context) => NameDialog(),
+                                  builder: (context) => NameDialog(
+                                    validator: defaultFileNameValidator(
+                                      context,
+                                      animations.map((e) => e.name).toList(),
+                                    ),
+                                  ),
                                 );
                                 if (name == null) return;
                                 final track = AnimationTrack(name: name);
                                 bloc.add(AnimationAdded(track));
-                                setState(() {
-                                  _animation = track;
-                                  _updateControllers();
-                                });
+                                _selectAnimation(track, frame: 0);
                               },
                               child: Text(LeapLocalizations.of(context).create),
                             ),
@@ -228,13 +428,11 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         ),
                                       );
                                       if (name == null) return;
-                                      bloc.add(
-                                        AnimationAdded(
-                                          _animation!.copyWith(name: name),
-                                        ),
+                                      final duplicate = _animation!.copyWith(
+                                        name: name,
                                       );
-                                      _setAnimation(name);
-                                      _setFrame(0);
+                                      bloc.add(AnimationAdded(duplicate));
+                                      _selectAnimation(duplicate, frame: 0);
                                     },
                               child: Text(
                                 AppLocalizations.of(context).duplicate,
@@ -263,13 +461,14 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         ),
                                       );
                                       if (name == null) return;
-                                      bloc.add(
-                                        AnimationUpdated(
-                                          _animation!.name,
-                                          _animation!.copyWith(name: name),
-                                        ),
+                                      final previousName = _animation!.name;
+                                      final renamed = _animation!.copyWith(
+                                        name: name,
                                       );
-                                      _setAnimation(name);
+                                      bloc.add(
+                                        AnimationUpdated(previousName, renamed),
+                                      );
+                                      _selectAnimation(renamed);
                                     },
                               child: Text(AppLocalizations.of(context).rename),
                             ),
@@ -279,18 +478,61 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               ),
                               onPressed: _animation == null
                                   ? null
-                                  : () {
-                                      final bloc = context.read<DocumentBloc>();
-                                      bloc.add(
-                                        AnimationRemoved(_animation!.name),
+                                  : () async {
+                                      final remove = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(
+                                            AppLocalizations.of(context).delete,
+                                          ),
+                                          content: Text(
+                                            AppLocalizations.of(context)
+                                                .removeConfirm,
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, false),
+                                              child: Text(
+                                                MaterialLocalizations.of(
+                                                  context,
+                                                ).cancelButtonLabel,
+                                              ),
+                                            ),
+                                            FilledButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, true),
+                                              child: Text(
+                                                AppLocalizations.of(context)
+                                                    .delete,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       );
-                                      setState(() {
-                                        _resetSelection();
-                                      });
+                                      if (remove != true || !context.mounted) {
+                                        return;
+                                      }
+                                      final bloc = context.read<DocumentBloc>();
+                                      final removedName = _animation!.name;
+                                      final nextAnimation = animations
+                                          .where((e) => e.name != removedName)
+                                          .firstOrNull;
+                                      bloc.add(AnimationRemoved(removedName));
+                                      _selectAnimation(nextAnimation, frame: 0);
                                     },
                               child: Text(AppLocalizations.of(context).delete),
                             ),
                           ],
+                        ),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.caretLeft,
+                          ),
+                          tooltip: AppLocalizations.of(context).previousSlide,
+                          onPressed: slideFrames.isEmpty
+                              ? null
+                              : () => _jumpSlide(-1),
                         ),
                         IconButton(
                           icon:
@@ -304,7 +546,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           tooltip:
                               widget.runningState !=
                                   PresentationRunningState.running
-                              ? AppLocalizations.of(context).play
+                              ? AppLocalizations.of(context).preview
                               : AppLocalizations.of(context).pause,
                           onPressed: _animation == null
                               ? null
@@ -325,163 +567,146 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 },
                         ),
                         IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.stop),
-                          tooltip: AppLocalizations.of(context).stop,
-                          onPressed: _animation == null
-                              ? null
-                              : () {
-                                  _setFrame(0);
-                                  widget.onRunningStateChanged?.call(
-                                    PresentationRunningState.paused,
-                                  );
-                                },
-                        ),
-                        MenuAnchor(
-                          builder: defaultMenuButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.record),
-                            tooltip: AppLocalizations.of(context).keyframe,
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.caretRight,
                           ),
-                          menuChildren: [
-                            MenuItemButton(
-                              leadingIcon: const PhosphorIcon(
-                                PhosphorIconsLight.record,
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context).keyframe,
-                                style: TextStyle(
-                                  color: keyframeEnabled
-                                      ? colorScheme.primary
-                                      : null,
-                                ),
-                              ),
-                              onPressed: () => _setKey(
-                                keyframeEnabled
-                                    ? defaultKey.copyWith(
-                                        cameraPosition: null,
-                                        cameraZoom: null,
-                                        breakpoint: false,
-                                      )
-                                    : defaultKey.copyWith(
-                                        cameraPosition: transform.position
-                                            .toPoint(),
-                                        cameraZoom: transform.size,
-                                        breakpoint: true,
-                                      ),
-                              ),
-                            ),
-                            const Divider(),
-                            MenuItemButton(
-                              leadingIcon: const PhosphorIcon(
-                                PhosphorIconsLight.flowArrow,
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context).camera,
-                                style: TextStyle(
-                                  color: cameraEnabled
-                                      ? colorScheme.primary
-                                      : null,
-                                ),
-                              ),
-                              onPressed: () => _setKey(
-                                cameraEnabled
-                                    ? defaultKey.copyWith(
-                                        cameraPosition: null,
-                                        cameraZoom: null,
-                                      )
-                                    : defaultKey.copyWith(
-                                        cameraPosition: transform.position
-                                            .toPoint(),
-                                        cameraZoom: transform.size,
-                                      ),
-                              ),
-                            ),
-                            MenuItemButton(
-                              leadingIcon: const PhosphorIcon(
-                                PhosphorIconsLight.camera,
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context).breakpoint,
-                                style: TextStyle(
-                                  color: defaultKey.breakpoint
-                                      ? colorScheme.primary
-                                      : null,
-                                ),
-                              ),
-                              onPressed: () => _setKey(
-                                defaultKey.copyWith(
-                                  breakpoint: !defaultKey.breakpoint,
-                                ),
-                              ),
-                            ),
-                            const Divider(),
-                            MenuItemButton(
-                              leadingIcon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowsOutCardinal,
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context).position,
-                                style: TextStyle(
-                                  color: defaultKey.cameraPosition != null
-                                      ? colorScheme.primary
-                                      : null,
-                                ),
-                              ),
-                              onPressed: () => _setKey(
-                                defaultKey.copyWith(
-                                  cameraPosition: transform.position.toPoint(),
-                                ),
-                              ),
-                            ),
-                            MenuItemButton(
-                              leadingIcon: const PhosphorIcon(
-                                PhosphorIconsLight.magnifyingGlass,
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context).zoom,
-                                style: TextStyle(
-                                  color: defaultKey.cameraZoom != null
-                                      ? colorScheme.primary
-                                      : null,
-                                ),
-                              ),
-                              onPressed: () => _setKey(
-                                defaultKey.copyWith(cameraZoom: transform.size),
-                              ),
-                            ),
-                            const Divider(),
-                            MenuItemButton(
-                              leadingIcon: const PhosphorIcon(
-                                PhosphorIconsLight.trash,
-                              ),
-                              onPressed: _key == null
-                                  ? null
-                                  : () {
-                                      final bloc = context.read<DocumentBloc>();
-                                      final updated = _animation!.copyWith(
-                                        keys: Map.from(_animation!.keys)
-                                          ..remove(_frame),
-                                      );
-                                      bloc.add(
-                                        AnimationUpdated(
-                                          _animation!.name,
-                                          updated,
-                                        ),
-                                      );
-                                      setState(() {
-                                        _animation = updated;
-                                        _key = null;
-                                      });
-                                    },
-                              child: Text(AppLocalizations.of(context).delete),
-                            ),
-                          ],
+                          tooltip: AppLocalizations.of(context).nextSlide,
+                          onPressed: slideFrames.isEmpty
+                              ? null
+                              : () => _jumpSlide(1),
                         ),
+                        if (_animation == null)
+                          FilledButton.icon(
+                            onPressed: () =>
+                                _createQuickPresentation(transform, animations),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.presentation,
+                            ),
+                            label: Text(
+                              AppLocalizations.of(context).createPresentation,
+                            ),
+                          ),
+                        if (_animation != null)
+                          FilledButton.tonalIcon(
+                            onPressed: () => _addSlide(transform),
+                            icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                            label: Text(AppLocalizations.of(context).addSlide),
+                          ),
                       ],
                     ),
                     if (_animation != null)
                       Row(
                         mainAxisSize: .min,
                         children: [
+                          MenuAnchor(
+                            builder: (context, controller, child) =>
+                                TextButton.icon(
+                                  onPressed: controller.isOpen
+                                      ? controller.close
+                                      : controller.open,
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.record,
+                                  ),
+                                  label: Text(
+                                    currentIsSlide
+                                        ? AppLocalizations.of(
+                                            context,
+                                          ).slideAtFrame(slideIndex + 1, _frame)
+                                        : _key != null
+                                        ? AppLocalizations.of(context)
+                                              .keyframeAtFrame(_frame)
+                                        : AppLocalizations.of(context)
+                                              .frameValue(_frame),
+                                  ),
+                                ),
+                            menuChildren: [
+                              if (_key == null)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.plus,
+                                  ),
+                                  onPressed: () => _setKey(
+                                    _cameraKey(transform, breakpoint: false),
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context).addKeyframe,
+                                  ),
+                                ),
+                              if (_key != null)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.camera,
+                                  ),
+                                  onPressed: !_cameraMatchesKey(transform, _key)
+                                      ? () => _updateKeyframe(transform)
+                                      : null,
+                                  child: Text(
+                                    AppLocalizations.of(context).updateKeyframe,
+                                  ),
+                                ),
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.sliders,
+                                ),
+                                onPressed: () => _configureKeyframe(transform),
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .configureKeyframe,
+                                ),
+                              ),
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.presentation,
+                                ),
+                                onPressed: () {
+                                  final key = _key;
+                                  _setKey(
+                                    key == null
+                                        ? _cameraKey(transform)
+                                        : key.copyWith(
+                                            breakpoint: !key.breakpoint,
+                                          ),
+                                  );
+                                },
+                                child: Text(
+                                  currentIsSlide
+                                      ? AppLocalizations.of(context)
+                                            .removeSlideMarker
+                                      : AppLocalizations.of(context)
+                                            .markAsSlide,
+                                ),
+                              ),
+                              if (currentIsSlide)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.timer,
+                                  ),
+                                  onPressed: _configureTransition,
+                                  child: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    ).transitionDurationValue(
+                                      _transitionDuration.toStringAsFixed(1),
+                                    ),
+                                  ),
+                                ),
+                              const Divider(),
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.trash,
+                                ),
+                                onPressed: currentIsSlide
+                                    ? _deleteSlide
+                                    : (_key != null ? _deleteKeyframe : null),
+                                child: Text(
+                                  currentIsSlide
+                                      ? AppLocalizations.of(context).deleteSlide
+                                      : AppLocalizations.of(context)
+                                            .deleteKeyframe,
+                                ),
+                              ),
+                            ],
+                          ),
                           MenuAnchor(
                             builder: defaultMenuButton(
                               icon: const PhosphorIcon(
@@ -528,6 +753,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                               setState(
                                                 () => _animation = updated,
                                               );
+                                            } else {
+                                              _fpsController.text = _animation!
+                                                  .fps
+                                                  .toString();
                                             }
                                           },
                                         ),
@@ -550,6 +779,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                             );
                                             if (frame != null) {
                                               _setFrame(frame);
+                                            } else {
+                                              _frameController.text = _frame
+                                                  .toString();
                                             }
                                           },
                                         ),
@@ -570,8 +802,13 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                             final duration = int.tryParse(
                                               value.trim(),
                                             );
+                                            final lastKey = _animation!
+                                                .keys
+                                                .keys
+                                                .fold(0, max);
                                             if (duration != null &&
-                                                duration > 0) {
+                                                duration > 0 &&
+                                                duration >= lastKey) {
                                               final updated = _animation!
                                                   .copyWith(duration: duration);
                                               context.read<DocumentBloc>().add(
@@ -583,6 +820,13 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                               setState(
                                                 () => _animation = updated,
                                               );
+                                              if (_frame > duration) {
+                                                _setFrame(duration);
+                                              }
+                                            } else {
+                                              _durationController.text =
+                                                  _animation!.duration
+                                                      .toString();
                                             }
                                           },
                                         ),
@@ -598,6 +842,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             width: max(150, constraints.maxWidth * 0.4),
                             child: PresentationTimelineView(
                               animationKeys: _animation!.keys.keys.toList(),
+                              slideFrames: slideFrames,
                               currentFrame: _frame,
                               duration: _animation!.duration,
                               onFrameChanged: _setFrame,
@@ -609,24 +854,33 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.presentation,
                               ),
-                              tooltip: AppLocalizations.of(context).export,
+                              tooltip: AppLocalizations.of(context)
+                                  .presentation,
                             ),
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.playCircle,
                                 ),
-                                child: Text(AppLocalizations.of(context).play),
+                                child: Text(
+                                  AppLocalizations.of(context).presentation,
+                                ),
                                 onPressed: () async {
                                   final bloc = context.read<DocumentBloc>();
                                   final fullScreen = await isFullScreen();
                                   if (context.mounted) {
-                                    final result = await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) =>
-                                          const PresentationControlsDialog(),
-                                    );
-                                    if (result != true) return;
+                                    final requestedFullScreen =
+                                        await showDialog<bool>(
+                                          context: context,
+                                          builder: (context) =>
+                                              PresentationControlsDialog(
+                                                fullScreen: fullScreen,
+                                              ),
+                                        );
+                                    if (requestedFullScreen == null) return;
+                                    if (requestedFullScreen != fullScreen) {
+                                      await setFullScreen(requestedFullScreen);
+                                    }
                                     bloc.add(
                                       PresentationModeEntered(
                                         _animation!,

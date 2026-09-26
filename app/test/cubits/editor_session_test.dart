@@ -45,6 +45,13 @@ void main() {
       expect(state.camera.rotation, 0);
       expect(state.locks, const PersistentLockState());
       expect(state.navigator.page, NavigatorPage.waypoints.name);
+      expect(state.autoThumbnail, isFalse);
+      expect(
+        PersistedDocumentState.fromJson(
+          const PersistedDocumentState(autoThumbnail: true).toJson(),
+        ).autoThumbnail,
+        isTrue,
+      );
     });
 
     test('initial camera belongs to the selected page', () {
@@ -199,6 +206,7 @@ void main() {
     test('filters disabled categories on load', () async {
       final state = PersistedDocumentState(
         pageName: 'Page 1',
+        autoThumbnail: true,
         locks: const PersistentLockState(lockZoom: true),
         areaNavigator: const PersistedAreaNavigatorState(create: false),
       );
@@ -210,6 +218,7 @@ void main() {
         settingsProvider: () => const DocumentStatePersistenceSettings(
           locks: false,
           areas: false,
+          autoThumbnail: false,
           defaultLocks: PersistentLockState(lockZoom: true),
         ),
       ).load(pathKey: 'path/a');
@@ -217,20 +226,24 @@ void main() {
       expect(loaded?.pageName, 'Page 1');
       expect(loaded?.locks, const PersistentLockState(lockZoom: true));
       expect(loaded?.areaNavigator, const PersistedAreaNavigatorState());
+      expect(loaded?.autoThumbnail, isFalse);
     });
 
     test('preserves disabled categories on save', () async {
       final existing = PersistedDocumentState(
         pageName: 'Page 1',
         locks: const PersistentLockState(lockZoom: true),
+        autoThumbnail: true,
       );
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', existing);
 
       await DocumentStateService(
         fileSystem,
-        settingsProvider: () =>
-            const DocumentStatePersistenceSettings(locks: false),
+        settingsProvider: () => const DocumentStatePersistenceSettings(
+          locks: false,
+          autoThumbnail: false,
+        ),
       ).save(
         const PersistedDocumentState(
           pageName: 'Page 2',
@@ -243,6 +256,7 @@ void main() {
       final saved = await fileSystem.getFile('path/a');
       expect(saved?.pageName, 'Page 2');
       expect(saved?.locks, existing.locks);
+      expect(saved?.autoThumbnail, isTrue);
     });
 
     test('cleanup removes old and overflowing records', () async {

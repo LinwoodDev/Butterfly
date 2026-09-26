@@ -2,7 +2,7 @@ import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
@@ -75,6 +75,10 @@ void main() {
     await tester.tap(find.text('View'));
     await tester.pumpAndSettle();
 
+    expect(
+      find.byType(WindowTitleBar<SettingsCubit, ButterflySettings>),
+      findsNothing,
+    );
     expect(router.routeInformationProvider.value.uri.path, '/document');
     expect(find.byType(SettingsPage, skipOffstage: false), findsOneWidget);
     expect(find.text('Document', skipOffstage: false), findsOneWidget);
@@ -85,5 +89,42 @@ void main() {
     expect(router.routeInformationProvider.value.uri.path, '/document');
     expect(find.byType(SettingsPage), findsOneWidget);
     expect(find.text('Settings'), findsOneWidget);
+  });
+
+  testWidgets('input subpages open inside the settings dialog', (tester) async {
+    tester.view.physicalSize = const Size(400, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      BlocProvider<SettingsCubit>.value(
+        value: settingsCubit,
+        child: MaterialApp.router(
+          routerConfig: router,
+          localizationsDelegates: const [
+            ...AppLocalizations.localizationsDelegates,
+            LeapLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Open settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Inputs'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Mouse'));
+    await tester.pumpAndSettle();
+
+    expect(router.routeInformationProvider.value.uri.path, '/document');
+    expect(find.byType(SettingsDetailsPage), findsOneWidget);
+    expect(find.text('Document', skipOffstage: false), findsOneWidget);
+
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    expect(find.byType(SettingsDetailsPage), findsNothing);
+    expect(find.text('Inputs'), findsWidgets);
   });
 }

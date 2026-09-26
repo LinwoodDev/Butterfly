@@ -914,6 +914,51 @@
   "smoothing": "Smoothing",
   "streamline": "Streamline",
   "presentation": "Presentation",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {"type": "String"}
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {"type": "int"}
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {"type": "int"}
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {"type": "int"},
+      "frame": {"type": "int"}
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
   "selectAsset": "Select asset",
   "clearStyle": "Clear style",
   "unknownImportType": "Unknown import type",
@@ -1011,6 +1056,8 @@
   "onlyOnUpdates": "Only on updates",
   "visibility": "Visibility",
   "captureThumbnail": "Capture thumbnail",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Successfully captured thumbnail",
   "chooseLabelMode": "Choose label mode",
   "foreground": "Foreground",
@@ -1574,6 +1621,8 @@
   "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
   "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
   "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
   "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
   "contentViewportDescription": "Limits how far you can pan away from the content of your note.",

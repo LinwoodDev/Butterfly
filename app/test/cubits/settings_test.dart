@@ -1,7 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -117,6 +117,22 @@ void main() {
     expect(
       restored.documentStatePersistence.defaultLocks,
       persistence.defaultLocks,
+    );
+  });
+
+  test('persists the automatic thumbnail state setting', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+    addTearDown(cubit.close);
+
+    await cubit.changeDocumentStatePersistence(
+      const DocumentStatePersistenceSettings(autoThumbnail: false),
+    );
+
+    expect(
+      ButterflySettings.fromPrefs(prefs).documentStatePersistence.autoThumbnail,
+      isFalse,
     );
   });
 

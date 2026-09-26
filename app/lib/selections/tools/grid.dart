@@ -44,6 +44,7 @@ class GridToolSelection extends ToolSelection<GridTool> {
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
         max: 255,
+        sliderStep: 1,
         min: 0,
         defaultValue: 255,
         onChangeEnd: (value) => update(
@@ -64,6 +65,7 @@ class GridToolSelection extends ToolSelection<GridTool> {
         header: Text(AppLocalizations.of(context).strokeWidth),
         min: 0,
         max: 50,
+        sliderStep: 1,
       ),
       CheckboxListTile(
         value: selected.first.positionDependent,

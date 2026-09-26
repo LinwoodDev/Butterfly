@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
@@ -11,7 +11,7 @@ class TogglePresentationIntent extends Intent {
 const togglePresentationShortcut = ShortcutDefinition(
   id: 'toggle_presentation',
   intent: TogglePresentationIntent(),
-  defaultActivator: SingleActivator(LogicalKeyboardKey.space, control: true),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.space),
 );
 
 class TogglePresentationAction extends Action<TogglePresentationIntent> {

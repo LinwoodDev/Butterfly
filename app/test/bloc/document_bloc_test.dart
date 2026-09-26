@@ -18,7 +18,7 @@ import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -356,6 +356,24 @@ void main() {
     if (!windowCubit.isClosed) {
       await windowCubit.close();
     }
+  });
+
+  test('empty undo and redo history does not reload the viewport', () async {
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+    expect(bloc.canUndo, isFalse);
+    expect(bloc.canRedo, isFalse);
+
+    final viewportChanges = <CameraViewport>[];
+    final subscription = editorController.rendererCubit.stream.listen(
+      (state) => viewportChanges.add(state.cameraViewport),
+    );
+    addTearDown(subscription.cancel);
+
+    bloc.sendUndo();
+    bloc.sendRedo();
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+
+    expect(viewportChanges, isEmpty);
   });
 
   test('rectangle ray casts rotate around their center and preserve spacer queries', () async {

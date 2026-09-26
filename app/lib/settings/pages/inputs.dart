@@ -31,22 +31,22 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).mouse,
           icon: PhosphorIconsLight.mouse,
-          onTap: (context) => context.push('/settings/inputs/mouse'),
+          onTap: (context) => openSettingsPage(context, 'inputs.mouse'),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).touch,
           icon: PhosphorIconsLight.hand,
-          onTap: (context) => context.push('/settings/inputs/touch'),
+          onTap: (context) => openSettingsPage(context, 'inputs.touch'),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).keyboard,
           icon: PhosphorIconsLight.keyboard,
-          onTap: (context) => context.push('/settings/inputs/keyboard'),
+          onTap: (context) => openSettingsPage(context, 'inputs.keyboard'),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).stylus,
           icon: PhosphorIconsLight.pen,
-          onTap: (context) => context.push('/settings/inputs/stylus'),
+          onTap: (context) => openSettingsPage(context, 'inputs.stylus'),
         ),
       ],
     ),
@@ -1089,6 +1089,7 @@ Widget _sensitivitySlider(
   return ExactSlider(
     min: 10,
     max: 1000,
+    sliderStep: 1,
     defaultValue: 100,
     fractionDigits: 0,
     value: value * 100,

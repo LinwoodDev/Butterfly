@@ -12,6 +12,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         value: selected.first.strokeWidth,
         min: 0,
         max: 70,
+        sliderStep: 1,
         defaultValue: 5,
         onChangeEnd: (value) => update(
           context,
@@ -23,6 +24,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         value: selected.first.thinning,
         min: 0,
         max: 1,
+        sliderStep: 0.1,
         defaultValue: .4,
         onChangeEnd: (value) => update(
           context,
@@ -41,6 +43,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         value: selected.first.duration,
         min: 0,
         max: 20,
+        sliderStep: 1,
         defaultValue: 5,
         header: Text(AppLocalizations.of(context).duration),
         onChangeEnd: (value) => update(
@@ -52,6 +55,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         value: selected.first.hideDuration,
         min: 0.1,
         max: 2,
+        sliderStep: 0.1,
         defaultValue: 0.5,
         header: Text(AppLocalizations.of(context).hideDuration),
         onChangeEnd: (value) => update(

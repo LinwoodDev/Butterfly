@@ -6,7 +6,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
@@ -551,6 +551,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                 value: widget.preset.quality,
                                 min: 1,
                                 max: 10,
+                                sliderStep: 0.1,
                                 onChangeEnd: widget.onQualityChanged,
                                 contentPadding: .zero,
                                 header: Text(
@@ -581,6 +582,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                   value: widget.preset.quality,
                                   min: 1,
                                   max: 10,
+                                  sliderStep: 0.1,
                                   onChangeEnd: widget.onQualityChanged,
                                   contentPadding: .zero,
                                   header: Text(

@@ -167,6 +167,7 @@ Widget _imageScaleSetting(BuildContext context, ButterflySettings state) {
     value: state.imageScale * 100,
     min: 0,
     max: 100,
+    sliderStep: 1,
     defaultValue: 50,
     fractionDigits: 0,
     onChangeEnd: (value) =>
@@ -175,7 +176,7 @@ Widget _imageScaleSetting(BuildContext context, ButterflySettings state) {
 }
 
 void _openPersistenceSettings(BuildContext context) =>
-    context.push('/settings/behaviors/persistence');
+    openSettingsPage(context, 'behaviors.persistence');
 
 Widget _toolbarRowsSetting(BuildContext context, ButterflySettings state) {
   return ExactSlider(
@@ -185,6 +186,7 @@ Widget _toolbarRowsSetting(BuildContext context, ButterflySettings state) {
     defaultValue: 1,
     min: 1,
     max: 4,
+    sliderStep: 1,
     fractionDigits: 0,
     headerWidth: 250,
     divide: true,

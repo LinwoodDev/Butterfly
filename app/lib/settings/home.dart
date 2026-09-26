@@ -14,11 +14,12 @@ import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/backup.dart';
+import 'package:butterfly/settings/connection.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -70,6 +71,24 @@ void _resetSettingsPage(
   context.read<SettingsCubit>().resetSettings(reset);
 }
 
+void openSettingsPage(BuildContext context, String id) {
+  if (!SettingsLeapDialogNavigator.maybePush(
+    context,
+    SettingsDetailsPage(id: id, inView: true),
+  )) {
+    context.push('/settings/${id.replaceAll('.', '/')}');
+  }
+}
+
+void openConnectionSettings(BuildContext context, String remote) {
+  if (!SettingsLeapDialogNavigator.maybePush(
+    context,
+    ConnectionSettingsPage(remote: remote, inView: true),
+  )) {
+    context.pushNamed('connection', pathParameters: {'id': remote});
+  }
+}
+
 class SettingsPage extends StatelessWidget {
   final bool inView;
   const SettingsPage({super.key, this.inView = false});
@@ -94,7 +113,14 @@ class SettingsPage extends StatelessWidget {
               },
         closeButton: IconButton.outlined(
           icon: const PhosphorIcon(PhosphorIconsLight.x),
-          onPressed: () => Navigator.of(context).maybePop(),
+          onPressed: () {
+            final navigator = Navigator.of(context, rootNavigator: inView);
+            if (inView) {
+              navigator.pop();
+            } else {
+              navigator.maybePop();
+            }
+          },
           tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
         ),
       ),
@@ -142,10 +168,11 @@ class SettingsDetailsPage extends StatelessWidget {
     final page = settingsTree.pageById(id) ?? findPage(settingsTree.pages, id);
     if (page == null) {
       return Scaffold(
-        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-          title: Text(AppLocalizations.of(context).settings),
-          inView: inView,
-        ),
+        appBar: inView
+            ? AppBar(title: Text(AppLocalizations.of(context).settings))
+            : WindowTitleBar<SettingsCubit, ButterflySettings>(
+                title: Text(AppLocalizations.of(context).settings),
+              ),
         body: Center(child: Text(AppLocalizations.of(context).error)),
       );
     }
@@ -170,9 +197,13 @@ PreferredSizeWidget _butterflyAppBar(
   bool inView,
   Widget title,
   List<Widget>? actions,
-) => WindowTitleBar<SettingsCubit, ButterflySettings>(
-  title: title,
-  backgroundColor: inView ? Colors.transparent : null,
-  inView: inView,
-  actions: actions ?? const [],
-);
+) => inView
+    ? AppBar(
+        title: title,
+        backgroundColor: Colors.transparent,
+        actions: actions ?? const [],
+      )
+    : WindowTitleBar<SettingsCubit, ButterflySettings>(
+        title: title,
+        actions: actions ?? const [],
+      );

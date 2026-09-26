@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
@@ -184,6 +184,7 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
               header: Text(AppLocalizations.of(context).alpha),
               fractionDigits: 0,
               max: 255,
+              sliderStep: 1,
               min: 0,
               defaultValue: 255,
               onChangeEnd: (value) => setState(() {

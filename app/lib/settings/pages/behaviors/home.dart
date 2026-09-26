@@ -247,6 +247,7 @@ Widget _autosaveDelaySetting(BuildContext context, ButterflySettings state) {
     value: state.autosaveDelaySeconds.toDouble(),
     min: 1,
     max: 10,
+    sliderStep: 1,
     defaultValue: 3,
     fractionDigits: 0,
     onChangeEnd: (value) =>
@@ -262,6 +263,7 @@ Widget _rotationStepSetting(BuildContext context, ButterflySettings state) {
     ),
     min: 1,
     max: 90,
+    sliderStep: 1,
     defaultValue: kDefaultRotationStep,
     fractionDigits: 0,
     value: state.rotationStep,
@@ -277,6 +279,7 @@ Widget _zoomStepSetting(BuildContext context, ButterflySettings state) {
     leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
     min: 1,
     max: 100,
+    sliderStep: 1,
     defaultValue: kDefaultZoomStep * 100,
     fractionDigits: 0,
     value: state.zoomStep * 100,

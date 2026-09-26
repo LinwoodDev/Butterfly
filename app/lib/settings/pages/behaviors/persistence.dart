@@ -162,6 +162,21 @@ Widget _buildPersistenceSettingsSection(
                       ? (value) => change(settings.copyWith(areas: value))
                       : null,
                 ),
+                SwitchListTile(
+                  value: settings.autoThumbnail,
+                  secondary: const PhosphorIcon(PhosphorIconsLight.camera),
+                  title: Text(
+                    AppLocalizations.of(context).persistentStateAutoThumbnail,
+                  ),
+                  subtitle: Text(
+                    AppLocalizations.of(context)
+                        .persistentStateAutoThumbnailDescription,
+                  ),
+                  onChanged: settings.enabled
+                      ? (value) =>
+                            change(settings.copyWith(autoThumbnail: value))
+                      : null,
+                ),
                 const Divider(),
                 ExpansionTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.lockKeyOpen),
@@ -230,6 +245,7 @@ Widget _buildPersistenceSettingsSection(
                   value: settings.maxEntries.toDouble(),
                   min: 20,
                   max: 2000,
+                  sliderStep: 1,
                   defaultValue: 400,
                   fractionDigits: 0,
                   onChangeEnd: (value) =>
@@ -248,6 +264,7 @@ Widget _buildPersistenceSettingsSection(
                   value: settings.maxAgeDays.toDouble(),
                   min: 7,
                   max: 730,
+                  sliderStep: 1,
                   defaultValue: 180,
                   fractionDigits: 0,
                   onChangeEnd: (value) =>

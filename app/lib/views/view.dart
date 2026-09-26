@@ -8,7 +8,7 @@ import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/services/pointer_shortcuts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -95,7 +95,7 @@ class MainViewViewportState extends State<MainViewViewport>
     super.initState();
     _input = _ViewportInputCoordinator((transformCubit) {
       _canvasKey.currentState?.settleSlide(transformCubit);
-    });
+    }, context);
     WidgetsBinding.instance.addObserver(this);
   }
 

@@ -5,7 +5,7 @@ import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -233,6 +233,7 @@ class TexturePaintField extends StatelessWidget {
           header: Text(loc.alpha),
           fractionDigits: 0,
           max: 255,
+          sliderStep: 1,
           min: 0,
           defaultValue: 255,
           onChangeEnd: (alpha) => onChanged(value.withAlpha(alpha.toInt())),
@@ -242,6 +243,7 @@ class TexturePaintField extends StatelessWidget {
           header: Text(loc.blur),
           min: 0,
           max: 50,
+          sliderStep: 1,
           defaultValue: 0,
           onChangeEnd: (blur) => onChanged(value.copyWith(blur: blur)),
         ),
@@ -262,6 +264,7 @@ class TexturePaintField extends StatelessWidget {
             header: Text(loc.imageScale),
             min: 0.1,
             max: 8,
+            sliderStep: 0.1,
             defaultValue: 1,
             onChangeEnd: (next) =>
                 onChanged((value as ImageElementPaint).copyWith(scale: next)),
@@ -285,6 +288,7 @@ class TexturePaintField extends StatelessWidget {
             header: Text(loc.svgScale),
             min: 0.1,
             max: 8,
+            sliderStep: 0.1,
             defaultValue: 1,
             onChangeEnd: (next) =>
                 onChanged((value as SvgElementPaint).copyWith(scale: next)),
@@ -430,6 +434,7 @@ class _RadialGradientEditor extends StatelessWidget {
           header: Text(loc.radius),
           min: 0,
           max: 2,
+          sliderStep: 0.1,
           defaultValue: 0.5,
           onChangeEnd: (next) => onChanged(value.copyWith(radius: next)),
         ),
@@ -459,6 +464,7 @@ class _RadialGradientEditor extends StatelessWidget {
             header: Text(loc.focalRadius),
             min: 0,
             max: 2,
+            sliderStep: 0.1,
             defaultValue: 0,
             onChangeEnd: (next) => onChanged(value.copyWith(focalRadius: next)),
           ),
@@ -600,6 +606,7 @@ class _GradientStopField extends StatelessWidget {
           header: Text(loc.offset),
           min: 0,
           max: 1,
+          sliderStep: 0.1,
           defaultValue: index == 0 ? 0 : 1,
           onChangeEnd: (next) {
             onChanged(value.copyWith(offset: next));
@@ -611,6 +618,7 @@ class _GradientStopField extends StatelessWidget {
           fractionDigits: 0,
           min: 0,
           max: 255,
+          sliderStep: 1,
           defaultValue: 255,
           onChangeEnd: (next) {
             onChanged(
