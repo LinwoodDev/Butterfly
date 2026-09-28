@@ -13,18 +13,18 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/markdown-satteri": "^0.4.2",
     "@astrojs/react": "^7.0.0",
-    "@astrojs/starlight": "^0.42.3",
+    "@astrojs/starlight": "^0.42.4",
     "@fontsource-variable/inter": "^5.3.0",
     "@linwooddev/starlight-style": "github:LinwoodDev/style#0b474a6e7e072c38fac878821e38fd5079e3f924&path:/packages/starlight",
     "@linwooddev/style": "github:LinwoodDev/style#0b474a6e7e072c38fac878821e38fd5079e3f924&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.3.4",
-    "katex": "^0.18.7",
+    "astro": "^7.3.5",
+    "katex": "^0.18.9",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "packageManager": "pnpm@12.6.0",
   "devDependencies": {

@@ -167,7 +167,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.6.0-rc.4"
+    version: "2.6.0"
   camera:
     dependency: "direct main"
     description:
@@ -180,10 +180,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "977f54512d338b3b36d7f82929794886766d8f41ae84a48fe103eb0106ecfe25"
+      sha256: a9d527411429f97976dc1f97b0dbe57560c9d3ae482e2f45b7d0a2a61c6bf8f9
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.4+8"
+    version: "0.7.5"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -1153,10 +1153,10 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      sha256: "91bd59303e9f769f108f8df05e371341b15d59e995e6806aefab827b58336675"
+      sha256: "2f1564aadb14215e478563b5406cb80729d022158c01dc50c96013c2f7eb4790"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.2"
+    version: "7.1.0"
   phosphor_flutter:
     dependency: "direct main"
     description:
