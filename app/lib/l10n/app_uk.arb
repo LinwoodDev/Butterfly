@@ -914,6 +914,65 @@
   "smoothing": "Згладжування",
   "streamline": "Стреймлін",
   "presentation": "Презентація",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Виберіть медіафайл",
   "clearStyle": "Очистити стиль",
   "unknownImportType": "Невідомий тип імпорту",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Тільки при оновленні",
   "visibility": "Видимість",
   "captureThumbnail": "Захопити ескіз",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Успішно захоплено ескіз",
   "chooseLabelMode": "Виберіть режим мітки",
   "foreground": "Активний режим",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Запам'ятовувати стан навігації при повторному відкритті файлу",
   "persistentStateLayersDescription": "Запам'ятати стан панелі шару під час перезавантаження файлу",
   "persistentStateAreasDescription": "Запам'ятати стан області під час перезавантаження файлу",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Зберегти максимум стільки збережених станів в файлі",
   "persistentStateDeleteOlderThanDaysDescription": "Видалення збережених держав старше цієї кількості днів",
   "contentViewportDescription": "Обмежує, як далеко ви можете відійти від вмісту вашої нотатки.",
