@@ -914,6 +914,65 @@
   "smoothing": "Εξομάλυνση",
   "streamline": "Ροή",
   "presentation": "Παρουσίαση",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Επιλέξτε στοιχείο",
   "clearStyle": "Καθαρισμός στυλ",
   "unknownImportType": "Άγνωστος τύπος εισαγωγής",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Μόνο στις ενημερώσεις",
   "visibility": "Ορατότητα",
   "captureThumbnail": "Σύλληψη μικρογραφίας",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Επιτυχής λήψη μικρογραφίας",
   "chooseLabelMode": "Επιλέξτε λειτουργία ετικέτας",
   "foreground": "Προσκήνιο",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Απομνημόνευση της κατάστασης πλοήγησης κατά το άνοιγμα ενός αρχείου",
   "persistentStateLayersDescription": "Απομνημόνευση της κατάστασης του πίνακα στρώματος κατά το άνοιγμα ενός αρχείου",
   "persistentStateAreasDescription": "Απομνημόνευση της κατάστασης του πίνακα περιοχής κατά το άνοιγμα ενός αρχείου",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Διατήρηση το πολύ πολλών αποθηκευμένων καταστάσεων ανά αρχείο",
   "persistentStateDeleteOlderThanDaysDescription": "Διαγραφή αποθηκευμένων καταστάσεων παλαιότερων από τόσες ημέρες",
   "contentViewportDescription": "Περιορίζει πόσο μακριά μπορείτε να μετακινήσετε μακριά από το περιεχόμενο της σημείωσης σας.",
