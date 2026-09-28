@@ -914,6 +914,65 @@
   "smoothing": "Glättung",
   "streamline": "Glätten",
   "presentation": "Präsentation",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Asset auswählen",
   "clearStyle": "Stil löschen",
   "unknownImportType": "Unbekannter Importtyp",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Nur bei Updates",
   "visibility": "Sichtbarkeit",
   "captureThumbnail": "Thumbnail aufnehmen",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Thumbnail erfolgreich erfasst",
   "chooseLabelMode": "Beschriftungsmodus wählen",
   "foreground": "Vordergrund",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Navigator-Status beim Wiederöffnen einer Datei merken",
   "persistentStateLayersDescription": "Beim erneuten Öffnen einer Datei den Layer-Panel-Status merken",
   "persistentStateAreasDescription": "Beim erneuten Öffnen einer Datei den Status des Bereichs merken",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Maximal so viele gespeicherte Zustände pro Datei behalten",
   "persistentStateDeleteOlderThanDaysDescription": "Gespeicherte Status löschen älter als diese Tage",
   "contentViewportDescription": "Begrenzt, wie weit Sie vom Inhalt Ihrer Notiz abweichen können.",
