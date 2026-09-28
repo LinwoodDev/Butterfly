@@ -183,20 +183,20 @@ $AnimationKeyCopyWith<AnimationKey> get copyWith => _$AnimationKeyCopyWithImpl<A
 @override
 bool operator ==(Object other) {
   final _this = this as AnimationKey;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationKey&&(identical(other.cameraPosition, _this.cameraPosition) || other.cameraPosition == _this.cameraPosition)&&(identical(other.cameraZoom, _this.cameraZoom) || other.cameraZoom == _this.cameraZoom)&&(identical(other.breakpoint, _this.breakpoint) || other.breakpoint == _this.breakpoint));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnimationKey&&(identical(other.cameraPosition, _this.cameraPosition) || other.cameraPosition == _this.cameraPosition)&&(identical(other.cameraZoom, _this.cameraZoom) || other.cameraZoom == _this.cameraZoom)&&(identical(other.cameraRotation, _this.cameraRotation) || other.cameraRotation == _this.cameraRotation)&&(identical(other.breakpoint, _this.breakpoint) || other.breakpoint == _this.breakpoint));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AnimationKey;
-  return Object.hash(runtimeType,_this.cameraPosition,_this.cameraZoom,_this.breakpoint);
+  return Object.hash(runtimeType,_this.cameraPosition,_this.cameraZoom,_this.cameraRotation,_this.breakpoint);
 }
 
 @override
 String toString() {
   final _this = this as AnimationKey;
-  return 'AnimationKey(cameraPosition: ${_this.cameraPosition}, cameraZoom: ${_this.cameraZoom}, breakpoint: ${_this.breakpoint})';
+  return 'AnimationKey(cameraPosition: ${_this.cameraPosition}, cameraZoom: ${_this.cameraZoom}, cameraRotation: ${_this.cameraRotation}, breakpoint: ${_this.breakpoint})';
 }
 
 
@@ -207,7 +207,7 @@ abstract mixin class $AnimationKeyCopyWith<$Res>  {
   factory $AnimationKeyCopyWith(AnimationKey value, $Res Function(AnimationKey) _then) = _$AnimationKeyCopyWithImpl;
 @useResult
 $Res call({
-@DoublePointJsonConverter() Point<double>? cameraPosition, double? cameraZoom, bool breakpoint
+@DoublePointJsonConverter() Point<double>? cameraPosition, double? cameraZoom, double? cameraRotation, bool breakpoint
 });
 
 
@@ -224,10 +224,11 @@ class _$AnimationKeyCopyWithImpl<$Res>
 
 /// Create a copy of AnimationKey
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? cameraPosition = freezed,Object? cameraZoom = freezed,Object? breakpoint = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? cameraPosition = freezed,Object? cameraZoom = freezed,Object? cameraRotation = freezed,Object? breakpoint = null,}) {
   return _then(AnimationKey(
 cameraPosition: freezed == cameraPosition ? _self.cameraPosition : cameraPosition // ignore: cast_nullable_to_non_nullable
 as Point<double>?,cameraZoom: freezed == cameraZoom ? _self.cameraZoom : cameraZoom // ignore: cast_nullable_to_non_nullable
+as double?,cameraRotation: freezed == cameraRotation ? _self.cameraRotation : cameraRotation // ignore: cast_nullable_to_non_nullable
 as double?,breakpoint: null == breakpoint ? _self.breakpoint : breakpoint // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
