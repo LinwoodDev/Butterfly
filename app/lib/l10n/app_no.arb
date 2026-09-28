@@ -914,6 +914,65 @@
   "smoothing": "Utjevning",
   "streamline": "Streamline",
   "presentation": "Presentasjon",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Velg ressurs",
   "clearStyle": "Fjern stil",
   "unknownImportType": "Ukjent importtype",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Bare når det gjelder oppdateringer",
   "visibility": "Synlighet",
   "captureThumbnail": "Ta opp miniatyrbilde",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Miniatyrbildet ble tatt opp",
   "chooseLabelMode": "Velg etikett-modus",
   "foreground": "Forgrunn",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Husk navigatortilstanden når du gjenåpner en fil",
   "persistentStateLayersDescription": "Husk lag-panelet når en fil åpnes på nytt",
   "persistentStateAreasDescription": "Husk områdepanel når du gjenåpner en fil",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Ha stort sett så mange lagrede stater per fil",
   "persistentStateDeleteOlderThanDaysDescription": "Slett lagrede stater eldre enn dette mange dager",
   "contentViewportDescription": "Begrenser hvor langt du kan låne bort fra innholdet på ditt notat.",
