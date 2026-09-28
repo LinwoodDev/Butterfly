@@ -914,6 +914,65 @@
   "smoothing": "Amortizor",
   "streamline": "Raţionalizare",
   "presentation": "Prezentare",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Selecteaza activ",
   "clearStyle": "Sterge stil",
   "unknownImportType": "Tip de import necunoscut",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Numai la actualizări",
   "visibility": "Vizibilitate",
   "captureThumbnail": "Capturează miniatura",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Miniatură captată cu succes",
   "chooseLabelMode": "Alege modul etichetă",
   "foreground": "prim-plan",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Amintiţi-vă starea navigatorului la redeschiderea unui fişier",
   "persistentStateLayersDescription": "Reţineţi starea panoului pe strat la redeschiderea unui fişier",
   "persistentStateAreasDescription": "Memorează starea zonei panoului la redeschiderea unui fișier",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Păstrați cel mult atâtea stări stocate pe fișier",
   "persistentStateDeleteOlderThanDaysDescription": "Ştergeţi statele stocate mai vechi de atâtea zile",
   "contentViewportDescription": "Limitează cât de departe poți scăpa de conținutul notei tale.",
