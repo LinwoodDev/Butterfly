@@ -311,19 +311,19 @@ class _ViewportInputCoordinator {
       return;
     }
 
-    final sensitivity = settings.gestureSensitivity;
+    final panSensitivity = settings.panGestureSensitivity;
     final rotationDelta = details.rotation - _gestureRotation;
     _gestureRotation = details.rotation;
     cubit.transformCubit.moveConstrained(
-      cubit.transformCubit.state.localToGlobalDelta(-details.focalPointDelta) /
-          sensitivity,
+      cubit.transformCubit.state.localToGlobalDelta(-details.focalPointDelta) *
+          panSensitivity,
       runtime: cubit,
       bloc: input.bloc,
       currentArea: input.state.currentArea,
     );
     if (settings.rotateOnGesture) {
       cubit.transformCubit.rotateConstrained(
-        rotationDelta / sensitivity,
+        rotationDelta * settings.rotationGestureSensitivity,
         cursor: details.localFocalPoint,
         runtime: cubit,
       );
@@ -331,7 +331,7 @@ class _ViewportInputCoordinator {
 
     final scaleDelta = details.scale / _gestureScale;
     cubit.transformCubit.zoomConstrained(
-      (scaleDelta - 1) / sensitivity + 1,
+      (scaleDelta - 1) * settings.zoomGestureSensitivity + 1,
       cursor: details.localFocalPoint,
       runtime: cubit,
     );
@@ -354,14 +354,14 @@ class _ViewportInputCoordinator {
     input.getHandler().onScaleEnd(details, input.getEventContext());
     if (isNavigation) {
       final settings = input.context.read<SettingsCubit>().state;
-      final sensitivity = settings.gestureSensitivity;
+      final sensitivity = settings.panGestureSensitivity;
       cubit.rendererCubit.cancelDelayedBake();
       cubit.transformCubit.slideConstrained(
         cubit.transformCubit.state.localToGlobalDelta(
               details.velocity.pixelsPerSecond,
-            ) /
+            ) *
             sensitivity,
-        details.scaleVelocity,
+        details.scaleVelocity * settings.zoomGestureSensitivity,
         runtime: cubit,
         currentArea: input.state.currentArea,
       );
@@ -380,14 +380,17 @@ class _ViewportInputCoordinator {
     }
 
     final settings = input.context.read<SettingsCubit>().state;
-    final sensitivity = settings.scrollSensitivity;
+    final sensitivity = settings.scrollPanSensitivity;
     final cubit = input.cubit;
-    final scrollDelta = event.scrollDelta / sensitivity;
+    final scrollDelta = event.scrollDelta * sensitivity;
     final keyboard = HardwareKeyboard.instance;
 
     if (!keyboard.isShiftPressed && keyboard.isControlPressed) {
       cubit.transformCubit.zoomConstrained(
-        -(scrollDelta.dx + scrollDelta.dy / 2) / 100 + 1,
+        -(event.scrollDelta.dx + event.scrollDelta.dy / 2) *
+                settings.zoomGestureSensitivity /
+                100 +
+            1,
         cursor: event.localPosition,
         runtime: cubit,
       );
@@ -402,7 +405,7 @@ class _ViewportInputCoordinator {
         currentArea: input.state.currentArea,
       );
       cubit.transformCubit.zoomConstrained(
-        event.size / (-sensitivity * 100) + 1,
+        event.size * settings.zoomGestureSensitivity / -100 + 1,
         cursor: event.localPosition,
         runtime: cubit,
       );

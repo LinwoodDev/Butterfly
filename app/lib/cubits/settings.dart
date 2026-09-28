@@ -563,10 +563,12 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool limitViewportPositive,
     @Default('') String localeTag,
     @Default('') String documentPath,
-    @Default(1) double gestureSensitivity,
+    @Default(1) double panGestureSensitivity,
+    @Default(1) double zoomGestureSensitivity,
+    @Default(1) double rotationGestureSensitivity,
     @Default(1) double touchSensitivity,
     @Default(1) double selectSensitivity,
-    @Default(1) double scrollSensitivity,
+    @Default(1) double scrollPanSensitivity,
     @Default(kDefaultRotationStep) double rotationStep,
     @Default(kDefaultZoomStep) double zoomStep,
     bool? penOnlyInput,
@@ -684,8 +686,11 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             )
           : ThemeDensity.system,
       touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
-      gestureSensitivity: prefs.getDouble('gesture_sensitivity') ?? 1,
-      scrollSensitivity: prefs.getDouble('scroll_sensitivity') ?? 1,
+      panGestureSensitivity: prefs.getDouble('pan_gesture_sensitivity') ?? 1,
+      zoomGestureSensitivity: prefs.getDouble('zoom_gesture_sensitivity') ?? 1,
+      rotationGestureSensitivity:
+          prefs.getDouble('rotation_gesture_sensitivity') ?? 1,
+      scrollPanSensitivity: prefs.getDouble('scroll_pan_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
       rotationStep: prefs.getDouble('rotation_step') ?? kDefaultRotationStep,
       zoomStep: prefs.getDouble('zoom_step') ?? kDefaultZoomStep,
@@ -934,8 +939,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
-    await prefs.setDouble('gesture_sensitivity', gestureSensitivity);
-    await prefs.setDouble('scroll_sensitivity', scrollSensitivity);
+    await prefs.setDouble('pan_gesture_sensitivity', panGestureSensitivity);
+    await prefs.setDouble('zoom_gesture_sensitivity', zoomGestureSensitivity);
+    await prefs.setDouble(
+      'rotation_gesture_sensitivity',
+      rotationGestureSensitivity,
+    );
+    await prefs.setDouble('scroll_pan_sensitivity', scrollPanSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setDouble('rotation_step', rotationStep);
     await prefs.setDouble('zoom_step', zoomStep);
@@ -1222,26 +1232,36 @@ class SettingsCubit(SharedPreferences prefs)
 
   Future<void> resetTouchSensitivity() => changeTouchSensitivity(1);
 
-  Future<void> changeGestureSensitivity(double sensitivity) {
-    emit(state.copyWith(gestureSensitivity: sensitivity));
+  Future<void> changePanGestureSensitivity(double sensitivity) {
+    emit(state.copyWith(panGestureSensitivity: sensitivity));
     return save();
   }
 
-  Future<void> resetGestureSensitivity() => changeGestureSensitivity(1);
+  Future<void> resetPanGestureSensitivity() => changePanGestureSensitivity(1);
 
-  Future<void> changeScrollSensitivity(double sensitivity) {
-    emit(state.copyWith(scrollSensitivity: sensitivity));
+  Future<void> changeZoomGestureSensitivity(double sensitivity) {
+    emit(state.copyWith(zoomGestureSensitivity: sensitivity));
     return save();
   }
 
-  Future<void> resetScrollSensitivity() => changeScrollSensitivity(1);
+  Future<void> changeRotationGestureSensitivity(double sensitivity) {
+    emit(state.copyWith(rotationGestureSensitivity: sensitivity));
+    return save();
+  }
+
+  Future<void> changeScrollPanSensitivity(double sensitivity) {
+    emit(state.copyWith(scrollPanSensitivity: sensitivity));
+    return save();
+  }
+
+  Future<void> resetScrollPanSensitivity() => changeScrollPanSensitivity(1);
 
   Future<void> changeSelectSensitivity(double sensitivity) {
     emit(state.copyWith(selectSensitivity: sensitivity));
     return save();
   }
 
-  Future<void> resetSelectSensitivity() => changeScrollSensitivity(1);
+  Future<void> resetSelectSensitivity() => changeSelectSensitivity(1);
 
   Future<void> changeRotationStep(double rotationStep) {
     emit(state.copyWith(rotationStep: rotationStep));

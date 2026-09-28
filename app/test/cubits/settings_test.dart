@@ -98,6 +98,69 @@ void main() {
     expect(restored.lastBackup, DateTime.utc(2026, 8, 12, 14));
   });
 
+  test('navigation sensitivities do not inherit old shared values', () async {
+    SharedPreferences.setMockInitialValues({
+      'gesture_sensitivity': 2.0,
+      'scroll_sensitivity': 3.0,
+    });
+    final prefs = await SharedPreferences.getInstance();
+
+    final settings = ButterflySettings.fromPrefs(prefs);
+    expect(settings.panGestureSensitivity, 1);
+    expect(settings.zoomGestureSensitivity, 1);
+    expect(settings.rotationGestureSensitivity, 1);
+    expect(settings.scrollPanSensitivity, 1);
+  });
+
+  test('persists independent navigation sensitivities', () async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final cubit = SettingsCubit(prefs);
+    addTearDown(cubit.close);
+
+    await cubit.changePanGestureSensitivity(2);
+    await cubit.changeZoomGestureSensitivity(3);
+    await cubit.changeRotationGestureSensitivity(4);
+    await cubit.changeScrollPanSensitivity(5);
+
+    final reloaded = ButterflySettings.fromPrefs(prefs);
+    expect(reloaded.panGestureSensitivity, 2);
+    expect(reloaded.zoomGestureSensitivity, 3);
+    expect(reloaded.rotationGestureSensitivity, 4);
+    expect(reloaded.scrollPanSensitivity, 5);
+  });
+
+  test('JSON navigation sensitivities use their own values', () {
+    final settings = ButterflySettings.fromJson({
+      'panGestureSensitivity': 2.0,
+      'zoomGestureSensitivity': 3.0,
+      'rotationGestureSensitivity': 4.0,
+      'scrollPanSensitivity': 5.0,
+    });
+
+    expect(settings.panGestureSensitivity, 2);
+    expect(settings.zoomGestureSensitivity, 3);
+    expect(settings.rotationGestureSensitivity, 4);
+    expect(settings.scrollPanSensitivity, 5);
+  });
+
+  test(
+    'resetting selection tolerance leaves scroll sensitivity alone',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+
+      await cubit.changeSelectSensitivity(3);
+      await cubit.changeScrollPanSensitivity(2);
+      await cubit.resetSelectSensitivity();
+
+      expect(cubit.state.selectSensitivity, 1);
+      expect(cubit.state.scrollPanSensitivity, 2);
+    },
+  );
+
   test('persists default document locks', () async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();

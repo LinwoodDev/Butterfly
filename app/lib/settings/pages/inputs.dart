@@ -15,8 +15,10 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
     (current, defaults) => current.copyWith(
       selectSensitivity: defaults.selectSensitivity,
       touchSensitivity: defaults.touchSensitivity,
-      gestureSensitivity: defaults.gestureSensitivity,
-      scrollSensitivity: defaults.scrollSensitivity,
+      panGestureSensitivity: defaults.panGestureSensitivity,
+      zoomGestureSensitivity: defaults.zoomGestureSensitivity,
+      rotationGestureSensitivity: defaults.rotationGestureSensitivity,
+      scrollPanSensitivity: defaults.scrollPanSensitivity,
     ),
   ),
   children: {
@@ -54,20 +56,34 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
       displayName: (context) => AppLocalizations.of(context).sensitivity,
       settings: [
         SettingsLeapCustomSetting(
-          displayName: (context) => AppLocalizations.of(context).select,
+          displayName: (context) =>
+              AppLocalizations.of(context).selectionTolerance,
           builder: _selectSensitivitySetting,
         ),
         SettingsLeapCustomSetting(
-          displayName: (context) => AppLocalizations.of(context).touch,
+          displayName: (context) =>
+              AppLocalizations.of(context).selectionHandleSensitivity,
           builder: _touchSensitivitySetting,
         ),
         SettingsLeapCustomSetting(
-          displayName: (context) => AppLocalizations.of(context).inputGestures,
-          builder: _gestureSensitivitySetting,
+          displayName: (context) =>
+              AppLocalizations.of(context).panGestureSensitivity,
+          builder: _panGestureSensitivitySetting,
         ),
         SettingsLeapCustomSetting(
-          displayName: (context) => AppLocalizations.of(context).scroll,
-          builder: _scrollSensitivitySetting,
+          displayName: (context) =>
+              AppLocalizations.of(context).zoomGestureSensitivity,
+          builder: _zoomGestureSensitivitySetting,
+        ),
+        SettingsLeapCustomSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).rotationGestureSensitivity,
+          builder: _rotationGestureSensitivitySetting,
+        ),
+        SettingsLeapCustomSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).scrollPanSensitivity,
+          builder: _scrollPanSensitivitySetting,
         ),
       ],
     ),
@@ -1037,7 +1053,8 @@ Widget _selectSensitivitySetting(
 ) {
   return _sensitivitySlider(
     context,
-    label: AppLocalizations.of(context).select,
+    label: AppLocalizations.of(context).selectionTolerance,
+    description: AppLocalizations.of(context).selectionToleranceDescription,
     value: state.selectSensitivity,
     onChangeEnd: (value) =>
         context.read<SettingsCubit>().changeSelectSensitivity(value),
@@ -1047,42 +1064,76 @@ Widget _selectSensitivitySetting(
 Widget _touchSensitivitySetting(BuildContext context, ButterflySettings state) {
   return _sensitivitySlider(
     context,
-    label: AppLocalizations.of(context).touch,
+    label: AppLocalizations.of(context).selectionHandleSensitivity,
+    description: AppLocalizations.of(context)
+        .selectionHandleSensitivityDescription,
     value: state.touchSensitivity,
     onChangeEnd: (value) =>
         context.read<SettingsCubit>().changeTouchSensitivity(value),
   );
 }
 
-Widget _gestureSensitivitySetting(
+Widget _panGestureSensitivitySetting(
   BuildContext context,
   ButterflySettings state,
 ) {
   return _sensitivitySlider(
     context,
-    label: AppLocalizations.of(context).inputGestures,
-    value: state.gestureSensitivity,
+    label: AppLocalizations.of(context).panGestureSensitivity,
+    description: AppLocalizations.of(context).panGestureSensitivityDescription,
+    value: state.panGestureSensitivity,
     onChangeEnd: (value) =>
-        context.read<SettingsCubit>().changeGestureSensitivity(value),
+        context.read<SettingsCubit>().changePanGestureSensitivity(value),
   );
 }
 
-Widget _scrollSensitivitySetting(
+Widget _zoomGestureSensitivitySetting(
   BuildContext context,
   ButterflySettings state,
 ) {
   return _sensitivitySlider(
     context,
-    label: AppLocalizations.of(context).scroll,
-    value: state.scrollSensitivity,
+    label: AppLocalizations.of(context).zoomGestureSensitivity,
+    description: AppLocalizations.of(context).zoomGestureSensitivityDescription,
+    value: state.zoomGestureSensitivity,
     onChangeEnd: (value) =>
-        context.read<SettingsCubit>().changeScrollSensitivity(value),
+        context.read<SettingsCubit>().changeZoomGestureSensitivity(value),
+  );
+}
+
+Widget _rotationGestureSensitivitySetting(
+  BuildContext context,
+  ButterflySettings state,
+) {
+  return _sensitivitySlider(
+    context,
+    label: AppLocalizations.of(context).rotationGestureSensitivity,
+    description: AppLocalizations.of(context)
+        .rotationGestureSensitivityDescription,
+    value: state.rotationGestureSensitivity,
+    onChangeEnd: (value) =>
+        context.read<SettingsCubit>().changeRotationGestureSensitivity(value),
+  );
+}
+
+Widget _scrollPanSensitivitySetting(
+  BuildContext context,
+  ButterflySettings state,
+) {
+  return _sensitivitySlider(
+    context,
+    label: AppLocalizations.of(context).scrollPanSensitivity,
+    description: AppLocalizations.of(context).scrollPanSensitivityDescription,
+    value: state.scrollPanSensitivity,
+    onChangeEnd: (value) =>
+        context.read<SettingsCubit>().changeScrollPanSensitivity(value),
   );
 }
 
 Widget _sensitivitySlider(
   BuildContext context, {
   required String label,
+  required String description,
   required double value,
   required ValueChanged<double> onChangeEnd,
 }) {
@@ -1094,6 +1145,10 @@ Widget _sensitivitySlider(
     fractionDigits: 0,
     value: value * 100,
     header: Text(label),
+    bottom: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Text(description),
+    ),
     onChangeEnd: (value) => onChangeEnd(value / 100),
   );
 }

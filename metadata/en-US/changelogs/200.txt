@@ -5,6 +5,7 @@
 * Add slider steps and improve number input controls ([#1256](https://github.com/LinwoodDev/Butterfly/issues/1256))
 * Fix releasing held keyboard shortcuts ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
 * Fix undo and redo rendering during collaboration ([#1278](https://github.com/LinwoodDev/Butterfly/issues/1278))
+* Separate pan, zoom, rotation, and scroll sensitivity settings ([#1283](https://github.com/LinwoodDev/Butterfly/issues/1283))
 
 Upstreamed from 2.6.0:
 * Fix fractional-pixel mismatch in the viewport cache ([#1279](https://github.com/LinwoodDev/Butterfly/issues/1279))

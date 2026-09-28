@@ -176,10 +176,15 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   limitViewportPositive: json['limitViewportPositive'] as bool? ?? false,
   localeTag: json['localeTag'] as String? ?? '',
   documentPath: json['documentPath'] as String? ?? '',
-  gestureSensitivity: (json['gestureSensitivity'] as num?)?.toDouble() ?? 1,
+  panGestureSensitivity:
+      (json['panGestureSensitivity'] as num?)?.toDouble() ?? 1,
+  zoomGestureSensitivity:
+      (json['zoomGestureSensitivity'] as num?)?.toDouble() ?? 1,
+  rotationGestureSensitivity:
+      (json['rotationGestureSensitivity'] as num?)?.toDouble() ?? 1,
   touchSensitivity: (json['touchSensitivity'] as num?)?.toDouble() ?? 1,
   selectSensitivity: (json['selectSensitivity'] as num?)?.toDouble() ?? 1,
-  scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
+  scrollPanSensitivity: (json['scrollPanSensitivity'] as num?)?.toDouble() ?? 1,
   rotationStep:
       (json['rotationStep'] as num?)?.toDouble() ?? kDefaultRotationStep,
   zoomStep: (json['zoomStep'] as num?)?.toDouble() ?? kDefaultZoomStep,
@@ -332,10 +337,12 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'limitViewportPositive': instance.limitViewportPositive,
   'localeTag': instance.localeTag,
   'documentPath': instance.documentPath,
-  'gestureSensitivity': instance.gestureSensitivity,
+  'panGestureSensitivity': instance.panGestureSensitivity,
+  'zoomGestureSensitivity': instance.zoomGestureSensitivity,
+  'rotationGestureSensitivity': instance.rotationGestureSensitivity,
   'touchSensitivity': instance.touchSensitivity,
   'selectSensitivity': instance.selectSensitivity,
-  'scrollSensitivity': instance.scrollSensitivity,
+  'scrollPanSensitivity': instance.scrollPanSensitivity,
   'rotationStep': instance.rotationStep,
   'zoomStep': instance.zoomStep,
   'penOnlyInput': instance.penOnlyInput,

@@ -199,6 +199,8 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).zoomStep,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).zoomStepDescription,
           builder: _zoomStepSetting,
         ),
       ],
@@ -285,6 +287,10 @@ Widget _zoomStepSetting(BuildContext context, ButterflySettings state) {
     value: state.zoomStep * 100,
     label: '%',
     header: Text(AppLocalizations.of(context).zoomStep),
+    bottom: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Text(AppLocalizations.of(context).zoomStepDescription),
+    ),
     onChangeEnd: (value) =>
         context.read<SettingsCubit>().changeZoomStep(value / 100),
   );
