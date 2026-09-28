@@ -914,6 +914,65 @@
   "smoothing": "Utjämning",
   "streamline": "Effektivisera",
   "presentation": "Presentation",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Välj tillgång",
   "clearStyle": "Rensa stil",
   "unknownImportType": "Okänd importtyp",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Endast på uppdateringar",
   "visibility": "Synlighet",
   "captureThumbnail": "Fånga miniatyrbild",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Framgångsrikt fångad miniatyrbild",
   "chooseLabelMode": "Välj etikettläge",
   "foreground": "Förgrund",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Kom ihåg navigatorns status när en fil öppnas på nytt",
   "persistentStateLayersDescription": "Kom ihåg lagerfältet när en fil öppnas på nytt",
   "persistentStateAreasDescription": "Kom ihåg områdespanelens läge när en fil öppnas på nytt",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Håll som mest så här många lagrade stater per fil",
   "persistentStateDeleteOlderThanDaysDescription": "Ta bort sparade stater som är äldre än så här många dagar",
   "contentViewportDescription": "Begränsar hur långt du kan panorera bort från innehållet i din anteckning.",
