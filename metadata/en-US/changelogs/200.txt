@@ -1,0 +1,14 @@
+* Migrate the app interface to the Material UI package
+* Improve the presentation tool with slides, keyframes, camera rotation, and transition controls
+* Keep settings subpages inside the settings dialog and fix keyboard and Escape navigation ([#1272](https://github.com/LinwoodDev/Butterfly/issues/1272))
+* Add automatic document thumbnails when closing a document, with per-document and default settings
+* Add slider steps and improve number input controls ([#1256](https://github.com/LinwoodDev/Butterfly/issues/1256))
+* Fix releasing held keyboard shortcuts ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
+* Fix undo and redo rendering during collaboration ([#1278](https://github.com/LinwoodDev/Butterfly/issues/1278))
+
+Upstreamed from 2.6.0:
+* Fix fractional-pixel mismatch in the viewport cache ([#1279](https://github.com/LinwoodDev/Butterfly/issues/1279))
+* Fix editor state loading and saving across WebDAV connections ([#1281](https://github.com/LinwoodDev/Butterfly/issues/1281))
+* Automatically sync pinned files while the app is open and after reconnecting ([#1281](https://github.com/LinwoodDev/Butterfly/issues/1281))
+
+Read more here: https://linwood.dev/butterfly/2.6.1-rc.0

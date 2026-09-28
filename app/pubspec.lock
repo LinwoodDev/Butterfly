@@ -149,10 +149,10 @@ packages:
     dependency: transitive
     description:
       name: built_collection
-      sha256: "376e3dd27b51ea877c28d525560790aee2e6fbb5f20e2f85d5081027d94e2100"
+      sha256: "44922ecebd8e3d0cef743dadd3b54df4e87e2a4c52a29465a1872aa9e192caa8"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.1"
+    version: "5.1.2"
   built_value:
     dependency: transitive
     description:
@@ -212,10 +212,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera_windows
-      sha256: "089a21fef76d1846fa8c55614d0d8a2e1ef67a2602c398b096eb96cce6e4010c"
+      sha256: da05937f6dff64fbbd2d64f74e4240b6da50d377031034704b0a12a9dfb4ea15
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.6+5"
+    version: "0.3.0"
   characters:
     dependency: transitive
     description:
