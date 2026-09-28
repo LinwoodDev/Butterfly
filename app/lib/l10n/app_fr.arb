@@ -914,6 +914,65 @@
   "smoothing": "Lissage",
   "streamline": "Streamline",
   "presentation": "Présentation",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Sélectionner une ressource",
   "clearStyle": "Vider le style",
   "unknownImportType": "Type d'import inconnu",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Uniquement sur les mises à jour",
   "visibility": "Visibilité",
   "captureThumbnail": "Capture miniature",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "La vignette a été capturée avec succès",
   "chooseLabelMode": "Choisir le mode d'étiquette",
   "foreground": "Premier plan",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Se souvenir de l'état du navigateur lors de la réouverture d'un fichier",
   "persistentStateLayersDescription": "Se souvenir de l'état du panneau de calque lors de la réouverture d'un fichier",
   "persistentStateAreasDescription": "Se souvenir de l'état du panneau de zone lors de la réouverture d'un fichier",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Conserver au maximum ce nombre d’états stockés par fichier",
   "persistentStateDeleteOlderThanDaysDescription": "Supprimer les états stockés plus anciens que ce nombre de jours",
   "contentViewportDescription": "Limite la distance à laquelle vous pouvez vous éloigner du contenu de votre note.",
