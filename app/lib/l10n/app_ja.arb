@@ -914,6 +914,65 @@
   "smoothing": "スムージング",
   "streamline": "Streamline",
   "presentation": "プレゼンテーション",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "アセットを選択",
   "clearStyle": "スタイルをクリア",
   "unknownImportType": "不明なインポートタイプ",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "更新時のみ",
   "visibility": "公開範囲",
   "captureThumbnail": "サムネイルをキャプチャする",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "サムネイルをキャプチャしました",
   "chooseLabelMode": "ラベルモードを選択",
   "foreground": "フォアグラウンド（前面）",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "ファイルを再開したときにナビゲータの状態を記憶する",
   "persistentStateLayersDescription": "ファイルを再開したときのレイヤーパネルの状態を記憶する",
   "persistentStateAreasDescription": "ファイルを再開したときの領域パネルの状態を記憶する",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "ファイルごとにこの多くの保存状態を保持します",
   "persistentStateDeleteOlderThanDaysDescription": "この日よりも古い保存状態を削除",
   "contentViewportDescription": "ノートの内容から離れてパンできる範囲を制限します。",
