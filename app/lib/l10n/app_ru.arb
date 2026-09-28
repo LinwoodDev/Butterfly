@@ -914,6 +914,65 @@
   "smoothing": "Сглаживание",
   "streamline": "Трансляция",
   "presentation": "Представление",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Выберите актив",
   "clearStyle": "Очистить стиль",
   "unknownImportType": "Неизвестный тип импорта",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "Только при обновлении",
   "visibility": "Видимость",
   "captureThumbnail": "Захват эскиза",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "Успешно записанные миниатюры",
   "chooseLabelMode": "Выберите режим метки",
   "foreground": "Передний план",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "Запомнить состояние навигатора при повторном открытии файла",
   "persistentStateLayersDescription": "Запомнить состояние панели слоя при повторном открытии файла",
   "persistentStateAreasDescription": "Запомнить состояние панели области при переоткрытии файла",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Сохранять в этом количестве хранимых состояний по файлу",
   "persistentStateDeleteOlderThanDaysDescription": "Удалить сохраненные состояния старше этого количества дней",
   "contentViewportDescription": "Ограничения, как далеко вы можете отказаться от содержания вашей заметки.",
