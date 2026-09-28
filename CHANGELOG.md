@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.0 (2026-09-28)
+
+Changes since 2.6.0-rc.3:
+* Fix fractional-pixel mismatch in the viewport cache ([#1279](https://github.com/LinwoodDev/Butterfly/issues/1279))
+* Fix editor state loading and saving across WebDAV connections ([#1281](https://github.com/LinwoodDev/Butterfly/issues/1281))
+* Automatically sync pinned files while the app is open and after reconnecting ([#1281](https://github.com/LinwoodDev/Butterfly/issues/1281))
+
+This is a stable release, it includes all the changes from the 2.6.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.6
+
 ## 2.6.0-rc.3 (2026-09-24)
 
 * Add explicit raster bounds to offscreen canvas recordings

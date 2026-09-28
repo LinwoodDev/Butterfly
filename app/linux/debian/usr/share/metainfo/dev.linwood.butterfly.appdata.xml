@@ -146,6 +146,7 @@
 		<release version="2.6.0-beta.2" type="development" date="2026-07-13" />
 		<release version="2.6.0-beta.1" type="development" date="2026-07-06" />
 		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
+		<release version="2.6.0" type="stable" date="2026-09-28" />
 		<release version="2.5.5" date="2026-08-10" />
 		<release version="2.5.4" type="stable" date="2026-07-20" />
 		<release version="2.5.3-rc.1" type="development" date="2026-06-05" />
