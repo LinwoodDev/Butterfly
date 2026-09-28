@@ -914,6 +914,65 @@
   "smoothing": "平滑化",
   "streamline": "流线化",
   "presentation": "列报内容",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "选择素材",
   "clearStyle": "清除样式",
   "unknownImportType": "未知导入类型",
@@ -1011,6 +1070,8 @@
   "onlyOnUpdates": "仅在更新时",
   "visibility": "可见性",
   "captureThumbnail": "捕获缩略图",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "成功抓取缩略图",
   "chooseLabelMode": "选择标签模式",
   "foreground": "前景",
@@ -1574,6 +1635,8 @@
   "persistentStateNavigatorDescription": "重新打开文件时记住导航器状态",
   "persistentStateLayersDescription": "打开文件时记住图层面板状态",
   "persistentStateAreasDescription": "重新打开文件时记住区域面板状态",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "最多保持每个文件存储的这么多状态",
   "persistentStateDeleteOlderThanDaysDescription": "删除多天前存储的状态",
   "contentViewportDescription": "限制你能够远离你笔记的内容。",
