@@ -286,6 +286,9 @@ Changes since 2.5.3-rc.1:
 This is a stable release, it includes all the changes from the 2.5.3 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.5.3
 
+<details>
+ <summary>2.5.3 Nightly Changelog</summary>
+
 ## 2.5.3-rc.1 (2026-06-05)
 
 * Fix polygon tool toolbar does not change currently edited element
@@ -321,10 +324,15 @@ Read more here: https://linwood.dev/butterfly/2.5.3-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0
 
+</details>
+
 ## 2.5.2 (2026-05-23)
 
 This is a stable release, it includes all the changes from the 2.5.2 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.5.2
+
+<details>
+ <summary>2.5.2 Nightly Changelog</summary>
 
 ## 2.5.2-rc.3 (2026-05-20)
 
@@ -402,6 +410,8 @@ Read more here: https://linwood.dev/butterfly/2.5.2-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.0
 
+</details>
+
 ## 2.5.1 (2026-04-26)
 
 Changes since 2.5.1-rc.2:
@@ -409,6 +419,9 @@ Changes since 2.5.1-rc.2:
 
 This is a stable release, it includes all the changes from the 2.5.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.5.1
+
+<details>
+ <summary>2.5.1 Nightly Changelog</summary>
 
 ## 2.5.1-rc.2 (2026-04-23)
 
@@ -480,6 +493,8 @@ Read more here: https://linwood.dev/butterfly/2.5.1-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.0
 
+</details>
+
 ## 2.5.0 (2026-04-05)
 
 Changes since 2.5.0-rc.2:
@@ -490,6 +505,9 @@ Changes since 2.5.0-rc.2:
 
 This is a stable release, it includes all the changes from the 2.5.0 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.5
+
+<details>
+ <summary>2.5.0 Nightly Changelog</summary>
 
 ## 2.5.0-rc.2 (2026-03-30)
 
@@ -655,6 +673,8 @@ Changes merged from 2.4.3 hotfix:
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.1
 
+</details>
+
 ## 2.4.4 (2026-02-18)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.1 nightly release.
@@ -674,6 +694,9 @@ Cherry picks:
 * Remove border for pdf pages
 
 Read more here: https://linwood.dev/butterfly/2.4.4
+
+<details>
+ <summary>2.5.0 Nightly Changelog (continued)</summary>
 
 ## 2.5.0-beta.0 (2026-01-14)
 
@@ -721,6 +744,8 @@ Read more here: https://linwood.dev/butterfly/2.4.4
 Thanks for @JerryMerweather for contributing the new templates!
 Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.0
+
+</details>
 
 ## 2.4.3 (2026-01-22)
 
