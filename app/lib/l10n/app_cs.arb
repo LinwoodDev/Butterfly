@@ -1669,5 +1669,18 @@
   "ignorePressureDescription": "Určuje, zda tlak stylusu mění a funguje kolem nepřesných hodnot tlaku z některých stylů.",
   "moveOnGestureDescription": "Umožňuje vícenásobné dotykové gesta přesunout plátno místo interakce s obsahem poznámek.",
   "spreadPagesDescription": "Rozdělí vícestránkové importy na samostatné stránky poznámek namísto umístění vše na jednu stránku.",
-  "shear": "Smyk"
+  "shear": "Smyk",
+  "resetRotation": "Reset rotation",
+  "zoomPanelControls": "Zoom panel controls",
+  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
+  "zoomPanelFull": "Full (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Slider and text field",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Text field and buttons",
+  "zoomPanelInput": "Text field",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
+  "whenRotated": "When rotated",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotate canvas by dragging"
 }
