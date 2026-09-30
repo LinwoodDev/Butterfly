@@ -4,6 +4,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -673,6 +674,83 @@ void main() {
     await tester.pumpAndSettle();
   });
 
+  for (final (kind, cancel) in [
+    for (final kind in [PointerDeviceKind.mouse, PointerDeviceKind.stylus])
+      for (final cancel in [false, true]) (kind, cancel),
+  ]) {
+    testWidgets(
+      'single touch draws after temporary hand ($kind, cancel: $cancel)',
+      (tester) async {
+        when(() => settingsCubit.state).thenReturn(
+          const ButterflySettings(
+            defaultTemplate: 'default',
+            penOnlyInput: false,
+            flags: ['smoothNavigation'],
+            inputConfiguration: InputConfiguration(
+              firstPenButton: InputMapping(InputMapping.handToolValue),
+            ),
+          ),
+        );
+        await tester.pumpWidget(buildApp());
+        await tester.tap(find.byKey(const ValueKey('open-document')));
+        await pumpUntil(
+          tester,
+          () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+          'document open',
+        );
+        await tester.pumpAndSettle();
+
+        final bloc = observer.lastDocumentBloc!;
+        final controller = bloc.editorController;
+        await controller.toolCubit.changeTool(
+          controller,
+          bloc,
+          index: 1,
+          allowBake: false,
+        );
+        await tester.pumpAndSettle();
+        final center = tester.getCenter(find.byType(MainViewViewport));
+        final beforeHand = controller.transformCubit.state;
+        final handGesture = await tester.startGesture(
+          center,
+          pointer: 1,
+          kind: kind,
+          buttons: kind == PointerDeviceKind.mouse
+              ? kMiddleMouseButton
+              : kPrimaryStylusButton,
+        );
+        await tester.pump();
+        expect(controller.toolCubit.getHandler(), isA<HandHandler>());
+        await handGesture.moveBy(const Offset(30, 0));
+        await handGesture.moveBy(const Offset(30, 0));
+        if (cancel) {
+          await handGesture.cancel();
+        } else {
+          await handGesture.up();
+        }
+        await tester.pumpAndSettle();
+
+        final beforeStroke = controller.transformCubit.state;
+        expect(beforeStroke.position, isNot(beforeHand.position));
+        final stroke = await tester.startGesture(
+          center,
+          pointer: 2,
+          kind: PointerDeviceKind.touch,
+        );
+        await stroke.moveBy(const Offset(30, 0));
+        await stroke.moveBy(const Offset(30, 10));
+        await stroke.up();
+        await tester.pumpAndSettle();
+        await tester.pump(const Duration(seconds: 4));
+
+        expect(controller.transformCubit.state.position, beforeStroke.position);
+        expect(controller.transformCubit.state.size, beforeStroke.size);
+        expect(controller.transformCubit.state.rotation, beforeStroke.rotation);
+        expect((bloc.state as DocumentLoadSuccess).page.content, hasLength(1));
+      },
+    );
+  }
+
   testWidgets('pinch zoom stays anchored to the stationary finger', (
     tester,
   ) async {
@@ -1341,6 +1419,45 @@ void main() {
     final state = observer.lastDocumentBloc!.state as DocumentLoadSuccess;
     expect(state.data.getMetadata()?.name, isEmpty);
     expect(state.page.content, isEmpty);
+  });
+
+  testWidgets('embed restores a view with replacement document data', (
+    tester,
+  ) async {
+    final initialDocument = DocumentDefaults.createDocument(name: 'Initial');
+    await tester.pumpWidget(buildApp(embedDocument: initialDocument));
+    router.go('/embed');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'initial embedded document open',
+    );
+
+    final replacement = DocumentDefaults.createDocument(name: 'Replacement');
+    router.go(
+      '/embed',
+      extra: EmbedDocumentData(
+        replacement.exportAsBytes(),
+        const EmbedViewState(x: 120, y: -45, zoom: 2, rotation: 0.5),
+      ),
+    );
+    await pumpUntil(
+      tester,
+      () =>
+          observer.documentBlocCreates == 2 &&
+          observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'replacement embedded document open',
+    );
+
+    final bloc = observer.lastDocumentBloc!;
+    expect(
+      (bloc.state as DocumentLoadSuccess).data.getMetadata()?.name,
+      'Replacement',
+    );
+    final camera = bloc.editorController.transformCubit.state;
+    expect(camera.position, const Offset(120, -45));
+    expect(camera.size, 2);
+    expect(camera.rotation, closeTo(0.5, 0.000001));
   });
 }
 

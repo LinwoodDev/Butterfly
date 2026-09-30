@@ -6,6 +6,7 @@
 * Fix releasing held keyboard shortcuts ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
 * Fix undo and redo rendering during collaboration ([#1278](https://github.com/LinwoodDev/Butterfly/issues/1278))
 * Separate pan, zoom, rotation, and scroll sensitivity settings ([#1283](https://github.com/LinwoodDev/Butterfly/issues/1283))
+* Fix temporary hand navigation remaining active after releasing mouse or pen buttons ([#1288](https://github.com/LinwoodDev/Butterfly/issues/1288))
 * Add view state getter and setter to embeds ([#1280](https://github.com/LinwoodDev/Butterfly/issues/1280)
 
 Upstreamed from 2.6.0:

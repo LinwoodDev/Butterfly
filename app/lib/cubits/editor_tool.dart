@@ -268,6 +268,7 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
       toolbar: null,
       cursor: null,
       rendererStates: null,
+      temporaryState: TemporaryState.removeAfterRelease,
     );
     rendererCubit.setRendererStates(temporaryRendererStates: const {});
   }
