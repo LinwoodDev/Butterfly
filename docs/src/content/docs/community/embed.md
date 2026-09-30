@@ -136,6 +136,22 @@ To load document bytes into the embed, send an array of byte values:
 sendToButterfly('setData', documentBytes);
 ```
 
+The view is separate from the document bytes. To save and restore the same
+camera view, request `getViewState` and store its response with the bytes. Pass
+both to `setData` when loading the document:
+
+```javascript
+// Use the message from the getViewState response, or a stored viewChange event.
+sendToButterfly('setData', {
+  data: documentBytes,
+  viewState: savedViewState,
+});
+```
+
+Sending both in one `setData` message applies the view after the replacement
+document loads. To move the current embed without replacing its document, use
+`setViewState` instead.
+
 To replace the current document with a new blank document without reloading the
 iframe, send either of these messages:
 
@@ -173,6 +189,14 @@ Parameters:
 
 * `message` (Type `List<int>`): The data of the document.
 
+### viewChange
+
+> The `viewChange` event is emitted after the camera position, zoom, or rotation changes. Events are debounced while the view is moving.
+
+Parameters:
+
+* `message` (Type `Object`): `{ x, y, zoom, rotation }` for the current view.
+
 ## Methods
 
 Call methods with `iframe.contentWindow.postMessage(...)`. Methods that return
@@ -184,6 +208,23 @@ data send another message back with the same `type`.
 
 No parameters.
 Returns: `List<int>`
+
+### getViewState
+
+> The `getViewState` method returns the current camera view.
+
+No parameters.
+Returns: `{ x: Number, y: Number, zoom: Number, rotation: Number }`.
+`x` and `y` are document coordinates of the view origin, `zoom` is a scale
+between `0.1` and `10`, and `rotation` is in radians.
+
+### setViewState
+
+> The `setViewState` method moves the current camera without changing the document.
+
+Parameters:
+
+* `viewState` (Type `Object`): `{ x, y, zoom, rotation }`. All fields are required and must be finite numbers. Zoom must be between `0.1` and `10`.
 
 ### getThumbnail
 
@@ -203,7 +244,7 @@ Returns: `String | null`
 
 Parameters:
 
-* `data` (Type `List<int> | null`): The document bytes, or `null` to reset it.
+* `data` (Type `List<int> | { data: List<int>, viewState?: Object } | null`): The document bytes, an object containing the bytes and an optional camera view, or `null` to reset it. Invalid view states return an `error` message and leave the current document in place.
 
 ### reset
 

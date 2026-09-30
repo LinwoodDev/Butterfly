@@ -3,8 +3,14 @@
     <button class="embed-demo__button" type="button" data-action="getData">
       Get data
     </button>
+    <button class="embed-demo__button" type="button" data-action="getViewState">
+      Get view
+    </button>
+    <button class="embed-demo__button" type="button" data-action="setViewState">
+      Restore view
+    </button>
     <label class="embed-demo__button embed-demo__file">
-      Load .bfly
+      Load .bfly (at saved view)
       <input
         type="file"
         accept=".bfly,application/octet-stream"
@@ -337,6 +343,8 @@
       }
     }
 
+    let savedViewState;
+
     function sendToButterfly(type, message) {
       frame.contentWindow?.postMessage({ type, message }, targetOrigin);
       addMessage('sent', type, message);
@@ -472,6 +480,16 @@
         return;
       }
 
+      if (action === 'getViewState') {
+        sendToButterfly('getViewState');
+        return;
+      }
+
+      if (action === 'setViewState') {
+        if (savedViewState) sendToButterfly('setViewState', savedViewState);
+        return;
+      }
+
       if (action === 'render') {
         sendToButterfly('render', renderOptions());
         return;
@@ -486,7 +504,10 @@
       const file = fileInput.files?.[0];
       if (!file) return;
       const bytes = Array.from(new Uint8Array(await file.arrayBuffer()));
-      sendToButterfly('setData', bytes);
+      sendToButterfly(
+        'setData',
+        savedViewState ? { data: bytes, viewState: savedViewState } : bytes,
+      );
       fileInput.value = '';
     });
 
@@ -500,6 +521,10 @@
 
       const { type, message } = event.data ?? {};
       addMessage('received', type, message);
+
+      if (type === 'getViewState') {
+        savedViewState = message;
+      }
 
       if (type === 'render') {
         showPng(message);

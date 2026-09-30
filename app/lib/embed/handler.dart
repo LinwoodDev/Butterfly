@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
@@ -11,17 +12,22 @@ import 'package:go_router/go_router.dart';
 
 import 'action.dart';
 import 'embedding.dart';
+import 'view_state.dart';
 
 class EmbedHandler {
   EmbedHandler();
   EventListener? getDataListener,
+      getViewStateListener,
+      setViewStateListener,
       getThumbnailListener,
       setDataListener,
       resetListener,
       renderListener,
       renderSVGListener;
   StreamSubscription? _blocSubscription;
+  StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _changeDebounceTimer;
+  Timer? _viewChangeDebounceTimer;
 
   Map<String, dynamic>? _messageToMap(Object? message) {
     if (message is Map<String, dynamic>) return message;
@@ -106,10 +112,18 @@ class EmbedHandler {
     },
   );
 
-  void _replaceDocument(BuildContext context, DocumentBloc bloc, Object data) {
+  void _replaceDocument(
+    BuildContext context,
+    DocumentBloc bloc,
+    Object data, [
+    EmbedViewState? viewState,
+  ]) {
     final embedding = bloc.editorController.saveCubit.state.embedding;
     if (embedding == null) return;
-    GoRouter.of(context).go(_buildEmbedUri(embedding).toString(), extra: data);
+    GoRouter.of(context).go(
+      _buildEmbedUri(embedding).toString(),
+      extra: EmbedDocumentData(data, viewState),
+    );
   }
 
   void _resetDocument(BuildContext context, DocumentBloc bloc) {
@@ -117,6 +131,16 @@ class EmbedHandler {
   }
 
   void register(BuildContext context, DocumentBloc bloc) {
+    final transformCubit = bloc.editorController.transformCubit;
+    _transformSubscription ??= transformCubit.stream.listen((_) {
+      _viewChangeDebounceTimer?.cancel();
+      _viewChangeDebounceTimer = Timer(const Duration(milliseconds: 250), () {
+        sendEmbedMessage(
+          'viewChange',
+          EmbedViewState.fromTransform(transformCubit.state).toJson(),
+        );
+      });
+    });
     _blocSubscription ??= bloc.stream.listen((state) {
       if (state is DocumentLoadSuccess &&
           bloc.editorController.saveCubit.state.saved == .unsaved) {
@@ -141,6 +165,25 @@ class EmbedHandler {
       if (state is DocumentLoadSuccess) {
         sendEmbedMessage('getData', (await state.saveData()).exportAsBytes());
       }
+    });
+    getViewStateListener ??= onEmbedMessage('getViewState', (message) {
+      if (bloc.state is! DocumentLoadSuccess) return;
+      sendEmbedMessage(
+        'getViewState',
+        EmbedViewState.fromTransform(transformCubit.state).toJson(),
+      );
+    });
+    setViewStateListener ??= onEmbedMessage('setViewState', (message) {
+      if (bloc.state is! DocumentLoadSuccess) return;
+      final viewState = EmbedViewState.tryParse(_messageToMap(message));
+      if (viewState == null) {
+        sendEmbedMessage('error', {
+          'method': 'setViewState',
+          'message': 'Invalid view state',
+        });
+        return;
+      }
+      viewState.apply(transformCubit);
     });
     getThumbnailListener ??= onEmbedMessage('getThumbnail', (message) {
       final state = bloc.state;
@@ -183,8 +226,30 @@ class EmbedHandler {
         _resetDocument(context, bloc);
         return;
       }
-      final bytes = _messageToBytes(message);
-      if (bytes == null) return;
+      final options = _messageToMap(message);
+      EmbedViewState? viewState;
+      Object? data = message;
+      if (options != null) {
+        data = options['data'];
+        if (options.containsKey('viewState')) {
+          viewState = EmbedViewState.tryParse(options['viewState']);
+          if (viewState == null) {
+            sendEmbedMessage('error', {
+              'method': 'setData',
+              'message': 'Invalid view state',
+            });
+            return;
+          }
+        }
+      }
+      final bytes = _messageToBytes(data);
+      if (bytes == null) {
+        sendEmbedMessage('error', {
+          'method': 'setData',
+          'message': 'Invalid Butterfly document data',
+        });
+        return;
+      }
       if (!_isValidDocumentData(bytes)) {
         sendEmbedMessage('error', {
           'method': 'setData',
@@ -192,7 +257,7 @@ class EmbedHandler {
         });
         return;
       }
-      _replaceDocument(context, bloc, bytes);
+      _replaceDocument(context, bloc, bytes, viewState);
     });
     resetListener ??= onEmbedMessage('reset', (message) {
       _resetDocument(context, bloc);
@@ -307,11 +372,23 @@ class EmbedHandler {
   void unregister() {
     _blocSubscription?.cancel();
     _blocSubscription = null;
+    _transformSubscription?.cancel();
+    _transformSubscription = null;
     _changeDebounceTimer?.cancel();
     _changeDebounceTimer = null;
+    _viewChangeDebounceTimer?.cancel();
+    _viewChangeDebounceTimer = null;
     if (getDataListener != null) {
       removeEmbedMessageListener(getDataListener!);
       getDataListener = null;
+    }
+    if (getViewStateListener != null) {
+      removeEmbedMessageListener(getViewStateListener!);
+      getViewStateListener = null;
+    }
+    if (setViewStateListener != null) {
+      removeEmbedMessageListener(setViewStateListener!);
+      setViewStateListener = null;
     }
     if (getThumbnailListener != null) {
       removeEmbedMessageListener(getThumbnailListener!);

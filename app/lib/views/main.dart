@@ -10,6 +10,7 @@ import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -233,7 +234,11 @@ class _ProjectPageState extends State<ProjectPage> {
         location?.fileExtension,
       )?.name;
       NoteData? document;
-      var data = widget.data;
+      final embedData =
+          widget.embedding == null || widget.data is! EmbedDocumentData
+          ? null
+          : widget.data as EmbedDocumentData;
+      var data = embedData?.data ?? widget.data;
       Uint8List? loadedDocumentBytes;
       final uri = Uri.tryParse(widget.uri ?? '');
       var type = widget.type.isEmpty ? (fileType ?? widget.type) : widget.type;
@@ -509,6 +514,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (restoredSession == null) {
         transformCubit.teleportToWaypoint(page.getOriginWaypoint());
       }
+      embedData?.viewState?.apply(transformCubit);
       final editorController = EditorController(
         settingsCubit,
         transformCubit,
