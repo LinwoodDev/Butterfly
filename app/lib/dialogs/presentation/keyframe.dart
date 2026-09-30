@@ -66,18 +66,19 @@ class _KeyframeConfigurationDialogState
               ),
             ),
             if (_position != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text('X'),
                   NumberInput(
+                    label: 'X',
                     value: _position!.x,
                     fractionDigits: 2,
                     onChanged: (value) =>
                         setState(() => _position = Point(value, _position!.y)),
                   ),
-                  const Text('Y'),
+                  const SizedBox(height: 8),
                   NumberInput(
+                    label: 'Y',
                     value: _position!.y,
                     fractionDigits: 2,
                     onChanged: (value) =>

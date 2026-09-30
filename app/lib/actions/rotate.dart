@@ -13,6 +13,17 @@ class RotateIntent extends Intent {
   const RotateIntent({required this.clockwise});
 }
 
+/// Reserves the binding while it is held; pointer movement applies rotation.
+class RotateDragIntent extends Intent {
+  const RotateDragIntent();
+}
+
+const rotateDragShortcut = ShortcutDefinition(
+  id: 'rotate_drag',
+  intent: RotateDragIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.space, shift: true),
+);
+
 const rotateLeftShortcut = ShortcutDefinition(
   id: 'rotate_left',
   intent: RotateIntent(clockwise: false),
@@ -45,9 +56,8 @@ class RotateAction extends Action<RotateIntent> {
   void invoke(RotateIntent intent) {
     final cubit = context.read<EditorController>();
     final viewport = cubit.rendererCubit.state.cameraViewport;
-    final center = Offset(
-      (viewport.width ?? 0) / 2,
-      (viewport.height ?? 0) / 2,
+    final center = (viewport.viewportSize ?? viewport.toRealSize()).center(
+      Offset.zero,
     );
     final step = RotateAction.step(cubit.settingsCubit.state);
     cubit.transformCubit.rotateConstrained(

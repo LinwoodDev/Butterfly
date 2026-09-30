@@ -478,6 +478,47 @@ enum ToolbarPosition {
   };
 }
 
+enum ZoomPanelControls {
+  full,
+  sliderAndInput,
+  slider,
+  inputAndButtons,
+  input;
+
+  bool get showSlider =>
+      this == full || this == sliderAndInput || this == slider;
+  bool get showInput => this != slider;
+  bool get showButtons => this == full || this == inputAndButtons;
+
+  double panelWidth() => switch (this) {
+    .full => 440,
+    .sliderAndInput => 320,
+    .slider => 200,
+    .inputAndButtons => 280,
+    .input => 200,
+  };
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    .full => AppLocalizations.of(context).zoomPanelFull,
+    .sliderAndInput => AppLocalizations.of(context).zoomPanelSliderInput,
+    .slider => AppLocalizations.of(context).zoomPanelSlider,
+    .inputAndButtons => AppLocalizations.of(context).zoomPanelInputButtons,
+    .input => AppLocalizations.of(context).zoomPanelInput,
+  };
+}
+
+enum RotationDisplay {
+  always,
+  whenRotated,
+  hidden;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    .always => AppLocalizations.of(context).always,
+    .whenRotated => AppLocalizations.of(context).whenRotated,
+    .hidden => AppLocalizations.of(context).hidden,
+  };
+}
+
 enum ZoomPosition {
   topRight,
   topLeft,
@@ -580,6 +621,12 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @JsonKey(includeFromJson: false, includeToJson: false)
     List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
+    @JsonKey(unknownEnumValue: RotationDisplay.whenRotated)
+    @Default(RotationDisplay.whenRotated)
+    RotationDisplay rotationDisplay,
+    @JsonKey(unknownEnumValue: ZoomPanelControls.full)
+    @Default(ZoomPanelControls.full)
+    ZoomPanelControls zoomPanelControls,
     @Default(ZoomPosition.bottomRight) ZoomPosition zoomPosition,
     @Default(ZoomPosition.topRight) ZoomPosition propertyPosition,
     String? lastVersion,
@@ -641,7 +688,19 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
-      _$ButterflySettingsFromJson(json);
+      _$ButterflySettingsFromJson({
+        ...json,
+        'zoomPanelControls':
+            json['zoomPanelControls'] ??
+            (json['minimalZoom'] == true
+                ? ZoomPanelControls.slider.name
+                : ZoomPanelControls.full.name),
+        'rotationDisplay':
+            json['rotationDisplay'] ??
+            (json['showRotation'] == true
+                ? RotationDisplay.always.name
+                : RotationDisplay.whenRotated.name),
+      });
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final storedDefaultFileName = prefs.getString('default_file_name')?.trim();
@@ -714,6 +773,20 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             const [],
       ),
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
+      rotationDisplay: _enumByNameOr(
+        RotationDisplay.values,
+        prefs.getString('rotation_display'),
+        prefs.getBool('show_rotation') == true
+            ? RotationDisplay.always
+            : RotationDisplay.whenRotated,
+      ),
+      zoomPanelControls: _enumByNameOr(
+        ZoomPanelControls.values,
+        prefs.getString('zoom_panel_controls'),
+        prefs.getBool('minimal_zoom') == true
+            ? ZoomPanelControls.slider
+            : ZoomPanelControls.full,
+      ),
       zoomPosition: prefs.containsKey('zoom_position')
           ? _enumByNameOr(
               ZoomPosition.values,
@@ -956,6 +1029,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       history.map((e) => e.toJson()).toList(),
     );
     await prefs.setBool('zoom_enabled', zoomEnabled);
+    await prefs.setString('rotation_display', rotationDisplay.name);
+    await prefs.setString('zoom_panel_controls', zoomPanelControls.name);
+    await prefs.remove('show_rotation');
+    await prefs.remove('minimal_zoom');
     await prefs.setString('zoom_position', zoomPosition.name);
     await prefs.setString('property_position', propertyPosition.name);
     if (lastVersion == null && prefs.containsKey('last_version')) {
@@ -1408,6 +1485,16 @@ class SettingsCubit(SharedPreferences prefs)
   }
 
   Future<void> resetZoomEnabled() => changeZoomEnabled(true);
+
+  Future<void> changeZoomPanelControls(ZoomPanelControls value) {
+    emit(state.copyWith(zoomPanelControls: value));
+    return save();
+  }
+
+  Future<void> changeRotationDisplay(RotationDisplay value) {
+    emit(state.copyWith(rotationDisplay: value));
+    return save();
+  }
 
   Future<void> changeStartInFullScreen(bool value) {
     emit(state.copyWith(startInFullScreen: value));

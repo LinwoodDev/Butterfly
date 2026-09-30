@@ -449,6 +449,7 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
             resetZoomShortcut,
             rotateLeftShortcut,
             rotateRightShortcut,
+            rotateDragShortcut,
             fullScreenShortcut,
             hideUIShortcut,
             nextShortcut,

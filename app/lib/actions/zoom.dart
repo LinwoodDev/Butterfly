@@ -45,9 +45,8 @@ class ZoomAction extends Action<ZoomIntent> {
   void invoke(ZoomIntent intent) {
     final cubit = context.read<EditorController>();
     final viewport = cubit.rendererCubit.state.cameraViewport;
-    final center = Offset(
-      (viewport.width ?? 0) / 2,
-      (viewport.height ?? 0) / 2,
+    final center = (viewport.viewportSize ?? viewport.toRealSize()).center(
+      Offset.zero,
     );
     final transformCubit = cubit.transformCubit;
     final step = ZoomAction.step(cubit.settingsCubit.state);

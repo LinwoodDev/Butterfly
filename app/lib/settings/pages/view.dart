@@ -8,6 +8,8 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
     context,
     (current, defaults) => current.copyWith(
       zoomEnabled: defaults.zoomEnabled,
+      rotationDisplay: defaults.rotationDisplay,
+      zoomPanelControls: defaults.zoomPanelControls,
       zoomPosition: defaults.zoomPosition,
       propertyPosition: defaults.propertyPosition,
       toolbarPosition: defaults.toolbarPosition,
@@ -43,6 +45,32 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.zoomPosition,
           write: (context, value) =>
               context.read<SettingsCubit>().changeZoomPosition(value),
+        ),
+        SettingsLeapEnumSetting(
+          id: 'zoomPanelControls',
+          displayName: (context) =>
+              AppLocalizations.of(context).zoomPanelControls,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).zoomPanelControlsDescription,
+          icon: PhosphorIconsLight.slidersHorizontal,
+          values: ZoomPanelControls.values,
+          read: (state) => state.zoomPanelControls,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeZoomPanelControls(value),
+          valueLabel: (context, value) => value.getLocalizedName(context),
+        ),
+        SettingsLeapEnumSetting(
+          id: 'rotationDisplay',
+          displayName: (context) =>
+              AppLocalizations.of(context).rotationDisplay,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).rotationDisplayDescription,
+          icon: PhosphorIconsLight.arrowClockwise,
+          values: RotationDisplay.values,
+          read: (state) => state.rotationDisplay,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeRotationDisplay(value),
+          valueLabel: (context, value) => value.getLocalizedName(context),
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).properties,

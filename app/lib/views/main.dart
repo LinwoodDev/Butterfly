@@ -824,6 +824,7 @@ class _ProjectPageState extends State<ProjectPage> {
       SelectAllIntent: SelectAllAction(context),
       ZoomIntent: ZoomAction(context),
       RotateIntent: RotateAction(context),
+      RotateDragIntent: CallbackAction<RotateDragIntent>(onInvoke: (_) => null),
       ContextMenuIntent: ContextMenuAction(
         () => _viewportKey.currentState?.openContextMenu(),
       ),
@@ -907,6 +908,10 @@ class _MainBody extends StatelessWidget {
                                         current.optionsPanelPosition ||
                                     previous.zoomPosition !=
                                         current.zoomPosition ||
+                                    previous.zoomEnabled !=
+                                        current.zoomEnabled ||
+                                    previous.zoomPanelControls !=
+                                        current.zoomPanelControls ||
                                     previous.propertyPosition !=
                                         current.propertyPosition,
                                 builder: (context, settings) {
@@ -1106,7 +1111,7 @@ class _MainBody extends StatelessWidget {
         settings.zoomPosition == .topLeft ||
         settings.zoomPosition == .bottomLeft;
     final zoomTools = SizedBox(
-      width: 400,
+      width: settings.zoomPanelControls.panelWidth(),
       child: _buildZoomToolsRow(settings, false),
     );
     final children = <Widget>[
@@ -1139,7 +1144,7 @@ class _MainBody extends StatelessWidget {
           .bottomLeft => Alignment.bottomLeft,
         },
         child: SizedBox(
-          width: isMobile ? 100 : 400,
+          width: settings.zoomPanelControls.panelWidth(),
           child: Column(
             mainAxisSize: .min,
             crossAxisAlignment: switch (settings.zoomPosition) {

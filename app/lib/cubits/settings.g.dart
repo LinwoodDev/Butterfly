@@ -199,6 +199,20 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       ) ??
       BannerVisibility.always,
   zoomEnabled: json['zoomEnabled'] as bool? ?? true,
+  rotationDisplay:
+      $enumDecodeNullable(
+        _$RotationDisplayEnumMap,
+        json['rotationDisplay'],
+        unknownValue: RotationDisplay.whenRotated,
+      ) ??
+      RotationDisplay.whenRotated,
+  zoomPanelControls:
+      $enumDecodeNullable(
+        _$ZoomPanelControlsEnumMap,
+        json['zoomPanelControls'],
+        unknownValue: ZoomPanelControls.full,
+      ) ??
+      ZoomPanelControls.full,
   zoomPosition:
       $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
       ZoomPosition.bottomRight,
@@ -351,6 +365,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'design': instance.design,
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
   'zoomEnabled': instance.zoomEnabled,
+  'rotationDisplay': _$RotationDisplayEnumMap[instance.rotationDisplay]!,
+  'zoomPanelControls': _$ZoomPanelControlsEnumMap[instance.zoomPanelControls]!,
   'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
   'propertyPosition': _$ZoomPositionEnumMap[instance.propertyPosition]!,
   'lastVersion': instance.lastVersion,
@@ -430,6 +446,20 @@ const _$BannerVisibilityEnumMap = {
   BannerVisibility.always: 'always',
   BannerVisibility.never: 'never',
   BannerVisibility.onlyOnUpdates: 'onlyOnUpdates',
+};
+
+const _$RotationDisplayEnumMap = {
+  RotationDisplay.always: 'always',
+  RotationDisplay.whenRotated: 'whenRotated',
+  RotationDisplay.hidden: 'hidden',
+};
+
+const _$ZoomPanelControlsEnumMap = {
+  ZoomPanelControls.full: 'full',
+  ZoomPanelControls.sliderAndInput: 'sliderAndInput',
+  ZoomPanelControls.slider: 'slider',
+  ZoomPanelControls.inputAndButtons: 'inputAndButtons',
+  ZoomPanelControls.input: 'input',
 };
 
 const _$ZoomPositionEnumMap = {

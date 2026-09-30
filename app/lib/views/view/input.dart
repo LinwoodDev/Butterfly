@@ -17,12 +17,28 @@ class _ViewportInputCoordinator {
   bool? _handlerHandlesScaleGesture;
   RulerHandler? _ruler;
   int? _rulerPointer;
+  ({int pointer, Offset center, Offset previous})? _rotationDrag;
+  bool _cameraRotationGesture = false;
+
+  bool get isCameraRotationGesture => _cameraRotationGesture;
+
+  bool _rotationShortcutPressed(HardwareKeyboard keyboard) {
+    final activator = keybinder.getActivator(rotateDragShortcut.id);
+    if (activator is! SingleActivator) return false;
+    return keyboard.logicalKeysPressed.contains(activator.trigger) &&
+        keyboard.isShiftPressed == activator.shift &&
+        keyboard.isControlPressed == activator.control &&
+        keyboard.isAltPressed == activator.alt &&
+        keyboard.isMetaPressed == activator.meta;
+  }
 
   bool get _isHandlerGesture => _handlerHandlesScaleGesture ?? true;
 
   void reset() {
     _shortcutManager.reset();
     _pointerKinds.clear();
+    _rotationDrag = null;
+    _cameraRotationGesture = false;
     _resetRulerInteraction();
     _handlerHandlesScaleGesture = null;
     _heldShortcutKeyId = null;
@@ -83,6 +99,32 @@ class _ViewportInputCoordinator {
     final getHandler = input.getHandler;
     final getEventContext = input.getEventContext;
     if (!skipShortcuts && cubit.inputCubit.state.pointers.isEmpty) {
+      _cameraRotationGesture = false;
+      final keyboard = HardwareKeyboard.instance;
+      final focusContext = FocusManager.instance.primaryFocus?.context;
+      final editingText =
+          focusContext?.widget is EditableText ||
+          focusContext?.findAncestorWidgetOfExactType<EditableText>() != null;
+      if (event.kind != PointerDeviceKind.touch &&
+          event.kind != PointerDeviceKind.trackpad &&
+          _rotationShortcutPressed(keyboard) &&
+          !editingText) {
+        _settleSlide(cubit.transformCubit);
+        _cameraRotationGesture = true;
+        _handlerHandlesScaleGesture = false;
+        _rotationDrag = (
+          pointer: event.pointer,
+          center: getEventContext().viewportSize.center(Offset.zero),
+          previous: event.localPosition,
+        );
+        _pointerKinds[event.pointer] = event.kind;
+        cubit.inputCubit.addPointer(event.pointer);
+        cubit.inputCubit.setButtons(event.buttons);
+        return;
+      }
+    }
+    if (_cameraRotationGesture) return;
+    if (!skipShortcuts && cubit.inputCubit.state.pointers.isEmpty) {
       _settleSlide(cubit.transformCubit);
       _handlerHandlesScaleGesture = event.kind == .trackpad ? false : null;
     }
@@ -129,6 +171,32 @@ class _ViewportInputCoordinator {
     bool skipShortcuts = false,
   }) async {
     final cubit = input.cubit;
+    if (_cameraRotationGesture) {
+      final drag = _rotationDrag;
+      if (drag == null || drag.pointer != event.pointer) return;
+      final previous = drag.previous - drag.center;
+      final current = event.localPosition - drag.center;
+      // Angles are undefined at the pivot; rebase there instead of jumping.
+      if (previous.distance > 4 && current.distance > 4) {
+        final delta = atan2(
+          previous.dx * current.dy - previous.dy * current.dx,
+          previous.dx * current.dx + previous.dy * current.dy,
+        );
+        cubit.transformCubit.rotateConstrained(
+          delta,
+          cursor: drag.center,
+          runtime: cubit,
+        );
+        _delayBakeUnlessSmooth(cubit.settingsCubit.state, input.delayBake);
+      }
+      _rotationDrag = (
+        pointer: drag.pointer,
+        center: drag.center,
+        previous: event.localPosition,
+      );
+      cubit.inputCubit.updateLastPosition(event.localPosition);
+      return;
+    }
     if (!skipShortcuts) {
       final result = _shortcutManager.pointerMove(event);
       await _replayPointerEvents(result.releasedEvents, input);
@@ -161,6 +229,15 @@ class _ViewportInputCoordinator {
     bool skipShortcuts = false,
   }) async {
     final cubit = input.cubit;
+    if (_cameraRotationGesture) {
+      if (_rotationDrag?.pointer != event.pointer) return;
+      _rotationDrag = null;
+      cubit.inputCubit.removePointer(event.pointer);
+      _pointerKinds.remove(event.pointer);
+      cubit.inputCubit.removeButtons();
+      input.delayBake();
+      return;
+    }
     if (!skipShortcuts) {
       if (_ruler != null) {
         _shortcutManager.pointerCancel(event);
@@ -218,6 +295,13 @@ class _ViewportInputCoordinator {
   }
 
   void handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
+    if (_cameraRotationGesture) {
+      if (_rotationDrag?.pointer == event.pointer) _rotationDrag = null;
+      cubit.inputCubit.removePointer(event.pointer);
+      _pointerKinds.remove(event.pointer);
+      cubit.inputCubit.removeButtons();
+      return;
+    }
     if (_shortcutManager.pointerCancel(event)) return;
     _resetRulerInteraction();
     cubit.inputCubit.removePointer(event.pointer);
@@ -252,6 +336,7 @@ class _ViewportInputCoordinator {
   }
 
   void handleScaleStart(ScaleStartDetails details, _PointerInputContext input) {
+    if (_cameraRotationGesture) return;
     final cubit = input.cubit;
     final handler = input.getHandler();
     final eventContext = input.getEventContext();
@@ -284,6 +369,7 @@ class _ViewportInputCoordinator {
     ScaleUpdateDetails details,
     _PointerInputContext input,
   ) {
+    if (_cameraRotationGesture) return;
     final handler = input.getHandler();
     final ruler = _ruler;
     if (ruler != null) {
@@ -340,6 +426,7 @@ class _ViewportInputCoordinator {
   }
 
   void handleScaleEnd(ScaleEndDetails details, _PointerInputContext input) {
+    if (_cameraRotationGesture) return;
     final cubit = input.cubit;
     if (_ruler != null) {
       _resetRulerInteraction();

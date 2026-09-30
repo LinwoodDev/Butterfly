@@ -256,6 +256,8 @@ class ViewPainter extends CustomPainter {
     }
     final belowLayerImage = cameraViewport.belowLayerImage;
     final bakedRect = cameraViewport.toRect();
+    // Cached rasters need interpolation when rotated or rescaled on screen.
+    final imagePaint = Paint()..filterQuality = FilterQuality.medium;
     if (renderBakedLayers && belowLayerImage != null) {
       canvas.drawImageRect(
         belowLayerImage,
@@ -266,7 +268,7 @@ class ViewPainter extends CustomPainter {
           ),
         ),
         bakedRect,
-        Paint(),
+        imagePaint,
       );
     }
     final areaRect = currentArea?.rect;
@@ -304,7 +306,7 @@ class ViewPainter extends CustomPainter {
             Size(image.width.toDouble(), image.height.toDouble()),
           ),
           bakedRect,
-          Paint(),
+          imagePaint,
         );
       } catch (_) {}
     }
@@ -334,7 +336,7 @@ class ViewPainter extends CustomPainter {
           ),
         ),
         bakedRect,
-        Paint(),
+        imagePaint,
       );
     }
     canvas.restore();

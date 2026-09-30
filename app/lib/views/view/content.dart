@@ -46,23 +46,34 @@ class _LoadedViewport extends StatelessWidget {
 
     return GestureDetector(
       onTapUp: (details) async {
+        if (input.isCameraRotationGesture) return;
         getHandler().onTapUp(details, getEventContext());
         cubit.inputCubit.removeButtons();
       },
-      onTapDown: (details) =>
-          getHandler().onTapDown(details, getEventContext()),
-      onSecondaryTapUp: (details) =>
-          getHandler().onSecondaryTapUp(details, getEventContext()),
+      onTapDown: (details) {
+        if (input.isCameraRotationGesture) return;
+        getHandler().onTapDown(details, getEventContext());
+      },
+      onSecondaryTapUp: (details) {
+        if (input.isCameraRotationGesture) return;
+        getHandler().onSecondaryTapUp(details, getEventContext());
+      },
       onScaleStart: (details) => input.handleScaleStart(details, pointerInput),
       onScaleUpdate: (details) =>
           input.handleScaleUpdate(details, pointerInput),
       onScaleEnd: (details) => input.handleScaleEnd(details, pointerInput),
-      onLongPressDown: (details) =>
-          getHandler().onLongPressDown(details, getEventContext()),
-      onLongPressStart: (details) =>
-          getHandler().onLongPressStart(details, getEventContext()),
-      onLongPressEnd: (details) =>
-          getHandler().onLongPressEnd(details, getEventContext()),
+      onLongPressDown: (details) {
+        if (input.isCameraRotationGesture) return;
+        getHandler().onLongPressDown(details, getEventContext());
+      },
+      onLongPressStart: (details) {
+        if (input.isCameraRotationGesture) return;
+        getHandler().onLongPressStart(details, getEventContext());
+      },
+      onLongPressEnd: (details) {
+        if (input.isCameraRotationGesture) return;
+        getHandler().onLongPressEnd(details, getEventContext());
+      },
       child: Listener(
         behavior: .translucent,
         onPointerSignal: (event) =>
@@ -104,7 +115,11 @@ class _LoadedViewport extends StatelessWidget {
                 previous.cursor != current.cursor ||
                 previous.temporaryCursor != current.temporaryCursor,
             builder: (context, toolState) {
-              final realSize = rendererState.cameraViewport.toRealSize();
+              // Rotated caches cover a larger axis-aligned rectangle than
+              // the screen. Compare the measured viewport, not the cache.
+              final realSize =
+                  rendererState.cameraViewport.viewportSize ??
+                  rendererState.cameraViewport.toRealSize();
               final viewportMatches =
                   (realSize.width - viewportSize.width).abs() < 2 &&
                   (realSize.height - viewportSize.height).abs() < 2;

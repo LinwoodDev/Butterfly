@@ -215,13 +215,16 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                 if (widget.strokeWidth != null &&
                     widget.onStrokeWidthChanged != null) ...[
                   Center(
-                    child: NumberInput(
-                      value: widget.strokeWidth!,
-                      min: 0,
-                      step: 0.1,
-                      fractionDigits: 1,
-                      errorText: AppLocalizations.of(context).error,
-                      onChanged: widget.onStrokeWidthChanged,
+                    child: SizedBox(
+                      width: 180,
+                      child: NumberInput(
+                        value: widget.strokeWidth!,
+                        min: 0,
+                        step: 0.1,
+                        fractionDigits: 1,
+                        errorText: AppLocalizations.of(context).error,
+                        onChanged: widget.onStrokeWidthChanged,
+                      ),
                     ),
                   ),
                   const VerticalDivider(),

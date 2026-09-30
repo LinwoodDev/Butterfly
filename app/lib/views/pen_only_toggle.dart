@@ -68,10 +68,40 @@ class PenOnlyToggle extends StatelessWidget {
                               ? Theme.of(context).colorScheme.onPrimaryContainer
                               : Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
-                        icon: PhosphorIcon(
-                          penOnlyEnabled
-                              ? PhosphorIconsFill.pen
-                              : PhosphorIconsLight.pen,
+                        isSelected: penOnlyEnabled,
+                        icon: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              PhosphorIcon(
+                                penOnlyEnabled
+                                    ? PhosphorIconsFill.pen
+                                    : PhosphorIconsLight.pen,
+                              ),
+                              if (penOnlyEnabled)
+                                Positioned(
+                                  right: -4,
+                                  bottom: -4,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(2),
+                                      child: PhosphorIcon(
+                                        PhosphorIconsFill.lockSimple,
+                                        size: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                         onPressed: () {
                           if (isAutoMode) {

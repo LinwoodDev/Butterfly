@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -14,6 +17,7 @@ import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/view.dart';
+import 'package:butterfly/views/zoom.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:flutter/gestures.dart';
@@ -45,10 +49,11 @@ class _ReleaseTrackingHandler extends Handler<HandTool> {
 void main() {
   late List<MethodCall> windowManagerCalls;
 
-  setUpAll(() {
+  setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     registerFallbackValue(AssetLocation.empty);
     SharedPreferences.setMockInitialValues({});
+    await keybinder.ready;
     FlutterSecureStorage.setMockInitialValues({});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(const MethodChannel('window_manager'), (
@@ -214,6 +219,342 @@ void main() {
       ),
     );
   }
+
+  Future<EditorController> openEditor(WidgetTester tester) async {
+    await tester.pumpWidget(buildApp());
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+    return observer.lastDocumentBloc!.editorController;
+  }
+
+  Finder cameraButton(String tooltip) => find.descendant(
+    of: find.byType(ZoomView),
+    matching: find.byWidgetPredicate(
+      (widget) =>
+          widget is IconButton &&
+          (widget.tooltip == tooltip ||
+              (widget.icon is Tooltip &&
+                  (widget.icon as Tooltip).message == tooltip)),
+    ),
+  );
+
+  Finder cameraField(String label) => find.descendant(
+    of: find.byKey(
+      ValueKey(label == 'Zoom' ? 'camera-zoom' : 'camera-rotation'),
+    ),
+    matching: find.byType(TextField),
+  );
+
+  testWidgets(
+    'zoom panel steps, limits and reset keep the canvas center fixed',
+    (tester) async {
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(defaultTemplate: 'default', zoomStep: 0.1),
+      );
+      final editor = await openEditor(tester);
+      final center = tester
+          .getSize(find.byType(MainViewViewport))
+          .center(Offset.zero);
+      final documentCenter = editor.transformCubit.state.localToGlobal(center);
+      expect(
+        tester.widget<IconButton>(cameraButton('Reset zoom')).onPressed,
+        isNull,
+      );
+      await tester.tap(cameraButton('Zoom in'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, closeTo(1.1, 1e-9));
+      expect(
+        editor.transformCubit.state.localToGlobal(center).dx,
+        closeTo(documentCenter.dx, 1e-6),
+      );
+      expect(
+        editor.transformCubit.state.localToGlobal(center).dy,
+        closeTo(documentCenter.dy, 1e-6),
+      );
+      await tester.tap(cameraButton('Zoom out'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, closeTo(1, 1e-9));
+      editor.transformCubit.size(10);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<IconButton>(cameraButton('Zoom in')).onPressed,
+        isNull,
+      );
+      await tester.tap(cameraButton('Reset zoom'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 1);
+      editor.transformCubit.size(0.1);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<IconButton>(cameraButton('Zoom out')).onPressed,
+        isNull,
+      );
+    },
+  );
+
+  testWidgets(
+    'zoom input supports Ctrl+A, partial input and finite clamped values',
+    (tester) async {
+      final editor = await openEditor(tester);
+      final field = cameraField('Zoom');
+      await tester.tap(field);
+      await tester.pump();
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+      await tester.sendKeyEvent(LogicalKeyboardKey.keyA);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+      await tester.pump();
+      final controller = tester.widget<TextField>(field).controller!;
+      expect(controller.selection.start, 0);
+      expect(controller.selection.end, controller.text.length);
+      await tester.enterText(field, '');
+      await tester.pump();
+      expect(controller.text, '');
+      editor.transformCubit.rotate(0.3);
+      await tester.pump();
+      expect(controller.text, '');
+      await tester.enterText(field, '125,5');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 1.255);
+      await tester.enterText(field, 'NaN');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 1.255);
+      await tester.enterText(field, '9999');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 1.255);
+      expect(tester.widget<TextField>(field).decoration?.errorText, isNotNull);
+      await tester.enterText(field, '1000');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 10);
+      expect(controller.text, '1000.0');
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'rotation row follows camera state, edits angles and resets independently',
+    (tester) async {
+      final editor = await openEditor(tester);
+      expect(cameraField('Rotation'), findsNothing);
+      editor.transformCubit.rotate(16 * pi / 180);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(cameraField('Rotation')).controller!.text,
+        '16.0',
+      );
+      final center = tester
+          .getSize(find.byType(MainViewViewport))
+          .center(Offset.zero);
+      final documentCenter = editor.transformCubit.state.localToGlobal(center);
+      await tester.tap(cameraButton('Rotate right'));
+      await tester.pumpAndSettle();
+      expect(
+        editor.transformCubit.state.rotation,
+        closeTo((16 + settingsCubit.state.rotationStep) * pi / 180, 1e-6),
+      );
+      await tester.enterText(cameraField('Rotation'), '-');
+      await tester.pump();
+      expect(
+        tester.widget<TextField>(cameraField('Rotation')).controller!.text,
+        '-',
+      );
+      await tester.enterText(cameraField('Rotation'), '-45');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.rotation, closeTo(-pi / 4, 1e-6));
+      editor.transformCubit.size(2, center);
+      await tester.pumpAndSettle();
+      await tester.tap(cameraButton('Reset zoom'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.rotation, closeTo(-pi / 4, 1e-6));
+      await tester.tap(cameraButton('Reset rotation'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.rotation, closeTo(0, 1e-6));
+      expect(editor.transformCubit.state.size, 1);
+      expect(
+        (editor.transformCubit.state.localToGlobal(center) - documentCenter)
+            .distance,
+        lessThan(1e-6),
+      );
+      expect(cameraField('Rotation'), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'camera numbers round for display without rounding the transform',
+    (tester) async {
+      final editor = await openEditor(tester);
+      editor.transformCubit.size(1.23456789);
+      editor.transformCubit.rotate(12.3456789 * pi / 180);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+        '123.5',
+      );
+      expect(
+        tester.widget<TextField>(cameraField('Rotation')).controller!.text,
+        '12.3',
+      );
+      expect(editor.transformCubit.state.size, closeTo(1.23456789, 1e-9));
+      expect(
+        editor.transformCubit.state.rotation,
+        closeTo(12.3456789 * pi / 180, 1e-9),
+      );
+      await tester.enterText(cameraField('Zoom'), '125.4567');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+        '125.5',
+      );
+      expect(editor.transformCubit.state.size, closeTo(1.254567, 1e-9));
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'camera sliders change zoom and rotation and reset independently',
+    (tester) async {
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          zoomPanelControls: ZoomPanelControls.slider,
+          rotationDisplay: RotationDisplay.always,
+        ),
+      );
+      final editor = await openEditor(tester);
+      editor.inputCubit.detectPen(true);
+      await tester.pumpAndSettle();
+      final slider = find.descendant(
+        of: find.byKey(const ValueKey('camera-zoom')),
+        matching: find.byType(Slider),
+      );
+      await tester.drag(slider, const Offset(30, 0));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, greaterThan(1));
+      final zoom = editor.transformCubit.state.size;
+      final rotationSlider = find.descendant(
+        of: find.byKey(const ValueKey('camera-rotation')),
+        matching: find.byType(Slider),
+      );
+      await tester.tapAt(
+        tester.getCenter(rotationSlider) + const Offset(10, 0),
+      );
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.rotation, greaterThan(0));
+      expect(editor.transformCubit.state.size, zoom);
+      await tester.tap(cameraButton('Reset zoom'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 1);
+      expect(editor.transformCubit.state.rotation, greaterThan(0));
+      await tester.tap(cameraButton('Reset rotation'));
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.rotation, 0);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'rotation drag follows the configured binding and stops using the default',
+    (tester) async {
+      await tester.runAsync(() async {
+        await keybinder.ready;
+        await keybinder.updateBinding(
+          rotateDragShortcut.id,
+          const SingleActivator(LogicalKeyboardKey.keyR, alt: true),
+        );
+      });
+      addTearDown(() => keybinder.resetBinding(rotateDragShortcut.id));
+      final editor = await openEditor(tester);
+      final center = tester.getCenter(find.byType(MainViewViewport));
+
+      Future<void> drag() async {
+        final gesture = await tester.startGesture(
+          center + const Offset(100, 0),
+          kind: PointerDeviceKind.mouse,
+        );
+        await gesture.moveTo(center + const Offset(0, 100));
+        await gesture.up();
+        await tester.pumpAndSettle();
+      }
+
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.shiftLeft);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
+      await drag();
+      expect(editor.transformCubit.state.rotation, 0);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.shiftLeft);
+
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.altLeft);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyR);
+      await drag();
+      expect(editor.transformCubit.state.rotation, closeTo(pi / 2, 1e-6));
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.keyR);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.altLeft);
+      expect(editor.inputCubit.state.pointers, isEmpty);
+    },
+  );
+
+  testWidgets(
+    'Shift+Space drag rotates without drawing and restores normal input',
+    (tester) async {
+      final editor = await openEditor(tester);
+      final bloc = observer.lastDocumentBloc!;
+      await editor.toolCubit.changeTool(
+        editor,
+        bloc,
+        index: 1,
+        allowBake: false,
+      );
+      await tester.pumpAndSettle();
+      final viewport = find.byType(MainViewViewport);
+      final center = tester.getCenter(viewport);
+      final localCenter = tester.getSize(viewport).center(Offset.zero);
+      final documentCenter = editor.transformCubit.state.localToGlobal(
+        localCenter,
+      );
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.shiftLeft);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
+      final gesture = await tester.startGesture(
+        center + const Offset(100, 0),
+        kind: PointerDeviceKind.mouse,
+      );
+      await tester.pump();
+      await gesture.moveTo(center + const Offset(0, 100));
+      await tester.pump();
+      expect(editor.transformCubit.state.rotation, closeTo(pi / 2, 1e-6));
+      expect(
+        (editor.transformCubit.state.localToGlobal(localCenter) -
+                documentCenter)
+            .distance,
+        lessThan(1e-6),
+      );
+      // The drag remains a camera gesture when the keys are released first.
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.shiftLeft);
+      await gesture.up();
+      await tester.pumpAndSettle();
+      expect((bloc.state as DocumentLoadSuccess).page.content, isEmpty);
+      expect(editor.inputCubit.state.pointers, isEmpty);
+      final stroke = await tester.startGesture(
+        center,
+        kind: PointerDeviceKind.mouse,
+      );
+      await stroke.moveBy(const Offset(50, 30));
+      await stroke.up();
+      await tester.pumpAndSettle();
+      expect((bloc.state as DocumentLoadSuccess).page.content, hasLength(1));
+      await tester.pump(const Duration(seconds: 4));
+    },
+  );
 
   testWidgets('replacing document route closes document bloc', (tester) async {
     await tester.pumpWidget(buildApp());
