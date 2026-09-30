@@ -42,5 +42,22 @@ target_link_libraries(${BINARY_NAME} PRIVATE flutter flutter_wrapper_app)
 target_link_libraries(${BINARY_NAME} PRIVATE "dwmapi.lib")
 target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
 
+# Explorer loads this COM DLL in its thumbnail/preview host. Keep it separate
+# from the Flutter runner so Explorer never starts the app to inspect a note.
+set(PREVIEW_DIR "${CMAKE_CURRENT_SOURCE_DIR}/note_preview")
+add_library(butterfly_note_preview SHARED
+  "${PREVIEW_DIR}/shell_preview.cpp"
+  # Export the COM entry points without changing their Windows SDK declarations.
+  "${PREVIEW_DIR}/shell_preview.def"
+)
+target_compile_features(butterfly_note_preview PRIVATE cxx_std_17)
+target_compile_definitions(butterfly_note_preview PRIVATE UNICODE _UNICODE NOMINMAX)
+if(FLUTTER_APP_FLAVOR MATCHES "^(nightly|development|dev)$")
+  target_compile_definitions(butterfly_note_preview PRIVATE BUTTERFLY_NIGHTLY)
+endif()
+target_link_libraries(butterfly_note_preview PRIVATE ole32 windowscodecs gdi32 user32 uuid)
+install(TARGETS butterfly_note_preview RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
+  COMPONENT Runtime)
+
 # Run the Flutter tool portions of the build. This must not be removed.
 add_dependencies(${BINARY_NAME} flutter_assemble)

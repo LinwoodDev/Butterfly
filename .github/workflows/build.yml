@@ -215,6 +215,7 @@ jobs:
       - name: Build setup
         shell: pwsh
         run: |
+          dart compile exe scripts/note_thumbnailer.dart -o build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/butterfly-thumbnailer.exe
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION /DMyAppArch=${{ matrix.arch.dir }} /DMyAppFlavor=${{ env.BUILD_FLAVOR }} ButterflySetup.iss
       - name: Copy portable start script
@@ -270,7 +271,10 @@ jobs:
           flutter build windows --release --flavor ${{ env.BUILD_FLAVOR }}
           New-Item -ItemType Directory -Force build/windows/x64/runner | Out-Null
           Copy-Item -Recurse -Force build/windows/x64/${{ env.BUILD_FLAVOR }}/runner/Release build/windows/x64/runner/
-          dart run msix:create --build-windows=false
+          dart compile exe scripts/note_thumbnailer.dart -o build/windows/x64/runner/Release/butterfly-thumbnailer.exe
+          dart run msix:build --build-windows=false
+          dart run scripts/patch_msix_note_preview.dart build/windows/x64/runner/Release/AppxManifest.xml ${{ env.BUILD_FLAVOR }}
+          dart run msix:pack --build-windows=false
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -359,6 +363,7 @@ jobs:
           cp "$HOME"/.flutter-devtools/*-code-size-analysis_*.json build/size-analysis/linux-x86_64/
       - name: 🏭 Make binary executable
         run: |
+          dart compile exe scripts/note_thumbnailer.dart -o build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/butterfly-thumbnailer
           chmod +x build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/butterfly
       - name: Update files to arm64
         if: ${{ matrix.arch.dir == 'arm64' }}

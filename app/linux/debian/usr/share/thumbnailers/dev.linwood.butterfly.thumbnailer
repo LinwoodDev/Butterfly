@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=/usr/bin/butterfly-thumbnailer
+Exec=/usr/bin/butterfly-thumbnailer %i %o %s
+MimeType=application/x-butterfly;application/x-text-butterfly;

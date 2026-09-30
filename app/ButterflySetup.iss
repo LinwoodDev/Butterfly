@@ -8,10 +8,14 @@
 #define MyAppName "Butterfly Nightly"
 #define MyAppId "{{5B1D8E23-CB62-4B4B-AE19-01914585A98B}"
 #define MyAppIcon "app_icon_nightly.ico"
+#define ThumbnailClsid "{{59FB241D-FFA6-4C01-8A66-2BBA71384A55}"
+#define PreviewClsid "{{AF658105-F78A-4EB4-A1B4-AF964045838F}"
 #else
 #define MyAppName "Butterfly"
 #define MyAppId "{{966CE504-4AA5-49C7-A63B-74BD6C073E5B}"
 #define MyAppIcon "app_icon.ico"
+#define ThumbnailClsid "{{1D0ED140-D9FB-4212-B05F-95D0816DE3CC}"
+#define PreviewClsid "{{D8380BD5-6F06-421E-93D3-474D246C5041}"
 #endif
 #ifndef MyAppVersion
 #define MyAppVersion "1.0"
@@ -85,6 +89,22 @@ Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\DefaultIcon"; ValueType: 
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".bfly"; ValueData: ""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".tbfly"; ValueData: ""
+
+; Windows Explorer thumbnails and Preview Pane for Butterfly notes.
+Root: HKA; Subkey: "Software\Classes\CLSID\{#ThumbnailClsid}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName} Thumbnail Handler"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\CLSID\{#ThumbnailClsid}\InprocServer32"; ValueType: string; ValueName: ""; ValueData: "{app}\butterfly_note_preview.dll"; Tasks: bfly
+Root: HKA; Subkey: "Software\Classes\CLSID\{#ThumbnailClsid}\InprocServer32"; ValueType: string; ValueName: "ThreadingModel"; ValueData: "Apartment"; Tasks: bfly
+Root: HKA; Subkey: "Software\Classes\CLSID\{#PreviewClsid}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName} Preview Handler"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\CLSID\{#PreviewClsid}"; ValueType: string; ValueName: "AppID"; ValueData: "{{6D2B5079-2F0B-48DD-AB7F-97CEC514D30B}"; Tasks: bfly
+Root: HKA; Subkey: "Software\Classes\CLSID\{#PreviewClsid}\InprocServer32"; ValueType: string; ValueName: ""; ValueData: "{app}\butterfly_note_preview.dll"; Tasks: bfly
+Root: HKA; Subkey: "Software\Classes\CLSID\{#PreviewClsid}\InprocServer32"; ValueType: string; ValueName: "ThreadingModel"; ValueData: "Apartment"; Tasks: bfly
+Root: HKA; Subkey: "Software\Classes\.bfly\shellex\{{E357FCCD-A995-4576-B01F-234630154E96}"; ValueType: string; ValueName: ""; ValueData: "{#ThumbnailClsid}"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\.tbfly\shellex\{{E357FCCD-A995-4576-B01F-234630154E96}"; ValueType: string; ValueName: ""; ValueData: "{#ThumbnailClsid}"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\shellex\{{E357FCCD-A995-4576-B01F-234630154E96}"; ValueType: string; ValueName: ""; ValueData: "{#ThumbnailClsid}"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\.bfly\shellex\{{8895B1C6-B41F-4C1C-A562-0D564250836F}"; ValueType: string; ValueName: ""; ValueData: "{#PreviewClsid}"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\.tbfly\shellex\{{8895B1C6-B41F-4C1C-A562-0D564250836F}"; ValueType: string; ValueName: ""; ValueData: "{#PreviewClsid}"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\shellex\{{8895B1C6-B41F-4C1C-A562-0D564250836F}"; ValueType: string; ValueName: ""; ValueData: "{#PreviewClsid}"; Tasks: bfly; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Microsoft\Windows\CurrentVersion\PreviewHandlers"; ValueType: string; ValueName: "{#PreviewClsid}"; ValueData: "{#MyAppName} Preview Handler"; Tasks: bfly; Flags: uninsdeletevalue
 
 Root: HKA; Subkey: "Software\Classes\.pdf\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppName}-PDF"; ValueData: ""; Tasks: pdf; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-PDF"; Tasks: pdf; Flags: uninsdeletekey

@@ -39,6 +39,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/pixmaps
 
 # Copy binaries and architecture-specific files
 cp %{name} $RPM_BUILD_ROOT/%{_datadir}/%{name}
+cp butterfly-thumbnailer $RPM_BUILD_ROOT/%{_datadir}/%{name}
 cp -R lib $RPM_BUILD_ROOT/%{_datadir}/%{name}
 cp -R data $RPM_BUILD_ROOT/%{_datadir}/%{name}
 
@@ -47,6 +48,10 @@ ln -s %{_datadir}/%{name}/%{name} $RPM_BUILD_ROOT/%{_bindir}/%{name}
 
 # Install the desktop file
 desktop-file-install --dir=$RPM_BUILD_ROOT/usr/share/applications %{name}.desktop
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/thumbnailers
+cp dev.linwood.butterfly.thumbnailer $RPM_BUILD_ROOT/%{_datadir}/thumbnailers/
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mime/packages
+cp dev.linwood.butterfly.xml $RPM_BUILD_ROOT/%{_datadir}/mime/packages/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,5 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 /usr/share/applications/
+%{_datadir}/thumbnailers/dev.linwood.butterfly.thumbnailer
+%{_datadir}/mime/packages/dev.linwood.butterfly.xml
 
 %changelog

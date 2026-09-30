@@ -34,10 +34,14 @@ import 'theme.dart';
 import 'views/error.dart';
 import 'views/home/page.dart';
 import 'views/main.dart';
+import 'views/widget_configuration.dart';
 import 'services/logger.dart';
 import 'services/font.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');
+const _homeWidgetChannel = MethodChannel('linwood.dev/butterfly/widgets');
+GoRouter? _activeRouter;
+String? _pendingWidgetRoute;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +57,20 @@ Future<void> main([List<String> args = const []]) async {
   );
   await setup(nativeTitleBar: settingsCubit.state.nativeTitleBar);
   var initialLocation = '/';
+  if (!kIsWeb && Platform.isAndroid) {
+    _homeWidgetChannel.setMethodCallHandler((call) async {
+      if (call.method == 'open' && call.arguments is String) {
+        final route = call.arguments as String;
+        if (_activeRouter == null) {
+          _pendingWidgetRoute = route;
+        } else {
+          _activeRouter!.go(route);
+        }
+      }
+    });
+    initialLocation =
+        await _homeWidgetChannel.invokeMethod<String>('getRoute') ?? '/';
+  }
   final argParser = ArgParser();
   argParser.addOption('path', abbr: 'p');
   final result = argParser.parse(args);
@@ -287,6 +305,31 @@ class ButterflyApp extends StatelessWidget {
         },
       ),
       GoRoute(
+        path: '/widget/configure',
+        builder: (context, state) => WidgetConfigurationPage(
+          widgetId: int.tryParse(state.uri.queryParameters['id'] ?? '') ?? -1,
+          kind: state.uri.queryParameters['kind'] ?? 'preview',
+        ),
+      ),
+      GoRoute(
+        path: '/widget/create',
+        builder: (context, state) => WidgetCreatePage(
+          widgetId: int.tryParse(state.uri.queryParameters['id'] ?? '') ?? -1,
+        ),
+      ),
+      GoRoute(
+        path: '/shortcut/configure',
+        builder: (context, state) =>
+            const WidgetConfigurationPage(widgetId: -1, kind: 'shortcut'),
+      ),
+      GoRoute(
+        path: '/shortcut/create',
+        builder: (context, state) => WidgetCreatePage(
+          widgetId: -1,
+          shortcutConfig: state.uri.queryParameters['config'],
+        ),
+      ),
+      GoRoute(
         path: '/intent',
         builder: (context, state) {
           Future<(String, Object)?>? intent;
@@ -323,6 +366,12 @@ class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    _activeRouter = _router;
+    if (_pendingWidgetRoute != null) {
+      final route = _pendingWidgetRoute!;
+      _pendingWidgetRoute = null;
+      WidgetsBinding.instance.addPostFrameCallback((_) => _router.go(route));
+    }
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => MultiBlocProvider(
         providers: [
@@ -390,7 +439,9 @@ class ButterflyApp extends StatelessWidget {
                       BackupService(context.read<ButterflyFileSystem>()),
                   dispose: (service) => service.dispose(),
                   lazy: false,
-                  child: _WindowCloseGuard(child: child ?? Container()),
+                  child: HomeWidgetSync(
+                    child: _WindowCloseGuard(child: child ?? Container()),
+                  ),
                 ),
               ),
             ),
