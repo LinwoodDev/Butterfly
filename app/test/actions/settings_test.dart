@@ -75,6 +75,24 @@ void main() {
     await tester.tap(find.text('View'));
     await tester.pumpAndSettle();
 
+    expect(tester.takeException(), isNull);
+    expect(find.text('Full (slider, text field and buttons)'), findsOneWidget);
+
+    when(
+      () => settingsCubit.changeZoomPanelControls(
+        ZoomPanelControls.inputAndButtons,
+      ),
+    ).thenAnswer((_) async {});
+    await tester.tap(find.text('Zoom panel controls'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Text field and buttons'));
+    await tester.pumpAndSettle();
+    verify(
+      () => settingsCubit.changeZoomPanelControls(
+        ZoomPanelControls.inputAndButtons,
+      ),
+    ).called(1);
+
     expect(
       find.byType(WindowTitleBar<SettingsCubit, ButterflySettings>),
       findsNothing,
