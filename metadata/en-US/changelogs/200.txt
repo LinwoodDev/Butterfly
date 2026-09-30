@@ -13,6 +13,7 @@
 * Add configurable Shift+Space dragging to rotate the canvas
 * Fix unbounded number input layouts in the stroke-width toolbar and keyframe dialog
 * Fix zoom input text editing and smooth cached canvas images during rotation
+* Fix pasting images having small visual artifacts ([#1274](https://github.com/LinwoodDev/Butterfly/issues/1274))
 
 Upstreamed from 2.6.0:
 * Fix fractional-pixel mismatch in the viewport cache ([#1279](https://github.com/LinwoodDev/Butterfly/issues/1279))

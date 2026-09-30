@@ -74,7 +74,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: cbf5d0ceea356d657457147912fe4c79280f7cd2
+      ref: 3a73e46878c86f3497042168fe3929c367469b0c
       path: packages/lw_sysapi
   networker:
     git:
