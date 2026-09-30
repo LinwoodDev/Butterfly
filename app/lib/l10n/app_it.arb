@@ -1669,5 +1669,18 @@
   "ignorePressureDescription": "Controlla se la pressione dello stilo cambia il tratto e funziona intorno a letture di pressione imprecise da alcuni stili.",
   "moveOnGestureDescription": "Permette ai gesti multi-touch di spostare la tela invece di interagire con il contenuto delle note.",
   "spreadPagesDescription": "Divide le importazioni di pagine multiple tra pagine separate invece di posizionare tutto su una pagina.",
-  "shear": "Inclina"
+  "shear": "Inclina",
+  "resetRotation": "Reset rotation",
+  "zoomPanelControls": "Zoom panel controls",
+  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
+  "zoomPanelFull": "Full (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Slider and text field",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Text field and buttons",
+  "zoomPanelInput": "Campo di testo",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
+  "whenRotated": "When rotated",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotate canvas by dragging"
 }
