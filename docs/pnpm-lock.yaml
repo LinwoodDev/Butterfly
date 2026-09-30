@@ -182,11 +182,11 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       '@linwooddev/starlight-style':
-        specifier: github:LinwoodDev/style#0b474a6e7e072c38fac878821e38fd5079e3f924&path:/packages/starlight
-        version: https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/starlight(@astrojs/starlight@0.42.4(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/web)(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))
+        specifier: github:LinwoodDev/style#0784cd18128651cd6d9e91e9a90601d0e265e411&path:/packages/starlight
+        version: https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/starlight(@astrojs/starlight@0.42.4(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/web)(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))
       '@linwooddev/style':
-        specifier: github:LinwoodDev/style#0b474a6e7e072c38fac878821e38fd5079e3f924&path:/packages/web
-        version: https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/web
+        specifier: github:LinwoodDev/style#0784cd18128651cd6d9e91e9a90601d0e265e411&path:/packages/web
+        version: https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/web
       '@phosphor-icons/react':
         specifier: ^2.1.10
         version: 2.1.10(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1343,18 +1343,18 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/starlight':
-    resolution: {gitHosted: true, integrity: sha512-5jzCop311q3OKvsjQ8JUAX3cvUXIh2ae6d/bhMdizF9aul21pZp5rBnIN7ovbWqn+Cfd2axIe7pUaz/AKFqSOg==, path: /packages/starlight, tarball: https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924}
+  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/starlight':
+    resolution: {gitHosted: true, integrity: sha512-MplbWMe21kPB2vBVolfLSDxPfLmdCPF0FGilFdupl1NrleT/9790K/wJdzp29G2+t5U97dhU3lnuTyLJuZmoSA==, path: /packages/starlight, tarball: https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411}
     version: 0.0.1
     peerDependencies:
       '@astrojs/starlight': ^0.41.10
       '@fontsource-variable/inter': ^5.3.0
-      '@linwooddev/style': ^0.4.2
+      '@linwooddev/style': ^0.4.3
       astro: ^7.2.9
 
-  '@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/web':
-    resolution: {gitHosted: true, integrity: sha512-5jzCop311q3OKvsjQ8JUAX3cvUXIh2ae6d/bhMdizF9aul21pZp5rBnIN7ovbWqn+Cfd2axIe7pUaz/AKFqSOg==, path: /packages/web, tarball: https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924}
-    version: 0.4.2
+  '@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/web':
+    resolution: {gitHosted: true, integrity: sha512-MplbWMe21kPB2vBVolfLSDxPfLmdCPF0FGilFdupl1NrleT/9790K/wJdzp29G2+t5U97dhU3lnuTyLJuZmoSA==, path: /packages/web, tarball: https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411}
+    version: 0.4.3
 
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     resolution: {integrity: sha512-oTXEIha4SsuXdTA4Iyskj0kpdx2yVXdhd75c2v3xGrHFfVMsbhTPZU/nMPL4sWKo4pBHm3aucLaqGlF696dTyQ==}
@@ -5176,14 +5176,14 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/starlight(@astrojs/starlight@0.42.4(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/web)(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))':
+  '@linwooddev/starlight-style@https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/starlight(@astrojs/starlight@0.42.4(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))(typescript@6.0.3))(@fontsource-variable/inter@5.3.0)(@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/web)(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))':
     dependencies:
       '@astrojs/starlight': 0.42.4(astro@7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1))(typescript@6.0.3)
       '@fontsource-variable/inter': 5.3.0
-      '@linwooddev/style': https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/web
+      '@linwooddev/style': https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/web
       astro: 7.3.5(@types/node@24.19.0)(sass@1.105.0)(terser@5.51.2)(yaml@2.9.1)
 
-  '@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0b474a6e7e072c38fac878821e38fd5079e3f924#path:/packages/web': {}
+  '@linwooddev/style@https://codeload.github.com/LinwoodDev/style/tar.gz/0784cd18128651cd6d9e91e9a90601d0e265e411#path:/packages/web': {}
 
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     optional: true
