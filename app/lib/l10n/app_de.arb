@@ -1669,5 +1669,18 @@
   "ignorePressureDescription": "Steuert, ob Stift Druck den Haken ändert und arbeitet um ungenaue Druckmessungen von einigen Stieflächen herum.",
   "moveOnGestureDescription": "Lassen Sie uns Multi-Touch-Gesten die Leinwand bewegen, anstatt mit Notizinhalt zu interagieren.",
   "spreadPagesDescription": "Splits mehrseitige Importe über separate Notizseiten statt alles auf einer Seite zu platzieren.",
-  "shear": "Scherz"
+  "shear": "Scherz",
+  "resetRotation": "Reset rotation",
+  "zoomPanelControls": "Zoom panel controls",
+  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
+  "zoomPanelFull": "Full (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Slider and text field",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Text field and buttons",
+  "zoomPanelInput": "Text field",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
+  "whenRotated": "When rotated",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotate canvas by dragging"
 }
