@@ -1669,5 +1669,18 @@
   "ignorePressureDescription": "控制样式表压力是否改变笔划，并围绕某些样式表的不准确压力读数工作。",
   "moveOnGestureDescription": "让多点触摸手势移动画布，而不是与笔记内容交互。",
   "spreadPagesDescription": "将多页导入分开单独的便笺页面，而不是将所有内容放在一个页面上。",
-  "shear": "剪辑"
+  "shear": "剪辑",
+  "resetRotation": "Reset rotation",
+  "zoomPanelControls": "Zoom panel controls",
+  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
+  "zoomPanelFull": "Full (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Slider and text field",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Text field and buttons",
+  "zoomPanelInput": "Text field",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
+  "whenRotated": "When rotated",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotate canvas by dragging"
 }
