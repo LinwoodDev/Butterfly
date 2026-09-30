@@ -1669,5 +1669,18 @@
   "ignorePressureDescription": "Kontroluje czy ciśnienie rysika zmienia uderzenie i działa wokół niedokładnych odczytów ciśnienia z niektórych stylów.",
   "moveOnGestureDescription": "Pozwala na przenoszenie gestów z wielu dotyków zamiast interakcji z treścią notatki.",
   "spreadPagesDescription": "Dzieli wiele stron importu na oddzielne strony notatki, zamiast umieszczać wszystko na jednej stronie.",
-  "shear": "Ścinanie"
+  "shear": "Ścinanie",
+  "resetRotation": "Reset rotation",
+  "zoomPanelControls": "Zoom panel controls",
+  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
+  "zoomPanelFull": "Full (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Slider and text field",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Text field and buttons",
+  "zoomPanelInput": "Text field",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
+  "whenRotated": "When rotated",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotate canvas by dragging"
 }
