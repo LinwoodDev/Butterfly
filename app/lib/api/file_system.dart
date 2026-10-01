@@ -84,6 +84,35 @@ typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 typedef DocumentStateFileSystem = TypedKeyFileSystem<PersistedDocumentState>;
 
+Future<void> renameDocumentAsset(
+  DocumentFileSystem fileSystem,
+  SettingsCubit settingsCubit,
+  FileSystemEntity<NoteFile> asset,
+  String name,
+) async {
+  if (asset is FileSystemFile<NoteFile> &&
+      (asset.location.fileType?.isNote() ?? false)) {
+    final suffix = '.${asset.fileExtension}';
+    if (!name.toLowerCase().endsWith(suffix.toLowerCase())) {
+      name += suffix;
+    }
+  }
+  var path = fileSystem.convertNameToFileSystem(
+    name: name,
+    directory: asset.location.parent,
+  );
+  if (fileSystem.normalizePath(path) != fileSystem.normalizePath(asset.path)) {
+    path = await fileSystem.findAvailableName(path);
+  }
+  final renamed = await fileSystem.moveAsset(asset.path, path);
+  if (renamed == null) return;
+  await settingsCubit.moveAssetReferences(
+    asset.location,
+    renamed.location,
+    directory: asset is FileSystemDirectory<NoteFile>,
+  );
+}
+
 const kCorePackFileName = 'Core.bfly';
 
 String getPackDisplayName(NoteData pack, String fileName) {

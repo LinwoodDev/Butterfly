@@ -17,9 +17,12 @@ extension DocumentSaveStateProperties on DocumentSaveState {
 }
 
 class DocumentSaveCubit(
-  final SettingsCubit settingsCubit, [
-  super.initial = const DocumentSaveState(),
-]) extends Cubit<DocumentSaveState> {
+  final SettingsCubit settingsCubit, {
+  final String? initialDirectory,
+  DocumentSaveState initial = const DocumentSaveState(),
+}) extends Cubit<DocumentSaveState> {
+  this : super(initial);
+
   final savingLock = Lock();
 
   void replace(DocumentSaveState state) => emit(state);
@@ -65,12 +68,13 @@ class DocumentSaveCubit(
     DocumentBloc bloc,
     NetworkingService networkingService, {
     AssetLocation? location,
+    String? name,
     bool force = false,
     bool isAutosave = false,
     EditorSessionCubit? editorSessionCubit,
   }) async {
-    final absolute = state.absolute;
     if (location == null &&
+        name == null &&
         !force &&
         (state.saved == .saved || state.saved == .absoluteRead)) {
       await editorSessionCubit?.saveNow();
@@ -82,8 +86,6 @@ class DocumentSaveCubit(
     if (state.isSaveDelayed && isAutosave) {
       return state.location;
     }
-    final storage = getRemoteStorage();
-    final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
     final isDelayed = settingsCubit.state.delayedAutosave;
     if (isDelayed && isAutosave) {
       final seconds = max(0, settingsCubit.state.autosaveDelaySeconds);
@@ -95,68 +97,85 @@ class DocumentSaveCubit(
     }
     return savingLock.synchronized(() async {
       if (location == null &&
+          name == null &&
           !force &&
           (state.saved == .saved || state.saved == .absoluteRead)) {
         await editorSessionCubit?.saveNow();
         return state.location;
       }
       var current = location ?? state.location;
+      final previousLocation = state.location;
+      final absolute = state.absolute;
+      final storage = settingsCubit.getRemote(current.remote);
+      final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
       if (isClosed) {
         return current;
       }
-      setSaveState(saved: SaveState.saving, location: current);
+      setSaveState(saved: SaveState.saving);
       setDelayed(false);
-      final blocState = bloc.state;
-      final currentData = await blocState.saveData();
-      if (isClosed) {
-        return current;
-      }
-      if (currentData == null || state.embedding != null) {
-        setSaveState(saved: SaveState.saved);
-        return AssetLocation.empty;
-      }
-      String contentHash;
-      if (absolute || !(current.fileType?.isNote() ?? false)) {
-        final (file, hash) = await compute(_toFileWithContentHash, (
+      var documentWritten = false;
+      try {
+        final blocState = bloc.state;
+        final currentData = (await blocState.saveData())?.setName(name);
+        if (isClosed) {
+          return current;
+        }
+        if (currentData == null || state.embedding != null) {
+          setSaveState(saved: SaveState.saved);
+          return AssetLocation.empty;
+        }
+        final needsNewNote = absolute || !(current.fileType?.isNote() ?? false);
+        final (file, contentHash) = await compute(_toFileWithContentHash, (
           currentData,
-          false,
+          !needsNewNote && current.fileType == .textNote,
         ));
-        final document = await fileSystem.createFileWithName(
-          name: currentData.name,
-          suffix: '.bfly',
-          directory: absolute
-              ? null
-              : current.fileExtension.isEmpty
-              ? state.location.path
-              : state.location.parent,
-          file,
+        if (needsNewNote) {
+          final document = await fileSystem.createFileWithName(
+            name: currentData.name,
+            suffix: '.bfly',
+            directory: absolute
+                ? null
+                : current.isEmpty
+                ? initialDirectory
+                : current.parent,
+            file,
+          );
+          current = document.location;
+        } else if (location != null && current != previousLocation) {
+          final document = await fileSystem.createFile(current.path, file);
+          current = document.location;
+        } else {
+          await fileSystem.updateFile(current.path, file);
+        }
+        documentWritten = true;
+        if (isClosed) return current;
+        setSaveState(location: current);
+        settingsCubit.addRecentHistory(current);
+        await editorSessionCubit?.saveNow(
+          pathKey: documentStatePathKeyOrNull(
+            current,
+            remoteStorage: storage is RemoteStorage,
+          ),
+          contentHash: contentHash,
         );
-        current = document.location;
-        contentHash = hash;
-      } else {
-        final (file, hash) = await compute(_toFileWithContentHash, (
-          currentData,
-          current.fileType == .textNote,
-        ));
-        await fileSystem.updateFile(current.path, file);
-        contentHash = hash;
-      }
-      settingsCubit.addRecentHistory(current);
-      await editorSessionCubit?.saveNow(
-        pathKey: documentStatePathKeyOrNull(
-          current,
-          remoteStorage: storage is RemoteStorage,
-        ),
-        contentHash: contentHash,
-      );
-      if (isClosed) {
+        if (isClosed) {
+          return current;
+        }
+        setSaveState(
+          saved: state.saved == .saving ? .saved : state.saved,
+          location: current,
+        );
         return current;
+      } catch (_) {
+        if (!isClosed) {
+          setSaveState(
+            saved: absolute && !documentWritten
+                ? SaveState.absoluteRead
+                : SaveState.unsaved,
+          );
+        }
+        rethrow;
       }
-      setSaveState(
-        saved: state.saved == .saving ? .saved : state.saved,
-        location: current,
-      );
-      return current;
     });
   }
 }

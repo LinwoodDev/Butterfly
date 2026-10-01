@@ -47,6 +47,7 @@ class ProjectPage extends StatefulWidget {
   final bool absolute;
   final bool isNewDocument;
   final AssetLocation? location;
+  final String? initialDirectory;
   final Embedding? embedding;
   final String type;
   final Object? data;
@@ -55,6 +56,7 @@ class ProjectPage extends StatefulWidget {
   const ProjectPage({
     super.key,
     this.location,
+    this.initialDirectory,
     this.embedding,
     this.type = '',
     this.data,
@@ -124,6 +126,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void didUpdateWidget(ProjectPage oldWidget) {
     if (oldWidget.location != widget.location ||
+        oldWidget.initialDirectory != widget.initialDirectory ||
         oldWidget.absolute != widget.absolute ||
         oldWidget.isNewDocument != widget.isNewDocument ||
         oldWidget.type != widget.type ||
@@ -155,6 +158,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final windowCubit = context.read<WindowCubit>();
     final fileSystem = context.read<ButterflyFileSystem>();
     var location = widget.location;
+    var initialDirectory = widget.initialDirectory;
     final absolute = widget.absolute;
     final remote = settingsCubit.getRemote(location?.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
@@ -406,6 +410,7 @@ class _ProjectPageState extends State<ProjectPage> {
             name: name,
             createdAt: DateTime.now(),
           );
+          initialDirectory ??= template.getMetadata()?.directory;
         }
       }
       await context.read<FontService>().loadFonts(document);
@@ -418,6 +423,13 @@ class _ProjectPageState extends State<ProjectPage> {
         path: embedding?.fileName ?? widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
+      if (!absolute &&
+          embedding == null &&
+          !location.isEmpty &&
+          (!documentOpened || !(location.fileType?.isNote() ?? false))) {
+        initialDirectory = documentOpened ? location.parent : location.path;
+        location = location.copyWith(path: '');
+      }
       final persistDocumentState = embedding == null;
       final pathKey = persistDocumentState
           ? documentStatePathKeyOrNull(
@@ -527,6 +539,7 @@ class _ProjectPageState extends State<ProjectPage> {
         embedding: embedding,
         networkingService: networkingService,
         editorSessionCubit: editorSessionCubit,
+        initialDirectory: initialDirectory,
         absolute: absolute,
       );
       final bloc = DocumentBloc(

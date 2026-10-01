@@ -25,6 +25,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:synchronized/synchronized.dart';
 
 import '../actions/export.dart';
 import '../actions/image_export.dart';
@@ -123,6 +124,7 @@ class _AppBarTitle extends StatefulWidget {
 }
 
 class _AppBarTitleState extends State<_AppBarTitle> {
+  final _nameSubmitLock = Lock();
   final TextEditingController _nameController = .new(),
       _areaController = TextEditingController();
   final FocusNode _nameFocusNode = .new(), _areaFocusNode = FocusNode();
@@ -135,6 +137,74 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     _areaFocusNode.dispose();
     super.dispose();
   }
+
+  String _titleFilePath(
+    DocumentState state,
+    EditorController controller,
+    String name,
+  ) {
+    if (state is! DocumentLoaded) return name;
+    final location = controller.saveCubit.state.location;
+    return state.fileSystem
+        .buildDocumentSystem(
+          controller.settingsCubit.getRemote(location.remote),
+        )
+        .convertNameToFileSystem(
+          name: name,
+          suffix: location.fileType == .textNote ? '.tbfly' : '.bfly',
+          directory: location.parent,
+        );
+  }
+
+  Future<void> _submitTitle(
+    DocumentBloc bloc,
+    String? value, {
+    Area? area,
+    String? areaName,
+  }) => _nameSubmitLock.synchronized(() async {
+    final submitted =
+        value ?? (area == null ? _nameController.text : _areaController.text);
+    final currentState = bloc.state;
+    if (currentState is! DocumentLoadSuccess) return;
+    if (area != null && areaName != null) {
+      bloc.add(AreaChanged(areaName, area.copyWith(name: submitted)));
+      return;
+    }
+    if (submitted == currentState.metadata.name) return;
+    final controller = bloc.editorController;
+    final saveState = controller.saveCubit.state;
+    if (saveState.embedding != null) {
+      bloc.add(DocumentDescriptionChanged(name: submitted));
+      return;
+    }
+    final location = saveState.location;
+    if (saveState.isCreating && (location.fileType?.isNote() ?? false)) {
+      final savedLocation = await controller.saveCubit.save(
+        bloc,
+        controller.networkingService,
+        location: location.copyWith(
+          path: _titleFilePath(currentState, controller, submitted),
+        ),
+        name: submitted,
+        force: true,
+        editorSessionCubit: controller.editorSessionCubit,
+      );
+      if (!location.isEmpty &&
+          !savedLocation.isEmpty &&
+          (location.path != savedLocation.path ||
+              location.remote != savedLocation.remote)) {
+        final documentSystem = currentState.fileSystem.buildDocumentSystem(
+          controller.settingsCubit.getRemote(location.remote),
+        );
+        await documentSystem.deleteAsset(location.path);
+        await controller.settingsCubit.moveAssetReferences(
+          location,
+          savedLocation,
+        );
+      }
+    }
+    bloc.add(DocumentDescriptionChanged(name: submitted));
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -259,64 +329,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
             builder: (context, snapshot) {
               return StatefulBuilder(
                 builder: (context, setState) {
-                  String toFilePath(String name) {
-                    if (state is! DocumentLoaded) return name;
-                    final location = currentIndex.location;
-                    return state.fileSystem
-                        .buildDocumentSystem(
-                          settings.getRemote(location.remote),
-                        )
-                        .convertNameToFileSystem(
-                          name: name,
-                          suffix: '.bfly',
-                          directory: location.parent,
-                        );
-                  }
-
-                  Future<void> submit(String? value) async {
-                    value ??= area == null
-                        ? _nameController.text
-                        : _areaController.text;
-                    if (area == null && currentIndex.embedding != null) {
-                      bloc.add(DocumentDescriptionChanged(name: value));
-                      return;
-                    }
-                    if (area == null || areaName == null) {
-                      final cubit = context.read<EditorController>();
-                      final location = cubit.saveCubit.state.location;
-                      if (state is DocumentLoadSuccess &&
-                          currentIndex.isCreating) {
-                        final newLocation = location.copyWith(
-                          path: toFilePath(value),
-                        );
-                        final savedLocation = await cubit.saveCubit.save(
-                          bloc,
-                          cubit.networkingService,
-                          location: newLocation,
-                          force: true,
-                          editorSessionCubit: cubit.editorSessionCubit,
-                        );
-                        if (!location.isEmpty &&
-                            !savedLocation.isEmpty &&
-                            (location.path != savedLocation.path ||
-                                location.remote != savedLocation.remote)) {
-                          final documentSystem = state.fileSystem
-                              .buildDocumentSystem(
-                                settings.getRemote(location.remote),
-                              );
-                          await documentSystem.deleteAsset(location.path);
-                          await context
-                              .read<SettingsCubit>()
-                              .moveAssetReferences(location, savedLocation);
-                        }
-                      }
-                      bloc.add(DocumentDescriptionChanged(name: value));
-                    } else {
-                      bloc.add(
-                        AreaChanged(areaName, area.copyWith(name: value)),
-                      );
-                    }
-                  }
+                  Future<void> submit(String? value) =>
+                      _submitTitle(bloc, value, area: area, areaName: areaName);
 
                   Widget title = Column(
                     mainAxisAlignment: .start,
@@ -355,7 +369,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             _nameFocusNode,
                           ]),
                           builder: (context, child) {
-                            final currentNameFilePath = toFilePath(
+                            final currentNameFilePath = _titleFilePath(
+                              state,
+                              cubit,
                               _nameController.text,
                             );
                             var showCurrentNameFilePath =

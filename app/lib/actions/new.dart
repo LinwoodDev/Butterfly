@@ -72,10 +72,12 @@ Future<void> openNewDocument(
 }) async {
   NoteData? document;
   String? path;
+  String? directory;
   var targetRemote = remote;
   if (template != null) {
     final settings = context.read<SettingsCubit>().state;
-    final templatePattern = template.getMetadata()?.fileName.trim() ?? '';
+    final metadata = template.getMetadata();
+    final templatePattern = metadata?.fileName.trim() ?? '';
     var documentName = '';
     var shouldAutoSave = autoSave;
     if (templatePattern.isNotEmpty) {
@@ -92,9 +94,8 @@ Future<void> openNewDocument(
           .setPage(page.copyWith(areas: [...page.areas, initialArea]))
           .$1;
     }
-    final metadata = document.getMetadata();
     if (metadata != null) {
-      path = metadata.directory;
+      directory = metadata.directory;
       final storage = settings.getRemote(targetRemote);
       document = addConnectionPasswordToNoteData(storage, document);
       if (shouldAutoSave) {
@@ -103,12 +104,13 @@ Future<void> openNewDocument(
             .buildDocumentSystem(storage);
         try {
           final created = await fileSystem.createFileWithName(
-            directory: path,
-            name: metadata.name,
+            directory: directory,
+            name: document.name,
             suffix: '.bfly',
             document.toFile(),
           );
           path = created.path;
+          directory = null;
           targetRemote = storage?.identifier ?? '';
         } catch (error, stackTrace) {
           talker.warning(
@@ -121,7 +123,11 @@ Future<void> openNewDocument(
     }
   }
   if (!context.mounted) return;
-  final queryParams = <String, String>{'path': ?path, 'remote': ?targetRemote};
+  final queryParams = <String, String>{
+    'path': ?path,
+    'directory': ?directory,
+    'remote': ?targetRemote,
+  };
   if (replace) {
     GoRouter.of(context)
         .goNamed('new', queryParameters: queryParams, extra: document);

@@ -43,6 +43,7 @@ class EditorController(
   Embedding? embedding,
   var NetworkingService? _networkingService,
   final EditorSessionCubit? editorSessionCubit,
+  String? initialDirectory,
   bool absolute = false,
 }) implements EditorRuntimeContext {
   final FocusNode focusNode = .new();
@@ -62,7 +63,8 @@ class EditorController(
   final EditorInputCubit inputCubit = .new(settingsCubit);
   final DocumentSaveCubit saveCubit = .new(
     settingsCubit,
-    DocumentSaveState(
+    initialDirectory: initialDirectory,
+    initial: DocumentSaveState(
       embedding: embedding,
       fullScreen: embedding?.fullScreen.initialLayout ?? false,
       saved: absolute ? .absoluteRead : .saved,

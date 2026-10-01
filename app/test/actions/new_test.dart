@@ -40,6 +40,7 @@ void main() {
   late MockButterflyFileSystem fileSystem;
   late GoRouter router;
   String? openedPath;
+  String? openedDirectory;
   String? openedRemote;
   Object? openedData;
 
@@ -49,6 +50,7 @@ void main() {
     settingsCubit = MockSettingsCubit();
     fileSystem = MockButterflyFileSystem(settingsCubit: settingsCubit);
     openedPath = null;
+    openedDirectory = null;
     openedRemote = null;
     openedData = null;
 
@@ -82,6 +84,7 @@ void main() {
           path: '/new',
           builder: (context, state) {
             openedPath = state.uri.queryParameters['path'];
+            openedDirectory = state.uri.queryParameters['directory'];
             openedRemote = state.uri.queryParameters['remote'];
             openedData = state.extra;
             return const Scaffold(body: Text('Opened'));
@@ -118,6 +121,7 @@ void main() {
 
     expect(find.text('Opened'), findsOneWidget);
     expect(openedPath, endsWith('journals/Journal entry.bfly'));
+    expect(openedDirectory, isNull);
     expect(openedRemote, '');
     expect((openedData as NoteData).getMetadata()?.name, 'Journal entry');
 
@@ -274,7 +278,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Opened'), findsOneWidget);
-    expect(openedPath, 'journals');
+    expect(openedPath, isNull);
+    expect(openedDirectory, 'journals');
     expect(openedRemote, isNull);
     expect((openedData as NoteData).getMetadata()?.name, 'Fallback note');
   });
@@ -301,7 +306,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Opened'), findsOneWidget);
-    expect(openedPath, 'journals');
+    expect(openedPath, isNull);
+    expect(openedDirectory, 'journals');
     expect((openedData as NoteData).getMetadata()?.name, 'Template note');
     verifyNever(
       () => documentSystem.createFileWithName(

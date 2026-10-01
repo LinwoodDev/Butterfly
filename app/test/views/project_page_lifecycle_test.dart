@@ -133,6 +133,7 @@ void main() {
     String embedFileName = '',
     EmbedFullScreen embedFullScreen = EmbedFullScreen.enabled,
     Object? importData,
+    bool readLocalFile = false,
   }) {
     final document =
         embedDocument ??
@@ -167,10 +168,22 @@ void main() {
               builder: (context, state) {
                 final path = state.pathParameters['path'] ?? '';
                 return ProjectPage(
-                  data: state.extra ?? document,
+                  data: readLocalFile ? null : state.extra ?? document,
                   location: AssetLocation.local(path),
                 );
               },
+            ),
+            GoRoute(
+              name: 'new',
+              path: 'new',
+              builder: (context, state) => ProjectPage(
+                data: state.extra ?? document,
+                isNewDocument: true,
+                initialDirectory: state.uri.queryParameters['directory'],
+                location: AssetLocation.local(
+                  state.uri.queryParameters['path'] ?? '',
+                ),
+              ),
             ),
             GoRoute(
               path: 'import',
@@ -584,6 +597,256 @@ void main() {
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
   });
+
+  testWidgets('extensionless notes autosave as bfly in their parent', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        delayedAutosave: false,
+      ),
+    );
+    final original = DocumentDefaults.createDocument(name: 'Important note');
+    await fileSystem.buildDocumentSystem().updateFile(
+      '/notes/Important note',
+      original.toFile(),
+    );
+    await tester.pumpWidget(buildApp(readLocalFile: true));
+    router.go('/local/notes/Important note');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'extensionless document open',
+    );
+    await tester.pump(const Duration(seconds: 1));
+    final bloc = observer.lastDocumentBloc!;
+    expect(bloc.editorController.saveCubit.state.location.isEmpty, isTrue);
+    expect((bloc.state as DocumentLoadSuccess).metadata.directory, isEmpty);
+
+    bloc.add(const DocumentDescriptionChanged(name: 'Edited important note'));
+    await pumpUntil(
+      tester,
+      () =>
+          bloc.editorController.saveCubit.state.location.path ==
+              '/notes/Edited important note.bfly' &&
+          bloc.editorController.saveCubit.state.saved == SaveState.saved,
+      'extensionless document autosave',
+    );
+
+    final saved = await fileSystem.buildDocumentSystem().getAsset(
+      '/notes/Edited important note.bfly',
+    );
+    expect(saved, isA<FileSystemFile<NoteFile>>());
+    expect(
+      (saved as FileSystemFile<NoteFile>).data?.load()?.name,
+      'Edited important note',
+    );
+    expect(saved.data?.load()?.getMetadata()?.directory, isEmpty);
+    expect(
+      await fileSystem.buildDocumentSystem().getAsset('/notes/Important note'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('new documents retain their target save folder', (tester) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        delayedAutosave: false,
+      ),
+    );
+    await tester.pumpWidget(buildApp());
+    router.go('/new?directory=/notebook');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'new document open',
+    );
+    await tester.pump(const Duration(seconds: 1));
+    final bloc = observer.lastDocumentBloc!;
+    expect(bloc.editorController.saveCubit.state.isCreating, isTrue);
+
+    bloc.add(const DocumentDescriptionChanged(name: 'Created note'));
+    await pumpUntil(
+      tester,
+      () =>
+          bloc.editorController.saveCubit.state.location.path ==
+              '/notebook/Created note.bfly' &&
+          bloc.editorController.saveCubit.state.saved == SaveState.saved,
+      'new document autosave',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('new documents can target a folder ending in .bfly', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        delayedAutosave: false,
+      ),
+    );
+    final document = DocumentDefaults.createDocument(name: 'Created note');
+    await tester.pumpWidget(
+      buildApp(
+        embedDocument: document.setMetadata(
+          document.getMetadata()!.copyWith(directory: '/template-only'),
+        ),
+      ),
+    );
+    router.go('/new?directory=/notebook.bfly');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'new document open',
+    );
+    await tester.pump(const Duration(seconds: 1));
+    final bloc = observer.lastDocumentBloc!;
+    expect(bloc.editorController.saveCubit.state.location.isEmpty, isTrue);
+    expect(
+      (bloc.state as DocumentLoadSuccess).metadata.directory,
+      '/template-only',
+    );
+    bloc.add(const DocumentDescriptionChanged(name: 'Saved note'));
+    await pumpUntil(
+      tester,
+      () =>
+          bloc.editorController.saveCubit.state.location.path ==
+              '/notebook.bfly/Saved note.bfly' &&
+          bloc.editorController.saveCubit.state.saved == SaveState.saved,
+      'new document autosave',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets(
+    'editing a new title preserves the target folder and its other notes',
+    (tester) async {
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(defaultTemplate: 'default', autosave: false),
+      );
+      when(
+        () => settingsCubit.moveAssetReferences(
+          any(),
+          any(),
+          directory: any(named: 'directory'),
+        ),
+      ).thenAnswer((_) async {});
+      final sibling = DocumentDefaults.createDocument(
+        name: 'Keep this important note',
+      );
+      await fileSystem.buildDocumentSystem().updateFile(
+        '/notebook/Other.bfly',
+        sibling.toFile(),
+      );
+      await tester.pumpWidget(buildApp());
+      router.go('/new?directory=/notebook');
+      await pumpUntil(
+        tester,
+        () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+        'new document',
+      );
+      await tester.pump(const Duration(seconds: 1));
+      final bloc = observer.lastDocumentBloc!;
+      expect(bloc.editorController.saveCubit.state.isCreating, isTrue);
+      final titleField = find.byWidgetPredicate(
+        (widget) =>
+            widget is TextFormField &&
+            widget.controller?.text == 'Lifecycle test',
+      );
+      expect(titleField, findsOneWidget);
+      await tester.enterText(titleField, 'Renamed');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await pumpUntil(
+        tester,
+        () => (bloc.state as DocumentLoadSuccess).metadata.name == 'Renamed',
+        'title rename',
+      );
+      await tester.runAsync(() => bloc.save(force: true));
+      final surviving = await fileSystem.buildDocumentSystem().getAsset(
+        '/notebook/Other.bfly',
+      );
+      expect(
+        surviving,
+        isA<FileSystemFile<NoteFile>>(),
+        reason: 'Title rename must not recursively delete the selected folder',
+      );
+      expect(
+        bloc.editorController.saveCubit.state.location.path,
+        '/notebook/Renamed.bfly',
+      );
+    },
+  );
+
+  testWidgets(
+    'title rename preserves conflicting notes and handles duplicate submissions',
+    (tester) async {
+      var referencesMoved = false;
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(defaultTemplate: 'default', autosave: false),
+      );
+      when(
+        () => settingsCubit.moveAssetReferences(
+          any(),
+          any(),
+          directory: any(named: 'directory'),
+        ),
+      ).thenAnswer((_) async {
+        referencesMoved = true;
+      });
+      final system = fileSystem.buildDocumentSystem();
+      await system.updateFile(
+        '/notebook/Existing.bfly',
+        DocumentDefaults.createDocument(name: 'Keep this note').toFile(),
+      );
+      await tester.pumpWidget(buildApp());
+      router.go('/new?directory=/notebook');
+      await pumpUntil(
+        tester,
+        () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+        'new document',
+      );
+      await tester.pump(const Duration(seconds: 1));
+      final bloc = observer.lastDocumentBloc!;
+      await tester.runAsync(() => bloc.save(force: true));
+      expect(bloc.editorController.saveCubit.state.isCreating, isTrue);
+      final previousLocation = bloc.editorController.saveCubit.state.location;
+      final titleField = find.byWidgetPredicate(
+        (widget) =>
+            widget is TextFormField &&
+            widget.controller?.text == 'Lifecycle test',
+      );
+      await tester.enterText(titleField, 'Existing');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      bloc.editorController.focusNode.requestFocus();
+      await pumpUntil(
+        tester,
+        () =>
+            (bloc.state as DocumentLoadSuccess).metadata.name == 'Existing' &&
+            referencesMoved,
+        'title rename',
+      );
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+        bloc.editorController.saveCubit.state.location.path,
+        '/notebook/Existing (1).bfly',
+      );
+      final original = await system.getAsset(
+        '/notebook/Existing.bfly',
+      ) as FileSystemFile<NoteFile>;
+      expect(original.data!.load()!.name, 'Keep this note');
+      final renamed = await system.getAsset(
+        '/notebook/Existing (1).bfly',
+      ) as FileSystemFile<NoteFile>;
+      expect(renamed.data!.load()!.name, 'Existing');
+      expect(await system.getAsset(previousLocation.path), isNull);
+      expect(await system.getAsset('/notebook/Existing (2).bfly'), isNull);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   testWidgets('backgrounding flushes a delayed autosave', (tester) async {
     when(() => settingsCubit.state).thenReturn(

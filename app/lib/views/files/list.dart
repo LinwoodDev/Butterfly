@@ -16,12 +16,6 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/widgets/file_name_display.dart';
 
-String renamedAssetPath(String path, String name) {
-  final index = path.lastIndexOf('/');
-  final parent = path.substring(0, index < 0 ? 0 : index);
-  return '$parent/$name';
-}
-
 class FileSyncStatusButton extends StatelessWidget {
   final RemoteStorage remote;
   final AssetLocation location;
@@ -298,26 +292,12 @@ class FileEntityListTile extends StatelessWidget {
                                       autofocus: true,
                                       style: TextTheme.of(context).labelLarge,
                                       onSubmitted: (value) async {
-                                        await documentSystem.renameAsset(
-                                          entity.location.path,
+                                        await renameDocumentAsset(
+                                          documentSystem,
+                                          fileSystem.settingsCubit,
+                                          entity,
                                           value,
                                         );
-                                        await fileSystem.settingsCubit
-                                            .moveAssetReferences(
-                                              entity.location,
-                                              AssetLocation(
-                                                remote: entity.location.remote,
-                                                path: renamedAssetPath(
-                                                  entity.location.path,
-                                                  value,
-                                                ),
-                                              ),
-                                              directory:
-                                                  entity
-                                                      is FileSystemDirectory<
-                                                        NoteFile
-                                                      >,
-                                            );
                                         onEdit(false);
                                         onReload();
                                       },
@@ -339,27 +319,12 @@ class FileEntityListTile extends StatelessWidget {
                                               onEdit(false);
                                               return;
                                             }
-                                            await documentSystem.renameAsset(
-                                              entity.location.path,
+                                            await renameDocumentAsset(
+                                              documentSystem,
+                                              fileSystem.settingsCubit,
+                                              entity,
                                               nameController.text,
                                             );
-                                            await fileSystem.settingsCubit
-                                                .moveAssetReferences(
-                                                  entity.location,
-                                                  AssetLocation(
-                                                    remote:
-                                                        entity.location.remote,
-                                                    path: renamedAssetPath(
-                                                      entity.location.path,
-                                                      nameController.text,
-                                                    ),
-                                                  ),
-                                                  directory:
-                                                      entity
-                                                          is FileSystemDirectory<
-                                                            NoteFile
-                                                          >,
-                                                );
                                             onEdit(false);
                                             onReload();
                                           },

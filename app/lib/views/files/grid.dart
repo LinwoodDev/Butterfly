@@ -205,22 +205,11 @@ class FileEntityGridItem extends StatelessWidget {
                                   autofocus: true,
                                   style: TextTheme.of(context).labelLarge,
                                   onSubmitted: (value) async {
-                                    await documentSystem.renameAsset(
-                                      entity.location.path,
+                                    await renameDocumentAsset(
+                                      documentSystem,
+                                      settingsCubit,
+                                      entity,
                                       value,
-                                    );
-                                    await settingsCubit.moveAssetReferences(
-                                      entity.location,
-                                      AssetLocation(
-                                        remote: entity.location.remote,
-                                        path: renamedAssetPath(
-                                          entity.location.path,
-                                          value,
-                                        ),
-                                      ),
-                                      directory:
-                                          entity
-                                              is FileSystemDirectory<NoteFile>,
                                     );
                                     onEdit(false);
                                     onReload();
@@ -231,24 +220,11 @@ class FileEntityGridItem extends StatelessWidget {
                                         .enterText,
                                     suffix: IconButton(
                                       onPressed: () async {
-                                        await documentSystem.renameAsset(
-                                          entity.location.path,
+                                        await renameDocumentAsset(
+                                          documentSystem,
+                                          settingsCubit,
+                                          entity,
                                           nameController.text,
-                                        );
-                                        await settingsCubit.moveAssetReferences(
-                                          entity.location,
-                                          AssetLocation(
-                                            remote: entity.location.remote,
-                                            path: renamedAssetPath(
-                                              entity.location.path,
-                                              nameController.text,
-                                            ),
-                                          ),
-                                          directory:
-                                              entity
-                                                  is FileSystemDirectory<
-                                                    NoteFile
-                                                  >,
                                         );
                                         onEdit(false);
                                         onReload();

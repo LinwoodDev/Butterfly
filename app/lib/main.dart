@@ -201,6 +201,7 @@ class ButterflyApp extends StatelessWidget {
                   .defaultRemote;
               return ProjectPage(
                 data: state.extra,
+                initialDirectory: state.uri.queryParameters['directory'],
                 isNewDocument:
                     state.extra != null ||
                     (state.uri.queryParameters['path']?.isEmpty ?? true),
