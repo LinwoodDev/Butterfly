@@ -58,6 +58,24 @@ lib
 * The `setup.dart` file is used to define the general settings. Here the licenses is defined.
 * The `theme.dart` file is used to define the general theme of the app. Here the colors and the text styles are defined of the classic theme and all themes gets fetched from here.
 
+## Android 16 KB page-size checks
+
+After building an APK or App Bundle, run from the repository root:
+
+```bash
+dart pub get -C tools
+dart run tools/check_android_page_sizes.dart app/build/app/outputs/flutter-apk/app-production-release.apk
+dart run tools/check_android_page_sizes.dart app/build/app/outputs/bundle/productionRelease/app-production-release.aab
+```
+
+The Dart checker checks every LOAD segment
+in every arm64-v8a and x86_64 shared library, including dependency libraries and
+App Bundle feature modules. It also checks the ZIP offsets of uncompressed APK
+libraries and the bundle's requested native-library alignment. Compressed legacy
+APKs still need compatible ELF segments; 32-bit ABIs are exempt from this check.
+CI runs this check on universal and split APKs in both packaging modes and on
+the Play App Bundle.
+
 ## Rebuilding assets
 
 To rebuild the splash screen use:

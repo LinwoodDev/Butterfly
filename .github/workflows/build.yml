@@ -53,6 +53,7 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
+          dart pub get -C ../tools
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -83,6 +84,11 @@ jobs:
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
+      - name: Check universal APKs for 16 KB page support
+        working-directory: .
+        run: |
+          dart run tools/check_android_page_sizes.dart \
+            app/linwood-butterfly-android.apk app/linwood-butterfly-android-legacy.apk
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -121,6 +127,20 @@ jobs:
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64-legacy.apk
+      - name: Check split APKs for 16 KB page support
+        working-directory: .
+        run: |
+          dart run tools/check_android_page_sizes.dart \
+            app/linwood-butterfly-android-arm.apk app/linwood-butterfly-android-arm-legacy.apk \
+            app/linwood-butterfly-android-arm64.apk app/linwood-butterfly-android-arm64-legacy.apk \
+            app/linwood-butterfly-android-x86_64.apk app/linwood-butterfly-android-x86_64-legacy.apk
+      - name: Build Play bundle
+        run: flutter build appbundle -v --release --flavor "$BUILD_FLAVOR"
+      - name: Check Play bundle for 16 KB page support
+        working-directory: .
+        run: |
+          dart run tools/check_android_page_sizes.dart \
+            "app/build/app/outputs/bundle/${BUILD_FLAVOR}Release/app-${BUILD_FLAVOR}-release.aab"
       - name: 📊 Analyze nightly Android arm64 size
         if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
