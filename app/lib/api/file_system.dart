@@ -84,33 +84,31 @@ typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 typedef DocumentStateFileSystem = TypedKeyFileSystem<PersistedDocumentState>;
 
-Future<void> renameDocumentAsset(
+Future<FileSystemEntity<NoteFile>?> renameDocumentAsset(
   DocumentFileSystem fileSystem,
   SettingsCubit settingsCubit,
   FileSystemEntity<NoteFile> asset,
   String name,
 ) async {
-  if (asset is FileSystemFile<NoteFile> &&
-      (asset.location.fileType?.isNote() ?? false)) {
-    final suffix = '.${asset.fileExtension}';
-    if (!name.toLowerCase().endsWith(suffix.toLowerCase())) {
-      name += suffix;
-    }
-  }
   var path = fileSystem.convertNameToFileSystem(
     name: name,
+    suffix: asset is FileSystemFile<NoteFile> && asset.fileExtension.isNotEmpty
+        ? '.${asset.fileExtension}'
+        : null,
     directory: asset.location.parent,
   );
-  if (fileSystem.normalizePath(path) != fileSystem.normalizePath(asset.path)) {
-    path = await fileSystem.findAvailableName(path);
+  if (fileSystem.normalizePath(path) == fileSystem.normalizePath(asset.path)) {
+    return asset;
   }
+  path = await fileSystem.findAvailableName(path);
   final renamed = await fileSystem.moveAsset(asset.path, path);
-  if (renamed == null) return;
+  if (renamed == null) return null;
   await settingsCubit.moveAssetReferences(
     asset.location,
     renamed.location,
     directory: asset is FileSystemDirectory<NoteFile>,
   );
+  return renamed;
 }
 
 const kCorePackFileName = 'Core.bfly';

@@ -16,8 +16,9 @@ class FileEntityGridItem extends StatelessWidget {
   final bool? selected;
   final Widget actionButton;
   final PhosphorIconData icon;
-  final VoidCallback onTap, onDelete, onReload;
+  final VoidCallback onTap, onDelete;
   final ValueChanged<bool> onEdit, onSelectedChanged;
+  final Future<void> Function(String) onRename;
   final Uint8List? thumbnail;
   final FileSystemEntity<NoteFile> entity;
   final TextEditingController nameController;
@@ -34,8 +35,8 @@ class FileEntityGridItem extends StatelessWidget {
     required this.icon,
     required this.onTap,
     required this.onDelete,
-    required this.onReload,
     required this.onEdit,
+    required this.onRename,
     required this.onSelectedChanged,
     this.thumbnail,
     required this.entity,
@@ -49,7 +50,6 @@ class FileEntityGridItem extends StatelessWidget {
     final fileSystem = context.read<ButterflyFileSystem>();
     final settingsCubit = fileSystem.settingsCubit;
     final remote = settingsCubit.getRemote(entity.location.remote);
-    final documentSystem = fileSystem.buildDocumentSystem(remote);
     final leading = Align(
       alignment: Alignment.bottomCenter,
       child: PhosphorIcon(icon, color: colorScheme.outline, size: 48),
@@ -204,31 +204,14 @@ class FileEntityGridItem extends StatelessWidget {
                                   controller: nameController,
                                   autofocus: true,
                                   style: TextTheme.of(context).labelLarge,
-                                  onSubmitted: (value) async {
-                                    await renameDocumentAsset(
-                                      documentSystem,
-                                      settingsCubit,
-                                      entity,
-                                      value,
-                                    );
-                                    onEdit(false);
-                                    onReload();
-                                  },
+                                  onSubmitted: onRename,
                                   decoration: InputDecoration(
                                     filled: true,
                                     hintText: AppLocalizations.of(context)
                                         .enterText,
                                     suffix: IconButton(
-                                      onPressed: () async {
-                                        await renameDocumentAsset(
-                                          documentSystem,
-                                          settingsCubit,
-                                          entity,
-                                          nameController.text,
-                                        );
-                                        onEdit(false);
-                                        onReload();
-                                      },
+                                      onPressed: () =>
+                                          onRename(nameController.text),
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.check,
                                         textDirection: .ltr,
@@ -244,10 +227,7 @@ class FileEntityGridItem extends StatelessWidget {
                                 child: Tooltip(
                                   message: entity.fileName,
                                   child: GestureDetector(
-                                    onDoubleTap: () {
-                                      onEdit(true);
-                                      nameController.text = entity.fileName;
-                                    },
+                                    onDoubleTap: () => onEdit(true),
                                     child: FileNameDisplay(
                                       entity: entity,
                                       style: TextTheme.of(context).labelLarge,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
@@ -63,7 +65,8 @@ class FilesViewState extends State<FilesView> {
   ExternalStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
-  Stream<FileSystemEntity<NoteFile>?>? _filesStream;
+  BehaviorSubject<FileSystemEntity<NoteFile>?>? _filesStream;
+  StreamSubscription<FileSystemEntity<NoteFile>?>? _filesSubscription;
   final Set<String> _selectedFiles = {};
 
   @override
@@ -83,6 +86,8 @@ class FilesViewState extends State<FilesView> {
 
   @override
   void dispose() {
+    _filesSubscription?.cancel();
+    _filesStream?.close();
     _locationController.dispose();
     super.dispose();
   }
@@ -113,26 +118,88 @@ class FilesViewState extends State<FilesView> {
     .modified => PhosphorIconsLight.clock,
   };
 
-  void _setFilesStream() {
+  void _setFilesStream({FileSystemEntity<NoteFile>? initialData}) {
+    _filesSubscription?.cancel();
+    _filesStream?.close();
+    if (initialData == null) _selectedFiles.clear();
     _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
-    _filesStream = ValueConnectableStream(
-      _documentSystem.fetchAsset(
-        _locationController.text,
-        readData:
-            widget.onPreview != null || _settingsCubit.state.showThumbnails,
-      ),
-    ).autoConnect();
+    final files = initialData == null
+        ? BehaviorSubject<FileSystemEntity<NoteFile>?>()
+        : BehaviorSubject<FileSystemEntity<NoteFile>?>.seeded(initialData);
+    _filesStream = files;
+    FileSystemEntity<NoteFile>? latest = initialData;
+    _filesSubscription = _documentSystem
+        .fetchAsset(
+          _locationController.text,
+          readData:
+              widget.onPreview != null || _settingsCubit.state.showThumbnails,
+        )
+        .listen(
+          (asset) => latest = asset,
+          onError: files.addError,
+          cancelOnError: true,
+          onDone: () {
+            // fetchAsset emits partial directories before the complete listing.
+            if (files.isClosed) return;
+            final entity = latest;
+            if (_selectedFiles.isNotEmpty) {
+              setState(
+                () => _selectedFiles.retainAll(
+                  entity is FileSystemDirectory<NoteFile>
+                      ? entity.assets.map((asset) => asset.path)
+                      : const <String>[],
+                ),
+              );
+            }
+            files.add(entity);
+          },
+        );
     _templatesFuture = _templateSystem.initialize().then(
       (_) => _templateSystem.getFiles(),
     );
   }
 
   void reloadFileSystem() {
+    if (!mounted) return;
     _recentFilesKey.currentState?.reload();
-    if (mounted) {
-      setState(_setFilesStream);
+    final current = _filesStream?.valueOrNull;
+    final sameDirectory =
+        current != null &&
+        current.remote == (_remote?.identifier ?? '') &&
+        _documentSystem.normalizePath(current.path) ==
+            _documentSystem.normalizePath(_locationController.text);
+    setState(
+      () => _setFilesStream(initialData: sameDirectory ? current : null),
+    );
+  }
+
+  void _updateAsset(
+    AssetLocation original,
+    FileSystemEntity<NoteFile>? replacement,
+  ) {
+    if (!mounted) return;
+    final directory = _filesStream?.valueOrNull;
+    if (directory is! FileSystemDirectory<NoteFile> ||
+        directory.remote != original.remote ||
+        _documentSystem.normalizePath(directory.path) !=
+            _documentSystem.normalizePath(original.parent)) {
+      return;
     }
+    // A pending refresh must not overwrite a successful file change.
+    _filesSubscription?.cancel();
+    _filesSubscription = null;
+    final assets = directory.assets
+        .where((asset) => asset.location != original)
+        .toList();
+    if (replacement != null) assets.add(replacement);
+    if (_selectedFiles.contains(original.path)) {
+      setState(() {
+        _selectedFiles.remove(original.path);
+        if (replacement != null) _selectedFiles.add(replacement.path);
+      });
+    }
+    _filesStream!.add(directory.withAssets(assets));
   }
 
   Future<void> _createFile(
@@ -140,6 +207,7 @@ class FilesViewState extends State<FilesView> {
     bool isTextBased = false,
   }) async {
     template ??= await DocumentDefaults.createTemplate();
+    if (!mounted) return;
     final name = await showDialog<String>(
       context: context,
       builder: (context) =>
@@ -147,6 +215,7 @@ class FilesViewState extends State<FilesView> {
     );
     if (name == null) return;
     final path = _locationController.text;
+    final remote = _remote;
     final file = await _documentSystem.createFileWithName(
       directory: path,
       name: name,
@@ -157,7 +226,7 @@ class FilesViewState extends State<FilesView> {
     if (pathKey != null) {
       try {
         await DocumentStateService(
-          _fileSystem.buildDocumentStateSystem(_remote),
+          _fileSystem.buildDocumentStateSystem(remote),
           settingsProvider: () => _settingsCubit.state.documentStatePersistence,
         ).save(
           const PersistedDocumentState(autoThumbnail: true)
@@ -169,17 +238,21 @@ class FilesViewState extends State<FilesView> {
         debugPrint('Could not save automatic thumbnail setting: $error');
       }
     }
-    reloadFileSystem();
+    _updateAsset(file.location, file);
   }
 
   void _setRemote(ExternalStorage? remote) {
     final storageChanged = _remote?.identifier != remote?.identifier;
+    if (!storageChanged) {
+      _remote = remote;
+      reloadFileSystem();
+      widget.onRemoteChanged?.call(remote);
+      return;
+    }
     setState(() {
       _remote = remote;
-      if (storageChanged) {
-        _locationController.clear();
-        _selectedFiles.clear();
-      }
+      _locationController.clear();
+      _selectedFiles.clear();
       _setFilesStream();
     });
     widget.onRemoteChanged?.call(remote);
@@ -432,13 +505,14 @@ class FilesViewState extends State<FilesView> {
                         previous.starred != current.starred,
                     builder: (context, settings) =>
                         StreamBuilder<FileSystemEntity<NoteFile>?>(
-                          stream: _filesStream,
+                          stream: _filesStream?.stream,
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
                               return Text(snapshot.error.toString());
                             }
                             if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
+                                    ConnectionState.waiting &&
+                                !(_filesStream?.hasValue ?? false)) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
@@ -472,71 +546,55 @@ class FilesViewState extends State<FilesView> {
                               );
                             }
 
-                            generateOnPreview(FileSystemEntity<NoteFile> e) =>
-                                widget.onPreview != null
-                                ? () {
-                                    if (e is! FileSystemFile<NoteFile>) {
-                                      _onFileTap(e);
-                                      return;
-                                    }
-                                    widget.onPreview!(e);
-                                  }
-                                : null;
+                            Widget buildItem(
+                              FileSystemEntity<NoteFile> asset,
+                            ) => FileEntityItem(
+                              key: ValueKey(asset.location),
+                              entity: asset,
+                              active: widget.activeAsset == asset.location,
+                              collapsed: widget.collapsed,
+                              gridView: state.gridView && !widget.collapsed,
+                              isMobile: widget.isMobile,
+                              selected: _selectedFiles.isEmpty
+                                  ? null
+                                  : _selectedFiles.contains(asset.path),
+                              onTap: () => _onFileTap(asset),
+                              onPreview: widget.onPreview == null
+                                  ? null
+                                  : () {
+                                      if (asset is FileSystemFile<NoteFile>) {
+                                        widget.onPreview!(asset);
+                                      } else {
+                                        _onFileTap(asset);
+                                      }
+                                    },
+                              onSelected: _updateSelection(asset.path),
+                              onChanged: (updated) =>
+                                  _updateAsset(asset.location, updated),
+                              onReload: reloadFileSystem,
+                            );
                             if (state.gridView && !widget.collapsed) {
                               return Center(
                                 child: Wrap(
                                   spacing: 4,
                                   runSpacing: 4,
                                   crossAxisAlignment: .start,
-                                  children: assets.map((e) {
-                                    final active =
-                                        widget.activeAsset == e.location;
-                                    return FileEntityItem(
-                                      entity: e,
-                                      isMobile: widget.isMobile,
-                                      active: active,
-                                      collapsed: widget.collapsed,
-                                      onTap: () => _onFileTap(e),
-                                      onPreview: generateOnPreview(e),
-                                      selected: _selectedFiles.isEmpty
-                                          ? null
-                                          : _selectedFiles.contains(
-                                              e.location.path,
-                                            ),
-                                      onSelected: _updateSelection(
-                                        e.location.path,
-                                      ),
-                                      onReload: reloadFileSystem,
-                                      gridView: true,
-                                    );
-                                  }).toList(),
+                                  children: assets.map(buildItem).toList(),
                                 ),
                               );
                             }
                             return ListView.builder(
                               shrinkWrap: true,
                               itemCount: assets.length,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                final e = assets[index];
-                                final active = widget.activeAsset == e.location;
-                                return FileEntityItem(
-                                  entity: e,
-                                  active: active,
-                                  collapsed: widget.collapsed,
-                                  onPreview: generateOnPreview(e),
-                                  selected: _selectedFiles.isEmpty
-                                      ? null
-                                      : _selectedFiles.contains(
-                                          e.location.path,
-                                        ),
-                                  onTap: () => _onFileTap(e),
-                                  onSelected: _updateSelection(e.location.path),
-                                  onReload: reloadFileSystem,
-                                  gridView: false,
-                                  isMobile: widget.isMobile,
+                              findChildIndexCallback: (key) {
+                                final index = assets.indexWhere(
+                                  (asset) => ValueKey(asset.location) == key,
                                 );
+                                return index < 0 ? null : index;
                               },
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (_, index) =>
+                                  buildItem(assets[index]),
                             );
                           },
                         ),
@@ -592,8 +650,9 @@ class FilesViewState extends State<FilesView> {
                           if (name == null) return;
                           final path = _locationController.text;
                           final newPath = '$path/$name';
-                          await _documentSystem.createDirectory(newPath);
-                          reloadFileSystem();
+                          final directory = await _documentSystem
+                              .createDirectory(newPath);
+                          _updateAsset(directory.location, directory);
                         },
                       ),
                       MenuItemButton(
@@ -856,11 +915,8 @@ class FilesViewState extends State<FilesView> {
                             ),
                             tooltip: AppLocalizations.of(context)
                                 .invertSelection,
-                            onPressed: () async {
-                              final directory = await _documentSystem.getAsset(
-                                _locationController.text,
-                                readData: false,
-                              );
+                            onPressed: () {
+                              final directory = _filesStream?.valueOrNull;
                               if (directory is! FileSystemDirectory<NoteFile>) {
                                 return;
                               }
@@ -919,13 +975,7 @@ class FilesViewState extends State<FilesView> {
                                 PhosphorIconsLight.trash,
                               ),
                               tooltip: AppLocalizations.of(context).delete,
-                              onPressed: () async => deleteEntities(
-                                context: context,
-                                entities: _selectedFiles,
-                                documentSystem: _documentSystem,
-                                isMobile: widget.isMobile,
-                                onDelete: reloadFileSystem,
-                              ),
+                              onPressed: () => _deleteSelectedFiles(context),
                             ),
                           ),
                         ],
@@ -935,6 +985,27 @@ class FilesViewState extends State<FilesView> {
                 ),
               ),
             ),
+    );
+  }
+
+  void _deleteSelectedFiles(BuildContext context) {
+    final documentSystem = _documentSystem;
+    deleteEntities(
+      context: context,
+      entities: _selectedFiles,
+      documentSystem: documentSystem,
+      isMobile: widget.isMobile,
+      onDelete: (paths) {
+        for (final path in paths) {
+          _updateAsset(
+            AssetLocation(
+              path: path,
+              remote: documentSystem.storage?.identifier ?? '',
+            ),
+            null,
+          );
+        }
+      },
     );
   }
 
@@ -1022,9 +1093,9 @@ class FilesViewState extends State<FilesView> {
     final location = entity.location;
     if (widget.onTap != null) {
       widget.onTap!(entity);
-    } else {
-      await openFile(context, widget.collapsed, location);
+      return;
     }
+    await openFile(context, widget.collapsed, location);
     if (!widget.collapsed) {
       reloadFileSystem();
     }

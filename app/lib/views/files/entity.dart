@@ -26,6 +26,7 @@ class FileEntityItem extends StatefulWidget {
   final VoidCallback onTap, onReload;
   final VoidCallback? onPreview;
   final ValueChanged<bool> onSelected;
+  final ValueChanged<FileSystemEntity<NoteFile>?> onChanged;
   final bool isMobile;
 
   const FileEntityItem({
@@ -39,6 +40,7 @@ class FileEntityItem extends StatefulWidget {
     required this.onTap,
     required this.onReload,
     required this.onSelected,
+    required this.onChanged,
     this.onPreview,
   });
 
@@ -51,8 +53,9 @@ void deleteEntities({
   required bool isMobile,
   required DocumentFileSystem documentSystem,
   required Set<String> entities,
-  required VoidCallback onDelete,
+  required ValueChanged<Set<String>> onDelete,
 }) {
+  final paths = entities.toSet();
   final colorScheme = ColorScheme.of(context);
   showPopover(
     backgroundColor: colorScheme.surface,
@@ -83,7 +86,7 @@ void deleteEntities({
                 onPressed: () async {
                   final settingsCubit = context.read<SettingsCubit>();
                   Navigator.of(ctx).pop();
-                  for (final entity in entities) {
+                  for (final entity in paths) {
                     await documentSystem.deleteAsset(entity);
                     await settingsCubit.removeRecentHistory(
                       AssetLocation(
@@ -92,7 +95,7 @@ void deleteEntities({
                       ),
                     );
                   }
-                  onDelete();
+                  onDelete(paths);
                 },
                 child: const PhosphorIcon(
                   PhosphorIconsLight.check,
@@ -110,6 +113,7 @@ void deleteEntities({
 class _FileEntityItemState extends State<FileEntityItem> {
   final TextEditingController _nameController = .new();
   bool _editable = false;
+  bool _renaming = false;
 
   @override
   void dispose() {
@@ -160,14 +164,41 @@ class _FileEntityItemState extends State<FileEntityItem> {
             : null;
       }
     } catch (_) {}
-    void onEdit(bool value) => setState(() => _editable = value);
+    void onEdit(bool value) {
+      if (value) {
+        _nameController.text = entity is FileSystemFile<NoteFile>
+            ? entity.fileNameWithoutExtension
+            : entity.fileName;
+      }
+      setState(() => _editable = value);
+    }
+
     void onDelete() => deleteEntities(
       context: context,
       isMobile: widget.isMobile,
       documentSystem: documentSystem,
       entities: {widget.entity.location.path},
-      onDelete: widget.onReload,
+      onDelete: (_) => widget.onChanged(null),
     );
+
+    Future<void> onRename(String name) async {
+      if (_renaming) return;
+      _renaming = true;
+      final onChanged = widget.onChanged;
+      try {
+        final renamed = await renameDocumentAsset(
+          documentSystem,
+          fileSystem.settingsCubit,
+          entity,
+          name,
+        );
+        if (renamed == null) return;
+        if (mounted) onEdit(false);
+        if (!identical(renamed, entity)) onChanged(renamed);
+      } finally {
+        _renaming = false;
+      }
+    }
 
     final draggable = LongPressDraggable<String>(
       data: widget.entity.path,
@@ -190,7 +221,6 @@ class _FileEntityItemState extends State<FileEntityItem> {
         settingsCubit: fileSystem.settingsCubit,
         editable: _editable,
         onEdit: onEdit,
-        nameController: _nameController,
         onDelete: onDelete,
         onReload: widget.onReload,
         documentSystem: documentSystem,
@@ -205,8 +235,8 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 icon: icon,
                 onTap: widget.onPreview ?? widget.onTap,
                 onDelete: onDelete,
-                onReload: widget.onReload,
                 onEdit: onEdit,
+                onRename: onRename,
                 entity: widget.entity,
                 nameController: _nameController,
                 collapsed: widget.collapsed,
@@ -225,6 +255,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 onDelete: onDelete,
                 onReload: widget.onReload,
                 onEdit: onEdit,
+                onRename: onRename,
                 entity: widget.entity,
                 nameController: _nameController,
                 collapsed: widget.collapsed,
@@ -279,7 +310,6 @@ class ContextFileRegion extends StatelessWidget {
   final VoidCallback onReload, onDelete;
   final VoidCallback? onSelect;
   final VoidCallback? onOpen;
-  final TextEditingController nameController;
   final ContextRegionChildBuilder builder;
 
   const ContextFileRegion({
@@ -289,7 +319,6 @@ class ContextFileRegion extends StatelessWidget {
     required this.settingsCubit,
     required this.editable,
     required this.onEdit,
-    required this.nameController,
     required this.onDelete,
     required this.documentSystem,
     required this.onReload,
@@ -382,10 +411,7 @@ class ContextFileRegion extends StatelessWidget {
         ),
         if (!editable)
           MenuItemButton(
-            onPressed: () {
-              if (!hasInvalidFileName(nameController.text)) onEdit(true);
-              nameController.text = entity.fileName;
-            },
+            onPressed: () => onEdit(true),
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),
             child: Text(AppLocalizations.of(context).rename),
           ),

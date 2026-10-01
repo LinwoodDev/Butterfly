@@ -8,6 +8,8 @@
 * Separate pan, zoom, rotation, and scroll sensitivity settings ([#1283](https://github.com/LinwoodDev/Butterfly/issues/1283))
 * Fix temporary hand navigation remaining active after releasing mouse or pen buttons ([#1288](https://github.com/LinwoodDev/Butterfly/issues/1288))
 * Preserve note extensions when renaming, fix saving extensionless notes, and allow retrying failed saves
+* Hide file extensions in rename fields
+* Keep the file view visible when renaming, creating, deleting, or refreshing files
 * Add view state getter and setter to embeds ([#1280](https://github.com/LinwoodDev/Butterfly/issues/1280))
 * Combine zoom and rotation controls with step buttons, angle input and rotation reset ([#1287](https://github.com/LinwoodDev/Butterfly/issues/1287), [#1223](https://github.com/LinwoodDev/Butterfly/issues/1223))
 * Add five zoom panel layouts and rotation display settings ([#1223](https://github.com/LinwoodDev/Butterfly/issues/1223))

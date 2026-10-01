@@ -148,6 +148,7 @@ class FileEntityListTile extends StatelessWidget {
   final PhosphorIconData icon;
   final VoidCallback onTap, onDelete, onReload;
   final ValueChanged<bool> onEdit, onSelectedChanged;
+  final Future<void> Function(String) onRename;
   final Uint8List? thumbnail;
   final FileSystemEntity<NoteFile> entity;
   final TextEditingController nameController;
@@ -166,6 +167,7 @@ class FileEntityListTile extends StatelessWidget {
     required this.onDelete,
     required this.onReload,
     required this.onEdit,
+    required this.onRename,
     required this.onSelectedChanged,
     this.thumbnail,
     required this.entity,
@@ -291,16 +293,7 @@ class FileEntityListTile extends StatelessWidget {
                                       controller: nameController,
                                       autofocus: true,
                                       style: TextTheme.of(context).labelLarge,
-                                      onSubmitted: (value) async {
-                                        await renameDocumentAsset(
-                                          documentSystem,
-                                          fileSystem.settingsCubit,
-                                          entity,
-                                          value,
-                                        );
-                                        onEdit(false);
-                                        onReload();
-                                      },
+                                      onSubmitted: onRename,
                                       textAlignVertical:
                                           TextAlignVertical.center,
                                       decoration: InputDecoration(
@@ -313,21 +306,8 @@ class FileEntityListTile extends StatelessWidget {
                                         hintText: AppLocalizations.of(context)
                                             .enterText,
                                         suffix: IconButton(
-                                          onPressed: () async {
-                                            if (nameController.text ==
-                                                entity.fileName) {
-                                              onEdit(false);
-                                              return;
-                                            }
-                                            await renameDocumentAsset(
-                                              documentSystem,
-                                              fileSystem.settingsCubit,
-                                              entity,
-                                              nameController.text,
-                                            );
-                                            onEdit(false);
-                                            onReload();
-                                          },
+                                          onPressed: () =>
+                                              onRename(nameController.text),
                                           icon: const PhosphorIcon(
                                             PhosphorIconsLight.check,
                                             textDirection: .ltr,
@@ -338,10 +318,7 @@ class FileEntityListTile extends StatelessWidget {
                                       ),
                                     )
                                   : GestureDetector(
-                                      onDoubleTap: () {
-                                        onEdit(true);
-                                        nameController.text = entity.fileName;
-                                      },
+                                      onDoubleTap: () => onEdit(true),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -371,10 +348,7 @@ class FileEntityListTile extends StatelessWidget {
                                 mainAxisSize: .min,
                                 children: [
                                   IconButton(
-                                    onPressed: () {
-                                      onEdit(true);
-                                      nameController.text = entity.fileName;
-                                    },
+                                    onPressed: () => onEdit(true),
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.pencil,
                                     ),
