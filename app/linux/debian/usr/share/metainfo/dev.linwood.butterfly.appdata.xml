@@ -63,277 +63,60 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
-		<release version="2.6.0-rc.3" type="development" date="2026-09-24">
+		<release version="2.6.0" type="stable" date="2026-09-28">
 			<description>
 				<ul>
-					<li>Add explicit raster bounds to offscreen canvas recordings</li>
-					<li>Add more contextual help buttons</li>
-					<li>Fix high-quality image exports being cropped at GPU texture limits (#1269)</li>
-					<li>Fix image exports reusing screen-resolution renderer caches at different quality settings</li>
-					<li>Fix recent file tooltips overlapping file names and refresh thumbnails when their setting changes (#1273)</li>
-					<li>Fix hidden selection transform boxes continuing to catch input after deselection (#1275)</li>
-					<li>Add reset functionality to embeds</li>
+					<li>Fix fractional-pixel mismatch in the viewport cache (#1279)</li>
+					<li>Fix editor state loading and saving across WebDAV connections (#1281)</li>
+					<li>Automatically sync pinned files while the app is open and after reconnecting (#1281)</li>
 				</ul>
 			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.3</url>
+			<url type="details">https://linwood.dev/butterfly/2.6.0</url>
 		</release>
-		<release version="2.6.0-rc.2" type="development" date="2026-09-16">
-			<description>
-				<ul>
-					<li>Show initial document content while PDFs load and repaint once the visible batch is ready</li>
-					<li>Fix strokes disappearing during PDF rendering and stale viewport updates after navigation (#1259)</li>
-					<li>Fix PDF import initialization and loading dialog cleanup after preview failures (#1260)</li>
-					<li>Preserve shared PDFs across page changes, release unused sources, and retry failed asset loads (#1261)</li>
-					<li>Fix rtl icon mirroring on multiple views</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.2</url>
-		</release>
-		<release version="2.6.0-rc.1" type="development" date="2026-09-13">
-			<description>
-				<ul>
-					<li>Add per-page viewport persistence</li>
-					<li>Add table cell range selection with shared formatting controls</li>
-					<li>Respect viewport rotation in element creation, selection, and spacer tools</li>
-					<li>Assign new text and markdown elements to the current collection</li>
-					<li>Improve hit testing for rotated, curved, and zero-size elements</li>
-					<li>Improve table selection, deselection, and border resizing behavior</li>
-					<li>Use sidebar for full screen and disabled navigation rail on desktop (#1256)</li>
-					<li>Navigate to root directory after connection change (#1256)</li>
-					<li>Fix applying backgrounds from custom templates</li>
-					<li>Fix current tool not updated after toolbar change</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.1</url>
-		</release>
-		<release version="2.6.0-rc.0" type="development" date="2026-09-07">
-			<description>
-				<ul>
-					<li>Add full screen embed option and restore missing embed menu items</li>
-					<li>Add setting for default document persistence states (#1249)</li>
-					<li>Improve landscape mobile home page</li>
-					<li>Improve collaboration reliability and user experience</li>
-					<li>Improve responsiveness and add helper text to the add connection dialog</li>
-					<li>Improve pages and areas navigator performance</li>
-					<li>Improve page switching performance for large documents</li>
-					<li>Improve efficiency of file coping and exporting</li>
-					<li>Improve baking performance by testing layer changes before baking</li>
-					<li>Improve eraser performance by clipping strokes directly at the eraser boundary</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-rc.0</url>
-		</release>
-		<release version="2.6.0-beta.6" type="development" date="2026-08-24">
-			<description>
-				<ul>
-					<li>Add whole connection encryption (#1050)</li>
-					<li>Add backup support (#1073)</li>
-					<li>Add constraint and center toggles to the shape toolbar, including horizontal, vertical, and 45° line snapping (#1231)</li>
-					<li>Add runtime exact ruler angle control and preserve ruler placement while toggling (#1230)</li>
-					<li>Add Shift aspect-ratio and Alt centered scaling modifiers everywhere (#1197)</li>
-					<li>Add padding to image and svg export</li>
-					<li>Improve image and SVG import sizing by preserving their native on-screen size (#1222)</li>
-					<li>Improve image and SVG exports with current view transforms, rotation, and polygon rendering (#1233)</li>
-					<li>Use correct nightly branding</li>
-					<li>Fix settings not updating when opened from a document (#1210)</li>
-				</ul>
-			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.0-beta.6</url>
-		</release>
-		<release version="2.6.0-beta.5" type="development" date="2026-08-17" />
-		<release version="2.6.0-beta.4" type="development" date="2026-08-03" />
-		<release version="2.6.0-beta.3" type="development" date="2026-07-27" />
-		<release version="2.6.0-beta.2" type="development" date="2026-07-13" />
-		<release version="2.6.0-beta.1" type="development" date="2026-07-06" />
-		<release version="2.6.0-beta.0" type="development" date="2026-06-22" />
-		<release version="2.6.0" type="stable" date="2026-09-28" />
 		<release version="2.5.5" date="2026-08-10" />
 		<release version="2.5.4" type="stable" date="2026-07-20" />
-		<release version="2.5.3-rc.1" type="development" date="2026-06-05" />
-		<release version="2.5.3-rc.0" type="development" date="2026-06-02" />
 		<release version="2.5.3" date="2026-06-08" />
-		<release version="2.5.2-rc.3" type="development" date="2026-05-20" />
-		<release version="2.5.2-rc.2" type="development" date="2026-05-18" />
-		<release version="2.5.2-rc.1" type="development" date="2026-05-13" />
-		<release version="2.5.2-rc.0" type="development" date="2026-05-06" />
 		<release version="2.5.2" date="2026-05-23" />
-		<release version="2.5.1-rc.2" type="development" date="2026-04-23" />
-		<release version="2.5.1-rc.1" type="development" date="2026-04-20" />
-		<release version="2.5.1-rc.0" type="development" date="2026-04-13" />
 		<release version="2.5.1" date="2026-04-26" />
-		<release version="2.5.0-rc.2" type="development" date="2026-03-30" />
-		<release version="2.5.0-rc.1" type="development" date="2026-03-23" />
-		<release version="2.5.0-rc.0" type="development" date="2026-03-12" />
-		<release version="2.5.0-beta.3" type="development" date="2026-03-05" />
-		<release version="2.5.0-beta.2" type="development" date="2026-02-26" />
-		<release version="2.5.0-beta.1" type="development" date="2026-02-04" />
-		<release version="2.5.0-beta.0" type="development" date="2026-01-14" />
 		<release version="2.5.0" date="2026-04-05" />
 		<release version="2.4.4" date="2026-02-18" />
 		<release version="2.4.3" date="2026-01-22" />
-		<release version="2.4.2-rc.4" type="development" date="2025-12-19" />
-		<release version="2.4.2-rc.3" type="development" date="2025-12-12" />
-		<release version="2.4.2-rc.2" type="development" date="2025-12-04" />
-		<release version="2.4.2-rc.1" type="development" date="2025-11-27" />
-		<release version="2.4.2-rc.0" type="development" date="2025-11-20" />
 		<release version="2.4.2" date="2025-12-24" />
-		<release version="2.4.1-rc.4" type="development" date="2025-11-10" />
-		<release version="2.4.1-rc.3" type="development" date="2025-11-03" />
-		<release version="2.4.1-rc.2" type="development" date="2025-10-29" />
-		<release version="2.4.1-rc.1" type="development" date="2025-10-27" />
-		<release version="2.4.1-rc.0" type="development" date="2025-10-20" />
 		<release version="2.4.1" date="2025-11-13" />
-		<release version="2.4.0-rc.4" type="development" date="2025-09-19" />
-		<release version="2.4.0-rc.3" type="development" date="2025-09-15" />
-		<release version="2.4.0-rc.2" type="development" date="2025-09-12" />
-		<release version="2.4.0-rc.1" type="development" date="2025-09-08" />
-		<release version="2.4.0-rc.0" type="development" date="2025-09-04" />
-		<release version="2.4.0-beta.3" type="development" date="2025-08-28" />
-		<release version="2.4.0-beta.2" type="development" date="2025-08-13" />
-		<release version="2.4.0-beta.1" type="development" date="2025-07-14" />
-		<release version="2.4.0-beta.0" type="development" date="2025-06-18" />
 		<release version="2.4.0" date="2025-09-22" />
 		<release version="2.3.4" date="2025-08-21" />
 		<release version="2.3.3" date="2025-08-01" />
 		<release version="2.3.2" date="2025-06-23" />
-		<release version="2.3.1-rc.1" type="development" date="2025-05-12" />
-		<release version="2.3.1-rc.0" type="development" date="2025-05-05" />
 		<release version="2.3.1" date="2025-06-23" />
-		<release version="2.3.0-rc.1" type="development" date="2025-04-16" />
-		<release version="2.3.0-rc.0" type="development" date="2025-04-13" />
-		<release version="2.3.0-beta.4" type="development" date="2025-03-31" />
-		<release version="2.3.0-beta.3" type="development" date="2025-03-17" />
-		<release version="2.3.0-beta.2" type="development" date="2025-03-04" />
-		<release version="2.3.0-beta.1" type="development" date="2025-01-20" />
-		<release version="2.3.0-beta.0" type="development" date="2025-01-06" />
 		<release version="2.3.0" date="2025-04-20" />
 		<release version="2.2.4" date="2025-01-13" />
-		<release version="2.2.3-rc.2" type="development" date="2024-12-20" />
-		<release version="2.2.3-rc.1" type="development" date="2024-12-16" />
-		<release version="2.2.3-rc.0" type="development" date="2024-12-02" />
 		<release version="2.2.3" date="2024-12-24" />
-		<release version="2.2.2-rc.1" type="development" date="2024-11-04" />
-		<release version="2.2.2-rc.0" type="development" date="2024-10-28" />
 		<release version="2.2.2" date="2024-11-11" />
-		<release version="2.2.1-rc.1" type="development" date="2024-10-14" />
-		<release version="2.2.1-rc.0" type="development" date="2024-09-30" />
 		<release version="2.2.1" date="2024-10-17" />
-		<release version="2.2.0-rc.3" type="development" date="2024-09-26" />
-		<release version="2.2.0-rc.2" type="development" date="2026-06-02" />
-		<release version="2.2.0-rc.1" type="development" date="2024-09-23" />
-		<release version="2.2.0-rc.0" type="development" date="2024-09-16" />
-		<release version="2.2.0-beta.3" type="development" date="2024-09-09" />
-		<release version="2.2.0-beta.2" type="development" date="2024-08-27" />
-		<release version="2.2.0-beta.1" type="development" date="2024-08-05" />
-		<release version="2.2.0-beta.0" type="development" date="2024-06-25" />
 		<release version="2.2.0" date="2024-09-28" />
-		<release version="2.1.1-rc.2" type="development" date="2024-06-03" />
-		<release version="2.1.1-rc.1" type="development" date="2024-05-21" />
-		<release version="2.1.1-rc.0" type="development" date="2024-05-14" />
 		<release version="2.1.1" date="2024-06-10" />
-		<release version="2.1.0-rc.3" type="development" date="2024-05-07" />
-		<release version="2.1.0-rc.2" type="development" date="2024-05-06" />
-		<release version="2.1.0-rc.1" type="development" date="2024-04-30" />
-		<release version="2.1.0-rc.0" type="development" date="2024-04-22" />
-		<release version="2.1.0-beta.5" type="development" date="2024-04-08" />
-		<release version="2.1.0-beta.4" type="development" date="2024-04-01" />
-		<release version="2.1.0-beta.3" type="development" date="2024-03-25" />
-		<release version="2.1.0-beta.2" type="development" date="2024-03-11" />
-		<release version="2.1.0-beta.1" type="development" date="2024-03-04" />
-		<release version="2.1.0-beta.0" type="development" date="2024-02-26" />
 		<release version="2.1.0" date="2024-05-10" />
-		<release version="2.0.3-rc.1" type="development" date="2024-02-12" />
-		<release version="2.0.3-rc.0" type="development" date="2024-02-05" />
 		<release version="2.0.3" date="2024-02-19" />
-		<release version="2.0.2-rc.0" type="development" date="2024-01-22" />
 		<release version="2.0.2" date="2024-01-29" />
-		<release version="2.0.1-rc.1" type="development" date="2024-01-08" />
-		<release version="2.0.1-rc.0" type="development" date="2024-01-01" />
 		<release version="2.0.1" date="2024-01-15" />
-		<release version="2.0.0-rc.3" type="development" date="2023-12-22" />
-		<release version="2.0.0-rc.2" type="development" date="2023-12-15" />
-		<release version="2.0.0-rc.1" type="development" date="2023-12-08" />
-		<release version="2.0.0-rc.0" type="development" date="2023-12-01" />
-		<release version="2.0.0-beta.16" type="development" date="2023-11-24" />
-		<release version="2.0.0-beta.15" type="development" date="2023-11-17" />
-		<release version="2.0.0-beta.14" type="development" date="2023-11-04" />
-		<release version="2.0.0-beta.13" type="development" date="2023-10-29" />
-		<release version="2.0.0-beta.12" type="development" date="2023-10-27" />
-		<release version="2.0.0-beta.11" type="development" date="2023-10-20" />
-		<release version="2.0.0-beta.10" type="development" date="2023-10-13" />
-		<release version="2.0.0-beta.9" type="development" date="2023-10-06" />
-		<release version="2.0.0-beta.8" type="development" date="2023-09-28" />
-		<release version="2.0.0-beta.7" type="development" date="2023-08-18" />
-		<release version="2.0.0-beta.6" type="development" date="2023-08-04" />
-		<release version="2.0.0-beta.5" type="development" date="2023-07-21" />
-		<release version="2.0.0-beta.4" type="development" date="2023-07-14" />
-		<release version="2.0.0-beta.3" type="development" date="2023-07-07" />
-		<release version="2.0.0-beta.2" type="development" date="2023-06-30" />
-		<release version="2.0.0-beta.1" type="development" date="2023-06-23" />
-		<release version="2.0.0-beta.0" type="development" date="2023-06-12" />
-		<release version="2.0.0-alpha.4" type="development" date="2023-05-21" />
-		<release version="2.0.0-alpha.3" type="development" date="2023-05-15" />
-		<release version="2.0.0-alpha.2" type="development" date="2023-05-05" />
-		<release version="2.0.0-alpha.1" type="development" date="2023-04-14" />
-		<release version="2.0.0-alpha.0" type="development" date="2023-04-09" />
 		<release version="2.0.0" date="2023-12-24" />
 		<release version="1.6.1" date="2023-01-27" />
-		<release version="1.6.0-rc.1" type="development" date="2022-12-19" />
-		<release version="1.6.0-rc.0" type="development" date="2022-12-16" />
-		<release version="1.6.0-beta.0" type="development" date="2022-12-09" />
-		<release version="1.6.0-alpha.1" type="development" date="2022-11-25" />
-		<release version="1.6.0-alpha.0" type="development" date="2022-11-05" />
 		<release version="1.6.0" date="2022-12-24" />
 		<release version="1.5.1" date="2022-10-28" />
-		<release version="1.5.0-rc.1" type="development" date="2022-10-19" />
-		<release version="1.5.0-rc.0" type="development" date="2022-10-15" />
-		<release version="1.5.0-beta.2" type="development" date="2022-10-07" />
-		<release version="1.5.0-beta.1" type="development" date="2022-09-30" />
-		<release version="1.5.0-beta.0" type="development" date="2022-09-23" />
-		<release version="1.5.0-alpha.2" type="development" date="2022-09-09" />
-		<release version="1.5.0-alpha.1" type="development" date="2022-09-02" />
-		<release version="1.5.0-alpha.0" type="development" date="2022-08-26" />
 		<release version="1.5.0" date="2022-10-21" />
 		<release version="1.4.4" date="2022-09-16" />
 		<release version="1.4.3" date="2022-08-20" />
 		<release version="1.4.2" date="2022-08-12" />
 		<release version="1.4.1" date="2022-08-05" />
-		<release version="1.4.0-rc.3" type="development" date="2022-07-25" />
-		<release version="1.4.0-rc.2" type="development" date="2022-07-23" />
-		<release version="1.4.0-rc.1" type="development" date="2022-07-20" />
-		<release version="1.4.0-rc.0" type="development" date="2022-07-17" />
-		<release version="1.4.0-beta.1" type="development" date="2022-07-15" />
-		<release version="1.4.0-beta.0" type="development" date="2022-07-08" />
-		<release version="1.4.0-alpha.3" type="development" date="2022-07-01" />
-		<release version="1.4.0-alpha.2" type="development" date="2022-06-24" />
-		<release version="1.4.0-alpha.1" type="development" date="2022-06-20" />
-		<release version="1.4.0-alpha.0" type="development" date="2022-06-17" />
 		<release version="1.4.0" date="2022-08-05" />
 		<release version="1.3.2" date="2022-06-10" />
 		<release version="1.3.1" date="2022-06-03" />
-		<release version="1.3.0-rc.2" type="development" date="2022-05-22" />
-		<release version="1.3.0-rc.1" type="development" date="2022-05-18" />
-		<release version="1.3.0-rc.0" type="development" date="2022-05-13" />
-		<release version="1.3.0-beta.2" type="development" date="2022-05-06" />
-		<release version="1.3.0-beta.1" type="development" date="2022-04-29" />
-		<release version="1.3.0-beta.0" type="development" date="2022-04-20" />
-		<release version="1.3.0-alpha.1" type="development" date="2022-04-12" />
-		<release version="1.3.0-alpha.0" type="development" date="2022-03-05" />
 		<release version="1.3.0" date="2022-05-26" />
 		<release version="1.2.1" date="2022-03-05" />
 		<release version="1.2.0" date="2022-02-22" />
 		<release version="1.1.2" date="2022-01-21" />
 		<release version="1.1.1" date="2022-01-14" />
 		<release version="1.1.0" date="2022-01-05" />
-		<release version="1.0.0-rc.6" type="development" date="2021-12-18" />
-		<release version="1.0.0-rc.5" type="development" date="2021-12-10" />
-		<release version="1.0.0-rc.4" type="development" date="2021-11-27" />
-		<release version="1.0.0-rc.3" type="development" date="2021-11-14" />
-		<release version="1.0.0-rc.2" type="development" date="2021-11-07" />
-		<release version="1.0.0-rc.1" type="development" date="2021-10-30" />
-		<release version="1.0.0-rc.0" type="development" date="2021-10-20" />
-		<release version="1.0.0-beta.0" type="development" date="2021-10-15" />
-		<release version="1.0.0-alpha.0" type="development" date="2021-10-10" />
 		<release version="1.0.0" date="2021-12-24" />
 	</releases>
 	<content_rating type="oars-1.1" />

@@ -9,7 +9,7 @@ import 'dart:io';
 void main(List<String> arguments) {
   if (arguments.length != 2) {
     stderr.writeln(
-      'Usage: dart run scripts/apply_branding.dart <flavor> <platform>',
+      'Usage: dart run tools/apply_branding.dart <flavor> <platform>',
     );
     exitCode = 64;
     return;
@@ -22,7 +22,8 @@ void main(List<String> arguments) {
     return;
   }
 
-  final appRoot = File.fromUri(Platform.script).parent.parent;
+  final repositoryRoot = File.fromUri(Platform.script).parent.parent;
+  final appRoot = Directory.fromUri(repositoryRoot.uri.resolve('app/'));
   switch (platform) {
     case 'windows':
       _replaceAll(_file(appRoot, 'pubspec.yaml'), {
@@ -120,6 +121,7 @@ void _copy(File source, File destination) {
 void _replaceAll(File file, Map<String, String> replacements) {
   var content = file.readAsStringSync();
   for (final MapEntry(key: from, value: to) in replacements.entries) {
+    content = content.replaceAll(to, from);
     if (!content.contains(from)) {
       throw StateError(
         'Expected branding value not found in ${file.path}: $from',

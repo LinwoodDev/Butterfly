@@ -99,7 +99,7 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v3
         with:
-          prerelease: ${{ github.event.inputs.stable != 'true' }}
+          prerelease: ${{ github.event.inputs.stable != 'true' && github.ref != 'refs/heads/main' }}
           tag_name: v${{ env.BUTTERFLY_VERSION }}
           name: v${{ env.BUTTERFLY_VERSION }}
           token: ${{ secrets.CI_PAT }}

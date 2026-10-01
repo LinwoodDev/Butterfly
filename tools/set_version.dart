@@ -147,6 +147,15 @@ Future<void> updateAppData(String version, String changelog) async {
       releasesByVersion.putIfAbsent(releaseVersion, () => release);
     }
   }
+  // AppStream considers hyphenated candidates newer than their stable release.
+  // Retire them once that stable version exists so its notes stay visible.
+  var stableVersions = releasesByVersion.keys
+      .where((version) => !isPreRelease(version))
+      .toSet();
+  releasesByVersion.removeWhere((version, _) {
+    return isPreRelease(version) &&
+        stableVersions.contains(_splitVersion(version).first);
+  });
   var releases = releasesByVersion.values.toList();
   releases.sort((a, b) {
     var aVersion = versionRegex.firstMatch(a)!.group(1)!;

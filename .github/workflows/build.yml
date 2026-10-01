@@ -19,6 +19,15 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # The release tag determines branding even if GitHub's prerelease flag is wrong.
+  # main is the stable development branch; develop and PRs use nightly branding.
+  BUILD_FLAVOR: >-
+    ${{ (github.ref == 'refs/heads/main' ||
+         github.ref == 'refs/tags/stable' ||
+         (startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')))
+        && 'production' || 'nightly' }}
+
 jobs:
   build-apk:
     defaults:
@@ -55,22 +64,22 @@ jobs:
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           flutter build apk -v --release --flavor nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build nightly (legacy packaging)
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android-legacy.apk
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production (legacy packaging)
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
@@ -85,40 +94,40 @@ jobs:
           name: apk-build-legacy
           path: app/linwood-butterfly-android-legacy.apk
       - name: 🏭 Build architecture nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64.apk
       - name: 🏭 Build architecture nightly (legacy packaging)
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64-legacy.apk
       - name: 🏭 Build architecture production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64.apk
       - name: 🏭 Build architecture production (legacy packaging)
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm-legacy.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64-legacy.apk
       - name: 📊 Analyze nightly Android arm64 size
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           flutter build apk -v --release --flavor nightly --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-nightly
           cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-nightly/
       - name: 📊 Analyze production Android arm64 size
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build apk -v --release --flavor production --target-platform android-arm64 --split-per-abi --analyze-size --code-size-directory=build/size-analysis/android-arm64-production
           cp "$HOME"/.flutter-devtools/apk-code-size-analysis_*.json build/size-analysis/android-arm64-production/
@@ -173,8 +182,6 @@ jobs:
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -199,11 +206,11 @@ jobs:
         run: |
           flutter pub get
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           flutter build windows -v --release --flavor nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build windows -v --release --flavor production
       - name: 📊 Analyze Windows x86_64 size
@@ -246,8 +253,6 @@ jobs:
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -263,7 +268,7 @@ jobs:
         run: |
           flutter pub get
       - name: 🎨 Apply native branding
-        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} windows
       - name: 🏭 Build MSIX
         shell: pwsh
         run: |
@@ -295,8 +300,6 @@ jobs:
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -343,13 +346,13 @@ jobs:
         run: |
           flutter pub get
       - name: 🎨 Apply native branding
-        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
         run: |
           flutter build linux -v --release --flavor nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' }}
         run: |
           flutter build linux -v --release --flavor production
       - name: 📊 Analyze Linux x86_64 size
@@ -391,7 +394,7 @@ jobs:
           ln -s usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png AppDir/dev.linwood.butterfly.png
           # Build AppImage
           UPDATE_INFO="gh-releases-zsync|LinwoodDev|butterfly|stable|linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync"
-          if [[ "${{ github.ref }}" == "refs/tags/nightly" ]]; then
+          if [[ "${{ env.BUILD_FLAVOR }}" == "nightly" ]]; then
             UPDATE_INFO="gh-releases-zsync|LinwoodDev|butterfly|nightly|linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync"
           fi
           ./appimagetool.AppImage -u "$UPDATE_INFO" AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
@@ -453,8 +456,6 @@ jobs:
             dir: arm64
             appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -490,8 +491,6 @@ jobs:
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -512,7 +511,7 @@ jobs:
         run: |
           flutter pub get
       - name: 🎨 Apply native branding
-        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
       - name: 🏭 Build
         run: |
           flutter build macos -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }}
@@ -549,8 +548,6 @@ jobs:
     defaults:
       run:
         working-directory: app
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -566,7 +563,7 @@ jobs:
         run: |
           flutter pub get
       - name: 🎨 Apply native branding
-        run: dart run scripts/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
+        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
       - name: 🏭 Build
         run: |
           flutter build ios --release --no-codesign -v --dart-define=flavor=${{ env.BUILD_FLAVOR }}
@@ -588,8 +585,6 @@ jobs:
   build-docker:
     runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
-    env:
-      BUILD_FLAVOR: ${{ (github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease)) && 'production' || 'nightly' }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v7
@@ -767,7 +762,7 @@ jobs:
 
           echo "SHA256 hashes for files starting with 'linwood-butterfly' saved to $output_file"
       - name: 🚀 Deploy stable
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
+        if: ${{ env.BUILD_FLAVOR == 'production' && (github.ref == 'refs/tags/stable' || github.event_name == 'release') }}
         uses: softprops/action-gh-release@v3
         continue-on-error: true
         with:
