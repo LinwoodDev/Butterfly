@@ -348,18 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "الحساسية",
-  "selectionTolerance": "Selection tolerance",
-  "selectionToleranceDescription": "How close a pointer must be to an element or area to select it. Higher values make selection easier.",
-  "selectionHandleSensitivity": "Selection handle hit area",
-  "selectionHandleSensitivityDescription": "Size of the hit area around selection and area handles for all pointer types.",
-  "panGestureSensitivity": "Pan gesture sensitivity",
-  "panGestureSensitivityDescription": "Canvas movement from touch or trackpad gestures. Higher values move the canvas farther.",
-  "zoomGestureSensitivity": "Continuous zoom sensitivity",
-  "zoomGestureSensitivityDescription": "Zoom from pinching, trackpad gestures, and Ctrl+scroll. Higher values zoom farther.",
-  "rotationGestureSensitivity": "Rotation gesture sensitivity",
-  "rotationGestureSensitivityDescription": "Canvas rotation from gestures. Higher values rotate farther.",
-  "scrollPanSensitivity": "Scroll pan sensitivity",
-  "scrollPanSensitivityDescription": "Canvas movement from mouse wheel and trackpad scrolling. Higher values pan farther.",
+  "selectionTolerance": "تحمّل الاختيار",
+  "selectionToleranceDescription": "مدى اقتراب المؤشر من عنصر أو منطقة لاختياره. القيم الأعلى تجعل الاختيار أسهل.",
+  "selectionHandleSensitivity": "تحديد منطقة تصفح المعالج",
+  "selectionHandleSensitivityDescription": "حجم المنطقة المصطنعة حول الاختيار ومناطق المناولة لجميع أنواع المؤشرات.",
+  "panGestureSensitivity": "حساسية إيماءة عموم",
+  "panGestureSensitivityDescription": "حركة الكانفاس من لفتات اللمس أو اللمس. القيم العليا تحرك الكانفاس أبعد من ذلك.",
+  "zoomGestureSensitivity": "حساسية التكبير المستمرة",
+  "zoomGestureSensitivityDescription": "التكبير من القمامة و إيماءات لوحة المسار، و Ctrl+scroll. تكبر القيم الأعلى أكثر من ذلك.",
+  "rotationGestureSensitivity": "حساسية إيماءة الدوران",
+  "rotationGestureSensitivityDescription": "دوران الكانفاس من الإيماءات. تدور القيم العليا أكثر من ذلك.",
+  "scrollPanSensitivity": "حساسية التمرير",
+  "scrollPanSensitivityDescription": "حركة الكانفاس من عجلة الماوس وتمرير لوحة المسارات. القيم الأعلى تذهب إلى أبعد من ذلك.",
   "horizontal": "أفقي",
   "vertical": "عمودي",
   "plain": "سادة",
@@ -926,14 +926,14 @@
   "smoothing": "التنعيم",
   "streamline": "التبسيط",
   "presentation": "عرض تقديمي",
-  "simple": "Simple",
+  "simple": "بسيط",
   "createPresentation": "Create presentation",
-  "addSlide": "Add new slide",
-  "updateSlide": "Update slide",
-  "deleteSlide": "Delete slide",
-  "transitionDuration": "Transition duration",
-  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
-  "transitionDurationValue": "{seconds}s transition",
+  "addSlide": "إضافة شريحة جديدة",
+  "updateSlide": "تحديث الشريحة",
+  "deleteSlide": "حذف الشريحة",
+  "transitionDuration": "مدة الانتقال",
+  "transitionDurationDescription": "كم من الوقت تستغرقه الكاميرا للانتقال إلى الشريحة التالية. في الشريحة الأخيرة، يستخدم هذا عند إضافة الشريحة الجديدة.",
+  "transitionDurationValue": "المرحلة الانتقالية {seconds}",
   "@transitionDurationValue": {
     "placeholders": {
       "seconds": {
@@ -942,11 +942,11 @@
     }
   },
   "configureKeyframe": "Configure keyframe",
-  "addKeyframe": "Add keyframe here",
-  "updateKeyframe": "Update from current camera",
-  "deleteKeyframe": "Delete keyframe",
-  "markAsSlide": "Mark as slide",
-  "removeSlideMarker": "Remove slide marker",
+  "addKeyframe": "أضف الإطار المفاتيح هنا",
+  "updateKeyframe": "تحديث من الكاميرا الحالية",
+  "deleteKeyframe": "حذف إطار المفاتيح",
+  "markAsSlide": "وضع علامة الشريحة",
+  "removeSlideMarker": "إزالة علامة الشريحة",
   "frameValue": "Frame {frame}",
   "@frameValue": {
     "placeholders": {
@@ -963,7 +963,7 @@
       }
     }
   },
-  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "slideAtFrame": "انزلاق {slide} · الإطار {frame}",
   "@slideAtFrame": {
     "placeholders": {
       "slide": {
@@ -974,7 +974,7 @@
       }
     }
   },
-  "slideOf": "Slide {current} of {total}",
+  "slideOf": "انزلاق {current} من {total}",
   "@slideOf": {
     "placeholders": {
       "current": {
@@ -1082,8 +1082,8 @@
   "onlyOnUpdates": "فقط عند التحديثات",
   "visibility": "الظهور",
   "captureThumbnail": "التقط صورة مصغرة",
-  "autoThumbnail": "Update thumbnail on close",
-  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
+  "autoThumbnail": "تحديث الصورة المصغرة عند الإغلاق",
+  "autoThumbnailDescription": "التقاط طريقة العرض الحالية عند إغلاق هذا المستند. التقاط صورة مصغرة يدوياً يؤدي إلى إيقاف تشغيلها.",
   "capturedThumbnail": "تم التقاط صورة مصغرة بنجاح",
   "chooseLabelMode": "اختر وضع التسمية",
   "foreground": "الأمامي",
@@ -1108,7 +1108,7 @@
   "rotation": "دوران",
   "rotationStep": "خطوة التدوير",
   "zoomStep": "خطوة التكبير",
-  "zoomStepDescription": "Amount used by the zoom in and zoom out keyboard shortcuts. Continuous zoom gestures use their own sensitivity setting.",
+  "zoomStepDescription": "المبلغ المستخدم من قبل التكبير وتكييف اختصارات لوحة المفاتيح. إيماءات التكبير المستمرة تستخدم إعدادات حساسيتها الخاصة.",
   "direction": "الاتجاه",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
@@ -1648,8 +1648,8 @@
   "persistentStateNavigatorDescription": "تذكر حالة التنقل عند إعادة فتح الملف",
   "persistentStateLayersDescription": "تذكر حالة لوحة الطبقة عند إعادة فتح الملف",
   "persistentStateAreasDescription": "تذكر حالة لوحة المنطقة عند إعادة فتح الملف",
-  "persistentStateAutoThumbnail": "Automatic thumbnails",
-  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
+  "persistentStateAutoThumbnail": "الصور المصغرة التلقائية",
+  "persistentStateAutoThumbnailDescription": "إظهار مفتاح التبديل لكل وثيقة والسماح للمصغرات بالتحديث عند إغلاق الوثائق",
   "persistentStateMaxRecordsDescription": "الاحتفاظ على الأكثر بهذه العديد من الحالات المخزنة لكل ملف",
   "persistentStateDeleteOlderThanDaysDescription": "حذف الدول المخزنة الأقدم من هذه الأيام العديدة",
   "contentViewportDescription": "يحد من المدى الذي يمكنك أن تبتعد عنه من محتوى ملاحظتك.",
@@ -1670,17 +1670,17 @@
   "moveOnGestureDescription": "يتيح لإيماءات اللمس تحريك اللوحة بدلاً من التفاعل مع محتوى الملاحظة.",
   "spreadPagesDescription": "يقوم بتقسيم عمليات الاستيراد المكونة من عدة صفحات إلى صفحات منفصلة بدلاً من وضع كل شيء في صفحة واحدة.",
   "shear": "قَصه",
-  "resetRotation": "Reset rotation",
-  "zoomPanelControls": "Zoom panel controls",
-  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
-  "zoomPanelFull": "Full (slider, text field and buttons)",
-  "zoomPanelSliderInput": "Slider and text field",
-  "zoomPanelSlider": "Slider",
-  "zoomPanelInputButtons": "Text field and buttons",
-  "zoomPanelInput": "Text field",
-  "rotationDisplay": "Rotation display",
-  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
-  "whenRotated": "When rotated",
+  "resetRotation": "إعادة تعيين التدوير",
+  "zoomPanelControls": "التحكم بلوحة التكبير",
+  "zoomPanelControlsDescription": "اختر عناصر التحكم للتكبير والتدوير . تبقى أزرار إعادة التعيين متاحة في كل تخطيط.",
+  "zoomPanelFull": "كامل (شريط التمرير وحقل النص والأزرار)",
+  "zoomPanelSliderInput": "شريط التمرير وحقل النص",
+  "zoomPanelSlider": "شريط",
+  "zoomPanelInputButtons": "حقل النص والأزرار",
+  "zoomPanelInput": "حقل النص",
+  "rotationDisplay": "عرض التدوير",
+  "rotationDisplayDescription": "اختر عندما يظهر صف الدوران فوق التصغير. هذا لا يغير إيماءات الدوران أو الاختصار.",
+  "whenRotated": "عند الدوران",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotate canvas by dragging"
+  "rotateCanvasByDragging": "تدوير القماش عن طريق السحب"
 }
