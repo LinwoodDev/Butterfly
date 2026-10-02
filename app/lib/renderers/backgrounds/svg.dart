@@ -15,8 +15,10 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
     super.setup(transformCubit, document, assetService, page);
     final bytes = getDataFromSource(document, element.source);
     if (bytes == null) return;
-    final data = utf8.decode(bytes);
-    _pictureInfo = await vg.loadPicture(SvgStringLoader(data), null);
+    _pictureInfo = await vg.loadPicture(
+      SvgStringLoader(normalizeSvgBytes(bytes)),
+      null,
+    );
   }
 
   @override

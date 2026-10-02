@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' as ui;
 
@@ -11,6 +10,7 @@ import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/markdown/latex.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/helpers/svg.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/text.dart';
 import 'package:butterfly/widgets/context_menu.dart';
