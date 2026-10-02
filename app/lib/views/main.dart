@@ -157,9 +157,9 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final windowCubit = context.read<WindowCubit>();
     final fileSystem = context.read<ButterflyFileSystem>();
-    var location = widget.location;
+    final absolute = widget.absolute || (widget.location?.absolute ?? false);
+    var location = widget.location?.copyWith(absolute: absolute);
     var initialDirectory = widget.initialDirectory;
-    final absolute = widget.absolute;
     final remote = settingsCubit.getRemote(location?.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
     final embedding = widget.embedding;
@@ -229,6 +229,11 @@ class _ProjectPageState extends State<ProjectPage> {
 
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
+      if (!absolute && (location?.isRemote ?? false) && remote == null) {
+        throw StateError(
+          'Storage connection "${location!.remote}" is unavailable',
+        );
+      }
       final globalImportService = ImportService(
         context,
         storage: remote,
@@ -540,7 +545,7 @@ class _ProjectPageState extends State<ProjectPage> {
         networkingService: networkingService,
         editorSessionCubit: editorSessionCubit,
         initialDirectory: initialDirectory,
-        absolute: absolute,
+        absolute: absolute && !(location.fileType?.isNote() ?? false),
       );
       final bloc = DocumentBloc(
         fileSystem,

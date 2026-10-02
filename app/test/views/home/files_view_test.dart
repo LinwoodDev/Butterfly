@@ -33,6 +33,7 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
     int listLevel = oneListLevel,
     bool readData = true,
     bool forceRemote = false,
+    bool absolute = false,
   }) async* {
     if (normalizePath(path) == normalizePath('/notes')) directoryFetches++;
     final barrier = beforeNextFetch;
@@ -46,6 +47,7 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
       listLevel: listLevel,
       readData: readData,
       forceRemote: forceRemote,
+      absolute: absolute,
     )) {
       yield asset;
       if (first && partial != null) await partial.future;

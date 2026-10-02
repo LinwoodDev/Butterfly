@@ -267,7 +267,7 @@ class ImportService(
       (element) =>
           element.isMimeType(normalizedType) ||
           element.getFileExtensions().contains(normalizedType) ||
-          element.name == normalizedType,
+          element.name.toLowerCase() == normalizedType,
     );
     if (fileType == null) {
       await showDialog(

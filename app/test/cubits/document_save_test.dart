@@ -350,4 +350,97 @@ void main() {
     final bytes = await File('${directory.path}${saved.path}').readAsBytes();
     expect(NoteData.fromData(bytes).name, 'Important note');
   });
+
+  for (final extension in ['bfly', 'tbfly']) {
+    test(
+      'device .$extension notes save repeatedly to the opened file',
+      () async {
+        final source = File('${directory.path}/external/note.$extension');
+        await source.parent.create(recursive: true);
+        final original = DocumentDefaults.createDocument(name: 'External note');
+        await source.writeAsBytes(
+          original.toFile(isTextBased: extension == 'tbfly').data,
+        );
+        bloc = DocumentBloc(
+          fileSystem,
+          controller,
+          windowCubit,
+          original,
+          AssetLocation.local(source.path, true),
+        );
+        for (final name in ['First edit', 'Second edit']) {
+          controller.saveCubit.setSaveState(saved: SaveState.unsaved);
+          final saved = await controller.saveCubit.save(
+            bloc!,
+            controller.networkingService,
+            name: name,
+            force: true,
+          );
+          expect(saved, AssetLocation.local(source.path, true));
+          final bytes = await source.readAsBytes();
+          expect(NoteData.fromData(bytes).name, name);
+          expect(bytes.first, extension == 'tbfly' ? 123 : 80);
+        }
+        expect(
+          await directory.list(recursive: true).where((e) => e is File).length,
+          1,
+        );
+      },
+    );
+  }
+
+  test(
+    'saving after removing a connection does not write to default storage',
+    () async {
+      bloc = DocumentBloc(
+        fileSystem,
+        controller,
+        windowCubit,
+        DocumentDefaults.createDocument(name: 'Keep in connection'),
+        const AssetLocation(remote: 'Removed connection', path: '/note.bfly'),
+      );
+      controller.saveCubit.setSaveState(saved: SaveState.unsaved);
+      await expectLater(
+        controller.saveCubit.save(
+          bloc!,
+          controller.networkingService,
+          force: true,
+        ),
+        throwsStateError,
+      );
+      expect(await directory.list().length, 0);
+      expect(controller.saveCubit.state.saved, SaveState.unsaved);
+    },
+  );
+
+  test(
+    'saving a device note to an explicit storage path uses that destination',
+    () async {
+      final source = File('${directory.path}/external/note.bfly');
+      await source.parent.create(recursive: true);
+      final original = DocumentDefaults.createDocument(name: 'Device note');
+      await source.writeAsBytes(original.toFile().data);
+      bloc = DocumentBloc(
+        fileSystem,
+        controller,
+        windowCubit,
+        original,
+        AssetLocation.local(source.path, true),
+      );
+      controller.saveCubit.setSaveState(saved: SaveState.unsaved);
+      final saved = await controller.saveCubit.save(
+        bloc!,
+        controller.networkingService,
+        location: const AssetLocation(path: '/chosen/copied.tbfly'),
+        name: 'Copy',
+        force: true,
+      );
+      expect(saved, const AssetLocation(path: '/chosen/copied.tbfly'));
+      expect(NoteData.fromData(await source.readAsBytes()).name, 'Device note');
+      final copied = await File('${directory.path}/chosen/copied.tbfly')
+          .readAsBytes();
+      expect(NoteData.fromData(copied).name, 'Copy');
+      expect(copied.first, 123);
+    },
+  );
 }

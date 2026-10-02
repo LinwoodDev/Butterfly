@@ -52,15 +52,17 @@ String _normalizeHistoryPath(String path) {
 }
 
 AssetLocation _normalizeHistoryLocation(AssetLocation location) {
+  if (location.absolute) return location;
   final path = _normalizeHistoryPath(location.path);
   if (path == location.path) {
     return location;
   }
-  return AssetLocation(path: path, remote: location.remote);
+  return location.copyWith(path: path);
 }
 
 bool _isSameHistoryLocation(AssetLocation a, AssetLocation b) =>
     a.remote == b.remote &&
+    a.absolute == b.absolute &&
     _normalizeHistoryPath(a.path) == _normalizeHistoryPath(b.path);
 
 String? _moveReferencedPath(
@@ -1394,7 +1396,10 @@ class SettingsCubit(SharedPreferences prefs)
     to = _normalizeHistoryLocation(to);
     var changed = false;
     final history = state.history.map((location) {
-      if (location.remote != from.remote) return location;
+      if (location.remote != from.remote ||
+          location.absolute != from.absolute) {
+        return location;
+      }
       final path = _moveReferencedPath(
         location.path,
         from.path,
@@ -1403,9 +1408,9 @@ class SettingsCubit(SharedPreferences prefs)
       );
       if (path == null) return location;
       changed = true;
-      return AssetLocation(path: path, remote: location.remote);
+      return to.copyWith(path: path);
     }).toList();
-    final starred = from.remote.isEmpty
+    final starred = from.remote.isEmpty && !from.absolute
         ? state.starred.map((path) {
             final moved = _moveReferencedPath(
               path,
@@ -1544,6 +1549,9 @@ class SettingsCubit(SharedPreferences prefs)
         connections: state.connections
             .where((r) => r.identifier != identifier)
             .toList(),
+        defaultRemote: state.defaultRemote == identifier
+            ? ''
+            : state.defaultRemote,
         automaticBackup: state.backupRemote == identifier
             ? false
             : state.automaticBackup,
@@ -1553,7 +1561,7 @@ class SettingsCubit(SharedPreferences prefs)
         lastBackup: state.backupRemote == identifier ? null : state.lastBackup,
       ),
     );
-    const FlutterSecureStorage().delete(key: 'connections/$identifier');
+    await const FlutterSecureStorage().delete(key: 'connections/$identifier');
     return save();
   }
 

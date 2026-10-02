@@ -1,0 +1,2 @@
+* Fix saving notes opened from the file manager to their original path and preserve their location in recent files
+* Clarify local connection directories, fix folder pickers, and prevent saving to removed connections

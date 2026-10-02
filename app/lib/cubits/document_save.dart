@@ -13,7 +13,7 @@ class const DocumentSaveState({
 }) with _$DocumentSaveState {}
 
 extension DocumentSaveStateProperties on DocumentSaveState {
-  bool get absolute => saved == .absoluteRead;
+  bool get absolute => location.absolute || saved == .absoluteRead;
 }
 
 class DocumentSaveCubit(
@@ -37,7 +37,7 @@ class DocumentSaveCubit(
     state.copyWith(
       location: location ?? state.location,
       isCreating: isCreating ?? state.isCreating,
-      saved: (absolute || (keepRead && state.absolute))
+      saved: (absolute || (keepRead && state.saved == SaveState.absoluteRead))
           ? SaveState.absoluteRead
           : saved ?? state.saved,
     ),
@@ -55,7 +55,9 @@ class DocumentSaveCubit(
       (networkingService.isActive ||
           !(state.embedding?.save ?? true) ||
           (!kIsWeb &&
-              !state.absolute &&
+              (!state.absolute ||
+                  (state.location.absolute &&
+                      (state.location.fileType?.isNote() ?? false))) &&
               (state.location.isEmpty ||
                   (state.location.fileType?.isNote() ?? false)) &&
               (state.location.remote.isEmpty ||
@@ -106,7 +108,13 @@ class DocumentSaveCubit(
       var current = location ?? state.location;
       final previousLocation = state.location;
       final absolute = state.absolute;
+      final wasReadOnly = state.saved == SaveState.absoluteRead;
       final storage = settingsCubit.getRemote(current.remote);
+      if (current.isRemote && storage == null) {
+        throw StateError(
+          'Storage connection "${current.remote}" is unavailable',
+        );
+      }
       final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
       if (isClosed) {
         return current;
@@ -124,12 +132,20 @@ class DocumentSaveCubit(
           setSaveState(saved: SaveState.saved);
           return AssetLocation.empty;
         }
-        final needsNewNote = absolute || !(current.fileType?.isNote() ?? false);
+        final writeAbsolute =
+            current.absolute &&
+            current.isLocal &&
+            (current.fileType?.isNote() ?? false);
+        final needsNewNote =
+            (absolute && !writeAbsolute && location == null) ||
+            !(current.fileType?.isNote() ?? false);
         final (file, contentHash) = await compute(_toFileWithContentHash, (
           currentData,
           !needsNewNote && current.fileType == .textNote,
         ));
-        if (needsNewNote) {
+        if (writeAbsolute) {
+          await fileSystem.saveAbsolute(current.path, file.data);
+        } else if (needsNewNote) {
           final document = await fileSystem.createFileWithName(
             name: currentData.name,
             suffix: '.bfly',
@@ -169,7 +185,7 @@ class DocumentSaveCubit(
       } catch (_) {
         if (!isClosed) {
           setSaveState(
-            saved: absolute && !documentWritten
+            saved: wasReadOnly && !documentWritten
                 ? SaveState.absoluteRead
                 : SaveState.unsaved,
           );

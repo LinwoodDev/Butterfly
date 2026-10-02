@@ -142,6 +142,16 @@ Future<void> openFile(
   Object? data,
 ]) {
   final fileType = location.fileType?.name;
+  if (location.absolute) {
+    final queryParams = {'path': location.path, 'type': ?fileType};
+    if (replace) {
+      GoRouter.of(context)
+          .goNamed('native', queryParameters: queryParams, extra: data);
+      return Future.value();
+    }
+    return GoRouter.of(context)
+        .pushNamed('native', queryParameters: queryParams, extra: data);
+  }
   if (location.isRemote) {
     final pathParams = {
       'remote': location.remote,

@@ -3,11 +3,53 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test(
+    'removing the default connection resets and persists the default',
+    () async {
+      FlutterSecureStorage.setMockInitialValues({});
+      const defaultDirectory = '/default';
+      const local = LocalStorage(name: 'Notes', paths: {'': '/notes'});
+      SharedPreferences.setMockInitialValues({
+        'connections': [local.toJson()],
+        'default_remote': local.identifier,
+        'document_path': defaultDirectory,
+      });
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      await cubit.deleteRemote(local.identifier);
+      expect(cubit.state.connections, isEmpty);
+      expect(cubit.state.defaultRemote, isEmpty);
+      expect(cubit.state.documentPath, defaultDirectory);
+      expect(ButterflySettings.fromPrefs(prefs).defaultRemote, isEmpty);
+    },
+  );
+
+  test(
+    'history preserves device paths and distinguishes storage-relative paths',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      const relative = AssetLocation(path: '/notes/note.bfly');
+      final absolute = AssetLocation.local('/notes/note.bfly', true);
+      await cubit.addRecentHistory(relative);
+      await cubit.addRecentHistory(absolute);
+      expect(ButterflySettings.fromPrefs(prefs).history, [absolute, relative]);
+      expect(
+        documentStatePathKey(absolute),
+        isNot(documentStatePathKey(relative)),
+      );
+    },
+  );
 
   test('uses the date placeholder as the default file name', () async {
     SharedPreferences.setMockInitialValues({});

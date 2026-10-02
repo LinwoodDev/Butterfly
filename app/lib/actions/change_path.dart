@@ -4,6 +4,7 @@ import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:keybinder/keybinder.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 
@@ -31,9 +32,28 @@ class ChangePathAction extends Action<ChangePathIntent> {
     final location = cubit.saveCubit.state.location;
     if (location.path == '') return;
     final settings = context.read<SettingsCubit>().state;
+    if (location.isRemote && !settings.hasRemote(location.remote)) {
+      throw StateError(
+        'Storage connection "${location.remote}" is unavailable',
+      );
+    }
     final fileSystem = context.read<ButterflyFileSystem>().buildDocumentSystem(
       settings.getRemote(location.remote),
     );
+    if (location.absolute) {
+      final directory = await FilePicker.getDirectoryPath();
+      if (directory == null) return;
+      final newPath = universalPathContext.join(
+        directory.replaceAll('\\', '/'),
+        location.fileName,
+      );
+      if (!await fileSystem.moveAbsolute(location.path, newPath)) return;
+      final moved = location.copyWith(path: newPath);
+      cubit.saveCubit.setSaveState(location: moved, isCreating: false);
+      await cubit.settingsCubit.moveAssetReferences(location, moved);
+      await bloc.save(force: true);
+      return;
+    }
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {

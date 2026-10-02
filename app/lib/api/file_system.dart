@@ -316,7 +316,7 @@ class ButterflyFileSystem {
     }
   }
 
-  String _cacheKey(ExternalStorage? storage) => storage?.identifier ?? 'local';
+  String _cacheKey(ExternalStorage? storage) => storage?.identifier ?? '';
 
   TypedDirectoryFileSystem<NoteFile> buildDocumentSystem([
     ExternalStorage? storage,

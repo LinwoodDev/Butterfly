@@ -19,7 +19,9 @@ String documentStatePathKey(
   final normalized = _normalizeDocumentStatePath(location.path);
   // Remote state already lives under the connection's own storage path. Its
   // key must not depend on the connection name, which can differ by device.
-  final identity = remoteStorage
+  final identity = location.absolute
+      ? 'absolute:$normalized'
+      : remoteStorage
       ? 'remote:$normalized'
       : '${location.remote}:$normalized';
   final bytes = utf8.encode(identity);
