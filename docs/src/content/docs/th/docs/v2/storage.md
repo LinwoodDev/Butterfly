@@ -31,15 +31,18 @@ By default, a connection with base directory `/mnt/data/notes` stores notes in
 `/mnt/data/notes/Documents`, templates in `/mnt/data/notes/Templates`, and packs
 in `/mnt/data/notes/Packs`. Open **Advanced** to change these directories:
 
-| ไดเรกทอรีเอกสาร                                       | Where notes are stored      |
-| ----------------------------------------------------- | --------------------------- |
-| `Documents` (default)              | `/mnt/data/notes/Documents` |
-| `myfolder`                                            | `/mnt/data/notes/myfolder`  |
-| `.`                                                   | `/mnt/data/notes` directly  |
-| `/mnt/other/notes` (absolute path) | `/mnt/other/notes`          |
+| ไดเรกทอรีเอกสาร                                       | Where notes are stored                 |
+| ----------------------------------------------------- | -------------------------------------- |
+| Empty                                                 | Documents disabled for this connection |
+| `Documents` (default)              | `/mnt/data/notes/Documents`            |
+| `myfolder`                                            | `/mnt/data/notes/myfolder`             |
+| `.`                                                   | `/mnt/data/notes` directly             |
+| `/mnt/other/notes` (absolute path) | `/mnt/other/notes`                     |
 
-The same rules apply to the Templates and Packs directory fields. If you leave
-the base directory empty, every advanced directory must be an absolute path.
+The same rules apply to the Templates and Packs directory fields. An empty field
+disables that directory type for this connection, without creating a replacement
+folder. Use `.` to store files directly in the base folder.
+If you leave the base directory empty, every enabled directory must be an absolute path.
 Choosing a directory adds access to that folder; it does not import or move its
 existing files. Existing connections keep their configured directory layout.
 
