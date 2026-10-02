@@ -2,6 +2,38 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.1-rc.0 (2026-10-02)
+
+* Migrate the app interface to the Material UI package
+* Improve the presentation tool with slides, keyframes, camera rotation, and transition controls
+* Keep settings subpages inside the settings dialog and fix keyboard and Escape navigation ([#1272](https://github.com/LinwoodDev/Butterfly/issues/1272))
+* Add automatic document thumbnails when closing a document, with per-document and default settings
+* Add slider steps and improve number input controls ([#1256](https://github.com/LinwoodDev/Butterfly/issues/1256))
+* Fix releasing held keyboard shortcuts ([#1200](https://github.com/LinwoodDev/Butterfly/issues/1200))
+* Fix undo and redo rendering during collaboration ([#1278](https://github.com/LinwoodDev/Butterfly/issues/1278))
+* Separate pan, zoom, rotation, and scroll sensitivity settings ([#1283](https://github.com/LinwoodDev/Butterfly/issues/1283))
+* Group double- and triple-tap shortcuts in mouse, touch, and stylus settings with a visible note explaining their input delay
+* Fix temporary hand navigation remaining active after releasing mouse or pen buttons ([#1288](https://github.com/LinwoodDev/Butterfly/issues/1288))
+* Preserve note extensions when renaming, fix saving extensionless notes, and allow retrying failed saves
+* Hide file extensions in rename fields
+* Keep the file view visible when renaming, creating, deleting, or refreshing files
+* Add view state getter and setter to embeds ([#1280](https://github.com/LinwoodDev/Butterfly/issues/1280))
+* Combine zoom and rotation controls with step buttons, angle input and rotation reset ([#1287](https://github.com/LinwoodDev/Butterfly/issues/1287), [#1223](https://github.com/LinwoodDev/Butterfly/issues/1223))
+* Add five zoom panel layouts and rotation display settings ([#1223](https://github.com/LinwoodDev/Butterfly/issues/1223))
+* Add configurable Shift+Space dragging to rotate the canvas
+* Fix unbounded number input layouts in the stroke-width toolbar and keyframe dialog
+* Fix zoom input text editing and smooth cached canvas images during rotation
+* Fix pasting images having small visual artifacts ([#1274](https://github.com/LinwoodDev/Butterfly/issues/1274))
+* Fix stable and nightly branding, Linux app store release notes, and AppImage update channels
+* Restore 16kb page size on Android
+
+Upstreamed from 2.6.0:
+* Fix fractional-pixel mismatch in the viewport cache ([#1279](https://github.com/LinwoodDev/Butterfly/issues/1279))
+* Fix editor state loading and saving across WebDAV connections ([#1281](https://github.com/LinwoodDev/Butterfly/issues/1281))
+* Automatically sync pinned files while the app is open and after reconnecting ([#1281](https://github.com/LinwoodDev/Butterfly/issues/1281))
+
+Read more here: https://linwood.dev/butterfly/2.6.1-rc.0
+
 ## 2.6.0 (2026-09-28)
 
 Changes since 2.6.0-rc.3:

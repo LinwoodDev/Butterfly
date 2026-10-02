@@ -63,6 +63,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.1-rc.0" type="development" date="2026-10-02">
+			<description>
+				<ul>
+					<li>Migrate the app interface to the Material UI package</li>
+					<li>Improve the presentation tool with slides, keyframes, camera rotation, and transition controls</li>
+					<li>Keep settings subpages inside the settings dialog and fix keyboard and Escape navigation (#1272)</li>
+					<li>Add automatic document thumbnails when closing a document, with per-document and default settings</li>
+					<li>Add slider steps and improve number input controls (#1256)</li>
+					<li>Fix releasing held keyboard shortcuts (#1200)</li>
+					<li>Fix undo and redo rendering during collaboration (#1278)</li>
+					<li>Separate pan, zoom, rotation, and scroll sensitivity settings (#1283)</li>
+					<li>Group double- and triple-tap shortcuts in mouse, touch, and stylus settings with a visible note explaining their input delay</li>
+					<li>Fix temporary hand navigation remaining active after releasing mouse or pen buttons (#1288)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.1-rc.0</url>
+		</release>
 		<release version="2.6.0" type="stable" date="2026-09-28">
 			<description>
 				<ul>
