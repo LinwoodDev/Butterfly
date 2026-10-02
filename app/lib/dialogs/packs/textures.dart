@@ -1,4 +1,5 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/helpers/svg.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
@@ -51,8 +52,8 @@ class TexturesPackView extends StatelessWidget {
                     child: data == null
                         ? const PhosphorIcon(PhosphorIconsLight.image)
                         : name.toLowerCase().endsWith('.svg')
-                        ? SvgPicture.memory(
-                            data,
+                        ? SvgPicture.string(
+                            normalizeSvgBytes(data),
                             fit: .cover,
                             placeholderBuilder: (context) =>
                                 const PhosphorIcon(PhosphorIconsLight.image),
