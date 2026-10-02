@@ -81,7 +81,7 @@ class SvgRenderer extends Renderer<SvgElement> {
         pictureInfo?.picture.dispose();
       }
       pictureInfo = await vg.loadPicture(
-        SvgStringLoader(utf8.decode(data)),
+        SvgStringLoader(normalizeSvgBytes(data)),
         null,
         clipViewbox: false,
       );

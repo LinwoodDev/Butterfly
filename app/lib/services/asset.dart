@@ -1,8 +1,8 @@
-import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/services/logger.dart';
+import 'package:butterfly/helpers/svg.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/helpers/element.dart' as element_helper;
 import 'package:flutter/foundation.dart';
@@ -55,7 +55,7 @@ class AssetService() {
 
   Future<ui.Image?> _importSvgImage(Uint8List data) async {
     final pictureInfo = await vg.loadPicture(
-      SvgStringLoader(utf8.decode(data)),
+      SvgStringLoader(normalizeSvgBytes(data)),
       null,
       clipViewbox: false,
     );

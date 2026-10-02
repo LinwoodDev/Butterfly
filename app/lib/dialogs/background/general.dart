@@ -124,7 +124,7 @@ class _GeneralBackgroundPropertiesViewState
                   ]);
                   if (result == null) return;
                   final dataPath = Uri.dataFromBytes(result).toString();
-                  final contentString = String.fromCharCodes(result);
+                  final contentString = normalizeSvgBytes(result);
                   var info = await vg.loadPicture(
                     SvgStringLoader(contentString),
                     null,
