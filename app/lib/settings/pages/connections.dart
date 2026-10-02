@@ -375,7 +375,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     if (!_isRemote &&
         (paths['']!.isEmpty
             ? paths.entries
-                  .where((e) => e.key.isNotEmpty)
+                  .where((e) => e.key.isNotEmpty && e.value.isNotEmpty)
                   .any((e) => !_isAbsoluteConnectionPath(e.value))
             : !_isAbsoluteConnectionPath(paths['']!))) {
       await _showCreatingError(

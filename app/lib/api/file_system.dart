@@ -84,6 +84,54 @@ typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 typedef DocumentStateFileSystem = TypedKeyFileSystem<PersistedDocumentState>;
 
+Never _disabledStorage([Object? data]) =>
+    throw StateError('This storage directory is disabled');
+
+class _DisabledDocumentFileSystem extends DocumentFileSystem {
+  _DisabledDocumentFileSystem(FileSystemConfig config)
+    : super.raw(
+        MockFileSystem(config: config),
+        config: config,
+        onEncode: _disabledStorage,
+        onDecode: decodeNoteFile,
+      );
+
+  @override
+  Future<FileSystemDirectory<NoteFile>> createDirectory(String path) async =>
+      _disabledStorage();
+
+  @override
+  Future<void> deleteAsset(String path) async => _disabledStorage();
+
+  @override
+  Future<FileSystemEntity<NoteFile>?> moveAsset(
+    String path,
+    String newPath, {
+    bool forceSync = false,
+  }) async => _disabledStorage();
+
+  @override
+  Future<void> saveAbsolute(String path, Uint8List bytes) async =>
+      _disabledStorage();
+}
+
+class _DisabledKeyFileSystem extends TypedKeyFileSystem<NoteData> {
+  _DisabledKeyFileSystem(FileSystemConfig config)
+    : super.raw(
+        MockKeyFileSystem(config: config),
+        config: config,
+        onEncode: _disabledStorage,
+        onDecode: decodeNoteData,
+      );
+
+  @override
+  Future<void> deleteFile(String key) async => _disabledStorage();
+
+  @override
+  Future<void> saveAbsolute(String path, Uint8List bytes) async =>
+      _disabledStorage();
+}
+
 Future<FileSystemEntity<NoteFile>?> renameDocumentAsset(
   DocumentFileSystem fileSystem,
   SettingsCubit settingsCubit,
@@ -322,6 +370,9 @@ class ButterflyFileSystem {
     ExternalStorage? storage,
     bool forceRecreate = false,
   ]) {
+    if (storage?.paths[_documentConfig.currentPathVariant] == '') {
+      return _DisabledDocumentFileSystem(_documentConfig);
+    }
     final key = _cacheKey(storage);
     if (!forceRecreate) {
       final cached = _documentCache[key];
@@ -351,6 +402,9 @@ class ButterflyFileSystem {
     ExternalStorage? storage,
     bool forceRecreate = false,
   ]) {
+    if (storage?.paths[_templateConfig.currentPathVariant] == '') {
+      return _DisabledKeyFileSystem(_templateConfig);
+    }
     final key = _cacheKey(storage);
     if (!forceRecreate) {
       final cached = _templateCache[key];
@@ -372,6 +426,9 @@ class ButterflyFileSystem {
     ExternalStorage? storage,
     bool forceRecreate = false,
   ]) {
+    if (storage?.paths[_packConfig.currentPathVariant] == '') {
+      return _DisabledKeyFileSystem(_packConfig);
+    }
     final key = _cacheKey(storage);
     if (!forceRecreate) {
       final cached = _packCache[key];

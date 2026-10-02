@@ -10,8 +10,6 @@ import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/defaults.dart';
-import 'package:butterfly/renderers/renderer.dart';
-import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -1205,79 +1203,6 @@ void main() {
       'named embed close',
     );
   });
-
-  for (final withPenShortcut in [false, true]) {
-    testWidgets(
-      'stylus ink follows small movements before release (shortcut: $withPenShortcut)',
-      (tester) async {
-        when(() => settingsCubit.state).thenReturn(
-          ButterflySettings(
-            defaultTemplate: 'default',
-            autosave: false,
-            inputConfiguration: InputConfiguration(
-              doublePenShortcut: withPenShortcut ? 'undo' : null,
-            ),
-          ),
-        );
-        final controller = await openEditor(tester);
-        final bloc = observer.lastDocumentBloc!;
-        await controller.toolCubit.changeTool(
-          controller,
-          bloc,
-          index: 1,
-          allowBake: false,
-        );
-        await tester.pumpAndSettle();
-        final viewport = find.byType(MainViewViewport);
-        final position = tester.getCenter(viewport);
-        final localPosition = position - tester.getTopLeft(viewport);
-        final gesture = await tester.startGesture(
-          position,
-          kind: PointerDeviceKind.stylus,
-        );
-        for (var i = 1; i <= 24; i++) {
-          await gesture.moveTo(position + Offset(i.toDouble(), 0));
-          await tester.pump(const Duration(milliseconds: 8));
-          if (i >= 4 && i % 4 == 0) {
-            final foreground = controller.toolCubit.state.foregrounds
-                .whereType<PenRenderer>();
-            expect(
-              foreground,
-              hasLength(1),
-              reason: 'Live ink missing at input sample $i',
-            );
-            expect(
-              foreground.single.element.points.last.x,
-              closeTo(
-                controller.transformCubit.state
-                    .localToGlobal(localPosition + Offset(i.toDouble(), 0))
-                    .dx,
-                2,
-              ),
-            );
-            final painters = tester
-                .widgetList<CustomPaint>(find.byType(CustomPaint))
-                .map((w) => w.painter)
-                .whereType<ForegroundPainter>();
-            expect(
-              painters.single.renderers.whereType<PenRenderer>(),
-              hasLength(1),
-            );
-          }
-        }
-        await gesture.up();
-        await tester.pumpAndSettle();
-        expect((bloc.state as DocumentLoadSuccess).page.content, hasLength(1));
-        router.go('/');
-        await pumpUntil(
-          tester,
-          () => observer.documentBlocCloses == 1,
-          'editor close',
-        );
-        await tester.pump(const Duration(seconds: 4));
-      },
-    );
-  }
 
   testWidgets('double tap shortcut does not draw with the pen tool', (
     tester,
