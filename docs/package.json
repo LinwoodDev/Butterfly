@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/markdown-satteri": "^0.4.2",
     "@astrojs/react": "^7.0.0",
-    "@astrojs/starlight": "^0.42.4",
+    "@astrojs/starlight": "^0.42.5",
     "@fontsource-variable/inter": "^5.3.0",
     "@linwooddev/starlight-style": "github:LinwoodDev/style#0784cd18128651cd6d9e91e9a90601d0e265e411&path:/packages/starlight",
     "@linwooddev/style": "github:LinwoodDev/style#0784cd18128651cd6d9e91e9a90601d0e265e411&path:/packages/web",
@@ -21,7 +21,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "astro": "^7.3.5",
-    "katex": "^0.18.9",
+    "katex": "^0.18.10",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "typescript": "^6.0.3"
