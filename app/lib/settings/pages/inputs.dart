@@ -158,6 +158,41 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.leftMouse,
           write: (config, value) => config.copyWith(leftMouse: value),
         ),
+        _inputMappingSetting(
+          id: 'middleMouse',
+          displayName: (context) => AppLocalizations.of(context).middle,
+          icon: PhosphorIconsLight.mouseMiddleClick,
+          read: (config) => config.middleMouse,
+          write: (config, value) => config.copyWith(middleMouse: value),
+        ),
+        _inputMappingSetting(
+          id: 'rightMouse',
+          displayName: (context) => AppLocalizations.of(context).right,
+          icon: PhosphorIconsLight.mouseRightClick,
+          read: (config) => config.rightMouse,
+          write: (config, value) => config.copyWith(rightMouse: value),
+        ),
+        _optionalInputMappingSetting(
+          id: 'backMouse',
+          displayName: (context) => AppLocalizations.of(context).back,
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.backMouse,
+          write: (config, value) => config.copyWith(backMouse: value),
+        ),
+        _optionalInputMappingSetting(
+          id: 'forwardMouse',
+          displayName: (context) => AppLocalizations.of(context).forward,
+          icon: PhosphorIconsLight.mouse,
+          read: (config) => config.forwardMouse,
+          write: (config, value) => config.copyWith(forwardMouse: value),
+        ),
+      ],
+    ),
+    'repeatedTapShortcuts': SettingsLeapSection(
+      displayName: (context) =>
+          AppLocalizations.of(context).repeatedTapShortcuts,
+      settings: [
+        _repeatedTapShortcutsNote,
         _inputShortcutSetting(
           id: 'doubleLeftMouseShortcut',
           displayName: (context) =>
@@ -175,13 +210,6 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.tripleLeftMouseShortcut,
           write: (config, value) =>
               config.copyWith(tripleLeftMouseShortcut: value),
-        ),
-        _inputMappingSetting(
-          id: 'middleMouse',
-          displayName: (context) => AppLocalizations.of(context).middle,
-          icon: PhosphorIconsLight.mouseMiddleClick,
-          read: (config) => config.middleMouse,
-          write: (config, value) => config.copyWith(middleMouse: value),
         ),
         _inputShortcutSetting(
           id: 'doubleMiddleMouseShortcut',
@@ -201,13 +229,6 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (config, value) =>
               config.copyWith(tripleMiddleMouseShortcut: value),
         ),
-        _inputMappingSetting(
-          id: 'rightMouse',
-          displayName: (context) => AppLocalizations.of(context).right,
-          icon: PhosphorIconsLight.mouseRightClick,
-          read: (config) => config.rightMouse,
-          write: (config, value) => config.copyWith(rightMouse: value),
-        ),
         _inputShortcutSetting(
           id: 'doubleRightMouseShortcut',
           displayName: (context) =>
@@ -226,13 +247,6 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (config, value) =>
               config.copyWith(tripleRightMouseShortcut: value),
         ),
-        _optionalInputMappingSetting(
-          id: 'backMouse',
-          displayName: (context) => AppLocalizations.of(context).back,
-          icon: PhosphorIconsLight.mouse,
-          read: (config) => config.backMouse,
-          write: (config, value) => config.copyWith(backMouse: value),
-        ),
         _inputShortcutSetting(
           id: 'doubleBackMouseShortcut',
           displayName: (context) =>
@@ -250,13 +264,6 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.tripleBackMouseShortcut,
           write: (config, value) =>
               config.copyWith(tripleBackMouseShortcut: value),
-        ),
-        _optionalInputMappingSetting(
-          id: 'forwardMouse',
-          displayName: (context) => AppLocalizations.of(context).forward,
-          icon: PhosphorIconsLight.mouse,
-          read: (config) => config.forwardMouse,
-          write: (config, value) => config.copyWith(forwardMouse: value),
         ),
         _inputShortcutSetting(
           id: 'doubleForwardMouseShortcut',
@@ -347,22 +354,6 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (config, value) => config.copyWith(touch: value),
         ),
         _inputShortcutSetting(
-          id: 'doubleTouchShortcut',
-          displayName: (context) =>
-              AppLocalizations.of(context).doublePressAction,
-          icon: PhosphorIconsLight.handTap,
-          read: (config) => config.doubleTouchShortcut,
-          write: (config, value) => config.copyWith(doubleTouchShortcut: value),
-        ),
-        _inputShortcutSetting(
-          id: 'tripleTouchShortcut',
-          displayName: (context) =>
-              AppLocalizations.of(context).triplePressAction,
-          icon: PhosphorIconsLight.handTap,
-          read: (config) => config.tripleTouchShortcut,
-          write: (config, value) => config.copyWith(tripleTouchShortcut: value),
-        ),
-        _inputShortcutSetting(
           id: 'twoFingerTouchShortcut',
           displayName: (context) => AppLocalizations.of(context).twoFingerTap,
           icon: PhosphorIconsLight.handTap,
@@ -377,6 +368,29 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.threeFingerTouchShortcut,
           write: (config, value) =>
               config.copyWith(threeFingerTouchShortcut: value),
+        ),
+      ],
+    ),
+    'repeatedTapShortcuts': SettingsLeapSection(
+      displayName: (context) =>
+          AppLocalizations.of(context).repeatedTapShortcuts,
+      settings: [
+        _repeatedTapShortcutsNote,
+        _inputShortcutSetting(
+          id: 'doubleTouchShortcut',
+          displayName: (context) =>
+              AppLocalizations.of(context).doublePressAction,
+          icon: PhosphorIconsLight.handTap,
+          read: (config) => config.doubleTouchShortcut,
+          write: (config, value) => config.copyWith(doubleTouchShortcut: value),
+        ),
+        _inputShortcutSetting(
+          id: 'tripleTouchShortcut',
+          displayName: (context) =>
+              AppLocalizations.of(context).triplePressAction,
+          icon: PhosphorIconsLight.handTap,
+          read: (config) => config.tripleTouchShortcut,
+          write: (config, value) => config.copyWith(tripleTouchShortcut: value),
         ),
       ],
     ),
@@ -588,6 +602,34 @@ final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.pen,
           write: (config, value) => config.copyWith(pen: value),
         ),
+        _inputMappingSetting(
+          id: 'invertedPen',
+          displayName: (context) => AppLocalizations.of(context).invertedPen,
+          icon: PhosphorIconsLight.pen,
+          read: (config) => config.invertedPen,
+          write: (config, value) => config.copyWith(invertedPen: value),
+        ),
+        _inputMappingSetting(
+          id: 'firstPenButton',
+          displayName: (context) => AppLocalizations.of(context).first,
+          icon: PhosphorIconsLight.numberCircleOne,
+          read: (config) => config.firstPenButton,
+          write: (config, value) => config.copyWith(firstPenButton: value),
+        ),
+        _inputMappingSetting(
+          id: 'secondPenButton',
+          displayName: (context) => AppLocalizations.of(context).second,
+          icon: PhosphorIconsLight.numberCircleTwo,
+          read: (config) => config.secondPenButton,
+          write: (config, value) => config.copyWith(secondPenButton: value),
+        ),
+      ],
+    ),
+    'repeatedTapShortcuts': SettingsLeapSection(
+      displayName: (context) =>
+          AppLocalizations.of(context).repeatedTapShortcuts,
+      settings: [
+        _repeatedTapShortcutsNote,
         _inputShortcutSetting(
           id: 'doublePenShortcut',
           displayName: (context) =>
@@ -603,13 +645,6 @@ final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
           icon: PhosphorIconsLight.pen,
           read: (config) => config.triplePenShortcut,
           write: (config, value) => config.copyWith(triplePenShortcut: value),
-        ),
-        _inputMappingSetting(
-          id: 'invertedPen',
-          displayName: (context) => AppLocalizations.of(context).invertedPen,
-          icon: PhosphorIconsLight.pen,
-          read: (config) => config.invertedPen,
-          write: (config, value) => config.copyWith(invertedPen: value),
         ),
         _inputShortcutSetting(
           id: 'doubleInvertedPenShortcut',
@@ -629,13 +664,6 @@ final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (config, value) =>
               config.copyWith(tripleInvertedPenShortcut: value),
         ),
-        _inputMappingSetting(
-          id: 'firstPenButton',
-          displayName: (context) => AppLocalizations.of(context).first,
-          icon: PhosphorIconsLight.numberCircleOne,
-          read: (config) => config.firstPenButton,
-          write: (config, value) => config.copyWith(firstPenButton: value),
-        ),
         _inputShortcutSetting(
           id: 'doubleFirstPenButtonShortcut',
           displayName: (context) =>
@@ -653,13 +681,6 @@ final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (config) => config.tripleFirstPenButtonShortcut,
           write: (config, value) =>
               config.copyWith(tripleFirstPenButtonShortcut: value),
-        ),
-        _inputMappingSetting(
-          id: 'secondPenButton',
-          displayName: (context) => AppLocalizations.of(context).second,
-          icon: PhosphorIconsLight.numberCircleTwo,
-          read: (config) => config.secondPenButton,
-          write: (config, value) => config.copyWith(secondPenButton: value),
         ),
         _inputShortcutSetting(
           id: 'doubleSecondPenButtonShortcut',
@@ -682,6 +703,18 @@ final _stylusSettingsPage = SettingsLeapPage<ButterflySettings>(
       ],
     ),
   },
+);
+
+final _repeatedTapShortcutsNote = SettingsLeapCustomSetting<ButterflySettings>(
+  id: 'inputDelayNote',
+  displayName: (context) => AppLocalizations.of(context).repeatedTapShortcuts,
+  builder: (context, state) => Padding(
+    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+    child: Text(
+      AppLocalizations.of(context).repeatedTapShortcutsDescription,
+      style: TextTheme.of(context).bodyMedium,
+    ),
+  ),
 );
 
 Widget _shortcutsHelpHeader(BuildContext context, ButterflySettings state) {
