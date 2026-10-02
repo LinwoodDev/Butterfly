@@ -824,6 +824,8 @@
     "description": "Input device"
   },
   "shortcuts": "Verknüpfungen",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Mitte",
   "@middle": {
     "description": "Mouse button"
