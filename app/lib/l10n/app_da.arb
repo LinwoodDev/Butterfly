@@ -594,7 +594,10 @@
   "perSide": "Pr. side",
   "directory": "Mappe",
   "connectionNameDescription": "Anvendes kun til at identificere denne forbindelse i Butterfly",
-  "connectionDirectoryDescription": "Basismappen for denne forbindelse. Avancerede mappestier er relativt til den. Lad være tom for at bruge absolutte stier",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Dokumenter mappe",
   "templatesDirectory": "Mappe til skabeloner",
   "errorWhileCreatingConnection": "Fejl under oprettelse af forbindelse",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "Genveje",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Midterste",
   "@middle": {
     "description": "Mouse button"

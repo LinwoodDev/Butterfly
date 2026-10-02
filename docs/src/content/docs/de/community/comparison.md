@@ -4,6 +4,8 @@ title: Vergleich
 
 Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Plattformen abzielt. It combines a simple UI mit powerful customization. Diese Seite vergleicht Butterfly mit anderen beliebten Notiz- und Zeichenanwendungen, um hervorzuheben, was Butterfly einzigartig macht.
 
+This comparison reflects Butterfly 2.6.0 and later. See the [changelog](/changelog/) for changes in newer releases.
+
 ## Schnellvergleichstabelle
 
 | Funktion                   | Butterfly                                          | OneNote                    | Obsidian                                  | Excalidraw                          | Xournal++                                         | Samsung Notes                                            |
@@ -43,6 +45,7 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 - **Schlanker** – Schnellerer Start und geringerer Ressourcenverbrauch
 - **SVG-Unterstützung** – Import und Export von Vektorgrafiken
 - **Kein Vendor-Lock-in** – Ihre Daten bleiben unter Ihrer Kontrolle
+- **OneNote import** – Convert `.one` sections and `.onepkg` notebooks into Butterfly documents. See the [OneNote import guide](/docs/v2/onenote/) for supported content and conversion limits
 
 **Vorteile von OneNote:**
 
@@ -62,6 +65,7 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 - Plattformübergreifende Unterstützung
 - Anpassbare Oberfläche und Designs
 - Local data storage mit sync options
+- Markdown support, including [formatted labels on the canvas](/docs/v2/tools/label/)
 
 **Vorteile von Butterfly:**
 
@@ -94,20 +98,20 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 - Webbasierter Zugriff
 - Öffnen-source foundation
 - Handgezeichnete Ästhetik für Diagramme
+- Reusable components through [Butterfly packs](/docs/v2/pack/#components)
 
 **Vorteile von Butterfly:**
 
 - **Mobile Apps** – Unterstützung für iOS und Android
 - **Desktop-Anwendungen** – Apps für Windows und Linux verfügbar
-- **Textbearbeitung** – Rich-Text-Unterstützung über Zeichnungen hinaus
+- **Text editing** – Rich text, Markdown, mathematical formulas, and [tables](/docs/v2/tools/table/)
 - **Dateiverwaltung** – Notizen mit Seiten und Struktur organisieren
 - **PDF import** – Annotate existing Dokumente
 - **Offline-first** – Funktioniert ohne Internetverbindung
 
 **Vorteile von Excalidraw:**
 
-- **Fokus auf Zusammenarbeit** – Kollaboratives Zeichnen in Echtzeit
-- **Bibliothekssystem** – Wiederverwendbare Komponenten und Vorlagen
+- **Collaboration focus** – Real-time collaborative drawing; Butterfly's [collaboration](/docs/v2/collaboration/) is experimental and requires enabling an experiment
 - **Excalidraw Plus features** – Professional collaboration Werkzeuge
 - **Integrationsfreundlich** – Lässt sich gut in andere Anwendungen einbetten
 - **Auf Diagramme spezialisiert** – Speziell für technische Zeichnungen entwickelt
@@ -135,6 +139,7 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 - **Infinite canvas** – Not limited to Seite boundaries
 - **Cloud-Synchronisierung** – WebDAV-Integration eingebaut
 - **Mehrere Exportformate** – Unterstützung für SVG, PNG und PDF
+- **Xournal++ compatibility** – Import and export `.xopp` files alongside PDF workflows
 
 **Vorteile von Xournal++:**
 
@@ -180,26 +185,29 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 
 **Von OneNote:**
 
-- Exportiere OneNote-Seiten als PDFs und importieren Sie sie in Butterfly
-- Erstellen Sie Zeichnungen und handschriftliche Notizen nativ in Butterfly neu
+- Export a section as `.one` or a notebook as `.onepkg`, then choose **Add → Import → OneNote** in Butterfly. Native OneNote import is available from 2.6.0-beta.1 onward
+- Follow the [OneNote import guide](/docs/v2/onenote/) for export instructions, supported content, import limitations, and XPS printout conversion
+- Review the imported pages and keep the original notebook: unsupported objects may be omitted, and formatting can differ
+- Use PDF export and import when a rendered copy is sufficient
 - Consider mit WebDAV sync to replace OneDrive synchronization
 
 **Von Obsidian:**
 
-- Kopieren Sie Textinhalte und erstellen Sie sie in Butterflys Textwerkzeugen neu
+- Import Markdown files using **Add → Import → File**, or add formatted text with the [Label tool](/docs/v2/tools/label/)
 - Konvertiere Markdown-Dateien bei Bedarf für den Import in PDF
+- Review links and formatting after import; Obsidian's vault structure and plugins are not converted into Butterfly features
 - Verwende Butterflys unendliche Leinwand für Mindmaps statt der Graphansicht
 
 **Von Excalidraw:**
 
-- Exportiere Zeichnungen als SVG und importieren Sie sie in Butterfly
-- Recreate collaborative workflows mit Butterfly’s sync features
+- Export drawings as SVG and import them into Butterfly. The SVG is placed as an image rather than converted into editable Butterfly shapes; see [Importing](/docs/v2/importing/)
+- For shared editing, see Butterfly's experimental [collaboration](/docs/v2/collaboration/). WebDAV sync keeps files synchronized between devices
 - Wechsel von reinen Diagrammen zu gemischten Notizen
 
 **Von Xournal++:**
 
-- Exportiere annotierte PDFs und importieren Sie sie in Butterfly
-- Übertragen Sie handschriftliche Notizen, indem Sie sie neu erstellst oder als Bilder importierst
+- Import `.xopp` files directly using **Add → Import → File**, or export annotated PDFs from Xournal++ and import them into Butterfly
+- Review imported handwriting, images, and page layout. Butterfly can also [export to Xournal++](/docs/v2/exporting/) when you need to move a copy back
 - Stellen Sie Sie von einem seitenbasierten Workflow auf einen Workflow mit unendlicher Leinwand um
 
 **Von Samsung Notes:**

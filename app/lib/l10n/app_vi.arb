@@ -594,7 +594,10 @@
   "perSide": "Per side",
   "directory": "Thư mục",
   "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Advanced directory paths are relative to it; leave empty to use absolute paths",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Thư mục tài liệu",
   "templatesDirectory": "Thư mục mẫu",
   "errorWhileCreatingConnection": "Lỗi khi tạo kết nối",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "Phím tắt",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Giữa",
   "@middle": {
     "description": "Mouse button"

@@ -594,7 +594,10 @@
   "perSide": "1 辺あたり",
   "directory": "ディレクトリ",
   "connectionNameDescription": "バタフライでこの接続を識別するためにのみ使用されます",
-  "connectionDirectoryDescription": "この接続のベースフォルダ。高度なディレクトリパスは相対パスです。絶対パスを使用する場合は空のままにしてください。",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "ドキュメントディレクトリ",
   "templatesDirectory": "テンプレートディレクトリ",
   "errorWhileCreatingConnection": "接続の作成中にエラー",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "ショートカット",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "中央",
   "@middle": {
     "description": "Mouse button"

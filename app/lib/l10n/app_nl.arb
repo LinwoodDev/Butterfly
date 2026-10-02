@@ -594,7 +594,10 @@
   "perSide": "Per zijde",
   "directory": "Catalogus",
   "connectionNameDescription": "Alleen gebruikt om deze verbinding te identificeren in Vlinder",
-  "connectionDirectoryDescription": "Basis map voor deze verbinding. Geavanceerde directory paden zijn er relatief om; laat leeg om absolute paden te gebruiken",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Documenten map",
   "templatesDirectory": "Templates map",
   "errorWhileCreatingConnection": "Fout tijdens het maken van de verbinding",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "Snelkoppelingen",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Midden",
   "@middle": {
     "description": "Mouse button"

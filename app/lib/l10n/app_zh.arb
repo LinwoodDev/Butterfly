@@ -594,7 +594,10 @@
   "perSide": "每面",
   "directory": "目录",
   "connectionNameDescription": "仅用于识别Butterflight 中的此连接",
-  "connectionDirectoryDescription": "此连接的基础文件夹。高级目录路径与此相对；留空则使用绝对路径",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "文档目录",
   "templatesDirectory": "模板目录",
   "errorWhileCreatingConnection": "创建连接时出错",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "快捷键",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "中",
   "@middle": {
     "description": "Mouse button"

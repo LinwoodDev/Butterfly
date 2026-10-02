@@ -594,7 +594,10 @@
   "perSide": "Per sida",
   "directory": "Katalog",
   "connectionNameDescription": "Används endast för att identifiera denna anslutning i fjärilen",
-  "connectionDirectoryDescription": "Basmapp för denna anslutning. Avancerade katalogvägar är relativa till den; lämna tomt för att använda absoluta sökvägar",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Katalog för dokument",
   "templatesDirectory": "Mall katalog",
   "errorWhileCreatingConnection": "Fel vid skapande av anslutning",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "Genvägar",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Mitten",
   "@middle": {
     "description": "Mouse button"
