@@ -155,6 +155,7 @@ to **tool activators**._
 - `Ctrl` + `-`: Zoom indietro
 - `Ctrl` + `Shift` + `Left`: Rotate canvas left
 - `Ctrl` + `Shift` + `Right`: Rotate canvas right
+- Hold `Shift` + `Space` and drag with a mouse or stylus: Rotate around the center of the canvas (configurable under Settings → Inputs → Keyboard → Project)
 - `F11`: Full screen
 - `F12`: Hide UI
 - `Arrow Right`: Next slide in presentation

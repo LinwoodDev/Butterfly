@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "感度",
+  "selectionTolerance": "選択許容差",
+  "selectionToleranceDescription": "ポインタを要素または領域に近づける必要があります。値が高いほど選択が容易になります。",
+  "selectionHandleSensitivity": "選択ハンドルのヒットエリア",
+  "selectionHandleSensitivityDescription": "選択範囲周辺のヒット領域のサイズと、すべてのポインタタイプのエリアハンドルのサイズ。",
+  "panGestureSensitivity": "パンジェスチャーの感度",
+  "panGestureSensitivityDescription": "タッチまたはトラックパッドジェスチャーからキャンバスを移動します。値が高いほどキャンバスは遠くに移動します。",
+  "zoomGestureSensitivity": "継続的なズーム感度",
+  "zoomGestureSensitivityDescription": "ピンチ、トラックパッドのジェスチャー、およびCtrlスクロールからズームします。値が高いほど、ズームが遠くになります。",
+  "rotationGestureSensitivity": "回転ジェスチャーの感度",
+  "rotationGestureSensitivityDescription": "ジェスチャーからキャンバスを回転させます。値が大きいほど遠くまで回転します。",
+  "scrollPanSensitivity": "パンの感度をスクロール",
+  "scrollPanSensitivityDescription": "マウスホイールとトラックパッドのスクロールからキャンバスを移動します。値が大きいほど、さらに大きくなります。",
   "horizontal": "水平方向",
   "vertical": "垂直方向",
   "plain": "Plain",
@@ -914,6 +926,65 @@
   "smoothing": "スムージング",
   "streamline": "Streamline",
   "presentation": "プレゼンテーション",
+  "simple": "単純な",
+  "createPresentation": "Create presentation",
+  "addSlide": "新しいスライドを追加",
+  "updateSlide": "スライドを更新",
+  "deleteSlide": "スライドを削除",
+  "transitionDuration": "トランジション時間",
+  "transitionDurationDescription": "カメラが次のスライドに移動するまでにかかる時間。最後のスライドでは、新しいスライドを追加するときに使用します。",
+  "transitionDurationValue": "{seconds}秒のトランジション",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "ここにキーフレームを追加",
+  "updateKeyframe": "現在のカメラから更新",
+  "deleteKeyframe": "キーフレームを削除",
+  "markAsSlide": "スライドとしてマーク",
+  "removeSlideMarker": "スライドマーカーを削除",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "スライド {slide} · フレーム {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "スライド {current} / {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "アセットを選択",
   "clearStyle": "スタイルをクリア",
   "unknownImportType": "不明なインポートタイプ",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "更新時のみ",
   "visibility": "公開範囲",
   "captureThumbnail": "サムネイルをキャプチャする",
+  "autoThumbnail": "終了時にサムネイルを更新",
+  "autoThumbnailDescription": "このドキュメントを閉じたときに現在のビューをキャプチャします。サムネイルをキャプチャするとオフになります。",
   "capturedThumbnail": "サムネイルをキャプチャしました",
   "chooseLabelMode": "ラベルモードを選択",
   "foreground": "フォアグラウンド（前面）",
@@ -1035,6 +1108,7 @@
   "rotation": "回転",
   "rotationStep": "回転ステップ",
   "zoomStep": "ズームステップ",
+  "zoomStepDescription": "ズームインとキーボードショートカットのズームアウトによって使用される金額。継続的なズームジェスチャーは、独自の感度設定を使用します。",
   "direction": "方向",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "現在のページ、ズーム、選択したツールなど、各ノートのワークスペースのどの部分が記憶されるかを設定します。",
   "persistentStatesEnabledDescription": "ドキュメントの状態情報をアプリセッション間で保存する",
   "persistentStateCurrentPageDescription": "ファイルを再開したときに現在のページを記憶する",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "各ページのビューポートの位置、ズーム、回転を記憶する",
   "persistentStateSelectedToolDescription": "ファイルを再開するときに選択したツールを記憶する",
   "persistentStateLocksDescription": "ファイルを再開したときにロック設定を記憶する",
   "persistentStateNavigatorDescription": "ファイルを再開したときにナビゲータの状態を記憶する",
   "persistentStateLayersDescription": "ファイルを再開したときのレイヤーパネルの状態を記憶する",
   "persistentStateAreasDescription": "ファイルを再開したときの領域パネルの状態を記憶する",
+  "persistentStateAutoThumbnail": "サムネイルの自動設定",
+  "persistentStateAutoThumbnailDescription": "ドキュメントごとの切り替えを表示し、ドキュメントを閉じたときにサムネイルを更新できるようにします",
   "persistentStateMaxRecordsDescription": "ファイルごとにこの多くの保存状態を保持します",
   "persistentStateDeleteOlderThanDaysDescription": "この日よりも古い保存状態を削除",
   "contentViewportDescription": "ノートの内容から離れてパンできる範囲を制限します。",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "スタイラスの圧力がストロークを変化させ、いくつかのスタイラスからの不正確な圧力測定値を回避するかどうかを制御します。",
   "moveOnGestureDescription": "マルチタッチジェスチャーでノートコンテンツを操作する代わりにキャンバスを移動できます。",
   "spreadPagesDescription": "すべてを1ページに配置するのではなく、複数ページのインポートを別々のノートページに分割します。",
-  "shear": "せん断（せん）"
+  "shear": "せん断（せん）",
+  "resetRotation": "回転をリセット",
+  "zoomPanelControls": "ズームパネルコントロール",
+  "zoomPanelControlsDescription": "ズームと回転のコントロールを選択します。リセットボタンは、すべてのレイアウトで使用できます。",
+  "zoomPanelFull": "フル (スライダー、テキストフィールド、ボタン)",
+  "zoomPanelSliderInput": "スライダーとテキストフィールド",
+  "zoomPanelSlider": "スライダー",
+  "zoomPanelInputButtons": "テキストフィールドとボタン",
+  "zoomPanelInput": "テキスト フィールド",
+  "rotationDisplay": "回転表示",
+  "rotationDisplayDescription": "回転行がズームの上に表示されるときに選択します。これは回転ジェスチャーやショートカットを変更しません。",
+  "whenRotated": "回転時",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "ドラッグしてキャンバスを回転させる"
 }

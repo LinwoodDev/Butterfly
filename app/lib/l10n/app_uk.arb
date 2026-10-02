@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Чутливість",
+  "selectionTolerance": "Допустимість виділення",
+  "selectionToleranceDescription": "Наскільки близько вказівника має бути елемент або площа, щоб вибрати її. Вищі значення полегшують відбір.",
+  "selectionHandleSensitivity": "Вибір області натискання",
+  "selectionHandleSensitivityDescription": "Розмір області навколо виділення і площі для всіх типів вказівників.",
+  "panGestureSensitivity": "Чутливість Пана жесту",
+  "panGestureSensitivityDescription": "Canvas рух від сенсорних або елементів стеження. Вищі значення переміщують полотно далі.",
+  "zoomGestureSensitivity": "Неперервна чутливість масштабування",
+  "zoomGestureSensitivityDescription": "Збільшення масштабу з уточнення, жестів на трекпаді та Ctrl+прокручування. Чим вище значення, тим більше масштабування.",
+  "rotationGestureSensitivity": "Чутливість жесту повороту",
+  "rotationGestureSensitivityDescription": "Маршрутизація повороту жестів. Вищі значення обертаються далі.",
+  "scrollPanSensitivity": "Чутливість прокрутки",
+  "scrollPanSensitivityDescription": "Canvas рух з колеса миші та елементів прокручування. Чим вищі значення, тим більше.",
   "horizontal": "Горизонтально",
   "vertical": "Вертикально",
   "plain": "Рівнина",
@@ -914,6 +926,65 @@
   "smoothing": "Згладжування",
   "streamline": "Стреймлін",
   "presentation": "Презентація",
+  "simple": "Просте",
+  "createPresentation": "Create presentation",
+  "addSlide": "Додати новий слайд",
+  "updateSlide": "Оновити слайд",
+  "deleteSlide": "Видалити слайд",
+  "transitionDuration": "Тривалість переходу",
+  "transitionDurationDescription": "На останньому слайді це буде період використання камери, якщо додати новий.",
+  "transitionDurationValue": "Перехід {seconds}",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Додавайте сюди ключові кадри",
+  "updateKeyframe": "Оновити з поточної камери",
+  "deleteKeyframe": "Видалити ключовий кадр",
+  "markAsSlide": "Зсунути як мітку",
+  "removeSlideMarker": "Видалити маркер слайду",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Слайд {current} з {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Виберіть медіафайл",
   "clearStyle": "Очистити стиль",
   "unknownImportType": "Невідомий тип імпорту",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Тільки при оновленні",
   "visibility": "Видимість",
   "captureThumbnail": "Захопити ескіз",
+  "autoThumbnail": "Оновлення мініатюр при закритті",
+  "autoThumbnailDescription": "Захоплення поточного вигляду, коли ви закриваєте цей документ. Вручну захоплення ескізу виводить його.",
   "capturedThumbnail": "Успішно захоплено ескіз",
   "chooseLabelMode": "Виберіть режим мітки",
   "foreground": "Активний режим",
@@ -1035,6 +1108,7 @@
   "rotation": "Поворот екрану",
   "rotationStep": "Крок обертання",
   "zoomStep": "Крок масштабування",
+  "zoomStepDescription": "Сума, що використовується при масштабуванні та зменшенні ярликів клавіатури. Безперервні масштабування використовують власні налаштування чутливості.",
   "direction": "Напрямок",
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
   "toolbarPosition": "Позиція панелі інструментів",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Визначає, які частини вашої робочої області пам'ятають члени метелика для кожної нотатки, наприклад поточна сторінка, масштаб і обраний інструмент.",
   "persistentStatesEnabledDescription": "Зберігати інформацію про стан документів між додатками",
   "persistentStateCurrentPageDescription": "Запам'ятати поточну сторінку при повторному відкритті файлу",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Запам'ятати положення viewпорту, масштабування і поворот для кожної сторінки",
   "persistentStateSelectedToolDescription": "Запам'ятати обраний інструмент, коли повторно відкрити файл",
   "persistentStateLocksDescription": "Пам'ятати параметри блокування при повторному відкритті файлу",
   "persistentStateNavigatorDescription": "Запам'ятовувати стан навігації при повторному відкритті файлу",
   "persistentStateLayersDescription": "Запам'ятати стан панелі шару під час перезавантаження файлу",
   "persistentStateAreasDescription": "Запам'ятати стан області під час перезавантаження файлу",
+  "persistentStateAutoThumbnail": "Автоматичні мініатюри",
+  "persistentStateAutoThumbnailDescription": "Показувати перемикач для кожного документа і дозволяти ескізи оновлюватися, коли документи закриються",
   "persistentStateMaxRecordsDescription": "Зберегти максимум стільки збережених станів в файлі",
   "persistentStateDeleteOlderThanDaysDescription": "Видалення збережених держав старше цієї кількості днів",
   "contentViewportDescription": "Обмежує, як далеко ви можете відійти від вмісту вашої нотатки.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Визначає, чи змінює стиль тиску і працює навколо неточних показників тиску з деяких стилів.",
   "moveOnGestureDescription": "Дозволяє жести мультисенсорного екрану перемістити полотно замість взаємодії з вмістом нотаток.",
   "spreadPagesDescription": "Розділяє багатосторінковий імпорт окремих сторінок замість розміщення всього на одній сторінці.",
-  "shear": "Стригти"
+  "shear": "Стригти",
+  "resetRotation": "Скинути обертання",
+  "zoomPanelControls": "Кнопки масштабу",
+  "zoomPanelControlsDescription": "Виберіть кнопки зі масштабуванням і обертанням. Скидання доступні в кожному макеті.",
+  "zoomPanelFull": "Повний (повзунок, текстове поле та кнопки)",
+  "zoomPanelSliderInput": "Поле слайдера і тексту",
+  "zoomPanelSlider": "Слайдер",
+  "zoomPanelInputButtons": "Текстове поле та кнопки",
+  "zoomPanelInput": "Текстове поле",
+  "rotationDisplay": "Поворот дисплея",
+  "rotationDisplayDescription": "Виберіть, коли рядок обертання з'являється у верхньому масштабі. Не змінює жести обертання або ярлики.",
+  "whenRotated": "При обертанні",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Повернути полотно, перетягнувши"
 }

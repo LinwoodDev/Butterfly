@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Følsomhed",
+  "selectionTolerance": "Valg tolerance",
+  "selectionToleranceDescription": "Hvor tæt en markør skal være på et element eller område for at vælge det. Højere værdier gør det nemmere.",
+  "selectionHandleSensitivity": "Udvælgelse håndtag hit område",
+  "selectionHandleSensitivityDescription": "Størrelsen af det ramte område omkring udvælgelse og område håndtag for alle markører typer.",
+  "panGestureSensitivity": "Pan gestus følsomhed",
+  "panGestureSensitivityDescription": "Lærredsbevægelser fra berørings- eller trackpad bevægelser. Højere værdier flytter lærredet længere.",
+  "zoomGestureSensitivity": "Kontinuerlig zoomfølsomhed",
+  "zoomGestureSensitivityDescription": "Zoom fra klemme, trackpad fagter og Ctrl+scroll. Højere værdier zoom længere.",
+  "rotationGestureSensitivity": "Følsomhed for rotationsbevægelse",
+  "rotationGestureSensitivityDescription": "Lærred rotation fra fagter. Højere værdier roterer længere.",
+  "scrollPanSensitivity": "Rul panoreringsfølsomhed",
+  "scrollPanSensitivityDescription": "Lærred bevægelse fra musehjul og trackpad rulning. Højere værdier panorere længere.",
   "horizontal": "Horisontal",
   "vertical": "Lodret",
   "plain": "Enkelt",
@@ -914,6 +926,65 @@
   "smoothing": "Udglatning",
   "streamline": "Strømlinet",
   "presentation": "Præsentation",
+  "simple": "Simpel",
+  "createPresentation": "Create presentation",
+  "addSlide": "Tilføj ny dias",
+  "updateSlide": "Opdater dias",
+  "deleteSlide": "Slet dias",
+  "transitionDuration": "Varighed for overgang",
+  "transitionDurationDescription": "Hvor lang tid kameraet tager at flytte til det næste dias. På det sidste dias bruges det, når du tilføjer et nyt.",
+  "transitionDurationValue": "{seconds}s overgang",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Tilføj keyframe her",
+  "updateKeyframe": "Opdater fra nuværende kamera",
+  "deleteKeyframe": "Slet tastatur",
+  "markAsSlide": "Markér som dias",
+  "removeSlideMarker": "Fjern diasmarkør",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Ramme {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Glid {current} af {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Vælg aktiv",
   "clearStyle": "Ryd stil",
   "unknownImportType": "Ukendt importtype",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Kun ved opdateringer",
   "visibility": "Synlighed",
   "captureThumbnail": "Optag miniature",
+  "autoThumbnail": "Opdater miniature ved lukning",
+  "autoThumbnailDescription": "Tag den aktuelle visning, når du lukker dette dokument. Indsamling manuelt af en miniature slår dette fra.",
   "capturedThumbnail": "Miniaturebillede med succes",
   "chooseLabelMode": "Vælg etiket tilstand",
   "foreground": "Forgrund",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotation",
   "rotationStep": "Rotation trin",
   "zoomStep": "Zoom trin",
+  "zoomStepDescription": "Beløb brugt af zoom ind og zoom ud tastaturgenveje. Kontinuerlige zoom fagter bruger deres egen følsomhed indstilling.",
   "direction": "Retning",
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
   "toolbarPosition": "Værktøjslinjens position",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Kontrollerer, hvilke dele af dit arbejdsområde Butterfly husker for hver note, såsom den aktuelle side, zoom og valgte værktøj.",
   "persistentStatesEnabledDescription": "Gem dokumentstatus mellem app-sessioner",
   "persistentStateCurrentPageDescription": "Husk den aktuelle side ved genåbning af en fil",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Husk viewport position, zoom og rotation for hver side",
   "persistentStateSelectedToolDescription": "Husk det valgte værktøj ved genåbning af en fil",
   "persistentStateLocksDescription": "Husk låseindstillinger ved genåbning af en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden ved genåbning af en fil",
   "persistentStateLayersDescription": "Husk lagpanelets tilstand når en fil genåbnes",
   "persistentStateAreasDescription": "Husk områdepanelets tilstand ved genåbning af en fil",
+  "persistentStateAutoThumbnail": "Automatiske miniaturer",
+  "persistentStateAutoThumbnailDescription": "Vis parameteren pr. dokument og tillad miniaturer at opdatere, når dokumenter lukkes",
   "persistentStateMaxRecordsDescription": "Behold højst dette mange lagrede stater pr. fil",
   "persistentStateDeleteOlderThanDaysDescription": "Slet gemte tilstande ældre end så mange dage",
   "contentViewportDescription": "Begrænser, hvor langt du kan panorere væk fra indholdet af din note.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Kontrollerer, om stylus tryk ændrer slagtilfælde og virker omkring unøjagtige tryk aflæsninger fra nogle styluses.",
   "moveOnGestureDescription": "Lader multi-touch fagter flytte lærred i stedet for at interagere med nodeindhold.",
   "spreadPagesDescription": "Opdeler import på flere sider på tværs af separate notessider i stedet for at placere alt på én side.",
-  "shear": "Forskyd"
+  "shear": "Forskyd",
+  "resetRotation": "Nulstil rotation",
+  "zoomPanelControls": "Zoom panel kontrol",
+  "zoomPanelControlsDescription": "Vælg kontrolelementerne for zoom og rotation. Nulstil knapper forbliver tilgængelige i hvert layout.",
+  "zoomPanelFull": "Fuld (skyder, tekstfelt og knapper)",
+  "zoomPanelSliderInput": "Slider og tekstfelt",
+  "zoomPanelSlider": "Skyder",
+  "zoomPanelInputButtons": "Tekstfelt og knapper",
+  "zoomPanelInput": "Tekst felt",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Vælg hvornår rotationsrækken vises over zoom. Dette ændrer ikke rotationsbevægelser eller genveje.",
+  "whenRotated": "Når roteret",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Roter lærred ved at trække"
 }

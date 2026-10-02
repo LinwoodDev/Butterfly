@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Sensitivitet",
+  "selectionTolerance": "Utvelgelsestoleranse",
+  "selectionToleranceDescription": "Hvordan lukke en peker må være til et element eller område for å velge det. Høyere verdier gjør det enklere.",
+  "selectionHandleSensitivity": "Velg håndtak treffområde",
+  "selectionHandleSensitivityDescription": "Størrelse på treffområdet rundt utvelgelsen og områdehåndtaket for alle peketyper.",
+  "panGestureSensitivity": "Følsomhet i fan",
+  "panGestureSensitivityDescription": "Canvas bevegelse fra berøring eller trackpad bevegelser. Høyere verdier flytter lerretet lengre.",
+  "zoomGestureSensitivity": "Kontinuerlig zoom-følsomhet",
+  "zoomGestureSensitivityDescription": "Zoom fra å knip ut, trackpaddebevegelser og Ctrl+scroll. Høyere verdier zoom langt.",
+  "rotationGestureSensitivity": "Rotasjonsbevegelser følsomhet",
+  "rotationGestureSensitivityDescription": "Lerret rotasjon fra gestere. Høyere verdier roterer videre.",
+  "scrollPanSensitivity": "Rull pan følsomhet",
+  "scrollPanSensitivityDescription": "Canvas bevegelse fra musehjul og trackpad scrolling. Høyere verdier panorerer lenger",
   "horizontal": "Horisontal",
   "vertical": "Vertikal",
   "plain": "Enkel",
@@ -914,6 +926,65 @@
   "smoothing": "Utjevning",
   "streamline": "Streamline",
   "presentation": "Presentasjon",
+  "simple": "Enkel",
+  "createPresentation": "Create presentation",
+  "addSlide": "Legg til ny lysbilde",
+  "updateSlide": "Oppdater lysbilde",
+  "deleteSlide": "Slett lysbildet",
+  "transitionDuration": "Overgang varighet",
+  "transitionDurationDescription": "Hvor lenge kameraet tar å gå på neste lysbilde. På siste side brukes den når du legger til en ny.",
+  "transitionDurationValue": "{seconds}s overgang",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Legg til nøkkelbilde her",
+  "updateKeyframe": "Oppdater fra gjeldende kamera",
+  "deleteKeyframe": "Slett nøkkelbilde",
+  "markAsSlide": "Marker som lysbilde",
+  "removeSlideMarker": "Fjern lysbildemarkør",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Ramme {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Velg ressurs",
   "clearStyle": "Fjern stil",
   "unknownImportType": "Ukjent importtype",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Bare når det gjelder oppdateringer",
   "visibility": "Synlighet",
   "captureThumbnail": "Ta opp miniatyrbilde",
+  "autoThumbnail": "Oppdater miniatyrbilde ved lukking",
+  "autoThumbnailDescription": "Ta opp nåværende visning når du lukker dette dokumentet. Manuelt fange opp et miniatyrbilde avslører dette av.",
   "capturedThumbnail": "Miniatyrbildet ble tatt opp",
   "chooseLabelMode": "Velg etikett-modus",
   "foreground": "Forgrunn",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotasjon",
   "rotationStep": "Rotasjon trinn",
   "zoomStep": "Zoom trinn",
+  "zoomStepDescription": "Mengde som brukes av zoom inn og zoome ut tastatursnarveier. Kontinuerlige zoom-bevegelser bruker sine egne sensitivitetsinnstillinger.",
   "direction": "Retning",
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
   "toolbarPosition": "Plassering av verktøylinje",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Kontrollerer hvilke deler av arbeidsområdet som husker det for hvert notat, for eksempel gjeldende side, zoom og valgt verktøy.",
   "persistentStatesEnabledDescription": "Lagre dokumentstatus informasjon mellom appsesjoner",
   "persistentStateCurrentPageDescription": "Husk gjeldende side ved gjenåpning av en fil",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Husk visningsposisjonen, zoom og rotasjon for hver side",
   "persistentStateSelectedToolDescription": "Husk det valgte verktøyet ved gjenåpning av en fil",
   "persistentStateLocksDescription": "Husk låsinnstillinger når du gjenåpner en fil",
   "persistentStateNavigatorDescription": "Husk navigatortilstanden når du gjenåpner en fil",
   "persistentStateLayersDescription": "Husk lag-panelet når en fil åpnes på nytt",
   "persistentStateAreasDescription": "Husk områdepanel når du gjenåpner en fil",
+  "persistentStateAutoThumbnail": "Automatiske miniatyrbilder",
+  "persistentStateAutoThumbnailDescription": "Vis bryteren for per-dokument og tillat miniatyrbilder å oppdatere når dokumenter lukkes",
   "persistentStateMaxRecordsDescription": "Ha stort sett så mange lagrede stater per fil",
   "persistentStateDeleteOlderThanDaysDescription": "Slett lagrede stater eldre enn dette mange dager",
   "contentViewportDescription": "Begrenser hvor langt du kan låne bort fra innholdet på ditt notat.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Kontrollerer om pennen endrer slaget, og fungerer rundt unøyaktige trykkavlesninger fra noen stilarter.",
   "moveOnGestureDescription": "Lar multi-touch bevegelser flytte lerretet i stedet for å samhandle med notatinnhold.",
   "spreadPagesDescription": "Deler av flerside import på tvers av forskjellige notatsider i stedet for å plassere alt på en side.",
-  "shear": "Klipp"
+  "shear": "Klipp",
+  "resetRotation": "Nullstill rotasjon",
+  "zoomPanelControls": "Zoom panelkontroller",
+  "zoomPanelControlsDescription": "Velg kontroller for zoom og rotasjon. Tilbakestill knappene er tilgjengelige for hvert oppsett.",
+  "zoomPanelFull": "Full (glider, tekstfelt og knapper)",
+  "zoomPanelSliderInput": "Glidebryter og tekstfelt",
+  "zoomPanelSlider": "Glidebryter",
+  "zoomPanelInputButtons": "Tekstfelt og knapper",
+  "zoomPanelInput": "Tekst felt",
+  "rotationDisplay": "Rotasjon skjerm",
+  "rotationDisplayDescription": "Velg når rotasjonsraden vises over zoom. Dette endrer ikke rotasjonsbevegelser eller snarveier.",
+  "whenRotated": "Når rotert",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Roter lerret ved å dra"
 }

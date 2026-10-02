@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Sensibilitate",
+  "selectionTolerance": "Toleranță la selecție",
+  "selectionToleranceDescription": "Cât de aproape trebuie să fie un cursor de un element sau o zonă pentru a-l selecta. Valorile mai mari fac selecția mai ușoară.",
+  "selectionHandleSensitivity": "Zona de lovire la selecţie",
+  "selectionHandleSensitivityDescription": "Dimensiunea zonei de lovire din jurul selecţiei şi zona de manevrare pentru toate tipurile de indicatoare.",
+  "panGestureSensitivity": "Sensibilitate gest panou",
+  "panGestureSensitivityDescription": "Mișcarea canvas de la atingere sau trackpad. Valorile mai mari mișcă pânza mai departe.",
+  "zoomGestureSensitivity": "Sensibilitate continuă la zoom",
+  "zoomGestureSensitivityDescription": "Zoom de la prindere, gesturi de trackpad și Ctrl+scroll. Valorile mai mari măresc mai departe.",
+  "rotationGestureSensitivity": "Sensibilitate gest de rotație",
+  "rotationGestureSensitivityDescription": "Rotația canvas de la gesturi. Valorile mai mari se rotesc mai departe.",
+  "scrollPanSensitivity": "Sensibilitatea panoului de derulare",
+  "scrollPanSensitivityDescription": "Canvas se mișcă de la rotița mouse-ului și de la derularea tartinului. Valorile mai mari sunt mai îndepărtate.",
   "horizontal": "Orizontal",
   "vertical": "Verticală",
   "plain": "Simplu",
@@ -914,6 +926,65 @@
   "smoothing": "Amortizor",
   "streamline": "Raţionalizare",
   "presentation": "Prezentare",
+  "simple": "Simplu",
+  "createPresentation": "Create presentation",
+  "addSlide": "Adaugă diapozitiv nou",
+  "updateSlide": "Actualizare diapozitiv",
+  "deleteSlide": "Ștergeți diapozitivul",
+  "transitionDuration": "Durata tranziției",
+  "transitionDurationDescription": "Cât timp durează camera să se mute la următorul slide. Pe ultimul slide, acesta este folosit atunci când adăugați unul nou.",
+  "transitionDurationValue": "{seconds}tranziție",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Adaugă cadrul cheie aici",
+  "updateKeyframe": "Actualizează din camera curentă",
+  "deleteKeyframe": "Șterge cadrul cheie",
+  "markAsSlide": "Marchează ca diapozitiv",
+  "removeSlideMarker": "Elimină marker slide",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Selecteaza activ",
   "clearStyle": "Sterge stil",
   "unknownImportType": "Tip de import necunoscut",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Numai la actualizări",
   "visibility": "Vizibilitate",
   "captureThumbnail": "Capturează miniatura",
+  "autoThumbnail": "Actualizare miniatură la închidere",
+  "autoThumbnailDescription": "Capturează vizualizarea curentă atunci când închizi acest document. Se oprește manual capturarea unei miniaturi.",
   "capturedThumbnail": "Miniatură captată cu succes",
   "chooseLabelMode": "Alege modul etichetă",
   "foreground": "prim-plan",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotație",
   "rotationStep": "Etapa de rotație",
   "zoomStep": "Pasul de mărire",
+  "zoomStepDescription": "Suma folosită de zoom și micșorarea scurtăturilor pentru tastatură. Gesturile de zoom continue folosesc setările proprii de sensibilitate.",
   "direction": "Direcție",
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Controlează ce părţi din spaţiul tău de lucru îşi aminteşte fluturaşul pentru fiecare notă, cum ar fi pagina curentă, zoom-ul şi unealta selectată.",
   "persistentStatesEnabledDescription": "Salvați informații despre starea documentului între sesiunile aplicațiilor",
   "persistentStateCurrentPageDescription": "Amintiţi-vă pagina curentă la redeschiderea unui fişier",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Amintiți-vă poziția viewportului, zoom și rotație pentru fiecare pagină",
   "persistentStateSelectedToolDescription": "Reține instrumentul selectat la redeschiderea unui fișier",
   "persistentStateLocksDescription": "Reține setările de blocare la redeschiderea unui fișier",
   "persistentStateNavigatorDescription": "Amintiţi-vă starea navigatorului la redeschiderea unui fişier",
   "persistentStateLayersDescription": "Reţineţi starea panoului pe strat la redeschiderea unui fişier",
   "persistentStateAreasDescription": "Memorează starea zonei panoului la redeschiderea unui fișier",
+  "persistentStateAutoThumbnail": "Miniaturi automate",
+  "persistentStateAutoThumbnailDescription": "Afișează comutatorul pe document și permite miniaturilor să se actualizeze atunci când documentele se închid",
   "persistentStateMaxRecordsDescription": "Păstrați cel mult atâtea stări stocate pe fișier",
   "persistentStateDeleteOlderThanDaysDescription": "Ştergeţi statele stocate mai vechi de atâtea zile",
   "contentViewportDescription": "Limitează cât de departe poți scăpa de conținutul notei tale.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Controlează dacă presiunea stylusului modifică accidentul vascular cerebral şi acţionează în jurul valorilor inexacte ale presiunii din unele stylus.",
   "moveOnGestureDescription": "Lasă gesturi multi-touch să mute pânza în loc să interacționeze cu conținutul notei.",
   "spreadPagesDescription": "Împarte importurile în mai multe pagini pe pagini separate de note, în loc să plasezi totul pe o singură pagină.",
-  "shear": "Șuruburi"
+  "shear": "Șuruburi",
+  "resetRotation": "Resetare rotație",
+  "zoomPanelControls": "Comenzi panou zoom",
+  "zoomPanelControlsDescription": "Alegeţi comenzile pentru zoom şi rotaţie. Butoanele de resetare rămân disponibile în fiecare layout.",
+  "zoomPanelFull": "Complet (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Camp glisare si text",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Câmp text și butoane",
+  "zoomPanelInput": "Camp text",
+  "rotationDisplay": "Afișare rotație",
+  "rotationDisplayDescription": "Alegeți când rândul de rotație apare deasupra micșorării. Acest lucru nu schimbă gesturile de rotație sau scurtăturile.",
+  "whenRotated": "Când este rotit",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotiți pânza prin tragere"
 }

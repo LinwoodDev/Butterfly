@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Gevoeligheid",
+  "selectionTolerance": "Selectie tolerantie",
+  "selectionToleranceDescription": "Hoe dicht een aanwijzer moet zijn naar een element of gebied om het te selecteren. Hogere waarden maken de selectie makkelijker.",
+  "selectionHandleSensitivity": "Selectie handvat hit gebied",
+  "selectionHandleSensitivityDescription": "Grootte van het hit gebied rond de selectie en gebied handelt voor alle aanwijzertypen.",
+  "panGestureSensitivity": "Pan gebaar gevoeligheid",
+  "panGestureSensitivityDescription": "Canvas beweging van aanraking of trackpad gebaren. Hogere waarden verplaatsen het canvas verder.",
+  "zoomGestureSensitivity": "Doorlopende zoomgevoeligheid",
+  "zoomGestureSensitivityDescription": "Zoom door pinnen, trackpad gebaren en Ctrl+scroll. Hogere waarden zoomen verder te zoeken.",
+  "rotationGestureSensitivity": "Rotatie gebaar gevoeligheid",
+  "rotationGestureSensitivityDescription": "Canvas rotatie van gebaren. Hogere waarden draaien verder op.",
+  "scrollPanSensitivity": "Scroll pan gevoeligheid",
+  "scrollPanSensitivityDescription": "Canvas bewegen van muiswiel en trackpad scrollen. Hogere waarden pan verderop.",
   "horizontal": "Horizontaal",
   "vertical": "Verticaal",
   "plain": "Eenvoudig",
@@ -914,6 +926,65 @@
   "smoothing": "Vloeiend",
   "streamline": "Stroomlijn",
   "presentation": "Presentatie",
+  "simple": "Eenvoudig",
+  "createPresentation": "Create presentation",
+  "addSlide": "Voeg nieuwe slide toe",
+  "updateSlide": "Dia bijwerken",
+  "deleteSlide": "Dia verwijderen",
+  "transitionDuration": "Tijdsduur overgang",
+  "transitionDurationDescription": "Hoe lang het duurt voordat de camera naar de volgende slide gaat. Bij de laatste slide wordt dit gebruikt wanneer u een nieuwe plaatje toevoegt.",
+  "transitionDurationValue": "{seconds}s transitie",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Sleutelframe hier toevoegen",
+  "updateKeyframe": "Update van huidige camera",
+  "deleteKeyframe": "Sleutelframe verwijderen",
+  "markAsSlide": "Markeren als dia",
+  "removeSlideMarker": "Verwijder slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} van {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Selecteer een asset",
   "clearStyle": "Opmaak wissen",
   "unknownImportType": "Onbekend importtype",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Alleen op updates",
   "visibility": "Zichtbaarheid",
   "captureThumbnail": "Thumbnail opnemen",
+  "autoThumbnail": "Miniatuurweergave bijwerken bij sluiten",
+  "autoThumbnailDescription": "Leg de huidige weergave vast wanneer u dit document sluit. Handmatig opnemen van een miniatuur schakelt dit uit.",
   "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd",
   "chooseLabelMode": "Kies labelmodus",
   "foreground": "Voorgrond",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotatie",
   "rotationStep": "Rotatie stap",
   "zoomStep": "Zoom stap",
+  "zoomStepDescription": "Hoeveelheid gebruikt door inzoomen en uitzoomen sneltoetsen. Doorlopende zoomgebaren gebruiken hun eigen gevoeligheidsinstelling.",
   "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Bepaalt welke delen van de werkruimte zich voor elk bericht heronthouden, zoals de huidige pagina, zoom en de geselecteerde tool.",
   "persistentStatesEnabledDescription": "Documentgegevens tussen app-sessies opslaan",
   "persistentStateCurrentPageDescription": "Huidige pagina onthouden bij heropenen van een bestand",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "De positie van de viewport en zoom en rotatie voor elke pagina onthouden",
   "persistentStateSelectedToolDescription": "Onthoud het geselecteerde gereedschap bij het heropenen van een bestand",
   "persistentStateLocksDescription": "Vergrendelingsinstellingen onthouden bij het heropenen van een bestand",
   "persistentStateNavigatorDescription": "Onthoud de navigator status bij het heropenen van een bestand",
   "persistentStateLayersDescription": "Onthoud de status van het paneel bij het heropenen van een bestand",
   "persistentStateAreasDescription": "Onthoud de status van het gebied paneel bij het heropenen van een bestand",
+  "persistentStateAutoThumbnail": "Automatische miniaturen",
+  "persistentStateAutoThumbnailDescription": "Toon de per-document schakelaar en laat miniaturen bijwerken wanneer documenten sluiten",
   "persistentStateMaxRecordsDescription": "Houd hooguit zoveel opgeslagen staten per bestand",
   "persistentStateDeleteOlderThanDaysDescription": "Verwijder opgeslagen staten ouder dan dit aantal dagen",
   "contentViewportDescription": "Beperkt hoe ver je de inhoud van je notitie kunt verwijderen.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Bepaalt of de stylus druk de beroerte verandert en werkt rond onnauwkeurige drukmetingen van sommige stijlen.",
   "moveOnGestureDescription": "Laat multi-touch gebaren het canvas verplaatsen in plaats van interactie met notitie-inhoud.",
   "spreadPagesDescription": "Splitst meervoudige pagina's door aparte notitiepagina's in plaats van alles op één pagina te plaatsen.",
-  "shear": "Afschuiving"
+  "shear": "Afschuiving",
+  "resetRotation": "Reset rotatie",
+  "zoomPanelControls": "Zoom paneel besturing",
+  "zoomPanelControlsDescription": "Kies de besturingselementen voor zoom en rotatie. Reset knoppen blijven beschikbaar in elke lay-out.",
+  "zoomPanelFull": "Volledig (schuif, tekstveld en knoppen)",
+  "zoomPanelSliderInput": "Schuifregelaar en tekstveld",
+  "zoomPanelSlider": "Schuifbalk",
+  "zoomPanelInputButtons": "Tekstveld en knoppen",
+  "zoomPanelInput": "Tekst veld",
+  "rotationDisplay": "Weergave rotatie",
+  "rotationDisplayDescription": "Kies wanneer de rotatie rij boven de zoom verschijnt. Dit verandert geen rotatie gebaren of snelkoppelingen.",
+  "whenRotated": "Wanneer gedraaid",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Canvas draaien door te slepen"
 }

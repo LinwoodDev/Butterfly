@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Чувствительность",
+  "selectionTolerance": "Допуск по выделению",
+  "selectionToleranceDescription": "Как закрыть указатель должен быть к элементу или области, чтобы выбрать его. Чем больше значение делает выделение проще.",
+  "selectionHandleSensitivity": "Выделение ручки области хита",
+  "selectionHandleSensitivityDescription": "Размер области попадания вокруг выделения и область обрабатываются для всех типов указателей.",
+  "panGestureSensitivity": "Чувствительность жеста Пан",
+  "panGestureSensitivityDescription": "Холст движения от жестов касания или трекпада. Более высокие значения перемещают холст дальше.",
+  "zoomGestureSensitivity": "Непрерывная чувствительность масштаба",
+  "zoomGestureSensitivityDescription": "Уменьшите масштаб от прикрепления, жестов панели и Ctrl + прокрутки. Высокие значения увеличивают дальше.",
+  "rotationGestureSensitivity": "Чувствительность жеста вращения",
+  "rotationGestureSensitivityDescription": "Холст вращение от жестов. Высокие значения вращаются дальше.",
+  "scrollPanSensitivity": "Чувствительность прокрутки",
+  "scrollPanSensitivityDescription": "Холст перемещение с колеса мыши и прокрутка трекпада. Чем больше значение pan дальше.",
   "horizontal": "Горизонтально",
   "vertical": "Вертикально",
   "plain": "Обычный",
@@ -914,6 +926,65 @@
   "smoothing": "Сглаживание",
   "streamline": "Трансляция",
   "presentation": "Представление",
+  "simple": "Простой",
+  "createPresentation": "Create presentation",
+  "addSlide": "Добавить новый слайд",
+  "updateSlide": "Обновить слайд",
+  "deleteSlide": "Удалить слайд",
+  "transitionDuration": "Продолжительность перехода",
+  "transitionDurationDescription": "Как долго камера занимает перемещение на следующий слайд. На последнем слайде это используется при добавлении нового.",
+  "transitionDurationValue": "Переход {seconds}с",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Добавить ключевой фрейм здесь",
+  "updateKeyframe": "Обновить с текущей камеры",
+  "deleteKeyframe": "Удалить ключевой фрейм",
+  "markAsSlide": "Пометить как слайд",
+  "removeSlideMarker": "Удалить слайд маркер",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Слайд {slide} · кадр {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Слайд {current} из {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Выберите актив",
   "clearStyle": "Очистить стиль",
   "unknownImportType": "Неизвестный тип импорта",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Только при обновлении",
   "visibility": "Видимость",
   "captureThumbnail": "Захват эскиза",
+  "autoThumbnail": "Обновить эскиз при закрытии",
+  "autoThumbnailDescription": "Записывать текущий вид при закрытии этого документа. Вручную захват миниатюры отключает это.",
   "capturedThumbnail": "Успешно записанные миниатюры",
   "chooseLabelMode": "Выберите режим метки",
   "foreground": "Передний план",
@@ -1035,6 +1108,7 @@
   "rotation": "Поворот",
   "rotationStep": "Шаг поворота",
   "zoomStep": "Шаг масштаба",
+  "zoomStepDescription": "Количество используемых при увеличении и уменьшении сочетаний клавиш. Жесты непрерывного масштабирования используют собственные настройки чувствительности.",
   "direction": "Направление",
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Контролирует какие части вашей рабочей области Butterfly запоминаются для каждой записи, такой как текущая страница, масштаб и выбранный инструмент.",
   "persistentStatesEnabledDescription": "Сохранять информацию о состоянии документа между сессиями приложения",
   "persistentStateCurrentPageDescription": "Запомнить текущую страницу при повторном открытии файла",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Запомнить позицию, масштаб и вращение для каждой страницы",
   "persistentStateSelectedToolDescription": "Запомнить выбранный инструмент при переоткрытии файла",
   "persistentStateLocksDescription": "Запомнить настройки блокировки при переоткрытии файла",
   "persistentStateNavigatorDescription": "Запомнить состояние навигатора при повторном открытии файла",
   "persistentStateLayersDescription": "Запомнить состояние панели слоя при повторном открытии файла",
   "persistentStateAreasDescription": "Запомнить состояние панели области при переоткрытии файла",
+  "persistentStateAutoThumbnail": "Автоматические миниатюры",
+  "persistentStateAutoThumbnailDescription": "Показать переключатель документов и разрешить эскизам обновлять при закрытии документов",
   "persistentStateMaxRecordsDescription": "Сохранять в этом количестве хранимых состояний по файлу",
   "persistentStateDeleteOlderThanDaysDescription": "Удалить сохраненные состояния старше этого количества дней",
   "contentViewportDescription": "Ограничения, как далеко вы можете отказаться от содержания вашей заметки.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Регулирует ли давление стилуса изменяет ход и работает вокруг неточных показаний давления из некоторых стилусов.",
   "moveOnGestureDescription": "Позволяет многокасательно жестов перемещать холст вместо взаимодействия с содержимым заметок.",
   "spreadPagesDescription": "Разделяет многостраничные импорты на отдельные страницы заметок вместо размещения всего на одной странице.",
-  "shear": "Срез"
+  "shear": "Срез",
+  "resetRotation": "Сбросить вращение",
+  "zoomPanelControls": "Управление масштабом панели",
+  "zoomPanelControlsDescription": "Выберите элементы управления масштабом и вращением. Кнопки сброса остаются доступными в каждом макете.",
+  "zoomPanelFull": "Полная (ползунок, текстовое поле и кнопки)",
+  "zoomPanelSliderInput": "Слайдер и текстовое поле",
+  "zoomPanelSlider": "Слайдер",
+  "zoomPanelInputButtons": "Текстовое поле и кнопки",
+  "zoomPanelInput": "Текстовое поле",
+  "rotationDisplay": "Поворот экрана",
+  "rotationDisplayDescription": "Выберите, когда линия вращения появляется над масштабом. Это не изменяет жесты или ярлыки.",
+  "whenRotated": "При повернутом",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Повернуть холст перетаскиванием"
 }

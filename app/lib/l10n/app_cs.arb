@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Citlivost",
+  "selectionTolerance": "Tolerance výběru",
+  "selectionToleranceDescription": "Jak blízko musí být ukazatel k prvku nebo oblasti, aby byl vybrán. Vyšší hodnoty usnadňují výběr.",
+  "selectionHandleSensitivity": "Vyberte oblast zásahu",
+  "selectionHandleSensitivityDescription": "Velikost zasažené oblasti kolem výběru a prostoru pro všechny typy kurzů.",
+  "panGestureSensitivity": "Citlivost gesta",
+  "panGestureSensitivityDescription": "Pohyb plátnem od dotyku nebo gesta trackpadu. Vyšší hodnoty posunou plátno dál.",
+  "zoomGestureSensitivity": "Citlivost nepřerušovaného přiblížení",
+  "zoomGestureSensitivityDescription": "Přiblížení od připnutí, gesta trackpadu a Ctrl+scroll. Vyšší hodnoty přiblížení dál.",
+  "rotationGestureSensitivity": "Citlivost gesta otáčení",
+  "rotationGestureSensitivityDescription": "Rotace plátna z gest. Vyšší hodnoty se otáčí dál.",
+  "scrollPanSensitivity": "Citlivost posunu pánve",
+  "scrollPanSensitivityDescription": "Pohyb plátna z posunu kolečka myši a trackpadu. Vyšší hodnoty posunu dál.",
   "horizontal": "Horizontální",
   "vertical": "Vertikální",
   "plain": "Jednoduchý",
@@ -914,6 +926,65 @@
   "smoothing": "Vyhlazování",
   "streamline": "Streamline",
   "presentation": "Zobrazení",
+  "simple": "Jednoduchý",
+  "createPresentation": "Create presentation",
+  "addSlide": "Přidat nový snímek",
+  "updateSlide": "Aktualizovat snímek",
+  "deleteSlide": "Odstranit snímek",
+  "transitionDuration": "Doba trvání přechodu",
+  "transitionDurationDescription": "Jak dlouho trvá fotoaparát přejít na další snímek. Na posledním snímku se používá při přidání nového snímku.",
+  "transitionDurationValue": "Přechod {seconds}s",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Zde přidejte klíčový rám",
+  "updateKeyframe": "Aktualizovat z aktuální kamery",
+  "deleteKeyframe": "Odstranit klíčový rám",
+  "markAsSlide": "Označit jako snímek",
+  "removeSlideMarker": "Odstranit značku snímku",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Snímek {slide} · Rámeček {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Posunutí {current} z {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Vybrat aktivum",
   "clearStyle": "Vymazat styl",
   "unknownImportType": "Neznámý typ importu",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Pouze při aktualizacích",
   "visibility": "Viditelnost",
   "captureThumbnail": "Snímat miniaturu",
+  "autoThumbnail": "Aktualizovat náhled při zavření",
+  "autoThumbnailDescription": "Zachytit aktuální zobrazení při zavření dokumentu. Ruční zachycení náhledu toto zapne.",
   "capturedThumbnail": "Náhledy úspěšně zachyceny",
   "chooseLabelMode": "Zvolte mód popisku",
   "foreground": "Popředí",
@@ -1035,6 +1108,7 @@
   "rotation": "Otáčení",
   "rotationStep": "Krok otáčení",
   "zoomStep": "Krok přiblížení",
+  "zoomStepDescription": "Množství použité pro přiblížení a oddálení klávesových zkratek. Gesta pro kontinuální přiblížení používají vlastní nastavení citlivosti.",
   "direction": "Směr",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Určuje, které části vašeho pracovního prostoru Butterfly si pamatují na každou poznámku, jako je aktuální stránka, zoom a vybraný nástroj.",
   "persistentStatesEnabledDescription": "Ukládat informace o stavu dokumentu mezi relacemi aplikací",
   "persistentStateCurrentPageDescription": "Zapamatovat si aktuální stránku při opětovném otevření souboru",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Pamatovat si pozici zobrazení, přiblížení a otočení pro každou stránku",
   "persistentStateSelectedToolDescription": "Zapamatovat si vybraný nástroj při opětovném otevření souboru",
   "persistentStateLocksDescription": "Zapamatovat si nastavení zámku při opětovném otevření souboru",
   "persistentStateNavigatorDescription": "Zapamatovat si stav navigátoru při opětovném otevření souboru",
   "persistentStateLayersDescription": "Zapamatovat si stav panelu vrstvy při opětovném otevření souboru",
   "persistentStateAreasDescription": "Zapamatovat si stav oblastního panelu při opětovném otevření souboru",
+  "persistentStateAutoThumbnail": "Automatické miniatury",
+  "persistentStateAutoThumbnailDescription": "Zobrazit přepínač pro každý dokument a povolit aktualizaci náhledů při zavření dokumentů",
   "persistentStateMaxRecordsDescription": "Ponechat nanejvýš tolik uložených stavů v každém souboru",
   "persistentStateDeleteOlderThanDaysDescription": "Odstranit uložené stavy starší než tento počet dní",
   "contentViewportDescription": "Omezuje, jak daleko se dostanete od obsahu poznámky.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Určuje, zda tlak stylusu mění a funguje kolem nepřesných hodnot tlaku z některých stylů.",
   "moveOnGestureDescription": "Umožňuje vícenásobné dotykové gesta přesunout plátno místo interakce s obsahem poznámek.",
   "spreadPagesDescription": "Rozdělí vícestránkové importy na samostatné stránky poznámek namísto umístění vše na jednu stránku.",
-  "shear": "Smyk"
+  "shear": "Smyk",
+  "resetRotation": "Obnovit rotaci",
+  "zoomPanelControls": "Ovládání panelu přiblížení",
+  "zoomPanelControlsDescription": "Vyberte ovládací prvky pro přiblížení a otáčení. Tlačítka pro obnovení zůstanou k dispozici v každém rozložení.",
+  "zoomPanelFull": "Plná (posuvník, textové pole a tlačítka)",
+  "zoomPanelSliderInput": "Posuvník a textové pole",
+  "zoomPanelSlider": "Posuvník",
+  "zoomPanelInputButtons": "Textové pole a tlačítka",
+  "zoomPanelInput": "Textové pole",
+  "rotationDisplay": "Zobrazení rotace",
+  "rotationDisplayDescription": "Zvolte, kdy se řádek otáčení objeví nad přiblížením. To nemění gesta nebo zkratky.",
+  "whenRotated": "Při otočení",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Otočit plátno přetažením"
 }

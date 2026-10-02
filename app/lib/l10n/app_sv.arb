@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Känslighet",
+  "selectionTolerance": "Tolerans för urval",
+  "selectionToleranceDescription": "Hur nära en pekare måste vara ett element eller ett område för att välja det. Högre värden gör valet enklare.",
+  "selectionHandleSensitivity": "Val handtag träff område",
+  "selectionHandleSensitivityDescription": "Storlek på träffområdet runt urval och area handtag för alla pekartyper.",
+  "panGestureSensitivity": "Pan gestkänslighet",
+  "panGestureSensitivityDescription": "Canvas rörelse från beröring eller styrplatta gester. Högre värden flytta duken längre.",
+  "zoomGestureSensitivity": "Kontinuerlig zoomkänslighet",
+  "zoomGestureSensitivityDescription": "Zooma från nypning, styrplattsgester och Ctrl+rulle. Högre värden zooma längre.",
+  "rotationGestureSensitivity": "Känslighet för rotationsrörelse",
+  "rotationGestureSensitivityDescription": "Canvas rotation från gester. Högre värden roterar längre.",
+  "scrollPanSensitivity": "Rulla pan känslighet",
+  "scrollPanSensitivityDescription": "Canvas rörelse från mushjul och styrplatta rullning. Högre värden panorera längre.",
   "horizontal": "Horisontell",
   "vertical": "Vertikal",
   "plain": "Oformaterad",
@@ -914,6 +926,65 @@
   "smoothing": "Utjämning",
   "streamline": "Effektivisera",
   "presentation": "Presentation",
+  "simple": "Enkel",
+  "createPresentation": "Create presentation",
+  "addSlide": "Lägg till ny bild",
+  "updateSlide": "Uppdatera diabild",
+  "deleteSlide": "Ta bort bild",
+  "transitionDuration": "Övergång varaktighet",
+  "transitionDurationDescription": "Hur lång tid kameran tar för att flytta till nästa bild. På den sista bilden används detta när du lägger till en ny.",
+  "transitionDurationValue": "{seconds}s övergång",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Lägg till nyckelram här",
+  "updateKeyframe": "Uppdatera från aktuell kamera",
+  "deleteKeyframe": "Ta bort nyckelram",
+  "markAsSlide": "Markera som bild",
+  "removeSlideMarker": "Ta bort slide-markör",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Dra {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Dra {current} i {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Välj tillgång",
   "clearStyle": "Rensa stil",
   "unknownImportType": "Okänd importtyp",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Endast på uppdateringar",
   "visibility": "Synlighet",
   "captureThumbnail": "Fånga miniatyrbild",
+  "autoThumbnail": "Uppdatera miniatyrbild vid stängning",
+  "autoThumbnailDescription": "Fånga den aktuella vyn när du stänger dokumentet. Att manuellt fånga en miniatyrbild stänger av detta.",
   "capturedThumbnail": "Framgångsrikt fångad miniatyrbild",
   "chooseLabelMode": "Välj etikettläge",
   "foreground": "Förgrund",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotation",
   "rotationStep": "Steg för rotation",
   "zoomStep": "Zooma steg",
+  "zoomStepDescription": "Belopp som används av zoomen i och zooma ut kortkommandon. Kontinuerliga zoomgester använder sina egna känslighetsinställningar.",
   "direction": "Riktning",
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
   "toolbarPosition": "Verktygsfältets position",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Kontrollerar vilka delar av din arbetsyta Butterfly kommer ihåg för varje anteckning, såsom den aktuella sidan, zoom och valt verktyg.",
   "persistentStatesEnabledDescription": "Lagra information om dokumentstatus mellan app-sessioner",
   "persistentStateCurrentPageDescription": "Kom ihåg den aktuella sidan när en fil öppnas på nytt",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Kom ihåg visningsportens position, zoom och rotation för varje sida",
   "persistentStateSelectedToolDescription": "Kom ihåg det valda verktyget när en fil öppnas på nytt",
   "persistentStateLocksDescription": "Kom ihåg låsningsinställningar när en fil öppnas på nytt",
   "persistentStateNavigatorDescription": "Kom ihåg navigatorns status när en fil öppnas på nytt",
   "persistentStateLayersDescription": "Kom ihåg lagerfältet när en fil öppnas på nytt",
   "persistentStateAreasDescription": "Kom ihåg områdespanelens läge när en fil öppnas på nytt",
+  "persistentStateAutoThumbnail": "Automatiska miniatyrer",
+  "persistentStateAutoThumbnailDescription": "Visa per-dokument switch och tillåt miniatyrer att uppdatera när dokument stänger",
   "persistentStateMaxRecordsDescription": "Håll som mest så här många lagrade stater per fil",
   "persistentStateDeleteOlderThanDaysDescription": "Ta bort sparade stater som är äldre än så här många dagar",
   "contentViewportDescription": "Begränsar hur långt du kan panorera bort från innehållet i din anteckning.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Bestämmer om penntrycket ändrar slaget och fungerar runt felaktiga tryckvärden från vissa pennor.",
   "moveOnGestureDescription": "Låter multi-touch gester flytta duken istället för att interagera med anteckningsinnehåll.",
   "spreadPagesDescription": "Delar upp importen av flera sidor på separata anteckningssidor istället för att placera allt på en sida.",
-  "shear": "Hör"
+  "shear": "Hör",
+  "resetRotation": "Återställ rotation",
+  "zoomPanelControls": "Zooma panelens inställningar",
+  "zoomPanelControlsDescription": "Välj kontrollerna för zoom och rotation. Återställningsknappar finns kvar i varje layout.",
+  "zoomPanelFull": "Fullt (reglage, textfält och knappar)",
+  "zoomPanelSliderInput": "Fält för matare och text",
+  "zoomPanelSlider": "Reglage",
+  "zoomPanelInputButtons": "Textfält och knappar",
+  "zoomPanelInput": "Text fält",
+  "rotationDisplay": "Rotationsvisning",
+  "rotationDisplayDescription": "Välj när rotationsraden visas ovanför zoom. Detta ändrar inte rotationsgester eller genvägar.",
+  "whenRotated": "Vid rotering",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotera duk genom att dra"
 }

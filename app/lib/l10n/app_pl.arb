@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Czułość",
+  "selectionTolerance": "Tolerancja wyboru",
+  "selectionToleranceDescription": "Jak blisko wskaźnika musi być do elementu lub obszaru, aby go wybrać. Wyższe wartości ułatwiają wybór.",
+  "selectionHandleSensitivity": "Obszar uderzenia uchwytu zaznaczenia",
+  "selectionHandleSensitivityDescription": "Rozmiar obszaru uderzenia wokół zaznaczenia i uchwytów obszaru dla wszystkich typów wskaźników.",
+  "panGestureSensitivity": "Czułość przewijania gestu",
+  "panGestureSensitivityDescription": "Płótno przesuwa się z gestów dotykowych lub torfowych. Wyższe wartości przesuwają płótno dalej.",
+  "zoomGestureSensitivity": "Czułość ciągłego powiększenia",
+  "zoomGestureSensitivityDescription": "Powiększ od przypinania, gesty toru i Ctrl+przewijanie. Wyższe wartości powiększają się dalej.",
+  "rotationGestureSensitivity": "Czułość gestu obrotu",
+  "rotationGestureSensitivityDescription": "Obrót płótna z gestów. Wyższe wartości obracają się dalej.",
+  "scrollPanSensitivity": "Czułość przewijania",
+  "scrollPanSensitivityDescription": "Płótno przesuwa się z kółka myszy i przewijania toru. Wyższe wartości mieści się dalej.",
   "horizontal": "Poziomy",
   "vertical": "Pionowo",
   "plain": "Zwykłe",
@@ -914,6 +926,65 @@
   "smoothing": "Wygładzanie",
   "streamline": "Streamline",
   "presentation": "Prezentacja",
+  "simple": "Prosty",
+  "createPresentation": "Create presentation",
+  "addSlide": "Dodaj nowy slajd",
+  "updateSlide": "Aktualizuj slajd",
+  "deleteSlide": "Usuń slajd",
+  "transitionDuration": "Czas trwania przejścia",
+  "transitionDurationDescription": "Jak długo trwa kamera, aby przejść do następnego slajdu. Na ostatnim slajdzie, jest to używane podczas dodawania nowego.",
+  "transitionDurationValue": "Przejście {seconds}",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Dodaj tutaj ramkę kluczową",
+  "updateKeyframe": "Aktualizuj z bieżącej kamery",
+  "deleteKeyframe": "Usuń ramkę kluczową",
+  "markAsSlide": "Oznacz jako slajd",
+  "removeSlideMarker": "Usuń znacznik slajdów",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Przesunięcie {slide} · Ramka {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Przesuń {current} z {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Wybierz zasób",
   "clearStyle": "Wyczyść styl",
   "unknownImportType": "Nieznany typ importu",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Tylko przy aktualizacjach",
   "visibility": "Widoczność",
   "captureThumbnail": "Przechwyć miniaturę",
+  "autoThumbnail": "Aktualizuj miniaturkę po zamknięciu",
+  "autoThumbnailDescription": "Przechwyć bieżący widok po zamknięciu tego dokumentu. Ręcznie przechwytywanie miniaturki wyłącza to.",
   "capturedThumbnail": "Pomyślnie przechwycono miniaturę",
   "chooseLabelMode": "Wybierz tryb etykiety",
   "foreground": "Pierwszy plan",
@@ -1035,6 +1108,7 @@
   "rotation": "Obrót",
   "rotationStep": "Krok obrotu",
   "zoomStep": "Krok powiększenia",
+  "zoomStepDescription": "Ilość używana przez powiększenie i powiększenie skrótów klawiaturowych. Gesty ciągłego powiększania wykorzystują własne ustawienia czułości.",
   "direction": "Kierunek",
   "onlyAvailableLargerScreen": "Dostępne tylko na większych ekranach",
   "toolbarPosition": "Pozycja paska narzędzi",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Kontroluje, które części Twojego obszaru roboczego Motylki pamiętają dla każdej notatki, takie jak bieżąca strona, powiększenie i wybrane narzędzie.",
   "persistentStatesEnabledDescription": "Przechowuj informacje o stanie dokumentu pomiędzy sesjami aplikacji",
   "persistentStateCurrentPageDescription": "Zapamiętaj bieżącą stronę podczas ponownego otwierania pliku",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Zapamiętaj pozycję widoku, powiększenie i obrót dla każdej strony",
   "persistentStateSelectedToolDescription": "Zapamiętaj wybrane narzędzie podczas ponownego otwierania pliku",
   "persistentStateLocksDescription": "Zapamiętaj ustawienia blokady podczas ponownego otwierania pliku",
   "persistentStateNavigatorDescription": "Zapamiętaj stan nawigatora podczas ponownego otwierania pliku",
   "persistentStateLayersDescription": "Zapamiętaj stan panelu warstwy podczas ponownego otwierania pliku",
   "persistentStateAreasDescription": "Zapamiętaj stan panelu przy ponownym otwieraniu pliku",
+  "persistentStateAutoThumbnail": "Automatyczne miniatury",
+  "persistentStateAutoThumbnailDescription": "Pokaż przełącznik na dokument i zezwól miniaturom na aktualizację po zamknięciu dokumentów",
   "persistentStateMaxRecordsDescription": "Zachowaj co najwyżej tyle zapisanych stanów na plik",
   "persistentStateDeleteOlderThanDaysDescription": "Usuń przechowywane stany starsze niż ten wiele dni",
   "contentViewportDescription": "Ogranicza, jak daleko można sięgnąć od treści notatki.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Kontroluje czy ciśnienie rysika zmienia uderzenie i działa wokół niedokładnych odczytów ciśnienia z niektórych stylów.",
   "moveOnGestureDescription": "Pozwala na przenoszenie gestów z wielu dotyków zamiast interakcji z treścią notatki.",
   "spreadPagesDescription": "Dzieli wiele stron importu na oddzielne strony notatki, zamiast umieszczać wszystko na jednej stronie.",
-  "shear": "Ścinanie"
+  "shear": "Ścinanie",
+  "resetRotation": "Zresetuj obrót",
+  "zoomPanelControls": "Sterowanie panelem powiększenia",
+  "zoomPanelControlsDescription": "Wybierz ustawienia powiększania i obracania. Przyciski resetowania pozostają dostępne w każdym układze.",
+  "zoomPanelFull": "Pełna (suwak, pole tekstowe i przyciski)",
+  "zoomPanelSliderInput": "Suwak i pole tekstowe",
+  "zoomPanelSlider": "Suwak",
+  "zoomPanelInputButtons": "Pole tekstowe i przyciski",
+  "zoomPanelInput": "Pole tekstowe",
+  "rotationDisplay": "Obrót ekranu",
+  "rotationDisplayDescription": "Wybierz, kiedy wiersz obrotu pojawi się nad powiększeniem. Nie zmienia to gestów obrotu ani skrótów.",
+  "whenRotated": "Po obracaniu",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Obróć płótno przeciągając"
 }

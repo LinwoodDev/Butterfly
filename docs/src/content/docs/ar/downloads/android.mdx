@@ -83,3 +83,38 @@ Read more about the nightly version of Butterfly [here](/community/nightly).
 **Legacy** apks are using the `useLegacyPackaging` flag on the build which compresses the native libraries to reduce the apk size. لكن من الممكن أن يؤثر هذا في أداء التحميل. اقرأ المزيد [في وثائق الأندرويد](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
 
 :::
+
+## Verify APK authenticity
+
+The GitHub APKs linked above use the same SHA-256 signing certificate fingerprint for stable and nightly releases, all architectures, and legacy packaging.
+The certificate fingerprint identifies the signer; an APK file checksum identifies a specific download.
+
+To verify Butterfly with [AppVerifier](https://github.com/soupslurpr/AppVerifier), copy or share the block for your installed version to AppVerifier and compare it with the installed app's verification info.
+
+### الإصدار المستقر
+
+```text
+dev.linwood.butterfly
+A8:64:86:37:CA:C7:66:A9:2A:3E:3C:6E:DF:42:89:E5:D0:B1:67:1A:33:9C:78:BB:29:D3:64:B3:72:9F:D1:DC
+```
+
+### الإصدار الليلي
+
+```text
+dev.linwood.butterfly.nightly
+A8:64:86:37:CA:C7:66:A9:2A:3E:3C:6E:DF:42:89:E5:D0:B1:67:1A:33:9C:78:BB:29:D3:64:B3:72:9F:D1:DC
+```
+
+You can also verify a downloaded APK with [apksigner](https://developer.android.com/tools/apksigner), included in the Android SDK Build Tools:
+
+```sh
+apksigner verify --print-certs linwood-butterfly-android.apk
+```
+
+Check that verification succeeds and that the `Signer #1 certificate SHA-256 digest` matches the fingerprint above, ignoring letter case and colons.
+
+:::note[Store signing certificates]
+
+These fingerprints apply to the GitHub APKs. [F-Droid builds](https://f-droid.org/en/packages/dev.linwood.butterfly/) are signed by F-Droid with different certificates. Google Play builds may also use a different signing certificate.
+
+:::

@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "רגישות",
+  "selectionTolerance": "Selection tolerance",
+  "selectionToleranceDescription": "How close a pointer must be to an element or area to select it. Higher values make selection easier.",
+  "selectionHandleSensitivity": "Selection handle hit area",
+  "selectionHandleSensitivityDescription": "Size of the hit area around selection and area handles for all pointer types.",
+  "panGestureSensitivity": "Pan gesture sensitivity",
+  "panGestureSensitivityDescription": "Canvas movement from touch or trackpad gestures. Higher values move the canvas farther.",
+  "zoomGestureSensitivity": "Continuous zoom sensitivity",
+  "zoomGestureSensitivityDescription": "Zoom from pinching, trackpad gestures, and Ctrl+scroll. Higher values zoom farther.",
+  "rotationGestureSensitivity": "Rotation gesture sensitivity",
+  "rotationGestureSensitivityDescription": "Canvas rotation from gestures. Higher values rotate farther.",
+  "scrollPanSensitivity": "Scroll pan sensitivity",
+  "scrollPanSensitivityDescription": "Canvas movement from mouse wheel and trackpad scrolling. Higher values pan farther.",
   "horizontal": "אופקי",
   "vertical": "אנכי",
   "plain": "חלק",
@@ -914,6 +926,65 @@
   "smoothing": "החלקה",
   "streamline": "ייעול",
   "presentation": "מצגת",
+  "simple": "Simple",
+  "createPresentation": "Create presentation",
+  "addSlide": "Add new slide",
+  "updateSlide": "Update slide",
+  "deleteSlide": "Delete slide",
+  "transitionDuration": "Transition duration",
+  "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Add keyframe here",
+  "updateKeyframe": "Update from current camera",
+  "deleteKeyframe": "Delete keyframe",
+  "markAsSlide": "Mark as slide",
+  "removeSlideMarker": "Remove slide marker",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "בחר נכס",
   "clearStyle": "נקה סגנון",
   "unknownImportType": "סוג ייבוא לא ידוע",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "רק בעדכונים",
   "visibility": "נראות",
   "captureThumbnail": "צלם תמונה ממוזערת",
+  "autoThumbnail": "Update thumbnail on close",
+  "autoThumbnailDescription": "Capture the current view when you close this document. Manually capturing a thumbnail turns this off.",
   "capturedThumbnail": "התמונה הממוזערת צולמה בהצלחה",
   "chooseLabelMode": "בחר מצב תווית",
   "foreground": "חזית",
@@ -1035,6 +1108,7 @@
   "rotation": "סיבוב",
   "rotationStep": "Rotation step",
   "zoomStep": "Zoom step",
+  "zoomStepDescription": "Amount used by the zoom in and zoom out keyboard shortcuts. Continuous zoom gestures use their own sensitivity setting.",
   "direction": "Direction",
   "onlyAvailableLargerScreen": "זמין רק במסכים גדולים יותר",
   "toolbarPosition": "מיקום סרגל כלים",
@@ -1574,6 +1648,8 @@
   "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
   "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
   "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
+  "persistentStateAutoThumbnail": "Automatic thumbnails",
+  "persistentStateAutoThumbnailDescription": "Show the per-document switch and allow thumbnails to update when documents close",
   "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
   "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
   "contentViewportDescription": "Limits how far you can pan away from the content of your note.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Controls whether stylus pressure changes the stroke and works around inaccurate pressure readings from some styluses.",
   "moveOnGestureDescription": "Lets multi-touch gestures move the canvas instead of interacting with note content.",
   "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page.",
-  "shear": "Shear"
+  "shear": "Shear",
+  "resetRotation": "Reset rotation",
+  "zoomPanelControls": "Zoom panel controls",
+  "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
+  "zoomPanelFull": "Full (slider, text field and buttons)",
+  "zoomPanelSliderInput": "Slider and text field",
+  "zoomPanelSlider": "Slider",
+  "zoomPanelInputButtons": "Text field and buttons",
+  "zoomPanelInput": "Text field",
+  "rotationDisplay": "Rotation display",
+  "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
+  "whenRotated": "When rotated",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Rotate canvas by dragging"
 }

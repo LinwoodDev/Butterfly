@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Herkkyys",
+  "selectionTolerance": "Valinnan toleranssi",
+  "selectionToleranceDescription": "Osoittimen sulkemisen tulee olla elementti tai alue, jotta se voidaan valita. Korkeammat arvot helpottavat valintaa.",
+  "selectionHandleSensitivity": "Valintakahvan osuma alue",
+  "selectionHandleSensitivityDescription": "Kokoluokka osuma alueen ympärillä valinta ja alue kahvat kaikille osoitin tyyppejä.",
+  "panGestureSensitivity": "Pan eleen herkkyys",
+  "panGestureSensitivityDescription": "Canvas liike kosketuksesta tai ohjauspaneelin eleistä. Korkeammat arvot liikuttavat kanavaa pidemmälle.",
+  "zoomGestureSensitivity": "Jatkuva zoomausherkkyys",
+  "zoomGestureSensitivityDescription": "Zoomaa nipistämisestä, ohjauslevyn eleistä ja Ctrl+scrollista. Korkeammat arvot zoomaavat pidemmälle.",
+  "rotationGestureSensitivity": "Kierto eleen herkkyys",
+  "rotationGestureSensitivityDescription": "Canvas kierto eleistä. Korkeammat arvot kiertävät pidemmälle.",
+  "scrollPanSensitivity": "Vieritä pannuherkkyyttä",
+  "scrollPanSensitivityDescription": "Canvas liike hiiren pyörä ja ohjauslevy vieritys. Korkeampi arvot kauemmin.",
   "horizontal": "Vaakasuora",
   "vertical": "Pystysuora",
   "plain": "Tavallinen",
@@ -914,6 +926,65 @@
   "smoothing": "Pehmennys",
   "streamline": "Streamline",
   "presentation": "Esitys",
+  "simple": "Yksinkertainen",
+  "createPresentation": "Create presentation",
+  "addSlide": "Lisää uusi dia",
+  "updateSlide": "Päivitä dia",
+  "deleteSlide": "Poista dia",
+  "transitionDuration": "Siirtymän kesto",
+  "transitionDurationDescription": "Kuinka kauan kamera kestää siirtyä seuraavalle dialle. Viimeisellä dialla tätä käytetään, kun lisäät uuden dian.",
+  "transitionDurationValue": "{seconds}s siirtymä",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Lisää avainkehys tähän",
+  "updateKeyframe": "Päivitä nykyisestä kamerasta",
+  "deleteKeyframe": "Poista avainkehys",
+  "markAsSlide": "Merkitse diaksi",
+  "removeSlideMarker": "Poista diamerkki",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} of {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Valitse assetti",
   "clearStyle": "Tyhjennä tyyli",
   "unknownImportType": "Tuntematon tuontityyppi",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Vain päivityksissä",
   "visibility": "Näkyvyys",
   "captureThumbnail": "Tallenna pikkukuva",
+  "autoThumbnail": "Päivitä pikkukuva suljettaessa",
+  "autoThumbnailDescription": "Kaappaa nykyinen näkymä, kun suljet tämän asiakirjan. Pienoiskuvan manuaalinen tallentaminen poistaa tämän käytöstä.",
   "capturedThumbnail": "Pienoiskuvan talteenotto onnistui",
   "chooseLabelMode": "Valitse tunnistetila",
   "foreground": "Etuala",
@@ -1035,6 +1108,7 @@
   "rotation": "Kierto",
   "rotationStep": "Kierron vaihe",
   "zoomStep": "Zoomauksen vaihe",
+  "zoomStepDescription": "Lähennyksen ja zoomauksen käyttämä määrä näppäimistön pikakuvakkeissa. Jatkuva zoomaus eleet käyttävät omaa herkkyysasetustaan.",
   "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Määrittää mitkä työtilan osat Butterfly muistaa kunkin muistiinpanon, kuten nykyinen sivu, zoomaus ja valittu työkalu.",
   "persistentStatesEnabledDescription": "Tallenna asiakirjan tilan tiedot sovellusistuntojen välillä",
   "persistentStateCurrentPageDescription": "Muista nykyinen sivu avattaessa tiedostoa uudelleen",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Muista näkymän sijainti, zoomaus ja kierto jokaiselle sivulle",
   "persistentStateSelectedToolDescription": "Muista valittu työkalu avattaessa tiedostoa uudelleen",
   "persistentStateLocksDescription": "Muista lukitusasetukset avattaessa tiedostoa uudelleen",
   "persistentStateNavigatorDescription": "Muista navigaattorin tila avattaessa tiedostoa uudelleen",
   "persistentStateLayersDescription": "Muista tasopaneelin tila avattaessa tiedostoa uudelleen",
   "persistentStateAreasDescription": "Muista aluepaneelin tila avattaessa tiedostoa uudelleen",
+  "persistentStateAutoThumbnail": "Automaattiset pikkukuvat",
+  "persistentStateAutoThumbnailDescription": "Näytä asiakirjakohtainen kytkin ja salli pikkukuvien päivitys, kun asiakirjat sulkevat",
   "persistentStateMaxRecordsDescription": "Säilytä korkeintaan tämä monta tallennettua tilaa tiedostoa kohti",
   "persistentStateDeleteOlderThanDaysDescription": "Poista tallennetut tilat, jotka ovat vanhempia kuin tämä monta päivää",
   "contentViewportDescription": "Rajoitetaan sitä, kuinka pitkälle voit ottaa pois huomautuksesi sisällöstä.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Määrittää onko stylus paine muuttaa aivohalvauksen ja toimii joidenkin tyylien epätarkkojen painelujen.",
   "moveOnGestureDescription": "Lets multi-touch eleet siirtää kankaalle sen sijaan, että vuorovaikutuksessa huomautuksen sisällön kanssa.",
   "spreadPagesDescription": "Jakaa usean sivun tuonnin eri muistiinpanon sivuille sen sijaan, että kaikki asetettaisiin yhdelle sivulle.",
-  "shear": "Viistoa"
+  "shear": "Viistoa",
+  "resetRotation": "Nollaa kierto",
+  "zoomPanelControls": "Zoomauspaneelin ohjaimet",
+  "zoomPanelControlsDescription": "Valitse ohjaimet zoomausta ja kiertoa varten. Nollaa painikkeet ovat saatavilla jokaisessa ulkoasussa.",
+  "zoomPanelFull": "Täysi (liukusäädintä, tekstikenttä ja painikkeet)",
+  "zoomPanelSliderInput": "Liukusäädin ja tekstikenttä",
+  "zoomPanelSlider": "Liukusäädin",
+  "zoomPanelInputButtons": "Tekstikenttä ja painikkeet",
+  "zoomPanelInput": "Tekstin kenttä",
+  "rotationDisplay": "Näytön kierto",
+  "rotationDisplayDescription": "Valitse kun kiertorivi näkyy zoomin yläpuolella. Tämä ei muuta pyörimiseleitä tai pikanäppäimiä.",
+  "whenRotated": "Kun kierretään",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Kierrä kangas vetämällä"
 }

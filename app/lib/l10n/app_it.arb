@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Sensibilità",
+  "selectionTolerance": "Tolleranza di selezione",
+  "selectionToleranceDescription": "Quanto chiudere un puntatore deve essere ad un elemento o ad un'area per selezionarlo. Valori più alti rendono la selezione più facile.",
+  "selectionHandleSensitivity": "Zona hit maniglia selezione",
+  "selectionHandleSensitivityDescription": "Dimensione dell'area colpita attorno alla selezione e alle maniglie dell'area per tutti i tipi di puntatori.",
+  "panGestureSensitivity": "Sensibilità al gesto Pan",
+  "panGestureSensitivityDescription": "Movimento tela dal tocco o dai gesti del trackpad. Valori più alti muovono la tela più lontana.",
+  "zoomGestureSensitivity": "Sensibilità zoom continua",
+  "zoomGestureSensitivityDescription": "Zoom dal pizzico, trackpad gestures, e Ctrl+scroll. Valori più alti zoom più lontano.",
+  "rotationGestureSensitivity": "Sensibilità al gesto di rotazione",
+  "rotationGestureSensitivityDescription": "Rotazione tela dai gesti. Valori più alti ruotano più lontano.",
+  "scrollPanSensitivity": "Sensibilità del pannello di scorrimento",
+  "scrollPanSensitivityDescription": "Tela movimento dalla rotellina del mouse e trackpad. Valori più alti pan più lontano.",
   "horizontal": "Orizzontale",
   "vertical": "Verticale",
   "plain": "Semplice",
@@ -914,6 +926,65 @@
   "smoothing": "Smussatura",
   "streamline": "Flusso d' inchiostro",
   "presentation": "Presentazione",
+  "simple": "Semplice",
+  "createPresentation": "Create presentation",
+  "addSlide": "Aggiungi nuova diapositiva",
+  "updateSlide": "Aggiorna diapositiva",
+  "deleteSlide": "Elimina diapositiva",
+  "transitionDuration": "Durata della transizione",
+  "transitionDurationDescription": "Quanto tempo la fotocamera impiega per passare alla diapositiva successiva. Nell'ultima diapositiva, viene usata quando ne viene aggiunta una nuova.",
+  "transitionDurationValue": "{seconds}s transition",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Aggiungi frame chiave qui",
+  "updateKeyframe": "Aggiorna dalla fotocamera corrente",
+  "deleteKeyframe": "Elimina frame chiave",
+  "markAsSlide": "Segna come diapositiva",
+  "removeSlideMarker": "Rimuovi indicatore diapositiva",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Frame {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} di {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Seleziona asset",
   "clearStyle": "Cancella stile",
   "unknownImportType": "Tipo di importazione sconosciuto",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Solo sugli aggiornamenti",
   "visibility": "Visibilità",
   "captureThumbnail": "Cattura miniatura",
+  "autoThumbnail": "Aggiorna miniatura alla chiusura",
+  "autoThumbnailDescription": "Cattura la vista corrente quando chiudi questo documento. Cattura manualmente una miniatura disabilitata.",
   "capturedThumbnail": "Miniatura catturata con successo",
   "chooseLabelMode": "Scegli la modalità etichetta",
   "foreground": "Primo Piano",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotazione",
   "rotationStep": "Passo di rotazione",
   "zoomStep": "Passo zoom",
+  "zoomStepDescription": "Quantità usata per lo zoom e lo zoom delle scorciatoie da tastiera. I gesti di zoom continuo utilizzano le proprie impostazioni di sensibilità.",
   "direction": "Direzione",
   "onlyAvailableLargerScreen": "Disponibile solo su schermi più grandi",
   "toolbarPosition": "Posizione barra strumenti",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Controlla quali parti del tuo workspace Butterfly si ricorda per ogni nota, come la pagina corrente, lo zoom e lo strumento selezionato.",
   "persistentStatesEnabledDescription": "Memorizza le informazioni sullo stato del documento tra le sessioni dell'app",
   "persistentStateCurrentPageDescription": "Ricorda la pagina corrente quando riapri un file",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Ricorda la posizione, lo zoom e la rotazione della vista per ogni pagina",
   "persistentStateSelectedToolDescription": "Ricorda lo strumento selezionato quando riapri un file",
   "persistentStateLocksDescription": "Ricorda le impostazioni di blocco quando riapri un file",
   "persistentStateNavigatorDescription": "Ricorda lo stato dell'esploratore quando riapri un file",
   "persistentStateLayersDescription": "Ricorda lo stato del pannello di livello quando riapri un file",
   "persistentStateAreasDescription": "Ricorda lo stato del pannello area quando riapri un file",
+  "persistentStateAutoThumbnail": "Anteprime automatiche",
+  "persistentStateAutoThumbnailDescription": "Mostra l'interruttore per documento e abilita l'aggiornamento delle miniature quando i documenti vengono chiusi",
   "persistentStateMaxRecordsDescription": "Mantenere al massimo questo molti stati memorizzati per file",
   "persistentStateDeleteOlderThanDaysDescription": "Elimina gli stati memorizzati più vecchi di questo molti giorni",
   "contentViewportDescription": "Limita quanto lontano si può pan lontano dal contenuto della tua nota.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Controlla se la pressione dello stilo cambia il tratto e funziona intorno a letture di pressione imprecise da alcuni stili.",
   "moveOnGestureDescription": "Permette ai gesti multi-touch di spostare la tela invece di interagire con il contenuto delle note.",
   "spreadPagesDescription": "Divide le importazioni di pagine multiple tra pagine separate invece di posizionare tutto su una pagina.",
-  "shear": "Inclina"
+  "shear": "Inclina",
+  "resetRotation": "Resetta rotazione",
+  "zoomPanelControls": "Comandi pannello zoom",
+  "zoomPanelControlsDescription": "Scegli i controlli per lo zoom e la rotazione. I pulsanti di reset rimangono disponibili in ogni layout.",
+  "zoomPanelFull": "Pieno (cursore, campo di testo e pulsanti)",
+  "zoomPanelSliderInput": "Slider e campo di testo",
+  "zoomPanelSlider": "Cursore",
+  "zoomPanelInputButtons": "Campo di testo e pulsanti",
+  "zoomPanelInput": "Campo di testo",
+  "rotationDisplay": "Visualizzazione rotazione",
+  "rotationDisplayDescription": "Scegli quando la riga di rotazione appare sopra lo zoom. Ciò non cambia i gesti di rotazione o le scorciatoie.",
+  "whenRotated": "Quando ruotato",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Ruota superficie trascinando"
 }

@@ -348,6 +348,18 @@
     "description": "SVG format"
   },
   "sensitivity": "Sensibilidade",
+  "selectionTolerance": "Tolerância de seleção",
+  "selectionToleranceDescription": "Quão próximo um ponteiro deve ser para um elemento ou área para selecioná-lo. Valores maiores tornam a seleção mais fácil.",
+  "selectionHandleSensitivity": "Área de cobertura de seleção",
+  "selectionHandleSensitivityDescription": "Tamanho da área atingida em torno da seleção e manipuladores de área para todos os tipos de ponteiros.",
+  "panGestureSensitivity": "Sensibilidade ao gesto pan",
+  "panGestureSensitivityDescription": "Movimento Canvas de gestos de toque ou trackpad valores maiores movem a tela mais longe.",
+  "zoomGestureSensitivity": "Sensibilidade de zoom contínuo",
+  "zoomGestureSensitivityDescription": "Zoom de fixação, gestos do trackpad e Ctrl+scroll. Valores maiores mais altos ampliam mais.",
+  "rotationGestureSensitivity": "Sensibilidade do gesto de rotação",
+  "rotationGestureSensitivityDescription": "Rotação de tela de gestos. Valores maiores giram mais longe.",
+  "scrollPanSensitivity": "Sensibilidade da rolagem",
+  "scrollPanSensitivityDescription": "Movimento da tela da roda do mouse e do rastreamento da rolagem. Valores maiores ficam mais distantes.",
   "horizontal": "Horizontal",
   "vertical": "Vertical",
   "plain": "Simples",
@@ -914,6 +926,65 @@
   "smoothing": "Suavização",
   "streamline": "Simplificar",
   "presentation": "Apresentação",
+  "simple": "Simples",
+  "createPresentation": "Create presentation",
+  "addSlide": "Adicionar novo slide",
+  "updateSlide": "Atualizar slide",
+  "deleteSlide": "Apagar slide",
+  "transitionDuration": "Duração da transição",
+  "transitionDurationDescription": "Quanto tempo leva a câmera para ir até o próximo slide. No último slide, este é utilizado quando você adiciona um novo.",
+  "transitionDurationValue": "Transição {seconds}",
+  "@transitionDurationValue": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "configureKeyframe": "Configure keyframe",
+  "addKeyframe": "Adicionar quadro-chave aqui",
+  "updateKeyframe": "Atualizar da câmera atual",
+  "deleteKeyframe": "Excluir quadro-chave",
+  "markAsSlide": "Marcar como slide",
+  "removeSlideMarker": "Remover marcador de slide",
+  "frameValue": "Frame {frame}",
+  "@frameValue": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "keyframeAtFrame": "Keyframe · Frame {frame}",
+  "@keyframeAtFrame": {
+    "placeholders": {
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideAtFrame": "Slide {slide} · Moldura {frame}",
+  "@slideAtFrame": {
+    "placeholders": {
+      "slide": {
+        "type": "int"
+      },
+      "frame": {
+        "type": "int"
+      }
+    }
+  },
+  "slideOf": "Slide {current} de {total}",
+  "@slideOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "selectAsset": "Selecionar arquivo",
   "clearStyle": "Limpar estilo",
   "unknownImportType": "Tipo de importação desconhecido",
@@ -1011,6 +1082,8 @@
   "onlyOnUpdates": "Somente em atualizações",
   "visibility": "Visibilidade",
   "captureThumbnail": "Capturar miniatura",
+  "autoThumbnail": "Atualizar miniatura ao fechar",
+  "autoThumbnailDescription": "Capture a vista atual quando você fechar esse documento. Capturar manualmente uma miniatura desativa isso.",
   "capturedThumbnail": "Miniatura capturada com sucesso",
   "chooseLabelMode": "Escolher modo de rótulo",
   "foreground": "Primeiro plano",
@@ -1035,6 +1108,7 @@
   "rotation": "Rotação",
   "rotationStep": "Passo de Rotação",
   "zoomStep": "Aumento do zoom",
+  "zoomStepDescription": "Quantidade usada pelo zoom e diminuir atalhos de teclado. Gestos de zoom contínuos usam sua própria configuração de sensibilidade.",
   "direction": "Direção",
   "onlyAvailableLargerScreen": "Disponível apenas em telas maiores",
   "toolbarPosition": "Posição da barra",
@@ -1568,12 +1642,14 @@
   "persistenceDocumentStatesDescription": "Controla quais partes do seu espaço de trabalho Borboleta se lembra de cada nota, como a página atual, zoom, e ferramenta selecionada.",
   "persistentStatesEnabledDescription": "Armazenar informações do documento entre sessões de app",
   "persistentStateCurrentPageDescription": "Lembrar a página atual ao reabrir um arquivo",
-  "persistentStateViewportDescription": "Remember the viewport position, zoom and rotation for each page",
+  "persistentStateViewportDescription": "Lembrar a posição da visualização, zoom e rotação para cada página",
   "persistentStateSelectedToolDescription": "Lembrar a ferramenta selecionada quando reabrir um arquivo",
   "persistentStateLocksDescription": "Lembrar configurações de bloqueio ao reabrir um arquivo",
   "persistentStateNavigatorDescription": "Lembrar o estado do navegador ao reabrir um arquivo",
   "persistentStateLayersDescription": "Lembrar o estado do painel ao reabrir um arquivo",
   "persistentStateAreasDescription": "Lembrar o estado do painel de área ao reabrir um arquivo",
+  "persistentStateAutoThumbnail": "Miniaturas automáticas",
+  "persistentStateAutoThumbnailDescription": "Mostrar o interruptor por documento e permitir miniaturas para atualizar quando os documentos forem fechados",
   "persistentStateMaxRecordsDescription": "Manter no máximo muitos estados armazenados por arquivo",
   "persistentStateDeleteOlderThanDaysDescription": "Eliminar os estados armazenados mais antigos que estes dias",
   "contentViewportDescription": "Limita o quão longe você pode afastar o conteúdo da sua anotação.",
@@ -1593,5 +1669,18 @@
   "ignorePressureDescription": "Controla se a pressão do stylus muda o traço e funciona em torno de leituras de pressão imprecisas de alguns estilos.",
   "moveOnGestureDescription": "Permite que os gestos de vários toque movam a tela em vez de interagir com o conteúdo de notas.",
   "spreadPagesDescription": "Divide as importações multi-páginas em páginas de notas separadas, em vez de colocar tudo em uma página.",
-  "shear": "Cortar"
+  "shear": "Cortar",
+  "resetRotation": "Redefinir rotação",
+  "zoomPanelControls": "Controle do painel de zoom",
+  "zoomPanelControlsDescription": "Escolha os controles de zoom e rotação. Os botões de redefinição permanecem disponíveis em todos os layouts.",
+  "zoomPanelFull": "Completo (slider, texto campo e botões)",
+  "zoomPanelSliderInput": "Campo de controle deslizante e texto",
+  "zoomPanelSlider": "Deslizador",
+  "zoomPanelInputButtons": "Campos e botões de texto",
+  "zoomPanelInput": "Campo de texto",
+  "rotationDisplay": "Exibição de rotação",
+  "rotationDisplayDescription": "Escolha quando a linha de rotação aparecer acima do zoom. Isto não altera os gestos de rotação ou atalhos.",
+  "whenRotated": "Quando girado",
+  "hidden": "Hidden",
+  "rotateCanvasByDragging": "Girar a tela arrastando"
 }
