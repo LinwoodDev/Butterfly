@@ -172,13 +172,10 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
   );
 
   void setToolbar({
-    PreferredSizeWidget? toolbar,
-    PreferredSizeWidget? temporaryToolbar,
+    required PreferredSizeWidget? toolbar,
+    required PreferredSizeWidget? temporaryToolbar,
   }) => emit(
-    state.copyWith(
-      toolbar: toolbar ?? state.toolbar,
-      temporaryToolbar: temporaryToolbar ?? state.temporaryToolbar,
-    ),
+    state.copyWith(toolbar: toolbar, temporaryToolbar: temporaryToolbar),
   );
 
   void setCursor(MouseCursor cursor) {

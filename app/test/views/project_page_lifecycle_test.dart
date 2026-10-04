@@ -16,6 +16,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
+import 'package:butterfly/views/toolbar/color.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly/views/zoom.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
@@ -262,6 +263,62 @@ void main() {
     );
     await tester.pumpAndSettle();
     return observer.lastDocumentBloc!.editorController;
+  }
+
+  for (final visibility in SimpleToolbarVisibility.values) {
+    testWidgets('simple toolbar $visibility visibility follows drawing', (
+      tester,
+    ) async {
+      when(() => settingsCubit.state).thenReturn(
+        ButterflySettings(
+          defaultTemplate: 'default',
+          autosave: false,
+          simpleToolbarVisibility: visibility,
+        ),
+      );
+      final editor = await openEditor(tester);
+      final bloc = observer.lastDocumentBloc!;
+      await editor.toolCubit.changeTool(
+        editor,
+        bloc,
+        index: 1,
+        allowBake: false,
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(ColorToolbarView),
+        visibility == SimpleToolbarVisibility.hide ? findsNothing : findsOne,
+      );
+      final stroke = await tester.startGesture(
+        tester.getCenter(find.byType(MainViewViewport)),
+        kind: PointerDeviceKind.mouse,
+      );
+      await stroke.moveBy(const Offset(50, 30));
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(ColorToolbarView),
+        visibility == SimpleToolbarVisibility.show ? findsOne : findsNothing,
+      );
+      await stroke.up();
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(ColorToolbarView),
+        visibility == SimpleToolbarVisibility.show ? findsOne : findsNothing,
+      );
+
+      await editor.toolCubit.changeTool(
+        editor,
+        bloc,
+        index: 1,
+        allowBake: false,
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(ColorToolbarView),
+        visibility == SimpleToolbarVisibility.hide ? findsNothing : findsOne,
+      );
+      expect(tester.takeException(), isNull);
+    });
   }
 
   testWidgets('any handler can reserve keyboard input for text editing', (

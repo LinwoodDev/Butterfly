@@ -2,5 +2,6 @@
 * Clarify local connection directories, fix folder pickers, and prevent saving to removed connections
 * Allow disabling documents, templates, or packs for a storage connection by leaving their directory paths empty
 * Fix Space being intercepted by canvas shortcuts while editing text
+* Fix temporary simple toolbar visibility not hiding the toolbar when drawing starts
 
 Read more here: https://linwood.dev/butterfly/2.6.1-rc.1
