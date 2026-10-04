@@ -76,10 +76,11 @@ packages:
   barcode:
     dependency: "direct main"
     description:
-      name: barcode
-      sha256: "7b6729c37e3b7f34233e2318d866e8c48ddb46c1f7ad01ff7bb2a8de1da2b9f4"
-      url: "https://pub.dev"
-    source: hosted
+      path: barcode
+      ref: "2963366e1c22df033e9674e801a0ca0a18ec6cfd"
+      resolved-ref: "2963366e1c22df033e9674e801a0ca0a18ec6cfd"
+      url: "https://github.com/CodeDoctorDE/dart_barcode.git"
+    source: git
     version: "2.2.9"
   bloc:
     dependency: transitive
@@ -1258,10 +1259,10 @@ packages:
     dependency: transitive
     description:
       name: qr
-      sha256: "5a1d2586170e172b8a8c8470bbbffd5eb0cd38a66c0d77155ea138d3af3a4445"
+      sha256: "5adccca7f0274326125fcdbf97328f5d6b1b2d7fb8a52a01cef9f40d96a759d9"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "4.0.0"
   record_use:
     dependency: transitive
     description:
@@ -1609,10 +1610,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: f6a7e5c4835bb4e3026a04793a4199ca2d14c739ec378fdfe23fc8075d0439f8
+      sha256: e8cc955c97e06df9879140a1fe301f3d493f01b7c62dec7f46834be31d7e9fda
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.2"
+    version: "6.3.3"
   url_launcher_android:
     dependency: transitive
     description:

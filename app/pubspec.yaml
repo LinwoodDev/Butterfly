@@ -120,7 +120,11 @@ dependencies:
       path: packages/onenote_parser
   web: ^1.0.0
   cryptography_plus: ^3.0.0
-  barcode: ^2.2.9
+  barcode:
+    git:
+      url: https://github.com/CodeDoctorDE/dart_barcode.git
+      ref: 2963366e1c22df033e9674e801a0ca0a18ec6cfd
+      path: barcode
   network_info_plus: ^8.1.0
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
