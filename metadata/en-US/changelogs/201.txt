@@ -1,5 +1,6 @@
 * Fix saving notes opened from the file manager to their original path and preserve their location in recent files
 * Clarify local connection directories, fix folder pickers, and prevent saving to removed connections
 * Allow disabling documents, templates, or packs for a storage connection by leaving their directory paths empty
+* Fix Space being intercepted by canvas shortcuts while editing text
 
 Read more here: https://linwood.dev/butterfly/2.6.1-rc.1

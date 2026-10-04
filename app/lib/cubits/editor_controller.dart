@@ -96,6 +96,16 @@ class EditorController(
 
   bool get isClosed => _closed;
 
+  /// Whether a focused widget or canvas handler owns text input.
+  bool get isEditingText {
+    final focusContext = FocusManager.instance.primaryFocus?.context;
+    if (focusContext?.widget is EditableText ||
+        focusContext?.findAncestorWidgetOfExactType<EditableText>() != null) {
+      return true;
+    }
+    return focusNode.hasFocus && toolCubit.getHandler().isEditingText;
+  }
+
   DocumentBloc? get activeDocumentBloc {
     final bloc = _documentBloc?.target;
     if (bloc == null || bloc.isClosed) return null;

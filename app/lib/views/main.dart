@@ -27,6 +27,7 @@ import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -714,31 +715,14 @@ class _ProjectPageState extends State<ProjectPage> {
                                     return ListenableBuilder(
                                       listenable: keybinder,
                                       builder: (context, child) {
-                                        return ListenableBuilder(
-                                          listenable: FocusManager.instance,
-                                          builder: (context, _) {
-                                            final focusContext = FocusManager
-                                                .instance
-                                                .primaryFocus
-                                                ?.context;
-                                            final isEditingText =
-                                                focusContext
-                                                        ?.findAncestorWidgetOfExactType<
-                                                          EditableText
-                                                        >() !=
-                                                    null ||
-                                                focusContext?.widget
-                                                    is EditableText;
-                                            return Actions(
-                                              actions: actions,
-                                              child: Shortcuts(
-                                                shortcuts: isEditingText
-                                                    ? const {}
-                                                    : _buildShortcuts(),
-                                                child: child!,
-                                              ),
-                                            );
-                                          },
+                                        return Actions(
+                                          actions: actions,
+                                          child: Shortcuts(
+                                            shortcuts: _buildShortcuts(
+                                              runtime.editorController,
+                                            ),
+                                            child: child!,
+                                          ),
                                         );
                                       },
                                       child: ClipRect(
@@ -859,7 +843,7 @@ class _ProjectPageState extends State<ProjectPage> {
     };
   }
 
-  Map<ShortcutActivator, Intent> _buildShortcuts() {
+  Map<ShortcutActivator, Intent> _buildShortcuts(EditorController controller) {
     var shortcuts = keybinder.getShortcuts();
     if (widget.embedding != null) {
       shortcuts = Map.from(shortcuts)
@@ -878,8 +862,30 @@ class _ProjectPageState extends State<ProjectPage> {
               intent is ChangeToolIntent;
         });
     }
-    return shortcuts;
+    return {
+      for (final entry in shortcuts.entries)
+        _EditorShortcutActivator(entry.key, controller): entry.value,
+    };
   }
+}
+
+/// Checks text input when a key arrives, without requiring a focus change or
+/// a rebuild of the project's shortcuts.
+class _EditorShortcutActivator extends ShortcutActivator {
+  const _EditorShortcutActivator(this.activator, this.controller);
+
+  final ShortcutActivator activator;
+  final EditorController controller;
+
+  @override
+  Iterable<LogicalKeyboardKey>? get triggers => activator.triggers;
+
+  @override
+  bool accepts(KeyEvent event, HardwareKeyboard state) =>
+      activator.accepts(event, state) && !controller.isEditingText;
+
+  @override
+  String debugDescribeKeys() => activator.debugDescribeKeys();
 }
 
 class _MainBody extends StatelessWidget {

@@ -341,6 +341,9 @@ abstract class Handler<T> {
 
   Map<String, RendererState> get rendererStates => const {};
 
+  /// Whether this handler has an active text input session.
+  bool get isEditingText => false;
+
   void dispose(DocumentBloc bloc) {}
 
   @mustCallSuper

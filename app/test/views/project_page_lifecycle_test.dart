@@ -46,6 +46,15 @@ class _ReleaseTrackingHandler extends Handler<HandTool> {
   }
 }
 
+class _TextInputHandler extends Handler<HandTool> {
+  _TextInputHandler() : super(HandTool());
+
+  bool editing = false;
+
+  @override
+  bool get isEditingText => editing;
+}
+
 void main() {
   late List<MethodCall> windowManagerCalls;
 
@@ -253,6 +262,123 @@ void main() {
     );
     await tester.pumpAndSettle();
     return observer.lastDocumentBloc!.editorController;
+  }
+
+  testWidgets('any handler can reserve keyboard input for text editing', (
+    tester,
+  ) async {
+    final editor = await openEditor(tester);
+    final handler = _TextInputHandler();
+    await editor.toolCubit.changeTool(
+      editor,
+      observer.lastDocumentBloc!,
+      handler: handler,
+      allowBake: false,
+    );
+    await tester.pumpAndSettle();
+    editor.focusNode.requestFocus();
+    await tester.pump();
+
+    // Changing input ownership must take effect without rebuilding shortcuts.
+    handler.editing = true;
+    expect(await tester.sendKeyDownEvent(LogicalKeyboardKey.space), isFalse);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.shiftLeft);
+    expect(await tester.sendKeyDownEvent(LogicalKeyboardKey.space), isFalse);
+    final center = tester.getCenter(find.byType(MainViewViewport));
+    final drag = await tester.startGesture(
+      center + const Offset(100, 0),
+      kind: PointerDeviceKind.mouse,
+    );
+    await drag.moveTo(center + const Offset(0, 100));
+    await drag.up();
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.shiftLeft);
+    expect(editor.transformCubit.state.rotation, 0);
+
+    handler.editing = false;
+    expect(await tester.sendKeyDownEvent(LogicalKeyboardKey.space), isTrue);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+    expect(tester.takeException(), isNull);
+  });
+
+  for (final mode in LabelMode.values) {
+    testWidgets('label $mode keeps Space and Shift+Space as text input', (
+      tester,
+    ) async {
+      final editor = await openEditor(tester);
+      final bloc = observer.lastDocumentBloc!;
+      await tester.runAsync(
+        () => editor.toolCubit.changeTool(
+          editor,
+          bloc,
+          handler: LabelHandler(LabelTool(mode: mode)),
+          allowBake: false,
+        ),
+      );
+      await tester.pumpAndSettle();
+      final viewport = find.byType(MainViewViewport);
+      final center = tester.getCenter(viewport);
+      await tester.tapAt(center);
+      final label = editor.toolCubit.getHandler() as LabelHandler;
+      await pumpUntil(
+        tester,
+        () => label.isCurrentlyEditing && tester.testTextInput.hasAnyClients,
+        'label text input',
+      );
+      await tester.pumpAndSettle();
+      expect(label.isCurrentlyEditing, isTrue);
+      expect(tester.testTextInput.hasAnyClients, isTrue);
+      tester.testTextInput.enterText('hello');
+      await tester.pumpAndSettle();
+
+      // Flutter only sends text input after an unhandled hardware key.
+      final handled = await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+      expect(handled, isFalse);
+      tester.testTextInput.enterText('hello ');
+      await tester.pumpAndSettle();
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.shiftLeft);
+      final shiftHandled = await tester.sendKeyDownEvent(
+        LogicalKeyboardKey.space,
+      );
+      expect(shiftHandled, isFalse);
+      tester.testTextInput.enterText('hello  world');
+      await tester.pumpAndSettle();
+
+      // Selecting label text while holding Shift+Space must not rotate.
+      final drag = await tester.startGesture(
+        center + const Offset(100, 0),
+        kind: PointerDeviceKind.mouse,
+      );
+      await drag.moveTo(center + const Offset(0, 100));
+      await drag.up();
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.shiftLeft);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.rotation, 0);
+      expect(label.currentTextEditingValue.text, 'hello  world');
+
+      // Committing the label restores the canvas shortcuts immediately.
+      await editor.toolCubit.changeTool(
+        editor,
+        bloc,
+        handler: HandHandler(),
+        allowBake: false,
+      );
+      await tester.pumpAndSettle();
+      expect(tester.testTextInput.hasAnyClients, isFalse);
+      expect(await tester.sendKeyDownEvent(LogicalKeyboardKey.space), isTrue);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+      final element = (bloc.state as DocumentLoadSuccess).page.content.single;
+      expect(switch (element) {
+        TextElement e => e.area.paragraph.text,
+        MarkdownElement e => e.text,
+        _ => null,
+      }, 'hello  world');
+      await tester.pump(const Duration(seconds: 4));
+      expect(tester.takeException(), isNull);
+    });
   }
 
   Finder cameraButton(String tooltip) => find.descendant(

@@ -101,14 +101,10 @@ class _ViewportInputCoordinator {
     if (!skipShortcuts && cubit.inputCubit.state.pointers.isEmpty) {
       _cameraRotationGesture = false;
       final keyboard = HardwareKeyboard.instance;
-      final focusContext = FocusManager.instance.primaryFocus?.context;
-      final editingText =
-          focusContext?.widget is EditableText ||
-          focusContext?.findAncestorWidgetOfExactType<EditableText>() != null;
       if (event.kind != PointerDeviceKind.touch &&
           event.kind != PointerDeviceKind.trackpad &&
           _rotationShortcutPressed(keyboard) &&
-          !editingText) {
+          !cubit.isEditingText) {
         _settleSlide(cubit.transformCubit);
         _cameraRotationGesture = true;
         _handlerHandlesScaleGesture = false;

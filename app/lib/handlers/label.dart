@@ -12,6 +12,9 @@ class LabelHandler extends Handler<LabelTool>
   bool get isCurrentlyEditing => _context?.element != null;
 
   @override
+  bool get isEditingText => _connection?.attached ?? false;
+
+  @override
   Map<String, RendererState> get rendererStates => {
     ?_editingElementId: RendererState.hidden,
   };
