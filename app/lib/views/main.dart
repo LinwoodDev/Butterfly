@@ -26,6 +26,7 @@ import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
 import 'package:butterfly/widgets/document_page_preview.dart';
+import 'package:butterfly/widgets/global_shortcuts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
@@ -717,7 +718,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       builder: (context, child) {
                                         return Actions(
                                           actions: actions,
-                                          child: Shortcuts(
+                                          child: GlobalShortcuts(
                                             shortcuts: _buildShortcuts(
                                               runtime.editorController,
                                             ),

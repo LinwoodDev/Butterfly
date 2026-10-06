@@ -265,6 +265,124 @@ void main() {
     return observer.lastDocumentBloc!.editorController;
   }
 
+  Future<void> pressControlKey(
+    WidgetTester tester,
+    LogicalKeyboardKey key,
+  ) async {
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+    await tester.sendKeyEvent(key);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('undo and redo survive touch Hand mapping and lost focus', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        autosave: false,
+        inputConfiguration: InputConfiguration(
+          touch: InputMapping(InputMapping.handToolValue),
+        ),
+      ),
+    );
+    final editor = await openEditor(tester);
+    final bloc = observer.lastDocumentBloc!;
+    final original = (bloc.state as DocumentLoadSuccess).metadata.description;
+    bloc.add(const DocumentDescriptionChanged(description: 'Edited note'));
+    await pumpUntil(
+      tester,
+      () =>
+          (bloc.state as DocumentLoadSuccess).metadata.description ==
+          'Edited note',
+      'document edit',
+    );
+    final drag = await tester.startGesture(
+      tester.getCenter(find.byType(MainViewViewport)),
+      kind: PointerDeviceKind.touch,
+    );
+    await drag.moveBy(const Offset(60, 30));
+    await drag.up();
+    await tester.pumpAndSettle();
+
+    // A control or canvas tap can leave the route's focus scope focused.
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump();
+    expect(editor.focusNode.hasFocus, isFalse);
+    await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+    expect((bloc.state as DocumentLoadSuccess).metadata.description, original);
+    await pressControlKey(tester, LogicalKeyboardKey.keyY);
+    expect(
+      (bloc.state as DocumentLoadSuccess).metadata.description,
+      'Edited note',
+    );
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'document close',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('document shortcuts yield to text fields and modal dialogs', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(defaultTemplate: 'default', autosave: false),
+    );
+    final editor = await openEditor(tester);
+    final bloc = observer.lastDocumentBloc!;
+    bloc.add(const DocumentDescriptionChanged(description: 'Edited note'));
+    await pumpUntil(
+      tester,
+      () =>
+          (bloc.state as DocumentLoadSuccess).metadata.description ==
+          'Edited note',
+      'document edit',
+    );
+    final titleField = find.byWidgetPredicate(
+      (widget) =>
+          widget is TextFormField &&
+          widget.controller?.text == 'Lifecycle test',
+    );
+    await tester.tap(titleField);
+    await tester.pumpAndSettle();
+    expect(editor.isEditingText, isTrue);
+    await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+    expect(
+      (bloc.state as DocumentLoadSuccess).metadata.description,
+      'Edited note',
+    );
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump();
+    final context = tester.element(find.byType(MainViewViewport));
+    final dialog = showDialog<void>(
+      context: context,
+      builder: (context) => const AlertDialog(content: Text('Dialog')),
+    );
+    await tester.pumpAndSettle();
+    await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+    expect(
+      (bloc.state as DocumentLoadSuccess).metadata.description,
+      'Edited note',
+    );
+    Navigator.of(context).pop();
+    await dialog;
+    await tester.pumpAndSettle();
+    await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+    expect((bloc.state as DocumentLoadSuccess).metadata.description, isEmpty);
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () => observer.documentBlocCloses == 1,
+      'document close',
+    );
+    await pressControlKey(tester, LogicalKeyboardKey.keyY);
+    expect(tester.takeException(), isNull);
+  });
+
   for (final visibility in SimpleToolbarVisibility.values) {
     testWidgets('simple toolbar $visibility visibility follows drawing', (
       tester,
