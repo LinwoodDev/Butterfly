@@ -2,6 +2,8 @@
 * Clarify local connection directories, fix folder pickers, and prevent saving to removed connections
 * Allow disabling documents, templates, or packs for a storage connection by leaving their directory paths empty
 * Fix Space being intercepted by canvas shortcuts while editing text
+* Keep document keyboard shortcuts working after touch gestures and other focus changes ([#1294](https://github.com/LinwoodDev/Butterfly/issues/1294))
 * Fix temporary simple toolbar visibility not hiding the toolbar when drawing starts
+* Restore offline web loading with an app-managed service worker
 
 Read more here: https://linwood.dev/butterfly/2.6.1-rc.1

@@ -87,6 +87,11 @@ jobs:
           echo "WEB_DIR=web" >> $GITHUB_ENV
       - name: Build
         run: flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor=$SETONIX_FLAVOR --dart-define=version=$GIT_HASH
+      - name: Install offline build dependencies
+        working-directory: tools
+        run: dart pub get
+      - name: Generate offline worker
+        run: dart run ../tools/build_web_service_worker.dart
       - name: Deploy to SFTP
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
         env:
