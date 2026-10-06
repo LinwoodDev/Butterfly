@@ -8,7 +8,8 @@ title: "Rakenna oma"
 4. Käytä leikkuri työkalua sovelluksen kokoamiseen
    - `flutter build apk`
    - `flutter build appbundle`
-   - `flutter build web`
+   - `flutter build web --wasm --release --no-web-resources-cdn`, then
+     `dart pub get -C ../tools` and `dart run ../tools/build_web_service_worker.dart` to enable offline loading
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
