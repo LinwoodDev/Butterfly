@@ -8,7 +8,8 @@ title: "建立你自己的"
 4. 使用流体工具编译应用程序
    - `flutter build apk`
    - `flutter build appbundle`
-   - `flutter build web`
+   - `flutter build web --wasm --release --no-web-resources-cdn`, then
+     `dart pub get -C ../tools` and `dart run ../tools/build_web_service_worker.dart` to enable offline loading
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
