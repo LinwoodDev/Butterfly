@@ -948,6 +948,7 @@ jobs:
         working-directory: app/android
   publish-winget:
     needs: [deploy]
+    if: ${{ github.ref == 'refs/tags/stable' || github.ref == 'refs/tags/nightly' }}
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v7
