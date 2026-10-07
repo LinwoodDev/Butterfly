@@ -6,5 +6,6 @@
 * Fix temporary simple toolbar visibility not hiding the toolbar when drawing starts
 * Restore offline web loading with an app-managed service worker
 * Fix handwriting previews lagging behind while completed strokes are waiting to be cached
+* Use settings framework sliders for input sensitivities and show their descriptions as tooltips
 
 Read more here: https://linwood.dev/butterfly/2.6.1-rc.1
