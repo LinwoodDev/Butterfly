@@ -1024,7 +1024,9 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
             .cameraViewport
             .unbakedElements
             .isNotEmpty) {
-      await controller.rendererCubit.delayedBake(controller, blocState);
+      // Keep the serial preview runner free for the next input frame while
+      // the canvas cache waits for its delayed bake.
+      unawaited(controller.rendererCubit.delayedBake(controller, blocState));
     }
   }
 

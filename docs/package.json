@@ -21,12 +21,12 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "astro": "^7.3.5",
-    "katex": "^0.18.10",
+    "katex": "^0.19.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@12.8.1",
+  "packageManager": "pnpm@12.9.1",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
     "sass": "^1.105.1",
