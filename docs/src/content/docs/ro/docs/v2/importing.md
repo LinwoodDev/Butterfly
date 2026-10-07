@@ -6,7 +6,7 @@ Butterfly can bring documents and media into an open note. Open **Add** in the d
 
 ## Choose a source
 
-- **File** opens the file picker for supported documents and media.
+- **File** opens the file picker for supported documents and media. You can select multiple images and import them together.
 - **OneNote** selects a `.one` section or `.onepkg` notebook package. See the [OneNote guide](../onenote/) for export steps and conversion limits.
 - **Camera** captures an image on devices that provide a camera.
 
@@ -20,5 +20,7 @@ The import workflow also supports Butterfly notes (`.bfly` and `.tbfly`), Xourna
 4. Place or adjust the imported content on the canvas as needed.
 
 For repeated imports of the same type, use the pin button beside an import entry in **Add**. The resulting toolbar tool starts that import when used on the canvas, at the position you choose. You can change its import type from the tool properties.
+
+When selecting multiple images through **File** or an image import tool, Butterfly arranges them vertically in selection order. Place the group on the canvas in one step; each image remains separately editable afterward.
 
 An imported SVG is placed as an image rather than being converted into separate editable Butterfly shapes. If you need to keep editing the original Butterfly note, import or open a `.bfly` or `.tbfly` file instead. To produce files for another app, see [Exporting](../exporting/).
