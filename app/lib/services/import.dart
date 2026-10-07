@@ -36,6 +36,7 @@ import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
 import '../helpers/element.dart';
+import '../helpers/rect.dart';
 import 'onenote.dart';
 
 enum _OneNoteXpsFallback { manual, skipAll }
@@ -76,7 +77,7 @@ class ImportResult {
           .map((e) {
             final page = document.getPage(e);
             if (page == null) return null;
-            return (e, page);
+            return (NoteData.getPageNameFromRealName(e), page);
           })
           .nonNulls
           .toList(),
@@ -164,20 +165,20 @@ class ImportResult {
     final state = service._getState();
     final context = service.context;
     final bloc = service.bloc;
+    for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
+      bloc?.add(AssetUpdated(path, data));
+    }
     if (choosePosition &&
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
       service.editorController?.toolCubit.changeTemporaryHandler(
         context,
         service.editorController!,
-        ImportTool(elements: elements, areas: areas, assets: assets),
+        ImportTool(elements: elements, areas: areas, assets: _importAssets),
         bloc: bloc!,
         temporaryState: .removeAfterRelease,
       );
     } else {
-      for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
-        bloc?.add(AssetUpdated(path, data));
-      }
       bloc
         ?..add(AreasCreated(areas.map((e) => AreaPreset(area: e)).toList()))
         ..add(ElementsCreated(elements, assets: _importAssets));
@@ -597,6 +598,62 @@ class ImportService(
       }
     }
     return true;
+  }
+
+  @useResult
+  Future<ImportResult?> importBatch(
+    Iterable<(AssetFileType, Uint8List, String?)> files, {
+    required NoteData document,
+    Offset? position,
+    bool advanced = true,
+  }) async {
+    final results = <ImportResult>[];
+    for (final (type, bytes, name) in files) {
+      final result = await import(
+        type,
+        bytes,
+        document: document,
+        position: position,
+        advanced: advanced,
+        name: name,
+      );
+      if (result != null) results.add(result);
+    }
+    if (results.length <= 1) return results.firstOrNull;
+
+    final elements = <PadElement>[];
+    final areas = <Area>[];
+    var y = 0.0;
+    for (final result in results) {
+      final renderers = result.elements.map(Renderer.fromInstance).toList();
+      final bounds = [
+        ...renderers.map((e) => e.rect).nonNulls,
+        ...result.areas.map((e) => e.rect),
+      ].fold<Rect?>(null, (rect, next) => rect?.expandToInclude(next) ?? next);
+      final offset = Offset(0, y);
+      elements.addAll(
+        renderers.map(
+          (e) => e.transform(position: offset)?.element ?? e.element,
+        ),
+      );
+      areas.addAll(
+        result.areas.map(
+          (e) => e.copyWith(position: e.position + offset.toPoint()),
+        ),
+      );
+      y += bounds?.height ?? 0;
+    }
+    return ImportResult(
+      service: this,
+      document: document,
+      elements: elements,
+      areas: areas,
+      assets: {for (final result in results) ...result.assets},
+      pages: results.expand((e) => e.pages).toList(),
+      packs: results.expand((e) => e.packs).toList(),
+      exportPresets: results.expand((e) => e.exportPresets).toList(),
+      choosePosition: results.any((e) => e.choosePosition),
+    );
   }
 
   @useResult
@@ -1041,8 +1098,6 @@ class ImportService(
     return null;
   }
 
-  static const _pdfImportSource = '$kAssetScheme://imported_pdf';
-
   @useResult
   Future<ImportResult?> importPdf(
     Uint8List bytes,
@@ -1125,7 +1180,7 @@ class ImportService(
           : (document.getPage()?.backgrounds ?? const <Background>[]);
       final pdfSource = spreadToPages
           ? document.importPdf(bytes).$2
-          : _pdfImportSource;
+          : '$kAssetScheme://${createUniqueId()}';
 
       for (var i = 0; i < pages.length; i++) {
         var raster = elements[pages[i]];

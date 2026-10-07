@@ -8,6 +8,7 @@ import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -93,6 +94,31 @@ void main() {
     expect(find.textContaining('PDF open failed'), findsOneWidget);
     await closeError(tester);
     expect(await importing, isNull);
+  });
+
+  testWidgets('PDF batch keeps each file asset and its areas', (tester) async {
+    await mount(tester);
+    final otherBytes = Uint8List.fromList([4, 5, 6]);
+    when(() => engine.openData(otherBytes)).thenAnswer((_) async => pdf);
+    final importing = service.importBatch(
+      [
+        (AssetFileType.pdf, bytes, 'first'),
+        (AssetFileType.pdf, otherBytes, 'second'),
+      ],
+      document: DocumentDefaults.createDocument(),
+      advanced: false,
+    );
+    await tester.pumpAndSettle();
+    final result = (await importing)!;
+    final elements = result.elements.cast<PdfElement>();
+    expect(elements.length, 2);
+    expect(elements.first.source, isNot(elements.last.source));
+    expect(result.assets[elements.first.source], bytes);
+    expect(result.assets[elements.last.source], otherBytes);
+    expect(elements.map((e) => e.position.y), [0, 1000]);
+    expect(result.areas.map((e) => e.position.y), [0, 1000]);
+    expect(result.exportPresets.map((e) => e.name), ['first', 'second']);
+    expect(find.byType(LoadingDialog), findsNothing);
   });
 
   for (final returnsNull in [false, true]) {

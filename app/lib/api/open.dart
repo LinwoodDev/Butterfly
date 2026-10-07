@@ -89,45 +89,37 @@ Future<(Uint8List?, String?, String?)> importFile(
   BuildContext context, [
   List<AssetFileType>? types,
 ]) async {
-  final (fileType, allowedExtensions) = _getImportPickerOptions(
-    (types ?? AssetFileType.values).expand((e) => e.getFileExtensions()),
-  );
-  final file = await FilePicker.pickFile(
-    allowedExtensions: allowedExtensions,
-    type: fileType,
-  );
-  if (file == null) {
-    return (null, null, null);
-  }
-  return await _readPlatformFile(file);
+  final files = await importFiles(context, types: types, multiple: false);
+  return files.firstOrNull ?? (null, null, null);
 }
 
 Future<List<(Uint8List, String, String)>> importFiles(
-  BuildContext context, [
+  BuildContext context, {
   List<AssetFileType>? types,
-]) async {
-  final (fileType, allowedExtensions) = _getImportPickerOptions(
-    (types ?? AssetFileType.values).expand((e) => e.getFileExtensions()),
-  );
-  final result = await FilePicker.pickFiles(
-    allowedExtensions: allowedExtensions,
-    type: fileType,
-  );
-  final files = <(Uint8List, String, String)>[];
-  for (final file in result) {
-    files.add(await _readPlatformFile(file));
-  }
-  return files;
-}
+  bool multiple = true,
+}) => importFilesWithExtensions(
+  (types ?? AssetFileType.values).expand((e) => e.getFileExtensions()).toList(),
+  multiple: multiple,
+);
 
 Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
-  List<String> extensions,
-) async {
+  List<String> extensions, {
+  bool multiple = true,
+}) async {
   final (fileType, allowedExtensions) = _getImportPickerOptions(extensions);
-  final result = await FilePicker.pickFiles(
-    allowedExtensions: allowedExtensions,
-    type: fileType,
-  );
+  final List<PlatformFile> result;
+  if (multiple) {
+    result = await FilePicker.pickFiles(
+      allowedExtensions: allowedExtensions,
+      type: fileType,
+    );
+  } else {
+    final file = await FilePicker.pickFile(
+      allowedExtensions: allowedExtensions,
+      type: fileType,
+    );
+    result = [?file];
+  }
   final files = <(Uint8List, String, String)>[];
   for (final file in result) {
     files.add(await _readPlatformFile(file));

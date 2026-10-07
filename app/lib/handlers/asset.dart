@@ -46,29 +46,40 @@ Future<void> showImportAssetWizard(
         .then((e) => e?.submit());
   }
 
-  Future<void> importWithDialog(List<AssetFileType> type) async {
-    final (result, fileExtension, name) = await importFile(context, type);
-    if (result == null) return;
-    return importAsset(
-      AssetFileTypeHelper.fromFileExtension(fileExtension) ??
-          AssetFileType.note,
-      result,
-      name: name,
+  Future<void> importWithDialog(
+    List<AssetFileType> type, {
+    bool multiple = false,
+  }) async {
+    final files = await importFiles(context, types: type, multiple: multiple);
+    final state = bloc.state;
+    if (state is! DocumentLoaded || files.isEmpty) return;
+    final result = await service.importBatch(
+      files.map(
+        (file) => (
+          AssetFileTypeHelper.fromFileExtension(file.$2) ?? AssetFileType.note,
+          file.$1,
+          file.$3,
+        ),
+      ),
+      document: state.data,
+      position: position,
+      advanced: advanced,
     );
+    result?.submit();
   }
 
   if (!await type.isAvailable()) return;
 
   switch (type) {
     case .file:
-      return importWithDialog(AssetFileType.values);
+      return importWithDialog(AssetFileType.values, multiple: true);
     case .oneNote:
       return importWithDialog([
         AssetFileType.oneNote,
         AssetFileType.oneNotePackage,
       ]);
     case .image:
-      return importWithDialog([AssetFileType.image]);
+      return importWithDialog([AssetFileType.image], multiple: true);
     case .camera:
       final content = await showDialog<Uint8List>(
         context: context,
