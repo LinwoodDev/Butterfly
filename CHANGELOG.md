@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.1-rc.1 (2026-10-08)
+
+* Add importing multiple images at once
+* Fix saving notes opened from the file manager to their original path and preserve their location in recent files
+* Clarify local connection directories, fix folder pickers, and prevent saving to removed connections
+* Allow disabling documents, templates, or packs for a storage connection by leaving their directory paths empty
+* Fix Space being intercepted by canvas shortcuts while editing text
+* Keep document keyboard shortcuts working after touch gestures and other focus changes ([#1294](https://github.com/LinwoodDev/Butterfly/issues/1294))
+* Fix temporary simple toolbar visibility not hiding the toolbar when drawing starts
+* Restore offline web loading with an app-managed service worker
+* Fix handwriting previews lagging behind while completed strokes are waiting to be cached
+* Use settings framework sliders for input sensitivities and show their descriptions as tooltips
+
+Read more here: https://linwood.dev/butterfly/2.6.1-rc.1
+
 ## 2.6.1-rc.0 (2026-10-02)
 
 * Migrate the app interface to the Material UI package
