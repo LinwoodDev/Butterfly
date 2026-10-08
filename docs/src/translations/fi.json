@@ -51,5 +51,12 @@
   "privacy_policy": "Yksityisyyden suoja",
   "ruler": "Viiva",
   "grid": "Ruudukko",
-  "utilities": "Työkalut"
+  "utilities": "Työkalut",
+  "settings": "Asetukset",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Taulukko",
+  "embedding_example": "Embedding example",
+  "imprint": "Jälki"
 }
