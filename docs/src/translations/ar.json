@@ -51,5 +51,12 @@
   "privacy_policy": "سياسة الخصوصية",
   "ruler": "حاكم",
   "grid": "الشبكة",
-  "utilities": "المرافق"
+  "utilities": "المرافق",
+  "settings": "الإعدادات",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "جدول",
+  "embedding_example": "Embedding example",
+  "imprint": "علامة الناشر"
 }
