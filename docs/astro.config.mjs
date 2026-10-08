@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import linwoodStarlight from "@linwooddev/starlight-style";
 import react from "@astrojs/react";
-import { getSidebarTranslatedLabel } from "./src/translations";
+import { getSidebarTranslatedLabel, locales } from "./src/translations";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 import { fileURLToPath } from "node:url";
@@ -71,7 +71,7 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      plugins: [linwoodStarlight()],
+      plugins: [linwoodStarlight({ translations: locales })],
       title: "Linwood Butterfly",
       customCss: [
         "./src/styles/custom.scss",
@@ -93,7 +93,6 @@ export default defineConfig({
       ],
       components: {
         Head: "./src/components/Head.astro",
-        Footer: "./src/components/Footer.astro",
       },
       sidebar: [
         {
@@ -103,13 +102,16 @@ export default defineConfig({
               ...getSidebarTranslatedLabel("Introduction"),
               link: "/docs/v2/intro",
             },
-            { label: "Settings", link: "/docs/v2/settings/" },
+            {
+              ...getSidebarTranslatedLabel("Settings"),
+              link: "/docs/v2/settings/",
+            },
             {
               ...getSidebarTranslatedLabel("Context menu"),
               link: "/docs/v2/context_menu",
             },
             {
-              ...getSidebarTranslatedLabel("Area"),
+              ...getSidebarTranslatedLabel("Areas"),
               link: "/docs/v2/areas/",
             },
             {
@@ -120,7 +122,10 @@ export default defineConfig({
               ...getSidebarTranslatedLabel("Colors"),
               link: "/docs/v2/colors/",
             },
-            { label: "Paints", link: "/docs/v2/paints/" },
+            {
+              ...getSidebarTranslatedLabel("Paints"),
+              link: "/docs/v2/paints/",
+            },
             {
               ...getSidebarTranslatedLabel("Layers"),
               link: "/docs/v2/layers/",
@@ -157,8 +162,14 @@ export default defineConfig({
               ...getSidebarTranslatedLabel("Add"),
               link: "/docs/v2/add/",
             },
-            { label: "Importing", link: "/docs/v2/importing/" },
-            { label: "Exporting", link: "/docs/v2/exporting/" },
+            {
+              ...getSidebarTranslatedLabel("Importing"),
+              link: "/docs/v2/importing/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Exporting"),
+              link: "/docs/v2/exporting/",
+            },
             {
               ...getSidebarTranslatedLabel("Utilities"),
               link: "/docs/v2/utilities/",
@@ -214,7 +225,10 @@ export default defineConfig({
                   ...getSidebarTranslatedLabel("Shape"),
                   link: "/docs/v2/tools/shape/",
                 },
-                { label: "Table", link: "/docs/v2/tools/table/" },
+                {
+                  ...getSidebarTranslatedLabel("Table"),
+                  link: "/docs/v2/tools/table/",
+                },
                 {
                   ...getSidebarTranslatedLabel("Polygon"),
                   link: "/docs/v2/tools/polygon/",
@@ -307,7 +321,7 @@ export default defineConfig({
               link: "/community/embed/",
             },
             {
-              label: "Embedding example",
+              ...getSidebarTranslatedLabel("Embedding example"),
               link: "/community/embed-example/",
             },
             {
@@ -323,7 +337,7 @@ export default defineConfig({
               link: "/community/versions/",
             },
             {
-              ...getSidebarTranslatedLabel("Nightly builds"),
+              ...getSidebarTranslatedLabel("Nightly builds", "nightly"),
               link: "/community/nightly/",
             },
             {

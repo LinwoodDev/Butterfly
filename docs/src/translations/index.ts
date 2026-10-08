@@ -1,3 +1,4 @@
+import { createTranslations } from "@linwooddev/starlight-style/translations";
 import af from "./af.json";
 import ar from "./ar.json";
 import ca from "./ca.json";
@@ -33,7 +34,7 @@ import vi from "./vi.json";
 import zh from "./zh.json";
 import zhHant from "./zh-hant.json";
 
-const locales = {
+export const locales = {
   af,
   ar,
   ca,
@@ -69,34 +70,4 @@ const locales = {
   zh,
   "zh-Hant": zhHant,
 };
-const translations: Record<string, Record<string, string>> = {};
-
-for (const [lang, dictionary] of Object.entries(locales)) {
-  for (const [key, term] of Object.entries(dictionary)) {
-    translations[key] = { ...translations[key], [lang]: term };
-  }
-}
-
-export function getTranslations(
-  key: string
-): Record<string, string> | undefined {
-  return translations[key];
-}
-
-export function toSnakeCase(str: string): string {
-  return str
-    .replace(/\s+/g, " ") // Replace multiple spaces with a single space
-    .trim() // Trim leading and trailing spaces
-    .toLowerCase() // Convert to lowercase
-    .replace(/\s/g, "_"); // Replace spaces with underscores
-}
-
-export function getSidebarTranslatedLabel(key: string): {
-  label: string;
-  translations: Record<string, string> | undefined;
-} {
-  return {
-    label: key,
-    translations: getTranslations(toSnakeCase(key)),
-  };
-}
+export const { getSidebarTranslatedLabel } = createTranslations(locales);

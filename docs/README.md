@@ -26,6 +26,21 @@ Images can be added to `src/assets/` and embedded in Markdown with a relative li
 
 Static assets, like favicons, can be placed in the `public/` directory.
 
+## Translations
+
+Crowdin translates page content in `src/content/docs/` and UI labels in
+`src/translations/*.json`, as configured in the root `crowdin.yml`. Add new UI
+labels to `src/translations/en.json`; the shared Linwood Starlight plugin exposes these
+dictionaries through Starlight's `Astro.locals.t()` API with English fallback.
+Sidebar labels use the same dictionaries.
+
+Write internal page links as root-relative paths, such as `/docs/v2/intro/`.
+The shared plugin localizes hero actions and rendered Markdown and MDX links
+using the current locale. This also
+works for Starlight's fallback content without changing the source strings
+Crowdin translates. Links with an explicit locale, external URLs, anchors, and
+static asset links are preserved.
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:

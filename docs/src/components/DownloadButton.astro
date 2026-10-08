@@ -1,11 +1,8 @@
 ---
 import SharedDownloadButton from "@linwooddev/starlight-style/components/DownloadButton.astro";
+import type { ComponentProps } from "astro/types";
 
-export interface Props {
-  title: string;
-  href: string;
-  after?: string;
-}
+export type Props = ComponentProps<typeof SharedDownloadButton>;
 ---
 
 <SharedDownloadButton {...Astro.props} />
