@@ -51,5 +51,12 @@
   "privacy_policy": "隐私政策",
   "ruler": "标尺",
   "grid": "网格",
-  "utilities": "实用工具"
+  "utilities": "实用工具",
+  "settings": "设置",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "表",
+  "embedding_example": "Embedding example",
+  "imprint": "图形"
 }
