@@ -594,7 +594,10 @@
   "perSide": "Per lato",
   "directory": "Directory",
   "connectionNameDescription": "Usato solo per identificare questa connessione in Butterfly",
-  "connectionDirectoryDescription": "Cartella di base per questa connessione. I percorsi delle directory avanzati sono relativi ad essa; lasciare vuoto per usare percorsi assoluti",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Percorso documenti",
   "templatesDirectory": "Cartella modelli",
   "errorWhileCreatingConnection": "Errore durante la creazione della connessione",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "Scorciatoie",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Centrale",
   "@middle": {
     "description": "Mouse button"

@@ -13,6 +13,14 @@ and the actions they are currently mapped to.
 These actions are divided into [tool activators](#tool-activators)
 and [document actions](#document-actions).
 
+**Note:** Assigning a double- or triple-tap shortcut buffers normal pointer input
+for the corresponding mouse button, touch input, or stylus input. A short single
+tap is released after a 500 ms wait following release. Moving more than 18 logical
+pixels from the initial position releases the buffered input immediately, so
+drawing does not have to wait for the tap timeout. Set both shortcuts for that
+input to `None` to remove this buffering. Keyboard hold shortcuts and two- or
+three-finger tap shortcuts do not enable it.
+
 ## Tool activators {#tool-activators}
 
 You can customize your controls by changing which tools your inputs map to.

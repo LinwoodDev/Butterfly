@@ -15,6 +15,55 @@ You can also change it under [Settings → Data](../settings/#data-and-connectio
 
 In deze map vindt u de map `Documenten`, `Templates` en `Packs`.
 
+Changing **Settings → Data → Data directory** moves the existing application data
+to the new directory. To browse additional folders while keeping this directory,
+add local connections instead.
+
+## Local connections {#local}
+
+On native platforms, open **Settings → Connections → Add connection → Local**.
+Choose a name and a base directory, then select **Create**. Add a connection for
+each storage location you want to browse. Use **Sources** in the file view to
+switch between the default storage and your connections. You can also choose a
+default connection in Settings.
+
+By default, a connection with base directory `/mnt/data/notes` stores notes in
+`/mnt/data/notes/Documents`, templates in `/mnt/data/notes/Templates`, and packs
+in `/mnt/data/notes/Packs`. Open **Advanced** to change these directories:
+
+| Documenten map                                        | Where notes are stored                 |
+| ----------------------------------------------------- | -------------------------------------- |
+| Empty                                                 | Documents disabled for this connection |
+| `Documents` (default)              | `/mnt/data/notes/Documents`            |
+| `myfolder`                                            | `/mnt/data/notes/myfolder`             |
+| `.`                                                   | `/mnt/data/notes` directly             |
+| `/mnt/other/notes` (absolute path) | `/mnt/other/notes`                     |
+
+The same rules apply to the Templates and Packs directory fields. An empty field
+disables that directory type for this connection, without creating a replacement
+folder. Use `.` to store files directly in the base folder.
+If you leave the base directory empty, every enabled directory must be an absolute path.
+Choosing a directory adds access to that folder; it does not import or move its
+existing files. Existing connections keep their configured directory layout.
+
+Paths **inside the file view** are relative to the selected source's Documents
+directory. For example, `/myfolder/note.bfly` inside a connection whose Documents
+directory is `/mnt/data/notes` means `/mnt/data/notes/myfolder/note.bfly` on disk.
+Do not enter the full device path in the file view or a template's note directory.
+Enter device paths in the connection's directory settings instead.
+
+### Opening and removing connections
+
+A note opened from a connection displays `@connection_name` after its path to
+identify the source. A `.bfly` or `.tbfly` note opened from your device's file
+manager uses its device path and saves back to that file. It does not need a
+connection name. Importing other formats creates a new Butterfly note when saved.
+
+Removing a connection only removes its configuration from Butterfly. It does not
+delete or move notes, templates, or packs in the connected directories. Add the
+connection again to browse them. An open document whose connection was removed
+cannot save to that connection; reconnect it or export the note to another folder.
+
 ## Web {#web}
 
 De applicatiegegevens worden opgeslagen in uw browser. Het wordt opgeslagen in een lokale opslag.

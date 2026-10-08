@@ -594,7 +594,10 @@
   "perSide": "За сторону",
   "directory": "Каталог",
   "connectionNameDescription": "Використовується тільки для ідентифікації цього підключення в метелику",
-  "connectionDirectoryDescription": "Базова тека для цього підключення. Покращені шляхи папок відносяться до неї; залиште порожнім для використання абсолютних шляхів",
+  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
+  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
+  "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Каталог документів",
   "templatesDirectory": "Шаблонівський каталог",
   "errorWhileCreatingConnection": "Помилка при створенні з'єднання",
@@ -824,6 +827,8 @@
     "description": "Input device"
   },
   "shortcuts": "Гарячі клавіші",
+  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "По центру",
   "@middle": {
     "description": "Mouse button"
