@@ -51,5 +51,12 @@
   "privacy_policy": "Kebijakan privasi",
   "ruler": "Penggaris",
   "grid": "Kisi",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "Pengaturan",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "Sekilas "
 }
