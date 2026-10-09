@@ -3,9 +3,9 @@ environment:
   sdk: ">=3.8.0 <4.0.0"
 dependencies:
   crypto: ^3.0.7
-  archive: ^4.0.9
-  args: ^2.5.0
-  intl: ^0.20.0
-  lints: ^6.0.0
-  yaml: ^3.1.2
-  http: ^1.2.1
+  archive: ^4.3.0
+  args: ^2.7.0
+  intl: ^0.20.3
+  lints: ^6.1.0
+  yaml: ^3.1.4
+  http: ^1.6.0

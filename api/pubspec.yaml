@@ -7,14 +7,14 @@ environment:
   sdk: ">=3.13.0 <4.0.0"
 
 dependencies:
-  archive: ^4.0.0
-  collection: ^1.18.0
+  archive: ^4.3.0
+  collection: ^1.19.1
   crypto: ^3.0.7
-  freezed_annotation: ^3.0.0
+  freezed_annotation: ^3.1.0
   json_annotation: ^4.12.0
   replay_bloc: ^0.3.0
   rxdart: ^0.28.0
-  uuid: ^4.4.0
+  uuid: ^4.6.0
   xml: ^7.0.1
   lw_file_system_api:
     git:
@@ -28,8 +28,8 @@ dependencies:
       ref: b7787191b0705ff0a22149409b1b360468d9e06d
 
 dev_dependencies:
-  test: ^1.25.3
-  json_serializable: ^6.7.1
-  build_runner: ^2.4.9
-  freezed: ^4.0.1
-  lints: ^6.0.0
+  test: ^1.33.0
+  json_serializable: ^6.14.1
+  build_runner: ^2.16.2
+  freezed: ^4.0.2
+  lints: ^6.1.0

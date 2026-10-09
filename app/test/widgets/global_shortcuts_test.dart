@@ -1,7 +1,7 @@
 import 'package:butterfly/widgets/global_shortcuts.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 class _TestIntent extends Intent {
   const _TestIntent();

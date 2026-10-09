@@ -63,12 +63,12 @@ void deleteEntities({
     direction: isMobile ? PopoverDirection.top : PopoverDirection.right,
     radius: 16,
     width: 180,
-    height: 130,
     arrowHeight: 15,
     arrowWidth: 20,
     bodyBuilder: (ctx) => Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
+        mainAxisSize: .min,
         mainAxisAlignment: .center,
         children: [
           Text(AppLocalizations.of(context).areYouSure, textAlign: .center),
