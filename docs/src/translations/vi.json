@@ -51,5 +51,12 @@
   "privacy_policy": "Chính sách bảo mật",
   "ruler": "Thước kẻ",
   "grid": "Lưới",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "Cài đặt",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "Thông tin pháp lý"
 }
