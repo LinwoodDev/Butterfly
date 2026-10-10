@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: "6c5bcd986e06b94e3c40244af471750840a3d2341d1f9763a1100a14add517b4"
+      sha256: "3aa20c6b5617b632a1b7198dcca3d88065d37232485b9a6c6c14dc8f5357d279"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.0"
   args:
     dependency: "direct main"
     description:
@@ -732,10 +732,10 @@ packages:
     dependency: "direct main"
     description:
       name: image
-      sha256: a1e7f4951e538a568e14b856702afc9ae1d2f4b202daced8d22c1b9cd211ce89
+      sha256: "0be525eb917b032c7c9c980597c508a255814a858bd8d9abfc9c57e04f3ebf89"
       url: "https://pub.dev"
     source: hosted
-    version: "4.10.1"
+    version: "4.10.2"
   integration_test:
     dependency: "direct dev"
     description: flutter
@@ -1809,4 +1809,4 @@ packages:
     version: "3.1.4"
 sdks:
   dart: ">=3.13.0 <4.0.0"
-  flutter: "3.47.6"
+  flutter: "3.47.7"

@@ -1,5 +1,6 @@
 allowBuilds:
   '@parcel/watcher': true
+  '@vite-pwa/astro@https://codeload.github.com/CodeDoctorDE/vite-pwa-astro/tar.gz/a54ef9843b39b34820300a0bd5d08879563f6f04': true
   esbuild: true
   sharp: true
 minimumReleaseAgeExclude:

@@ -25,6 +25,13 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Fetch version metadata refs
+        run: |
+          git fetch --no-tags --depth=1 origin \
+            +refs/tags/nightly:refs/tags/nightly \
+            +refs/tags/stable:refs/tags/stable \
+            +refs/heads/develop:refs/remotes/origin/develop \
+            +refs/heads/main:refs/remotes/origin/main
       - name: Set up pnpm and Node.js
         uses: pnpm/setup@v3.0.0
         with:

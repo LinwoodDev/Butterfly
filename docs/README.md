@@ -54,6 +54,26 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
+## Version metadata
+
+`/meta.json` reads app versions from local Git refs without making HTTP requests.
+The `nightly` and `stable` channels use their release tags; `develop` and `main`
+use the corresponding `origin` branch refs. Local builds reflect the last fetched
+versions, not uncommitted changes in `app/pubspec.yaml`.
+
+To populate or refresh these refs before building, run this from the checkout:
+
+```sh
+git fetch --no-tags --depth=1 origin \
+  +refs/tags/nightly:refs/tags/nightly \
+  +refs/tags/stable:refs/tags/stable \
+  +refs/heads/develop:refs/remotes/origin/develop \
+  +refs/heads/main:refs/remotes/origin/main
+```
+
+The documentation deployment workflow runs this fetch before building. Missing
+refs or invalid versions fail the build rather than publishing incomplete metadata.
+
 ## 👀 Want to learn more?
 
 Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).

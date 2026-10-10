@@ -1,54 +1,36 @@
-// Fetch version value fromy yaml file https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/app/pubspec.yaml
-const nightlyUrl =
-  "https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/app/pubspec.yaml";
-const nightlyVersion = await fetch(nightlyUrl)
-  .then((res) => res.text())
-  .then((text) => {
-    const regex = /^version:\s(.+)\+(.+)$/gm;
-    const match = regex.exec(text);
-    return match?.[1];
-  });
+import { execFileSync } from "node:child_process";
 
-// stable
-const stableUrl =
-  "https://raw.githubusercontent.com/LinwoodDev/Butterfly/stable/app/pubspec.yaml";
-const stableVersion = await fetch(stableUrl)
-  .then((res) => res.text())
-  .then((text) => {
-    const regex = /^version:\s(.+)\+(.+)$/gm;
-    const match = regex.exec(text);
-    return match?.[1];
-  });
+const versionRefs = {
+  nightly: "refs/tags/nightly",
+  stable: "refs/tags/stable",
+  develop: "refs/remotes/origin/develop",
+  main: "refs/remotes/origin/main",
+};
 
-// develop
-const developUrl =
-  "https://raw.githubusercontent.com/LinwoodDev/Butterfly/develop/app/pubspec.yaml";
-const developVersion = await fetch(developUrl)
-  .then((res) => res.text())
-  .then((text) => {
-    const regex = /^version:\s(.+)\+(.+)$/gm;
-    const match = regex.exec(text);
-    return match?.[1];
-  });
+function readVersion(ref: string) {
+  let pubspec: string;
+  try {
+    pubspec = execFileSync("git", ["show", `${ref}:app/pubspec.yaml`], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch (cause) {
+    throw new Error(
+      `Cannot read app/pubspec.yaml from ${ref}. Fetch the metadata refs as described in docs/README.md.`,
+      { cause },
+    );
+  }
 
-// main
-const mainUrl =
-  "https://raw.githubusercontent.com/LinwoodDev/Butterfly/main/app/pubspec.yaml";
-const mainVersion = await fetch(mainUrl)
-  .then((res) => res.text())
-  .then((text) => {
-    const regex = /^version:\s(.+)\+(.+)$/gm;
-    const match = regex.exec(text);
-    return match?.[1];
-  });
+  const version = /^version:\s*([^\s+]+)(?:\+\d+)?\s*$/m.exec(pubspec)?.[1];
+  if (!version) {
+    throw new Error(`Missing or invalid app version in ${ref}:app/pubspec.yaml`);
+  }
+  return version;
+}
 
 export function GET() {
-  return new Response(JSON.stringify({
-    version: {
-      nightly: nightlyVersion,
-      stable: stableVersion,
-      develop: developVersion,
-      main: mainVersion,
-    },
-  }));
+  const version = Object.fromEntries(
+    Object.entries(versionRefs).map(([channel, ref]) => [channel, readVersion(ref)]),
+  );
+  return Response.json({ version });
 }
