@@ -83,7 +83,7 @@ void main() {
         ZoomPanelControls.inputAndButtons,
       ),
     ).thenAnswer((_) async {});
-    await tester.tap(find.text('Zoom panel controls'));
+    await tester.tap(find.text('Camera controls layout'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Text field and buttons'));
     await tester.pumpAndSettle();

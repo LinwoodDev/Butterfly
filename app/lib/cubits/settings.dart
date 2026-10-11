@@ -480,6 +480,23 @@ enum ToolbarPosition {
   };
 }
 
+enum CameraControlsVisibility {
+  mobile,
+  hidden,
+  temporary,
+  always;
+
+  bool isTemporary(bool isMobile) =>
+      this == temporary || (this == mobile && isMobile);
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    .mobile => AppLocalizations.of(context).temporaryOnMobile,
+    .hidden => AppLocalizations.of(context).hidden,
+    .temporary => AppLocalizations.of(context).temporary,
+    .always => AppLocalizations.of(context).always,
+  };
+}
+
 enum ZoomPanelControls {
   full,
   sliderAndInput,
@@ -622,7 +639,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default([])
     @JsonKey(includeFromJson: false, includeToJson: false)
     List<AssetLocation> history,
-    @Default(true) bool zoomEnabled,
+    @JsonKey(unknownEnumValue: CameraControlsVisibility.mobile)
+    @Default(CameraControlsVisibility.mobile)
+    CameraControlsVisibility cameraControlsVisibility,
     @JsonKey(unknownEnumValue: RotationDisplay.whenRotated)
     @Default(RotationDisplay.whenRotated)
     RotationDisplay rotationDisplay,
@@ -692,6 +711,11 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
       _$ButterflySettingsFromJson({
         ...json,
+        'cameraControlsVisibility':
+            json['cameraControlsVisibility'] ??
+            (json['zoomEnabled'] == false
+                ? CameraControlsVisibility.hidden.name
+                : CameraControlsVisibility.mobile.name),
         'zoomPanelControls':
             json['zoomPanelControls'] ??
             (json['minimalZoom'] == true
@@ -774,7 +798,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             }).nonNulls ??
             const [],
       ),
-      zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
+      cameraControlsVisibility: _enumByNameOr(
+        CameraControlsVisibility.values,
+        prefs.getString('camera_controls_visibility'),
+        prefs.getBool('zoom_enabled') == false
+            ? CameraControlsVisibility.hidden
+            : CameraControlsVisibility.mobile,
+      ),
       rotationDisplay: _enumByNameOr(
         RotationDisplay.values,
         prefs.getString('rotation_display'),
@@ -1030,7 +1060,11 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       'history',
       history.map((e) => e.toJson()).toList(),
     );
-    await prefs.setBool('zoom_enabled', zoomEnabled);
+    await prefs.setString(
+      'camera_controls_visibility',
+      cameraControlsVisibility.name,
+    );
+    await prefs.remove('zoom_enabled');
     await prefs.setString('rotation_display', rotationDisplay.name);
     await prefs.setString('zoom_panel_controls', zoomPanelControls.name);
     await prefs.remove('show_rotation');
@@ -1484,12 +1518,10 @@ class SettingsCubit(SharedPreferences prefs)
     return save();
   }
 
-  Future<void> changeZoomEnabled(bool value) {
-    emit(state.copyWith(zoomEnabled: value));
+  Future<void> changeCameraControlsVisibility(CameraControlsVisibility value) {
+    emit(state.copyWith(cameraControlsVisibility: value));
     return save();
   }
-
-  Future<void> resetZoomEnabled() => changeZoomEnabled(true);
 
   Future<void> changeZoomPanelControls(ZoomPanelControls value) {
     emit(state.copyWith(zoomPanelControls: value));

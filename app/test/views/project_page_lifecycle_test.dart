@@ -575,6 +575,40 @@ void main() {
   );
 
   testWidgets(
+    'mobile camera controls auto hides and returns for camera changes',
+    (tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final editor = await openEditor(tester);
+      expect(cameraField('Zoom'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 6));
+      await tester.pumpAndSettle();
+      expect(cameraField('Zoom'), findsNothing);
+
+      editor.transformCubit.size(2);
+      await tester.pumpAndSettle();
+      expect(cameraField('Zoom'), findsOneWidget);
+      await tester.tap(cameraField('Zoom'));
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 6));
+      await tester.pumpAndSettle();
+      expect(cameraField('Zoom'), findsOneWidget);
+      FocusManager.instance.primaryFocus!.unfocus();
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 6));
+      await tester.pumpAndSettle();
+      expect(cameraField('Zoom'), findsNothing);
+
+      editor.transformCubit.rotate(0.5);
+      await tester.pumpAndSettle();
+      expect(cameraField('Rotation'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
     'zoom panel steps, limits and reset keep the canvas center fixed',
     (tester) async {
       when(() => settingsCubit.state).thenReturn(

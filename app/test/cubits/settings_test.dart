@@ -10,6 +10,45 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  group('camera controls visibility', () {
+    test(
+      'preserves hidden controls from legacy preferences and JSON',
+      () async {
+        SharedPreferences.setMockInitialValues({'zoom_enabled': false});
+        final prefs = await SharedPreferences.getInstance();
+        expect(
+          ButterflySettings.fromPrefs(prefs).cameraControlsVisibility,
+          CameraControlsVisibility.hidden,
+        );
+        expect(
+          ButterflySettings.fromJson({'zoomEnabled': false})
+              .cameraControlsVisibility,
+          CameraControlsVisibility.hidden,
+        );
+      },
+    );
+
+    test('persists each mode and removes the legacy preference', () async {
+      SharedPreferences.setMockInitialValues({'zoom_enabled': false});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      for (final mode in CameraControlsVisibility.values) {
+        await cubit.changeCameraControlsVisibility(mode);
+        expect(
+          ButterflySettings.fromPrefs(prefs).cameraControlsVisibility,
+          mode,
+        );
+        expect(
+          ButterflySettings.fromJson(cubit.state.toJson())
+              .cameraControlsVisibility,
+          mode,
+        );
+        expect(prefs.containsKey('zoom_enabled'), isFalse);
+      }
+    });
+  });
+
   test(
     'removing the default connection resets and persists the default',
     () async {

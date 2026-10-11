@@ -198,7 +198,13 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
         json['bannerVisibility'],
       ) ??
       BannerVisibility.always,
-  zoomEnabled: json['zoomEnabled'] as bool? ?? true,
+  cameraControlsVisibility:
+      $enumDecodeNullable(
+        _$CameraControlsVisibilityEnumMap,
+        json['cameraControlsVisibility'],
+        unknownValue: CameraControlsVisibility.mobile,
+      ) ??
+      CameraControlsVisibility.mobile,
   rotationDisplay:
       $enumDecodeNullable(
         _$RotationDisplayEnumMap,
@@ -364,7 +370,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'inputGestures': instance.inputGestures,
   'design': instance.design,
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
-  'zoomEnabled': instance.zoomEnabled,
+  'cameraControlsVisibility':
+      _$CameraControlsVisibilityEnumMap[instance.cameraControlsVisibility]!,
   'rotationDisplay': _$RotationDisplayEnumMap[instance.rotationDisplay]!,
   'zoomPanelControls': _$ZoomPanelControlsEnumMap[instance.zoomPanelControls]!,
   'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
@@ -446,6 +453,13 @@ const _$BannerVisibilityEnumMap = {
   BannerVisibility.always: 'always',
   BannerVisibility.never: 'never',
   BannerVisibility.onlyOnUpdates: 'onlyOnUpdates',
+};
+
+const _$CameraControlsVisibilityEnumMap = {
+  CameraControlsVisibility.mobile: 'mobile',
+  CameraControlsVisibility.hidden: 'hidden',
+  CameraControlsVisibility.temporary: 'temporary',
+  CameraControlsVisibility.always: 'always',
 };
 
 const _$RotationDisplayEnumMap = {

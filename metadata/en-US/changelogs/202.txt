@@ -1,0 +1,4 @@
+* Add camera control visibility settings with fading after five seconds of inactivity and temporary visibility by default on mobile
+* Migrate popover menus to Material UI
+
+Read more here: https://linwood.dev/butterfly/2.6.1-rc.2

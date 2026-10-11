@@ -7,7 +7,7 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   onReset: (context, state) => _resetSettingsPage(
     context,
     (current, defaults) => current.copyWith(
-      zoomEnabled: defaults.zoomEnabled,
+      cameraControlsVisibility: defaults.cameraControlsVisibility,
       rotationDisplay: defaults.rotationDisplay,
       zoomPanelControls: defaults.zoomPanelControls,
       zoomPosition: defaults.zoomPosition,
@@ -27,24 +27,28 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   sections: {
     'interface': SettingsLeapSection(
       settings: [
-        SettingsLeapAdvancedSwitchSetting<ButterflySettings, ZoomPosition>(
+        SettingsLeapEnumSetting(
           id: 'zoomControl',
           displayName: (context) => AppLocalizations.of(context).zoomControl,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).cameraControlsVisibilityDescription,
           icon: PhosphorIconsLight.magnifyingGlass,
-          options: [
-            for (final value in ZoomPosition.values)
-              SettingsLeapOption(
-                id: value.name,
-                value: value,
-                displayName: (context) => value.getLocalizedName(context),
-              ),
-          ],
-          readEnabled: (state) => state.zoomEnabled,
-          writeEnabled: (context, value) =>
-              context.read<SettingsCubit>().changeZoomEnabled(value),
+          values: CameraControlsVisibility.values,
+          read: (state) => state.cameraControlsVisibility,
+          write: (context, value) => context
+              .read<SettingsCubit>()
+              .changeCameraControlsVisibility(value),
+          valueLabel: (context, value) => value.getLocalizedName(context),
+        ),
+        SettingsLeapEnumSetting(
+          id: 'zoomPosition',
+          displayName: (context) => AppLocalizations.of(context).zoomPosition,
+          icon: PhosphorIconsLight.arrowsOutCardinal,
+          values: ZoomPosition.values,
           read: (state) => state.zoomPosition,
           write: (context, value) =>
               context.read<SettingsCubit>().changeZoomPosition(value),
+          valueLabel: (context, value) => value.getLocalizedName(context),
         ),
         SettingsLeapEnumSetting(
           id: 'zoomPanelControls',

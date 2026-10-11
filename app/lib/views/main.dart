@@ -933,8 +933,8 @@ class _MainBody extends StatelessWidget {
                                         current.optionsPanelPosition ||
                                     previous.zoomPosition !=
                                         current.zoomPosition ||
-                                    previous.zoomEnabled !=
-                                        current.zoomEnabled ||
+                                    previous.cameraControlsVisibility !=
+                                        current.cameraControlsVisibility ||
                                     previous.zoomPanelControls !=
                                         current.zoomPanelControls ||
                                     previous.propertyPosition !=
@@ -1199,7 +1199,8 @@ class _MainBody extends StatelessWidget {
         settings.zoomPosition == .bottomLeft;
     final children = [
       const PenOnlyToggle(),
-      if (settings.zoomEnabled) Flexible(child: ZoomView(isMobile: isMobile)),
+      if (settings.cameraControlsVisibility != CameraControlsVisibility.hidden)
+        Flexible(child: ZoomView(isMobile: isMobile)),
     ];
     return Row(
       mainAxisAlignment: isLeft ? MainAxisAlignment.start : .end,

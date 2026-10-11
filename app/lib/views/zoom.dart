@@ -6,6 +6,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/widgets/fading_view.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
@@ -172,7 +173,7 @@ class _ZoomViewState extends State<ZoomView> {
         .select<
           SettingsCubit,
           ({
-            bool enabled,
+            CameraControlsVisibility visibility,
             RotationDisplay rotation,
             ZoomPanelControls controls,
             double zoomStep,
@@ -180,7 +181,7 @@ class _ZoomViewState extends State<ZoomView> {
           })
         >(
           (cubit) => (
-            enabled: cubit.state.zoomEnabled,
+            visibility: cubit.state.cameraControlsVisibility,
             rotation: cubit.state.rotationDisplay,
             controls: cubit.state.zoomPanelControls,
             zoomStep: ZoomAction.step(cubit.state),
@@ -201,7 +202,7 @@ class _ZoomViewState extends State<ZoomView> {
           (cubit) => (size: cubit.state.size, rotation: cubit.state.rotation),
         );
     if (!loaded ||
-        !settings.enabled ||
+        settings.visibility == CameraControlsVisibility.hidden ||
         fullScreen ||
         layoutFullScreen ||
         hideUi != HideState.visible) {
@@ -209,92 +210,96 @@ class _ZoomViewState extends State<ZoomView> {
     }
     final l10n = AppLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
-    return IconButtonTheme(
-      data: IconButtonThemeData(
-        style: IconButton.styleFrom(
-          minimumSize: const Size(32, 32),
-          padding: const EdgeInsets.all(4),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    return FadingView(
+      autoHide: settings.visibility.isTemporary(widget.isMobile),
+      activityKey: transform,
+      child: IconButtonTheme(
+        data: IconButtonThemeData(
+          style: IconButton.styleFrom(
+            minimumSize: const Size(32, 32),
+            padding: const EdgeInsets.all(4),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
         ),
-      ),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (settings.rotation != RotationDisplay.hidden &&
-                  (settings.rotation == RotationDisplay.always ||
-                      transform.rotation.abs() > 1e-6 ||
-                      _rotationFocused ||
-                      _rotating)) ...[
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (settings.rotation != RotationDisplay.hidden &&
+                    (settings.rotation == RotationDisplay.always ||
+                        transform.rotation.abs() > 1e-6 ||
+                        _rotationFocused ||
+                        _rotating)) ...[
+                  _controlRow(
+                    key: const ValueKey('camera-rotation'),
+                    label: '${l10n.rotation} (°)',
+                    unit: '°',
+                    color: colorScheme.secondary,
+                    value: transform.rotation * 180 / pi,
+                    min: -180,
+                    max: 180,
+                    defaultValue: 0,
+                    step: settings.rotationStep,
+                    controls: settings.controls,
+                    resetTooltip: l10n.resetRotation,
+                    resetIcon: const PhosphorIcon(
+                      PhosphorIconsLight.clockCounterClockwise,
+                    ),
+                    decrementIcon: Tooltip(
+                      message: l10n.rotateLeft,
+                      child: const PhosphorIcon(
+                        PhosphorIconsLight.arrowCounterClockwise,
+                      ),
+                    ),
+                    incrementIcon: Tooltip(
+                      message: l10n.rotateRight,
+                      child: const PhosphorIcon(
+                        PhosphorIconsLight.arrowClockwise,
+                      ),
+                    ),
+                    onFocusChanged: (focused) =>
+                        setState(() => _rotationFocused = focused),
+                    onChanged: (value) {
+                      setState(() => _rotating = true);
+                      _rotate(value);
+                    },
+                    onChangeEnd: (_) {
+                      _bake();
+                      setState(() => _rotating = false);
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                ],
                 _controlRow(
-                  key: const ValueKey('camera-rotation'),
-                  label: '${l10n.rotation} (°)',
-                  unit: '°',
-                  color: colorScheme.secondary,
-                  value: transform.rotation * 180 / pi,
-                  min: -180,
-                  max: 180,
-                  defaultValue: 0,
-                  step: settings.rotationStep,
+                  key: const ValueKey('camera-zoom'),
+                  label: '${l10n.zoom} (%)',
+                  unit: '%',
+                  color: colorScheme.primary,
+                  value: transform.size * 100,
+                  min: kMinZoom * 100,
+                  max: kMaxZoom * 100,
+                  defaultValue: 100,
+                  step: settings.zoomStep * 100,
                   controls: settings.controls,
-                  resetTooltip: l10n.resetRotation,
+                  resetTooltip: l10n.resetZoom,
                   resetIcon: const PhosphorIcon(
-                    PhosphorIconsLight.clockCounterClockwise,
+                    PhosphorIconsLight.magnifyingGlass,
                   ),
                   decrementIcon: Tooltip(
-                    message: l10n.rotateLeft,
-                    child: const PhosphorIcon(
-                      PhosphorIconsLight.arrowCounterClockwise,
-                    ),
+                    message: l10n.zoomOut,
+                    child: const PhosphorIcon(PhosphorIconsLight.minus),
                   ),
                   incrementIcon: Tooltip(
-                    message: l10n.rotateRight,
-                    child: const PhosphorIcon(
-                      PhosphorIconsLight.arrowClockwise,
-                    ),
+                    message: l10n.zoomIn,
+                    child: const PhosphorIcon(PhosphorIconsLight.plus),
                   ),
-                  onFocusChanged: (focused) =>
-                      setState(() => _rotationFocused = focused),
-                  onChanged: (value) {
-                    setState(() => _rotating = true);
-                    _rotate(value);
-                  },
-                  onChangeEnd: (_) {
-                    _bake();
-                    setState(() => _rotating = false);
-                  },
+                  onChanged: _zoom,
+                  onChangeEnd: (_) => _bake(),
                 ),
-                const SizedBox(height: 8),
               ],
-              _controlRow(
-                key: const ValueKey('camera-zoom'),
-                label: '${l10n.zoom} (%)',
-                unit: '%',
-                color: colorScheme.primary,
-                value: transform.size * 100,
-                min: kMinZoom * 100,
-                max: kMaxZoom * 100,
-                defaultValue: 100,
-                step: settings.zoomStep * 100,
-                controls: settings.controls,
-                resetTooltip: l10n.resetZoom,
-                resetIcon: const PhosphorIcon(
-                  PhosphorIconsLight.magnifyingGlass,
-                ),
-                decrementIcon: Tooltip(
-                  message: l10n.zoomOut,
-                  child: const PhosphorIcon(PhosphorIconsLight.minus),
-                ),
-                incrementIcon: Tooltip(
-                  message: l10n.zoomIn,
-                  child: const PhosphorIcon(PhosphorIconsLight.plus),
-                ),
-                onChanged: _zoom,
-                onChangeEnd: (_) => _bake(),
-              ),
-            ],
+            ),
           ),
         ),
       ),
