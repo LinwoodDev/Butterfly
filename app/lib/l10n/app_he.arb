@@ -674,7 +674,7 @@
   "topRight": "ימין למעלה",
   "bottomLeft": "שמאל למטה",
   "bottomRight": "ימין למטה",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "המשך בכל זאת",
-  "zoomControl": "בקרת זום",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Splits multi-page imports across separate note pages instead of placing everything on one page.",
   "shear": "Shear",
   "resetRotation": "Reset rotation",
-  "zoomPanelControls": "Zoom panel controls",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Choose the controls for zoom and rotation. Reset buttons remain available in every layout.",
   "zoomPanelFull": "Full (slider, text field and buttons)",
   "zoomPanelSliderInput": "Slider and text field",
