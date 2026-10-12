@@ -674,7 +674,7 @@
   "topRight": "Πάνω δεξιά",
   "bottomLeft": "Κάτω αριστερά",
   "bottomRight": "Κάτω δεξιά",
-  "zoomPosition": "Θέση ελέγχου εστίασης",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Συνεχίστε οπωσδήποτε",
-  "zoomControl": "Έλεγχος εστίασης",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Διαχωρίζει τις πολυσέλιδες εισαγωγές σε ξεχωριστές σελίδες σημειώσεων αντί να τα τοποθετεί όλα σε μία σελίδα.",
   "shear": "Διάτμηση",
   "resetRotation": "Επαναφορά περιστροφής",
-  "zoomPanelControls": "Έλεγχος πίνακα εστίασης",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Επιλέξτε τα στοιχεία ελέγχου για μεγέθυνση και περιστροφή. Τα κουμπιά επαναφοράς παραμένουν διαθέσιμα σε κάθε διάταξη.",
   "zoomPanelFull": "Πλήρης (slider, πεδίο κειμένου και πλήκτρα)",
   "zoomPanelSliderInput": "Ρυθμιστικό και πεδίο κειμένου",
