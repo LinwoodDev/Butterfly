@@ -2508,6 +2508,145 @@ void main() {
     expect(second.pixelRatio, 1.25);
   });
 
+  for (final (framing, remotePosition) in [
+    (ThumbnailFraming.wholePage, const Point<double>(1000, 10)),
+    (ThumbnailFraming.wholePage, const Point<double>(10, -1050)),
+    (ThumbnailFraming.viewport, const Point<double>(1000, 10)),
+  ]) {
+    test(
+      'automatic thumbnail uses $framing with content at $remotePosition',
+      () async {
+        final data = (bloc.state as DocumentLoadSuccess).data;
+        await bloc.close();
+        await editorController.close();
+        when(() => settingsCubit.state).thenReturn(
+          ButterflySettings(
+            autosave: false,
+            documentStatePersistence: framing == ThumbnailFraming.viewport
+                ? const DocumentStatePersistenceSettings()
+                : DocumentStatePersistenceSettings(thumbnailFraming: framing),
+          ),
+        );
+        final first = ShapeElement(
+          id: 'near',
+          firstPosition: const Point(10, 10),
+          secondPosition: const Point(60, 60),
+        );
+        final second = ShapeElement(
+          id: 'far',
+          firstPosition: remotePosition,
+          secondPosition: remotePosition + const Point<double>(50, 50),
+        );
+        final hidden = ShapeElement(
+          id: 'hidden',
+          firstPosition: const Point(100000, 100000),
+          secondPosition: const Point(100050, 100050),
+        );
+        final renderers = <Renderer<PadElement>>[
+          _SolidRectRenderer(first, const Color(0xFFFF0000), 'visible'),
+          _SolidRectRenderer(second, const Color(0xFF0000FF), 'visible'),
+          _SolidRectRenderer(hidden, const Color(0xFF00FF00), 'hidden'),
+        ];
+        final page = DocumentPage(
+          layers: [
+            DocumentLayer(id: 'visible', content: [first, second]),
+            DocumentLayer(id: 'hidden', content: [hidden]),
+          ],
+          areas: const [
+            Area(
+              name: 'initial',
+              position: Point(0, 0),
+              width: 100,
+              height: 100,
+              isInitial: true,
+            ),
+          ],
+        );
+        // The thumbnail must use the active page, including content beyond
+        // its viewport and initial area, rather than the first saved page.
+        final (nextData, pageName) = data.setPage(page, 'Page 2');
+        editorController = EditorController(
+          settingsCubit,
+          TransformCubit(1),
+          CameraViewport.unbaked(
+            unbakedElements: renderers,
+            width: 100,
+            height: 100,
+          ),
+        );
+        bloc = DocumentBloc(
+          fileSystem,
+          editorController,
+          windowCubit,
+          nextData,
+          const AssetLocation(path: 'test-note.bfly'),
+          null,
+          page,
+          pageName,
+          false,
+          null,
+          null,
+          {'hidden'},
+        );
+
+        final bytes = await bloc.renderAutomaticThumbnail();
+        expect(bytes, isNotNull);
+        final codec = await ui.instantiateImageCodec(bytes!);
+        addTearDown(codec.dispose);
+        final frame = await codec.getNextFrame();
+        final image = frame.image;
+        addTearDown(image.dispose);
+        expect(image.width, kThumbnailWidth);
+        expect(image.height, kThumbnailHeight);
+        final pixels = (await image.toByteData(
+          format: ui.ImageByteFormat.rawRgba,
+        ))!.buffer.asUint8List();
+        var red = 0;
+        var blue = 0;
+        var green = 0;
+        for (var i = 0; i < pixels.length; i += 4) {
+          if (pixels[i] > 200 && pixels[i + 1] < 50 && pixels[i + 2] < 50) {
+            red++;
+          }
+          if (pixels[i + 2] > 200 && pixels[i] < 50 && pixels[i + 1] < 50) {
+            blue++;
+          }
+          if (pixels[i + 1] > 200 && pixels[i] < 50 && pixels[i + 2] < 50) {
+            green++;
+          }
+        }
+        expect(red, greaterThan(100));
+        expect(
+          blue,
+          framing == ThumbnailFraming.wholePage ? greaterThan(100) : isZero,
+        );
+        expect(green, isZero);
+      },
+    );
+  }
+
+  test(
+    'whole page thumbnail handles an empty page without a viewport',
+    () async {
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          autosave: false,
+          documentStatePersistence: DocumentStatePersistenceSettings(
+            thumbnailFraming: ThumbnailFraming.wholePage,
+          ),
+        ),
+      );
+      final bytes = await bloc.renderAutomaticThumbnail();
+      expect(bytes, isNotNull);
+      final codec = await ui.instantiateImageCodec(bytes!);
+      addTearDown(codec.dispose);
+      final frame = await codec.getNextFrame();
+      addTearDown(frame.image.dispose);
+      expect(frame.image.width, kThumbnailWidth);
+      expect(frame.image.height, kThumbnailHeight);
+    },
+  );
+
   test('renderImage does not hide already tracked visible renderers', () async {
     await bloc.close();
     await editorController.close();
