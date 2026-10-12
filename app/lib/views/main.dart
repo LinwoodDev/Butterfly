@@ -54,6 +54,7 @@ class ProjectPage extends StatefulWidget {
   final String type;
   final Object? data;
   final String? uri;
+  final CollaborationSettings? collaborationSettings;
 
   const ProjectPage({
     super.key,
@@ -63,6 +64,7 @@ class ProjectPage extends StatefulWidget {
     this.type = '',
     this.data,
     this.uri,
+    this.collaborationSettings,
     this.absolute = false,
     this.isNewDocument = false,
   });
@@ -175,7 +177,10 @@ class _ProjectPageState extends State<ProjectPage> {
         settingsCubit.changeLocaleTemporarily(language);
       }
     }
-    final networkingService = NetworkingService();
+    final networkingService = NetworkingService(
+      settingsCubit: settingsCubit,
+      initialSettings: widget.collaborationSettings,
+    );
     final pendingRenderers = <Renderer>[];
     final pendingBackgrounds = <Renderer>[];
     AssetService? pendingAssetService;

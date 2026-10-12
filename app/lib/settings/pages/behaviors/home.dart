@@ -21,6 +21,7 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
       imageScale: defaults.imageScale,
       rotationStep: defaults.rotationStep,
       zoomStep: defaults.zoomStep,
+      collaboration: defaults.collaboration,
     ),
   ),
   children: {'persistence': _persistenceSettingsPage},
@@ -107,6 +108,14 @@ final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
               AppLocalizations.of(context).persistenceDocumentStatesDescription,
           icon: PhosphorIconsLight.database,
           onTap: _openPersistenceSettings,
+        ),
+        SettingsLeapActionSetting(
+          displayName: (context) =>
+              AppLocalizations.of(context).collaborationOptions,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).collaborationOptionsDescription,
+          icon: PhosphorIconsLight.chatTeardrop,
+          onTap: (context) => showCollaborationOptionsDialog(context),
         ),
         SettingsLeapBoolSetting(
           displayName: (context) =>

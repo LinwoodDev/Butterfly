@@ -217,7 +217,14 @@ class ButterflyApp extends StatelessWidget {
             path: 'connect',
             builder: (context, state) {
               final url = state.uri.queryParameters['url'];
-              return ProjectPage(data: state.extra, uri: url);
+              final options = state.extra;
+              return ProjectPage(
+                data: options is CollaborationSettings ? null : options,
+                uri: url,
+                collaborationSettings: options is CollaborationSettings
+                    ? options
+                    : null,
+              );
             },
           ),
           GoRoute(

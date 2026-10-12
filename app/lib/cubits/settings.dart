@@ -614,6 +614,24 @@ sealed class DocumentStatePersistenceSettings
 }
 
 @freezed
+sealed class CollaborationSettings with _$CollaborationSettings {
+  const CollaborationSettings._();
+
+  const factory CollaborationSettings({
+    @Default(false) bool syncToolbar,
+    @Default(false) bool syncCurrentPage,
+    @Default(false) bool syncCurrentArea,
+    @Default(true) bool showCursor,
+    @Default(true) bool showTemporary,
+  }) = _CollaborationSettings;
+
+  factory CollaborationSettings.fromJson(Map<String, dynamic> json) =>
+      _$CollaborationSettingsFromJson(json);
+
+  bool get effectiveSyncCurrentArea => syncCurrentArea && syncCurrentPage;
+}
+
+@freezed
 sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
   const factory ButterflySettings({
@@ -692,6 +710,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
     @Default(DocumentStatePersistenceSettings())
     DocumentStatePersistenceSettings documentStatePersistence,
+    @Default(CollaborationSettings()) CollaborationSettings collaboration,
     @Default(SimpleToolbarVisibility.show)
     SimpleToolbarVisibility simpleToolbarVisibility,
     @Default(OptionsPanelPosition.top)
@@ -849,6 +868,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       lastBackup: DateTime.tryParse(prefs.getString('last_backup') ?? ''),
       inputConfiguration: InputConfiguration.fromJson(
         _decodeJsonMapOrEmpty(prefs.getString('input_configuration')),
+      ),
+      collaboration: CollaborationSettings.fromJson(
+        _decodeJsonMapOrEmpty(prefs.getString('collaboration')),
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
@@ -1096,6 +1118,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       'input_configuration',
       json.encode(inputConfiguration.toJson()),
     );
+    await prefs.setString('collaboration', json.encode(collaboration.toJson()));
     await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setStringList('starred', starred);
     await prefs.setStringList(
@@ -1936,6 +1959,11 @@ class SettingsCubit(SharedPreferences prefs)
     DocumentStatePersistenceSettings settings,
   ) {
     emit(state.copyWith(documentStatePersistence: settings));
+    return save();
+  }
+
+  Future<void> changeCollaborationSettings(CollaborationSettings settings) {
+    emit(state.copyWith(collaboration: settings));
     return save();
   }
 
