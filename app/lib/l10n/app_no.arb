@@ -674,7 +674,7 @@
   "topRight": "Øverst til høyre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til høyre",
-  "zoomPosition": "Zoom kontrollposisjon",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Fortsett likevel",
-  "zoomControl": "Zoom kontroll",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Deler av flerside import på tvers av forskjellige notatsider i stedet for å plassere alt på en side.",
   "shear": "Klipp",
   "resetRotation": "Nullstill rotasjon",
-  "zoomPanelControls": "Zoom panelkontroller",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Velg kontroller for zoom og rotasjon. Tilbakestill knappene er tilgjengelige for hvert oppsett.",
   "zoomPanelFull": "Full (glider, tekstfelt og knapper)",
   "zoomPanelSliderInput": "Glidebryter og tekstfelt",
