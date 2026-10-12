@@ -470,23 +470,20 @@ class _ProjectPageState extends State<ProjectPage> {
           : fallbackPageName;
       final page =
           document.getPage(pageName ?? '') ?? DocumentDefaults.createPage();
-      final initialSession =
-          EditorSessionCubit.buildInitial(
-            restored: restoredSession,
-            document: document,
-            page: page,
-            fallbackPageName: pageName,
-            fallbackLocks:
-                settingsCubit.state.documentStatePersistence.defaultLocks,
-            pathKey: pathKey,
-            contentHash: contentHash,
-          ).copyWith(
-            autoThumbnail:
-                restoredSession?.autoThumbnail ??
-                ((widget.isNewDocument || !documentOpened) &&
-                    embedding == null &&
-                    !absolute),
-          );
+      final initialSession = EditorSessionCubit.buildInitial(
+        restored: restoredSession,
+        document: document,
+        page: page,
+        fallbackPageName: pageName,
+        fallbackLocks:
+            settingsCubit.state.documentStatePersistence.defaultLocks,
+        pathKey: pathKey,
+        contentHash: contentHash,
+        isCreating:
+            ((widget.isNewDocument || !documentOpened) &&
+            embedding == null &&
+            !absolute),
+      );
       final renderers = page.layers
           .expand(
             (layer) => layer.content.map(

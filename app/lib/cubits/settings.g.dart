@@ -140,6 +140,12 @@ _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
   layers: json['layers'] as bool? ?? true,
   areas: json['areas'] as bool? ?? true,
   autoThumbnail: json['autoThumbnail'] as bool? ?? true,
+  thumbnailFraming:
+      $enumDecodeNullable(
+        _$ThumbnailFramingEnumMap,
+        json['thumbnailFraming'],
+      ) ??
+      ThumbnailFraming.viewport,
   defaultLocks: json['defaultLocks'] == null
       ? const PersistentLockState()
       : PersistentLockState.fromJson(json['defaultLocks'] as Map),
@@ -159,9 +165,15 @@ Map<String, dynamic> _$DocumentStatePersistenceSettingsToJson(
   'layers': instance.layers,
   'areas': instance.areas,
   'autoThumbnail': instance.autoThumbnail,
+  'thumbnailFraming': _$ThumbnailFramingEnumMap[instance.thumbnailFraming]!,
   'defaultLocks': instance.defaultLocks.toJson(),
   'maxEntries': instance.maxEntries,
   'maxAgeDays': instance.maxAgeDays,
+};
+
+const _$ThumbnailFramingEnumMap = {
+  ThumbnailFraming.wholePage: 'wholePage',
+  ThumbnailFraming.viewport: 'viewport',
 };
 
 _CollaborationSettings _$CollaborationSettingsFromJson(Map json) =>

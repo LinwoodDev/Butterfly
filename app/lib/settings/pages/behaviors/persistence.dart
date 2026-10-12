@@ -177,6 +177,34 @@ Widget _buildPersistenceSettingsSection(
                             change(settings.copyWith(autoThumbnail: value))
                       : null,
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: DropdownMenuFormField<ThumbnailFraming>(
+                    initialSelection: settings.thumbnailFraming,
+                    enabled: settings.enabled && settings.autoThumbnail,
+                    expandedInsets: EdgeInsets.zero,
+                    label: Text(
+                      AppLocalizations.of(context).automaticThumbnailFraming,
+                    ),
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(
+                        value: ThumbnailFraming.viewport,
+                        label: AppLocalizations.of(context).lastViewport,
+                      ),
+                      DropdownMenuEntry(
+                        value: ThumbnailFraming.wholePage,
+                        label: AppLocalizations.of(context).wholePageContent,
+                      ),
+                    ],
+                    onSelected: (value) {
+                      if (value == null) return;
+                      change(settings.copyWith(thumbnailFraming: value));
+                    },
+                  ),
+                ),
                 const Divider(),
                 ExpansionTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.lockKeyOpen),

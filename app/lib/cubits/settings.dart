@@ -590,6 +590,8 @@ class const SRGBConverter() extends JsonConverter<SRGBColor, int> {
 
 enum SaveMethod { manual, autosave, delayedAutosave }
 
+enum ThumbnailFraming { wholePage, viewport }
+
 @freezed
 sealed class DocumentStatePersistenceSettings
     with _$DocumentStatePersistenceSettings {
@@ -603,6 +605,7 @@ sealed class DocumentStatePersistenceSettings
     @Default(true) bool layers,
     @Default(true) bool areas,
     @Default(true) bool autoThumbnail,
+    @Default(ThumbnailFraming.viewport) ThumbnailFraming thumbnailFraming,
     @Default(PersistentLockState()) PersistentLockState defaultLocks,
     @Default(400) int maxEntries,
     @Default(180) int maxAgeDays,
