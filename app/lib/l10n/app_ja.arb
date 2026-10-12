@@ -674,7 +674,7 @@
   "topRight": "右上へ",
   "bottomLeft": "左下",
   "bottomRight": "右下",
-  "zoomPosition": "ズーム制御位置",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "それでも続ける",
-  "zoomControl": "ズームコントロール",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "すべてを1ページに配置するのではなく、複数ページのインポートを別々のノートページに分割します。",
   "shear": "せん断（せん）",
   "resetRotation": "回転をリセット",
-  "zoomPanelControls": "ズームパネルコントロール",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "ズームと回転のコントロールを選択します。リセットボタンは、すべてのレイアウトで使用できます。",
   "zoomPanelFull": "フル (スライダー、テキストフィールド、ボタン)",
   "zoomPanelSliderInput": "スライダーとテキストフィールド",
