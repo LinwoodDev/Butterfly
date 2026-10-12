@@ -196,6 +196,15 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
       ),
       headerActions: [
         IconButton(
+          icon: const Icon(PhosphorIconsLight.gearSix),
+          tooltip: AppLocalizations.of(context).collaborationOptions,
+          onPressed: () => showCollaborationOptionsDialog(
+            context,
+            initialSettings: service.settings,
+            onSessionSettingsChanged: service.setSessionSettings,
+          ),
+        ),
+        IconButton(
           icon: const Icon(PhosphorIconsLight.sealQuestion),
           onPressed: () {
             openHelp(['collaboration']);

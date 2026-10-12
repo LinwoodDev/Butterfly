@@ -1,4 +1,6 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/collaboration/options.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +19,7 @@ class ConnectCollaborationDialogState
     extends State<ConnectCollaborationDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _urlController = .new();
+  CollaborationSettings? _collaborationSettings;
 
   @override
   void dispose() {
@@ -29,7 +32,11 @@ class ConnectCollaborationDialogState
     final uri = Uri.parse(_urlController.text.trim());
     final url = parseConnectUri(uri);
     Navigator.of(context).pop();
-    GoRouter.of(context).pushNamed('connect', queryParameters: {'url': url});
+    GoRouter.of(context).pushNamed(
+      'connect',
+      queryParameters: {'url': url},
+      extra: _collaborationSettings,
+    );
   }
 
   @override
@@ -37,6 +44,17 @@ class ConnectCollaborationDialogState
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).collaboration),
       headerActions: [
+        IconButton(
+          icon: const Icon(PhosphorIconsLight.gearSix),
+          tooltip: AppLocalizations.of(context).collaborationOptions,
+          onPressed: () => showCollaborationOptionsDialog(
+            context,
+            initialSettings: _collaborationSettings,
+            onSessionSettingsChanged: (settings) {
+              if (mounted) setState(() => _collaborationSettings = settings);
+            },
+          ),
+        ),
         IconButton(
           icon: const Icon(PhosphorIconsLight.sealQuestion),
           onPressed: () {

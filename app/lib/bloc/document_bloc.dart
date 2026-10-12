@@ -1725,12 +1725,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final data = NoteData.fromData(event.data);
       final page = data.getPage(state.pageName);
       final metadata = data.getMetadata();
+      var info = data.getInfo() ?? state.info;
+      if (networkingService?.settings.syncToolbar == false) {
+        info = info.copyWith(tools: state.info.tools);
+      }
       _saveState(
         emit,
         state: state.copyWith(
           page: page,
           data: data,
           metadata: metadata,
+          info: info,
           currentAreaName: getInitialArea(page),
         ),
         resetAll: true,

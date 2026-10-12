@@ -232,21 +232,15 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);
 
-  bool shouldSync() => switch (this) {
-    CurrentCollectionChanged _ => false,
-    CurrentAreaChanged _ => false,
-    LayerVisibilityChanged _ => false,
-    PresentationModeEntered _ => false,
-    PresentationModeExited _ => false,
-    PresentationTick _ => false,
-    DocumentRebuilt _ => false,
-    _ => true,
-  };
-
   bool isAllowed(DocumentPermission permission) {
     if (permission == .read) return false;
-    if (!shouldSync()) return false;
     return switch (this) {
+      CurrentCollectionChanged() ||
+      LayerVisibilityChanged() ||
+      PresentationModeEntered() ||
+      PresentationModeExited() ||
+      PresentationTick() ||
+      DocumentRebuilt() => false,
       _ => true,
     };
   }
