@@ -586,7 +586,7 @@ as String?,
 /// @nodoc
 mixin _$DocumentStatePersistenceSettings implements DiagnosticableTreeMixin {
 
- bool get enabled; bool get page; bool get camera; bool get locks; bool get tool; bool get navigator; bool get layers; bool get areas; bool get autoThumbnail; PersistentLockState get defaultLocks; int get maxEntries; int get maxAgeDays;
+ bool get enabled; bool get page; bool get camera; bool get locks; bool get tool; bool get navigator; bool get layers; bool get areas; bool get autoThumbnail; ThumbnailFraming get thumbnailFraming; PersistentLockState get defaultLocks; int get maxEntries; int get maxAgeDays;
 /// Create a copy of DocumentStatePersistenceSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -601,26 +601,26 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   final _this = this as DocumentStatePersistenceSettings;
   properties
     ..add(DiagnosticsProperty('type', 'DocumentStatePersistenceSettings'))
-    ..add(DiagnosticsProperty('enabled', _this.enabled))..add(DiagnosticsProperty('page', _this.page))..add(DiagnosticsProperty('camera', _this.camera))..add(DiagnosticsProperty('locks', _this.locks))..add(DiagnosticsProperty('tool', _this.tool))..add(DiagnosticsProperty('navigator', _this.navigator))..add(DiagnosticsProperty('layers', _this.layers))..add(DiagnosticsProperty('areas', _this.areas))..add(DiagnosticsProperty('autoThumbnail', _this.autoThumbnail))..add(DiagnosticsProperty('defaultLocks', _this.defaultLocks))..add(DiagnosticsProperty('maxEntries', _this.maxEntries))..add(DiagnosticsProperty('maxAgeDays', _this.maxAgeDays));
+    ..add(DiagnosticsProperty('enabled', _this.enabled))..add(DiagnosticsProperty('page', _this.page))..add(DiagnosticsProperty('camera', _this.camera))..add(DiagnosticsProperty('locks', _this.locks))..add(DiagnosticsProperty('tool', _this.tool))..add(DiagnosticsProperty('navigator', _this.navigator))..add(DiagnosticsProperty('layers', _this.layers))..add(DiagnosticsProperty('areas', _this.areas))..add(DiagnosticsProperty('autoThumbnail', _this.autoThumbnail))..add(DiagnosticsProperty('thumbnailFraming', _this.thumbnailFraming))..add(DiagnosticsProperty('defaultLocks', _this.defaultLocks))..add(DiagnosticsProperty('maxEntries', _this.maxEntries))..add(DiagnosticsProperty('maxAgeDays', _this.maxAgeDays));
 }
 
 @override
 bool operator ==(Object other) {
   final _this = this as DocumentStatePersistenceSettings;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentStatePersistenceSettings&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.page, _this.page) || other.page == _this.page)&&(identical(other.camera, _this.camera) || other.camera == _this.camera)&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.tool, _this.tool) || other.tool == _this.tool)&&(identical(other.navigator, _this.navigator) || other.navigator == _this.navigator)&&(identical(other.layers, _this.layers) || other.layers == _this.layers)&&(identical(other.areas, _this.areas) || other.areas == _this.areas)&&(identical(other.autoThumbnail, _this.autoThumbnail) || other.autoThumbnail == _this.autoThumbnail)&&(identical(other.defaultLocks, _this.defaultLocks) || other.defaultLocks == _this.defaultLocks)&&(identical(other.maxEntries, _this.maxEntries) || other.maxEntries == _this.maxEntries)&&(identical(other.maxAgeDays, _this.maxAgeDays) || other.maxAgeDays == _this.maxAgeDays));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentStatePersistenceSettings&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.page, _this.page) || other.page == _this.page)&&(identical(other.camera, _this.camera) || other.camera == _this.camera)&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.tool, _this.tool) || other.tool == _this.tool)&&(identical(other.navigator, _this.navigator) || other.navigator == _this.navigator)&&(identical(other.layers, _this.layers) || other.layers == _this.layers)&&(identical(other.areas, _this.areas) || other.areas == _this.areas)&&(identical(other.autoThumbnail, _this.autoThumbnail) || other.autoThumbnail == _this.autoThumbnail)&&(identical(other.thumbnailFraming, _this.thumbnailFraming) || other.thumbnailFraming == _this.thumbnailFraming)&&(identical(other.defaultLocks, _this.defaultLocks) || other.defaultLocks == _this.defaultLocks)&&(identical(other.maxEntries, _this.maxEntries) || other.maxEntries == _this.maxEntries)&&(identical(other.maxAgeDays, _this.maxAgeDays) || other.maxAgeDays == _this.maxAgeDays));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as DocumentStatePersistenceSettings;
-  return Object.hash(runtimeType,_this.enabled,_this.page,_this.camera,_this.locks,_this.tool,_this.navigator,_this.layers,_this.areas,_this.autoThumbnail,_this.defaultLocks,_this.maxEntries,_this.maxAgeDays);
+  return Object.hash(runtimeType,_this.enabled,_this.page,_this.camera,_this.locks,_this.tool,_this.navigator,_this.layers,_this.areas,_this.autoThumbnail,_this.thumbnailFraming,_this.defaultLocks,_this.maxEntries,_this.maxAgeDays);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   final _this = this as DocumentStatePersistenceSettings;
-  return 'DocumentStatePersistenceSettings(enabled: ${_this.enabled}, page: ${_this.page}, camera: ${_this.camera}, locks: ${_this.locks}, tool: ${_this.tool}, navigator: ${_this.navigator}, layers: ${_this.layers}, areas: ${_this.areas}, autoThumbnail: ${_this.autoThumbnail}, defaultLocks: ${_this.defaultLocks}, maxEntries: ${_this.maxEntries}, maxAgeDays: ${_this.maxAgeDays})';
+  return 'DocumentStatePersistenceSettings(enabled: ${_this.enabled}, page: ${_this.page}, camera: ${_this.camera}, locks: ${_this.locks}, tool: ${_this.tool}, navigator: ${_this.navigator}, layers: ${_this.layers}, areas: ${_this.areas}, autoThumbnail: ${_this.autoThumbnail}, thumbnailFraming: ${_this.thumbnailFraming}, defaultLocks: ${_this.defaultLocks}, maxEntries: ${_this.maxEntries}, maxAgeDays: ${_this.maxAgeDays})';
 }
 
 
@@ -631,7 +631,7 @@ abstract mixin class $DocumentStatePersistenceSettingsCopyWith<$Res>  {
   factory $DocumentStatePersistenceSettingsCopyWith(DocumentStatePersistenceSettings value, $Res Function(DocumentStatePersistenceSettings) _then) = _$DocumentStatePersistenceSettingsCopyWithImpl;
 @useResult
 $Res call({
- bool enabled, bool page, bool camera, bool locks, bool tool, bool navigator, bool layers, bool areas, bool autoThumbnail, PersistentLockState defaultLocks, int maxEntries, int maxAgeDays
+ bool enabled, bool page, bool camera, bool locks, bool tool, bool navigator, bool layers, bool areas, bool autoThumbnail, ThumbnailFraming thumbnailFraming, PersistentLockState defaultLocks, int maxEntries, int maxAgeDays
 });
 
 
@@ -648,7 +648,7 @@ class _$DocumentStatePersistenceSettingsCopyWithImpl<$Res>
 
 /// Create a copy of DocumentStatePersistenceSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? page = null,Object? camera = null,Object? locks = null,Object? tool = null,Object? navigator = null,Object? layers = null,Object? areas = null,Object? autoThumbnail = null,Object? defaultLocks = null,Object? maxEntries = null,Object? maxAgeDays = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? page = null,Object? camera = null,Object? locks = null,Object? tool = null,Object? navigator = null,Object? layers = null,Object? areas = null,Object? autoThumbnail = null,Object? thumbnailFraming = null,Object? defaultLocks = null,Object? maxEntries = null,Object? maxAgeDays = null,}) {
   return _then(DocumentStatePersistenceSettings(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
@@ -659,7 +659,8 @@ as bool,navigator: null == navigator ? _self.navigator : navigator // ignore: ca
 as bool,layers: null == layers ? _self.layers : layers // ignore: cast_nullable_to_non_nullable
 as bool,areas: null == areas ? _self.areas : areas // ignore: cast_nullable_to_non_nullable
 as bool,autoThumbnail: null == autoThumbnail ? _self.autoThumbnail : autoThumbnail // ignore: cast_nullable_to_non_nullable
-as bool,defaultLocks: null == defaultLocks ? _self.defaultLocks : defaultLocks // ignore: cast_nullable_to_non_nullable
+as bool,thumbnailFraming: null == thumbnailFraming ? _self.thumbnailFraming : thumbnailFraming // ignore: cast_nullable_to_non_nullable
+as ThumbnailFraming,defaultLocks: null == defaultLocks ? _self.defaultLocks : defaultLocks // ignore: cast_nullable_to_non_nullable
 as PersistentLockState,maxEntries: null == maxEntries ? _self.maxEntries : maxEntries // ignore: cast_nullable_to_non_nullable
 as int,maxAgeDays: null == maxAgeDays ? _self.maxAgeDays : maxAgeDays // ignore: cast_nullable_to_non_nullable
 as int,
@@ -683,7 +684,7 @@ $PersistentLockStateCopyWith<$Res> get defaultLocks {
 @JsonSerializable()
 
 class _DocumentStatePersistenceSettings with DiagnosticableTreeMixin implements DocumentStatePersistenceSettings {
-  const _DocumentStatePersistenceSettings({this.enabled = true, this.page = true, this.camera = true, this.locks = true, this.tool = true, this.navigator = true, this.layers = true, this.areas = true, this.autoThumbnail = true, this.defaultLocks = const PersistentLockState(), this.maxEntries = 400, this.maxAgeDays = 180});
+  const _DocumentStatePersistenceSettings({this.enabled = true, this.page = true, this.camera = true, this.locks = true, this.tool = true, this.navigator = true, this.layers = true, this.areas = true, this.autoThumbnail = true, this.thumbnailFraming = ThumbnailFraming.viewport, this.defaultLocks = const PersistentLockState(), this.maxEntries = 400, this.maxAgeDays = 180});
   factory _DocumentStatePersistenceSettings.fromJson(Map<String, dynamic> json) => _$DocumentStatePersistenceSettingsFromJson(json);
 
 @override@JsonKey() final  bool enabled;
@@ -695,6 +696,7 @@ class _DocumentStatePersistenceSettings with DiagnosticableTreeMixin implements 
 @override@JsonKey() final  bool layers;
 @override@JsonKey() final  bool areas;
 @override@JsonKey() final  bool autoThumbnail;
+@override@JsonKey() final  ThumbnailFraming thumbnailFraming;
 @override@JsonKey() final  PersistentLockState defaultLocks;
 @override@JsonKey() final  int maxEntries;
 @override@JsonKey() final  int maxAgeDays;
@@ -713,23 +715,23 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
     ..add(DiagnosticsProperty('type', 'DocumentStatePersistenceSettings'))
-    ..add(DiagnosticsProperty('enabled', enabled))..add(DiagnosticsProperty('page', page))..add(DiagnosticsProperty('camera', camera))..add(DiagnosticsProperty('locks', locks))..add(DiagnosticsProperty('tool', tool))..add(DiagnosticsProperty('navigator', navigator))..add(DiagnosticsProperty('layers', layers))..add(DiagnosticsProperty('areas', areas))..add(DiagnosticsProperty('autoThumbnail', autoThumbnail))..add(DiagnosticsProperty('defaultLocks', defaultLocks))..add(DiagnosticsProperty('maxEntries', maxEntries))..add(DiagnosticsProperty('maxAgeDays', maxAgeDays));
+    ..add(DiagnosticsProperty('enabled', enabled))..add(DiagnosticsProperty('page', page))..add(DiagnosticsProperty('camera', camera))..add(DiagnosticsProperty('locks', locks))..add(DiagnosticsProperty('tool', tool))..add(DiagnosticsProperty('navigator', navigator))..add(DiagnosticsProperty('layers', layers))..add(DiagnosticsProperty('areas', areas))..add(DiagnosticsProperty('autoThumbnail', autoThumbnail))..add(DiagnosticsProperty('thumbnailFraming', thumbnailFraming))..add(DiagnosticsProperty('defaultLocks', defaultLocks))..add(DiagnosticsProperty('maxEntries', maxEntries))..add(DiagnosticsProperty('maxAgeDays', maxAgeDays));
 }
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentStatePersistenceSettings&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.page, page) || other.page == page)&&(identical(other.camera, camera) || other.camera == camera)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areas, areas) || other.areas == areas)&&(identical(other.autoThumbnail, autoThumbnail) || other.autoThumbnail == autoThumbnail)&&(identical(other.defaultLocks, defaultLocks) || other.defaultLocks == defaultLocks)&&(identical(other.maxEntries, maxEntries) || other.maxEntries == maxEntries)&&(identical(other.maxAgeDays, maxAgeDays) || other.maxAgeDays == maxAgeDays));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentStatePersistenceSettings&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.page, page) || other.page == page)&&(identical(other.camera, camera) || other.camera == camera)&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.tool, tool) || other.tool == tool)&&(identical(other.navigator, navigator) || other.navigator == navigator)&&(identical(other.layers, layers) || other.layers == layers)&&(identical(other.areas, areas) || other.areas == areas)&&(identical(other.autoThumbnail, autoThumbnail) || other.autoThumbnail == autoThumbnail)&&(identical(other.thumbnailFraming, thumbnailFraming) || other.thumbnailFraming == thumbnailFraming)&&(identical(other.defaultLocks, defaultLocks) || other.defaultLocks == defaultLocks)&&(identical(other.maxEntries, maxEntries) || other.maxEntries == maxEntries)&&(identical(other.maxAgeDays, maxAgeDays) || other.maxAgeDays == maxAgeDays));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,enabled,page,camera,locks,tool,navigator,layers,areas,autoThumbnail,defaultLocks,maxEntries,maxAgeDays);
+    return Object.hash(runtimeType,enabled,page,camera,locks,tool,navigator,layers,areas,autoThumbnail,thumbnailFraming,defaultLocks,maxEntries,maxAgeDays);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'DocumentStatePersistenceSettings(enabled: $enabled, page: $page, camera: $camera, locks: $locks, tool: $tool, navigator: $navigator, layers: $layers, areas: $areas, autoThumbnail: $autoThumbnail, defaultLocks: $defaultLocks, maxEntries: $maxEntries, maxAgeDays: $maxAgeDays)';
+    return 'DocumentStatePersistenceSettings(enabled: $enabled, page: $page, camera: $camera, locks: $locks, tool: $tool, navigator: $navigator, layers: $layers, areas: $areas, autoThumbnail: $autoThumbnail, thumbnailFraming: $thumbnailFraming, defaultLocks: $defaultLocks, maxEntries: $maxEntries, maxAgeDays: $maxAgeDays)';
 }
 
 
@@ -740,7 +742,7 @@ abstract mixin class _$DocumentStatePersistenceSettingsCopyWith<$Res> implements
   factory _$DocumentStatePersistenceSettingsCopyWith(_DocumentStatePersistenceSettings value, $Res Function(_DocumentStatePersistenceSettings) _then) = __$DocumentStatePersistenceSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- bool enabled, bool page, bool camera, bool locks, bool tool, bool navigator, bool layers, bool areas, bool autoThumbnail, PersistentLockState defaultLocks, int maxEntries, int maxAgeDays
+ bool enabled, bool page, bool camera, bool locks, bool tool, bool navigator, bool layers, bool areas, bool autoThumbnail, ThumbnailFraming thumbnailFraming, PersistentLockState defaultLocks, int maxEntries, int maxAgeDays
 });
 
 
@@ -757,7 +759,7 @@ class __$DocumentStatePersistenceSettingsCopyWithImpl<$Res>
 
 /// Create a copy of DocumentStatePersistenceSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? page = null,Object? camera = null,Object? locks = null,Object? tool = null,Object? navigator = null,Object? layers = null,Object? areas = null,Object? autoThumbnail = null,Object? defaultLocks = null,Object? maxEntries = null,Object? maxAgeDays = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? enabled = null,Object? page = null,Object? camera = null,Object? locks = null,Object? tool = null,Object? navigator = null,Object? layers = null,Object? areas = null,Object? autoThumbnail = null,Object? thumbnailFraming = null,Object? defaultLocks = null,Object? maxEntries = null,Object? maxAgeDays = null,}) {
   return _then(_DocumentStatePersistenceSettings(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
@@ -768,7 +770,8 @@ as bool,navigator: null == navigator ? _self.navigator : navigator // ignore: ca
 as bool,layers: null == layers ? _self.layers : layers // ignore: cast_nullable_to_non_nullable
 as bool,areas: null == areas ? _self.areas : areas // ignore: cast_nullable_to_non_nullable
 as bool,autoThumbnail: null == autoThumbnail ? _self.autoThumbnail : autoThumbnail // ignore: cast_nullable_to_non_nullable
-as bool,defaultLocks: null == defaultLocks ? _self.defaultLocks : defaultLocks // ignore: cast_nullable_to_non_nullable
+as bool,thumbnailFraming: null == thumbnailFraming ? _self.thumbnailFraming : thumbnailFraming // ignore: cast_nullable_to_non_nullable
+as ThumbnailFraming,defaultLocks: null == defaultLocks ? _self.defaultLocks : defaultLocks // ignore: cast_nullable_to_non_nullable
 as PersistentLockState,maxEntries: null == maxEntries ? _self.maxEntries : maxEntries // ignore: cast_nullable_to_non_nullable
 as int,maxAgeDays: null == maxAgeDays ? _self.maxAgeDays : maxAgeDays // ignore: cast_nullable_to_non_nullable
 as int,

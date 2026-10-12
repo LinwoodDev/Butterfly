@@ -1939,6 +1939,56 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return thumbnail?.buffer.asUint8List();
   }
 
+  Future<Uint8List?> renderAutomaticThumbnail() async {
+    final controller = editorController;
+    final framing = controller
+        .settingsCubit
+        .state
+        .documentStatePersistence
+        .thumbnailFraming;
+    if (framing == ThumbnailFraming.viewport) {
+      return renderCurrentViewThumbnail();
+    }
+    final current = state;
+    if (current is! DocumentLoadSuccess) return null;
+    final contentBounds = controller.rendererCubit.renderers
+        .where((renderer) => current.isLayerVisible(renderer.layer))
+        .map((renderer) => renderer.expandedRect)
+        .whereType<Rect>()
+        .where((rect) => rect.isFinite && !rect.isEmpty)
+        .expandRects();
+    final bounds = contentBounds == null
+        ? Rect.fromLTWH(
+            0,
+            0,
+            kThumbnailWidth.toDouble(),
+            kThumbnailHeight.toDouble(),
+          )
+        : contentBounds.inflate(
+            max(contentBounds.width, contentBounds.height) * 0.04,
+          );
+    final scale = min(
+      kThumbnailWidth / bounds.width,
+      kThumbnailHeight / bounds.height,
+    );
+    final thumbnail = await controller.rendererCubit.render(
+      controller,
+      current.data,
+      current.page,
+      current.info,
+      ImageExportOptions(
+        width: kThumbnailWidth.toDouble(),
+        height: kThumbnailHeight.toDouble(),
+        scale: scale,
+        x: bounds.center.dx - kThumbnailWidth / scale / 2,
+        y: bounds.center.dy - kThumbnailHeight / scale / 2,
+      ),
+      invisibleLayers: current.invisibleLayers,
+      docState: current,
+    );
+    return thumbnail?.buffer.asUint8List();
+  }
+
   Future<void> captureAutomaticThumbnail() async {
     final persistence =
         editorController.settingsCubit.state.documentStatePersistence;
@@ -1949,7 +1999,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         editorController.saveCubit.state.saved != SaveState.saved) {
       return;
     }
-    final bytes = await renderCurrentViewThumbnail();
+    final bytes = await renderAutomaticThumbnail();
     final current = state;
     if (bytes == null || current is! DocumentLoadSuccess || isClosed) return;
     emit(current.copyWith(data: current.data.setThumbnail(bytes)));
