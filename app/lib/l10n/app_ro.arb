@@ -674,7 +674,7 @@
   "topRight": "Dreapta sus",
   "bottomLeft": "Stânga jos",
   "bottomRight": "Jos dreapta",
-  "zoomPosition": "Poziție control zoom",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Continuă oricum",
-  "zoomControl": "Comandă mărire",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Împarte importurile în mai multe pagini pe pagini separate de note, în loc să plasezi totul pe o singură pagină.",
   "shear": "Șuruburi",
   "resetRotation": "Resetare rotație",
-  "zoomPanelControls": "Comenzi panou zoom",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Alegeţi comenzile pentru zoom şi rotaţie. Butoanele de resetare rămân disponibile în fiecare layout.",
   "zoomPanelFull": "Complet (slider, text field and buttons)",
   "zoomPanelSliderInput": "Camp glisare si text",
