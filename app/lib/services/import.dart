@@ -225,14 +225,8 @@ class ImportService(
   ExternalStorage? get effectiveStorage =>
       useDefaultStorage ? getSettings().getDefaultRemote() : storage;
   Future<NamedItem<text.TextStyleSheet>?> findStyleSheet() async {
-    final fileSystem = getPackFileSystem();
-    for (final pack in await fileSystem.getFiles()) {
-      final styleSheet = pack.data!.getNamedStyles().firstOrNull;
-      if (styleSheet != null) {
-        return styleSheet;
-      }
-    }
-    return null;
+    return (await getFileSystem().findDefaultStyleSheet(effectiveStorage))
+        ?.toNamed();
   }
 
   @useResult
