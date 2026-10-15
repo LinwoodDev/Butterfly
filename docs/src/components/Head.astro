@@ -1,7 +1,27 @@
 ---
 import StarlightHead from "@astrojs/starlight/components/Head.astro";
+import { getEntry } from "astro:content";
 import { ClientRouter } from "astro:transitions";
 import { pwaInfo } from 'virtual:pwa-info';
+
+const { head, entry, entryMeta } = Astro.locals.starlightRoute;
+const home = await getEntry("docs", entryMeta.locale || "index");
+const description = entry.data.description || home?.data.description;
+const locale = new Intl.Locale(entryMeta.lang === "pt" ? "pt-PT" : entryMeta.lang).maximize();
+
+for (const { tag, attrs } of head) {
+  if (tag !== "meta" || !attrs) continue;
+  const key = attrs.property || attrs.name;
+  if (entry.data.head.some(({ attrs: custom }) => key && (custom?.property === key || custom?.name === key))) continue;
+  if (attrs.property === "og:title" && !attrs.content) {
+    attrs.content = head.find(({ tag }) => tag === "title")?.content || entry.data.title;
+  }
+  if (attrs.property === "og:locale") attrs.content = `${locale.language}_${locale.region}`;
+  if (attrs.property === "og:type" && entry.data.template === "splash") attrs.content = "website";
+  if (description && (attrs.property === "og:description" || attrs.name === "description")) {
+    attrs.content = description;
+  }
+}
 ---
 
 {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}

@@ -73,6 +73,18 @@ export default defineConfig({
     starlight({
       plugins: [linwoodStarlight({ translations: locales })],
       title: "Linwood Butterfly",
+      description: "Take notes, draw freely, and organize ideas across an endless workspace",
+      head: [
+        {
+          tag: "meta",
+          attrs: { property: "og:image", content: "https://butterfly.linwood.dev/img/logo.png" },
+        },
+        {
+          tag: "meta",
+          attrs: { property: "og:image:alt", content: "Linwood Butterfly logo" },
+        },
+        { tag: "meta", attrs: { name: "twitter:card", content: "summary" } },
+      ],
       customCss: [
         "./src/styles/custom.scss",
         "katex/dist/katex.min.css",
