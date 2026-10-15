@@ -674,7 +674,7 @@
   "topRight": "Överst till höger",
   "bottomLeft": "Nere till vänster",
   "bottomRight": "Nere till höger",
-  "zoomPosition": "Zooma kontrollposition",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Fortsätt ändå",
-  "zoomControl": "Zooma kontroll",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Delar upp importen av flera sidor på separata anteckningssidor istället för att placera allt på en sida.",
   "shear": "Hör",
   "resetRotation": "Återställ rotation",
-  "zoomPanelControls": "Zooma panelens inställningar",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Välj kontrollerna för zoom och rotation. Återställningsknappar finns kvar i varje layout.",
   "zoomPanelFull": "Fullt (reglage, textfält och knappar)",
   "zoomPanelSliderInput": "Fält för matare och text",

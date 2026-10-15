@@ -51,5 +51,12 @@
   "privacy_policy": "Politique de confidentialité",
   "ruler": "Règle",
   "grid": "Grille",
-  "utilities": "Utilitaires"
+  "utilities": "Utilitaires",
+  "settings": "Réglages",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Tableau",
+  "embedding_example": "Embedding example",
+  "imprint": "Mentions légales"
 }

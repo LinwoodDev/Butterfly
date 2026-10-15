@@ -674,7 +674,7 @@
   "topRight": "右上",
   "bottomLeft": "左下",
   "bottomRight": "右下",
-  "zoomPosition": "缩放控制位置",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "仍然继续",
-  "zoomControl": "缩放控制",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "将多页导入分开单独的便笺页面，而不是将所有内容放在一个页面上。",
   "shear": "剪辑",
   "resetRotation": "重置旋转",
-  "zoomPanelControls": "缩放面板控制",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "选择缩放和旋转的控件。重置按钮仍可在每个布局中使用。",
   "zoomPanelFull": "完整(滑动，文本字段和按钮)",
   "zoomPanelSliderInput": "滑块和文本字段",

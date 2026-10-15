@@ -51,5 +51,12 @@
   "privacy_policy": "개인정보처리방침",
   "ruler": "자",
   "grid": "격자",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "설정",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "제작 정보"
 }

@@ -674,7 +674,7 @@
   "topRight": "Alto a destra",
   "bottomLeft": "Basso a sinistra",
   "bottomRight": "Basso a destra",
-  "zoomPosition": "Posizione controllo zoom",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Continua comunque",
-  "zoomControl": "Controllo zoom",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Divide le importazioni di pagine multiple tra pagine separate invece di posizionare tutto su una pagina.",
   "shear": "Inclina",
   "resetRotation": "Resetta rotazione",
-  "zoomPanelControls": "Comandi pannello zoom",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Scegli i controlli per lo zoom e la rotazione. I pulsanti di reset rimangono disponibili in ogni layout.",
   "zoomPanelFull": "Pieno (cursore, campo di testo e pulsanti)",
   "zoomPanelSliderInput": "Slider e campo di testo",

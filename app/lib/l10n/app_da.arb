@@ -674,7 +674,7 @@
   "topRight": "Øverst til højre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til højre",
-  "zoomPosition": "Zoom kontrolposition",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Fortsæt alligevel",
-  "zoomControl": "Zoom kontrol",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Opdeler import på flere sider på tværs af separate notessider i stedet for at placere alt på én side.",
   "shear": "Forskyd",
   "resetRotation": "Nulstil rotation",
-  "zoomPanelControls": "Zoom panel kontrol",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Vælg kontrolelementerne for zoom og rotation. Nulstil knapper forbliver tilgængelige i hvert layout.",
   "zoomPanelFull": "Fuld (skyder, tekstfelt og knapper)",
   "zoomPanelSliderInput": "Slider og tekstfelt",

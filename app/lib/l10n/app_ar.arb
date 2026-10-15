@@ -674,7 +674,7 @@
   "topRight": "أعلى اليمين",
   "bottomLeft": "أسفل اليسار",
   "bottomRight": "أسفل اليمين",
-  "zoomPosition": "موقع أداة التكبير",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "المتابعة على أي حال",
-  "zoomControl": "تحكمات التكبير و التصغير",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "يقوم بتقسيم عمليات الاستيراد المكونة من عدة صفحات إلى صفحات منفصلة بدلاً من وضع كل شيء في صفحة واحدة.",
   "shear": "قَصه",
   "resetRotation": "إعادة تعيين التدوير",
-  "zoomPanelControls": "التحكم بلوحة التكبير",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "اختر عناصر التحكم للتكبير والتدوير . تبقى أزرار إعادة التعيين متاحة في كل تخطيط.",
   "zoomPanelFull": "كامل (شريط التمرير وحقل النص والأزرار)",
   "zoomPanelSliderInput": "شريط التمرير وحقل النص",
