@@ -33,7 +33,7 @@ jobs:
             +refs/heads/develop:refs/remotes/origin/develop \
             +refs/heads/main:refs/remotes/origin/main
       - name: Set up pnpm and Node.js
-        uses: pnpm/setup@v3.0.0
+        uses: pnpm/setup@v3.1.1
         with:
           working-directory: docs
           runtime: node@26
