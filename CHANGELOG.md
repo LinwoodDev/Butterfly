@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.1 (2026-10-15)
+
+Changes since 2.6.1-rc.1:
+* Add camera control visibility settings with fading after five seconds of inactivity and temporary visibility by default on mobile
+* Migrate popover menus to Material UI
+* Fix missing default Markdown formatting when importing notes ([#1300](https://github.com/LinwoodDev/Butterfly/issues/1300))
+
+This is a stable release, it includes all the changes from the 2.6.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.6.1
+
 ## 2.6.1-rc.1 (2026-10-08)
 
 * Add importing multiple images at once
