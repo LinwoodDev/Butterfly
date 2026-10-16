@@ -9,4 +9,5 @@
 # Temporary files
 docs_old/
 ./snap/
+.offline-build/
 

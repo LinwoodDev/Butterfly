@@ -1,0 +1,72 @@
+// Installed only in the packaging helper's private Pub cache.
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:archive/archive.dart';
+import 'package:code_assets/code_assets.dart';
+import 'package:hooks/hooks.dart';
+
+void main(List<String> args) async {
+  await build(args, (input, output) async {
+    if (!input.config.buildCodeAssets) return;
+    // iOS uses the existing Core Graphics implementation instead of PDFium.
+    if (input.config.code.targetOS == OS.iOS) return;
+    final configFile = File.fromUri(
+      input.packageRoot.resolve('hook/offline.json'),
+    );
+    final config =
+        jsonDecode(await configFile.readAsString()) as Map<String, dynamic>;
+    final arch = switch (input.config.code.targetArchitecture) {
+      Architecture.arm => 'arm',
+      Architecture.arm64 => 'arm64',
+      Architecture.x64 => 'x64',
+      final arch => throw UnsupportedError(
+        'Unsupported Android architecture: $arch',
+      ),
+    };
+    final (
+      platform,
+      memberPath,
+      library,
+    ) = switch (input.config.code.targetOS) {
+      OS.android => ('android', 'lib/libpdfium.so', 'libpdfium.so'),
+      OS.linux => ('linux', 'lib/libpdfium.so', 'libpdfium.so'),
+      OS.windows => ('win', 'bin/pdfium.dll', 'pdfium.dll'),
+      OS.macOS => ('mac', 'lib/libpdfium.dylib', 'libpdfium.dylib'),
+      final os => throw UnsupportedError('Unsupported PDFium OS: $os'),
+    };
+    final archiveFile = File(
+      '${config['archive_directory']}/pdfium-$platform-$arch.tgz',
+    );
+    output.dependencies.addAll([configFile.uri, archiveFile.uri]);
+    if (!await archiveFile.exists()) {
+      throw StateError(
+        'Missing local PDFium archive: ${archiveFile.path}. '
+        'Run dart tools/build_offline.dart prepare first.',
+      );
+    }
+    final archive = TarDecoder().decodeBytes(
+      GZipDecoder().decodeBytes(await archiveFile.readAsBytes()),
+    );
+    final member = archive.find(memberPath);
+    if (member == null ||
+        !member.isFile ||
+        member.isSymbolicLink ||
+        member.size == 0) {
+      throw FormatException(
+        '${archiveFile.path} does not contain $memberPath.',
+      );
+    }
+    final outputFile = File.fromUri(input.outputDirectory.resolve(library));
+    await outputFile.parent.create(recursive: true);
+    await outputFile.writeAsBytes(member.content);
+    output.assets.code.add(
+      CodeAsset(
+        package: input.packageName,
+        name: 'libpdfium',
+        linkMode: DynamicLoadingBundled(),
+        file: outputFile.uri,
+      ),
+    );
+  });
+}

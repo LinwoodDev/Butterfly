@@ -69,16 +69,11 @@ jobs:
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - name: Install dependencies
-        run: |
-          flutter pub get
+          pub-cache-path: ${{ github.workspace }}/.offline-build/web/pub-cache
+      - name: Install helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: Install OneNote web toolchain
-        run: |
-          rustup toolchain install nightly --component rust-src
-          cargo install wasm-pack --locked
-      - name: Build OneNote web library
-        working-directory: .
-        run: dart run tools/build_onenote_web.dart
+        run: cargo install wasm-pack --locked
       - name: Get Git Commit Hash
         run: echo "GIT_HASH=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Set flavor
@@ -92,13 +87,18 @@ jobs:
         run: |
           echo "SETONIX_FLAVOR=stable" >> $GITHUB_ENV
           echo "WEB_DIR=web" >> $GITHUB_ENV
-      - name: Build
-        run: flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor=$SETONIX_FLAVOR --dart-define=version=$GIT_HASH
-      - name: Install offline build dependencies
-        working-directory: tools
-        run: dart pub get
-      - name: Generate offline worker
-        run: dart run ../tools/build_web_service_worker.dart
+      - name: Build and prepare offline web dependencies
+        run: |
+          web_build_flavor=production
+          if [[ "$SETONIX_FLAVOR" == nightly ]]; then web_build_flavor=nightly; fi
+          dart ../tools/build_offline.dart prepare --platform web --flavor "$web_build_flavor" \
+            --dart-define="flavor=$SETONIX_FLAVOR" --dart-define="version=$GIT_HASH"
+      - name: Build web without network access
+        run: |
+          sudo unshare --net -- bash -euc '
+            ip link set lo up
+            exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform web --flutter "$3"
+          ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
       - name: Deploy to SFTP
         if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
         env:
