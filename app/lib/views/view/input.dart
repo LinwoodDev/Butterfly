@@ -97,6 +97,16 @@ class _ViewportInputCoordinator {
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    if (!skipShortcuts) {
+      // Buffer the effective state with the event so replay cannot pick up
+      // hover buttons from a later stroke.
+      final buttons = mergeStylusButtonState(
+        kind: event.kind,
+        eventButtons: event.buttons,
+        hoverButtons: _stylusHoverButtonState[event.device] ?? 0,
+      );
+      if (buttons != event.buttons) event = event.copyWith(buttons: buttons);
+    }
     final cubit = input.cubit;
     final getHandler = input.getHandler;
     final getEventContext = input.getEventContext;
@@ -139,13 +149,8 @@ class _ViewportInputCoordinator {
     }
 
     _pointerKinds[event.pointer] = event.kind;
-    final effectiveButtons = mergeStylusButtonState(
-      kind: event.kind,
-      eventButtons: event.buttons,
-      hoverButtons: _stylusHoverButtonState[event.device] ?? 0,
-    );
     cubit.inputCubit.addPointer(event.pointer);
-    cubit.inputCubit.setButtons(effectiveButtons);
+    cubit.inputCubit.setButtons(event.buttons);
     final handler = getHandler();
     final eventContext = getEventContext();
     final ruler = RulerHandler.getInteractiveRuler(
@@ -161,7 +166,7 @@ class _ViewportInputCoordinator {
       return;
     }
     if (handler.canChange(event, eventContext)) {
-      await _changeTemporaryTool(event.kind, effectiveButtons, input);
+      await _changeTemporaryTool(event.kind, event.buttons, input);
     }
     if (_isHandlerGesture) {
       await getHandler().onPointerDown(event, eventContext);
@@ -245,6 +250,10 @@ class _ViewportInputCoordinator {
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    if (!skipShortcuts &&
+        (event.kind == .stylus || event.kind == .invertedStylus)) {
+      _stylusHoverButtonState.remove(event.device);
+    }
     final cubit = input.cubit;
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer != event.pointer) return;
@@ -285,10 +294,6 @@ class _ViewportInputCoordinator {
     if (!wasRulerInteraction && _isHandlerGesture) {
       await input.getHandler().onPointerUp(event, input.getEventContext());
     }
-    if (event.kind == PointerDeviceKind.stylus ||
-        event.kind == PointerDeviceKind.invertedStylus) {
-      _stylusHoverButtonState.remove(event.device);
-    }
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     if (wasRulerInteraction) cubit.inputCubit.removeButtons();
@@ -316,6 +321,9 @@ class _ViewportInputCoordinator {
   }
 
   void handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
+    if (event.kind == .stylus || event.kind == .invertedStylus) {
+      _stylusHoverButtonState.remove(event.device);
+    }
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer == event.pointer) _rotationDrag = null;
       cubit.inputCubit.removePointer(event.pointer);
@@ -325,10 +333,6 @@ class _ViewportInputCoordinator {
     }
     if (_shortcutManager.pointerCancel(event)) return;
     _resetRulerInteraction();
-    if (event.kind == PointerDeviceKind.stylus ||
-        event.kind == PointerDeviceKind.invertedStylus) {
-      _stylusHoverButtonState.remove(event.device);
-    }
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     cubit.inputCubit.removeButtons();

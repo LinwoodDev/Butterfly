@@ -56,6 +56,24 @@ class _TextInputHandler extends Handler<HandTool> {
   bool get isEditingText => editing;
 }
 
+class _StylusButtonTrackingHandler extends Handler<HandTool> {
+  _StylusButtonTrackingHandler() : super(HandTool());
+
+  final downEvents = <PointerDownEvent>[];
+  final canChangeButtons = <int>[];
+
+  @override
+  bool canChange(PointerDownEvent event, EventContext context) {
+    canChangeButtons.add(event.buttons);
+    return false;
+  }
+
+  @override
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    downEvents.add(event);
+  }
+}
+
 void main() {
   late List<MethodCall> windowManagerCalls;
 
@@ -1604,6 +1622,270 @@ void main() {
     await tester.pump(const Duration(seconds: 4));
   });
 
+  for (final buttons in [kPrimaryStylusButton, kSecondaryStylusButton]) {
+    testWidgets('stylus hover buttons reach handlers ($buttons)', (
+      tester,
+    ) async {
+      final controller = await openEditor(tester);
+      final handler = _StylusButtonTrackingHandler();
+      controller.toolCubit.replace(
+        controller.toolCubit.state.copyWith(handler: handler),
+      );
+      await tester.pump();
+      final viewport = find.byType(MainViewViewport);
+      final position = tester.getCenter(viewport);
+      await tester.sendEventToBinding(
+        PointerHoverEvent(
+          kind: .stylus,
+          device: 7,
+          position: position,
+          buttons: buttons,
+        ),
+      );
+      final down = PointerDownEvent(
+        kind: .stylus,
+        pointer: 1,
+        device: 7,
+        position: position,
+        buttons: 0,
+        pressure: 0.4,
+        tilt: 0.2,
+      );
+      await tester.sendEventToBinding(down);
+      await tester.pump();
+
+      expect(handler.canChangeButtons, [buttons]);
+      final received = handler.downEvents.single;
+      expect(received.buttons, buttons);
+      expect(received.device, down.device);
+      expect(received.position, position);
+      expect(received.localPosition, position - tester.getTopLeft(viewport));
+      expect(received.pressure, down.pressure);
+      expect(received.tilt, down.tilt);
+      expect(controller.inputCubit.state.buttons, buttons);
+
+      await tester.sendEventToBinding(
+        PointerUpEvent(
+          kind: .stylus,
+          pointer: 1,
+          device: 7,
+          position: position,
+        ),
+      );
+      await tester.pump(const Duration(seconds: 4));
+    });
+
+    testWidgets(
+      'stylus hover buttons trigger double tap shortcuts ($buttons)',
+      (tester) async {
+        when(() => settingsCubit.state).thenReturn(
+          const ButterflySettings(
+            defaultTemplate: 'default',
+            inputConfiguration: InputConfiguration(
+              firstPenButton: InputMapping(InputMapping.activeToolValue),
+              secondPenButton: InputMapping(InputMapping.activeToolValue),
+              doubleFirstPenButtonShortcut: 'undo',
+              doubleSecondPenButtonShortcut: 'undo',
+            ),
+          ),
+        );
+        final controller = await openEditor(tester);
+        final bloc = observer.lastDocumentBloc!;
+        await controller.toolCubit.changeTool(
+          controller,
+          bloc,
+          index: 1,
+          allowBake: false,
+        );
+        await tester.pumpAndSettle();
+        final position = tester.getCenter(find.byType(MainViewViewport));
+        for (var pointer = 1; pointer <= 2; pointer++) {
+          await tester.sendEventToBinding(
+            PointerHoverEvent(
+              kind: .stylus,
+              device: 7,
+              position: position,
+              buttons: buttons,
+            ),
+          );
+          await tester.sendEventToBinding(
+            PointerDownEvent(
+              kind: .stylus,
+              device: 7,
+              pointer: pointer,
+              position: position,
+              buttons: kPrimaryButton,
+              timeStamp: Duration(milliseconds: pointer * 80),
+            ),
+          );
+          await tester.pump();
+          await tester.sendEventToBinding(
+            PointerUpEvent(
+              kind: .stylus,
+              device: 7,
+              pointer: pointer,
+              position: position,
+              timeStamp: Duration(milliseconds: pointer * 80 + 20),
+            ),
+          );
+          await tester.pump(const Duration(milliseconds: 50));
+        }
+        await tester.pump(const Duration(milliseconds: 300));
+        await tester.pumpAndSettle();
+
+        expect(observer.events, isNot(contains('ElementsCreated')));
+        expect((bloc.state as DocumentLoadSuccess).page.content, isEmpty);
+        await tester.pump(const Duration(seconds: 4));
+      },
+    );
+  }
+
+  testWidgets('buffered stylus strokes retain their original hover buttons', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        inputConfiguration: InputConfiguration(
+          doubleFirstPenButtonShortcut: 'undo',
+        ),
+      ),
+    );
+    final controller = await openEditor(tester);
+    final handler = _StylusButtonTrackingHandler();
+    controller.toolCubit.replace(
+      controller.toolCubit.state.copyWith(handler: handler),
+    );
+    await tester.pump();
+    final position = tester.getCenter(find.byType(MainViewViewport));
+    await tester.sendEventToBinding(
+      PointerHoverEvent(
+        kind: .stylus,
+        device: 7,
+        position: position,
+        buttons: kPrimaryStylusButton,
+      ),
+    );
+    await tester.sendEventToBinding(
+      PointerDownEvent(
+        kind: .stylus,
+        device: 7,
+        pointer: 1,
+        position: position,
+        buttons: 0,
+      ),
+    );
+    await tester.pump();
+    expect(handler.downEvents, isEmpty);
+    await tester.sendEventToBinding(
+      PointerUpEvent(kind: .stylus, device: 7, pointer: 1, position: position),
+    );
+    await tester.sendEventToBinding(
+      PointerHoverEvent(
+        kind: .stylus,
+        device: 7,
+        position: position,
+        buttons: kSecondaryStylusButton,
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 550));
+    await tester.pumpAndSettle();
+
+    expect(handler.downEvents.single.buttons, kPrimaryStylusButton);
+    // Replaying the old pointer-up must not clear newer hover state either.
+    await tester.sendEventToBinding(
+      PointerDownEvent(
+        kind: .stylus,
+        device: 7,
+        pointer: 2,
+        position: position,
+        buttons: 0,
+      ),
+    );
+    await tester.pump();
+    expect(handler.downEvents.last.buttons, kSecondaryStylusButton);
+    await tester.sendEventToBinding(
+      PointerUpEvent(kind: .stylus, device: 7, pointer: 2, position: position),
+    );
+    await tester.pump(const Duration(seconds: 4));
+  });
+
+  for (final cancel in [false, true]) {
+    testWidgets('consumed stylus taps clear hover buttons (cancel: $cancel)', (
+      tester,
+    ) async {
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          inputConfiguration: InputConfiguration(
+            doubleFirstPenButtonShortcut: 'undo',
+          ),
+        ),
+      );
+      final controller = await openEditor(tester);
+      final handler = _StylusButtonTrackingHandler();
+      controller.toolCubit.replace(
+        controller.toolCubit.state.copyWith(handler: handler),
+      );
+      await tester.pump();
+      final position = tester.getCenter(find.byType(MainViewViewport));
+      await tester.sendEventToBinding(
+        PointerHoverEvent(
+          kind: .stylus,
+          device: 7,
+          position: position,
+          buttons: kPrimaryStylusButton,
+        ),
+      );
+      await tester.sendEventToBinding(
+        PointerDownEvent(
+          kind: .stylus,
+          device: 7,
+          pointer: 1,
+          position: position,
+          buttons: 0,
+        ),
+      );
+      await tester.pump();
+      expect(handler.downEvents, isEmpty);
+      await tester.sendEventToBinding(
+        cancel
+            ? PointerCancelEvent(
+                kind: .stylus,
+                device: 7,
+                pointer: 1,
+                position: position,
+              )
+            : PointerUpEvent(
+                kind: .stylus,
+                device: 7,
+                pointer: 1,
+                position: position,
+              ),
+      );
+      await tester.sendEventToBinding(
+        PointerDownEvent(
+          kind: .stylus,
+          device: 7,
+          pointer: 2,
+          position: position,
+          buttons: kPrimaryButton,
+        ),
+      );
+      await tester.pump();
+      expect(handler.downEvents.single.buttons, kPrimaryButton);
+      await tester.sendEventToBinding(
+        PointerUpEvent(
+          kind: .stylus,
+          device: 7,
+          pointer: 2,
+          position: position,
+        ),
+      );
+      await tester.pump(const Duration(seconds: 4));
+    });
+  }
+
   testWidgets('releasing one touch pointer keeps the camera stable', (
     tester,
   ) async {
@@ -1654,12 +1936,14 @@ void main() {
     await tester.pumpAndSettle();
   });
 
-  for (final (kind, cancel) in [
+  for (final (kind, cancel, useHover) in [
     for (final kind in [PointerDeviceKind.mouse, PointerDeviceKind.stylus])
-      for (final cancel in [false, true]) (kind, cancel),
+      for (final cancel in [false, true])
+        for (final useHover in [false, if (kind == .stylus) true])
+          (kind, cancel, useHover),
   ]) {
     testWidgets(
-      'single touch draws after temporary hand ($kind, cancel: $cancel)',
+      'single touch draws after temporary hand ($kind, cancel: $cancel, hover: $useHover)',
       (tester) async {
         when(() => settingsCubit.state).thenReturn(
           const ButterflySettings(
@@ -1691,12 +1975,23 @@ void main() {
         await tester.pumpAndSettle();
         final center = tester.getCenter(find.byType(MainViewViewport));
         final beforeHand = controller.transformCubit.state;
+        if (useHover) {
+          await tester.sendEventToBinding(
+            PointerHoverEvent(
+              kind: kind,
+              position: center,
+              buttons: kPrimaryStylusButton,
+            ),
+          );
+        }
         final handGesture = await tester.startGesture(
           center,
           pointer: 1,
           kind: kind,
           buttons: kind == PointerDeviceKind.mouse
               ? kMiddleMouseButton
+              : useHover
+              ? kPrimaryButton
               : kPrimaryStylusButton,
         );
         await tester.pump();
