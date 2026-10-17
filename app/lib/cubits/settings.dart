@@ -1317,16 +1317,18 @@ class SettingsCubit(SharedPreferences prefs)
     return save();
   }
 
-  Future<void> changePenOnlyInput(bool? penOnlyInput) {
+  Future<void> changePenOnlyInput(bool? penOnlyInput) async {
     emit(state.copyWith(penOnlyInput: penOnlyInput));
-    return save();
+    // This editor toggle must not rewrite every preference on each click.
+    final prefs = await SharedPreferences.getInstance();
+    if (penOnlyInput == null) {
+      await prefs.remove('pen_only_input');
+    } else {
+      await prefs.setBool('pen_only_input', penOnlyInput);
+    }
   }
 
-  Future<void> resetPenOnlyInput() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('pen_only_input');
-    emit(state.copyWith(penOnlyInput: null));
-  }
+  Future<void> resetPenOnlyInput() => changePenOnlyInput(null);
 
   Future<void> changeShowPenOnlyToggle(bool showPenOnlyToggle) {
     emit(state.copyWith(showPenOnlyToggle: showPenOnlyToggle));

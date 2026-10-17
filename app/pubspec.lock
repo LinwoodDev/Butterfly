@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: android_file_picker
-      sha256: "0aac28063a1b19893f02a55dc8e2318799814881b7f920df2d12d0d043c8fbbb"
+      sha256: e94229cc41c4bb5fb6a2254146340a8b650664c99b5c93b9001f66c3375d0060
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   animations:
     dependency: "direct main"
     description:
@@ -366,10 +366,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "82ade9fc4273f29ed673e33166944465225b4f7fc5d4aaef48605cc751c18fc1"
+      sha256: a0e4f65339b31eb6a9e6a12e14b4682a48d46fbc54a82f4a702396fbdbac63a7
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.13"
+    version: "3.1.14"
   dbus:
     dependency: transitive
     description:
@@ -430,10 +430,10 @@ packages:
     dependency: transitive
     description:
       name: file_picker_darwin
-      sha256: "576ed6c1148a466913ceef8c19aed71011402351de46acd97732c50e5392f21e"
+      sha256: a5a48960703e7faa880544ef188491f442a93959b6afb5cae57575e5dc836589
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   file_picker_linux:
     dependency: transitive
     description:
@@ -454,10 +454,10 @@ packages:
     dependency: transitive
     description:
       name: file_picker_web
-      sha256: "32af8262aca907b02b8970b32328b0312db0b42ba6f930be6d27fde179d59b7d"
+      sha256: a2288008280aabe371aff029466b3405e60838e0a1d714767488c59b926c8b8c
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   fixnum:
     dependency: transitive
     description:
@@ -623,10 +623,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "3af98c92d7d4dd182ea1393193e69a840fcbaee1f66f1158bd20504e5f3f6f4f"
+      sha256: cb910646cb09265d49077b63b600ef1f5a718c1d6031836432237ddeabae1b12
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -724,10 +724,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "5dd26801fe7206aad3d96953e8f45aadcb6f8aaaeee01c0908f922c3c45db870"
+      sha256: "4f32cd03ce97e2996b57cea03b2d098f5153ac55435a27cf2c89716db571728d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.0+1"
+    version: "2.10.1+1"
   image:
     dependency: "direct main"
     description:
@@ -1381,18 +1381,18 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "1e12aafe408aa50da80edfd679a2a6bf63ba7ab37c7fa98286da459a757b3399"
+      sha256: b90caa27669d5f3ef9918d55343b44000f088ee9d4685ed822310848004c793e
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.28"
+    version: "2.5.0"
   shared_preferences_foundation:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: "2ec3934efa51e46117f23031cc141b8fc878e8525b94ec1ea4f7f586cf1b47ea"
+      sha256: c2c02dd59bd7b3bb6bfb77aa7ad4a7886b24ee40e95dcaea754b83274b567ff5
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.7"
+    version: "2.6.0"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -1429,10 +1429,10 @@ packages:
     dependency: transitive
     description:
       name: shelf
-      sha256: e7dd780a7ffb623c57850b33f43309312fc863fb6aa3d276a754bb299839ef12
+      sha256: e75e9cf311d7fd712048038cc17c25199c38536c20330d53e7db058b543d5a48
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.2"
+    version: "1.4.3"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -1708,10 +1708,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "670a59098f5c4c9f8eab25edba4f72e1bc8172b428b012339ac892eb31c68f2b"
+      sha256: a8e2c19796144da2f81bcc96dad1bb19c4677b561c452081b97ee737b9faed65
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.2"
   vector_math:
     dependency: transitive
     description:
@@ -1724,10 +1724,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "5f37239c4851efcef929cea7824e76df7f2f0970aef85d66bbc430afa40e72f0"
+      sha256: "89b11d62e1040ee681af3b4f1c97a803ecbf010c6e8b9c5896ee5b08c3bf7b78"
       url: "https://pub.dev"
     source: hosted
-    version: "15.3.0"
+    version: "15.4.0"
   watcher:
     dependency: transitive
     description:
