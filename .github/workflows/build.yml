@@ -44,16 +44,19 @@ jobs:
           distribution: "temurin"
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v2
+        env:
+          CARGO_HOME: ${{ github.workspace }}/.offline-build/android/cargo
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - name: 📦 Get dependencies
+          pub-cache-path: ${{ github.workspace }}/.offline-build/android/pub-cache
+      - name: 📦 Get helper dependencies
         run: |
-          flutter pub get
-          dart pub get -C ../tools
+          dart pub get -C ../tools --enforce-lockfile
+          echo "GRADLE_USER_HOME=$GITHUB_WORKSPACE/.offline-build/android/gradle" >> "$GITHUB_ENV"
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
         env:
@@ -64,26 +67,21 @@ jobs:
           if [[ -n "$KEY_PROPERTIES" ]] ; then echo "$KEY_PROPERTIES" | base64 --decode > key.properties  ; fi
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
-      - name: 🏭 Build nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+      - name: 🏭 Build and prepare offline Android dependencies
         run: |
-          flutter build apk -v --release --flavor nightly
-          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
-      - name: 🏭 Build nightly (legacy packaging)
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+          dart ../tools/build_offline.dart prepare --platform android --flavor "$BUILD_FLAVOR"
+          echo "$GITHUB_WORKSPACE/.offline-build/android/bin" >> "$GITHUB_PATH"
+          cp "build/app/outputs/flutter-apk/app-$BUILD_FLAVOR-release.apk" linwood-butterfly-android.apk
+      - name: 🏭 Build legacy packaging without network access
+        env:
+          USE_LEGACY_PACKAGING: "true"
         run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor nightly
-          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android-legacy.apk
-      - name: 🏭 Build production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
-      - name: 🏭 Build production (legacy packaging)
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
-          cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
+          sudo --preserve-env=ANDROID_HOME,ANDROID_SDK_ROOT,JAVA_HOME,USE_LEGACY_PACKAGING \
+            unshare --net -- bash -euc '
+              ip link set lo up
+              exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform android --flutter "$3"
+            ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
+          cp "build/app/outputs/flutter-apk/app-$BUILD_FLAVOR-release.apk" linwood-butterfly-android-legacy.apk
       - name: Check universal APKs for 16 KB page support
         working-directory: .
         run: |
@@ -211,6 +209,8 @@ jobs:
           choco install innosetup
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v2
+        env:
+          CARGO_HOME: ${{ github.workspace }}/.offline-build/windows/cargo
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -220,25 +220,22 @@ jobs:
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
           cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          pub-cache-path: ${{ github.workspace }}/.offline-build/windows/pub-cache
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
-      - name: 🏭 Build nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
-        run: |
-          flutter build windows -v --release --flavor nightly
-      - name: 🏭 Build production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build windows -v --release --flavor production
-      - name: 📊 Analyze Windows x86_64 size
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
+      - name: 🏭 Build and prepare offline Windows dependencies
+        run: dart ../tools/build_offline.dart prepare --platform windows --flavor ${{ env.BUILD_FLAVOR }}
+      - name: 📊 Build offline and analyze Windows x86_64 size
         if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter build windows -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
+          dart ../tools/build_offline.dart build --platform windows --analyze-size --code-size-directory=build/size-analysis/windows-x86_64
           New-Item -ItemType Directory -Force build/size-analysis/windows-x86_64 | Out-Null
           Copy-Item "$env:USERPROFILE/.flutter-devtools/*-code-size-analysis_*.json" build/size-analysis/windows-x86_64/
+      - name: 🏭 Build Windows ARM64 offline
+        if: ${{ matrix.arch.name == 'arm64' }}
+        run: dart ../tools/build_offline.dart build --platform windows
       - name: Build setup
         shell: pwsh
         run: |
@@ -349,6 +346,8 @@ jobs:
             rpm
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v2
+        env:
+          CARGO_HOME: ${{ github.workspace }}/.offline-build/linux/cargo
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
@@ -358,28 +357,33 @@ jobs:
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
           cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          pub-cache-path: ${{ github.workspace }}/.offline-build/linux/pub-cache
       - name: ✅ Enable platforms
         run: |
           rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
           flutter config --enable-linux-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
-      - name: 🏭 Build nightly
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
-        run: |
-          flutter build linux -v --release --flavor nightly
-      - name: 🏭 Build production
-        if: ${{ env.BUILD_FLAVOR == 'production' }}
-        run: |
-          flutter build linux -v --release --flavor production
-      - name: 📊 Analyze Linux x86_64 size
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} linux
+      - name: 🏭 Build and prepare offline Linux dependencies
+        run: dart ../tools/build_offline.dart prepare --platform linux --flavor "$BUILD_FLAVOR"
+      - name: 📊 Build without network access and analyze Linux x86_64 size
         if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          flutter build linux -v --release --flavor ${{ env.BUILD_FLAVOR }} --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          sudo unshare --net -- bash -euc '
+            ip link set lo up
+            exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform linux --flutter "$3" \
+              --analyze-size --code-size-directory=build/size-analysis/linux-x86_64
+          ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
           cp "$HOME"/.flutter-devtools/*-code-size-analysis_*.json build/size-analysis/linux-x86_64/
+      - name: 🏭 Build Linux ARM64 without network access
+        if: ${{ matrix.arch.name == 'arm64' }}
+        run: |
+          sudo unshare --net -- bash -euc '
+            ip link set lo up
+            exec runuser -u "$1" -- env PATH="$4" "$2" ../tools/build_offline.dart build --platform linux --flutter "$3"
+          ' offline-build "$(id -un)" "$(command -v dart)" "$(command -v flutter)" "$PATH"
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/butterfly
@@ -516,25 +520,28 @@ jobs:
         uses: actions/checkout@v7
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v2
+        env:
+          CARGO_HOME: ${{ github.workspace }}/.offline-build/macos/cargo
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
+          pub-cache-path: ${{ github.workspace }}/.offline-build/macos/pub-cache
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
-      - name: 🏭 Build
-        run: |
-          flutter build macos -v --release --dart-define=flavor=${{ env.BUILD_FLAVOR }}
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} macos
+      - name: 🏭 Build and prepare offline macOS dependencies
+        run: dart ../tools/build_offline.dart prepare --platform macos --flavor "$BUILD_FLAVOR"
+      - name: 🏭 Build macOS offline
+        run: dart ../tools/build_offline.dart build --platform macos
       - name: Zip file
         working-directory: app/build/macos/Build/Products/Release
         run: zip --symlinks -qr linwood-butterfly-macos.zip butterfly.app
@@ -573,20 +580,23 @@ jobs:
         uses: actions/checkout@v7
       - name: 🦀 Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v2
+        env:
+          CARGO_HOME: ${{ github.workspace }}/.offline-build/ios/cargo
         with:
           rust-src-dir: app
       - uses: subosito/flutter-action@v2.23.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - name: 📦 Get dependencies
-        run: |
-          flutter pub get
+          pub-cache-path: ${{ github.workspace }}/.offline-build/ios/pub-cache
+      - name: 📦 Get helper dependencies
+        run: dart pub get -C ../tools --enforce-lockfile
       - name: 🎨 Apply native branding
-        run: dart run ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
-      - name: 🏭 Build
-        run: |
-          flutter build ios --release --no-codesign -v --dart-define=flavor=${{ env.BUILD_FLAVOR }}
+        run: dart ../tools/apply_branding.dart ${{ env.BUILD_FLAVOR }} ios
+      - name: 🏭 Build and prepare offline iOS dependencies
+        run: dart ../tools/build_offline.dart prepare --platform ios --flavor "$BUILD_FLAVOR"
+      - name: 🏭 Build iOS offline
+        run: dart ../tools/build_offline.dart build --platform ios
       - name: Packing IPA
         run: |
           cd build/ios/iphoneos/
