@@ -26,7 +26,8 @@ hero:
 ---
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
-import LandingFeature from '@components/LandingFeature.astro';
+import Landing from '@linwooddev/starlight-style/components/Landing.astro';
+import LandingFeature from '@linwooddev/starlight-style/components/LandingFeature.astro';
 import crossplatform from '@assets/img/homepage/crossplatform.png';
 import crossplatformDark from '@assets/img/homepage/crossplatform-dark.png';
 import collageLight from '@assets/img/homepage/collage-light.png';
@@ -35,6 +36,8 @@ import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
 import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
 import penLight from '@assets/img/homepage/Pen-light.png';
 import penDark from '@assets/img/homepage/Pen-dark.png';
+
+<Landing>
 
 <LandingFeature image={desktop2LightRuler} darkImage={desktop2DarkRuler} alt="ผืนผ้าใบ Butterfly ที่มีโน้ตเขียนด้วยมือ แผนภาพ และไม้บรรทัด">
 
@@ -114,7 +117,11 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
   </Card>
 </CardGrid>
 
-<h2 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly ผืนผ้าใบไร้ขอบเขตสำหรับการคิดด้วยภาพ</h2>
+<div class="landing-heading">
+
+  ## Butterfly ผืนผ้าใบไร้ขอบเขตสำหรับการคิดด้วยภาพ
+
+</div>
 
 <CardGrid>
   <LinkCard class="landing-action" title="ดาวน์โหลด Butterfly" description="ติดตั้งแอปบนโทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์ของคุณ" href="/downloads/" />
@@ -124,3 +131,5 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
 </CardGrid>
 
 Butterfly is built in the open and available in many languages. Butterfly พัฒนาแบบเปิดเผยและพร้อมใช้งานในหลายภาษา [เข้าร่วมชุมชน](/community/) เพื่อแบ่งปันความคิดเห็น ช่วยแปล หรือร่วมพัฒนาโครงการ
+
+</Landing>

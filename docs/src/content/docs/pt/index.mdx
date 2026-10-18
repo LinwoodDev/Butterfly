@@ -26,7 +26,8 @@ hero:
 ---
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
-import LandingFeature from '@components/LandingFeature.astro';
+import Landing from '@linwooddev/starlight-style/components/Landing.astro';
+import LandingFeature from '@linwooddev/starlight-style/components/LandingFeature.astro';
 import crossplatform from '@assets/img/homepage/crossplatform.png';
 import crossplatformDark from '@assets/img/homepage/crossplatform-dark.png';
 import collageLight from '@assets/img/homepage/collage-light.png';
@@ -35,6 +36,8 @@ import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
 import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
 import penLight from '@assets/img/homepage/Pen-light.png';
 import penDark from '@assets/img/homepage/Pen-dark.png';
+
+<Landing>
 
 <LandingFeature image={desktop2LightRuler} darkImage={desktop2DarkRuler} alt="Uma tela Butterfly com notas manuscritas, diagramas e uma régua">
 
@@ -114,7 +117,11 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
   </Card>
 </CardGrid>
 
-<h2 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly, a tela sem limites para pensar visualmente.</h2>
+<div class="landing-heading">
+
+  ## Butterfly, a tela sem limites para pensar visualmente.
+
+</div>
 
 <CardGrid>
   <LinkCard class="landing-action" title="Transferir o Butterfly" description="Instale a aplicação no telemóvel, tablet ou computador." href="/downloads/" />
@@ -124,3 +131,5 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
 </CardGrid>
 
 O Butterfly é desenvolvido abertamente e está disponível em muitas línguas. [Junte-se à comunidade](/community/) para partilhar comentários, ajudar nas traduções ou contribuir para o projeto.
+
+</Landing>

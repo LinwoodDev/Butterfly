@@ -467,7 +467,7 @@ class ButterflyFileSystem {
   }
 
   DirectoryFileSystem buildBackupSystem(
-    RemoteStorage storage, {
+    ExternalStorage storage, {
     bool forceRecreate = false,
   }) {
     final key = _cacheKey(storage);

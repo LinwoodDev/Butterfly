@@ -75,7 +75,7 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
 
   @override
   DirectoryFileSystem buildBackupSystem(
-    RemoteStorage storage, {
+    ExternalStorage storage, {
     bool forceRecreate = false,
   }) => _backupFileSystem;
 

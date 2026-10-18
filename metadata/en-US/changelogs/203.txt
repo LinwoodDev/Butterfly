@@ -1,3 +1,5 @@
 * Improve pen only toggle performance ([#1305](https://github.com/LinwoodDev/Butterfly/issues/1305))
+* Allow local connections as destinations for manual and automatic backups ([#1073](https://github.com/LinwoodDev/Butterfly/issues/1073))
+* Add offline builds script
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0

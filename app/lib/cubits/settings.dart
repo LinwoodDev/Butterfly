@@ -1718,16 +1718,13 @@ class SettingsCubit(SharedPreferences prefs)
   }
 
   Future<void> changeBackupRemote(String identifier) {
-    final remote = state.connections
-        .whereType<RemoteStorage>()
-        .firstWhereOrNull((storage) => storage.identifier == identifier);
-    if (remote == null) return Future.value();
+    if (state.getRemote(identifier) == null) return Future.value();
     emit(state.copyWith(backupRemote: identifier, lastBackup: null));
     return save();
   }
 
   Future<void> changeAutomaticBackup(bool enabled) {
-    if (enabled && state.getRemote(state.backupRemote) is! RemoteStorage) {
+    if (enabled && state.getRemote(state.backupRemote) == null) {
       return Future.value();
     }
     emit(state.copyWith(automaticBackup: enabled));
