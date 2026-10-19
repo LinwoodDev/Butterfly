@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Avaa aloitusnäytön kun Butterfly alkaa.",
   "onStartupLastNoteDescription": "Avaa viimeksi käytetyn merkinnän kun Butterfly alkaa.",
   "onStartupNewNoteDescription": "Luo uuden muistion, kun Butterfly alkaa.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Tekee panorointi ja zoomaus tuntuu sujuvammalta yksinkertaistamalla kankaalle kun se liikkuu.",
   "edgePanAreaSwitchingDescription": "Vaihtaa naapurialueelle, kun panet lähelle kankaan reunaa.",
   "collaborationDescription": "Mahdollistaa useamman henkilön muokata samaa merkintää reaaliajassa.",
