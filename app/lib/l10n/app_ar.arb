@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "يفتح الشاشة الرئيسية عند بدء الفراشة.",
   "onStartupLastNoteDescription": "إعادة فتح ملاحظتك المستخدمة مؤخرا عند بدء تشغيل الفراشة.",
   "onStartupNewNoteDescription": "ينشئ ملاحظة جديدة عند بدء تشغيل الفراشة.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "يجعل الإنحناء والتصوير يشعران بالسلاسة من خلال تبسيط الكانفا أثناء تحركه.",
   "edgePanAreaSwitchingDescription": "التبديل إلى منطقة مجاورة عندما تقرب من حافة الكانفاس.",
   "collaborationDescription": "يسمح لأشخاص متعددين بتحرير نفس الملاحظة معا في الوقت الحقيقي.",
