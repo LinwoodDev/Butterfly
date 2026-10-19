@@ -406,10 +406,16 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       bloc.add(
         ElementsChanged({
           id: [element],
-        }),
+        }, pageName: bloc.state.pageName),
       );
     } else {
-      bloc.add(ElementsCreated([element]));
+      bloc.add(
+        ElementsCreated(
+          [element],
+          pageName: bloc.state.pageName,
+          layer: bloc.state.currentLayer,
+        ),
+      );
     }
     _resetTool();
     bloc.editorController.toolCubit.resetTemporaryHandler(
@@ -431,7 +437,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
         selectedIndex >= element.points.length ||
         element.points.length <= 1) {
       if (_elementId != null) {
-        bloc.add(ElementsRemoved([_elementId!]));
+        bloc.add(ElementsRemoved([_elementId!], pageName: bloc.state.pageName));
         bloc.refresh();
       }
       _resetTool();
@@ -450,7 +456,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     _element = element.copyWith(points: updatedPoints);
     if (_element?.points.isEmpty ?? true) {
       if (_elementId != null) {
-        bloc.add(ElementsRemoved([_elementId!]));
+        bloc.add(ElementsRemoved([_elementId!], pageName: bloc.state.pageName));
         bloc.refresh();
       }
       _resetTool();

@@ -2522,7 +2522,7 @@ void main() {
         when(() => settingsCubit.state).thenReturn(
           ButterflySettings(
             autosave: false,
-            documentStatePersistence: framing == ThumbnailFraming.viewport
+            documentStatePersistence: framing == ThumbnailFraming.wholePage
                 ? const DocumentStatePersistenceSettings()
                 : DocumentStatePersistenceSettings(thumbnailFraming: framing),
           ),

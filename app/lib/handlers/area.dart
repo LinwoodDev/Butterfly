@@ -250,7 +250,9 @@ class AreaHandler extends Handler<AreaTool> {
       _updateArea();
       final area = _currentArea;
       if (area != null) {
-        context.getDocumentBloc().add(AreaChanged(area.name, area, moved));
+        context.getDocumentBloc().add(
+          AreaChanged(area.name, area, moved, context.getState()?.pageName),
+        );
       }
       _selectionManager.resetTransform();
       _updateSelectionRect();
@@ -270,6 +272,7 @@ class AreaHandler extends Handler<AreaTool> {
     context.getDocumentBloc().add(
       AreasCreated([
         AreaPreset(
+          page: state.pageName,
           area: Area(
             width: rect.width,
             height: rect.height,

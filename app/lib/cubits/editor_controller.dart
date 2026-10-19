@@ -140,7 +140,13 @@ class EditorController(
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final collaboration = networkingService.settings;
-    final users = (current ?? networkingService.users).entries.toList();
+    final users = (current ?? networkingService.users).entries
+        .where(
+          (entry) =>
+              entry.value.pageName == null ||
+              entry.value.pageName == blocState.pageName,
+        )
+        .toList();
     final usersByChannel = {for (final entry in users) entry.key: entry.value};
     final activeForegroundElements = <PadElement>{};
     if (collaboration.showTemporary) {
@@ -150,6 +156,7 @@ class EditorController(
     }
 
     final foregrounds = toolCubit.state.networkingForegrounds.toList();
+    final removed = <Renderer>[];
     foregrounds.removeWhere((renderer) {
       bool shouldRemove;
       if (renderer is UserCursor) {
@@ -162,7 +169,7 @@ class EditorController(
         shouldRemove = !activeForegroundElements.contains(renderer.element);
       }
       if (shouldRemove) {
-        renderer.dispose();
+        removed.add(renderer);
       }
       return shouldRemove;
     });
@@ -206,6 +213,9 @@ class EditorController(
         renderer.dispose();
       }
       return;
+    }
+    for (final renderer in removed) {
+      renderer.dispose();
     }
     foregrounds.addAll(added);
     toolCubit.setForegrounds(networkingForegrounds: foregrounds);

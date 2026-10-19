@@ -64,7 +64,7 @@ class _LayersViewState extends State<LayersView> {
                     if (result != true) return;
                     final bloc = context.read<DocumentBloc>();
                     for (final id in controller.selectedIds) {
-                      bloc.add(LayerRemoved(id));
+                      bloc.add(LayerRemoved(id, pageName: state.pageName));
                     }
                     controller.clear();
                   },
@@ -76,7 +76,7 @@ class _LayersViewState extends State<LayersView> {
                     final selectedIds = controller.selectedIds.toList();
                     if (selectedIds.isNotEmpty) {
                       context.read<DocumentBloc>().add(
-                        LayersMerged(selectedIds, true),
+                        LayersMerged(selectedIds, true, state.pageName),
                       );
                     }
                     controller.clear();
@@ -89,7 +89,7 @@ class _LayersViewState extends State<LayersView> {
                     final selectedIds = controller.selectedIds.toList();
                     if (selectedIds.length > 1) {
                       context.read<DocumentBloc>().add(
-                        LayersMerged(selectedIds),
+                        LayersMerged(selectedIds, false, state.pageName),
                       );
                     }
                     controller.clear();
@@ -199,7 +199,7 @@ class _LayersViewState extends State<LayersView> {
                       textFormatter: (e) =>
                           e.isEmpty ? AppLocalizations.of(context).layer : e,
                       onSaved: (value) => context.read<DocumentBloc>().add(
-                        LayerChanged(id, name: value),
+                        LayerChanged(id, name: value, pageName: state.pageName),
                       ),
                       actions: [
                         if (layers.length > 1)
@@ -220,6 +220,8 @@ class _LayersViewState extends State<LayersView> {
                                             layers[index - 1].id,
                                             id,
                                           ].nonNulls.toList(),
+                                          false,
+                                          state.pageName,
                                         ),
                                       ),
                                 child: Text(AppLocalizations.of(context).up),
@@ -236,6 +238,8 @@ class _LayersViewState extends State<LayersView> {
                                             id,
                                             layers[index + 1].id,
                                           ].nonNulls.toList(),
+                                          false,
+                                          state.pageName,
                                         ),
                                       ),
                                 child: Text(AppLocalizations.of(context).down),
@@ -264,7 +268,7 @@ class _LayersViewState extends State<LayersView> {
                             PhosphorIconsLight.copySimple,
                           ),
                           onPressed: () => context.read<DocumentBloc>().add(
-                            LayersMerged([id], true),
+                            LayersMerged([id], true, state.pageName),
                           ),
                           child: Text(AppLocalizations.of(context).duplicate),
                         ),
@@ -281,7 +285,7 @@ class _LayersViewState extends State<LayersView> {
                                   );
                                   if (result != true) return;
                                   context.read<DocumentBloc>().add(
-                                    LayerRemoved(id),
+                                    LayerRemoved(id, pageName: state.pageName),
                                   );
                                 },
                           child: Text(AppLocalizations.of(context).delete),
@@ -303,6 +307,7 @@ class _LayersViewState extends State<LayersView> {
                     LayerOrderChanged(
                       layer.id ?? '',
                       _documentLayerIndexFromViewIndex(newIndex, layers.length),
+                      pageName: state.pageName,
                     ),
                   );
                 },
@@ -322,7 +327,7 @@ class _LayersViewState extends State<LayersView> {
                       if (state is! DocumentLoadSuccess) return;
                       final id = createUniqueId();
                       bloc
-                        ..add(LayerCreated(id: id))
+                        ..add(LayerCreated(id: id, pageName: state.pageName))
                         ..add(CurrentLayerChanged(id));
                     },
                   ),
@@ -413,10 +418,11 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
         ElevatedButton(
           onPressed: () {
             context.read<DocumentBloc>().add(
-              LayersMerged([
-                if (widget.main != null) widget.main!,
-                ..._selected,
-              ]),
+              LayersMerged(
+                [if (widget.main != null) widget.main!, ..._selected],
+                false,
+                context.read<DocumentBloc>().state.pageName,
+              ),
             );
             Navigator.of(context).pop();
           },

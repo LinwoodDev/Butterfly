@@ -148,6 +148,10 @@ class _WaypointsViewState extends State<WaypointsView> {
                                                     WaypointChanged(
                                                       origin.name,
                                                       Waypoint.defaultOrigin,
+                                                      pageName: context
+                                                          .read<DocumentBloc>()
+                                                          .state
+                                                          .pageName,
                                                     ),
                                                   );
                                                   Navigator.of(context).pop();
@@ -206,6 +210,10 @@ class _WaypointsViewState extends State<WaypointsView> {
                                       WaypointReordered(
                                         waypoints[oldIndex].name,
                                         newIndex,
+                                        pageName: context
+                                            .read<DocumentBloc>()
+                                            .state
+                                            .pageName,
                                       ),
                                     ),
                                 itemBuilder: (BuildContext context, int index) {
@@ -226,6 +234,10 @@ class _WaypointsViewState extends State<WaypointsView> {
                                             WaypointChanged(
                                               waypoint.name,
                                               waypoint.copyWith(name: value),
+                                              pageName: context
+                                                  .read<DocumentBloc>()
+                                                  .state
+                                                  .pageName,
                                             ),
                                           ),
                                       selected:
@@ -269,7 +281,13 @@ class _WaypointsViewState extends State<WaypointsView> {
                                             if (result != true) return;
                                             if (context.mounted) {
                                               context.read<DocumentBloc>().add(
-                                                WaypointRemoved(waypoint.name),
+                                                WaypointRemoved(
+                                                  waypoint.name,
+                                                  pageName: context
+                                                      .read<DocumentBloc>()
+                                                      .state
+                                                      .pageName,
+                                                ),
                                               );
                                             }
                                           },
@@ -404,6 +422,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
                   transform.position.toPoint(),
                   _saveScale ? transform.size : null,
                 ),
+                pageName: context.read<DocumentBloc>().state.pageName,
               ),
             );
             Navigator.of(context).pop();

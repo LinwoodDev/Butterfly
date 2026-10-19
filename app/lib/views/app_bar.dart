@@ -167,7 +167,14 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     final currentState = bloc.state;
     if (currentState is! DocumentLoadSuccess) return;
     if (area != null && areaName != null) {
-      bloc.add(AreaChanged(areaName, area.copyWith(name: submitted)));
+      bloc.add(
+        AreaChanged(
+          areaName,
+          area.copyWith(name: submitted),
+          false,
+          currentState.pageName,
+        ),
+      );
       return;
     }
     if (submitted == currentState.metadata.name) return;
@@ -467,7 +474,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               icon: const PhosphorIcon(PhosphorIconsLight.signOut),
               tooltip: AppLocalizations.of(context).exitArea,
               onPressed: () {
-                context.read<DocumentBloc>().add(const CurrentAreaChanged(''));
+                context.read<DocumentBloc>().add(
+                  CurrentAreaChanged('', pageName: state.pageName),
+                );
               },
             ),
           if (state.absolute)

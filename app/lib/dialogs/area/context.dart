@@ -47,7 +47,14 @@ ContextMenuBuilder buildAreaContextMenu(
             ),
           );
           if (name == null) return;
-          bloc.add(AreaChanged(area.name, area.copyWith(name: name)));
+          bloc.add(
+            AreaChanged(
+              area.name,
+              area.copyWith(name: name),
+              false,
+              areaPageName,
+            ),
+          );
         },
       ),
       ContextMenuItem(
@@ -62,6 +69,7 @@ ContextMenuBuilder buildAreaContextMenu(
           bloc.add(
             CurrentAreaChanged(
               area.name == state.currentAreaName ? '' : area.name,
+              pageName: areaPageName,
             ),
           );
         },
@@ -146,6 +154,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ElementsCollectionChanged(
               elements.map((e) => e.id).nonNulls.toList(),
               result,
+              pageName: bloc.state.pageName,
             ),
           );
         },

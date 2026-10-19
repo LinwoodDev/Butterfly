@@ -114,6 +114,8 @@ ElementsCreated _$ElementsCreatedFromJson(Map json) => ElementsCreated(
         ),
       ) ??
       const {},
+  pageName: json['pageName'] as String?,
+  layer: json['layer'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -123,6 +125,8 @@ Map<String, dynamic> _$ElementsCreatedToJson(ElementsCreated instance) =>
       'assets': instance.assets.map(
         (k, e) => MapEntry(k, const Uint8ListJsonConverter().toJson(e)),
       ),
+      'pageName': instance.pageName,
+      'layer': instance.layer,
       'type': instance.$type,
     };
 
@@ -135,6 +139,7 @@ ElementsChanged _$ElementsChangedFromJson(Map json) => ElementsChanged(
           .toList(),
     ),
   ),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -143,20 +148,27 @@ Map<String, dynamic> _$ElementsChangedToJson(ElementsChanged instance) =>
       'elements': instance.elements.map(
         (k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()),
       ),
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 ElementsRemoved _$ElementsRemovedFromJson(Map json) => ElementsRemoved(
   (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ElementsRemovedToJson(ElementsRemoved instance) =>
-    <String, dynamic>{'elements': instance.elements, 'type': instance.$type};
+    <String, dynamic>{
+      'elements': instance.elements,
+      'pageName': instance.pageName,
+      'type': instance.$type,
+    };
 
 ElementsArranged _$ElementsArrangedFromJson(Map json) => ElementsArranged(
   $enumDecode(_$ArrangementEnumMap, json['arrangement']),
   (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -164,6 +176,7 @@ Map<String, dynamic> _$ElementsArrangedToJson(ElementsArranged instance) =>
     <String, dynamic>{
       'arrangement': _$ArrangementEnumMap[instance.arrangement]!,
       'elements': instance.elements,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
@@ -249,6 +262,7 @@ DocumentBackgroundsChanged _$DocumentBackgroundsChangedFromJson(Map json) =>
       (json['backgrounds'] as List<dynamic>)
           .map((e) => Background.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
+      pageName: json['pageName'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -256,23 +270,27 @@ Map<String, dynamic> _$DocumentBackgroundsChangedToJson(
   DocumentBackgroundsChanged instance,
 ) => <String, dynamic>{
   'backgrounds': instance.backgrounds.map((e) => e.toJson()).toList(),
+  'pageName': instance.pageName,
   'type': instance.$type,
 };
 
 WaypointCreated _$WaypointCreatedFromJson(Map json) => WaypointCreated(
   Waypoint.fromJson(json['waypoint'] as Map),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$WaypointCreatedToJson(WaypointCreated instance) =>
     <String, dynamic>{
       'waypoint': instance.waypoint.toJson(),
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 WaypointChanged _$WaypointChangedFromJson(Map json) => WaypointChanged(
   json['name'] as String?,
   Waypoint.fromJson(json['waypoint'] as Map),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -280,18 +298,27 @@ Map<String, dynamic> _$WaypointChangedToJson(WaypointChanged instance) =>
     <String, dynamic>{
       'name': instance.name,
       'waypoint': instance.waypoint.toJson(),
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
-WaypointRemoved _$WaypointRemovedFromJson(Map json) =>
-    WaypointRemoved(json['name'] as String?, $type: json['type'] as String?);
+WaypointRemoved _$WaypointRemovedFromJson(Map json) => WaypointRemoved(
+  json['name'] as String?,
+  pageName: json['pageName'] as String?,
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$WaypointRemovedToJson(WaypointRemoved instance) =>
-    <String, dynamic>{'name': instance.name, 'type': instance.$type};
+    <String, dynamic>{
+      'name': instance.name,
+      'pageName': instance.pageName,
+      'type': instance.$type,
+    };
 
 WaypointReordered _$WaypointReorderedFromJson(Map json) => WaypointReordered(
   json['name'] as String?,
   (json['newIndex'] as num).toInt(),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -299,12 +326,14 @@ Map<String, dynamic> _$WaypointReorderedToJson(WaypointReordered instance) =>
     <String, dynamic>{
       'name': instance.name,
       'newIndex': instance.newIndex,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 CollectionRenamed _$CollectionRenamedFromJson(Map json) => CollectionRenamed(
   json['oldName'] as String,
   json['newName'] as String,
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -312,18 +341,24 @@ Map<String, dynamic> _$CollectionRenamedToJson(CollectionRenamed instance) =>
     <String, dynamic>{
       'oldName': instance.oldName,
       'newName': instance.newName,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 CollectionElementsRemoved _$CollectionElementsRemovedFromJson(Map json) =>
     CollectionElementsRemoved(
       json['name'] as String,
+      pageName: json['pageName'] as String?,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$CollectionElementsRemovedToJson(
   CollectionElementsRemoved instance,
-) => <String, dynamic>{'name': instance.name, 'type': instance.$type};
+) => <String, dynamic>{
+  'name': instance.name,
+  'pageName': instance.pageName,
+  'type': instance.$type,
+};
 
 CurrentCollectionChanged _$CurrentCollectionChangedFromJson(Map json) =>
     CurrentCollectionChanged(
@@ -345,6 +380,7 @@ Map<String, dynamic> _$CurrentLayerChangedToJson(
 LayerCreated _$LayerCreatedFromJson(Map json) => LayerCreated(
   name: json['name'] as String? ?? '',
   id: json['id'] as String?,
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -352,12 +388,14 @@ Map<String, dynamic> _$LayerCreatedToJson(LayerCreated instance) =>
     <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 LayerChanged _$LayerChangedFromJson(Map json) => LayerChanged(
   json['id'] as String,
   name: json['name'] as String?,
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -365,18 +403,27 @@ Map<String, dynamic> _$LayerChangedToJson(LayerChanged instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
-LayerRemoved _$LayerRemovedFromJson(Map json) =>
-    LayerRemoved(json['id'] as String, $type: json['type'] as String?);
+LayerRemoved _$LayerRemovedFromJson(Map json) => LayerRemoved(
+  json['id'] as String,
+  pageName: json['pageName'] as String?,
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$LayerRemovedToJson(LayerRemoved instance) =>
-    <String, dynamic>{'id': instance.id, 'type': instance.$type};
+    <String, dynamic>{
+      'id': instance.id,
+      'pageName': instance.pageName,
+      'type': instance.$type,
+    };
 
 LayersMerged _$LayersMergedFromJson(Map json) => LayersMerged(
   (json['layers'] as List<dynamic>).map((e) => e as String).toList(),
   json['duplicate'] as bool? ?? false,
+  json['pageName'] as String?,
   json['type'] as String?,
 );
 
@@ -384,12 +431,14 @@ Map<String, dynamic> _$LayersMergedToJson(LayersMerged instance) =>
     <String, dynamic>{
       'layers': instance.layers,
       'duplicate': instance.duplicate,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 LayerOrderChanged _$LayerOrderChangedFromJson(Map json) => LayerOrderChanged(
   json['id'] as String,
   (json['index'] as num).toInt(),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -397,6 +446,7 @@ Map<String, dynamic> _$LayerOrderChangedToJson(LayerOrderChanged instance) =>
     <String, dynamic>{
       'id': instance.id,
       'index': instance.index,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
@@ -419,6 +469,7 @@ ElementsCollectionChanged _$ElementsCollectionChangedFromJson(Map json) =>
     ElementsCollectionChanged(
       (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       json['collection'] as String,
+      pageName: json['pageName'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -427,6 +478,7 @@ Map<String, dynamic> _$ElementsCollectionChangedToJson(
 ) => <String, dynamic>{
   'elements': instance.elements,
   'collection': instance.collection,
+  'pageName': instance.pageName,
   'type': instance.$type,
 };
 
@@ -473,6 +525,7 @@ AreaChanged _$AreaChangedFromJson(Map json) => AreaChanged(
   json['name'] as String,
   Area.fromJson(json['area'] as Map),
   json['moveContents'] as bool? ?? false,
+  json['pageName'] as String?,
   json['type'] as String?,
 );
 
@@ -481,12 +534,14 @@ Map<String, dynamic> _$AreaChangedToJson(AreaChanged instance) =>
       'name': instance.name,
       'area': instance.area.toJson(),
       'moveContents': instance.moveContents,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 AreaReordered _$AreaReorderedFromJson(Map json) => AreaReordered(
   json['name'] as String,
   (json['newIndex'] as num).toInt(),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -494,14 +549,22 @@ Map<String, dynamic> _$AreaReorderedToJson(AreaReordered instance) =>
     <String, dynamic>{
       'name': instance.name,
       'newIndex': instance.newIndex,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
-CurrentAreaChanged _$CurrentAreaChangedFromJson(Map json) =>
-    CurrentAreaChanged(json['name'] as String, $type: json['type'] as String?);
+CurrentAreaChanged _$CurrentAreaChangedFromJson(Map json) => CurrentAreaChanged(
+  json['name'] as String,
+  pageName: json['pageName'] as String?,
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$CurrentAreaChangedToJson(CurrentAreaChanged instance) =>
-    <String, dynamic>{'name': instance.name, 'type': instance.$type};
+    <String, dynamic>{
+      'name': instance.name,
+      'pageName': instance.pageName,
+      'type': instance.$type,
+    };
 
 ExportPresetCreated _$ExportPresetCreatedFromJson(Map json) =>
     ExportPresetCreated(
@@ -574,18 +637,21 @@ Map<String, dynamic> _$PackRemovedToJson(PackRemoved instance) =>
 
 AnimationAdded _$AnimationAddedFromJson(Map json) => AnimationAdded(
   AnimationTrack.fromJson(Map<String, dynamic>.from(json['animation'] as Map)),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$AnimationAddedToJson(AnimationAdded instance) =>
     <String, dynamic>{
       'animation': instance.animation.toJson(),
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
 AnimationUpdated _$AnimationUpdatedFromJson(Map json) => AnimationUpdated(
   json['name'] as String,
   AnimationTrack.fromJson(Map<String, dynamic>.from(json['animation'] as Map)),
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -593,14 +659,22 @@ Map<String, dynamic> _$AnimationUpdatedToJson(AnimationUpdated instance) =>
     <String, dynamic>{
       'name': instance.name,
       'animation': instance.animation.toJson(),
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 
-AnimationRemoved _$AnimationRemovedFromJson(Map json) =>
-    AnimationRemoved(json['name'] as String, $type: json['type'] as String?);
+AnimationRemoved _$AnimationRemovedFromJson(Map json) => AnimationRemoved(
+  json['name'] as String,
+  pageName: json['pageName'] as String?,
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$AnimationRemovedToJson(AnimationRemoved instance) =>
-    <String, dynamic>{'name': instance.name, 'type': instance.$type};
+    <String, dynamic>{
+      'name': instance.name,
+      'pageName': instance.pageName,
+      'type': instance.$type,
+    };
 
 PresentationModeEntered _$PresentationModeEnteredFromJson(Map json) =>
     PresentationModeEntered(
@@ -649,6 +723,7 @@ ElementsLayerConverted _$ElementsLayerConvertedFromJson(Map json) =>
     ElementsLayerConverted(
       (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       json['name'] as String? ?? '',
+      json['pageName'] as String?,
       json['type'] as String?,
     );
 
@@ -657,12 +732,14 @@ Map<String, dynamic> _$ElementsLayerConvertedToJson(
 ) => <String, dynamic>{
   'elements': instance.elements,
   'name': instance.name,
+  'pageName': instance.pageName,
   'type': instance.$type,
 };
 
 ElementsLayerMoved _$ElementsLayerMovedFromJson(Map json) => ElementsLayerMoved(
   (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
   json['layerId'] as String,
+  pageName: json['pageName'] as String?,
   $type: json['type'] as String?,
 );
 
@@ -670,6 +747,7 @@ Map<String, dynamic> _$ElementsLayerMovedToJson(ElementsLayerMoved instance) =>
     <String, dynamic>{
       'elements': instance.elements,
       'layerId': instance.layerId,
+      'pageName': instance.pageName,
       'type': instance.$type,
     };
 

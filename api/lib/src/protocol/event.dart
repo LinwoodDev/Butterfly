@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -38,6 +39,24 @@ class const PageAddedDetails({
       _$PageAddedDetailsFromJson(Map<String, dynamic>.from(json));
 
   Map<String, dynamic> toJson() => _$PageAddedDetailsToJson(this);
+
+  DocumentPage resolvePage(List<Background> backgrounds) {
+    final initialArea = this.initialArea;
+    return page ??
+        DocumentPage(
+          backgrounds: backgrounds,
+          areas: [
+            if (initialArea != null)
+              Area(
+                name: initialArea.name,
+                width: initialArea.width,
+                height: initialArea.height,
+                position: const Point(0, 0),
+                isInitial: true,
+              ),
+          ],
+        );
+  }
 }
 
 @freezed
@@ -64,19 +83,25 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.elementsCreated(
     List<PadElement> elements, {
     @Uint8ListJsonConverter() @Default({}) Map<String, Uint8List> assets,
+    String? pageName,
+    String? layer,
   }) = ElementsCreated;
 
   const factory DocumentEvent.elementsChanged(
-    Map<String, List<PadElement>> elements,
-  ) = ElementsChanged;
+    Map<String, List<PadElement>> elements, {
+    String? pageName,
+  }) = ElementsChanged;
 
-  const factory DocumentEvent.elementsRemoved(List<String> elements) =
-      ElementsRemoved;
+  const factory DocumentEvent.elementsRemoved(
+    List<String> elements, {
+    String? pageName,
+  }) = ElementsRemoved;
 
   const factory DocumentEvent.elementsArranged(
     Arrangement arrangement,
-    List<String> elements,
-  ) = ElementsArranged;
+    List<String> elements, {
+    String? pageName,
+  }) = ElementsArranged;
 
   const factory DocumentEvent.documentDescriptionChanged({
     String? name,
@@ -95,27 +120,42 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
       ToolReordered;
 
   const factory DocumentEvent.documentBackgroundsChanged(
-    List<Background> backgrounds,
-  ) = DocumentBackgroundsChanged;
+    List<Background> backgrounds, {
+    String? pageName,
+  }) = DocumentBackgroundsChanged;
 
-  const factory DocumentEvent.waypointCreated(Waypoint waypoint) =
-      WaypointCreated;
+  const factory DocumentEvent.waypointCreated(
+    Waypoint waypoint, {
+    String? pageName,
+  }) = WaypointCreated;
 
-  const factory DocumentEvent.waypointChanged(String? name, Waypoint waypoint) =
-      WaypointChanged;
+  const factory DocumentEvent.waypointChanged(
+    String? name,
+    Waypoint waypoint, {
+    String? pageName,
+  }) = WaypointChanged;
 
-  const factory DocumentEvent.waypointRemoved(String? name) = WaypointRemoved;
+  const factory DocumentEvent.waypointRemoved(
+    String? name, {
+    String? pageName,
+  }) = WaypointRemoved;
 
-  const factory DocumentEvent.waypointReordered(String? name, int newIndex) =
-      WaypointReordered;
+  const factory DocumentEvent.waypointReordered(
+    String? name,
+    int newIndex, {
+    String? pageName,
+  }) = WaypointReordered;
 
   const factory DocumentEvent.collectionRenamed(
     String oldName,
-    String newName,
-  ) = CollectionRenamed;
+    String newName, {
+    String? pageName,
+  }) = CollectionRenamed;
 
-  const factory DocumentEvent.collectionElementsRemoved(String name) =
-      CollectionElementsRemoved;
+  const factory DocumentEvent.collectionElementsRemoved(
+    String name, {
+    String? pageName,
+  }) = CollectionElementsRemoved;
 
   const factory DocumentEvent.currentCollectionChanged(String name) =
       CurrentCollectionChanged;
@@ -126,28 +166,38 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.layerCreated({
     @Default('') String name,
     String? id,
+    String? pageName,
   }) = LayerCreated;
 
-  const factory DocumentEvent.layerChanged(String id, {String? name}) =
-      LayerChanged;
+  const factory DocumentEvent.layerChanged(
+    String id, {
+    String? name,
+    String? pageName,
+  }) = LayerChanged;
 
-  const factory DocumentEvent.layerRemoved(String id) = LayerRemoved;
+  const factory DocumentEvent.layerRemoved(String id, {String? pageName}) =
+      LayerRemoved;
 
   const factory DocumentEvent.layersMerged(
     List<String> layers, [
     @Default(false) bool duplicate,
+    String? pageName,
   ]) = LayersMerged;
 
-  const factory DocumentEvent.layerOrderChanged(String id, int index) =
-      LayerOrderChanged;
+  const factory DocumentEvent.layerOrderChanged(
+    String id,
+    int index, {
+    String? pageName,
+  }) = LayerOrderChanged;
 
   const factory DocumentEvent.layerVisibilityChanged(String id, bool visible) =
       LayerVisibilityChanged;
 
   const factory DocumentEvent.elementsCollectionChanged(
     List<String> elements,
-    String collection,
-  ) = ElementsCollectionChanged;
+    String collection, {
+    String? pageName,
+  }) = ElementsCollectionChanged;
 
   const factory DocumentEvent.areasCreated(List<AreaPreset> areas) =
       AreasCreated;
@@ -162,13 +212,19 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String name,
     Area area, [
     @Default(false) bool moveContents,
+    String? pageName,
   ]) = AreaChanged;
 
-  const factory DocumentEvent.areaReordered(String name, int newIndex) =
-      AreaReordered;
+  const factory DocumentEvent.areaReordered(
+    String name,
+    int newIndex, {
+    String? pageName,
+  }) = AreaReordered;
 
-  const factory DocumentEvent.currentAreaChanged(String name) =
-      CurrentAreaChanged;
+  const factory DocumentEvent.currentAreaChanged(
+    String name, {
+    String? pageName,
+  }) = CurrentAreaChanged;
 
   const factory DocumentEvent.exportPresetCreated(
     String name, [
@@ -190,15 +246,21 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.packRemoved(String name) = PackRemoved;
 
-  const factory DocumentEvent.animationAdded(AnimationTrack animation) =
-      AnimationAdded;
+  const factory DocumentEvent.animationAdded(
+    AnimationTrack animation, {
+    String? pageName,
+  }) = AnimationAdded;
 
   const factory DocumentEvent.animationUpdated(
     String name,
-    AnimationTrack animation,
-  ) = AnimationUpdated;
+    AnimationTrack animation, {
+    String? pageName,
+  }) = AnimationUpdated;
 
-  const factory DocumentEvent.animationRemoved(String name) = AnimationRemoved;
+  const factory DocumentEvent.animationRemoved(
+    String name, {
+    String? pageName,
+  }) = AnimationRemoved;
 
   const factory DocumentEvent.presentationModeEntered(
     AnimationTrack track,
@@ -215,12 +277,14 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.elementsLayerConverted(
     List<String> elements, [
     @Default('') String name,
+    String? pageName,
   ]) = ElementsLayerConverted;
 
   const factory DocumentEvent.elementsLayerMoved(
     List<String> elements,
-    String layerId,
-  ) = ElementsLayerMoved;
+    String layerId, {
+    String? pageName,
+  }) = ElementsLayerMoved;
 
   const factory DocumentEvent.encryptionChanged(String? password) =
       EncryptionChanged;

@@ -336,7 +336,7 @@ class LabelHandler extends Handler<LabelTool>
         bloc.add(
           ElementsChanged({
             id: [value.element!],
-          }),
+          }, pageName: bloc.state.pageName),
         );
       }
     }
@@ -374,18 +374,26 @@ class LabelHandler extends Handler<LabelTool>
     final isEmpty = context.isEmpty;
     final editingElementId = _editingElementId;
     if (editingElementId != null && isEmpty) {
-      bloc.add(ElementsRemoved([editingElementId]));
+      bloc.add(
+        ElementsRemoved([editingElementId], pageName: bloc.state.pageName),
+      );
       bloc.delayedBake();
     } else if (editingElementId != null) {
       bloc.add(
         ElementsChanged({
           editingElementId: [element],
-        }),
+        }, pageName: bloc.state.pageName),
       );
     } else if (!isEmpty) {
-      bloc.add(ElementsCreated([element]));
+      bloc.add(
+        ElementsCreated(
+          [element],
+          pageName: bloc.state.pageName,
+          layer: bloc.state.currentLayer,
+        ),
+      );
     } else if (!context.isCreating && isEmpty && id != null) {
-      bloc.add(ElementsRemoved([id]));
+      bloc.add(ElementsRemoved([id], pageName: bloc.state.pageName));
       bloc.delayedBake();
     }
     _editingElementId = null;

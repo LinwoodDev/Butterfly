@@ -34,7 +34,11 @@ class MoveToLayerDialogState extends State<MoveToLayerDialog> {
                     ),
                     onTap: () {
                       context.read<DocumentBloc>().add(
-                        ElementsLayerMoved(widget.elementIds, layer.id ?? ''),
+                        ElementsLayerMoved(
+                          widget.elementIds,
+                          layer.id ?? '',
+                          pageName: context.read<DocumentBloc>().state.pageName,
+                        ),
                       );
                       Navigator.pop(context);
                     },
@@ -61,7 +65,11 @@ class MoveToLayerDialogState extends State<MoveToLayerDialog> {
             );
             if (result != null) {
               context.read<DocumentBloc>().add(
-                ElementsLayerConverted(widget.elementIds, result),
+                ElementsLayerConverted(
+                  widget.elementIds,
+                  result,
+                  context.read<DocumentBloc>().state.pageName,
+                ),
               );
             }
             if (mounted) Navigator.pop(context);
