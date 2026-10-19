@@ -50,6 +50,7 @@ class ImportHandler extends Handler<ImportTool> {
         data.areas
             .map(
               (e) => AreaPreset(
+                page: state.pageName,
                 area: e.copyWith(position: e.position + _offset.toPoint()),
               ),
             )
@@ -68,6 +69,8 @@ class ImportHandler extends Handler<ImportTool> {
             .nonNulls
             .toList(),
         assets: data.assets,
+        pageName: state.pageName,
+        layer: state.currentLayer,
       ),
     );
     await context.refresh();

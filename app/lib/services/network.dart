@@ -67,6 +67,7 @@ sealed class NetworkingUser with _$NetworkingUser {
   const factory NetworkingUser({
     @DoublePointJsonConverter() Point<double>? cursor,
     List<PadElement>? foreground,
+    String? pageName,
     @Default('') String name,
   }) = _NetworkingUser;
 
@@ -132,6 +133,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   StreamSubscription<Uint8List>? _resetSubscription;
   StreamSubscription<void>? _clientClosedSubscription;
   String _userName = '';
+  NetworkingUser _localUser = const NetworkingUser();
   final BehaviorSubject<Set<Channel>> _connections = .seeded({});
   final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
@@ -318,7 +320,7 @@ class NetworkingService extends Cubit<NetworkState?> {
       final sharedConnections = {kAuthorityChannel, ...current};
       rpc.sendNamedFunction(
         NetworkEvent.connections,
-        Uint8List.fromList(jsonEncode(sharedConnections.toList()).codeUnits),
+        utf8.encode(jsonEncode(sharedConnections.toList())),
       );
     }
 
@@ -337,15 +339,20 @@ class NetworkingService extends Cubit<NetworkState?> {
         sendConnections();
         rpc.sendNamedFunction(
           NetworkEvent.user,
-          Uint8List.fromList(
-            jsonEncode(NetworkingUser(name: _userName).toJson()).codeUnits,
+          utf8.encode(
+            jsonEncode(
+              NetworkingUser(
+                name: _userName,
+                pageName: state.pageName,
+              ).toJson(),
+            ),
           ),
           channel: event.$1,
         );
         for (final user in users.entries) {
           rpc.sendNamedFunction(
             NetworkEvent.user,
-            Uint8List.fromList(jsonEncode(user.value.toJson()).codeUnits),
+            utf8.encode(jsonEncode(user.value.toJson())),
             channel: event.$1,
             receiver: user.key,
           );
@@ -453,12 +460,20 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   void sendUser(NetworkingUser user) {
+    _localUser = user;
     final state = this.state;
     if (state == null || state is DisconnectedNetworkState) return;
     state.pipe.sendNamedFunction(
       NetworkEvent.user,
-      Uint8List.fromList(jsonEncode(user.toJson()).codeUnits),
+      utf8.encode(
+        jsonEncode(user.copyWith(pageName: _bloc?.state.pageName).toJson()),
+      ),
     );
+  }
+
+  void onPageChanged() {
+    sendUser(_localUser.copyWith(cursor: null, foreground: null));
+    _refreshPresence();
   }
 
   bool _externalEvent = false;
@@ -482,10 +497,14 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   void onMessage(DocumentEvent event) {
-    if (!shouldSync(event)) return;
+    final bloc = _bloc;
+    if (!shouldSync(event) || bloc == null || bloc.isClosed) return;
     _externalEvent = true;
-    _bloc?.add(event);
-    _externalEvent = false;
+    try {
+      bloc.add(event);
+    } finally {
+      _externalEvent = false;
+    }
   }
 
   bool shouldSync(DocumentEvent event) => switch (event) {
@@ -496,6 +515,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     ToolReordered() => settings.syncToolbar,
     PageChanged() => settings.syncCurrentPage,
     CurrentAreaChanged() => settings.effectiveSyncCurrentArea,
+    CurrentLayerChanged() => false,
     _ => event.isAllowed(DocumentPermission.write),
   };
 

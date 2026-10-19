@@ -144,7 +144,13 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final updated = _animation!.copyWith(
       keys: Map.of(_animation!.keys)..[_frame] = key,
     );
-    _bloc.add(AnimationUpdated(_animation!.name, updated));
+    _bloc.add(
+      AnimationUpdated(
+        _animation!.name,
+        updated,
+        pageName: _bloc.state.pageName,
+      ),
+    );
     setState(() {
       _animation = updated;
       _key = key;
@@ -203,7 +209,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
       keys: {0: _cameraKey(transform)},
       duration: 0,
     );
-    _bloc.add(AnimationAdded(track));
+    _bloc.add(AnimationAdded(track, pageName: _bloc.state.pageName));
     _selectAnimation(track, frame: 0);
   }
 
@@ -228,7 +234,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
       key: _cameraKey(transform),
     );
     final frame = afterFrame + durationFrames;
-    _bloc.add(AnimationUpdated(animation.name, updated));
+    _bloc.add(
+      AnimationUpdated(animation.name, updated, pageName: _bloc.state.pageName),
+    );
     setState(() {
       _animation = updated;
       _durationController.text = updated.duration.toString();
@@ -261,7 +269,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
       fromFrame: _frame,
       durationFrames: max(1, (duration * animation.fps).round()).toInt(),
     );
-    _bloc.add(AnimationUpdated(animation.name, updated));
+    _bloc.add(
+      AnimationUpdated(animation.name, updated, pageName: _bloc.state.pageName),
+    );
     setState(() {
       _animation = updated;
       _durationController.text = updated.duration.toString();
@@ -295,7 +305,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final updated = frames.length == 1
         ? animation.copyWith(keys: Map.of(animation.keys)..remove(_frame))
         : removePresentationSlide(animation, _frame);
-    _bloc.add(AnimationUpdated(animation.name, updated));
+    _bloc.add(
+      AnimationUpdated(animation.name, updated, pageName: _bloc.state.pageName),
+    );
     setState(() {
       _animation = updated;
       _durationController.text = updated.duration.toString();
@@ -309,7 +321,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final updated = animation.copyWith(
       keys: Map.of(animation.keys)..remove(_frame),
     );
-    _bloc.add(AnimationUpdated(animation.name, updated));
+    _bloc.add(
+      AnimationUpdated(animation.name, updated, pageName: _bloc.state.pageName),
+    );
     setState(() {
       _animation = updated;
       _key = null;
@@ -401,7 +415,12 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 );
                                 if (name == null) return;
                                 final track = AnimationTrack(name: name);
-                                bloc.add(AnimationAdded(track));
+                                bloc.add(
+                                  AnimationAdded(
+                                    track,
+                                    pageName: _bloc.state.pageName,
+                                  ),
+                                );
                                 _selectAnimation(track, frame: 0);
                               },
                               child: Text(LeapLocalizations.of(context).create),
@@ -431,7 +450,12 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       final duplicate = _animation!.copyWith(
                                         name: name,
                                       );
-                                      bloc.add(AnimationAdded(duplicate));
+                                      bloc.add(
+                                        AnimationAdded(
+                                          duplicate,
+                                          pageName: _bloc.state.pageName,
+                                        ),
+                                      );
                                       _selectAnimation(duplicate, frame: 0);
                                     },
                               child: Text(
@@ -466,7 +490,11 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         name: name,
                                       );
                                       bloc.add(
-                                        AnimationUpdated(previousName, renamed),
+                                        AnimationUpdated(
+                                          previousName,
+                                          renamed,
+                                          pageName: _bloc.state.pageName,
+                                        ),
                                       );
                                       _selectAnimation(renamed);
                                     },
@@ -518,7 +546,12 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       final nextAnimation = animations
                                           .where((e) => e.name != removedName)
                                           .firstOrNull;
-                                      bloc.add(AnimationRemoved(removedName));
+                                      bloc.add(
+                                        AnimationRemoved(
+                                          removedName,
+                                          pageName: _bloc.state.pageName,
+                                        ),
+                                      );
                                       _selectAnimation(nextAnimation, frame: 0);
                                     },
                               child: Text(AppLocalizations.of(context).delete),
@@ -748,6 +781,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                                 AnimationUpdated(
                                                   _animation!.name,
                                                   updated,
+                                                  pageName:
+                                                      _bloc.state.pageName,
                                                 ),
                                               );
                                               setState(
@@ -815,6 +850,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                                 AnimationUpdated(
                                                   _animation!.name,
                                                   updated,
+                                                  pageName:
+                                                      _bloc.state.pageName,
                                                 ),
                                               );
                                               setState(

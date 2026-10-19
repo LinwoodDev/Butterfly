@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$NetworkingUser implements DiagnosticableTreeMixin {
 
-@DoublePointJsonConverter() Point<double>? get cursor; List<PadElement>? get foreground; String get name;
+@DoublePointJsonConverter() Point<double>? get cursor; List<PadElement>? get foreground; String? get pageName; String get name;
 /// Create a copy of NetworkingUser
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,26 +31,26 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   final _this = this as NetworkingUser;
   properties
     ..add(DiagnosticsProperty('type', 'NetworkingUser'))
-    ..add(DiagnosticsProperty('cursor', _this.cursor))..add(DiagnosticsProperty('foreground', _this.foreground))..add(DiagnosticsProperty('name', _this.name));
+    ..add(DiagnosticsProperty('cursor', _this.cursor))..add(DiagnosticsProperty('foreground', _this.foreground))..add(DiagnosticsProperty('pageName', _this.pageName))..add(DiagnosticsProperty('name', _this.name));
 }
 
 @override
 bool operator ==(Object other) {
   final _this = this as NetworkingUser;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkingUser&&(identical(other.cursor, _this.cursor) || other.cursor == _this.cursor)&&const DeepCollectionEquality().equals(other.foreground, _this.foreground)&&(identical(other.name, _this.name) || other.name == _this.name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkingUser&&(identical(other.cursor, _this.cursor) || other.cursor == _this.cursor)&&const DeepCollectionEquality().equals(other.foreground, _this.foreground)&&(identical(other.pageName, _this.pageName) || other.pageName == _this.pageName)&&(identical(other.name, _this.name) || other.name == _this.name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as NetworkingUser;
-  return Object.hash(runtimeType,_this.cursor,const DeepCollectionEquality().hash(_this.foreground),_this.name);
+  return Object.hash(runtimeType,_this.cursor,const DeepCollectionEquality().hash(_this.foreground),_this.pageName,_this.name);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   final _this = this as NetworkingUser;
-  return 'NetworkingUser(cursor: ${_this.cursor}, foreground: ${_this.foreground}, name: ${_this.name})';
+  return 'NetworkingUser(cursor: ${_this.cursor}, foreground: ${_this.foreground}, pageName: ${_this.pageName}, name: ${_this.name})';
 }
 
 
@@ -61,7 +61,7 @@ abstract mixin class $NetworkingUserCopyWith<$Res>  {
   factory $NetworkingUserCopyWith(NetworkingUser value, $Res Function(NetworkingUser) _then) = _$NetworkingUserCopyWithImpl;
 @useResult
 $Res call({
-@DoublePointJsonConverter() Point<double>? cursor, List<PadElement>? foreground, String name
+@DoublePointJsonConverter() Point<double>? cursor, List<PadElement>? foreground, String? pageName, String name
 });
 
 
@@ -78,11 +78,12 @@ class _$NetworkingUserCopyWithImpl<$Res>
 
 /// Create a copy of NetworkingUser
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? cursor = freezed,Object? foreground = freezed,Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? cursor = freezed,Object? foreground = freezed,Object? pageName = freezed,Object? name = null,}) {
   return _then(NetworkingUser(
 cursor: freezed == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
 as Point<double>?,foreground: freezed == foreground ? _self.foreground : foreground // ignore: cast_nullable_to_non_nullable
-as List<PadElement>?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as List<PadElement>?,pageName: freezed == pageName ? _self.pageName : pageName // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -95,7 +96,7 @@ as String,
 @JsonSerializable()
 
 class _NetworkingUser with DiagnosticableTreeMixin implements NetworkingUser {
-  const _NetworkingUser({@DoublePointJsonConverter() this.cursor,  List<PadElement>? foreground, this.name = ''}): _foreground = foreground;
+  const _NetworkingUser({@DoublePointJsonConverter() this.cursor,  List<PadElement>? foreground, this.pageName, this.name = ''}): _foreground = foreground;
   factory _NetworkingUser.fromJson(Map<String, dynamic> json) => _$NetworkingUserFromJson(json);
 
 @override@DoublePointJsonConverter() final  Point<double>? cursor;
@@ -108,6 +109,7 @@ class _NetworkingUser with DiagnosticableTreeMixin implements NetworkingUser {
   return EqualUnmodifiableListView(value);
 }
 
+@override final  String? pageName;
 @override@JsonKey() final  String name;
 
 /// Create a copy of NetworkingUser
@@ -124,23 +126,23 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
     ..add(DiagnosticsProperty('type', 'NetworkingUser'))
-    ..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('foreground', foreground))..add(DiagnosticsProperty('name', name));
+    ..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('foreground', foreground))..add(DiagnosticsProperty('pageName', pageName))..add(DiagnosticsProperty('name', name));
 }
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NetworkingUser&&(identical(other.cursor, cursor) || other.cursor == cursor)&&const DeepCollectionEquality().equals(other.foreground, _foreground)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NetworkingUser&&(identical(other.cursor, cursor) || other.cursor == cursor)&&const DeepCollectionEquality().equals(other.foreground, _foreground)&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,cursor,const DeepCollectionEquality().hash(_foreground),name);
+    return Object.hash(runtimeType,cursor,const DeepCollectionEquality().hash(_foreground),pageName,name);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'NetworkingUser(cursor: $cursor, foreground: $foreground, name: $name)';
+    return 'NetworkingUser(cursor: $cursor, foreground: $foreground, pageName: $pageName, name: $name)';
 }
 
 
@@ -151,7 +153,7 @@ abstract mixin class _$NetworkingUserCopyWith<$Res> implements $NetworkingUserCo
   factory _$NetworkingUserCopyWith(_NetworkingUser value, $Res Function(_NetworkingUser) _then) = __$NetworkingUserCopyWithImpl;
 @override @useResult
 $Res call({
-@DoublePointJsonConverter() Point<double>? cursor, List<PadElement>? foreground, String name
+@DoublePointJsonConverter() Point<double>? cursor, List<PadElement>? foreground, String? pageName, String name
 });
 
 
@@ -168,11 +170,12 @@ class __$NetworkingUserCopyWithImpl<$Res>
 
 /// Create a copy of NetworkingUser
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? cursor = freezed,Object? foreground = freezed,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? cursor = freezed,Object? foreground = freezed,Object? pageName = freezed,Object? name = null,}) {
   return _then(_NetworkingUser(
 cursor: freezed == cursor ? _self.cursor : cursor // ignore: cast_nullable_to_non_nullable
 as Point<double>?,foreground: freezed == foreground ? _self._foreground : foreground // ignore: cast_nullable_to_non_nullable
-as List<PadElement>?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as List<PadElement>?,pageName: freezed == pageName ? _self.pageName : pageName // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

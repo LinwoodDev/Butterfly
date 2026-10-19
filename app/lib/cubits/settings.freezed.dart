@@ -684,7 +684,7 @@ $PersistentLockStateCopyWith<$Res> get defaultLocks {
 @JsonSerializable()
 
 class _DocumentStatePersistenceSettings with DiagnosticableTreeMixin implements DocumentStatePersistenceSettings {
-  const _DocumentStatePersistenceSettings({this.enabled = true, this.page = true, this.camera = true, this.locks = true, this.tool = true, this.navigator = true, this.layers = true, this.areas = true, this.autoThumbnail = true, this.thumbnailFraming = ThumbnailFraming.viewport, this.defaultLocks = const PersistentLockState(), this.maxEntries = 400, this.maxAgeDays = 180});
+  const _DocumentStatePersistenceSettings({this.enabled = true, this.page = true, this.camera = true, this.locks = true, this.tool = true, this.navigator = true, this.layers = true, this.areas = true, this.autoThumbnail = true, this.thumbnailFraming = ThumbnailFraming.wholePage, this.defaultLocks = const PersistentLockState(), this.maxEntries = 400, this.maxAgeDays = 180});
   factory _DocumentStatePersistenceSettings.fromJson(Map<String, dynamic> json) => _$DocumentStatePersistenceSettingsFromJson(json);
 
 @override@JsonKey() final  bool enabled;

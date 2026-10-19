@@ -142,7 +142,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         updatedElements[id] = [element.element];
       }
     }
-    bloc.add(ElementsChanged(updatedElements));
+    bloc.add(ElementsChanged(updatedElements, pageName: bloc.state.pageName));
     super.update(context, selected);
   }
 
@@ -185,7 +185,9 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final ids = selected.map((r) => r.element.id).nonNulls.toList();
-    context.read<DocumentBloc>().add(ElementsRemoved(ids));
+    context.read<DocumentBloc>().add(
+      ElementsRemoved(ids, pageName: bloc.state.pageName),
+    );
     bloc.delayedBake();
   }
 

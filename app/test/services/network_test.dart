@@ -45,15 +45,6 @@ void main() {
     );
   });
 
-  test('setName updates the name used for presence messages', () async {
-    final service = NetworkingService();
-    addTearDown(service.close);
-
-    service.setName('Ada');
-
-    expect(service.userName, 'Ada');
-  });
-
   test('session options override defaults until the session stops', () async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
@@ -137,7 +128,9 @@ void main() {
         await host.bloc.stream.firstWhere(
           (state) => state.pageName == pageName,
         );
-        host.bloc.add(const CurrentAreaChanged('Area'));
+        host.bloc.add(
+          CurrentAreaChanged('Area', pageName: host.bloc.state.pageName),
+        );
         await host.bloc.stream.firstWhere(
           (state) =>
               state is DocumentLoadSuccess && state.currentAreaName == 'Area',
@@ -169,7 +162,9 @@ void main() {
         (state) =>
             state is DocumentLoadSuccess && state.currentAreaName == 'Area',
       );
-      host.bloc.add(const CurrentAreaChanged('Area'));
+      host.bloc.add(
+        CurrentAreaChanged('Area', pageName: host.bloc.state.pageName),
+      );
       await areaReceived.timeout(const Duration(seconds: 2));
 
       // Shared undo/redo snapshots also respect a participant's local toolbar.
@@ -182,6 +177,248 @@ void main() {
       await hostService.sendInit();
       await snapshotReceived.timeout(const Duration(seconds: 2));
       expect(client.bloc.state.info?.tools.single.id, 'local');
+      expect(
+        (client.bloc.state as DocumentLoadSuccess).currentAreaName,
+        'Area',
+      );
+    },
+  );
+
+  test(
+    'edits follow their page and layer while navigation stays local',
+    () async {
+      const page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'bottom'),
+          DocumentLayer(id: 'top'),
+        ],
+        areas: [
+          Area(name: 'region', width: 100, height: 100, position: Point(0, 0)),
+        ],
+      );
+      final (firstData, firstPage) = NoteData(Archive()).setPage(page, 'First');
+      final (data, secondPage) = firstData.setPage(page, 'Second');
+      final host = await _createPeer(data, firstPage);
+      addTearDown(host.close);
+      final hostService = host.controller.networkingService;
+      await hostService.createSocketServer(
+        InternetAddress.loopbackIPv4.address,
+        0,
+      );
+      final clientService = NetworkingService();
+      final bytes = await clientService.createSocketClient(
+        hostService.state!.connection.address,
+      );
+      final client = await _createPeer(
+        NoteData.fromData(bytes!),
+        firstPage,
+        clientService,
+      );
+      addTearDown(client.close);
+
+      final presenceReceived = clientService.usersStream.firstWhere(
+        (users) => users.values.any((user) => user.name == '共同作業 🦋'),
+      );
+      hostService.setName('共同作業 🦋');
+      await presenceReceived.timeout(const Duration(seconds: 2));
+
+      host.bloc.add(PageChanged(secondPage));
+      await host.bloc.stream.firstWhere(
+        (state) => state.pageName == secondPage,
+      );
+      host.bloc.add(const CurrentLayerChanged('bottom'));
+      await host.bloc.stream.firstWhere(
+        (state) => state.currentLayer == 'bottom',
+      );
+      final received = client.bloc.stream.firstWhere(
+        (state) =>
+            state.data
+                ?.getPage(secondPage)
+                ?.content
+                .any((e) => e.id == 'remote') ==
+            true,
+      );
+      host.bloc.add(
+        ElementsCreated(
+          [
+            ShapeElement(
+              id: 'remote',
+              firstPosition: const Point(1, 1),
+              secondPosition: const Point(10, 10),
+            ),
+          ],
+          pageName: host.bloc.state.pageName,
+          layer: host.bloc.state.currentLayer,
+        ),
+      );
+      await received.timeout(const Duration(seconds: 2));
+      expect(client.bloc.state.pageName, firstPage);
+      expect(client.bloc.state.page!.content, isEmpty);
+      expect(client.bloc.state.currentLayer, 'top');
+      expect(
+        client.bloc.state.data!
+            .getPage(secondPage)!
+            .getLayer('bottom')
+            .content
+            .single
+            .id,
+        'remote',
+      );
+
+      final moved = client.bloc.stream.firstWhere(
+        (state) =>
+            (state.data?.getPage(secondPage)?.content.singleOrNull
+                    as ShapeElement?)
+                ?.firstPosition ==
+            const Point(21, 1),
+      );
+      host.bloc.add(
+        AreaChanged(
+          'region',
+          Area(name: 'region', width: 100, height: 100, position: Point(20, 0)),
+          true,
+          host.bloc.state.pageName,
+        ),
+      );
+      await moved.timeout(const Duration(seconds: 2));
+      final changed = client.bloc.stream.firstWhere(
+        (state) =>
+            (state.data?.getPage(secondPage)?.content.singleOrNull
+                    as ShapeElement?)
+                ?.firstPosition ==
+            const Point(25, 5),
+      );
+      host.bloc.add(
+        ElementsChanged({
+          'remote': [
+            ShapeElement(
+              id: 'remote',
+              firstPosition: const Point(25, 5),
+              secondPosition: const Point(35, 15),
+            ),
+          ],
+        }, pageName: host.bloc.state.pageName),
+      );
+      await changed.timeout(const Duration(seconds: 2));
+      final areasRemoved = client.bloc.stream.firstWhere(
+        (state) =>
+            state.page!.areas.isEmpty &&
+            state.data!.getPage(secondPage)!.areas.isEmpty,
+      );
+      host.bloc.add(
+        AreasRemoved([
+          AreaPreset(page: firstPage, name: 'region'),
+          AreaPreset(page: secondPage, name: 'region'),
+        ]),
+      );
+      await areasRemoved.timeout(const Duration(seconds: 2));
+
+      final renamed = client.bloc.stream.firstWhere(
+        (state) =>
+            state.data?.getPage(secondPage)?.getLayer('bottom').name ==
+            '共同作業 🦋',
+      );
+      host.bloc.add(
+        LayerChanged(
+          'bottom',
+          name: '共同作業 🦋',
+          pageName: host.bloc.state.pageName,
+        ),
+      );
+      await renamed.timeout(const Duration(seconds: 2));
+      final removed = client.bloc.stream.firstWhere(
+        (state) => state.data?.getPage(secondPage)?.content.isEmpty == true,
+      );
+      host.bloc.add(
+        ElementsRemoved(['remote'], pageName: host.bloc.state.pageName),
+      );
+      await removed.timeout(const Duration(seconds: 2));
+
+      // The selected layer also stays local when everyone views the same page.
+      client.bloc.add(PageChanged(secondPage));
+      await client.bloc.stream.firstWhere(
+        (state) => state.pageName == secondPage,
+      );
+      final activeReceived = client.bloc.stream.firstWhere(
+        (state) => state.page?.content.any((e) => e.id == 'active') == true,
+      );
+      host.bloc.add(
+        ElementsCreated(
+          [PenElement(id: 'active')],
+          pageName: host.bloc.state.pageName,
+          layer: host.bloc.state.currentLayer,
+        ),
+      );
+      await activeReceived.timeout(const Duration(seconds: 2));
+      expect(client.bloc.state.currentLayer, 'top');
+      expect(
+        client.bloc.state.page!.getLayer('bottom').content.single.id,
+        'active',
+      );
+
+      final newPageReceived = client.bloc.stream.firstWhere(
+        (state) => state.data!.getPages().length == 3,
+      );
+      host.bloc.add(
+        const PagesAdded([
+          PageAddedDetails(name: 'Third', page: DocumentPage()),
+        ]),
+      );
+      await newPageReceived.timeout(const Duration(seconds: 2));
+      final hostPage = host.bloc.state.pageName;
+      expect(hostPage, isNot(secondPage));
+      expect(client.bloc.state.pageName, hostPage);
+      client.bloc.add(PageChanged(secondPage));
+      await client.bloc.stream.firstWhere(
+        (state) => state.pageName == secondPage,
+      );
+      final reverseReceived = host.bloc.stream.firstWhere(
+        (state) =>
+            state.data
+                ?.getPage(secondPage)
+                ?.content
+                .any((e) => e.id == 'from-client') ==
+            true,
+      );
+      client.bloc.add(
+        ElementsCreated(
+          [PenElement(id: 'from-client')],
+          pageName: client.bloc.state.pageName,
+          layer: client.bloc.state.currentLayer,
+        ),
+      );
+      await reverseReceived.timeout(const Duration(seconds: 2));
+      expect(host.bloc.state.pageName, hostPage);
+      expect(host.bloc.state.page!.content, isEmpty);
+
+      // The typed target is authoritative even when neither peer views it.
+      final areaReceived = client.bloc.stream.firstWhere(
+        (state) =>
+            state.data?.getPage(firstPage)?.areas.singleOrNull?.name ==
+            'offscreen',
+      );
+      host.bloc.add(
+        AreasCreated([
+          AreaPreset(
+            page: firstPage,
+            area: const Area(
+              name: 'offscreen',
+              width: 100,
+              height: 100,
+              position: Point(0, 0),
+            ),
+          ),
+        ]),
+      );
+      await areaReceived.timeout(const Duration(seconds: 2));
+      expect(
+        host.bloc.state.data!.getPage(firstPage)!.areas.single.name,
+        'offscreen',
+      );
+      expect(host.bloc.state.pageName, hostPage);
+      expect(client.bloc.state.pageName, secondPage);
+      expect(host.bloc.state.page!.areas, isEmpty);
+      expect(client.bloc.state.page!.areas, isEmpty);
     },
   );
 
@@ -201,6 +438,25 @@ void main() {
         1: NetworkingUser(cursor: const Point(10, 20), foreground: [preview]),
       };
       Future<void> refresh() => controller.updateNetworkingState(peer.bloc);
+      await refresh();
+      expect(controller.toolCubit.state.networkingForegrounds, hasLength(2));
+
+      service.currentUsers = {
+        1: NetworkingUser(
+          pageName: 'another page',
+          cursor: const Point(10, 20),
+          foreground: [preview],
+        ),
+      };
+      await refresh();
+      expect(controller.toolCubit.state.networkingForegrounds, isEmpty);
+      service.currentUsers = {
+        1: NetworkingUser(
+          pageName: pageName,
+          cursor: const Point(10, 20),
+          foreground: [preview],
+        ),
+      };
       await refresh();
       expect(controller.toolCubit.state.networkingForegrounds, hasLength(2));
 
@@ -234,18 +490,6 @@ void main() {
       expect(controller.toolCubit.state.networkingForegrounds, hasLength(2));
     },
   );
-
-  test('a socket host uses server-side RPC routing', () async {
-    final service = NetworkingService();
-    addTearDown(service.close);
-
-    await service.createSocketServer(InternetAddress.loopbackIPv4.address, 0);
-
-    expect(
-      service.state?.pipe,
-      isA<NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>>(),
-    );
-  });
 
   test('a socket client accepts the authority handshake', () async {
     final server = NetworkerSocketServer(InternetAddress.loopbackIPv4, 0);

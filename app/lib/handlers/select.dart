@@ -215,13 +215,23 @@ class SelectHandler extends Handler<SelectTool> {
       final elements = current
           .map((e) => e.element.copyWith(id: createUniqueId()))
           .toList();
-      bloc.add(ElementsCreated(elements));
+      bloc.add(
+        ElementsCreated(
+          elements,
+          pageName: bloc.state.pageName,
+          layer: bloc.state.currentLayer,
+        ),
+      );
       return [];
     }
 
     if (state.settingsCubit.state.bringMovedElementsToFront) {
       bloc.add(
-        ElementsArranged(Arrangement.front, current.map((e) => e.id).toList()),
+        ElementsArranged(
+          Arrangement.front,
+          current.map((e) => e.id).toList(),
+          pageName: bloc.state.pageName,
+        ),
       );
     }
     bloc.add(
@@ -233,6 +243,7 @@ class SelectHandler extends Handler<SelectTool> {
             return MapEntry(id, [e.element]);
           }).nonNulls,
         ),
+        pageName: bloc.state.pageName,
       ),
     );
     return current;
@@ -569,7 +580,10 @@ class SelectHandler extends Handler<SelectTool> {
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
       bloc.add(
-        ElementsRemoved(_selected.map((r) => r.element.id).nonNulls.toList()),
+        ElementsRemoved(
+          _selected.map((r) => r.element.id).nonNulls.toList(),
+          pageName: bloc.state.pageName,
+        ),
       );
     }
     final point = getSelectionRect()?.topLeft;
@@ -635,6 +649,7 @@ class SelectHandler extends Handler<SelectTool> {
           context.read<DocumentBloc>().add(
             ElementsRemoved(
               _selected.map((r) => r.element.id).nonNulls.toList(),
+              pageName: bloc.state.pageName,
             ),
           );
           _selected.clear();

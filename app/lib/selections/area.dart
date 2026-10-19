@@ -31,6 +31,8 @@ class AreaSelection extends Selection<Area> {
                     AreaChanged(
                       selected.first.name,
                       selected.first.copyWith(color: null),
+                      false,
+                      context.read<DocumentBloc>().state.pageName,
                     ),
                   );
                 },
@@ -40,6 +42,8 @@ class AreaSelection extends Selection<Area> {
             AreaChanged(
               selected.first.name,
               selected.first.copyWith(color: value),
+              false,
+              context.read<DocumentBloc>().state.pageName,
             ),
           );
         },
@@ -53,6 +57,7 @@ class AreaSelection extends Selection<Area> {
               selected.first.name,
               selected.first.copyWith(position: value.toPoint()),
               true,
+              context.read<DocumentBloc>().state.pageName,
             ),
           );
         },
@@ -71,6 +76,8 @@ class AreaSelection extends Selection<Area> {
                   width: value.width,
                   height: value.height,
                 ),
+                false,
+                context.read<DocumentBloc>().state.pageName,
               ),
             );
           },
@@ -85,6 +92,8 @@ class AreaSelection extends Selection<Area> {
             AreaChanged(
               selected.first.name,
               selected.first.copyWith(isInitial: value ?? false),
+              false,
+              context.read<DocumentBloc>().state.pageName,
             ),
           );
         },

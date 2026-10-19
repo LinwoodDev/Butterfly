@@ -145,7 +145,7 @@ _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
         _$ThumbnailFramingEnumMap,
         json['thumbnailFraming'],
       ) ??
-      ThumbnailFraming.viewport,
+      ThumbnailFraming.wholePage,
   defaultLocks: json['defaultLocks'] == null
       ? const PersistentLockState()
       : PersistentLockState.fromJson(json['defaultLocks'] as Map),

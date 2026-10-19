@@ -189,7 +189,10 @@ class _BackgroundDialogState extends State<BackgroundDialog>
           child: Text(AppLocalizations.of(context).save),
           onPressed: () {
             context.read<DocumentBloc>().add(
-              DocumentBackgroundsChanged(_backgrounds),
+              DocumentBackgroundsChanged(
+                _backgrounds,
+                pageName: context.read<DocumentBloc>().state.pageName,
+              ),
             );
             Navigator.of(context).pop();
           },

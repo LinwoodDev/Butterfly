@@ -441,7 +441,7 @@ class TransformCubit(double pixelRatio, [Offset? position])
       dy: dy,
     );
     if (area != null) {
-      bloc.add(CurrentAreaChanged(area.name));
+      bloc.add(CurrentAreaChanged(area.name, pageName: bloc.state.pageName));
       teleportToAreaEdge(area: area, dx: dx, dy: dy, runtime: runtime);
       return;
     }
@@ -464,8 +464,10 @@ class TransformCubit(double pixelRatio, [Offset? position])
       width: rect.width,
       name: name,
     );
-    bloc.add(AreasCreated([AreaPreset(area: newArea)]));
-    bloc.add(CurrentAreaChanged(name));
+    bloc.add(
+      AreasCreated([AreaPreset(page: docState.pageName, area: newArea)]),
+    );
+    bloc.add(CurrentAreaChanged(name, pageName: bloc.state.pageName));
     teleportToAreaEdge(area: newArea, dx: dx, dy: dy, runtime: runtime);
   }
 
@@ -521,7 +523,9 @@ class TransformCubit(double pixelRatio, [Offset? position])
               dy: dy,
             );
             if (area != null) {
-              bloc?.add(CurrentAreaChanged(area.name));
+              bloc?.add(
+                CurrentAreaChanged(area.name, pageName: bloc.state.pageName),
+              );
               teleportToAreaEdge(area: area, dx: dx, dy: dy, runtime: runtime);
               return;
             }

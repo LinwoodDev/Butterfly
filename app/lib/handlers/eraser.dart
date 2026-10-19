@@ -334,14 +334,22 @@ class EraserHandler extends Handler<EraserTool> {
       case .stroke:
         if (_pendingChanges.isNotEmpty) {
           context.getDocumentBloc().add(
-            ElementsChanged(Map.from(_pendingChanges)),
+            ElementsChanged(
+              Map.from(_pendingChanges),
+              pageName: context.getState()?.pageName,
+            ),
           );
           _pendingChanges.clear();
         }
       case .path:
         if (_erased.isEmpty) return;
         final bloc = _bloc = context.getDocumentBloc();
-        bloc.add(ElementsRemoved(_erased.toList()));
+        bloc.add(
+          ElementsRemoved(
+            _erased.toList(),
+            pageName: context.getState()?.pageName,
+          ),
+        );
         _submittedPathErase = true;
     }
   }

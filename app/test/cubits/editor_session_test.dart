@@ -20,6 +20,35 @@ class _MockDocumentStateFileSystem extends Mock
 
 void main() {
   group('PersistedDocumentState', () {
+    test('automatic thumbnails start only for new documents and respect saved choices', () {
+      final (document, pageName) = NoteData(Archive())
+          .setPage(const DocumentPage(), 'Page');
+      PersistedDocumentState initial({
+        bool isCreating = false,
+        PersistedDocumentState? restored,
+      }) => EditorSessionCubit.buildInitial(
+        document: document,
+        page: const DocumentPage(),
+        fallbackPageName: pageName,
+        fallbackLocks: const PersistentLockState(),
+        isCreating: isCreating,
+        restored: restored,
+      );
+      expect(initial().autoThumbnail, isFalse);
+      expect(initial(isCreating: true).autoThumbnail, isTrue);
+      expect(
+        initial(
+          isCreating: true,
+          restored: const PersistedDocumentState(autoThumbnail: false),
+        ).autoThumbnail,
+        isFalse,
+      );
+      expect(
+        initial(restored: const PersistedDocumentState(autoThumbnail: true))
+            .autoThumbnail,
+        isTrue,
+      );
+    });
     test('remote state keys do not depend on local connection names', () {
       const first = AssetLocation(
         remote: 'Laptop Nextcloud',

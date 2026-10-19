@@ -181,8 +181,21 @@ class ImportResult {
       );
     } else {
       bloc
-        ?..add(AreasCreated(areas.map((e) => AreaPreset(area: e)).toList()))
-        ..add(ElementsCreated(elements, assets: _importAssets));
+        ?..add(
+          AreasCreated(
+            areas
+                .map((e) => AreaPreset(page: state?.pageName ?? '', area: e))
+                .toList(),
+          ),
+        )
+        ..add(
+          ElementsCreated(
+            elements,
+            assets: _importAssets,
+            pageName: state?.pageName,
+            layer: state?.currentLayer,
+          ),
+        );
     }
     bloc?.add(
       PagesAdded(

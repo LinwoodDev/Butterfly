@@ -216,22 +216,27 @@ class _PagesViewState extends State<PagesView> {
         final pages = state.data.getPagesWithNames();
         final index = state.data.getPageIndex(state.pageName);
         final currentArea = state.currentArea;
-        void addPage([int? index]) => context.read<DocumentBloc>().add(
-          PagesAdded([
-            PageAddedDetails(
-              index: index,
-              name: AppLocalizations.of(context)
-                  .pageIndex(state.data.getPages().length + 1),
-              initialArea: currentArea != null
-                  ? InitialAreaDetails(
-                      width: currentArea.width,
-                      height: currentArea.height,
-                      name: AppLocalizations.of(context).areaIndex(1),
-                    )
-                  : null,
-            ),
-          ]),
-        );
+        void addPage([int? index]) {
+          final details = PageAddedDetails(
+            index: index,
+            name: AppLocalizations.of(context)
+                .pageIndex(state.data.getPages().length + 1),
+            initialArea: currentArea != null
+                ? InitialAreaDetails(
+                    width: currentArea.width,
+                    height: currentArea.height,
+                    name: AppLocalizations.of(context).areaIndex(1),
+                  )
+                : null,
+          );
+          context.read<DocumentBloc>().add(
+            PagesAdded([
+              details.copyWith(
+                page: details.resolvePage(state.page.backgrounds),
+              ),
+            ]),
+          );
+        }
 
         return Column(
           children: [

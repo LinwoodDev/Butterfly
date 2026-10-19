@@ -343,14 +343,21 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     final height = data.constrainedHeight > 0
         ? data.constrainedHeight
         : data.rows * 60.0;
-    final collection = context.getState()?.currentCollection ?? '';
+    final state = context.getState();
+    final collection = state?.currentCollection ?? '';
     final elements = transformElements(
       Rect.fromLTWH(position.dx, position.dy, width, height),
       collection,
       bloc.editorController,
     );
     if (elements.isNotEmpty) {
-      bloc.add(ElementsCreated(elements));
+      bloc.add(
+        ElementsCreated(
+          elements,
+          pageName: state?.pageName,
+          layer: state?.currentLayer,
+        ),
+      );
       context.refresh();
     }
   }
@@ -466,7 +473,9 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
             onPressed: () {
               close();
               final id = element.id;
-              if (id != null) bloc.add(ElementsRemoved([id]));
+              if (id != null) {
+                bloc.add(ElementsRemoved([id], pageName: bloc.state.pageName));
+              }
               _clearSelection();
               bloc.delayedBake();
               bloc.refresh();
@@ -488,7 +497,7 @@ class TableHandler extends PastingHandler<TableTool> with ColoredHandler {
     bloc.add(
       ElementsChanged({
         id: [updated],
-      }),
+      }, pageName: bloc.state.pageName),
     );
     final renderer = TableRenderer(updated, _activeRenderer?.layer);
     _activeRenderer = renderer;

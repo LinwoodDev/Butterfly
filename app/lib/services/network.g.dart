@@ -14,6 +14,7 @@ _NetworkingUser _$NetworkingUserFromJson(Map json) => _NetworkingUser(
   foreground: (json['foreground'] as List<dynamic>?)
       ?.map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
       .toList(),
+  pageName: json['pageName'] as String?,
   name: json['name'] as String? ?? '',
 );
 
@@ -24,6 +25,7 @@ Map<String, dynamic> _$NetworkingUserToJson(_NetworkingUser instance) =>
         const DoublePointJsonConverter().toJson,
       ),
       'foreground': instance.foreground?.map((e) => e.toJson()).toList(),
+      'pageName': instance.pageName,
       'name': instance.name,
     };
 
