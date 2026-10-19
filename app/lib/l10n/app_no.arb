@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Åpner hjemmeskjermen når Sommerfugl starter.",
   "onStartupLastNoteDescription": "Vil du gjenåpne det sist brukte notatet når Sommerfugl starter.",
   "onStartupNewNoteDescription": "Lager et nytt notat når utterfly starter.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Gjør at du panorerer og zoomer røyke ved å forenkle lerretet mens det beveger seg.",
   "edgePanAreaSwitchingDescription": "Bytter til et naboområde når du panorerer nær kanten av lerretet.",
   "collaborationDescription": "Lar flere personer redigere det samme notatet sammen i sanntid.",
