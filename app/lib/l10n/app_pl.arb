@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Otwiera ekran główny po uruchomieniu Motylka.",
   "onStartupLastNoteDescription": "Ponownie otwiera ostatnią notatkę po rozpoczęciu Motylka.",
   "onStartupNewNoteDescription": "Tworzy nową notatkę po rozpoczęciu Motylka.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Sprawia, że panowanie i powiększanie czują się łagodniejsze poprzez upraszczanie płótna podczas jego ruszania.",
   "edgePanAreaSwitchingDescription": "Przełącza się na sąsiednie miejsce, gdy mieścisz się w pobliżu krawędzi płótna.",
   "collaborationDescription": "Pozwala wielu osobom edytować tę samą notatkę razem w czasie rzeczywistym.",
