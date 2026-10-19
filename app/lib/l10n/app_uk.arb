@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Відкриває домашній екран, коли починається метелик.",
   "onStartupLastNoteDescription": "Знову відкриває останню останню використану нотатку, коли метелики починаються.",
   "onStartupNewNoteDescription": "Створює нову нотатку, коли починається метелик.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Робить точне заповнення та масштабування, спрощуючи полотно під час руху.",
   "edgePanAreaSwitchingDescription": "Перемикання на сусідню ділянку, коли ви стукаєте біля краю полотна.",
   "collaborationDescription": "Дозволяє декільком людям редагувати однакову нотатку в реальному часі.",
