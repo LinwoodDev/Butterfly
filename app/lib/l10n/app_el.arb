@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Ανοίγει την αρχική οθόνη όταν ξεκινά η πεταλούδα.",
   "onStartupLastNoteDescription": "Ανοίγει ξανά την πιο πρόσφατα χρησιμοποιημένη σημείωση σας όταν ξεκινά η πεταλούδα.",
   "onStartupNewNoteDescription": "Δημιουργεί μια νέα σημείωση όταν ξεκινά η πεταλούδα.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Κάνει το panning και το zooming αισθάνονται ομαλότερο απλοποιώντας τον καμβά ενώ κινείται.",
   "edgePanAreaSwitchingDescription": "Μετάβαση σε μια γειτονική περιοχή, όταν τηγανίζετε κοντά στην άκρη του καμβά.",
   "collaborationDescription": "Επιτρέπει σε πολλά άτομα να επεξεργάζονται την ίδια σημείωση μαζί σε πραγματικό χρόνο.",
