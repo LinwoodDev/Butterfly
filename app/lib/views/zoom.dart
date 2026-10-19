@@ -14,8 +14,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
+  final bool edgeAttached;
 
-  const ZoomView({super.key, this.isMobile = false});
+  const ZoomView({super.key, this.isMobile = false, this.edgeAttached = false});
 
   @override
   State<ZoomView> createState() => _ZoomViewState();
@@ -222,6 +223,7 @@ class _ZoomViewState extends State<ZoomView> {
           ),
         ),
         child: Card(
+          margin: widget.edgeAttached ? const EdgeInsets.all(8) : null,
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(

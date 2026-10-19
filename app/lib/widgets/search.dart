@@ -36,7 +36,18 @@ Future<List<SearchResult>> _searchIsolate(
 
 class SearchButton extends StatelessWidget {
   final SearchController controller;
-  const SearchButton({super.key, required this.controller});
+  final Widget Function(BuildContext context, Widget searchButton)?
+  anchorBuilder;
+  final OutlinedBorder? viewShape;
+  final bool? isFullScreen;
+
+  const SearchButton({
+    super.key,
+    required this.controller,
+    this.anchorBuilder,
+    this.viewShape,
+    this.isFullScreen,
+  });
 
   PhosphorIconData _getIcon(SearchResult item) => switch (item) {
     ElementResult e => e.element.icon(),
@@ -69,23 +80,28 @@ class SearchButton extends StatelessWidget {
     final bloc = context.read<DocumentBloc>();
     return SearchAnchor(
       searchController: controller,
-      builder: (BuildContext context, SearchController controller) => Actions(
-        actions: {
-          SearchIntent: CallbackAction<SearchIntent>(
-            onInvoke: (_) {
+      viewShape: viewShape,
+      isFullScreen: isFullScreen,
+      builder: (BuildContext context, SearchController controller) {
+        final searchButton = Actions(
+          actions: {
+            SearchIntent: CallbackAction<SearchIntent>(
+              onInvoke: (_) {
+                controller.openView();
+                return null;
+              },
+            ),
+          },
+          child: IconButton(
+            icon: const Icon(PhosphorIconsLight.magnifyingGlass),
+            tooltip: AppLocalizations.of(context).search,
+            onPressed: () {
               controller.openView();
-              return null;
             },
           ),
-        },
-        child: IconButton(
-          icon: const Icon(PhosphorIconsLight.magnifyingGlass),
-          tooltip: AppLocalizations.of(context).search,
-          onPressed: () {
-            controller.openView();
-          },
-        ),
-      ),
+        );
+        return anchorBuilder?.call(context, searchButton) ?? searchButton;
+      },
       suggestionsBuilder: (context, controller) async {
         final state = bloc.state;
         List<SearchResult> results = [];

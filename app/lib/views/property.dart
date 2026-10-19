@@ -20,8 +20,13 @@ import '../visualizer/tool.dart';
 
 class PropertyView extends StatefulWidget {
   final ZoomPosition position;
+  final bool edgeAttached;
 
-  const PropertyView({super.key, required this.position});
+  const PropertyView({
+    super.key,
+    required this.position,
+    this.edgeAttached = false,
+  });
 
   @override
   State<PropertyView> createState() => _PropertyViewState();
@@ -86,6 +91,7 @@ class _PropertyViewState extends State<PropertyView>
                     opacity: _fadeAnimation,
                     child: _PropertyCard(
                       isMobile: isMobile,
+                      edgeAttached: widget.edgeAttached,
                       selection: showing,
                       size: _size,
                       onSizeDeltaChanged: (delta) =>
@@ -117,6 +123,7 @@ class _PropertyViewState extends State<PropertyView>
 
 class _PropertyCard extends StatefulWidget {
   final bool isMobile;
+  final bool edgeAttached;
   final Selection<dynamic> selection;
   final double size;
   final ValueChanged<double> onSizeDeltaChanged;
@@ -124,6 +131,7 @@ class _PropertyCard extends StatefulWidget {
 
   const _PropertyCard({
     required this.isMobile,
+    this.edgeAttached = false,
     required this.selection,
     required this.size,
     required this.onSizeDeltaChanged,
@@ -262,6 +270,7 @@ class _PropertyCardState extends State<_PropertyCard> {
           );
     return Card(
       elevation: 6,
+      margin: widget.edgeAttached ? const EdgeInsets.all(8) : null,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
         child: AnimatedSize(

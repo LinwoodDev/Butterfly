@@ -1641,6 +1641,8 @@
   "onStartupHomeScreenDescription": "Opens the home screen when Butterfly starts.",
   "onStartupLastNoteDescription": "Reopens your most recently used note when Butterfly starts.",
   "onStartupNewNoteDescription": "Creates a new note when Butterfly starts.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Makes panning and zooming feel smoother by simplifying the canvas while it is moving.",
   "edgePanAreaSwitchingDescription": "Switches to a neighboring area when you pan near the edge of the canvas.",
   "collaborationDescription": "Allows multiple people to edit the same note together in real time.",

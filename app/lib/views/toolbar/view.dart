@@ -7,7 +7,9 @@ const kToolbarSmall = Size.fromHeight(48.0);
 const kToolbarLarge = Size.fromHeight(75.0);
 
 class ToolbarView extends StatefulWidget {
-  const ToolbarView({super.key});
+  final bool edgeAttached;
+
+  const ToolbarView({super.key, this.edgeAttached = false});
 
   @override
   State<ToolbarView> createState() => _ToolbarViewState();
@@ -24,20 +26,25 @@ class _ToolbarViewState extends State<ToolbarView> {
           previous.toolbarPosition != current.toolbarPosition,
       builder: (context, state) {
         return Align(
-          child: Card(
-            child: BlocBuilder<ToolCubit, ToolRuntimeState>(
-              buildWhen: (previous, current) =>
-                  previous.temporaryToolbar != current.temporaryToolbar ||
-                  previous.toolbar != current.toolbar,
-              builder: (context, toolState) {
-                Widget? child;
-                var height = 0.0;
-                final toolbar = toolState.temporaryToolbar ?? toolState.toolbar;
-                if (toolbar != null) {
-                  height = toolbar.preferredSize.height;
-                  child = toolbar;
-                }
-                return AnimatedContainer(
+          child: BlocBuilder<ToolCubit, ToolRuntimeState>(
+            buildWhen: (previous, current) =>
+                previous.temporaryToolbar != current.temporaryToolbar ||
+                previous.toolbar != current.toolbar,
+            builder: (context, toolState) {
+              Widget? child;
+              var height = 0.0;
+              final toolbar = toolState.temporaryToolbar ?? toolState.toolbar;
+              if (toolbar != null) {
+                height = toolbar.preferredSize.height;
+                child = toolbar;
+              }
+              return Card(
+                margin: widget.edgeAttached
+                    ? toolbar == null
+                          ? EdgeInsets.zero
+                          : const EdgeInsets.all(8)
+                    : null,
+                child: AnimatedContainer(
                   height: height,
                   key: _animatedKey,
                   curve: Curves.fastOutSlowIn,
@@ -47,9 +54,9 @@ class _ToolbarViewState extends State<ToolbarView> {
                     curve: Curves.fastOutSlowIn,
                     child: child,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         );
       },

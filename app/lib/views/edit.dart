@@ -20,12 +20,14 @@ class EditToolbar extends StatefulWidget {
   final bool isMobile;
   final bool? centered;
   final Axis direction;
+  final bool edgeAttached;
 
   const EditToolbar({
     super.key,
     required this.isMobile,
     this.centered,
     this.direction = .horizontal,
+    this.edgeAttached = false,
   });
 
   @override
@@ -66,7 +68,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
+    final toolbar = Directionality(
       textDirection: .ltr,
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
@@ -96,7 +98,8 @@ class _EditToolbarState extends State<EditToolbar> {
                           previous.fullScreen != current.fullScreen,
                       builder: (context, saveState) {
                         return Card(
-                          elevation: 10,
+                          margin: widget.edgeAttached ? EdgeInsets.zero : null,
+                          elevation: widget.edgeAttached ? 6 : 10,
                           child: _buildBody(
                             state,
                             toolState,
@@ -115,6 +118,9 @@ class _EditToolbarState extends State<EditToolbar> {
         },
       ),
     );
+    return widget.edgeAttached
+        ? MenuTheme(data: kFloatingEditorMenuTheme, child: toolbar)
+        : toolbar;
   }
 
   Widget _buildIcon(PhosphorIconData data, double size, [Color? color]) =>
@@ -457,8 +463,17 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .updateLocks(locks: update()),
                             child: Text(title),
                           );
+                          final menuButtonBuilder = defaultMenuButton(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.lockKey,
+                            ),
+                            tooltip: AppLocalizations.of(context).lock,
+                          );
 
                           return MenuAnchor(
+                            alignmentOffset: widget.edgeAttached
+                                ? const Offset(0, 8)
+                                : Offset.zero,
                             menuChildren: [
                               buildButton(
                                 locks.lockCollection,
@@ -509,12 +524,21 @@ class _EditToolbarState extends State<EditToolbar> {
                             style: const MenuStyle(
                               alignment: Alignment.bottomLeft,
                             ),
-                            builder: defaultMenuButton(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.lockKey,
-                              ),
-                              tooltip: AppLocalizations.of(context).lock,
-                            ),
+                            builder: (context, controller, child) {
+                              final button = menuButtonBuilder(
+                                context,
+                                controller,
+                                child,
+                              );
+                              if (!widget.edgeAttached) return button;
+                              return SizedBox(
+                                height: direction == .horizontal
+                                    ? fullSize
+                                    : null,
+                                width: direction == .vertical ? fullSize : null,
+                                child: Center(child: button),
+                              );
+                            },
                           );
                         },
                       ),
@@ -522,6 +546,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         MainPopupMenu(
                           viewportKey: GlobalKey(),
                           isLarge: !isMobile,
+                          floating: widget.edgeAttached,
                         ),
                     ];
                     if (direction == .horizontal) {

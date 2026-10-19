@@ -41,6 +41,19 @@ import 'navigator/view.dart';
 
 import 'package:lw_file_system/lw_file_system.dart';
 
+const _floatingTitleShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(20)),
+);
+const kFloatingEditorMenuTheme = MenuThemeData(
+  style: MenuStyle(
+    shape: WidgetStatePropertyAll(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+    ),
+  ),
+);
+
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
   final ToolbarSize size;
@@ -49,6 +62,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final EdgeInsets? padding;
   final bool inView;
   final TextDirection direction;
+  final bool floating;
 
   PadAppBar({
     super.key,
@@ -59,63 +73,163 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showTools = true,
     this.inView = false,
     this.padding,
+    this.floating = false,
   });
 
-  late final windowTitleBar = _buildWindowTitleBar(padding);
+  late final windowTitleBar = _buildWindowTitleBar();
 
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: Directionality(textDirection: .ltr, child: windowTitleBar),
+      child: Directionality(
+        textDirection: .ltr,
+        child: floating
+            ? MenuTheme(
+                data: kFloatingEditorMenuTheme,
+                child: _buildFloatingBar(context),
+              )
+            : windowTitleBar,
+      ),
     );
   }
 
-  WindowTitleBar _buildWindowTitleBar(EdgeInsets? padding) =>
+  Widget _buildFloatingBar(BuildContext context) {
+    final nativeTitleBar = context.select<SettingsCubit, bool>(
+      (cubit) => cubit.state.nativeTitleBar,
+    );
+    return SafeArea(
+      bottom: false,
+      child: SizedBox(
+        height: preferredSize.height,
+        child: Stack(
+          // Card shadows must continue onto the canvas below the header.
+          clipBehavior: Clip.none,
+          children: [
+            const Positioned.fill(
+              child: WindowFreeSpace<SettingsCubit, ButterflySettings>(),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 64,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: _buildLeading(),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: MediaQuery.withClampedTextScaling(
+                      // Keep the standard app-bar title scaling limit.
+                      maxScaleFactor: 1.34,
+                      child: _buildTitle(),
+                    ),
+                  ),
+                ),
+                if (isWindow && !inView && !nativeTitleBar) ...[
+                  const SizedBox(width: 8),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: DecoratedBox(
+                      decoration: ShapeDecoration(
+                        color: ColorScheme.of(context).surfaceContainer,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: ColorScheme.of(context).outlineVariant,
+                          ),
+                        ),
+                      ),
+                      child:
+                          const WindowButtons<SettingsCubit, ButterflySettings>(
+                            height: 40,
+                          ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  WindowTitleBar _buildWindowTitleBar() =>
       WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 60,
         height: max(70, showTools ? size.size + 20 : 0),
         titleIgnorePointer: false,
         inView: inView,
-        leading: Directionality(
-          textDirection: direction,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final isLarge =
-                    MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded;
-                return MainPopupMenu(
-                  viewportKey: viewportKey,
-                  isLarge: isLarge,
-                  padding: padding,
-                );
-              },
-            ),
-          ),
-        ),
-        title: Directionality(
-          textDirection: direction,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isMobile =
-                  MediaQuery.sizeOf(context).width < LeapBreakpoints.compact;
-              return _AppBarTitle(
-                isMobile: isMobile,
-                searchController: searchController,
-              );
-            },
-          ),
-        ),
+        leading: _buildLeading(),
+        title: _buildTitle(),
       );
 
+  Widget _buildLeading() => Directionality(
+    textDirection: direction,
+    child: Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isLarge =
+              MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded;
+          final menu = MainPopupMenu(
+            viewportKey: viewportKey,
+            isLarge: isLarge,
+            padding: padding,
+            floating: floating,
+          );
+          return floating
+              ? SizedBox.square(
+                  dimension: 56,
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    shape: _floatingTitleShape,
+                    elevation: 6,
+                    child: Center(child: menu),
+                  ),
+                )
+              : menu;
+        },
+      ),
+    ),
+  );
+
+  Widget _buildTitle() => Directionality(
+    textDirection: direction,
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile =
+            MediaQuery.sizeOf(context).width < LeapBreakpoints.compact;
+        return _AppBarTitle(
+          isMobile: isMobile,
+          searchController: searchController,
+          floating: floating,
+          showTools: showTools,
+        );
+      },
+    ),
+  );
+
   @override
-  Size get preferredSize => windowTitleBar.preferredSize;
+  Size get preferredSize => floating
+      ? Size.fromHeight(max(72, showTools ? size.size + 20 : 0))
+      : windowTitleBar.preferredSize;
 }
 
 class _AppBarTitle extends StatefulWidget {
   final SearchController searchController;
+  final bool floating;
+  final bool showTools;
 
-  const _AppBarTitle({required this.isMobile, required this.searchController});
+  const _AppBarTitle({
+    required this.isMobile,
+    required this.searchController,
+    this.floating = false,
+    this.showTools = true,
+  });
 
   final bool isMobile;
 
@@ -266,6 +380,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   builder: (context, constraints) => Row(
                     textDirection: .ltr,
                     mainAxisAlignment: .center,
+                    crossAxisAlignment: widget.floating
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(
@@ -274,15 +391,42 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             300.0,
                           ),
                         ),
-                        child: _buildAppBar(
-                          state,
-                          area,
-                          areaName,
-                          bloc,
-                          currentIndex,
-                          context,
-                          settings,
-                        ),
+                        child: widget.floating
+                            ? SearchButton(
+                                controller: widget.searchController,
+                                viewShape: _floatingTitleShape,
+                                isFullScreen: false,
+                                anchorBuilder: (context, searchButton) => Card(
+                                  margin: EdgeInsets.zero,
+                                  shape: _floatingTitleShape,
+                                  elevation: 6,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 2,
+                                    ),
+                                    child: _buildAppBar(
+                                      state,
+                                      area,
+                                      areaName,
+                                      bloc,
+                                      currentIndex,
+                                      context,
+                                      settings,
+                                      searchButton: searchButton,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : _buildAppBar(
+                                state,
+                                area,
+                                areaName,
+                                bloc,
+                                currentIndex,
+                                context,
+                                settings,
+                              ),
                       ),
                       const SizedBox(width: 8),
                       if (!widget.isMobile)
@@ -298,10 +442,16 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                                   SettingsCubit,
                                   ButterflySettings
                                 >(),
-                                settings.isInline
-                                    ? const Align(
-                                        alignment: Alignment.centerRight,
-                                        child: EditToolbar(isMobile: false),
+                                settings.isInline &&
+                                        (!widget.floating || widget.showTools)
+                                    ? Align(
+                                        alignment: widget.floating
+                                            ? Alignment.topRight
+                                            : Alignment.centerRight,
+                                        child: EditToolbar(
+                                          isMobile: false,
+                                          edgeAttached: widget.floating,
+                                        ),
                                       )
                                     : const SizedBox.shrink(),
                               ],
@@ -324,8 +474,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     DocumentBloc bloc,
     DocumentSaveState currentIndex,
     BuildContext context,
-    ButterflySettings settings,
-  ) {
+    ButterflySettings settings, {
+    Widget? searchButton,
+  }) {
     final cubit = context.read<EditorController>();
     return Row(
       textDirection: .ltr,
@@ -359,7 +510,18 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                           onSaved: submit,
                           readOnly: currentIndex.embedding?.editable == false,
                           decoration: InputDecoration(
-                            filled: true,
+                            filled: !widget.floating,
+                            isDense: widget.floating,
+                            contentPadding: widget.floating
+                                ? const EdgeInsets.symmetric(vertical: 2)
+                                : null,
+                            border: widget.floating ? InputBorder.none : null,
+                            enabledBorder: widget.floating
+                                ? InputBorder.none
+                                : null,
+                            focusedBorder: widget.floating
+                                ? InputBorder.none
+                                : null,
                             hintText: AppLocalizations.of(context).untitled,
                           ),
                         ),
@@ -414,6 +576,10 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                                           ? FontStyle.italic
                                           : FontStyle.normal,
                                     ),
+                                maxLines: widget.floating ? 1 : null,
+                                overflow: widget.floating
+                                    ? TextOverflow.ellipsis
+                                    : null,
                               ),
                             );
                           },
@@ -485,7 +651,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               tooltip: AppLocalizations.of(context).export,
               onPressed: () => context.read<ImportService>().export(),
             ),
-          SearchButton(controller: widget.searchController),
+          searchButton ?? SearchButton(controller: widget.searchController),
           if (currentIndex.location.path != '' &&
               currentIndex.embedding == null) ...[
             IconButton(
@@ -512,12 +678,14 @@ class MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
   final bool isLarge;
   final EdgeInsets? padding;
+  final bool floating;
 
   const MainPopupMenu({
     super.key,
     required this.viewportKey,
     required this.isLarge,
     this.padding,
+    this.floating = false,
   });
 
   @override
@@ -572,6 +740,9 @@ class MainPopupMenu extends StatelessWidget {
                         effectiveFullScreen ||
                         hideUi != .visible;
                     return MenuAnchor(
+                      alignmentOffset: floating
+                          ? const Offset(0, 8)
+                          : Offset.zero,
                       menuChildren: [
                         ...[
                           if (saveState.embedding == null)
@@ -986,8 +1157,8 @@ class MainPopupMenu extends StatelessWidget {
                       style: MenuStyle(
                         shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(floating ? 20 : 16),
                             ),
                           ),
                         ),

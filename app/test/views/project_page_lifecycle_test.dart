@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:butterfly/actions/shortcuts.dart';
@@ -274,6 +275,170 @@ void main() {
     await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
     await tester.pumpAndSettle();
   }
+
+  testWidgets('floating editor flag updates the canvas layout live', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1262, 711);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    var settings = const ButterflySettings(defaultTemplate: 'default');
+    final changes = StreamController<ButterflySettings>.broadcast();
+    addTearDown(changes.close);
+    when(() => settingsCubit.state).thenAnswer((_) => settings);
+    when(() => settingsCubit.stream).thenAnswer((_) => changes.stream);
+
+    await openEditor(tester);
+    final bloc = observer.lastDocumentBloc;
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isFalse);
+    expect(tester.getTopLeft(find.byType(MainViewViewport)).dy, greaterThan(0));
+    expect(find.byType(NavigationRail), findsOneWidget);
+
+    settings = settings.copyWith(flags: ['floatingEditor']);
+    changes.add(settings);
+    await tester.pumpAndSettle();
+
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isTrue);
+    expect(
+      tester.getRect(find.byType(MainViewViewport)),
+      const Rect.fromLTWH(0, 0, 1262, 711),
+    );
+    expect(find.byType(NavigationRail), findsNothing);
+    settings = settings.copyWith(flags: []);
+    changes.add(settings);
+    await tester.pumpAndSettle();
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isFalse);
+    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(observer.lastDocumentBloc, same(bloc));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('floating editor adapts to compact screens and hidden UI', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1200, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['floatingEditor'],
+      ),
+    );
+    final editor = await openEditor(tester);
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isTrue);
+
+    tester.view.physicalSize = const Size(400, 800);
+    await tester.pumpAndSettle();
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isFalse);
+    expect(tester.getTopLeft(find.byType(MainViewViewport)).dy, greaterThan(0));
+    expect(tester.takeException(), isNull);
+
+    tester.view.physicalSize = const Size(1200, 800);
+    await tester.pumpAndSettle();
+    editor.inputCubit.toggleKeyboardHideUI();
+    await tester.pumpAndSettle();
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(find.byType(NavigatorView), findsNothing);
+    expect(find.byType(Card).hitTestable(), findsNothing);
+
+    editor.inputCubit.exitHideUI();
+    await tester.pumpAndSettle();
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isTrue);
+    await windowCubit.changeFullScreen(true);
+    await tester.pumpAndSettle();
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(find.byType(NavigatorView), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('floating editor closes from the top-right screen corner', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1262, 711);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['floatingEditor'],
+      ),
+    );
+    await openEditor(tester);
+    await tester.tapAt(const Offset(1261.5, 0.5));
+    await tester.pump();
+    expect(
+      windowManagerCalls.where((call) => call.method == 'close'),
+      hasLength(1),
+    );
+  });
+
+  testWidgets('floating overlays expand search from the document panel', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1262, 711);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['floatingEditor'],
+      ),
+    );
+    await openEditor(tester);
+    final titleCard = find
+        .descendant(of: find.byType(PadAppBar), matching: find.byType(Card))
+        .at(1);
+    final titleRect = tester.getRect(titleCard);
+    final controller = tester
+        .widget<PadAppBar>(find.byType(PadAppBar))
+        .searchController;
+    await tester.tap(find.byTooltip('Search').hitTestable());
+    await tester.pumpAndSettle();
+    final searchSurface = find
+        .ancestor(of: find.byType(SearchBar), matching: find.byType(Material))
+        .first;
+    expect(tester.getTopLeft(searchSurface), titleRect.topLeft);
+    expect(controller.isOpen, isTrue);
+    expect(tester.takeException(), isNull);
+    controller.closeView(null);
+    await tester.pumpAndSettle();
+    expect(controller.isOpen, isFalse);
+  });
+
+  testWidgets(
+    'floating header keeps large text within its height and hides native controls',
+    (tester) async {
+      tester.view.physicalSize = const Size(1262, 711);
+      tester.view.devicePixelRatio = 1;
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          flags: ['floatingEditor'],
+          nativeTitleBar: true,
+          cameraControlsVisibility: CameraControlsVisibility.hidden,
+        ),
+      );
+      await openEditor(tester);
+      expect(
+        find.byType(WindowButtons<SettingsCubit, ButterflySettings>),
+        findsNothing,
+      );
+      final headerRect = tester.getRect(find.byType(PadAppBar));
+      final titleRect = tester.getRect(find.byType(TextFormField));
+      expect(headerRect.contains(titleRect.topLeft), isTrue);
+      expect(headerRect.contains(titleRect.bottomRight), isTrue);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   testWidgets('undo and redo survive touch Hand mapping and lost focus', (
     tester,

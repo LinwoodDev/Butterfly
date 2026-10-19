@@ -51,7 +51,9 @@ enum NavigatorPage {
 }
 
 class NavigatorView extends StatefulWidget {
-  const NavigatorView({super.key});
+  final bool floating;
+
+  const NavigatorView({super.key, this.floating = false});
 
   @override
   State<NavigatorView> createState() => _NavigatorViewState();
@@ -99,6 +101,15 @@ class _NavigatorViewState extends State<NavigatorView>
                 previous.navigatorPage != current.navigatorPage,
             builder: (context, viewState) {
               final selected = pages.indexOf(viewState.navigatorPage);
+              void selectPage(int index) {
+                final cubit = context.read<EditorViewCubit>();
+                if (selected == index) {
+                  cubit.setNavigator(enabled: !viewState.navigatorEnabled);
+                  return;
+                }
+                cubit.setNavigator(page: pages[index], enabled: true);
+              }
+
               if (viewState.navigatorEnabled) {
                 _animationController.forward();
               } else {
@@ -120,7 +131,22 @@ class _NavigatorViewState extends State<NavigatorView>
                       animation: _animation,
                       child: SizedBox(
                         width: kNavigatorDrawerWidth,
-                        child: Card(child: DocumentNavigator(asDialog: false)),
+                        child: Card(
+                          margin: widget.floating
+                              ? EdgeInsets.only(
+                                  left: settings.navigatorPosition == .left
+                                      ? 0
+                                      : 8,
+                                  right: settings.navigatorPosition == .right
+                                      ? 0
+                                      : 8,
+                                  top: 8,
+                                  bottom: 8,
+                                )
+                              : null,
+                          clipBehavior: widget.floating ? Clip.antiAlias : null,
+                          child: DocumentNavigator(asDialog: false),
+                        ),
                       ),
                       builder: (context, child) {
                         if (_animation.value == 0) {
@@ -130,34 +156,53 @@ class _NavigatorViewState extends State<NavigatorView>
                       },
                     ),
                   ),
-                  NavigationRail(
-                    scrollable: true,
-                    minWidth: kNavigationRailWidth,
-                    destinations: pages
-                        .map(
-                          (e) => NavigationRailDestination(
-                            icon: PhosphorIcon(e.icon()),
-                            label: Text(e.getLocalizedName(context)),
+                  if (widget.floating)
+                    Card(
+                      elevation: 6,
+                      margin: const EdgeInsets.all(8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              for (var i = 0; i < pages.length; i++)
+                                IconButton(
+                                  tooltip: pages[i].getLocalizedName(context),
+                                  isSelected:
+                                      viewState.navigatorEnabled &&
+                                      selected == i,
+                                  icon: PhosphorIcon(pages[i].icon()),
+                                  selectedIcon: PhosphorIcon(
+                                    pages[i].icon(filled: true),
+                                  ),
+                                  onPressed: () => selectPage(i),
+                                ),
+                            ],
                           ),
-                        )
-                        .toList(),
-                    selectedIndex: viewState.navigatorEnabled
-                        ? selected < 0
-                              ? 0
-                              : selected
-                        : null,
-                    groupAlignment: 0,
-                    onDestinationSelected: (index) {
-                      final cubit = context.read<EditorViewCubit>();
-                      if (selected == index) {
-                        cubit.setNavigator(
-                          enabled: !viewState.navigatorEnabled,
-                        );
-                        return;
-                      }
-                      cubit.setNavigator(page: pages[index], enabled: true);
-                    },
-                  ),
+                        ),
+                      ),
+                    )
+                  else
+                    NavigationRail(
+                      scrollable: true,
+                      minWidth: kNavigationRailWidth,
+                      destinations: pages
+                          .map(
+                            (e) => NavigationRailDestination(
+                              icon: PhosphorIcon(e.icon()),
+                              label: Text(e.getLocalizedName(context)),
+                            ),
+                          )
+                          .toList(),
+                      selectedIndex: viewState.navigatorEnabled
+                          ? selected < 0
+                                ? 0
+                                : selected
+                          : null,
+                      groupAlignment: 0,
+                      onDestinationSelected: selectPage,
+                    ),
                 ],
               );
             },
