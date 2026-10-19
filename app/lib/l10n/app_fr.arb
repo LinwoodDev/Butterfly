@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Ouvre l'écran d'accueil lorsque le papillon démarre.",
   "onStartupLastNoteDescription": "Réouvre votre note la plus récente au démarrage du papillon.",
   "onStartupNewNoteDescription": "Crée une nouvelle note au démarrage du papillon.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Rend la panne et le zoom plus lisse en simplifiant la toile pendant son déplacement.",
   "edgePanAreaSwitchingDescription": "Bascule vers une zone voisine lorsque vous faites une casserole près du bord de la toile.",
   "collaborationDescription": "Permet à plusieurs personnes de modifier la même note ensemble en temps réel.",
