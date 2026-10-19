@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Öppnar startskärmen när Butterfly startar.",
   "onStartupLastNoteDescription": "Återöppnar din senast använda anteckning när Butterfly startar.",
   "onStartupNewNoteDescription": "Skapar en ny ton när fjärilen startar.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Gör att panorering och zoomning känns smidigare genom att förenkla duken medan den rör sig.",
   "edgePanAreaSwitchingDescription": "Byter till ett angränsande område när du panorerar nära kanten av duken.",
   "collaborationDescription": "Tillåter flera personer att redigera samma anteckning tillsammans i realtid.",
