@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "バタフライが開始されたときにホーム画面を開きます。",
   "onStartupLastNoteDescription": "Butterflyを起動したときに、最近使用したノートを再び開きます。",
   "onStartupNewNoteDescription": "Butterflyの起動時に新しいノートを作成します。",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "移動中のキャンバスを簡素化することで、パンニングとズームがスムーズになります。",
   "edgePanAreaSwitchingDescription": "キャンバスの端に近い位置にパンすると、隣のエリアに切り替わります。",
   "collaborationDescription": "複数の人が同じノートをリアルタイムで編集できます。",
