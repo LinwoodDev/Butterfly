@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Deschide ecranul de start la pornirea butonului.",
   "onStartupLastNoteDescription": "Redeschide cea mai recentă notă folosită atunci când Butterfly pornește.",
   "onStartupNewNoteDescription": "Creează o nouă notă atunci când Butterfly începe.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Face să se simtă mai liniştite prin simplificarea pânzei în timp ce se mişcă.",
   "edgePanAreaSwitchingDescription": "Comută la o zonă vecină când urci lângă marginea pânzilor.",
   "collaborationDescription": "Permite mai multor persoane să editeze aceeași notă împreună în timp real.",
