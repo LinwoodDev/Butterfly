@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Otevře domovskou obrazovku při startu Butterfly",
   "onStartupLastNoteDescription": "Znovu otevře vaši naposledy použitou poznámku při startu Butterfly",
   "onStartupNewNoteDescription": "Vytvoří novou poznámku, když začne Butterfly",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Zjednodušením plátna během pohybu panování a přiblížění se cítí plynulé.",
   "edgePanAreaSwitchingDescription": "Přepne do sousední oblasti, když se poblíž okraje plátna.",
   "collaborationDescription": "Umožňuje více lidí upravovat stejnou poznámku společně v reálném čase.",
