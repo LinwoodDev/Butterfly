@@ -104,7 +104,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: a30acf04efc75503353ccecadbd1628dff218721
+      ref: 2abff23c4cd7a2021f618ae7a6da39714201d749
       path: packages/lw_file_system
   keybinder:
     git:

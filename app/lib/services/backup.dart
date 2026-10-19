@@ -199,6 +199,7 @@ class BackupService(
     final bytes = await createButterflyDataArchive(fileSystem);
     final fileName = backupFileName(createdAt);
     final backupSystem = fileSystem.buildBackupSystem(storage);
+    await backupSystem.initialize();
     await backupSystem.updateFile(fileName, bytes, forceSync: true);
     await fileSystem.settingsCubit.updateLastBackup(createdAt.toUtc());
     talker.info('Created backup $fileName on ${storage.identifier}');
