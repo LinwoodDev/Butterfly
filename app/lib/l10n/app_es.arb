@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Abre la pantalla de inicio cuando se inicia la mariposa.",
   "onStartupLastNoteDescription": "Vuelve a abrir tu nota más reciente cuando se inicia la mariposa.",
   "onStartupNewNoteDescription": "Crea una nueva nota cuando se inicia la mariposa.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Hace que el pandeo y el zooming se sienta más suave simplificando el lienzo mientras se mueve.",
   "edgePanAreaSwitchingDescription": "Cambia a un área vecina cuando te acercas al borde del lienzo.",
   "collaborationDescription": "Permite a varias personas editar la misma nota juntos en tiempo real.",
