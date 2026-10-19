@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Öffnet den Startbildschirm beim Start von Butterfly.",
   "onStartupLastNoteDescription": "Öffnet die zuletzt verwendete Notiz beim Start von Schmetterling.",
   "onStartupNewNoteDescription": "Erstellt eine neue Notiz, wenn Butterfly beginnt.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Durch die Vereinfachung der Leinwand während der Bewegung fühlt sich das Vergrößern glatter an.",
   "edgePanAreaSwitchingDescription": "Wechselt zu einem benachbarten Gebiet, wenn Sie am Rand der Leinwand schwenken.",
   "collaborationDescription": "Erlaubt mehreren Personen die gleiche Notiz in Echtzeit zu bearbeiten.",
