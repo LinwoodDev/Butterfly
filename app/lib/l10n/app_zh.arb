@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Butter调用时打开主屏幕。",
   "onStartupLastNoteDescription": "Butterfight 开始时重新打开您最近使用过的笔记。",
   "onStartupNewNoteDescription": "启动时创建一个新笔记。",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "在移动时通过简化画布使得画布变得更加舒适。",
   "edgePanAreaSwitchingDescription": "当你在画布边缘靠近画布时，切换到邻居地区。",
   "collaborationDescription": "允许多人实时编辑同一笔记。",
