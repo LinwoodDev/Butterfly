@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Открывает главный экран при запуске Бабочки.",
   "onStartupLastNoteDescription": "При запуске Бабочки откроет ваше последнее использование.",
   "onStartupNewNoteDescription": "Создает новую заметку при запуске Бабочки.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Делает перекачивание и масштабирование чувствует себя гладко, упрощая холст во время движения.",
   "edgePanAreaSwitchingDescription": "Переключается на соседний участок, когда Вы ошеломитесь рядом с краем холста.",
   "collaborationDescription": "Позволяет нескольким людям редактировать одну и ту же запись вместе в реальном времени.",
