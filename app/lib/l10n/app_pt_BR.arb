@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Abre a tela inicial quando a Borboleta iniciar.",
   "onStartupLastNoteDescription": "Reabre sua nota usada mais recentemente quando começar a Borboleta.",
   "onStartupNewNoteDescription": "Cria uma nova nota quando a Borboleta inicia.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Faz com que uma panela e zoom pareçam mais suaves simplificando a tela enquanto ela está em movimento.",
   "edgePanAreaSwitchingDescription": "Muda para uma área de vizinhança quando você virar para perto da borda da tela.",
   "collaborationDescription": "Permite que várias pessoas editem a mesma nota juntos em tempo real.",
