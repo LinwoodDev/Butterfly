@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Opent het startscherm wanneer Vlinder start.",
   "onStartupLastNoteDescription": "Herstart je laatst gebruikte notitie wanneer Vlinder start.",
   "onStartupNewNoteDescription": "Maakt een nieuwe notitie wanneer Vlinder start.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Maakt het gieten en zoomen soepeler door het doek te vereenvoudigen terwijl het beweegt.",
   "edgePanAreaSwitchingDescription": "Schakelt over naar een buurgebied als je vlakbij de rand van het doek.",
   "collaborationDescription": "Laat meerdere mensen toe om dezelfde notitie in real time te bewerken.",
