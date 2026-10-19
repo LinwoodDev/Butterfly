@@ -1655,6 +1655,8 @@
   "onStartupHomeScreenDescription": "Apre la schermata iniziale all'avvio di Butterfly.",
   "onStartupLastNoteDescription": "Riapre la tua nota usata più di recente quando inizia la farfalla.",
   "onStartupNewNoteDescription": "Crea una nuova nota quando inizia Butterfly.",
+  "floatingEditor": "Floating editor",
+  "floatingEditorDescription": "Floats the editor controls over the canvas on wide screens.",
   "smoothNavigationDescription": "Rende il panning e lo zoom si sentono più fluidi semplificando la tela mentre è in movimento.",
   "edgePanAreaSwitchingDescription": "Passa a un'area vicina quando si pan vicino al bordo della tela.",
   "collaborationDescription": "Consente a più persone di modificare la stessa nota insieme in tempo reale.",
