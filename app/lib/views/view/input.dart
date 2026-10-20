@@ -8,6 +8,7 @@ class _ViewportInputCoordinator {
   final void Function(TransformCubit transformCubit) _settleSlide;
   final BuildContext _context;
   final Map<int, PointerDeviceKind> _pointerKinds = {};
+  final Map<int, int> _stylusHoverButtonState = {};
   final PointerShortcutManager _shortcutManager = .new();
   int? _heldShortcutKeyId;
 
@@ -39,6 +40,7 @@ class _ViewportInputCoordinator {
     _pointerKinds.clear();
     _rotationDrag = null;
     _cameraRotationGesture = false;
+    _stylusHoverButtonState.clear();
     _resetRulerInteraction();
     _handlerHandlesScaleGesture = null;
     _heldShortcutKeyId = null;
@@ -95,6 +97,16 @@ class _ViewportInputCoordinator {
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    if (!skipShortcuts) {
+      // Buffer the effective state with the event so replay cannot pick up
+      // hover buttons from a later stroke.
+      final buttons = mergeStylusButtonState(
+        kind: event.kind,
+        eventButtons: event.buttons,
+        hoverButtons: _stylusHoverButtonState[event.device] ?? 0,
+      );
+      if (buttons != event.buttons) event = event.copyWith(buttons: buttons);
+    }
     final cubit = input.cubit;
     final getHandler = input.getHandler;
     final getEventContext = input.getEventContext;
@@ -161,6 +173,20 @@ class _ViewportInputCoordinator {
     }
   }
 
+  void handlePointerHover(PointerHoverEvent event, _PointerInputContext input) {
+    final cubit = input.cubit;
+    if (event.kind == PointerDeviceKind.stylus ||
+        event.kind == PointerDeviceKind.invertedStylus) {
+      if (event.buttons == 0) {
+        _stylusHoverButtonState.remove(event.device);
+      } else {
+        _stylusHoverButtonState[event.device] = event.buttons;
+      }
+    }
+    cubit.inputCubit.updateLastPosition(event.localPosition);
+    input.getHandler().onPointerHover(event, input.getEventContext());
+  }
+
   Future<void> handlePointerMove(
     PointerMoveEvent event,
     _PointerInputContext input, {
@@ -224,6 +250,10 @@ class _ViewportInputCoordinator {
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    if (!skipShortcuts &&
+        (event.kind == .stylus || event.kind == .invertedStylus)) {
+      _stylusHoverButtonState.remove(event.device);
+    }
     final cubit = input.cubit;
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer != event.pointer) return;
@@ -291,6 +321,9 @@ class _ViewportInputCoordinator {
   }
 
   void handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
+    if (event.kind == .stylus || event.kind == .invertedStylus) {
+      _stylusHoverButtonState.remove(event.device);
+    }
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer == event.pointer) _rotationDrag = null;
       cubit.inputCubit.removePointer(event.pointer);

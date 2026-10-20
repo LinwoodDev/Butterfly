@@ -28,6 +28,16 @@ const kDefaultRotationStep = 5.0;
 const kDefaultZoomStep = 0.1;
 const kDefaultBackupIntervalMinutes = 24 * 60;
 
+int mergeStylusButtonState({
+  required PointerDeviceKind kind,
+  required int eventButtons,
+  required int hoverButtons,
+}) =>
+    (kind == PointerDeviceKind.stylus ||
+        kind == PointerDeviceKind.invertedStylus)
+    ? eventButtons | hoverButtons
+    : eventButtons;
+
 int _readBackupIntervalMinutes(SharedPreferences prefs) {
   final minutes =
       prefs.getInt('backup_interval_minutes') ?? kDefaultBackupIntervalMinutes;
