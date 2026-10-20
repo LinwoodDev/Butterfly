@@ -756,6 +756,12 @@
   },
   "syncModeManualDescription": "Sincronizza solo quando lo avvii da solo.",
   "search": "Cerca",
+  "searchDocument": "Search this document",
+  "searchDocumentHelp": "Find pages, text, areas, waypoints, and tools.",
+  "searchNoResults": "No results found",
+  "searchNoResultsHelp": "Try a different word or phrase.",
+  "searchFailed": "Search couldn't be completed",
+  "searchFailedHelp": "Try searching again.",
   "@search": {
     "description": "Search action"
   },
