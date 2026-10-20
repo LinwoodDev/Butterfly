@@ -8,9 +8,7 @@ const kToolbarSmall = Size.fromHeight(48.0);
 const kToolbarLarge = Size.fromHeight(75.0);
 
 class ToolbarView extends StatefulWidget {
-  final bool edgeAttached;
-
-  const ToolbarView({super.key, this.edgeAttached = false});
+  const ToolbarView({super.key});
 
   @override
   State<ToolbarView> createState() => _ToolbarViewState();
