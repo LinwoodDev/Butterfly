@@ -756,6 +756,12 @@
   },
   "syncModeManualDescription": "Only syncs when you start it yourself.",
   "search": "Tìm kiếm",
+  "searchDocument": "Search this document",
+  "searchDocumentHelp": "Find pages, text, areas, waypoints, and tools.",
+  "searchNoResults": "No results found",
+  "searchNoResultsHelp": "Try a different word or phrase.",
+  "searchFailed": "Search couldn't be completed",
+  "searchFailedHelp": "Try searching again.",
   "@search": {
     "description": "Search action"
   },
