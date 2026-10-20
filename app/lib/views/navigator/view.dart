@@ -52,7 +52,9 @@ enum NavigatorPage {
 }
 
 class NavigatorView extends StatefulWidget {
-  const NavigatorView({super.key});
+  final bool floating;
+
+  const NavigatorView({super.key, this.floating = false});
 
   @override
   State<NavigatorView> createState() => _NavigatorViewState();

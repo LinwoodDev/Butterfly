@@ -26,7 +26,8 @@ hero:
 ---
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
-import LandingFeature from '@components/LandingFeature.astro';
+import Landing from '@linwooddev/starlight-style/components/Landing.astro';
+import LandingFeature from '@linwooddev/starlight-style/components/LandingFeature.astro';
 import crossplatform from '@assets/img/homepage/crossplatform.png';
 import crossplatformDark from '@assets/img/homepage/crossplatform-dark.png';
 import collageLight from '@assets/img/homepage/collage-light.png';
@@ -35,6 +36,8 @@ import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
 import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
 import penLight from '@assets/img/homepage/Pen-light.png';
 import penDark from '@assets/img/homepage/Pen-dark.png';
+
+<Landing>
 
 <LandingFeature image={desktop2LightRuler} darkImage={desktop2DarkRuler} alt="손글씨 메모, 다이어그램, 자가 있는 Butterfly 캔버스">
 
@@ -114,7 +117,11 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
   </Card>
 </CardGrid>
 
-<h2 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly, 시각적 사고를 위한 끝없는 캔버스.</h2>
+<div class="landing-heading">
+
+  ## Butterfly, 시각적 사고를 위한 끝없는 캔버스.
+
+</div>
 
 <CardGrid>
   <LinkCard class="landing-action" title="Butterfly 다운로드" description="휴대폰, 태블릿, 컴퓨터에 앱을 설치하세요." href="/downloads/" />
@@ -124,3 +131,5 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
 </CardGrid>
 
 Butterfly는 공개적으로 개발되며 다양한 언어로 제공됩니다. 피드백을 공유하고, 번역을 돕고, 프로젝트에 기여하려면 [커뮤니티에 참여하세요](/community/).
+
+</Landing>

@@ -51,5 +51,12 @@
   "privacy_policy": "Informativa privacy",
   "ruler": "Righello",
   "grid": "Griglia",
-  "utilities": "Utilità"
+  "utilities": "Utilità",
+  "settings": "Impostazioni",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Tabella",
+  "embedding_example": "Embedding example",
+  "imprint": "Contatti"
 }

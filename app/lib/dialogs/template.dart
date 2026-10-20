@@ -1507,21 +1507,13 @@ void _applyTemplateBackgroundsToPages(
       bloc.add(AssetUpdated(source, asset));
     }
   }
-  final originalPageName = state.pageName;
-  var activePageName = originalPageName;
   for (final pageName in pageNames) {
-    if (pageName == null) {
-      bloc.add(DocumentBackgroundsChanged(backgrounds));
-      continue;
-    }
-    if (pageName != activePageName) {
-      bloc.add(PageChanged(pageName));
-      activePageName = pageName;
-    }
-    bloc.add(DocumentBackgroundsChanged(backgrounds));
-  }
-  if (activePageName != originalPageName) {
-    bloc.add(PageChanged(originalPageName));
+    bloc.add(
+      DocumentBackgroundsChanged(
+        backgrounds,
+        pageName: pageName ?? state.pageName,
+      ),
+    );
   }
 }
 

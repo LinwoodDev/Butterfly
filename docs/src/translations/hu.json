@@ -51,5 +51,12 @@
   "privacy_policy": "Adatvédelmi nyilatkozat",
   "ruler": "Vonalzó",
   "grid": "Rács",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "Beállítások",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "Impresszum"
 }

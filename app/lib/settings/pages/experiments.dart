@@ -7,6 +7,7 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     AppLocalizations.of(context).collaboration,
     AppLocalizations.of(context).smoothNavigation,
     AppLocalizations.of(context).edgePanAreaSwitching,
+    AppLocalizations.of(context).floatingEditor,
   ],
   appBarBuilder: _butterflyAppBar,
   onReset: (context, state) => context.read<SettingsCubit>().resetFlags(),
@@ -14,6 +15,15 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     'flags': SettingsLeapSection(
       headerBuilder: _experimentsHeader,
       settings: [
+        SettingsLeapBoolSetting(
+          displayName: (context) => AppLocalizations.of(context).floatingEditor,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).floatingEditorDescription,
+          icon: PhosphorIconsLight.squaresFour,
+          read: (state) => state.hasFlag('floatingEditor'),
+          write: (context, value) =>
+              _changeFlag(context, 'floatingEditor', value),
+        ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).collaboration,
           hintBuilder: (context) =>

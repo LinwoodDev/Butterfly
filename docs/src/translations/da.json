@@ -51,5 +51,12 @@
   "privacy_policy": "Privatliv politik",
   "ruler": "Lineal",
   "grid": "Gitter",
-  "utilities": "Værktøjer"
+  "utilities": "Værktøjer",
+  "settings": "Indstillinger",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Tabel",
+  "embedding_example": "Embedding example",
+  "imprint": "Imprint"
 }

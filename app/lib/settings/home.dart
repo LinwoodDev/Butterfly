@@ -8,6 +8,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/input.dart';
+import 'package:butterfly/dialogs/collaboration/options.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/document_state.dart';

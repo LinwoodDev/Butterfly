@@ -140,7 +140,13 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                         ),
                       );
                       if (name == null) return;
-                      bloc.add(CollectionRenamed(current, name));
+                      bloc.add(
+                        CollectionRenamed(
+                          current,
+                          name,
+                          pageName: bloc.state.pageName,
+                        ),
+                      );
                     },
                     icon: const PhosphorIcon(
                       PhosphorIconsLight.textT,
@@ -157,7 +163,12 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                         builder: (context) => const DeleteDialog(),
                       );
                       if (result != true) return;
-                      bloc.add(CollectionElementsRemoved(current));
+                      bloc.add(
+                        CollectionElementsRemoved(
+                          current,
+                          pageName: bloc.state.pageName,
+                        ),
+                      );
                       if (context.mounted) Navigator.pop(context);
                     },
                     tooltip: AppLocalizations.of(context).deleteElements,

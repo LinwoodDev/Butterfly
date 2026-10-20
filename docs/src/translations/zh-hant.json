@@ -51,5 +51,12 @@
   "privacy_policy": "隱私政策",
   "ruler": "標尺",
   "grid": "格線",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "設定",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "發行頁面"
 }

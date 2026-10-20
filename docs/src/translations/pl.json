@@ -51,5 +51,12 @@
   "privacy_policy": "Polityka prywatności",
   "ruler": "Rywalizacja",
   "grid": "Siatka",
-  "utilities": "Narzędzia"
+  "utilities": "Narzędzia",
+  "settings": "Ustawienia",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Tabela",
+  "embedding_example": "Embedding example",
+  "imprint": "Nadruk"
 }

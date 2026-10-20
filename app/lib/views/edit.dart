@@ -21,6 +21,7 @@ class EditToolbar extends StatefulWidget {
   final bool isMobile;
   final bool? centered;
   final Axis direction;
+  final bool edgeAttached;
 
   /// Shown inline in the top bar: one row at the shared top bar height.
   final bool compact;
@@ -71,7 +72,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
+    final toolbar = Directionality(
       textDirection: .ltr,
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
@@ -155,6 +156,9 @@ class _EditToolbarState extends State<EditToolbar> {
         },
       ),
     );
+    return widget.edgeAttached
+        ? MenuTheme(data: kFloatingEditorMenuTheme, child: toolbar)
+        : toolbar;
   }
 
   Widget _buildIcon(
@@ -518,8 +522,17 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .updateLocks(locks: update()),
                             child: Text(title),
                           );
+                          final menuButtonBuilder = defaultMenuButton(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.lockKey,
+                            ),
+                            tooltip: AppLocalizations.of(context).lock,
+                          );
 
                           return MenuAnchor(
+                            alignmentOffset: widget.edgeAttached
+                                ? const Offset(0, 8)
+                                : Offset.zero,
                             menuChildren: [
                               buildButton(
                                 locks.lockCollection,
@@ -570,12 +583,21 @@ class _EditToolbarState extends State<EditToolbar> {
                             style: const MenuStyle(
                               alignment: Alignment.bottomLeft,
                             ),
-                            builder: defaultMenuButton(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.lockKey,
-                              ),
-                              tooltip: AppLocalizations.of(context).lock,
-                            ),
+                            builder: (context, controller, child) {
+                              final button = menuButtonBuilder(
+                                context,
+                                controller,
+                                child,
+                              );
+                              if (!widget.edgeAttached) return button;
+                              return SizedBox(
+                                height: direction == .horizontal
+                                    ? fullSize
+                                    : null,
+                                width: direction == .vertical ? fullSize : null,
+                                child: Center(child: button),
+                              );
+                            },
                           );
                         },
                       ),
@@ -583,6 +605,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         MainPopupMenu(
                           viewportKey: GlobalKey(),
                           isLarge: !isMobile,
+                          floating: widget.edgeAttached,
                         ),
                     ];
                     if (direction == .horizontal) {

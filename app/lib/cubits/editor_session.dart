@@ -45,6 +45,7 @@ class EditorSessionCubit({
     required PersistentLockState fallbackLocks,
     String? pathKey,
     String? contentHash,
+    bool isCreating = false,
   }) {
     final pages = document.getPages(true).toSet();
     final pageName =
@@ -84,6 +85,7 @@ class EditorSessionCubit({
         invisibleLayers: invisibleLayers,
       ),
       updatedAt: restored?.updatedAt,
+      autoThumbnail: restored?.autoThumbnail ?? isCreating,
     );
   }
 

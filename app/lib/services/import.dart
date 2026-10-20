@@ -8,6 +8,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/services/asset.dart';
+import 'package:butterfly/helpers/svg.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -180,8 +181,21 @@ class ImportResult {
       );
     } else {
       bloc
-        ?..add(AreasCreated(areas.map((e) => AreaPreset(area: e)).toList()))
-        ..add(ElementsCreated(elements, assets: _importAssets));
+        ?..add(
+          AreasCreated(
+            areas
+                .map((e) => AreaPreset(page: state?.pageName ?? '', area: e))
+                .toList(),
+          ),
+        )
+        ..add(
+          ElementsCreated(
+            elements,
+            assets: _importAssets,
+            pageName: state?.pageName,
+            layer: state?.currentLayer,
+          ),
+        );
     }
     bloc?.add(
       PagesAdded(
@@ -968,7 +982,7 @@ class ImportService(
     try {
       final screen = MediaQuery.sizeOf(context);
       final firstPos = position ?? Offset.zero;
-      final contentString = String.fromCharCodes(bytes);
+      final contentString = normalizeSvgBytes(bytes);
       try {
         var info = await vg.loadPicture(SvgStringLoader(contentString), null);
         try {

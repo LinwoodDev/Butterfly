@@ -5,6 +5,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/texture.dart';
 import 'package:butterfly/visualizer/preset.dart';
+import 'package:butterfly/helpers/svg.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:material_ui/material_ui.dart';
@@ -188,7 +189,10 @@ class _BackgroundDialogState extends State<BackgroundDialog>
           child: Text(AppLocalizations.of(context).save),
           onPressed: () {
             context.read<DocumentBloc>().add(
-              DocumentBackgroundsChanged(_backgrounds),
+              DocumentBackgroundsChanged(
+                _backgrounds,
+                pageName: context.read<DocumentBloc>().state.pageName,
+              ),
             );
             Navigator.of(context).pop();
           },

@@ -92,7 +92,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (elements.isEmpty) return;
     _submittedElements.addAll(elements);
     lastPosition.removeWhere((key, value) => indexes.contains(key));
-    bloc.add(ElementsCreated(elements));
+    bloc.add(
+      ElementsCreated(
+        elements,
+        pageName: bloc.state.pageName,
+        layer: bloc.state.currentLayer,
+      ),
+    );
     bloc.refresh(allowBake: false);
   }
 
@@ -436,9 +442,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (shapeElement != null) {
       // Add element on document
       context.getDocumentBloc().add(
-        ElementsCreated([
-          orientCreatedElement(shapeElement, transform.rotation),
-        ]),
+        ElementsCreated(
+          [orientCreatedElement(shapeElement, transform.rotation)],
+          pageName: context.getState()?.pageName,
+          layer: context.getState()?.currentLayer,
+        ),
       );
 
       elements.clear();

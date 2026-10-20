@@ -22,6 +22,8 @@ Other Behavior settings control canvas navigation, rendering, and how imported m
 
 **View** changes the layout of the editor: zoom controls, properties panel, toolbar position and size, navigation rail, and navigator previews. Its Home section controls file thumbnails and whether file extensions are shown. These settings affect the interface across documents; the [Utilities camera tab](../utilities/#camera) changes the view of the current document.
 
+**Camera controls** can be **Temporary on mobile** (the default), **Hidden**, **Temporary**, or **Always**. Temporary controls appear when you zoom or rotate and fade out after five seconds of inactivity. They stay visible while you interact with the controls or edit a value. Temporary on mobile keeps the controls always visible on larger screens. Choose their position, layout, and rotation display separately in View.
+
 ## Data and Connections {#data-and-connections}
 
 **Data** contains backup and data directory options, template and pack management, file export, and settings import, export, or reset. Before changing the data directory, see [Storage](../storage/#data-directory) for where Butterfly keeps documents and reusable assets.

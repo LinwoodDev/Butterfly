@@ -51,5 +51,12 @@
   "privacy_policy": "Πολιτική απορρήτου",
   "ruler": "Κανόνας",
   "grid": "Πλέγμα",
-  "utilities": "Βοηθητικά"
+  "utilities": "Βοηθητικά",
+  "settings": "Ρυθμίσεις",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Πίνακας",
+  "embedding_example": "Embedding example",
+  "imprint": "Αποτύπωμα"
 }

@@ -51,5 +51,12 @@
   "privacy_policy": "Политика конфиденциальности",
   "ruler": "Линейка",
   "grid": "Сетка",
-  "utilities": "Утилиты"
+  "utilities": "Утилиты",
+  "settings": "Настройки",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Таблица",
+  "embedding_example": "Embedding example",
+  "imprint": "О компании"
 }

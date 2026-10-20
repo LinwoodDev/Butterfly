@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:cryptography_plus/cryptography_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -66,6 +67,7 @@ sealed class NetworkingUser with _$NetworkingUser {
   const factory NetworkingUser({
     @DoublePointJsonConverter() Point<double>? cursor,
     List<PadElement>? foreground,
+    String? pageName,
     @Default('') String name,
   }) = _NetworkingUser;
 
@@ -95,13 +97,43 @@ enum ConnectionTechnology {
   };
 }
 
-class NetworkingService({final Duration timeout = kTimeout})
-    extends Cubit<NetworkState?> {
-  this : super(null);
+class NetworkingService extends Cubit<NetworkState?> {
+  final Duration timeout;
+  final SettingsCubit? settingsCubit;
+  NetworkingService({
+    this.timeout = kTimeout,
+    CollaborationSettings? initialSettings,
+    this.settingsCubit,
+  }) : _sessionSettings = initialSettings,
+       super(null);
+
+  SettingsCubit? _settingsCubit;
+  CollaborationSettings? _sessionSettings;
+  StreamSubscription<CollaborationSettings>? _settingsSubscription;
+  CollaborationSettings get settings =>
+      _sessionSettings ??
+      _settingsCubit?.state.collaboration ??
+      settingsCubit?.state.collaboration ??
+      const CollaborationSettings();
+
+  void setSessionSettings(CollaborationSettings? settings) {
+    if (isClosed) return;
+    _sessionSettings = settings;
+    _refreshPresence();
+  }
+
+  void _refreshPresence() {
+    final bloc = _bloc;
+    if (bloc != null && !bloc.isClosed) {
+      bloc.editorController.updateNetworkingState(bloc);
+    }
+  }
+
   DocumentBloc? _bloc;
   StreamSubscription<Uint8List>? _resetSubscription;
   StreamSubscription<void>? _clientClosedSubscription;
   String _userName = '';
+  NetworkingUser _localUser = const NetworkingUser();
   final BehaviorSubject<Set<Channel>> _connections = .seeded({});
   final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
@@ -152,6 +184,12 @@ class NetworkingService({final Duration timeout = kTimeout})
 
   void setup(DocumentBloc bloc) {
     _bloc = bloc;
+    _settingsCubit = bloc.editorController.settingsCubit;
+    _settingsSubscription?.cancel();
+    _settingsSubscription = _settingsCubit!.stream
+        .map((state) => state.collaboration)
+        .distinct()
+        .listen((_) => _refreshPresence());
     _resetSubscription?.cancel();
     _resetSubscription = resetStream.listen((event) {
       bloc.add(DocumentRebuilt(event));
@@ -160,7 +198,7 @@ class NetworkingService({final Duration timeout = kTimeout})
   }
 
   Future<void> createSocketServer([String? address, int? port]) async {
-    await closeNetworking();
+    await closeNetworking(resetSettings: false);
     final server = NetworkerSocketServer(
       address != null
           ? InternetAddress(address, type: InternetAddressType.any)
@@ -181,7 +219,7 @@ class NetworkingService({final Duration timeout = kTimeout})
   }
 
   Future<Uint8List?> createSocketClient(Uri uri) async {
-    await closeNetworking();
+    await closeNetworking(resetSettings: false);
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
     }
@@ -194,7 +232,8 @@ class NetworkingService({final Duration timeout = kTimeout})
     return _initializeClient(rpc, client, client.init);
   }
 
-  Future<void> closeNetworking() async {
+  Future<void> closeNetworking({bool resetSettings = true}) async {
+    if (resetSettings) _sessionSettings = null;
     final connection = state?.connection;
     emit(null);
     await _clientClosedSubscription?.cancel();
@@ -281,7 +320,7 @@ class NetworkingService({final Duration timeout = kTimeout})
       final sharedConnections = {kAuthorityChannel, ...current};
       rpc.sendNamedFunction(
         NetworkEvent.connections,
-        Uint8List.fromList(jsonEncode(sharedConnections.toList()).codeUnits),
+        utf8.encode(jsonEncode(sharedConnections.toList())),
       );
     }
 
@@ -300,15 +339,20 @@ class NetworkingService({final Duration timeout = kTimeout})
         sendConnections();
         rpc.sendNamedFunction(
           NetworkEvent.user,
-          Uint8List.fromList(
-            jsonEncode(NetworkingUser(name: _userName).toJson()).codeUnits,
+          utf8.encode(
+            jsonEncode(
+              NetworkingUser(
+                name: _userName,
+                pageName: state.pageName,
+              ).toJson(),
+            ),
           ),
           channel: event.$1,
         );
         for (final user in users.entries) {
           rpc.sendNamedFunction(
             NetworkEvent.user,
-            Uint8List.fromList(jsonEncode(user.value.toJson()).codeUnits),
+            utf8.encode(jsonEncode(user.value.toJson())),
             channel: event.$1,
             receiver: user.key,
           );
@@ -416,12 +460,20 @@ class NetworkingService({final Duration timeout = kTimeout})
   }
 
   void sendUser(NetworkingUser user) {
+    _localUser = user;
     final state = this.state;
     if (state == null || state is DisconnectedNetworkState) return;
     state.pipe.sendNamedFunction(
       NetworkEvent.user,
-      Uint8List.fromList(jsonEncode(user.toJson()).codeUnits),
+      utf8.encode(
+        jsonEncode(user.copyWith(pageName: _bloc?.state.pageName).toJson()),
+      ),
     );
+  }
+
+  void onPageChanged() {
+    sendUser(_localUser.copyWith(cursor: null, foreground: null));
+    _refreshPresence();
   }
 
   bool _externalEvent = false;
@@ -437,19 +489,35 @@ class NetworkingService({final Duration timeout = kTimeout})
   }
 
   void onEvent(DocumentEvent event) {
-    if (!event.shouldSync() || _externalEvent || !isActive) return;
+    if (!shouldSync(event) || _externalEvent || !isActive) return;
     state?.pipe.sendNamedFunction(
       NetworkEvent.event,
-      Uint8List.fromList(jsonEncode(event.toJson()).codeUnits),
+      utf8.encode(jsonEncode(event.toJson())),
     );
   }
 
   void onMessage(DocumentEvent event) {
-    if (!event.shouldSync()) return;
+    final bloc = _bloc;
+    if (!shouldSync(event) || bloc == null || bloc.isClosed) return;
     _externalEvent = true;
-    _bloc?.add(event);
-    _externalEvent = false;
+    try {
+      bloc.add(event);
+    } finally {
+      _externalEvent = false;
+    }
   }
+
+  bool shouldSync(DocumentEvent event) => switch (event) {
+    ToolCreated() ||
+    ToolsChanged() ||
+    ToolsRemoved() ||
+    ToolsReplaced() ||
+    ToolReordered() => settings.syncToolbar,
+    PageChanged() => settings.syncCurrentPage,
+    CurrentAreaChanged() => settings.effectiveSyncCurrentArea,
+    CurrentLayerChanged() => false,
+    _ => event.isAllowed(DocumentPermission.write),
+  };
 
   Cipher _buildCipher() => AesGcm.with256bits();
 
@@ -462,7 +530,7 @@ class NetworkingService({final Duration timeout = kTimeout})
   }
 
   Future<Uint8List?> createSwampClient(Uri uri) async {
-    await closeNetworking();
+    await closeNetworking(resetSettings: false);
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
       config: RpcConfig(channelField: false),
@@ -474,7 +542,7 @@ class NetworkingService({final Duration timeout = kTimeout})
   }
 
   Future<void> createSwampServer(Uri uri) async {
-    await closeNetworking();
+    await closeNetworking(resetSettings: false);
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
       config: RpcConfig(channelField: false),
@@ -511,6 +579,8 @@ class NetworkingService({final Duration timeout = kTimeout})
   @override
   Future<void> close() async {
     _bloc = null;
+    await _settingsSubscription?.cancel();
+    _settingsSubscription = null;
     _resetSubscription?.cancel();
     _resetSubscription = null;
     await _clientClosedSubscription?.cancel();

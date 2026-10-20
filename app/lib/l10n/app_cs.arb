@@ -674,7 +674,7 @@
   "topRight": "Vpravo nahoře",
   "bottomLeft": "Vlevo dole",
   "bottomRight": "Vpravo dole",
-  "zoomPosition": "Poloha ovládání přiblížení",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Přesto pokračovat",
-  "zoomControl": "Ovládání přiblížení",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Rozdělí vícestránkové importy na samostatné stránky poznámek namísto umístění vše na jednu stránku.",
   "shear": "Smyk",
   "resetRotation": "Obnovit rotaci",
-  "zoomPanelControls": "Ovládání panelu přiblížení",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Vyberte ovládací prvky pro přiblížení a otáčení. Tlačítka pro obnovení zůstanou k dispozici v každém rozložení.",
   "zoomPanelFull": "Plná (posuvník, textové pole a tlačítka)",
   "zoomPanelSliderInput": "Posuvník a textové pole",

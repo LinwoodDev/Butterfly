@@ -51,5 +51,12 @@
   "privacy_policy": "Política de privacitat",
   "ruler": "Regle",
   "grid": "Quadrícula",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "Configuració",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "Avís legal"
 }

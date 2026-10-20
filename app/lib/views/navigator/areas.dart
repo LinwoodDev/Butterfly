@@ -89,6 +89,7 @@ class _AreasViewState extends State<AreasView> {
       ..add(
         AreasCreated([
           AreaPreset(
+            page: state.pageName,
             area: Area(
               name: name,
               width: width,
@@ -99,7 +100,7 @@ class _AreasViewState extends State<AreasView> {
           ),
         ]),
       )
-      ..add(CurrentAreaChanged(name));
+      ..add(CurrentAreaChanged(name, pageName: bloc.state.pageName));
   }
 
   Widget buildAreaTile(
@@ -129,7 +130,7 @@ class _AreasViewState extends State<AreasView> {
         viewport.toSize(),
         viewport.resolution,
       );
-      bloc.add(CurrentAreaChanged(area.name));
+      bloc.add(CurrentAreaChanged(area.name, pageName: entry.pageName));
     }
 
     return EditableListTile(
@@ -154,7 +155,9 @@ class _AreasViewState extends State<AreasView> {
                       borderRadius: BorderRadius.circular(6),
                       onTap: () {
                         if (selected) {
-                          bloc.add(CurrentAreaChanged(''));
+                          bloc.add(
+                            CurrentAreaChanged('', pageName: entry.pageName),
+                          );
                         } else {
                           navigateToArea();
                         }
@@ -176,7 +179,9 @@ class _AreasViewState extends State<AreasView> {
                   ),
                   onPressed: () {
                     if (selected) {
-                      bloc.add(CurrentAreaChanged(''));
+                      bloc.add(
+                        CurrentAreaChanged('', pageName: entry.pageName),
+                      );
                       return;
                     }
                     navigateToArea();
@@ -210,7 +215,12 @@ class _AreasViewState extends State<AreasView> {
             ? trimmed
             : '${folderPath.join('/')}/$trimmed';
         context.read<DocumentBloc>().add(
-          AreaChanged(area.name, area.copyWith(name: nextName)),
+          AreaChanged(
+            area.name,
+            area.copyWith(name: nextName),
+            false,
+            entry.pageName,
+          ),
         );
       },
       selected: entry.isCurrentPage && current == null && !isSelectionMode

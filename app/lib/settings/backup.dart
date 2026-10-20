@@ -6,7 +6,6 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -22,9 +21,9 @@ enum _BackupDurationUnit {
 Widget buildBackupSetting(BuildContext context, ButterflySettings state) {
   final localizations = AppLocalizations.of(context);
   final settingsCubit = context.read<SettingsCubit>();
-  final remotes = state.connections.whereType<RemoteStorage>().toList();
+  final connections = state.connections;
   final selectedRemote =
-      remotes.any((storage) => storage.identifier == state.backupRemote)
+      connections.any((storage) => storage.identifier == state.backupRemote)
       ? state.backupRemote
       : null;
 
@@ -34,16 +33,16 @@ Widget buildBackupSetting(BuildContext context, ButterflySettings state) {
         leading: const PhosphorIcon(PhosphorIconsLight.cloudArrowUp),
         title: Text(localizations.backupConnection),
         subtitle: Text(
-          remotes
+          connections
                   .where((storage) => storage.identifier == selectedRemote)
                   .firstOrNull
                   ?.label ??
-              (remotes.isEmpty
+              (connections.isEmpty
                   ? localizations.noConnections
                   : localizations.select),
         ),
         trailing: MenuAnchor(
-          menuChildren: remotes
+          menuChildren: connections
               .map(
                 (storage) => MenuItemButton(
                   onPressed: () =>
@@ -53,7 +52,7 @@ Widget buildBackupSetting(BuildContext context, ButterflySettings state) {
               )
               .toList(),
           builder: (context, controller, child) => IconButton(
-            onPressed: remotes.isEmpty
+            onPressed: connections.isEmpty
                 ? null
                 : () => controller.isOpen
                       ? controller.close()

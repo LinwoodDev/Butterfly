@@ -590,6 +590,8 @@ class const SRGBConverter() extends JsonConverter<SRGBColor, int> {
 
 enum SaveMethod { manual, autosave, delayedAutosave }
 
+enum ThumbnailFraming { wholePage, viewport }
+
 @freezed
 sealed class DocumentStatePersistenceSettings
     with _$DocumentStatePersistenceSettings {
@@ -603,6 +605,7 @@ sealed class DocumentStatePersistenceSettings
     @Default(true) bool layers,
     @Default(true) bool areas,
     @Default(true) bool autoThumbnail,
+    @Default(ThumbnailFraming.wholePage) ThumbnailFraming thumbnailFraming,
     @Default(PersistentLockState()) PersistentLockState defaultLocks,
     @Default(400) int maxEntries,
     @Default(180) int maxAgeDays,
@@ -611,6 +614,24 @@ sealed class DocumentStatePersistenceSettings
   factory DocumentStatePersistenceSettings.fromJson(
     Map<String, dynamic> json,
   ) => _$DocumentStatePersistenceSettingsFromJson(json);
+}
+
+@freezed
+sealed class CollaborationSettings with _$CollaborationSettings {
+  const CollaborationSettings._();
+
+  const factory CollaborationSettings({
+    @Default(false) bool syncToolbar,
+    @Default(false) bool syncCurrentPage,
+    @Default(false) bool syncCurrentArea,
+    @Default(true) bool showCursor,
+    @Default(true) bool showTemporary,
+  }) = _CollaborationSettings;
+
+  factory CollaborationSettings.fromJson(Map<String, dynamic> json) =>
+      _$CollaborationSettingsFromJson(json);
+
+  bool get effectiveSyncCurrentArea => syncCurrentArea && syncCurrentPage;
 }
 
 @freezed
@@ -692,6 +713,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
     @Default(DocumentStatePersistenceSettings())
     DocumentStatePersistenceSettings documentStatePersistence,
+    @Default(CollaborationSettings()) CollaborationSettings collaboration,
     @Default(SimpleToolbarVisibility.show)
     SimpleToolbarVisibility simpleToolbarVisibility,
     @Default(OptionsPanelPosition.top)
@@ -849,6 +871,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       lastBackup: DateTime.tryParse(prefs.getString('last_backup') ?? ''),
       inputConfiguration: InputConfiguration.fromJson(
         _decodeJsonMapOrEmpty(prefs.getString('input_configuration')),
+      ),
+      collaboration: CollaborationSettings.fromJson(
+        _decodeJsonMapOrEmpty(prefs.getString('collaboration')),
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
@@ -1096,6 +1121,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       'input_configuration',
       json.encode(inputConfiguration.toJson()),
     );
+    await prefs.setString('collaboration', json.encode(collaboration.toJson()));
     await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setStringList('starred', starred);
     await prefs.setStringList(
@@ -1317,16 +1343,18 @@ class SettingsCubit(SharedPreferences prefs)
     return save();
   }
 
-  Future<void> changePenOnlyInput(bool? penOnlyInput) {
+  Future<void> changePenOnlyInput(bool? penOnlyInput) async {
     emit(state.copyWith(penOnlyInput: penOnlyInput));
-    return save();
+    // This editor toggle must not rewrite every preference on each click.
+    final prefs = await SharedPreferences.getInstance();
+    if (penOnlyInput == null) {
+      await prefs.remove('pen_only_input');
+    } else {
+      await prefs.setBool('pen_only_input', penOnlyInput);
+    }
   }
 
-  Future<void> resetPenOnlyInput() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('pen_only_input');
-    emit(state.copyWith(penOnlyInput: null));
-  }
+  Future<void> resetPenOnlyInput() => changePenOnlyInput(null);
 
   Future<void> changeShowPenOnlyToggle(bool showPenOnlyToggle) {
     emit(state.copyWith(showPenOnlyToggle: showPenOnlyToggle));
@@ -1716,16 +1744,13 @@ class SettingsCubit(SharedPreferences prefs)
   }
 
   Future<void> changeBackupRemote(String identifier) {
-    final remote = state.connections
-        .whereType<RemoteStorage>()
-        .firstWhereOrNull((storage) => storage.identifier == identifier);
-    if (remote == null) return Future.value();
+    if (state.getRemote(identifier) == null) return Future.value();
     emit(state.copyWith(backupRemote: identifier, lastBackup: null));
     return save();
   }
 
   Future<void> changeAutomaticBackup(bool enabled) {
-    if (enabled && state.getRemote(state.backupRemote) is! RemoteStorage) {
+    if (enabled && state.getRemote(state.backupRemote) == null) {
       return Future.value();
     }
     emit(state.copyWith(automaticBackup: enabled));
@@ -1936,6 +1961,11 @@ class SettingsCubit(SharedPreferences prefs)
     DocumentStatePersistenceSettings settings,
   ) {
     emit(state.copyWith(documentStatePersistence: settings));
+    return save();
+  }
+
+  Future<void> changeCollaborationSettings(CollaborationSettings settings) {
+    emit(state.copyWith(collaboration: settings));
     return save();
   }
 

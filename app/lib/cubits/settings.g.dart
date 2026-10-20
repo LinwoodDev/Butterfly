@@ -140,6 +140,12 @@ _DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
   layers: json['layers'] as bool? ?? true,
   areas: json['areas'] as bool? ?? true,
   autoThumbnail: json['autoThumbnail'] as bool? ?? true,
+  thumbnailFraming:
+      $enumDecodeNullable(
+        _$ThumbnailFramingEnumMap,
+        json['thumbnailFraming'],
+      ) ??
+      ThumbnailFraming.wholePage,
   defaultLocks: json['defaultLocks'] == null
       ? const PersistentLockState()
       : PersistentLockState.fromJson(json['defaultLocks'] as Map),
@@ -159,9 +165,34 @@ Map<String, dynamic> _$DocumentStatePersistenceSettingsToJson(
   'layers': instance.layers,
   'areas': instance.areas,
   'autoThumbnail': instance.autoThumbnail,
+  'thumbnailFraming': _$ThumbnailFramingEnumMap[instance.thumbnailFraming]!,
   'defaultLocks': instance.defaultLocks.toJson(),
   'maxEntries': instance.maxEntries,
   'maxAgeDays': instance.maxAgeDays,
+};
+
+const _$ThumbnailFramingEnumMap = {
+  ThumbnailFraming.wholePage: 'wholePage',
+  ThumbnailFraming.viewport: 'viewport',
+};
+
+_CollaborationSettings _$CollaborationSettingsFromJson(Map json) =>
+    _CollaborationSettings(
+      syncToolbar: json['syncToolbar'] as bool? ?? false,
+      syncCurrentPage: json['syncCurrentPage'] as bool? ?? false,
+      syncCurrentArea: json['syncCurrentArea'] as bool? ?? false,
+      showCursor: json['showCursor'] as bool? ?? true,
+      showTemporary: json['showTemporary'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$CollaborationSettingsToJson(
+  _CollaborationSettings instance,
+) => <String, dynamic>{
+  'syncToolbar': instance.syncToolbar,
+  'syncCurrentPage': instance.syncCurrentPage,
+  'syncCurrentArea': instance.syncCurrentArea,
+  'showCursor': instance.showCursor,
+  'showTemporary': instance.showTemporary,
 };
 
 _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
@@ -310,6 +341,11 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       : DocumentStatePersistenceSettings.fromJson(
           Map<String, dynamic>.from(json['documentStatePersistence'] as Map),
         ),
+  collaboration: json['collaboration'] == null
+      ? const CollaborationSettings()
+      : CollaborationSettings.fromJson(
+          Map<String, dynamic>.from(json['collaboration'] as Map),
+        ),
   simpleToolbarVisibility:
       $enumDecodeNullable(
         _$SimpleToolbarVisibilityEnumMap,
@@ -418,6 +454,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'hideCursorWhileDrawing': instance.hideCursorWhileDrawing,
   'onStartup': _$StartupBehaviorEnumMap[instance.onStartup]!,
   'documentStatePersistence': instance.documentStatePersistence.toJson(),
+  'collaboration': instance.collaboration.toJson(),
   'simpleToolbarVisibility':
       _$SimpleToolbarVisibilityEnumMap[instance.simpleToolbarVisibility]!,
   'optionsPanelPosition':

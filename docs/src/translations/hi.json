@@ -51,5 +51,12 @@
   "privacy_policy": "गोपनीयता नीति",
   "ruler": "रूलर",
   "grid": "ग्रिड",
-  "utilities": "Utilities"
+  "utilities": "Utilities",
+  "settings": "सेटिंग्स",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Table",
+  "embedding_example": "Embedding example",
+  "imprint": "इंप्रिंट"
 }

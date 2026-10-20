@@ -51,5 +51,12 @@
   "privacy_policy": "Politica de confidenţialitate",
   "ruler": "Regulă",
   "grid": "Grilă",
-  "utilities": "Utilități"
+  "utilities": "Utilități",
+  "settings": "Setări",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Tabel",
+  "embedding_example": "Embedding example",
+  "imprint": "Amprentă"
 }

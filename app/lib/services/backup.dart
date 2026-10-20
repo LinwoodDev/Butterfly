@@ -187,11 +187,11 @@ class BackupService(
 
   Future<String> _createBackup() async {
     if (kIsWeb) {
-      throw UnsupportedError('Remote backups are not supported on the web');
+      throw UnsupportedError('Backups are not supported on the web');
     }
     final settings = fileSystem.settingsCubit.state;
     final storage = settings.getRemote(settings.backupRemote);
-    if (storage is! RemoteStorage) {
+    if (storage == null) {
       throw StateError('No backup connection selected');
     }
 
@@ -199,6 +199,7 @@ class BackupService(
     final bytes = await createButterflyDataArchive(fileSystem);
     final fileName = backupFileName(createdAt);
     final backupSystem = fileSystem.buildBackupSystem(storage);
+    await backupSystem.initialize();
     await backupSystem.updateFile(fileName, bytes, forceSync: true);
     await fileSystem.settingsCubit.updateLastBackup(createdAt.toUtc());
     talker.info('Created backup $fileName on ${storage.identifier}');
@@ -209,7 +210,7 @@ class BackupService(
     _timer?.cancel();
     _timer = null;
     if (_disposed || kIsWeb || !settings.automaticBackup) return;
-    if (settings.getRemote(settings.backupRemote) is! RemoteStorage) return;
+    if (settings.getRemote(settings.backupRemote) == null) return;
 
     final now = _now();
     final interval = Duration(minutes: settings.backupIntervalMinutes);

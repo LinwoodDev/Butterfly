@@ -5,6 +5,7 @@ import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/collaboration/options.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -23,11 +24,15 @@ part 'view.dart';
 Future<void> showCollaborationDialog(BuildContext context) {
   final bloc = context.read<DocumentBloc>();
   final editorController = context.read<EditorController>();
+  final settingsCubit = context.read<SettingsCubit>();
 
   return showDialog(
     context: context,
     builder: (context) => MultiBlocProvider(
-      providers: [BlocProvider.value(value: bloc)],
+      providers: [
+        BlocProvider.value(value: bloc),
+        BlocProvider.value(value: settingsCubit),
+      ],
       child: RepositoryProvider.value(
         value: editorController,
         child: const CollaborationDialog(),

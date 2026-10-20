@@ -51,5 +51,12 @@
   "privacy_policy": "プライバシーポリシー",
   "ruler": "ルーラー設定",
   "grid": "グリッド",
-  "utilities": "ユーティリティ"
+  "utilities": "ユーティリティ",
+  "settings": "設定",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "表",
+  "embedding_example": "Embedding example",
+  "imprint": "インプリント"
 }

@@ -93,6 +93,7 @@ class EditorController(
 
   WeakReference<DocumentBloc>? _documentBloc;
   var _closed = false;
+  var _networkingUpdateGeneration = 0;
 
   bool get isClosed => _closed;
 
@@ -134,51 +135,69 @@ class EditorController(
     DocumentBloc bloc, [
     Map<Channel?, NetworkingUser>? current,
   ]) async {
+    final generation = ++_networkingUpdateGeneration;
     talker.verbose('Updating networking state');
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
-    final users = (current ?? networkingService.users).entries.toList();
+    final collaboration = networkingService.settings;
+    final users = (current ?? networkingService.users).entries
+        .where(
+          (entry) =>
+              entry.value.pageName == null ||
+              entry.value.pageName == blocState.pageName,
+        )
+        .toList();
     final usersByChannel = {for (final entry in users) entry.key: entry.value};
-    final activeForegroundElements = users
-        .expand((entry) => entry.value.foreground ?? const <PadElement>[])
-        .toSet();
+    final activeForegroundElements = <PadElement>{};
+    if (collaboration.showTemporary) {
+      activeForegroundElements.addAll(
+        users.expand((entry) => entry.value.foreground ?? const <PadElement>[]),
+      );
+    }
 
     final foregrounds = toolCubit.state.networkingForegrounds.toList();
+    final removed = <Renderer>[];
     foregrounds.removeWhere((renderer) {
       bool shouldRemove;
       if (renderer is UserCursor) {
         final activeUser = usersByChannel[renderer.userId];
-        shouldRemove = activeUser == null || activeUser != renderer.element;
+        shouldRemove =
+            !collaboration.showCursor ||
+            activeUser == null ||
+            activeUser != renderer.element;
       } else {
         shouldRemove = !activeForegroundElements.contains(renderer.element);
       }
       if (shouldRemove) {
-        renderer.dispose();
+        removed.add(renderer);
       }
       return shouldRemove;
     });
 
     final existingElements = foregrounds.map((e) => e.element).toSet();
     final added = <Renderer>[];
-    added.addAll(
-      users
-          .expand((entry) => entry.value.foreground ?? const <PadElement>[])
-          .where((element) => !existingElements.contains(element))
-          .map((element) => Renderer.fromInstance(element)),
-    );
-    added.addAll(
-      users
-          .where(
-            (entry) =>
-                foregrounds.whereType<UserCursor>().firstWhereOrNull(
-                  (cursor) =>
-                      cursor.userId == entry.key &&
-                      cursor.element == entry.value,
-                ) ==
-                null,
-          )
-          .map((entry) => UserCursor(entry.value, entry.key)),
-    );
+    if (collaboration.showTemporary) {
+      added.addAll(
+        activeForegroundElements
+            .where((element) => !existingElements.contains(element))
+            .map((element) => Renderer.fromInstance(element)),
+      );
+    }
+    if (collaboration.showCursor) {
+      added.addAll(
+        users
+            .where(
+              (entry) =>
+                  foregrounds.whereType<UserCursor>().firstWhereOrNull(
+                    (cursor) =>
+                        cursor.userId == entry.key &&
+                        cursor.element == entry.value,
+                  ) ==
+                  null,
+            )
+            .map((entry) => UserCursor(entry.value, entry.key)),
+      );
+    }
     await Future.wait(
       added.map(
         (e) async => await e.setup(
@@ -189,6 +208,15 @@ class EditorController(
         ),
       ),
     );
+    if (_closed || generation != _networkingUpdateGeneration) {
+      for (final renderer in added) {
+        renderer.dispose();
+      }
+      return;
+    }
+    for (final renderer in removed) {
+      renderer.dispose();
+    }
     foregrounds.addAll(added);
     toolCubit.setForegrounds(networkingForegrounds: foregrounds);
   }

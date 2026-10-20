@@ -283,7 +283,13 @@ abstract class PastingHandler<T> extends Handler<T> {
     final elements = getTransformed(bloc.editorController);
     if (elements.isEmpty) return;
     final current = List<PadElement>.from(elements);
-    bloc.add(ElementsCreated(current));
+    bloc.add(
+      ElementsCreated(
+        current,
+        pageName: bloc.state.pageName,
+        layer: bloc.state.currentLayer,
+      ),
+    );
     _firstPos = null;
     _secondPos = null;
     context.refresh();

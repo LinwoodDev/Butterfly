@@ -26,7 +26,8 @@ hero:
 ---
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
-import LandingFeature from '@components/LandingFeature.astro';
+import Landing from '@linwooddev/starlight-style/components/Landing.astro';
+import LandingFeature from '@linwooddev/starlight-style/components/LandingFeature.astro';
 import crossplatform from '@assets/img/homepage/crossplatform.png';
 import crossplatformDark from '@assets/img/homepage/crossplatform-dark.png';
 import collageLight from '@assets/img/homepage/collage-light.png';
@@ -35,6 +36,8 @@ import desktop2LightRuler from '@assets/img/homepage/Desktop2-light-ruler.png';
 import desktop2DarkRuler from '@assets/img/homepage/Desktop2-dark-ruler.png';
 import penLight from '@assets/img/homepage/Pen-light.png';
 import penDark from '@assets/img/homepage/Pen-dark.png';
+
+<Landing>
 
 <LandingFeature image={desktop2LightRuler} darkImage={desktop2DarkRuler} alt="带有手写笔记、图表和尺子的 Butterfly 画布">
 
@@ -114,7 +117,11 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
   </Card>
 </CardGrid>
 
-<h2 style="text-align: center; padding-bottom: 3rem; padding-top: 1rem; text-shadow: 0rem 0rem 3rem var(--sl-color-accent);">Butterfly，让视觉思考不受限的画布。</h2>
+<div class="landing-heading">
+
+  ## Butterfly，让视觉思考不受限的画布。
+
+</div>
 
 <CardGrid>
   <LinkCard class="landing-action" title="下载 Butterfly" description="在手机、平板或电脑上安装应用。" href="/downloads/" />
@@ -124,3 +131,5 @@ import penDark from '@assets/img/homepage/Pen-dark.png';
 </CardGrid>
 
 Butterfly 以开放方式开发，并提供多种语言版本。[加入社区](/community/)，分享反馈、协助翻译或为项目贡献力量。 [Join the community](/community/) to share feedback, help with translations, or contribute to the project.
+
+</Landing>

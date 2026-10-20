@@ -15,8 +15,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
+  final bool edgeAttached;
 
-  const ZoomView({super.key, this.isMobile = false});
+  const ZoomView({super.key, this.isMobile = false, this.edgeAttached = false});
 
   @override
   State<ZoomView> createState() => _ZoomViewState();

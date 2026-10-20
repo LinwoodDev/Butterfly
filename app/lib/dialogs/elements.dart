@@ -114,6 +114,7 @@ ContextMenuBuilder buildElementsContextMenu(
             bloc.add(
               ElementsRemoved(
                 renderers.map((r) => r.element.id).nonNulls.toList(),
+                pageName: bloc.state.pageName,
               ),
             );
             bloc.delayedBake();
@@ -136,6 +137,7 @@ ContextMenuBuilder buildElementsContextMenu(
                       ElementsArranged(
                         e,
                         renderers.map((r) => r.element.id).nonNulls.toList(),
+                        pageName: bloc.state.pageName,
                       ),
                     );
                   },
@@ -224,5 +226,7 @@ void _flipElements(
       return MapEntry(id, [transformed.element]);
     }).nonNulls,
   );
-  if (changes.isNotEmpty) bloc.add(ElementsChanged(changes));
+  if (changes.isNotEmpty) {
+    bloc.add(ElementsChanged(changes, pageName: bloc.state.pageName));
+  }
 }

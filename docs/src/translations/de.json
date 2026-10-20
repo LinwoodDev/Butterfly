@@ -51,5 +51,12 @@
   "privacy_policy": "Datenschutzerklärung",
   "ruler": "Lineal",
   "grid": "Raster",
-  "utilities": "Hilfsmittel"
+  "utilities": "Hilfsmittel",
+  "settings": "Einstellungen",
+  "paints": "Paints",
+  "importing": "Importing",
+  "exporting": "Exporting",
+  "table": "Tisch",
+  "embedding_example": "Embedding example",
+  "imprint": "Impressum"
 }

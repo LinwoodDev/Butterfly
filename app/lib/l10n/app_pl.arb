@@ -674,7 +674,7 @@
   "topRight": "Prawy górny róg",
   "bottomLeft": "Lewy dolny róg",
   "bottomRight": "Dolny prawy róg",
-  "zoomPosition": "Pozycja sterowania powiększeniem",
+  "zoomPosition": "Camera controls position",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -1297,7 +1297,7 @@
     }
   },
   "continueAnyway": "Kontynuuj mimo to",
-  "zoomControl": "Kontrola powiększenia",
+  "zoomControl": "Camera controls",
   "@zoomControl": {
     "description": "Show zoom controls in the canvas view"
   },
@@ -1676,7 +1676,9 @@
   "spreadPagesDescription": "Dzieli wiele stron importu na oddzielne strony notatki, zamiast umieszczać wszystko na jednej stronie.",
   "shear": "Ścinanie",
   "resetRotation": "Zresetuj obrót",
-  "zoomPanelControls": "Sterowanie panelem powiększenia",
+  "temporaryOnMobile": "Temporary on mobile",
+  "cameraControlsVisibilityDescription": "Show zoom and rotation controls temporarily on mobile, hide them, show them temporarily on all devices, or always show them. Temporary controls fade out after 5 seconds without zooming, rotating or interacting with the controls.",
+  "zoomPanelControls": "Camera controls layout",
   "zoomPanelControlsDescription": "Wybierz ustawienia powiększania i obracania. Przyciski resetowania pozostają dostępne w każdym układze.",
   "zoomPanelFull": "Pełna (suwak, pole tekstowe i przyciski)",
   "zoomPanelSliderInput": "Suwak i pole tekstowe",

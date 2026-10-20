@@ -108,7 +108,9 @@ class SpacerHandler extends Handler<SpacerTool> {
     _lastRect = null;
     _pendingRefresh = null;
     await context.refresh();
-    context.getDocumentBloc().add(ElementsChanged(elements));
+    context.getDocumentBloc().add(
+      ElementsChanged(elements, pageName: context.getState()?.pageName),
+    );
   }
 
   Rect? _getRect(EventContext context) {

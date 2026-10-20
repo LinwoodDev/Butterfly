@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/services/backup.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,6 +16,33 @@ class _Context extends Fake implements BuildContext {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('local backups are written inside the connection folder', () async {
+    final temp = await Directory.systemTemp.createTemp('butterfly_backup_');
+    addTearDown(() => temp.delete(recursive: true));
+    final storage = LocalStorage(paths: {'': '${temp.path}/synced'});
+    SharedPreferences.setMockInitialValues({
+      'document_path': '${temp.path}/data',
+      'connections': [storage.toJson()],
+      'backup_remote': storage.identifier,
+    });
+    final settings = SettingsCubit(await SharedPreferences.getInstance());
+    addTearDown(settings.close);
+    final service = ButterflyFileSystem(_Context(), settings);
+    addTearDown(service.dispose);
+    final backupService = BackupService(service);
+    addTearDown(backupService.dispose);
+    final note = DocumentDefaults.createDocument(name: 'Test').toFile();
+    await service.buildDocumentSystem().createFile('Test.bfly', note);
+
+    final fileName = await backupService.backupNow();
+
+    final bytes = await File('${storage.getBasePath()}/Backups/$fileName')
+        .readAsBytes();
+    final archive = ZipDecoder().decodeBytes(bytes);
+    expect(archive.findFile('Documents/Test.bfly')?.content, note.data);
+    expect(settings.state.lastBackup, isNotNull);
+  });
 
   test('empty storage paths disable only their directory types', () async {
     final temp = await Directory.systemTemp.createTemp('butterfly_disabled_');

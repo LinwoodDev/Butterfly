@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -12,6 +13,43 @@ DocumentPage _pageWithLayer(String layerId) =>
     DocumentPage(layers: [DocumentLayer(id: layerId)]);
 
 void main() {
+  test('document search includes Markdown from the unsaved current page', () {
+    final (data, pageName) = NoteData(Archive())
+        .setPage(const DocumentPage(), 'Notes');
+    final markdown = MarkdownElement(
+      text: '# Meeting notes',
+      position: const Point(12, 34),
+    );
+    final currentPage = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'notes', content: [markdown]),
+      ],
+    );
+
+    expect(
+      data.search(
+        RegExp('meeting', caseSensitive: false),
+        pageName,
+        currentPage,
+      ),
+      [ElementResult(markdown.text, pageName, markdown.position, markdown)],
+    );
+  });
+
+  test('page navigation keeps camera destinations local', () {
+    const event = PageChanged('Notes', position: Point(10, 20), zoom: 1.75);
+
+    expect(event.toJson(), {'type': 'pageChanged', 'pageName': 'Notes'});
+    expect(
+      DocumentEvent.fromJson({
+        ...event.toJson(),
+        'position': {'x': 30, 'y': 40},
+        'zoom': 2,
+      }),
+      const PageChanged('Notes'),
+    );
+  });
+
   group('Pack fonts', () {
     test('font assets can be listed, inherited, and removed', () {
       final bytes = Uint8List.fromList([1, 2, 3]);

@@ -54,6 +54,7 @@ class ProjectPage extends StatefulWidget {
   final String type;
   final Object? data;
   final String? uri;
+  final CollaborationSettings? collaborationSettings;
 
   const ProjectPage({
     super.key,
@@ -63,6 +64,7 @@ class ProjectPage extends StatefulWidget {
     this.type = '',
     this.data,
     this.uri,
+    this.collaborationSettings,
     this.absolute = false,
     this.isNewDocument = false,
   });
@@ -175,7 +177,10 @@ class _ProjectPageState extends State<ProjectPage> {
         settingsCubit.changeLocaleTemporarily(language);
       }
     }
-    final networkingService = NetworkingService();
+    final networkingService = NetworkingService(
+      settingsCubit: settingsCubit,
+      initialSettings: widget.collaborationSettings,
+    );
     final pendingRenderers = <Renderer>[];
     final pendingBackgrounds = <Renderer>[];
     AssetService? pendingAssetService;
@@ -465,23 +470,20 @@ class _ProjectPageState extends State<ProjectPage> {
           : fallbackPageName;
       final page =
           document.getPage(pageName ?? '') ?? DocumentDefaults.createPage();
-      final initialSession =
-          EditorSessionCubit.buildInitial(
-            restored: restoredSession,
-            document: document,
-            page: page,
-            fallbackPageName: pageName,
-            fallbackLocks:
-                settingsCubit.state.documentStatePersistence.defaultLocks,
-            pathKey: pathKey,
-            contentHash: contentHash,
-          ).copyWith(
-            autoThumbnail:
-                restoredSession?.autoThumbnail ??
-                ((widget.isNewDocument || !documentOpened) &&
-                    embedding == null &&
-                    !absolute),
-          );
+      final initialSession = EditorSessionCubit.buildInitial(
+        restored: restoredSession,
+        document: document,
+        page: page,
+        fallbackPageName: pageName,
+        fallbackLocks:
+            settingsCubit.state.documentStatePersistence.defaultLocks,
+        pathKey: pathKey,
+        contentHash: contentHash,
+        isCreating:
+            ((widget.isNewDocument || !documentOpened) &&
+            embedding == null &&
+            !absolute),
+      );
       final renderers = page.layers
           .expand(
             (layer) => layer.content.map(
@@ -704,14 +706,28 @@ class _ProjectPageState extends State<ProjectPage> {
                                 BlocSelector<
                                   SettingsCubit,
                                   ButterflySettings,
-                                  ({bool isInline, ToolbarSize toolbarSize})
+                                  ({
+                                    bool isInline,
+                                    ToolbarSize toolbarSize,
+                                    bool floatingEditor,
+                                  })
                                 >(
                                   selector: (state) => (
                                     isInline: state.isInline,
                                     toolbarSize: state.toolbarSize,
+                                    floatingEditor: state.hasFlag(
+                                      'floatingEditor',
+                                    ),
                                   ),
                                   builder: (context, settings) {
                                     final actions = _buildActions(context);
+                                    final floatingEditor =
+                                        settings.floatingEditor &&
+                                        MediaQuery.sizeOf(context).width >=
+                                            LeapBreakpoints.expanded;
+                                    final body = _MainBody(
+                                      viewportKey: _viewportKey,
+                                    );
 
                                     return ListenableBuilder(
                                       listenable: keybinder,
@@ -758,10 +774,29 @@ class _ProjectPageState extends State<ProjectPage> {
                                                     showTools:
                                                         settings.isInline &&
                                                         saveState.editable,
+                                                    floating: floatingEditor,
                                                   ),
-                                            body: _MainBody(
-                                              viewportKey: _viewportKey,
-                                            ),
+                                            body: floatingEditor
+                                                ? MenuTheme(
+                                                    data:
+                                                        kFloatingEditorMenuTheme,
+                                                    child: PopupMenuTheme(
+                                                      data:
+                                                          PopupMenuTheme.of(
+                                                            context,
+                                                          ).copyWith(
+                                                            shape:
+                                                                kFloatingEditorMenuTheme
+                                                                    .style!
+                                                                    .shape!
+                                                                    .resolve(
+                                                                      {},
+                                                                    ),
+                                                          ),
+                                                      child: body,
+                                                    ),
+                                                  )
+                                                : body,
                                           ),
                                         ),
                                       ),
@@ -941,7 +976,9 @@ class _MainBody extends StatelessWidget {
                                     previous.zoomPanelControls !=
                                         current.zoomPanelControls ||
                                     previous.propertyPosition !=
-                                        current.propertyPosition,
+                                        current.propertyPosition ||
+                                    previous.hasFlag('floatingEditor') !=
+                                        current.hasFlag('floatingEditor'),
                                 builder: (context, settings) {
                                   return LayoutBuilder(
                                     builder: (context, constraints) =>
@@ -986,11 +1023,18 @@ class _MainBody extends StatelessWidget {
         constraints.maxWidth >= LeapBreakpoints.expanded &&
         (constraints.maxHeight + bottomInset) >= 400;
 
+    final floatingEditor =
+        settings.hasFlag('floatingEditor') &&
+        MediaQuery.sizeOf(context).width >= LeapBreakpoints.expanded;
     final toolbar = EditToolbar(
       isMobile: isMobile,
       centered: true,
       direction: settings.toolbarPosition.axis,
+      edgeAttached: floatingEditor,
     );
+    final spacedToolbar = floatingEditor
+        ? Padding(padding: const EdgeInsets.all(8), child: toolbar)
+        : toolbar;
     final navigatorRailEnabled =
         settings.navigationRail || saveState.embedding != null;
     final fullScreen = windowState.fullScreen || saveState.fullScreen;
@@ -1013,24 +1057,24 @@ class _MainBody extends StatelessWidget {
             textDirection: .ltr,
             children: [
               if (showNavigator && settings.navigatorPosition == .left)
-                const NavigatorView(),
+                NavigatorView(floating: floatingEditor),
               if (settings.toolbarPosition == .left &&
                   !isMobile &&
                   inputState.hideUi == .visible)
-                toolbar,
+                spacedToolbar,
               _buildCenterColumn(
                 context,
                 settings,
                 fullScreen,
                 inputState,
                 isMobile,
-                toolbar,
+                spacedToolbar,
               ),
               if (settings.toolbarPosition == .right &&
                   inputState.hideUi == .visible)
-                toolbar,
+                spacedToolbar,
               if (showNavigator && settings.navigatorPosition == .right)
-                const NavigatorView(),
+                NavigatorView(floating: floatingEditor),
             ],
           ),
         ),
@@ -1063,6 +1107,9 @@ class _MainBody extends StatelessWidget {
   ) {
     final pos = settings.toolbarPosition;
     final optPos = settings.optionsPanelPosition;
+    final edgeAttached =
+        settings.hasFlag('floatingEditor') &&
+        MediaQuery.sizeOf(context).width >= LeapBreakpoints.expanded;
     final showToolbar =
         (((fullScreen || settings.toolbarRows > 1) && pos == .inline ||
                 pos == .top) &&
@@ -1082,10 +1129,14 @@ class _MainBody extends StatelessWidget {
         children: [
           if (showToolbar)
             combineTopToolbarAndZoom
-                ? _buildCombinedToolbarAndZoom(settings, toolbar)
+                ? _buildCombinedToolbarAndZoom(
+                    settings,
+                    toolbar,
+                    edgeAttached: edgeAttached,
+                  )
                 : toolbar,
           if (optPos == .top && inputState.hideUi == .visible)
-            const ToolbarView(),
+            ToolbarView(edgeAttached: edgeAttached),
           Expanded(
             child: Stack(
               children: [
@@ -1104,16 +1155,23 @@ class _MainBody extends StatelessWidget {
                     .bottomRight => Alignment.bottomRight,
                     .bottomLeft => Alignment.bottomLeft,
                   },
-                  child: PropertyView(position: settings.propertyPosition),
+                  child: PropertyView(
+                    position: settings.propertyPosition,
+                    edgeAttached: edgeAttached,
+                  ),
                 ),
               ],
             ),
           ),
           if (optPos == .bottom && inputState.hideUi == .visible)
-            const ToolbarView(),
+            ToolbarView(edgeAttached: edgeAttached),
           if ((isMobile || pos == .bottom) && inputState.hideUi == .visible)
             combineBottomToolbarAndZoom
-                ? _buildCombinedToolbarAndZoom(settings, toolbar)
+                ? _buildCombinedToolbarAndZoom(
+                    settings,
+                    toolbar,
+                    edgeAttached: edgeAttached,
+                  )
                 : toolbar,
         ],
       ),
@@ -1133,21 +1191,24 @@ class _MainBody extends StatelessWidget {
 
   Widget _buildCombinedToolbarAndZoom(
     ButterflySettings settings,
-    Widget toolbar,
-  ) {
+    Widget toolbar, {
+    bool edgeAttached = false,
+  }) {
     final isLeft =
         settings.zoomPosition == .topLeft ||
         settings.zoomPosition == .bottomLeft;
     final zoomTools = SizedBox(
       width: settings.zoomPanelControls.panelWidth(),
-      child: _buildZoomToolsRow(settings, false),
+      child: _buildZoomToolsRow(settings, false, edgeAttached: edgeAttached),
     );
     final children = <Widget>[
       zoomTools,
       Expanded(child: Align(child: toolbar)),
     ];
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: edgeAttached
+          ? EdgeInsets.zero
+          : const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         spacing: 8,
         children: isLeft ? children : children.reversed.toList(),
@@ -1162,8 +1223,11 @@ class _MainBody extends StatelessWidget {
     EditorInputState inputState, {
     bool hideZoomTools = false,
   }) {
+    final edgeAttached =
+        settings.hasFlag('floatingEditor') &&
+        MediaQuery.sizeOf(context).width >= LeapBreakpoints.expanded;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: edgeAttached ? EdgeInsets.zero : const EdgeInsets.all(8.0),
       child: Align(
         alignment: switch (settings.zoomPosition) {
           .topRight => Alignment.topRight,
@@ -1180,7 +1244,12 @@ class _MainBody extends StatelessWidget {
               .topLeft || .bottomLeft => CrossAxisAlignment.start,
             },
             children: [
-              if (!hideZoomTools) _buildZoomToolsRow(settings, isMobile),
+              if (!hideZoomTools)
+                _buildZoomToolsRow(
+                  settings,
+                  isMobile,
+                  edgeAttached: edgeAttached,
+                ),
               if (inputState.hideUi == .touch)
                 FloatingActionButton.small(
                   tooltip: AppLocalizations.of(context).exit,
@@ -1196,14 +1265,20 @@ class _MainBody extends StatelessWidget {
     );
   }
 
-  Widget _buildZoomToolsRow(ButterflySettings settings, bool isMobile) {
+  Widget _buildZoomToolsRow(
+    ButterflySettings settings,
+    bool isMobile, {
+    bool edgeAttached = false,
+  }) {
     final isLeft =
         settings.zoomPosition == .topLeft ||
         settings.zoomPosition == .bottomLeft;
     final children = [
       const PenOnlyToggle(),
       if (settings.cameraControlsVisibility != CameraControlsVisibility.hidden)
-        Flexible(child: ZoomView(isMobile: isMobile)),
+        Flexible(
+          child: ZoomView(isMobile: isMobile, edgeAttached: edgeAttached),
+        ),
     ];
     return Row(
       mainAxisAlignment: isLeft ? MainAxisAlignment.start : .end,

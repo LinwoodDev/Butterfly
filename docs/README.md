@@ -26,6 +26,13 @@ Images can be added to `src/assets/` and embedded in Markdown with a relative li
 
 Static assets, like favicons, can be placed in the `public/` directory.
 
+## Shared styling
+
+Landing pages use `Landing` and `LandingFeature` from
+`@linwooddev/starlight-style`. Keep layout and card styles in the shared library;
+`src/styles/custom.scss` only defines Butterfly's colors. Both Linwood packages
+are pinned to the same library commit in `package.json` and `pnpm-lock.yaml`.
+
 ## Translations
 
 Crowdin translates page content in `src/content/docs/` and UI labels in

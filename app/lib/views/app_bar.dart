@@ -41,6 +41,19 @@ import 'navigator/view.dart';
 
 import 'package:lw_file_system/lw_file_system.dart';
 
+const _floatingTitleShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(20)),
+);
+const kFloatingEditorMenuTheme = MenuThemeData(
+  style: MenuStyle(
+    shape: WidgetStatePropertyAll(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+    ),
+  ),
+);
+
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
   final ToolbarSize size;
@@ -49,6 +62,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final EdgeInsets? padding;
   final bool inView;
   final TextDirection direction;
+  final bool floating;
 
   PadAppBar({
     super.key,
@@ -59,18 +73,91 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showTools = true,
     this.inView = false,
     this.padding,
+    this.floating = false,
   });
 
-  late final windowTitleBar = _buildWindowTitleBar(padding);
+  late final windowTitleBar = _buildWindowTitleBar();
 
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: Directionality(textDirection: .ltr, child: windowTitleBar),
+      child: Directionality(
+        textDirection: .ltr,
+        child: floating
+            ? MenuTheme(
+                data: kFloatingEditorMenuTheme,
+                child: _buildFloatingBar(context),
+              )
+            : windowTitleBar,
+      ),
     );
   }
 
-  WindowTitleBar _buildWindowTitleBar(EdgeInsets? padding) =>
+  Widget _buildFloatingBar(BuildContext context) {
+    final nativeTitleBar = context.select<SettingsCubit, bool>(
+      (cubit) => cubit.state.nativeTitleBar,
+    );
+    return SafeArea(
+      bottom: false,
+      child: SizedBox(
+        height: preferredSize.height,
+        child: Stack(
+          // Card shadows must continue onto the canvas below the header.
+          clipBehavior: Clip.none,
+          children: [
+            const Positioned.fill(
+              child: WindowFreeSpace<SettingsCubit, ButterflySettings>(),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 64,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: _buildLeading(),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: MediaQuery.withClampedTextScaling(
+                      // Keep the standard app-bar title scaling limit.
+                      maxScaleFactor: 1.34,
+                      child: _buildTitle(),
+                    ),
+                  ),
+                ),
+                if (isWindow && !inView && !nativeTitleBar) ...[
+                  const SizedBox(width: 8),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: DecoratedBox(
+                      decoration: ShapeDecoration(
+                        color: ColorScheme.of(context).surfaceContainer,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: ColorScheme.of(context).outlineVariant,
+                          ),
+                        ),
+                      ),
+                      child:
+                          const WindowButtons<SettingsCubit, ButterflySettings>(
+                            height: 40,
+                          ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  WindowTitleBar _buildWindowTitleBar() =>
       WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 68,
         height: 68,
@@ -122,14 +209,69 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       );
 
+  Widget _buildLeading() => Directionality(
+    textDirection: direction,
+    child: Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isLarge =
+              MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded;
+          final menu = MainPopupMenu(
+            viewportKey: viewportKey,
+            isLarge: isLarge,
+            padding: padding,
+            floating: floating,
+          );
+          return floating
+              ? SizedBox.square(
+                  dimension: 56,
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    shape: _floatingTitleShape,
+                    elevation: 6,
+                    child: Center(child: menu),
+                  ),
+                )
+              : menu;
+        },
+      ),
+    ),
+  );
+
+  Widget _buildTitle() => Directionality(
+    textDirection: direction,
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile =
+            MediaQuery.sizeOf(context).width < LeapBreakpoints.compact;
+        return _AppBarTitle(
+          isMobile: isMobile,
+          searchController: searchController,
+          floating: floating,
+          showTools: showTools,
+        );
+      },
+    ),
+  );
+
   @override
-  Size get preferredSize => windowTitleBar.preferredSize;
+  Size get preferredSize => floating
+      ? Size.fromHeight(max(72, showTools ? size.size + 20 : 0))
+      : windowTitleBar.preferredSize;
 }
 
 class _AppBarTitle extends StatefulWidget {
   final SearchController searchController;
+  final bool floating;
+  final bool showTools;
 
-  const _AppBarTitle({required this.isMobile, required this.searchController});
+  const _AppBarTitle({
+    required this.isMobile,
+    required this.searchController,
+    this.floating = false,
+    this.showTools = true,
+  });
 
   final bool isMobile;
 
@@ -181,7 +323,14 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     final currentState = bloc.state;
     if (currentState is! DocumentLoadSuccess) return;
     if (area != null && areaName != null) {
-      bloc.add(AreaChanged(areaName, area.copyWith(name: submitted)));
+      bloc.add(
+        AreaChanged(
+          areaName,
+          area.copyWith(name: submitted),
+          false,
+          currentState.pageName,
+        ),
+      );
       return;
     }
     if (submitted == currentState.metadata.name) return;
@@ -273,6 +422,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   builder: (context, constraints) => Row(
                     textDirection: .ltr,
                     mainAxisAlignment: .center,
+                    crossAxisAlignment: widget.floating
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(
@@ -346,8 +498,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     DocumentBloc bloc,
     DocumentSaveState currentIndex,
     BuildContext context,
-    ButterflySettings settings,
-  ) {
+    ButterflySettings settings, {
+    Widget? searchButton,
+  }) {
     final cubit = context.read<EditorController>();
     // Compact buttons keep the title island slim on narrow windows.
     return IconButtonTheme(
@@ -638,12 +791,14 @@ class MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
   final bool isLarge;
   final EdgeInsets? padding;
+  final bool floating;
 
   const MainPopupMenu({
     super.key,
     required this.viewportKey,
     required this.isLarge,
     this.padding,
+    this.floating = false,
   });
 
   @override
@@ -698,6 +853,9 @@ class MainPopupMenu extends StatelessWidget {
                         effectiveFullScreen ||
                         hideUi != .visible;
                     return MenuAnchor(
+                      alignmentOffset: floating
+                          ? const Offset(0, 8)
+                          : Offset.zero,
                       menuChildren: [
                         ...[
                           if (saveState.embedding == null)
@@ -1115,8 +1273,8 @@ class MainPopupMenu extends StatelessWidget {
                       style: MenuStyle(
                         shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(floating ? 20 : 16),
                             ),
                           ),
                         ),

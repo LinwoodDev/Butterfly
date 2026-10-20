@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:butterfly/actions/shortcuts.dart';
@@ -253,8 +254,11 @@ void main() {
     );
   }
 
-  Future<EditorController> openEditor(WidgetTester tester) async {
-    await tester.pumpWidget(buildApp());
+  Future<EditorController> openEditor(
+    WidgetTester tester, {
+    NoteData? document,
+  }) async {
+    await tester.pumpWidget(buildApp(embedDocument: document));
     await tester.tap(find.byKey(const ValueKey('open-document')));
     await pumpUntil(
       tester,
@@ -274,6 +278,192 @@ void main() {
     await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
     await tester.pumpAndSettle();
   }
+
+  testWidgets('floating editor flag updates the canvas layout live', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1262, 711);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    var settings = const ButterflySettings(defaultTemplate: 'default');
+    final changes = StreamController<ButterflySettings>.broadcast();
+    addTearDown(changes.close);
+    when(() => settingsCubit.state).thenAnswer((_) => settings);
+    when(() => settingsCubit.stream).thenAnswer((_) => changes.stream);
+
+    await openEditor(tester);
+    final bloc = observer.lastDocumentBloc;
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isFalse);
+    expect(tester.getTopLeft(find.byType(MainViewViewport)).dy, greaterThan(0));
+    expect(find.byType(NavigationRail), findsOneWidget);
+
+    settings = settings.copyWith(flags: ['floatingEditor']);
+    changes.add(settings);
+    await tester.pumpAndSettle();
+
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isTrue);
+    expect(
+      tester.getRect(find.byType(MainViewViewport)),
+      const Rect.fromLTWH(0, 0, 1262, 711),
+    );
+    expect(find.byType(NavigationRail), findsNothing);
+    settings = settings.copyWith(flags: []);
+    changes.add(settings);
+    await tester.pumpAndSettle();
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isFalse);
+    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(observer.lastDocumentBloc, same(bloc));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('floating editor adapts to compact screens and hidden UI', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1200, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['floatingEditor'],
+      ),
+    );
+    final editor = await openEditor(tester);
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isTrue);
+
+    tester.view.physicalSize = const Size(400, 800);
+    await tester.pumpAndSettle();
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isFalse);
+    expect(tester.getTopLeft(find.byType(MainViewViewport)).dy, greaterThan(0));
+    expect(tester.takeException(), isNull);
+
+    tester.view.physicalSize = const Size(1200, 800);
+    await tester.pumpAndSettle();
+    editor.inputCubit.toggleKeyboardHideUI();
+    await tester.pumpAndSettle();
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(find.byType(NavigatorView), findsNothing);
+    expect(find.byType(Card).hitTestable(), findsNothing);
+
+    editor.inputCubit.exitHideUI();
+    await tester.pumpAndSettle();
+    expect(tester.widget<PadAppBar>(find.byType(PadAppBar)).floating, isTrue);
+    await windowCubit.changeFullScreen(true);
+    await tester.pumpAndSettle();
+    expect(find.byType(PadAppBar), findsNothing);
+    expect(find.byType(NavigatorView), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('floating editor closes from the top-right screen corner', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1262, 711);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        flags: ['floatingEditor'],
+      ),
+    );
+    await openEditor(tester);
+    await tester.tapAt(const Offset(1261.5, 0.5));
+    await tester.pump();
+    expect(
+      windowManagerCalls.where((call) => call.method == 'close'),
+      hasLength(1),
+    );
+  });
+
+  testWidgets(
+    'floating search handles literal queries and opens matches on their page',
+    (tester) async {
+      tester.view.physicalSize = const Size(1262, 711);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          autosave: false,
+          flags: ['floatingEditor'],
+        ),
+      );
+      const waypoint = Waypoint('Plan [draft]', Point(300, 450), 1.75);
+      final (document, targetPage) = DocumentDefaults.createDocument(
+        name: 'Search test',
+        page: const DocumentPage(backgrounds: []),
+      ).setPage(const DocumentPage(waypoints: [waypoint]), 'Research');
+      final editor = await openEditor(tester, document: document);
+      final controller = tester
+          .widget<PadAppBar>(find.byType(PadAppBar))
+          .searchController;
+      await tester.tap(find.byTooltip('Search').hitTestable());
+      await tester.pumpAndSettle();
+      controller.text = 'no such result';
+      await pumpUntil(
+        tester,
+        () => find.text('No results found').evaluate().isNotEmpty,
+        'empty search results',
+      );
+      controller.text = '[';
+      await pumpUntil(
+        tester,
+        () => find.text('Plan [draft]').evaluate().isNotEmpty,
+        'literal query match',
+      );
+      expect(find.text('Waypoint · Research'), findsOneWidget);
+      tester.widget<SearchBar>(find.byType(SearchBar)).onSubmitted!('[');
+      await pumpUntil(
+        tester,
+        () =>
+            observer.lastDocumentBloc!.state is DocumentLoadSuccess &&
+            (observer.lastDocumentBloc!.state as DocumentLoadSuccess)
+                    .pageName ==
+                targetPage &&
+            editor.transformCubit.state.position == const Offset(300, 450),
+        'search result navigation',
+      );
+      await tester.pumpAndSettle();
+      expect(controller.isOpen, isFalse);
+      expect(editor.transformCubit.state.size, 1.75);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'floating header keeps large text within its height and hides native controls',
+    (tester) async {
+      tester.view.physicalSize = const Size(1262, 711);
+      tester.view.devicePixelRatio = 1;
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          flags: ['floatingEditor'],
+          nativeTitleBar: true,
+          cameraControlsVisibility: CameraControlsVisibility.hidden,
+        ),
+      );
+      await openEditor(tester);
+      expect(
+        find.byType(WindowButtons<SettingsCubit, ButterflySettings>),
+        findsNothing,
+      );
+      final headerRect = tester.getRect(find.byType(PadAppBar));
+      final titleRect = tester.getRect(find.byType(TextFormField));
+      expect(headerRect.contains(titleRect.topLeft), isTrue);
+      expect(headerRect.contains(titleRect.bottomRight), isTrue);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   testWidgets('undo and redo survive touch Hand mapping and lost focus', (
     tester,
