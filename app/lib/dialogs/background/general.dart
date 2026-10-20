@@ -171,9 +171,13 @@ class _BackgroundCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: .antiAlias,
+      elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-        side: BorderSide.none,
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        side: BorderSide(
+          color: Theme.of(context).colorScheme.outlineVariant
+              .withValues(alpha: 0.5),
+        ),
       ),
       child: InkWell(
         onTap: onTap,

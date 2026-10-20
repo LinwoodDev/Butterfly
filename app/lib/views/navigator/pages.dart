@@ -265,7 +265,6 @@ class _PagesViewState extends State<PagesView> {
                     ),
                   ],
                 ),
-                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 8),

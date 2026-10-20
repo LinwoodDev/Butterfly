@@ -287,7 +287,7 @@ class FilesViewState extends State<FilesView> {
             builder: (context, state) {
               final text = Text(
                 AppLocalizations.of(context).files,
-                style: TextTheme.of(context).headlineMedium,
+                style: TextTheme.of(context).headlineSmall,
                 textAlign: .start,
               );
               final orderButton = IconButton(

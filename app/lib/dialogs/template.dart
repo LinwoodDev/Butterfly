@@ -112,7 +112,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
         maxHeight: 800,
       ),
       title: Text(AppLocalizations.of(context).templates),
-      leading: IconButton.outlined(
+      leading: IconButton(
         icon: const PhosphorIcon(PhosphorIconsLight.x),
         onPressed: () => Navigator.of(context).pop(),
         tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
@@ -1187,14 +1187,18 @@ class _TemplateCard extends StatelessWidget {
       ],
       builder: (context, button, controller) => Card(
         clipBehavior: .antiAlias,
+        elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
           side: isActive
               ? BorderSide(
                   color: Theme.of(context).colorScheme.primary,
                   width: 2,
                 )
-              : BorderSide.none,
+              : BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant
+                      .withValues(alpha: 0.5),
+                ),
         ),
         child: InkWell(
           onTap:

@@ -55,13 +55,15 @@ class FileEntityGridItem extends StatelessWidget {
       child: PhosphorIcon(icon, color: colorScheme.outline, size: 48),
     );
     return Card(
-      elevation: 5,
+      elevation: 0,
       color: highlighted ? colorScheme.surfaceContainerHighest : null,
       shape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
         side: active
-            ? BorderSide(color: colorScheme.primaryContainer, width: 1)
-            : BorderSide.none,
+            ? BorderSide(color: colorScheme.primary, width: 1.5)
+            : BorderSide(
+                color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+              ),
       ),
       surfaceTintColor: highlighted
           ? colorScheme.surfaceContainerHighest

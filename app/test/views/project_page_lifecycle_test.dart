@@ -2031,7 +2031,6 @@ void main() {
       'Layers',
       'Pages',
       'Components',
-      'Files',
     ]) {
       await tester.tap(find.byTooltip('Actions'));
       await tester.pumpAndSettle();
@@ -2147,7 +2146,8 @@ void main() {
       expect(find.byType(PadAppBar), findsOneWidget);
       expect(find.byType(NavigatorView), findsNothing);
 
-      for (final page in NavigatorPage.values) {
+      // Files are opened from the title's file switcher outside full screen.
+      for (final page in NavigatorPage.values.where((e) => e != .files)) {
         await tester.tap(
           find
               .descendant(

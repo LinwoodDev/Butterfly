@@ -1,6 +1,7 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/views/navigator/areas.dart';
 import 'package:butterfly/views/navigator/components.dart';
 import 'package:butterfly/views/navigator/files.dart';
@@ -83,12 +84,8 @@ class _NavigatorViewState extends State<NavigatorView>
 
   @override
   Widget build(BuildContext context) {
-    final embedded = context.select<DocumentSaveCubit, bool>(
-      (cubit) => cubit.state.embedding != null,
-    );
-    final pages = NavigatorPage.values
-        .where((page) => !embedded || page != .files)
-        .toList();
+    // Files are switched from the title in the top bar, not from the rail.
+    final pages = NavigatorPage.values.where((page) => page != .files).toList();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
           previous.navigatorPosition != current.navigatorPosition,
@@ -98,7 +95,11 @@ class _NavigatorViewState extends State<NavigatorView>
                 previous.navigatorEnabled != current.navigatorEnabled ||
                 previous.navigatorPage != current.navigatorPage,
             builder: (context, viewState) {
-              final selected = pages.indexOf(viewState.navigatorPage);
+              final selected = pages.indexOf(
+                viewState.navigatorPage == .files
+                    ? NavigatorPage.waypoints
+                    : viewState.navigatorPage,
+              );
               if (viewState.navigatorEnabled) {
                 _animationController.forward();
               } else {
@@ -120,7 +121,11 @@ class _NavigatorViewState extends State<NavigatorView>
                       animation: _animation,
                       child: SizedBox(
                         width: kNavigatorDrawerWidth,
-                        child: Card(child: DocumentNavigator(asDialog: false)),
+                        child: Island(
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          padding: EdgeInsets.zero,
+                          child: DocumentNavigator(asDialog: false),
+                        ),
                       ),
                       builder: (context, child) {
                         if (_animation.value == 0) {
@@ -130,38 +135,82 @@ class _NavigatorViewState extends State<NavigatorView>
                       },
                     ),
                   ),
-                  NavigationRail(
-                    scrollable: true,
-                    minWidth: kNavigationRailWidth,
-                    destinations: pages
-                        .map(
-                          (e) => NavigationRailDestination(
-                            icon: PhosphorIcon(e.icon()),
-                            label: Text(e.getLocalizedName(context)),
+                  // The rail floats as a slim island but keeps the
+                  // reserved width of kNavigationRailWidth.
+                  SizedBox(
+                    width: kNavigationRailWidth,
+                    child: Center(
+                      child: Island(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.all(4),
+                        radius: kRadiusPill,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 4,
+                            children: [
+                              for (final (index, page) in pages.indexed)
+                                _NavigatorRailButton(
+                                  page: page,
+                                  selected:
+                                      viewState.navigatorEnabled &&
+                                      index == selected,
+                                  onPressed: () {
+                                    final cubit = context
+                                        .read<EditorViewCubit>();
+                                    if (selected == index) {
+                                      cubit.setNavigator(
+                                        enabled: !viewState.navigatorEnabled,
+                                      );
+                                      return;
+                                    }
+                                    cubit.setNavigator(
+                                      page: page,
+                                      enabled: true,
+                                    );
+                                  },
+                                ),
+                            ],
                           ),
-                        )
-                        .toList(),
-                    selectedIndex: viewState.navigatorEnabled
-                        ? selected < 0
-                              ? 0
-                              : selected
-                        : null,
-                    groupAlignment: 0,
-                    onDestinationSelected: (index) {
-                      final cubit = context.read<EditorViewCubit>();
-                      if (selected == index) {
-                        cubit.setNavigator(
-                          enabled: !viewState.navigatorEnabled,
-                        );
-                        return;
-                      }
-                      cubit.setNavigator(page: pages[index], enabled: true);
-                    },
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               );
             },
           ),
+    );
+  }
+}
+
+class _NavigatorRailButton extends StatelessWidget {
+  final NavigatorPage page;
+  final bool selected;
+  final VoidCallback onPressed;
+
+  const _NavigatorRailButton({
+    required this.page,
+    required this.selected,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = ColorScheme.of(context);
+    return IconButton(
+      tooltip: page.getLocalizedName(context),
+      isSelected: selected,
+      onPressed: onPressed,
+      icon: PhosphorIcon(page.icon()),
+      selectedIcon: PhosphorIcon(page.icon(filled: true)),
+      style: IconButton.styleFrom(
+        fixedSize: const Size.square(44),
+        foregroundColor: selected
+            ? colorScheme.onSecondaryContainer
+            : colorScheme.onSurfaceVariant,
+        backgroundColor: selected ? colorScheme.secondaryContainer : null,
+      ),
     );
   }
 }
@@ -179,14 +228,12 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final embedded = context.select<DocumentSaveCubit, bool>(
-      (cubit) => cubit.state.embedding != null,
-    );
     return BlocBuilder<EditorViewCubit, EditorViewState>(
       buildWhen: (previous, current) =>
           previous.navigatorPage != current.navigatorPage,
       builder: (context, viewState) {
-        final page = embedded && viewState.navigatorPage == .files
+        // Files live in the title's file switcher, fall back for old states.
+        final page = viewState.navigatorPage == .files
             ? NavigatorPage.waypoints
             : viewState.navigatorPage;
         final body = switch (page) {
@@ -204,7 +251,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             centerTitle: true,
             backgroundColor: Colors.transparent,
             leading: widget.asDialog
-                ? IconButton.outlined(
+                ? IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                     tooltip: MaterialLocalizations.of(context)

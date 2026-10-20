@@ -72,8 +72,10 @@ class _OptionButtonState extends State<OptionButton>
   Widget build(BuildContext context) {
     final selectedBottom = IconTheme(
       data: Theme.of(context).iconTheme.copyWith(
-        size: 14,
-        color: widget.selected ? ColorScheme.of(context).primary : null,
+        size: 12,
+        color: widget.selected
+            ? ColorScheme.of(context).onSecondaryContainer
+            : null,
       ),
       child: Align(
         child:
@@ -102,33 +104,34 @@ class _OptionButtonState extends State<OptionButton>
           child: AnimatedBuilder(
             animation: _animation,
             builder: (context, child) {
-              return Container(
-                decoration: widget.highlighted
-                    ? BoxDecoration(
-                        // Border
-                        border: Border.all(
-                          color: ColorScheme.of(context).primary,
-                          width: 2 * _animation.value,
+              final colorScheme = ColorScheme.of(context);
+              // Tools bound to an input get only a faint hint, the active
+              // selection keeps the strong accent.
+              final borderColor = widget.highlighted
+                  ? colorScheme.primary
+                  : widget.focussed
+                  ? colorScheme.outlineVariant.withValues(alpha: 0.4)
+                  : null;
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.easeOut,
+                decoration: BoxDecoration(
+                  // Selected tools get a soft tonal background instead of
+                  // only a colored icon, so the active tool is easy to spot.
+                  color: widget.selected
+                      ? colorScheme.secondaryContainer
+                      : Colors.transparent,
+                  border: borderColor == null
+                      ? null
+                      : Border.all(
+                          color: borderColor,
+                          width: widget.highlighted
+                              ? 2 * _animation.value
+                              : _animation.value,
                         ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                      )
-                    : (widget.focussed
-                          ? BoxDecoration(
-                              // Border
-                              border: Border.all(
-                                color: ColorScheme.of(context).outlineVariant,
-                                width: 2 * _animation.value,
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            )
-                          : null),
-                margin: (widget.highlighted || widget.focussed)
-                    ? null
-                    : const EdgeInsets.all(2),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                ),
+                margin: const EdgeInsets.all(2),
                 child: child,
               );
             },
@@ -138,7 +141,7 @@ class _OptionButtonState extends State<OptionButton>
                 data: Theme.of(context).iconTheme.copyWith(
                   size: 28,
                   color: widget.selected
-                      ? ColorScheme.of(context).primary
+                      ? ColorScheme.of(context).onSecondaryContainer
                       : null,
                 ),
                 child: Column(

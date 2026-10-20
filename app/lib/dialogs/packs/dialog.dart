@@ -115,7 +115,7 @@ class _PacksDialogState extends State<PacksDialog>
           },
         ),
       ],
-      leading: IconButton.outlined(
+      leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
         icon: const Icon(PhosphorIconsLight.x),
         tooltip: MaterialLocalizations.of(context).closeButtonTooltip,

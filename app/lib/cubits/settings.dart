@@ -645,8 +645,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @JsonKey(unknownEnumValue: RotationDisplay.whenRotated)
     @Default(RotationDisplay.whenRotated)
     RotationDisplay rotationDisplay,
-    @JsonKey(unknownEnumValue: ZoomPanelControls.full)
-    @Default(ZoomPanelControls.full)
+    @JsonKey(unknownEnumValue: ZoomPanelControls.inputAndButtons)
+    @Default(ZoomPanelControls.inputAndButtons)
     ZoomPanelControls zoomPanelControls,
     @Default(ZoomPosition.bottomRight) ZoomPosition zoomPosition,
     @Default(ZoomPosition.topRight) ZoomPosition propertyPosition,
@@ -720,7 +720,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             json['zoomPanelControls'] ??
             (json['minimalZoom'] == true
                 ? ZoomPanelControls.slider.name
-                : ZoomPanelControls.full.name),
+                : ZoomPanelControls.inputAndButtons.name),
         'rotationDisplay':
             json['rotationDisplay'] ??
             (json['showRotation'] == true
@@ -817,7 +817,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
         prefs.getString('zoom_panel_controls'),
         prefs.getBool('minimal_zoom') == true
             ? ZoomPanelControls.slider
-            : ZoomPanelControls.full,
+            : ZoomPanelControls.inputAndButtons,
       ),
       zoomPosition: prefs.containsKey('zoom_position')
           ? _enumByNameOr(

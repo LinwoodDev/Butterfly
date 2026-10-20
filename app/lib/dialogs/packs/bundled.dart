@@ -24,7 +24,7 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).bundledPacks),
-      leading: IconButton.outlined(
+      leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
         icon: const PhosphorIcon(PhosphorIconsLight.x),
       ),

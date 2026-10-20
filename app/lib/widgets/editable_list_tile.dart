@@ -123,7 +123,6 @@ class _EditableListTileState extends State<EditableListTile> {
               style: currentStyle,
               decoration: InputDecoration(
                 filled: true,
-                border: const OutlineInputBorder(),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 4,
                   vertical: 0,

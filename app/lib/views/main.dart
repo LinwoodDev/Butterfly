@@ -735,6 +735,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                           skipTraversal: true,
                                           onFocusChange: (_) => false,
                                           child: Scaffold(
+                                            // The canvas reaches behind the
+                                            // floating app bar islands.
+                                            extendBodyBehindAppBar: true,
                                             appBar:
                                                 state is DocumentPresentationState ||
                                                     fullScreen ||

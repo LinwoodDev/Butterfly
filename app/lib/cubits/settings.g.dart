@@ -216,9 +216,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       $enumDecodeNullable(
         _$ZoomPanelControlsEnumMap,
         json['zoomPanelControls'],
-        unknownValue: ZoomPanelControls.full,
+        unknownValue: ZoomPanelControls.inputAndButtons,
       ) ??
-      ZoomPanelControls.full,
+      ZoomPanelControls.inputAndButtons,
   zoomPosition:
       $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
       ZoomPosition.bottomRight,

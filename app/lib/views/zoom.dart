@@ -6,6 +6,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/widgets/fading_view.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -131,7 +132,9 @@ class _ZoomViewState extends State<ZoomView> {
       final input = Focus(
         onFocusChange: onFocusChanged,
         child: NumberInput(
-          label: label,
+          // The compact panel speaks for itself, the label is only needed
+          // next to the slider.
+          label: controls.showSlider ? label : null,
           value: value,
           min: min,
           max: max,
@@ -221,9 +224,9 @@ class _ZoomViewState extends State<ZoomView> {
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
         ),
-        child: Card(
+        child: Island(
           child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

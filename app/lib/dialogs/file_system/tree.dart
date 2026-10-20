@@ -154,7 +154,6 @@ class FileSystemDirectoryTreeViewState
               content: TextFormField(
                 autofocus: true,
                 decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
                   labelText: LeapLocalizations.of(context).name,
                 ),
                 onChanged: (value) => name = value,
