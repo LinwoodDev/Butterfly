@@ -1048,6 +1048,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
 
   bool get isInline => toolbarPosition == .inline && toolbarRows <= 1;
 
+  /// The floating editor is the default; the experiment flag opts out into
+  /// the classic layout so resetting experiments keeps it enabled.
+  bool get floatingEditor => !hasFlag('classicEditor');
+
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     if (limitViewportMultiplier != null) {

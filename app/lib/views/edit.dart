@@ -132,6 +132,7 @@ class _EditToolbarState extends State<EditToolbar> {
                           );
                         }
                         return Island(
+                          classicElevation: 10,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 4,
                             vertical: 2,

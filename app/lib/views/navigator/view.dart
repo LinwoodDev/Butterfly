@@ -135,47 +135,77 @@ class _NavigatorViewState extends State<NavigatorView>
                       },
                     ),
                   ),
-                  // The rail floats as a slim island but keeps the
-                  // reserved width of kNavigationRailWidth.
-                  SizedBox(
-                    width: kNavigationRailWidth,
-                    child: Center(
-                      child: Island(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        padding: const EdgeInsets.all(4),
-                        radius: kRadiusPill,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            spacing: 4,
-                            children: [
-                              for (final (index, page) in pages.indexed)
-                                _NavigatorRailButton(
-                                  page: page,
-                                  selected:
-                                      viewState.navigatorEnabled &&
-                                      index == selected,
-                                  onPressed: () {
-                                    final cubit = context
-                                        .read<EditorViewCubit>();
-                                    if (selected == index) {
+                  if (!FloatingEditorScope.of(context))
+                    NavigationRail(
+                      scrollable: true,
+                      minWidth: kNavigationRailWidth,
+                      destinations: pages
+                          .map(
+                            (e) => NavigationRailDestination(
+                              icon: PhosphorIcon(e.icon()),
+                              label: Text(e.getLocalizedName(context)),
+                            ),
+                          )
+                          .toList(),
+                      selectedIndex: viewState.navigatorEnabled
+                          ? selected < 0
+                                ? 0
+                                : selected
+                          : null,
+                      groupAlignment: 0,
+                      onDestinationSelected: (index) {
+                        final cubit = context.read<EditorViewCubit>();
+                        if (selected == index) {
+                          cubit.setNavigator(
+                            enabled: !viewState.navigatorEnabled,
+                          );
+                          return;
+                        }
+                        cubit.setNavigator(page: pages[index], enabled: true);
+                      },
+                    )
+                  else
+                    // The rail floats as a slim island but keeps the
+                    // reserved width of kNavigationRailWidth.
+                    SizedBox(
+                      width: kNavigationRailWidth,
+                      child: Center(
+                        child: Island(
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          padding: const EdgeInsets.all(4),
+                          radius: kRadiusPill,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              spacing: 4,
+                              children: [
+                                for (final (index, page) in pages.indexed)
+                                  _NavigatorRailButton(
+                                    page: page,
+                                    selected:
+                                        viewState.navigatorEnabled &&
+                                        index == selected,
+                                    onPressed: () {
+                                      final cubit = context
+                                          .read<EditorViewCubit>();
+                                      if (selected == index) {
+                                        cubit.setNavigator(
+                                          enabled: !viewState.navigatorEnabled,
+                                        );
+                                        return;
+                                      }
                                       cubit.setNavigator(
-                                        enabled: !viewState.navigatorEnabled,
+                                        page: page,
+                                        enabled: true,
                                       );
-                                      return;
-                                    }
-                                    cubit.setNavigator(
-                                      page: page,
-                                      enabled: true,
-                                    );
-                                  },
-                                ),
-                            ],
+                                    },
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                 ],
               );
             },

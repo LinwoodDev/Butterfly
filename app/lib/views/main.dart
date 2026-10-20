@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -706,11 +707,16 @@ class _ProjectPageState extends State<ProjectPage> {
                                 BlocSelector<
                                   SettingsCubit,
                                   ButterflySettings,
-                                  ({bool isInline, ToolbarSize toolbarSize})
+                                  ({
+                                    bool isInline,
+                                    ToolbarSize toolbarSize,
+                                    bool floating,
+                                  })
                                 >(
                                   selector: (state) => (
                                     isInline: state.isInline,
                                     toolbarSize: state.toolbarSize,
+                                    floating: state.floatingEditor,
                                   ),
                                   builder: (context, settings) {
                                     final actions = _buildActions(context);
@@ -728,41 +734,48 @@ class _ProjectPageState extends State<ProjectPage> {
                                           ),
                                         );
                                       },
-                                      child: ClipRect(
-                                        child: Focus(
-                                          focusNode: runtime
-                                              .editorController
-                                              .focusNode,
-                                          autofocus: true,
-                                          skipTraversal: true,
-                                          onFocusChange: (_) => false,
-                                          child: Scaffold(
-                                            // The canvas reaches behind the
-                                            // floating app bar islands.
-                                            extendBodyBehindAppBar: true,
-                                            appBar:
-                                                state is DocumentPresentationState ||
-                                                    fullScreen ||
-                                                    saveState.fullScreen ||
-                                                    hideUi != .visible
-                                                ? null
-                                                : PadAppBar(
-                                                    viewportKey: _viewportKey,
-                                                    size: settings.toolbarSize,
-                                                    searchController:
-                                                        _searchController,
-                                                    padding: padding,
-                                                    direction:
-                                                        Directionality.of(
-                                                          context,
-                                                        ),
-                                                    inView: saveState.inView,
-                                                    showTools:
-                                                        settings.isInline &&
-                                                        saveState.editable,
-                                                  ),
-                                            body: _MainBody(
-                                              viewportKey: _viewportKey,
+                                      child: FloatingEditorScope(
+                                        enabled: settings.floating,
+                                        child: ClipRect(
+                                          child: Focus(
+                                            focusNode: runtime
+                                                .editorController
+                                                .focusNode,
+                                            autofocus: true,
+                                            skipTraversal: true,
+                                            onFocusChange: (_) => false,
+                                            child: Scaffold(
+                                              // The canvas reaches behind the
+                                              // floating app bar islands.
+                                              extendBodyBehindAppBar:
+                                                  settings.floating,
+                                              appBar:
+                                                  state is DocumentPresentationState ||
+                                                      fullScreen ||
+                                                      saveState.fullScreen ||
+                                                      hideUi != .visible
+                                                  ? null
+                                                  : PadAppBar(
+                                                      floating:
+                                                          settings.floating,
+                                                      viewportKey: _viewportKey,
+                                                      size:
+                                                          settings.toolbarSize,
+                                                      searchController:
+                                                          _searchController,
+                                                      padding: padding,
+                                                      direction:
+                                                          Directionality.of(
+                                                            context,
+                                                          ),
+                                                      inView: saveState.inView,
+                                                      showTools:
+                                                          settings.isInline &&
+                                                          saveState.editable,
+                                                    ),
+                                              body: _MainBody(
+                                                viewportKey: _viewportKey,
+                                              ),
                                             ),
                                           ),
                                         ),

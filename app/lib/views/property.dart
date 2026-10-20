@@ -274,6 +274,7 @@ class _PropertyCardState extends State<_PropertyCard> {
             ),
           );
     return Island(
+      classicElevation: 6,
       margin: const EdgeInsets.all(8),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),

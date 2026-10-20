@@ -2122,6 +2122,50 @@ void main() {
     }
   });
 
+  for (final floating in [true, false]) {
+    testWidgets('editor uses the ${floating ? 'floating' : 'classic'} layout', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(1200, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        ButterflySettings(
+          defaultTemplate: 'default',
+          flags: floating ? const [] : const ['classicEditor'],
+        ),
+      );
+
+      await tester.pumpWidget(buildApp());
+      await tester.tap(find.byKey(const ValueKey('open-document')));
+      await pumpUntil(
+        tester,
+        () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+        'document open',
+      );
+      await tester.pumpAndSettle();
+
+      final appBar = tester.widget<PadAppBar>(find.byType(PadAppBar));
+      expect(appBar.floating, floating);
+      final scaffold = tester.widget<Scaffold>(
+        find.ancestor(
+          of: find.byType(PadAppBar),
+          matching: find.byType(Scaffold),
+        ),
+      );
+      expect(scaffold.extendBodyBehindAppBar, floating);
+      expect(
+        find.descendant(
+          of: find.byType(NavigatorView),
+          matching: find.byType(NavigationRail),
+        ),
+        floating ? findsNothing : findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    });
+  }
+
   testWidgets(
     'desktop navigator menu opens the sidebar when its rail is disabled',
     (tester) async {

@@ -215,12 +215,37 @@ BoxDecoration islandDecoration(BuildContext context, {double? radius}) {
   );
 }
 
+/// Tells the editor whether its controls float over the canvas (the default)
+/// or use the classic layout from the experiments settings.
+class FloatingEditorScope extends InheritedWidget {
+  final bool enabled;
+
+  const FloatingEditorScope({
+    super.key,
+    required this.enabled,
+    required super.child,
+  });
+
+  static bool of(BuildContext context) =>
+      context
+          .dependOnInheritedWidgetOfExactType<FloatingEditorScope>()
+          ?.enabled ??
+      true;
+
+  @override
+  bool updateShouldNotify(FloatingEditorScope oldWidget) =>
+      enabled != oldWidget.enabled;
+}
+
 /// A floating panel on top of the canvas, see [islandDecoration].
+///
+/// In the classic editor layout it falls back to an elevated card.
 class Island extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
   final double? radius;
+  final double classicElevation;
 
   const Island({
     super.key,
@@ -228,10 +253,19 @@ class Island extends StatelessWidget {
     this.padding = const EdgeInsets.all(4),
     this.margin = const EdgeInsets.all(4),
     this.radius,
+    this.classicElevation = 4,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (!FloatingEditorScope.of(context)) {
+      return Card(
+        margin: margin,
+        elevation: classicElevation,
+        clipBehavior: Clip.antiAlias,
+        child: Padding(padding: padding, child: child),
+      );
+    }
     final borderRadius = BorderRadius.all(
       Radius.circular(radius ?? kRadiusLarge),
     );

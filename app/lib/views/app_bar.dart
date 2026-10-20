@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/actions/full_screen.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
@@ -50,6 +52,9 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool inView;
   final TextDirection direction;
 
+  /// Floating islands over the canvas, or the classic solid bar.
+  final bool floating;
+
   PadAppBar({
     super.key,
     required this.viewportKey,
@@ -59,6 +64,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showTools = true,
     this.inView = false,
     this.padding,
+    this.floating = true,
   });
 
   late final windowTitleBar = _buildWindowTitleBar(padding);
@@ -72,15 +78,15 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   WindowTitleBar _buildWindowTitleBar(EdgeInsets? padding) =>
       WindowTitleBar<SettingsCubit, ButterflySettings>(
-        leadingWidth: 68,
-        height: 68,
+        leadingWidth: floating ? 68 : 60,
+        height: floating ? 68 : max(70, showTools ? size.size + 20 : 0),
         titleIgnorePointer: false,
         inView: inView,
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        titleSpacing: 4,
+        backgroundColor: floating ? Colors.transparent : null,
+        shadowColor: floating ? Colors.transparent : null,
+        elevation: floating ? 0 : null,
+        scrolledUnderElevation: floating ? 0 : null,
+        titleSpacing: floating ? 4 : null,
         leading: Directionality(
           textDirection: direction,
           child: Padding(
@@ -89,6 +95,13 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
               builder: (context, constraints) {
                 final isLarge =
                     MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded;
+                if (!floating) {
+                  return MainPopupMenu(
+                    viewportKey: viewportKey,
+                    isLarge: isLarge,
+                    padding: padding,
+                  );
+                }
                 return Center(
                   child: Island(
                     margin: EdgeInsets.zero,
@@ -116,6 +129,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
               return _AppBarTitle(
                 isMobile: isMobile,
                 searchController: searchController,
+                floating: floating,
               );
             },
           ),
@@ -128,8 +142,13 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 class _AppBarTitle extends StatefulWidget {
   final SearchController searchController;
+  final bool floating;
 
-  const _AppBarTitle({required this.isMobile, required this.searchController});
+  const _AppBarTitle({
+    required this.isMobile,
+    required this.searchController,
+    this.floating = true,
+  });
 
   final bool isMobile;
 
@@ -288,27 +307,37 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             300.0,
                           ),
                         ),
-                        child: Island(
-                          margin: EdgeInsets.zero,
-                          padding: const EdgeInsets.only(
-                            left: 14,
-                            right: 4,
-                            top: 4,
-                            bottom: 4,
-                          ),
-                          child: SizedBox(
-                            height: kTopBarIslandContentHeight,
-                            child: _buildAppBar(
-                              state,
-                              area,
-                              areaName,
-                              bloc,
-                              currentIndex,
-                              context,
-                              settings,
-                            ),
-                          ),
-                        ),
+                        child: widget.floating
+                            ? Island(
+                                margin: EdgeInsets.zero,
+                                padding: const EdgeInsets.only(
+                                  left: 14,
+                                  right: 4,
+                                  top: 4,
+                                  bottom: 4,
+                                ),
+                                child: SizedBox(
+                                  height: kTopBarIslandContentHeight,
+                                  child: _buildAppBar(
+                                    state,
+                                    area,
+                                    areaName,
+                                    bloc,
+                                    currentIndex,
+                                    context,
+                                    settings,
+                                  ),
+                                ),
+                              )
+                            : _buildAppBar(
+                                state,
+                                area,
+                                areaName,
+                                bloc,
+                                currentIndex,
+                                context,
+                                settings,
+                              ),
                       ),
                       const SizedBox(width: 8),
                       if (!widget.isMobile)
@@ -325,11 +354,11 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                                   ButterflySettings
                                 >(),
                                 settings.isInline
-                                    ? const Align(
+                                    ? Align(
                                         alignment: Alignment.centerRight,
                                         child: EditToolbar(
                                           isMobile: false,
-                                          compact: true,
+                                          compact: widget.floating,
                                         ),
                                       )
                                     : const SizedBox.shrink(),
@@ -400,18 +429,27 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             onFieldSubmitted: submit,
                             onSaved: submit,
                             readOnly: currentIndex.embedding?.editable == false,
-                            style: TextTheme.of(context).titleMedium,
-                            decoration: InputDecoration(
-                              filled: false,
-                              isDense: true,
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 2,
-                              ),
-                              hintText: AppLocalizations.of(context).untitled,
-                            ),
+                            style: widget.floating
+                                ? TextTheme.of(context).titleMedium
+                                : null,
+                            decoration: widget.floating
+                                ? InputDecoration(
+                                    filled: false,
+                                    isDense: true,
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 2,
+                                    ),
+                                    hintText: AppLocalizations.of(context)
+                                        .untitled,
+                                  )
+                                : InputDecoration(
+                                    filled: true,
+                                    hintText: AppLocalizations.of(context)
+                                        .untitled,
+                                  ),
                           ),
                         ),
                         if (snapshot.data?.connection is NetworkerClient) ...[
