@@ -8,6 +8,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/async.dart';
+import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -308,8 +309,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
     on<PageChanged>((event, emit) async {
       final current = state;
-      if (current is! DocumentLoadSuccess ||
-          current.pageName == event.pageName) {
+      if (current is! DocumentLoadSuccess) return;
+      if (current.pageName == event.pageName) {
+        final position = event.position;
+        if (position != null) {
+          transformCubit.teleport(position.toOffset(), event.zoom);
+          await bake();
+        }
         return;
       }
       final rawPage = current.data.getRawPage(event.pageName);
@@ -336,7 +342,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         encodedPage = _encodePage(current.page);
         page = _decodePage(rawPage);
       }
-      if (page == null) return;
+      if (page == null || emit.isDone) return;
       final data = current.data.setRawPage(encodedPage, current.pageName).$1;
       await _saveState(
         emit,
@@ -347,6 +353,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           currentAreaName: getInitialArea(page),
         ),
         reset: true,
+        cameraPosition: event.position,
+        cameraZoom: event.zoom,
       );
       // Reload disposes the old page renderers before evicting their sources.
       // A superseded page change must not evict assets for the newer page.
@@ -1913,6 +1921,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     bool? resetAll,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
+    Point<double>? cameraPosition,
+    double? cameraZoom,
   }) async {
     if (this.state is! DocumentLoadSuccess && state == null) return;
     if (resetAll != null) {
@@ -1930,6 +1940,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       } else if (reset) {
         editorController.transformCubit.reset();
       }
+    }
+    if (cameraPosition != null) {
+      transformCubit.teleport(cameraPosition.toOffset(), cameraZoom);
     }
     emit(state);
     if (oldState != null && oldState.pageName != state.pageName) {

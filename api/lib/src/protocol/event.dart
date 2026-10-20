@@ -66,7 +66,13 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.pagesAdded(List<PageAddedDetails> pages) =
       PagesAdded;
 
-  const factory DocumentEvent.pageChanged(String pageName) = PageChanged;
+  const factory DocumentEvent.pageChanged(
+    String pageName, {
+    // Camera destinations are local; collaboration only synchronizes the page.
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    Point<double>? position,
+    @JsonKey(includeFromJson: false, includeToJson: false) double? zoom,
+  }) = PageChanged;
 
   const factory DocumentEvent.pageReordered(String page, [int? newIndex]) =
       PageReordered;

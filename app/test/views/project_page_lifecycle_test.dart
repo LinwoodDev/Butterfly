@@ -254,8 +254,11 @@ void main() {
     );
   }
 
-  Future<EditorController> openEditor(WidgetTester tester) async {
-    await tester.pumpWidget(buildApp());
+  Future<EditorController> openEditor(
+    WidgetTester tester, {
+    NoteData? document,
+  }) async {
+    await tester.pumpWidget(buildApp(embedDocument: document));
     await tester.tap(find.byKey(const ValueKey('open-document')));
     await pumpUntil(
       tester,
@@ -376,39 +379,61 @@ void main() {
     );
   });
 
-  testWidgets('floating overlays expand search from the document panel', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(1262, 711);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    when(() => settingsCubit.state).thenReturn(
-      const ButterflySettings(
-        defaultTemplate: 'default',
-        flags: ['floatingEditor'],
-      ),
-    );
-    await openEditor(tester);
-    final titleCard = find
-        .descendant(of: find.byType(PadAppBar), matching: find.byType(Card))
-        .at(1);
-    final titleRect = tester.getRect(titleCard);
-    final controller = tester
-        .widget<PadAppBar>(find.byType(PadAppBar))
-        .searchController;
-    await tester.tap(find.byTooltip('Search').hitTestable());
-    await tester.pumpAndSettle();
-    final searchSurface = find
-        .ancestor(of: find.byType(SearchBar), matching: find.byType(Material))
-        .first;
-    expect(tester.getTopLeft(searchSurface), titleRect.topLeft);
-    expect(controller.isOpen, isTrue);
-    expect(tester.takeException(), isNull);
-    controller.closeView(null);
-    await tester.pumpAndSettle();
-    expect(controller.isOpen, isFalse);
-  });
+  testWidgets(
+    'floating search handles literal queries and opens matches on their page',
+    (tester) async {
+      tester.view.physicalSize = const Size(1262, 711);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          autosave: false,
+          flags: ['floatingEditor'],
+        ),
+      );
+      const waypoint = Waypoint('Plan [draft]', Point(300, 450), 1.75);
+      final (document, targetPage) = DocumentDefaults.createDocument(
+        name: 'Search test',
+        page: const DocumentPage(backgrounds: []),
+      ).setPage(const DocumentPage(waypoints: [waypoint]), 'Research');
+      final editor = await openEditor(tester, document: document);
+      final controller = tester
+          .widget<PadAppBar>(find.byType(PadAppBar))
+          .searchController;
+      await tester.tap(find.byTooltip('Search').hitTestable());
+      await tester.pumpAndSettle();
+      controller.text = 'no such result';
+      await pumpUntil(
+        tester,
+        () => find.text('No results found').evaluate().isNotEmpty,
+        'empty search results',
+      );
+      controller.text = '[';
+      await pumpUntil(
+        tester,
+        () => find.text('Plan [draft]').evaluate().isNotEmpty,
+        'literal query match',
+      );
+      expect(find.text('Waypoint · Research'), findsOneWidget);
+      tester.widget<SearchBar>(find.byType(SearchBar)).onSubmitted!('[');
+      await pumpUntil(
+        tester,
+        () =>
+            observer.lastDocumentBloc!.state is DocumentLoadSuccess &&
+            (observer.lastDocumentBloc!.state as DocumentLoadSuccess)
+                    .pageName ==
+                targetPage &&
+            editor.transformCubit.state.position == const Offset(300, 450),
+        'search result navigation',
+      );
+      await tester.pumpAndSettle();
+      expect(controller.isOpen, isFalse);
+      expect(editor.transformCubit.state.size, 1.75);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   testWidgets(
     'floating header keeps large text within its height and hides native controls',

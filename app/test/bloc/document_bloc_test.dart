@@ -1569,6 +1569,31 @@ void main() {
     expect(viewport.unbakedElements, isEmpty);
   });
 
+  test(
+    'same-page navigation moves the camera without replacing document state',
+    () async {
+      final initial = bloc.state as DocumentLoadSuccess;
+      final saved = editorController.saveCubit.state.saved;
+
+      bloc.add(
+        PageChanged(
+          initial.pageName,
+          position: const Point(300, 450),
+          zoom: 1.75,
+        ),
+      );
+      await _settleBlocEvents();
+
+      expect(
+        editorController.transformCubit.state.position,
+        const Offset(300, 450),
+      );
+      expect(editorController.transformCubit.state.size, 1.75);
+      expect(bloc.state, same(initial));
+      expect(editorController.saveCubit.state.saved, saved);
+    },
+  );
+
   test('page navigation keeps the shared asset service alive', () async {
     final state = bloc.state as DocumentLoadSuccess;
     final data = state.data;

@@ -49,13 +49,13 @@ sealed class SearchResult with _$SearchResult {
 
 extension ElementSearchHelper on PadElement {
   ElementResult? matches(Pattern query) {
-    ElementResult? matchText(TextElement e) {
-      if (!e.area.paragraph.text.contains(query)) return null;
-      return ElementResult(e.area.paragraph.text, '', e.position, this);
-    }
-
     return switch (this) {
-      TextElement e => matchText(e),
+      LabelElement e when e.text.contains(query) => ElementResult(
+        e.text,
+        '',
+        e.position,
+        this,
+      ),
       _ => null,
     };
   }
@@ -70,7 +70,7 @@ extension AreaSearchHelper on Area {
 
 extension WaypointSearchHelper on Waypoint {
   WaypointResult? matches(Pattern query) {
-    if (name != null && name!.contains(query)) return null;
+    if (name == null || !name!.contains(query)) return null;
     return WaypointResult(this, '');
   }
 }
@@ -114,12 +114,12 @@ extension GlobalSearchHelper on NoteData {
     String? currentPageName,
     DocumentPage? currentPage,
   ]) sync* {
-    for (final pageName in getPages()) {
-      final page = currentPageName == pageName
-          ? currentPage
+    for (final (name, pageName) in getPagesWithNames()) {
+      final page = currentPageName == pageName || currentPageName == name
+          ? currentPage ?? getPage(pageName)
           : getPage(pageName);
       if (page == null) continue;
-      if (pageName.contains(query)) yield PageResult(pageName);
+      if (name.contains(query)) yield PageResult(pageName);
       yield* page.search(query).map((e) => e.withPage(pageName));
     }
     yield* getInfo()?.search(query) ?? <SearchResult>[];

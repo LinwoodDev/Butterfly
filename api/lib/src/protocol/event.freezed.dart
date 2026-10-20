@@ -530,10 +530,12 @@ as List<PageAddedDetails>,
 @JsonSerializable()
 
 class PageChanged extends DocumentEvent {
-  const PageChanged(this.pageName, { String? $type}): $type = $type ?? 'pageChanged',super._();
+  const PageChanged(this.pageName, {@JsonKey(includeFromJson: false, includeToJson: false) this.position, @JsonKey(includeFromJson: false, includeToJson: false) this.zoom,  String? $type}): $type = $type ?? 'pageChanged',super._();
   factory PageChanged.fromJson(Map<String, dynamic> json) => _$PageChangedFromJson(json);
 
  final  String pageName;
+@JsonKey(includeFromJson: false, includeToJson: false) final  Point<double>? position;
+@JsonKey(includeFromJson: false, includeToJson: false) final  double? zoom;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -552,18 +554,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageChanged&&(identical(other.pageName, pageName) || other.pageName == pageName));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PageChanged&&(identical(other.pageName, pageName) || other.pageName == pageName)&&(identical(other.position, position) || other.position == position)&&(identical(other.zoom, zoom) || other.zoom == zoom));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,pageName);
+    return Object.hash(runtimeType,pageName,position,zoom);
 }
 
 @override
 String toString() {
-    return 'DocumentEvent.pageChanged(pageName: $pageName)';
+    return 'DocumentEvent.pageChanged(pageName: $pageName, position: $position, zoom: $zoom)';
 }
 
 
@@ -574,7 +576,7 @@ abstract mixin class $PageChangedCopyWith<$Res> implements $DocumentEventCopyWit
   factory $PageChangedCopyWith(PageChanged value, $Res Function(PageChanged) _then) = _$PageChangedCopyWithImpl;
 @useResult
 $Res call({
- String pageName
+ String pageName,@JsonKey(includeFromJson: false, includeToJson: false) Point<double>? position,@JsonKey(includeFromJson: false, includeToJson: false) double? zoom
 });
 
 
@@ -591,10 +593,12 @@ class _$PageChangedCopyWithImpl<$Res>
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? pageName = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? pageName = null,Object? position = freezed,Object? zoom = freezed,}) {
   return _then(PageChanged(
 null == pageName ? _self.pageName : pageName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,position: freezed == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as Point<double>?,zoom: freezed == zoom ? _self.zoom : zoom // ignore: cast_nullable_to_non_nullable
+as double?,
   ));
 }
 

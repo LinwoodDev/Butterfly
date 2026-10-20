@@ -6,5 +6,6 @@
 * Keep collaboration edits on their original page and layer when participants navigate independently
 * Add whole page and last viewport framing for automatic thumbnails
 * Add a floating editor layout for wide screens behind an Experiments setting
+* Improve document search with clearer results, literal queries, Markdown matches, and accurate page navigation
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0
