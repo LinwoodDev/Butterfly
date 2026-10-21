@@ -4,6 +4,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/load.dart';
+import 'package:butterfly/helpers/pdf.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
@@ -441,7 +442,10 @@ class _AreaPreviewState extends State<_AreaPreview> {
       ImageExportOptions(
         width: widget.area.width,
         height: widget.area.height,
-        quality: min(widget.preset.quality, maxImageDimension / maxSide),
+        quality: min(
+          widget.preset.quality * kPdfPointsPerCanvasUnit,
+          maxImageDimension / maxSide,
+        ),
         x: widget.area.position.x,
         y: widget.area.position.y,
       ),

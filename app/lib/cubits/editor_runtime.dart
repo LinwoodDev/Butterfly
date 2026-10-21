@@ -9,6 +9,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/async.dart';
+import 'package:butterfly/helpers/pdf.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/selections/selection.dart';

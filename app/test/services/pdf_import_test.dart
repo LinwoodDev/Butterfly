@@ -115,10 +115,36 @@ void main() {
     expect(elements.first.source, isNot(elements.last.source));
     expect(result.assets[elements.first.source], bytes);
     expect(result.assets[elements.last.source], otherBytes);
-    expect(elements.map((e) => e.position.y), [0, 1000]);
-    expect(result.areas.map((e) => e.position.y), [0, 1000]);
+    expect(elements.map((e) => e.position.y), [
+      0,
+      closeTo(352.7777777778, 1e-8),
+    ]);
+    expect(result.areas.map((e) => e.position.y), [
+      0,
+      closeTo(352.7777777778, 1e-8),
+    ]);
     expect(result.exportPresets.map((e) => e.name), ['first', 'second']);
     expect(find.byType(LoadingDialog), findsNothing);
+  });
+
+  testWidgets('A4 PDF pages import as 210 by 297 canvas units', (tester) async {
+    await mount(tester);
+    when(() => page.width).thenReturn(595.2755905511812);
+    when(() => page.height).thenReturn(841.8897637795276);
+
+    final importing = service.importPdf(
+      bytes,
+      DocumentDefaults.createDocument(),
+      advanced: false,
+    );
+    await tester.pumpAndSettle();
+    final result = (await importing)!;
+    final element = result.elements.single as PdfElement;
+
+    expect(element.width, closeTo(210, 1e-9));
+    expect(element.height, closeTo(297, 1e-9));
+    expect(result.areas.single.width, closeTo(210, 1e-9));
+    expect(result.areas.single.height, closeTo(297, 1e-9));
   });
 
   for (final returnsNull in [false, true]) {

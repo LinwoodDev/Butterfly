@@ -9,6 +9,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly/helpers/svg.dart';
+import 'package:butterfly/helpers/pdf.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -1196,8 +1197,8 @@ class ImportService(
           await Future.delayed(const Duration(milliseconds: 1));
           dialog?.setProgress(current / pages.length);
           current++;
-          final height = raster.height.toDouble();
-          final width = raster.width.toDouble();
+          final height = pdfPointsToCanvasUnits(raster.height);
+          final width = pdfPointsToCanvasUnits(raster.width);
           final pageName = getPageName(i);
           final element = PdfElement(
             height: height,

@@ -1302,7 +1302,7 @@ class RendererCubit(
       onProgress?.call(i / areas.length);
       final preset = areas[i];
       final areaName = preset.name;
-      final quality = preset.quality;
+      final quality = preset.quality * kPdfPointsPerCanvasUnit;
       final currentOpened = docState.pageName == preset.page;
       final page = currentOpened
           ? docState.page
@@ -1341,8 +1341,8 @@ class RendererCubit(
       );
       final imageDoc = await PdfDocument.createFromJpegData(
         pdfImage,
-        width: area.width,
-        height: area.height,
+        width: canvasUnitsToPdfPoints(area.width),
+        height: canvasUnitsToPdfPoints(area.height),
         sourceName: '$name-$areaName.jpg',
       );
       pages.addAll(imageDoc.pages);
