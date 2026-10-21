@@ -1104,6 +1104,185 @@ void main() {
     },
   );
 
+  // Issue #1304: exercise the overlapping bindings together, including Windows
+  // key repeat and releasing the keyboard chord before the mouse button.
+  for (final smoothNavigation in [false, true]) {
+    for (final spaceFirst in [false, true]) {
+      for (final releaseOrder in ['mouse', 'space', 'shift']) {
+        testWidgets(
+          'Shift+Space with Space hand hold: '
+          '${spaceFirst ? 'Space' : 'Shift'} pressed first, '
+          '$releaseOrder released first, smoothNavigation=$smoothNavigation',
+          (tester) async {
+            when(() => settingsCubit.state).thenReturn(
+              ButterflySettings(
+                defaultTemplate: 'default',
+                flags: [if (smoothNavigation) 'smoothNavigation'],
+                inputConfiguration: InputConfiguration(
+                  holdShortcuts: [
+                    HoldShortcut(
+                      keyId: LogicalKeyboardKey.space.keyId,
+                      mapping: const InputMapping(InputMapping.handToolValue),
+                    ),
+                  ],
+                ),
+              ),
+            );
+            final editor = await openEditor(tester);
+            final bloc = observer.lastDocumentBloc!;
+            await editor.toolCubit.changeTool(
+              editor,
+              bloc,
+              index: 1,
+              allowBake: false,
+            );
+            await tester.pumpAndSettle();
+            final viewport = find.byType(MainViewViewport);
+            final center = tester.getCenter(viewport);
+            final localCenter = tester.getSize(viewport).center(Offset.zero);
+
+            Future<void> keyDown(LogicalKeyboardKey key) =>
+                tester.sendKeyDownEvent(key, platform: 'windows');
+            Future<void> keyUp(LogicalKeyboardKey key) =>
+                tester.sendKeyUpEvent(key, platform: 'windows');
+
+            // First use Space alone so the hand mapping is actually exercised
+            // before switching to the overlapping rotation shortcut.
+            await keyDown(LogicalKeyboardKey.space);
+            final pan = await tester.startGesture(
+              center,
+              kind: PointerDeviceKind.mouse,
+            );
+            await tester.pump();
+            expect(editor.toolCubit.state.temporaryHandler, isA<HandHandler>());
+            final beforePan = editor.transformCubit.state.position;
+            await pan.moveBy(const Offset(30, 0));
+            await tester.pump(const Duration(milliseconds: 16));
+            await pan.moveBy(const Offset(30, 0));
+            await tester.pump(const Duration(milliseconds: 16));
+            expect(editor.transformCubit.state.position, isNot(beforePan));
+            await pan.up();
+            await keyUp(LogicalKeyboardKey.space);
+            await tester.pumpAndSettle();
+            expect(editor.toolCubit.state.temporaryHandler, isNull);
+
+            final firstKey = spaceFirst
+                ? LogicalKeyboardKey.space
+                : LogicalKeyboardKey.shiftLeft;
+            final secondKey = spaceFirst
+                ? LogicalKeyboardKey.shiftLeft
+                : LogicalKeyboardKey.space;
+            await keyDown(firstKey);
+            await keyDown(secondKey);
+            final documentCenter = editor.transformCubit.state.localToGlobal(
+              localCenter,
+            );
+            final zoom = editor.transformCubit.state.size;
+            final rotation = await tester.startGesture(
+              center + const Offset(100, 0),
+              kind: PointerDeviceKind.mouse,
+            );
+            await tester.pump();
+            await rotation.moveTo(center + const Offset(0, 100));
+            await tester.pump(const Duration(milliseconds: 16));
+            expect(editor.transformCubit.state.rotation, closeTo(pi / 2, 1e-6));
+            expect(editor.transformCubit.state.size, zoom);
+            expect(editor.toolCubit.state.temporaryHandler, isNull);
+
+            for (var repeat = 0; repeat < 3; repeat++) {
+              await tester.sendKeyRepeatEvent(
+                LogicalKeyboardKey.space,
+                platform: 'windows',
+              );
+              await tester.pump(const Duration(milliseconds: 100));
+            }
+            expect(editor.transformCubit.state.rotation, closeTo(pi / 2, 1e-6));
+            expect(editor.transformCubit.state.size, zoom);
+            expect(
+              (editor.transformCubit.state.localToGlobal(localCenter) -
+                      documentCenter)
+                  .distance,
+              lessThan(1e-6),
+            );
+
+            if (releaseOrder == 'mouse') {
+              await rotation.up();
+              await keyUp(secondKey);
+              await keyUp(firstKey);
+            } else {
+              final releaseFirst = releaseOrder == 'space'
+                  ? LogicalKeyboardKey.space
+                  : LogicalKeyboardKey.shiftLeft;
+              final releaseSecond = releaseOrder == 'space'
+                  ? LogicalKeyboardKey.shiftLeft
+                  : LogicalKeyboardKey.space;
+              await keyUp(releaseFirst);
+              await keyUp(releaseSecond);
+              // The current interaction lasts until pointer up,
+              // even after both keyboard keys have been released.
+              await rotation.moveTo(center + const Offset(-100, 100));
+              await tester.pump(const Duration(milliseconds: 16));
+              expect(
+                editor.transformCubit.state.rotation,
+                closeTo(3 * pi / 4, 1e-6),
+              );
+              await rotation.up();
+            }
+            await tester.pumpAndSettle();
+            expect(editor.inputCubit.state.pointers, isEmpty);
+            expect(editor.inputCubit.state.buttons, isNull);
+            expect(editor.toolCubit.state.temporaryHandler, isNull);
+            expect((bloc.state as DocumentLoadSuccess).page.content, isEmpty);
+            expect(editor.transformCubit.state.size, zoom);
+
+            final releasedCamera = editor.transformCubit.state;
+            await tester.sendEventToBinding(
+              PointerHoverEvent(
+                position: center + const Offset(50, 50),
+                kind: PointerDeviceKind.mouse,
+              ),
+            );
+            await tester.pump(const Duration(seconds: 4));
+            expect(
+              editor.transformCubit.state.position,
+              releasedCamera.position,
+            );
+            expect(
+              editor.transformCubit.state.rotation,
+              releasedCamera.rotation,
+            );
+            expect(editor.transformCubit.state.size, releasedCamera.size);
+            expect(editor.transformCubit.state.friction, isNull);
+
+            final stroke = await tester.startGesture(
+              center,
+              kind: PointerDeviceKind.mouse,
+            );
+            await stroke.moveBy(const Offset(50, 30));
+            await stroke.up();
+            await tester.pumpAndSettle();
+            expect(
+              (bloc.state as DocumentLoadSuccess).page.content,
+              hasLength(1),
+            );
+            expect(
+              editor.transformCubit.state.position,
+              releasedCamera.position,
+            );
+            expect(
+              editor.transformCubit.state.rotation,
+              releasedCamera.rotation,
+            );
+            expect(editor.transformCubit.state.size, releasedCamera.size);
+            expect(tester.takeException(), isNull);
+            await tester.pump(const Duration(seconds: 4));
+          },
+          variant: TargetPlatformVariant.only(TargetPlatform.windows),
+        );
+      }
+    }
+  }
+
   testWidgets('replacing document route closes document bloc', (tester) async {
     await tester.pumpWidget(buildApp());
 

@@ -34,7 +34,8 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   final _strokePaint = ElementPaintRenderer();
   final _fillPaint = ElementPaintRenderer();
 
-  PolygonRenderer(super.element, [super.layer, this.rect = .zero]);
+  PolygonRenderer(super.element, [super.layer, Rect? rect])
+    : rect = rect ?? calculatePolygonRect(element.points);
 
   @override
   Rect get expandedRect => Renderer._expandedAabbFor(

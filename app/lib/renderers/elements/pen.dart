@@ -7,14 +7,15 @@ class PenRenderer extends Renderer<PenElement> {
   PenRenderer(
     super.element, [
     super.layer,
-    this.rect = .zero,
+    Rect? rect,
     Rect expandedRect = .zero,
-  ]) : expandedRect = expandedRect,
+  ]) : rect = rect ?? _calculateRect(element.points),
+       expandedRect = expandedRect,
        _localExpandedRect = expandedRect {
     if (rotation != 0 || shear != 0) {
       _localExpandedRect = Renderer._inverseAabbFor(
         expandedRect,
-        rect.center,
+        this.rect.center,
         rotation * pi / 180,
         shear,
       );
@@ -30,6 +31,23 @@ class PenRenderer extends Renderer<PenElement> {
   PathHitCalculator? _cachedHitCalculator;
   final _strokePaint = ElementPaintRenderer();
   final _fillPaint = ElementPaintRenderer();
+
+  // Creation and import handlers can transform strokes before asset setup.
+  // Their local bounds must already be available to preserve the pivot.
+  static Rect _calculateRect(List<PathPoint> points) {
+    if (points.isEmpty) return Rect.zero;
+    var left = points.first.x;
+    var top = points.first.y;
+    var right = left;
+    var bottom = top;
+    for (final point in points.skip(1)) {
+      left = min(left, point.x);
+      top = min(top, point.y);
+      right = max(right, point.x);
+      bottom = max(bottom, point.y);
+    }
+    return Rect.fromLTRB(left, top, right, bottom);
+  }
 
   void _clearCachedPaths() {
     _cachedFillPath = null;
@@ -98,24 +116,9 @@ class PenRenderer extends Renderer<PenElement> {
     final points = element.points;
     if (points.isEmpty) return;
     final property = element.property;
-    var topLeftCorner = points.first.toOffset();
-    var bottomRightCorner = points.first.toOffset();
-    for (final element in points) {
-      topLeftCorner = Offset(
-        min(topLeftCorner.dx, element.x),
-        min(topLeftCorner.dy, element.y),
-      );
-      bottomRightCorner = Offset(
-        max(bottomRightCorner.dx, element.x),
-        max(bottomRightCorner.dy, element.y),
-      );
-    }
-    rect = Rect.fromLTRB(
-      topLeftCorner.dx,
-      topLeftCorner.dy,
-      bottomRightCorner.dx,
-      bottomRightCorner.dy,
-    );
+    rect = _calculateRect(points);
+    var topLeftCorner = rect.topLeft;
+    var bottomRightCorner = rect.bottomRight;
     for (final element in points) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(

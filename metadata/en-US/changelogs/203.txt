@@ -8,5 +8,6 @@
 * Add a floating editor layout for wide screens behind an Experiments setting
 * Improve document search with clearer results, literal queries, Markdown matches, and accurate page navigation
 * Fix a Windows crash during app shutdown
+* Fix stamps losing stroke positions and becoming distorted on rotated canvases
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0

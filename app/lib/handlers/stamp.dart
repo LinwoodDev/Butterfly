@@ -92,15 +92,12 @@ class StampHandler extends PastingHandler<StampTool> {
 
     return elements
         .map((renderer) {
-          final elementExpandedRect =
-              renderer.expandedRect ?? renderer.rect ?? Rect.zero;
-          final originalTopLeft = elementExpandedRect.topLeft;
-          final translatedTopLeft = applyScaleAndTranslate(originalTopLeft);
-          final delta = translatedTopLeft - originalTopLeft;
-
+          // Map every element's pivot through the same group transform. Stroke
+          // padding and existing rotation must not shift individual elements.
+          final center = (renderer.rect ?? Rect.zero).center;
           return renderer
                   .transform(
-                    position: delta,
+                    center: applyScaleAndTranslate(center),
                     scaleX: scaleX,
                     scaleY: scaleY,
                     relative: true,
