@@ -9,5 +9,6 @@
 * Improve document search with clearer results, literal queries, Markdown matches, and accurate page navigation
 * Fix a Windows crash during app shutdown
 * Fix stamps losing stroke positions and becoming distorted on rotated canvases
+* Fix paper and photo area presets having wrong physical size
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0

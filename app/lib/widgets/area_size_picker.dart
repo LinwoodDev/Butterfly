@@ -131,7 +131,7 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
                 (preset) => DropdownMenuEntry<AreaSizePreset>(
                   value: preset,
                   label:
-                      '${preset.label} (${preset.width.toInt()}×${preset.height.toInt()})',
+                      '${preset.label} (${preset.width.round()}×${preset.height.round()})',
                 ),
               )
               .toList(),

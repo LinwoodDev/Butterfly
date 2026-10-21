@@ -13,6 +13,7 @@ part 'area.freezed.dart';
 const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = 1 / sqrt2;
 const double _kLandscapeRatio = sqrt2;
+const double _kPointsPerMillimeter = 72 / 25.4;
 
 enum AspectRatioPreset { square, portrait, landscape }
 
@@ -24,19 +25,38 @@ extension RatioPresetExtension on AspectRatioPreset {
   };
 }
 
+/// Canvas dimensions, matching PDF points (1/72 inch) on export.
 enum AreaSizePreset({
   required final double width,
   required final double height,
 }) {
-  a3(width: 297, height: 420),
-  a4(width: 210, height: 297),
-  a5(width: 148, height: 210),
-  letter(width: 215.9, height: 279.4),
-  legal(width: 215.9, height: 355.6),
-  ledger(width: 431.8, height: 279.4),
-  photo4x6(width: 101.6, height: 152.4),
-  photo5x7(width: 127, height: 177.8),
-  photo8x10(width: 203.2, height: 254),
+  a3(width: 297 * _kPointsPerMillimeter, height: 420 * _kPointsPerMillimeter),
+  a4(width: 210 * _kPointsPerMillimeter, height: 297 * _kPointsPerMillimeter),
+  a5(width: 148 * _kPointsPerMillimeter, height: 210 * _kPointsPerMillimeter),
+  letter(
+    width: 215.9 * _kPointsPerMillimeter,
+    height: 279.4 * _kPointsPerMillimeter,
+  ),
+  legal(
+    width: 215.9 * _kPointsPerMillimeter,
+    height: 355.6 * _kPointsPerMillimeter,
+  ),
+  ledger(
+    width: 431.8 * _kPointsPerMillimeter,
+    height: 279.4 * _kPointsPerMillimeter,
+  ),
+  photo4x6(
+    width: 101.6 * _kPointsPerMillimeter,
+    height: 152.4 * _kPointsPerMillimeter,
+  ),
+  photo5x7(
+    width: 127 * _kPointsPerMillimeter,
+    height: 177.8 * _kPointsPerMillimeter,
+  ),
+  photo8x10(
+    width: 203.2 * _kPointsPerMillimeter,
+    height: 254 * _kPointsPerMillimeter,
+  ),
   screenHd(width: 1280, height: 720),
   screenFullHd(width: 1920, height: 1080),
   screenQhd(width: 2560, height: 1440),
