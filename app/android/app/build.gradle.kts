@@ -80,7 +80,9 @@ android {
     buildTypes {
         release {
             // Use your release keystore if available, fall back to debug key
-            signingConfig = if (keystorePropertiesFile.exists()) {
+            signingConfig = if (System.getenv("GENERATE_LEAP_UNSIGNED_BUILD") == "1") {
+                null
+            } else if (keystorePropertiesFile.exists()) {
                 signingConfigs.getByName("release")
             } else {
                 signingConfigs.getByName("debug")

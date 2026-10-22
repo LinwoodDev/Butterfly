@@ -10,6 +10,16 @@ set(BINARY_NAME "butterfly")
 # versions of CMake.
 cmake_policy(VERSION 3.14...3.25)
 
+if(DEFINED ENV{SOURCE_DATE_EPOCH} AND MSVC)
+  get_filename_component(BUTTERFLY_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+  add_compile_options("$<$<NOT:$<CONFIG:Debug>>:/Brepro>"
+                      "$<$<NOT:$<CONFIG:Debug>>:/experimental:deterministic>"
+                      "$<$<NOT:$<CONFIG:Debug>>:/pathmap:${BUTTERFLY_SOURCE_ROOT}=/butterfly>")
+  add_link_options("$<$<NOT:$<CONFIG:Debug>>:/Brepro>"
+                   "$<$<NOT:$<CONFIG:Debug>>:/INCREMENTAL:NO>"
+                   "$<$<NOT:$<CONFIG:Debug>>:/PDBALTPATH:%_PDB%>")
+endif()
+
 # Define build configuration option.
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(IS_MULTICONFIG)

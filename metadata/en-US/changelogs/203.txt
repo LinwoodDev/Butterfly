@@ -10,5 +10,6 @@
 * Fix a Windows crash during app shutdown
 * Fix stamps losing stroke positions and becoming distorted on rotated canvases
 * Export each canvas unit as one millimeter in PDFs and preserve PDF page sizes on import
+* Add reproducable builds
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0

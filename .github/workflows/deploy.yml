@@ -73,7 +73,7 @@ jobs:
       - name: Install helper dependencies
         run: dart pub get -C ../tools --enforce-lockfile
       - name: Install OneNote web toolchain
-        run: cargo install wasm-pack --locked
+        run: cargo install wasm-pack --version 0.15.0 --locked
       - name: Get Git Commit Hash
         run: echo "GIT_HASH=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Set flavor

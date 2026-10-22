@@ -78,3 +78,19 @@ There are two different dart projects in this repository.
 In the `api` folder you will find general classes that can be used to interact with Butterfly files and general classes. Read more [here](https://github.com/LinwoodDev/Butterfly/blob/develop/api/README.md).
 
 The `app` folder contains the main app code. Read more [here](https://github.com/LinwoodDev/Butterfly/blob/develop/app/README.md).
+
+### Offline and reproducible builds
+
+The existing build workflow uses dart_pkgs/packages/generate_leap. From the repository root:
+
+```bash
+dart pub get -C tools --enforce-lockfile
+dart tools/build_offline.dart prepare --platform windows --flavor production --unsigned
+dart tools/build_offline.dart build --platform windows
+dart tools/build_offline.dart verify --platform windows
+```
+
+Use android, linux, macos, ios or web on the corresponding host. prepare downloads
+and hashes required inputs, including PDFium; build reuses them offline; verify
+compares two clean builds and portable archives under .offline-build/<platform>/reproducibility.
+Signing, store installers and upstream PDFium binaries need separate validation.

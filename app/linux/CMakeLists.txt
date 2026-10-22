@@ -22,6 +22,11 @@ set(APPLICATION_NAME "Butterfly")
 # versions of CMake.
 cmake_policy(SET CMP0063 NEW)
 
+if(DEFINED ENV{SOURCE_DATE_EPOCH})
+  get_filename_component(BUTTERFLY_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+  add_compile_options("-ffile-prefix-map=${BUTTERFLY_SOURCE_ROOT}=/butterfly")
+endif()
+
 # Load bundled libraries from the lib/ directory relative to the binary.
 set(CMAKE_INSTALL_RPATH "$ORIGIN/lib")
 

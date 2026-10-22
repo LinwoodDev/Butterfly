@@ -245,12 +245,13 @@ jobs:
         run: |
           cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/
           cp build/windows/${{ matrix.arch.dir }}/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
+          dart ../tools/reproducible.dart "build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release" linwood-butterfly-windows-${{ matrix.arch.name }}.zip
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/runner/Release/**
+            app/linwood-butterfly-windows-${{ matrix.arch.name }}.zip
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
@@ -433,12 +434,13 @@ jobs:
         run: |
           chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle
+          dart ../tools/reproducible.dart "build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle" linwood-butterfly-linux-${{ matrix.arch.name }}.tar.gz
       - name: Archive
         uses: actions/upload-artifact@v7
         with:
           name: linux-${{ matrix.arch.name }}-build
           path: |
-            app/build/linux/${{ matrix.arch.dir }}/${{ env.BUILD_FLAVOR }}/release/bundle/**
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.tar.gz
       - name: Archive .deb
         uses: actions/upload-artifact@v7
         with:
@@ -543,8 +545,7 @@ jobs:
       - name: 🏭 Build macOS offline
         run: dart ../tools/build_offline.dart build --platform macos
       - name: Zip file
-        working-directory: app/build/macos/Build/Products/Release
-        run: zip --symlinks -qr linwood-butterfly-macos.zip butterfly.app
+        run: dart ../tools/reproducible.dart build/macos/Build/Products/Release/butterfly.app build/macos/Build/Products/Release/linwood-butterfly-macos.zip butterfly.app
       - name: Setup node
         uses: actions/setup-node@v7
         with:
@@ -599,12 +600,7 @@ jobs:
         run: dart ../tools/build_offline.dart build --platform ios
       - name: Packing IPA
         run: |
-          cd build/ios/iphoneos/
-          rm -rf Payload
-          mkdir Payload
-          cp -R Runner.app Payload/
-          rm -f linwood-butterfly-ios.ipa
-          zip -vr linwood-butterfly-ios.ipa Payload/
+          dart ../tools/reproducible.dart build/ios/iphoneos/Runner.app build/ios/iphoneos/linwood-butterfly-ios.ipa Payload/Runner.app
       #          ls -l linwood-butterfly-ios.ipa
       - name: Archive
         uses: actions/upload-artifact@v7
@@ -712,15 +708,12 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: windows-arm64-build
-          path: windows-arm64-build/
       - uses: actions/download-artifact@v8
         with:
           name: windows-x86_64-build
-          path: windows-x86_64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-build
-          path: linux-x86_64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-x86_64-deb
@@ -733,7 +726,6 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-build
-          path: linux-arm64-build/
       - uses: actions/download-artifact@v8
         with:
           name: linux-arm64-deb
@@ -758,15 +750,6 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: ipa-build
-      - name: 📦 Zip artifacts
-        run: |
-          cd windows-x86_64-build
-          zip -r ../linwood-butterfly-windows-x86_64.zip *
-          cd ../windows-arm64-build
-          zip -r ../linwood-butterfly-windows-arm64.zip *
-          cd ..
-          tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
-          tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
