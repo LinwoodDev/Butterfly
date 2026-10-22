@@ -25,9 +25,11 @@ RUN flutter config --enable-web
 # Copy files to container and build. The preview image is also published from
 # this Dockerfile, so keep its manifest/icons and Dart branding in sync.
 RUN if [ "$BUILD_FLAVOR" = "nightly" ] || [ "$BUILD_FLAVOR" = "development" ] || [ "$BUILD_FLAVOR" = "dev" ]; then cp -rf web_nightly/. web/; fi
-RUN dart pub get -C ../tools
-RUN flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor="$BUILD_FLAVOR"
-RUN dart run ../tools/build_web_service_worker.dart
+# Resolve helper and app Git dependencies in the same layer so Git's local
+# clones do not hardlink cached objects from a lower OverlayFS layer.
+RUN dart pub get -C ../tools --enforce-lockfile \
+    && flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor="$BUILD_FLAVOR" \
+    && dart run ../tools/build_web_service_worker.dart
 
 # Nginx Container
 FROM nginx:1-alpine
