@@ -13,6 +13,7 @@ import 'package:flutter/gestures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:synchronized/synchronized.dart';
 
 import '../view_painter.dart';
 

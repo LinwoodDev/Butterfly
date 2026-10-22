@@ -11,5 +11,6 @@
 * Fix stamps losing stroke positions and becoming distorted on rotated canvases
 * Export each canvas unit as one millimeter in PDFs and preserve PDF page sizes on import
 * Add reproducable builds
+* Fix hand navigation being blocked when input gestures are disabled and rapid pointer events starting gestures with the previously active tool
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0

@@ -45,35 +45,29 @@ class _LoadedViewport extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTapUp: (details) async {
-        if (input.isCameraRotationGesture) return;
+      onTapUp: (details) => input.handleGesture(() {
         getHandler().onTapUp(details, getEventContext());
         cubit.inputCubit.removeButtons();
-      },
-      onTapDown: (details) {
-        if (input.isCameraRotationGesture) return;
+      }),
+      onTapDown: (details) => input.handleGesture(() {
         getHandler().onTapDown(details, getEventContext());
-      },
-      onSecondaryTapUp: (details) {
-        if (input.isCameraRotationGesture) return;
+      }),
+      onSecondaryTapUp: (details) => input.handleGesture(() {
         getHandler().onSecondaryTapUp(details, getEventContext());
-      },
+      }),
       onScaleStart: (details) => input.handleScaleStart(details, pointerInput),
       onScaleUpdate: (details) =>
           input.handleScaleUpdate(details, pointerInput),
       onScaleEnd: (details) => input.handleScaleEnd(details, pointerInput),
-      onLongPressDown: (details) {
-        if (input.isCameraRotationGesture) return;
+      onLongPressDown: (details) => input.handleGesture(() {
         getHandler().onLongPressDown(details, getEventContext());
-      },
-      onLongPressStart: (details) {
-        if (input.isCameraRotationGesture) return;
+      }),
+      onLongPressStart: (details) => input.handleGesture(() {
         getHandler().onLongPressStart(details, getEventContext());
-      },
-      onLongPressEnd: (details) {
-        if (input.isCameraRotationGesture) return;
+      }),
+      onLongPressEnd: (details) => input.handleGesture(() {
         getHandler().onLongPressEnd(details, getEventContext());
-      },
+      }),
       child: Listener(
         behavior: .translucent,
         onPointerSignal: (event) =>

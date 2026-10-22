@@ -10,17 +10,19 @@ class _ViewportInputCoordinator {
   final Map<int, PointerDeviceKind> _pointerKinds = {};
   final PointerShortcutManager _shortcutManager = .new();
   int? _heldShortcutKeyId;
+  // Keep pointer and gesture callbacks in delivery order during tool changes.
+  Lock _inputLock = .new();
+  int _inputGeneration = 0;
 
   double _gestureScale = 1;
   double _gestureRotation = 0;
   int _gesturePointerCount = 0;
   bool? _handlerHandlesScaleGesture;
+  Handler? _gestureHandler;
   RulerHandler? _ruler;
   int? _rulerPointer;
   ({int pointer, Offset center, Offset previous})? _rotationDrag;
   bool _cameraRotationGesture = false;
-
-  bool get isCameraRotationGesture => _cameraRotationGesture;
 
   bool _rotationShortcutPressed(HardwareKeyboard keyboard) {
     final activator = keybinder.getActivator(rotateDragShortcut.id);
@@ -35,16 +37,20 @@ class _ViewportInputCoordinator {
   bool get _isHandlerGesture => _handlerHandlesScaleGesture ?? true;
 
   void reset() {
+    _inputGeneration++;
+    _inputLock = .new();
     _shortcutManager.reset();
     _pointerKinds.clear();
     _rotationDrag = null;
     _cameraRotationGesture = false;
     _resetRulerInteraction();
     _handlerHandlesScaleGesture = null;
+    _gestureHandler = null;
     _heldShortcutKeyId = null;
   }
 
   void dispose() {
+    reset();
     HardwareKeyboard.instance.removeHandler(_handleKey);
     _shortcutManager.dispose();
   }
@@ -71,7 +77,9 @@ class _ViewportInputCoordinator {
     }
   }
 
-  void beginTrackpadGesture() => _handlerHandlesScaleGesture = false;
+  Future<void> beginTrackpadGesture() => _withInputLock(() {
+    _handlerHandlesScaleGesture = false;
+  });
 
   EventContext createEventContext(BuildContext context, Size viewportSize) {
     final keyboard = HardwareKeyboard.instance;
@@ -90,11 +98,33 @@ class _ViewportInputCoordinator {
         (pointer) => _pointerKinds[pointer] == .touch,
       );
 
+  bool _isCurrentInput(int generation) =>
+      _context.mounted && generation == _inputGeneration;
+
+  Future<void> _withInputLock(FutureOr<void> Function() callback) {
+    final generation = _inputGeneration;
+    return _inputLock.synchronized(() async {
+      if (!_isCurrentInput(generation)) return;
+      await callback();
+    });
+  }
+
+  Future<void> handleGesture(VoidCallback callback) => _withInputLock(() {
+    if (_cameraRotationGesture) return;
+    callback();
+  });
+
   Future<void> handlePointerDown(
+    PointerDownEvent event,
+    _PointerInputContext input,
+  ) => _withInputLock(() => _handlePointerDown(event, input));
+
+  Future<void> _handlePointerDown(
     PointerDownEvent event,
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    final generation = _inputGeneration;
     final cubit = input.cubit;
     final getHandler = input.getHandler;
     final getEventContext = input.getEventContext;
@@ -132,7 +162,9 @@ class _ViewportInputCoordinator {
         event,
         input.context.read<SettingsCubit>().state.inputConfiguration,
       );
-      await _replayPointerEvents(result.releasedEvents, input);
+      if (result.releasedEvents.isNotEmpty) {
+        await _replayPointerEvents(result.releasedEvents, input);
+      }
       if (result.consumed) return;
     }
 
@@ -156,6 +188,7 @@ class _ViewportInputCoordinator {
     if (handler.canChange(event, eventContext)) {
       await _changeTemporaryTool(event.kind, event.buttons, input);
     }
+    if (!_isCurrentInput(generation)) return;
     if (_isHandlerGesture) {
       await getHandler().onPointerDown(event, eventContext);
     }
@@ -163,9 +196,15 @@ class _ViewportInputCoordinator {
 
   Future<void> handlePointerMove(
     PointerMoveEvent event,
+    _PointerInputContext input,
+  ) => _withInputLock(() => _handlePointerMove(event, input));
+
+  Future<void> _handlePointerMove(
+    PointerMoveEvent event,
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    final generation = _inputGeneration;
     final cubit = input.cubit;
     if (_cameraRotationGesture) {
       final drag = _rotationDrag;
@@ -195,10 +234,13 @@ class _ViewportInputCoordinator {
     }
     if (!skipShortcuts) {
       final result = _shortcutManager.pointerMove(event);
-      await _replayPointerEvents(result.releasedEvents, input);
+      if (result.releasedEvents.isNotEmpty) {
+        await _replayPointerEvents(result.releasedEvents, input);
+      }
       if (result.consumed) return;
     }
 
+    if (!_isCurrentInput(generation)) return;
     final renderObject = input.context.findRenderObject();
     if (kIsWeb &&
         (renderObject is! RenderBox ||
@@ -221,9 +263,15 @@ class _ViewportInputCoordinator {
 
   Future<void> handlePointerUp(
     PointerUpEvent event,
+    _PointerInputContext input,
+  ) => _withInputLock(() => _handlePointerUp(event, input));
+
+  Future<void> _handlePointerUp(
+    PointerUpEvent event,
     _PointerInputContext input, {
     bool skipShortcuts = false,
   }) async {
+    final generation = _inputGeneration;
     final cubit = input.cubit;
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer != event.pointer) return;
@@ -250,20 +298,25 @@ class _ViewportInputCoordinator {
             input.getHandler,
             input.getEventContext,
           ),
-          onFallback: (events) =>
-              unawaited(_replayPointerEvents(events, input)),
+          onFallback: (events) => unawaited(
+            _withInputLock(() => _replayPointerEvents(events, input)),
+          ),
         );
-        await _replayPointerEvents(result.releasedEvents, input);
+        if (result.releasedEvents.isNotEmpty) {
+          await _replayPointerEvents(result.releasedEvents, input);
+        }
         if (result.consumed) return;
       }
     }
 
+    if (!_isCurrentInput(generation)) return;
     cubit.inputCubit.updateLastPosition(event.localPosition);
     final wasRulerInteraction = _ruler != null;
     _resetRulerInteraction();
     if (!wasRulerInteraction && _isHandlerGesture) {
       await input.getHandler().onPointerUp(event, input.getEventContext());
     }
+    if (!_isCurrentInput(generation)) return;
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     if (wasRulerInteraction) cubit.inputCubit.removeButtons();
@@ -276,21 +329,27 @@ class _ViewportInputCoordinator {
     List<PointerEvent> events,
     _PointerInputContext input,
   ) async {
+    final generation = _inputGeneration;
     for (final event in events) {
+      if (!_isCurrentInput(generation)) return;
+      // The caller holds the lock; replay directly to avoid acquiring it twice.
       switch (event) {
         case PointerDownEvent():
-          await handlePointerDown(event, input, skipShortcuts: true);
+          await _handlePointerDown(event, input, skipShortcuts: true);
         case PointerMoveEvent():
-          await handlePointerMove(event, input, skipShortcuts: true);
+          await _handlePointerMove(event, input, skipShortcuts: true);
         case PointerUpEvent():
-          await handlePointerUp(event, input, skipShortcuts: true);
+          await _handlePointerUp(event, input, skipShortcuts: true);
         default:
           break;
       }
     }
   }
 
-  void handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
+  Future<void> handlePointerCancel(
+    PointerCancelEvent event,
+    EditorController cubit,
+  ) => _withInputLock(() {
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer == event.pointer) _rotationDrag = null;
       cubit.inputCubit.removePointer(event.pointer);
@@ -310,7 +369,7 @@ class _ViewportInputCoordinator {
         cubit.rendererCubit,
       );
     }
-  }
+  });
 
   void _resetRulerInteraction() {
     _ruler?.endTransform();
@@ -331,10 +390,13 @@ class _ViewportInputCoordinator {
     if (!settings.hasFlag('smoothNavigation')) delayBake();
   }
 
-  void handleScaleStart(ScaleStartDetails details, _PointerInputContext input) {
-    if (_cameraRotationGesture) return;
+  Future<void> handleScaleStart(
+    ScaleStartDetails details,
+    _PointerInputContext input,
+  ) => handleGesture(() {
     final cubit = input.cubit;
     final handler = input.getHandler();
+    _gestureHandler = handler;
     final eventContext = input.getEventContext();
     _handlerHandlesScaleGesture ??= !_isTouchMoveGesture(cubit);
 
@@ -359,14 +421,13 @@ class _ViewportInputCoordinator {
     _gestureScale = 1;
     _gestureRotation = 0;
     _gesturePointerCount = details.pointerCount;
-  }
+  });
 
-  void handleScaleUpdate(
+  Future<void> handleScaleUpdate(
     ScaleUpdateDetails details,
     _PointerInputContext input,
-  ) {
-    if (_cameraRotationGesture) return;
-    final handler = input.getHandler();
+  ) => handleGesture(() {
+    final handler = _gestureHandler ?? input.getHandler();
     final ruler = _ruler;
     if (ruler != null) {
       if (_rulerPointer == null) {
@@ -381,12 +442,13 @@ class _ViewportInputCoordinator {
 
     final cubit = input.cubit;
     final settings = input.context.read<SettingsCubit>().state;
-    final hasSelectHandler =
-        cubit.toolCubit.fetchHandler<SelectHandler>(
-          editable: cubit.saveCubit.state.embedding?.editable != false,
-        ) !=
-        null;
-    if (!hasSelectHandler && !settings.inputGestures) return;
+    // Explicit navigation tools must work even when touch navigation while
+    // drawing is disabled, including a hand tool assigned to a pointer.
+    if (handler is! GeneralHandHandler &&
+        handler is! SelectHandler &&
+        !settings.inputGestures) {
+      return;
+    }
 
     if (details.pointerCount != _gesturePointerCount) {
       _rebaseScaleGesture(details);
@@ -419,14 +481,17 @@ class _ViewportInputCoordinator {
     );
     _gestureScale = details.scale;
     _delayBakeUnlessSmooth(settings, input.delayBake);
-  }
+  });
 
-  void handleScaleEnd(ScaleEndDetails details, _PointerInputContext input) {
-    if (_cameraRotationGesture) return;
+  Future<void> handleScaleEnd(
+    ScaleEndDetails details,
+    _PointerInputContext input,
+  ) => handleGesture(() {
     final cubit = input.cubit;
     if (_ruler != null) {
       _resetRulerInteraction();
       _handlerHandlesScaleGesture = null;
+      _gestureHandler = null;
       cubit.inputCubit.removeButtons();
       return;
     }
@@ -434,7 +499,11 @@ class _ViewportInputCoordinator {
     final isNavigation = !_isHandlerGesture;
     if (isNavigation && details.pointerCount > 0) return;
 
-    input.getHandler().onScaleEnd(details, input.getEventContext());
+    (_gestureHandler ?? input.getHandler()).onScaleEnd(
+      details,
+      input.getEventContext(),
+    );
+    _gestureHandler = null;
     if (isNavigation) {
       final settings = input.context.read<SettingsCubit>().state;
       final sensitivity = settings.panGestureSensitivity;
@@ -452,7 +521,7 @@ class _ViewportInputCoordinator {
     }
     _resetRulerInteraction();
     cubit.inputCubit.removeButtons();
-  }
+  });
 
   void handlePointerSignal(
     PointerSignalEvent event,
@@ -501,6 +570,7 @@ class _ViewportInputCoordinator {
     int buttons,
     _PointerInputContext input,
   ) async {
+    final generation = _inputGeneration;
     final context = input.context;
     final cubit = input.cubit;
     final config = context.read<SettingsCubit>().state.inputConfiguration;
@@ -534,6 +604,7 @@ class _ViewportInputCoordinator {
             index,
             temporaryState: TemporaryState.removeAfterClick,
           );
+          if (!_isCurrentInput(generation)) return;
           if (holdShortcutKeyId != null &&
               !HardwareKeyboard.instance.logicalKeysPressed.contains(
                 LogicalKeyboardKey(holdShortcutKeyId),
