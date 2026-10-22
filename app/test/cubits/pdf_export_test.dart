@@ -73,7 +73,9 @@ void main() {
         position: const Point(10, 20),
       );
       when(() => controller.transformCubit).thenReturn(transform);
-      when(() => state.metadata).thenReturn(const NoteMetadata(name: 'Test'));
+      when(() => state.metadata).thenReturn(
+        const FileMetadata(type: NoteFileType.document, name: 'Test'),
+      );
       when(() => state.data).thenReturn(DocumentDefaults.createDocument());
       when(() => state.info).thenReturn(const DocumentInfo());
       when(() => state.pageName).thenReturn('default');
