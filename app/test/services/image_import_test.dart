@@ -14,6 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:image/image.dart' as image;
 import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 
 import '../helpers/mocks.dart';
 
@@ -24,6 +25,13 @@ class _State extends Mock implements DocumentLoadSuccess {}
 class _Controller extends Mock implements EditorController {}
 
 class _RendererCubit extends Mock implements RendererCubit {}
+
+class _RecordingBloc extends Mock implements DocumentBloc {
+  final events = <DocumentEvent>[];
+
+  @override
+  void add(DocumentEvent event) => events.add(event);
+}
 
 void main() {
   final document = DocumentDefaults.createDocument();
@@ -54,18 +62,37 @@ void main() {
     return context;
   }
 
-  testWidgets('image group preserves order, placement, and saved assets', (
+  testWidgets('named imports preserve order, placement, and saved assets', (
     tester,
   ) async {
     const position = Offset(50, 80);
     final service = ImportService(await mount(tester));
+    final errors = <Object>[];
     final result = await tester.runAsync(
-      () => service.importBatch(
-        imageFiles,
+      () => service.importContents(
+        [
+          (
+            name: 'one.png',
+            content: (type: ClipboardMimeTypes.png, data: images.first),
+          ),
+          (
+            name: 'not-an-image.jpg',
+            content: (
+              type: ClipboardMimeTypes.html,
+              data: utf8.encode('<html>Page</html>'),
+            ),
+          ),
+          (
+            name: 'two.png',
+            content: (type: 'application/octet-stream', data: images.last),
+          ),
+        ],
         document: document,
         position: position,
+        onError: errors.add,
       ),
     );
+    expect(errors, hasLength(1));
     expect(result, isNotNull);
     expect(result!.choosePosition, isFalse);
     final elements = result.elements.cast<ImageElement>();
@@ -84,6 +111,31 @@ void main() {
       expect(decoded.height, elements[i].height);
       expect(saved[i].position, elements[i].position);
     }
+  });
+
+  testWidgets('a delayed drop submits to its original page and layer', (
+    tester,
+  ) async {
+    final bloc = _RecordingBloc();
+    final state = _State();
+    when(() => bloc.state).thenReturn(state);
+    when(() => state.pageName).thenReturn('page-after-navigation');
+    when(() => state.currentLayer).thenReturn('layer-after-navigation');
+    final service = ImportService(await mount(tester), bloc: bloc);
+    ImportResult(
+      service: service,
+      document: document,
+      elements: [ImageElement(source: '', width: 20, height: 30)],
+      areas: [
+        Area(name: 'drop', width: 20, height: 30, position: const Point(0, 0)),
+      ],
+    ).submit(pageName: 'drop-page', layer: 'drop-layer');
+
+    final created = bloc.events.whereType<ElementsCreated>().single;
+    expect(created.pageName, 'drop-page');
+    expect(created.layer, 'drop-layer');
+    final area = bloc.events.whereType<AreasCreated>().single.areas.single;
+    expect(area.page, 'drop-page');
   });
 
   testWidgets('image group spacing uses the scaled height', (tester) async {
@@ -160,10 +212,19 @@ void main() {
         .$1;
     final service = ImportService(await mount(tester));
     final result = await tester.runAsync(
-      () => service.importBatch(
+      () => service.importContents(
         [
-          (AssetFileType.note, note.exportAsBytes(), 'note'),
-          (AssetFileType.image, images.last, 'image'),
+          (
+            name: null,
+            content: (
+              type: 'application/octet-stream',
+              data: note.exportAsBytes(),
+            ),
+          ),
+          (
+            name: 'image.png',
+            content: (type: ClipboardMimeTypes.png, data: images.last),
+          ),
         ],
         document: document,
         advanced: false,

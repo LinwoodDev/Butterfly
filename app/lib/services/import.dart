@@ -162,7 +162,7 @@ class ImportResult {
 
   Future<NoteFile> exportFile() async => file ?? (await export()).toFile();
 
-  void submit({bool? choosePosition}) {
+  void submit({bool? choosePosition, String? pageName, String? layer}) {
     choosePosition ??= this.choosePosition;
     final state = service._getState();
     final context = service.context;
@@ -185,7 +185,12 @@ class ImportResult {
         ?..add(
           AreasCreated(
             areas
-                .map((e) => AreaPreset(page: state?.pageName ?? '', area: e))
+                .map(
+                  (e) => AreaPreset(
+                    page: pageName ?? state?.pageName ?? '',
+                    area: e,
+                  ),
+                )
                 .toList(),
           ),
         )
@@ -193,8 +198,8 @@ class ImportResult {
           ElementsCreated(
             elements,
             assets: _importAssets,
-            pageName: state?.pageName,
-            layer: state?.currentLayer,
+            pageName: pageName ?? state?.pageName,
+            layer: layer ?? state?.currentLayer,
           ),
         );
     }
@@ -369,33 +374,57 @@ class ImportService(
   }
 
   @useResult
+  Future<ImportResult?> importContents(
+    Iterable<NamedClipboardContent> contents, {
+    required NoteData document,
+    Offset? position,
+    bool advanced = true,
+    void Function(Object)? onError,
+  }) async {
+    final files = <(AssetFileType, Uint8List, String?)>[];
+    for (final item in contents) {
+      final type = item.content.type == ClipboardMimeTypes.html
+          ? null
+          : AssetFileTypeHelper.fromFileExtension(
+                  p.extension(item.name ?? ''),
+                ) ??
+                (item.name != null &&
+                        item.content.type == 'application/octet-stream'
+                    ? null
+                    : AssetFileTypeHelper.fromMime(item.content.type));
+      if (type == null) {
+        onError?.call(
+          FormatException('Unsupported import type: ${item.content.type}'),
+        );
+      } else {
+        files.add((
+          type,
+          item.content.data,
+          item.name == null ? null : p.basenameWithoutExtension(item.name!),
+        ));
+      }
+    }
+    return importBatch(
+      files,
+      document: document,
+      position: position,
+      advanced: advanced,
+    );
+  }
+
+  @useResult
   Future<ImportResult?> importClipboard(
     NoteData document, {
     Offset? position,
     bool advanced = true,
   }) async {
-    Uint8List? data;
-    AssetFileType? type;
     final clipboard = context.read<ClipboardManager>();
     final content = await clipboard.getContent(
       types: AssetFileType.values.expand((e) => e.getMimeTypes()).toList(),
     );
-    data = content?.data;
-    try {
-      type = AssetFileType.values.firstWhereOrNull(
-        (element) => element.isMimeType(content?.type ?? ''),
-      );
-    } catch (e) {
-      await showDialog(
-        context: context,
-        builder: (context) =>
-            UnknownImportConfirmationDialog(message: e.toString()),
-      );
-    }
-    if (data == null || type == null) return null;
-    return import(
-      type,
-      data,
+    if (content == null) return null;
+    return importContents(
+      [(name: null, content: content)],
       document: document,
       position: position,
       advanced: advanced,
