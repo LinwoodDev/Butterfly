@@ -13,7 +13,7 @@ Everything in this section is subject to change.
 
 Since the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
 
-## Collaboration options
+## Opções de colaboração
 
 Open **Collaboration options** from **Settings → Behaviors**, or use the gear button when starting, joining, or viewing a collaboration session. Choose **Save as default** to use your choices in future sessions, or **Save for this session** to override them for the current connection.
 
