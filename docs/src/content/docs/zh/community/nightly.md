@@ -12,11 +12,9 @@ title: 每晚生成
 
 ## 获取版本
 
-转到您平台的下载页面。
-所有夜间构建也会在Github上发布预发布版本。
+转到您平台的下载页面。所有夜间构建也会在Github上发布预发布版本。
 
 ## 实验
 
-实验是尚未准备好生产的功能。
-默认禁用。 You can enable them in the settings under `Experiments`.
+实验是尚未准备好生产的功能。默认禁用。 You can enable them in the settings under `Experiments`.
 此选项卡仅在夜间版本中可见。
