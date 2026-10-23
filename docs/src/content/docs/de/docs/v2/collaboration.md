@@ -13,7 +13,7 @@ Alles in diesem Abschnitt kann geändert werden.
 
 Seit der Betaversion 2.0 unterstützt Butterfly Zusammenarbeit. Dies bedeutet, dass Sie die gleiche Datei mit mehreren Personen gleichzeitig bearbeiten können. Dies ist nützlich, wenn Sie an einem Dokument zusammenarbeiten möchten.
 
-## Collaboration options
+## Kooperationsoptionen
 
 Open **Collaboration options** from **Settings → Behaviors**, or use the gear button when starting, joining, or viewing a collaboration session. Choose **Save as default** to use your choices in future sessions, or **Save for this session** to override them for the current connection.
 
