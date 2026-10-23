@@ -9,9 +9,11 @@
 * Improve pen only toggle performance ([#1305](https://github.com/LinwoodDev/Butterfly/issues/1305))
 * Fix a Windows crash during app shutdown
 * Fix an Android crash when copying content to the clipboard
+* Fix connection icon requests leaking WebDAV credentials to other origins
 * Fix backups failing when the destination folder is missing
 * Fix hand navigation being blocked when input gestures are disabled and rapid pointer events starting gestures with the previously active tool
 * Fix stamps losing stroke positions and becoming distorted on rotated canvases
 * Keep collaboration edits on their original page and layer when participants navigate independently
+* Upgrade to flutter 3.47.8
 
 Read more here: https://linwood.dev/butterfly/2.6.2-rc.0

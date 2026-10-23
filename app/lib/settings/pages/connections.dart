@@ -197,6 +197,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   bool _badCertificate = false;
 
   bool _onBadCertificate(X509Certificate cert, String host, int port) {
+    final connectionUrl = Uri.tryParse(_urlController.text.trim());
+    if (connectionUrl?.scheme != 'https' ||
+        connectionUrl?.host != host ||
+        connectionUrl?.port != port) {
+      return false;
+    }
     final sha1 = String.fromCharCodes(cert.sha1);
     if (_certificateSha1 == null) {
       _badCertificate = true;
@@ -340,16 +346,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     return utf8.decode(bytes, allowMalformed: true);
   }
 
-  Future<Uint8List?> _fetchBytes(Uri url) async {
-    final request = await _httpClient.getUrl(url);
-    request.headers.add(
-      'Authorization',
-      'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
-    );
-    final response = await request.close();
-    if (response.statusCode < 200 || response.statusCode >= 300) return null;
-    return consolidateHttpClientResponseBytes(response);
-  }
+  Future<Uint8List?> _fetchBytes(Uri url) => fetchConnectionIconBytes(
+    client: _httpClient,
+    connectionUrl: Uri.parse(_urlController.text.trim()),
+    url: url,
+    username: _usernameController.text,
+    password: _passwordController.text,
+  );
 
   Future<Uint8List?> _decodeIcon(Uint8List bytes) async {
     try {
