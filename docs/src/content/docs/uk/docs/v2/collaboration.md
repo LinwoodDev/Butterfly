@@ -13,6 +13,17 @@ Everything in this section is subject to change.
 
 Since the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
 
+## Опції спільної роботи
+
+Open **Collaboration options** from **Settings → Behaviors**, or use the gear button when starting, joining, or viewing a collaboration session. Choose **Save as default** to use your choices in future sessions, or **Save for this session** to override them for the current connection.
+
+- **Sync toolbar** shares toolbar changes. It is off by default.
+- **Sync current page** follows page navigation. It is off by default, so participants can work on different pages. Edits still update the page on which they were made.
+- **Sync current area** follows area navigation when **Sync current page** is enabled. It is off by default.
+- **Show collaborator cursors** and **Show live previews** control the presence you see on your current page. Both are on by default. Hiding live previews can improve performance on slower devices.
+
+Toolbar, page, and area synchronization require both the sender and receiver to enable the corresponding option. Session overrides end when you stop the connection.
+
 ## Swamp
 
 Swamp is a protocol that allows you to share your document with other people by using a remote server. This is useful if the other person is not in the same network as you. The server will just be a proxy for the connection and cannot read the data since it is all end-to-end encrypted.

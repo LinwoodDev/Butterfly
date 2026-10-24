@@ -14,6 +14,10 @@ Choose whether Butterfly saves automatically, saves after a delay, keeps a visib
 
 The **Document states** page under Behaviors controls which editor state Butterfly remembers between sessions. It can remember the current page, camera position, locks, selected tool, navigator, layers, and areas. These are view and editing preferences; they are separate from the document content itself.
 
+**Automatic thumbnail framing** chooses how **Update thumbnail on close** captures the last active page. **Whole page content** is the default and fits all visible content into the thumbnail. Choose **Last viewport** to capture the view you left on screen. Automatic updates start enabled for newly created documents; manually capturing a thumbnail disables them for that document.
+
+**Collaboration options** sets the default toolbar, page, area, cursor, and live preview behavior for new [collaboration sessions](../collaboration/#collaboration-options).
+
 Other Behavior settings control canvas navigation, rendering, and how imported material is placed. For example, **Spread to pages** affects page based imports, while **Image scale** changes the size used for imported images.
 
 ## Inputs and View {#inputs-and-view}
