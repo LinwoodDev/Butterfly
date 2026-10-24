@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files/entity.dart';
@@ -19,6 +20,8 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
   int directoryFetches = 0;
   Completer<void>? beforeNextFetch;
   Completer<void>? afterNextSnapshot;
+  // Holds the result of the next read of a folder until the completer ends.
+  final Map<String, Completer<void>> holdNextResult = {};
 
   _TrackingDocumentSystem()
     : super.raw(
@@ -39,6 +42,7 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
     if (normalizePath(path) == normalizePath('/notes')) directoryFetches++;
     final barrier = beforeNextFetch;
     final partial = afterNextSnapshot;
+    final hold = holdNextResult.remove(normalizePath(path));
     beforeNextFetch = null;
     afterNextSnapshot = null;
     if (barrier != null) await barrier.future;
@@ -54,6 +58,7 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
       if (first && partial != null) await partial.future;
       first = false;
     }
+    if (hold != null) await hold.future;
   }
 }
 
@@ -357,6 +362,129 @@ void main() {
     expect(asset('Other/Child.bfly'), findsNothing);
     expect(asset('Other/Renamed.bfly'), findsOneWidget);
     expect(fileSystem.documents.directoryFetches, 1);
+  });
+
+  Future<void> renameAsset(
+    WidgetTester tester,
+    Finder entry,
+    String name,
+  ) async {
+    await startFileRename(tester, entry);
+    await tester.enterText(
+      find.descendant(of: entry, matching: find.byType(TextField)),
+      name,
+    );
+    await tester.tap(
+      find.descendant(of: entry, matching: find.byTooltip('Save')),
+    );
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('a pending folder read cannot undo a nested rename', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    // The listing of the current folder would read the folder too.
+    final barrier = Completer<void>();
+    final hold = Completer<void>();
+    fileSystem.documents.beforeNextFetch = barrier;
+    fileSystem.documents.holdNextResult['/notes/Other'] = hold;
+    viewKey.currentState!.reloadFileSystem();
+    await tester.pumpAndSettle();
+    expect(fileSystem.documents.holdNextResult, isEmpty);
+    await renameAsset(tester, asset('Other/Child.bfly'), 'Renamed');
+    hold.complete();
+    await tester.pumpAndSettle();
+    barrier.complete();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(asset('Other/Renamed.bfly'), findsOneWidget);
+  });
+
+  testWidgets('tree selection follows renamed and deleted nested entries', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Second.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    tester.widget<FileEntityItem>(asset('Other/Child.bfly')).onSelected(true);
+    await tester.pumpAndSettle();
+
+    await renameAsset(tester, asset('Other/Child.bfly'), 'Renamed');
+    expect(
+      tester.widget<FileEntityItem>(asset('Other/Renamed.bfly')).selected,
+      isTrue,
+    );
+    expect(
+      tester.widget<FileEntityItem>(asset('Other/Second.bfly')).selected,
+      isFalse,
+    );
+
+    await renameAsset(tester, asset('Other'), 'Moved');
+    expect(
+      tester.widget<FileEntityItem>(asset('Moved/Renamed.bfly')).selected,
+      isTrue,
+    );
+
+    await tester.tap(find.byTooltip('Delete').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(FilledButton).last);
+    await tester.pumpAndSettle();
+    expect(asset('Moved/Renamed.bfly'), findsNothing);
+    expect(asset('Moved/Second.bfly'), findsOneWidget);
+    expect(find.byTooltip('Deselect'), findsNothing);
+  });
+
+  testWidgets('tree selections of files moved elsewhere are cleared', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    tester.widget<FileEntityItem>(asset('Other/Child.bfly')).onSelected(true);
+    await tester.pumpAndSettle();
+    await fileSystem.documents.moveAsset(
+      '/notes/Other/Child.bfly',
+      '/notes/Child.bfly',
+    );
+    viewKey.currentState!.reloadFileSystem();
+    await tester.pumpAndSettle();
+    expect(item('Child'), findsOneWidget);
+    expect(tester.widget<FileEntityItem>(item('Child')).selected, isNull);
+    expect(find.byTooltip('Deselect'), findsNothing);
+  });
+
+  testWidgets('export keeps the folders of nested files', (tester) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Alpha.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Sub/Deep/Alpha.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    for (final folder in ['Other', 'Sub', 'Sub/Deep']) {
+      tester.widget<FileEntityItem>(asset(folder)).onTap();
+      await tester.pumpAndSettle();
+    }
+    for (final path in [
+      'Alpha.bfly',
+      'Other/Alpha.bfly',
+      'Sub/Deep/Alpha.bfly',
+    ]) {
+      tester.widget<FileEntityItem>(asset(path)).onSelected(true);
+    }
+    await tester.pumpAndSettle();
+    final bytes = await viewKey.currentState!.createSelectionArchive();
+    final archive = ZipDecoder().decodeBytes(bytes!);
+    expect(archive.files.map((file) => file.name), [
+      'Alpha.bfly',
+      'Other/Alpha.bfly',
+      'Sub/Deep/Alpha.bfly',
+    ]);
   });
 
   testWidgets('tree search keeps the folders of matching files', (

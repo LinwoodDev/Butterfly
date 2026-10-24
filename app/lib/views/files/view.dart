@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -72,10 +73,10 @@ class FilesViewState extends State<FilesView> {
   // Expanded folders of the tree layout per storage, kept for the session.
   static final Map<String, Set<String>> _expandedTreeDirectories = {};
   final Map<String, FileSystemDirectory<NoteFile>> _treeDirectories = {};
-  final Set<String> _loadingTreeDirectories = {};
+  // Pending reads by folder; removing one discards its result.
+  final Map<String, Object> _loadingTreeDirectories = {};
   final Set<String> _staleTreeDirectories = {};
   String? _treeRemote;
-  int _treeGeneration = 0;
 
   @visibleForTesting
   static void collapseTrees() => _expandedTreeDirectories.clear();
@@ -162,7 +163,6 @@ class FilesViewState extends State<FilesView> {
       _expandedTreePaths.contains(_getTreePath(entity));
 
   void _refreshTree() {
-    _treeGeneration++;
     _loadingTreeDirectories.clear();
     final remote = _remote?.identifier ?? '';
     if (_treeRemote != remote) {
@@ -176,8 +176,8 @@ class FilesViewState extends State<FilesView> {
   }
 
   Future<void> _loadTreeDirectory(String path) async {
-    if (!_loadingTreeDirectories.add(path)) return;
-    final generation = _treeGeneration;
+    if (_loadingTreeDirectories.containsKey(path)) return;
+    final load = _loadingTreeDirectories[path] = Object();
     FileSystemEntity<NoteFile>? asset;
     try {
       asset = await _documentSystem.getAsset(
@@ -189,16 +189,32 @@ class FilesViewState extends State<FilesView> {
     } catch (error) {
       debugPrint('Could not load folder $path: $error');
     }
-    if (!mounted || generation != _treeGeneration) return;
+    if (!mounted || _loadingTreeDirectories[path] != load) return;
+    final directory = asset is FileSystemDirectory<NoteFile> ? asset : null;
     setState(() {
       _loadingTreeDirectories.remove(path);
       _staleTreeDirectories.remove(path);
-      if (asset is FileSystemDirectory<NoteFile>) {
-        _treeDirectories[path] = asset;
+      _retainTreeSelection(path, directory);
+      if (directory != null) {
+        _treeDirectories[path] = directory;
       } else {
         _treeDirectories.remove(path);
         _expandedTreePaths.remove(path);
       }
+    });
+  }
+
+  // Selected entries of a folder that was read again must still be in it.
+  void _retainTreeSelection(
+    String path,
+    FileSystemDirectory<NoteFile>? directory,
+  ) {
+    final existing = {...?directory?.assets.map(_getTreePath)};
+    _selectedFiles.removeWhere((selected) {
+      final normalized = _documentSystem.normalizePath(selected);
+      if (!normalized.startsWith('$path/')) return false;
+      final child = normalized.substring(path.length + 1).split('/').first;
+      return !existing.contains('$path/$child');
     });
   }
 
@@ -318,13 +334,20 @@ class FilesViewState extends State<FilesView> {
     );
   }
 
+  // Updates the loaded folders and the selection, which can both contain
+  // entries outside the current folder.
   void _updateTreeAsset(
     AssetLocation original,
     FileSystemEntity<NoteFile>? replacement,
   ) {
     if (original.remote != (_remote?.identifier ?? '')) return;
     final parent = _documentSystem.normalizePath(original.parent);
+    final path = _documentSystem.normalizePath(original.path);
     setState(() {
+      // A pending read of the folder may predate the change.
+      if (_loadingTreeDirectories.remove(parent) != null) {
+        _staleTreeDirectories.add(parent);
+      }
       final directory = _treeDirectories[parent];
       if (directory != null) {
         final assets = directory.assets
@@ -334,11 +357,12 @@ class FilesViewState extends State<FilesView> {
         _treeDirectories[parent] = directory.withAssets(assets);
       }
       _moveTreePaths(
-        _documentSystem.normalizePath(original.path),
+        path,
         replacement is FileSystemDirectory<NoteFile>
             ? _getTreePath(replacement)
             : null,
       );
+      _moveSelectedPaths(path, replacement?.path);
     });
   }
 
@@ -348,9 +372,25 @@ class FilesViewState extends State<FilesView> {
     final expanded = _expandedTreePaths.where(isInside).toList();
     _expandedTreePaths.removeAll(expanded);
     _treeDirectories.removeWhere((key, _) => isInside(key));
+    _loadingTreeDirectories.removeWhere((key, _) => isInside(key));
     if (newPath == null) return;
     _expandedTreePaths.addAll(
       expanded.map((key) => '$newPath${key.substring(path.length)}'),
+    );
+  }
+
+  // Selected entries follow a renamed folder and leave a deleted one.
+  void _moveSelectedPaths(String path, String? newPath) {
+    final moved = _selectedFiles
+        .map(_documentSystem.normalizePath)
+        .where((key) => key == path || key.startsWith('$path/'))
+        .toList();
+    _selectedFiles.removeWhere(
+      (selected) => moved.contains(_documentSystem.normalizePath(selected)),
+    );
+    if (newPath == null) return;
+    _selectedFiles.addAll(
+      moved.map((key) => '$newPath${key.substring(path.length)}'),
     );
   }
 
@@ -411,12 +451,6 @@ class FilesViewState extends State<FilesView> {
         .where((asset) => asset.location != original)
         .toList();
     if (replacement != null) assets.add(replacement);
-    if (_selectedFiles.contains(original.path)) {
-      setState(() {
-        _selectedFiles.remove(original.path);
-        if (replacement != null) _selectedFiles.add(replacement.path);
-      });
-    }
     _filesStream!.add(directory.withAssets(assets));
   }
 
@@ -1371,33 +1405,44 @@ class FilesViewState extends State<FilesView> {
   }
 
   Future<void> _exportSelectedFiles() async {
-    final selected = _selectedFiles.toList()..sort();
-    if (selected.isEmpty) return;
-
     try {
-      final output = OutputMemoryStream();
-      final encoder = ZipEncoder()..startEncode(output);
-      final archivePaths = <String>{};
-      for (final path in selected) {
-        final entity = await _documentSystem.getAsset(path, listLevel: 0);
-        if (entity == null) continue;
-        await _addEntityToArchive(
-          encoder,
-          archivePaths,
-          entity,
-          entity.fileName,
-        );
-      }
-      if (archivePaths.isEmpty) return;
-      encoder.endEncode();
-      if (!mounted) return;
-      await exportZip(context, output.getBytes());
+      final bytes = await createSelectionArchive();
+      if (bytes == null || !mounted) return;
+      await exportZip(context, bytes);
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppLocalizations.of(context).error)),
       );
     }
+  }
+
+  /// Zips the selected entries with their paths relative to the current
+  /// folder, so that nested entries of the tree with equal names are kept.
+  @visibleForTesting
+  Future<Uint8List?> createSelectionArchive() async {
+    final selected = _selectedFiles.toList()..sort();
+    if (selected.isEmpty) return null;
+    final root = _documentSystem.normalizePath(_locationController.text);
+    final output = OutputMemoryStream();
+    final encoder = ZipEncoder()..startEncode(output);
+    final archivePaths = <String>{};
+    for (final path in selected) {
+      final entity = await _documentSystem.getAsset(path, listLevel: 0);
+      if (entity == null) continue;
+      final normalized = _documentSystem.normalizePath(entity.path);
+      await _addEntityToArchive(
+        encoder,
+        archivePaths,
+        entity,
+        universalPathContext.isWithin(root, normalized)
+            ? universalPathContext.relative(normalized, from: root)
+            : entity.fileName,
+      );
+    }
+    if (archivePaths.isEmpty) return null;
+    encoder.endEncode();
+    return output.getBytes();
   }
 
   Future<void> _addEntityToArchive(
