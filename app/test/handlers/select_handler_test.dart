@@ -30,6 +30,112 @@ void main() {
     registerFallbackValue(Offset.zero);
   });
 
+  group('issue #1323: selecting straight lines', () {
+    for (final (name, end) in [
+      ('horizontal', const Point<double>(300, 100)),
+      ('vertical', const Point<double>(100, 300)),
+      ('diagonal', const Point<double>(300, 300)),
+    ]) {
+      for (final (rotation, viewRotation) in [
+        (0.0, 0.0),
+        (90.0, 0.0),
+        (0.0, pi / 2),
+      ]) {
+        test(
+          '$name line remains interactive (element $rotation, view $viewRotation)',
+          () async {
+            final context = _Context();
+            final controller = _Controller();
+            final settings = _Settings();
+            final bloc = _Bloc();
+            final handler = SelectHandler(SelectTool());
+            final camera = CameraTransform(1, Offset.zero, 1, viewRotation);
+            final transformCubit = TransformCubit(1)..emit(camera);
+            addTearDown(transformCubit.close);
+            when(() => controller.transformCubit).thenReturn(transformCubit);
+            when(() => controller.settingsCubit).thenReturn(settings);
+            when(() => settings.state).thenReturn(const ButterflySettings());
+            final line = ShapeRenderer(
+              ShapeElement(
+                rotation: rotation,
+                firstPosition: const Point(100, 100),
+                secondPosition: end,
+                property: const ShapeProperty(shape: LineShape()),
+              ),
+            );
+            final midpoint = line.rect.center;
+            final localMidpoint = camera.globalToLocal(midpoint);
+            when(() => context.getCameraTransform()).thenReturn(camera);
+            when(() => context.getSettings())
+                .thenReturn(const ButterflySettings());
+            when(() => context.getViewState())
+                .thenReturn(const EditorViewState());
+            when(() => context.getDocumentBloc()).thenReturn(bloc);
+            when(() => context.isCtrlPressed).thenReturn(false);
+            when(() => context.refresh()).thenAnswer((_) async {});
+            when(
+              () => bloc.rayCast(
+                any(),
+                any(),
+                useCollection: false,
+                useLayer: false,
+              ),
+            ).thenAnswer((invocation) async {
+              final position = invocation.positionalArguments[0] as Offset;
+              final radius = invocation.positionalArguments[1] as double;
+              return line.getHitCalculator().hitPolygon(
+                    Rect.fromCircle(
+                      center: position,
+                      radius: radius,
+                    ).toPolygon(),
+                  )
+                  ? {line}
+                  : {};
+            });
+
+            expect(line.expandedRect.isEmpty, isFalse);
+            expect(
+              line.getHitCalculator().hitPolygon(
+                Rect.fromCircle(center: midpoint, radius: 5).toPolygon(),
+              ),
+              isTrue,
+            );
+            handler.onTapUp(
+              TapUpDetails(
+                localPosition: localMidpoint,
+                kind: PointerDeviceKind.touch,
+              ),
+              context,
+            );
+            await pumpEventQueue();
+
+            expect(handler.getSelectionRect(), isNotNull);
+            expect(
+              handler.canChange(
+                PointerDownEvent(position: localMidpoint),
+                context,
+              ),
+              isFalse,
+              reason: 'A selected line must retain its transform hit target.',
+            );
+            final foreground = handler
+                .createForegrounds(
+                  controller,
+                  NoteData(Archive()),
+                  DocumentPage(),
+                  DocumentInfo(),
+                )
+                .whereType<RectSelectionForegroundRenderer>()
+                .single;
+            expect(foreground.rect.isEmpty, isFalse);
+            expect(line.element.firstPosition, const Point(100, 100));
+            expect(line.element.secondPosition, end);
+          },
+        );
+      }
+    }
+  });
+
   test(
     'clicking outside a selection removes its transform hit target',
     () async {

@@ -116,7 +116,16 @@ class SelectHandler extends Handler<SelectTool> {
     for (final renderer in _selected) {
       final rect = renderer.rect;
       if (rect == null) continue;
-      for (final corner in rect.toPolygon()) {
+      // Lines need non-zero selection dimensions for handles and resizing.
+      // Pad local bounds before applying element and viewport transforms.
+      final selectionRect = rect.isEmpty
+          ? Rect.fromCenter(
+              center: rect.center,
+              width: max(rect.width, 2),
+              height: max(rect.height, 2),
+            )
+          : rect;
+      for (final corner in selectionRect.toPolygon()) {
         final point = renderer
             .transformPoint(corner)
             .rotate(Offset.zero, -angle);

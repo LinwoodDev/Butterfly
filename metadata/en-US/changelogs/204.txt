@@ -1,0 +1,1 @@
+* Fix selecting perfectly horizontal and vertical lines ([#1323](https://github.com/LinwoodDev/Butterfly/issues/1323))
