@@ -1228,6 +1228,20 @@
     "description": "Role"
   },
   "switchView": "Switch View",
+  "listLayout": "List",
+  "@listLayout": {
+    "description": "Files layout that shows the files of the current folder as a list"
+  },
+  "gridLayout": "Grid",
+  "@gridLayout": {
+    "description": "Files layout that shows the files of the current folder as a grid"
+  },
+  "treeLayout": "Tree",
+  "@treeLayout": {
+    "description": "Files layout that shows the folders as a nested tree"
+  },
+  "expand": "Expand",
+  "collapse": "Collapse",
   "lasso": "Lasso",
   "@lasso": {
     "description": "Lasso tool"

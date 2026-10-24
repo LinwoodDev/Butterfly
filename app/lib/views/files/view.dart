@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -69,6 +70,17 @@ class FilesViewState extends State<FilesView> {
   StreamSubscription<FileSystemEntity<NoteFile>?>? _filesSubscription;
   final Set<String> _selectedFiles = {};
 
+  // Expanded folders of the tree layout per storage, kept for the session.
+  static final Map<String, Set<String>> _expandedTreeDirectories = {};
+  final Map<String, FileSystemDirectory<NoteFile>> _treeDirectories = {};
+  // Pending reads by folder; removing one discards its result.
+  final Map<String, Object> _loadingTreeDirectories = {};
+  final Set<String> _staleTreeDirectories = {};
+  String? _treeRemote;
+
+  @visibleForTesting
+  static void collapseTrees() => _expandedTreeDirectories.clear();
+
   @override
   void initState() {
     super.initState();
@@ -118,12 +130,159 @@ class FilesViewState extends State<FilesView> {
     .modified => PhosphorIconsLight.clock,
   };
 
+  String getLocalizedNameOfFilesLayout(FilesLayout layout) => switch (layout) {
+    .list => AppLocalizations.of(context).listLayout,
+    .grid => AppLocalizations.of(context).gridLayout,
+    .tree => AppLocalizations.of(context).treeLayout,
+  };
+
+  PhosphorIconData getIconOfFilesLayout(FilesLayout layout) => switch (layout) {
+    .list => PhosphorIconsLight.list,
+    .grid => PhosphorIconsLight.gridFour,
+    .tree => PhosphorIconsLight.treeView,
+  };
+
+  // The collapsed view has no room for the grid.
+  List<FilesLayout> get _availableLayouts => widget.collapsed
+      ? const [FilesLayout.list, FilesLayout.tree]
+      : FilesLayout.values;
+
+  FilesLayout get _layout {
+    final layout = _settingsCubit.state.filesLayout;
+    return _availableLayouts.contains(layout) ? layout : FilesLayout.list;
+  }
+
+  Set<String> get _expandedTreePaths =>
+      _expandedTreeDirectories.putIfAbsent(_remote?.identifier ?? '', () => {});
+
+  String _getTreePath(FileSystemEntity<NoteFile> entity) =>
+      _documentSystem.normalizePath(entity.path);
+
+  bool _isTreeExpanded(FileSystemEntity<NoteFile> entity) =>
+      entity is FileSystemDirectory<NoteFile> &&
+      _expandedTreePaths.contains(_getTreePath(entity));
+
+  void _refreshTree() {
+    _loadingTreeDirectories.clear();
+    final remote = _remote?.identifier ?? '';
+    if (_treeRemote != remote) {
+      _treeRemote = remote;
+      _treeDirectories.clear();
+    }
+    // Keep showing the loaded folders until they are read again.
+    _staleTreeDirectories
+      ..clear()
+      ..addAll(_treeDirectories.keys);
+  }
+
+  Future<void> _loadTreeDirectory(String path) async {
+    if (_loadingTreeDirectories.containsKey(path)) return;
+    final load = _loadingTreeDirectories[path] = Object();
+    FileSystemEntity<NoteFile>? asset;
+    try {
+      asset = await _documentSystem.getAsset(
+        path,
+        listLevel: noListLevel,
+        readData:
+            widget.onPreview != null || _settingsCubit.state.showThumbnails,
+      );
+    } catch (error) {
+      debugPrint('Could not load folder $path: $error');
+    }
+    if (!mounted || _loadingTreeDirectories[path] != load) return;
+    final directory = asset is FileSystemDirectory<NoteFile> ? asset : null;
+    setState(() {
+      _loadingTreeDirectories.remove(path);
+      _staleTreeDirectories.remove(path);
+      _retainTreeSelection(path, directory);
+      if (directory != null) {
+        _treeDirectories[path] = directory;
+      } else {
+        _treeDirectories.remove(path);
+        _expandedTreePaths.remove(path);
+      }
+    });
+  }
+
+  // Selected entries of a folder that was read again must still be in it.
+  void _retainTreeSelection(
+    String path,
+    FileSystemDirectory<NoteFile>? directory,
+  ) {
+    final existing = {...?directory?.assets.map(_getTreePath)};
+    _selectedFiles.removeWhere((selected) {
+      final normalized = _documentSystem.normalizePath(selected);
+      if (!normalized.startsWith('$path/')) return false;
+      final child = normalized.substring(path.length + 1).split('/').first;
+      return !existing.contains('$path/$child');
+    });
+  }
+
+  void _toggleTreeDirectory(FileSystemEntity<NoteFile> directory) {
+    final path = _getTreePath(directory);
+    setState(() {
+      if (!_expandedTreePaths.remove(path)) _expandedTreePaths.add(path);
+    });
+  }
+
+  List<_FileTreeRow> _getTreeRows(
+    List<FileSystemEntity<NoteFile>> assets,
+    Map<NoteFile, FileMetadata?> metadata,
+  ) {
+    final rows = <_FileTreeRow>[];
+    final search = _search.toLowerCase();
+    FileSystemDirectory<NoteFile>? getChildren(
+      FileSystemDirectory<NoteFile> directory,
+    ) {
+      final path = _getTreePath(directory);
+      final loaded = _treeDirectories[path];
+      if (loaded == null || _staleTreeDirectories.contains(path)) {
+        _loadTreeDirectory(path);
+      }
+      // The listing of the current folder already contains its subfolders.
+      return loaded ?? (directory.assets.isEmpty ? null : directory);
+    }
+
+    // While searching, a folder stays visible if a loaded descendant matches.
+    bool isVisible(FileSystemEntity<NoteFile> asset) {
+      if (search.isEmpty || asset.fileName.toLowerCase().contains(search)) {
+        return true;
+      }
+      if (asset is! FileSystemDirectory<NoteFile> || !_isTreeExpanded(asset)) {
+        return false;
+      }
+      return getChildren(asset)?.assets.any(isVisible) ?? false;
+    }
+
+    void addRows(List<FileSystemEntity<NoteFile>> assets, int depth) {
+      final visible = assets.where(isVisible).toList()
+        ..sort((a, b) => _sortAssets(a, b, metadata));
+      for (final asset in visible) {
+        rows.add((entity: asset, path: asset.path, depth: depth));
+        if (asset is! FileSystemDirectory<NoteFile> ||
+            !_isTreeExpanded(asset)) {
+          continue;
+        }
+        final children = getChildren(asset);
+        final count = rows.length;
+        if (children != null) addRows(children.assets, depth + 1);
+        if (rows.length == count && (children == null || search.isEmpty)) {
+          rows.add((entity: null, path: _getTreePath(asset), depth: depth + 1));
+        }
+      }
+    }
+
+    addRows(assets, 0);
+    return rows;
+  }
+
   void _setFilesStream({FileSystemEntity<NoteFile>? initialData}) {
     _filesSubscription?.cancel();
     _filesStream?.close();
     if (initialData == null) _selectedFiles.clear();
     _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
+    _refreshTree();
     final files = initialData == null
         ? BehaviorSubject<FileSystemEntity<NoteFile>?>()
         : BehaviorSubject<FileSystemEntity<NoteFile>?>.seeded(initialData);
@@ -145,11 +304,12 @@ class FilesViewState extends State<FilesView> {
             final entity = latest;
             if (_selectedFiles.isNotEmpty) {
               setState(
-                () => _selectedFiles.retainAll(
-                  entity is FileSystemDirectory<NoteFile>
-                      ? entity.assets.map((asset) => asset.path)
-                      : const <String>[],
-                ),
+                () => _selectedFiles.retainAll([
+                  if (entity is FileSystemDirectory<NoteFile>)
+                    ...entity.assets.map((asset) => asset.path),
+                  for (final directory in _treeDirectories.values)
+                    ...directory.assets.map((asset) => asset.path),
+                ]),
               );
             }
             files.add(entity);
@@ -174,11 +334,109 @@ class FilesViewState extends State<FilesView> {
     );
   }
 
+  // Updates the loaded folders and the selection, which can both contain
+  // entries outside the current folder.
+  void _updateTreeAsset(
+    AssetLocation original,
+    FileSystemEntity<NoteFile>? replacement,
+  ) {
+    if (original.remote != (_remote?.identifier ?? '')) return;
+    final parent = _documentSystem.normalizePath(original.parent);
+    final path = _documentSystem.normalizePath(original.path);
+    setState(() {
+      // A pending read of the folder may predate the change.
+      if (_loadingTreeDirectories.remove(parent) != null) {
+        _staleTreeDirectories.add(parent);
+      }
+      final directory = _treeDirectories[parent];
+      if (directory != null) {
+        final assets = directory.assets
+            .where((asset) => asset.location != original)
+            .toList();
+        if (replacement != null) assets.add(replacement);
+        _treeDirectories[parent] = directory.withAssets(assets);
+      }
+      _moveTreePaths(
+        path,
+        replacement is FileSystemDirectory<NoteFile>
+            ? _getTreePath(replacement)
+            : null,
+      );
+      _moveSelectedPaths(path, replacement?.path);
+    });
+  }
+
+  // A renamed or moved folder keeps its expanded subfolders.
+  void _moveTreePaths(String path, String? newPath) {
+    bool isInside(String key) => key == path || key.startsWith('$path/');
+    final expanded = _expandedTreePaths.where(isInside).toList();
+    _expandedTreePaths.removeAll(expanded);
+    _treeDirectories.removeWhere((key, _) => isInside(key));
+    _loadingTreeDirectories.removeWhere((key, _) => isInside(key));
+    if (newPath == null) return;
+    _expandedTreePaths.addAll(
+      expanded.map((key) => '$newPath${key.substring(path.length)}'),
+    );
+  }
+
+  // Selected entries follow a renamed folder and leave a deleted one.
+  void _moveSelectedPaths(String path, String? newPath) {
+    final moved = _selectedFiles
+        .map(_documentSystem.normalizePath)
+        .where((key) => key == path || key.startsWith('$path/'))
+        .toList();
+    _selectedFiles.removeWhere(
+      (selected) => moved.contains(_documentSystem.normalizePath(selected)),
+    );
+    if (newPath == null) return;
+    _selectedFiles.addAll(
+      moved.map((key) => '$newPath${key.substring(path.length)}'),
+    );
+  }
+
+  Future<void> _moveAssetInto(String source, String directory) async {
+    if (!canMoveAssetInto(source, directory)) return;
+    final documentSystem = _documentSystem;
+    final remote = documentSystem.storage?.identifier ?? '';
+    final destination = '$directory/${source.split('/').last}';
+    final asset = await documentSystem.getAsset(
+      source,
+      listLevel: noListLevel,
+      readData: false,
+    );
+    await documentSystem.moveAsset(source, destination);
+    await _settingsCubit.moveAssetReferences(
+      AssetLocation(path: source, remote: remote),
+      AssetLocation(path: destination, remote: remote),
+      directory: asset is FileSystemDirectory<NoteFile>,
+    );
+    if (!mounted || documentSystem != _documentSystem) return;
+    setState(
+      () => _moveTreePaths(
+        documentSystem.normalizePath(source),
+        documentSystem.normalizePath(destination),
+      ),
+    );
+    reloadFileSystem();
+  }
+
+  // Dropping on an entry of the tree moves the asset next to it.
+  Widget _buildTreeDropTarget(String directory, Widget child) =>
+      DragTarget<String>(
+        builder: (context, candidateData, rejectedData) =>
+            highlightDropTarget(context, candidateData.isNotEmpty, child),
+        onWillAcceptWithDetails: (details) =>
+            canMoveAssetInto(details.data, directory),
+        onAcceptWithDetails: (details) =>
+            _moveAssetInto(details.data, directory),
+      );
+
   void _updateAsset(
     AssetLocation original,
     FileSystemEntity<NoteFile>? replacement,
   ) {
     if (!mounted) return;
+    _updateTreeAsset(original, replacement);
     final directory = _filesStream?.valueOrNull;
     if (directory is! FileSystemDirectory<NoteFile> ||
         directory.remote != original.remote ||
@@ -193,12 +451,6 @@ class FilesViewState extends State<FilesView> {
         .where((asset) => asset.location != original)
         .toList();
     if (replacement != null) assets.add(replacement);
-    if (_selectedFiles.contains(original.path)) {
-      setState(() {
-        _selectedFiles.remove(original.path);
-        if (replacement != null) _selectedFiles.add(replacement.path);
-      });
-    }
     _filesStream!.add(directory.withAssets(assets));
   }
 
@@ -283,8 +535,9 @@ class FilesViewState extends State<FilesView> {
           final isTablet = constraints.maxWidth > LeapBreakpoints.compact;
           return BlocBuilder<SettingsCubit, ButterflySettings>(
             buildWhen: (previous, current) =>
-                previous.gridView != current.gridView,
+                previous.filesLayout != current.filesLayout,
             builder: (context, state) {
+              final layout = _layout;
               final text = Text(
                 AppLocalizations.of(context).files,
                 style: TextTheme.of(context).headlineMedium,
@@ -315,12 +568,20 @@ class FilesViewState extends State<FilesView> {
                     children: [
                       Text(AppLocalizations.of(context).switchView),
                       const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        onPressed: () =>
-                            context.read<SettingsCubit>().toggleGridView(),
-                        icon: state.gridView
-                            ? const PhosphorIcon(PhosphorIconsLight.list)
-                            : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                      SegmentedButton<FilesLayout>(
+                        showSelectedIcon: false,
+                        segments: _availableLayouts
+                            .map(
+                              (e) => ButtonSegment(
+                                value: e,
+                                icon: PhosphorIcon(getIconOfFilesLayout(e)),
+                                tooltip: getLocalizedNameOfFilesLayout(e),
+                              ),
+                            )
+                            .toList(),
+                        selected: {layout},
+                        onSelectionChanged: (value) =>
+                            _settingsCubit.changeFilesLayout(value.first),
                       ),
                     ],
                   ),
@@ -381,15 +642,29 @@ class FilesViewState extends State<FilesView> {
               );
               final primary = ColorScheme.of(context).primary;
               final actionsChildren = [
-                if (!widget.collapsed)
-                  IconButton(
-                    onPressed: () =>
-                        context.read<SettingsCubit>().toggleGridView(),
+                MenuAnchor(
+                  builder: defaultMenuButton(
                     tooltip: AppLocalizations.of(context).switchView,
-                    icon: state.gridView
-                        ? const PhosphorIcon(PhosphorIconsLight.list)
-                        : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                    icon: PhosphorIcon(getIconOfFilesLayout(layout)),
                   ),
+                  menuChildren: _availableLayouts
+                      .map(
+                        (e) => MenuItemButton(
+                          leadingIcon: PhosphorIcon(
+                            getIconOfFilesLayout(e),
+                            color: e == layout ? primary : null,
+                          ),
+                          child: Text(
+                            getLocalizedNameOfFilesLayout(e),
+                            style: e == layout
+                                ? TextStyle(color: primary)
+                                : null,
+                          ),
+                          onPressed: () => _settingsCubit.changeFilesLayout(e),
+                        ),
+                      )
+                      .toList(),
+                ),
                 ConnectionButton(
                   currentRemote: _remote?.identifier ?? '',
                   onChanged: _setRemote,
@@ -528,6 +803,92 @@ class FilesViewState extends State<FilesView> {
                             if (entity is! FileSystemDirectory<NoteFile>) {
                               return Container();
                             }
+                            final metadata = <NoteFile, FileMetadata?>{};
+                            Widget buildItem(FileSystemEntity<NoteFile> asset) {
+                              // In the tree, folders expand instead of opening.
+                              final onTap =
+                                  layout == .tree &&
+                                      asset is FileSystemDirectory<NoteFile>
+                                  ? () => _toggleTreeDirectory(asset)
+                                  : () => _onFileTap(asset);
+                              return FileEntityItem(
+                                key: ValueKey(asset.location),
+                                entity: asset,
+                                active: widget.activeAsset == asset.location,
+                                collapsed: widget.collapsed,
+                                gridView: layout == .grid,
+                                isMobile: widget.isMobile,
+                                selected: _selectedFiles.isEmpty
+                                    ? null
+                                    : _selectedFiles.contains(asset.path),
+                                onTap: onTap,
+                                onPreview: widget.onPreview == null
+                                    ? null
+                                    : () {
+                                        if (asset is FileSystemFile<NoteFile>) {
+                                          widget.onPreview!(asset);
+                                        } else {
+                                          onTap();
+                                        }
+                                      },
+                                onSelected: _updateSelection(asset.path),
+                                onChanged: (updated) =>
+                                    _updateAsset(asset.location, updated),
+                                onReload: reloadFileSystem,
+                                onMoveInto: (source) =>
+                                    _moveAssetInto(source, asset.path),
+                                // Dragging over a closed folder opens it.
+                                onDragHold:
+                                    layout == .tree &&
+                                        asset is FileSystemDirectory<NoteFile>
+                                    ? () {
+                                        if (mounted &&
+                                            !_isTreeExpanded(asset)) {
+                                          _toggleTreeDirectory(asset);
+                                        }
+                                      }
+                                    : null,
+                              );
+                            }
+
+                            if (layout == .tree) {
+                              final rows = _getTreeRows(
+                                entity.assets,
+                                metadata,
+                              );
+                              if (rows.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    AppLocalizations.of(context).noElements,
+                                  ),
+                                );
+                              }
+                              // The items themselves use the location as key.
+                              Key getRowKey(_FileTreeRow row) => ValueKey((
+                                'tree',
+                                row.entity?.location,
+                                row.path,
+                              ));
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: rows.length,
+                                findChildIndexCallback: (key) {
+                                  final index = rows.indexWhere(
+                                    (row) => getRowKey(row) == key,
+                                  );
+                                  return index < 0 ? null : index;
+                                },
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (_, index) {
+                                  final row = rows[index];
+                                  return KeyedSubtree(
+                                    key: getRowKey(row),
+                                    child: _buildTreeRow(row, buildItem),
+                                  );
+                                },
+                              );
+                            }
+
                             final assets = entity.assets.where((e) {
                               if (_search.isNotEmpty) {
                                 return e.fileName.toLowerCase().contains(
@@ -536,7 +897,6 @@ class FilesViewState extends State<FilesView> {
                               }
                               return true;
                             }).toList();
-                            final metadata = <NoteFile, FileMetadata?>{};
                             assets.sort((a, b) => _sortAssets(a, b, metadata));
                             if (assets.isEmpty) {
                               return Center(
@@ -545,35 +905,7 @@ class FilesViewState extends State<FilesView> {
                                 ),
                               );
                             }
-
-                            Widget buildItem(
-                              FileSystemEntity<NoteFile> asset,
-                            ) => FileEntityItem(
-                              key: ValueKey(asset.location),
-                              entity: asset,
-                              active: widget.activeAsset == asset.location,
-                              collapsed: widget.collapsed,
-                              gridView: state.gridView && !widget.collapsed,
-                              isMobile: widget.isMobile,
-                              selected: _selectedFiles.isEmpty
-                                  ? null
-                                  : _selectedFiles.contains(asset.path),
-                              onTap: () => _onFileTap(asset),
-                              onPreview: widget.onPreview == null
-                                  ? null
-                                  : () {
-                                      if (asset is FileSystemFile<NoteFile>) {
-                                        widget.onPreview!(asset);
-                                      } else {
-                                        _onFileTap(asset);
-                                      }
-                                    },
-                              onSelected: _updateSelection(asset.path),
-                              onChanged: (updated) =>
-                                  _updateAsset(asset.location, updated),
-                              onReload: reloadFileSystem,
-                            );
-                            if (state.gridView && !widget.collapsed) {
+                            if (layout == .grid) {
                               return Center(
                                 child: Wrap(
                                   spacing: 4,
@@ -620,6 +952,63 @@ class FilesViewState extends State<FilesView> {
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildTreeRow(
+    _FileTreeRow row,
+    Widget Function(FileSystemEntity<NoteFile>) buildItem,
+  ) {
+    final indent = row.depth * (widget.collapsed ? 16.0 : 24.0);
+    final entity = row.entity;
+    if (entity == null) {
+      return _buildTreeDropTarget(
+        row.path,
+        Padding(
+          padding: EdgeInsetsDirectional.only(
+            start: indent + 40,
+            top: 8,
+            bottom: 8,
+          ),
+          child: _treeDirectories.containsKey(row.path)
+              ? Text(
+                  AppLocalizations.of(context).noElements,
+                  style: TextTheme.of(context).bodySmall
+                      ?.copyWith(color: ColorScheme.of(context).outline),
+                )
+              : const LinearProgressIndicator(),
+        ),
+      );
+    }
+    final expanded = _isTreeExpanded(entity);
+    return _buildTreeDropTarget(
+      entity.location.parent,
+      Padding(
+        padding: EdgeInsetsDirectional.only(start: indent),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 40,
+              child: entity is FileSystemDirectory<NoteFile>
+                  ? IconButton(
+                      onPressed: () => _toggleTreeDirectory(entity),
+                      tooltip: expanded
+                          ? AppLocalizations.of(context).collapse
+                          : AppLocalizations.of(context).expand,
+                      iconSize: 18,
+                      icon: PhosphorIcon(
+                        expanded
+                            ? PhosphorIconsLight.caretDown
+                            : PhosphorIconsLight.caretRight,
+                        textDirection: .ltr,
+                      ),
+                    )
+                  : null,
+            ),
+            Expanded(child: buildItem(entity)),
+          ],
+        ),
       ),
     );
   }
@@ -920,11 +1309,17 @@ class FilesViewState extends State<FilesView> {
                               if (directory is! FileSystemDirectory<NoteFile>) {
                                 return;
                               }
+                              final assets = _layout == .tree
+                                  ? _getTreeRows(
+                                      directory.assets,
+                                      {},
+                                    ).map((row) => row.entity).nonNulls
+                                  : directory.assets;
                               setState(() {
                                 final all = _selectedFiles.toSet();
                                 _selectedFiles.clear();
                                 _selectedFiles.addAll(
-                                  directory.assets
+                                  assets
                                       .map((e) => e.path)
                                       .toSet()
                                       .difference(all),
@@ -1010,33 +1405,44 @@ class FilesViewState extends State<FilesView> {
   }
 
   Future<void> _exportSelectedFiles() async {
-    final selected = _selectedFiles.toList()..sort();
-    if (selected.isEmpty) return;
-
     try {
-      final output = OutputMemoryStream();
-      final encoder = ZipEncoder()..startEncode(output);
-      final archivePaths = <String>{};
-      for (final path in selected) {
-        final entity = await _documentSystem.getAsset(path, listLevel: 0);
-        if (entity == null) continue;
-        await _addEntityToArchive(
-          encoder,
-          archivePaths,
-          entity,
-          entity.fileName,
-        );
-      }
-      if (archivePaths.isEmpty) return;
-      encoder.endEncode();
-      if (!mounted) return;
-      await exportZip(context, output.getBytes());
+      final bytes = await createSelectionArchive();
+      if (bytes == null || !mounted) return;
+      await exportZip(context, bytes);
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppLocalizations.of(context).error)),
       );
     }
+  }
+
+  /// Zips the selected entries with their paths relative to the current
+  /// folder, so that nested entries of the tree with equal names are kept.
+  @visibleForTesting
+  Future<Uint8List?> createSelectionArchive() async {
+    final selected = _selectedFiles.toList()..sort();
+    if (selected.isEmpty) return null;
+    final root = _documentSystem.normalizePath(_locationController.text);
+    final output = OutputMemoryStream();
+    final encoder = ZipEncoder()..startEncode(output);
+    final archivePaths = <String>{};
+    for (final path in selected) {
+      final entity = await _documentSystem.getAsset(path, listLevel: 0);
+      if (entity == null) continue;
+      final normalized = _documentSystem.normalizePath(entity.path);
+      await _addEntityToArchive(
+        encoder,
+        archivePaths,
+        entity,
+        universalPathContext.isWithin(root, normalized)
+            ? universalPathContext.relative(normalized, from: root)
+            : entity.fileName,
+      );
+    }
+    if (archivePaths.isEmpty) return null;
+    encoder.endEncode();
+    return output.getBytes();
   }
 
   Future<void> _addEntityToArchive(
@@ -1117,10 +1523,15 @@ class FilesViewState extends State<FilesView> {
       if (bStarred && !aStarred) {
         return 1;
       }
-      if (a is FileSystemDirectory<NoteFile>) {
+      final aDirectory = a is FileSystemDirectory<NoteFile>;
+      final bDirectory = b is FileSystemDirectory<NoteFile>;
+      if (aDirectory && bDirectory) {
+        return a.fileName.toLowerCase().compareTo(b.fileName.toLowerCase());
+      }
+      if (aDirectory) {
         return -1;
       }
-      if (b is FileSystemDirectory<NoteFile>) {
+      if (bDirectory) {
         return 1;
       }
       final aFile = a as FileSystemFile<NoteFile>;
@@ -1172,3 +1583,11 @@ class FilesViewState extends State<FilesView> {
     }
   }
 }
+
+/// A file or folder of the tree, or, without an entity, the placeholder shown
+/// while the folder at [path] loads or when it is empty.
+typedef _FileTreeRow = ({
+  FileSystemEntity<NoteFile>? entity,
+  String path,
+  int depth,
+});

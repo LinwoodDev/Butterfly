@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_ui/material_ui.dart';
@@ -18,6 +20,8 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
   int directoryFetches = 0;
   Completer<void>? beforeNextFetch;
   Completer<void>? afterNextSnapshot;
+  // Holds the result of the next read of a folder until the completer ends.
+  final Map<String, Completer<void>> holdNextResult = {};
 
   _TrackingDocumentSystem()
     : super.raw(
@@ -38,6 +42,7 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
     if (normalizePath(path) == normalizePath('/notes')) directoryFetches++;
     final barrier = beforeNextFetch;
     final partial = afterNextSnapshot;
+    final hold = holdNextResult.remove(normalizePath(path));
     beforeNextFetch = null;
     afterNextSnapshot = null;
     if (barrier != null) await barrier.future;
@@ -53,6 +58,7 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
       if (first && partial != null) await partial.future;
       first = false;
     }
+    if (hold != null) await hold.future;
   }
 }
 
@@ -77,14 +83,19 @@ void main() {
     fileSystem = _TrackingFileSystem();
     settings = configureFileSystemSettings(fileSystem);
     viewKey = GlobalKey<FilesViewState>();
+    FilesViewState.collapseTrees();
     for (final name in ['Alpha', 'Beta']) {
       await createTestNote(fileSystem.documents, '/notes/$name.bfly');
     }
   });
 
-  Future<void> pumpFiles(WidgetTester tester, {bool grid = false}) async {
-    when(() => settings.state)
-        .thenReturn(ButterflySettings(showThumbnails: false, gridView: grid));
+  Future<void> pumpFiles(
+    WidgetTester tester, {
+    FilesLayout layout = FilesLayout.list,
+  }) async {
+    when(
+      () => settings.state,
+    ).thenReturn(ButterflySettings(showThumbnails: false, filesLayout: layout));
     await tester.pumpWidget(
       buildFileSystemTestApp(
         fileSystem: fileSystem,
@@ -124,13 +135,13 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  for (final grid in [false, true]) {
+  for (final layout in FilesLayout.values) {
     testWidgets(
-      '${grid ? 'grid' : 'list'} rename preserves other edits and selection without fetching',
+      '${layout.name} rename preserves other edits and selection without fetching',
       (tester) async {
         await tester.binding.setSurfaceSize(const Size(1200, 900));
         addTearDown(() => tester.binding.setSurfaceSize(null));
-        await pumpFiles(tester, grid: grid);
+        await pumpFiles(tester, layout: layout);
         await select(tester, 'Alpha');
         await edit(tester, 'Beta', text: 'Unsubmitted edit');
         final betaState = tester.state(item('Beta'));
@@ -298,4 +309,280 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets('tree expands folders in place and keeps them after refresh', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deep.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    expect(asset('Other'), findsOneWidget);
+    expect(asset('Other/Child.bfly'), findsNothing);
+
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    expect(item('Alpha'), findsOneWidget);
+    expect(asset('Other/Child.bfly'), findsOneWidget);
+    expect(asset('Other/Sub/Deep.bfly'), findsNothing);
+
+    await tester.tap(find.byTooltip('Expand'));
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+
+    viewKey.currentState!.reloadFileSystem();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+    expect(fileSystem.documents.directoryFetches, 2);
+
+    await tester.tap(find.byTooltip('Collapse').first);
+    await tester.pumpAndSettle();
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(asset('Other/Sub/Deep.bfly'), findsNothing);
+
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+  });
+
+  testWidgets('tree renames a nested file without fetching', (tester) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    final child = asset('Other/Child.bfly');
+    await startFileRename(tester, child);
+    await tester.enterText(
+      find.descendant(of: child, matching: find.byType(TextField)),
+      'Renamed',
+    );
+    await tester.tap(
+      find.descendant(of: child, matching: find.byTooltip('Save')),
+    );
+    await tester.pumpAndSettle();
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(asset('Other/Renamed.bfly'), findsOneWidget);
+    expect(fileSystem.documents.directoryFetches, 1);
+  });
+
+  Future<void> renameAsset(
+    WidgetTester tester,
+    Finder entry,
+    String name,
+  ) async {
+    await startFileRename(tester, entry);
+    await tester.enterText(
+      find.descendant(of: entry, matching: find.byType(TextField)),
+      name,
+    );
+    await tester.tap(
+      find.descendant(of: entry, matching: find.byTooltip('Save')),
+    );
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('a pending folder read cannot undo a nested rename', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    // The listing of the current folder would read the folder too.
+    final barrier = Completer<void>();
+    final hold = Completer<void>();
+    fileSystem.documents.beforeNextFetch = barrier;
+    fileSystem.documents.holdNextResult['/notes/Other'] = hold;
+    viewKey.currentState!.reloadFileSystem();
+    await tester.pumpAndSettle();
+    expect(fileSystem.documents.holdNextResult, isEmpty);
+    await renameAsset(tester, asset('Other/Child.bfly'), 'Renamed');
+    hold.complete();
+    await tester.pumpAndSettle();
+    barrier.complete();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(asset('Other/Renamed.bfly'), findsOneWidget);
+  });
+
+  testWidgets('tree selection follows renamed and deleted nested entries', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Second.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    tester.widget<FileEntityItem>(asset('Other/Child.bfly')).onSelected(true);
+    await tester.pumpAndSettle();
+
+    await renameAsset(tester, asset('Other/Child.bfly'), 'Renamed');
+    expect(
+      tester.widget<FileEntityItem>(asset('Other/Renamed.bfly')).selected,
+      isTrue,
+    );
+    expect(
+      tester.widget<FileEntityItem>(asset('Other/Second.bfly')).selected,
+      isFalse,
+    );
+
+    await renameAsset(tester, asset('Other'), 'Moved');
+    expect(
+      tester.widget<FileEntityItem>(asset('Moved/Renamed.bfly')).selected,
+      isTrue,
+    );
+
+    await tester.tap(find.byTooltip('Delete').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(FilledButton).last);
+    await tester.pumpAndSettle();
+    expect(asset('Moved/Renamed.bfly'), findsNothing);
+    expect(asset('Moved/Second.bfly'), findsOneWidget);
+    expect(find.byTooltip('Deselect'), findsNothing);
+  });
+
+  testWidgets('tree selections of files moved elsewhere are cleared', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    tester.widget<FileEntityItem>(asset('Other/Child.bfly')).onSelected(true);
+    await tester.pumpAndSettle();
+    await fileSystem.documents.moveAsset(
+      '/notes/Other/Child.bfly',
+      '/notes/Child.bfly',
+    );
+    viewKey.currentState!.reloadFileSystem();
+    await tester.pumpAndSettle();
+    expect(item('Child'), findsOneWidget);
+    expect(tester.widget<FileEntityItem>(item('Child')).selected, isNull);
+    expect(find.byTooltip('Deselect'), findsNothing);
+  });
+
+  testWidgets('export keeps the folders of nested files', (tester) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Alpha.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Sub/Deep/Alpha.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    for (final folder in ['Other', 'Sub', 'Sub/Deep']) {
+      tester.widget<FileEntityItem>(asset(folder)).onTap();
+      await tester.pumpAndSettle();
+    }
+    for (final path in [
+      'Alpha.bfly',
+      'Other/Alpha.bfly',
+      'Sub/Deep/Alpha.bfly',
+    ]) {
+      tester.widget<FileEntityItem>(asset(path)).onSelected(true);
+    }
+    await tester.pumpAndSettle();
+    final bytes = await viewKey.currentState!.createSelectionArchive();
+    final archive = ZipDecoder().decodeBytes(bytes!);
+    expect(archive.files.map((file) => file.name), [
+      'Alpha.bfly',
+      'Other/Alpha.bfly',
+      'Sub/Deep/Alpha.bfly',
+    ]);
+  });
+
+  testWidgets('tree search keeps the folders of matching files', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Needle.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Empty/Hay.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(SearchBar), 'needle');
+    await tester.pumpAndSettle();
+    expect(asset('Other'), findsOneWidget);
+    expect(asset('Other/Needle.bfly'), findsOneWidget);
+    expect(asset('Empty'), findsNothing);
+    expect(item('Alpha'), findsNothing);
+  });
+
+  Future<void> mouseDrag(
+    WidgetTester tester,
+    Finder from,
+    Finder to, {
+    Duration hold = Duration.zero,
+  }) async {
+    final gesture = await tester.startGesture(
+      tester.getCenter(from),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.moveBy(const Offset(30, 0));
+    await tester.pump();
+    await gesture.moveTo(tester.getCenter(to));
+    await tester.pump();
+    await tester.pump(hold);
+    await gesture.up();
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('tree moves a note dragged with the mouse into a folder', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+
+    await mouseDrag(tester, item('Alpha'), asset('Other'));
+    expect(item('Alpha'), findsNothing);
+    expect(asset('Other/Alpha.bfly'), findsOneWidget);
+    expect(
+      await fileSystem.documents.getAsset('/notes/Other/Alpha.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+
+    // Dropping on a note of the top level moves it back there.
+    await mouseDrag(tester, asset('Other/Child.bfly'), item('Beta'));
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(item('Child'), findsOneWidget);
+    expect(asset('Other/Alpha.bfly'), findsOneWidget);
+  });
+
+  testWidgets('tree opens a closed folder while a note is held over it', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deep.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    final gesture = await tester.startGesture(
+      tester.getCenter(item('Alpha')),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.moveBy(const Offset(30, 0));
+    await tester.pump();
+    await gesture.moveTo(tester.getCenter(asset('Other')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub'), findsOneWidget);
+    await gesture.moveTo(tester.getCenter(asset('Other/Sub')));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Alpha.bfly'), findsNothing);
+    expect(
+      await fileSystem.documents.getAsset('/notes/Other/Sub/Alpha.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+  });
+
+  test('assets cannot move into themselves or where they already are', () {
+    expect(canMoveAssetInto('/notes/Other', '/notes/Target'), isTrue);
+    expect(canMoveAssetInto('/notes/Other', '/notes/Other'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', '/notes/Other/Sub'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', '/notes'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', 'notes/'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', '/notes/Others'), isTrue);
+    expect(canMoveAssetInto('/Top.bfly', ''), isFalse);
+  });
 }

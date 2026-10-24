@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
@@ -10,6 +11,7 @@ import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -29,6 +31,12 @@ class FileEntityItem extends StatefulWidget {
   final ValueChanged<FileSystemEntity<NoteFile>?> onChanged;
   final bool isMobile;
 
+  /// Moves the dropped asset into this folder, instead of the default move.
+  final Future<void> Function(String source)? onMoveInto;
+
+  /// Called when a dragged asset stays over this folder for a while.
+  final VoidCallback? onDragHold;
+
   const FileEntityItem({
     super.key,
     required this.entity,
@@ -42,10 +50,66 @@ class FileEntityItem extends StatefulWidget {
     required this.onSelected,
     required this.onChanged,
     this.onPreview,
+    this.onMoveInto,
+    this.onDragHold,
   });
 
   @override
   State<FileEntityItem> createState() => _FileEntityItemState();
+}
+
+String _trimSlashes(String path) {
+  var start = 0, end = path.length;
+  while (start < end && path[start] == '/') {
+    start++;
+  }
+  while (end > start && path[end - 1] == '/') {
+    end--;
+  }
+  return path.substring(start, end);
+}
+
+/// Whether the asset at [source] can be moved into the folder [directory]:
+/// not into itself, one of its subfolders or the folder it is already in.
+bool canMoveAssetInto(String source, String directory) {
+  source = _trimSlashes(source);
+  directory = _trimSlashes(directory);
+  final index = source.lastIndexOf('/');
+  final parent = index < 0 ? '' : source.substring(0, index);
+  return source != directory &&
+      !directory.startsWith('$source/') &&
+      parent != directory;
+}
+
+/// Outlines [child] while an asset is dragged over it.
+Widget highlightDropTarget(BuildContext context, bool active, Widget child) =>
+    DecoratedBox(
+      position: DecorationPosition.foreground,
+      decoration: BoxDecoration(
+        border: active
+            ? Border.all(color: ColorScheme.of(context).primary, width: 2)
+            : null,
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+      ),
+      child: child,
+    );
+
+/// Starts dragging as soon as the mouse moves. Other input keeps the long
+/// press of [LongPressDraggable], so touch scrolling still works.
+class _MouseDraggable<T extends Object> extends Draggable<T> {
+  const _MouseDraggable({
+    required super.child,
+    required super.feedback,
+    super.data,
+    super.maxSimultaneousDrags,
+  });
+
+  @override
+  MultiDragGestureRecognizer createRecognizer(
+    GestureMultiDragStartCallback onStart,
+  ) => ImmediateMultiDragGestureRecognizer(
+    supportedDevices: const {PointerDeviceKind.mouse},
+  )..onStart = onStart;
 }
 
 void deleteEntities({
@@ -114,9 +178,11 @@ class _FileEntityItemState extends State<FileEntityItem> {
   final TextEditingController _nameController = .new();
   bool _editable = false;
   bool _renaming = false;
+  Timer? _dragHoldTimer;
 
   @override
   void dispose() {
+    _dragHoldTimer?.cancel();
     _nameController.dispose();
     super.dispose();
   }
@@ -200,83 +266,108 @@ class _FileEntityItemState extends State<FileEntityItem> {
       }
     }
 
-    final draggable = LongPressDraggable<String>(
-      data: widget.entity.path,
-      feedback: Material(
-        elevation: 5,
-        child: SizedBox(
-          width: 200,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.entity.fileName,
-              style: TextTheme.of(context).bodyMedium,
-            ),
+    final feedback = Material(
+      elevation: 5,
+      child: SizedBox(
+        width: 200,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            widget.entity.fileName,
+            style: TextTheme.of(context).bodyMedium,
           ),
         ),
       ),
-      child: ContextFileRegion(
-        remote: remote,
-        entity: entity,
-        settingsCubit: fileSystem.settingsCubit,
-        editable: _editable,
-        onEdit: onEdit,
-        onDelete: onDelete,
-        onReload: widget.onReload,
-        documentSystem: documentSystem,
-        onOpen: widget.onPreview != null ? widget.onTap : null,
-        onSelect: widget.selected == null
-            ? () => widget.onSelected(true)
-            : null,
-        builder: (context, button, controller) => widget.gridView
-            ? FileEntityGridItem(
-                modifiedText: modifiedText,
-                createdText: createdText,
-                icon: icon,
-                onTap: widget.onPreview ?? widget.onTap,
-                onDelete: onDelete,
-                onEdit: onEdit,
-                onRename: onRename,
-                entity: widget.entity,
-                nameController: _nameController,
-                collapsed: widget.collapsed,
-                editable: _editable,
-                active: widget.active || controller.isOpen,
-                selected: widget.selected,
-                onSelectedChanged: widget.onSelected,
-                thumbnail: thumbnail,
-                actionButton: button,
-              )
-            : FileEntityListTile(
-                modifiedText: modifiedText,
-                createdText: createdText,
-                icon: icon,
-                onTap: widget.onPreview ?? widget.onTap,
-                onDelete: onDelete,
-                onReload: widget.onReload,
-                onEdit: onEdit,
-                onRename: onRename,
-                entity: widget.entity,
-                nameController: _nameController,
-                collapsed: widget.collapsed,
-                editable: _editable,
-                active: widget.active || controller.isOpen,
-                selected: widget.selected,
-                onSelectedChanged: widget.onSelected,
-                thumbnail: thumbnail,
-                actionButton: button,
-              ),
+    );
+    final draggable = _MouseDraggable<String>(
+      data: widget.entity.path,
+      feedback: feedback,
+      // A mouse drag in the name field selects its text.
+      maxSimultaneousDrags: _editable ? 0 : null,
+      child: LongPressDraggable<String>(
+        data: widget.entity.path,
+        feedback: feedback,
+        child: ContextFileRegion(
+          remote: remote,
+          entity: entity,
+          settingsCubit: fileSystem.settingsCubit,
+          editable: _editable,
+          onEdit: onEdit,
+          onDelete: onDelete,
+          onReload: widget.onReload,
+          documentSystem: documentSystem,
+          onOpen: widget.onPreview != null ? widget.onTap : null,
+          onSelect: widget.selected == null
+              ? () => widget.onSelected(true)
+              : null,
+          builder: (context, button, controller) => widget.gridView
+              ? FileEntityGridItem(
+                  modifiedText: modifiedText,
+                  createdText: createdText,
+                  icon: icon,
+                  onTap: widget.onPreview ?? widget.onTap,
+                  onDelete: onDelete,
+                  onEdit: onEdit,
+                  onRename: onRename,
+                  entity: widget.entity,
+                  nameController: _nameController,
+                  collapsed: widget.collapsed,
+                  editable: _editable,
+                  active: widget.active || controller.isOpen,
+                  selected: widget.selected,
+                  onSelectedChanged: widget.onSelected,
+                  thumbnail: thumbnail,
+                  actionButton: button,
+                )
+              : FileEntityListTile(
+                  modifiedText: modifiedText,
+                  createdText: createdText,
+                  icon: icon,
+                  onTap: widget.onPreview ?? widget.onTap,
+                  onDelete: onDelete,
+                  onReload: widget.onReload,
+                  onEdit: onEdit,
+                  onRename: onRename,
+                  entity: widget.entity,
+                  nameController: _nameController,
+                  collapsed: widget.collapsed,
+                  editable: _editable,
+                  active: widget.active || controller.isOpen,
+                  selected: widget.selected,
+                  onSelectedChanged: widget.onSelected,
+                  thumbnail: thumbnail,
+                  actionButton: button,
+                ),
+        ),
       ),
     );
     if (widget.entity is FileSystemDirectory) {
       return DragTarget<String>(
-        builder: (context, candidateData, rejectedData) {
-          return draggable;
-        },
+        builder: (context, candidateData, rejectedData) =>
+            highlightDropTarget(context, candidateData.isNotEmpty, draggable),
         onWillAcceptWithDetails: (data) {
-          return data.data != widget.entity.location.path;
+          final accepted = canMoveAssetInto(
+            data.data,
+            widget.entity.location.path,
+          );
+          final onDragHold = widget.onDragHold;
+          if (accepted && onDragHold != null) {
+            _dragHoldTimer?.cancel();
+            _dragHoldTimer = Timer(
+              const Duration(milliseconds: 700),
+              onDragHold,
+            );
+          }
+          return accepted;
         },
+        onLeave: (_) => _dragHoldTimer?.cancel(),
         onAcceptWithDetails: (data) async {
+          _dragHoldTimer?.cancel();
+          final onMoveInto = widget.onMoveInto;
+          if (onMoveInto != null) {
+            await onMoveInto(data.data);
+            return;
+          }
           final source = await documentSystem.getAsset(data.data);
           final destination =
               '${widget.entity.location.path}/${data.data.split('/').last}';
