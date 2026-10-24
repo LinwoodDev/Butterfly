@@ -49,6 +49,34 @@ void main() {
     });
   });
 
+  group('files layout', () {
+    test('keeps the grid chosen with the legacy preference', () async {
+      SharedPreferences.setMockInitialValues({'grid_view': true});
+      final prefs = await SharedPreferences.getInstance();
+      expect(ButterflySettings.fromPrefs(prefs).filesLayout, FilesLayout.grid);
+      expect(
+        ButterflySettings.fromJson({'gridView': true}).filesLayout,
+        FilesLayout.grid,
+      );
+      expect(ButterflySettings.fromJson({}).filesLayout, FilesLayout.list);
+    });
+
+    test('persists the last chosen layout', () async {
+      SharedPreferences.setMockInitialValues({'grid_view': true});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      for (final layout in [...FilesLayout.values, FilesLayout.tree]) {
+        await cubit.changeFilesLayout(layout);
+        expect(ButterflySettings.fromPrefs(prefs).filesLayout, layout);
+        expect(
+          ButterflySettings.fromJson(cubit.state.toJson()).filesLayout,
+          layout,
+        );
+      }
+    });
+  });
+
   test(
     'removing the default connection resets and persists the default',
     () async {

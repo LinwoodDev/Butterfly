@@ -450,6 +450,8 @@ enum SortBy { name, created, modified }
 
 enum SortOrder { ascending, descending }
 
+enum FilesLayout { list, grid, tree }
+
 enum BannerVisibility { always, never, onlyOnUpdates }
 
 enum NavigatorPosition { left, right }
@@ -702,7 +704,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default([]) List<String> flags,
     @Default(false) bool spreadPages,
     @Default(false) bool highContrast,
-    @Default(false) bool gridView,
+    @Default(FilesLayout.list)
+    @JsonKey(unknownEnumValue: FilesLayout.list)
+    FilesLayout filesLayout,
     @Default(true) bool hideExtension,
     @Default(true) bool autosave,
     @Default(true) bool showSaveButton,
@@ -748,6 +752,11 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             (json['showRotation'] == true
                 ? RotationDisplay.always.name
                 : RotationDisplay.whenRotated.name),
+        'filesLayout':
+            json['filesLayout'] ??
+            (json['gridView'] == true
+                ? FilesLayout.grid.name
+                : FilesLayout.list.name),
       });
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -938,7 +947,15 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       flags: prefs.getStringList('flags') ?? [],
       spreadPages: prefs.getBool('spread_pages') ?? false,
       highContrast: prefs.getBool('high_contrast') ?? false,
-      gridView: prefs.getBool('grid_view') ?? false,
+      filesLayout: prefs.containsKey('files_layout')
+          ? _enumByNameOr(
+              FilesLayout.values,
+              prefs.getString('files_layout'),
+              FilesLayout.list,
+            )
+          : prefs.getBool('grid_view') ?? false
+          ? FilesLayout.grid
+          : FilesLayout.list,
       autosave: prefs.getBool('autosave') ?? true,
       delayedAutosave: prefs.getBool('delayed_autosave') ?? true,
       autosaveDelaySeconds: prefs.getInt('autosave_delay_seconds') ?? 3,
@@ -1144,7 +1161,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setStringList('flags', flags);
     await prefs.setBool('spread_pages', spreadPages);
     await prefs.setBool('high_contrast', highContrast);
-    await prefs.setBool('grid_view', gridView);
+    await prefs.setString('files_layout', filesLayout.name);
     await prefs.setBool('autosave', autosave);
     await prefs.setBool('delayed_autosave', delayedAutosave);
     await prefs.setInt('autosave_delay_seconds', autosaveDelaySeconds);
@@ -1908,12 +1925,10 @@ class SettingsCubit(SharedPreferences prefs)
     return save();
   }
 
-  Future<void> changeGridView(bool value) {
-    emit(state.copyWith(gridView: value));
+  Future<void> changeFilesLayout(FilesLayout value) {
+    emit(state.copyWith(filesLayout: value));
     return save();
   }
-
-  Future<void> toggleGridView() => changeGridView(!state.gridView);
 
   Future<void> changeHideExtension(bool value) {
     emit(state.copyWith(hideExtension: value));

@@ -5,6 +5,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_ui/material_ui.dart';
@@ -77,14 +78,19 @@ void main() {
     fileSystem = _TrackingFileSystem();
     settings = configureFileSystemSettings(fileSystem);
     viewKey = GlobalKey<FilesViewState>();
+    FilesViewState.collapseTrees();
     for (final name in ['Alpha', 'Beta']) {
       await createTestNote(fileSystem.documents, '/notes/$name.bfly');
     }
   });
 
-  Future<void> pumpFiles(WidgetTester tester, {bool grid = false}) async {
-    when(() => settings.state)
-        .thenReturn(ButterflySettings(showThumbnails: false, gridView: grid));
+  Future<void> pumpFiles(
+    WidgetTester tester, {
+    FilesLayout layout = FilesLayout.list,
+  }) async {
+    when(
+      () => settings.state,
+    ).thenReturn(ButterflySettings(showThumbnails: false, filesLayout: layout));
     await tester.pumpWidget(
       buildFileSystemTestApp(
         fileSystem: fileSystem,
@@ -124,13 +130,13 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  for (final grid in [false, true]) {
+  for (final layout in FilesLayout.values) {
     testWidgets(
-      '${grid ? 'grid' : 'list'} rename preserves other edits and selection without fetching',
+      '${layout.name} rename preserves other edits and selection without fetching',
       (tester) async {
         await tester.binding.setSurfaceSize(const Size(1200, 900));
         addTearDown(() => tester.binding.setSurfaceSize(null));
-        await pumpFiles(tester, grid: grid);
+        await pumpFiles(tester, layout: layout);
         await select(tester, 'Alpha');
         await edit(tester, 'Beta', text: 'Unsubmitted edit');
         final betaState = tester.state(item('Beta'));
@@ -298,4 +304,157 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets('tree expands folders in place and keeps them after refresh', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deep.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    expect(asset('Other'), findsOneWidget);
+    expect(asset('Other/Child.bfly'), findsNothing);
+
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    expect(item('Alpha'), findsOneWidget);
+    expect(asset('Other/Child.bfly'), findsOneWidget);
+    expect(asset('Other/Sub/Deep.bfly'), findsNothing);
+
+    await tester.tap(find.byTooltip('Expand'));
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+
+    viewKey.currentState!.reloadFileSystem();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+    expect(fileSystem.documents.directoryFetches, 2);
+
+    await tester.tap(find.byTooltip('Collapse').first);
+    await tester.pumpAndSettle();
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(asset('Other/Sub/Deep.bfly'), findsNothing);
+
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+  });
+
+  testWidgets('tree renames a nested file without fetching', (tester) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    final child = asset('Other/Child.bfly');
+    await startFileRename(tester, child);
+    await tester.enterText(
+      find.descendant(of: child, matching: find.byType(TextField)),
+      'Renamed',
+    );
+    await tester.tap(
+      find.descendant(of: child, matching: find.byTooltip('Save')),
+    );
+    await tester.pumpAndSettle();
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(asset('Other/Renamed.bfly'), findsOneWidget);
+    expect(fileSystem.documents.directoryFetches, 1);
+  });
+
+  testWidgets('tree search keeps the folders of matching files', (
+    tester,
+  ) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Needle.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Empty/Hay.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(SearchBar), 'needle');
+    await tester.pumpAndSettle();
+    expect(asset('Other'), findsOneWidget);
+    expect(asset('Other/Needle.bfly'), findsOneWidget);
+    expect(asset('Empty'), findsNothing);
+    expect(item('Alpha'), findsNothing);
+  });
+
+  Future<void> mouseDrag(
+    WidgetTester tester,
+    Finder from,
+    Finder to, {
+    Duration hold = Duration.zero,
+  }) async {
+    final gesture = await tester.startGesture(
+      tester.getCenter(from),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.moveBy(const Offset(30, 0));
+    await tester.pump();
+    await gesture.moveTo(tester.getCenter(to));
+    await tester.pump();
+    await tester.pump(hold);
+    await gesture.up();
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('tree moves a note dragged with the mouse into a folder', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    tester.widget<FileEntityItem>(asset('Other')).onTap();
+    await tester.pumpAndSettle();
+
+    await mouseDrag(tester, item('Alpha'), asset('Other'));
+    expect(item('Alpha'), findsNothing);
+    expect(asset('Other/Alpha.bfly'), findsOneWidget);
+    expect(
+      await fileSystem.documents.getAsset('/notes/Other/Alpha.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+
+    // Dropping on a note of the top level moves it back there.
+    await mouseDrag(tester, asset('Other/Child.bfly'), item('Beta'));
+    expect(asset('Other/Child.bfly'), findsNothing);
+    expect(item('Child'), findsOneWidget);
+    expect(asset('Other/Alpha.bfly'), findsOneWidget);
+  });
+
+  testWidgets('tree opens a closed folder while a note is held over it', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deep.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    final gesture = await tester.startGesture(
+      tester.getCenter(item('Alpha')),
+      kind: PointerDeviceKind.mouse,
+    );
+    await gesture.moveBy(const Offset(30, 0));
+    await tester.pump();
+    await gesture.moveTo(tester.getCenter(asset('Other')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub'), findsOneWidget);
+    await gesture.moveTo(tester.getCenter(asset('Other/Sub')));
+    await tester.pump();
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect(asset('Other/Sub/Alpha.bfly'), findsNothing);
+    expect(
+      await fileSystem.documents.getAsset('/notes/Other/Sub/Alpha.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+  });
+
+  test('assets cannot move into themselves or where they already are', () {
+    expect(canMoveAssetInto('/notes/Other', '/notes/Target'), isTrue);
+    expect(canMoveAssetInto('/notes/Other', '/notes/Other'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', '/notes/Other/Sub'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', '/notes'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', 'notes/'), isFalse);
+    expect(canMoveAssetInto('/notes/Other', '/notes/Others'), isTrue);
+    expect(canMoveAssetInto('/Top.bfly', ''), isFalse);
+  });
 }

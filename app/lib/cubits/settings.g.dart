@@ -325,7 +325,13 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       const [],
   spreadPages: json['spreadPages'] as bool? ?? false,
   highContrast: json['highContrast'] as bool? ?? false,
-  gridView: json['gridView'] as bool? ?? false,
+  filesLayout:
+      $enumDecodeNullable(
+        _$FilesLayoutEnumMap,
+        json['filesLayout'],
+        unknownValue: FilesLayout.list,
+      ) ??
+      FilesLayout.list,
   hideExtension: json['hideExtension'] as bool? ?? true,
   autosave: json['autosave'] as bool? ?? true,
   showSaveButton: json['showSaveButton'] as bool? ?? true,
@@ -444,7 +450,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'flags': instance.flags,
   'spreadPages': instance.spreadPages,
   'highContrast': instance.highContrast,
-  'gridView': instance.gridView,
+  'filesLayout': _$FilesLayoutEnumMap[instance.filesLayout]!,
   'hideExtension': instance.hideExtension,
   'autosave': instance.autosave,
   'showSaveButton': instance.showSaveButton,
@@ -569,6 +575,12 @@ const _$PlatformThemeEnumMap = {
   PlatformTheme.system: 'system',
   PlatformTheme.mobile: 'mobile',
   PlatformTheme.desktop: 'desktop',
+};
+
+const _$FilesLayoutEnumMap = {
+  FilesLayout.list: 'list',
+  FilesLayout.grid: 'grid',
+  FilesLayout.tree: 'tree',
 };
 
 const _$StartupBehaviorEnumMap = {
