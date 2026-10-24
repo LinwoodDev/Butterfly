@@ -168,7 +168,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.6.2-rc.0"
+    version: "2.6.2"
   camera:
     dependency: "direct main"
     description:
