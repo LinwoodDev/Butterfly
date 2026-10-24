@@ -20,6 +20,8 @@ import 'package:butterfly/services/font.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/app_bar.dart';
+import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/views/navigator/constants.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly/views/edit.dart';
@@ -235,6 +237,10 @@ class _ProjectPageState extends State<ProjectPage> {
     }
 
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
+    final railInset = _getNavigatorRailInset(
+      settingsCubit.state,
+      windowCubit.state,
+    );
     try {
       if (!absolute && (location?.isRemote ?? false) && remote == null) {
         throw StateError(
@@ -532,8 +538,22 @@ class _ProjectPageState extends State<ProjectPage> {
         await disposePendingRuntime();
         return;
       }
-      if (restoredSession == null) {
-        transformCubit.teleportToWaypoint(page.getOriginWaypoint());
+      final origin = page.getOriginWaypoint();
+      final camera = initialSession.camera;
+      final atOrigin =
+          Offset(camera.positionX, camera.positionY) ==
+              origin.position.toOffset() &&
+          camera.zoom == (origin.scale ?? camera.zoom);
+      if (restoredSession == null || atOrigin) {
+        transformCubit.teleportToWaypoint(origin);
+        // The navigation rail covers the left of the canvas, so the start of
+        // the page goes next to it.
+        if (railInset > 0) {
+          final transform = transformCubit.state;
+          transformCubit.teleport(
+            transform.position - Offset(railInset / transform.size, 0),
+          );
+        }
       }
       embedData?.viewState?.apply(transformCubit);
       final editorController = EditorController(
@@ -633,6 +653,24 @@ class _ProjectPageState extends State<ProjectPage> {
         }
       });
     });
+  }
+
+  // Width of the navigation rail on the left of the canvas, as laid out by
+  // _buildLayout.
+  double _getNavigatorRailInset(
+    ButterflySettings settings,
+    WindowState window,
+  ) {
+    final size = MediaQuery.sizeOf(context);
+    final shown =
+        settings.navigationRail &&
+        settings.navigatorPosition == .left &&
+        !window.fullScreen &&
+        size.width >= LeapBreakpoints.expanded &&
+        size.height >= 400;
+    return shown
+        ? MediaQuery.paddingOf(context).left + kNavigationRailWidth
+        : 0;
   }
 
   @override

@@ -16,6 +16,7 @@ import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/main.dart';
+import 'package:butterfly/views/navigator/constants.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/toolbar/color.dart';
 import 'package:butterfly/views/view.dart';
@@ -277,6 +278,30 @@ void main() {
     await tester.sendKeyEvent(key);
     await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
     await tester.pumpAndSettle();
+  }
+
+  for (final large in [true, false]) {
+    testWidgets(
+      'a new note starts ${large ? 'next to' : 'without'} the navigation rail',
+      (tester) async {
+        tester.view.physicalSize = large
+            ? const Size(1400, 900)
+            : const Size(1000, 800);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        final editor = await openEditor(tester);
+        expect(
+          find.byType(NavigationRail),
+          large ? findsOneWidget : findsNothing,
+        );
+        expect(
+          editor.transformCubit.state.position,
+          Offset(large ? -kNavigationRailWidth : 0, 0),
+        );
+      },
+    );
   }
 
   testWidgets('floating editor flag updates the canvas layout live', (
