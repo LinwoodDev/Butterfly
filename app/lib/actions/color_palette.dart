@@ -2,6 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/packs/color_pick.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class ColorPaletteIntent extends Intent {
   const ColorPaletteIntent();
@@ -14,7 +15,7 @@ class ColorPaletteAction extends Action<ColorPaletteIntent> {
 
   @override
   Future<void> invoke(ColorPaletteIntent intent) {
-    return showDialog<void>(
+    return showMovableDialog<void>(
       context: context,
       builder: (ctx) => ColorPalettePickerDialog(
         viewMode: true,

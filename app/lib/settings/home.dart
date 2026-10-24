@@ -38,6 +38,7 @@ import 'package:settings_leap/settings_leap.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 part 'pages/behaviors/home.dart';
 part 'pages/behaviors/persistence.dart';

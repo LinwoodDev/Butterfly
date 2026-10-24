@@ -26,6 +26,8 @@ import 'area/init.dart';
 import 'delete.dart';
 import 'pages.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 Future<void> _overrideTools(
   TemplateFileSystem templateSystem,
   DocumentBloc bloc,
@@ -603,10 +605,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     tooltip: AppLocalizations.of(context)
                                         .delete,
                                     onPressed: () async {
-                                      final result = await showDialog<bool>(
-                                        context: context,
-                                        builder: (ctx) => const DeleteDialog(),
-                                      );
+                                      final result =
+                                          await showMovableDialog<bool>(
+                                            context: context,
+                                            builder: (ctx) =>
+                                                const DeleteDialog(),
+                                          );
                                       if (result != true) return;
                                       for (final template
                                           in _selectedTemplates) {
@@ -674,7 +678,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
       initialName = state.metadata.name;
     }
     String name = initialName, directory = '', fileName = '';
-    return showDialog<void>(
+    return showMovableDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -1341,7 +1345,7 @@ List<Widget> _buildTemplateMenuChildren(
         ),
         child: Text(AppLocalizations.of(context).replace),
         onPressed: () async {
-          final result = await showDialog<bool>(
+          final result = await showMovableDialog<bool>(
             context: context,
             builder: (ctx) => AlertDialog(
               title: Text(AppLocalizations.of(context).areYouSure),
@@ -1370,7 +1374,7 @@ List<Widget> _buildTemplateMenuChildren(
         onPressed: () async {
           final state = bloc.state;
           if (state is! DocumentLoadSuccess) return;
-          final selectedPageNames = await showDialog<List<String>>(
+          final selectedPageNames = await showMovableDialog<List<String>>(
             context: context,
             builder: (context) => SelectPagesDialog(
               pages: state.data.getPagesWithNames(),
@@ -1388,7 +1392,7 @@ List<Widget> _buildTemplateMenuChildren(
         onPressed: () async {
           final state = bloc.state;
           if (state is! DocumentLoadSuccess) return;
-          final selectedPageNames = await showDialog<List<String>>(
+          final selectedPageNames = await showMovableDialog<List<String>>(
             context: context,
             builder: (context) => SelectPagesDialog(
               pages: state.data.getPagesWithNames(),
@@ -1424,7 +1428,7 @@ List<Widget> _buildTemplateMenuChildren(
       leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
       child: Text(AppLocalizations.of(context).duplicate),
       onPressed: () async {
-        final result = await showDialog<String>(
+        final result = await showMovableDialog<String>(
           context: context,
           builder: (ctx) => NameDialog(
             value: file.fileNameWithoutExtension,
@@ -1471,7 +1475,7 @@ List<Widget> _buildTemplateMenuChildren(
         leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
         child: Text(AppLocalizations.of(context).delete),
         onPressed: () async {
-          final result = await showDialog<bool>(
+          final result = await showMovableDialog<bool>(
             context: context,
             builder: (ctx) => const DeleteDialog(),
           );

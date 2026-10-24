@@ -13,6 +13,8 @@ import 'package:keybinder/keybinder.dart';
 
 import '../dialogs/template.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class NewIntent extends Intent {
   final bool fromTemplate;
 
@@ -46,7 +48,7 @@ class NewAction extends Action<NewIntent> {
     final settingsCubit = context.read<SettingsCubit>();
     final settings = settingsCubit.state;
     if (intent.fromTemplate && context.mounted) {
-      await showDialog(
+      await showMovableDialog(
         context: context,
         builder: (context) => TemplateDialog(bloc: bloc),
       );

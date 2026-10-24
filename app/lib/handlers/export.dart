@@ -6,7 +6,7 @@ class ExportHandler extends Handler<ExportTool> {
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
-    showDialog(
+    showMovableDialog(
       context: context,
       builder: (context) => BlocProvider.value(
         value: bloc,

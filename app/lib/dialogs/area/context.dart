@@ -17,6 +17,8 @@ import '../export/general.dart';
 import '../packs/asset.dart';
 import '../export/pdf.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 ContextMenuBuilder buildAreaContextMenu(
   DocumentBloc bloc,
   DocumentLoadSuccess state,
@@ -35,7 +37,7 @@ ContextMenuBuilder buildAreaContextMenu(
         label: AppLocalizations.of(context).rename,
         onPressed: () async {
           if (pop) Navigator.of(context).pop();
-          final name = await showDialog<String>(
+          final name = await showMovableDialog<String>(
             context: context,
             builder: (context) => NameDialog(
               value: area.name,
@@ -79,7 +81,7 @@ ContextMenuBuilder buildAreaContextMenu(
       icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
       label: AppLocalizations.of(context).duplicate,
       onPressed: () async {
-        final selectedPages = await showDialog<List<String>>(
+        final selectedPages = await showMovableDialog<List<String>>(
           context: context,
           builder: (context) => SelectPagesDialog(
             pages: state.data
@@ -144,7 +146,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
       ContextMenuItem(
         onPressed: () async {
           if (pop) Navigator.of(context).pop(true);
-          final result = await showDialog<String>(
+          final result = await showMovableDialog<String>(
             builder: (context) =>
                 NameDialog(button: AppLocalizations.of(context).update),
             context: context,
@@ -167,7 +169,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
       ContextMenuItem(
         onPressed: () async {
           if (pop) Navigator.of(context).pop(true);
-          showDialog<void>(
+          showMovableDialog<void>(
             builder: (context) => BlocProvider.value(
               value: bloc,
               child: MoveToLayerDialog(
@@ -191,7 +193,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
-              showDialog<void>(
+              showMovableDialog<void>(
                 builder: (context) => BlocProvider.value(
                   value: bloc,
                   child: GeneralExportDialog(
@@ -215,7 +217,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
-              showDialog<void>(
+              showMovableDialog<void>(
                 builder: (context) => BlocProvider.value(
                   value: bloc,
                   child: GeneralExportDialog(
@@ -240,7 +242,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
-              showDialog<void>(
+              showMovableDialog<void>(
                 builder: (context) => BlocProvider.value(
                   value: bloc,
                   child: PdfExportDialog(

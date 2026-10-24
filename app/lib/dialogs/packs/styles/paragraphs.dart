@@ -9,6 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../delete.dart';
 import 'paragraph.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class ParagraphsStyleView extends StatefulWidget {
   final text.TextStyleSheet value;
   final ValueChanged<text.TextStyleSheet> onChanged;
@@ -102,7 +104,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
               tooltip: AppLocalizations.of(context).add,
               onPressed: () async {
-                final name = await showDialog<String>(
+                final name = await showMovableDialog<String>(
                   context: context,
                   builder: (context) => NameDialog(
                     validator: defaultFileNameValidator(
@@ -158,7 +160,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                 icon: const PhosphorIcon(PhosphorIconsLight.pencil),
                 tooltip: AppLocalizations.of(context).rename,
                 onPressed: () async {
-                  final name = await showDialog<String>(
+                  final name = await showMovableDialog<String>(
                     context: context,
                     builder: (context) => NameDialog(
                       value: _currentStyle,
@@ -191,7 +193,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                 icon: const PhosphorIcon(PhosphorIconsLight.trash),
                 tooltip: AppLocalizations.of(context).delete,
                 onPressed: () async {
-                  final result = await showDialog<bool>(
+                  final result = await showMovableDialog<bool>(
                     context: context,
                     builder: (ctx) => const DeleteDialog(),
                   );

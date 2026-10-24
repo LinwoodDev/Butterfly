@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 enum _BackupDurationUnit {
   hours(Duration(hours: 1)),
@@ -135,7 +136,7 @@ Future<void> _changeBackupInterval(
   final controller = TextEditingController(text: amount.toString());
   final formKey = GlobalKey<FormState>();
   final localizations = AppLocalizations.of(context);
-  final result = await showDialog<Duration>(
+  final result = await showMovableDialog<Duration>(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) => AlertDialog(
@@ -209,7 +210,7 @@ Future<void> _runBackupNow(BuildContext context) async {
   final messenger = ScaffoldMessenger.of(context);
   final localizations = AppLocalizations.of(context);
   unawaited(
-    showDialog<void>(
+    showMovableDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(

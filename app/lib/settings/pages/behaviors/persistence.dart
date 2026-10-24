@@ -367,7 +367,7 @@ Future<_CleanupResult?> _showCleanupTargetsDialog(
   final selected = targets.map((target) => target.id).toSet();
   var cleaning = false;
 
-  return showDialog<_CleanupResult>(
+  return showMovableDialog<_CleanupResult>(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) => AlertDialog(

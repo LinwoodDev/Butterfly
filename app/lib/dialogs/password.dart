@@ -2,6 +2,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 Future<String?> showPasswordDialog(
   BuildContext context, {
@@ -9,7 +10,7 @@ Future<String?> showPasswordDialog(
   required String passwordLabel,
   bool confirm = false,
   String? warning,
-}) => showDialog<String>(
+}) => showMovableDialog<String>(
   context: context,
   builder: (context) => _PasswordDialog(
     title: title,

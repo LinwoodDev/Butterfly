@@ -41,6 +41,8 @@ import '../helpers/element.dart';
 import '../helpers/rect.dart';
 import 'onenote.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 enum _OneNoteXpsFallback { manual, skipAll }
 
 enum _OneNoteManualXpsAction { selectPdf, exportAgain, skipFile, skipAll }
@@ -280,7 +282,7 @@ class ImportService(
           element.name.toLowerCase() == normalizedType,
     );
     if (fileType == null) {
-      await showDialog(
+      await showMovableDialog(
         context: context,
         builder: (context) => UnknownImportConfirmationDialog(
           message: AppLocalizations.of(context).unknownImportType,
@@ -386,7 +388,7 @@ class ImportService(
         (element) => element.isMimeType(content?.type ?? ''),
       );
     } catch (e) {
-      await showDialog(
+      await showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -424,7 +426,7 @@ class ImportService(
       if (encrypted) {
         data = file.load(password: password);
         if (!(data?.isValid ?? false)) {
-          password = await showDialog<String>(
+          password = await showMovableDialog<String>(
             context: context,
             builder: (context) => NameDialog(
               title: AppLocalizations.of(context).encrypted,
@@ -444,7 +446,7 @@ class ImportService(
           await _importArchive(archive);
           return null;
         }
-        return await showDialog(
+        return await showMovableDialog(
           context: context,
           builder: (context) => UnknownImportConfirmationDialog(
             message: AppLocalizations.of(context).unknownImportType,
@@ -465,7 +467,7 @@ class ImportService(
           packSystem,
           name,
         ).then((value) => null),
-        _ => showDialog(
+        _ => showMovableDialog(
           context: context,
           builder: (context) => UnknownImportConfirmationDialog(
             message: AppLocalizations.of(context).unknownImportType,
@@ -473,7 +475,7 @@ class ImportService(
         ).then((value) => null),
       };
     } catch (e) {
-      await showDialog(
+      await showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -490,7 +492,7 @@ class ImportService(
     var pages = data.getPages();
     var packs = data.getBundledPacks().toList();
     if (advanced) {
-      final callback = await showDialog<NoteDialogCallback>(
+      final callback = await showMovableDialog<NoteDialogCallback>(
         context: context,
         builder: (context) => NoteImportDialog(pages: pages, packs: packs),
       );
@@ -511,7 +513,7 @@ class ImportService(
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
       return await _importPage(page, document, position);
     } catch (e) {
-      await showDialog(
+      await showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -567,7 +569,7 @@ class ImportService(
     final metadata = template.getMetadata();
     templateSystem ??= getTemplateFileSystem();
     if (metadata == null) return null;
-    final result = await showDialog<bool>(
+    final result = await showMovableDialog<bool>(
       context: context,
       builder: (context) =>
           TemplateImportConfirmationDialog(template: metadata),
@@ -587,7 +589,7 @@ class ImportService(
     packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
     if (metadata == null) return false;
-    final result = await showDialog<bool>(
+    final result = await showMovableDialog<bool>(
       context: context,
       builder: (context) => PackImportConfirmationDialog(pack: metadata),
     );
@@ -719,7 +721,7 @@ class ImportService(
         choosePosition: position == null,
       );
     } catch (e) {
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -738,7 +740,7 @@ class ImportService(
       final data = xoppMigrator(bytes);
       return await _importDocument(data, document: document);
     } catch (e) {
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -786,7 +788,7 @@ class ImportService(
           final executableMissing =
               conversionError is XpsToPdfNotInstalledException;
           hideLoading();
-          final fallback = await showDialog<_OneNoteXpsFallback>(
+          final fallback = await showMovableDialog<_OneNoteXpsFallback>(
             context: context,
             builder: (context) => AlertDialog(
               title: Text(
@@ -838,7 +840,7 @@ class ImportService(
         String? message;
         while (context.mounted) {
           hideLoading();
-          final action = await showDialog<_OneNoteManualXpsAction>(
+          final action = await showMovableDialog<_OneNoteManualXpsAction>(
             context: context,
             barrierDismissible: false,
             builder: (context) => AlertDialog(
@@ -962,7 +964,7 @@ class ImportService(
     } catch (e) {
       hideLoading();
       if (context.mounted) {
-        await showDialog<void>(
+        await showMovableDialog<void>(
           context: context,
           builder: (context) =>
               UnknownImportConfirmationDialog(message: e.toString()),
@@ -1041,14 +1043,14 @@ class ImportService(
           info.picture.dispose();
         }
       } catch (e) {
-        showDialog<void>(
+        showMovableDialog<void>(
           context: context,
           builder: (context) =>
               UnknownImportConfirmationDialog(message: e.toString()),
         );
       }
     } catch (e) {
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -1098,7 +1100,7 @@ class ImportService(
         choosePosition: position == null,
       );
     } catch (e) {
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -1158,7 +1160,7 @@ class ImportService(
         }
         dialog?.close();
         dialog = null;
-        final callback = await showDialog<PageDialogCallback>(
+        final callback = await showMovableDialog<PageDialogCallback>(
           context: context,
           builder: (context) => ImportPagesDialog(pages: images, name: name),
         );
@@ -1244,7 +1246,7 @@ class ImportService(
             y += height;
           }
         } catch (e) {
-          showDialog(
+          showMovableDialog(
             context: context,
             builder: (context) =>
                 UnknownImportConfirmationDialog(message: e.toString()),
@@ -1272,7 +1274,7 @@ class ImportService(
       dialog?.close();
       dialog = null;
       if (!context.mounted) return null;
-      await showDialog(
+      await showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -1300,7 +1302,7 @@ class ImportService(
         exportData(context, await state.saveData());
         break;
       case .image:
-        return showDialog<void>(
+        return showMovableDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
             value: bloc,
@@ -1316,7 +1318,7 @@ class ImportService(
           ),
         );
       case .pdf:
-        return showDialog<void>(
+        return showMovableDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
             value: bloc,
@@ -1328,7 +1330,7 @@ class ImportService(
           ),
         );
       case .svg:
-        return showDialog<void>(
+        return showMovableDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
             value: bloc,
@@ -1393,7 +1395,7 @@ class ImportService(
       }
       return true;
     } catch (e) {
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),

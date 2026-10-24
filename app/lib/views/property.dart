@@ -18,6 +18,8 @@ import '../selections/selection.dart';
 import '../visualizer/icon.dart';
 import '../visualizer/tool.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class PropertyView extends StatefulWidget {
   final ZoomPosition position;
   final bool edgeAttached;
@@ -158,7 +160,7 @@ class _PropertyCardState extends State<_PropertyCard> {
         .read<ButterflyFileSystem>()
         .buildDefaultPackSystem();
     final bloc = context.read<DocumentBloc>();
-    final result = await showDialog<PackAssetLocation>(
+    final result = await showMovableDialog<PackAssetLocation>(
       context: context,
       builder: (context) => BlocProvider.value(
         value: bloc,

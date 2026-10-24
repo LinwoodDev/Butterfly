@@ -7,6 +7,8 @@ import 'package:keybinder/keybinder.dart';
 
 import '../dialogs/packs/dialog.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class PacksIntent extends Intent {
   final bool showDocument;
 
@@ -32,7 +34,7 @@ class PacksAction extends Action<PacksIntent> {
   Future<dynamic> invoke(PacksIntent intent) {
     var bloc = context.read<DocumentBloc>();
     var transformCubit = context.read<TransformCubit>();
-    return showDialog(
+    return showMovableDialog(
       context: context,
       builder: (context) => MultiBlocProvider(
         providers: [

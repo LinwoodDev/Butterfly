@@ -81,7 +81,7 @@ Future<void> showImportAssetWizard(
     case .image:
       return importWithDialog([AssetFileType.image], multiple: true);
     case .camera:
-      final content = await showDialog<Uint8List>(
+      final content = await showMovableDialog<Uint8List>(
         context: context,
         builder: (context) => const CameraDialog(),
       );
@@ -91,7 +91,7 @@ Future<void> showImportAssetWizard(
       return importWithDialog([AssetFileType.svg]);
     case .svgText:
       final controller = TextEditingController();
-      final result = await showDialog<bool>(
+      final result = await showMovableDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).import),

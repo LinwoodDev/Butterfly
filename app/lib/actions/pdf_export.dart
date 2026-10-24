@@ -7,6 +7,8 @@ import 'package:keybinder/keybinder.dart';
 
 import '../dialogs/export/pdf.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class PdfExportIntent extends Intent {
   const PdfExportIntent();
 }
@@ -37,7 +39,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
       ),
     ];
     if (state.info.exportPresets.isNotEmpty) {
-      final preset = await showDialog<ExportPreset>(
+      final preset = await showMovableDialog<ExportPreset>(
         context: context,
         builder: (context) =>
             BlocProvider.value(value: bloc, child: const ExportPresetsDialog()),
@@ -46,7 +48,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
       areas = preset.areas;
     }
     if (context.mounted) {
-      return showDialog<void>(
+      return showMovableDialog<void>(
         builder: (context) => BlocProvider.value(
           value: bloc,
           child: PdfExportDialog(areas: areas),

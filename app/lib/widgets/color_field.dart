@@ -6,6 +6,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../bloc/document_bloc.dart';
 import '../dialogs/packs/color_pick.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class ColorField extends StatelessWidget {
   final bool enabled, custom;
   final SRGBColor value;
@@ -36,13 +38,13 @@ class ColorField extends StatelessWidget {
         onOpen?.call();
         SRGBColor? nextColor;
         if (custom) {
-          final response = await showDialog<ColorPickerResponse>(
+          final response = await showMovableDialog<ColorPickerResponse>(
             context: context,
             builder: (ctx) => ColorPicker(value: value),
           );
           nextColor = response?.toSRGB();
         } else {
-          nextColor = await showDialog<SRGBColor>(
+          nextColor = await showMovableDialog<SRGBColor>(
             context: context,
             builder: (ctx) => ColorPalettePickerDialog(
               value: value,

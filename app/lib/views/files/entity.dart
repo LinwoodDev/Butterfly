@@ -18,6 +18,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class FileEntityItem extends StatefulWidget {
   final FileSystemEntity<NoteFile> entity;
@@ -397,7 +398,7 @@ class ContextFileRegion extends StatelessWidget {
           ),
         MenuItemButton(
           onPressed: () =>
-              showDialog(
+              showMovableDialog(
                 context: context,
                 builder: (context) => FileSystemAssetMoveDialog(
                   assets: [entity.location],

@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class ImageExportIntent extends Intent {
   const ImageExportIntent();
@@ -30,7 +31,7 @@ class ImageExportAction extends Action<ImageExportIntent> {
   Future<void> invoke(ImageExportIntent intent) async {
     var bloc = context.read<DocumentBloc>();
     var transform = context.read<TransformCubit>().state;
-    return showDialog<void>(
+    return showMovableDialog<void>(
       builder: (context) => BlocProvider.value(
         value: bloc,
         child: GeneralExportDialog(

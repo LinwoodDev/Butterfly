@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class PalettesPackView extends StatelessWidget {
   final NoteData value;
@@ -35,7 +36,7 @@ class PalettesPackView extends StatelessWidget {
                       child: ListTile(
                         title: Text(e),
                         onTap: () {
-                          showDialog(
+                          showMovableDialog(
                             context: context,
                             builder: (context) => ColorPalettePickerDialog(
                               palette: value.getPalette(e),
@@ -70,7 +71,7 @@ class PalettesPackView extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: FloatingActionButton.extended(
             onPressed: () async {
-              final name = await showDialog<String>(
+              final name = await showMovableDialog<String>(
                 context: context,
                 builder: (context) => NameDialog(
                   validator: defaultFileNameValidator(

@@ -11,6 +11,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../pages.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 @immutable
 class PageDialogCallback {
   final List<int> pages;
@@ -87,7 +89,7 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
                   tooltip: AppLocalizations.of(context).selectPages,
                   icon: const PhosphorIcon(PhosphorIconsLight.listNumbers),
                   onPressed: () async {
-                    final selected = await showDialog<List<String>>(
+                    final selected = await showMovableDialog<List<String>>(
                       context: context,
                       builder: (context) => SelectPagesDialog(
                         pages: List.generate(

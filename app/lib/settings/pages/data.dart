@@ -95,7 +95,7 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
 
 Future<void> _resetAllSettings(BuildContext context) async {
   final localizations = AppLocalizations.of(context);
-  final confirmed = await showDialog<bool>(
+  final confirmed = await showMovableDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(localizations.resetAllSettings),

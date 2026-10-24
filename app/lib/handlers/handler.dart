@@ -62,6 +62,7 @@ import '../views/toolbar/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
 
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 part 'mixins.dart';
 

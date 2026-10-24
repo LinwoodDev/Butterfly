@@ -10,6 +10,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:collection/collection.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class ToolbarsView extends StatefulWidget {
   const ToolbarsView({super.key});
@@ -139,16 +140,17 @@ class _ToolbarsViewState extends State<ToolbarsView> {
                         onTap: () async {
                           final settingsCubit = context.read<SettingsCubit>();
                           final bloc = context.read<DocumentBloc>();
-                          final result = await showDialog<PackAssetLocation>(
-                            context: context,
-                            builder: (context) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider.value(value: settingsCubit),
-                                BlocProvider.value(value: bloc),
-                              ],
-                              child: const AssetDialog(),
-                            ),
-                          );
+                          final result =
+                              await showMovableDialog<PackAssetLocation>(
+                                context: context,
+                                builder: (context) => MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider.value(value: settingsCubit),
+                                    BlocProvider.value(value: bloc),
+                                  ],
+                                  child: const AssetDialog(),
+                                ),
+                              );
                           if (result == null) return;
                           var pack = await _packSystem.getFile(
                             result.namespace,

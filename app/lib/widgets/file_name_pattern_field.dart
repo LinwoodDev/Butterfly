@@ -3,6 +3,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 Future<String?> showFileNamePatternDialog(
   BuildContext context, {
@@ -12,7 +13,7 @@ Future<String?> showFileNamePatternDialog(
 }) {
   final formKey = GlobalKey<FormState>();
   var value = initialValue;
-  return showDialog<String>(
+  return showMovableDialog<String>(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(label),

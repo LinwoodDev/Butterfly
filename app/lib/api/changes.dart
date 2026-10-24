@@ -5,6 +5,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
   final metadata = data.getMetadata();
@@ -13,7 +14,7 @@ Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
   if (version != null &&
       version >= 0 &&
       (version > kFileVersion || version < kBreakingChangesVersion)) {
-    final result = await showDialog<bool>(
+    final result = await showMovableDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).breakingChangesTitle),

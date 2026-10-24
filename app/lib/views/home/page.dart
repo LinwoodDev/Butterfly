@@ -20,6 +20,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../main.dart';
 import '../files/view.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 part 'start.dart';
 part 'header.dart';
 

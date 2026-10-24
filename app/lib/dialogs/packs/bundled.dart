@@ -9,6 +9,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class BundledPacksDialog extends StatefulWidget {
   final VoidCallback? onRefresh;
@@ -105,7 +106,7 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
                           .buildDefaultPackSystem();
                       final metadata = pack?.getMetadata();
                       if (pack == null || metadata == null) return;
-                      final result = await showDialog(
+                      final result = await showMovableDialog(
                         context: context,
                         builder: (context) =>
                             PackImportConfirmationDialog(pack: metadata),

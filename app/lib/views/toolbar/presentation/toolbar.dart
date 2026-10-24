@@ -19,6 +19,8 @@ import '../../../dialogs/export/pdf.dart';
 import '../../../handlers/handler.dart';
 import 'timeline.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class PresentationToolbarView extends StatefulWidget
     implements PreferredSizeWidget {
   final ValueChanged<int>? onFrameChanged;
@@ -253,7 +255,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   Future<void> _configureTransition() async {
     final animation = _animation;
     if (animation == null) return;
-    final duration = await showDialog<double>(
+    final duration = await showMovableDialog<double>(
       context: context,
       builder: (context) =>
           TransitionDurationDialog(duration: _transitionDuration),
@@ -282,7 +284,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final animation = _animation;
     final frames = _slideFrames;
     if (animation == null || !frames.contains(_frame)) return;
-    final remove = await showDialog<bool>(
+    final remove = await showMovableDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).deleteSlide),
@@ -341,7 +343,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
 
   Future<void> _configureKeyframe(CameraTransform transform) async {
     if (_animation == null) return;
-    final configured = await showDialog<AnimationKey>(
+    final configured = await showMovableDialog<AnimationKey>(
       context: context,
       builder: (context) => KeyframeConfigurationDialog(
         keyframe: _key ?? const AnimationKey(),
@@ -404,7 +406,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               ),
                               onPressed: () async {
                                 final bloc = context.read<DocumentBloc>();
-                                final name = await showDialog<String>(
+                                final name = await showMovableDialog<String>(
                                   context: context,
                                   builder: (context) => NameDialog(
                                     validator: defaultFileNameValidator(
@@ -433,19 +435,22 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   ? null
                                   : () async {
                                       final bloc = context.read<DocumentBloc>();
-                                      final name = await showDialog<String>(
-                                        context: context,
-                                        builder: (context) => NameDialog(
-                                          validator: defaultFileNameValidator(
-                                            context,
-                                            animations
-                                                .map((e) => e.name)
-                                                .toList(),
-                                          ),
-                                          button: AppLocalizations.of(context)
-                                              .duplicate,
-                                        ),
-                                      );
+                                      final name =
+                                          await showMovableDialog<String>(
+                                            context: context,
+                                            builder: (context) => NameDialog(
+                                              validator:
+                                                  defaultFileNameValidator(
+                                                    context,
+                                                    animations
+                                                        .map((e) => e.name)
+                                                        .toList(),
+                                                  ),
+                                              button: AppLocalizations.of(
+                                                context,
+                                              ).duplicate,
+                                            ),
+                                          );
                                       if (name == null) return;
                                       final duplicate = _animation!.copyWith(
                                         name: name,
@@ -470,20 +475,22 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   ? null
                                   : () async {
                                       final bloc = context.read<DocumentBloc>();
-                                      final name = await showDialog<String>(
-                                        context: context,
-                                        builder: (context) => NameDialog(
-                                          value: _animation!.name,
-                                          validator: defaultNameValidator(
-                                            context,
-                                            animations
-                                                .map((e) => e.name)
-                                                .toList(),
-                                          ),
-                                          button: AppLocalizations.of(context)
-                                              .rename,
-                                        ),
-                                      );
+                                      final name =
+                                          await showMovableDialog<String>(
+                                            context: context,
+                                            builder: (context) => NameDialog(
+                                              value: _animation!.name,
+                                              validator: defaultNameValidator(
+                                                context,
+                                                animations
+                                                    .map((e) => e.name)
+                                                    .toList(),
+                                              ),
+                                              button: AppLocalizations.of(
+                                                context,
+                                              ).rename,
+                                            ),
+                                          );
                                       if (name == null) return;
                                       final previousName = _animation!.name;
                                       final renamed = _animation!.copyWith(
@@ -507,37 +514,45 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               onPressed: _animation == null
                                   ? null
                                   : () async {
-                                      final remove = await showDialog<bool>(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: Text(
-                                            AppLocalizations.of(context).delete,
-                                          ),
-                                          content: Text(
-                                            AppLocalizations.of(context)
-                                                .removeConfirm,
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context, false),
-                                              child: Text(
-                                                MaterialLocalizations.of(
-                                                  context,
-                                                ).cancelButtonLabel,
-                                              ),
-                                            ),
-                                            FilledButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context, true),
-                                              child: Text(
+                                      final remove =
+                                          await showMovableDialog<bool>(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: Text(
                                                 AppLocalizations.of(context)
                                                     .delete,
                                               ),
+                                              content: Text(
+                                                AppLocalizations.of(context)
+                                                    .removeConfirm,
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                        context,
+                                                        false,
+                                                      ),
+                                                  child: Text(
+                                                    MaterialLocalizations.of(
+                                                      context,
+                                                    ).cancelButtonLabel,
+                                                  ),
+                                                ),
+                                                FilledButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                        context,
+                                                        true,
+                                                      ),
+                                                  child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .delete,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      );
+                                          );
                                       if (remove != true || !context.mounted) {
                                         return;
                                       }
@@ -907,7 +922,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   final fullScreen = await isFullScreen();
                                   if (context.mounted) {
                                     final requestedFullScreen =
-                                        await showDialog<bool>(
+                                        await showMovableDialog<bool>(
                                           context: context,
                                           builder: (context) =>
                                               PresentationControlsDialog(
@@ -947,7 +962,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 child: Text(AppLocalizations.of(context).pdf),
                                 onPressed: () {
                                   final size = MediaQuery.sizeOf(context);
-                                  showDialog(
+                                  showMovableDialog(
                                     context: context,
                                     builder: (ctx) => BlocProvider.value(
                                       value: context.read<DocumentBloc>(),

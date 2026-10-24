@@ -5,6 +5,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class ComponentsPackView extends StatelessWidget {
   final NoteData value;
@@ -36,7 +37,7 @@ class ComponentsPackView extends StatelessWidget {
                     onTap: () async {
                       final component = value.getComponent(e);
                       if (component == null) return;
-                      final result = await showDialog<String>(
+                      final result = await showMovableDialog<String>(
                         context: context,
                         builder: (ctx) => NameDialog(value: e),
                       );

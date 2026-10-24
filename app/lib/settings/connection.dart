@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class ConnectionSettingsPage extends StatefulWidget {
   final String remote;
@@ -108,7 +109,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
     final settingsCubit = context.read<SettingsCubit>();
     final pathController = TextEditingController();
     final success =
-        await showDialog<bool>(
+        await showMovableDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
             title: Text(AppLocalizations.of(context).createCache),

@@ -9,6 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../bloc/document_bloc.dart';
 import 'style.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class StylesPackView extends StatelessWidget {
   final NoteData value;
   final ValueChanged<NoteData> onChanged;
@@ -44,7 +46,7 @@ class StylesPackView extends StatelessWidget {
                             final bloc = context.read<DocumentBloc>();
                             var newName = e.name;
                             var styleSheet = e.item;
-                            final result = await showDialog<bool>(
+                            final result = await showMovableDialog<bool>(
                               context: context,
                               builder: (ctx) => BlocProvider.value(
                                 value: bloc,
@@ -86,7 +88,7 @@ class StylesPackView extends StatelessWidget {
             child: FloatingActionButton.extended(
               onPressed: () async {
                 var styleSheet = const text.TextStyleSheet();
-                final result = await showDialog<String>(
+                final result = await showMovableDialog<String>(
                   context: context,
                   builder: (ctx) => NameDialog(
                     validator: defaultFileNameValidator(

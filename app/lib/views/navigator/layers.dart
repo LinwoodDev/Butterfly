@@ -12,6 +12,8 @@ import '../../widgets/editable_list_tile.dart';
 import '../../widgets/multi_select.dart';
 import '../../widgets/reorderable_list_item.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 int _documentLayerIndexFromViewIndex(int index, int layerCount) =>
     layerCount - index - 1;
 
@@ -57,7 +59,7 @@ class _LayersViewState extends State<LayersView> {
                   avatar: const PhosphorIcon(PhosphorIconsLight.trash),
                   onPressed: () async {
                     if (controller.selectedIds.isEmpty) return;
-                    final result = await showDialog<bool>(
+                    final result = await showMovableDialog<bool>(
                       context: context,
                       builder: (context) => const DeleteDialog(),
                     );
@@ -250,7 +252,7 @@ class _LayersViewState extends State<LayersView> {
                                 ),
                                 onPressed: () {
                                   final bloc = context.read<DocumentBloc>();
-                                  showDialog(
+                                  showMovableDialog(
                                     context: context,
                                     builder: (context) => BlocProvider.value(
                                       value: bloc,
@@ -279,7 +281,7 @@ class _LayersViewState extends State<LayersView> {
                           onPressed: currentLayer == layer
                               ? null
                               : () async {
-                                  final result = await showDialog<bool>(
+                                  final result = await showMovableDialog<bool>(
                                     context: context,
                                     builder: (context) => const DeleteDialog(),
                                   );

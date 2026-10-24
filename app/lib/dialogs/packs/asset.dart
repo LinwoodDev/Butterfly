@@ -14,6 +14,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../bloc/document_bloc.dart';
 import 'pack.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class AssetDialog extends StatefulWidget {
   final PackAssetLocation? value;
   final String initialName;
@@ -45,7 +47,7 @@ class _AssetDialogState extends State<AssetDialog> {
       _packSystem.initialize().then((_) => _packSystem.getFiles());
 
   Future<void> _createPack() async {
-    final pack = await showDialog<NoteData>(
+    final pack = await showMovableDialog<NoteData>(
       context: context,
       builder: (context) => const PackDialog(),
     );
@@ -158,7 +160,7 @@ Future<void> addToPack(
       .buildDefaultPackSystem();
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return;
-  final result = await showDialog<PackAssetLocation>(
+  final result = await showMovableDialog<PackAssetLocation>(
     context: context,
     builder: (context) => MultiBlocProvider(
       providers: [
