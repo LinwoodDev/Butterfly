@@ -109,6 +109,14 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
           ? _nameController.text
           : asset.fileNameWithoutExtension;
       newPath += '.${asset.fileExtension}';
+      // Never replace an existing entry, e.g. when the selection contains
+      // notes with the same name from different folders of the tree.
+      if (duplicate ||
+          asset.remote != selectedRemote ||
+          destinationFileSystem.normalizePath(newPath) !=
+              destinationFileSystem.normalizePath(asset.path)) {
+        newPath = await destinationFileSystem.findAvailableName(newPath);
+      }
       final sourceFileSystem = asset.remote == selectedRemote
           ? widget.fileSystem
           : _buildDocumentSystem(asset.remote);

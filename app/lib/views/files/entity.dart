@@ -37,6 +37,10 @@ class FileEntityItem extends StatefulWidget {
   /// Called when a dragged asset stays over this folder for a while.
   final VoidCallback? onDragHold;
 
+  /// The "Open" action of the menu; by default [onTap] when [onPreview] is
+  /// set.
+  final VoidCallback? onOpen;
+
   const FileEntityItem({
     super.key,
     required this.entity,
@@ -52,6 +56,7 @@ class FileEntityItem extends StatefulWidget {
     this.onPreview,
     this.onMoveInto,
     this.onDragHold,
+    this.onOpen,
   });
 
   @override
@@ -94,8 +99,46 @@ Widget highlightDropTarget(BuildContext context, bool active, Widget child) =>
       child: child,
     );
 
-/// Starts dragging as soon as the mouse moves. Other input keeps the long
-/// press of [LongPressDraggable], so touch scrolling still works.
+/// How far the mouse moves before a drag starts. Flutter's immediate drag
+/// starts after one pixel, which turns a slightly shaky click into a drag.
+const double _mouseDragSlop = 6;
+
+class _MouseDragPointerState extends MultiDragPointerState {
+  _MouseDragPointerState(
+    super.initialPosition,
+    super.kind,
+    super.gestureSettings,
+  );
+
+  @override
+  void checkForResolutionAfterMove() {
+    if (pendingDelta!.distance > _mouseDragSlop) {
+      resolve(GestureDisposition.accepted);
+    }
+  }
+
+  @override
+  void accepted(GestureMultiDragStartCallback starter) =>
+      starter(initialPosition);
+}
+
+class _MouseDragGestureRecognizer extends MultiDragGestureRecognizer {
+  _MouseDragGestureRecognizer()
+    : super(
+        debugOwner: null,
+        supportedDevices: const {PointerDeviceKind.mouse},
+      );
+
+  @override
+  MultiDragPointerState createNewPointerState(PointerDownEvent event) =>
+      _MouseDragPointerState(event.position, event.kind, gestureSettings);
+
+  @override
+  String get debugDescription => 'mouse drag';
+}
+
+/// Starts dragging as soon as the mouse moves a few pixels. Other input keeps
+/// the long press of [LongPressDraggable], so touch scrolling still works.
 class _MouseDraggable<T extends Object> extends Draggable<T> {
   const _MouseDraggable({
     required super.child,
@@ -107,9 +150,7 @@ class _MouseDraggable<T extends Object> extends Draggable<T> {
   @override
   MultiDragGestureRecognizer createRecognizer(
     GestureMultiDragStartCallback onStart,
-  ) => ImmediateMultiDragGestureRecognizer(
-    supportedDevices: const {PointerDeviceKind.mouse},
-  )..onStart = onStart;
+  ) => _MouseDragGestureRecognizer()..onStart = onStart;
 }
 
 void deleteEntities({
@@ -296,7 +337,8 @@ class _FileEntityItemState extends State<FileEntityItem> {
           onDelete: onDelete,
           onReload: widget.onReload,
           documentSystem: documentSystem,
-          onOpen: widget.onPreview != null ? widget.onTap : null,
+          onOpen:
+              widget.onOpen ?? (widget.onPreview != null ? widget.onTap : null),
           onSelect: widget.selected == null
               ? () => widget.onSelected(true)
               : null,
@@ -368,21 +410,20 @@ class _FileEntityItemState extends State<FileEntityItem> {
             await onMoveInto(data.data);
             return;
           }
-          final source = await documentSystem.getAsset(data.data);
-          final destination =
-              '${widget.entity.location.path}/${data.data.split('/').last}';
-          await documentSystem.moveAsset(data.data, destination);
-          await fileSystem.settingsCubit.moveAssetReferences(
-            AssetLocation(
-              path: data.data,
-              remote: documentSystem.storage?.identifier ?? '',
-            ),
-            AssetLocation(
-              path: destination,
-              remote: documentSystem.storage?.identifier ?? '',
-            ),
-            directory: source is FileSystemDirectory<NoteFile>,
-          );
+          try {
+            await moveDocumentAssetInto(
+              documentSystem,
+              fileSystem.settingsCubit,
+              data.data,
+              widget.entity.location.path,
+            );
+          } catch (_) {
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(AppLocalizations.of(context).error)),
+              );
+            }
+          }
           widget.onReload();
         },
       );

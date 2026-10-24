@@ -12,6 +12,7 @@ import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/recent.dart';
+import 'package:butterfly/views/files/tree.dart';
 import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
@@ -69,17 +70,7 @@ class FilesViewState extends State<FilesView> {
   BehaviorSubject<FileSystemEntity<NoteFile>?>? _filesStream;
   StreamSubscription<FileSystemEntity<NoteFile>?>? _filesSubscription;
   final Set<String> _selectedFiles = {};
-
-  // Expanded folders of the tree layout per storage, kept for the session.
-  static final Map<String, Set<String>> _expandedTreeDirectories = {};
-  final Map<String, FileSystemDirectory<NoteFile>> _treeDirectories = {};
-  // Pending reads by folder; removing one discards its result.
-  final Map<String, Object> _loadingTreeDirectories = {};
-  final Set<String> _staleTreeDirectories = {};
-  String? _treeRemote;
-
-  @visibleForTesting
-  static void collapseTrees() => _expandedTreeDirectories.clear();
+  final FileTreeController _tree = FileTreeController();
 
   @override
   void initState() {
@@ -93,6 +84,10 @@ class FilesViewState extends State<FilesView> {
     if (initialPath != null) {
       _locationController.text = initialPath;
     }
+    _tree
+      ..readData = _readData
+      ..onRead = _retainTreeSelection
+      ..addListener(_onTreeChanged);
     _setFilesStream();
   }
 
@@ -101,8 +96,14 @@ class FilesViewState extends State<FilesView> {
     _filesSubscription?.cancel();
     _filesStream?.close();
     _locationController.dispose();
+    _tree.dispose();
     super.dispose();
   }
+
+  bool _readData() =>
+      widget.onPreview != null || _settingsCubit.state.showThumbnails;
+
+  void _onTreeChanged() => setState(() {});
 
   @override
   void didUpdateWidget(covariant FilesView oldWidget) {
@@ -152,64 +153,12 @@ class FilesViewState extends State<FilesView> {
     return _availableLayouts.contains(layout) ? layout : FilesLayout.list;
   }
 
-  Set<String> get _expandedTreePaths =>
-      _expandedTreeDirectories.putIfAbsent(_remote?.identifier ?? '', () => {});
-
-  String _getTreePath(FileSystemEntity<NoteFile> entity) =>
-      _documentSystem.normalizePath(entity.path);
-
-  bool _isTreeExpanded(FileSystemEntity<NoteFile> entity) =>
-      entity is FileSystemDirectory<NoteFile> &&
-      _expandedTreePaths.contains(_getTreePath(entity));
-
-  void _refreshTree() {
-    _loadingTreeDirectories.clear();
-    final remote = _remote?.identifier ?? '';
-    if (_treeRemote != remote) {
-      _treeRemote = remote;
-      _treeDirectories.clear();
-    }
-    // Keep showing the loaded folders until they are read again.
-    _staleTreeDirectories
-      ..clear()
-      ..addAll(_treeDirectories.keys);
-  }
-
-  Future<void> _loadTreeDirectory(String path) async {
-    if (_loadingTreeDirectories.containsKey(path)) return;
-    final load = _loadingTreeDirectories[path] = Object();
-    FileSystemEntity<NoteFile>? asset;
-    try {
-      asset = await _documentSystem.getAsset(
-        path,
-        listLevel: noListLevel,
-        readData:
-            widget.onPreview != null || _settingsCubit.state.showThumbnails,
-      );
-    } catch (error) {
-      debugPrint('Could not load folder $path: $error');
-    }
-    if (!mounted || _loadingTreeDirectories[path] != load) return;
-    final directory = asset is FileSystemDirectory<NoteFile> ? asset : null;
-    setState(() {
-      _loadingTreeDirectories.remove(path);
-      _staleTreeDirectories.remove(path);
-      _retainTreeSelection(path, directory);
-      if (directory != null) {
-        _treeDirectories[path] = directory;
-      } else {
-        _treeDirectories.remove(path);
-        _expandedTreePaths.remove(path);
-      }
-    });
-  }
-
   // Selected entries of a folder that was read again must still be in it.
   void _retainTreeSelection(
     String path,
     FileSystemDirectory<NoteFile>? directory,
   ) {
-    final existing = {...?directory?.assets.map(_getTreePath)};
+    final existing = {...?directory?.assets.map(_tree.pathOf)};
     _selectedFiles.removeWhere((selected) {
       final normalized = _documentSystem.normalizePath(selected);
       if (!normalized.startsWith('$path/')) return false;
@@ -219,62 +168,26 @@ class FilesViewState extends State<FilesView> {
   }
 
   void _toggleTreeDirectory(FileSystemEntity<NoteFile> directory) {
-    final path = _getTreePath(directory);
     setState(() {
-      if (!_expandedTreePaths.remove(path)) _expandedTreePaths.add(path);
+      if (_tree.toggle(directory)) return;
+      // The entries of a collapsed folder are hidden: deselect them, so that
+      // the selection actions never touch entries nobody sees.
+      final path = _tree.pathOf(directory);
+      _selectedFiles.removeWhere(
+        (selected) =>
+            _documentSystem.normalizePath(selected).startsWith('$path/'),
+      );
     });
   }
 
-  List<_FileTreeRow> _getTreeRows(
+  List<FileTreeRow> _getTreeRows(
     List<FileSystemEntity<NoteFile>> assets,
     Map<NoteFile, FileMetadata?> metadata,
-  ) {
-    final rows = <_FileTreeRow>[];
-    final search = _search.toLowerCase();
-    FileSystemDirectory<NoteFile>? getChildren(
-      FileSystemDirectory<NoteFile> directory,
-    ) {
-      final path = _getTreePath(directory);
-      final loaded = _treeDirectories[path];
-      if (loaded == null || _staleTreeDirectories.contains(path)) {
-        _loadTreeDirectory(path);
-      }
-      // The listing of the current folder already contains its subfolders.
-      return loaded ?? (directory.assets.isEmpty ? null : directory);
-    }
-
-    // While searching, a folder stays visible if a loaded descendant matches.
-    bool isVisible(FileSystemEntity<NoteFile> asset) {
-      if (search.isEmpty || asset.fileName.toLowerCase().contains(search)) {
-        return true;
-      }
-      if (asset is! FileSystemDirectory<NoteFile> || !_isTreeExpanded(asset)) {
-        return false;
-      }
-      return getChildren(asset)?.assets.any(isVisible) ?? false;
-    }
-
-    void addRows(List<FileSystemEntity<NoteFile>> assets, int depth) {
-      final visible = assets.where(isVisible).toList()
-        ..sort((a, b) => _sortAssets(a, b, metadata));
-      for (final asset in visible) {
-        rows.add((entity: asset, path: asset.path, depth: depth));
-        if (asset is! FileSystemDirectory<NoteFile> ||
-            !_isTreeExpanded(asset)) {
-          continue;
-        }
-        final children = getChildren(asset);
-        final count = rows.length;
-        if (children != null) addRows(children.assets, depth + 1);
-        if (rows.length == count && (children == null || search.isEmpty)) {
-          rows.add((entity: null, path: _getTreePath(asset), depth: depth + 1));
-        }
-      }
-    }
-
-    addRows(assets, 0);
-    return rows;
-  }
+  ) => _tree.rows(
+    assets,
+    search: _search,
+    compare: (a, b) => _sortAssets(a, b, metadata),
+  );
 
   void _setFilesStream({FileSystemEntity<NoteFile>? initialData}) {
     _filesSubscription?.cancel();
@@ -282,18 +195,14 @@ class FilesViewState extends State<FilesView> {
     if (initialData == null) _selectedFiles.clear();
     _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
-    _refreshTree();
+    _tree.reset(_documentSystem);
     final files = initialData == null
         ? BehaviorSubject<FileSystemEntity<NoteFile>?>()
         : BehaviorSubject<FileSystemEntity<NoteFile>?>.seeded(initialData);
     _filesStream = files;
     FileSystemEntity<NoteFile>? latest = initialData;
     _filesSubscription = _documentSystem
-        .fetchAsset(
-          _locationController.text,
-          readData:
-              widget.onPreview != null || _settingsCubit.state.showThumbnails,
-        )
+        .fetchAsset(_locationController.text, readData: _readData())
         .listen(
           (asset) => latest = asset,
           onError: files.addError,
@@ -307,7 +216,7 @@ class FilesViewState extends State<FilesView> {
                 () => _selectedFiles.retainAll([
                   if (entity is FileSystemDirectory<NoteFile>)
                     ...entity.assets.map((asset) => asset.path),
-                  for (final directory in _treeDirectories.values)
+                  for (final directory in _tree.directories)
                     ...directory.assets.map((asset) => asset.path),
                 ]),
               );
@@ -341,42 +250,13 @@ class FilesViewState extends State<FilesView> {
     FileSystemEntity<NoteFile>? replacement,
   ) {
     if (original.remote != (_remote?.identifier ?? '')) return;
-    final parent = _documentSystem.normalizePath(original.parent);
-    final path = _documentSystem.normalizePath(original.path);
     setState(() {
-      // A pending read of the folder may predate the change.
-      if (_loadingTreeDirectories.remove(parent) != null) {
-        _staleTreeDirectories.add(parent);
-      }
-      final directory = _treeDirectories[parent];
-      if (directory != null) {
-        final assets = directory.assets
-            .where((asset) => asset.location != original)
-            .toList();
-        if (replacement != null) assets.add(replacement);
-        _treeDirectories[parent] = directory.withAssets(assets);
-      }
-      _moveTreePaths(
-        path,
-        replacement is FileSystemDirectory<NoteFile>
-            ? _getTreePath(replacement)
-            : null,
+      _tree.update(original, replacement);
+      _moveSelectedPaths(
+        _documentSystem.normalizePath(original.path),
+        replacement?.path,
       );
-      _moveSelectedPaths(path, replacement?.path);
     });
-  }
-
-  // A renamed or moved folder keeps its expanded subfolders.
-  void _moveTreePaths(String path, String? newPath) {
-    bool isInside(String key) => key == path || key.startsWith('$path/');
-    final expanded = _expandedTreePaths.where(isInside).toList();
-    _expandedTreePaths.removeAll(expanded);
-    _treeDirectories.removeWhere((key, _) => isInside(key));
-    _loadingTreeDirectories.removeWhere((key, _) => isInside(key));
-    if (newPath == null) return;
-    _expandedTreePaths.addAll(
-      expanded.map((key) => '$newPath${key.substring(path.length)}'),
-    );
   }
 
   // Selected entries follow a renamed folder and leave a deleted one.
@@ -397,39 +277,38 @@ class FilesViewState extends State<FilesView> {
   Future<void> _moveAssetInto(String source, String directory) async {
     if (!canMoveAssetInto(source, directory)) return;
     final documentSystem = _documentSystem;
-    final remote = documentSystem.storage?.identifier ?? '';
-    final destination = '$directory/${source.split('/').last}';
-    final asset = await documentSystem.getAsset(
-      source,
-      listLevel: noListLevel,
-      readData: false,
-    );
-    await documentSystem.moveAsset(source, destination);
-    await _settingsCubit.moveAssetReferences(
-      AssetLocation(path: source, remote: remote),
-      AssetLocation(path: destination, remote: remote),
-      directory: asset is FileSystemDirectory<NoteFile>,
-    );
+    final FileSystemEntity<NoteFile>? moved;
+    try {
+      moved = await moveDocumentAssetInto(
+        documentSystem,
+        _settingsCubit,
+        source,
+        directory,
+      );
+    } catch (error) {
+      debugPrint('Could not move $source into $directory: $error');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context).error)),
+        );
+      }
+      return;
+    }
     if (!mounted || documentSystem != _documentSystem) return;
-    setState(
-      () => _moveTreePaths(
-        documentSystem.normalizePath(source),
-        documentSystem.normalizePath(destination),
-      ),
-    );
+    if (moved != null) {
+      final path = documentSystem.normalizePath(source);
+      final newPath = moved.path;
+      final directory = moved is FileSystemDirectory<NoteFile>;
+      setState(() {
+        _tree.move(
+          path,
+          directory ? documentSystem.normalizePath(newPath) : null,
+        );
+        _moveSelectedPaths(path, newPath);
+      });
+    }
     reloadFileSystem();
   }
-
-  // Dropping on an entry of the tree moves the asset next to it.
-  Widget _buildTreeDropTarget(String directory, Widget child) =>
-      DragTarget<String>(
-        builder: (context, candidateData, rejectedData) =>
-            highlightDropTarget(context, candidateData.isNotEmpty, child),
-        onWillAcceptWithDetails: (details) =>
-            canMoveAssetInto(details.data, directory),
-        onAcceptWithDetails: (details) =>
-            _moveAssetInto(details.data, directory),
-      );
 
   void _updateAsset(
     AssetLocation original,
@@ -525,10 +404,30 @@ class FilesViewState extends State<FilesView> {
     final index = _locationController.text.lastIndexOf('/');
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
 
-    return BlocListener<SettingsCubit, ButterflySettings>(
-      listenWhen: (previous, current) =>
-          previous.showThumbnails != current.showThumbnails,
-      listener: (_, _) => reloadFileSystem(),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SettingsCubit, ButterflySettings>(
+          listenWhen: (previous, current) =>
+              previous.showThumbnails != current.showThumbnails,
+          listener: (_, _) => reloadFileSystem(),
+        ),
+        // Only the tree shows entries of other folders: the other layouts
+        // keep the selected entries of the current folder.
+        BlocListener<SettingsCubit, ButterflySettings>(
+          listenWhen: (previous, current) =>
+              previous.filesLayout != current.filesLayout,
+          listener: (_, _) {
+            final directory = _filesStream?.valueOrNull;
+            if (_layout == .tree || _selectedFiles.isEmpty) return;
+            setState(
+              () => _selectedFiles.retainAll([
+                if (directory is FileSystemDirectory<NoteFile>)
+                  ...directory.assets.map((asset) => asset.path),
+              ]),
+            );
+          },
+        ),
+      ],
       child: LayoutBuilder(
         builder: (context, constraints) {
           final isDesktop = constraints.maxWidth > LeapBreakpoints.medium;
@@ -837,13 +736,19 @@ class FilesViewState extends State<FilesView> {
                                 onReload: reloadFileSystem,
                                 onMoveInto: (source) =>
                                     _moveAssetInto(source, asset.path),
+                                // The tree opens a folder from its menu.
+                                onOpen:
+                                    layout == .tree &&
+                                        asset is FileSystemDirectory<NoteFile>
+                                    ? () => _onFileTap(asset)
+                                    : null,
                                 // Dragging over a closed folder opens it.
                                 onDragHold:
                                     layout == .tree &&
                                         asset is FileSystemDirectory<NoteFile>
                                     ? () {
                                         if (mounted &&
-                                            !_isTreeExpanded(asset)) {
+                                            !_tree.isExpanded(asset)) {
                                           _toggleTreeDirectory(asset);
                                         }
                                       }
@@ -863,29 +768,13 @@ class FilesViewState extends State<FilesView> {
                                   ),
                                 );
                               }
-                              // The items themselves use the location as key.
-                              Key getRowKey(_FileTreeRow row) => ValueKey((
-                                'tree',
-                                row.entity?.location,
-                                row.path,
-                              ));
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: rows.length,
-                                findChildIndexCallback: (key) {
-                                  final index = rows.indexWhere(
-                                    (row) => getRowKey(row) == key,
-                                  );
-                                  return index < 0 ? null : index;
-                                },
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (_, index) {
-                                  final row = rows[index];
-                                  return KeyedSubtree(
-                                    key: getRowKey(row),
-                                    child: _buildTreeRow(row, buildItem),
-                                  );
-                                },
+                              return FileTreeView(
+                                controller: _tree,
+                                rows: rows,
+                                collapsed: widget.collapsed,
+                                buildItem: buildItem,
+                                onToggle: _toggleTreeDirectory,
+                                onMoveInto: _moveAssetInto,
                               );
                             }
 
@@ -952,63 +841,6 @@ class FilesViewState extends State<FilesView> {
             },
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildTreeRow(
-    _FileTreeRow row,
-    Widget Function(FileSystemEntity<NoteFile>) buildItem,
-  ) {
-    final indent = row.depth * (widget.collapsed ? 16.0 : 24.0);
-    final entity = row.entity;
-    if (entity == null) {
-      return _buildTreeDropTarget(
-        row.path,
-        Padding(
-          padding: EdgeInsetsDirectional.only(
-            start: indent + 40,
-            top: 8,
-            bottom: 8,
-          ),
-          child: _treeDirectories.containsKey(row.path)
-              ? Text(
-                  AppLocalizations.of(context).noElements,
-                  style: TextTheme.of(context).bodySmall
-                      ?.copyWith(color: ColorScheme.of(context).outline),
-                )
-              : const LinearProgressIndicator(),
-        ),
-      );
-    }
-    final expanded = _isTreeExpanded(entity);
-    return _buildTreeDropTarget(
-      entity.location.parent,
-      Padding(
-        padding: EdgeInsetsDirectional.only(start: indent),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 40,
-              child: entity is FileSystemDirectory<NoteFile>
-                  ? IconButton(
-                      onPressed: () => _toggleTreeDirectory(entity),
-                      tooltip: expanded
-                          ? AppLocalizations.of(context).collapse
-                          : AppLocalizations.of(context).expand,
-                      iconSize: 18,
-                      icon: PhosphorIcon(
-                        expanded
-                            ? PhosphorIconsLight.caretDown
-                            : PhosphorIconsLight.caretRight,
-                        textDirection: .ltr,
-                      ),
-                    )
-                  : null,
-            ),
-            Expanded(child: buildItem(entity)),
-          ],
-        ),
       ),
     );
   }
@@ -1238,25 +1070,10 @@ class FilesViewState extends State<FilesView> {
                           icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                           tooltip: AppLocalizations.of(context).goUp,
                         ),
-                    onWillAcceptWithDetails: (data) => true,
-                    onAcceptWithDetails: (data) async {
-                      final source = await _documentSystem.getAsset(data.data);
-                      final destination =
-                          '$parent/${data.data.split('/').last}';
-                      await _documentSystem.moveAsset(data.data, destination);
-                      await _settingsCubit.moveAssetReferences(
-                        AssetLocation(
-                          path: data.data,
-                          remote: _documentSystem.storage?.identifier ?? '',
-                        ),
-                        AssetLocation(
-                          path: destination,
-                          remote: _documentSystem.storage?.identifier ?? '',
-                        ),
-                        directory: source is FileSystemDirectory<NoteFile>,
-                      );
-                      reloadFileSystem();
-                    },
+                    onWillAcceptWithDetails: (data) =>
+                        canMoveAssetInto(data.data, parent),
+                    onAcceptWithDetails: (data) =>
+                        _moveAssetInto(data.data, parent),
                   ),
                   const SizedBox(width: 8),
                   Flexible(
@@ -1525,8 +1342,10 @@ class FilesViewState extends State<FilesView> {
       }
       final aDirectory = a is FileSystemDirectory<NoteFile>;
       final bDirectory = b is FileSystemDirectory<NoteFile>;
+      // Folders have no dates: they are sorted by name like files are.
       if (aDirectory && bDirectory) {
-        return a.fileName.toLowerCase().compareTo(b.fileName.toLowerCase());
+        final compared = a.fileName.compareTo(b.fileName);
+        return _sortOrder == .ascending ? compared : -compared;
       }
       if (aDirectory) {
         return -1;
@@ -1583,11 +1402,3 @@ class FilesViewState extends State<FilesView> {
     }
   }
 }
-
-/// A file or folder of the tree, or, without an entity, the placeholder shown
-/// while the folder at [path] loads or when it is empty.
-typedef _FileTreeRow = ({
-  FileSystemEntity<NoteFile>? entity,
-  String path,
-  int depth,
-});

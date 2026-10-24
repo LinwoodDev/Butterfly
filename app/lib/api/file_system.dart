@@ -159,6 +159,37 @@ Future<FileSystemEntity<NoteFile>?> renameDocumentAsset(
   return renamed;
 }
 
+/// Moves the asset at [path] into the folder [directory] and updates the
+/// references to it. An entry with the same name in [directory] is never
+/// replaced: the asset gets a free name instead, as on rename.
+Future<FileSystemEntity<NoteFile>?> moveDocumentAssetInto(
+  DocumentFileSystem fileSystem,
+  SettingsCubit settingsCubit,
+  String path,
+  String directory,
+) async {
+  final asset = await fileSystem.getAsset(
+    path,
+    listLevel: noListLevel,
+    readData: false,
+  );
+  if (asset == null) return null;
+  final destination = await fileSystem.findAvailableName(
+    universalPathContext.join(
+      fileSystem.normalizePath(directory),
+      asset.fileName,
+    ),
+  );
+  final moved = await fileSystem.moveAsset(asset.path, destination);
+  if (moved == null) return null;
+  await settingsCubit.moveAssetReferences(
+    asset.location,
+    moved.location,
+    directory: asset is FileSystemDirectory<NoteFile>,
+  );
+  return moved;
+}
+
 const kCorePackFileName = 'Core.bfly';
 
 String getPackDisplayName(NoteData pack, String fileName) {
