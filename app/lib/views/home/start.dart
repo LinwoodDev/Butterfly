@@ -110,7 +110,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                 IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.wrench),
                   tooltip: AppLocalizations.of(context).advanced,
-                  onPressed: () => showDialog(
+                  onPressed: () => showMovableDialog(
                     context: context,
                     builder: (ctx) => const TemplateDialog(),
                   ),

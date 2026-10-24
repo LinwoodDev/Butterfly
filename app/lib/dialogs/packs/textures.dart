@@ -6,6 +6,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class TexturesPackView extends StatelessWidget {
   final NoteData value;
@@ -68,7 +69,7 @@ class TexturesPackView extends StatelessWidget {
                   title: Text(name),
                   onTap: () async {
                     if (data == null) return;
-                    final result = await showDialog<String>(
+                    final result = await showMovableDialog<String>(
                       context: context,
                       builder: (ctx) => NameDialog(
                         value: name,

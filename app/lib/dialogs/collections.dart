@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class CollectionsDialog extends StatefulWidget {
   const CollectionsDialog({super.key});
@@ -84,7 +85,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       final current = bloc.state.currentCollection ?? '';
-                      final name = await showDialog<String>(
+                      final name = await showMovableDialog<String>(
                         context: context,
                         builder: (context) => NameDialog(
                           value: current,
@@ -132,7 +133,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       final current = bloc.state.currentCollection ?? '';
-                      final name = await showDialog<String>(
+                      final name = await showMovableDialog<String>(
                         context: context,
                         builder: (context) => NameDialog(
                           value: current,
@@ -158,7 +159,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       final current = bloc.state.currentCollection ?? '';
-                      final result = await showDialog<bool>(
+                      final result = await showMovableDialog<bool>(
                         context: context,
                         builder: (context) => const DeleteDialog(),
                       );
@@ -184,7 +185,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                           .map((e) => e.id)
                           .nonNulls
                           .toList();
-                      await showDialog<void>(
+                      await showMovableDialog<void>(
                         builder: (context) => BlocProvider.value(
                           value: bloc,
                           child: MoveToLayerDialog(elementIds: elementIds),

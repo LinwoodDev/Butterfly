@@ -11,6 +11,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../delete.dart';
 import 'select.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class ColorPalettePickerDialog extends StatefulWidget {
   final bool viewMode;
   final SRGBColor value;
@@ -145,7 +147,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
               leading: const PhosphorIcon(PhosphorIconsLight.pen),
               title: Text(AppLocalizations.of(context).edit),
               onTap: () async {
-                final value = await showDialog<ColorPickerResponse>(
+                final value = await showMovableDialog<ColorPickerResponse>(
                   context: context,
                   builder: (context) => ColorPicker(value: color),
                 );
@@ -163,7 +165,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
               leading: const PhosphorIcon(PhosphorIconsLight.trash),
               title: Text(AppLocalizations.of(context).delete),
               onTap: () async {
-                final result = await showDialog<bool>(
+                final result = await showMovableDialog<bool>(
                   context: context,
                   builder: (ctx) => const DeleteDialog(),
                 );
@@ -245,7 +247,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           return;
                                         }
                                         final result =
-                                            await showDialog<
+                                            await showMovableDialog<
                                               PackItem<ColorPalette>
                                             >(
                                               context: context,
@@ -358,7 +360,9 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                 ),
                                 onTap: () async {
                                   final value =
-                                      await showDialog<ColorPickerResponse>(
+                                      await showMovableDialog<
+                                        ColorPickerResponse
+                                      >(
                                         context: context,
                                         builder: (context) =>
                                             ColorPicker(value: widget.value),
@@ -385,7 +389,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                 ElevatedButton(
                   onPressed: () async {
                     final navigator = Navigator.of(context);
-                    var value = await showDialog<ColorPickerResponse>(
+                    var value = await showMovableDialog<ColorPickerResponse>(
                       context: context,
                       builder: (context) => ColorPicker(value: widget.value),
                     );

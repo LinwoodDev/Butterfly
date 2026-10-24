@@ -3,6 +3,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 typedef CollaborationOptionsResult = ({
   CollaborationSettings settings,
@@ -15,7 +16,7 @@ Future<void> showCollaborationOptionsDialog(
   void Function(CollaborationSettings?)? onSessionSettingsChanged,
 }) async {
   final cubit = context.read<SettingsCubit>();
-  final result = await showDialog<CollaborationOptionsResult>(
+  final result = await showMovableDialog<CollaborationOptionsResult>(
     context: context,
     builder: (context) => CollaborationOptionsDialog(
       initialSettings: initialSettings ?? cubit.state.collaboration,

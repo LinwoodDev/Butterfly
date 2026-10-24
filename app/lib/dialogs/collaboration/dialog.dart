@@ -17,6 +17,7 @@ import 'package:networker/networker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:barcode/barcode.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 part 'start.dart';
 part 'view.dart';
@@ -26,7 +27,7 @@ Future<void> showCollaborationDialog(BuildContext context) {
   final editorController = context.read<EditorController>();
   final settingsCubit = context.read<SettingsCubit>();
 
-  return showDialog(
+  return showMovableDialog(
     context: context,
     builder: (context) => MultiBlocProvider(
       providers: [

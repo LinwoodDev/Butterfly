@@ -4,6 +4,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 typedef PathSelectedCallback = void Function(String path);
 
@@ -146,7 +147,7 @@ class FileSystemDirectoryTreeViewState
   Future<void> _newFolder() async {
     String name = '';
     final success =
-        await showDialog<bool>(
+        await showMovableDialog<bool>(
           context: context,
           builder: (context) {
             return AlertDialog(

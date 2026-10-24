@@ -16,6 +16,8 @@ import '../../dialogs/delete.dart';
 import '../../dialogs/pages.dart' as pages_dialog;
 import '../../widgets/editable_list_tile.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 typedef PageEntity = ({String path, String name, bool isFile});
 
 String _normalizePagePath(String path) =>
@@ -190,7 +192,7 @@ class _PagesViewState extends State<PagesView> {
 
   Future<void> _deleteSelectedPages(BuildContext context) async {
     if (_selectionController.selectedIds.isEmpty) return;
-    final result = await showDialog<bool>(
+    final result = await showMovableDialog<bool>(
       context: context,
       builder: (context) => const DeleteDialog(),
     );
@@ -730,7 +732,7 @@ class _PageEntityListTile extends StatelessWidget {
                   onPressed: selected
                       ? null
                       : () async {
-                          final result = await showDialog<bool>(
+                          final result = await showMovableDialog<bool>(
                             context: context,
                             builder: (context) => const DeleteDialog(),
                           );

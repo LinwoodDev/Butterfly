@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class SvgExportIntent extends Intent {
   const SvgExportIntent();
@@ -29,7 +30,7 @@ class SvgExportAction extends Action<SvgExportIntent> {
   Future<void> invoke(SvgExportIntent intent) async {
     final bloc = context.read<DocumentBloc>();
     final transform = context.read<TransformCubit>().state;
-    showDialog<void>(
+    showMovableDialog<void>(
       builder: (context) => BlocProvider.value(
         value: bloc,
         child: GeneralExportDialog(

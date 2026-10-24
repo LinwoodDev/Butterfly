@@ -18,6 +18,8 @@ import '../../bloc/document_bloc.dart';
 import '../delete.dart';
 import '../../widgets/reorderable_list_item.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;
   final bool print;
@@ -73,7 +75,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           final bloc = context.read<DocumentBloc>();
                           final currentState = bloc.state;
                           if (currentState is! DocumentLoadSuccess) return;
-                          final name = await showDialog<String>(
+                          final name = await showMovableDialog<String>(
                             context: context,
                             builder: (context) => NameDialog(
                               validator: defaultNameValidator(
@@ -98,7 +100,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       tooltip: AppLocalizations.of(context).presets,
                       icon: const PhosphorIcon(PhosphorIconsLight.bookmark),
                       onPressed: () async {
-                        final result = await showDialog<ExportPreset>(
+                        final result = await showMovableDialog<ExportPreset>(
                           context: context,
                           builder: (ctx) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
@@ -121,13 +123,16 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     ),
                     IconButton(
                       onPressed: () async {
-                        final result = await showDialog<List<(String, Area)>>(
-                          context: context,
-                          builder: (_) => BlocProvider.value(
-                            value: context.read<DocumentBloc>(),
-                            child: _AreaSelectionDialog(document: state.data),
-                          ),
-                        );
+                        final result =
+                            await showMovableDialog<List<(String, Area)>>(
+                              context: context,
+                              builder: (_) => BlocProvider.value(
+                                value: context.read<DocumentBloc>(),
+                                child: _AreaSelectionDialog(
+                                  document: state.data,
+                                ),
+                              ),
+                            );
                         if (result != null) {
                           setState(() {
                             for (final (page, area) in result) {
@@ -237,7 +242,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
       }
       await exportPdf(context, pdf, share);
     } catch (e) {
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).error),
@@ -825,7 +830,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                       final bloc = context.read<DocumentBloc>();
                       final state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
-                      final name = await showDialog<String>(
+                      final name = await showMovableDialog<String>(
                         context: context,
                         builder: (context) => NameDialog(
                           validator: defaultNameValidator(
@@ -878,7 +883,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                               (e) => Dismissible(
                                 key: ObjectKey(e.name),
                                 confirmDismiss: (direction) async {
-                                  return await showDialog<bool>(
+                                  return await showMovableDialog<bool>(
                                     context: context,
                                     builder: (context) => const DeleteDialog(),
                                   );
@@ -899,7 +904,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                         .remove,
                                     color: Theme.of(context).colorScheme.error,
                                     onPressed: () async {
-                                      if (await showDialog<bool>(
+                                      if (await showMovableDialog<bool>(
                                             context: context,
                                             builder: (context) =>
                                                 const DeleteDialog(),

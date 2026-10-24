@@ -238,7 +238,7 @@ class _LogTile extends StatelessWidget {
         },
       ),
       onTap: () {
-        showDialog(
+        showMovableDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: Text(log.title ?? 'Log'),

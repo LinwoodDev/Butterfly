@@ -4,6 +4,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class MoveToLayerDialog extends StatefulWidget {
   final List<String> elementIds;
@@ -54,7 +55,7 @@ class MoveToLayerDialogState extends State<MoveToLayerDialog> {
         ),
         TextButton(
           onPressed: () async {
-            final result = await showDialog<String>(
+            final result = await showMovableDialog<String>(
               context: context,
               builder: (context) => NameDialog(
                 validator: defaultNameValidator(

@@ -23,6 +23,8 @@ import 'package:butterfly/services/backup.dart';
 
 import '../dialogs/packs/dialog.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 Widget buildDataDirectorySetting(
   BuildContext context,
   ButterflySettings state,
@@ -125,7 +127,7 @@ Future<void> changeDataDirectory(BuildContext context) async {
     }
   } catch (e) {
     if (!context.mounted) return;
-    showDialog(
+    showMovableDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).error),
@@ -150,7 +152,7 @@ Future<void> changePath(
     movedPath = defaultPath;
   }
 
-  final confirm = await showDialog<bool>(
+  final confirm = await showMovableDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(AppLocalizations.of(context).warning),
@@ -254,7 +256,7 @@ Future<void> openSyncModeModal(BuildContext context) => showLeapBottomSheet(
               IconButton.filledTonal(
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  final result = await showDialog<String>(
+                  final result = await showMovableDialog<String>(
                     context: context,
                     builder: (_) => NameDialog(
                       title: AppLocalizations.of(context).enterUrl,
@@ -291,11 +293,11 @@ Future<void> openSyncModeModal(BuildContext context) => showLeapBottomSheet(
   } */
 
 void openTemplatesDialog(BuildContext context) {
-  showDialog(context: context, builder: (ctx) => const TemplateDialog());
+  showMovableDialog(context: context, builder: (ctx) => const TemplateDialog());
 }
 
 void openPacksDialog(BuildContext context) {
-  showDialog(
+  showMovableDialog(
     context: context,
     builder: (ctx) => MultiBlocProvider(
       providers: [
@@ -329,7 +331,7 @@ Future<void> exportData(BuildContext context) async {
   bool exportTemplates = true;
   double? exportProgress;
 
-  await showDialog(
+  await showMovableDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) {

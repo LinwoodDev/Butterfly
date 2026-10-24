@@ -9,7 +9,7 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final loc = AppLocalizations.of(context);
-    showDialog<String>(
+    showMovableDialog<String>(
       context: context,
       builder: (context) => NameDialog(title: loc.enterText, hint: loc.text),
     ).then((value) {

@@ -331,7 +331,7 @@ class AreaHandler extends Handler<AreaTool> {
     }
     if (area == null) return;
     if (areas.length > 1) {
-      area = await showDialog<Area>(
+      area = await showMovableDialog<Area>(
         context: context.buildContext,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).selectArea),
@@ -390,7 +390,7 @@ Future<String?> createAreaName(
 ]) async {
   String? name = page.createAreaName(context);
   if (askForName) {
-    name = await showDialog<String>(
+    name = await showMovableDialog<String>(
       context: context,
       builder: (_) => NameDialog(
         value: name,

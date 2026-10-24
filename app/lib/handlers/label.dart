@@ -296,7 +296,7 @@ class LabelHandler extends Handler<LabelTool>
 
     /*final bloc = context.getDocumentBloc();
     final transform = context.getCameraTransform();
-    return showDialog<LabelElement>(
+    return showMovableDialog<LabelElement>(
         context: context.buildContext,
         builder: (_) => BlocProvider.value(
             value: bloc,

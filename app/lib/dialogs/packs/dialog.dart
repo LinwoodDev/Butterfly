@@ -17,6 +17,8 @@ import '../../api/save.dart';
 import '../../widgets/connection_button.dart';
 import 'pack.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class PacksDialog extends StatefulWidget {
   final bool globalOnly;
   const PacksDialog({super.key, this.globalOnly = false});
@@ -71,7 +73,7 @@ class _PacksDialogState extends State<PacksDialog>
             tooltip: AppLocalizations.of(context).bundledPacks,
             onPressed: () async {
               final bloc = context.read<DocumentBloc>();
-              await showDialog(
+              await showMovableDialog(
                 context: context,
                 builder: (context) => BlocProvider.value(
                   value: bloc,
@@ -181,7 +183,7 @@ class _PacksDialogState extends State<PacksDialog>
                                 }
                                 if (!mounted) return;
                                 final success =
-                                    await showDialog<bool>(
+                                    await showMovableDialog<bool>(
                                       context: context,
                                       builder: (context) =>
                                           PackImportConfirmationDialog(
@@ -201,7 +203,7 @@ class _PacksDialogState extends State<PacksDialog>
                               ),
                               onTap: () async {
                                 Navigator.of(ctx).pop();
-                                final pack = await showDialog<NoteData>(
+                                final pack = await showMovableDialog<NoteData>(
                                   context: ctx,
                                   builder: (context) => const PackDialog(),
                                 );
@@ -391,7 +393,7 @@ class __PacksListState extends State<_PacksList> {
               ),
               onTap: () async {
                 final bloc = context.read<DocumentBloc>();
-                final newPack = await showDialog<NoteData>(
+                final newPack = await showMovableDialog<NoteData>(
                   context: context,
                   builder: (context) => BlocProvider.value(
                     value: bloc,

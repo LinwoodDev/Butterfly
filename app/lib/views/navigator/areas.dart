@@ -21,6 +21,8 @@ import '../../dialogs/delete.dart';
 import '../../widgets/multi_select.dart';
 import '../../widgets/editable_list_tile.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 typedef _AreaEntry = ({
   Area area,
   DocumentPage page,
@@ -447,7 +449,7 @@ class _AreasViewState extends State<AreasView> {
                               ),
                               onPressed: () async {
                                 if (controller.selectedIds.isEmpty) return;
-                                final result = await showDialog<bool>(
+                                final result = await showMovableDialog<bool>(
                                   context: context,
                                   builder: (context) => const DeleteDialog(),
                                 );

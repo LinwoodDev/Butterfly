@@ -174,7 +174,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     icon: const PhosphorIcon(PhosphorIconsLight.crop),
                     tooltip: AppLocalizations.of(context).captureThumbnail,
                     onPressed: () {
-                      showDialog<void>(
+                      showMovableDialog<void>(
                         context: context,
                         builder: (context) => BlocProvider.value(
                           value: bloc,
@@ -232,7 +232,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     ),
                     onTap: () async {
                       if (isEncrypted) {
-                        final result = await showDialog<bool>(
+                        final result = await showMovableDialog<bool>(
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text(AppLocalizations.of(context).unencrypt),

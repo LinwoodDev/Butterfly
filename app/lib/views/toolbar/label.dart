@@ -18,6 +18,8 @@ import '../../models/label.dart';
 import '../../widgets/font_style_field.dart';
 import 'view.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class LabelToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final LabelContext value;
   final ValueChanged<LabelContext> onChanged;
@@ -246,7 +248,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         onPressed: () async {
                           final bloc = context.read<DocumentBloc>();
                           final result =
-                              await showDialog<PackItem<text.TextStyleSheet>>(
+                              await showMovableDialog<
+                                PackItem<text.TextStyleSheet>
+                              >(
                                 context: context,
                                 builder: (context) => BlocProvider.value(
                                   value: bloc,
@@ -673,7 +677,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             ),
                           ),
                           onTap: () async {
-                            final result = await showDialog<SRGBColor>(
+                            final result = await showMovableDialog<SRGBColor>(
                               context: context,
                               builder: (_) => ColorPalettePickerDialog(
                                 value: property.getColor(paragraph),

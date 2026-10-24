@@ -12,6 +12,8 @@ import 'package:collection/collection.dart';
 
 import '../../bloc/document_bloc.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 enum ColorPickerToolbarAction { delete, pin, eyeDropper }
 
 class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
@@ -100,7 +102,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   void _addColor(PackItem<ColorPalette>? selected) async {
     final settingsCubit = context.read<SettingsCubit>();
     final response =
-        await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
+        await showMovableDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
           context: context,
           builder: (context) => ColorPicker<ColorPickerToolbarAction>(
             value: widget.color,
@@ -152,7 +154,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   ) async {
     final settingsCubit = context.read<SettingsCubit>();
     final response =
-        await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
+        await showMovableDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
           context: context,
           builder: (context) => ColorPicker<ColorPickerToolbarAction>(
             value: value,
@@ -266,13 +268,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   aspectRatio: 1,
                   child: IconButton(
                     onPressed: () async {
-                      final result = await showDialog<PackItem<ColorPalette>>(
-                        context: context,
-                        builder: (context) => SelectPackAssetDialog(
-                          selected: selected?.location,
-                          getItems: (pack) => pack.getNamedPalettes(),
-                        ),
-                      );
+                      final result =
+                          await showMovableDialog<PackItem<ColorPalette>>(
+                            context: context,
+                            builder: (context) => SelectPackAssetDialog(
+                              selected: selected?.location,
+                              getItems: (pack) => pack.getNamedPalettes(),
+                            ),
+                          );
 
                       if (result == null) return;
                       context.read<SettingsCubit>().changeSelectedPalette(

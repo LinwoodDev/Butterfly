@@ -25,6 +25,8 @@ import '../../api/open.dart';
 import '../../cubits/settings.dart';
 import '../../dialogs/file_system/sync.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class FilesView extends StatefulWidget {
   final AssetLocation? activeAsset;
   final ExternalStorage? remote;
@@ -208,7 +210,7 @@ class FilesViewState extends State<FilesView> {
   }) async {
     template ??= await DocumentDefaults.createTemplate();
     if (!mounted) return;
-    final name = await showDialog<String>(
+    final name = await showMovableDialog<String>(
       context: context,
       builder: (context) =>
           NameDialog(validator: defaultFileNameValidator(context)),
@@ -641,7 +643,7 @@ class FilesViewState extends State<FilesView> {
                         ),
                         child: Text(AppLocalizations.of(context).newFolder),
                         onPressed: () async {
-                          final name = await showDialog<String>(
+                          final name = await showMovableDialog<String>(
                             context: context,
                             builder: (context) => NameDialog(
                               validator: defaultFileNameValidator(context),
@@ -823,7 +825,7 @@ class FilesViewState extends State<FilesView> {
                             PhosphorIconsLight.shareNetwork,
                           ),
                           child: Text(AppLocalizations.of(context).connect),
-                          onPressed: () => showDialog(
+                          onPressed: () => showMovableDialog(
                             context: context,
                             builder: (context) => ConnectCollaborationDialog(),
                           ),
@@ -949,7 +951,7 @@ class FilesViewState extends State<FilesView> {
                             ),
                             tooltip: AppLocalizations.of(context).move,
                             onPressed: () =>
-                                showDialog(
+                                showMovableDialog(
                                   context: context,
                                   builder: (context) =>
                                       FileSystemAssetMoveDialog(

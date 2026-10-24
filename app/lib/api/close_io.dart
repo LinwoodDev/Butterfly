@@ -7,6 +7,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 enum _CloseDialogResult { save, discard }
 
@@ -54,7 +55,7 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
       await _closeWindow();
       return;
     }
-    final result = await showDialog<_CloseDialogResult>(
+    final result = await showMovableDialog<_CloseDialogResult>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).sureClose),

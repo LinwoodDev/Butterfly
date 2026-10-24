@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 class BackgroundIntent extends Intent {
   const BackgroundIntent();
@@ -22,7 +23,7 @@ class BackgroundAction extends Action<BackgroundIntent> {
 
   @override
   Future<void> invoke(BackgroundIntent intent) {
-    return showDialog<void>(
+    return showMovableDialog<void>(
       context: context,
       builder: (context) => BlocProvider.value(
         value: this.context.read<DocumentBloc>(),

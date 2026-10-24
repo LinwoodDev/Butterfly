@@ -10,6 +10,8 @@ import 'package:lw_file_system/lw_file_system.dart';
 
 import '../cubits/settings.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class ChangePathIntent extends Intent {
   const ChangePathIntent();
 }
@@ -57,7 +59,7 @@ class ChangePathAction extends Action<ChangePathIntent> {
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {
-      var newLocations = await showDialog<List<AssetLocation>>(
+      var newLocations = await showMovableDialog<List<AssetLocation>>(
         context: context,
         builder: (context) => FileSystemAssetMoveDialog(
           assets: [asset.location],

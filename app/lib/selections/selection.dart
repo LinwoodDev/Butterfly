@@ -28,6 +28,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'toolbars.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 part 'elements/element.dart';
 part 'elements/image.dart';
 part 'elements/text.dart';

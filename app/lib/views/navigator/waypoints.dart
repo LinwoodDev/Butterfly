@@ -11,6 +11,8 @@ import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
 import '../../widgets/reorderable_list_item.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class WaypointsView extends StatefulWidget {
   const WaypointsView({super.key});
 
@@ -98,7 +100,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                     ),
                                     onPressed: () async {
                                       final bloc = context.read<DocumentBloc>();
-                                      showDialog<void>(
+                                      showMovableDialog<void>(
                                         builder: (context) =>
                                             BlocProvider.value(
                                               value: bloc,
@@ -121,7 +123,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                       onPressed: () async {
                                         final bloc = context
                                             .read<DocumentBloc>();
-                                        showDialog<void>(
+                                        showMovableDialog<void>(
                                           context: context,
                                           builder: (context) => AlertDialog(
                                             title: Text(
@@ -251,7 +253,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                           onPressed: () async {
                                             final bloc = context
                                                 .read<DocumentBloc>();
-                                            showDialog<void>(
+                                            showMovableDialog<void>(
                                               builder: (context) =>
                                                   BlocProvider.value(
                                                     value: bloc,
@@ -273,7 +275,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                           ),
                                           onPressed: () async {
                                             final result =
-                                                await showDialog<bool>(
+                                                await showMovableDialog<bool>(
                                                   context: context,
                                                   builder: (context) =>
                                                       const DeleteDialog(),
@@ -317,7 +319,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                 ),
                                 onPressed: () {
                                   final bloc = context.read<DocumentBloc>();
-                                  showDialog<String>(
+                                  showMovableDialog<String>(
                                     builder: (context) => BlocProvider.value(
                                       value: bloc,
                                       child: const WaypointCreateDialog(),

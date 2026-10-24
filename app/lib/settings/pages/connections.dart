@@ -113,7 +113,7 @@ Widget? buildConnectionsSettingsFloatingActionButton(
               .toList(),
         ).then((value) {
           if (value == null) return;
-          showDialog<void>(
+          showMovableDialog<void>(
             context: context,
             builder: (context) => _AddRemoteDialog(storage: value),
           );
@@ -206,7 +206,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final sha1 = String.fromCharCodes(cert.sha1);
     if (_certificateSha1 == null) {
       _badCertificate = true;
-      showDialog(
+      showMovableDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).unsecureConnectionTitle),
@@ -434,7 +434,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   }
 
   Future<void> _showCreatingError(String error, [dynamic e]) {
-    return showDialog<void>(
+    return showMovableDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).errorWhileCreatingConnection),

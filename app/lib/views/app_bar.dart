@@ -40,6 +40,7 @@ import '../embed/embedding.dart';
 import 'navigator/view.dart';
 
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:butterfly/widgets/movable_dialog.dart';
 
 const _floatingTitleShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -942,7 +943,7 @@ class MainPopupMenu extends StatelessWidget {
                                     final bloc = context.read<DocumentBloc>();
                                     final transformCubit = context
                                         .read<TransformCubit>();
-                                    showDialog(
+                                    showMovableDialog(
                                       context: context,
                                       builder: (context) => MultiBlocProvider(
                                         providers: [

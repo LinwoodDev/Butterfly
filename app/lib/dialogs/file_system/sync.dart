@@ -7,6 +7,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../services/sync.dart';
 import '../sync.dart';
 
+import 'package:butterfly/widgets/movable_dialog.dart';
+
 class SyncButton extends StatelessWidget {
   final String? selectedRemote;
 
@@ -39,7 +41,7 @@ class SyncButton extends StatelessWidget {
           tooltip:
               '${status.getLocalizedName(context)} · '
               '$cachedFiles ${AppLocalizations.of(context).caches}',
-          onPressed: () => showDialog<void>(
+          onPressed: () => showMovableDialog<void>(
             context: context,
             builder: (context) => SyncDialog(selectedRemote: selectedRemote),
           ),
