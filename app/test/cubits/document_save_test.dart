@@ -141,6 +141,45 @@ void main() {
     );
   }
 
+  for (final fromStorage in [true, false]) {
+    test('a rebuilt document ${fromStorage ? 'from the storage stays' : 'is'} '
+        '${fromStorage ? 'saved' : 'unsaved'}', () async {
+      when(() => settingsCubit.state).thenReturn(const ButterflySettings());
+      final original = await documentSystem.createFile(
+        '/Shared.bfly',
+        DocumentDefaults.createDocument(name: 'Shared').toFile(),
+      );
+      final file = File('${directory.path}${original.path}');
+      final before = await file.readAsBytes();
+      bloc = DocumentBloc(
+        fileSystem,
+        controller,
+        windowCubit,
+        NoteData.fromData(before),
+        AssetLocation(path: original.path),
+      );
+      final changed = DocumentDefaults.createDocument(name: 'Changed elsewhere')
+          .toFile()
+          .data;
+      if (fromStorage) {
+        bloc!.rebuildFromStorage(changed);
+      } else {
+        bloc!.add(DocumentRebuilt(changed));
+      }
+      await pumpEventQueue();
+      await controller.saveCubit.savingLock.synchronized(() {});
+
+      final state = bloc!.state as DocumentLoadSuccess;
+      expect(state.data.name, 'Changed elsewhere');
+      // Autosave only writes unsaved documents.
+      expect(
+        controller.saveCubit.state.saved,
+        fromStorage ? SaveState.saved : SaveState.unsaved,
+      );
+      if (fromStorage) expect(await file.readAsBytes(), before);
+    });
+  }
+
   test('autosave is unavailable for an extensionless source', () {
     when(() => settingsCubit.state).thenReturn(const ButterflySettings());
     controller.saveCubit.setSaveState(

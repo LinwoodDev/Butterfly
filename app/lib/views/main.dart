@@ -16,6 +16,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/services/export.dart';
+import 'package:butterfly/services/live_document.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
@@ -81,6 +82,7 @@ class _ProjectDocumentRuntime {
   final ImportService? importService;
   final ExportService? exportService;
   final Embedding? embedding;
+  final LiveDocumentWatcher? liveDocumentWatcher;
   var _closed = false;
 
   _ProjectDocumentRuntime({
@@ -91,11 +93,13 @@ class _ProjectDocumentRuntime {
     this.importService,
     this.exportService,
     this.embedding,
+    this.liveDocumentWatcher,
   });
 
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
+    liveDocumentWatcher?.dispose();
     clearDocumentPagePreviewCache(bloc);
     try {
       await bloc.captureAutomaticThumbnail();
@@ -582,6 +586,14 @@ class _ProjectPageState extends State<ProjectPage> {
           importService: ImportService(context, bloc: bloc),
           exportService: ExportService(context, bloc),
           embedding: embedding,
+          liveDocumentWatcher: embedding == null && remote is RemoteStorage
+              ? LiveDocumentWatcher(
+                  fileSystem: fileSystem,
+                  settingsCubit: settingsCubit,
+                  bloc: bloc,
+                  shown: loadedDocumentBytes,
+                )
+              : null,
         );
       });
       embedding?.handler?.register(context, bloc);

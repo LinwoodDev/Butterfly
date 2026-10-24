@@ -148,6 +148,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   );
   EditorController? _editorController;
   AssetService? _assetService;
+  // Rebuilds with versions that are already saved in the storage.
+  final Set<Uint8List> _storageRebuilds = Set.identity();
 
   DocumentLoadSuccess? _getPageState(String? pageName) {
     final current = state;
@@ -1792,6 +1794,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(emit, state: current.copyWith(data: data));
     });
     on<DocumentRebuilt>((event, emit) {
+      final fromStorage = _storageRebuilds.remove(event.data);
       var state = this.state;
       if (state is! DocumentLoadSuccess) return;
       final data = NoteData.fromData(event.data);
@@ -1823,6 +1826,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               : getInitialArea(page),
         ),
         resetAll: true,
+        fromStorage: fromStorage,
       );
     });
   }
@@ -1923,6 +1927,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     bool updateIndex = false,
     Point<double>? cameraPosition,
     double? cameraZoom,
+    bool fromStorage = false,
   }) async {
     if (this.state is! DocumentLoadSuccess && state == null) return;
     if (resetAll != null) {
@@ -1960,6 +1965,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       resetAllLayers: resetAllLayers,
       shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
+      fromStorage: fromStorage,
     );
   }
 
@@ -2063,6 +2069,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   Future<void> reload() async {
     return _editorController?.reload(this);
+  }
+
+  /// Shows [data], a version of the document that another device saved in
+  /// the storage, without saving it again.
+  void rebuildFromStorage(Uint8List data) {
+    _storageRebuilds.add(data);
+    add(DocumentRebuilt(data));
   }
 
   Future<Uint8List?> renderCurrentViewThumbnail() async {

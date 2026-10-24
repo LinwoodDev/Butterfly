@@ -254,6 +254,7 @@ class EditorController(
     bool resetAllLayers = false,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
+    bool fromStorage = false,
   }) async {
     rendererCubit.cancelDelayedBake();
     for (var renderer in {
@@ -295,7 +296,8 @@ class EditorController(
       await rendererCubit.addUnbaked(this, blocState, addedElements);
     }
 
-    saveCubit.setSaveState(saved: SaveState.unsaved);
+    // A version from the storage is already saved there.
+    if (!fromStorage) saveCubit.setSaveState(saved: SaveState.unsaved);
     final refreshRequested = shouldRefresh?.call() == true;
     if (saveCubit.state.embedding != null) {
       if (reset) {
@@ -339,7 +341,7 @@ class EditorController(
     if (updateIndex) {
       await toolCubit.updateIndex(this, bloc);
     }
-    if (saveCubit.hasAutosave(networkingService)) {
+    if (!fromStorage && saveCubit.hasAutosave(networkingService)) {
       saveCubit.save(
         bloc,
         networkingService,
