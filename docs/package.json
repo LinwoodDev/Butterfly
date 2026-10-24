@@ -10,9 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@astrojs/markdown-satteri": "^0.4.3",
-    "@astrojs/react": "^7.0.1",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/markdown-satteri": "^0.4.5",
+    "@astrojs/react": "^7.1.1",
     "@astrojs/starlight": "^0.42.6",
     "@fontsource-variable/inter": "^5.3.0",
     "@linwooddev/starlight-style": "github:LinwoodDev/style#1afa5de7dc830468dcc1c7a499a4c9568254ead6&path:/packages/starlight",
@@ -20,16 +20,16 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.3.8",
+    "astro": "^7.4.2",
     "katex": "^0.19.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@12.13.0",
+  "packageManager": "pnpm@12.15.0",
   "devDependencies": {
     "@vite-pwa/astro": "github:CodeDoctorDE/vite-pwa-astro#a54ef9843b39b34820300a0bd5d08879563f6f04",
-    "sass": "^1.105.1",
+    "sass": "^1.106.1",
     "sharp": "^0.35.5",
     "vite-plugin-pwa": "^2.0.0",
     "workbox-window": "^7.4.1"
