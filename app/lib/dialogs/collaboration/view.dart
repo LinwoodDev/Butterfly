@@ -212,7 +212,7 @@ class _ViewCollaborationDialogState extends State<ViewCollaborationDialog> {
           tooltip: AppLocalizations.of(context).help,
         ),
       ],
-      leading: IconButton.outlined(
+      leading: IconButton(
         icon: const Icon(PhosphorIconsLight.x),
         onPressed: () => Navigator.of(context).pop(),
         tooltip: MaterialLocalizations.of(context).closeButtonTooltip,

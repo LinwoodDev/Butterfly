@@ -113,7 +113,7 @@ class SettingsPage extends StatelessWidget {
                   extra: focusedId,
                 );
               },
-        closeButton: IconButton.outlined(
+        closeButton: IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.x),
           onPressed: () {
             final navigator = Navigator.of(context, rootNavigator: inView);

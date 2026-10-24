@@ -69,7 +69,6 @@ class GeneralPackView extends StatelessWidget {
               PhosphorIconsLight.paragraph,
               textDirection: .ltr,
             ),
-            border: const OutlineInputBorder(),
           ),
           minLines: 3,
           maxLines: 5,

@@ -1,5 +1,6 @@
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/theme.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,9 +8,7 @@ const kToolbarSmall = Size.fromHeight(48.0);
 const kToolbarLarge = Size.fromHeight(75.0);
 
 class ToolbarView extends StatefulWidget {
-  final bool edgeAttached;
-
-  const ToolbarView({super.key, this.edgeAttached = false});
+  const ToolbarView({super.key});
 
   @override
   State<ToolbarView> createState() => _ToolbarViewState();
@@ -38,23 +37,23 @@ class _ToolbarViewState extends State<ToolbarView> {
                 height = toolbar.preferredSize.height;
                 child = toolbar;
               }
-              return Card(
-                margin: widget.edgeAttached
-                    ? toolbar == null
-                          ? EdgeInsets.zero
-                          : const EdgeInsets.all(8)
-                    : null,
-                child: AnimatedContainer(
-                  height: height,
-                  key: _animatedKey,
+              final content = AnimatedContainer(
+                height: height,
+                key: _animatedKey,
+                curve: Curves.fastOutSlowIn,
+                duration: const Duration(milliseconds: 200),
+                child: AnimatedSize(
+                  duration: const Duration(milliseconds: 100),
                   curve: Curves.fastOutSlowIn,
-                  duration: const Duration(milliseconds: 200),
-                  child: AnimatedSize(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.fastOutSlowIn,
-                    child: child,
-                  ),
+                  child: child,
                 ),
+              );
+              // Only show the floating island when there is something in it.
+              if (child == null) return content;
+              return Island(
+                radius: kRadiusPill,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: content,
               );
             },
           ),

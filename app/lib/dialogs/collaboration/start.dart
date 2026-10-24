@@ -80,7 +80,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
         length: 2,
         child: ResponsiveAlertDialog(
           title: Text(AppLocalizations.of(context).collaboration),
-          leading: IconButton.outlined(
+          leading: IconButton(
             onPressed: _isStarting ? null : () => Navigator.pop(context),
             icon: Icon(PhosphorIconsLight.x),
             tooltip: MaterialLocalizations.of(context).closeButtonTooltip,

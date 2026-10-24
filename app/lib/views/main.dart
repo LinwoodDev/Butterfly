@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -709,25 +710,16 @@ class _ProjectPageState extends State<ProjectPage> {
                                   ({
                                     bool isInline,
                                     ToolbarSize toolbarSize,
-                                    bool floatingEditor,
+                                    bool floating,
                                   })
                                 >(
                                   selector: (state) => (
                                     isInline: state.isInline,
                                     toolbarSize: state.toolbarSize,
-                                    floatingEditor: state.hasFlag(
-                                      'floatingEditor',
-                                    ),
+                                    floating: state.floatingEditor,
                                   ),
                                   builder: (context, settings) {
                                     final actions = _buildActions(context);
-                                    final floatingEditor =
-                                        settings.floatingEditor &&
-                                        MediaQuery.sizeOf(context).width >=
-                                            LeapBreakpoints.expanded;
-                                    final body = _MainBody(
-                                      viewportKey: _viewportKey,
-                                    );
 
                                     return ListenableBuilder(
                                       listenable: keybinder,
@@ -742,60 +734,49 @@ class _ProjectPageState extends State<ProjectPage> {
                                           ),
                                         );
                                       },
-                                      child: ClipRect(
-                                        child: Focus(
-                                          focusNode: runtime
-                                              .editorController
-                                              .focusNode,
-                                          autofocus: true,
-                                          skipTraversal: true,
-                                          onFocusChange: (_) => false,
-                                          child: Scaffold(
-                                            extendBodyBehindAppBar:
-                                                floatingEditor,
-                                            appBar:
-                                                state is DocumentPresentationState ||
-                                                    fullScreen ||
-                                                    saveState.fullScreen ||
-                                                    hideUi != .visible
-                                                ? null
-                                                : PadAppBar(
-                                                    viewportKey: _viewportKey,
-                                                    size: settings.toolbarSize,
-                                                    searchController:
-                                                        _searchController,
-                                                    padding: padding,
-                                                    direction:
-                                                        Directionality.of(
-                                                          context,
-                                                        ),
-                                                    inView: saveState.inView,
-                                                    showTools:
-                                                        settings.isInline &&
-                                                        saveState.editable,
-                                                    floating: floatingEditor,
-                                                  ),
-                                            body: floatingEditor
-                                                ? MenuTheme(
-                                                    data:
-                                                        kFloatingEditorMenuTheme,
-                                                    child: PopupMenuTheme(
-                                                      data:
-                                                          PopupMenuTheme.of(
+                                      child: FloatingEditorScope(
+                                        enabled: settings.floating,
+                                        child: ClipRect(
+                                          child: Focus(
+                                            focusNode: runtime
+                                                .editorController
+                                                .focusNode,
+                                            autofocus: true,
+                                            skipTraversal: true,
+                                            onFocusChange: (_) => false,
+                                            child: Scaffold(
+                                              // The canvas reaches behind the
+                                              // floating app bar islands.
+                                              extendBodyBehindAppBar:
+                                                  settings.floating,
+                                              appBar:
+                                                  state is DocumentPresentationState ||
+                                                      fullScreen ||
+                                                      saveState.fullScreen ||
+                                                      hideUi != .visible
+                                                  ? null
+                                                  : PadAppBar(
+                                                      floating:
+                                                          settings.floating,
+                                                      viewportKey: _viewportKey,
+                                                      size:
+                                                          settings.toolbarSize,
+                                                      searchController:
+                                                          _searchController,
+                                                      padding: padding,
+                                                      direction:
+                                                          Directionality.of(
                                                             context,
-                                                          ).copyWith(
-                                                            shape:
-                                                                kFloatingEditorMenuTheme
-                                                                    .style!
-                                                                    .shape!
-                                                                    .resolve(
-                                                                      {},
-                                                                    ),
                                                           ),
-                                                      child: body,
+                                                      inView: saveState.inView,
+                                                      showTools:
+                                                          settings.isInline &&
+                                                          saveState.editable,
                                                     ),
-                                                  )
-                                                : body,
+                                              body: _MainBody(
+                                                viewportKey: _viewportKey,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -975,9 +956,7 @@ class _MainBody extends StatelessWidget {
                                     previous.zoomPanelControls !=
                                         current.zoomPanelControls ||
                                     previous.propertyPosition !=
-                                        current.propertyPosition ||
-                                    previous.hasFlag('floatingEditor') !=
-                                        current.hasFlag('floatingEditor'),
+                                        current.propertyPosition,
                                 builder: (context, settings) {
                                   return LayoutBuilder(
                                     builder: (context, constraints) =>
@@ -1022,18 +1001,11 @@ class _MainBody extends StatelessWidget {
         constraints.maxWidth >= LeapBreakpoints.expanded &&
         (constraints.maxHeight + bottomInset) >= 400;
 
-    final floatingEditor =
-        settings.hasFlag('floatingEditor') &&
-        MediaQuery.sizeOf(context).width >= LeapBreakpoints.expanded;
     final toolbar = EditToolbar(
       isMobile: isMobile,
       centered: true,
       direction: settings.toolbarPosition.axis,
-      edgeAttached: floatingEditor,
     );
-    final spacedToolbar = floatingEditor
-        ? Padding(padding: const EdgeInsets.all(8), child: toolbar)
-        : toolbar;
     final navigatorRailEnabled =
         settings.navigationRail || saveState.embedding != null;
     final fullScreen = windowState.fullScreen || saveState.fullScreen;
@@ -1056,24 +1028,24 @@ class _MainBody extends StatelessWidget {
             textDirection: .ltr,
             children: [
               if (showNavigator && settings.navigatorPosition == .left)
-                NavigatorView(floating: floatingEditor),
+                const NavigatorView(),
               if (settings.toolbarPosition == .left &&
                   !isMobile &&
                   inputState.hideUi == .visible)
-                spacedToolbar,
+                toolbar,
               _buildCenterColumn(
                 context,
                 settings,
                 fullScreen,
                 inputState,
                 isMobile,
-                spacedToolbar,
+                toolbar,
               ),
               if (settings.toolbarPosition == .right &&
                   inputState.hideUi == .visible)
-                spacedToolbar,
+                toolbar,
               if (showNavigator && settings.navigatorPosition == .right)
-                NavigatorView(floating: floatingEditor),
+                const NavigatorView(),
             ],
           ),
         ),
@@ -1106,9 +1078,6 @@ class _MainBody extends StatelessWidget {
   ) {
     final pos = settings.toolbarPosition;
     final optPos = settings.optionsPanelPosition;
-    final edgeAttached =
-        settings.hasFlag('floatingEditor') &&
-        MediaQuery.sizeOf(context).width >= LeapBreakpoints.expanded;
     final showToolbar =
         (((fullScreen || settings.toolbarRows > 1) && pos == .inline ||
                 pos == .top) &&
@@ -1128,14 +1097,10 @@ class _MainBody extends StatelessWidget {
         children: [
           if (showToolbar)
             combineTopToolbarAndZoom
-                ? _buildCombinedToolbarAndZoom(
-                    settings,
-                    toolbar,
-                    edgeAttached: edgeAttached,
-                  )
+                ? _buildCombinedToolbarAndZoom(settings, toolbar)
                 : toolbar,
           if (optPos == .top && inputState.hideUi == .visible)
-            ToolbarView(edgeAttached: edgeAttached),
+            const ToolbarView(),
           Expanded(
             child: Stack(
               children: [
@@ -1154,23 +1119,16 @@ class _MainBody extends StatelessWidget {
                     .bottomRight => Alignment.bottomRight,
                     .bottomLeft => Alignment.bottomLeft,
                   },
-                  child: PropertyView(
-                    position: settings.propertyPosition,
-                    edgeAttached: edgeAttached,
-                  ),
+                  child: PropertyView(position: settings.propertyPosition),
                 ),
               ],
             ),
           ),
           if (optPos == .bottom && inputState.hideUi == .visible)
-            ToolbarView(edgeAttached: edgeAttached),
+            const ToolbarView(),
           if ((isMobile || pos == .bottom) && inputState.hideUi == .visible)
             combineBottomToolbarAndZoom
-                ? _buildCombinedToolbarAndZoom(
-                    settings,
-                    toolbar,
-                    edgeAttached: edgeAttached,
-                  )
+                ? _buildCombinedToolbarAndZoom(settings, toolbar)
                 : toolbar,
         ],
       ),
@@ -1190,24 +1148,21 @@ class _MainBody extends StatelessWidget {
 
   Widget _buildCombinedToolbarAndZoom(
     ButterflySettings settings,
-    Widget toolbar, {
-    bool edgeAttached = false,
-  }) {
+    Widget toolbar,
+  ) {
     final isLeft =
         settings.zoomPosition == .topLeft ||
         settings.zoomPosition == .bottomLeft;
     final zoomTools = SizedBox(
       width: settings.zoomPanelControls.panelWidth(),
-      child: _buildZoomToolsRow(settings, false, edgeAttached: edgeAttached),
+      child: _buildZoomToolsRow(settings, false),
     );
     final children = <Widget>[
       zoomTools,
       Expanded(child: Align(child: toolbar)),
     ];
     return Padding(
-      padding: edgeAttached
-          ? EdgeInsets.zero
-          : const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         spacing: 8,
         children: isLeft ? children : children.reversed.toList(),
@@ -1222,11 +1177,8 @@ class _MainBody extends StatelessWidget {
     EditorInputState inputState, {
     bool hideZoomTools = false,
   }) {
-    final edgeAttached =
-        settings.hasFlag('floatingEditor') &&
-        MediaQuery.sizeOf(context).width >= LeapBreakpoints.expanded;
     return Padding(
-      padding: edgeAttached ? EdgeInsets.zero : const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Align(
         alignment: switch (settings.zoomPosition) {
           .topRight => Alignment.topRight,
@@ -1243,12 +1195,7 @@ class _MainBody extends StatelessWidget {
               .topLeft || .bottomLeft => CrossAxisAlignment.start,
             },
             children: [
-              if (!hideZoomTools)
-                _buildZoomToolsRow(
-                  settings,
-                  isMobile,
-                  edgeAttached: edgeAttached,
-                ),
+              if (!hideZoomTools) _buildZoomToolsRow(settings, isMobile),
               if (inputState.hideUi == .touch)
                 FloatingActionButton.small(
                   tooltip: AppLocalizations.of(context).exit,
@@ -1264,20 +1211,14 @@ class _MainBody extends StatelessWidget {
     );
   }
 
-  Widget _buildZoomToolsRow(
-    ButterflySettings settings,
-    bool isMobile, {
-    bool edgeAttached = false,
-  }) {
+  Widget _buildZoomToolsRow(ButterflySettings settings, bool isMobile) {
     final isLeft =
         settings.zoomPosition == .topLeft ||
         settings.zoomPosition == .bottomLeft;
     final children = [
       const PenOnlyToggle(),
       if (settings.cameraControlsVisibility != CameraControlsVisibility.hidden)
-        Flexible(
-          child: ZoomView(isMobile: isMobile, edgeAttached: edgeAttached),
-        ),
+        Flexible(child: ZoomView(isMobile: isMobile)),
     ];
     return Row(
       mainAxisAlignment: isLeft ? MainAxisAlignment.start : .end,

@@ -115,7 +115,7 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
           if (widget.onCreate != null) ...[
             Text(
               locale.createAreas,
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.titleLarge,
               textAlign: .center,
             ),
             const SizedBox(height: 16),

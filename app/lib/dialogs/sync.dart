@@ -107,7 +107,7 @@ class _SyncDialogState extends State<SyncDialog> {
                       tooltip: AppLocalizations.of(context).connections,
                     ),
                   ],
-                  leading: IconButton.outlined(
+                  leading: IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.pop(context),
                     tooltip: MaterialLocalizations.of(context).closeButtonLabel,
