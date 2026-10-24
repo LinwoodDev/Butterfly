@@ -2,6 +2,28 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.2-rc.0 (2026-10-24)
+
+* Add a floating editor layout for wide screens behind an Experiments setting
+* Add default and session collaboration options for toolbar, page, area, cursor, and live preview synchronization ([#1295](https://github.com/LinwoodDev/Butterfly/issues/1295))
+* Add offline builds script
+* Add reproducable builds
+* Add whole page and last viewport framing for automatic thumbnails
+* Allow local connections as destinations for manual and automatic backups ([#1073](https://github.com/LinwoodDev/Butterfly/issues/1073))
+* Export each canvas unit as one millimeter in PDFs and preserve PDF page sizes on import
+* Improve document search with clearer results, literal queries, Markdown matches, and accurate page navigation
+* Improve pen only toggle performance ([#1305](https://github.com/LinwoodDev/Butterfly/issues/1305))
+* Fix a Windows crash during app shutdown
+* Fix an Android crash when copying content to the clipboard
+* Fix connection icon requests leaking WebDAV credentials to other origins
+* Fix backups failing when the destination folder is missing
+* Fix hand navigation being blocked when input gestures are disabled and rapid pointer events starting gestures with the previously active tool
+* Fix stamps losing stroke positions and becoming distorted on rotated canvases
+* Keep collaboration edits on their original page and layer when participants navigate independently
+* Upgrade to flutter 3.47.8
+
+Read more here: https://linwood.dev/butterfly/2.6.2-rc.0
+
 ## 2.6.1 (2026-10-15)
 
 Changes since 2.6.1-rc.1:
