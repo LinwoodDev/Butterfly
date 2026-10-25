@@ -1362,7 +1362,7 @@ class ImportService(
           document,
         );
         await fileSystem.createFile(
-          p.join(path ?? '', document.name ?? ''),
+          p.join(path ?? '', sanitizeExportFileName(document.name)),
           document.toFile(),
         );
       }
@@ -1377,9 +1377,24 @@ class ImportService(
   }) async {
     try {
       fileSystem ??= getDocumentSystem();
-      for (final file in archive) {
-        const fileExtension = '.bfly';
-        if (!file.name.toLowerCase().endsWith(fileExtension)) continue;
+      final files = archive
+          .where(
+            (file) => file.isFile && file.name.toLowerCase().endsWith('.bfly'),
+          )
+          .toList();
+      // Validate the complete batch before importing any documents. ZIP paths
+      // must remain relative on every platform, including Windows.
+      for (final file in files) {
+        final name = file.name.replaceAll('\\', '/');
+        if (file.isSymbolicLink ||
+            name.contains('\u0000') ||
+            p.posix.isAbsolute(name) ||
+            name.contains(':') ||
+            name.split('/').contains('..')) {
+          throw FormatException('Unsafe archive entry', file.name);
+        }
+      }
+      for (final file in files) {
         final bytes = file.readBytes();
         if (bytes == null) continue;
         final noteFile = await (await importBfly(
@@ -1388,7 +1403,10 @@ class ImportService(
           preserveEncrypted: true,
         ))?.exportFile();
         if (noteFile != null) {
-          await fileSystem.createFile(p.join(path ?? '', file.name), noteFile);
+          await fileSystem.createFile(
+            p.join(path ?? '', file.name.replaceAll('\\', '/')),
+            noteFile,
+          );
         }
       }
       return true;

@@ -1,9 +1,14 @@
 part of '../renderer.dart';
 
 class ImageBackgroundRenderer extends Renderer<ImageBackground> {
-  ui.Image? image;
+  final AsyncResource<ui.Image> _image;
+  ui.Image? get image => _image.value;
 
-  ImageBackgroundRenderer(super.element, [this.image]);
+  ImageBackgroundRenderer(super.element, [ui.Image? image])
+    : _image = AsyncResource(
+        disposeValue: (image) => image.dispose(),
+        value: image,
+      );
 
   @override
   void build(
@@ -105,13 +110,12 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
     super.setup(transformCubit, document, assetService, page);
     if (image != null) return;
     try {
-      image = await assetService.getImage(element.source, document);
+      await _image.load((_) => assetService.getImage(element.source, document));
     } catch (_) {}
   }
 
   @override
   void dispose() {
-    image?.dispose();
-    image = null;
+    _image.dispose();
   }
 }

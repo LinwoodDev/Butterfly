@@ -6,6 +6,7 @@ import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/async.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/markdown/latex.dart';
 import 'package:butterfly/helpers/rect.dart';
@@ -56,7 +57,10 @@ part 'elements/table.dart';
 part 'elements/svg.dart';
 
 class ElementPaintRenderer {
-  ui.Image? _image;
+  final _imageResource = AsyncResource<ui.Image>(
+    disposeValue: (image) => image.dispose(),
+  );
+  ui.Image? get _image => _imageResource.value;
   String? _source;
 
   Future<void> setup(
@@ -70,19 +74,17 @@ class ElementPaintRenderer {
       _ => null,
     };
     if (_source == source && _image != null) return;
-    _image?.dispose();
-    _image = null;
+    _imageResource.clear();
     _source = source;
     if (source != null) {
-      _image = await assets.getImage(source, document);
+      await _imageResource.load((_) => assets.getImage(source, document));
     }
   }
 
   bool uses(String path) => _source == path;
 
   void dispose() {
-    _image?.dispose();
-    _image = null;
+    _imageResource.dispose();
   }
 
   Paint build(ElementPaint paint, Rect bounds, {PaintingStyle? style}) {

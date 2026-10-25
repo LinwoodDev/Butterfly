@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -8,6 +9,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/asset.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,6 +18,8 @@ import 'package:mocktail/mocktail.dart';
 class MockEditorController extends Mock implements EditorController {}
 
 class MockDocumentLoaded extends Mock implements DocumentLoaded {}
+
+class MockAssetService extends Mock implements AssetService {}
 
 Future<ui.Image> _createImage() async {
   final recorder = ui.PictureRecorder();
@@ -85,6 +89,79 @@ ui.Color _pixel(Uint8List pixels, int x) {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('background image finishing after disposal is released', () async {
+    final image = await _createImage();
+    final loading = Completer<ui.Image?>();
+    final assets = MockAssetService();
+    final document = NoteData(Archive());
+    when(() => assets.getImage('test.png', document))
+        .thenAnswer((_) => loading.future);
+    final renderer = ImageBackgroundRenderer(
+      ImageBackground(source: 'test.png', width: 1, height: 1),
+    );
+    final transform = TransformCubit(1);
+    addTearDown(transform.close);
+    final setup = renderer.setup(
+      transform,
+      document,
+      assets,
+      const DocumentPage(),
+    );
+    renderer.dispose();
+    loading.complete(image);
+    await setup;
+    expect(renderer.image, isNull);
+    expect(image.debugDisposed, isTrue);
+    renderer.dispose();
+  });
+
+  for (final action in ['hide', 'dispose', 'asset update']) {
+    test('image finishing after $action is released', () async {
+      final image = await _createImage();
+      final loading = Completer<ui.Image?>();
+      final assets = MockAssetService();
+      final state = MockDocumentLoaded();
+      final controller = MockEditorController();
+      final document = NoteData(Archive());
+      when(() => state.assetService).thenReturn(assets);
+      when(() => state.data).thenReturn(document);
+      when(() => assets.getImage('test.png', document))
+          .thenAnswer((_) => loading.future);
+      final renderer = ImageRenderer(
+        ImageElement(source: 'test.png', width: 1, height: 1),
+      );
+      final visible = renderer.onVisible(
+        controller,
+        state,
+        const CameraTransform(),
+        ui.Size.zero,
+      );
+      switch (action) {
+        case 'hide':
+          renderer.onHidden(
+            controller,
+            state,
+            const CameraTransform(),
+            ui.Size.zero,
+          );
+        case 'dispose':
+          renderer.dispose();
+        case 'asset update':
+          renderer.onAssetUpdate(
+            document,
+            assets,
+            const DocumentPage(),
+            'test.png',
+          );
+      }
+      loading.complete(image);
+      await visible;
+      expect(renderer.image, isNull);
+      expect(image.debugDisposed, isTrue);
+      renderer.dispose();
+    });
+  }
 
   test(
     'hidden image renderer unloads decoded image outside viewport',

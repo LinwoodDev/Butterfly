@@ -1,5 +1,122 @@
 import 'dart:async';
 
+import 'package:async/async.dart';
+
+/// Runs overlapping tasks, accepting only the latest result.
+///
+/// [cancel] invalidates pending work; [dispose] also prevents new work. Tasks
+/// can check [CancelableOperation.isCanceled] between expensive steps. Work that
+/// cannot be interrupted may still finish, so resource-producing callers must
+/// provide `onDiscarded` to release results that are no longer needed.
+class LatestAsyncRunner {
+  CancelableCompleter<void>? _current;
+  bool _disposed = false;
+
+  Future<void> run<T>(
+    Future<T> Function(CancelableOperation<void> operation) task, {
+    required void Function(T value) onCompleted,
+    FutureOr<void> Function(T value)? onDiscarded,
+    void Function(Object error, StackTrace stackTrace)? onError,
+  }) async {
+    if (_disposed) return;
+    cancel();
+    final pending = _current = CancelableCompleter<void>();
+    final operation = pending.operation;
+    try {
+      late T value;
+      try {
+        value = await task(operation);
+      } catch (error, stackTrace) {
+        if (operation.isCanceled) return;
+        if (onError == null) rethrow;
+        onError(error, stackTrace);
+        return;
+      }
+      if (operation.isCanceled) {
+        await onDiscarded?.call(value);
+      } else {
+        onCompleted(value);
+      }
+    } finally {
+      pending.complete();
+      if (identical(_current, pending)) _current = null;
+    }
+  }
+
+  void cancel() {
+    final pending = _current;
+    _current = null;
+    if (pending != null) unawaited(pending.operation.cancel());
+  }
+
+  void dispose() {
+    _disposed = true;
+    cancel();
+  }
+}
+
+/// Owns an asynchronously loaded resource and releases it when replaced/cleared.
+///
+/// Each successful loader transfers ownership of its result to this holder.
+/// Borrowed initial values are never released. A null result leaves the current
+/// value unchanged; factories must release any intermediate resources themselves.
+class AsyncResource<T extends Object> {
+  AsyncResource({
+    required this._disposeValue,
+    this._value,
+    this._ownsValue = true,
+  });
+
+  final void Function(T value) _disposeValue;
+  final _runner = LatestAsyncRunner();
+  T? _value;
+  bool _ownsValue;
+
+  T? get value => _value;
+  bool get ownsValue => _ownsValue;
+
+  Future<void> load(
+    Future<T?> Function(CancelableOperation<void> operation) loader, {
+    void Function(Object error, StackTrace stackTrace)? onError,
+  }) => _runner.run(
+    loader,
+    onCompleted: (loaded) {
+      if (loaded == null) return;
+      final previous = _value;
+      final owned = _ownsValue;
+      _value = loaded;
+      _ownsValue = true;
+      if (owned && previous != null && !identical(previous, loaded)) {
+        _disposeValue(previous);
+      }
+    },
+    onDiscarded: (loaded) {
+      if (loaded != null && !identical(loaded, _value)) _disposeValue(loaded);
+    },
+    onError: onError,
+  );
+
+  /// Cancels pending work and releases the current value, allowing another load.
+  void clear() {
+    _runner.cancel();
+    _release();
+  }
+
+  /// Permanently closes this holder. Repeated calls do not release values again.
+  void dispose() {
+    _runner.dispose();
+    _release();
+  }
+
+  void _release() {
+    final value = _value;
+    final owned = _ownsValue;
+    _value = null;
+    _ownsValue = true;
+    if (owned && value != null) _disposeValue(value);
+  }
+}
+
 class CoalescedAsyncRunner {
   CoalescedAsyncRunner({required this.delay, this.restartDelay = true});
 

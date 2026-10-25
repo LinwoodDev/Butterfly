@@ -1,15 +1,20 @@
 part of '../renderer.dart';
 
 class SvgRenderer extends Renderer<SvgElement> {
-  PictureInfo? pictureInfo;
-  bool ownsPictureInfo;
+  final AsyncResource<PictureInfo> _picture;
+  PictureInfo? get pictureInfo => _picture.value;
+  bool get ownsPictureInfo => _picture.ownsValue;
 
   SvgRenderer(
     super.element, [
     super.layer,
-    this.pictureInfo,
-    this.ownsPictureInfo = true,
-  ]);
+    PictureInfo? pictureInfo,
+    bool ownsPictureInfo = true,
+  ]) : _picture = AsyncResource(
+         disposeValue: (info) => info.picture.dispose(),
+         value: pictureInfo,
+         ownsValue: ownsPictureInfo,
+       );
 
   @override
   void build(
@@ -77,15 +82,13 @@ class SvgRenderer extends Renderer<SvgElement> {
     super.setup(transformCubit, document, assetService, page);
     final data = element.getData(document);
     if (data != null) {
-      if (ownsPictureInfo) {
-        pictureInfo?.picture.dispose();
-      }
-      pictureInfo = await vg.loadPicture(
-        SvgStringLoader(normalizeSvgBytes(data)),
-        null,
-        clipViewbox: false,
+      await _picture.load(
+        (_) => vg.loadPicture(
+          SvgStringLoader(normalizeSvgBytes(data)),
+          null,
+          clipViewbox: false,
+        ),
       );
-      ownsPictureInfo = true;
     }
   }
 
@@ -150,10 +153,7 @@ class SvgRenderer extends Renderer<SvgElement> {
 
   @override
   void dispose() {
-    if (ownsPictureInfo) {
-      pictureInfo?.picture.dispose();
-    }
-    pictureInfo = null;
+    _picture.dispose();
   }
 
   @override

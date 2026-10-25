@@ -8,6 +8,18 @@ import 'action.dart';
 @JS('pushMessage')
 external set _pushMessage(JSFunction f);
 
+String? _parentOrigin = _httpOrigin(html.document.referrer);
+
+String? _httpOrigin(String value) {
+  final uri = Uri.tryParse(value);
+  if (uri == null ||
+      (uri.scheme != 'http' && uri.scheme != 'https') ||
+      uri.host.isEmpty) {
+    return null;
+  }
+  return uri.origin;
+}
+
 void setup() {
   _pushMessage = pushMessage.toJS;
 }
@@ -26,8 +38,9 @@ void pushMessage(JSString type, [JSObject? message]) {
 void sendEmbedMessage(String type, [Object? message]) {
   final data = {'type': type, 'message': message}.jsify();
   final parent = html.window.parent;
-  if (parent != null && parent != html.window) {
-    parent.postMessage(data, '*'.toJS);
+  final origin = _parentOrigin;
+  if (parent != null && parent != html.window && origin != null) {
+    parent.postMessage(data, origin.toJS);
   }
 
   // Also dispatch locally for backwards compatibility
@@ -40,13 +53,27 @@ EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
   void listener(html.Event event) {
     if (event.isA<html.MessageEvent>()) {
       final messageEvent = event as html.MessageEvent;
-      if (event.type == 'message' && messageEvent.source == null) return;
+      if (event.type == 'message') {
+        final parent = html.window.parent;
+        if (parent == null ||
+            parent == html.window ||
+            messageEvent.source != parent) {
+          return;
+        }
+        final origin = _httpOrigin(messageEvent.origin);
+        if (origin == null ||
+            (_parentOrigin != null && origin != _parentOrigin)) {
+          return;
+        }
+        // With no referrer, the first parent message establishes its origin.
+        _parentOrigin ??= origin;
+      }
       final data = messageEvent.data;
       if (data.isA<JSObject>()) {
         final objectData = data as JSObject;
         final typeProp = objectData.getProperty('type'.toJS);
-        if (typeProp != null) {
-          final messageType = typeProp.dartify().toString();
+        if (typeProp.isA<JSString>()) {
+          final messageType = (typeProp as JSString).toDart;
           if (type == messageType) {
             final messageProp = objectData.getProperty('message'.toJS);
             callback(messageProp?.dartify());
