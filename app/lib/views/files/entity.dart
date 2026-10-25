@@ -41,6 +41,9 @@ class FileEntityItem extends StatefulWidget {
   /// set.
   final VoidCallback? onOpen;
 
+  /// The entries of the "Create" submenu of a folder, which create in it.
+  final List<Widget>? createMenu;
+
   const FileEntityItem({
     super.key,
     required this.entity,
@@ -57,6 +60,7 @@ class FileEntityItem extends StatefulWidget {
     this.onMoveInto,
     this.onDragHold,
     this.onOpen,
+    this.createMenu,
   });
 
   @override
@@ -339,6 +343,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
           documentSystem: documentSystem,
           onOpen:
               widget.onOpen ?? (widget.onPreview != null ? widget.onTap : null),
+          createMenu: widget.createMenu,
           onSelect: widget.selected == null
               ? () => widget.onSelected(true)
               : null,
@@ -442,6 +447,7 @@ class ContextFileRegion extends StatelessWidget {
   final VoidCallback onReload, onDelete;
   final VoidCallback? onSelect;
   final VoidCallback? onOpen;
+  final List<Widget>? createMenu;
   final ContextRegionChildBuilder builder;
 
   const ContextFileRegion({
@@ -457,6 +463,7 @@ class ContextFileRegion extends StatelessWidget {
     required this.builder,
     this.onOpen,
     this.onSelect,
+    this.createMenu,
   });
 
   @override
@@ -470,6 +477,12 @@ class ContextFileRegion extends StatelessWidget {
             onPressed: onOpen,
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.eye),
             child: Text(AppLocalizations.of(context).open),
+          ),
+        if (createMenu != null)
+          SubmenuButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.plus),
+            menuChildren: createMenu!,
+            child: Text(LeapLocalizations.of(context).create),
           ),
         if (canRevealInFileExplorer && remote is! RemoteStorage)
           MenuItemButton(

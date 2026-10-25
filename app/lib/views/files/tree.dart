@@ -86,6 +86,10 @@ class FileTreeController extends ChangeNotifier {
     return true;
   }
 
+  /// Expands the folder at [path].
+  void expand(String path) =>
+      _expanded.add(_documentSystem.normalizePath(path));
+
   Future<void> _load(String path) async {
     if (_loading.containsKey(path)) return;
     final load = _loading[path] = Object();

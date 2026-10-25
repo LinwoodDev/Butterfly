@@ -1421,6 +1421,24 @@
   "homeScreen": "Home screen",
   "lastNote": "Last note",
   "newNote": "New note",
+  "newNoteIn": "New note in {folder}",
+  "@newNoteIn": {
+    "placeholders": {
+      "folder": {
+        "type": "String",
+        "example": "/Notes"
+      }
+    }
+  },
+  "newFolderIn": "New folder in {folder}",
+  "@newFolderIn": {
+    "placeholders": {
+      "folder": {
+        "type": "String",
+        "example": "/Notes"
+      }
+    }
+  },
   "moveToLayer": "Move to layer",
   "createLayer": "Create layer",
   "merge": "Merge",

@@ -333,19 +333,32 @@ class FilesViewState extends State<FilesView> {
     _filesStream!.add(directory.withAssets(assets));
   }
 
+  String _displayPath(String directory) =>
+      '/${_documentSystem.normalizeRelativePath(directory)}';
+
+  // What is created in a folder of the tree shows below it.
+  void _expandCreatedIn(String? directory) {
+    if (directory == null || !mounted || _layout != .tree) return;
+    setState(() => _tree.expand(directory));
+  }
+
+  /// Creates a note in [directory], by default the current folder.
   Future<void> _createFile(
     NoteData? template, {
     bool isTextBased = false,
+    String? directory,
   }) async {
     template ??= await DocumentDefaults.createTemplate();
     if (!mounted) return;
+    final path = directory ?? _locationController.text;
     final name = await showDialog<String>(
       context: context,
-      builder: (context) =>
-          NameDialog(validator: defaultFileNameValidator(context)),
+      builder: (context) => NameDialog(
+        title: AppLocalizations.of(context).newNoteIn(_displayPath(path)),
+        validator: defaultFileNameValidator(context),
+      ),
     );
     if (name == null) return;
-    final path = _locationController.text;
     final remote = _remote;
     final file = await _documentSystem.createFileWithName(
       directory: path,
@@ -370,7 +383,159 @@ class FilesViewState extends State<FilesView> {
       }
     }
     _updateAsset(file.location, file);
+    _expandCreatedIn(directory);
   }
+
+  /// Creates a folder in [directory], by default the current folder.
+  Future<void> _createFolder([String? directory]) async {
+    final path = directory ?? _locationController.text;
+    final name = await showDialog<String>(
+      context: context,
+      builder: (context) => NameDialog(
+        title: AppLocalizations.of(context).newFolderIn(_displayPath(path)),
+        validator: defaultFileNameValidator(context),
+      ),
+    );
+    if (name == null) return;
+    final created = await _documentSystem.createDirectory('$path/$name');
+    _updateAsset(created.location, created);
+    _expandCreatedIn(directory);
+  }
+
+  /// Imports files into [directory], by default the current folder.
+  Future<void> _importFiles([String? directory]) async {
+    final files = await importFiles(context);
+    if (files.isEmpty || !mounted) return;
+    final path = directory ?? _locationController.text;
+
+    final defaultTemplate = _settingsCubit.state.defaultTemplate;
+    final templateFile = await _templateSystem.getDefaultFile(defaultTemplate);
+
+    for (final file in files) {
+      if (!mounted) return;
+      var result = file.$1;
+      var fileExtension = file.$2;
+      final nameWithoutExtension = file.$3;
+
+      if (fileExtension == 'bin') {
+        // see https://github.com/LinwoodDev/Butterfly/issues/839
+        fileExtension = '';
+      }
+
+      final importService = ImportService(
+        context,
+        storage: _remote,
+        path: path,
+        useDefaultStorage: false,
+      );
+      final importResult = await importService.load(
+        data: result,
+        type: fileExtension,
+        document:
+            templateFile?.createDocument(name: nameWithoutExtension) ??
+            DocumentDefaults.createDocument(name: nameWithoutExtension),
+        preserveEncrypted: true,
+      );
+      if (importResult == null) {
+        continue;
+      }
+      final noteFile = await importResult.exportFile();
+      setNativeData(result, fileExtension);
+
+      var docName = noteFile.display()?.name;
+      if (docName == null || docName.trim().isEmpty) {
+        docName = nameWithoutExtension;
+      }
+      if (docName.trim().isEmpty) {
+        docName = null;
+      } else {
+        docName = sanitizeExportFileName(docName);
+      }
+
+      final newFile = await _documentSystem.createFileWithName(
+        directory: path,
+        name: docName,
+        suffix: '.bfly',
+        noteFile,
+      );
+      _updateAsset(newFile.location, newFile);
+      _expandCreatedIn(directory);
+
+      if (files.length == 1 && mounted) {
+        _onFileTap(newFile);
+      }
+    }
+  }
+
+  /// The entries that create in [directory], by default the current folder.
+  List<Widget> _buildCreateMenu([String? directory]) => [
+    MenuItemButton(
+      leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
+      child: Text(AppLocalizations.of(context).newFolder),
+      onPressed: () => _createFolder(directory),
+    ),
+    MenuItemButton(
+      onPressed: () async => _createFile(
+        await _templateSystem.getDefaultFile(
+          _templateSystem.storage?.defaults['template'] ??
+              _settingsCubit.state.defaultTemplate,
+        ),
+        directory: directory,
+      ),
+      leadingIcon: const PhosphorIcon(
+        PhosphorIconsLight.filePlus,
+        textDirection: .ltr,
+      ),
+      child: Text(AppLocalizations.of(context).newNote),
+    ),
+    for (final isTextBased in [false, true])
+      FutureBuilder<List<FileSystemFile<NoteData>>>(
+        future: _templatesFuture,
+        builder: (context, snapshot) => SubmenuButton(
+          leadingIcon: PhosphorIcon(
+            isTextBased ? PhosphorIconsLight.fileTxt : PhosphorIconsLight.file,
+            textDirection: .ltr,
+          ),
+          menuChildren:
+              snapshot.data?.map((e) {
+                final data = e.data!;
+                final metadata = data.getMetadata();
+                final thumbnail = _settingsCubit.state.showThumbnails
+                    ? data.getThumbnail()
+                    : null;
+                return MenuItemButton(
+                  leadingIcon: thumbnail == null
+                      ? null
+                      : Image.memory(
+                          thumbnail,
+                          width: 32,
+                          height: 18,
+                          gaplessPlayback: true,
+                          cacheWidth: 32,
+                          cacheHeight: 18,
+                        ),
+                  child: Text(metadata?.name ?? ''),
+                  onPressed: () => _createFile(
+                    data,
+                    isTextBased: isTextBased,
+                    directory: directory,
+                  ),
+                );
+              }).toList() ??
+              [],
+          child: Text(
+            isTextBased
+                ? AppLocalizations.of(context).createRawNote
+                : AppLocalizations.of(context).templates,
+          ),
+        ),
+      ),
+    MenuItemButton(
+      leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
+      onPressed: () => _importFiles(directory),
+      child: Text(AppLocalizations.of(context).import),
+    ),
+  ];
 
   void _setRemote(ExternalStorage? remote) {
     final storageChanged = _remote?.identifier != remote?.identifier;
@@ -736,6 +901,10 @@ class FilesViewState extends State<FilesView> {
                                 onReload: reloadFileSystem,
                                 onMoveInto: (source) =>
                                     _moveAssetInto(source, asset.path),
+                                createMenu:
+                                    asset is FileSystemDirectory<NoteFile>
+                                    ? _buildCreateMenu(asset.path)
+                                    : null,
                                 // The tree opens a folder from its menu.
                                 onOpen:
                                     layout == .tree &&
@@ -856,188 +1025,7 @@ class FilesViewState extends State<FilesView> {
                 children: [
                   MenuAnchor(
                     menuChildren: [
-                      MenuItemButton(
-                        leadingIcon: const PhosphorIcon(
-                          PhosphorIconsLight.folder,
-                        ),
-                        child: Text(AppLocalizations.of(context).newFolder),
-                        onPressed: () async {
-                          final name = await showDialog<String>(
-                            context: context,
-                            builder: (context) => NameDialog(
-                              validator: defaultFileNameValidator(context),
-                            ),
-                          );
-                          if (name == null) return;
-                          final path = _locationController.text;
-                          final newPath = '$path/$name';
-                          final directory = await _documentSystem
-                              .createDirectory(newPath);
-                          _updateAsset(directory.location, directory);
-                        },
-                      ),
-                      MenuItemButton(
-                        onPressed: () async => _createFile(
-                          await _templateSystem.getDefaultFile(
-                            _templateSystem.storage?.defaults['template'] ??
-                                _settingsCubit.state.defaultTemplate,
-                          ),
-                        ),
-                        leadingIcon: const PhosphorIcon(
-                          PhosphorIconsLight.filePlus,
-                          textDirection: .ltr,
-                        ),
-                        child: Text(AppLocalizations.of(context).newNote),
-                      ),
-                      FutureBuilder<List<FileSystemFile<NoteData>>>(
-                        future: _templatesFuture,
-                        builder: (context, snapshot) => SubmenuButton(
-                          leadingIcon: const PhosphorIcon(
-                            PhosphorIconsLight.file,
-                            textDirection: .ltr,
-                          ),
-                          menuChildren:
-                              snapshot.data?.map((e) {
-                                final data = e.data!;
-                                final metadata = data.getMetadata();
-                                final thumbnail =
-                                    context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .showThumbnails
-                                    ? data.getThumbnail()
-                                    : null;
-                                return MenuItemButton(
-                                  leadingIcon: thumbnail == null
-                                      ? null
-                                      : Image.memory(
-                                          thumbnail,
-                                          width: 32,
-                                          height: 18,
-                                          gaplessPlayback: true,
-                                          cacheWidth: 32,
-                                          cacheHeight: 18,
-                                        ),
-                                  child: Text(metadata?.name ?? ''),
-                                  onPressed: () => _createFile(data),
-                                );
-                              }).toList() ??
-                              [],
-                          child: Text(AppLocalizations.of(context).templates),
-                        ),
-                      ),
-                      FutureBuilder<List<FileSystemFile<NoteData>>>(
-                        future: _templatesFuture,
-                        builder: (context, snapshot) => SubmenuButton(
-                          leadingIcon: const PhosphorIcon(
-                            PhosphorIconsLight.fileTxt,
-                            textDirection: .ltr,
-                          ),
-                          menuChildren:
-                              snapshot.data?.map((e) {
-                                final data = e.data!;
-                                final metadata = data.getMetadata();
-                                final thumbnail =
-                                    context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .showThumbnails
-                                    ? data.getThumbnail()
-                                    : null;
-                                return MenuItemButton(
-                                  leadingIcon: thumbnail == null
-                                      ? null
-                                      : Image.memory(
-                                          thumbnail,
-                                          width: 32,
-                                          height: 18,
-                                          gaplessPlayback: true,
-                                          cacheWidth: 32,
-                                          cacheHeight: 18,
-                                        ),
-                                  child: Text(metadata?.name ?? ''),
-                                  onPressed: () =>
-                                      _createFile(data, isTextBased: true),
-                                );
-                              }).toList() ??
-                              [],
-                          child: Text(
-                            AppLocalizations.of(context).createRawNote,
-                          ),
-                        ),
-                      ),
-                      MenuItemButton(
-                        leadingIcon: const PhosphorIcon(
-                          PhosphorIconsLight.arrowSquareIn,
-                        ),
-                        onPressed: () async {
-                          final files = await importFiles(context);
-                          if (files.isEmpty) return;
-
-                          final defaultTemplate =
-                              _settingsCubit.state.defaultTemplate;
-                          final templateFile = await _templateSystem
-                              .getDefaultFile(defaultTemplate);
-
-                          for (final file in files) {
-                            var result = file.$1;
-                            var fileExtension = file.$2;
-                            final nameWithoutExtension = file.$3;
-
-                            if (fileExtension == 'bin') {
-                              // see https://github.com/LinwoodDev/Butterfly/issues/839
-                              fileExtension = '';
-                            }
-
-                            final importService = ImportService(
-                              context,
-                              storage: _remote,
-                              path: _locationController.text,
-                              useDefaultStorage: false,
-                            );
-                            final importResult = await importService.load(
-                              data: result,
-                              type: fileExtension,
-                              document:
-                                  templateFile?.createDocument(
-                                    name: nameWithoutExtension,
-                                  ) ??
-                                  DocumentDefaults.createDocument(
-                                    name: nameWithoutExtension,
-                                  ),
-                              preserveEncrypted: true,
-                            );
-                            if (importResult == null) {
-                              continue;
-                            }
-                            final noteFile = await importResult.exportFile();
-                            setNativeData(result, fileExtension);
-
-                            var docName = noteFile.display()?.name;
-                            if (docName == null || docName.trim().isEmpty) {
-                              docName = nameWithoutExtension;
-                            }
-                            if (docName.trim().isEmpty) {
-                              docName = null;
-                            } else {
-                              docName = sanitizeExportFileName(docName);
-                            }
-
-                            final newFile = await _documentSystem
-                                .createFileWithName(
-                                  directory: _locationController.text,
-                                  name: docName,
-                                  suffix: '.bfly',
-                                  noteFile,
-                                );
-
-                            if (files.length == 1 && context.mounted) {
-                              _onFileTap(newFile);
-                            }
-                          }
-                        },
-                        child: Text(AppLocalizations.of(context).import),
-                      ),
+                      ..._buildCreateMenu(),
                       if (settings.hasFlag('collaboration'))
                         MenuItemButton(
                           leadingIcon: const PhosphorIcon(

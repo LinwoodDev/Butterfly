@@ -5,6 +5,7 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/tree.dart';
 import 'package:butterfly/views/files/view.dart';
@@ -92,6 +93,12 @@ void main() {
     settings = configureFileSystemSettings(fileSystem);
     viewKey = GlobalKey<FilesViewState>();
     FileTreeController.collapseAll();
+    // Listing the templates never ends in widget tests: creating a note
+    // finds the default one by its key.
+    await fileSystem.buildTemplateSystem().createFile(
+      'Default',
+      await DocumentDefaults.createTemplate(name: 'Default'),
+    );
     for (final name in ['Alpha', 'Beta']) {
       await createTestNote(fileSystem.documents, '/notes/$name.bfly');
     }
@@ -108,6 +115,7 @@ void main() {
         showThumbnails: false,
         filesLayout: layout,
         sortOrder: sortOrder,
+        defaultTemplate: 'Default',
       ),
     );
     await tester.pumpWidget(
@@ -813,6 +821,79 @@ void main() {
       tester.getTopLeft(asset('Banana')).dy,
       lessThan(tester.getTopLeft(asset('Apple')).dy),
     );
+  });
+
+  Future<void> createFromMenu(
+    WidgetTester tester,
+    Finder folder,
+    String entry,
+    String name,
+  ) async {
+    await tester.tap(
+      folder,
+      buttons: kSecondaryMouseButton,
+      kind: PointerDeviceKind.mouse,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(entry));
+    await tester.pumpAndSettle();
+    final dialog = find.byType(NameDialog);
+    await tester.enterText(
+      find.descendant(of: dialog, matching: find.byType(TextField)),
+      name,
+    );
+    await tester.tap(
+      find.descendant(of: dialog, matching: find.byType(ElevatedButton)),
+    );
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('the menu of a folder creates in it and the tree opens it', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    await createFromMenu(tester, asset('Other'), 'New note', 'Inner');
+    expect(
+      await fileSystem.documents.getAsset('/notes/Other/Inner.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+    expect(asset('Other/Inner.bfly'), findsOneWidget);
+    expect(asset('Other/Child.bfly'), findsOneWidget);
+    expect(item('Inner'), findsNothing);
+
+    await createFromMenu(tester, asset('Other'), 'New folder', 'Sub');
+    expect(asset('Other/Sub'), findsOneWidget);
+    await createFromMenu(tester, asset('Other/Sub'), 'New note', 'Deep');
+    expect(asset('Other/Sub/Deep.bfly'), findsOneWidget);
+  });
+
+  testWidgets('the name dialog shows where it creates', (tester) async {
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await pumpFiles(tester);
+    await tester.tap(find.byTooltip('Create'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New note'));
+    await tester.pumpAndSettle();
+    expect(find.text('New note in /notes'), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      asset('Other'),
+      buttons: kSecondaryMouseButton,
+      kind: PointerDeviceKind.mouse,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New folder'));
+    await tester.pumpAndSettle();
+    expect(find.text('New folder in /notes/Other'), findsOneWidget);
   });
 
   test('assets cannot move into themselves or where they already are', () {
