@@ -1364,6 +1364,109 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('deleting the open note leaves it deleted after closing', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        delayedAutosave: true,
+        autosaveDelaySeconds: 1,
+      ),
+    );
+    when(() => settingsCubit.removeRecentHistory(any()))
+        .thenAnswer((_) async {});
+    final documents = fileSystem.buildDocumentSystem();
+    await documents.updateFile(
+      '/notes/Doomed.bfly',
+      DocumentDefaults.createDocument(name: 'Doomed').toFile(),
+    );
+    await tester.pumpWidget(buildApp(readLocalFile: true));
+    router.go('/local/notes/Doomed.bfly');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+    final bloc = observer.lastDocumentBloc!;
+    // A delayed autosave is pending while the note is deleted.
+    bloc.add(const DocumentDescriptionChanged(name: 'Edited'));
+    await tester.pump();
+
+    await tester.tap(
+      find.descendant(
+        of: find.byType(PadAppBar),
+        matching: find.byTooltip('Delete'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.text('notes/Doomed.bfly'),
+      ),
+      findsOneWidget,
+    );
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Delete'));
+    await pumpUntil(
+      tester,
+      () => find.byType(ProjectPage).evaluate().isEmpty,
+      'editor closed',
+    );
+    await tester.pump(const Duration(seconds: 2));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 50)),
+    );
+    await tester.pumpAndSettle();
+
+    expect(await documents.getAsset('/notes/Doomed.bfly'), isNull);
+    verify(
+      () => settingsCubit.removeRecentHistory(
+        AssetLocation.local('notes/Doomed.bfly'),
+      ),
+    ).called(1);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('a discarded note is not saved again until restored', (
+    tester,
+  ) async {
+    final documents = fileSystem.buildDocumentSystem();
+    await documents.updateFile(
+      '/notes/Doomed.bfly',
+      DocumentDefaults.createDocument(name: 'Doomed').toFile(),
+    );
+    await tester.pumpWidget(buildApp(readLocalFile: true));
+    router.go('/local/notes/Doomed.bfly');
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+    final bloc = observer.lastDocumentBloc!;
+    final saveCubit = bloc.editorController.saveCubit;
+
+    await tester.runAsync(() async {
+      await saveCubit.discard();
+      await documents.deleteAsset('/notes/Doomed.bfly');
+      // The automatic thumbnail on close saves this way.
+      await bloc.save(force: true);
+    });
+    expect(await documents.getAsset('/notes/Doomed.bfly'), isNull);
+    expect(saveCubit.state.saved, SaveState.saved);
+
+    saveCubit.restore();
+    expect(saveCubit.state.saved, SaveState.unsaved);
+    await tester.runAsync(() => bloc.save(force: true));
+    expect(
+      await documents.getAsset('/notes/Doomed.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('native notes open writable at their device path', (
     tester,
   ) async {

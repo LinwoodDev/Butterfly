@@ -667,10 +667,81 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               },
               tooltip: AppLocalizations.of(context).changeDocumentPath,
             ),
+            // Phones have no room for it next to the title.
+            if (!widget.isMobile &&
+                !currentIndex.absolute &&
+                !cubit.networkingService.isClient)
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                tooltip: AppLocalizations.of(context).delete,
+                onPressed: () => _deleteNote(context, state),
+              ),
           ],
         ],
       ],
     );
+  }
+
+  /// Deletes the open note after asking, and leaves the editor.
+  Future<void> _deleteNote(
+    BuildContext context,
+    DocumentLoadSuccess state,
+  ) async {
+    final controller = context.read<EditorController>();
+    final saveCubit = controller.saveCubit;
+    final location = saveCubit.state.location;
+    final router = GoRouter.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final errorText = AppLocalizations.of(context).error;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).delete),
+        content: Column(
+          mainAxisSize: .min,
+          crossAxisAlignment: .start,
+          children: [
+            Text(AppLocalizations.of(context).areYouSure),
+            const SizedBox(height: 8),
+            Text(
+              location.pathWithoutLeadingSlash,
+              style: TextTheme.of(context).bodySmall,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(AppLocalizations.of(context).delete),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    // Closing the editor saves the note, which would write it again.
+    await saveCubit.discard();
+    try {
+      await state.fileSystem
+          .buildDocumentSystem(
+            controller.settingsCubit.getRemote(location.remote),
+          )
+          .deleteAsset(location.path);
+      await controller.settingsCubit.removeRecentHistory(location);
+    } catch (error) {
+      debugPrint('Could not delete ${location.path}: $error');
+      saveCubit.restore();
+      messenger.showSnackBar(SnackBar(content: Text(errorText)));
+      return;
+    }
+    if (router.canPop()) {
+      router.pop();
+    } else {
+      router.go('/');
+    }
   }
 }
 

@@ -24,8 +24,24 @@ class DocumentSaveCubit(
   this : super(initial);
 
   final savingLock = Lock();
+  bool _discarded = false;
 
   void replace(DocumentSaveState state) => emit(state);
+
+  /// Stops saving the document before it is deleted, so that no autosave and
+  /// no save on close writes it again. Waits for a save that already started.
+  Future<void> discard() async {
+    _discarded = true;
+    setDelayed(false);
+    await savingLock.synchronized(() {});
+    if (!isClosed) setSaveState(saved: SaveState.saved);
+  }
+
+  /// Saves the document again after [discard], when deleting it failed.
+  void restore() {
+    _discarded = false;
+    if (!isClosed) setSaveState(saved: SaveState.unsaved);
+  }
 
   void setSaveState({
     AssetLocation? location,
@@ -75,6 +91,7 @@ class DocumentSaveCubit(
     bool isAutosave = false,
     EditorSessionCubit? editorSessionCubit,
   }) async {
+    if (_discarded) return state.location;
     if (location == null &&
         name == null &&
         !force &&
@@ -98,6 +115,7 @@ class DocumentSaveCubit(
       }
     }
     return savingLock.synchronized(() async {
+      if (_discarded) return state.location;
       if (location == null &&
           name == null &&
           !force &&
