@@ -69,6 +69,15 @@
     "description": "Delete action"
   },
   "areYouSure": "Are you sure?",
+  "deletedNotesCount": "{count,plural, =0{No notes will be deleted} =1{1 note will be deleted} other{{count} notes will be deleted}}",
+  "@deletedNotesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
   "reallyDelete": "Do you really want to delete this item?",
   "no": "No",
   "yes": "Yes",

@@ -48,6 +48,43 @@ class FileEntityItem extends StatefulWidget {
   State<FileEntityItem> createState() => _FileEntityItemState();
 }
 
+/// How many notes deleting [paths] removes, with the notes inside folders.
+/// Null when [paths] is a single note or a folder cannot be read.
+Future<int?> countDeletedNotes(
+  DocumentFileSystem documentSystem,
+  Set<String> paths,
+) async {
+  var count = 0;
+  var hasFolder = false;
+  // Lists each folder once; the notes themselves are not read.
+  Future<void> addDirectory(FileSystemDirectory<NoteFile> directory) async {
+    hasFolder = true;
+    for (final asset in directory.assets) {
+      if (asset is! FileSystemDirectory<NoteFile>) {
+        count++;
+        continue;
+      }
+      final listed = await documentSystem.getAsset(asset.path, readData: false);
+      if (listed is FileSystemDirectory<NoteFile>) await addDirectory(listed);
+    }
+  }
+
+  try {
+    for (final path in paths) {
+      final asset = await documentSystem.getAsset(path, readData: false);
+      if (asset is FileSystemDirectory<NoteFile>) {
+        await addDirectory(asset);
+      } else if (asset != null) {
+        count++;
+      }
+    }
+  } catch (error) {
+    debugPrint('Could not count the notes to delete: $error');
+    return null;
+  }
+  return hasFolder || paths.length > 1 ? count : null;
+}
+
 void deleteEntities({
   required BuildContext context,
   required bool isMobile,
@@ -56,6 +93,7 @@ void deleteEntities({
   required ValueChanged<Set<String>> onDelete,
 }) {
   final paths = entities.toSet();
+  final noteCount = countDeletedNotes(documentSystem, paths);
   final colorScheme = ColorScheme.of(context);
   showPopover(
     backgroundColor: colorScheme.surface,
@@ -72,6 +110,21 @@ void deleteEntities({
         mainAxisAlignment: .center,
         children: [
           Text(AppLocalizations.of(context).areYouSure, textAlign: .center),
+          FutureBuilder<int?>(
+            future: noteCount,
+            builder: (context, snapshot) {
+              final count = snapshot.data;
+              if (count == null) return const SizedBox.shrink();
+              return Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  AppLocalizations.of(context).deletedNotesCount(count),
+                  textAlign: .center,
+                  style: TextTheme.of(context).bodySmall,
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: .spaceEvenly,

@@ -298,4 +298,42 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets('deleting a folder says how many notes it deletes', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Child.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deep.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deeper.bfly');
+    await pumpFiles(tester);
+    await tester.tap(
+      find.descendant(of: asset('Other'), matching: find.byTooltip('Delete')),
+    );
+    await tester.pumpAndSettle();
+    final count = find.text('3 notes will be deleted');
+    expect(count, findsOneWidget);
+    Navigator.of(tester.element(count)).pop();
+    await tester.pumpAndSettle();
+    expect(
+      await fileSystem.documents.getAsset('/notes/Other/Sub/Deep.bfly'),
+      isA<FileSystemFile<NoteFile>>(),
+    );
+
+    // A single note needs no count; a selection counts every note.
+    await tester.tap(
+      find.descendant(of: item('Alpha'), matching: find.byTooltip('Delete')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Are you sure?'), findsOneWidget);
+    expect(find.textContaining('will be deleted'), findsNothing);
+    expect(
+      await countDeletedNotes(fileSystem.documents, {
+        '/notes/Alpha.bfly',
+        '/notes/Other',
+      }),
+      4,
+    );
+  });
 }
