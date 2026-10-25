@@ -627,6 +627,32 @@ void main() {
     expect(await bytesOf('/notes/Alpha.bfly'), isNull);
   });
 
+  testWidgets('dropping onto the location moves a note to the top level', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Deep.bfly');
+    await createTestNote(fileSystem.documents, '/notes/Other/Sub/Keep.bfly');
+    await pumpFiles(tester, layout: FilesLayout.tree);
+    for (final folder in ['Other', 'Other/Sub']) {
+      tester.widget<FileEntityItem>(asset(folder)).onTap();
+      await tester.pumpAndSettle();
+    }
+    final location = find.byType(TextFormField);
+    await mouseDrag(tester, asset('Other/Sub/Deep.bfly'), location);
+    expect(asset('Other/Sub/Deep.bfly'), findsNothing);
+    expect(item('Deep'), findsOneWidget);
+
+    // A folder moves too; a note already on the top level stays.
+    await mouseDrag(tester, asset('Other/Sub'), location);
+    expect(asset('Other/Sub'), findsNothing);
+    expect(asset('Sub/Keep.bfly'), findsOneWidget);
+    await mouseDrag(tester, item('Alpha'), location);
+    expect(await bytesOf('/notes/Alpha.bfly'), [1, 2, 3]);
+    expect(await bytesOf('/notes/Alpha (1).bfly'), isNull);
+  });
+
   testWidgets('moving notes with the same name from two folders keeps both', (
     tester,
   ) async {

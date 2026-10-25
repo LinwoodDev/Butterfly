@@ -1060,39 +1060,67 @@ class FilesViewState extends State<FilesView> {
                   ),
                   DragTarget<String>(
                     builder: (context, candidateData, rejectedData) =>
-                        IconButton(
-                          onPressed: _locationController.text.isEmpty
-                              ? null
-                              : () => setState(() {
-                                  _locationController.text = parent;
-                                  _setFilesStream();
-                                }),
-                          icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                          tooltip: AppLocalizations.of(context).goUp,
+                        highlightDropTarget(
+                          context,
+                          candidateData.isNotEmpty,
+                          IconButton(
+                            onPressed: _locationController.text.isEmpty
+                                ? null
+                                : () => setState(() {
+                                    _locationController.text = parent;
+                                    _setFilesStream();
+                                  }),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowUp,
+                            ),
+                            tooltip: AppLocalizations.of(context).goUp,
+                          ),
                         ),
                     onWillAcceptWithDetails: (data) =>
+                        _locationController.text.isNotEmpty &&
                         canMoveAssetInto(data.data, parent),
                     onAcceptWithDetails: (data) =>
                         _moveAssetInto(data.data, parent),
                   ),
                   const SizedBox(width: 8),
                   Flexible(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context).location,
-                        prefixIcon: const PhosphorIcon(
-                          PhosphorIconsLight.folder,
-                        ),
-                        filled: true,
-                        contentPadding: const EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                          bottom: 6,
-                        ),
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                      controller: _locationController,
-                      onFieldSubmitted: (value) => reloadFileSystem(),
+                    // Dropping on the location moves into the folder shown,
+                    // the top level of the tree.
+                    child: DragTarget<String>(
+                      builder: (context, candidateData, rejectedData) =>
+                          highlightDropTarget(
+                            context,
+                            candidateData.isNotEmpty,
+                            TextFormField(
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context).location,
+                                prefixIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.folder,
+                                ),
+                                filled: true,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 16,
+                                  right: 16,
+                                  bottom: 6,
+                                ),
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              controller: _locationController,
+                              onFieldSubmitted: (value) => reloadFileSystem(),
+                            ),
+                          ),
+                      onWillAcceptWithDetails: (details) {
+                        final directory = _filesStream?.valueOrNull;
+                        return directory is FileSystemDirectory<NoteFile> &&
+                            canMoveAssetInto(details.data, directory.path);
+                      },
+                      onAcceptWithDetails: (details) {
+                        final directory = _filesStream?.valueOrNull;
+                        if (directory is! FileSystemDirectory<NoteFile>) {
+                          return;
+                        }
+                        _moveAssetInto(details.data, directory.path);
+                      },
                     ),
                   ),
                 ],
