@@ -1,5 +1,40 @@
 part of '../view.dart';
 
+Future<void> _importDroppedContent(
+  BuildContext context,
+  SystemDropDetails details,
+) async {
+  final bloc = context.read<DocumentBloc>();
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return;
+  final position = bloc.transformCubit.state.localToGlobal(
+    details.localPosition,
+  );
+  // The user explicitly dropped this content; allow bounded remote reads.
+  final imported = await details.readContents(safeMode: false);
+  if (!context.mounted || bloc.isClosed) return;
+  final errors = [...imported.errors];
+  final result = await context.read<ImportService>().importContents(
+    imported.contents,
+    document: state.data,
+    position: position,
+    onError: errors.add,
+  );
+  if (!context.mounted || bloc.isClosed) return;
+  result?.submit(pageName: state.pageName, layer: state.currentLayer);
+  if (errors.isNotEmpty) throw errors.first;
+}
+
+void _reportDropError(BuildContext context, Object error, StackTrace stack) {
+  talker.error('Could not import dropped content', error, stack);
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(AppLocalizations.of(context).errorWhileImportingContent),
+    ),
+  );
+}
+
 Handler _getViewportHandler(DocumentLoaded state, EditorController cubit) =>
     state is DocumentPresentationState
     ? state.handler
@@ -127,12 +162,22 @@ class _LoadedViewport extends StatelessWidget {
                   child: Focus(
                     child: MouseRegion(
                       cursor: toolState.currentCursor,
-                      child: Builder(
-                        builder: (context) => _buildInputSurface(
-                          context,
-                          cubit,
-                          rendererState,
-                          getHandler,
+                      child: SystemDropTarget(
+                        showFeedback: true,
+                        onDrop: (details) =>
+                            _importDroppedContent(context, details),
+                        onError: (error, stack) =>
+                            _reportDropError(context, error, stack),
+                        enabled:
+                            state is DocumentLoadSuccess &&
+                            cubit.saveCubit.state.embedding?.editable != false,
+                        child: Builder(
+                          builder: (context) => _buildInputSurface(
+                            context,
+                            cubit,
+                            rendererState,
+                            getHandler,
+                          ),
                         ),
                       ),
                     ),

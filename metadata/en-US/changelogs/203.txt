@@ -1,5 +1,6 @@
 * Add a floating editor layout for wide screens behind an Experiments setting
 * Add default and session collaboration options for toolbar, page, area, cursor, and live preview synchronization ([#1295](https://github.com/LinwoodDev/Butterfly/issues/1295))
+* Add drag and drop imports from files and browser images ([#1314](https://github.com/LinwoodDev/Butterfly/issues/1314))
 * Add offline builds script
 * Add reproducable builds
 * Add whole page and last viewport framing for automatic thumbnails
