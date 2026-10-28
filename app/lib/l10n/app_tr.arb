@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "Dosya yöneticisinde göster",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -14,7 +14,7 @@
   "lightTheme": "Aydınlık Tema",
   "systemTheme": "Varsayılan sistem temasını kullan",
   "view": "Görüntüle",
-  "contentViewport": "Content Viewport",
+  "contentViewport": "İçerik Görüntüleme Alanı",
   "@contentViewport": {
     "description": "Limit how far the viewport can move beyond the content"
   },
@@ -22,9 +22,9 @@
   "@limitViewportToPositiveCoordinates": {
     "description": "Prevent the viewport from moving into negative coordinates"
   },
-  "off": "Off",
-  "canvas": "Canvas",
-  "interface": "Interface",
+  "off": "Kapalı",
+  "canvas": "Tuval",
+  "interface": "Arayüz",
   "@view": {
     "description": "View mode or menu"
   },
@@ -45,16 +45,16 @@
   "zoomOut": "Uzaklaştır",
   "resetZoom": "Yakınlaştırmayı sıfırla",
   "strokeWidth": "Kontur genişliği",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Çizgi stili",
+  "dashLength": "Kesikli çizgi uzunluğu",
+  "gapLength": "Aralık uzunluğu",
   "includeEraser": "Dahili silgi?",
   "thinning": "Kalinlik",
   "pen": "Kalem",
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Ters Kalem",
   "eraser": "Silgi",
   "@eraser": {
     "description": "Eraser tool"
@@ -108,10 +108,10 @@
     "description": "Spacing property"
   },
   "background": "Arkaplan",
-  "applyBackground": "Apply background",
-  "applyAreas": "Apply areas",
-  "currentPage": "Current page",
-  "allPages": "All pages",
+  "applyBackground": "Arka planı uygula",
+  "applyAreas": "Alanları uygula",
+  "currentPage": "Şu anki sayfa",
+  "allPages": "Tüm sayfalar",
   "box": "Kutu",
   "@box": {
     "description": "Box shape"
@@ -159,13 +159,13 @@
     "description": "Style property"
   },
   "solid": "Katı",
-  "solidColor": "Solid color",
-  "gradient": "Gradient",
-  "gradientType": "Gradient type",
-  "linear": "Linear",
-  "radial": "Radial",
+  "solidColor": "Düz renk",
+  "gradient": "Gradyan",
+  "gradientType": "Renk geçişi türü",
+  "linear": "Çizgisel",
+  "radial": "Çembersel",
   "tint": "Tint",
-  "blur": "Blur",
+  "blur": "Bulanık",
   "double": "Çift",
   "dotted": "Noktalı",
   "dottedDark": "Dotted dark",
@@ -216,12 +216,12 @@
   "@backup": {
     "description": "Backup action"
   },
-  "backupConnection": "Backup connection",
-  "automaticBackups": "Automatic backups",
-  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
-  "backupInterval": "Backup interval",
-  "backupNow": "Back up now",
-  "lastBackup": "Last backup",
+  "backupConnection": "Yedek bağlantı",
+  "automaticBackups": "Otomatik yedekler",
+  "automaticBackupsDescription": "Butterfly çalışırken yedekler oluşturur.",
+  "backupInterval": "Yedekleme sıklığı",
+  "backupNow": "Şimdi yedekle",
+  "lastBackup": "En son yedekleme",
   "backupCreated": "Backup created",
   "hour": "hour",
   "hours": "hours",
@@ -1632,7 +1632,7 @@
   "previousPage": "Previous page",
   "persistenceDocumentStates": "Persistent document states",
   "persistentStatesEnabled": "Enable persistent document states",
-  "persistentStateCurrentPage": "Current page",
+  "persistentStateCurrentPage": "Şu anki sayfa",
   "persistentStateViewport": "Viewport position and zoom",
   "persistentStateSelectedTool": "Selected tool",
   "persistentStateMaxRecords": "Maximum stored records",
