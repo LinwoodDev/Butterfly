@@ -11,6 +11,9 @@ void main() {
 
   test('uses a fallback for empty export filenames', () {
     expect(sanitizeExportFileName('  '), 'output');
+    expect(sanitizeExportFileName('.'), 'output');
+    expect(sanitizeExportFileName('..'), 'output');
+    expect(sanitizeExportFileName('... '), 'output');
   });
 
   test('resolves template filename date and time placeholders', () {

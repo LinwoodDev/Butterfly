@@ -1,7 +1,10 @@
 part of '../renderer.dart';
 
 class SvgBackgroundRenderer extends Renderer<SvgBackground> {
-  PictureInfo? _pictureInfo;
+  final _picture = AsyncResource<PictureInfo>(
+    disposeValue: (info) => info.picture.dispose(),
+  );
+  PictureInfo? get _pictureInfo => _picture.value;
 
   SvgBackgroundRenderer(super.element);
 
@@ -15,15 +18,14 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
     super.setup(transformCubit, document, assetService, page);
     final bytes = getDataFromSource(document, element.source);
     if (bytes == null) return;
-    _pictureInfo = await vg.loadPicture(
-      SvgStringLoader(normalizeSvgBytes(bytes)),
-      null,
+    await _picture.load(
+      (_) => vg.loadPicture(SvgStringLoader(normalizeSvgBytes(bytes)), null),
     );
   }
 
   @override
   void dispose() {
-    _pictureInfo?.picture.dispose();
+    _picture.dispose();
   }
 
   @override

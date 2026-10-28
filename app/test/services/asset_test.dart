@@ -7,6 +7,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pdfrx/pdfrx.dart';
+import 'package:image/image.dart' as img;
 
 class _Engine extends Mock implements PdfrxEntryFunctions {}
 
@@ -124,6 +125,50 @@ void main() {
     verify(() => pdf.dispose()).called(1);
     expect(await service.getPdfDocument(source, document), isNull);
   });
+
+  test('document close prevents image and byte loads', () async {
+    await service.dispose();
+    final png = img.encodePng(img.Image(width: 1, height: 1));
+    expect(
+      await service.getImage('test.png', empty.setAsset('test.png', png)),
+      isNull,
+    );
+    expect(await service.computeDataFromSource(source, document), isNull);
+  });
+
+  for (final cleanup in ['close', 'invalidate']) {
+    test(
+      'image loading during $cleanup cannot hand out a disposed image',
+      () async {
+        final png = img.encodePng(img.Image(width: 1, height: 1));
+        final pending = service.getImage(
+          'test.png',
+          empty.setAsset('test.png', png),
+        );
+        final cleaning = cleanup == 'close'
+            ? service.dispose()
+            : service.invalidateImage('test.png');
+        expect(await pending, isNull);
+        await cleaning;
+      },
+    );
+  }
+
+  test(
+    'missing and failed images can recover when the source changes',
+    () async {
+      const path = 'test.png';
+      expect(await service.getImage(path, empty), isNull);
+      await expectLater(
+        service.getImage(path, empty.setAsset(path, bytes)),
+        throwsA(anything),
+      );
+      final png = img.encodePng(img.Image(width: 1, height: 1));
+      final image = await service.getImage(path, empty.setAsset(path, png));
+      expect(image, isNotNull);
+      image?.dispose();
+    },
+  );
 
   test('late failed load cannot evict a replacement PDF', () async {
     final opening = Completer<PdfDocument>();

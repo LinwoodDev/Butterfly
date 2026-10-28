@@ -4,6 +4,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/async.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
@@ -68,7 +69,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   ByteData? _previewImage;
   final _previewLock = Lock();
-  int _previewGeneration = 0;
+  final _previewRunner = LatestAsyncRunner();
   bool? _exportingShare;
 
   @override
@@ -135,14 +136,18 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     _regeneratePreviewImage();
   }
 
-  Future<void> _regeneratePreviewImage() async {
-    final generation = ++_previewGeneration;
-    await _previewLock.synchronized(() async {
-      if (generation != _previewGeneration) return;
-      final image = await generateImage();
-      if (!mounted || generation != _previewGeneration) return;
-      setState(() => _previewImage = image);
-    });
+  Future<void> _regeneratePreviewImage() => _previewRunner.run(
+    (task) => _previewLock.synchronized(() async {
+      if (task.isCanceled) return null;
+      return generateImage();
+    }),
+    onCompleted: (image) => setState(() => _previewImage = image),
+  );
+
+  @override
+  void dispose() {
+    _previewRunner.dispose();
+    super.dispose();
   }
 
   Future<ByteData?> generateImage([bool optimize = true]) async {

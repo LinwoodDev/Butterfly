@@ -1,15 +1,20 @@
 part of '../renderer.dart';
 
 class ImageRenderer extends Renderer<ImageElement> {
-  ui.Image? image;
-  bool ownsImage;
+  final AsyncResource<ui.Image> _image;
+  ui.Image? get image => _image.value;
+  bool get ownsImage => _image.ownsValue;
 
   ImageRenderer(
     super.element, [
     super.layer,
-    this.image,
-    this.ownsImage = true,
-  ]);
+    ui.Image? image,
+    bool ownsImage = true,
+  ]) : _image = AsyncResource(
+         disposeValue: (image) => image.dispose(),
+         value: image,
+         ownsValue: ownsImage,
+       );
 
   Offset get _signedSize {
     final constraints = element.constraints;
@@ -61,10 +66,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     final sourcePath = uri?.path ?? element.source;
     final shouldUpdate = sourcePath == path;
     if (shouldUpdate) {
-      if (ownsImage) {
-        image?.dispose();
-      }
-      image = null;
+      _image.clear();
     }
     return shouldUpdate;
   }
@@ -148,11 +150,9 @@ class ImageRenderer extends Renderer<ImageElement> {
   ) async {
     if (image != null) return;
     try {
-      image = await blocState.assetService.getImage(
-        element.source,
-        blocState.data,
+      await _image.load(
+        (_) => blocState.assetService.getImage(element.source, blocState.data),
       );
-      ownsImage = true;
     } catch (_) {}
   }
 
@@ -163,10 +163,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) {
-    if (ownsImage) {
-      image?.dispose();
-    }
-    image = null;
+    _image.clear();
   }
 
   @override
@@ -198,10 +195,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   void dispose() {
-    if (ownsImage) {
-      image?.dispose();
-    }
-    image = null;
+    _image.dispose();
   }
 
   @override

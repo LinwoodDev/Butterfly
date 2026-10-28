@@ -1,18 +1,22 @@
 part of '../renderer.dart';
 
 class PdfRenderer extends Renderer<PdfElement> {
-  ui.Image? image;
-  double? renderedScale;
-  bool ownsImage;
-  int _renderId = 0;
+  final AsyncResource<({ui.Image image, double? scale})> _image;
+  ui.Image? get image => _image.value?.image;
+  double? get renderedScale => _image.value?.scale;
+  bool get ownsImage => _image.ownsValue;
 
   PdfRenderer(
     super.element, [
     super.layer,
-    this.image,
-    this.renderedScale,
-    this.ownsImage = true,
-  ]);
+    ui.Image? image,
+    double? renderedScale,
+    bool ownsImage = true,
+  ]) : _image = AsyncResource(
+         disposeValue: (value) => value.image.dispose(),
+         value: image == null ? null : (image: image, scale: renderedScale),
+         ownsValue: ownsImage,
+       );
 
   Offset get _signedSize {
     final constraints = element.constraints;
@@ -146,12 +150,7 @@ class PdfRenderer extends Renderer<PdfElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) {
-    _renderId++;
-    if (ownsImage) {
-      image?.dispose();
-    }
-    image = null;
-    renderedScale = null;
+    _image.clear();
   }
 
   @override
@@ -193,80 +192,70 @@ class PdfRenderer extends Renderer<PdfElement> {
       return;
     }
 
-    final currentRenderId = ++_renderId;
-    try {
-      final data = await assetService.getPdfDocument(element.source, document);
-      if (data == null || currentRenderId != _renderId) return;
+    await _image.load(
+      (task) async {
+        final data = await assetService.getPdfDocument(
+          element.source,
+          document,
+        );
+        if (data == null || task.isCanceled) return null;
 
-      var renderScale = scale;
-      const double maxDimension = 2048.0;
-      final renderRect = rect;
-      if (renderRect.width * renderScale > maxDimension) {
-        renderScale = maxDimension / renderRect.width;
-      }
-      if (renderRect.height * renderScale > maxDimension) {
-        renderScale = maxDimension / renderRect.height;
-      }
-
-      final width = (renderRect.width * renderScale).toInt();
-      final height = (renderRect.height * renderScale).toInt();
-      if (width <= 0 || height <= 0) return;
-
-      final raster = await data.pages
-          .elementAtOrNull(element.page)
-          ?.render(
-            x: 0,
-            y: 0,
-            width: width,
-            height: height,
-            fullWidth: width.toDouble(),
-            fullHeight: height.toDouble(),
-          );
-      if (raster == null || currentRenderId != _renderId) {
-        raster?.dispose();
-        return;
-      }
-
-      ui.Image uiImage;
-      if (element.invert) {
-        var imgImage = raster.createImageNF();
-        raster.dispose();
-        final cmd = img.Command()
-          ..image(imgImage)
-          ..invert();
-        final converted = await cmd.getImage();
-        if (converted != null) imgImage = converted;
-        uiImage = await convertImageToFlutterUi(imgImage);
-      } else {
-        uiImage = await raster.createImage();
-        raster.dispose();
-      }
-
-      if (currentRenderId != _renderId) {
-        uiImage.dispose();
-        return;
-      }
-
-      if (ownsImage) {
-        image?.dispose();
-      }
-      image = uiImage;
-      renderedScale = scale;
-      ownsImage = true;
-    } catch (error, stackTrace) {
-      talker.error(
-        'Failed to render PDF element ${element.source}',
-        error,
-        stackTrace,
-      );
-      if (currentRenderId == _renderId) {
-        if (ownsImage) {
-          image?.dispose();
+        var renderScale = scale;
+        const double maxDimension = 2048.0;
+        final renderRect = rect;
+        if (renderRect.width * renderScale > maxDimension) {
+          renderScale = maxDimension / renderRect.width;
         }
-        image = null;
-        renderedScale = null;
-      }
-    }
+        if (renderRect.height * renderScale > maxDimension) {
+          renderScale = maxDimension / renderRect.height;
+        }
+
+        final width = (renderRect.width * renderScale).toInt();
+        final height = (renderRect.height * renderScale).toInt();
+        if (width <= 0 || height <= 0) return null;
+
+        final raster = await data.pages
+            .elementAtOrNull(element.page)
+            ?.render(
+              x: 0,
+              y: 0,
+              width: width,
+              height: height,
+              fullWidth: width.toDouble(),
+              fullHeight: height.toDouble(),
+            );
+        if (raster == null) return null;
+        late ui.Image uiImage;
+        img.Image? imageToInvert;
+        try {
+          if (task.isCanceled) return null;
+          if (element.invert) {
+            imageToInvert = raster.createImageNF();
+          } else {
+            uiImage = await raster.createImage();
+          }
+        } finally {
+          raster.dispose();
+        }
+        if (imageToInvert != null) {
+          final cmd = img.Command()
+            ..image(imageToInvert)
+            ..invert();
+          final converted = await cmd.getImage();
+          if (task.isCanceled) return null;
+          uiImage = await convertImageToFlutterUi(converted ?? imageToInvert);
+        }
+        return (image: uiImage, scale: scale);
+      },
+      onError: (error, stackTrace) {
+        talker.error(
+          'Failed to render PDF element ${element.source}',
+          error,
+          stackTrace,
+        );
+        _image.clear();
+      },
+    );
   }
 
   @override
@@ -299,11 +288,6 @@ class PdfRenderer extends Renderer<PdfElement> {
 
   @override
   void dispose() {
-    _renderId++;
-    if (ownsImage) {
-      image?.dispose();
-    }
-    image = null;
-    renderedScale = null;
+    _image.dispose();
   }
 }

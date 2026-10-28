@@ -35,10 +35,13 @@ String? previewTemplateFileName(String pattern, [DateTime? dateTime]) {
   }
 }
 
-String sanitizeExportFileName(String? name) => convertNameToFile(
-  name: name?.trim(),
-  getUnnamed: () => 'output',
-).replaceAll(RegExp(invalidFileName), '_');
+String sanitizeExportFileName(String? name) {
+  final sanitized =
+      convertNameToFile(name: name?.trim(), getUnnamed: () => 'output')
+          .replaceAll(RegExp(invalidFileName), '_')
+          .replaceFirst(RegExp(r'[. ]+$'), '');
+  return sanitized.isEmpty ? 'output' : sanitized;
+}
 
 Future<void> exportSvg(
   BuildContext context,

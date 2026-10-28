@@ -29,12 +29,28 @@ class AssetService() {
   }
 
   Future<ui.Image?> getImage(String path, NoteData document) async {
-    if (_images.containsKey(path)) {
-      return _images[path]!.then((img) => img?.clone());
+    if (_disposed) return null;
+    var future = _images[path];
+    if (future == null) {
+      late final Future<ui.Image?> loading;
+      loading = _importImage(path, document).then(
+        (image) {
+          if (image == null && identical(_images[path], loading)) {
+            _images.remove(path);
+          }
+          return image;
+        },
+        onError: (Object error, StackTrace stackTrace) {
+          if (identical(_images[path], loading)) _images.remove(path);
+          Error.throwWithStackTrace(error, stackTrace);
+        },
+      );
+      _images[path] = future = loading;
     }
-    final future = _importImage(path, document);
-    _images[path] = future;
-    return await future.then((img) => img?.clone());
+    final image = await future;
+    // Invalidation/disposal owns the cached image, including pending loads.
+    if (_disposed || !identical(_images[path], future)) return null;
+    return image?.clone();
   }
 
   Future<ui.Image?> _importImage(String path, NoteData document) async {
@@ -79,6 +95,7 @@ class AssetService() {
   }
 
   Future<Uint8List?> computeDataFromSource(String source, NoteData document) {
+    if (_disposed) return Future.value(null);
     if (_dataCache.containsKey(source)) {
       return _dataCache[source]!;
     }
@@ -155,8 +172,12 @@ class AssetService() {
     final pdfSources = _pdfs.keys.toList();
     await Future.wait([
       ...imageFutures.map((future) async {
-        final image = await future;
-        image?.dispose();
+        try {
+          final image = await future;
+          image?.dispose();
+        } catch (_) {
+          // Failed loads have no native image to release.
+        }
       }),
       ...pdfSources.map(invalidatePdfDocument),
     ]);
