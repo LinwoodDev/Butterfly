@@ -104,7 +104,6 @@ Future<void> showImportAssetWizard(
             autofocus: true,
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context).svgText,
-              border: OutlineInputBorder(),
               suffixIcon: IconButton(
                 icon: const Icon(PhosphorIconsLight.clipboard),
                 onPressed: () async {

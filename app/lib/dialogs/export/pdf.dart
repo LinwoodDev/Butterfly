@@ -318,7 +318,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         Text(
           AppLocalizations.of(context).noElements,
           textAlign: .center,
-          style: TextTheme.of(context).headlineMedium,
+          style: TextTheme.of(context).titleMedium,
         ),
         Align(
           child: ConstrainedBox(

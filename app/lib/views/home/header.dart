@@ -93,19 +93,39 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
+    final l10n = AppLocalizations.of(context);
+    void openNew() {
+      openReleaseNotes();
+      _settingsCubit.updateLastVersion();
+    }
+
+    // One calm row: who we are on the left, the few things you might want to
+    // do on the right. No gradient banner competing with your files.
+    final whatsNew = Badge(
+      isLabelVisible: widget.hasNewerVersion,
+      smallSize: 10,
+      backgroundColor: colorScheme.primary,
+      child: FilledButton.tonalIcon(
+        onPressed: openNew,
+        icon: const PhosphorIcon(PhosphorIconsLight.shootingStar),
+        label: Text(l10n.whatsNew),
+      ),
+    );
     final actions = Row(
       mainAxisSize: .min,
-      mainAxisAlignment: .center,
+      spacing: 4,
       children: [
-        TextButton.icon(
+        whatsNew,
+        const SizedBox(width: 4),
+        IconButton(
           onPressed: () => openHelp(['intro']),
           icon: const PhosphorIcon(PhosphorIconsLight.bookOpen),
-          label: Text(AppLocalizations.of(context).documentation),
+          tooltip: l10n.documentation,
         ),
         IconButton(
           onPressed: () => openSettings(context),
           icon: const PhosphorIcon(PhosphorIconsLight.gear),
-          tooltip: AppLocalizations.of(context).settings,
+          tooltip: l10n.settings,
         ),
         _getBannerVisibilityWidget(
           context,
@@ -113,130 +133,58 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         ),
       ],
     );
-    void openNew() {
-      openReleaseNotes();
-      _settingsCubit.updateLastVersion();
-    }
-
-    final whatsNew = Column(
-      mainAxisSize: .min,
-      children: [
-        widget.hasNewerVersion
-            ? FilledButton(
-                onPressed: openNew,
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 20,
-                  ),
-                  textStyle: const TextStyle(fontSize: 20),
-                  backgroundColor: colorScheme.onPrimary,
-                  foregroundColor: colorScheme.primary,
-                ),
-                child: Text(AppLocalizations.of(context).whatsNew),
-              )
-            : OutlinedButton(
-                onPressed: openNew,
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 20,
-                  ),
-                  textStyle: const TextStyle(fontSize: 20),
-                  foregroundColor: colorScheme.onPrimary,
-                  side: BorderSide(color: colorScheme.onPrimary),
-                ),
-                child: Text(AppLocalizations.of(context).whatsNew),
-              ),
-        if (widget.hasNewerVersion)
-          SizedBox(
-            height: 0,
-            child: PhosphorIcon(
-              PhosphorIconsLight.caretUp,
-              color: colorScheme.onPrimary,
-            ),
-          ),
-      ],
-    );
-    final logo = Row(
+    final greeting = Row(
       mainAxisSize: .min,
       spacing: 16,
       children: [
-        Image.asset(logoAsset, width: 64),
-        Expanded(
+        Image.asset(logoAsset, width: 48),
+        Flexible(
           child: Column(
             mainAxisAlignment: .center,
             crossAxisAlignment: .start,
             mainAxisSize: .min,
             children: [
               Text(
-                AppLocalizations.of(context).welcome(applicationVersionName),
-                style: TextTheme.of(context).titleLarge
-                    ?.copyWith(color: colorScheme.onSecondary),
-                overflow: .clip,
+                l10n.welcome(applicationVersionName),
+                style: TextTheme.of(context).headlineSmall
+                    ?.copyWith(fontSize: 24),
               ),
+              const SizedBox(height: 4),
               Text(
-                AppLocalizations.of(context).welcomeContent,
-                style: TextTheme.of(context).bodySmall
-                    ?.copyWith(color: colorScheme.onSecondary),
+                l10n.welcomeContent,
+                style: TextTheme.of(context).bodyMedium
+                    ?.copyWith(color: colorScheme.onSurfaceVariant),
               ),
             ],
           ),
         ),
       ],
     );
-    final innerCard = LayoutBuilder(
+    final child = LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
-        if (isMobile) {
-          return Column(children: [logo, const SizedBox(height: 16), whatsNew]);
+        if (constraints.maxWidth < LeapBreakpoints.medium) {
+          return Column(
+            crossAxisAlignment: .start,
+            spacing: 16,
+            children: [greeting, actions],
+          );
         }
         return Row(
           children: [
-            Expanded(child: logo),
-            whatsNew,
+            Expanded(
+              child: Align(alignment: Alignment.centerLeft, child: greeting),
+            ),
+            const SizedBox(width: 16),
+            actions,
           ],
         );
       },
     );
-    final card = Material(
-      elevation: 10,
-      borderRadius: const BorderRadius.all(Radius.circular(24)),
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [colorScheme.secondary, colorScheme.primary],
-            stops: const [0.2, 0.8],
-          ),
-        ),
-        child: innerCard,
-      ),
-    );
-    final child = widget.isDesktop
-        ? Row(
-            crossAxisAlignment: .center,
-            children: [
-              Expanded(child: card),
-              const SizedBox(width: 32),
-              actions,
-            ],
-          )
-        : Column(
-            crossAxisAlignment: .stretch,
-            children: [card, const SizedBox(height: 32), actions],
-          );
     return SizeTransition(
       sizeFactor: _animation,
-      child: Column(
-        children: [
-          const SizedBox(height: 64),
-          child,
-          const SizedBox(height: 48),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40, bottom: 24),
+        child: child,
       ),
     );
   }

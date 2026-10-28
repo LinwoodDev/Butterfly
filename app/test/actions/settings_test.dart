@@ -76,21 +76,17 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
-    expect(find.text('Full (slider, text field and buttons)'), findsOneWidget);
+    expect(find.text('Text field and buttons'), findsOneWidget);
 
     when(
-      () => settingsCubit.changeZoomPanelControls(
-        ZoomPanelControls.inputAndButtons,
-      ),
+      () => settingsCubit.changeZoomPanelControls(ZoomPanelControls.full),
     ).thenAnswer((_) async {});
     await tester.tap(find.text('Camera controls layout'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Text field and buttons'));
+    await tester.tap(find.text('Full (slider, text field and buttons)'));
     await tester.pumpAndSettle();
     verify(
-      () => settingsCubit.changeZoomPanelControls(
-        ZoomPanelControls.inputAndButtons,
-      ),
+      () => settingsCubit.changeZoomPanelControls(ZoomPanelControls.full),
     ).called(1);
 
     expect(

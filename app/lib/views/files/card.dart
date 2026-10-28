@@ -44,7 +44,14 @@ class AssetCard extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: kThumbnailRatio,
           child: Card(
-            elevation: 5,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              side: BorderSide(
+                color: ColorScheme.of(context).outlineVariant
+                    .withValues(alpha: 0.5),
+              ),
+            ),
             clipBehavior: .hardEdge,
             child: Stack(
               children: [

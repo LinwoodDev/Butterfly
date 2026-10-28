@@ -134,7 +134,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     focusNode: _descriptionFocusNode,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).description,
-                      border: const OutlineInputBorder(),
                     ),
                     onTapOutside: (_) => submitDescription(null),
                     onFieldSubmitted: submitDescription,

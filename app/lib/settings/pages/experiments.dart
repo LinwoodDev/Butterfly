@@ -20,9 +20,9 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
           hintBuilder: (context) =>
               AppLocalizations.of(context).floatingEditorDescription,
           icon: PhosphorIconsLight.squaresFour,
-          read: (state) => state.hasFlag('floatingEditor'),
+          read: (state) => state.floatingEditor,
           write: (context, value) =>
-              _changeFlag(context, 'floatingEditor', value),
+              _changeFlag(context, 'classicEditor', !value),
         ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).collaboration,

@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/import/add.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:material_ui/material_ui.dart';
@@ -20,14 +21,16 @@ class EditToolbar extends StatefulWidget {
   final bool isMobile;
   final bool? centered;
   final Axis direction;
-  final bool edgeAttached;
+
+  /// Shown inline in the top bar: one row at the shared top bar height.
+  final bool compact;
 
   const EditToolbar({
     super.key,
     required this.isMobile,
     this.centered,
     this.direction = .horizontal,
-    this.edgeAttached = false,
+    this.compact = false,
   });
 
   @override
@@ -68,7 +71,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    final toolbar = Directionality(
+    return Directionality(
       textDirection: .ltr,
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
@@ -78,7 +81,10 @@ class _EditToolbarState extends State<EditToolbar> {
             previous.toolbarPosition != current.toolbarPosition,
         builder: (context, settings) {
           final shortcuts = settings.inputConfiguration.getShortcuts();
-          final size = settings.toolbarSize.size;
+          final compact = widget.compact && direction == .horizontal;
+          final size = compact
+              ? kTopBarIslandContentHeight - 4
+              : settings.toolbarSize.size;
           return BlocBuilder<DocumentBloc, DocumentState>(
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
@@ -97,9 +103,40 @@ class _EditToolbarState extends State<EditToolbar> {
                           previous.embedding != current.embedding ||
                           previous.fullScreen != current.fullScreen,
                       builder: (context, saveState) {
-                        return Card(
-                          margin: widget.edgeAttached ? EdgeInsets.zero : null,
-                          elevation: widget.edgeAttached ? 6 : 10,
+                        final body = _buildBody(
+                          state,
+                          toolState,
+                          saveState,
+                          settings,
+                          tools,
+                          shortcuts,
+                          size,
+                          compact,
+                        );
+                        if (compact) {
+                          // Same height as the logo and title islands.
+                          return Island(
+                            margin: EdgeInsets.zero,
+                            padding: const EdgeInsets.all(4),
+                            child: IconButtonTheme(
+                              data: IconButtonThemeData(
+                                style: IconButton.styleFrom(
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  minimumSize: const Size.square(36),
+                                  padding: const EdgeInsets.all(6),
+                                ),
+                              ),
+                              child: body,
+                            ),
+                          );
+                        }
+                        return Island(
+                          classicElevation: 10,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
                           child: _buildBody(
                             state,
                             toolState,
@@ -108,6 +145,7 @@ class _EditToolbarState extends State<EditToolbar> {
                             tools,
                             shortcuts,
                             size,
+                            false,
                           ),
                         );
                       },
@@ -118,13 +156,14 @@ class _EditToolbarState extends State<EditToolbar> {
         },
       ),
     );
-    return widget.edgeAttached
-        ? MenuTheme(data: kFloatingEditorMenuTheme, child: toolbar)
-        : toolbar;
   }
 
-  Widget _buildIcon(PhosphorIconData data, double size, [Color? color]) =>
-      PhosphorIcon(data, size: size * (6 / 16), color: color);
+  Widget _buildIcon(
+    PhosphorIconData data,
+    double size, [
+    Color? color,
+    bool compact = false,
+  ]) => PhosphorIcon(data, size: compact ? 20 : size * (6 / 16), color: color);
   Widget _buildBody(
     DocumentLoadSuccess state,
     ToolRuntimeState currentIndex,
@@ -133,6 +172,7 @@ class _EditToolbarState extends State<EditToolbar> {
     List<Tool> tools,
     Set<InputMapping> shortcuts,
     double size,
+    bool compact,
   ) {
     final fullSize = (size + 4) * settings.toolbarRows;
     final bloc = context.read<DocumentBloc>();
@@ -177,8 +217,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                 tempData,
                               ) ??
                               false,
-                          icon: _buildIcon(icon, size),
-                          selectedIcon: _buildIcon(iconFilled, size),
+                          icon: _buildIcon(icon, size, null, compact),
+                          selectedIcon: _buildIcon(
+                            iconFilled,
+                            size,
+                            null,
+                            compact,
+                          ),
                           onLongPressed: () =>
                               cubit.toolCubit.changeSelection(tempData),
                           onPressed: () {
@@ -210,11 +255,11 @@ class _EditToolbarState extends State<EditToolbar> {
                     final add = Padding(
                       key: ObjectKey('add-button'),
                       padding: direction == .horizontal
-                          ? const EdgeInsets.only(
+                          ? EdgeInsets.only(
                               right: 4,
                               left: 8,
-                              top: 8,
-                              bottom: 8,
+                              top: compact ? 4 : 8,
+                              bottom: compact ? 4 : 8,
                             )
                           : const EdgeInsets.only(
                               right: 8,
@@ -227,9 +272,15 @@ class _EditToolbarState extends State<EditToolbar> {
                         children: [
                           AspectRatio(
                             aspectRatio: 1,
-                            child: FloatingActionButton.small(
+                            child: IconButton.filledTonal(
                               tooltip: AppLocalizations.of(context).add,
-                              heroTag: null,
+                              style: IconButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(kRadiusMedium),
+                                  ),
+                                ),
+                              ),
                               onPressed: () {
                                 final importService = context
                                     .read<ImportService>();
@@ -282,7 +333,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                       },
                                 );
                               },
-                              child: PhosphorIcon(
+                              icon: PhosphorIcon(
                                 PhosphorIconsLight.plus,
                                 size: size * 3 / 7,
                               ),
@@ -347,7 +398,10 @@ class _EditToolbarState extends State<EditToolbar> {
                                     currentIndex.toggleableHandlers.containsKey(
                                       i,
                                     ),
-                                showBottom: selected || tool.isAction(),
+                                // The compact bar has no room for the caret,
+                                // the tonal background marks the active tool.
+                                showBottom:
+                                    !compact && (selected || tool.isAction()),
                                 highlighted: highlighted,
                                 bottomIcon: selected || tool.isAction()
                                     ? PhosphorIcon(
@@ -375,11 +429,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                   handlerIcon ?? tool.icon(filled: true),
                                   size,
                                   color,
+                                  compact,
                                 ),
                                 icon: _buildIcon(
                                   handlerIcon ?? tool.icon(),
                                   size,
                                   color,
+                                  compact,
                                 ),
                                 onPressed: () {
                                   if (_mouseState == _MouseState.multi) {
@@ -463,17 +519,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .updateLocks(locks: update()),
                             child: Text(title),
                           );
-                          final menuButtonBuilder = defaultMenuButton(
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.lockKey,
-                            ),
-                            tooltip: AppLocalizations.of(context).lock,
-                          );
 
                           return MenuAnchor(
-                            alignmentOffset: widget.edgeAttached
-                                ? const Offset(0, 8)
-                                : Offset.zero,
                             menuChildren: [
                               buildButton(
                                 locks.lockCollection,
@@ -524,21 +571,12 @@ class _EditToolbarState extends State<EditToolbar> {
                             style: const MenuStyle(
                               alignment: Alignment.bottomLeft,
                             ),
-                            builder: (context, controller, child) {
-                              final button = menuButtonBuilder(
-                                context,
-                                controller,
-                                child,
-                              );
-                              if (!widget.edgeAttached) return button;
-                              return SizedBox(
-                                height: direction == .horizontal
-                                    ? fullSize
-                                    : null,
-                                width: direction == .vertical ? fullSize : null,
-                                child: Center(child: button),
-                              );
-                            },
+                            builder: defaultMenuButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.lockKey,
+                              ),
+                              tooltip: AppLocalizations.of(context).lock,
+                            ),
                           );
                         },
                       ),
@@ -546,7 +584,6 @@ class _EditToolbarState extends State<EditToolbar> {
                         MainPopupMenu(
                           viewportKey: GlobalKey(),
                           isLarge: !isMobile,
-                          floating: widget.edgeAttached,
                         ),
                     ];
                     if (direction == .horizontal) {

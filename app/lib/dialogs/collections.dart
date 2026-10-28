@@ -202,7 +202,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
           ),
         ],
       ),
-      leading: IconButton.outlined(
+      leading: IconButton(
         icon: const Icon(PhosphorIconsLight.x),
         onPressed: () {
           Navigator.pop(context);

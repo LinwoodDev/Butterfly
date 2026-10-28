@@ -5,6 +5,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly/widgets/editable_list_tile.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -20,13 +21,8 @@ import '../visualizer/tool.dart';
 
 class PropertyView extends StatefulWidget {
   final ZoomPosition position;
-  final bool edgeAttached;
 
-  const PropertyView({
-    super.key,
-    required this.position,
-    this.edgeAttached = false,
-  });
+  const PropertyView({super.key, required this.position});
 
   @override
   State<PropertyView> createState() => _PropertyViewState();
@@ -91,7 +87,6 @@ class _PropertyViewState extends State<PropertyView>
                     opacity: _fadeAnimation,
                     child: _PropertyCard(
                       isMobile: isMobile,
-                      edgeAttached: widget.edgeAttached,
                       selection: showing,
                       size: _size,
                       onSizeDeltaChanged: (delta) =>
@@ -123,7 +118,6 @@ class _PropertyViewState extends State<PropertyView>
 
 class _PropertyCard extends StatefulWidget {
   final bool isMobile;
-  final bool edgeAttached;
   final Selection<dynamic> selection;
   final double size;
   final ValueChanged<double> onSizeDeltaChanged;
@@ -131,7 +125,6 @@ class _PropertyCard extends StatefulWidget {
 
   const _PropertyCard({
     required this.isMobile,
-    this.edgeAttached = false,
     required this.selection,
     required this.size,
     required this.onSizeDeltaChanged,
@@ -209,9 +202,9 @@ class _PropertyCardState extends State<_PropertyCard> {
     if (_nameController.text != name) {
       _nameController.text = name;
     }
-    final textStyle = TextTheme.of(context).headlineSmall;
+    final textStyle = TextTheme.of(context).titleLarge;
     final leading = SizedBox.square(
-      dimension: 60,
+      dimension: 48,
       child: menuChildren.length <= 1
           ? PhosphorIcon(
               icon,
@@ -257,22 +250,34 @@ class _PropertyCardState extends State<_PropertyCard> {
             showEditIcon: false,
           )
         : SizedBox(
-            height: 60,
+            height: 48,
             child: Column(
               crossAxisAlignment: .stretch,
               mainAxisAlignment: .center,
               children: [
-                Flexible(child: Text(name, style: textStyle)),
+                Flexible(
+                  child: Text(
+                    name,
+                    style: textStyle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 if (caption.isNotEmpty)
-                  Text(caption, style: TextTheme.of(context).labelLarge),
+                  Text(
+                    caption,
+                    style: TextTheme.of(context).labelMedium?.copyWith(
+                      color: ColorScheme.of(context).onSurfaceVariant,
+                    ),
+                  ),
               ],
             ),
           );
-    return Card(
-      elevation: 6,
-      margin: widget.edgeAttached ? const EdgeInsets.all(8) : null,
+    return Island(
+      classicElevation: 6,
+      margin: const EdgeInsets.all(8),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
         child: AnimatedSize(
           alignment: Alignment.topCenter,
           curve: Curves.easeInOut,
@@ -284,8 +289,11 @@ class _PropertyCardState extends State<_PropertyCard> {
                 MouseRegion(
                   cursor: SystemMouseCursors.resizeLeftRight,
                   child: GestureDetector(
-                    child: const PhosphorIcon(
+                    child: PhosphorIcon(
                       PhosphorIconsLight.dotsSixVertical,
+                      size: 18,
+                      color: ColorScheme.of(context).onSurfaceVariant
+                          .withValues(alpha: 0.5),
                     ),
                     onPanUpdate: (details) {
                       final delta = details.delta.dx;
@@ -305,15 +313,6 @@ class _PropertyCardState extends State<_PropertyCard> {
                         const SizedBox(width: 8),
                         Expanded(child: title),
                         const SizedBox(width: 4),
-                        if (!multi && selected is Tool)
-                          IconButton(
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.floppyDisk,
-                            ),
-                            tooltip:
-                                '${AppLocalizations.of(context).save} ${AppLocalizations.of(context).presets}',
-                            onPressed: () => _saveToolPreset(context, selected),
-                          ),
                         if (selection.showDeleteButton)
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.trash),
@@ -325,36 +324,59 @@ class _PropertyCardState extends State<_PropertyCard> {
                               );
                             },
                           ),
-                        if (help.isNotEmpty)
-                          IconButton(
-                            tooltip: AppLocalizations.of(context).help,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.sealQuestion,
+                        // Less frequent actions live in one overflow menu to
+                        // keep the header calm.
+                        BlocBuilder<ToolCubit, ToolRuntimeState>(
+                          buildWhen: (previous, current) =>
+                              previous.pinned != current.pinned,
+                          builder: (context, state) => MenuAnchor(
+                            builder: defaultMenuButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.dotsThreeVertical,
+                              ),
+                              tooltip: AppLocalizations.of(context).more,
                             ),
-                            onPressed: () => openHelp(help),
+                            menuChildren: [
+                              if (!widget.isMobile)
+                                MenuItemButton(
+                                  leadingIcon: PhosphorIcon(
+                                    state.pinned
+                                        ? PhosphorIconsFill.pushPin
+                                        : PhosphorIconsLight.pushPin,
+                                  ),
+                                  onPressed: () =>
+                                      context.read<ToolCubit>().togglePin(),
+                                  child: Text(
+                                    state.pinned
+                                        ? AppLocalizations.of(context).unpin
+                                        : AppLocalizations.of(context).pin,
+                                  ),
+                                ),
+                              if (!multi && selected is Tool)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.floppyDisk,
+                                  ),
+                                  onPressed: () =>
+                                      _saveToolPreset(context, selected),
+                                  child: Text(
+                                    '${AppLocalizations.of(context).save} ${AppLocalizations.of(context).presets}',
+                                  ),
+                                ),
+                              if (help.isNotEmpty)
+                                MenuItemButton(
+                                  leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion,
+                                  ),
+                                  onPressed: () => openHelp(help),
+                                  child: Text(
+                                    AppLocalizations.of(context).help,
+                                  ),
+                                ),
+                            ],
                           ),
-                        const SizedBox(height: 42, child: VerticalDivider()),
-                        if (!widget.isMobile)
-                          BlocBuilder<ToolCubit, ToolRuntimeState>(
-                            buildWhen: (previous, current) =>
-                                previous.pinned != current.pinned,
-                            builder: (context, state) => IconButton(
-                              tooltip: state.pinned
-                                  ? AppLocalizations.of(context).unpin
-                                  : AppLocalizations.of(context).pin,
-                              icon: state.pinned
-                                  ? const PhosphorIcon(
-                                      PhosphorIconsFill.pushPin,
-                                    )
-                                  : const PhosphorIcon(
-                                      PhosphorIconsLight.pushPin,
-                                    ),
-                              onPressed: () =>
-                                  context.read<ToolCubit>().togglePin(),
-                            ),
-                          ),
-                        const SizedBox(width: 8),
-                        IconButton.outlined(
+                        ),
+                        IconButton(
                           tooltip: MaterialLocalizations.of(context)
                               .closeButtonTooltip,
                           icon: const PhosphorIcon(PhosphorIconsLight.x),

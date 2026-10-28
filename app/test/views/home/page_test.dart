@@ -267,8 +267,8 @@ void main() {
     await tester.pumpWidget(createWidgetUnderTest());
     await tester.pumpAndSettle();
 
-    // Verify Documentation button (TextButton, so look for text)
-    expect(find.text('Documentation'), findsOneWidget);
+    // Verify Documentation button (IconButton, so look for tooltip)
+    expect(find.byTooltip('Documentation'), findsOneWidget);
 
     // Verify Settings button (IconButton, so look for tooltip)
     expect(find.byTooltip('Settings'), findsOneWidget);

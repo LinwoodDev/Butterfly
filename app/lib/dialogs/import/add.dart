@@ -1,3 +1,4 @@
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -167,7 +168,7 @@ class _AddDialogState extends State<AddDialog> {
             mainAxisSize: .min,
             spacing: 8,
             children: [
-              IconButton.outlined(
+              IconButton(
                 onPressed: () => Navigator.of(context).pop(),
                 icon: const PhosphorIcon(PhosphorIconsLight.x),
                 tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
@@ -312,7 +313,7 @@ class _AddDialogState extends State<AddDialog> {
         if (caption.isNotEmpty) caption,
       ].join(' - ');
 
-      return BoxTile(
+      return _AddTile(
         size: _tileSize,
         title: Text(title, textAlign: .center),
         subtitle: details.isEmpty
@@ -323,13 +324,10 @@ class _AddDialogState extends State<AddDialog> {
                 overflow: .ellipsis,
                 textAlign: .center,
               ),
-        icon: Padding(
-          padding: const EdgeInsets.all(4),
-          child: PhosphorIcon(
-            handler.getIcon(bloc) ?? tool.icon(),
-            color: status == .disabled ? Theme.of(context).disabledColor : null,
-            textDirection: .ltr,
-          ),
+        icon: PhosphorIcon(
+          handler.getIcon(bloc) ?? tool.icon(),
+          color: status == .disabled ? Theme.of(context).disabledColor : null,
+          textDirection: .ltr,
         ),
         leading: showFavorite
             ? IconButton(
@@ -358,7 +356,7 @@ class _AddDialogState extends State<AddDialog> {
     }
 
     Widget buildImport(ImportType type) {
-      return BoxTile(
+      return _AddTile(
         size: _tileSize,
         title: Text(type.getLocalizedName(context), textAlign: .center),
         trailing: IconButton(
@@ -551,6 +549,113 @@ class _AddDialogState extends State<AddDialog> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+/// A light tile for the add dialog: a tinted icon, a short title and the
+/// optional corner actions, without heavy card chrome.
+class _AddTile extends StatelessWidget {
+  final double size;
+  final Widget title, icon;
+  final Widget? subtitle, leading, trailing;
+  final VoidCallback? onTap;
+
+  const _AddTile({
+    required this.size,
+    required this.title,
+    required this.icon,
+    this.subtitle,
+    this.leading,
+    this.trailing,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = ColorScheme.of(context);
+    final textTheme = TextTheme.of(context);
+    const borderRadius = BorderRadius.all(Radius.circular(kRadiusLarge));
+    final cornerActions = IconButtonTheme(
+      data: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          iconSize: 18,
+          visualDensity: VisualDensity.compact,
+          foregroundColor: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      child: Stack(
+        children: [
+          if (leading != null)
+            Align(alignment: AlignmentDirectional.topStart, child: leading!),
+          if (trailing != null)
+            Align(alignment: AlignmentDirectional.topEnd, child: trailing!),
+        ],
+      ),
+    );
+    return SizedBox.square(
+      dimension: size,
+      child: Material(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+          side: BorderSide(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 28, 10, 12),
+                child: Column(
+                  mainAxisAlignment: .center,
+                  spacing: 8,
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: colorScheme.secondaryContainer,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(kRadiusMedium),
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: IconTheme(
+                        data: IconThemeData(
+                          size: 24,
+                          color: colorScheme.onSecondaryContainer,
+                        ),
+                        child: icon,
+                      ),
+                    ),
+                    DefaultTextStyle(
+                      style: textTheme.labelLarge!,
+                      maxLines: 2,
+                      overflow: .ellipsis,
+                      textAlign: .center,
+                      child: title,
+                    ),
+                    if (subtitle != null)
+                      Flexible(
+                        child: DefaultTextStyle(
+                          style: textTheme.bodySmall!.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                          child: subtitle!,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              cornerActions,
+            ],
+          ),
+        ),
       ),
     );
   }
