@@ -37,7 +37,12 @@ Fügen Sie den folgenden Code Ihrer Webseite hinzu:
 
 ## Messaging
 
-The embed uses browser `postMessage` events. Send messages to the iframe with
+The embed uses browser `postMessage` events. Only the direct parent window can
+send commands. Butterfly pins the parent's HTTP(S) origin from the referrer or,
+when the referrer is unavailable, the first parent message. With no referrer,
+send a command such as `getViewState` before expecting automatic notifications.
+Messages from other windows, changed parent origins, and opaque origins are
+ignored. Send messages to the iframe with
 `iframe.contentWindow.postMessage({ type, message }, origin)`. Butterfly sends
 messages back to the parent window with the same shape:
 `{ type: string, message?: unknown }`.
