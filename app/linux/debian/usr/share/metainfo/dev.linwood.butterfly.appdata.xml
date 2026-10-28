@@ -63,22 +63,13 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
-		<release version="2.6.2-rc.0" type="development" date="2026-10-24">
+		<release version="2.6.2" type="stable" date="2026-10-28">
 			<description>
 				<ul>
-					<li>Add a floating editor layout for wide screens behind an Experiments setting</li>
-					<li>Add default and session collaboration options for toolbar, page, area, cursor, and live preview synchronization (#1295)</li>
-					<li>Add offline builds script</li>
-					<li>Add reproducable builds</li>
-					<li>Add whole page and last viewport framing for automatic thumbnails</li>
-					<li>Allow local connections as destinations for manual and automatic backups (#1073)</li>
-					<li>Export each canvas unit as one millimeter in PDFs and preserve PDF page sizes on import</li>
-					<li>Improve document search with clearer results, literal queries, Markdown matches, and accurate page navigation</li>
-					<li>Improve pen only toggle performance (#1305)</li>
-					<li>Fix a Windows crash during app shutdown</li>
+					<li>Fix selecting perfectly horizontal and vertical lines (#1323)</li>
 				</ul>
 			</description>
-			<url type="details">https://linwood.dev/butterfly/2.6.2-rc.0</url>
+			<url type="details">https://linwood.dev/butterfly/2.6.2</url>
 		</release>
 		<release version="2.6.1" type="stable" date="2026-10-15">
 			<description>

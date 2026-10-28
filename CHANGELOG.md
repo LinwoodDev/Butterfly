@@ -2,6 +2,10 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.2 (2026-10-28)
+
+* Fix selecting perfectly horizontal and vertical lines ([#1323](https://github.com/LinwoodDev/Butterfly/issues/1323))
+
 ## 2.6.2-rc.0 (2026-10-24)
 
 * Add a floating editor layout for wide screens behind an Experiments setting
