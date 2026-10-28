@@ -4,7 +4,11 @@
 
 ## 2.6.2 (2026-10-28)
 
+Changes since 2.6.2-rc.0:
 * Fix selecting perfectly horizontal and vertical lines ([#1323](https://github.com/LinwoodDev/Butterfly/issues/1323))
+
+This is a stable release, it includes all the changes from the 2.6.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.6.2
 
 ## 2.6.2-rc.0 (2026-10-24)
 
