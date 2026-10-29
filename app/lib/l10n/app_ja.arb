@@ -794,6 +794,8 @@
     "description": "Note object"
   },
   "packs": "パック",
+  "textures": "Textures",
+  "fonts": "フォント",
   "@packs": {
     "description": "Asset pack"
   },
