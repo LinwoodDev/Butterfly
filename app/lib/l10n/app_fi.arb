@@ -794,6 +794,8 @@
     "description": "Note object"
   },
   "packs": "Paketit",
+  "textures": "Textures",
+  "fonts": "Kirjasimet",
   "@packs": {
     "description": "Asset pack"
   },
