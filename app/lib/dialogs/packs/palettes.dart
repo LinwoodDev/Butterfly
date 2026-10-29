@@ -5,6 +5,8 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
+import 'widgets.dart';
+
 class PalettesPackView extends StatelessWidget {
   final NoteData value;
   final ValueChanged<NoteData> onChanged;
@@ -17,76 +19,56 @@ class PalettesPackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ListView(
-          children: [
-            const SizedBox(height: 8),
-            Column(
-              mainAxisSize: .min,
-              children: value
-                  .getPalettes()
-                  .map(
-                    (e) => Dismissible(
-                      key: ValueKey(e),
-                      onDismissed: (direction) {
-                        onChanged(value.removePalette(e));
-                      },
-                      child: ListTile(
-                        title: Text(e),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => ColorPalettePickerDialog(
-                              palette: value.getPalette(e),
-                              viewMode: true,
-                              name: e,
-                              onChanged: (palette, name) {
-                                var pack = value;
-                                if (name != null) {
-                                  pack = pack.removePalette(e);
-                                }
-                                pack = pack.setPalette(name ?? e, palette);
-                                onChanged(pack);
-                              },
-                            ),
-                          );
-                        },
-                        trailing: IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                          onPressed: () async {
-                            onChanged(value.removePalette(e));
-                          },
-                          tooltip: AppLocalizations.of(context).delete,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
+    return PackAssetList(
+      icon: PhosphorIconsLight.palette,
+      action: ElevatedButton.icon(
+        onPressed: () async {
+          final name = await showDialog<String>(
+            context: context,
+            builder: (context) => NameDialog(
+              validator: defaultFileNameValidator(
+                context,
+                value.getPalettes().toList(),
+              ),
             ),
-          ],
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: FloatingActionButton.extended(
-            onPressed: () async {
-              final name = await showDialog<String>(
-                context: context,
-                builder: (context) => NameDialog(
-                  validator: defaultFileNameValidator(
-                    context,
-                    value.getPalettes().toList(),
+          );
+          if (name == null) return;
+          onChanged(value.setPalette(name, ColorPalette()));
+        },
+        icon: const PhosphorIcon(PhosphorIconsLight.plus),
+        label: Text(LeapLocalizations.of(context).create),
+      ),
+      children: value
+          .getPalettes()
+          .map(
+            (name) => Dismissible(
+              key: ValueKey(name),
+              onDismissed: (_) => onChanged(value.removePalette(name)),
+              child: ListTile(
+                leading: const PhosphorIcon(PhosphorIconsLight.palette),
+                title: Text(name),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (context) => ColorPalettePickerDialog(
+                    palette: value.getPalette(name),
+                    viewMode: true,
+                    name: name,
+                    onChanged: (palette, newName) {
+                      var pack = value;
+                      if (newName != null) pack = pack.removePalette(name);
+                      onChanged(pack.setPalette(newName ?? name, palette));
+                    },
                   ),
                 ),
-              );
-              if (name == null) return;
-              onChanged(value.setPalette(name, ColorPalette()));
-            },
-            icon: const PhosphorIcon(PhosphorIconsLight.plus),
-            label: Text(LeapLocalizations.of(context).create),
-          ),
-        ),
-      ],
+                trailing: IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                  tooltip: AppLocalizations.of(context).delete,
+                  onPressed: () => onChanged(value.removePalette(name)),
+                ),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }
