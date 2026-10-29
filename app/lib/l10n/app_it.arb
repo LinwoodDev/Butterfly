@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "L'URL WebDAV completo fornito dal provider di archiviazione",
+  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
+  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
+  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
+  "deleteConnection": "Delete connection",
+  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Connetti",
   "username": "Username",
   "password": "Password",
   "authenticationPassword": "Password di autenticazione",
   "documentEncryptionPassword": "Password crittografia documento",
-  "documentEncryptionPasswordDescription": "Crittografa i documenti memorizzati in questa connessione. Lasciare vuoto per mantenerli non crittografati",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "Crittografia documento abilitata",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Aggiungi password di cifratura documento",
@@ -593,9 +605,10 @@
   "symmetric": "Simmetrico",
   "perSide": "Per lato",
   "directory": "Directory",
-  "connectionNameDescription": "Usato solo per identificare questa connessione in Butterfly",
-  "connectionDirectoryDescription": "Cartella di base per questa connessione. Le note usano Documenti per impostazione predefinita; cambiali in Avanzate",
-  "connectionPathDescription": "Lasciare vuoto per disabilitare questo tipo di cartella. Usare . per la cartella base, una sottocartella relativa o un percorso assoluto",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
   "connectionPathRequired": "Scegli una cartella di base assoluta o usa percorsi assoluti per i tipi di directory abilitati",
   "connectionAlreadyExists": "Esiste già una connessione con questo nome. Scegli un altro nome",
   "documentsDirectory": "Percorso documenti",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "URL opzionale di un'immagine da usare come icona della connessione",
+  "chooseConnectionIcon": "Choose image",
+  "invalidConnectionIcon": "Choose a valid image file",
   "update": "Aggiorna",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Pacchetti",
+  "textures": "Textures",
+  "fonts": "Caratteri",
   "@packs": {
     "description": "Asset pack"
   },

@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "您的存储提供商提供的完整的 WebDAV URL",
+  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
+  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
+  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
+  "deleteConnection": "Delete connection",
+  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "连接",
   "username": "用户名",
   "password": "密码",
   "authenticationPassword": "验证密码",
   "documentEncryptionPassword": "文档加密密码",
-  "documentEncryptionPasswordDescription": "加密存储在此连接中的文档。留空以保持未加密",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "文档加密已启用",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "添加文档加密密码",
@@ -593,9 +605,10 @@
   "symmetric": "对齐",
   "perSide": "每面",
   "directory": "目录",
-  "connectionNameDescription": "仅用于识别Butterflight 中的此连接",
-  "connectionDirectoryDescription": "此连接的基础文件夹。默认情况下使用文档；在高级下更改",
-  "connectionPathDescription": "留空则禁用此目录类型。基本文件夹、相对子文件夹或绝对路径",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
   "connectionPathRequired": "选择一个绝对的基础文件夹，或使用启用的目录类型的绝对路径",
   "connectionAlreadyExists": "此名称的连接已经存在。请选择另一个名称",
   "documentsDirectory": "文档目录",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "作为连接图标的图像的可选URL",
+  "chooseConnectionIcon": "Choose image",
+  "invalidConnectionIcon": "Choose a valid image file",
   "update": "更新",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "包",
+  "textures": "Textures",
+  "fonts": "字体",
   "@packs": {
     "description": "Asset pack"
   },

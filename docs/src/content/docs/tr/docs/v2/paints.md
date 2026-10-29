@@ -12,9 +12,9 @@ Use one color throughout the stroke or fill. Select it with the [color picker](.
 | -------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | Renk     | Black for strokes; transparent for fills | Color of the painted region.                                                            |
 | Şefaflık | 255 for strokes; 0 for fills             | Opacity from transparent (`0`) to opaque (`255`). |
-| Blur     | 0                                        | Softens the edge of the painted region.                                                 |
+| Bulanık  | 0                                        | Softens the edge of the painted region.                                                 |
 
-## Gradient
+## Gradyan
 
 Blend between color stops using a linear or radial layout. When you switch an existing paint to a gradient, its first stop uses the current color and alpha. The overall **Alpha** slider changes the alpha of every stop; you can also edit stops individually.
 
@@ -22,7 +22,7 @@ Blend between color stops using a linear or radial layout. When you switch an ex
 | ----------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | Color stops | Black at `0`; white at `1`                                            | Each stop has an offset, color, and alpha value. The offset determines where the color appears. |
 | Şefaflık    | 255 for a new opaque stroke; 0 when converted from a transparent fill | Changes the opacity of all stops, from `0` to `255`.                                                            |
-| Blur        | `0`                                                                   | Softens the painted edge.                                                                                       |
+| Bulanık     | `0`                                                                   | Softens the painted edge.                                                                                       |
 
 ### Linear gradient
 
@@ -54,6 +54,6 @@ Use an imported raster image or SVG as the paint source. Select **Image** or **S
 | Tint     | White      | Color filter. White at full alpha preserves the source colors. |
 | Şefaflık | 255        | Opacity of the tinted source, from `0` to `255`.                               |
 | Ölçek    | `0.25`     | Size of the source pattern in the painted region.                              |
-| Blur     | `0`        | Softens the painted edge.                                                      |
+| Bulanık  | `0`        | Softens the painted edge.                                                      |
 
 To place an image or SVG as a separate canvas element, see [Importing](../importing/). To cover a rectangular area with a ruled or dotted pattern, use the [Texture tool](../tools/texture/). Page-wide patterns are configured under [Background](../background/).

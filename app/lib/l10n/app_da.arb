@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Den fulde WebDAV-URL fra din lagerudbyder",
+  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
+  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
+  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
+  "deleteConnection": "Delete connection",
+  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Forbind",
   "username": "Brugernavn",
   "password": "Adgangskode",
   "authenticationPassword": "Godkendelsesadgangskode",
   "documentEncryptionPassword": "Kodeord til kryptering af dokumenter",
-  "documentEncryptionPasswordDescription": "Krypterer dokumenter gemt i denne forbindelse. Efterlad blank for at holde dem ukrypteret",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "Kryptering af dokument aktiveret",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Tilføj dokument kryptering adgangskode",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetrisk",
   "perSide": "Pr. side",
   "directory": "Mappe",
-  "connectionNameDescription": "Anvendes kun til at identificere denne forbindelse i Butterfly",
-  "connectionDirectoryDescription": "Basismappe til denne forbindelse. Noter bruger dokumenter som standard; ændre den under Avanceret",
-  "connectionPathDescription": "Efterlad blank for at deaktivere denne mappe. Brug . for basismappen, en relativ undermappe eller en absolut sti",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
   "connectionPathRequired": "Vælg en absolut basismappe, eller brug absolutte stier for de aktiverede mappetyper",
   "connectionAlreadyExists": "En forbindelse med dette navn findes allerede. Vælg et andet navn",
   "documentsDirectory": "Dokumenter mappe",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Valgfri URL for et billede der skal bruges som forbindelsesikonet",
+  "chooseConnectionIcon": "Choose image",
+  "invalidConnectionIcon": "Choose a valid image file",
   "update": "Opdater",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Pakker",
+  "textures": "Textures",
+  "fonts": "Skrifttyper",
   "@packs": {
     "description": "Asset pack"
   },

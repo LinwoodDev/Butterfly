@@ -3,7 +3,7 @@
   "@open": {
     "description": "Open a file or dialog"
   },
-  "revealInFileExplorer": "Reveal in file explorer",
+  "revealInFileExplorer": "Dosya yöneticisinde göster",
   "@revealInFileExplorer": {
     "description": "Reveal a file or folder in the operating system's file explorer"
   },
@@ -14,7 +14,7 @@
   "lightTheme": "Aydınlık Tema",
   "systemTheme": "Varsayılan sistem temasını kullan",
   "view": "Görüntüle",
-  "contentViewport": "Content Viewport",
+  "contentViewport": "İçerik Görüntüleme Alanı",
   "@contentViewport": {
     "description": "Limit how far the viewport can move beyond the content"
   },
@@ -22,9 +22,9 @@
   "@limitViewportToPositiveCoordinates": {
     "description": "Prevent the viewport from moving into negative coordinates"
   },
-  "off": "Off",
-  "canvas": "Canvas",
-  "interface": "Interface",
+  "off": "Kapalı",
+  "canvas": "Tuval",
+  "interface": "Arayüz",
   "@view": {
     "description": "View mode or menu"
   },
@@ -45,16 +45,16 @@
   "zoomOut": "Uzaklaştır",
   "resetZoom": "Yakınlaştırmayı sıfırla",
   "strokeWidth": "Kontur genişliği",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Çizgi stili",
+  "dashLength": "Kesikli çizgi uzunluğu",
+  "gapLength": "Aralık uzunluğu",
   "includeEraser": "Dahili silgi?",
-  "thinning": "Kalinlik",
+  "thinning": "Kalınlık",
   "pen": "Kalem",
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Stylus",
+  "invertedPen": "Ters Kalem",
   "eraser": "Silgi",
   "@eraser": {
     "description": "Eraser tool"
@@ -69,7 +69,7 @@
     "description": "Delete action"
   },
   "areYouSure": "Emin misiniz?",
-  "reallyDelete": "Bu ögeyi gerçekten silmek isteyor musunuz?",
+  "reallyDelete": "Bu ögeyi gerçekten silmek istiyor musunuz?",
   "no": "Hayır",
   "yes": "Evet",
   "undo": "Geri al",
@@ -107,11 +107,11 @@
   "@space": {
     "description": "Spacing property"
   },
-  "background": "Arkaplan",
-  "applyBackground": "Apply background",
-  "applyAreas": "Apply areas",
-  "currentPage": "Current page",
-  "allPages": "All pages",
+  "background": "Arka plan",
+  "applyBackground": "Arka planı uygula",
+  "applyAreas": "Alanları uygula",
+  "currentPage": "Şu anki sayfa",
+  "allPages": "Tüm sayfalar",
   "box": "Kutu",
   "@box": {
     "description": "Box shape"
@@ -159,13 +159,13 @@
     "description": "Style property"
   },
   "solid": "Katı",
-  "solidColor": "Solid color",
-  "gradient": "Gradient",
-  "gradientType": "Gradient type",
-  "linear": "Linear",
-  "radial": "Radial",
+  "solidColor": "Düz renk",
+  "gradient": "Renk geçişi",
+  "gradientType": "Renk geçişi türü",
+  "linear": "Çizgisel",
+  "radial": "Çembersel",
   "tint": "Tint",
-  "blur": "Blur",
+  "blur": "Bulanık",
   "double": "Çift",
   "dotted": "Noktalı",
   "dottedDark": "Dotted dark",
@@ -216,19 +216,19 @@
   "@backup": {
     "description": "Backup action"
   },
-  "backupConnection": "Backup connection",
-  "automaticBackups": "Automatic backups",
-  "automaticBackupsDescription": "Creates backups while Butterfly is running.",
-  "backupInterval": "Backup interval",
-  "backupNow": "Back up now",
-  "lastBackup": "Last backup",
-  "backupCreated": "Backup created",
-  "hour": "hour",
-  "hours": "hours",
-  "day": "day",
-  "days": "days",
-  "week": "week",
-  "weeks": "weeks",
+  "backupConnection": "Yedek bağlantı",
+  "automaticBackups": "Otomatik yedekler",
+  "automaticBackupsDescription": "Butterfly çalışırken yedekler oluşturur.",
+  "backupInterval": "Yedekleme sıklığı",
+  "backupNow": "Şimdi yedekle",
+  "lastBackup": "En son yedekleme",
+  "backupCreated": "Yedekleme oluşturuldu",
+  "hour": "saat",
+  "hours": "saatler",
+  "day": "gün",
+  "days": "günler",
+  "week": "hafta",
+  "weeks": "haftalar",
   "createdInNewerVersion": "{fileName} adındaki dosya daha yeni bir sürümde ({fileVersion}) adıyla yeniden oluşturuldu. Bu dosyazı ne yapmak istersiniz?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -263,9 +263,9 @@
   },
   "behaviors": "Davranışlar",
   "dataDirectory": "Veri dizini",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Uyarı",
+  "platformExperimentalWarning": "Uyarı: Bu ayar deneyseldir ve bu platformda sorunlara yol açabilir.",
+  "changeDataDirectoryWarningContent": "Veri klasörünün yerini değiştirmek istediğinden emin misin? Devam etmeden verilerinin yedeğini yapmalısın.",
   "defaultPath": "Varsayılan yol",
   "dateFormat": "Tarih biçimi",
   "updatedAt": "Güncellenme tarihi: {dateTime}",
@@ -303,7 +303,7 @@
     "description": "Move action"
   },
   "copy": "Kopyala",
-  "openContextMenu": "Open context menu",
+  "openContextMenu": "İçerik menüsünü aç",
   "@copy": {
     "description": "Copy action"
   },
@@ -332,15 +332,15 @@
   },
   "notSet": "Ayarlanmamış",
   "enterLayer": "Katman adı gir",
-  "eraseShapes": "Erase shapes",
-  "eraseShapeModeNone": "Don't erase shapes",
-  "eraseShapeModeTouchEdges": "Erase when touching edges",
-  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
-  "selectElementModeTouchEdges": "Select when touching edges",
-  "selectElementModeTouchAnywhere": "Select when touching anywhere",
+  "eraseShapes": "Şekilleri sil",
+  "eraseShapeModeNone": "Şekilleri silme",
+  "eraseShapeModeTouchEdges": "Kenarlara değince sil",
+  "eraseShapeModeTouchAnywhere": "Herhangi bir yere dokununca sil",
+  "selectElementModeTouchEdges": "Kenarlara dokununca seç",
+  "selectElementModeTouchAnywhere": "Herhangi bir yere dokununca seç",
   "selectElements": "Ögeleri seçin",
   "deleteElements": "Ögeleri sil",
-  "eraseAllElements": "Erase all elements",
+  "eraseAllElements": "Tüm öğeleri sil",
   "deleteElementsConfirm": "Seçili ögeleri gerçekten silmek istiyor musunuz?",
   "selectCustomCollection": "Özel koleksiyon seç",
   "svg": "SVG",
@@ -348,13 +348,13 @@
     "description": "SVG format"
   },
   "sensitivity": "Hassasiyet",
-  "selectionTolerance": "Selection tolerance",
+  "selectionTolerance": "Seçim toleransı",
   "selectionToleranceDescription": "How close a pointer must be to an element or area to select it. Higher values make selection easier.",
   "selectionHandleSensitivity": "Selection handle hit area",
   "selectionHandleSensitivityDescription": "Size of the hit area around selection and area handles for all pointer types.",
   "panGestureSensitivity": "Pan gesture sensitivity",
   "panGestureSensitivityDescription": "Canvas movement from touch or trackpad gestures. Higher values move the canvas farther.",
-  "zoomGestureSensitivity": "Continuous zoom sensitivity",
+  "zoomGestureSensitivity": "Devamlı yskınlaştırma hassasiyeti",
   "zoomGestureSensitivityDescription": "Zoom from pinching, trackpad gestures, and Ctrl+scroll. Higher values zoom farther.",
   "rotationGestureSensitivity": "Rotation gesture sensitivity",
   "rotationGestureSensitivityDescription": "Canvas rotation from gestures. Higher values rotate farther.",
@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "The full WebDAV URL provided by your storage provider",
+  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
+  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
+  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
+  "deleteConnection": "Delete connection",
+  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Bağlan",
   "username": "Kullanıcı Adı",
   "password": "Şifre",
   "authenticationPassword": "Authentication password",
   "documentEncryptionPassword": "Document encryption password",
-  "documentEncryptionPasswordDescription": "Encrypts documents stored in this connection. Leave empty to keep them unencrypted",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "Document encryption enabled",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Add document encryption password",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetric",
   "perSide": "Per side",
   "directory": "Dizin",
-  "connectionNameDescription": "Only used to identify this connection in Butterfly",
-  "connectionDirectoryDescription": "Base folder for this connection. Notes use Documents by default; change it under Advanced",
-  "connectionPathDescription": "Leave empty to disable this directory type. Use . for the base folder, a relative subfolder, or an absolute path",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
   "connectionPathRequired": "Choose an absolute base folder, or use absolute paths for the enabled directory types",
   "connectionAlreadyExists": "A connection with this name already exists. Choose another name",
   "documentsDirectory": "Belge dizini",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Optional URL of an image to use as the connection icon",
+  "chooseConnectionIcon": "Choose image",
+  "invalidConnectionIcon": "Choose a valid image file",
   "update": "Güncelleme",
   "@update": {
     "description": "Update action"
@@ -644,15 +659,15 @@
   "insertColumnBefore": "Insert column before",
   "insertColumnAfter": "Insert column after",
   "deleteRow": "Delete row",
-  "deleteColumn": "Delete column",
-  "cellColor": "Cell color",
-  "cellBorders": "Cell borders",
-  "cellBorder": "Cell border",
-  "horizontalBorder": "Horizontal border",
-  "verticalBorder": "Vertical border",
-  "rowHeight": "Row height",
-  "columnWidth": "Column width",
-  "border": "Border",
+  "deleteColumn": "Sütünu sil",
+  "cellColor": "Hücre rengi",
+  "cellBorders": "Hücre kenarları",
+  "cellBorder": "Hücre kenarı",
+  "horizontalBorder": "Yatay kenar",
+  "verticalBorder": "Dikey kenar",
+  "rowHeight": "Sıra yüksekliği",
+  "columnWidth": "Sütün kalınlığı",
+  "border": "Kenar",
   "circle": "Daire",
   "@circle": {
     "description": "Shape type"
@@ -674,7 +689,7 @@
   "topRight": "Sağ üst",
   "bottomLeft": "Sol alt",
   "bottomRight": "Sağ alt",
-  "zoomPosition": "Camera controls position",
+  "zoomPosition": "Kamera kontrollerinin konumu",
   "@zoomPosition": {
     "description": "Choose where the zoom controls appear"
   },
@@ -723,16 +738,16 @@
   "folderSynced": "Klasör eşitlendi",
   "syncRootDirectory": "Kök dizini eşitle",
   "stylus": "Kalem",
-  "penOnlyInput": "Stylus only input",
+  "penOnlyInput": "Sadece kalem girdisi",
   "@penOnlyInput": {
     "description": "Setting to enable stylus only input mode"
   },
   "penOnlyInputAutoDescription": "Automatically enables stylus-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
+  "penOnlyInputOnDescription": "Her zaman dokunma ve fare girdilerini yok sayar, sadece kalem girdisini kabul eder.",
+  "penOnlyInputOffDescription": "Dokunma, fare ve kalem dahil tüm girdi çeşitlerini kabul et.",
+  "automatic": "Otomatik",
+  "alwaysOn": "Sürekli açık",
+  "alwaysOff": "Sürekli kapalı",
   "showPenOnlyToggle": "Show stylus only toggle",
   "@showPenOnlyToggle": {
     "description": "Setting to show stylus only toggle button when stylus is detected"
@@ -758,10 +773,10 @@
   "search": "Ara",
   "searchDocument": "Search this document",
   "searchDocumentHelp": "Find pages, text, areas, waypoints, and tools.",
-  "searchNoResults": "No results found",
+  "searchNoResults": "Sonuç bulunamadı",
   "searchNoResultsHelp": "Try a different word or phrase.",
-  "searchFailed": "Search couldn't be completed",
-  "searchFailedHelp": "Try searching again.",
+  "searchFailed": "Aramq tamamlanamadı",
+  "searchFailedHelp": "Tekrar aramayı dene.",
   "@search": {
     "description": "Search action"
   },
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Paketler",
+  "textures": "Textures",
+  "fonts": "Yazı tipleri",
   "@packs": {
     "description": "Asset pack"
   },
@@ -833,7 +850,7 @@
     "description": "Input device"
   },
   "shortcuts": "Kısayollar",
-  "repeatedTapShortcuts": "Double and triple taps",
+  "repeatedTapShortcuts": "Çift ve üçlü dokunmalar",
   "repeatedTapShortcutsDescription": "Assigning any shortcut in this section can delay normal taps and the start of drawing for its matching input while Butterfly checks for more taps. Moving far enough resumes normal input without waiting for the tap timeout. Set both double- and triple-tap shortcuts for that input to None to remove this delay.",
   "middle": "Orta",
   "@middle": {
@@ -937,12 +954,12 @@
   "smoothing": "Yumuşatma",
   "streamline": "Kolaylaştırmak",
   "presentation": "Sunum",
-  "simple": "Simple",
-  "createPresentation": "Create presentation",
-  "addSlide": "Add new slide",
-  "updateSlide": "Update slide",
-  "deleteSlide": "Delete slide",
-  "transitionDuration": "Transition duration",
+  "simple": "Basit",
+  "createPresentation": "Sunum oluştur",
+  "addSlide": "Yeni slayt ekle",
+  "updateSlide": "Slaydı güncelle",
+  "deleteSlide": "Slaydı sil",
+  "transitionDuration": "Geçiş süresi",
   "transitionDurationDescription": "How long the camera takes to move to the next slide. On the last slide, this is used when you add a new one.",
   "transitionDurationValue": "{seconds}s transition",
   "@transitionDurationValue": {
@@ -952,11 +969,11 @@
       }
     }
   },
-  "configureKeyframe": "Configure keyframe",
-  "addKeyframe": "Add keyframe here",
+  "configureKeyframe": "Anahtar kare ayarla",
+  "addKeyframe": "Buraya anahtar kare ekle",
   "updateKeyframe": "Update from current camera",
-  "deleteKeyframe": "Delete keyframe",
-  "markAsSlide": "Mark as slide",
+  "deleteKeyframe": "Anahtar kareyi sil",
+  "markAsSlide": "Slayt olarak işaretle",
   "removeSlideMarker": "Remove slide marker",
   "frameValue": "Frame {frame}",
   "@frameValue": {
@@ -1632,7 +1649,7 @@
   "previousPage": "Previous page",
   "persistenceDocumentStates": "Persistent document states",
   "persistentStatesEnabled": "Enable persistent document states",
-  "persistentStateCurrentPage": "Current page",
+  "persistentStateCurrentPage": "Şu anki sayfa",
   "persistentStateViewport": "Viewport position and zoom",
   "persistentStateSelectedTool": "Selected tool",
   "persistentStateMaxRecords": "Maximum stored records",
