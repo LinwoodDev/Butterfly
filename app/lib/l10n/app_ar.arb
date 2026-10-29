@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "رابط WebDAV الكامل المقدم من مزود التخزين الخاص بك",
+  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
+  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
+  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
+  "deleteConnection": "Delete connection",
+  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "توصيل",
   "username": "اسم المستخدم",
   "password": "كلمة المرور",
   "authenticationPassword": "كلمة مرور المصادقة",
   "documentEncryptionPassword": "كلمة مرور تشفير المستند",
-  "documentEncryptionPasswordDescription": "يقوم بتشفير المستندات المخزنة في هذا الاتصال. اتركه فارغًا لإبقائها غير مشفرة",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "تم تمكين تشفير المستند",
   "reauthenticate": "إعادة التوثيق",
   "addDocumentEncryptionPassword": "إضافة كلمة مرور تشفير المستند",
@@ -593,9 +605,10 @@
   "symmetric": "متماثل",
   "perSide": "لكل جانب",
   "directory": "المُجلد",
-  "connectionNameDescription": "اسمٌ يستخدم فقط لتمييز هذا الاتصال",
-  "connectionDirectoryDescription": "المجلد الأساسي لهذا الاتصال. الملاحظات تستخدم المستندات بشكل افتراضي؛ قم بتغييرها تحت المتقدم",
-  "connectionPathDescription": "اتركه فارغاً لتعطيل هذا النوع من الدليل. استخدم . للمجلد الأساسي أو مجلد فرعي نسبي أو مسار مطلق",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
   "connectionPathRequired": "اختر مجلد قاعدة مطلقة، أو استخدم مسارات مطلقة لأنواع الدليل المفعلة",
   "connectionAlreadyExists": "يوجد اتصال بهذا الاسم مسبقاً. اختر اسم آخر",
   "documentsDirectory": "مجلد المستندات",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "رابط URL اختياري لصورة يتم استخدامها كرمز للاتصال",
+  "chooseConnectionIcon": "Choose image",
+  "invalidConnectionIcon": "Choose a valid image file",
   "update": "تحديث",
   "@update": {
     "description": "Update action"
