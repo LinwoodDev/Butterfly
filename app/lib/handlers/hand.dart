@@ -13,6 +13,11 @@ class GeneralHandHandler<T> extends Handler<T> {
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
+
+    if (context.isCtrlPressed) {
+      return true; 
+    }
+    
     _moved = true;
     context.updateCursor(cursor);
     return false;
