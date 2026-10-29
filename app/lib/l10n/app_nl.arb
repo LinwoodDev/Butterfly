@@ -794,6 +794,8 @@
     "description": "Note object"
   },
   "packs": "Pakketten",
+  "textures": "Textures",
+  "fonts": "Lettertypen",
   "@packs": {
     "description": "Asset pack"
   },
