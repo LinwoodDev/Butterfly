@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'widgets.dart';
+
 class FontsPackView extends StatelessWidget {
   final NoteData value;
   final ValueChanged<NoteData> onChanged;
@@ -53,37 +55,30 @@ class FontsPackView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fonts = value.getFonts().toList()..sort();
-    return Stack(
-      children: [
-        ListView(
-          padding: const EdgeInsets.only(bottom: 80),
-          children: fonts
-              .map(
-                (name) => ListTile(
-                  leading: const PhosphorIcon(
-                    PhosphorIconsLight.textAa,
-                    textDirection: .ltr,
-                  ),
-                  title: Text(name),
-                  subtitle: Text(customFontFamily(_baseName(name))),
-                  trailing: IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                    tooltip: AppLocalizations.of(context).delete,
-                    onPressed: () => onChanged(value.removeFont(name)),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: FloatingActionButton.extended(
-            onPressed: () => _importFonts(context),
-            icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
-            label: Text(AppLocalizations.of(context).import),
-          ),
-        ),
-      ],
+    return PackAssetList(
+      icon: PhosphorIconsLight.textAa,
+      action: ElevatedButton.icon(
+        onPressed: () => _importFonts(context),
+        icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
+        label: Text(AppLocalizations.of(context).import),
+      ),
+      children: fonts
+          .map(
+            (name) => ListTile(
+              leading: const PhosphorIcon(
+                PhosphorIconsLight.textAa,
+                textDirection: .ltr,
+              ),
+              title: Text(name),
+              subtitle: Text(customFontFamily(_baseName(name))),
+              trailing: IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                tooltip: AppLocalizations.of(context).delete,
+                onPressed: () => onChanged(value.removeFont(name)),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 
