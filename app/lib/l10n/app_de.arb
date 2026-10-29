@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Die vollständige WebDAV-URL, die von Ihrem Speicheranbieter bereitgestellt wird",
+  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
+  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
+  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
+  "deleteConnection": "Delete connection",
+  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Verbinden",
   "username": "Benutzername",
   "password": "Passwort",
   "authenticationPassword": "Authentifizierungspasswort",
   "documentEncryptionPassword": "Verschlüsselungspasswort",
-  "documentEncryptionPasswordDescription": "Verschlüsselt Dokumente, die in dieser Verbindung gespeichert sind. Lassen Sie leer, um sie unverschlüsselt zu halten",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "Dokumentenverschlüsselung aktiviert",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Dokumentverschlüsselungspasswort hinzufügen",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetrisch",
   "perSide": "Pro Seite",
   "directory": "Verzeichnis",
-  "connectionNameDescription": "Nur verwendet, um diese Verbindung in Butterfly zu identifizieren",
-  "connectionDirectoryDescription": "Basisordner für diese Verbindung. Notizen verwenden Sie standardmäßig Dokumente; ändern Sie es unter Erweiterter",
-  "connectionPathDescription": "Leer lassen um diesen Verzeichnistyp zu deaktivieren. Benutzen Sie . für den Basisordner, einen relativen Unterordner oder einen absoluten Pfad",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
+  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
   "connectionPathRequired": "Wählen Sie einen absoluten Basisordner oder verwenden Sie absolute Pfade für die aktivierten Verzeichnistypen",
   "connectionAlreadyExists": "Eine Verbindung mit diesem Namen existiert bereits. Wählen Sie einen anderen Namen",
   "documentsDirectory": "Dokumentenverzeichnis",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Optionale URL eines Bildes als Verbindungssymbol zu verwenden",
+  "chooseConnectionIcon": "Choose image",
+  "invalidConnectionIcon": "Choose a valid image file",
   "update": "Aktualisieren",
   "@update": {
     "description": "Update action"
