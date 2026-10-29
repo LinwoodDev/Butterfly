@@ -794,6 +794,8 @@
     "description": "Note object"
   },
   "packs": "حزم",
+  "textures": "Textures",
+  "fonts": "الخطوط",
   "@packs": {
     "description": "Asset pack"
   },
