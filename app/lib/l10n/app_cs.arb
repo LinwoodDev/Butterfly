@@ -794,6 +794,8 @@
     "description": "Note object"
   },
   "packs": "Balíčky",
+  "textures": "Textures",
+  "fonts": "Písma",
   "@packs": {
     "description": "Asset pack"
   },
