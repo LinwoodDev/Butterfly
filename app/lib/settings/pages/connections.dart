@@ -28,6 +28,8 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
               final remote = state.connections[index];
               return Dismissible(
                 key: Key(remote.identifier),
+                confirmDismiss: (_) =>
+                    showDeleteConnectionDialog(context, remote.label),
                 onDismissed: (details) {
                   BlocProvider.of<SettingsCubit>(context)
                       .deleteRemote(remote.identifier);
@@ -44,7 +46,7 @@ final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
                       : null,
                   leading: remote.icon?.isEmpty ?? true
                       ? PhosphorIcon(remote.typeIcon())
-                      : Image.memory(remote.icon!),
+                      : Image.memory(remote.icon!, width: 32, height: 32),
                   onTap: () =>
                       openConnectionSettings(context, remote.identifier),
                   trailing: IconButton(
@@ -156,7 +158,6 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
       _encryptionPasswordController = TextEditingController(),
-      _iconController = TextEditingController(text: '/favicon.ico'),
       _directoryController = TextEditingController(),
       _documentsDirectoryController = TextEditingController(text: 'Documents'),
       _templatesDirectoryController = TextEditingController(text: 'Templates'),
@@ -169,6 +170,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 
   bool get _isRemote => widget.storage is! LocalStorage;
   final HttpClient _httpClient = .new();
+  Uint8List? _icon;
 
   @override
   void initState() {
@@ -186,7 +188,6 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     _usernameController.dispose();
     _passwordController.dispose();
     _encryptionPasswordController.dispose();
-    _iconController.dispose();
     _directoryController.dispose();
     _documentsDirectoryController.dispose();
     _templatesDirectoryController.dispose();
@@ -266,6 +267,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   }
 
   Future<Uint8List?> _getIcon() async {
+    if (_icon != null) return _icon;
     if (!_isRemote) return null;
     final baseUrl = Uri.tryParse(_urlController.text.trim());
     if (baseUrl == null) return null;
@@ -276,7 +278,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         final bytes = await _fetchBytes(candidate);
         if (bytes == null) continue;
 
-        final icon = await _decodeIcon(bytes);
+        final icon = await decodeConnectionIcon(bytes);
         if (icon != null) return icon;
       }
     } catch (e) {
@@ -294,7 +296,6 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       candidates.add(uri);
     }
 
-    addCandidate(_resolveIconUrl(baseUrl, _iconController.text.trim()));
     addCandidate(baseUrl.replace(path: '/favicon.ico', query: ''));
 
     final htmlPages = <String>[];
@@ -324,13 +325,6 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     return candidates;
   }
 
-  Uri? _resolveIconUrl(Uri baseUrl, String value) {
-    if (value.isEmpty) return null;
-    final url = Uri.tryParse(value);
-    if (url == null) return null;
-    return url.isAbsolute ? url : baseUrl.resolve(value);
-  }
-
   int _largestIconSize(String? sizes) {
     if (sizes == null) return 0;
     return RegExp(r'(\d+)x(\d+)').allMatches(sizes).fold(0, (size, match) {
@@ -353,17 +347,6 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     username: _usernameController.text,
     password: _passwordController.text,
   );
-
-  Future<Uint8List?> _decodeIcon(Uint8List bytes) async {
-    try {
-      final image = await decodeImageFromList(bytes);
-      return (await image.toByteData(format: .png))?.buffer.asUint8List();
-    } catch (_) {
-      final decoded = img.decodeImage(bytes);
-      if (decoded == null) return null;
-      return Uint8List.fromList(img.encodePng(decoded));
-    }
-  }
 
   Future<void> _create() async {
     final navigator = Navigator.of(context);
@@ -459,7 +442,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
-      constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
+      constraints: const BoxConstraints(maxWidth: 640, maxHeight: 800),
       title: Text(AppLocalizations.of(context).addConnection),
       headerActions: [
         IconButton(
@@ -479,21 +462,11 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               keyboardType: TextInputType.url,
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).url,
-                helperText: AppLocalizations.of(context).webDavUrlDescription,
+                suffixIcon: _ConnectionHelpButton(
+                  message: AppLocalizations.of(context).webDavUrlDescription,
+                ),
                 filled: true,
                 icon: const PhosphorIcon(PhosphorIconsLight.link),
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            TextField(
-              controller: _iconController,
-              keyboardType: TextInputType.url,
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).icon,
-                helperText: AppLocalizations.of(context)
-                    .connectionIconDescription,
-                filled: true,
-                icon: const PhosphorIcon(PhosphorIconsLight.image),
               ),
             ),
             const Divider(height: 32),
@@ -503,6 +476,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               controller: _usernameController,
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).username,
+                suffixIcon: _ConnectionHelpButton(
+                  message: AppLocalizations.of(context)
+                      .connectionUsernameDescription,
+                ),
                 filled: true,
                 icon: const PhosphorIcon(PhosphorIconsLight.user),
               ),
@@ -517,17 +494,26 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).password,
                 filled: true,
-                suffixIcon: IconButton(
-                  icon: PhosphorIcon(
-                    _showPassword
-                        ? PhosphorIconsLight.eye
-                        : PhosphorIconsLight.eyeSlash,
-                  ),
-                  tooltip: _showPassword
-                      ? AppLocalizations.of(context).hide
-                      : AppLocalizations.of(context).show,
-                  onPressed: () =>
-                      setState(() => _showPassword = !_showPassword),
+                suffixIcon: Row(
+                  mainAxisSize: .min,
+                  children: [
+                    IconButton(
+                      icon: PhosphorIcon(
+                        _showPassword
+                            ? PhosphorIconsLight.eye
+                            : PhosphorIconsLight.eyeSlash,
+                      ),
+                      tooltip: _showPassword
+                          ? AppLocalizations.of(context).hide
+                          : AppLocalizations.of(context).show,
+                      onPressed: () =>
+                          setState(() => _showPassword = !_showPassword),
+                    ),
+                    _ConnectionHelpButton(
+                      message: AppLocalizations.of(context)
+                          .connectionPasswordDescription,
+                    ),
+                  ],
                 ),
                 icon: const PhosphorIcon(PhosphorIconsLight.lock),
               ),
@@ -538,6 +524,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 () => _syncRootDirectory = value ?? _syncRootDirectory,
               ),
               title: Text(AppLocalizations.of(context).syncRootDirectory),
+              secondary: _ConnectionHelpButton(
+                message: AppLocalizations.of(context)
+                    .connectionSyncRootDescription,
+              ),
             ),
           ] else ...[
             if (_isRemote) ...[
@@ -550,21 +540,29 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)
                       .documentEncryptionPassword,
-                  helperText: AppLocalizations.of(context)
-                      .documentEncryptionPasswordDescription,
                   filled: true,
-                  suffixIcon: IconButton(
-                    icon: PhosphorIcon(
-                      _showEncryptionPassword
-                          ? PhosphorIconsLight.eye
-                          : PhosphorIconsLight.eyeSlash,
-                    ),
-                    tooltip: _showEncryptionPassword
-                        ? AppLocalizations.of(context).hide
-                        : AppLocalizations.of(context).show,
-                    onPressed: () => setState(
-                      () => _showEncryptionPassword = !_showEncryptionPassword,
-                    ),
+                  suffixIcon: Row(
+                    mainAxisSize: .min,
+                    children: [
+                      IconButton(
+                        icon: PhosphorIcon(
+                          _showEncryptionPassword
+                              ? PhosphorIconsLight.eye
+                              : PhosphorIconsLight.eyeSlash,
+                        ),
+                        tooltip: _showEncryptionPassword
+                            ? AppLocalizations.of(context).hide
+                            : AppLocalizations.of(context).show,
+                        onPressed: () => setState(
+                          () => _showEncryptionPassword =
+                              !_showEncryptionPassword,
+                        ),
+                      ),
+                      _ConnectionHelpButton(
+                        message: AppLocalizations.of(context)
+                            .documentEncryptionPasswordDescription,
+                      ),
+                    ],
                   ),
                   icon: const PhosphorIcon(PhosphorIconsLight.shieldCheck),
                 ),
@@ -575,8 +573,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               controller: _nameController,
               decoration: InputDecoration(
                 labelText: LeapLocalizations.of(context).name,
-                helperText: AppLocalizations.of(context)
-                    .connectionNameDescription,
+                suffixIcon: _ConnectionHelpButton(
+                  message: AppLocalizations.of(context)
+                      .connectionNameDescription,
+                ),
                 filled: true,
                 icon: const PhosphorIcon(
                   PhosphorIconsLight.textAa,
@@ -584,11 +584,20 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 ),
               ),
             ),
+            const SizedBox(height: 8),
+            ConnectionIconField(
+              value: _icon,
+              fallbackIcon: widget.storage.typeIcon(),
+              onChanged: (icon) => setState(() => _icon = icon),
+            ),
+            const SizedBox(height: 8),
             _DirectoryField(
               controller: _directoryController,
               label: AppLocalizations.of(context).directory,
-              helperText: AppLocalizations.of(context)
-                  .connectionDirectoryDescription,
+              help: _isRemote
+                  ? AppLocalizations.of(context).connectionDirectoryDescription
+                  : AppLocalizations.of(context)
+                        .localConnectionDirectoryDescription,
               icon: const PhosphorIcon(
                 PhosphorIconsLight.folder,
                 textDirection: .ltr,
@@ -615,7 +624,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                           PhosphorIconsLight.file,
                           textDirection: .ltr,
                         ),
-                        helperText: AppLocalizations.of(context)
+                        help: AppLocalizations.of(context)
                             .connectionPathDescription,
                         pickDirectory: !_isRemote,
                       ),
@@ -627,7 +636,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                           PhosphorIconsLight.fileDashed,
                           textDirection: .ltr,
                         ),
-                        helperText: AppLocalizations.of(context)
+                        help: AppLocalizations.of(context)
                             .connectionPathDescription,
                         pickDirectory: !_isRemote,
                       ),
@@ -636,7 +645,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         controller: _packsDirectoryController,
                         label: AppLocalizations.of(context).packsDirectory,
                         icon: const PhosphorIcon(PhosphorIconsLight.package),
-                        helperText: AppLocalizations.of(context)
+                        help: AppLocalizations.of(context)
                             .connectionPathDescription,
                         pickDirectory: !_isRemote,
                       ),
@@ -694,14 +703,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 
 class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
-  final String? label, helperText;
+  final String? label, help;
   final Widget? icon;
   final bool pickDirectory;
 
   const _DirectoryField({
     this.controller,
     this.label,
-    this.helperText,
+    this.help,
     this.pickDirectory = false,
     this.icon,
   });
@@ -712,21 +721,51 @@ class _DirectoryField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        helperText: helperText,
         icon: icon,
         filled: true,
-        suffixIcon: !pickDirectory
-            ? null
-            : IconButton(
+        suffixIcon: Row(
+          mainAxisSize: .min,
+          children: [
+            if (pickDirectory)
+              IconButton(
                 icon: const PhosphorIcon(
                   PhosphorIconsLight.folder,
                   textDirection: .ltr,
                 ),
+                tooltip: AppLocalizations.of(context).directory,
                 onPressed: () async {
                   final path = await FilePicker.getDirectoryPath();
                   if (path != null) controller?.text = path;
                 },
               ),
+            if (help != null) _ConnectionHelpButton(message: help!),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ConnectionHelpButton extends StatelessWidget {
+  final String message;
+
+  const _ConnectionHelpButton({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    final key = GlobalKey<TooltipState>();
+    return Tooltip(
+      key: key,
+      message: message,
+      triggerMode: TooltipTriggerMode.manual,
+      showDuration: const Duration(seconds: 15),
+      constraints: BoxConstraints(
+        maxWidth: math.min(400, MediaQuery.sizeOf(context).width - 32),
+      ),
+      padding: const EdgeInsets.all(12),
+      child: IconButton(
+        icon: const PhosphorIcon(PhosphorIconsLight.info),
+        onPressed: () => key.currentState?.ensureTooltipVisible(),
       ),
     );
   }

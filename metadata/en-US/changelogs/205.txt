@@ -1,6 +1,7 @@
 * Add drag and drop imports from files and browser images ([#1314](https://github.com/LinwoodDev/Butterfly/issues/1314))
 * Redesign pack dialogs with a compact grid, unified styling, and responsive sidebar navigation
 * Allow adding assets before creating a pack
+* Simplify connection setup with help tooltips, custom icons, and deletion confirmation ([#1330](https://github.com/LinwoodDev/Butterfly/issues/1330))
 * Fix pack actions ignoring the selected connection
 * Fix memory leaks and secure embed and archive imports ([#1324](https://github.com/LinwoodDev/Butterfly/pull/1324))
 
