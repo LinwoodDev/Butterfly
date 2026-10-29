@@ -794,6 +794,8 @@
     "description": "Note object"
   },
   "packs": "Csomagok",
+  "textures": "Textures",
+  "fonts": "Fonts",
   "@packs": {
     "description": "Asset pack"
   },
