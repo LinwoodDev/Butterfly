@@ -198,9 +198,6 @@ class _ViewportInputCoordinator {
       await _changeTemporaryTool(event.kind, event.buttons, input);
     }
     if (!_isCurrentInput(generation)) return;
-
-
-
     if (_isHandlerGesture) {
       await getHandler().onPointerDown(event, eventContext);
     }
