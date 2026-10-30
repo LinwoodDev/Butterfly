@@ -12,6 +12,10 @@ class SelectHandler extends Handler<SelectTool> {
 
   SelectHandler(super.data);
 
+  Offset? get _toolAnchor => data.anchorX == null || data.anchorY == null
+      ? null
+      : Offset(data.anchorX!.clamp(0.0, 1.0), data.anchorY!.clamp(0.0, 1.0));
+
   void transform(
     DocumentBloc bloc,
     SelectionTransformCorner? corner, {
@@ -22,6 +26,7 @@ class SelectHandler extends Handler<SelectTool> {
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect(-bloc.editorController.transformCubit.state.rotation);
+    _selectionManager.anchor = _toolAnchor;
     _selectionManager.startTransformWithCorner(corner, position);
     _duplicate = duplicate;
     bloc.refresh();
@@ -200,6 +205,7 @@ class SelectHandler extends Handler<SelectTool> {
     final settings = editorController.settingsCubit.state;
     final scheme = getThemeData(settings.design, false).colorScheme;
     if (selectionRect != null) {
+      _selectionManager.anchor = _toolAnchor;
       foregrounds.add(_selectionManager.renderer);
     }
     if (_rectangleFreeSelection != null) {

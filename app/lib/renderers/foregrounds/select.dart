@@ -73,6 +73,7 @@ class RectSelectionForegroundManager {
   bool _centeredModifier = false;
   double _viewportRotation = 0;
   double rotation = 0;
+  Offset? anchor;
 
   Offset _toLocal(Offset point) => point.rotate(Offset.zero, -rotation);
   bool contains(Offset point) => selection.contains(_toLocal(point));
@@ -238,6 +239,26 @@ class RectSelectionForegroundManager {
         : (isInsideSelection ? SystemMouseCursors.move : null);
   }
 
+  ({double? x, double? y}) _handleFraction(SelectionTransformCorner c) =>
+      switch (c) {
+        .topLeft => (x: 0.0, y: 0.0),
+        .topCenter => (x: null, y: 0.0),
+        .topRight => (x: 1.0, y: 0.0),
+        .centerLeft => (x: 0.0, y: null),
+        .centerRight => (x: 1.0, y: null),
+        .bottomLeft => (x: 0.0, y: 1.0),
+        .bottomCenter => (x: null, y: 1.0),
+        .bottomRight => (x: 1.0, y: 1.0),
+        .center => (x: null, y: null),
+      };
+
+  double _axisScale(double delta, double size, double? handle, double anchor) {
+    if (handle == null) return 1;
+    final d = (handle - anchor) * size;
+    if (d.abs() < 1e-6) return 1;
+    return 1 + delta / d;
+  }
+
   TransformResult? getTransform() {
     final position = _currentPosition;
     final previous = _startPosition;
@@ -284,7 +305,36 @@ class RectSelectionForegroundManager {
       default:
         moved = delta;
     }
-    if (_effectiveScaleMode == .scaleProp) {
+
+    final a = anchor ?? Offset.zero;
+    final useAnchor =
+        anchor != null &&
+        _corner != null &&
+        _corner != .center &&
+        !_centeredModifier;
+
+    if (useAnchor) {
+      final h = _handleFraction(_corner!);
+      if (_effectiveScaleMode == .scaleProp) {
+        final v = Offset(
+          h.x == null ? 0 : (h.x! - a.dx) * _selection.width,
+          h.y == null ? 0 : (h.y! - a.dy) * _selection.height,
+        );
+        final len2 = v.dx * v.dx + v.dy * v.dy;
+        final s = len2 < 1e-6
+            ? 1.0
+            : 1 + (delta.dx * v.dx + delta.dy * v.dy) / len2;
+        scaleX = s;
+        scaleY = s;
+      } else {
+        scaleX = _axisScale(delta.dx, _selection.width, h.x, a.dx);
+        scaleY = _axisScale(delta.dy, _selection.height, h.y, a.dy);
+      }
+      moved = Offset(
+        a.dx * _selection.width * (1 - scaleX),
+        a.dy * _selection.height * (1 - scaleY),
+      );
+    } else if (_effectiveScaleMode == .scaleProp) {
       final scale = (scaleX - 1).abs() > (scaleY - 1).abs() ? scaleX : scaleY;
       scaleX = scale;
       scaleY = scale;
@@ -298,6 +348,7 @@ class RectSelectionForegroundManager {
         _ => Offset.zero,
       };
     }
+
     if (_centeredModifier && _corner != null && _corner != .center) {
       scaleX = 1 + 2 * (scaleX - 1);
       scaleY = 1 + 2 * (scaleY - 1);
@@ -334,6 +385,7 @@ class RectSelectionForegroundManager {
       transformCorner: _corner,
       enableRotation: enableRotation,
       isTransforming: isTransforming,
+      anchor: anchor,
     );
   }
 }
@@ -342,6 +394,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
   final SelectionScaleMode? transformMode;
   final SelectionTransformCorner? transformCorner;
   final bool enableRotation, isTransforming;
+  final Offset? anchor;
 
   @override
   final double rotation;
@@ -363,6 +416,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
     this.enableRotation = true,
     this.isTransforming = false,
     this.rotation = 0,
+    this.anchor,
   });
 
   @override
@@ -441,7 +495,29 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
             );
           }
         });
-
+    final anchor = this.anchor;
+    if (anchor != null) {
+      final p = Offset(
+        rect.left + anchor.dx * rect.width,
+        rect.top + anchor.dy * rect.height,
+      );
+      final anchorPaint = Paint()
+        ..color = Colors.orange
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2 / transform.size
+        ..strokeCap = StrokeCap.round;
+      canvas.drawLine(
+        p - Offset(realSize, 0),
+        p + Offset(realSize, 0),
+        anchorPaint,
+      );
+      canvas.drawLine(
+        p - Offset(0, realSize),
+        p + Offset(0, realSize),
+        anchorPaint,
+      );
+      canvas.drawCircle(p, realSize / 2, anchorPaint);
+    }
     final icon = transformMode == .scaleProp
         ? PhosphorIconsFill.lock
         : PhosphorIconsLight.lockOpen;

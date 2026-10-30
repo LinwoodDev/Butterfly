@@ -19,6 +19,7 @@ import 'package:butterfly/widgets/area_size_picker.dart';
 import 'package:butterfly/widgets/aspect_ratio_input.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly/widgets/texture_paint_field.dart';
+import 'package:butterfly/widgets/anchor_picker.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 import 'package:material_ui/material_ui.dart';
