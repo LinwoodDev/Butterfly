@@ -1597,6 +1597,20 @@ class SettingsCubit(SharedPreferences prefs)
     return save();
   }
 
+  Future<void> changeConnectionIcon(String identifier, Uint8List? icon) async {
+    if (!state.hasRemote(identifier)) return;
+    emit(
+      state.copyWith(
+        connections: state.connections.map((storage) {
+          return storage.identifier == identifier
+              ? storage.copyWith(icon: icon)
+              : storage;
+        }).toList(),
+      ),
+    );
+    await save();
+  }
+
   Future<void> deleteRemote(String identifier) async {
     final remote = state.connections
         .whereType<RemoteStorage>()

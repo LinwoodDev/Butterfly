@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'widgets.dart';
+
 class ComponentsPackView extends StatelessWidget {
   final NoteData value;
   final ValueChanged<NoteData> onChanged;
@@ -18,50 +20,53 @@ class ComponentsPackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(height: 8),
-        Column(
-          mainAxisSize: .min,
-          children: value
-              .getComponents()
-              .map(
-                (e) => Dismissible(
-                  key: ValueKey(e),
-                  onDismissed: (direction) {
-                    onChanged(value.removeComponent(e));
-                  },
-                  child: ListTile(
-                    title: Text(e),
-                    onTap: () async {
-                      final component = value.getComponent(e);
-                      if (component == null) return;
-                      final result = await showDialog<String>(
-                        context: context,
-                        builder: (ctx) => NameDialog(value: e),
-                      );
-                      if (result == null || result.isEmpty || result == e) {
-                        return;
-                      }
-                      onChanged(
-                        value
-                            .removeComponent(e)
-                            .setComponent(result, component),
-                      );
-                    },
-                    trailing: IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                      onPressed: () async {
-                        onChanged(value.removeComponent(e));
-                      },
-                      tooltip: AppLocalizations.of(context).delete,
+    final names = value.getComponents().toList();
+    return PackAssetList(
+      icon: PhosphorIconsLight.puzzlePiece,
+      children: names.map((name) {
+        final thumbnail = value.getComponent(name)?.thumbnail;
+        return Dismissible(
+          key: ValueKey(name),
+          onDismissed: (_) => onChanged(value.removeComponent(name)),
+          child: ListTile(
+            leading: thumbnail == null
+                ? const PhosphorIcon(PhosphorIconsLight.puzzlePiece)
+                : SizedBox.square(
+                    dimension: 48,
+                    child: Image.memory(
+                      thumbnail,
+                      fit: .contain,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const PhosphorIcon(PhosphorIconsLight.puzzlePiece),
                     ),
                   ),
+            title: Text(name),
+            onTap: () async {
+              final component = value.getComponent(name);
+              if (component == null) return;
+              final result = await showDialog<String>(
+                context: context,
+                builder: (ctx) => NameDialog(
+                  value: name,
+                  validator: defaultFileNameValidator(
+                    context,
+                    names.where((other) => other != name).toList(),
+                  ),
                 ),
-              )
-              .toList(),
-        ),
-      ],
+              );
+              if (result == null || result.isEmpty || result == name) return;
+              onChanged(
+                value.removeComponent(name).setComponent(result, component),
+              );
+            },
+            trailing: IconButton(
+              icon: const PhosphorIcon(PhosphorIconsLight.trash),
+              tooltip: AppLocalizations.of(context).delete,
+              onPressed: () => onChanged(value.removeComponent(name)),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

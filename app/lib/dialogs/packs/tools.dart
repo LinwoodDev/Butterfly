@@ -3,6 +3,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
+import 'widgets.dart';
+
 class ToolPresetsPackView extends StatelessWidget {
   final NoteData value;
   final ValueChanged<NoteData> onChanged;
@@ -15,34 +17,26 @@ class ToolPresetsPackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(height: 8),
-        Column(
-          mainAxisSize: .min,
-          children: value
-              .getToolPresets()
-              .map(
-                (e) => Dismissible(
-                  key: ValueKey(e),
-                  onDismissed: (direction) {
-                    onChanged(value.removeToolPreset(e));
-                  },
-                  child: ListTile(
-                    title: Text(e),
-                    trailing: IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                      onPressed: () async {
-                        onChanged(value.removeToolPreset(e));
-                      },
-                      tooltip: AppLocalizations.of(context).delete,
-                    ),
-                  ),
+    return PackAssetList(
+      icon: PhosphorIconsLight.paintRoller,
+      children: value
+          .getToolPresets()
+          .map(
+            (name) => Dismissible(
+              key: ValueKey(name),
+              onDismissed: (_) => onChanged(value.removeToolPreset(name)),
+              child: ListTile(
+                leading: const PhosphorIcon(PhosphorIconsLight.paintRoller),
+                title: Text(name),
+                trailing: IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                  tooltip: AppLocalizations.of(context).delete,
+                  onPressed: () => onChanged(value.removeToolPreset(name)),
                 ),
-              )
-              .toList(),
-        ),
-      ],
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }
