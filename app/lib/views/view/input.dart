@@ -348,9 +348,6 @@ class _ViewportInputCoordinator {
       await input.getHandler().onPointerUp(event, eventContext);
     }
 
-if (!wasRulerInteraction && _isHandlerGesture) {
-      await input.getHandler().onPointerUp(event, input.getEventContext());
-    }
     if (!_isCurrentInput(generation)) return;
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
@@ -569,7 +566,7 @@ if (!wasRulerInteraction && _isHandlerGesture) {
 
     final settings = input.context.read<SettingsCubit>().state;
     final sensitivity = settings.scrollPanSensitivity;
-        final cubit = input.cubit;
+    final cubit = input.cubit;
     final scrollDelta = event.scrollDelta * sensitivity;
     final keyboard = HardwareKeyboard.instance;
 
