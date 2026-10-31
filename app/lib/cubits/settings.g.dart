@@ -511,6 +511,9 @@ const _$ZoomPanelControlsEnumMap = {
   ZoomPanelControls.slider: 'slider',
   ZoomPanelControls.inputAndButtons: 'inputAndButtons',
   ZoomPanelControls.input: 'input',
+  ZoomPanelControls.sliderAndButtons: 'sliderAndButtons',
+  ZoomPanelControls.buttons: 'buttons',
+  ZoomPanelControls.none: 'none',
 };
 
 const _$ZoomPositionEnumMap = {

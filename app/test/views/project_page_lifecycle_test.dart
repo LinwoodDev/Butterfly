@@ -764,6 +764,109 @@ void main() {
     matching: find.byType(TextField),
   );
 
+  for (final controls in [
+    ZoomPanelControls.sliderAndButtons,
+    ZoomPanelControls.buttons,
+    ZoomPanelControls.none,
+  ]) {
+    testWidgets('mobile camera layout ${controls.name} shows chosen controls', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        ButterflySettings(
+          defaultTemplate: 'default',
+          zoomPanelControls: controls,
+          rotationDisplay: RotationDisplay.always,
+        ),
+      );
+      final editor = await openEditor(tester);
+      editor.inputCubit.detectPen(true);
+      await tester.pumpAndSettle();
+      expect(cameraField('Zoom'), findsNothing);
+      expect(cameraField('Rotation'), findsNothing);
+      expect(
+        find.descendant(
+          of: find.byType(ZoomView),
+          matching: find.byType(Slider),
+        ),
+        controls == ZoomPanelControls.sliderAndButtons
+            ? findsNWidgets(2)
+            : findsNothing,
+      );
+      expect(
+        cameraButton('Zoom in'),
+        controls.showButtons ? findsOneWidget : findsNothing,
+      );
+      expect(
+        cameraButton('Rotate left'),
+        controls.showButtons ? findsOneWidget : findsNothing,
+      );
+      expect(cameraButton('Reset zoom'), findsOneWidget);
+      expect(cameraButton('Reset rotation'), findsOneWidget);
+      if (!controls.showSlider) {
+        expect(
+          tester.getSize(find.byKey(const ValueKey('camera-zoom'))).width,
+          controls == ZoomPanelControls.none ? lessThan(40) : lessThan(112),
+        );
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
+
+  testWidgets('buttons-only camera controls step, clamp and reset', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        zoomPanelControls: ZoomPanelControls.buttons,
+        rotationDisplay: RotationDisplay.always,
+        zoomStep: .1,
+        rotationStep: 15,
+      ),
+    );
+    final editor = await openEditor(tester);
+    await tester.tap(cameraButton('Zoom in'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(1.1, 1e-9));
+    await tester.tap(cameraButton('Zoom out'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(1, 1e-9));
+    await tester.tap(cameraButton('Rotate right'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.rotation, closeTo(pi / 12, 1e-9));
+    await tester.tap(cameraButton('Rotate left'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.rotation, closeTo(0, 1e-9));
+    editor.transformCubit.size(10);
+    editor.transformCubit.rotate(pi);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<IconButton>(cameraButton('Zoom in')).onPressed,
+      isNull,
+    );
+    expect(
+      tester.widget<IconButton>(cameraButton('Rotate left')).onPressed,
+      isNull,
+    );
+    await tester.tap(cameraButton('Reset zoom'));
+    await tester.tap(cameraButton('Reset rotation'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 1);
+    expect(editor.transformCubit.state.rotation, 0);
+    editor.transformCubit.size(.1);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<IconButton>(cameraButton('Zoom out')).onPressed,
+      isNull,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets(
     'mobile camera controls auto hides and returns for camera changes',
     (tester) async {
