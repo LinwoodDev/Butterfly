@@ -18,6 +18,7 @@ class _ViewportInputCoordinator {
   double _gestureScale = 1;
   double _gestureRotation = 0;
   int _gesturePointerCount = 0;
+  bool _suppressScaleGesture = false;
   bool? _handlerHandlesScaleGesture;
   Handler? _gestureHandler;
   RulerHandler? _ruler;
@@ -49,6 +50,7 @@ class _ViewportInputCoordinator {
     _gestureHandler = null;
     _heldShortcutKeyId = null;
     _uiZoomPivot = null;
+    _suppressScaleGesture = false;
   }
 
   void dispose() {
@@ -99,10 +101,11 @@ class _ViewportInputCoordinator {
       controller.inputCubit.state.pointers.every(
         (pointer) => _pointerKinds[pointer] == .touch,
       );
+
   bool _isUiZoomInput(PointerDeviceKind kind, EventContext context) =>
       context.isCtrlPressed &&
       (kind == PointerDeviceKind.stylus || kind == PointerDeviceKind.mouse);
-      
+
   bool _isCurrentInput(int generation) =>
       _context.mounted && generation == _inputGeneration;
 
@@ -158,6 +161,7 @@ class _ViewportInputCoordinator {
     if (!skipShortcuts && cubit.inputCubit.state.pointers.isEmpty) {
       _settleSlide(cubit.transformCubit);
       _handlerHandlesScaleGesture = event.kind == .trackpad ? false : null;
+      _suppressScaleGesture = false;
     }
     if (!skipShortcuts) {
       if (event.kind == .stylus || event.kind == .invertedStylus) {
@@ -210,7 +214,6 @@ class _ViewportInputCoordinator {
     PointerMoveEvent event,
     _PointerInputContext input,
   ) => _withInputLock(() => _handlePointerMove(event, input));
-
   Future<void> _handlePointerMove(
     PointerMoveEvent event,
     _PointerInputContext input, {
@@ -244,15 +247,14 @@ class _ViewportInputCoordinator {
       cubit.inputCubit.updateLastPosition(event.localPosition);
       return;
     }
-    final eventContext = input.getEventContext();
-    if (_isUiZoomInput(event.kind, eventContext)) {
-      final zoomSensitivity = 0.005;
-      final delta = 1.0 - (event.delta.dy * zoomSensitivity);
-      final pivot = _uiZoomPivot ?? event.localPosition;
 
+    final uiZoomPivot = _uiZoomPivot;
+    if (uiZoomPivot != null) {
+      const zoomSensitivity = 0.005;
+      final delta = 1.0 - (event.delta.dy * zoomSensitivity);
       cubit.transformCubit.zoomConstrained(
         delta,
-        cursor: pivot,
+        cursor: uiZoomPivot,
         runtime: cubit,
       );
       return;
@@ -292,7 +294,6 @@ class _ViewportInputCoordinator {
     PointerUpEvent event,
     _PointerInputContext input,
   ) => _withInputLock(() => _handlePointerUp(event, input));
-
   Future<void> _handlePointerUp(
     PointerUpEvent event,
     _PointerInputContext input, {
@@ -339,13 +340,14 @@ class _ViewportInputCoordinator {
     if (!_isCurrentInput(generation)) return;
     cubit.inputCubit.updateLastPosition(event.localPosition);
     final wasRulerInteraction = _ruler != null;
+    // Only a drag that started as a zoom skips the tool; the tool never got
+    // its pointer down in that case.
+    final wasUiZoom = _uiZoomPivot != null;
+    _uiZoomPivot = null;
     _resetRulerInteraction();
 
-    final eventContext = input.getEventContext();
-    if (_isUiZoomInput(event.kind, eventContext)) {
-      _uiZoomPivot = null;
-    } else if (!wasRulerInteraction && _isHandlerGesture) {
-      await input.getHandler().onPointerUp(event, eventContext);
+    if (!wasUiZoom && !wasRulerInteraction && _isHandlerGesture) {
+      await input.getHandler().onPointerUp(event, input.getEventContext());
     }
 
     if (!_isCurrentInput(generation)) return;
@@ -431,6 +433,11 @@ class _ViewportInputCoordinator {
     final handler = input.getHandler();
     _gestureHandler = handler;
     final eventContext = input.getEventContext();
+    if (_uiZoomPivot != null) {
+      _suppressScaleGesture = true;
+      handler.onScaleStartAbort(details, eventContext);
+      return;
+    }
     _handlerHandlesScaleGesture ??= !_isTouchMoveGesture(cubit);
 
     if (_rulerPointer == null) {
@@ -460,6 +467,7 @@ class _ViewportInputCoordinator {
     ScaleUpdateDetails details,
     _PointerInputContext input,
   ) => handleGesture(() {
+    if (_suppressScaleGesture) return;
     final handler = _gestureHandler ?? input.getHandler();
     final ruler = _ruler;
     if (ruler != null) {
@@ -521,6 +529,13 @@ class _ViewportInputCoordinator {
     _PointerInputContext input,
   ) => handleGesture(() {
     final cubit = input.cubit;
+    if (_suppressScaleGesture) {
+      _suppressScaleGesture = false;
+      _handlerHandlesScaleGesture = null;
+      _gestureHandler = null;
+      cubit.inputCubit.removeButtons();
+      return;
+    }
     if (_ruler != null) {
       _resetRulerInteraction();
       _handlerHandlesScaleGesture = null;
