@@ -99,7 +99,10 @@ class _ViewportInputCoordinator {
       controller.inputCubit.state.pointers.every(
         (pointer) => _pointerKinds[pointer] == .touch,
       );
-
+  bool _isUiZoomInput(PointerDeviceKind kind, EventContext context) =>
+      context.isCtrlPressed &&
+      (kind == PointerDeviceKind.stylus || kind == PointerDeviceKind.mouse);
+      
   bool _isCurrentInput(int generation) =>
       _context.mounted && generation == _inputGeneration;
 
@@ -176,7 +179,7 @@ class _ViewportInputCoordinator {
     final handler = getHandler();
     final eventContext = getEventContext();
 
-    if (eventContext.isCtrlPressed && (event.kind == .stylus || event.kind == .mouse)) {
+    if (_isUiZoomInput(event.kind, eventContext)) {
       _uiZoomPivot = event.localPosition;
       return;
     }
@@ -242,7 +245,7 @@ class _ViewportInputCoordinator {
       return;
     }
     final eventContext = input.getEventContext();
-    if (eventContext.isCtrlPressed && (event.kind == .stylus || event.kind == .mouse)) {
+    if (_isUiZoomInput(event.kind, eventContext)) {
       final zoomSensitivity = 0.005;
       final delta = 1.0 - (event.delta.dy * zoomSensitivity);
       final pivot = _uiZoomPivot ?? event.localPosition;
@@ -339,7 +342,7 @@ class _ViewportInputCoordinator {
     _resetRulerInteraction();
 
     final eventContext = input.getEventContext();
-    if (eventContext.isCtrlPressed && (event.kind == .stylus || event.kind == .mouse)) {
+    if (_isUiZoomInput(event.kind, eventContext)) {
       _uiZoomPivot = null;
     } else if (!wasRulerInteraction && _isHandlerGesture) {
       await input.getHandler().onPointerUp(event, eventContext);
