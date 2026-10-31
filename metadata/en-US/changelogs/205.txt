@@ -4,5 +4,6 @@
 * Simplify connection setup with help tooltips, custom icons, and deletion confirmation ([#1330](https://github.com/LinwoodDev/Butterfly/issues/1330))
 * Fix pack actions ignoring the selected connection
 * Fix memory leaks and secure embed and archive imports ([#1324](https://github.com/LinwoodDev/Butterfly/pull/1324))
+* Avoid unnecessary saves and renderer initialization when switching pages ([#1336](https://github.com/LinwoodDev/Butterfly/issues/1336))
 
 Read more here: https://linwood.dev/butterfly/2.6.3-rc.0
