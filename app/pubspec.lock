@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "9bfb8122e2505aca17219018593c384a87166cfe860d11c7ae927e7f978eb05f"
+      sha256: "1c5591cc6f252d5f440d96ab87c03e43504be552a3fa49d7cb7563f04c51fb0a"
       url: "https://pub.dev"
     source: hosted
-    version: "110.0.0"
+    version: "111.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "74c36179c4de542efea24c9dff78324375e4b118a2c1e14e8a7659f457947f8d"
+      sha256: "6c39bd5486a310e56217bed7cb1691377959f31be4227e41750107db7e6dd55c"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.0"
+    version: "14.7.0"
   analyzer_buffer:
     dependency: transitive
     description:
@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: "0d58d1fa1fddf6588251ccf2819f3fb3b6d0452c1b2813ac7413a05592bfbefe"
+      sha256: de5ac590b8155e4e676088d714bd41ea620449a6adc0f7950c5073874b287ddb
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.2"
+    version: "4.6.0"
   args:
     dependency: "direct main"
     description:
@@ -181,10 +181,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: faf885ca8140f22df8dc05d1839afc702d0329dd9b0b2f0bc6f9b05f3f20e10c
+      sha256: b5e0a2a8e63f2788139379926a9abc3a64eed5e309c1384e5db25b74f15b7307
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.6"
+    version: "0.7.6+1"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -341,10 +341,10 @@ packages:
     dependency: transitive
     description:
       name: cupertino_ui
-      sha256: a47c4e7c66fd7444a063a602597fceb238f705c3f6b1322bc0053d0a2638ee6e
+      sha256: e003b87afde18cb396ec15928c7894063d64af04462c68df9a1404c461316dd2
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   dart_leap:
     dependency: transitive
     description:
@@ -422,18 +422,18 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: e67f1bcbef00f8b28f3b6ce09a1f0d2d9de37cf1e1e7e73b70df7a20d3eee8be
+      sha256: "02f2945a7f29535c735f6b283c3c5553810566d3052d730429aec78fe9d06592"
       url: "https://pub.dev"
     source: hosted
-    version: "13.3.0"
+    version: "13.3.1"
   file_picker_darwin:
     dependency: transitive
     description:
       name: file_picker_darwin
-      sha256: "13e731433fb3e59c1aff5a1197e41c5c5f930fad16342d101579086271a70d7b"
+      sha256: b845af092ca7a3cff0e768029f835157d371a8341750f4158a7ad358143b0e54
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   file_picker_linux:
     dependency: transitive
     description:
@@ -605,10 +605,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "35882981abcbfb8c15b286f0cd690ff25bac12d95eff3e25ee207f37d4c42e7f"
+      sha256: "100c19dcc4ff60083e95a44a6f44f3a1bb887d353c5d86f6a9b688aa3cb46236"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -660,10 +660,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "07089be6dc124eb9596a51b5e359c657f30a59929287f11b126c2cd13eaaece0"
+      sha256: f1c2d3c2b0b2096b435d7af033dd4e586fa31f51d988c5985e64495cd926d872
       url: "https://pub.dev"
     source: hosted
-    version: "18.1.1"
+    version: "18.1.2"
   graphs:
     dependency: transitive
     description:
@@ -850,8 +850,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "2abff23c4cd7a2021f618ae7a6da39714201d749"
-      resolved-ref: "2abff23c4cd7a2021f618ae7a6da39714201d749"
+      ref: ab5e6d74cb9ebbd4f5694274c076cb8fb4d0cd06
+      resolved-ref: ab5e6d74cb9ebbd4f5694274c076cb8fb4d0cd06
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -910,10 +910,10 @@ packages:
     dependency: "direct main"
     description:
       name: material_ui
-      sha256: e4031746f96c8316864d9b92bce375f1320a36ed56e166307e1e1bda9d90b4ab
+      sha256: feb289df1e5f9ed9522f9fe3d909432a7f7bc76943f16abad09f80a16cd25196
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.0"
+    version: "1.9.0"
   meta:
     dependency: transitive
     description:
@@ -1138,34 +1138,34 @@ packages:
     dependency: transitive
     description:
       name: pdfium_dart
-      sha256: e9f712166563540228e9ce7b8a515fcbd42ebd9d7c0925baa42c6b981f7e7900
+      sha256: "3e250021b2f462058aae216837902fdc8b2cb7f0657e4ec2bc9ac541f960ff84"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.1"
   pdfium_flutter:
     dependency: transitive
     description:
       name: pdfium_flutter
-      sha256: e2c81c52bc4b44fc096ffae1f891328ccb0956013d7ae92ab29b473a5433cc97
+      sha256: "4d18e6181aa87200750aa4fc607c870f957731b1de9252c2ea19627c19109388"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.1"
   pdfrx:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "259a4cf714ca281097f8821539bac733cdec48bb29e7e0b4dd320ff27d70c5b7"
+      sha256: "6aa2eb0fce9029933790e58f8dcd46ec630342e46d8f6c6d32b716acc03ca02c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.1"
+    version: "2.11.0"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: "70b8074111c08b44b9349b6500d8e2bca4a7f898c3c21b21d79370ae9447ef97"
+      sha256: "08d0d0843807b632f23836d6f021d1ff391b1988e124894067045242f03d7f96"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.0"
+    version: "0.9.0"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1268,10 +1268,10 @@ packages:
     dependency: transitive
     description:
       name: qr
-      sha256: "5adccca7f0274326125fcdbf97328f5d6b1b2d7fb8a52a01cef9f40d96a759d9"
+      sha256: f9461594b257c2ec882159fb8100db28408f6aacdba5b21f109708bce2e482b6
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   record_use:
     dependency: transitive
     description:
@@ -1700,10 +1700,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics
-      sha256: "0964703d02677ac8636b4aef95de0b7e816224ff0082908c2c950529cb9a2f5e"
+      sha256: "4e5f106dfc6f0e4e7efe11603e38c34352d912905320b930128a9b1ad61363f4"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.4"
+    version: "1.2.5"
   vector_graphics_codec:
     dependency: transitive
     description:
@@ -1716,10 +1716,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "40c92d6de05024a337a6f25feff931e1480c76cb0bb35fc37553c48951526b2f"
+      sha256: "4c9d2e7121eea8b4f160e6e435900a0ae7214cfc97c2d6cf84c25532b789b50d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.3"
+    version: "1.3.4"
   vector_math:
     dependency: transitive
     description:
