@@ -2,76 +2,20 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import linwoodStarlight from "@linwooddev/starlight-style";
 import react from "@astrojs/react";
-import { getSidebarTranslatedLabel, locales } from "./src/translations";
+import { createI18n } from "@linwooddev/starlight-style/translations";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
-import { fileURLToPath } from "node:url";
-import { satteri } from "@astrojs/markdown-satteri";
-import katex from "katex";
 
-const renderMath = (value, displayMode = false) =>
-  katex.renderToString(value, {
-    displayMode,
-    throwOnError: false,
-  });
-
-const renderMathPlugin = {
-  name: "render-math",
-  inlineMath(node) {
-    return { rawHtml: renderMath(node.value) };
-  },
-  math(node) {
-    return { rawHtml: renderMath(node.value, true) };
-  },
-};
-
-const githubEmoji = {
-  warning: "⚠️",
-  white_check_mark: "✅",
-  x: "❌",
-};
-
-const renderGithubEmojiPlugin = {
-  name: "render-github-emoji",
-  text(node, context) {
-    const value = node.value.replace(
-      /:(warning|white_check_mark|x):/g,
-      (_, name) => githubEmoji[name],
-    );
-    if (value !== node.value) context.replaceNode(node, { type: "text", value });
-  },
-};
-
-const mdxHeadingAttributes = {
-  name: "mdx-heading-attributes",
-  enforce: "pre",
-  transform(code, id) {
-    if (!id.split("?", 1)[0].endsWith(".mdx")) return;
-    const transformed = code.replace(
-      /^(#{1,6})[ \t]+(.+?)[ \t]+\\?\{#([\w-]+)\\?\}[ \t]*$/gm,
-      (_, hashes, heading, headingId) =>
-        `<h${hashes.length} id="${headingId}">${heading}</h${hashes.length}>`,
-    );
-    if (transformed === code) return;
-    return { code: transformed, map: null };
-  },
-};
+const { config: i18n, getSidebarTranslatedLabel } = createI18n(
+  new URL("./src/content/i18n/", import.meta.url),
+);
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
-  markdown: {
-    processor: satteri({
-      features: { math: true, headingAttributes: true },
-      mdastPlugins: [renderMathPlugin, renderGithubEmojiPlugin],
-    }),
-  },
-  vite: {
-    plugins: [mdxHeadingAttributes],
-  },
   integrations: [
     starlight({
-      plugins: [linwoodStarlight({ translations: locales })],
+      plugins: [linwoodStarlight({ math: true, detectLanguage: true })],
       title: "Linwood Butterfly",
       description: "Take notes, draw freely, and organize ideas across an endless workspace",
       head: [
@@ -87,7 +31,6 @@ export default defineConfig({
       ],
       customCss: [
         "./src/styles/custom.scss",
-        "katex/dist/katex.min.css",
       ],
       editLink: {
         baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',
@@ -110,362 +53,103 @@ export default defineConfig({
         {
           ...getSidebarTranslatedLabel("Guides"),
           items: [
-            {
-              ...getSidebarTranslatedLabel("Introduction"),
-              link: "/docs/v2/intro",
-            },
-            {
-              ...getSidebarTranslatedLabel("Settings"),
-              link: "/docs/v2/settings/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Context menu"),
-              link: "/docs/v2/context_menu",
-            },
-            {
-              ...getSidebarTranslatedLabel("Areas"),
-              link: "/docs/v2/areas/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Background"),
-              link: "/docs/v2/background/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Colors"),
-              link: "/docs/v2/colors/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Paints"),
-              link: "/docs/v2/paints/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Layers"),
-              link: "/docs/v2/layers/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Pack"),
-              link: "/docs/v2/pack/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Templates"),
-              link: "/docs/v2/templates/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Pages"),
-              link: "/docs/v2/pages/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Shortcuts"),
-              link: "/docs/v2/shortcuts/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Stylus support"),
-              link: "/docs/v2/stylus-support/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Storage"),
-              link: "/docs/v2/storage/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Waypoints"),
-              link: "/docs/v2/waypoints/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Add"),
-              link: "/docs/v2/add/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Importing"),
-              link: "/docs/v2/importing/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Exporting"),
-              link: "/docs/v2/exporting/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Utilities"),
-              link: "/docs/v2/utilities/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Collaboration"),
-              link: "/docs/v2/collaboration/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Arguments"),
-              link: "/docs/v2/arguments/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Migrating"),
-              link: "/docs/v2/migrating/",
-            },
+            "docs/v2/intro",
+            "docs/v2/settings",
+            "docs/v2/context_menu",
+            "docs/v2/areas",
+            "docs/v2/background",
+            "docs/v2/colors",
+            "docs/v2/paints",
+            "docs/v2/layers",
+            "docs/v2/pack",
+            "docs/v2/templates",
+            "docs/v2/pages",
+            "docs/v2/shortcuts",
+            "docs/v2/stylus-support",
+            "docs/v2/storage",
+            "docs/v2/waypoints",
+            "docs/v2/add",
+            "docs/v2/importing",
+            "docs/v2/exporting",
+            "docs/v2/utilities",
+            "docs/v2/collaboration",
+            "docs/v2/arguments",
+            "docs/v2/migrating",
             {
               label: "OneNote",
-              link: "/docs/v2/onenote/",
+              slug: "docs/v2/onenote",
             },
             {
               ...getSidebarTranslatedLabel("Tools"),
               items: [
                 {
                   ...getSidebarTranslatedLabel("Overview"),
-                  link: "/docs/v2/tools/",
+                  slug: "docs/v2/tools",
                 },
-                {
-                  ...getSidebarTranslatedLabel("Pen"),
-                  link: "/docs/v2/tools/pen/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Select"),
-                  link: "/docs/v2/tools/select/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Hand"),
-                  link: "/docs/v2/tools/hand/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Eraser"),
-                  link: "/docs/v2/tools/eraser/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Undo"),
-                  link: "/docs/v2/tools/undo/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Redo"),
-                  link: "/docs/v2/tools/redo/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Shape"),
-                  link: "/docs/v2/tools/shape/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Table"),
-                  link: "/docs/v2/tools/table/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Polygon"),
-                  link: "/docs/v2/tools/polygon/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Spacer"),
-                  link: "/docs/v2/tools/spacer/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Area"),
-                  link: "/docs/v2/tools/area/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Full screen"),
-                  link: "/docs/v2/tools/full_screen/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Label"),
-                  link: "/docs/v2/tools/label/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Laser"),
-                  link: "/docs/v2/tools/laser/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Texture"),
-                  link: "/docs/v2/tools/texture/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Barcode"),
-                  link: "/docs/v2/tools/barcode/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Eye dropper"),
-                  link: "/docs/v2/tools/eye_dropper/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Stamp"),
-                  link: "/docs/v2/tools/stamp/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Collection"),
-                  link: "/docs/v2/tools/collection/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Presentation"),
-                  link: "/docs/v2/tools/presentation/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Ruler"),
-                  link: "/docs/v2/tools/ruler/",
-                },
-                {
-                  ...getSidebarTranslatedLabel("Grid"),
-                  link: "/docs/v2/tools/grid/",
-                },
+                "docs/v2/tools/pen",
+                "docs/v2/tools/select",
+                "docs/v2/tools/hand",
+                "docs/v2/tools/eraser",
+                "docs/v2/tools/undo",
+                "docs/v2/tools/redo",
+                "docs/v2/tools/shape",
+                "docs/v2/tools/table",
+                "docs/v2/tools/polygon",
+                "docs/v2/tools/spacer",
+                "docs/v2/tools/area",
+                "docs/v2/tools/full_screen",
+                "docs/v2/tools/label",
+                "docs/v2/tools/laser",
+                "docs/v2/tools/texture",
+                "docs/v2/tools/barcode",
+                "docs/v2/tools/eye_dropper",
+                "docs/v2/tools/stamp",
+                "docs/v2/tools/collection",
+                "docs/v2/tools/presentation",
+                "docs/v2/tools/ruler",
+                "docs/v2/tools/grid",
               ],
             },
           ],
         },
-        {
-          ...getSidebarTranslatedLabel("Downloads"),
-          link: "/downloads/",
-        },
+        "downloads",
         {
           ...getSidebarTranslatedLabel("Community"),
           items: [
             {
               ...getSidebarTranslatedLabel("Home"),
-              link: "/community/",
+              slug: "community",
             },
-            {
-              ...getSidebarTranslatedLabel("Branding"),
-              link: "/community/branding/",
-            },
+            "community/branding",
             {
               ...getSidebarTranslatedLabel("Changelog"),
-              link: "/changelog/",
+              slug: "changelog",
             },
             {
               ...getSidebarTranslatedLabel("Contributing"),
-              link: "/community/contributing/",
+              slug: "community/contributing",
             },
             {
               ...getSidebarTranslatedLabel("Code of conduct"),
-              link: "/community/code-of-conduct/",
+              slug: "community/code-of-conduct",
             },
-            {
-              ...getSidebarTranslatedLabel("Embedding"),
-              link: "/community/embed/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Embedding example"),
-              link: "/community/embed-example/",
-            },
+            "community/embed",
+            "community/embed-example",
             {
               ...getSidebarTranslatedLabel("FAQ"),
-              link: "/community/faq/",
+              slug: "community/faq",
             },
-            {
-              ...getSidebarTranslatedLabel("Comparison"),
-              link: "/community/comparison/",
-            },
+            "community/comparison",
             {
               ...getSidebarTranslatedLabel("Versions"),
-              link: "/community/versions/",
+              slug: "community/versions",
             },
-            {
-              ...getSidebarTranslatedLabel("Nightly builds", "nightly"),
-              link: "/community/nightly/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Privacy policy"),
-              link: "/privacypolicy/",
-            },
+            "community/nightly",
+            "privacypolicy",
           ],
         },
       ],
-      locales: {
-        root: {
-          label: "English",
-          lang: "en",
-        },
-        af: {
-          label: "Afrikaans",
-        },
-        ar: {
-          label: "Arabic",
-        },
-        ca: {
-          label: "Catalan",
-        },
-        cs: {
-          label: "Czech",
-        },
-        da: {
-          label: "Danish",
-        },
-        de: {
-          label: "German",
-        },
-        el: {
-          label: "Greek",
-        },
-        es: {
-          label: "Spanish",
-        },
-        fi: {
-          label: "Finnish",
-        },
-        fr: {
-          label: "French",
-        },
-        he: {
-          label: "Hebrew",
-        },
-        hi: {
-          label: "Hindi",
-        },
-        hu: {
-          label: "Hungarian",
-        },
-        id: {
-          label: "Indonesian",
-        },
-        it: {
-          label: "Italian",
-        },
-        ja: {
-          label: "Japanese",
-        },
-        ko: {
-          label: "Korean",
-        },
-        nl: {
-          label: "Dutch",
-        },
-        no: {
-          label: "Norwegian",
-        },
-        or: {
-          label: "Oriya",
-        },
-        pl: {
-          label: "Polish",
-        },
-        pt: {
-          label: "Portuguese",
-        },
-        "pt-br": {
-          label: "Portuguese (Brazil)",
-          lang: "pt-BR",
-        },
-        ro: {
-          label: "Romanian",
-        },
-        ru: {
-          label: "Russian",
-        },
-        sr: {
-          label: "Serbian",
-        },
-        sv: {
-          label: "Swedish",
-        },
-        th: {
-          label: "Thai",
-        },
-        tr: {
-          label: "Turkish",
-        },
-        uk: {
-          label: "Ukrainian",
-        },
-        vi: {
-          label: "Vietnamese",
-        },
-        zh: {
-          label: "Chinese",
-        },
-        "zh-hant": {
-          label: "Chinese (Traditional)",
-          lang: "zh-Hant",
-        },
-      },
+      ...i18n,
     }),
     AstroPWA({
       workbox: {
