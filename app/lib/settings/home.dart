@@ -20,7 +20,7 @@ import 'package:butterfly/settings/connection.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly/widgets/connection_icon_field.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:lw_sysapi/lw_sysapi.dart' show SystemFileDialogs;
 import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';

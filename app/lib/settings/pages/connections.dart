@@ -734,7 +734,7 @@ class _DirectoryField extends StatelessWidget {
                 ),
                 tooltip: AppLocalizations.of(context).directory,
                 onPressed: () async {
-                  final path = await FilePicker.getDirectoryPath();
+                  final path = await SystemFileDialogs.getDirectoryPath();
                   if (path != null) controller?.text = path;
                 },
               ),

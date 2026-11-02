@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.4"
-  android_file_picker:
-    dependency: transitive
-    description:
-      name: android_file_picker
-      sha256: "03d3dd3cb578ab26b1e528aeea27bf6b976942f5a24e3da82d270369b8e161a8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.2"
   animations:
     dependency: "direct main"
     description:
@@ -418,46 +410,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
-  file_picker:
-    dependency: "direct main"
-    description:
-      name: file_picker
-      sha256: "02f2945a7f29535c735f6b283c3c5553810566d3052d730429aec78fe9d06592"
-      url: "https://pub.dev"
-    source: hosted
-    version: "13.3.1"
-  file_picker_darwin:
-    dependency: transitive
-    description:
-      name: file_picker_darwin
-      sha256: b845af092ca7a3cff0e768029f835157d371a8341750f4158a7ad358143b0e54
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
-  file_picker_linux:
-    dependency: transitive
-    description:
-      name: file_picker_linux
-      sha256: c6562fc7d426db2fb85ea66fe2627953d2709932df5584ceaacf0aa5e39cf4da
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
-  file_picker_platform_interface:
-    dependency: transitive
-    description:
-      name: file_picker_platform_interface
-      sha256: "336e7168306834a2b68e6168ed768e00d3fabeac23154d5793e277ca9f97cf20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.0"
-  file_picker_web:
-    dependency: transitive
-    description:
-      name: file_picker_web
-      sha256: a2288008280aabe371aff029466b3405e60838e0a1d714767488c59b926c8b8c
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.0"
   fixnum:
     dependency: transitive
     description:
@@ -868,8 +820,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: "7e0ac44874622aee5c6041f34603ac5d5bed058c"
-      resolved-ref: "7e0ac44874622aee5c6041f34603ac5d5bed058c"
+      ref: "0624d6d50d49e16d831e1c1a68875dfa54b9afe0"
+      resolved-ref: "0624d6d50d49e16d831e1c1a68875dfa54b9afe0"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1792,14 +1744,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.2"
-  windows_file_picker:
-    dependency: transitive
-    description:
-      name: windows_file_picker
-      sha256: "18452aa293de3b6961c6d05b0e71b4be7bb90c67635abdd3aa5c4e75dd875072"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   xdg_directories:
     dependency: transitive
     description:

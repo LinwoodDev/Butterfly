@@ -4,7 +4,7 @@ import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:lw_sysapi/lw_sysapi.dart' show SystemFileDialogs;
 import 'package:keybinder/keybinder.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 
@@ -41,7 +41,7 @@ class ChangePathAction extends Action<ChangePathIntent> {
       settings.getRemote(location.remote),
     );
     if (location.absolute) {
-      final directory = await FilePicker.getDirectoryPath();
+      final directory = await SystemFileDialogs.getDirectoryPath();
       if (directory == null) return;
       final newPath = universalPathContext.join(
         directory.replaceAll('\\', '/'),
