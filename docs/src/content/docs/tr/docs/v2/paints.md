@@ -14,7 +14,7 @@ Use one color throughout the stroke or fill. Select it with the [color picker](.
 | Şefaflık | 255 for strokes; 0 for fills             | Opacity from transparent (`0`) to opaque (`255`). |
 | Bulanık  | 0                                        | Softens the edge of the painted region.                                                 |
 
-## Gradyan
+## Renk geçişi
 
 Blend between color stops using a linear or radial layout. When you switch an existing paint to a gradient, its first stop uses the current color and alpha. The overall **Alpha** slider changes the alpha of every stop; you can also edit stops individually.
 
