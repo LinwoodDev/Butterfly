@@ -95,6 +95,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     return dashedPath;
   }
 
+  @override
+  ShapeRenderer _scaleStrokeWidth(double factor) => ShapeRenderer(
+    element.copyWith(
+      property: element.property.copyWith(
+        strokeWidth: element.property.strokeWidth * factor,
+      ),
+    ),
+    layer,
+  );
+
   /// Draws a path with the appropriate stroke style (solid, dashed, or dotted)
   void _drawStyledPath(Canvas canvas, Path path, Paint paint) {
     final strokeStyle = element.property.strokeStyle;

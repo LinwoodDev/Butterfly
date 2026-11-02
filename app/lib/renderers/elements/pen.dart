@@ -345,6 +345,18 @@ class PenRenderer extends Renderer<PenElement> {
   );
 
   @override
+  PenRenderer _scaleStrokeWidth(double factor) => PenRenderer(
+    element.copyWith(
+      property: element.property.copyWith(
+        strokeWidth: element.property.strokeWidth * factor,
+      ),
+    ),
+    layer,
+    rect,
+    expandedRect,
+  );
+
+  @override
   PathHitCalculator createHitCalculator() {
     _cachedHitCalculator ??= PathHitCalculator(rect, element.points, 0);
     return _cachedHitCalculator!;

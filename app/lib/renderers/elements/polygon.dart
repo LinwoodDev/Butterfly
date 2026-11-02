@@ -86,6 +86,17 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   }
 
   @override
+  PolygonRenderer _scaleStrokeWidth(double factor) => PolygonRenderer(
+    element.copyWith(
+      property: element.property.copyWith(
+        strokeWidth: element.property.strokeWidth * factor,
+      ),
+    ),
+    layer,
+    rect,
+  );
+
+  @override
   Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,

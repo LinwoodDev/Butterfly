@@ -615,6 +615,7 @@ abstract class Renderer<T> {
     bool relative = true,
     bool rotatePosition = false,
     bool positionIsBounds = false,
+    bool scaleStrokeWidth = false,
   }) {
     final rect = this.rect ?? Rect.zero;
     rotation ??= relative ? 0 : this.rotation;
@@ -704,13 +705,25 @@ abstract class Renderer<T> {
           center -
           Offset(rect.width * geometryScaleX, rect.height * geometryScaleY) / 2;
     }
-    return _transform(
+    final transformed = _transform(
       position: nextPosition,
       rotation: nextRotation,
       shear: nextShear,
       scaleX: geometryScaleX,
       scaleY: geometryScaleY,
     );
+
+    if (transformed == null || !scaleStrokeWidth) {
+      return transformed;
+    }
+
+    final strokeScale = sqrt(geometryScaleX.abs() * geometryScaleY.abs());
+
+    if (!strokeScale.isFinite || (strokeScale - 1).abs() < 1e-9) {
+      return transformed;
+    }
+
+    return transformed._scaleStrokeWidth(strokeScale);
   }
 
   Renderer<T>? flip({required Axis axis, required Rect selectionRect}) {
@@ -740,6 +753,8 @@ abstract class Renderer<T> {
     // ignore: unused_element_parameter
     double scaleY = 1,
   }) => null;
+
+  Renderer<T> _scaleStrokeWidth(double factor) => this;
 
   Map<RendererOperation, RendererOperationCallback> getOperations() => {};
 
