@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Αντιγράψτε την πλήρη διεύθυνση WebDAV από τον πάροχο αποθήκευσης. Για Nextcloud, ανοίξτε τις ρυθμίσεις αρχείων και αντιγράψτε το URL WebDAV.\n\nΠαράδειγμα: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Εισάγετε το όνομα σύνδεσης για τον λογαριασμό σας WebDAV. Για ένα Nextcloud URL που τελειώνει στο /files/USERNAME/, χρησιμοποιήστε την τιμή που εμφανίζεται στη θέση USERNAME.",
+  "connectionPasswordDescription": "Χρησιμοποιήστε τον κωδικό πρόσβασης WebDAV ή έναν κωδικό εφαρμογής από τον πάροχό σας. Για το Nextcloud, ανοίξτε τις Προσωπικές ρυθμίσεις → Ασφάλεια, δημιουργήστε έναν κωδικό πρόσβασης εφαρμογής που ονομάζεται Butterfly, και επικολλήστε τον εδώ.",
+  "connectionSyncRootDescription": "Κρατήστε ολόκληρο τον κατάλογο εγγράφων εκτός σύνδεσης, συμπεριλαμβανομένων των υποφακέλων του. Για παράδειγμα, ενεργοποιήστε αυτό για να έχετε πρόσβαση σε όλες τις σημειώσεις σας χωρίς σύνδεση στο διαδίκτυο.",
+  "deleteConnection": "Διαγραφή σύνδεσης",
+  "deleteConnectionDescription": "Αφαιρέστε τη σύνδεση \"{name}\" από το Butterfly? Τα αρχεία που είναι αποθηκευμένα σε αυτή τη σύνδεση δεν θα διαγραφούν.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -605,10 +605,10 @@
   "symmetric": "Συμμετρικό",
   "perSide": "Ανά πλευρά",
   "directory": "Κατάλογος",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Επιλέξτε ένα όνομα για να αναγνωρίσετε αυτή τη σύνδεση στο Butterfly. Δεν μετονομάζει κανέναν φάκελο στη συσκευή ή το διακομιστή σας.\n\nΠαράδειγμα: Nextcloud.",
+  "connectionDirectoryDescription": "Επιλέξτε ένα βασικό φάκελο μέσα στον αποθηκευτικό σας χώρο WebDAV, για παράδειγμα Butterfly. Οι σημειώσεις αποθηκεύονται στον υποφάκελο εγγράφων από προεπιλογή. Αλλάξτε τα ονόματα των υποφακέλων κάτω από το Advanced.",
+  "localConnectionDirectoryDescription": "Επιλέξτε ένα βασικό φάκελο σε αυτήν τη συσκευή με το κουμπί φακέλου, ή εισάγετε την πλήρη διαδρομή του, για παράδειγμα /path/to/folder ή C:\\path\\to\\folder. Οι σημειώσεις αποθηκεύονται στον υποφάκελο εγγράφων από προεπιλογή. Αλλάξτε τα ονόματα των υποφακέλων κάτω από το Advanced.",
+  "connectionPathDescription": "Επιλέξτε πού θα αποθηκευτεί αυτός ο τύπος περιεχομένου. Για παράδειγμα, τα Έγγραφα χρησιμοποιούν έναν υποφάκελο του βασικού φακέλου, . χρησιμοποιεί το βασικό φάκελο καθαυτό, και μια κενή τιμή απενεργοποιεί αυτόν τον τύπο. Μπορείτε επίσης να εισάγετε μια πλήρη διαδρομή. Για μια τοπική σύνδεση χωρίς βασικό φάκελο, κάθε ενεργοποιημένος τύπος χρειάζεται μια πλήρη διαδρομή.",
   "connectionPathRequired": "Επιλέξτε έναν απόλυτο βασικό φάκελο ή χρησιμοποιήστε απόλυτες διαδρομές για τους ενεργοποιημένους τύπους καταλόγου",
   "connectionAlreadyExists": "Μια σύνδεση με αυτό το όνομα υπάρχει ήδη. Επιλέξτε ένα άλλο όνομα",
   "documentsDirectory": "Κατάλογος εγγράφων",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Προαιρετικό URL μιας εικόνας που θα χρησιμοποιηθεί ως εικονίδιο σύνδεσης",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Επιλογή εικόνας",
+  "invalidConnectionIcon": "Επιλέξτε ένα έγκυρο αρχείο εικόνας",
   "update": "Ενημέρωση",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Πακέτα",
-  "textures": "Textures",
+  "textures": "Υφές",
   "fonts": "Γραμματοσειρές",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Προσωρινό σε κινητά",
   "cameraControlsVisibilityDescription": "Εμφάνιση κουμπιών εστίασης και περιστροφής προσωρινά στο κινητό, απόκρυψη τους, εμφάνιση τους προσωρινά σε όλες τις συσκευές, ή πάντα εμφάνισή τους. Προσωρινά χειριστήρια ξεθωριάζουν μετά από 5 δευτερόλεπτα χωρίς μεγέθυνση, περιστροφή ή αλληλεπίδραση με τα χειριστήρια.",
   "zoomPanelControls": "Διάταξη στοιχείων ελέγχου κάμερας",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Εμφάνιση ρυθμιστικών, πεδίων κειμένου και κουμπιών ανεξάρτητα για μεγέθυνση και περιστροφή. Αποεπιλέξτε όλες τις επιλογές για να κρατήσετε μόνο τα κουμπιά επαναφοράς.",
   "zoomPanelFull": "Πλήρης (slider, πεδίο κειμένου και πλήκτρα)",
   "zoomPanelSliderInput": "Ρυθμιστικό και πεδίο κειμένου",
   "zoomPanelSlider": "Ρυθμιστικό",
   "zoomPanelInputButtons": "Πεδίο κειμένου και κουμπιά",
   "zoomPanelInput": "Πεδίο κειμένου",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Πλήκτρα",
+  "zoomPanelResetOnly": "Μόνο επαναφορά",
   "rotationDisplay": "Οθόνη περιστροφής",
   "rotationDisplayDescription": "Επιλέξτε όταν η γραμμή περιστροφής εμφανίζεται πάνω από τη μεγέθυνση. Αυτό δεν αλλάζει χειρονομίες περιστροφής ή συντομεύσεις.",
   "whenRotated": "Κατά την περιστροφή",
