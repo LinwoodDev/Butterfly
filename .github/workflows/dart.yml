@@ -54,6 +54,11 @@ jobs:
         run: dart format .
       - name: Test for git changes
         run: git diff --exit-code
+      - name: Install native test dependencies
+        if: matrix.projects == 'app'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libx11-dev libxi-dev
       - name: Run Flutter tests
         if: matrix.projects == 'app'
         run: flutter test

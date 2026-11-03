@@ -58,29 +58,12 @@ class _TextInputHandler extends Handler<HandTool> {
 }
 
 void main() {
-  late List<MethodCall> windowManagerCalls;
-
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     registerFallbackValue(AssetLocation.empty);
     SharedPreferences.setMockInitialValues({});
     await keybinder.ready;
     FlutterSecureStorage.setMockInitialValues({});
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(const MethodChannel('window_manager'), (
-          call,
-        ) async {
-          windowManagerCalls.add(call);
-          return switch (call.method) {
-            'isMaximized' ||
-            'isMinimized' ||
-            'isFullScreen' ||
-            'isPreventClose' ||
-            'isAlwaysOnTop' ||
-            'isSkipTaskbar' => false,
-            _ => null,
-          };
-        });
   });
 
   late MockSettingsCubit settingsCubit;
@@ -91,7 +74,6 @@ void main() {
   late BlocObserver previousObserver;
 
   setUp(() {
-    windowManagerCalls = [];
     settingsCubit = MockSettingsCubit();
     fileSystem = MockButterflyFileSystem(settingsCubit: settingsCubit);
     windowCubit = WindowCubit(fullScreen: false);
@@ -357,27 +339,35 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('floating editor closes from the top-right screen corner', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(1262, 711);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    when(() => settingsCubit.state).thenReturn(
-      const ButterflySettings(
-        defaultTemplate: 'default',
-        flags: ['floatingEditor'],
-      ),
-    );
-    await openEditor(tester);
-    await tester.tapAt(const Offset(1261.5, 0.5));
-    await tester.pump();
-    expect(
-      windowManagerCalls.where((call) => call.method == 'close'),
-      hasLength(1),
-    );
-  });
+  testWidgets(
+    'floating editor close button covers the top-right screen corner',
+    (tester) async {
+      tester.view.physicalSize = const Size(1262, 711);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          flags: ['floatingEditor'],
+        ),
+      );
+      await openEditor(tester);
+      final closeButton = find
+          .byWidgetPredicate(
+            (widget) => widget is IconButton && widget.tooltip == 'Close',
+          )
+          .hitTestable();
+      expect(closeButton, findsOneWidget);
+      expect(
+        tester
+            .hitTestOnBinding(const Offset(1261.5, 0.5))
+            .path
+            .map((entry) => entry.target),
+        contains(tester.renderObject(closeButton)),
+      );
+    },
+  );
 
   testWidgets(
     'floating search handles literal queries and opens matches on their page',
@@ -1765,12 +1755,7 @@ void main() {
     );
     expect(windowCubit.state.fullScreen, isFalse);
     expect(find.byType(PadAppBar), findsNothing);
-    expect(
-      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
-      isEmpty,
-    );
 
-    windowManagerCalls.clear();
     final viewportContext = find.byType(MainViewViewport).evaluate().single;
     FullScreenHandler(FullScreenTool()).onSelected(viewportContext);
     await tester.pump();
@@ -1780,10 +1765,7 @@ void main() {
       isFalse,
     );
     expect(find.byType(PadAppBar), findsOneWidget);
-    expect(
-      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
-      isEmpty,
-    );
+    expect(windowCubit.state.fullScreen, isFalse);
 
     router.go('/');
     await pumpUntil(
@@ -1807,15 +1789,11 @@ void main() {
       isFalse,
     );
 
-    windowManagerCalls.clear();
     final viewportContext = find.byType(MainViewViewport).evaluate().single;
     FullScreenHandler(FullScreenTool()).onSelected(viewportContext);
     await tester.pump();
 
-    expect(
-      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
-      isNotEmpty,
-    );
+    expect(windowCubit.state.fullScreen, isTrue);
     expect(find.byType(PadAppBar), findsNothing);
 
     router.go('/');
@@ -1843,7 +1821,6 @@ void main() {
     final fullScreenItem = find.widgetWithText(MenuItemButton, 'Full Screen');
     expect(fullScreenItem, findsOneWidget);
 
-    windowManagerCalls.clear();
     await tester.tap(fullScreenItem);
     await tester.pumpAndSettle();
 
@@ -1852,10 +1829,7 @@ void main() {
       observer.lastDocumentBloc!.editorController.saveCubit.state.fullScreen,
       isTrue,
     );
-    expect(
-      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
-      isNotEmpty,
-    );
+    expect(windowCubit.state.fullScreen, isTrue);
 
     router.go('/');
     await pumpUntil(
@@ -1910,12 +1884,7 @@ void main() {
     );
     expect(windowCubit.state.fullScreen, isFalse);
     expect(find.byType(PadAppBar), findsNothing);
-    expect(
-      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
-      isEmpty,
-    );
 
-    windowManagerCalls.clear();
     final viewportContext = find.byType(MainViewViewport).evaluate().single;
     FullScreenHandler(FullScreenTool()).onSelected(viewportContext);
     await tester.pump();
@@ -1925,10 +1894,7 @@ void main() {
       isTrue,
     );
     expect(find.byType(PadAppBar), findsNothing);
-    expect(
-      windowManagerCalls.where((call) => call.method == 'setFullScreen'),
-      isEmpty,
-    );
+    expect(windowCubit.state.fullScreen, isFalse);
 
     router.go('/');
     await pumpUntil(

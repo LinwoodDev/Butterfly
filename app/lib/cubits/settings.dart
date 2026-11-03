@@ -15,7 +15,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:nativeapi/nativeapi.dart' as nativeapi;
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';
@@ -1272,7 +1272,10 @@ class SettingsCubit(SharedPreferences prefs)
       .dark => Brightness.dark,
       .system => MediaQuery.platformBrightnessOf(context),
     };
-    windowManager.setBrightness(brightness);
+    nativeapi.Application.instance.setBrightness(switch (brightness) {
+      Brightness.light => nativeapi.Brightness.light,
+      Brightness.dark => nativeapi.Brightness.dark,
+    });
   }
 
   Future<void> changeTheme(ThemeMode theme, [BuildContext? modify]) async {
