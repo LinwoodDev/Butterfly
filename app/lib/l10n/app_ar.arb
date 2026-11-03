@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "نسخ عنوان WebDAV الكامل من مزود التخزين الخاص بك. من أجل Nextcloud، افتح إعدادات الملفات ونسخ عنوان WebDAV.\n\nمثال: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "أدخل اسم تسجيل الدخول لحساب WebDAV الخاص بك. للحصول على رابط Nextcloud ينتهي في /files/USERNAME/، استخدم القيمة المعروضة بدلا من USERNAME.",
+  "connectionPasswordDescription": "استخدم كلمة مرور WebDAV أو كلمة مرور التطبيق من مزود الخدمة الخاص بك. من أجل السحابة التالية، افتح الإعدادات الشخصية → Security، قم بإنشاء كلمة مرور تطبيق تسمى باتريفلي، ولصقها هنا.",
+  "connectionSyncRootDescription": "ابقاء دليل المستندات بأكمله متاح دون اتصال، بما في ذلك مجلداته الفرعية. على سبيل المثال، تمكين هذا الخيار للوصول إلى جميع الملاحظات الخاصة بك بدون اتصال بالإنترنت.",
+  "deleteConnection": "حذف الاتصال",
+  "deleteConnectionDescription": "إزالة الإتصال \"{name}\" من الفراشة؟ الملفات المخزنة في هذا الإتصال لن يتم حذفها.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -606,9 +606,9 @@
   "perSide": "لكل جانب",
   "directory": "المُجلد",
   "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionDirectoryDescription": "اختر مجلد قاعدة داخل وحدة تخزين WebDAV الخاصة بك، على سبيل المثال الفراشة. يتم تخزين الملاحظات في مجلد الوثائق الفرعي بشكل افتراضي. قم بتغيير أسماء المجلد الفرعي تحت المتقدم.",
+  "localConnectionDirectoryDescription": "اختر مجلد أساسي على هذا الجهاز مع زر المجلد، أو أدخل المسار الكامل، على سبيل المثال /path/to/volder أو C:\\path\\to\\folder. يتم تخزين الملاحظات في مجلد الوثائق الفرعي بشكل افتراضي. قم بتغيير أسماء المجلد الفرعي تحت المتقدم.",
+  "connectionPathDescription": "اختر مكان تخزين هذا النوع من المحتوى. على سبيل المثال، الوثائق تستخدم مجلد فرعي من المجلد القاعدة. يستخدم المجلد الأساسي نفسه، وتعطل قيمة فارغة هذا النوع. يمكنك أيضًا إدخال المسار الكامل. لاتصال محلي بدون مجلد قاعد، كل نوع ممكن يحتاج إلى مسار كامل.",
   "connectionPathRequired": "اختر مجلد قاعدة مطلقة، أو استخدم مسارات مطلقة لأنواع الدليل المفعلة",
   "connectionAlreadyExists": "يوجد اتصال بهذا الاسم مسبقاً. اختر اسم آخر",
   "documentsDirectory": "مجلد المستندات",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "رابط URL اختياري لصورة يتم استخدامها كرمز للاتصال",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "اختر صورة",
+  "invalidConnectionIcon": "اختر ملف صورة صالح",
   "update": "تحديث",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "حزم",
-  "textures": "Textures",
+  "textures": "نسيج",
   "fonts": "الخطوط",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "مؤقت على الهاتف المحمول",
   "cameraControlsVisibilityDescription": "إظهار ضوابط التكبير والتدوير بشكل مؤقت على المحمول، وإخفائها، وإظهارها مؤقتا على جميع الأجهزة، أو إظهارها دائما. وتتلاشى الضوابط المؤقتة بعد 5 ثوان من دون تكبير أو دوران أو التفاعل مع أجهزة التحكم.",
   "zoomPanelControls": "تخطيط التحكم في الكاميرا",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "إظهار شريط التمرير وحقول النص والأزرار بشكل مستقل للتكبير والتدوير. قم بإلغاء تحديد جميع الخيارات للحفاظ على أزرار إعادة التعيين فقط.",
   "zoomPanelFull": "كامل (شريط التمرير وحقل النص والأزرار)",
   "zoomPanelSliderInput": "شريط التمرير وحقل النص",
   "zoomPanelSlider": "شريط",
   "zoomPanelInputButtons": "حقل النص والأزرار",
   "zoomPanelInput": "حقل النص",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "الأزرار",
+  "zoomPanelResetOnly": "إعادة تعيين فقط",
   "rotationDisplay": "عرض التدوير",
   "rotationDisplayDescription": "اختر عندما يظهر صف الدوران فوق التصغير. هذا لا يغير إيماءات الدوران أو الاختصار.",
   "whenRotated": "عند الدوران",
