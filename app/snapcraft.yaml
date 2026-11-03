@@ -60,6 +60,9 @@ parts:
       - curl
       - libsecret-1-dev
       - libjsoncpp-dev
+      - libgtk-3-dev
+      - libx11-dev
+      - libxi-dev
       - clang
       - ninja-build
       - rustup
@@ -70,6 +73,10 @@ parts:
       set -eux
       craftctl default
       cd "$CRAFT_PART_SRC_WORK/app"
+      # Dart native hooks drop the GNOME SDK's pkg-config environment.
+      # Use system tools so they can find the build-packages above by default.
+      export PATH="/usr/bin:$PATH"
+      env -i PATH="$PATH" pkg-config --print-errors --exists gtk+-3.0 x11 xi
       flutter pub get
       flutter build linux --release --verbose --target lib/main.dart
       bundle_dir=$(find build/linux -type f -path '*/release/bundle/butterfly' -printf '%h\n' -quit)
