@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Skopiuj pełny adres WebDAV od dostawcy pamięci. Dla Nextcloud otwórz ustawienia plików i skopiuj adres URL WebDAV.\n\nPrzykład: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Wprowadź nazwę użytkownika dla konta WebDAV. Dla adresu URL Nextcloud kończącego się w /files/USERNAME/, użyj wartości pokazanej zamiast USERNAME.",
+  "connectionPasswordDescription": "Użyj hasła WebDAV lub hasła aplikacji od dostawcy. Dla Nextcloud otwórz osobiste ustawienia → Bezpieczeństwo, utwórz hasło aplikacji Butterfly i wklej je tutaj.",
+  "connectionSyncRootDescription": "Zachowaj cały katalog dokumentów dostępny w trybie offline, w tym jego podfoldery. Na przykład włącz ten katalog aby uzyskać dostęp do wszystkich notatek bez połączenia internetowego.",
+  "deleteConnection": "Usuń połączenie",
+  "deleteConnectionDescription": "Usunąć połączenie \"{name}\" z Motylki? Pliki przechowywane w tym połączeniu nie zostaną usunięte.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -595,7 +595,7 @@
   "password": "Hasło",
   "authenticationPassword": "Hasło uwierzytelniania",
   "documentEncryptionPassword": "Hasło szyfrowania dokumentów",
-  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
+  "documentEncryptionPasswordDescription": "Wybierz oddzielne hasło, aby zaszyfrować dokumenty utworzone w tym powiązaniu. Użyj tego samego hasła na innych urządzeniach, aby je otworzyć. Pozostaw puste, aby zachować niezszyfrowane nowe dokumenty.\n\nPrzykład: użyj hasła, które możesz zachować w menedżerze haseł.",
   "documentEncryptionEnabled": "Szyfrowanie dokumentów włączone",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Dodaj hasło szyfrowania dokumentów",
@@ -605,10 +605,10 @@
   "symmetric": "Symetryczny",
   "perSide": "Na stronę",
   "directory": "Katalog",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Wybierz nazwę, aby rozpoznać to połączenie w Butterfly. Nie zmienia nazwy żadnych folderów na Twoim urządzeniu lub serwerze.\n\nPrzykład: Nextcloud.",
+  "connectionDirectoryDescription": "Wybierz folder podstawowy wewnątrz pamięci WebDAV, na przykład Butterfly. Notatki są domyślnie przechowywane w podfolderze dokumentów. Zmień nazwy podfolderów w Zaawansowane.",
+  "localConnectionDirectoryDescription": "Wybierz folder podstawowy na tym urządzeniu z przyciskiem folderu lub wprowadź jego pełną ścieżkę, na przykład /path/to/folder lub C:\\path\\to\\folder. Notatki są domyślnie przechowywane w podfolderze dokumentów. Zmień nazwy podfolderów w Zaawansowane.",
+  "connectionPathDescription": "Wybierz, gdzie przechowywać ten typ treści. Na przykład dokumenty używają podfolderu bazowego. używa samego folderu podstawowego, a pusta wartość wyłącza ten typ. Możesz również wprowadzić pełną ścieżkę. Dla połączenia lokalnego bez folderu podstawowego każdy włączony typ wymaga pełnej ścieżki.",
   "connectionPathRequired": "Wybierz katalog bezwzględny lub użyj ścieżek bezwzględnych dla włączonych typów katalogów",
   "connectionAlreadyExists": "Połączenie o tej nazwie już istnieje. Wybierz inną nazwę",
   "documentsDirectory": "Katalog dokumentów",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Opcjonalny adres URL obrazu do użycia jako ikona połączenia",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Wybierz obraz",
+  "invalidConnectionIcon": "Wybierz poprawny plik obrazu",
   "update": "Aktualizuj",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Pakiety",
-  "textures": "Textures",
+  "textures": "Tekstury",
   "fonts": "Czcionki",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Tymczasowe na urządzeniu mobilnym",
   "cameraControlsVisibilityDescription": "Pokaż czasowo kontrolę powiększenia i obracania na urządzeniach mobilnych, ukryj je, pokaż je tymczasowo na wszystkich urządzeniach lub zawsze pokazuj je. Tymczasowe sterowanie zanika po 5 sekundach bez powiększania, obracania się lub interakcji z urządzeniami sterującymi.",
   "zoomPanelControls": "Układ kontrolny kamery",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Pokaż suwaki, pola tekstowe i przyciski niezależnie dla powiększenia i obracania. Odznacz wszystkie opcje, aby zachować tylko przyciski resetowania.",
   "zoomPanelFull": "Pełna (suwak, pole tekstowe i przyciski)",
   "zoomPanelSliderInput": "Suwak i pole tekstowe",
   "zoomPanelSlider": "Suwak",
   "zoomPanelInputButtons": "Pole tekstowe i przyciski",
   "zoomPanelInput": "Pole tekstowe",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Przyciski",
+  "zoomPanelResetOnly": "Tylko resetuj",
   "rotationDisplay": "Obrót ekranu",
   "rotationDisplayDescription": "Wybierz, kiedy wiersz obrotu pojawi się nad powiększeniem. Nie zmienia to gestów obrotu ani skrótów.",
   "whenRotated": "Po obracaniu",
