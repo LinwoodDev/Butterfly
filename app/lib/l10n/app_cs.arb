@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Zkopírujte úplnou webDAV adresu od poskytovatele úložiště. Pro Nextcloud otevřete nastavení souborů a zkopírujte URL WebDAV.\n\nPříklad: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Zadejte přihlašovací jméno pro váš webDAV účet. Pro Nextcloud URL končící v /files/USERNAME/, použijte hodnotu zobrazenou místo USERNAME.",
+  "connectionPasswordDescription": "Použijte své WebDAV heslo nebo heslo aplikace od poskytovatele. Pro Nextcloud, otevřete osobní nastavení → Bezpečnost, vytvořte heslo aplikace s názvem Butterfly a vložte jej zde.",
+  "connectionSyncRootDescription": "Ponechte celý adresář dokumentů k dispozici offline, včetně jeho podsložek. Povolte například přístup ke všem poznámkám bez připojení k internetu.",
+  "deleteConnection": "Odstranit připojení",
+  "deleteConnectionDescription": "Odstranit připojení \"{name}\" z Butterfly? Soubory uložené v tomto připojení nebudou smazány.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -595,7 +595,7 @@
   "password": "Heslo",
   "authenticationPassword": "Autentizační heslo",
   "documentEncryptionPassword": "Šifrovací heslo dokumentu",
-  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
+  "documentEncryptionPasswordDescription": "Vyberte samostatné heslo pro zašifrování dokumentů vytvořených v tomto připojení. Použijte stejné heslo na ostatních zařízeních pro jejich otevření. Ponechte prázdné pro nešifrování nových dokumentů.\n\nPříklad: použijte přístupovou frázi, kterou si můžete ponechat ve správci hesel.",
   "documentEncryptionEnabled": "Šifrování dokumentů povoleno",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Přidat šifrovací heslo dokumentu",
@@ -605,10 +605,10 @@
   "symmetric": "Symetrický",
   "perSide": "Na straně",
   "directory": "Adresář",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Vyberte název pro rozpoznání tohoto připojení v Butterfly. Nepřejmenuje žádné složky na vašem zařízení nebo serveru.\n\nPříklad: Nextcloud.",
+  "connectionDirectoryDescription": "Vyberte základní složku v úložišti WebDAV, například Butterfly. Poznámky jsou ve výchozím nastavení uloženy v podsložce Dokumenty. Změňte názvy podsložek v pokročilých složkách.",
+  "localConnectionDirectoryDescription": "Vyberte základní složku na tomto zařízení pomocí tlačítka složky, nebo zadejte celou cestu, například /path/to/folder nebo C:\\path\\to\\folder. Poznámky jsou ve výchozím nastavení uloženy v podsložce Dokumenty. Změňte názvy podsložek v pokročilých složkách.",
+  "connectionPathDescription": "Zvolte, kde chcete uložit tento typ obsahu. Například dokumenty používají podsložku základní složky, . používá základní složku a zakázá prázdnou hodnotu tohoto typu. Můžete také zadat celou cestu. Pro lokální připojení bez základní složky každý povolený typ potřebuje úplnou cestu.",
   "connectionPathRequired": "Vyberte absolutní základní složku nebo použijte absolutní cesty pro povolené typy adresářů",
   "connectionAlreadyExists": "Spojení s tímto názvem již existuje. Zvolte jiný název",
   "documentsDirectory": "Adresář dokumentů",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Volitelná URL adresa obrázku, který lze použít jako ikonu připojení",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Vybrat obrázek",
+  "invalidConnectionIcon": "Vyberte platný obrázek",
   "update": "Aktualizace",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Balíčky",
-  "textures": "Textures",
+  "textures": "Textury",
   "fonts": "Písma",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Dočasně na mobilním zařízení",
   "cameraControlsVisibilityDescription": "Zobrazit ovládací prvky přiblížení a otáčení dočasně na mobilu, skrýt, dočasně je zobrazit na všech zařízeních, nebo je vždy zobrazovat. Dočasné kontroly zmizí po 5 sekundách bez přiblížení, otáčení nebo interakce s ovládacími prvky.",
   "zoomPanelControls": "Rozložení ovládání kamery",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Zobrazit posuvníky, textová pole a tlačítka nezávisle pro přiblížení a otáčení. Zrušte výběr všech možností pro zachování pouze tlačítek pro obnovení.",
   "zoomPanelFull": "Plná (posuvník, textové pole a tlačítka)",
   "zoomPanelSliderInput": "Posuvník a textové pole",
   "zoomPanelSlider": "Posuvník",
   "zoomPanelInputButtons": "Textové pole a tlačítka",
   "zoomPanelInput": "Textové pole",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Klávesové hudební nástroje",
+  "zoomPanelResetOnly": "Pouze obnovit",
   "rotationDisplay": "Zobrazení rotace",
   "rotationDisplayDescription": "Zvolte, kdy se řádek otáčení objeví nad přiblížením. To nemění gesta nebo zkratky.",
   "whenRotated": "Při otočení",
