@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "ストレージプロバイダから完全なWebDAVアドレスをコピーします。Nextcloudの場合は、Filesの設定を開き、WebDAVのURLをコピーします。\n\n例: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "WebDAV アカウントのログイン名を入力してください。/files/USERNAME/ で終わるNextcloudURLの場合は、USERNAME の代わりに表示される値を使用してください。",
+  "connectionPasswordDescription": "プロバイダからのWebDAVパスワードまたはアプリパスワードを使用してください。 Nextcloudの場合は、format@@0 → format@@1 を開き、format@@2 という名前のアプリのパスワードを作成し、ここに貼り付けます。",
+  "connectionSyncRootDescription": "ドキュメントディレクトリ全体をオフラインで利用できるようにします。サブフォルダを含めて、すべてのドキュメントディレクトリをオフラインで保持します。たとえば、インターネットに接続されていないすべてのノートにアクセスすることができます。",
+  "deleteConnection": "接続を削除",
+  "deleteConnectionDescription": "Butterflyから接続「{name}」を削除しますか？この接続に保存されているファイルは削除されません。",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -595,7 +595,7 @@
   "password": "パスワード",
   "authenticationPassword": "認証パスワード",
   "documentEncryptionPassword": "ドキュメント暗号化パスワード",
-  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
+  "documentEncryptionPasswordDescription": "この接続で作成されたドキュメントを暗号化するには、別のパスワードを選択してください。他のデバイスで同じパスワードを使用して開きます。 新しいドキュメントを暗号化しないようにするには、空白のままにしてください。\n\n例: パスワードマネージャーに保存できるパスフレーズを使用してください。",
   "documentEncryptionEnabled": "ドキュメントの暗号化が有効になっています",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "ドキュメント暗号化パスワードを追加",
@@ -605,10 +605,10 @@
   "symmetric": "Symmetric",
   "perSide": "1 辺あたり",
   "directory": "ディレクトリ",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Butterflyでこの接続を認識する名前を選択してください。デバイスまたはサーバー上のフォルダの名前を変更しません。\n\n例: Nextcloud。",
+  "connectionDirectoryDescription": "バタフライなど、WebDAV ストレージ内の基本フォルダを選択します。 ノートはデフォルトでドキュメントサブフォルダに保存されます。format@@0でサブフォルダ名を変更します。",
+  "localConnectionDirectoryDescription": "このデバイスのベースフォルダをフォルダボタンで選択するか、/path/to/folder、C:\\path\\to\\folderなどのフルパスを入力してください。 ノートはデフォルトでドキュメントサブフォルダに保存されます。format@@0でサブフォルダ名を変更します。",
+  "connectionPathDescription": "この種類のコンテンツを保存する場所を選択します。たとえば、Documents はベースフォルダのサブフォルダを使用します。 はベースフォルダ自体を使用し、空の値はこのタイプを無効にします。 フルパスを入力することもできます。ベースフォルダがないローカル接続では、有効になっているタイプごとにフルパスが必要です。",
   "connectionPathRequired": "絶対ベースフォルダを選択するか、有効なディレクトリタイプに絶対パスを使用してください",
   "connectionAlreadyExists": "この名前の接続は既に存在します。別の名前を選択してください。",
   "documentsDirectory": "ドキュメントディレクトリ",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "接続アイコンとして使用する画像のオプションURL",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "画像を選択",
+  "invalidConnectionIcon": "有効な画像ファイルを選択",
   "update": "更新",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "パック",
-  "textures": "Textures",
+  "textures": "テクスチャ",
   "fonts": "フォント",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "一時的なモバイル版",
   "cameraControlsVisibilityDescription": "モバイルで一時的にズームとローテーションコントロールを表示、非表示、すべてのデバイスで一時的に表示、または常に表示します。 コントロールをズーム、回転、または操作することなく、5秒後に一時的なコントロールはフェードアウトします。",
   "zoomPanelControls": "カメラコントロールのレイアウト",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "ズームと回転のためにスライダー、テキストフィールド、およびボタンを個別に表示します。リセットボタンのみを維持するには、すべてのオプションの選択を解除します。",
   "zoomPanelFull": "フル (スライダー、テキストフィールド、ボタン)",
   "zoomPanelSliderInput": "スライダーとテキストフィールド",
   "zoomPanelSlider": "スライダー",
   "zoomPanelInputButtons": "テキストフィールドとボタン",
   "zoomPanelInput": "テキスト フィールド",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "ボタン",
+  "zoomPanelResetOnly": "リセットのみ",
   "rotationDisplay": "回転表示",
   "rotationDisplayDescription": "回転行がズームの上に表示されるときに選択します。これは回転ジェスチャーやショートカットを変更しません。",
   "whenRotated": "回転時",
