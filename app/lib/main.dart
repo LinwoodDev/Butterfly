@@ -337,9 +337,12 @@ class ButterflyApp extends StatelessWidget {
           BlocProvider(
             create: (context) {
               if (!kIsWeb && isWindow) {
-                windowManager.waitUntilReadyToShow(null, () async {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (!context.mounted) return;
                   settingsCubit.setTheme(context);
-                  await windowManager.show();
+                  final window = WindowManager.instance.getCurrent();
+                  window?.show();
+                  window?.dispose();
                 });
               }
               return settingsCubit;

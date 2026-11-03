@@ -17,7 +17,7 @@ version: 2.6.3-rc.0+205
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
-  flutter: 3.47.8
+  flutter: 3.47.9
 
 dependencies:
   async: ^2.13.1
@@ -53,7 +53,8 @@ dependencies:
   bloc_concurrency: ^0.3.0
   camera: ^0.12.1
   camera_windows: ^0.3.0
-  window_manager: ^0.5.2
+  window_manager: ^0.6.0
+  nativeapi: ^0.5.7
   flex_color_scheme: ^9.0.0
   json_annotation: ^4.12.0
   freezed_annotation: ^3.1.0
@@ -70,12 +71,12 @@ dependencies:
   settings_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 0d1b58a521304eae0985269801da068444e5dc7b
+      ref: 07048e644c0646627762174c5f4b3999c240cb82
       path: packages/settings_leap
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 24c9a64f187aa396493a4953c80bd3fdb77ff6b9
+      ref: 0624d6d50d49e16d831e1c1a68875dfa54b9afe0
       path: packages/material_leap
   lw_sysapi:
     git:

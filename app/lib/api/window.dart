@@ -9,10 +9,14 @@ Future<void> applyNativeTitleBar(bool nativeTitleBar) async {
 
   // This still handles GtkHeaderBar on GNOME and the regular desktop
   // implementations on Windows, macOS and X11.
-  await windowManager.setTitleBarStyle(
-    nativeTitleBar ? TitleBarStyle.normal : TitleBarStyle.hidden,
-    windowButtonVisibility: nativeTitleBar,
-  );
+  final window = WindowManager.instance.getCurrent();
+  if (window != null) {
+    window.titleBarStyle = nativeTitleBar
+        ? TitleBarStyle.normal
+        : TitleBarStyle.hidden;
+    window.isWindowControlButtonsVisible = nativeTitleBar;
+    window.dispose();
+  }
 
   if (defaultTargetPlatform == .linux) {
     // gtk_window_set_decorated() is ineffective in GTK 3's Wayland backend.

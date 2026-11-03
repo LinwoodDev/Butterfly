@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:butterfly/api/close.dart';
 import 'package:flutter/foundation.dart';
@@ -17,19 +16,22 @@ CloseSubscription onPreventClose(
   return IOCloseSubscription(context, onClose);
 }
 
-class IOCloseSubscription extends CloseSubscription with WindowListener {
+class IOCloseSubscription extends CloseSubscription {
   static final List<IOCloseSubscription> _activeSubscriptions = [];
 
   final OnCloseCallback _onClose;
   final BuildContext context;
+  Window? _window;
+  ListenerId? _listener;
   bool _isClosing = false;
   bool _isDisposed = false;
 
-  IOCloseSubscription(this.context, this._onClose) {
+  IOCloseSubscription(this.context, this._onClose, {Window? window}) {
     if (kIsWeb || !isWindow) return;
+    _window = window ?? WindowManager.instance.getCurrent();
+    if (_window == null) return;
     _activeSubscriptions.add(this);
-    windowManager.setPreventClose(true);
-    windowManager.addListener(this);
+    _listener = _window!.addListener(_onWindowEvent);
   }
 
   @override
@@ -37,23 +39,39 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
     _isDisposed = true;
     if (kIsWeb || !isWindow) return;
     _activeSubscriptions.remove(this);
-    windowManager.setPreventClose(_activeSubscriptions.isNotEmpty);
-    WindowManager.instance.removeListener(this);
+    final listener = _listener;
+    if (listener != null) _window?.removeListener(listener);
+    _listener = null;
+    _window?.dispose();
+    _window = null;
   }
 
-  @override
-  void onWindowClose() async {
-    if (_isClosing || _isDisposed) return;
+  Future<void> _onWindowEvent(WindowEvent event) async {
+    if (event is! WindowCloseRequestedEvent || _isDisposed) return;
     if (_activeSubscriptions.isEmpty ||
         !identical(_activeSubscriptions.last, this)) {
       return;
     }
-    _isClosing = true;
-    final request = await _onClose();
-    if (request == null) {
-      await _closeWindow();
+    if (_isClosing) {
+      event.request.cancel();
       return;
     }
+    _isClosing = true;
+    try {
+      // Native close requests remain pending until this callback completes.
+      if (!await _confirmClose()) event.request.cancel();
+    } catch (_) {
+      event.request.cancel();
+      rethrow;
+    } finally {
+      _isClosing = false;
+    }
+  }
+
+  Future<bool> _confirmClose() async {
+    final request = await _onClose();
+    if (_isDisposed || !context.mounted) return false;
+    if (request == null) return true;
     final result = await showDialog<_CloseDialogResult>(
       context: context,
       builder: (context) => AlertDialog(
@@ -76,19 +94,14 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
         ],
       ),
     );
+    if (_isDisposed) return false;
     if (result == _CloseDialogResult.save) {
       final saved = await _save(request);
-      if (saved) {
-        await _closeWindow();
-        return;
-      }
+      return saved && !_isDisposed;
     } else if (result == _CloseDialogResult.discard) {
-      await _closeWindow();
-      return;
+      return true;
     }
-    if (!_isDisposed) {
-      _isClosing = false;
-    }
+    return false;
   }
 
   Future<bool> _save(CloseRequest request) async {
@@ -97,11 +110,5 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
     } catch (_) {
       return false;
     }
-  }
-
-  Future<void> _closeWindow() async {
-    dispose();
-    await windowManager.destroy();
-    exit(0);
   }
 }

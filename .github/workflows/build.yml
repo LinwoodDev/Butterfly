@@ -333,6 +333,7 @@ jobs:
             fuse \
             libgtk-3-dev \
             libx11-dev \
+            libxi-dev \
             pkg-config \
             cmake \
             ninja-build \

@@ -11,17 +11,14 @@ import 'main.dart';
 Future<void> setup({required bool nativeTitleBar}) async {
   await pdfrxFlutterInitialize();
   if (!kIsWeb && isWindow) {
-    await windowManager.ensureInitialized();
-    const windowOptions = WindowOptions(
-      minimumSize: Size(410, 300),
-      title: applicationName,
-      backgroundColor: Colors.transparent,
-    );
-
-    await windowManager.waitUntilReadyToShow(windowOptions);
-
-    await windowManager.setResizable(true);
-    await windowManager.setPreventClose(false);
+    final window = WindowManager.instance.getCurrent();
+    if (window != null) {
+      window.minimumSize = const Size(410, 300).toNative();
+      window.title = applicationName;
+      window.backgroundColor = Colors.transparent.toNative();
+      window.isResizable = true;
+      window.dispose();
+    }
     await applyNativeTitleBar(nativeTitleBar);
   }
   setupFullScreen();
