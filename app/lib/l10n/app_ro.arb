@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Copiați adresa completă WebDAV de pe furnizorul de stocare. Pentru Nextcloud, deschideți setările fișierelor și copiați URL-ul WebDAV.\n\nExemplu: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Introduceți numele de conectare pentru contul WebDAV. Pentru o adresă URL Nextcloud care se termină în /fișiere/USERNAME/, utilizați valoarea afișată în locul USERNAME.",
+  "connectionPasswordDescription": "Folosiți parola WebDAV sau o parolă a aplicației de la furnizor. Pentru Nextcloud, deschideți setările personale → Securitate, creați o parolă a aplicației numită Butterfly, și lipiți-o aici.",
+  "connectionSyncRootDescription": "Păstrați disponibil offline întregul dosar de documente, inclusiv subdosarele sale. De exemplu, activați acest lucru pentru a accesa toate notele fără conexiune la internet.",
+  "deleteConnection": "Ştergeţi conexiunea",
+  "deleteConnectionDescription": "Eliminați conexiunea \"{name}\" din Butterfly? Fișierele stocate în această conexiune nu vor fi șterse.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -595,7 +595,7 @@
   "password": "Parolă",
   "authenticationPassword": "Parola de autentificare",
   "documentEncryptionPassword": "Parola de criptare document",
-  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
+  "documentEncryptionPasswordDescription": "Alegeți o parolă separată pentru criptarea documentelor create în această conexiune. Utilizați aceeași parolă pe celelalte dispozitive pentru a le deschide. Lăsați gol pentru a păstra documentele noi necriptate.\n\nExemplu: utilizați o parolă de acces pe care o puteți păstra în managerul de parole.",
   "documentEncryptionEnabled": "Criptare document activată",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Adăugați parola de criptare a documentului",
@@ -605,10 +605,10 @@
   "symmetric": "Simetric",
   "perSide": "Pe parte",
   "directory": "Director",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Alegeți un nume pentru a recunoaște această conexiune în Butterfly. Nu redenumește niciun dosar pe dispozitivul sau serverul dumneavoastră.\n\nExemplu: Nextcloud.",
+  "connectionDirectoryDescription": "Alegeți un folder de bază în interiorul stocării WebDAV, de exemplu Butterfly. Notele sunt stocate în subdosarul său de documente în mod implicit. Modificați numele subdosarelor sub Advanced.",
+  "localConnectionDirectoryDescription": "Alegeți un dosar de bază pe acest dispozitiv cu butonul de dosar sau introduceți calea completă, de exemplu /path/to/folder sau C:\\path\\to\\folder. Notele sunt stocate în subdosarul său de documente în mod implicit. Modificați numele subdosarelor sub Advanced.",
+  "connectionPathDescription": "Alegeți unde să fie stocat acest tip de conținut. De exemplu, documentele utilizează un subdosar al dosarului de bază, . folosește directorul de bază în sine, iar o valoare goală dezactivează acest tip. De asemenea, puteți introduce o cale completă. Pentru o conexiune locală fără un dosar de bază, fiecare tip activat necesită o cale completă.",
   "connectionPathRequired": "Alegeți un dosar de bază absolută, sau folosiți căi absolute pentru tipurile de directoare activate",
   "connectionAlreadyExists": "Există deja o conexiune cu acest nume. Alegeți un alt nume",
   "documentsDirectory": "Dosar documente",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "URL opțional al unei imagini pentru a fi folosită ca pictogramă de conexiune",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Alege imaginea",
+  "invalidConnectionIcon": "Alege o imagine validă",
   "update": "Actualizare",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Pachete",
-  "textures": "Textures",
+  "textures": "Texturi",
   "fonts": "Fonturi",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Temporar pe mobil",
   "cameraControlsVisibilityDescription": "Arată comenzile de mărire și rotație temporar pe mobil, ascunde-le, arată-le temporar pe toate dispozitivele sau arată-le întotdeauna. Controalele temporare dispar după 5 secunde fără a mări zooming-ul, a roti sau a interacţiona cu controalele.",
   "zoomPanelControls": "Aspectul comenzilor camerei foto",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Afișează glisoarele, câmpurile de text și butoanele independent pentru zoom și rotație. Deselectează toate opțiunile pentru a păstra doar butoanele de resetare.",
   "zoomPanelFull": "Complet (slider, text field and buttons)",
   "zoomPanelSliderInput": "Camp glisare si text",
   "zoomPanelSlider": "Slider",
   "zoomPanelInputButtons": "Câmp text și butoane",
   "zoomPanelInput": "Camp text",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Butoane",
+  "zoomPanelResetOnly": "Numai resetare",
   "rotationDisplay": "Afișare rotație",
   "rotationDisplayDescription": "Alegeți când rândul de rotație apare deasupra micșorării. Acest lucru nu schimbă gesturile de rotație sau scurtăturile.",
   "whenRotated": "Când este rotit",
