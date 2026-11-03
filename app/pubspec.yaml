@@ -17,7 +17,7 @@ version: 2.6.3-rc.0+205
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
-  flutter: 3.47.8
+  flutter: 3.47.9
 
 dependencies:
   async: ^2.13.1

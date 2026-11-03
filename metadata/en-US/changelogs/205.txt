@@ -8,9 +8,6 @@
 * Allow choosing camera sliders, text fields and buttons independently ([#1223](https://github.com/LinwoodDev/Butterfly/issues/1223))
 * Keep camera panels compact when sliders and text fields are hidden
 * Show detailed synchronization progress for nested folders and files without an additional scan ([#1337](https://github.com/LinwoodDev/Butterfly/issues/1337))
-* Share documentation translations and Markdown rendering with Linwood Starlight style, with automatic language setup and optional math and i18n
-* Suggest documentation in the browser's preferred language without forcing a language change
 * Use native file dialogs for imports and exports, with enforced custom save extensions
-* Update translations
 
 Read more here: https://linwood.dev/butterfly/2.6.3-rc.0
