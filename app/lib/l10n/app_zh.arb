@@ -578,10 +578,10 @@
     "description": "URL field"
   },
   "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
+  "connectionUsernameDescription": "输入您的 WebDAV 帐户的登录名。对于以 /files/USERNAME/结尾的下一个云端URL，请使用替代USERNAME 显示的值。",
+  "connectionPasswordDescription": "使用您的 WebDAV 密码或您的提供商的应用密码。 对于下一个云端，打开个人设置 -> 安全，创建一个名为Butterfly的应用程序密码并将其粘贴到这里。",
+  "connectionSyncRootDescription": "保持整个文档目录的离线可用，包括其子文件夹。例如，启用此选项可以在没有互联网连接的情况下访问您的所有便笺。",
+  "deleteConnection": "删除连接",
   "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
   "@deleteConnectionDescription": {
     "placeholders": {
@@ -606,9 +606,9 @@
   "perSide": "每面",
   "directory": "目录",
   "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionDirectoryDescription": "在您的 WebDAV 存储库中选择一个基础文件夹，例如Butterfly。 注释默认情况下存储在其文档子文件夹中。更改高级下的子文件夹名称。",
+  "localConnectionDirectoryDescription": "使用文件夹按钮选择此设备上的基本文件夹，或输入其完整路径，例如/path/to/folder或 C:\\path\\to\\folder。 注释默认情况下存储在其文档子文件夹中。更改高级下的子文件夹名称。",
+  "connectionPathDescription": "选择存储此类型内容的地点。例如，文档使用基本文件夹的子文件夹。 使用基本文件夹本身，空值禁用此类型。 您也可以输入一个完整路径。对于没有基础文件夹的本地连接，每个启用类型需要一个完整路径。",
   "connectionPathRequired": "选择一个绝对的基础文件夹，或使用启用的目录类型的绝对路径",
   "connectionAlreadyExists": "此名称的连接已经存在。请选择另一个名称",
   "documentsDirectory": "文档目录",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "作为连接图标的图像的可选URL",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "选择图像",
+  "invalidConnectionIcon": "选择一个有效的图像文件",
   "update": "更新",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "包",
-  "textures": "Textures",
+  "textures": "纹理",
   "fonts": "字体",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "手机上的临时模式",
   "cameraControlsVisibilityDescription": "在移动设备上临时显示缩放和旋转控制, 隐藏它们, 暂时在所有设备上显示它们, 或者总是显示它们。 临时控制在5秒后淡出，而不会缩放、旋转或与控件交互。",
   "zoomPanelControls": "相机控制布局",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "单独显示滑块、文本字段和按钮以进行缩放和旋转。取消选择所有选项以只保留重置按钮。",
   "zoomPanelFull": "完整(滑动，文本字段和按钮)",
   "zoomPanelSliderInput": "滑块和文本字段",
   "zoomPanelSlider": "滑块",
   "zoomPanelInputButtons": "文本字段和按钮",
   "zoomPanelInput": "文本字段",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "按钮",
+  "zoomPanelResetOnly": "仅重置",
   "rotationDisplay": "旋转显示",
   "rotationDisplayDescription": "选择旋转行出现在缩放上方的时间。这不会改变旋转手势或快捷方式。",
   "whenRotated": "旋转时",
