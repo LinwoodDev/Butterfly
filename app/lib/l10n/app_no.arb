@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Kopier hele WebDAV-adressen fra din lagringsleverandør. For Nextcloud, åpne filinnstillinger og kopier WebDAV-URLen.\n\nEksempel: https://cloud.example.com/remote.php/dav/filer/USERNAME/",
+  "connectionUsernameDescription": "Skriv inn påloggingsnavnet for din WebDAV-konto. For en Nextcloud URL som slutter i /filer/USERNAME/, bruk verdien som vises i stedet for USERNAME.",
+  "connectionPasswordDescription": "Bruk WebDAV passordet eller et apppassord fra leverandøren din. For Nextcloud, åpne personlige innstillinger → Sikkerheter, opprett et apppassord som heter Butterfly, og lim den inn her.",
+  "connectionSyncRootDescription": "Behold hele dokumentmappen tilgjengelig uten internett, inkludert undermapper. For eksempel, aktiver dette for å få tilgang til alle notatene uten en internettforbindelse.",
+  "deleteConnection": "Slett forbindelse",
+  "deleteConnectionDescription": "Fjern tilkoblingen\"{name}\" fra Butterfly? Filer lagret i denne forbindelsen blir ikke slettet.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -595,7 +595,7 @@
   "password": "Passord",
   "authenticationPassword": "Godkjenning passord",
   "documentEncryptionPassword": "Krypteringspassord for dokument",
-  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
+  "documentEncryptionPasswordDescription": "Velg et separat passord for å kryptere dokumenter opprettet i denne tilkoblingen. Bruk samme passord på dine andre enheter for å åpne dem. La være tom for å beholde nye dokumenter ukryptert.\n\nEksempel: bruk passordfrase du kan beholde i passordbehandleren din.",
   "documentEncryptionEnabled": "Dokumentkryptering aktivert",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Legg til passord for kryptering av dokument",
@@ -605,10 +605,10 @@
   "symmetric": "Symmetrisk",
   "perSide": "Pr. side",
   "directory": "Katalog",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Velg et navn for å gjenkjenne denne tilkoblingen i Smutt. Den endrer ikke mappene på enheten eller serveren din.\n\nEksempel: Nextcloud.",
+  "connectionDirectoryDescription": "Velg en basismappe i WebDAV-lageret, for eksempel Butterfly. Notater lagres i sin dokuments undermappe som standard. Endre undermappenavn under Avansert.",
+  "localConnectionDirectoryDescription": "Velg en basismappe på denne enheten med mappe-knappen, eller skriv inn hele mappens bane, for eksempel /path/to/folder eller C:\\path\\to\\mappe. Notater lagres i sin dokuments undermappe som standard. Endre undermappenavn under Avansert.",
+  "connectionPathDescription": "Velg hvor du vil lagre denne type innhold. For eksempel Dokumenter bruker en undermappe i originalmappen, . bruker selve basismappen og en tom verdi deaktiverer denne typen. Du kan også skrive inn en full bane. For en lokal tilkobling uten en basismappe, trenger hver aktiverte type en full bane.",
   "connectionPathRequired": "Velg en absolutt basismappe, eller bruk absolutte stier for de aktiverte mappetypene",
   "connectionAlreadyExists": "En forbindelse med dette navnet eksisterer allerede. Velg et annet navn",
   "documentsDirectory": "Dokumenter katalog",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Valgfri URL til et bilde som skal brukes som tilkoblingsikonet",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Velg bilde",
+  "invalidConnectionIcon": "Velg en gyldig bildefil",
   "update": "Oppdater",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Pakker",
-  "textures": "Textures",
+  "textures": "Teksturer",
   "fonts": "Skrifttyper",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Midlertidig på mobilen",
   "cameraControlsVisibilityDescription": "Vis brytere for zoom og rotasjon midlertidig på mobil, skjul dem, vis dem midlertidig på alle enheter, eller alltid vis dem. Midlertidige kontroller forsvinner ut etter 5 sekunder uten å zoome inn, rotere eller samhandle med kontrollene.",
   "zoomPanelControls": "Oppsett av kamerabetjening",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Vis glidere, tekstfelt og knapper uavhengig for zoom og rotasjon. Velg bort alle alternativene for å bare tilbakestille knappene.",
   "zoomPanelFull": "Full (glider, tekstfelt og knapper)",
   "zoomPanelSliderInput": "Glidebryter og tekstfelt",
   "zoomPanelSlider": "Glidebryter",
   "zoomPanelInputButtons": "Tekstfelt og knapper",
   "zoomPanelInput": "Tekst felt",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Knapper",
+  "zoomPanelResetOnly": "Kun tilbakestilling",
   "rotationDisplay": "Rotasjon skjerm",
   "rotationDisplayDescription": "Velg når rotasjonsraden vises over zoom. Dette endrer ikke rotasjonsbevegelser eller snarveier.",
   "whenRotated": "Når rotert",
