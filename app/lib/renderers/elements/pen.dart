@@ -327,33 +327,26 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   @override
+  @override
   PenRenderer _transform({
     required Offset position,
     required double rotation,
     required double shear,
     double scaleX = 1,
     double scaleY = 1,
+    double strokeWidthFactor = 1,
   }) => PenRenderer(
     element.copyWith(
       rotation: rotation,
       shear: shear,
       points: movePoints(position, scaleX, scaleY),
+      property: element.property.copyWith(
+        strokeWidth: element.property.strokeWidth * strokeWidthFactor,
+      ),
     ),
     layer,
     moveRect(position, scaleX, scaleY),
     moveRect(position, scaleX, scaleY, true),
-  );
-
-  @override
-  PenRenderer _scaleStrokeWidth(double factor) => PenRenderer(
-    element.copyWith(
-      property: element.property.copyWith(
-        strokeWidth: element.property.strokeWidth * factor,
-      ),
-    ),
-    layer,
-    rect,
-    expandedRect,
   );
 
   @override
