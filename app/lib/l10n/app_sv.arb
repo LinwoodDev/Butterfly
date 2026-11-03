@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Kopiera den fullständiga WebDAV-adressen från din lagringsleverantör. För Nextcloud, öppna Filer inställningar och kopiera WebDAV URL.\n\nExempel: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Ange inloggningsnamnet för ditt WebDAV-konto. För en Nextcloud-URL som slutar i /files/USERNAME/, använd det värde som visas i stället för USERNAME.",
+  "connectionPasswordDescription": "Använd ditt WebDAV-lösenord eller ett applösenord från din leverantör. För Nextcloud, öppna Personliga inställningar → Säkerhet, skapa ett applösenord som heter Butterfly, och klistra in det här.",
+  "connectionSyncRootDescription": "Håll hela dokumentkatalogen tillgänglig offline, inklusive dess undermappar. Aktivera till exempel detta för att komma åt alla dina anteckningar utan internetanslutning.",
+  "deleteConnection": "Ta bort kontakt",
+  "deleteConnectionDescription": "Ta bort anslutningen \"{name}\" från fjärilen? Filer som lagras i denna anslutning kommer inte att raderas.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -595,7 +595,7 @@
   "password": "Lösenord",
   "authenticationPassword": "Lösenord för autentisering",
   "documentEncryptionPassword": "Lösenord för dokumentkryptering",
-  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
+  "documentEncryptionPasswordDescription": "Välj ett separat lösenord för att kryptera dokument som skapats i den här anslutningen. Använd samma lösenord på dina andra enheter för att öppna dem. Lämna tomt för att behålla nya dokument okrypterade.\n\nExempel: använd ett lösenord som du kan behålla i din lösenordshanterare.",
   "documentEncryptionEnabled": "Dokumentkryptering aktiverad",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lägg till lösenord för dokumentkryptering",
@@ -605,10 +605,10 @@
   "symmetric": "Symmetrisk",
   "perSide": "Per sida",
   "directory": "Katalog",
-  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionNameDescription": "Välj ett namn att känna igen denna anslutning i Butterfly. Den döper inte om några mappar på din enhet eller server.\n\nExempel: Nextcloud.",
+  "connectionDirectoryDescription": "Välj en basmapp i din WebDAV-lagring, till exempel Butterfly. Anteckningar lagras i dess dokument undermapp som standard. Ändra undermappsnamn under Avancerat.",
+  "localConnectionDirectoryDescription": "Välj en basmapp på den här enheten med mappknappen, eller ange dess fullständiga sökväg, till exempel /path/to/folder eller C:\\path\\to\\folder. Anteckningar lagras i dess dokument undermapp som standard. Ändra undermappsnamn under Avancerat.",
+  "connectionPathDescription": "Välj var du vill lagra den här typen av innehåll. Till exempel, Dokument använder en undermapp till basmappen, . använder själva grundmappen och ett tomt värde inaktiverar den här typen. Du kan också ange en fullständig sökväg. För en lokal anslutning utan en basmapp behöver varje aktiverad typ en fullständig sökväg.",
   "connectionPathRequired": "Välj en absolut basmapp eller använd absoluta sökvägar för de aktiverade katalogtyperna",
   "connectionAlreadyExists": "En kontakt med detta namn finns redan. Välj ett annat namn",
   "documentsDirectory": "Katalog för dokument",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Valfri URL för en bild att använda som anslutningsikon",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Välj bild",
+  "invalidConnectionIcon": "Välj en giltig bildfil",
   "update": "Uppdatera",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Paket",
-  "textures": "Textures",
+  "textures": "Texturer",
   "fonts": "Typsnitt",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Tillfälligt i mobilen",
   "cameraControlsVisibilityDescription": "Visa zoom- och rotationskontroller tillfälligt på mobilen, dölj dem, visa dem tillfälligt på alla enheter, eller alltid visa dem. Tillfälliga kontroller bleknar ut efter 5 sekunder utan att zooma, rotera eller interagera med kontrollerna.",
   "zoomPanelControls": "Kamerakontroller layout",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Visa reglage, textfält och knappar självständigt för zoom och rotation. Avmarkera alla alternativ för att behålla endast återställningsknapparna.",
   "zoomPanelFull": "Fullt (reglage, textfält och knappar)",
   "zoomPanelSliderInput": "Fält för matare och text",
   "zoomPanelSlider": "Reglage",
   "zoomPanelInputButtons": "Textfält och knappar",
   "zoomPanelInput": "Text fält",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Knappar",
+  "zoomPanelResetOnly": "Återställ endast",
   "rotationDisplay": "Rotationsvisning",
   "rotationDisplayDescription": "Välj när rotationsraden visas ovanför zoom. Detta ändrar inte rotationsgester eller genvägar.",
   "whenRotated": "Vid rotering",
