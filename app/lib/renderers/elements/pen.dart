@@ -327,7 +327,6 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   @override
-  @override
   PenRenderer _transform({
     required Offset position,
     required double rotation,

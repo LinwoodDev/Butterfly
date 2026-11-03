@@ -294,7 +294,7 @@ class RectSelectionForegroundManager {
 
     if (_effectiveScaleMode == .scaleProp && isResizing) {
       final scale = (scaleX - 1).abs() > (scaleY - 1).abs() ? scaleX : scaleY;
-      
+
       scaleX = scale;
       scaleY = scale;
 
