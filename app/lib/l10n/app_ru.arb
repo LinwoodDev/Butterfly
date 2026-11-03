@@ -577,12 +577,12 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Copy the full WebDAV address from your storage provider. For Nextcloud, open Files settings and copy the WebDAV URL.\n\nExample: https://cloud.example.com/remote.php/dav/files/USERNAME/",
-  "connectionUsernameDescription": "Enter the login name for your WebDAV account. For a Nextcloud URL ending in /files/USERNAME/, use the value shown in place of USERNAME.",
-  "connectionPasswordDescription": "Use your WebDAV password or an app password from your provider. For Nextcloud, open Personal settings → Security, create an app password named Butterfly, and paste it here.",
-  "connectionSyncRootDescription": "Keep the entire documents directory available offline, including its subfolders. For example, enable this to access all your notes without an internet connection.",
-  "deleteConnection": "Delete connection",
-  "deleteConnectionDescription": "Remove the connection \"{name}\" from Butterfly? Files stored in this connection will not be deleted.",
+  "webDavUrlDescription": "Скопируйте полный WebDAV адрес из вашего поставщика хранения. Для Nextcloud, откройте настройки файлов и скопируйте WebDAV URL.\n\nПример: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Введите имя логина для вашей учетной записи в WebDAV. Для URL-адреса Nextcloud заканчивающегося в /files/USERNAME/, используйте значение, показанное вместо USERNAME.",
+  "connectionPasswordDescription": "Используйте ваш WebDAV пароль или пароль от вашего провайдера. Для NextCloud откройте Персональные настройки → Безопасность, создайте пароль приложения под названием Butterfly и вставьте его здесь.",
+  "connectionSyncRootDescription": "Держите весь каталог документов в автономном режиме, включая подпапки. Например, включите доступ к заметкам без подключения к интернету.",
+  "deleteConnection": "Удалить соединение",
+  "deleteConnectionDescription": "Удалить соединение \"{name}\" из Бабочки? Файлы, хранящиеся в этом соединении, не будут удалены.",
   "@deleteConnectionDescription": {
     "placeholders": {
       "name": {
@@ -606,9 +606,9 @@
   "perSide": "На стороне",
   "directory": "Каталог",
   "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
-  "connectionDirectoryDescription": "Choose a base folder inside your WebDAV storage, for example Butterfly. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "localConnectionDirectoryDescription": "Choose a base folder on this device with the folder button, or enter its full path, for example /path/to/folder or C:\\path\\to\\folder. Notes are stored in its Documents subfolder by default. Change the subfolder names under Advanced.",
-  "connectionPathDescription": "Choose where to store this type of content. For example, Documents uses a subfolder of the base folder, . uses the base folder itself, and an empty value disables this type. You can also enter a full path. For a local connection without a base folder, each enabled type needs a full path.",
+  "connectionDirectoryDescription": "Выберите базовую папку внутри вашего хранилища WebDAV, например Butterfly. Заметки хранятся в папке Документы по умолчанию. Измените имена подпапок в разделе Дополнительно.",
+  "localConnectionDirectoryDescription": "Выберите базовую папку на этом устройстве с помощью кнопки папки или введите полный путь, например /path/to/folder или C:\\path\\to\\folder. Заметки хранятся в папке Документы по умолчанию. Измените имена подпапок в разделе Дополнительно.",
+  "connectionPathDescription": "Выберите, где хранить этот тип содержимого. Например, в Documents используется подпапка базовой папки, . использует базовую папку, а пустое значение отключает этот тип. Вы также можете ввести полный путь. Для локального соединения без базовой папки для каждого включенного типа необходим полный путь.",
   "connectionPathRequired": "Выберите абсолютную базовую папку, или используйте абсолютные пути для включённых типов каталогов",
   "connectionAlreadyExists": "Связь с таким именем уже существует. Выберите другое имя",
   "documentsDirectory": "Каталог документов",
@@ -621,8 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Необязательный URL изображения для значка подключения",
-  "chooseConnectionIcon": "Choose image",
-  "invalidConnectionIcon": "Choose a valid image file",
+  "chooseConnectionIcon": "Выбрать изображение",
+  "invalidConnectionIcon": "Выберите корректный файл изображения",
   "update": "Обновление",
   "@update": {
     "description": "Update action"
@@ -809,7 +809,7 @@
     "description": "Note object"
   },
   "packs": "Наборы",
-  "textures": "Textures",
+  "textures": "Текстуры",
   "fonts": "Шрифты",
   "@packs": {
     "description": "Asset pack"
@@ -1721,14 +1721,14 @@
   "temporaryOnMobile": "Временно на мобильном устройстве",
   "cameraControlsVisibilityDescription": "Временно показывать кнопки масштабирования и поворота на мобильном устройстве, скрывать их, временно показывать их на всех устройствах или всегда показывать их. Временные элементы управления исчезают через 5 секунд без увеличения, вращения или взаимодействия с элементами.",
   "zoomPanelControls": "Управление камерой",
-  "zoomPanelControlsDescription": "Show sliders, text fields and buttons independently for zoom and rotation. Deselect all options to keep only the reset buttons.",
+  "zoomPanelControlsDescription": "Показывать ползунки, текстовые поля и кнопки независимо от масштаба и вращения. Отмените все параметры, чтобы сохранить только кнопки сброса.",
   "zoomPanelFull": "Полная (ползунок, текстовое поле и кнопки)",
   "zoomPanelSliderInput": "Слайдер и текстовое поле",
   "zoomPanelSlider": "Слайдер",
   "zoomPanelInputButtons": "Текстовое поле и кнопки",
   "zoomPanelInput": "Текстовое поле",
-  "zoomPanelButtons": "Buttons",
-  "zoomPanelResetOnly": "Reset only",
+  "zoomPanelButtons": "Кнопки",
+  "zoomPanelResetOnly": "Сбросить только",
   "rotationDisplay": "Поворот экрана",
   "rotationDisplayDescription": "Выберите, когда линия вращения появляется над масштабом. Это не изменяет жесты или ярлыки.",
   "whenRotated": "При повернутом",
