@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "L'URL WebDAV complète fournie par votre fournisseur de stockage",
+  "webDavUrlDescription": "Copiez l'adresse WebDAV complète de votre fournisseur de stockage. Pour Nextcloud, ouvrez les paramètres de fichiers et copiez l'URL WebDAV.\n\nExemple : https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Entrez le nom de connexion de votre compte WebDAV. Pour une URL Nextcloud se terminant par /files/USERNAME/, utilisez la valeur affichée à la place de USERNAME.",
+  "connectionPasswordDescription": "Utilisez votre mot de passe WebDAV ou un mot de passe de l'application de votre fournisseur. Pour Nextcloud, ouvrez Paramètres personnels → Sécurité, créez un mot de passe d'application nommé Butterfly, et collez-le ici.",
+  "connectionSyncRootDescription": "Gardez le répertoire de documents disponible hors ligne, y compris ses sous-dossiers. Par exemple, activez cette option pour accéder à toutes vos notes sans connexion Internet.",
+  "deleteConnection": "Supprimer la connexion",
+  "deleteConnectionDescription": "Supprimer la connexion \"{name}\" de Butterfly? Les fichiers stockés dans cette connexion ne seront pas supprimés.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Connecter",
   "username": "Nom d'utilisateur",
   "password": "Mot de passe",
   "authenticationPassword": "Mot de passe d'authentification",
   "documentEncryptionPassword": "Mot de passe de cryptage du document",
-  "documentEncryptionPasswordDescription": "Chiffre les documents stockés dans cette connexion. Laissez vide pour les garder non chiffrés",
+  "documentEncryptionPasswordDescription": "Choisissez un mot de passe séparé pour chiffrer les documents créés dans cette connexion. Utilisez le même mot de passe sur vos autres appareils pour les ouvrir. Laissez vide pour garder les nouveaux documents non chiffrés.\n\nExemple : utilisez une phrase de passe que vous pouvez conserver dans votre gestionnaire de mots de passe.",
   "documentEncryptionEnabled": "Chiffrement des documents activé",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Ajouter un mot de passe de cryptage de document",
@@ -593,9 +605,10 @@
   "symmetric": "Symétrique",
   "perSide": "Par côté",
   "directory": "Répertoire",
-  "connectionNameDescription": "Utilisé uniquement pour identifier cette connexion dans le papillon",
-  "connectionDirectoryDescription": "Dossier de base pour cette connexion. Les notes utilisent Documents par défaut ; modifiez-le sous Avancé",
-  "connectionPathDescription": "Laisser vide pour désactiver ce type de répertoire. Utilisez . pour le dossier de base, un sous-dossier relatif ou un chemin absolu",
+  "connectionNameDescription": "Choisissez un nom pour reconnaître cette connexion dans Butterfly. Il ne renomme aucun dossier sur votre appareil ou serveur.\n\nExemple: Nextcloud.",
+  "connectionDirectoryDescription": "Choisissez un dossier de base dans votre stockage WebDAV, par exemple Butterfly. Les notes sont stockées dans son sous-dossier Documents par défaut. Changez les noms des sous-dossiers sous Avancé.",
+  "localConnectionDirectoryDescription": "Choisissez un dossier de base sur cet appareil avec le bouton de dossier, ou entrez son chemin complet, par exemple /path/to/folder ou C:\\path\\to\\folder. Les notes sont stockées dans son sous-dossier Documents par défaut. Changez les noms des sous-dossiers sous Avancé.",
+  "connectionPathDescription": "Choisissez où stocker ce type de contenu. Par exemple, Documents utilise un sous-dossier du dossier de base, . utilise le dossier de base lui-même, et une valeur vide désactive ce type. Vous pouvez également entrer un chemin complet. Pour une connexion locale sans dossier de base, chaque type activé a besoin d'un chemin complet.",
   "connectionPathRequired": "Choisissez un dossier de base absolu, ou utilisez des chemins absolus pour les types de répertoires activés",
   "connectionAlreadyExists": "Une connexion avec ce nom existe déjà. Choisissez un autre nom",
   "documentsDirectory": "Répertoire des documents",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "URL optionnelle d'une image à utiliser comme icône de connexion",
+  "chooseConnectionIcon": "Choisir une image",
+  "invalidConnectionIcon": "Choisissez un fichier image valide",
   "update": "Mise à jour",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Packs",
+  "textures": "Textures",
+  "fonts": "Polices",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Temporaire sur mobile",
   "cameraControlsVisibilityDescription": "Afficher temporairement les commandes de zoom et de rotation sur mobile, les masquer, les afficher temporairement sur tous les appareils, ou toujours les afficher. Les commandes temporaires s'estompent après 5 secondes sans zoomer, pivoter ou interagir avec les commandes.",
   "zoomPanelControls": "Disposition des commandes de l'appareil photo",
-  "zoomPanelControlsDescription": "Choisissez les commandes pour le zoom et la rotation. Les boutons de réinitialisation restent disponibles dans chaque disposition.",
+  "zoomPanelControlsDescription": "Afficher les curseurs, champs de texte et boutons indépendamment pour le zoom et la rotation. Désélectionnez toutes les options pour ne conserver que les boutons de réinitialisation.",
   "zoomPanelFull": "Plein (curseur, champ de texte et boutons)",
   "zoomPanelSliderInput": "Curseur et champ texte",
   "zoomPanelSlider": "Curseur",
   "zoomPanelInputButtons": "Champ de texte et boutons",
   "zoomPanelInput": "Champ de texte",
+  "zoomPanelButtons": "Boutons",
+  "zoomPanelResetOnly": "Remettre à zéro uniquement",
   "rotationDisplay": "Affichage de la rotation",
   "rotationDisplayDescription": "Choisissez quand la ligne de rotation apparaît au-dessus du zoom. Cela ne change pas les gestes de rotation ou les raccourcis.",
   "whenRotated": "En rotation",

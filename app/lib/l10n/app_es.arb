@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "La URL completa de WebDAV proporcionada por su proveedor de almacenamiento",
+  "webDavUrlDescription": "Copie la dirección completa de WebDAV desde su proveedor de almacenamiento. Para Nextcloud, abra la configuración de Archivos y copie la URL WebDAV.\n\nEjemplo: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Introduzca el nombre de usuario para su cuenta WebDAV. Para una URL de Nextcloud que termine en /files/USERNAME/, utilice el valor mostrado en lugar de USERNAME.",
+  "connectionPasswordDescription": "Utilice su contraseña WebDAV o una contraseña de aplicación de su proveedor. Para Nextcloud, abra Configuración Personal → Seguridad, cree una contraseña de aplicación llamada Butterfly, y péguela aquí.",
+  "connectionSyncRootDescription": "Mantenga el directorio completo de documentos disponible sin conexión, incluyendo sus subcarpetas. Por ejemplo, habilite esto para acceder a todas sus notas sin conexión a Internet.",
+  "deleteConnection": "Eliminar conexión",
+  "deleteConnectionDescription": "¿Eliminar la conexión \"{name}\" de Butterfly? Los archivos almacenados en esta conexión no se eliminarán.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Conectar",
   "username": "Usuario",
   "password": "Contraseña",
   "authenticationPassword": "Contraseña de autenticación",
   "documentEncryptionPassword": "Contraseña del cifrado del documento",
-  "documentEncryptionPasswordDescription": "Cifra documentos almacenados en esta conexión. Dejar vacío para mantenerlos sin cifrar",
+  "documentEncryptionPasswordDescription": "Elija una contraseña separada para cifrar documentos creados en esta conexión. Utilice la misma contraseña en sus otros dispositivos para abrirlos. Deje en blanco para mantener los nuevos documentos sin cifrar.\n\nEjemplo: utilice una contraseña que pueda mantener en su gestor de contraseñas.",
   "documentEncryptionEnabled": "Cifrado de documento habilitado",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Añadir contraseña de cifrado de documento",
@@ -593,9 +605,10 @@
   "symmetric": "Simétrica",
   "perSide": "Por lado",
   "directory": "Directorio",
-  "connectionNameDescription": "Solo se utiliza para identificar esta conexión en la mariposa",
-  "connectionDirectoryDescription": "Carpeta base para esta conexión. Las notas utilizan documentos de forma predeterminada; cámbialo bajo Avanzado",
-  "connectionPathDescription": "Dejar en blanco para desactivar este tipo de directorio. Utilice . Para la carpeta base, una subcarpeta relativa, o una ruta absoluta",
+  "connectionNameDescription": "Elegir un nombre para reconocer esta conexión en Butterfly. No renombra ninguna carpeta en su dispositivo o servidor.\n\nEjemplo: Nextcloud.",
+  "connectionDirectoryDescription": "Elija una carpeta base dentro de su almacenamiento WebDAV, por ejemplo Butterfly. Las notas se guardan en su subcarpeta de documentos por defecto. Cambie los nombres de las subcarpetas bajo Avanzado.",
+  "localConnectionDirectoryDescription": "Elija una carpeta base en este dispositivo con el botón de carpeta, o introduzca su ruta completa, por ejemplo /path/to/folder o C:\\path\\to\\folder. Las notas se guardan en su subcarpeta de documentos por defecto. Cambie los nombres de las subcarpetas bajo Avanzado.",
+  "connectionPathDescription": "Elija dónde almacenar este tipo de contenido. Por ejemplo, Documents utiliza una subcarpeta de la carpeta base, . usa la propia carpeta base, y un valor vacío deshabilita este tipo. También puede introducir una ruta completa. Para una conexión local sin una carpeta base, cada tipo habilitado necesita una ruta completa.",
   "connectionPathRequired": "Elija una carpeta base absoluta, o utilice rutas absolutas para los tipos de directorio habilitados",
   "connectionAlreadyExists": "Ya existe una conexión con este nombre. Elige otro nombre",
   "documentsDirectory": "Directorio de documentos",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "URL opcional de una imagen a usar como icono de conexión",
+  "chooseConnectionIcon": "Elegir imagen",
+  "invalidConnectionIcon": "Elija un archivo de imagen válido",
   "update": "Actualizar",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Paquetes",
+  "textures": "Texturas",
+  "fonts": "Fuentes",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Temporal en móvil",
   "cameraControlsVisibilityDescription": "Mostrar controles de zoom y rotación temporalmente en el móvil, ocultarlos, mostrarlos temporalmente en todos los dispositivos, o siempre mostrarlos. Los controles temporales se desvanecen después de 5 segundos sin enmascarar, rotar o interactuar con los controles.",
   "zoomPanelControls": "Diseño de controles de cámara",
-  "zoomPanelControlsDescription": "Elija los controles para zoom y rotación. Los botones de reajuste permanecen disponibles en cada diseño.",
+  "zoomPanelControlsDescription": "Mostrar deslizantes, campos de texto y botones de forma independiente para zoom y rotación. Deseleccione todas las opciones para mantener sólo los botones de reinicio.",
   "zoomPanelFull": "Lleno (deslizante, campo de texto y botones)",
   "zoomPanelSliderInput": "Slider y campo de texto",
   "zoomPanelSlider": "Deslizador",
   "zoomPanelInputButtons": "Campo de texto y botones",
   "zoomPanelInput": "Campo de texto",
+  "zoomPanelButtons": "Botones",
+  "zoomPanelResetOnly": "Reiniciar sólo",
   "rotationDisplay": "Pantalla de rotación",
   "rotationDisplayDescription": "Elija cuándo la fila de rotación aparece sobre el zoom. Esto no cambia los gestos de rotación ni los atajos.",
   "whenRotated": "Al girar",

@@ -13,7 +13,7 @@ For marks that should remain in the document, use the [Pen tool](../pen/) instea
 | ---------------: | :-----------------: | :-------------------------------------------------------------------------------------------------------------------- |
 |             Renk |       Kırmızı       | The color that will be drawn.                                                                         |
 | Kontur genişliği |          5          | The width of the stroke.                                                                              |
-|         Kalinlik | 0.4 | The effect of pressure on the stroke size. Set it to `0` for a constant stroke width. |
+|         Kalınlık | 0.4 | The effect of pressure on the stroke size. Set it to `0` for a constant stroke width. |
 |             Süre |          5          | The duration in seconds that the drawing will stay visible.                                           |
 |   Gizleme süresi | 0.5 | How long the laser stroke takes to disappear.                                                         |
 |        Animasyon |         Fade        | The animation used when the laser stroke disappears.                                                  |

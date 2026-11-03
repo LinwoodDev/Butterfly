@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Den fulde WebDAV-URL fra din lagerudbyder",
+  "webDavUrlDescription": "Kopier den fulde WebDAV-adresse fra din lagerudbyder. For Nextcloud, åbne filer indstillinger og kopiere WebDAV-URL.\n\nEksempel: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Indtast loginnavnet på din WebDAV-konto. For en Nextcloud URL der slutter i /files/USERNAME/, skal du bruge den værdi, der vises i stedet for USERNAME.",
+  "connectionPasswordDescription": "Brug din WebDAV-adgangskode eller en app-adgangskode fra din udbyder. For Nextcloud, åbne Personlige indstillinger → Sikkerhed, oprette en app adgangskode ved navn Butterfly, og indsætte det her.",
+  "connectionSyncRootDescription": "Hold hele dokumentmappen tilgængelig offline, inklusive dens undermapper. Aktivér for eksempel for at få adgang til alle dine noter uden en internetforbindelse.",
+  "deleteConnection": "Slet forbindelse",
+  "deleteConnectionDescription": "Fjern forbindelsen \"{name}\" fra Butterfly? Filer gemt i denne forbindelse vil ikke blive slettet.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Forbind",
   "username": "Brugernavn",
   "password": "Adgangskode",
   "authenticationPassword": "Godkendelsesadgangskode",
   "documentEncryptionPassword": "Kodeord til kryptering af dokumenter",
-  "documentEncryptionPasswordDescription": "Krypterer dokumenter gemt i denne forbindelse. Efterlad blank for at holde dem ukrypteret",
+  "documentEncryptionPasswordDescription": "Vælg en separat adgangskode til kryptering af dokumenter oprettet i denne forbindelse. Brug den samme adgangskode på dine andre enheder til at åbne dem. Lad stå tomt for at holde nye dokumenter ukrypteret.\n\nEksempel: brug et kodeord du kan beholde i din adgangskodehåndtering.",
   "documentEncryptionEnabled": "Kryptering af dokument aktiveret",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Tilføj dokument kryptering adgangskode",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetrisk",
   "perSide": "Pr. side",
   "directory": "Mappe",
-  "connectionNameDescription": "Anvendes kun til at identificere denne forbindelse i Butterfly",
-  "connectionDirectoryDescription": "Basismappe til denne forbindelse. Noter bruger dokumenter som standard; ændre den under Avanceret",
-  "connectionPathDescription": "Efterlad blank for at deaktivere denne mappe. Brug . for basismappen, en relativ undermappe eller en absolut sti",
+  "connectionNameDescription": "Vælg et navn til at genkende denne forbindelse i Butterfly. Det omdøber ikke nogen mapper på din enhed eller server.\n\nEksempel: Nextcloud.",
+  "connectionDirectoryDescription": "Vælg en basismappe i dit WebDAV-lager, for eksempel Butterfly. Noter gemmes som standard i sin dokumentundermappe. Ændr undermappens navne under Avanceret.",
+  "localConnectionDirectoryDescription": "Vælg en basismappe på denne enhed med mappeknappen, eller indtast dens fulde sti, for eksempel /path/to/folder eller C:\\path\\to\\\\ folder. Noter gemmes som standard i sin dokumentundermappe. Ændr undermappens navne under Avanceret.",
+  "connectionPathDescription": "Vælg hvor denne type indhold skal gemmes. Dokumenter bruger for eksempel en undermappe til basismappen, . bruger basismappen selv, og en tom værdi deaktiverer denne type. Du kan også indtaste en fuld sti. For en lokal forbindelse uden en basismappe, skal hver aktiveret type have en fuld sti.",
   "connectionPathRequired": "Vælg en absolut basismappe, eller brug absolutte stier for de aktiverede mappetyper",
   "connectionAlreadyExists": "En forbindelse med dette navn findes allerede. Vælg et andet navn",
   "documentsDirectory": "Dokumenter mappe",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Valgfri URL for et billede der skal bruges som forbindelsesikonet",
+  "chooseConnectionIcon": "Vælg billede",
+  "invalidConnectionIcon": "Vælg en gyldig billedfil",
   "update": "Opdater",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Pakker",
+  "textures": "Teksturer",
+  "fonts": "Skrifttyper",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Midlertidig på mobil",
   "cameraControlsVisibilityDescription": "Vis zoom- og rotationskontroller midlertidigt på mobilen, skjul dem, vis dem midlertidigt på alle enheder, eller vis dem altid. Midlertidig kontrol fade ud efter 5 sekunder uden at zoome, rotere eller interagere med kontrolelementerne.",
   "zoomPanelControls": "Kamera styrer layout",
-  "zoomPanelControlsDescription": "Vælg kontrolelementerne for zoom og rotation. Nulstil knapper forbliver tilgængelige i hvert layout.",
+  "zoomPanelControlsDescription": "Vis skydere, tekstfelter og knapper uafhængigt for zoom og rotation. Fravælg alle indstillinger for kun at beholde nulstillingsknapperne.",
   "zoomPanelFull": "Fuld (skyder, tekstfelt og knapper)",
   "zoomPanelSliderInput": "Slider og tekstfelt",
   "zoomPanelSlider": "Skyder",
   "zoomPanelInputButtons": "Tekstfelt og knapper",
   "zoomPanelInput": "Tekst felt",
+  "zoomPanelButtons": "Knapper",
+  "zoomPanelResetOnly": "Nulstil kun",
   "rotationDisplay": "Rotation display",
   "rotationDisplayDescription": "Vælg hvornår rotationsrækken vises over zoom. Dette ændrer ikke rotationsbevægelser eller genveje.",
   "whenRotated": "Når roteret",

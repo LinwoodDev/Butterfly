@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Koko WebDAV URL-osoite tarjoaa oman tallennuspalvelun tarjoaja",
+  "webDavUrlDescription": "Kopioi koko WebDAV-osoite tallennuspalveluntarjoajastasi. Avata tiedostot asetukset ja kopioi WebDAV URL.\n\nEsimerkki: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Anna käyttäjätunnuksen WebDAV tilillesi. For a Nextcloud URL end in /files/USERNAME/, use the value shown place of USERNAME.",
+  "connectionPasswordDescription": "Käytä WebDAV salasanaa tai sovelluksen salasanaa palveluntarjoajalta. For Nextcloud, open Personal settings → Security, luoda sovelluksen salasana nimeltä Butterfly, ja liitä se täällä.",
+  "connectionSyncRootDescription": "Pidä koko asiakirjahakemisto käytettävissä offline-tilassa, mukaan lukien sen alikansiot. Ota tämä käyttöön esimerkiksi ottamalla käyttöön kaikki muistiinpanosi ilman internetyhteyttä.",
+  "deleteConnection": "Poista yhteys",
+  "deleteConnectionDescription": "Poista yhteys \"{name}\" Butterfly? Tähän yhteyteen tallennettuja tiedostoja ei poisteta.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Yhdistä",
   "username": "Käyttäjätunnus",
   "password": "Salasana",
   "authenticationPassword": "Todennuksen salasana",
   "documentEncryptionPassword": "Asiakirjan salauksen salasana",
-  "documentEncryptionPasswordDescription": "Salaa tähän yhteyteen tallennetut asiakirjat. Jätä tyhjäksi pitääksesi salaamattomina",
+  "documentEncryptionPasswordDescription": "Valitse erillinen salasana salataksesi tässä yhteydessä luodut asiakirjat. Avaa ne käyttämällä samaa salasanaa muilla laitteillasi. Jätä tyhjäksi pitääksesi uudet asiakirjat salaamattomina.\n\nEsimerkki: käytä salasanalausetta, jonka voit pitää salasanojen hallinnassa.",
   "documentEncryptionEnabled": "Asiakirjan salaus käytössä",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lisää asiakirjan salauksen salasana",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetrinen",
   "perSide": "Per puoli",
   "directory": "Hakemisto",
-  "connectionNameDescription": "Käytetään vain tämän yhteyden tunnistamiseen Butterfyssa.",
-  "connectionDirectoryDescription": "Tämän yhteyden peruskansio. Muistiinpanot käyttävät asiakirjoja oletuksessa; vaihda se Edistyneessä",
-  "connectionPathDescription": "Jätä tyhjäksi poistaaksesi tämän hakemistotyypin. Käytä . peruskansioon, suhteelliseen alikansioon tai absoluuttiseen polkuun",
+  "connectionNameDescription": "Valitse nimi tunnistaaksesi tämän yhteyden Butterflessa. Se ei nimeä uudelleen mitään kansioita laitteessasi tai palvelimella.\n\nEsimerkki: Nextcloud.",
+  "connectionDirectoryDescription": "Valitse kansio WebDAV tallennustilan sisällä, esimerkiksi Butterfly. Muistiinpanot tallennetaan oletuksena sen Asiakirjojen alikansioon. Vaihda alikansion nimet lisäasetuksissa.",
+  "localConnectionDirectoryDescription": "Valitse tämän laitteen peruskansio kansion painikkeella tai kirjoita sen koko polku, esimerkiksi /path/to/folder tai C:\\path\\to\\folder. Muistiinpanot tallennetaan oletuksena sen Asiakirjojen alikansioon. Vaihda alikansion nimet lisäasetuksissa.",
+  "connectionPathDescription": "Valitse mihin tallentaa tämän tyyppinen sisältö. Esimerkiksi, Asiakirjat käyttävät alikansio peruskansioon, . käyttää itse peruskansiota ja tyhjä arvo poistaa tämän tyypin. Voit myös syöttää täyden polun. Paikalliseen yhteyteen ilman peruskansiota, jokainen käytössä oleva tyyppi tarvitsee täyden polun.",
   "connectionPathRequired": "Valitse absoluuttinen peruskansio tai käytä absoluuttisia polkuja sallituille hakemistotyypeille",
   "connectionAlreadyExists": "Yhteys tähän nimeen on jo olemassa. Valitse toinen nimi",
   "documentsDirectory": "Asiakirjojen hakemisto",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Valinnainen kuvan URL-osoite, jota käytetään yhteyskuvakkeena",
+  "chooseConnectionIcon": "Valitse kuva",
+  "invalidConnectionIcon": "Valitse kelvollinen kuvatiedosto",
   "update": "Päivitä",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Paketit",
+  "textures": "Tekstuurit",
+  "fonts": "Kirjasimet",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Väliaikainen matkapuhelimessa",
   "cameraControlsVisibilityDescription": "Näytä zoomaus ja kierto väliaikaisesti mobiililaitteissa, piilota ne, näytä ne väliaikaisesti kaikilla laitteilla tai näytä ne aina. Väliaikaiset hallintalaitteet häipyvät 5 sekunnin kuluttua zoomaamatta tai pyörimättä tai vuorovaikutuksessa hallintalaitteiden kanssa.",
   "zoomPanelControls": "Kameran hallinta-asettelu",
-  "zoomPanelControlsDescription": "Valitse ohjaimet zoomausta ja kiertoa varten. Nollaa painikkeet ovat saatavilla jokaisessa ulkoasussa.",
+  "zoomPanelControlsDescription": "Näytä liukusäätimiä, tekstikenttiä ja painikkeita erikseen zoomausta ja kiertoa varten. Poista valinnat pitääksesi vain nollapainikkeet.",
   "zoomPanelFull": "Täysi (liukusäädintä, tekstikenttä ja painikkeet)",
   "zoomPanelSliderInput": "Liukusäädin ja tekstikenttä",
   "zoomPanelSlider": "Liukusäädin",
   "zoomPanelInputButtons": "Tekstikenttä ja painikkeet",
   "zoomPanelInput": "Tekstin kenttä",
+  "zoomPanelButtons": "Painikkeet",
+  "zoomPanelResetOnly": "Nollaa vain",
   "rotationDisplay": "Näytön kierto",
   "rotationDisplayDescription": "Valitse kun kiertorivi näkyy zoomin yläpuolella. Tämä ei muuta pyörimiseleitä tai pikanäppäimiä.",
   "whenRotated": "Kun kierretään",

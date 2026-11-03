@@ -11,5 +11,6 @@
 * Share documentation translations and Markdown rendering with Linwood Starlight style, with automatic language setup and optional math and i18n
 * Suggest documentation in the browser's preferred language without forcing a language change
 * Use native file dialogs for imports and exports, with enforced custom save extensions
+* Update translations
 
 Read more here: https://linwood.dev/butterfly/2.6.3-rc.0
