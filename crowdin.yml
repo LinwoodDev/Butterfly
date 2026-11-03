@@ -2,12 +2,22 @@ commit_message: '[ci skip]'
 files:
   - source: /app/lib/l10n/app_en.arb
     translation: /app/lib/l10n/app_%osx_locale%.arb
-  - source: /docs/src/translations/en.json
-    translation: /docs/src/translations/%two_letters_code%.json
+  - source: /docs/src/content/i18n/en.json
+    translation: /docs/src/content/i18n/%two_letters_code%.json
+    languages_mapping:
+      two_letters_code:
+        pt-BR: pt-BR
+        zh-CN: zh
+        zh-TW: zh-Hant
   - source: /docs/src/content/docs/**/*
     ignore:
       - '%two_letters_code%/**/*'
     translation: /docs/src/content/docs/%two_letters_code%/**/%original_file_name%
+    languages_mapping:
+      two_letters_code:
+        pt-BR: pt-br
+        zh-CN: zh
+        zh-TW: zh-hant
   - source: /metadata/en-US/full_description.txt
     translation: /metadata/%locale%/full_description.txt
   - source: /metadata/en-US/short_description.txt

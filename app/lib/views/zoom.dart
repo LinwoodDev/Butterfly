@@ -122,10 +122,32 @@ class _ZoomViewState extends State<ZoomView> {
         ),
       );
       if (!controls.showInput) {
+        Widget stepButton(int direction, Widget icon) {
+          final next = (value + direction * step).clamp(min, max).toDouble();
+          return IconButton(
+            onPressed: next == value
+                ? null
+                : () {
+                    FocusScope.of(context).unfocus();
+                    onChanged(next);
+                    onChangeEnd(next);
+                  },
+            icon: icon,
+          );
+        }
+
         return Row(
+          mainAxisSize: controls.showSlider
+              ? MainAxisSize.max
+              : MainAxisSize.min,
           children: [
             reset,
-            Expanded(child: slider),
+            if (controls.showButtons) ...[
+              const SizedBox(height: 24, child: VerticalDivider(width: 8)),
+              stepButton(-1, decrementIcon),
+              stepButton(1, incrementIcon),
+            ],
+            if (controls.showSlider) Expanded(child: slider),
           ],
         );
       }

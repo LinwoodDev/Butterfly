@@ -2,6 +2,8 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/password.dart';
 import 'package:butterfly/theme.dart';
+import 'package:butterfly/visualizer/connection.dart';
+import 'package:butterfly/widgets/connection_icon_field.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,35 @@ import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+Future<bool> showDeleteConnectionDialog(
+  BuildContext context,
+  String name,
+) async =>
+    await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        final loc = AppLocalizations.of(context);
+        return AlertDialog(
+          title: Text(loc.deleteConnection),
+          content: Text(loc.deleteConnectionDescription(name)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              style: TextButton.styleFrom(
+                foregroundColor: ColorScheme.of(context).error,
+              ),
+              child: Text(loc.delete),
+            ),
+          ],
+        );
+      },
+    ) ??
+    false;
 
 class ConnectionSettingsPage extends StatefulWidget {
   final String remote;
@@ -169,6 +200,19 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                       style: TextTheme.of(context).headlineSmall,
                     ),
                     const SizedBox(height: 16),
+                    BlocBuilder<SettingsCubit, ButterflySettings>(
+                      builder: (context, state) {
+                        final storage = state.getRemote(identifier);
+                        if (storage == null) return const SizedBox.shrink();
+                        return ConnectionIconField(
+                          value: storage.icon,
+                          fallbackIcon: storage.typeIcon(),
+                          onChanged: (icon) => context
+                              .read<SettingsCubit>()
+                              .changeConnectionIcon(identifier, icon),
+                        );
+                      },
+                    ),
                     if (isRemote) ...[
                       BlocBuilder<SettingsCubit, ButterflySettings>(
                         builder: (context, state) {
@@ -271,9 +315,17 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                     ListTile(
                       title: Text(AppLocalizations.of(context).delete),
                       leading: const PhosphorIcon(PhosphorIconsLight.trash),
-                      onTap: () {
-                        context.read<SettingsCubit>().deleteRemote(identifier);
-                        GoRouter.of(context).pop();
+                      onTap: () async {
+                        final settingsCubit = context.read<SettingsCubit>();
+                        final storage = settingsCubit.getRemote(identifier);
+                        if (storage == null) return;
+                        final confirmed = await showDeleteConnectionDialog(
+                          context,
+                          storage.label,
+                        );
+                        if (!confirmed || !context.mounted) return;
+                        await settingsCubit.deleteRemote(identifier);
+                        if (context.mounted) GoRouter.of(context).pop();
                       },
                     ),
                   ],

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -153,6 +155,44 @@ void main() {
         .getRemote(remote.identifier);
     expect(restored?.isConnectionEncryptionEnabled, isTrue);
   });
+
+  test(
+    'changing connection icons persists without changing credentials',
+    () async {
+      FlutterSecureStorage.setMockInitialValues({});
+      const remote = DavRemoteStorage(
+        name: 'Cloud',
+        username: 'user',
+        url: 'https://example.com/dav',
+        paths: {'': 'Butterfly'},
+      );
+      const local = LocalStorage(name: 'Local', paths: {'': '/notes'});
+      SharedPreferences.setMockInitialValues({
+        'connections': [local.toJson(), remote.toJson()],
+        'default_remote': remote.identifier,
+      });
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      passwordStorage.write(remote, 'saved-password');
+      final original = cubit.state.connections;
+      final icon = Uint8List.fromList([1, 2, 3]);
+
+      for (final storage in original) {
+        await cubit.changeConnectionIcon(storage.identifier, icon);
+        expect(
+          ButterflySettings.fromPrefs(prefs)
+              .getRemote(storage.identifier)
+              ?.icon,
+          icon,
+        );
+        await cubit.changeConnectionIcon(storage.identifier, null);
+      }
+      expect(ButterflySettings.fromPrefs(prefs).connections, original);
+      expect(cubit.state.defaultRemote, remote.identifier);
+      expect(await passwordStorage.read(remote), 'saved-password');
+    },
+  );
 
   test('persists automatic backup settings', () async {
     const remote = DavRemoteStorage(

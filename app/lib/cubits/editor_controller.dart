@@ -254,6 +254,7 @@ class EditorController(
     bool resetAllLayers = false,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
+    bool documentChanged = true,
   }) async {
     rendererCubit.cancelDelayedBake();
     for (var renderer in {
@@ -291,11 +292,14 @@ class EditorController(
       await rendererCubit.unbake(this, blocState, backgrounds: backgrounds);
     } else if (backgrounds != null) {
       await rendererCubit.unbake(this, blocState, backgrounds: backgrounds);
-    } else {
+    } else if (!reset) {
+      // Reload replaces the viewport below; avoid loading outgoing renderers.
       await rendererCubit.addUnbaked(this, blocState, addedElements);
     }
 
-    saveCubit.setSaveState(saved: SaveState.unsaved);
+    if (documentChanged) {
+      saveCubit.setSaveState(saved: SaveState.unsaved);
+    }
     final refreshRequested = shouldRefresh?.call() == true;
     if (saveCubit.state.embedding != null) {
       if (reset) {
@@ -339,7 +343,7 @@ class EditorController(
     if (updateIndex) {
       await toolCubit.updateIndex(this, bloc);
     }
-    if (saveCubit.hasAutosave(networkingService)) {
+    if (documentChanged && saveCubit.hasAutosave(networkingService)) {
       saveCubit.save(
         bloc,
         networkingService,

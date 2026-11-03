@@ -1,3 +1,4 @@
+import 'package:butterfly/theme.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -17,65 +18,67 @@ class GeneralPackView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final metadata = value.getMetadata();
-    if (metadata == null) {
-      return const SizedBox();
-    }
-    void changeMetadata(FileMetadata metadata) {
-      onChanged(value.setMetadata(metadata));
-    }
+    if (metadata == null) return const SizedBox();
+    final loc = AppLocalizations.of(context);
+    InputDecoration decoration(String label, IconData icon) => InputDecoration(
+      labelText: label,
+      icon: PhosphorIcon(icon),
+      filled: true,
+    );
 
     return ListView(
       children: [
-        const SizedBox(height: 8),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: LeapLocalizations.of(context).name,
-            icon: const PhosphorIcon(
-              PhosphorIconsLight.textT,
-              textDirection: .ltr,
+        Card(
+          margin: settingsCardMargin,
+          child: Padding(
+            padding: settingsCardPadding,
+            child: Column(
+              crossAxisAlignment: .stretch,
+              children: [
+                TextFormField(
+                  decoration: decoration(
+                    LeapLocalizations.of(context).name,
+                    PhosphorIconsLight.textT,
+                  ),
+                  initialValue: metadata.name,
+                  onChanged: (name) => onChanged(
+                    value.setMetadata(metadata.copyWith(name: name)),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: decoration(loc.author, PhosphorIconsLight.user),
+                  initialValue: metadata.author,
+                  onChanged: (author) => onChanged(
+                    value.setMetadata(metadata.copyWith(author: author)),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: decoration(loc.version, PhosphorIconsLight.info),
+                  initialValue: metadata.version,
+                  onChanged: (version) => onChanged(
+                    value.setMetadata(metadata.copyWith(version: version)),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: decoration(
+                    loc.description,
+                    PhosphorIconsLight.paragraph,
+                  ).copyWith(alignLabelWithHint: true),
+                  minLines: 3,
+                  maxLines: 5,
+                  initialValue: metadata.description,
+                  onChanged: (description) => onChanged(
+                    value.setMetadata(
+                      metadata.copyWith(description: description),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            filled: true,
           ),
-          initialValue: metadata.name,
-          onChanged: (value) => changeMetadata(metadata.copyWith(name: value)),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).author,
-            icon: const PhosphorIcon(PhosphorIconsLight.user),
-            filled: true,
-          ),
-          initialValue: metadata.author,
-          onChanged: (value) =>
-              changeMetadata(metadata.copyWith(author: value)),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).version,
-            icon: const PhosphorIcon(PhosphorIconsLight.info),
-            filled: true,
-          ),
-          initialValue: metadata.version,
-          onChanged: (value) =>
-              changeMetadata(metadata.copyWith(version: value)),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).description,
-            icon: const PhosphorIcon(
-              PhosphorIconsLight.paragraph,
-              textDirection: .ltr,
-            ),
-            border: const OutlineInputBorder(),
-          ),
-          minLines: 3,
-          maxLines: 5,
-          initialValue: metadata.description,
-          onChanged: (value) =>
-              changeMetadata(metadata.copyWith(description: value)),
         ),
       ],
     );

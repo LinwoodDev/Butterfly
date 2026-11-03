@@ -502,12 +502,37 @@ enum ZoomPanelControls {
   sliderAndInput,
   slider,
   inputAndButtons,
-  input;
+  input,
+  sliderAndButtons,
+  buttons,
+  none;
 
   bool get showSlider =>
-      this == full || this == sliderAndInput || this == slider;
-  bool get showInput => this != slider;
-  bool get showButtons => this == full || this == inputAndButtons;
+      this == full ||
+      this == sliderAndInput ||
+      this == slider ||
+      this == sliderAndButtons;
+  bool get showInput =>
+      this == full ||
+      this == sliderAndInput ||
+      this == inputAndButtons ||
+      this == input;
+  bool get showButtons =>
+      this == full ||
+      this == inputAndButtons ||
+      this == sliderAndButtons ||
+      this == buttons;
+
+  ZoomPanelControls copyWith({
+    bool? showSlider,
+    bool? showInput,
+    bool? showButtons,
+  }) => values.firstWhere(
+    (value) =>
+        value.showSlider == (showSlider ?? this.showSlider) &&
+        value.showInput == (showInput ?? this.showInput) &&
+        value.showButtons == (showButtons ?? this.showButtons),
+  );
 
   double panelWidth() => switch (this) {
     .full => 440,
@@ -515,14 +540,9 @@ enum ZoomPanelControls {
     .slider => 200,
     .inputAndButtons => 280,
     .input => 200,
-  };
-
-  String getLocalizedName(BuildContext context) => switch (this) {
-    .full => AppLocalizations.of(context).zoomPanelFull,
-    .sliderAndInput => AppLocalizations.of(context).zoomPanelSliderInput,
-    .slider => AppLocalizations.of(context).zoomPanelSlider,
-    .inputAndButtons => AppLocalizations.of(context).zoomPanelInputButtons,
-    .input => AppLocalizations.of(context).zoomPanelInput,
+    .sliderAndButtons => 280,
+    .buttons => 192,
+    .none => 120,
   };
 }
 
@@ -1595,6 +1615,20 @@ class SettingsCubit(SharedPreferences prefs)
       passwordStorage.write(storage, password);
     }
     return save();
+  }
+
+  Future<void> changeConnectionIcon(String identifier, Uint8List? icon) async {
+    if (!state.hasRemote(identifier)) return;
+    emit(
+      state.copyWith(
+        connections: state.connections.map((storage) {
+          return storage.identifier == identifier
+              ? storage.copyWith(icon: icon)
+              : storage;
+        }).toList(),
+      ),
+    );
+    await save();
   }
 
   Future<void> deleteRemote(String identifier) async {

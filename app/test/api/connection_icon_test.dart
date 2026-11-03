@@ -4,8 +4,21 @@ import 'dart:typed_data';
 
 import 'package:butterfly/api/connection_icon.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image/image.dart' as img;
 
 void main() {
+  test(
+    'connection icons are bounded PNGs and reject invalid image data',
+    () async {
+      final bytes = Uint8List.fromList(
+        img.encodePng(img.Image(width: 512, height: 256)),
+      );
+      final icon = img.decodePng((await decodeConnectionIcon(bytes))!);
+      expect((icon?.width, icon?.height), (128, 64));
+      expect(await decodeConnectionIcon(Uint8List.fromList([1, 2, 3])), isNull);
+    },
+  );
+
   final authorization = 'Basic ${base64Encode(utf8.encode('user:password'))}';
   const icon = [1, 2, 3];
 

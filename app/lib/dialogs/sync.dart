@@ -539,10 +539,17 @@ class _ProgressTile extends StatelessWidget {
             if (progress?.isRunning ?? false) ...[
               const SizedBox(height: 8),
               LinearProgressIndicator(value: value),
-              if (progress?.currentFile != null) ...[
+              if (progress!.totalFiles > 0) ...[
                 const SizedBox(height: 8),
                 Text(
-                  '${progress?.currentAction?.name ?? AppLocalizations.of(context).syncing}: ${progress!.currentFile}',
+                  '${progress.processedFiles} / ${progress.totalFiles} (${progress.progressPercent})',
+                  style: TextTheme.of(context).bodySmall,
+                ),
+              ],
+              if (progress.currentFile != null) ...[
+                const SizedBox(height: 8),
+                Text(
+                  '${progress.currentAction?.name ?? AppLocalizations.of(context).syncing}: ${progress.currentFile}',
                   style: TextTheme.of(context).bodySmall,
                   overflow: .ellipsis,
                 ),

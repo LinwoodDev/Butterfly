@@ -11,7 +11,6 @@ import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly/widgets/file_name_pattern_field.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -118,7 +117,7 @@ Future<void> changeDataDirectory(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
     final selectedDir = Platform.isAndroid
         ? await AndroidSafDirectoryFileSystem.pickDirectory()
-        : await FilePicker.getDirectoryPath();
+        : await SystemFileDialogs.getDirectoryPath();
     if (selectedDir != null) {
       if (!context.mounted) return;
       await changePath(context, settingsCubit, selectedDir);
@@ -432,10 +431,7 @@ Future<void> exportData(BuildContext context) async {
 
 void importSettings(BuildContext context) async {
   final settingsCubit = context.read<SettingsCubit>();
-  final result = await FilePicker.pickFile(
-    type: .custom,
-    allowedExtensions: ['json'],
-  );
+  final result = await SystemFileDialogs.pickFile(extensions: ['json']);
   final bytes = await result?.readAsBytes();
   if (bytes == null) return;
   final data = utf8.decode(bytes);

@@ -50,18 +50,48 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
               context.read<SettingsCubit>().changeZoomPosition(value),
           valueLabel: (context, value) => value.getLocalizedName(context),
         ),
-        SettingsLeapEnumSetting(
+        SettingsLeapMultiSelectSetting<ButterflySettings, ZoomPanelControls>(
           id: 'zoomPanelControls',
           displayName: (context) =>
               AppLocalizations.of(context).zoomPanelControls,
           hintBuilder: (context) =>
               AppLocalizations.of(context).zoomPanelControlsDescription,
           icon: PhosphorIconsLight.slidersHorizontal,
-          values: ZoomPanelControls.values,
-          read: (state) => state.zoomPanelControls,
-          write: (context, value) =>
-              context.read<SettingsCubit>().changeZoomPanelControls(value),
-          valueLabel: (context, value) => value.getLocalizedName(context),
+          options: [
+            SettingsLeapOption(
+              id: 'slider',
+              value: ZoomPanelControls.slider,
+              displayName: (context) =>
+                  AppLocalizations.of(context).zoomPanelSlider,
+            ),
+            SettingsLeapOption(
+              id: 'input',
+              value: ZoomPanelControls.input,
+              displayName: (context) =>
+                  AppLocalizations.of(context).zoomPanelInput,
+            ),
+            SettingsLeapOption(
+              id: 'buttons',
+              value: ZoomPanelControls.buttons,
+              displayName: (context) =>
+                  AppLocalizations.of(context).zoomPanelButtons,
+            ),
+          ],
+          read: (state) => {
+            if (state.zoomPanelControls.showSlider) ZoomPanelControls.slider,
+            if (state.zoomPanelControls.showInput) ZoomPanelControls.input,
+            if (state.zoomPanelControls.showButtons) ZoomPanelControls.buttons,
+          },
+          write: (context, values) =>
+              context.read<SettingsCubit>().changeZoomPanelControls(
+                ZoomPanelControls.none.copyWith(
+                  showSlider: values.contains(ZoomPanelControls.slider),
+                  showInput: values.contains(ZoomPanelControls.input),
+                  showButtons: values.contains(ZoomPanelControls.buttons),
+                ),
+              ),
+          emptySelectionLabel: (context) =>
+              AppLocalizations.of(context).zoomPanelResetOnly,
         ),
         SettingsLeapEnumSetting(
           id: 'rotationDisplay',
