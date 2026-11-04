@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Velg når rotasjonsraden vises over zoom. Dette endrer ikke rotasjonsbevegelser eller snarveier.",
   "whenRotated": "Når rotert",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Roter lerret ved å dra"
+  "rotateCanvasByDragging": "Roter lerret ved å dra",
+  "proportionalResizing": "Proportional resizing"
 }
