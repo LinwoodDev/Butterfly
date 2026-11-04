@@ -1,0 +1,5 @@
+* Add proportional resizing with stroke-width scaling to the select tool ([#1342](https://github.com/LinwoodDev/Butterfly/pull/1342))
+* Fix selection grid snapping and constrain movement in proportional mode ([#1340](https://github.com/LinwoodDev/Butterfly/issues/1340))
+* Expand shape settings by default to make fill options visible ([#1343](https://github.com/LinwoodDev/Butterfly/issues/1343))
+
+Read more here: https://linwood.dev/butterfly/2.6.3-rc.1

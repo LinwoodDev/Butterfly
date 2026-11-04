@@ -89,8 +89,22 @@ class RectSelectionForegroundManager {
   bool get isInsideSelection =>
       selection.contains(_currentPosition ?? Offset.zero);
 
-  void updateCurrentPosition(Offset position) {
-    _currentPosition = _toLocal(position);
+  void updateCurrentPosition(
+    Offset position, {
+    Offset Function(Offset)? snapPosition,
+  }) {
+    var current = _toLocal(position);
+    final start = _startPosition;
+    if (start != null && snapPosition != null && _corner != .center) {
+      // Snap the geometry rather than the pointer, which may be anywhere
+      // inside the selection or offset from a resize handle.
+      final anchor = _corner == null
+          ? _selection.topLeft
+          : _corner.getFromRect(_selection);
+      final target = (anchor + current - start).rotate(Offset.zero, rotation);
+      current = start + _toLocal(snapPosition(target)) - anchor;
+    }
+    _currentPosition = current;
   }
 
   void setForceProportional(bool value) {
@@ -309,11 +323,12 @@ class RectSelectionForegroundManager {
       };
     }
 
+    // The tool's proportional resizing option must not constrain movement.
     if (_corner == null &&
-        (_forceProportional
-            ? _scaleMode == .scaleProp
-            : _effectiveScaleMode == .scaleProp)) {
-      moved = Offset.zero;
+        (_scaleMode == .scaleProp) != _proportionalModifier) {
+      final direction = (moved.direction / (pi / 4)).round() * pi / 4;
+      final axis = Offset(cos(direction), sin(direction));
+      moved = axis * (moved.dx * axis.dx + moved.dy * axis.dy);
     }
     if (_centeredModifier && _corner != null && _corner != .center) {
       scaleX = 1 + 2 * (scaleX - 1);

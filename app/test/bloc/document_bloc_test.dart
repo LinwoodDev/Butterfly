@@ -571,6 +571,7 @@ void main() {
       final context = _ToolEventContext();
       final handler = SelectHandler(SelectTool());
       when(() => context.getCameraTransform()).thenReturn(camera);
+      when(() => context.viewportSize).thenReturn(const Size(800, 600));
       when(() => context.getDocumentBloc()).thenReturn(bloc);
       when(() => context.getToolState())
           .thenReturn(ToolRuntimeState(handler: handler));

@@ -182,7 +182,7 @@ class ShapeView extends StatefulWidget {
 
 class _ShapeViewState extends State<ShapeView> {
   late PathShape _currentShape;
-  bool _expanded = false;
+  bool _expanded = true;
 
   @override
   void initState() {

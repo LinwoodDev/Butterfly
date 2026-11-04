@@ -272,7 +272,7 @@ class SelectHandler extends Handler<SelectTool> {
     _syncSelectionRotation(transform);
     final globalPos = transform.localToGlobal(details.localPosition);
     if (_selectionManager.isTransforming) {
-      _selectionManager.updateCurrentPosition(globalPos);
+      _updateTransformPosition(globalPos, context);
       _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
       return;
     }
@@ -481,6 +481,25 @@ class SelectHandler extends Handler<SelectTool> {
     return true;
   }
 
+  void _updateTransformPosition(Offset position, EventContext context) {
+    final camera = context.getCameraTransform();
+    _selectionManager.updateModifiers(
+      proportional: context.isShiftPressed,
+      centered: context.isAltPressed,
+    );
+    _selectionManager.updateCurrentPosition(
+      position,
+      snapPosition: (target) => camera.localToGlobal(
+        PointerManipulationHandler.calculatePointerPosition(
+          context.getToolState(),
+          camera.globalToLocal(target),
+          context.viewportSize,
+          camera,
+        ),
+      ),
+    );
+  }
+
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final globalPos = context.getCameraTransform().localToGlobal(
@@ -488,11 +507,7 @@ class SelectHandler extends Handler<SelectTool> {
     );
     if (details.pointerCount > 1) return;
     if (_selectionManager.isTransforming) {
-      _selectionManager.updateModifiers(
-        proportional: context.isShiftPressed,
-        centered: context.isAltPressed,
-      );
-      _selectionManager.updateCurrentPosition(globalPos);
+      _updateTransformPosition(globalPos, context);
       context.refreshForegrounds();
       return;
     }
