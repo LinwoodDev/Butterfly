@@ -19,6 +19,7 @@ class SelectHandler extends Handler<SelectTool> {
     bool duplicate = false,
     Offset? position,
   }) {
+    _clearFreeSelection();
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect(-bloc.editorController.transformCubit.state.rotation);
@@ -139,6 +140,12 @@ class SelectHandler extends Handler<SelectTool> {
     }
 
     _selectionManager.select(bounds, rotation: angle);
+  }
+
+  void _clearFreeSelection() {
+    _rectangleFreeSelectionStart = null;
+    _rectangleFreeSelection = null;
+    _lassoFreeSelection = null;
   }
 
   void _syncSelectionRotation(CameraTransform camera) {
@@ -539,22 +546,28 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     _pendingTransform = null;
+
     final locks = context.getViewState().locks;
+
     final rectangleSelection = _rectangleFreeSelection;
     final lassoSelection = _lassoFreeSelection;
+
     final transformed = _submitTransform(context.getDocumentBloc());
+
+    _clearFreeSelection();
+    context.refreshForegrounds();
+
     if (transformed != null) {
       _selected.clear();
       _selected.addAll(transformed);
       _updateSelectionRect();
       return;
     }
-    _lassoFreeSelection = null;
-    _rectangleFreeSelectionStart = null;
-    _rectangleFreeSelection = null;
+
     if (!context.isCtrlPressed) {
       _selected.clear();
     }
+
     if (rectangleSelection != null && !rectangleSelection.rect.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
         rectangleSelection.rect,
@@ -576,6 +589,7 @@ class SelectHandler extends Handler<SelectTool> {
       _updateSelectionRect();
       return;
     }
+
     _updateSelectionRect();
     context.refresh();
   }

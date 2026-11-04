@@ -46,6 +46,8 @@ class PointerShortcutManager({
   final Set<int> _activePointers = {};
   final Set<int> _activeTouchPointers = {};
   final Set<int> _trackedRepeatedPointers = {};
+  bool get hasBufferedRepeatedTapEvents =>
+      _bufferedRepeatedTapEvents.isNotEmpty;
   Duration? _multiFingerStartTime;
   int _maxTouchPointerCount = 0;
   bool _invalidMultiFingerGesture = false;

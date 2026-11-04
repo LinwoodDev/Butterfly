@@ -19,6 +19,7 @@ class _ViewportInputCoordinator {
   int _gesturePointerCount = 0;
   bool? _handlerHandlesScaleGesture;
   Handler? _gestureHandler;
+  ScaleStartDetails? _pendingScaleStart;
   RulerHandler? _ruler;
   int? _rulerPointer;
   ({int pointer, Offset center, Offset previous})? _rotationDrag;
@@ -47,6 +48,7 @@ class _ViewportInputCoordinator {
     _handlerHandlesScaleGesture = null;
     _gestureHandler = null;
     _heldShortcutKeyId = null;
+    _pendingScaleStart = null;
   }
 
   void dispose() {
@@ -305,7 +307,10 @@ class _ViewportInputCoordinator {
         if (result.releasedEvents.isNotEmpty) {
           await _replayPointerEvents(result.releasedEvents, input);
         }
-        if (result.consumed) return;
+        if (result.consumed) {
+          _pendingScaleStart = null;
+          return;
+        }
       }
     }
 
@@ -344,6 +349,8 @@ class _ViewportInputCoordinator {
           break;
       }
     }
+
+    _startPendingScaleGesture(input);
   }
 
   Future<void> handlePointerCancel(
@@ -357,7 +364,10 @@ class _ViewportInputCoordinator {
       cubit.inputCubit.removeButtons();
       return;
     }
-    if (_shortcutManager.pointerCancel(event)) return;
+    if (_shortcutManager.pointerCancel(event)) {
+      _pendingScaleStart = null;
+      return;
+    }
     _resetRulerInteraction();
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
@@ -394,10 +404,34 @@ class _ViewportInputCoordinator {
     ScaleStartDetails details,
     _PointerInputContext input,
   ) => handleGesture(() {
+    if (_shortcutManager.hasBufferedRepeatedTapEvents) {
+      _pendingScaleStart = details;
+      return;
+    }
+
+    _startScaleGesture(details, input);
+  });
+
+  void _startPendingScaleGesture(_PointerInputContext input) {
+    final details = _pendingScaleStart;
+    if (details == null) return;
+
+    _pendingScaleStart = null;
+
+    if (input.cubit.inputCubit.state.pointers.isEmpty) return;
+
+    _startScaleGesture(details, input);
+  }
+
+  void _startScaleGesture(
+    ScaleStartDetails details,
+    _PointerInputContext input,
+  ) {
     final cubit = input.cubit;
     final handler = input.getHandler();
     _gestureHandler = handler;
     final eventContext = input.getEventContext();
+
     _handlerHandlesScaleGesture ??= !_isTouchMoveGesture(cubit);
 
     if (_rulerPointer == null) {
@@ -421,13 +455,14 @@ class _ViewportInputCoordinator {
     _gestureScale = 1;
     _gestureRotation = 0;
     _gesturePointerCount = details.pointerCount;
-  });
+  }
 
   Future<void> handleScaleUpdate(
     ScaleUpdateDetails details,
     _PointerInputContext input,
   ) => handleGesture(() {
     final handler = _gestureHandler ?? input.getHandler();
+
     final ruler = _ruler;
     if (ruler != null) {
       if (_rulerPointer == null) {
@@ -604,6 +639,7 @@ class _ViewportInputCoordinator {
             index,
             temporaryState: TemporaryState.removeAfterClick,
           );
+
           if (!_isCurrentInput(generation)) return;
           if (holdShortcutKeyId != null &&
               !HardwareKeyboard.instance.logicalKeysPressed.contains(
