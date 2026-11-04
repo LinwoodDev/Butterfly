@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Elija cuándo la fila de rotación aparece sobre el zoom. Esto no cambia los gestos de rotación ni los atajos.",
   "whenRotated": "Al girar",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rota el lienzo arrastrando"
+  "rotateCanvasByDragging": "Rota el lienzo arrastrando",
+  "proportionalResizing": "Proportional resizing"
 }
