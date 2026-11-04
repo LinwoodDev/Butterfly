@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "选择旋转行出现在缩放上方的时间。这不会改变旋转手势或快捷方式。",
   "whenRotated": "旋转时",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "拖动画面旋转画布"
+  "rotateCanvasByDragging": "拖动画面旋转画布",
+  "proportionalResizing": "Proportional resizing"
 }
