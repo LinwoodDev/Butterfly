@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Выберите, когда линия вращения появляется над масштабом. Это не изменяет жесты или ярлыки.",
   "whenRotated": "При повернутом",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Повернуть холст перетаскиванием"
+  "rotateCanvasByDragging": "Повернуть холст перетаскиванием",
+  "proportionalResizing": "Proportional resizing"
 }
