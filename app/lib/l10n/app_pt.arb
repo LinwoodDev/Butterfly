@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Escolha quando a linha de rotação aparecer acima do zoom. Isto não altera os gestos de rotação ou atalhos.",
   "whenRotated": "Quando girado",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Girar a tela arrastando"
+  "rotateCanvasByDragging": "Girar a tela arrastando",
+  "proportionalResizing": "Proportional resizing"
 }
