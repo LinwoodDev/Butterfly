@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Valitse kun kiertorivi näkyy zoomin yläpuolella. Tämä ei muuta pyörimiseleitä tai pikanäppäimiä.",
   "whenRotated": "Kun kierretään",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Kierrä kangas vetämällä"
+  "rotateCanvasByDragging": "Kierrä kangas vetämällä",
+  "proportionalResizing": "Proportional resizing"
 }
