@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Scegli quando la riga di rotazione appare sopra lo zoom. Ciò non cambia i gesti di rotazione o le scorciatoie.",
   "whenRotated": "Quando ruotato",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Ruota superficie trascinando"
+  "rotateCanvasByDragging": "Ruota superficie trascinando",
+  "proportionalResizing": "Proportional resizing"
 }
