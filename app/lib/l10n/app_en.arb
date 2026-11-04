@@ -1719,5 +1719,6 @@
   "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
   "whenRotated": "When rotated",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotate canvas by dragging"
+  "rotateCanvasByDragging": "Rotate canvas by dragging",
+  "proportionalResizing": "Proportional resizing"
 }

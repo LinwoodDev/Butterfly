@@ -133,6 +133,11 @@ class SelectHandler extends Handler<SelectTool> {
         bounds = bounds?.expandToInclude(pointRect) ?? pointRect;
       }
     }
+
+    if (_selected.isEmpty) {
+      _selectionManager.reset();
+    }
+
     _selectionManager.select(bounds, rotation: angle);
   }
 
@@ -174,6 +179,7 @@ class SelectHandler extends Handler<SelectTool> {
             scaleY: transform.scaleY,
             scaleRotation: angle,
             rotation: transform.rotation,
+            scaleStrokeWidth: data.proportionalResizing,
           ) ??
           renderer;
     }).toList();
@@ -187,6 +193,8 @@ class SelectHandler extends Handler<SelectTool> {
     DocumentInfo info, [
     Area? currentArea,
   ]) {
+    _selectionManager.setForceProportional(data.proportionalResizing);
+
     _syncSelectionRotation(editorController.transformCubit.state);
     final foregrounds = <Renderer>[];
     // When transform just started but the pointer hasn't moved yet,

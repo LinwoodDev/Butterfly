@@ -71,6 +71,7 @@ class RectSelectionForegroundManager {
   SelectionScaleMode _scaleMode = .scale;
   bool _proportionalModifier = false;
   bool _centeredModifier = false;
+  bool _forceProportional = false;
   double _viewportRotation = 0;
   double rotation = 0;
 
@@ -90,6 +91,10 @@ class RectSelectionForegroundManager {
 
   void updateCurrentPosition(Offset position) {
     _currentPosition = _toLocal(position);
+  }
+
+  void setForceProportional(bool value) {
+    _forceProportional = value;
   }
 
   void updateCursor(double scale, double sensitivity, [double rotation = 0]) {
@@ -176,7 +181,8 @@ class RectSelectionForegroundManager {
   }
 
   SelectionScaleMode get _effectiveScaleMode =>
-      (_scaleMode == .scaleProp) != _proportionalModifier
+      _forceProportional ||
+          ((_scaleMode == .scaleProp) != _proportionalModifier)
       ? SelectionScaleMode.scaleProp
       : SelectionScaleMode.scale;
 
@@ -284,10 +290,14 @@ class RectSelectionForegroundManager {
       default:
         moved = delta;
     }
-    if (_effectiveScaleMode == .scaleProp) {
+    final isResizing = _corner != null && _corner != .center;
+
+    if (_effectiveScaleMode == .scaleProp && isResizing) {
       final scale = (scaleX - 1).abs() > (scaleY - 1).abs() ? scaleX : scaleY;
+
       scaleX = scale;
       scaleY = scale;
+
       moved = switch (_corner) {
         .topLeft => Offset(
           _selection.width * (1 - scale),
@@ -297,6 +307,13 @@ class RectSelectionForegroundManager {
         .centerLeft || .bottomLeft => Offset(_selection.width * (1 - scale), 0),
         _ => Offset.zero,
       };
+    }
+
+    if (_corner == null &&
+        (_forceProportional
+            ? _scaleMode == .scaleProp
+            : _effectiveScaleMode == .scaleProp)) {
+      moved = Offset.zero;
     }
     if (_centeredModifier && _corner != null && _corner != .center) {
       scaleX = 1 + 2 * (scaleX - 1);
@@ -330,7 +347,7 @@ class RectSelectionForegroundManager {
     return RectSelectionForegroundRenderer(
       rect.shift(rect.center.rotate(Offset.zero, rotation) - rect.center),
       rotation: rotation * 180 / pi,
-      transformMode: _effectiveScaleMode,
+      transformMode: _forceProportional ? _scaleMode : _effectiveScaleMode,
       transformCorner: _corner,
       enableRotation: enableRotation,
       isTransforming: isTransforming,

@@ -82,6 +82,7 @@ sealed class Tool extends PackAsset with _$Tool {
     @IdJsonConverter() String? id,
     @Default(SelectMode.rectangle) SelectMode mode,
     @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
+    @Default(false) bool proportionalResizing,
   }) = SelectTool;
 
   factory Tool.hand({
