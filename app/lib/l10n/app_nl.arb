@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Kies wanneer de rotatie rij boven de zoom verschijnt. Dit verandert geen rotatie gebaren of snelkoppelingen.",
   "whenRotated": "Wanneer gedraaid",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Canvas draaien door te slepen"
+  "rotateCanvasByDragging": "Canvas draaien door te slepen",
+  "proportionalResizing": "Proportional resizing"
 }
