@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Wählen Sie, wann die Rotationszeile oberhalb des Zooms erscheint. Dies ändert keine Rotationsgesten oder Verknüpfungen.",
   "whenRotated": "Wenn gedreht",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Leinwand durch Ziehen drehen"
+  "rotateCanvasByDragging": "Leinwand durch Ziehen drehen",
+  "proportionalResizing": "Proportional resizing"
 }
