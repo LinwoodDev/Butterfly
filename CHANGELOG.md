@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.3-rc.0 (2026-11-04)
+
+* Add drag and drop imports from files and browser images ([#1314](https://github.com/LinwoodDev/Butterfly/issues/1314))
+* Redesign pack dialogs with a compact grid, unified styling, and responsive sidebar navigation
+* Allow adding assets before creating a pack
+* Simplify connection setup with help tooltips, custom icons, and deletion confirmation ([#1330](https://github.com/LinwoodDev/Butterfly/issues/1330))
+* Fix pack actions ignoring the selected connection
+* Fix memory leaks and secure embed and archive imports ([#1324](https://github.com/LinwoodDev/Butterfly/pull/1324))
+* Avoid unnecessary saves and renderer initialization when switching pages ([#1336](https://github.com/LinwoodDev/Butterfly/issues/1336))
+* Allow choosing camera sliders, text fields and buttons independently ([#1223](https://github.com/LinwoodDev/Butterfly/issues/1223))
+* Keep camera panels compact when sliders and text fields are hidden
+* Show detailed synchronization progress for nested folders and files without an additional scan ([#1337](https://github.com/LinwoodDev/Butterfly/issues/1337))
+* Use native file dialogs for imports and exports, with enforced custom save extensions
+
+Read more here: https://linwood.dev/butterfly/2.6.3-rc.0
+
 ## 2.6.2 (2026-10-28)
 
 Changes since 2.6.2-rc.0:
