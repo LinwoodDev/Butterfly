@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
 import 'package:butterfly/dialogs/import/pages.dart';
 import 'package:butterfly/dialogs/load.dart';
+import 'package:butterfly/helpers/pdf.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/widgets/area_size_picker.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,9 +49,10 @@ void main() {
 
   tearDown(() => PdfrxEntryFunctions.instance = originalEngine);
 
-  Future<void> mount(WidgetTester tester) async {
+  Future<void> mount(WidgetTester tester, {bool spreadPages = false}) async {
     final settings = MockSettingsCubit();
-    when(() => settings.state).thenReturn(const ButterflySettings());
+    when(() => settings.state)
+        .thenReturn(ButterflySettings(spreadPages: spreadPages));
     when(() => settings.stream).thenAnswer((_) => const Stream.empty());
     await tester.pumpWidget(
       BlocProvider<SettingsCubit>.value(
@@ -117,34 +121,109 @@ void main() {
     expect(result.assets[elements.last.source], otherBytes);
     expect(elements.map((e) => e.position.y), [
       0,
-      closeTo(352.7777777778, 1e-8),
+      closeTo(1333.3333333333, 1e-8),
     ]);
     expect(result.areas.map((e) => e.position.y), [
       0,
-      closeTo(352.7777777778, 1e-8),
+      closeTo(1333.3333333333, 1e-8),
     ]);
     expect(result.exportPresets.map((e) => e.name), ['first', 'second']);
     expect(find.byType(LoadingDialog), findsNothing);
   });
 
-  testWidgets('A4 PDF pages import as 210 by 297 canvas units', (tester) async {
-    await mount(tester);
-    when(() => page.width).thenReturn(595.2755905511812);
-    when(() => page.height).thenReturn(841.8897637795276);
+  for (final spreadPages in [false, true]) {
+    testWidgets(
+      'A4 PDF pages import at 96 units per inch with spreadPages=$spreadPages',
+      (tester) async {
+        await mount(tester, spreadPages: spreadPages);
+        when(() => page.width).thenReturn(595.2755905511812);
+        when(() => page.height).thenReturn(841.8897637795276);
 
-    final importing = service.importPdf(
-      bytes,
-      DocumentDefaults.createDocument(),
-      advanced: false,
+        final importing = service.importPdf(
+          bytes,
+          DocumentDefaults.createDocument(),
+          position: const Offset(12, 34),
+          advanced: false,
+        );
+        await tester.pumpAndSettle();
+        final result = (await importing)!;
+        final importedPage = spreadPages ? result.pages.single.$2 : null;
+        final element =
+            (importedPage?.layers.single.content.single ??
+                    result.elements.single)
+                as PdfElement;
+        final area = (importedPage?.areas ?? result.areas).single;
+
+        expect(element.width, closeTo(793.7007874016, 1e-9));
+        expect(element.height, closeTo(1122.5196850394, 1e-9));
+        expect(
+          canvasUnitsToPdfPoints(element.width),
+          closeTo(page.width, 1e-9),
+        );
+        expect(
+          canvasUnitsToPdfPoints(element.height),
+          closeTo(page.height, 1e-9),
+        );
+        expect(area.width, closeTo(element.width, 1e-9));
+        expect(area.height, closeTo(element.height, 1e-9));
+        expect(element.position, const Point(12.0, 34.0));
+        expect(area.position, element.position);
+        expect(result.assets[element.source], bytes);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: AreaSizePicker(
+                width: area.width,
+                height: area.height,
+                onChanged: (_) {},
+              ),
+            ),
+          ),
+        );
+        expect(
+          tester
+              .widget<DropdownMenuFormField<AreaSizePreset>>(
+                find.byType(DropdownMenuFormField<AreaSizePreset>),
+              )
+              .initialValue,
+          AreaSizePreset.a4,
+        );
+      },
     );
+  }
+
+  testWidgets('PDF import preserves existing document content and tools', (
+    tester,
+  ) async {
+    await mount(tester);
+    final existingPdf = PdfElement(
+      id: 'existing-pdf',
+      source: 'existing.pdf',
+      width: 210,
+      height: 297,
+      position: const Point(10, 20),
+    );
+    final existingPage = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'existing-layer', content: [existingPdf]),
+      ],
+      areas: [const Area(width: 210, height: 297, position: Point(10, 20))],
+    );
+    final document = DocumentDefaults.createDocument(page: existingPage);
+    final tools = document.getInfo()!.tools;
+    final importing = service.importPdf(bytes, document, advanced: false);
     await tester.pumpAndSettle();
     final result = (await importing)!;
-    final element = result.elements.single as PdfElement;
 
-    expect(element.width, closeTo(210, 1e-9));
-    expect(element.height, closeTo(297, 1e-9));
-    expect(result.areas.single.width, closeTo(210, 1e-9));
-    expect(result.areas.single.height, closeTo(297, 1e-9));
+    expect(result.document, same(document));
+    expect(result.document!.getPage(), existingPage);
+    expect(result.document!.getInfo()!.tools, tools);
+    expect(existingPdf.width, 210);
+    expect(existingPdf.height, 297);
+    expect(existingPdf.position, const Point(10, 20));
   });
 
   for (final returnsNull in [false, true]) {
