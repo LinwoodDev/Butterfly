@@ -9,6 +9,7 @@ class const EditorViewState({
   final bool navigatorEnabled = false,
   final NavigatorPage navigatorPage = .waypoints,
   final String userName = '',
+  final DisplayCalibrationProfile? displayCalibration,
 }) with _$EditorViewState {}
 
 class EditorViewCubit({
@@ -65,6 +66,9 @@ class EditorViewCubit({
   }
 
   void setUserName(String name) => emit(state.copyWith(userName: name));
+
+  void setDisplayCalibration(DisplayCalibrationProfile profile) =>
+      emit(state.copyWith(displayCalibration: profile));
 
   @override
   Future<void> close() {

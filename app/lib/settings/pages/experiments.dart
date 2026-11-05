@@ -8,6 +8,7 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     AppLocalizations.of(context).smoothNavigation,
     AppLocalizations.of(context).edgePanAreaSwitching,
     AppLocalizations.of(context).floatingEditor,
+    AppLocalizations.of(context).calibratedZoom,
   ],
   appBarBuilder: _butterflyAppBar,
   onReset: (context, state) => context.read<SettingsCubit>().resetFlags(),
@@ -15,6 +16,15 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
     'flags': SettingsLeapSection(
       headerBuilder: _experimentsHeader,
       settings: [
+        SettingsLeapBoolSetting(
+          displayName: (context) => AppLocalizations.of(context).calibratedZoom,
+          hintBuilder: (context) =>
+              AppLocalizations.of(context).calibratedZoomDescription,
+          icon: PhosphorIconsLight.ruler,
+          read: (state) => state.hasFlag('calibratedZoom'),
+          write: (context, value) =>
+              _changeFlag(context, 'calibratedZoom', value),
+        ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).floatingEditor,
           hintBuilder: (context) =>

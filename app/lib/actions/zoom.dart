@@ -1,5 +1,6 @@
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/services/display_calibration.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,10 +50,11 @@ class ZoomAction extends Action<ZoomIntent> {
       Offset.zero,
     );
     final transformCubit = cubit.transformCubit;
-    final step = ZoomAction.step(cubit.settingsCubit.state);
+    final reference = displayZoom(context);
+    final step = ZoomAction.step(cubit.settingsCubit.state) * reference;
     cubit.transformCubit.sizeConstrained(
       intent.reset
-          ? 1
+          ? reference
           : transformCubit.state.size + (intent.reverse ? -step : step),
       cursor: center,
       runtime: cubit,

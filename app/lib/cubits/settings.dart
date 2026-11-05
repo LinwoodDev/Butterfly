@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/window.dart';
+import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/actual_size.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -672,6 +674,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double scrollPanSensitivity,
     @Default(kDefaultRotationStep) double rotationStep,
     @Default(kDefaultZoomStep) double zoomStep,
+    @Default(false) bool useCalibratedZoom,
+    @Default({}) Map<String, double> displayCalibrations,
     bool? penOnlyInput,
     @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
@@ -821,6 +825,14 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
       rotationStep: prefs.getDouble('rotation_step') ?? kDefaultRotationStep,
       zoomStep: prefs.getDouble('zoom_step') ?? kDefaultZoomStep,
+      useCalibratedZoom: prefs.get('use_calibrated_zoom') == true,
+      displayCalibrations: {
+        for (final entry in _decodeJsonMapOrEmpty(
+          prefs.getString('display_calibrations'),
+        ).entries)
+          if (entry.value is num && (entry.value as num).isFinite)
+            entry.key: (entry.value as num).toDouble(),
+      },
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
           ? _enumByNameOr(
@@ -1068,6 +1080,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
 
   bool get isInline => toolbarPosition == .inline && toolbarRows <= 1;
 
+  double? getDisplayCalibration(String key) {
+    final density = displayCalibrations[key];
+    if (density == null) return null;
+    final zoom = density / kCanvasUnitsPerMillimeter;
+    return zoom.isFinite && zoom >= kMinZoom && zoom <= kMaxZoom ? zoom : null;
+  }
+
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     if (limitViewportMultiplier != null) {
@@ -1099,6 +1118,11 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setDouble('rotation_step', rotationStep);
     await prefs.setDouble('zoom_step', zoomStep);
+    await prefs.setBool('use_calibrated_zoom', useCalibratedZoom);
+    await prefs.setString(
+      'display_calibrations',
+      jsonEncode(displayCalibrations),
+    );
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
@@ -1437,6 +1461,31 @@ class SettingsCubit(SharedPreferences prefs)
   }
 
   Future<void> resetZoomStep() => changeZoomStep(kDefaultZoomStep);
+
+  Future<void> changeUseCalibratedZoom(bool enabled) {
+    emit(state.copyWith(useCalibratedZoom: enabled));
+    return save();
+  }
+
+  Future<void> changeDisplayCalibration(String key, double? zoom) {
+    if (zoom != null &&
+        (!zoom.isFinite || zoom < kMinZoom || zoom > kMaxZoom)) {
+      throw ArgumentError.value(
+        zoom,
+        'zoom',
+        'Outside the supported zoom range',
+      );
+    }
+    final calibrations = {...state.displayCalibrations};
+    if (zoom == null) {
+      calibrations.remove(key);
+    } else {
+      // Preserve the saved logical pixels per millimeter across canvas units.
+      calibrations[key] = zoom * kCanvasUnitsPerMillimeter;
+    }
+    emit(state.copyWith(displayCalibrations: calibrations));
+    return save();
+  }
 
   Future<void> changeBannerVisibility(BannerVisibility visibility) {
     emit(state.copyWith(bannerVisibility: visibility));
