@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Zvolte, kdy se řádek otáčení objeví nad přiblížením. To nemění gesta nebo zkratky.",
   "whenRotated": "Při otočení",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Otočit plátno přetažením"
+  "rotateCanvasByDragging": "Otočit plátno přetažením",
+  "proportionalResizing": "Proportional resizing"
 }

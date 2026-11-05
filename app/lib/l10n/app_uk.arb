@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Виберіть, коли рядок обертання з'являється у верхньому масштабі. Не змінює жести обертання або ярлики.",
   "whenRotated": "При обертанні",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Повернути полотно, перетягнувши"
+  "rotateCanvasByDragging": "Повернути полотно, перетягнувши",
+  "proportionalResizing": "Proportional resizing"
 }

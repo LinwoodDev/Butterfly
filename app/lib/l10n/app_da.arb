@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Vælg hvornår rotationsrækken vises over zoom. Dette ændrer ikke rotationsbevægelser eller genveje.",
   "whenRotated": "Når roteret",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Roter lærred ved at trække"
+  "rotateCanvasByDragging": "Roter lærred ved at trække",
+  "proportionalResizing": "Proportional resizing"
 }

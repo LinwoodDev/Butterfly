@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Choisissez quand la ligne de rotation apparaît au-dessus du zoom. Cela ne change pas les gestes de rotation ou les raccourcis.",
   "whenRotated": "En rotation",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Faire pivoter la toile en faisant glisser"
+  "rotateCanvasByDragging": "Faire pivoter la toile en faisant glisser",
+  "proportionalResizing": "Proportional resizing"
 }

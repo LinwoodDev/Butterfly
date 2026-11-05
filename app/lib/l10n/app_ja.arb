@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "回転行がズームの上に表示されるときに選択します。これは回転ジェスチャーやショートカットを変更しません。",
   "whenRotated": "回転時",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "ドラッグしてキャンバスを回転させる"
+  "rotateCanvasByDragging": "ドラッグしてキャンバスを回転させる",
+  "proportionalResizing": "Proportional resizing"
 }

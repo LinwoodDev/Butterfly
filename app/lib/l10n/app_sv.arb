@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Välj när rotationsraden visas ovanför zoom. Detta ändrar inte rotationsgester eller genvägar.",
   "whenRotated": "Vid rotering",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotera duk genom att dra"
+  "rotateCanvasByDragging": "Rotera duk genom att dra",
+  "proportionalResizing": "Proportional resizing"
 }

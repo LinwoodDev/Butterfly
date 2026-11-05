@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "اختر عندما يظهر صف الدوران فوق التصغير. هذا لا يغير إيماءات الدوران أو الاختصار.",
   "whenRotated": "عند الدوران",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "تدوير القماش عن طريق السحب"
+  "rotateCanvasByDragging": "تدوير القماش عن طريق السحب",
+  "proportionalResizing": "Proportional resizing"
 }

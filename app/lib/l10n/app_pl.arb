@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Wybierz, kiedy wiersz obrotu pojawi się nad powiększeniem. Nie zmienia to gestów obrotu ani skrótów.",
   "whenRotated": "Po obracaniu",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Obróć płótno przeciągając"
+  "rotateCanvasByDragging": "Obróć płótno przeciągając",
+  "proportionalResizing": "Proportional resizing"
 }

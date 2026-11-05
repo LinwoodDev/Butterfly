@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Επιλέξτε όταν η γραμμή περιστροφής εμφανίζεται πάνω από τη μεγέθυνση. Αυτό δεν αλλάζει χειρονομίες περιστροφής ή συντομεύσεις.",
   "whenRotated": "Κατά την περιστροφή",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Περιστροφή καμβά σύροντας"
+  "rotateCanvasByDragging": "Περιστροφή καμβά σύροντας",
+  "proportionalResizing": "Proportional resizing"
 }

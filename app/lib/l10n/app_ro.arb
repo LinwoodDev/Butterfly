@@ -1733,5 +1733,6 @@
   "rotationDisplayDescription": "Alegeți când rândul de rotație apare deasupra micșorării. Acest lucru nu schimbă gesturile de rotație sau scurtăturile.",
   "whenRotated": "Când este rotit",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotiți pânza prin tragere"
+  "rotateCanvasByDragging": "Rotiți pânza prin tragere",
+  "proportionalResizing": "Proportional resizing"
 }
