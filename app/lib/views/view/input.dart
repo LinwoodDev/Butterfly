@@ -398,6 +398,8 @@ class _ViewportInputCoordinator {
     ScaleStartDetails details,
     _PointerInputContext input,
   ) => _withInputLock(() async {
+    final generation = _inputGeneration;
+
     if (_cameraRotationGesture) return;
 
     final bufferedEvents = _shortcutManager.cancelPendingClickShortcut();
@@ -405,6 +407,8 @@ class _ViewportInputCoordinator {
     if (bufferedEvents.isNotEmpty) {
       await _replayPointerEvents(bufferedEvents, input);
     }
+
+    if (!_isCurrentInput(generation)) return;
 
     _startScaleGesture(details, input);
   });
