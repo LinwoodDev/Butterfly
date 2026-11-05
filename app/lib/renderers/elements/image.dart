@@ -179,6 +179,8 @@ class ImageRenderer extends Renderer<ImageElement> {
     required double shear,
     double scaleX = 1,
     double scaleY = 1,
+    // ignore: unused_element_parameter
+    double strokeWidthFactor = 1,
   }) {
     return ImageRenderer(
       element.copyWith(

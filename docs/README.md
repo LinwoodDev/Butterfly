@@ -13,7 +13,8 @@ Inside of the docs directory, you'll see the following folders and files:
 │   ├── assets/
 │   ├── content/
 │   │   ├── docs/
-│   │   └── config.ts
+│   │   └── i18n/
+│   ├── content.config.ts
 │   └── env.d.ts
 ├── astro.config.mjs
 ├── package.json
@@ -31,15 +32,51 @@ Static assets, like favicons, can be placed in the `public/` directory.
 Landing pages use `Landing` and `LandingFeature` from
 `@linwooddev/starlight-style`. Keep layout and card styles in the shared library;
 `src/styles/custom.scss` only defines Butterfly's colors. Both Linwood packages
-are pinned to the same library commit in `package.json` and `pnpm-lock.yaml`.
+are pinned to the same shared-library commit in `package.json` and `pnpm-lock.yaml`.
+
+The shared plugin also configures heading IDs and GitHub emoji replacements.
+Butterfly opts into its math support with `linwoodStarlight({ math: true })`;
+the shared package supplies KaTeX rendering, styles, and fonts. Math is disabled
+by default for other sites.
 
 ## Translations
 
-Crowdin translates page content in `src/content/docs/` and UI labels in
-`src/translations/*.json`, as configured in the root `crowdin.yml`. Add new UI
-labels to `src/translations/en.json`; the shared Linwood Starlight plugin exposes these
-dictionaries through Starlight's `Astro.locals.t()` API with English fallback.
-Sidebar labels use the same dictionaries.
+The site uses [Starlight's internationalization system](https://starlight.astro.build/guides/i18n/).
+English is the root and default locale: English pages live directly in
+`src/content/docs/`, and translated pages use the same relative filename under
+their language directory (for example, `de/docs/v2/intro.mdx`). Starlight generates
+missing translations from the English page and displays its untranslated-content
+notice automatically. Leave untranslated pages absent to use this fallback.
+
+Crowdin translates page content and UI labels in `src/content/i18n/*.json`, as
+configured in the root `crowdin.yml`. `src/content.config.ts` calls the shared
+package's `createCollections(en)` to register Starlight's docs and i18n loaders
+and schemas. Add custom UI keys to `src/content/i18n/en.json`;
+the schema includes them as optional strings so other languages can fall back to
+English. Built-in Starlight UI strings are already translated and can be
+overridden in these JSON files. Render UI strings with `Astro.locals.t("key")`.
+
+UI filenames use the locale's BCP-47 `lang` tag (`en.json`, `pt-BR.json`,
+`zh-Hant.json`), while content directories use the configured locale paths
+(`pt-br/`, `zh-hant/`). Crowdin maps these variants separately. Internal sidebar
+links use locale-independent slugs (for example, `docs/v2/intro`) so Starlight
+uses the translated page's title or `sidebar.label` frontmatter. Group headings
+and deliberate label overrides reuse the UI dictionaries through Starlight's
+`translations` option, prepared by the shared package's
+`createI18n(new URL("./src/content/i18n/", import.meta.url))`. This helper also
+derives the language list, native language names, URL paths, and text direction
+from the dictionaries. Add a language JSON file to enable that locale; no manual
+`locales` block is needed. English remains the default and root language.
+The shared style plugin supplies its own default UI strings; site dictionaries
+are loaded by Starlight's content collection.
+
+Butterfly also enables `detectLanguage: true` in the shared plugin. On an
+unprefixed page, a small, dismissible popup offers the browser's preferred
+supported language. The page never switches language automatically. The visitor
+can accept the suggestion, keep the current language, or close the popup.
+The native picker and popup remember manual choices, including English.
+Explicit language URLs are respected. Language choices preserve query parameters
+and fragments, and the popup also works after ClientRouter navigation.
 
 Write internal page links as root-relative paths, such as `/docs/v2/intro/`.
 The shared plugin localizes hero actions and rendered Markdown and MDX links

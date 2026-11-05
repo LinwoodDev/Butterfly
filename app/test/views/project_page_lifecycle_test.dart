@@ -7,6 +7,8 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/display_calibration.dart';
+import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/handlers/handler.dart';
@@ -140,6 +142,7 @@ void main() {
   }
 
   Widget buildApp({
+    SettingsCubit? preferences,
     NoteData? embedDocument,
     String embedFileName = '',
     EmbedFullScreen embedFullScreen = EmbedFullScreen.enabled,
@@ -239,7 +242,9 @@ void main() {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<SettingsCubit>.value(value: settingsCubit),
+          BlocProvider<SettingsCubit>.value(
+            value: preferences ?? settingsCubit,
+          ),
           BlocProvider<WindowCubit>.value(value: windowCubit),
         ],
         child: MaterialApp.router(
@@ -257,8 +262,11 @@ void main() {
   Future<EditorController> openEditor(
     WidgetTester tester, {
     NoteData? document,
+    SettingsCubit? preferences,
   }) async {
-    await tester.pumpWidget(buildApp(embedDocument: document));
+    await tester.pumpWidget(
+      buildApp(embedDocument: document, preferences: preferences),
+    );
     await tester.tap(find.byKey(const ValueKey('open-document')));
     await pumpUntil(
       tester,
@@ -267,6 +275,15 @@ void main() {
     );
     await tester.pumpAndSettle();
     return observer.lastDocumentBloc!.editorController;
+  }
+
+  Future<SettingsCubit> loadCalibrationSettings({
+    bool experimental = true,
+  }) async {
+    final cubit = SettingsCubit(await SharedPreferences.getInstance());
+    addTearDown(cubit.close);
+    if (experimental) await cubit.addFlag('calibratedZoom');
+    return cubit;
   }
 
   Future<void> pressControlKey(
@@ -763,6 +780,486 @@ void main() {
     ),
     matching: find.byType(TextField),
   );
+
+  Future<void> openCamera(WidgetTester tester, EditorController editor) async {
+    editor.toolCubit.changeSelection(editor);
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Camera'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Camera'));
+    await tester.pumpAndSettle();
+  }
+
+  Finder cameraZoomSlider() => find.descendant(
+    of: find.byWidgetPredicate(
+      (widget) =>
+          widget is ExactSlider &&
+          widget.header is Text &&
+          (widget.header as Text).data == 'Zoom',
+    ),
+    matching: find.byType(Slider),
+  );
+
+  for (final controls in [
+    ZoomPanelControls.sliderAndButtons,
+    ZoomPanelControls.buttons,
+    ZoomPanelControls.none,
+  ]) {
+    testWidgets('mobile camera layout ${controls.name} shows chosen controls', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      when(() => settingsCubit.state).thenReturn(
+        ButterflySettings(
+          defaultTemplate: 'default',
+          zoomPanelControls: controls,
+          rotationDisplay: RotationDisplay.always,
+        ),
+      );
+      final editor = await openEditor(tester);
+      editor.inputCubit.detectPen(true);
+      await tester.pumpAndSettle();
+      expect(cameraField('Zoom'), findsNothing);
+      expect(cameraField('Rotation'), findsNothing);
+      expect(
+        find.descendant(
+          of: find.byType(ZoomView),
+          matching: find.byType(Slider),
+        ),
+        controls == ZoomPanelControls.sliderAndButtons
+            ? findsNWidgets(2)
+            : findsNothing,
+      );
+      expect(
+        cameraButton('Zoom in'),
+        controls.showButtons ? findsOneWidget : findsNothing,
+      );
+      expect(
+        cameraButton('Rotate left'),
+        controls.showButtons ? findsOneWidget : findsNothing,
+      );
+      expect(cameraButton('Reset zoom'), findsOneWidget);
+      expect(cameraButton('Reset rotation'), findsOneWidget);
+      if (!controls.showSlider) {
+        expect(
+          tester.getSize(find.byKey(const ValueKey('camera-zoom'))).width,
+          controls == ZoomPanelControls.none ? lessThan(40) : lessThan(112),
+        );
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
+
+  testWidgets('buttons-only camera controls step, clamp and reset', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        defaultTemplate: 'default',
+        zoomPanelControls: ZoomPanelControls.buttons,
+        rotationDisplay: RotationDisplay.always,
+        zoomStep: .1,
+        rotationStep: 15,
+      ),
+    );
+    final editor = await openEditor(tester);
+    await tester.tap(cameraButton('Zoom in'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(1.1, 1e-9));
+    await tester.tap(cameraButton('Zoom out'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(1, 1e-9));
+    await tester.tap(cameraButton('Rotate right'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.rotation, closeTo(pi / 12, 1e-9));
+    await tester.tap(cameraButton('Rotate left'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.rotation, closeTo(0, 1e-9));
+    editor.transformCubit.size(10);
+    editor.transformCubit.rotate(pi);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<IconButton>(cameraButton('Zoom in')).onPressed,
+      isNull,
+    );
+    expect(
+      tester.widget<IconButton>(cameraButton('Rotate left')).onPressed,
+      isNull,
+    );
+    await tester.tap(cameraButton('Reset zoom'));
+    await tester.tap(cameraButton('Reset rotation'));
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 1);
+    expect(editor.transformCubit.state.rotation, 0);
+    editor.transformCubit.size(.1);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<IconButton>(cameraButton('Zoom out')).onPressed,
+      isNull,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('calibrated 100% preserves A4 sizing and the camera at DPR 2', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({'use_calibrated_zoom': true});
+    const ratio = 2.0;
+    tester.view.physicalSize = Size(1200 * ratio, 900 * ratio);
+    tester.view.devicePixelRatio = ratio;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    const channel = MethodChannel('linwood.dev/lw_sysapi');
+    const dpi = 141.7;
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(channel, (call) async {
+      if (call.method != 'getDisplayMetrics') return null;
+      return {'dpiX': dpi, 'dpiY': dpi};
+    });
+    addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+    final editor = await openEditor(
+      tester,
+      preferences: await loadCalibrationSettings(),
+    );
+    editor.transformCubit.rotate(pi / 6);
+    final center = tester
+        .getSize(find.byType(MainViewViewport))
+        .center(Offset.zero);
+    final documentCenter = editor.transformCubit.state.localToGlobal(center);
+    await tester.tap(cameraButton('Reset zoom'));
+    await tester.pumpAndSettle();
+    final transform = editor.transformCubit.state;
+    expect(
+      AreaSizePreset.a4.width * transform.size * ratio * 25.4 / dpi,
+      closeTo(210, 1e-9),
+    );
+    expect(
+      AreaSizePreset.a4.height * transform.size * ratio * 25.4 / dpi,
+      closeTo(297, 1e-9),
+    );
+    expect(transform.rotation, closeTo(pi / 6, 1e-9));
+    expect(
+      (transform.localToGlobal(center) - documentCenter).distance,
+      lessThan(1e-6),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('calibrated zoom experiment gates controls and display queries', (
+    tester,
+  ) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(800, 600);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    addTearDown(tester.view.resetPhysicalSize);
+    SharedPreferences.setMockInitialValues({'use_calibrated_zoom': true});
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    const channel = MethodChannel('linwood.dev/lw_sysapi');
+    var queries = 0;
+    messenger.setMockMethodCallHandler(channel, (_) async {
+      queries++;
+      return {'dpiX': 192.0, 'dpiY': 192.0};
+    });
+    addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+    final editor = await openEditor(
+      tester,
+      preferences: await loadCalibrationSettings(experimental: false),
+    );
+    await openCamera(tester, editor);
+    final toggle = find.widgetWithText(SwitchListTile, 'Calibrated zoom');
+    expect(toggle, findsNothing);
+    expect(queries, 0);
+    expect(
+      tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+      '100.0',
+    );
+    await editor.settingsCubit.addFlag('calibratedZoom');
+    await tester.pumpAndSettle();
+    expect(toggle, findsOneWidget);
+    expect(queries, greaterThan(0));
+    expect(
+      tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+      '50.0',
+    );
+    await editor.settingsCubit.removeFlag('calibratedZoom');
+    await tester.pumpAndSettle();
+    expect(toggle, findsNothing);
+    expect(
+      tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+      '100.0',
+    );
+    expect(editor.transformCubit.state.size, 1);
+    final previousQueries = queries;
+    tester.binding.handleMetricsChanged();
+    await tester.pumpAndSettle();
+    expect(queries, previousQueries);
+    Actions.invoke(
+      tester.element(find.byType(ZoomView)),
+      const SettingsIntent(),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('View'));
+    await tester.pumpAndSettle();
+    expect(find.text('Calibrate display'), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets(
+    'settings calibration persists and overrides native display data',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({'use_calibrated_zoom': true});
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      const channel = MethodChannel('linwood.dev/lw_sysapi');
+      var displayId = 'first';
+      messenger.setMockMethodCallHandler(
+        channel,
+        (_) async => {'dpiX': 127.0, 'dpiY': 127.0, 'displayId': displayId},
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+      final editor = await openEditor(
+        tester,
+        preferences: await loadCalibrationSettings(),
+      );
+      Actions.invoke(
+        tester.element(find.byType(ZoomView)),
+        const SettingsIntent(),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('View'));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Calibrate display'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Calibrate display'));
+      await tester.pumpAndSettle();
+      expect(find.byType(DisplayCalibrationDialog), findsOneWidget);
+      await tester.tap(
+        find.byKey(const ValueKey('display-calibration-method')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Measure the line').last);
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.byKey(const ValueKey('display-calibration-length')),
+        '50',
+      );
+      await tester.pump();
+      await tester.tap(find.widgetWithText(FilledButton, 'Save'));
+      await tester.pumpAndSettle();
+      expect(find.byType(DisplayCalibrationDialog), findsNothing);
+      expect(editor.transformCubit.state.size, 1);
+      for (
+        var i = 0;
+        i < 3 && find.byType(SettingsPage).evaluate().isNotEmpty;
+        i++
+      ) {
+        await tester.binding.handlePopRoute();
+        await tester.pumpAndSettle();
+      }
+      await tester.tap(cameraButton('Reset zoom'));
+      await tester.pumpAndSettle();
+      expect(
+        editor.transformCubit.state.size,
+        closeTo(4 * 25.4 / kCanvasUnitsPerInch, 1e-9),
+      );
+      displayId = 'second';
+      tester.binding.handleMetricsChanged();
+      await tester.pumpAndSettle();
+      await tester.tap(cameraButton('Reset zoom'));
+      await tester.pumpAndSettle();
+      expect(
+        editor.transformCubit.state.size,
+        closeTo(
+          127 / (kCanvasUnitsPerInch * tester.view.devicePixelRatio),
+          1e-9,
+        ),
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'enabling calibrated zoom requests calibration without changing the camera',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      const channel = MethodChannel('linwood.dev/lw_sysapi');
+      messenger.setMockMethodCallHandler(channel, (_) async => null);
+      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+      final editor = await openEditor(
+        tester,
+        preferences: await loadCalibrationSettings(),
+      );
+      await openCamera(tester, editor);
+      expect(find.text('Calibrate display'), findsNothing);
+      expect(tester.widget<Slider>(cameraZoomSlider()).value, 100);
+      final toggle = find.widgetWithText(SwitchListTile, 'Calibrated zoom');
+      await tester.ensureVisible(toggle);
+      await tester.pumpAndSettle();
+      await tester.tap(toggle);
+      await tester.pumpAndSettle();
+      expect(find.byType(DisplayCalibrationDialog), findsOneWidget);
+      await tester.tap(
+        find.byKey(const ValueKey('display-calibration-method')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Measure the line').last);
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.byKey(const ValueKey('display-calibration-length')),
+        '50',
+      );
+      await tester.pump();
+      await tester.tap(find.widgetWithText(FilledButton, 'Save'));
+      await tester.pumpAndSettle();
+      expect(editor.settingsCubit.state.useCalibratedZoom, isTrue);
+      expect(editor.transformCubit.state.size, 1);
+      expect(
+        tester.widget<Slider>(cameraZoomSlider()).value,
+        closeTo(100 / (4 * 25.4 / kCanvasUnitsPerInch), 1e-9),
+      );
+      expect(
+        tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+        '94.5',
+      );
+      editor.toolCubit.resetSelection(force: true);
+      await tester.pumpAndSettle();
+      await tester.tap(cameraButton('Reset zoom'));
+      await tester.pumpAndSettle();
+      expect(
+        editor.transformCubit.state.size,
+        closeTo(4 * 25.4 / kCanvasUnitsPerInch, 1e-9),
+      );
+      expect(
+        tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+        '100.0',
+      );
+      await openCamera(tester, editor);
+      await tester.ensureVisible(toggle);
+      await tester.pumpAndSettle();
+      await tester.tap(toggle);
+      await tester.pumpAndSettle();
+      expect(editor.settingsCubit.state.useCalibratedZoom, isFalse);
+      expect(
+        editor.transformCubit.state.size,
+        closeTo(4 * 25.4 / kCanvasUnitsPerInch, 1e-9),
+      );
+      expect(
+        tester.widget<Slider>(cameraZoomSlider()).value,
+        closeTo(4 * 25.4 / kCanvasUnitsPerInch * 100, 1e-9),
+      );
+      expect(
+        tester.widget<TextField>(cameraField('Zoom')).controller!.text,
+        '105.8',
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets('calibrated overlay and shortcuts enforce the real zoom limits', (
+    tester,
+  ) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(800, 600);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    addTearDown(tester.view.resetPhysicalSize);
+    SharedPreferences.setMockInitialValues({'use_calibrated_zoom': true});
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    const channel = MethodChannel('linwood.dev/lw_sysapi');
+    var dpi = 288.0;
+    messenger.setMockMethodCallHandler(
+      channel,
+      (_) async => {'dpiX': dpi, 'dpiY': dpi},
+    );
+    addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+    final editor = await openEditor(
+      tester,
+      preferences: await loadCalibrationSettings(),
+    );
+    await tester.pumpAndSettle();
+    final field = cameraField('Zoom');
+    expect(tester.widget<TextField>(field).controller!.text, '33.3');
+    dpi = 192;
+    tester.binding.handleMetricsChanged();
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 1);
+    expect(tester.widget<TextField>(field).controller!.text, '50.0');
+    dpi = 288;
+    tester.binding.handleMetricsChanged();
+    await tester.pumpAndSettle();
+    expect(tester.widget<TextField>(field).controller!.text, '33.3');
+    await tester.enterText(field, '100');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 3);
+    final slider = find.descendant(
+      of: find.byKey(const ValueKey('camera-zoom')),
+      matching: find.byType(Slider),
+    );
+    final zoomSlider = tester.widget<Slider>(slider);
+    expect(zoomSlider.min, closeTo(100 / 30, 1e-9));
+    expect(zoomSlider.max, closeTo(1000 / 3, 1e-9));
+    zoomSlider.onChanged!(zoomSlider.max);
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 10);
+    expect(
+      tester.widget<IconButton>(cameraButton('Zoom in')).onPressed,
+      isNull,
+    );
+    for (final invalid in ['400', '1']) {
+      await tester.enterText(field, invalid);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(editor.transformCubit.state.size, 10);
+      expect(tester.widget<TextField>(field).decoration?.errorText, isNotNull);
+    }
+    final currentSlider = tester.widget<Slider>(slider);
+    currentSlider.onChanged!(currentSlider.min);
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(.1, 1e-9));
+    expect(
+      tester.widget<IconButton>(cameraButton('Zoom out')).onPressed,
+      isNull,
+    );
+    Actions.invoke(
+      tester.element(find.byType(ZoomView)),
+      const ZoomIntent(reverse: true),
+    );
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(.1, 1e-9));
+    Actions.invoke(
+      tester.element(find.byType(ZoomView)),
+      const ZoomIntent(reset: true),
+    );
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 3);
+    Actions.invoke(tester.element(find.byType(ZoomView)), const ZoomIntent());
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, closeTo(3.3, 1e-9));
+    await openCamera(tester, editor);
+    final panelSlider = tester.widget<Slider>(cameraZoomSlider());
+    expect(panelSlider.value, closeTo(110, 1e-9));
+    expect(panelSlider.min, closeTo(100 / 30, 1e-9));
+    expect(panelSlider.max, closeTo(1000 / 3, 1e-9));
+    panelSlider.onChangeEnd!(100);
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 3);
+    expect(tester.widget<TextField>(field).controller!.text, '100.0');
+    panelSlider.onChangeEnd!(panelSlider.max);
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, 10);
+    panelSlider.onChangeEnd!(panelSlider.min);
+    await tester.pumpAndSettle();
+    expect(editor.transformCubit.state.size, .1);
+    expect(tester.takeException(), isNull);
+  });
 
   testWidgets(
     'mobile camera controls auto hides and returns for camera changes',

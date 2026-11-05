@@ -219,6 +219,12 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   rotationStep:
       (json['rotationStep'] as num?)?.toDouble() ?? kDefaultRotationStep,
   zoomStep: (json['zoomStep'] as num?)?.toDouble() ?? kDefaultZoomStep,
+  useCalibratedZoom: json['useCalibratedZoom'] as bool? ?? false,
+  displayCalibrations:
+      (json['displayCalibrations'] as Map?)?.map(
+        (k, e) => MapEntry(k as String, (e as num).toDouble()),
+      ) ??
+      const {},
   penOnlyInput: json['penOnlyInput'] as bool?,
   showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
   inputGestures: json['inputGestures'] as bool? ?? true,
@@ -401,6 +407,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'scrollPanSensitivity': instance.scrollPanSensitivity,
   'rotationStep': instance.rotationStep,
   'zoomStep': instance.zoomStep,
+  'useCalibratedZoom': instance.useCalibratedZoom,
+  'displayCalibrations': instance.displayCalibrations,
   'penOnlyInput': instance.penOnlyInput,
   'showPenOnlyToggle': instance.showPenOnlyToggle,
   'inputGestures': instance.inputGestures,
@@ -511,6 +519,9 @@ const _$ZoomPanelControlsEnumMap = {
   ZoomPanelControls.slider: 'slider',
   ZoomPanelControls.inputAndButtons: 'inputAndButtons',
   ZoomPanelControls.input: 'input',
+  ZoomPanelControls.sliderAndButtons: 'sliderAndButtons',
+  ZoomPanelControls.buttons: 'buttons',
+  ZoomPanelControls.none: 'none',
 };
 
 const _$ZoomPositionEnumMap = {

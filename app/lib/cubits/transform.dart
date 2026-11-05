@@ -181,6 +181,12 @@ class TransformCubit(double pixelRatio, [Offset? position])
     extends Cubit<CameraTransform> {
   this : super(CameraTransform(pixelRatio, position ?? .zero));
 
+  double toCameraScale(double percent, double reference) {
+    if (percent <= kMinZoom / reference * 100) return kMinZoom;
+    if (percent >= kMaxZoom / reference * 100) return kMaxZoom;
+    return percent / 100 * reference;
+  }
+
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
   void teleport(Offset position, [double? scale, double? rotation]) => emit(

@@ -63,6 +63,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.3-rc.0" type="development" date="2026-11-04">
+			<description>
+				<ul>
+					<li>Add drag and drop imports from files and browser images (#1314)</li>
+					<li>Redesign pack dialogs with a compact grid, unified styling, and responsive sidebar navigation</li>
+					<li>Allow adding assets before creating a pack</li>
+					<li>Simplify connection setup with help tooltips, custom icons, and deletion confirmation (#1330)</li>
+					<li>Fix pack actions ignoring the selected connection</li>
+					<li>Fix memory leaks and secure embed and archive imports (#1324)</li>
+					<li>Avoid unnecessary saves and renderer initialization when switching pages (#1336)</li>
+					<li>Allow choosing camera sliders, text fields and buttons independently (#1223)</li>
+					<li>Keep camera panels compact when sliders and text fields are hidden</li>
+					<li>Show detailed synchronization progress for nested folders and files without an additional scan (#1337)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.3-rc.0</url>
+		</release>
 		<release version="2.6.2" type="stable" date="2026-10-28">
 			<description>
 				<ul>

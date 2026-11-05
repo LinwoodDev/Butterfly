@@ -600,20 +600,20 @@ $EditorViewStateCopyWith<EditorViewState> get copyWith => _$EditorViewStateCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as EditorViewState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorViewState&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.areaNavigatorCreate, _this.areaNavigatorCreate) || other.areaNavigatorCreate == _this.areaNavigatorCreate)&&(identical(other.areaNavigatorExact, _this.areaNavigatorExact) || other.areaNavigatorExact == _this.areaNavigatorExact)&&(identical(other.areaNavigatorAsk, _this.areaNavigatorAsk) || other.areaNavigatorAsk == _this.areaNavigatorAsk)&&(identical(other.navigatorEnabled, _this.navigatorEnabled) || other.navigatorEnabled == _this.navigatorEnabled)&&(identical(other.navigatorPage, _this.navigatorPage) || other.navigatorPage == _this.navigatorPage)&&(identical(other.userName, _this.userName) || other.userName == _this.userName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorViewState&&(identical(other.locks, _this.locks) || other.locks == _this.locks)&&(identical(other.areaNavigatorCreate, _this.areaNavigatorCreate) || other.areaNavigatorCreate == _this.areaNavigatorCreate)&&(identical(other.areaNavigatorExact, _this.areaNavigatorExact) || other.areaNavigatorExact == _this.areaNavigatorExact)&&(identical(other.areaNavigatorAsk, _this.areaNavigatorAsk) || other.areaNavigatorAsk == _this.areaNavigatorAsk)&&(identical(other.navigatorEnabled, _this.navigatorEnabled) || other.navigatorEnabled == _this.navigatorEnabled)&&(identical(other.navigatorPage, _this.navigatorPage) || other.navigatorPage == _this.navigatorPage)&&(identical(other.userName, _this.userName) || other.userName == _this.userName)&&(identical(other.displayCalibration, _this.displayCalibration) || other.displayCalibration == _this.displayCalibration));
 }
 
 
 @override
 int get hashCode {
   final _this = this as EditorViewState;
-  return Object.hash(runtimeType,_this.locks,_this.areaNavigatorCreate,_this.areaNavigatorExact,_this.areaNavigatorAsk,_this.navigatorEnabled,_this.navigatorPage,_this.userName);
+  return Object.hash(runtimeType,_this.locks,_this.areaNavigatorCreate,_this.areaNavigatorExact,_this.areaNavigatorAsk,_this.navigatorEnabled,_this.navigatorPage,_this.userName,_this.displayCalibration);
 }
 
 @override
 String toString() {
   final _this = this as EditorViewState;
-  return 'EditorViewState(locks: ${_this.locks}, areaNavigatorCreate: ${_this.areaNavigatorCreate}, areaNavigatorExact: ${_this.areaNavigatorExact}, areaNavigatorAsk: ${_this.areaNavigatorAsk}, navigatorEnabled: ${_this.navigatorEnabled}, navigatorPage: ${_this.navigatorPage}, userName: ${_this.userName})';
+  return 'EditorViewState(locks: ${_this.locks}, areaNavigatorCreate: ${_this.areaNavigatorCreate}, areaNavigatorExact: ${_this.areaNavigatorExact}, areaNavigatorAsk: ${_this.areaNavigatorAsk}, navigatorEnabled: ${_this.navigatorEnabled}, navigatorPage: ${_this.navigatorPage}, userName: ${_this.userName}, displayCalibration: ${_this.displayCalibration})';
 }
 
 
@@ -624,7 +624,7 @@ abstract mixin class $EditorViewStateCopyWith<$Res>  {
   factory $EditorViewStateCopyWith(EditorViewState value, $Res Function(EditorViewState) _then) = _$EditorViewStateCopyWithImpl;
 @useResult
 $Res call({
- PersistentLockState locks, bool areaNavigatorCreate, bool areaNavigatorExact, bool areaNavigatorAsk, bool navigatorEnabled, NavigatorPage navigatorPage, String userName
+ PersistentLockState locks, bool areaNavigatorCreate, bool areaNavigatorExact, bool areaNavigatorAsk, bool navigatorEnabled, NavigatorPage navigatorPage, String userName, DisplayCalibrationProfile? displayCalibration
 });
 
 
@@ -641,7 +641,7 @@ class _$EditorViewStateCopyWithImpl<$Res>
 
 /// Create a copy of EditorViewState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? locks = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? locks = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,Object? displayCalibration = freezed,}) {
   return _then(EditorViewState(
 locks: null == locks ? _self.locks : locks // ignore: cast_nullable_to_non_nullable
 as PersistentLockState,areaNavigatorCreate: null == areaNavigatorCreate ? _self.areaNavigatorCreate : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
@@ -650,7 +650,8 @@ as bool,areaNavigatorAsk: null == areaNavigatorAsk ? _self.areaNavigatorAsk : ar
 as bool,navigatorEnabled: null == navigatorEnabled ? _self.navigatorEnabled : navigatorEnabled // ignore: cast_nullable_to_non_nullable
 as bool,navigatorPage: null == navigatorPage ? _self.navigatorPage : navigatorPage // ignore: cast_nullable_to_non_nullable
 as NavigatorPage,userName: null == userName ? _self.userName : userName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,displayCalibration: freezed == displayCalibration ? _self.displayCalibration : displayCalibration // ignore: cast_nullable_to_non_nullable
+as DisplayCalibrationProfile?,
   ));
 }
 /// Create a copy of EditorViewState

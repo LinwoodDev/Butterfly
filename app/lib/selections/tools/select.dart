@@ -33,6 +33,18 @@ class SelectToolSelection extends ToolSelection<SelectTool> {
           },
         ),
       ),
+      SwitchListTile(
+        title: Text(loc.proportionalResizing),
+        value: tool.proportionalResizing,
+        onChanged: (value) {
+          update(
+            context,
+            selected
+                .map((e) => e.copyWith(proportionalResizing: value))
+                .toList(),
+          );
+        },
+      ),
       ExpansionTile(
         leading: const PhosphorIcon(PhosphorIconsLight.selectionAll),
         title: Text(AppLocalizations.of(context).selectElements),

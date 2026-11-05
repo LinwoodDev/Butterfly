@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "A URL completa WebDAV fornecida pelo seu provedor de armazenamento",
+  "webDavUrlDescription": "Copie o endereço WebDAV completo do seu provedor de armazenamento. Para Nextcloud, abra Configurações de Arquivos e copie a URL WebDAV.\n\nExemplo: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Digite o nome de login para sua conta WebDAV. Para uma URL na nuvem seguinte terminada em /files/USERNAME/, use o valor mostrado no lugar do USERNAME.",
+  "connectionPasswordDescription": "Use sua senha WebDAV ou uma senha de aplicativo do seu provedor. Para a próxima nuvem, abra as configurações pessoais → Segurança, crie uma senha de aplicativo chamada Butterfly, e cole-a aqui.",
+  "connectionSyncRootDescription": "Mantenha o diretório de documentos completo disponível offline, incluindo suas subpastas. Por exemplo, permita que isso acesse todas as suas anotações sem uma conexão com a internet.",
+  "deleteConnection": "Excluir conexão",
+  "deleteConnectionDescription": "Remover a conexão \"{name}\" de Borboleta? Arquivos armazenados nesta conexão não serão excluídos.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Conectar",
   "username": "Utilizador",
   "password": "Palavra-passe",
   "authenticationPassword": "Senha de autenticação",
   "documentEncryptionPassword": "Senha de encriptação do documento",
-  "documentEncryptionPasswordDescription": "Criptografa documentos armazenados nesta conexão. Deixe em branco para mantê-los descriptografados",
+  "documentEncryptionPasswordDescription": "Escolha uma senha separada para criptografar documentos criados nesta conexão. Use a mesma senha em seus outros dispositivos para abri-los. Deixe em branco para manter novos documentos não criptografados.\n\nExemplo: use uma senha que você pode manter no seu gerenciador de senha.",
   "documentEncryptionEnabled": "Criptografia de documento ativada",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Adicionar senha de criptografia do documento",
@@ -593,9 +605,10 @@
   "symmetric": "Simétrica",
   "perSide": "Por lado",
   "directory": "Diretório",
-  "connectionNameDescription": "Usado apenas para identificar essa conexão na Borboleta",
-  "connectionDirectoryDescription": "Pasta base para esta conexão. Notas usam os documentos por padrão; altera-a sob Avançado",
-  "connectionPathDescription": "Deixe vazio para desativar este tipo de diretório. Use . para a pasta base, uma subpasta relativa ou um caminho absoluto",
+  "connectionNameDescription": "Escolha um nome para reconhecer esta conexão na Borboleta. Ela não renomeia nenhuma pasta no seu dispositivo ou servidor.\n\nExemplo: Nextcloud.",
+  "connectionDirectoryDescription": "Escolha uma pasta base dentro de seu armazenamento WebDAV, por exemplo, Borboleta. As notas são armazenadas em sua subpasta de documentos por padrão. Altere os nomes das subpastas no Avançado.",
+  "localConnectionDirectoryDescription": "Escolha uma pasta de base neste dispositivo com o botão da pasta, ou digite seu caminho completo, por exemplo /path/to/folder ou C:\\path\\to\\folder. As notas são armazenadas em sua subpasta de documentos por padrão. Altere os nomes das subpastas no Avançado.",
+  "connectionPathDescription": "Escolha onde armazenar este tipo de conteúdo. Por exemplo, o Documents usa uma subpasta da pasta base, . utiliza a própria pasta base, e um valor vazio desativa este tipo. Você também pode inserir um caminho completo. Para uma conexão local sem uma pasta base, cada tipo habilitado precisa de um caminho completo.",
   "connectionPathRequired": "Escolha uma pasta base absoluta, ou use caminhos absolutos para os tipos de diretório habilitados",
   "connectionAlreadyExists": "Uma conexão com este nome já existe. Escolha outro nome",
   "documentsDirectory": "Diretório de documentos",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "URL opcional de uma imagem para usar como o ícone de conexão",
+  "chooseConnectionIcon": "Escolher imagem",
+  "invalidConnectionIcon": "Escolha um arquivo de imagem válido",
   "update": "Atualizar",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Pacotes",
+  "textures": "Texturas",
+  "fonts": "Fontes",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Temporário no celular",
   "cameraControlsVisibilityDescription": "Mostrar o zoom e os controles de rotação temporariamente no celular, ocultá-los, mostrar temporariamente em todos os dispositivos, ou sempre mostrá-los. Controles temporários desaparecerão após 5 segundos sem zoom, rotação ou interação com os controles.",
   "zoomPanelControls": "Layout dos controles da câmera",
-  "zoomPanelControlsDescription": "Escolha os controles de zoom e rotação. Os botões de redefinição permanecem disponíveis em todos os layouts.",
+  "zoomPanelControlsDescription": "Mostrar controles deslizantes, campos de texto e botões de forma independente para ampliar e girar. Desmarque todas as opções para manter apenas os botões de restaurar.",
   "zoomPanelFull": "Completo (slider, texto campo e botões)",
   "zoomPanelSliderInput": "Campo de controle deslizante e texto",
   "zoomPanelSlider": "Deslizador",
   "zoomPanelInputButtons": "Campos e botões de texto",
   "zoomPanelInput": "Campo de texto",
+  "zoomPanelButtons": "Botões",
+  "zoomPanelResetOnly": "Redefinir apenas",
   "rotationDisplay": "Exibição de rotação",
   "rotationDisplayDescription": "Escolha quando a linha de rotação aparecer acima do zoom. Isto não altera os gestos de rotação ou atalhos.",
   "whenRotated": "Quando girado",

@@ -159,6 +159,75 @@ void main() {
     expect(transform.scaleY, 1);
   });
 
+  test(
+    'Shift and proportional lock constrain movement independently of resizing',
+    () {
+      for (final forceProportional in [false, true]) {
+        for (final (target, expected) in [
+          (const Offset(90, 57), const Offset(40, 0)),
+          (const Offset(47, 10), const Offset(0, -40)),
+          (const Offset(80, 76), const Offset(28, 28)),
+        ]) {
+          final manager = RectSelectionForegroundManager()
+            ..select(const Rect.fromLTWH(0, 0, 100, 100))
+            ..setForceProportional(forceProportional)
+            ..startTransformWithCorner(null, const Offset(50, 50))
+            ..updateCurrentPosition(target);
+          expect(
+            manager.getTransform()!.position,
+            target - const Offset(50, 50),
+          );
+          manager.updateModifiers(proportional: true, centered: false);
+          expect(manager.getTransform()!.position, offsetCloseTo(expected));
+          manager.toggleTransformMode();
+          expect(
+            manager.getTransform()!.position,
+            target - const Offset(50, 50),
+          );
+          manager.updateModifiers(proportional: false, centered: false);
+          expect(manager.getTransform()!.position, offsetCloseTo(expected));
+        }
+      }
+    },
+  );
+
+  test('forced proportional resizing survives mode and modifier changes', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 50))
+      ..setForceProportional(true)
+      ..startTransformWithCorner(
+        SelectionTransformCorner.bottomRight,
+        const Offset(100, 50),
+      )
+      ..updateCurrentPosition(const Offset(140, 60));
+    for (final shift in [false, true]) {
+      manager.updateModifiers(proportional: shift, centered: false);
+      for (var mode = 0; mode < 2; mode++) {
+        final transform = manager.getTransform()!;
+        expect(transform.scaleX, closeTo(1.4, 1e-9));
+        expect(transform.scaleY, closeTo(1.4, 1e-9));
+        expect(transform.position, Offset.zero);
+        manager.toggleTransformMode();
+      }
+    }
+  });
+
+  test('rotation ignores positional snapping and proportional scaling', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(0, 0, 100, 100))
+      ..startTransformWithCorner(
+        SelectionTransformCorner.center,
+        const Offset(50, -50),
+      )
+      ..updateModifiers(proportional: true, centered: false)
+      ..updateCurrentPosition(
+        const Offset(150, 50),
+        snapPosition: (_) => throw StateError('Rotation must not snap'),
+      );
+    expect(manager.getTransform()!.rotation, closeTo(90, 1e-9));
+    expect(manager.getTransform()!.position, Offset.zero);
+  });
+
   test('negative scale uses the opposite element corner for placement', () {
     const selection = Rect.fromLTWH(0, 0, 200, 100);
     const element = Rect.fromLTWH(50, 20, 100, 40);
@@ -181,28 +250,6 @@ void expectRectCloseTo(Rect actual, Rect expected) {
   expect(actual.top, closeTo(expected.top, 1e-9));
   expect(actual.width, closeTo(expected.width, 1e-9));
   expect(actual.height, closeTo(expected.height, 1e-9));
-}
-
-Offset scaleInSelection(
-  Offset point,
-  Rect selection,
-  TransformResult transform,
-) {
-  final relative = point - selection.topLeft;
-  return selection.topLeft +
-      transform.position +
-      Offset(relative.dx * transform.scaleX, relative.dy * transform.scaleY);
-}
-
-Offset rotatePoint(Offset point, Offset center, double radians) {
-  final translated = point - center;
-  final c = cos(radians);
-  final s = sin(radians);
-  return center +
-      Offset(
-        translated.dx * c - translated.dy * s,
-        translated.dx * s + translated.dy * c,
-      );
 }
 
 Matcher offsetCloseTo(Offset expected) => _OffsetCloseTo(expected);

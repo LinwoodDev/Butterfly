@@ -15,9 +15,9 @@ Drag the ruler to move it. Rotate it with a touch gesture or with the secondary 
 
 ## Yapılandırma
 
-| Özellik  | Varsayılan   | Tanım                                                                     |
-| -------- | ------------ | ------------------------------------------------------------------------- |
-| Boyut    | 100          | The ruler's height.                                       |
-| Arkaplan | Ayarlanmamış | Fill color of the ruler; uses the theme when unset.       |
-| Ön plan  | Ayarlanmamış | Color of the ruler marks; chosen for contrast when unset. |
-| Açı      | 0°           | Runtime angle control shown while the ruler is active.    |
+| Özellik   | Varsayılan   | Tanım                                                                     |
+| --------- | ------------ | ------------------------------------------------------------------------- |
+| Boyut     | 100          | The ruler's height.                                       |
+| Arka plan | Ayarlanmamış | Fill color of the ruler; uses the theme when unset.       |
+| Ön plan   | Ayarlanmamış | Color of the ruler marks; chosen for contrast when unset. |
+| Açı       | 0°           | Runtime angle control shown while the ruler is active.    |

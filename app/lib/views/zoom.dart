@@ -5,6 +5,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/services/display_calibration.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/widgets/fading_view.dart';
 import 'package:material_ui/material_ui.dart';
@@ -45,7 +46,7 @@ class _ZoomViewState extends State<ZoomView> {
   void _zoom(double percent) {
     final controller = context.read<EditorController>();
     controller.transformCubit.sizeConstrained(
-      percent / 100,
+      controller.transformCubit.toCameraScale(percent, displayZoom(context)),
       cursor: _center,
       force: true,
       runtime: controller,
@@ -122,10 +123,32 @@ class _ZoomViewState extends State<ZoomView> {
         ),
       );
       if (!controls.showInput) {
+        Widget stepButton(int direction, Widget icon) {
+          final next = (value + direction * step).clamp(min, max).toDouble();
+          return IconButton(
+            onPressed: next == value
+                ? null
+                : () {
+                    FocusScope.of(context).unfocus();
+                    onChanged(next);
+                    onChangeEnd(next);
+                  },
+            icon: icon,
+          );
+        }
+
         return Row(
+          mainAxisSize: controls.showSlider
+              ? MainAxisSize.max
+              : MainAxisSize.min,
           children: [
             reset,
-            Expanded(child: slider),
+            if (controls.showButtons) ...[
+              const SizedBox(height: 24, child: VerticalDivider(width: 8)),
+              stepButton(-1, decrementIcon),
+              stepButton(1, incrementIcon),
+            ],
+            if (controls.showSlider) Expanded(child: slider),
           ],
         );
       }
@@ -209,11 +232,12 @@ class _ZoomViewState extends State<ZoomView> {
         hideUi != HideState.visible) {
       return const SizedBox.shrink();
     }
+    final reference = displayZoom(context, listen: true);
     final l10n = AppLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     return FadingView(
       autoHide: settings.visibility.isTemporary(widget.isMobile),
-      activityKey: transform,
+      activityKey: (transform, reference),
       child: IconButtonTheme(
         data: IconButtonThemeData(
           style: IconButton.styleFrom(
@@ -279,9 +303,9 @@ class _ZoomViewState extends State<ZoomView> {
                   label: '${l10n.zoom} (%)',
                   unit: '%',
                   color: colorScheme.primary,
-                  value: transform.size * 100,
-                  min: kMinZoom * 100,
-                  max: kMaxZoom * 100,
+                  value: transform.size / reference * 100,
+                  min: kMinZoom / reference * 100,
+                  max: kMaxZoom / reference * 100,
                   defaultValue: 100,
                   step: settings.zoomStep * 100,
                   controls: settings.controls,

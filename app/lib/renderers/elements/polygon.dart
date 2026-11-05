@@ -296,11 +296,15 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     required double shear,
     double scaleX = 1,
     double scaleY = 1,
+    double strokeWidthFactor = 1,
   }) => PolygonRenderer(
     element.copyWith(
       rotation: rotation,
       shear: shear,
       points: movePoints(position, scaleX, scaleY),
+      property: element.property.copyWith(
+        strokeWidth: element.property.strokeWidth * strokeWidthFactor,
+      ),
     ),
     layer,
     moveRect(position, scaleX, scaleY),

@@ -335,7 +335,9 @@ class _ViewportInputCoordinator {
         if (result.releasedEvents.isNotEmpty) {
           await _replayPointerEvents(result.releasedEvents, input);
         }
-        if (result.consumed) return;
+        if (result.consumed) {
+          return;
+        }
       }
     }
 
@@ -395,7 +397,9 @@ class _ViewportInputCoordinator {
       cubit.inputCubit.removeButtons();
       return;
     }
-    if (_shortcutManager.pointerCancel(event)) return;
+    if (_shortcutManager.pointerCancel(event)) {
+      return;
+    }
     _resetRulerInteraction();
     cubit.inputCubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
@@ -431,7 +435,26 @@ class _ViewportInputCoordinator {
   Future<void> handleScaleStart(
     ScaleStartDetails details,
     _PointerInputContext input,
-  ) => handleGesture(() {
+  ) => _withInputLock(() async {
+    final generation = _inputGeneration;
+
+    if (_cameraRotationGesture) return;
+
+    final bufferedEvents = _shortcutManager.cancelPendingClickShortcut();
+
+    if (bufferedEvents.isNotEmpty) {
+      await _replayPointerEvents(bufferedEvents, input);
+    }
+
+    if (!_isCurrentInput(generation)) return;
+
+    _startScaleGesture(details, input);
+  });
+
+  void _startScaleGesture(
+    ScaleStartDetails details,
+    _PointerInputContext input,
+  ) {
     final cubit = input.cubit;
     final handler = input.getHandler();
     _gestureHandler = handler;
@@ -464,7 +487,7 @@ class _ViewportInputCoordinator {
     _gestureScale = 1;
     _gestureRotation = 0;
     _gesturePointerCount = details.pointerCount;
-  });
+  }
 
   Future<void> handleScaleUpdate(
     ScaleUpdateDetails details,
@@ -472,6 +495,7 @@ class _ViewportInputCoordinator {
   ) => handleGesture(() {
     if (_suppressScaleGesture) return;
     final handler = _gestureHandler ?? input.getHandler();
+
     final ruler = _ruler;
     if (ruler != null) {
       if (_rulerPointer == null) {
@@ -655,6 +679,7 @@ class _ViewportInputCoordinator {
             index,
             temporaryState: TemporaryState.removeAfterClick,
           );
+
           if (!_isCurrentInput(generation)) return;
           if (holdShortcutKeyId != null &&
               !HardwareKeyboard.instance.logicalKeysPressed.contains(

@@ -339,11 +339,13 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     required double shear,
     double scaleX = 1,
     double scaleY = 1,
+    double strokeWidthFactor = 1,
   }) {
     final rect = this.rect;
     final previous = rect.topLeft;
     final localFirst = element.firstPosition.toOffset() - previous;
     final localSecond = element.secondPosition.toOffset() - previous;
+
     return ShapeRenderer(
       element.copyWith(
         shear: shear,
@@ -351,6 +353,9 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         secondPosition: (localSecond.scale(scaleX, scaleY) + position)
             .toPoint(),
         rotation: rotation,
+        property: element.property.copyWith(
+          strokeWidth: element.property.strokeWidth * strokeWidthFactor,
+        ),
       ),
       layer,
     );

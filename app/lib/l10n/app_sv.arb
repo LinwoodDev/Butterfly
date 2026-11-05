@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Den fullständiga WebDAV-URL:en som tillhandahålls av din lagringsleverantör",
+  "webDavUrlDescription": "Kopiera den fullständiga WebDAV-adressen från din lagringsleverantör. För Nextcloud, öppna Filer inställningar och kopiera WebDAV URL.\n\nExempel: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Ange inloggningsnamnet för ditt WebDAV-konto. För en Nextcloud-URL som slutar i /files/USERNAME/, använd det värde som visas i stället för USERNAME.",
+  "connectionPasswordDescription": "Använd ditt WebDAV-lösenord eller ett applösenord från din leverantör. För Nextcloud, öppna Personliga inställningar → Säkerhet, skapa ett applösenord som heter Butterfly, och klistra in det här.",
+  "connectionSyncRootDescription": "Håll hela dokumentkatalogen tillgänglig offline, inklusive dess undermappar. Aktivera till exempel detta för att komma åt alla dina anteckningar utan internetanslutning.",
+  "deleteConnection": "Ta bort kontakt",
+  "deleteConnectionDescription": "Ta bort anslutningen \"{name}\" från fjärilen? Filer som lagras i denna anslutning kommer inte att raderas.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Anslut",
   "username": "Användarnamn",
   "password": "Lösenord",
   "authenticationPassword": "Lösenord för autentisering",
   "documentEncryptionPassword": "Lösenord för dokumentkryptering",
-  "documentEncryptionPasswordDescription": "Krypterar dokument som lagras i den här anslutningen. Lämna tomt för att hålla dem okrypterade",
+  "documentEncryptionPasswordDescription": "Välj ett separat lösenord för att kryptera dokument som skapats i den här anslutningen. Använd samma lösenord på dina andra enheter för att öppna dem. Lämna tomt för att behålla nya dokument okrypterade.\n\nExempel: använd ett lösenord som du kan behålla i din lösenordshanterare.",
   "documentEncryptionEnabled": "Dokumentkryptering aktiverad",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Lägg till lösenord för dokumentkryptering",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetrisk",
   "perSide": "Per sida",
   "directory": "Katalog",
-  "connectionNameDescription": "Används endast för att identifiera denna anslutning i fjärilen",
-  "connectionDirectoryDescription": "Basmapp för denna anslutning. Anteckningar använder dokument som standard; ändra det under Avancerat",
-  "connectionPathDescription": "Lämna tomt för att inaktivera denna katalogtyp. Använd . för basmappen, en relativ undermapp eller en absolut sökväg",
+  "connectionNameDescription": "Välj ett namn att känna igen denna anslutning i Butterfly. Den döper inte om några mappar på din enhet eller server.\n\nExempel: Nextcloud.",
+  "connectionDirectoryDescription": "Välj en basmapp i din WebDAV-lagring, till exempel Butterfly. Anteckningar lagras i dess dokument undermapp som standard. Ändra undermappsnamn under Avancerat.",
+  "localConnectionDirectoryDescription": "Välj en basmapp på den här enheten med mappknappen, eller ange dess fullständiga sökväg, till exempel /path/to/folder eller C:\\path\\to\\folder. Anteckningar lagras i dess dokument undermapp som standard. Ändra undermappsnamn under Avancerat.",
+  "connectionPathDescription": "Välj var du vill lagra den här typen av innehåll. Till exempel, Dokument använder en undermapp till basmappen, . använder själva grundmappen och ett tomt värde inaktiverar den här typen. Du kan också ange en fullständig sökväg. För en lokal anslutning utan en basmapp behöver varje aktiverad typ en fullständig sökväg.",
   "connectionPathRequired": "Välj en absolut basmapp eller använd absoluta sökvägar för de aktiverade katalogtyperna",
   "connectionAlreadyExists": "En kontakt med detta namn finns redan. Välj ett annat namn",
   "documentsDirectory": "Katalog för dokument",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Valfri URL för en bild att använda som anslutningsikon",
+  "chooseConnectionIcon": "Välj bild",
+  "invalidConnectionIcon": "Välj en giltig bildfil",
   "update": "Uppdatera",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Paket",
+  "textures": "Texturer",
+  "fonts": "Typsnitt",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Tillfälligt i mobilen",
   "cameraControlsVisibilityDescription": "Visa zoom- och rotationskontroller tillfälligt på mobilen, dölj dem, visa dem tillfälligt på alla enheter, eller alltid visa dem. Tillfälliga kontroller bleknar ut efter 5 sekunder utan att zooma, rotera eller interagera med kontrollerna.",
   "zoomPanelControls": "Kamerakontroller layout",
-  "zoomPanelControlsDescription": "Välj kontrollerna för zoom och rotation. Återställningsknappar finns kvar i varje layout.",
+  "zoomPanelControlsDescription": "Visa reglage, textfält och knappar självständigt för zoom och rotation. Avmarkera alla alternativ för att behålla endast återställningsknapparna.",
   "zoomPanelFull": "Fullt (reglage, textfält och knappar)",
   "zoomPanelSliderInput": "Fält för matare och text",
   "zoomPanelSlider": "Reglage",
   "zoomPanelInputButtons": "Textfält och knappar",
   "zoomPanelInput": "Text fält",
+  "zoomPanelButtons": "Knappar",
+  "zoomPanelResetOnly": "Återställ endast",
   "rotationDisplay": "Rotationsvisning",
   "rotationDisplayDescription": "Välj när rotationsraden visas ovanför zoom. Detta ändrar inte rotationsgester eller genvägar.",
   "whenRotated": "Vid rotering",

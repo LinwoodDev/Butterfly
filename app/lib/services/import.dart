@@ -20,7 +20,6 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -930,10 +929,9 @@ class ImportService(
               message = null;
               continue;
             case _OneNoteManualXpsAction.selectPdf:
-              final converted = await FilePicker.pickFile(
+              final converted = await SystemFileDialogs.pickFile(
                 dialogTitle: 'Select the PDF converted from $fileName',
-                type: .custom,
-                allowedExtensions: const ['pdf'],
+                extensions: const ['pdf'],
               );
               if (converted == null) {
                 message = 'No PDF was selected.';

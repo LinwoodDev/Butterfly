@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.6.3-rc.0+205
+version: 2.6.3-rc.1+206
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
-  flutter: 3.47.8
+  flutter: 3.47.9
 
 dependencies:
   async: ^2.13.1
@@ -70,7 +70,7 @@ dependencies:
   settings_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: b4b45a479c5e123310515d8f8a36d55b01a2525f
+      ref: 0d1b58a521304eae0985269801da068444e5dc7b
       path: packages/settings_leap
   material_leap:
     git:
@@ -80,7 +80,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 7e0ac44874622aee5c6041f34603ac5d5bed058c
+      ref: 0624d6d50d49e16d831e1c1a68875dfa54b9afe0
       path: packages/lw_sysapi
   networker:
     git:
@@ -105,7 +105,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 2abff23c4cd7a2021f618ae7a6da39714201d749
+      ref: ab5e6d74cb9ebbd4f5694274c076cb8fb4d0cd06
       path: packages/lw_file_system
   keybinder:
     git:
@@ -137,7 +137,6 @@ dependencies:
   network_info_plus: ^8.2.2
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.2
-  file_picker: ^13.1.0
   pdfrx: ^2.6.5
   talker_flutter: ^5.1.20
   talker: ^5.1.20

@@ -14,6 +14,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:material_leap/material_leap.dart';
 
 class _Context extends Mock implements EventContext {}
 
@@ -28,6 +29,96 @@ void main() {
   setUpAll(() {
     registerFallbackValue(Rect.zero);
     registerFallbackValue(Offset.zero);
+  });
+
+  group('issue #1340: selection grid snapping', () {
+    for (final rotation in [0.0, pi / 2]) {
+      for (final corner in [null, SelectionTransformCorner.bottomRight]) {
+        test('view $rotation, corner $corner', () {
+          final context = _Context();
+          final controller = _Controller();
+          final settings = _Settings();
+          final bloc = _Bloc();
+          final handler = SelectHandler(SelectTool());
+          final camera = CameraTransform(1, const Offset(35, -22), 2, rotation);
+          final transformCubit = TransformCubit(1)..emit(camera);
+          addTearDown(transformCubit.close);
+          final grid = GridHandler(
+            GridTool(
+              xSize: 20,
+              ySize: 20,
+              xOffset: 6,
+              yOffset: 8,
+              zoomDependent: true,
+              positionDependent: true,
+            ),
+          );
+          when(() => bloc.editorController).thenReturn(controller);
+          when(() => bloc.refresh()).thenAnswer((_) async {});
+          when(() => controller.transformCubit).thenReturn(transformCubit);
+          when(() => controller.settingsCubit).thenReturn(settings);
+          when(() => settings.state).thenReturn(const ButterflySettings());
+          when(() => context.getCameraTransform()).thenReturn(camera);
+          when(() => context.getToolState()).thenReturn(
+            ToolRuntimeState(handler: handler, toggleableHandlers: {0: grid}),
+          );
+          when(() => context.viewportSize).thenReturn(const Size(800, 600));
+          when(() => context.isShiftPressed).thenReturn(false);
+          when(() => context.isAltPressed).thenReturn(false);
+          when(() => context.refreshForegrounds()).thenAnswer((_) async {});
+          final shape = ShapeRenderer(
+            ShapeElement(
+              firstPosition: const Point(100, 100),
+              secondPosition: const Point(200, 200),
+            ),
+          );
+          final selection = rotation == 0
+              ? const Rect.fromLTWH(100, 100, 100, 100)
+              : const Rect.fromLTWH(-200, 100, 100, 100);
+          final anchor = corner == null
+              ? selection.topLeft
+              : selection.bottomRight;
+          final start = corner == null
+              ? selection.center
+              : anchor + const Offset(10, 10);
+          final delta = const Offset(27, 38);
+          Offset toWorld(Offset point) => point.rotate(Offset.zero, -rotation);
+          handler.transform(
+            bloc,
+            corner,
+            next: [shape],
+            position: toWorld(start),
+          );
+          handler.onScaleUpdate(
+            ScaleUpdateDetails(
+              localFocalPoint: camera.globalToLocal(toWorld(start + delta)),
+              pointerCount: 1,
+            ),
+            context,
+          );
+          final transformed = handler
+              .createForegrounds(
+                controller,
+                NoteData(Archive()),
+                DocumentPage(),
+                DocumentInfo(),
+              )
+              .whereType<RectSelectionForegroundRenderer>()
+              .single;
+          final target = toWorld(anchor + delta);
+          final expected = camera.localToGlobal(
+            grid.getPointerPosition(
+              camera.globalToLocal(target),
+              const Size(800, 600),
+              camera,
+            ),
+          );
+          final actual = transformed.corners[corner == null ? 0 : 2];
+          expect(actual.dx, closeTo(expected.dx, 1e-7));
+          expect(actual.dy, closeTo(expected.dy, 1e-7));
+        });
+      }
+    }
   });
 
   group('issue #1323: selecting straight lines', () {

@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Полный URL WebDAV вашего провайдера хранения",
+  "webDavUrlDescription": "Скопируйте полный WebDAV адрес из вашего поставщика хранения. Для Nextcloud, откройте настройки файлов и скопируйте WebDAV URL.\n\nПример: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Введите имя логина для вашей учетной записи в WebDAV. Для URL-адреса Nextcloud заканчивающегося в /files/USERNAME/, используйте значение, показанное вместо USERNAME.",
+  "connectionPasswordDescription": "Используйте ваш WebDAV пароль или пароль от вашего провайдера. Для NextCloud откройте Персональные настройки → Безопасность, создайте пароль приложения под названием Butterfly и вставьте его здесь.",
+  "connectionSyncRootDescription": "Держите весь каталог документов в автономном режиме, включая подпапки. Например, включите доступ к заметкам без подключения к интернету.",
+  "deleteConnection": "Удалить соединение",
+  "deleteConnectionDescription": "Удалить соединение \"{name}\" из Бабочки? Файлы, хранящиеся в этом соединении, не будут удалены.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Подключиться",
   "username": "Имя пользователя",
   "password": "Пароль",
   "authenticationPassword": "Пароль аутентификации",
   "documentEncryptionPassword": "Пароль шифрования документа",
-  "documentEncryptionPasswordDescription": "Шифрование документов, сохраненных в этом соединении. Оставьте пустым, чтобы сохранить их в незашифрованном виде",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "Шифрование документов включено",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Добавить пароль шифрования документа",
@@ -593,9 +605,10 @@
   "symmetric": "Симметричный",
   "perSide": "На стороне",
   "directory": "Каталог",
-  "connectionNameDescription": "Используется только для идентификации соединения в Бабочке",
-  "connectionDirectoryDescription": "Базовая папка для этого подключения. Заметки используют документы по умолчанию; измените их в разделе Расширенные",
-  "connectionPathDescription": "Оставьте пустым, чтобы отключить этот тип директории. Используйте для базовой папки, относительной подпапки или абсолютного пути",
+  "connectionNameDescription": "Choose a name to recognize this connection in Butterfly. It does not rename any folders on your device or server.\n\nExample: Nextcloud.",
+  "connectionDirectoryDescription": "Выберите базовую папку внутри вашего хранилища WebDAV, например Butterfly. Заметки хранятся в папке Документы по умолчанию. Измените имена подпапок в разделе Дополнительно.",
+  "localConnectionDirectoryDescription": "Выберите базовую папку на этом устройстве с помощью кнопки папки или введите полный путь, например /path/to/folder или C:\\path\\to\\folder. Заметки хранятся в папке Документы по умолчанию. Измените имена подпапок в разделе Дополнительно.",
+  "connectionPathDescription": "Выберите, где хранить этот тип содержимого. Например, в Documents используется подпапка базовой папки, . использует базовую папку, а пустое значение отключает этот тип. Вы также можете ввести полный путь. Для локального соединения без базовой папки для каждого включенного типа необходим полный путь.",
   "connectionPathRequired": "Выберите абсолютную базовую папку, или используйте абсолютные пути для включённых типов каталогов",
   "connectionAlreadyExists": "Связь с таким именем уже существует. Выберите другое имя",
   "documentsDirectory": "Каталог документов",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Необязательный URL изображения для значка подключения",
+  "chooseConnectionIcon": "Выбрать изображение",
+  "invalidConnectionIcon": "Выберите корректный файл изображения",
   "update": "Обновление",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Наборы",
+  "textures": "Текстуры",
+  "fonts": "Шрифты",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Временно на мобильном устройстве",
   "cameraControlsVisibilityDescription": "Временно показывать кнопки масштабирования и поворота на мобильном устройстве, скрывать их, временно показывать их на всех устройствах или всегда показывать их. Временные элементы управления исчезают через 5 секунд без увеличения, вращения или взаимодействия с элементами.",
   "zoomPanelControls": "Управление камерой",
-  "zoomPanelControlsDescription": "Выберите элементы управления масштабом и вращением. Кнопки сброса остаются доступными в каждом макете.",
+  "zoomPanelControlsDescription": "Показывать ползунки, текстовые поля и кнопки независимо от масштаба и вращения. Отмените все параметры, чтобы сохранить только кнопки сброса.",
   "zoomPanelFull": "Полная (ползунок, текстовое поле и кнопки)",
   "zoomPanelSliderInput": "Слайдер и текстовое поле",
   "zoomPanelSlider": "Слайдер",
   "zoomPanelInputButtons": "Текстовое поле и кнопки",
   "zoomPanelInput": "Текстовое поле",
+  "zoomPanelButtons": "Кнопки",
+  "zoomPanelResetOnly": "Сбросить только",
   "rotationDisplay": "Поворот экрана",
   "rotationDisplayDescription": "Выберите, когда линия вращения появляется над масштабом. Это не изменяет жесты или ярлыки.",
   "whenRotated": "При повернутом",

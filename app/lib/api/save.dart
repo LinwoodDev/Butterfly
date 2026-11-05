@@ -50,11 +50,10 @@ Future<void> exportSvg(
 ]) => exportFile(
   context: context,
   bytes: utf8.encode(data),
-  fileExtension: 'svg',
   mimeType: 'image/svg+xml',
   uniformTypeIdentifier: 'public.svg-image',
   share: kIsWeb || !Platform.isWindows ? share : false,
-  fileName: 'output',
+  fileName: 'output.svg',
   label: AppLocalizations.of(context).export,
 );
 
@@ -65,11 +64,10 @@ Future<void> exportImage(
 ]) => exportFile(
   context: context,
   bytes: bytes,
-  fileExtension: 'png',
   mimeType: 'image/png',
   uniformTypeIdentifier: 'public.image',
   share: share,
-  fileName: 'output',
+  fileName: 'output.png',
   label: AppLocalizations.of(context).export,
 );
 
@@ -80,11 +78,10 @@ Future<void> exportPdf(
 ]) => exportFile(
   context: context,
   bytes: bytes,
-  fileExtension: 'pdf',
   mimeType: 'application/pdf',
   uniformTypeIdentifier: 'com.adobe.pdf',
   share: share,
-  fileName: 'output',
+  fileName: 'output.pdf',
   label: AppLocalizations.of(context).export,
 );
 
@@ -96,11 +93,10 @@ Future<void> exportXopp(
 }) => exportFile(
   context: context,
   bytes: bytes,
-  fileExtension: 'xopp',
   mimeType: 'application/x-xojpp',
   uniformTypeIdentifier: 'dev.linwood.butterfly.xopp',
   share: share,
-  fileName: sanitizeExportFileName(fileName),
+  fileName: '${sanitizeExportFileName(fileName)}.xopp',
   label: AppLocalizations.of(context).export,
 );
 
@@ -111,11 +107,10 @@ Future<void> exportZip(
 ]) => exportFile(
   context: context,
   bytes: bytes,
-  fileExtension: 'zip',
   mimeType: 'application/zip',
   uniformTypeIdentifier: 'public.zip-archive',
   share: share,
-  fileName: 'output',
+  fileName: 'output.zip',
   label: AppLocalizations.of(context).export,
 );
 
@@ -127,13 +122,12 @@ Future<void> exportData(
 }) => exportFile(
   context: context,
   bytes: isTextBased ? data.exportAsTextBytes() : data.exportAsBytes(),
-  fileExtension: isTextBased ? 'tbfly' : 'bfly',
   mimeType: isTextBased ? 'application/json' : 'application/octet-stream',
   uniformTypeIdentifier: isTextBased
       ? 'dev.linwood.butterfly.textnote'
       : 'dev.linwood.butterfly.note',
   share: share,
-  fileName: 'output',
+  fileName: isTextBased ? 'output.tbfly' : 'output.bfly',
   label: AppLocalizations.of(context).export,
 );
 

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/helpers/actual_size.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,6 +12,62 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('display calibration', () {
+    test('persists per display, preserves legacy sizing and resets', () async {
+      SharedPreferences.setMockInitialValues({
+        'display_calibrations': '{"old-display":5}',
+      });
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      expect(cubit.state.useCalibratedZoom, isFalse);
+      final legacyZoom = cubit.state.getDisplayCalibration('old-display');
+      expect(legacyZoom, closeTo(5 * 25.4 / 96, 1e-9));
+      await cubit.changeDisplayCalibration('display-1', 5);
+      await cubit.changeDisplayCalibration('display-2', 2.5);
+      await cubit.changeUseCalibratedZoom(true);
+      final saved = ButterflySettings.fromPrefs(prefs);
+      expect(saved.useCalibratedZoom, isTrue);
+      expect(saved.getDisplayCalibration('display-1'), 5);
+      expect(saved.getDisplayCalibration('display-2'), 2.5);
+      expect(saved.getDisplayCalibration('display-3'), isNull);
+      await cubit.changeDisplayCalibration('display-1', null);
+      expect(cubit.state.getDisplayCalibration('display-1'), isNull);
+      expect(cubit.state.getDisplayCalibration('display-2'), 2.5);
+      expect(cubit.state.getDisplayCalibration('old-display'), legacyZoom);
+    });
+
+    test('ignores malformed preferences and invalid values', () async {
+      SharedPreferences.setMockInitialValues({
+        'display_calibrations': '{broken',
+        'use_calibrated_zoom': 'invalid',
+      });
+      final prefs = await SharedPreferences.getInstance();
+      final defaults = ButterflySettings.fromPrefs(prefs);
+      expect(defaults.getDisplayCalibration('display'), isNull);
+      expect(defaults.useCalibratedZoom, isFalse);
+      await prefs.setString(
+        'display_calibrations',
+        '{"zero":0,"text":"5","huge":100,"ok":5}',
+      );
+      final cubit = SettingsCubit(prefs);
+      addTearDown(cubit.close);
+      for (final key in ['zero', 'text', 'huge']) {
+        expect(cubit.state.getDisplayCalibration(key), isNull);
+      }
+      for (final invalid in [0.0, -1.0, double.nan, double.infinity, 11.0]) {
+        expect(
+          () => cubit.changeDisplayCalibration('ok', invalid),
+          throwsArgumentError,
+        );
+      }
+      expect(
+        cubit.state.getDisplayCalibration('ok'),
+        5 / kCanvasUnitsPerMillimeter,
+      );
+    });
+  });
 
   group('camera controls visibility', () {
     test(

@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/mocks.dart';
 
@@ -55,10 +56,15 @@ void main() {
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
+    SharedPreferences.setMockInitialValues({});
+    final viewSettingsCubit = SettingsCubit(
+      await SharedPreferences.getInstance(),
+    );
+    addTearDown(viewSettingsCubit.close);
 
     await tester.pumpWidget(
       BlocProvider<SettingsCubit>.value(
-        value: settingsCubit,
+        value: viewSettingsCubit,
         child: MaterialApp.router(
           routerConfig: router,
           localizationsDelegates: const [
@@ -76,22 +82,22 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
-    expect(find.text('Full (slider, text field and buttons)'), findsOneWidget);
-
-    when(
-      () => settingsCubit.changeZoomPanelControls(
-        ZoomPanelControls.inputAndButtons,
-      ),
-    ).thenAnswer((_) async {});
     await tester.tap(find.text('Camera controls layout'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Text field and buttons'));
+    await tester.tap(find.widgetWithText(CheckboxListTile, 'Slider'));
     await tester.pumpAndSettle();
-    verify(
-      () => settingsCubit.changeZoomPanelControls(
-        ZoomPanelControls.inputAndButtons,
-      ),
-    ).called(1);
+    await tester.tap(find.widgetWithText(CheckboxListTile, 'Text field'));
+    await tester.pumpAndSettle();
+    expect(
+      viewSettingsCubit.state.zoomPanelControls,
+      ZoomPanelControls.buttons,
+    );
+    await tester.tap(find.widgetWithText(CheckboxListTile, 'Buttons'));
+    await tester.pumpAndSettle();
+    expect(viewSettingsCubit.state.zoomPanelControls, ZoomPanelControls.none);
+    Navigator.of(tester.element(find.byType(CheckboxListTile).first)).pop();
+    await tester.pumpAndSettle();
+    expect(find.text('Reset only'), findsOneWidget);
 
     expect(
       find.byType(WindowTitleBar<SettingsCubit, ButterflySettings>),

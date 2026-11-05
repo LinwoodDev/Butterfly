@@ -16,6 +16,7 @@ SelectTool _$SelectToolFromJson(Map json) => SelectTool(
   hitElementMode:
       $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
       HitElementMode.touchAnywhere,
+  proportionalResizing: json['proportionalResizing'] as bool? ?? false,
   $type: json['type'] as String?,
 );
 
@@ -26,6 +27,7 @@ Map<String, dynamic> _$SelectToolToJson(SelectTool instance) =>
       'id': const IdJsonConverter().toJson(instance.id),
       'mode': _$SelectModeEnumMap[instance.mode]!,
       'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
+      'proportionalResizing': instance.proportionalResizing,
       'type': instance.$type,
     };
 

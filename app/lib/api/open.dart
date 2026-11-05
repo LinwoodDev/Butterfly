@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:butterfly/main.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:lw_sysapi/lw_sysapi.dart' show SelectedFile, SystemFileDialogs;
 import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -65,24 +64,13 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   );
 }
 
-Future<(Uint8List, String, String)> _readPlatformFile(PlatformFile file) async {
+Future<(Uint8List, String, String)> _readSelectedFile(SelectedFile file) async {
   final data = await file.readAsBytes();
   final fileName = file.name;
   final nameWithoutExtension = fileName.contains('.')
       ? fileName.substring(0, fileName.lastIndexOf('.'))
       : fileName;
   return (data, fileName.split('.').lastOrNull ?? '', nameWithoutExtension);
-}
-
-(FileType, List<String>?) _getImportPickerOptions(Iterable<String> extensions) {
-  // Android's system picker filters by MIME type, not extension. The picker
-  // plugin drops unknown extensions such as bfly and tbfly while converting
-  // them to MIME types, making Butterfly files unselectable when known file
-  // types are requested alongside them.
-  if (!kIsWeb && Platform.isAndroid) {
-    return (FileType.any, null);
-  }
-  return (FileType.custom, extensions.toList());
 }
 
 Future<(Uint8List?, String?, String?)> importFile(
@@ -106,23 +94,13 @@ Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
   List<String> extensions, {
   bool multiple = true,
 }) async {
-  final (fileType, allowedExtensions) = _getImportPickerOptions(extensions);
-  final List<PlatformFile> result;
-  if (multiple) {
-    result = await FilePicker.pickFiles(
-      allowedExtensions: allowedExtensions,
-      type: fileType,
-    );
-  } else {
-    final file = await FilePicker.pickFile(
-      allowedExtensions: allowedExtensions,
-      type: fileType,
-    );
-    result = [?file];
-  }
+  final result = await SystemFileDialogs.pickFiles(
+    extensions: extensions,
+    multiple: multiple,
+  );
   final files = <(Uint8List, String, String)>[];
   for (final file in result) {
-    files.add(await _readPlatformFile(file));
+    files.add(await _readSelectedFile(file));
   }
   return files;
 }

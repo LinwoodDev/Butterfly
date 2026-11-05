@@ -62,7 +62,7 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 |         Combine paths |                                  false                                 | This will merge all strokes it touches into one path                                                                                    |
 |        Şekil Algılama | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
 |      Kontur genişliği |                                    5                                   | Kontur genişliği                                                                                                                        |
-|              Kalinlik |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
+|              Kalınlık |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
 |             Yumuşatma |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
 |        Kolaylaştırmak |                           0.3                          | How much the pen will follow the movement of the mouse.                                                                 |
 |                Stroke |                 Solid Color (Black)                 | [Paint](../../paints/) used along the pen path.                                                                         |

@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "De volledige WebDAV URL van uw opslagprovider",
+  "webDavUrlDescription": "Kopieer het volledige WebDAV adres van uw opslagprovider. Voor Nextcloud open de bestandsinstellingen en kopieer de WebDAV URL.\n\nVoorbeeld: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Voer de inlognaam in voor uw WebDAV account. Gebruik voor een Nextcloud URL eindigend op /files/USERNAME/, de waarde getoond op plaats van USERNAME.",
+  "connectionPasswordDescription": "Gebruik uw WebDAV wachtwoord of een app wachtwoord van uw provider. Voor Nextcloud open je persoonlijke instellingen → Beveiliging, maak een app-wachtwoord met de naam Butterfly, en plak het hier.",
+  "connectionSyncRootDescription": "De volledige documentenmap offline houden, inclusief de bijbehorende submappen. Schakel dit bijvoorbeeld in om al je notities te openen zonder internetverbinding.",
+  "deleteConnection": "Contact verwijderen",
+  "deleteConnectionDescription": "Verwijder de verbinding \"{name}\" van Butterfly? Bestanden die in deze verbinding zijn opgeslagen worden niet verwijderd.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Verbinden",
   "username": "Gebruikersnaam",
   "password": "Wachtwoord",
   "authenticationPassword": "Authenticatie wachtwoord",
   "documentEncryptionPassword": "Wachtwoord voor versleuteling van document",
-  "documentEncryptionPasswordDescription": "Codeert documenten die zijn opgeslagen in dit verband. Laat leeg om ze onversleuteld te houden",
+  "documentEncryptionPasswordDescription": "Kies een apart wachtwoord om documenten te versleutelen. Gebruik hetzelfde wachtwoord op andere apparaten om ze te openen. Laat leeg om nieuwe documenten niet versleuteld te houden.\n\nVoorbeeld: gebruik een wachtwoordzin die u kunt behouden in uw wachtwoordbeheerder.",
   "documentEncryptionEnabled": "Documentversleuteling ingeschakeld",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Wachtwoord voor versleuteling van documenten toevoegen",
@@ -593,9 +605,10 @@
   "symmetric": "Symmetrisch",
   "perSide": "Per zijde",
   "directory": "Catalogus",
-  "connectionNameDescription": "Alleen gebruikt om deze verbinding te identificeren in Vlinder",
-  "connectionDirectoryDescription": "Basismap voor deze verbinding. Notities gebruiken Documenten standaard; verander het onder Geavanceerd",
-  "connectionPathDescription": "Laat leeg om dit maptype uit te schakelen. Gebruik . voor de basismap, een relatieve submap of een absoluut pad",
+  "connectionNameDescription": "Kies een naam om deze verbinding te herkennen in Butterfly. Het hernoemt geen mappen op uw apparaat of server.\n\nVoorbeeld: Nextcloud.",
+  "connectionDirectoryDescription": "Kies een basismap in je WebDAV-opslag, bijvoorbeeld Butterfly. Notities worden standaard opgeslagen in de Documenten submap. Verander de namen van de submap onder Advanced.",
+  "localConnectionDirectoryDescription": "Kies een basismap op dit apparaat met de mappenknop, of voer het volledige pad in, bijvoorbeeld /path/to/map of C:\\path\\to\\map. Notities worden standaard opgeslagen in de Documenten submap. Verander de namen van de submap onder Advanced.",
+  "connectionPathDescription": "Kies waar dit type inhoud opgeslagen moet worden. Documenten gebruiken bijvoorbeeld een submap van de basismap, . gebruikt de basismap zelf en een lege waarde schakelt dit type uit. U kunt ook een volledig pad invoeren. Voor een lokale verbinding zonder basismap is voor elk ingeschakeld type een volledig pad vereist.",
   "connectionPathRequired": "Kies een absolute basismap, of gebruik absolute paden voor ingeschakelde maptypes.",
   "connectionAlreadyExists": "Er bestaat al een verbinding met deze naam. Kies een andere naam",
   "documentsDirectory": "Documenten map",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Optionele URL van een afbeelding die gebruikt wordt als verbindingsicoon",
+  "chooseConnectionIcon": "Afbeelding kiezen",
+  "invalidConnectionIcon": "Kies een geldig afbeeldingsbestand",
   "update": "Vernieuwen",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Pakketten",
+  "textures": "Texturen",
+  "fonts": "Lettertypen",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Tijdelijk op mobiel",
   "cameraControlsVisibilityDescription": "Toon zoom en rotatie besturen tijdelijk op mobiele apparaten, ze verbergen en tijdelijk op alle apparaten, of ze altijd laten zien. Tijdelijke controles vervagen na 5 seconden zonder te zoomen, te draaien of te interageren met controles.",
   "zoomPanelControls": "Camera besturing lay-out",
-  "zoomPanelControlsDescription": "Kies de besturingselementen voor zoom en rotatie. Reset knoppen blijven beschikbaar in elke lay-out.",
+  "zoomPanelControlsDescription": "Toon schuifregelaars, tekstvelden en knoppen onafhankelijk voor zoom en rotatie. Deselecteer alle opties om alleen de reset knoppen te behouden.",
   "zoomPanelFull": "Volledig (schuif, tekstveld en knoppen)",
   "zoomPanelSliderInput": "Schuifregelaar en tekstveld",
   "zoomPanelSlider": "Schuifbalk",
   "zoomPanelInputButtons": "Tekstveld en knoppen",
   "zoomPanelInput": "Tekst veld",
+  "zoomPanelButtons": "Knoppen",
+  "zoomPanelResetOnly": "Alleen resetten",
   "rotationDisplay": "Weergave rotatie",
   "rotationDisplayDescription": "Kies wanneer de rotatie rij boven de zoom verschijnt. Dit verandert geen rotatie gebaren of snelkoppelingen.",
   "whenRotated": "Wanneer gedraaid",

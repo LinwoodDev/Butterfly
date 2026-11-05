@@ -271,6 +271,8 @@ class PdfRenderer extends Renderer<PdfElement> {
     required double shear,
     double scaleX = 1,
     double scaleY = 1,
+    // ignore: unused_element_parameter
+    double strokeWidthFactor = 1,
   }) {
     return PdfRenderer(
       element.copyWith(

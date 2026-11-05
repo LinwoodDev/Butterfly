@@ -19,6 +19,7 @@ class SelectHandler extends Handler<SelectTool> {
     bool duplicate = false,
     Offset? position,
   }) {
+    _clearFreeSelection();
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect(-bloc.editorController.transformCubit.state.rotation);
@@ -133,7 +134,18 @@ class SelectHandler extends Handler<SelectTool> {
         bounds = bounds?.expandToInclude(pointRect) ?? pointRect;
       }
     }
+
+    if (_selected.isEmpty) {
+      _selectionManager.reset();
+    }
+
     _selectionManager.select(bounds, rotation: angle);
+  }
+
+  void _clearFreeSelection() {
+    _rectangleFreeSelectionStart = null;
+    _rectangleFreeSelection = null;
+    _lassoFreeSelection = null;
   }
 
   void _syncSelectionRotation(CameraTransform camera) {
@@ -174,6 +186,7 @@ class SelectHandler extends Handler<SelectTool> {
             scaleY: transform.scaleY,
             scaleRotation: angle,
             rotation: transform.rotation,
+            scaleStrokeWidth: data.proportionalResizing,
           ) ??
           renderer;
     }).toList();
@@ -187,6 +200,8 @@ class SelectHandler extends Handler<SelectTool> {
     DocumentInfo info, [
     Area? currentArea,
   ]) {
+    _selectionManager.setForceProportional(data.proportionalResizing);
+
     _syncSelectionRotation(editorController.transformCubit.state);
     final foregrounds = <Renderer>[];
     // When transform just started but the pointer hasn't moved yet,
@@ -264,7 +279,7 @@ class SelectHandler extends Handler<SelectTool> {
     _syncSelectionRotation(transform);
     final globalPos = transform.localToGlobal(details.localPosition);
     if (_selectionManager.isTransforming) {
-      _selectionManager.updateCurrentPosition(globalPos);
+      _updateTransformPosition(globalPos, context);
       _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
       return;
     }
@@ -473,6 +488,25 @@ class SelectHandler extends Handler<SelectTool> {
     return true;
   }
 
+  void _updateTransformPosition(Offset position, EventContext context) {
+    final camera = context.getCameraTransform();
+    _selectionManager.updateModifiers(
+      proportional: context.isShiftPressed,
+      centered: context.isAltPressed,
+    );
+    _selectionManager.updateCurrentPosition(
+      position,
+      snapPosition: (target) => camera.localToGlobal(
+        PointerManipulationHandler.calculatePointerPosition(
+          context.getToolState(),
+          camera.globalToLocal(target),
+          context.viewportSize,
+          camera,
+        ),
+      ),
+    );
+  }
+
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final globalPos = context.getCameraTransform().localToGlobal(
@@ -480,11 +514,7 @@ class SelectHandler extends Handler<SelectTool> {
     );
     if (details.pointerCount > 1) return;
     if (_selectionManager.isTransforming) {
-      _selectionManager.updateModifiers(
-        proportional: context.isShiftPressed,
-        centered: context.isAltPressed,
-      );
-      _selectionManager.updateCurrentPosition(globalPos);
+      _updateTransformPosition(globalPos, context);
       context.refreshForegrounds();
       return;
     }
@@ -516,22 +546,28 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     _pendingTransform = null;
+
     final locks = context.getViewState().locks;
+
     final rectangleSelection = _rectangleFreeSelection;
     final lassoSelection = _lassoFreeSelection;
+
     final transformed = _submitTransform(context.getDocumentBloc());
+
+    _clearFreeSelection();
+    context.refreshForegrounds();
+
     if (transformed != null) {
       _selected.clear();
       _selected.addAll(transformed);
       _updateSelectionRect();
       return;
     }
-    _lassoFreeSelection = null;
-    _rectangleFreeSelectionStart = null;
-    _rectangleFreeSelection = null;
+
     if (!context.isCtrlPressed) {
       _selected.clear();
     }
+
     if (rectangleSelection != null && !rectangleSelection.rect.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
         rectangleSelection.rect,
@@ -553,6 +589,7 @@ class SelectHandler extends Handler<SelectTool> {
       _updateSelectionRect();
       return;
     }
+
     _updateSelectionRect();
     context.refresh();
   }

@@ -577,13 +577,25 @@
   "@url": {
     "description": "URL field"
   },
-  "webDavUrlDescription": "Η πλήρης διεύθυνση URL WebDAV που παρέχεται από τον πάροχο αποθήκευσης σας",
+  "webDavUrlDescription": "Αντιγράψτε την πλήρη διεύθυνση WebDAV από τον πάροχο αποθήκευσης. Για Nextcloud, ανοίξτε τις ρυθμίσεις αρχείων και αντιγράψτε το URL WebDAV.\n\nΠαράδειγμα: https://cloud.example.com/remote.php/dav/files/USERNAME/",
+  "connectionUsernameDescription": "Εισάγετε το όνομα σύνδεσης για τον λογαριασμό σας WebDAV. Για ένα Nextcloud URL που τελειώνει στο /files/USERNAME/, χρησιμοποιήστε την τιμή που εμφανίζεται στη θέση USERNAME.",
+  "connectionPasswordDescription": "Χρησιμοποιήστε τον κωδικό πρόσβασης WebDAV ή έναν κωδικό εφαρμογής από τον πάροχό σας. Για το Nextcloud, ανοίξτε τις Προσωπικές ρυθμίσεις → Ασφάλεια, δημιουργήστε έναν κωδικό πρόσβασης εφαρμογής που ονομάζεται Butterfly, και επικολλήστε τον εδώ.",
+  "connectionSyncRootDescription": "Κρατήστε ολόκληρο τον κατάλογο εγγράφων εκτός σύνδεσης, συμπεριλαμβανομένων των υποφακέλων του. Για παράδειγμα, ενεργοποιήστε αυτό για να έχετε πρόσβαση σε όλες τις σημειώσεις σας χωρίς σύνδεση στο διαδίκτυο.",
+  "deleteConnection": "Διαγραφή σύνδεσης",
+  "deleteConnectionDescription": "Αφαιρέστε τη σύνδεση \"{name}\" από το Butterfly? Τα αρχεία που είναι αποθηκευμένα σε αυτή τη σύνδεση δεν θα διαγραφούν.",
+  "@deleteConnectionDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "connect": "Σύνδεση",
   "username": "Όνομα Χρήστη",
   "password": "Κωδικός",
   "authenticationPassword": "Κωδικός ταυτοποίησης",
   "documentEncryptionPassword": "Κωδικός πρόσβασης κρυπτογράφησης εγγράφου",
-  "documentEncryptionPasswordDescription": "Κρυπτογραφεί τα έγγραφα που είναι αποθηκευμένα σε αυτήν τη σύνδεση. Αφήστε κενό για να τα διατηρήσετε μη κρυπτογραφημένα",
+  "documentEncryptionPasswordDescription": "Choose a separate password to encrypt documents created in this connection. Use the same password on your other devices to open them. Leave empty to keep new documents unencrypted.\n\nExample: use a passphrase you can keep in your password manager.",
   "documentEncryptionEnabled": "Ενεργοποίηση κρυπτογράφησης εγγράφου",
   "reauthenticate": "Reauthenticate",
   "addDocumentEncryptionPassword": "Προσθήκη κωδικού πρόσβασης κρυπτογράφησης εγγράφου",
@@ -593,9 +605,10 @@
   "symmetric": "Συμμετρικό",
   "perSide": "Ανά πλευρά",
   "directory": "Κατάλογος",
-  "connectionNameDescription": "Χρησιμοποιείται μόνο για την αναγνώριση αυτής της σύνδεσης στο Butterfly",
-  "connectionDirectoryDescription": "Βασικός φάκελος για αυτήν τη σύνδεση. Οι σημειώσεις χρησιμοποιούν τα Έγγραφα από προεπιλογή, αλλάξτε τον στις Σύνθετες ρυθμίσεις",
-  "connectionPathDescription": "Αφήστε κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου. Χρησιμοποιήστε . για το βασικό φάκελο, ένα σχετικό υποφάκελο, ή μια απόλυτη διαδρομή",
+  "connectionNameDescription": "Επιλέξτε ένα όνομα για να αναγνωρίσετε αυτή τη σύνδεση στο Butterfly. Δεν μετονομάζει κανέναν φάκελο στη συσκευή ή το διακομιστή σας.\n\nΠαράδειγμα: Nextcloud.",
+  "connectionDirectoryDescription": "Επιλέξτε ένα βασικό φάκελο μέσα στον αποθηκευτικό σας χώρο WebDAV, για παράδειγμα Butterfly. Οι σημειώσεις αποθηκεύονται στον υποφάκελο εγγράφων από προεπιλογή. Αλλάξτε τα ονόματα των υποφακέλων κάτω από το Advanced.",
+  "localConnectionDirectoryDescription": "Επιλέξτε ένα βασικό φάκελο σε αυτήν τη συσκευή με το κουμπί φακέλου, ή εισάγετε την πλήρη διαδρομή του, για παράδειγμα /path/to/folder ή C:\\path\\to\\folder. Οι σημειώσεις αποθηκεύονται στον υποφάκελο εγγράφων από προεπιλογή. Αλλάξτε τα ονόματα των υποφακέλων κάτω από το Advanced.",
+  "connectionPathDescription": "Επιλέξτε πού θα αποθηκευτεί αυτός ο τύπος περιεχομένου. Για παράδειγμα, τα Έγγραφα χρησιμοποιούν έναν υποφάκελο του βασικού φακέλου, . χρησιμοποιεί το βασικό φάκελο καθαυτό, και μια κενή τιμή απενεργοποιεί αυτόν τον τύπο. Μπορείτε επίσης να εισάγετε μια πλήρη διαδρομή. Για μια τοπική σύνδεση χωρίς βασικό φάκελο, κάθε ενεργοποιημένος τύπος χρειάζεται μια πλήρη διαδρομή.",
   "connectionPathRequired": "Επιλέξτε έναν απόλυτο βασικό φάκελο ή χρησιμοποιήστε απόλυτες διαδρομές για τους ενεργοποιημένους τύπους καταλόγου",
   "connectionAlreadyExists": "Μια σύνδεση με αυτό το όνομα υπάρχει ήδη. Επιλέξτε ένα άλλο όνομα",
   "documentsDirectory": "Κατάλογος εγγράφων",
@@ -608,6 +621,8 @@
     "description": "Icon property"
   },
   "connectionIconDescription": "Προαιρετικό URL μιας εικόνας που θα χρησιμοποιηθεί ως εικονίδιο σύνδεσης",
+  "chooseConnectionIcon": "Επιλογή εικόνας",
+  "invalidConnectionIcon": "Επιλέξτε ένα έγκυρο αρχείο εικόνας",
   "update": "Ενημέρωση",
   "@update": {
     "description": "Update action"
@@ -794,6 +809,8 @@
     "description": "Note object"
   },
   "packs": "Πακέτα",
+  "textures": "Υφές",
+  "fonts": "Γραμματοσειρές",
   "@packs": {
     "description": "Asset pack"
   },
@@ -1704,12 +1721,14 @@
   "temporaryOnMobile": "Προσωρινό σε κινητά",
   "cameraControlsVisibilityDescription": "Εμφάνιση κουμπιών εστίασης και περιστροφής προσωρινά στο κινητό, απόκρυψη τους, εμφάνιση τους προσωρινά σε όλες τις συσκευές, ή πάντα εμφάνισή τους. Προσωρινά χειριστήρια ξεθωριάζουν μετά από 5 δευτερόλεπτα χωρίς μεγέθυνση, περιστροφή ή αλληλεπίδραση με τα χειριστήρια.",
   "zoomPanelControls": "Διάταξη στοιχείων ελέγχου κάμερας",
-  "zoomPanelControlsDescription": "Επιλέξτε τα στοιχεία ελέγχου για μεγέθυνση και περιστροφή. Τα κουμπιά επαναφοράς παραμένουν διαθέσιμα σε κάθε διάταξη.",
+  "zoomPanelControlsDescription": "Εμφάνιση ρυθμιστικών, πεδίων κειμένου και κουμπιών ανεξάρτητα για μεγέθυνση και περιστροφή. Αποεπιλέξτε όλες τις επιλογές για να κρατήσετε μόνο τα κουμπιά επαναφοράς.",
   "zoomPanelFull": "Πλήρης (slider, πεδίο κειμένου και πλήκτρα)",
   "zoomPanelSliderInput": "Ρυθμιστικό και πεδίο κειμένου",
   "zoomPanelSlider": "Ρυθμιστικό",
   "zoomPanelInputButtons": "Πεδίο κειμένου και κουμπιά",
   "zoomPanelInput": "Πεδίο κειμένου",
+  "zoomPanelButtons": "Πλήκτρα",
+  "zoomPanelResetOnly": "Μόνο επαναφορά",
   "rotationDisplay": "Οθόνη περιστροφής",
   "rotationDisplayDescription": "Επιλέξτε όταν η γραμμή περιστροφής εμφανίζεται πάνω από τη μεγέθυνση. Αυτό δεν αλλάζει χειρονομίες περιστροφής ή συντομεύσεις.",
   "whenRotated": "Κατά την περιστροφή",

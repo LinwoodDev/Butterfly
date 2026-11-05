@@ -353,6 +353,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           currentAreaName: getInitialArea(page),
         ),
         reset: true,
+        documentChanged: false,
         cameraPosition: event.position,
         cameraZoom: event.zoom,
       );
@@ -1921,6 +1922,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     bool? resetAll,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
+    bool documentChanged = true,
     Point<double>? cameraPosition,
     double? cameraZoom,
   }) async {
@@ -1960,6 +1962,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       resetAllLayers: resetAllLayers,
       shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
+      documentChanged: documentChanged,
     );
   }
 

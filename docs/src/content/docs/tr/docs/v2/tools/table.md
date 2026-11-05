@@ -30,6 +30,6 @@ These settings apply to new tables. Select an existing table to edit that elemen
 | Columns               | 3                     | Initial number of columns.                                                                                          |
 | Genişlik              | 0                     | Fixed table width; `0` uses the default width based on the columns.                                                 |
 | Yükseklik             | 0                     | Fixed table height; `0` uses the default height based on the rows.                                                  |
-| Border                | Black, solid, width 1 | Color, width, and stroke style of table borders. Non-solid styles also expose dash and gap lengths. |
+| Kenar                 | Black, solid, width 1 | Color, width, and stroke style of table borders. Non-solid styles also expose dash and gap lengths. |
 | Dolgu                 | Şeffaf                | Table background color and alpha.                                                                                   |
-| Bağımlı yakınlaştırma | Off                   | Changes table creation size based on the zoom level.                                                                |
+| Bağımlı yakınlaştırma | Kapalı                | Changes table creation size based on the zoom level.                                                                |
