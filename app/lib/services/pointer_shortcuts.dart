@@ -46,8 +46,6 @@ class PointerShortcutManager({
   final Set<int> _activePointers = {};
   final Set<int> _activeTouchPointers = {};
   final Set<int> _trackedRepeatedPointers = {};
-  bool get hasBufferedRepeatedTapEvents =>
-      _bufferedRepeatedTapEvents.isNotEmpty;
   Duration? _multiFingerStartTime;
   int _maxTouchPointerCount = 0;
   bool _invalidMultiFingerGesture = false;
@@ -119,6 +117,11 @@ class PointerShortcutManager({
       return (consumed: true, releasedEvents: _takeBufferedRepeatedTapEvents());
     }
     return (consumed: true, releasedEvents: const []);
+  }
+
+  List<PointerEvent> cancelPendingClickShortcut() {
+    _resetRepeatedTap();
+    return _takeBufferedRepeatedTapEvents();
   }
 
   PointerShortcutEventResult pointerUp(
