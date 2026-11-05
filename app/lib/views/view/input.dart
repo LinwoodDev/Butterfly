@@ -104,7 +104,7 @@ class _ViewportInputCoordinator {
       );
 
   bool _isUiZoomInput(PointerDeviceKind kind, EventContext context) =>
-      context.isCtrlPressed &&
+    HardwareKeyboard.instance.isLogicalKeyPressed(LogicalKeyboardKey.space) && context.isCtrlPressed &&
       (kind == PointerDeviceKind.stylus || kind == PointerDeviceKind.mouse);
 
   bool _isCurrentInput(int generation) =>
