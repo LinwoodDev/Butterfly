@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
@@ -122,12 +124,16 @@ void main() {
     WidgetTester tester, {
     bool gestures = true,
     bool repeatedTap = false,
+    double? limitViewportMultiplier,
+    bool limitViewportPositive = false,
     InputMapping touch = const InputMapping(InputMapping.handToolValue),
   }) async {
     when(() => settings.state).thenReturn(
       ButterflySettings(
         inputGestures: gestures,
         penOnlyInput: false,
+        limitViewportMultiplier: limitViewportMultiplier,
+        limitViewportPositive: limitViewportPositive,
         flags: ['smoothNavigation'],
         inputConfiguration: InputConfiguration(
           touch: touch,
@@ -155,6 +161,61 @@ void main() {
         ),
       ),
     );
+  }
+
+  for (final positive in [false, true]) {
+    testWidgets('touch panning reaches rotated content (positive: $positive)', (
+      tester,
+    ) async {
+      final shape = ShapeRenderer(
+        ShapeElement(
+          firstPosition: const Point(0, 0),
+          secondPosition: const Point(100, 100),
+        ),
+      );
+      when(() => renderer.renderers).thenReturn([shape]);
+      await pumpViewport(
+        tester,
+        limitViewportMultiplier: positive ? null : 1,
+        limitViewportPositive: positive,
+      );
+      const size = Size(800, 600);
+      if (!positive) {
+        transform.teleport(shape.rect.center - size.center(Offset.zero));
+      }
+      transform.rotate(
+        positive ? -3 * pi / 4 : 3 * pi / 4,
+        size.center(Offset.zero),
+      );
+      final delta = positive
+          ? -transform.state.globalToLocal(
+              transform.state.position + const Offset(-1000, -1000),
+            )
+          : const Offset(40, 0);
+      final gesture = await tester.startGesture(const Offset(200, 200));
+      await gesture.moveBy(delta);
+      await gesture.moveBy(delta);
+      await tester.pump();
+
+      final screen = (Offset.zero & size).inflate(1e-7);
+      for (final corner in [
+        shape.rect.topLeft,
+        shape.rect.topRight,
+        shape.rect.bottomLeft,
+        shape.rect.bottomRight,
+      ]) {
+        expect(screen.contains(transform.state.globalToLocal(corner)), isTrue);
+      }
+      if (positive) {
+        final atLimit = transform.state.position;
+        await gesture.moveBy(delta);
+        await tester.pump();
+        expect(transform.state.position, atLimit);
+      }
+
+      await gesture.cancel();
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
   }
 
   for (final kind in [PointerDeviceKind.touch, PointerDeviceKind.mouse]) {

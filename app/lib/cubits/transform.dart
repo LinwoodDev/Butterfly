@@ -274,14 +274,16 @@ class TransformCubit(double pixelRatio, [Offset? position])
     return Rect.fromLTRB(minX, minY, maxX, maxY);
   }
 
-  bool _isNavigationRailVisible(EditorRuntimeContext runtime) {
+  bool _isNavigationRailVisible(
+    EditorRuntimeContext runtime,
+    Size viewportSize,
+  ) {
     final settings = runtime.settingsCubit.state;
-    final viewport = runtime.rendererCubit.state.cameraViewport;
     return settings.navigationRail &&
         settings.navigatorPosition == .left &&
         runtime.inputCubit.state.hideUi == .visible &&
-        (viewport.width ?? 0) >= LeapBreakpoints.expanded &&
-        (viewport.height ?? 0) >= 400;
+        viewportSize.width >= LeapBreakpoints.expanded &&
+        viewportSize.height >= 400;
   }
 
   Rect? calculateViewportBounds({
@@ -297,15 +299,22 @@ class TransformCubit(double pixelRatio, [Offset? position])
 
     final viewport = runtime.rendererCubit.state.cameraViewport;
     final transform = customTransform ?? state;
-    final navigationRailOffset = _isNavigationRailVisible(runtime)
-        ? kNavigationRailWidth / transform.size
+    final viewportSize = viewport.viewportSize ?? viewport.toRealSize();
+    final navigationRailOffset = _isNavigationRailVisible(runtime, viewportSize)
+        ? kNavigationRailWidth
         : 0.0;
-    final size =
-        Size(
-          ((viewport.width ?? 0) / transform.size) - navigationRailOffset,
-          (viewport.height ?? 0) / transform.size,
-        ) /
-        settings.renderResolution.multiplier;
+    // The camera position is the document point at the screen origin, not
+    // the top-left of the visible document bounds when the view is rotated.
+    // Use the measured screen size; the render cache can be larger than it.
+    final relativeTransform = transform.withPosition(Offset.zero);
+    final screenRect = Rect.fromLTRB(
+      navigationRailOffset,
+      0,
+      viewportSize.width,
+      viewportSize.height,
+    );
+    final viewportRect = relativeTransform.localToGlobalRect(screenRect);
+    final size = viewportRect.size;
 
     final contentRect = getContentRect(runtime.rendererCubit, currentArea);
 
@@ -319,10 +328,10 @@ class TransformCubit(double pixelRatio, [Offset? position])
       final padX = size.width * multiplier;
       final padY = size.height * multiplier;
 
-      minX = contentRect.left - padX;
-      minY = contentRect.top - padY;
-      maxX = contentRect.right - size.width + padX;
-      maxY = contentRect.bottom - size.height + padY;
+      minX = contentRect.left - padX - viewportRect.left;
+      minY = contentRect.top - padY - viewportRect.top;
+      maxX = contentRect.right + padX - viewportRect.right;
+      maxY = contentRect.bottom + padY - viewportRect.bottom;
 
       if (minX > maxX) {
         final mid = (minX + maxX) / 2;
@@ -337,10 +346,27 @@ class TransformCubit(double pixelRatio, [Offset? position])
     }
 
     if (positive && currentArea == null) {
-      minX = max(-navigationRailOffset, minX);
-      minY = max(0.0, minY);
-      maxX = max(-navigationRailOffset, maxX);
-      maxY = max(0.0, maxY);
+      // A rotated viewport's bounding-box corners lie outside the screen.
+      // Fit an inner document-aligned rectangle so its positive-coordinate
+      // boundary, including the canvas origin, remains visible when panning.
+      final projectedSize = relativeTransform
+          .globalToLocalRect(Offset.zero & size)
+          .size;
+      final fit = min(
+        projectedSize.width > 0 ? screenRect.width / projectedSize.width : 1.0,
+        projectedSize.height > 0
+            ? screenRect.height / projectedSize.height
+            : 1.0,
+      ).clamp(0.0, 1.0);
+      final positiveRect = Rect.fromCenter(
+        center: viewportRect.center,
+        width: size.width * fit,
+        height: size.height * fit,
+      );
+      minX = max(-positiveRect.left, minX);
+      minY = max(-positiveRect.top, minY);
+      maxX = max(-positiveRect.left, maxX);
+      maxY = max(-positiveRect.top, maxY);
     }
 
     return Rect.fromLTRB(minX, minY, maxX, maxY);
@@ -636,16 +662,17 @@ class TransformCubit(double pixelRatio, [Offset? position])
         var vX = positionVelocity.dx;
         var vY = positionVelocity.dy;
 
-        if (pos.dx >= bounds.right && vX > 0) {
+        // Friction subtracts the pointer velocity from the camera position.
+        if (pos.dx >= bounds.right && vX < 0) {
           vX = 0;
         }
-        if (pos.dx <= bounds.left && vX < 0) {
+        if (pos.dx <= bounds.left && vX > 0) {
           vX = 0;
         }
-        if (pos.dy >= bounds.bottom && vY > 0) {
+        if (pos.dy >= bounds.bottom && vY < 0) {
           vY = 0;
         }
-        if (pos.dy <= bounds.top && vY < 0) {
+        if (pos.dy <= bounds.top && vY > 0) {
           vY = 0;
         }
 
