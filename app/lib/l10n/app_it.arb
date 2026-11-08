@@ -1750,5 +1750,44 @@
   "whenRotated": "Quando ruotato",
   "hidden": "Hidden",
   "rotateCanvasByDragging": "Ruota superficie trascinando",
-  "proportionalResizing": "Proportional resizing"
+  "proportionalResizing": "Proportional resizing",
+  "currentView": "Current view",
+  "images": "Images",
+  "exportAs": "Export as",
+  "moreOptions": "More options",
+  "saveExportSelection": "Save current selection…",
+  "managePresets": "Manage presets…",
+  "addExport": "Add export",
+  "noExportItems": "Add pages or areas to export.",
+  "collapsePreview": "Collapse preview",
+  "expandPreview": "Expand preview",
+  "exportRegion": "Region",
+  "exportItems": "Export items",
+  "vectorAndPdf": "Vector & PDF",
+  "otherImages": "Other images",
+  "applySettingsToAll": "Apply settings to all",
+  "allPagesInNote": "All pages in note",
+  "allAreasOnPage": "All areas on current page",
+  "allAreasInNote": "All areas in note",
+  "iconExportSize": "ICO and CUR require a pixel width and height of at most 256. Reduce the size or quality.",
+  "pvrExportSize": "PVR requires a square image with power-of-two pixel dimensions, at least 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 page · One PDF} other{{count} pages · One PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }
