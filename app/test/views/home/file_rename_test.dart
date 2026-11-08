@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../helpers/file_system.dart';
 import '../../helpers/mocks.dart';
@@ -23,6 +24,7 @@ void main() {
     WidgetTester tester,
     FileSystemEntity<NoteFile> entity, {
     bool grid = false,
+    VoidCallback? onTap,
   }) async {
     await tester.pumpWidget(
       buildFileSystemTestApp(
@@ -32,7 +34,7 @@ void main() {
             entity: entity,
             gridView: grid,
             isMobile: false,
-            onTap: () {},
+            onTap: onTap ?? () {},
             onReload: () => fail('Renaming must not reload the file view'),
             onChanged: (_) {},
             onSelected: (_) {},
@@ -57,6 +59,43 @@ void main() {
     }
     await tester.pumpAndSettle();
   }
+
+  testWidgets('opening a note discards an unfinished rename', (tester) async {
+    final system = fileSystem.buildDocumentSystem();
+    final entity = await createTestNote(system, '/notes/original.bfly');
+    await startRenaming(
+      tester,
+      entity,
+      onTap: () => Navigator.of(tester.element(find.byType(FileEntityItem)))
+          .push<void>(
+            MaterialPageRoute(
+              builder: (_) =>
+                  Scaffold(appBar: AppBar(title: const Text('Opened note'))),
+            ),
+          ),
+    );
+    final itemState = tester.state(find.byType(FileEntityItem));
+    await tester.enterText(find.byType(TextField), 'Unsubmitted edit');
+    await tester.tap(
+      find
+          .descendant(
+            of: find.byType(FileEntityItem),
+            matching: find.byType(PhosphorIcon),
+          )
+          .first,
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Opened note'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    expect(tester.state(find.byType(FileEntityItem)), same(itemState));
+    expect(find.byType(TextField), findsNothing);
+    expect(await system.getAsset(entity.path), isA<FileSystemFile<NoteFile>>());
+    expect(await system.getAsset('/notes/Unsubmitted edit.bfly'), isNull);
+    await startFileRename(tester, find.byType(FileEntityItem));
+    expect(renameText(tester), 'original');
+  });
 
   for (final grid in [false, true]) {
     for (final submit in [false, true]) {

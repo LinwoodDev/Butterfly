@@ -6,5 +6,6 @@
 * Fix scrolling limits making drawings unreachable when the canvas is rotated ([#1347](https://github.com/LinwoodDev/Butterfly/issues/1347))
 * Expand shape settings by default to make fill options visible ([#1343](https://github.com/LinwoodDev/Butterfly/issues/1343))
 * Use 96 canvas units per inch for PDF imports and paper presets while preserving PDF page sizes on export
+* Fix unfinished file renames remaining active after opening a note ([#1350](https://github.com/LinwoodDev/Butterfly/issues/1350))
 
 Read more here: https://linwood.dev/butterfly/2.6.3-rc.1
