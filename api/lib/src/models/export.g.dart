@@ -26,6 +26,11 @@ AreaPreset _$AreaPresetFromJson(Map json) => AreaPreset(
   name: json['name'] as String? ?? '',
   quality: (json['quality'] as num?)?.toDouble() ?? 1,
   area: json['area'] == null ? null : Area.fromJson(json['area'] as Map),
+  options: json['options'] == null
+      ? null
+      : ExportOptions.fromJson(
+          Map<String, dynamic>.from(json['options'] as Map),
+        ),
 );
 
 Map<String, dynamic> _$AreaPresetToJson(AreaPreset instance) =>
@@ -34,6 +39,7 @@ Map<String, dynamic> _$AreaPresetToJson(AreaPreset instance) =>
       'name': instance.name,
       'quality': instance.quality,
       'area': instance.area?.toJson(),
+      'options': instance.options?.toJson(),
     };
 
 ImageExportOptions _$ImageExportOptionsFromJson(Map json) => ImageExportOptions(

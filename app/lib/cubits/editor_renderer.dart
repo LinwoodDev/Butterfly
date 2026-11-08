@@ -1026,6 +1026,7 @@ class RendererCubit(
     DocumentPage page,
     SvgExportOptions options, {
     Set<String>? invisibleLayers,
+    CameraViewport? cameraViewport,
   }) {
     final rendererCubit = this;
     final xml = XmlDocument();
@@ -1045,11 +1046,13 @@ class RendererCubit(
     final transform = _exportTransform(options, pixelRatio: 1);
     final rect = transform.localToGlobalRect(Offset.zero & exportSize);
     if (options.renderBackground) {
-      for (final e in rendererCubit.state.cameraViewport.backgrounds) {
+      for (final e
+          in (cameraViewport ?? rendererCubit.state.cameraViewport)
+              .backgrounds) {
         e.buildSvg(xml, document, page, rect);
       }
     }
-    for (var e in rendererCubit.renderers) {
+    for (var e in cameraViewport?.unbakedElements ?? rendererCubit.renderers) {
       if ((invisibleLayers?.contains(e.layer) ?? false) || !e.isVisible(rect)) {
         continue;
       }
@@ -1278,85 +1281,6 @@ class RendererCubit(
     );
     rendererCubit.setViewport(newViewport);
     await rendererCubit.updateOnVisible(controller, newViewport, blocState);
-  }
-
-  Future<Uint8List?> renderPDF(
-    EditorController controller,
-    DocumentLoaded docState, {
-    required List<AreaPreset> areas,
-    bool renderBackground = true,
-    void Function(double progress)? onProgress,
-    Set<String>? invisibleLayers,
-  }) async {
-    final transformCubit = controller.transformCubit;
-    var name = docState.metadata.name;
-    if (name.isEmpty) {
-      name = 'document';
-    }
-    final pdf = await PdfDocument.createNew(sourceName: '$name.pdf');
-    final document = docState.data;
-    final info = docState.info;
-    final pages = <PdfPage>[];
-    final documents = <PdfDocument>[];
-    for (var i = 0; i < areas.length; i++) {
-      onProgress?.call(i / areas.length);
-      final preset = areas[i];
-      final areaName = preset.name;
-      final quality = preset.quality * kPdfPointsPerCanvasUnit;
-      final currentOpened = docState.pageName == preset.page;
-      final page = currentOpened
-          ? docState.page
-          : document.getPage(preset.page);
-      final area = preset.area ?? page?.getAreaByName(areaName);
-      if (area == null || page == null) {
-        continue;
-      }
-      final image = await renderImage(
-        controller,
-        document,
-        page,
-        info,
-        ImageExportOptions(
-          width: area.width,
-          height: area.height,
-          x: area.position.x,
-          y: area.position.y,
-          quality: quality,
-          renderBackground: renderBackground,
-        ),
-        cameraViewport: await CameraViewport.build(
-          transformCubit,
-          document,
-          docState.assetService,
-          page,
-        ),
-        docState: docState,
-        invisibleLayers: invisibleLayers ?? docState.invisibleLayers,
-      );
-      if (image == null) continue;
-      final imgImage = await convertFlutterUiToImage(image);
-      final pdfImage = await compute(
-        (image) => img.JpegEncoder().encode(image),
-        imgImage,
-      );
-      final imageDoc = await PdfDocument.createFromJpegData(
-        pdfImage,
-        width: canvasUnitsToPdfPoints(area.width),
-        height: canvasUnitsToPdfPoints(area.height),
-        sourceName: '$name-$areaName.jpg',
-      );
-      pages.addAll(imageDoc.pages);
-      image.dispose();
-      documents.add(imageDoc);
-    }
-    onProgress?.call(1.0);
-    pdf.pages = pages;
-    final bytes = await pdf.encodePdf();
-    pdf.dispose();
-    for (final doc in documents) {
-      doc.dispose();
-    }
-    return bytes;
   }
 
   Future<void> disposeRuntime() async {

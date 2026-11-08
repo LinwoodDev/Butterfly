@@ -12,7 +12,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/collections.dart';
 import 'package:butterfly/dialogs/elements.dart';
-import 'package:butterfly/dialogs/export/general.dart';
+import 'package:butterfly/dialogs/export/batch.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/point.dart';

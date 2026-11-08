@@ -1,3 +1,4 @@
+* Add unified batch export for images, SVG, and PDF ([#1267](https://github.com/LinwoodDev/Butterfly/issues/1267))
 * Add proportional resizing with stroke-width scaling to the select tool ([#1342](https://github.com/LinwoodDev/Butterfly/pull/1342))
 * Add experimental display calibration and calibrated zoom for camera controls ([#1310](https://github.com/LinwoodDev/Butterfly/issues/1310))
 * Fix Select tool gestures with touch shortcuts and clear stale selection previews ([#1346](https://github.com/LinwoodDev/Butterfly/pull/1346))
