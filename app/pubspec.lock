@@ -676,10 +676,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "60965b556624f7018ec26205283e32670bc78c6fe1388d4b90bdfe6b2311b87b"
+      sha256: "507d8f3154fa4e41165941c5aa8509c6bf155bb30f76ba25a00d1e7ba1dd64c9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.2"
+    version: "2.11.3"
   image:
     dependency: "direct main"
     description:
@@ -1300,10 +1300,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "35775a26edbdf0d891bab304929a712e103c9d9a6e2fb5ebbd8437bb3139615a"
+      sha256: "4f71f8c95105918fa207065429c913f38d0fb05fec9f3a745bbf4c113f5d482b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.10.0"
+    version: "3.10.1"
   settings_leap:
     dependency: "direct main"
     description:
@@ -1492,10 +1492,10 @@ packages:
     dependency: "direct main"
     description:
       name: synchronized
-      sha256: "0ce4712bd3be1fccfab14458059baebb400ba6c6239b65398e3464945fabbae7"
+      sha256: a77637ebe1460f3b48cac89a790d2eb634f0a8593cab0d3f340c6db174ba9b94
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.1"
+    version: "3.6.1+1"
   talker:
     dependency: "direct main"
     description:
