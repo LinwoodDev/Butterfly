@@ -1749,5 +1749,45 @@
   "rotationDisplayDescription": "Wählen Sie, wann die Rotationszeile oberhalb des Zooms erscheint. Dies ändert keine Rotationsgesten oder Verknüpfungen.",
   "whenRotated": "Wenn gedreht",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Leinwand durch Ziehen drehen"
+  "rotateCanvasByDragging": "Leinwand durch Ziehen drehen",
+  "proportionalResizing": "Proportionale Größenänderung",
+  "currentView": "Aktuelle Ansicht",
+  "images": "Images",
+  "exportAs": "Exportieren als",
+  "moreOptions": "Weitere Optionen",
+  "saveExportSelection": "Aktuelle Auswahl speichern…",
+  "managePresets": "Voreinstellungen verwalten…",
+  "addExport": "Export hinzufügen",
+  "noExportItems": "Seiten oder Bereiche zum Exportieren hinzufügen.",
+  "collapsePreview": "Vorschau einklappen",
+  "expandPreview": "Vorschau erweitern",
+  "exportRegion": "Region",
+  "exportItems": "Artikel exportieren",
+  "vectorAndPdf": "Vektor & PDF",
+  "otherImages": "Andere Bilder",
+  "applySettingsToAll": "Einstellungen auf alle anwenden",
+  "allPagesInNote": "Alle Seiten in Notiz",
+  "allAreasOnPage": "Alle Bereiche auf der aktuellen Seite",
+  "allAreasInNote": "Alle Bereiche in Notiz",
+  "iconExportSize": "ICO und CUR benötigen eine Pixelbreite und -höhe von höchstens 256. Verkleinern Sie die Größe oder Qualität.",
+  "pvrExportSize": "PVR erfordert ein quadratisches Bild mit Leistung von zwei Pixel Dimensionen, mindestens 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 Seite · Ein PDF} other{{count} Seiten · Ein PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

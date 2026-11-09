@@ -44,6 +44,22 @@
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom uit",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Gecalibreerde zoom",
+  "calibratedZoomDescription": "Gebruik je weergavekalibratie, dus 100% zoom komt overeen met de gedrukte grootte van het document.",
+  "calibrateDisplay": "Scherm kalibreren",
+  "displayCalibrationDescription": "Meet de lijn tussen de twee eindmarkeringen met een liniaal en voer de lengte in millimeter in om dit scherm te kalibreren. Kalibreer opnieuw na het wijzigen van het scherm of de scaling.",
+  "measuredLength": "Gemeten lengte",
+  "displayCalibrationInvalid": "Voer een positieve lengte in binnen het ondersteunde zoombereik.",
+  "displayCalibrationQuestion": "Hoe wil je je scherm kalibreren?",
+  "matchKnownLength": "Overeenkomen met een bekende lengte",
+  "measureReference": "Meet de lijn",
+  "enterDisplayData": "Voer weergavegegevens in",
+  "displayCalibrationAdjustDescription": "Stel een bekende lengte in en pas daarna de lijn aan tot de afstand tussen de eindmarkeringen overeenkomt met uw linie of referentiemateriaal. Gebruik een kortere lengte als deze niet past op het scherm.",
+  "knownLength": "Bekende lengte",
+  "displayCalibrationDataDescription": "Voer de fysieke pixeldichtheid van je scherm in. De huidige beeldverhouding van apparaat pixel wordt automatisch gedetecteerd.",
+  "physicalPixelDensity": "Fysieke pixel-dichtheid",
+  "devicePixelRatio": "Pixelverhouding van apparaat",
+  "displayCalibrationSettingsDescription": "Overeenkomen met een bekende lengte, meet een referentie of voer PPI in. Opgeslagen voor deze weergave en schaaling. Kalibreer na het wijzigen van schermen.",
   "strokeWidth": "Stroke breedte",
   "strokeStyle": "Stroke stijl",
   "dashLength": "Dash lengte",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Kies wanneer de rotatie rij boven de zoom verschijnt. Dit verandert geen rotatie gebaren of snelkoppelingen.",
   "whenRotated": "Wanneer gedraaid",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Canvas draaien door te slepen"
+  "rotateCanvasByDragging": "Canvas draaien door te slepen",
+  "proportionalResizing": "Proportioneel formaat",
+  "currentView": "Huidige weergave",
+  "images": "Images",
+  "exportAs": "Exporteren als",
+  "moreOptions": "Meer opties",
+  "saveExportSelection": "Save current selection…",
+  "managePresets": "Manage presets…",
+  "addExport": "Export toevoegen",
+  "noExportItems": "Voeg pagina's of gebieden toe om te exporteren.",
+  "collapsePreview": "Voorbeeld samenvouwen",
+  "expandPreview": "Voorbeeld uitvouwen",
+  "exportRegion": "Regio",
+  "exportItems": "Artikelen exporteren",
+  "vectorAndPdf": "Vector & PDF",
+  "otherImages": "Andere afbeeldingen",
+  "applySettingsToAll": "Instellingen toepassen op alle",
+  "allPagesInNote": "Alle pagina's in notitie",
+  "allAreasOnPage": "Alle gebieden op de huidige pagina",
+  "allAreasInNote": "Alle gebieden in notitie",
+  "iconExportSize": "ICO en CUR vereisen een pixelbreedte en hoogte van maximaal 256. Verminder de grootte of kwaliteit.",
+  "pvrExportSize": "PVR vereist een vierkante afbeelding met power-of-2 pixel afmetingen, minstens 8 x 8.",
+  "pdfExportSummary": "{count, plural, =1{1 pagina · Eén PDF} other{{count} pagina's · Eén PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

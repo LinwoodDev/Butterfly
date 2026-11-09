@@ -44,6 +44,22 @@
   "zoomIn": "Zoomaa sisään",
   "zoomOut": "Zoomaa ulos",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Kalibroitu zoomaus",
+  "calibratedZoomDescription": "Käytä näytön kalibrointia, joten 100 % zoomaus vastaa asiakirjan tulostettua kokoa.",
+  "calibrateDisplay": "Kalibroi näyttö",
+  "displayCalibrationDescription": "Mitataan kahden päämerkin välinen viiva hallitsijalla ja syötetään sen pituus millimetreinä tämän näytön kalibroimiseksi. Kalibroi uudelleen näytön tai sen skaalauksen muuttamisen jälkeen.",
+  "measuredLength": "Mitattu pituus",
+  "displayCalibrationInvalid": "Anna positiivinen pituus tuetun zoomausalueen sisällä.",
+  "displayCalibrationQuestion": "Miten haluat kalibroida näyttösi?",
+  "matchKnownLength": "Yhdistä tunnettuun pituuteen",
+  "measureReference": "Mittaa viiva",
+  "enterDisplayData": "Syötä näytön tiedot",
+  "displayCalibrationAdjustDescription": "Aseta tunnettu pituus, säädä sitten riviä kunnes sen loppumerkkien välinen etäisyys vastaa hallitsijaasi tai referenssiobjektiasi. Käytä lyhyempää pituutta, jos se ei sovi näytölle.",
+  "knownLength": "Tunnettu pituus",
+  "displayCalibrationDataDescription": "Syötä näyttösi fyysinen pikselin tiheys. Näyttölaitteen pikselisuhde havaitaan automaattisesti.",
+  "physicalPixelDensity": "Fyysisen pikselin tiheys",
+  "devicePixelRatio": "Laitteen pikselin suhde",
+  "displayCalibrationSettingsDescription": "Yhdistä tunnettuun pituuteen, mittaa viitteen tai kirjoita PPI. Tallennettu tälle näytölle ja skaalaukselle. Uudelleen näyttöjen vaihtamisen jälkeen.",
   "strokeWidth": "Aivojen leveys",
   "strokeStyle": "Stroke tyyli",
   "dashLength": "Dash pituus",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Valitse kun kiertorivi näkyy zoomin yläpuolella. Tämä ei muuta pyörimiseleitä tai pikanäppäimiä.",
   "whenRotated": "Kun kierretään",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Kierrä kangas vetämällä"
+  "rotateCanvasByDragging": "Kierrä kangas vetämällä",
+  "proportionalResizing": "Suhteellinen koon muuttaminen",
+  "currentView": "Nykyinen näkymä",
+  "images": "Images",
+  "exportAs": "Vie nimellä",
+  "moreOptions": "Lisää vaihtoehtoja",
+  "saveExportSelection": "Tallenna nykyinen valinta…",
+  "managePresets": "Hallitse esiasetuksia…",
+  "addExport": "Lisää vienti",
+  "noExportItems": "Lisää sivuja tai alueita vietäväksi.",
+  "collapsePreview": "Supista esikatselu",
+  "expandPreview": "Laajenna esikatselu",
+  "exportRegion": "Alue",
+  "exportItems": "Vie kohteita",
+  "vectorAndPdf": "Vektori & PDF",
+  "otherImages": "Muut kuvat",
+  "applySettingsToAll": "Aseta asetukset kaikkiin",
+  "allPagesInNote": "Kaikki sivut muistiossa",
+  "allAreasOnPage": "Kaikki alueet nykyisellä sivulla",
+  "allAreasInNote": "Kaikki huomautuksessa mainitut alueet",
+  "iconExportSize": "ICO ja CUR vaativat pikselin leveys ja korkeus enintään 256. Pienennä kokoa tai laatua.",
+  "pvrExportSize": "PVR vaatii neliön kuvan, jossa on kaksi pikselin mitaa, vähintään 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 sivu · Yksi PDF} other{{count} sivut · Yksi PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

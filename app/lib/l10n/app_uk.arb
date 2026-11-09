@@ -44,6 +44,22 @@
   "zoomIn": "Збільшити масштаб",
   "zoomOut": "Зменшити масштаб",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Відкаліброване масштабування",
+  "calibratedZoomDescription": "Використовувати калібрування дисплея, тому 100% масштабування відповідає друкованому розміру документу.",
+  "calibrateDisplay": "Калібрування дисплея",
+  "displayCalibrationDescription": "Виміряти пряму між двома кінцями знаків з лінійкою і ввести її довжину міліметри для калібрування цього відображення. Відкалібрувати знову після зміни масштабу дисплея.",
+  "measuredLength": "Вимірювана довжина",
+  "displayCalibrationInvalid": "Введіть позитивну довжину в підтримуваному діапазоні розміру.",
+  "displayCalibrationQuestion": "Як би ви хотіли калібрувати свій дисплей?",
+  "matchKnownLength": "Встанови відповідність між відомою довжиною",
+  "measureReference": "Вимірювати лінію",
+  "enterDisplayData": "Введіть дані для відображення",
+  "displayCalibrationAdjustDescription": "Встановіть відому довжину, потім відрегулюйте лінію до відстані між її кінцевими позначками співпадає з вашим правителем або довідковим об'єктом. коротше значення розміру, якщо воно не співпадає на екрані.",
+  "knownLength": "Відомі довжини",
+  "displayCalibrationDataDescription": "Введіть фізичну щільність вашого дисплея. Розпізнається коефіцієнт пікселя поточного перегляду.",
+  "physicalPixelDensity": "Фізична щільність пікселів",
+  "devicePixelRatio": "Піксельне співвідношення пристрою",
+  "displayCalibrationSettingsDescription": "Встановіть відповідність відомої довжини, вимірюйте посилання або введіть ПП. Збережено для цього дисплею і масштабування. Пералібрувати після зміни дисплеїв.",
   "strokeWidth": "Ширина штриха",
   "strokeStyle": "Стиль обведення",
   "dashLength": "Довжина тире",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Виберіть, коли рядок обертання з'являється у верхньому масштабі. Не змінює жести обертання або ярлики.",
   "whenRotated": "При обертанні",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Повернути полотно, перетягнувши"
+  "rotateCanvasByDragging": "Повернути полотно, перетягнувши",
+  "proportionalResizing": "Пропорційний розмір",
+  "currentView": "Поточний вигляд",
+  "images": "Images",
+  "exportAs": "Експортувати як",
+  "moreOptions": "Більше опцій",
+  "saveExportSelection": "Save current selection…",
+  "managePresets": "Manage presets…",
+  "addExport": "Додати експорт",
+  "noExportItems": "Додайте сторінки або області для експорту.",
+  "collapsePreview": "Згорнути попередній перегляд",
+  "expandPreview": "Розгорнути попередній перегляд",
+  "exportRegion": "Регіон",
+  "exportItems": "Експорт елементів",
+  "vectorAndPdf": "Вектор та PDF",
+  "otherImages": "Інші зображення",
+  "applySettingsToAll": "Застосувати параметри до всіх",
+  "allPagesInNote": "Всі сторінки в нотатці",
+  "allAreasOnPage": "Всі області на поточній сторінці",
+  "allAreasInNote": "Всі області в нотатці",
+  "iconExportSize": "ICO і CUR вимагають в пікселях ширини і висота не більше 256. Зменшує розмір або якість.",
+  "pvrExportSize": "Для PVR потрібна квадратне зображення з довжиною в два пікселі, мінімум 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 сторінка · Один PDF} other{{count} Сторінки · Один PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

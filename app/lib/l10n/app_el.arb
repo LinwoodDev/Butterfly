@@ -44,6 +44,22 @@
   "zoomIn": "Μεγέθυνση",
   "zoomOut": "Σμίκρυνση",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Βαθμονομημένη μεγέθυνση",
+  "calibratedZoomDescription": "Χρησιμοποιήστε τη βαθμονόμηση οθόνης έτσι ώστε το 100% ζουμ να ταιριάζει με το τυπωμένο μέγεθος του εγγράφου.",
+  "calibrateDisplay": "Βαθμονόμηση οθόνης",
+  "displayCalibrationDescription": "Μετρήστε τη γραμμή μεταξύ των δύο τελικών σημείων με έναν κανόνα και εισάγετε το μήκος του σε χιλιοστά για τη βαθμονόμηση αυτής της οθόνης. Βαθμονόμηση ξανά μετά την αλλαγή της οθόνης ή της κλιμάκωσής της.",
+  "measuredLength": "Μετρημένο μήκος",
+  "displayCalibrationInvalid": "Εισάγετε ένα θετικό μήκος εντός του υποστηριζόμενου εύρους εστίασης.",
+  "displayCalibrationQuestion": "Πώς θα θέλατε να βαθμονομήσετε την οθόνη σας?",
+  "matchKnownLength": "Ταίριαξε ένα γνωστό μήκος",
+  "measureReference": "Μετρήστε τη γραμμή",
+  "enterDisplayData": "Εισάγετε εμφανιζόμενα δεδομένα",
+  "displayCalibrationAdjustDescription": "Ορίστε ένα γνωστό μήκος, στη συνέχεια, ρυθμίστε τη γραμμή μέχρι η απόσταση μεταξύ των τελικών σημείων να ταιριάζει με τον κανόνα σας ή το αντικείμενο αναφοράς. Χρησιμοποιήστε ένα μικρότερο μήκος αν δεν ταιριάζει στην οθόνη.",
+  "knownLength": "Γνωστό μήκος",
+  "displayCalibrationDataDescription": "Εισαγάγετε τη φυσική πυκνότητα εικονοστοιχείων της οθόνης σας. Η τρέχουσα αναλογία εικονοστοιχείων συσκευής εντοπίζεται αυτόματα.",
+  "physicalPixelDensity": "Φυσική πυκνότητα εικονοστοιχείων",
+  "devicePixelRatio": "Αναλογία εικονοστοιχείων συσκευής",
+  "displayCalibrationSettingsDescription": "Ταιριάξτε ένα γνωστό μήκος, μετρήστε μια αναφορά ή εισάγετε PPI. Αποθηκεύτηκε για αυτή την οθόνη και κλιμάκωση. Αναβαθμίστε μετά την αλλαγή οθόνης.",
   "strokeWidth": "Πλάτος περιγράμματος",
   "strokeStyle": "Στυλ πινελιάς",
   "dashLength": "Μήκος παύλας",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Επιλέξτε όταν η γραμμή περιστροφής εμφανίζεται πάνω από τη μεγέθυνση. Αυτό δεν αλλάζει χειρονομίες περιστροφής ή συντομεύσεις.",
   "whenRotated": "Κατά την περιστροφή",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Περιστροφή καμβά σύροντας"
+  "rotateCanvasByDragging": "Περιστροφή καμβά σύροντας",
+  "proportionalResizing": "Αναλογική αλλαγή μεγέθους",
+  "currentView": "Τρέχουσα προβολή",
+  "images": "Images",
+  "exportAs": "Εξαγωγή ως",
+  "moreOptions": "Περισσότερες επιλογές",
+  "saveExportSelection": "Αποθήκευση τρέχουσας επιλογής…",
+  "managePresets": "Manage presets…",
+  "addExport": "Προσθήκη εξαγωγής",
+  "noExportItems": "Προσθήκη σελίδων ή περιοχών στην εξαγωγή.",
+  "collapsePreview": "Σύμπτυξη προεπισκόπησης",
+  "expandPreview": "Ανάπτυξη προεπισκόπησης",
+  "exportRegion": "Περιοχή",
+  "exportItems": "Εξαγωγή στοιχείων",
+  "vectorAndPdf": "Διάνυσμα & PDF",
+  "otherImages": "Άλλες εικόνες",
+  "applySettingsToAll": "Εφαρμογή ρυθμίσεων σε όλους",
+  "allPagesInNote": "Όλες οι σελίδες στη σημείωση",
+  "allAreasOnPage": "Όλες οι περιοχές στην τρέχουσα σελίδα",
+  "allAreasInNote": "Όλες οι περιοχές στη σημείωση",
+  "iconExportSize": "Το ICO και το CUR απαιτούν ένα πλάτος και ύψος pixel το πολύ 256. Μειώστε το μέγεθος ή την ποιότητα.",
+  "pvrExportSize": "Το PVR απαιτεί μια τετράγωνη εικόνα με διαστάσεις δύο εικονοστοιχείων, τουλάχιστον 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 σελίδα · Ένα PDF} other{{count} σελίδες · Ένα PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

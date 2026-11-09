@@ -44,6 +44,22 @@
   "zoomIn": "Zooma in",
   "zoomOut": "Zooma ut",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Kalibrerad zoom",
+  "calibratedZoomDescription": "Använd din displaykalibrering så att 100% zoom matchar dokumentets tryckta storlek.",
+  "calibrateDisplay": "Kalibrera visning",
+  "displayCalibrationDescription": "Mät linjen mellan de två ändmärkena med en linjal och ange dess längd i millimeter för att kalibrera denna skärm. Kalibrera igen efter att du ändrat skärmen eller dess skalning.",
+  "measuredLength": "Uppmätt längd",
+  "displayCalibrationInvalid": "Ange en positiv längd inom det stödda zoomintervallet.",
+  "displayCalibrationQuestion": "Hur vill du kalibrera din bild?",
+  "matchKnownLength": "Matcha en känd längd",
+  "measureReference": "Mät linjen",
+  "enterDisplayData": "Ange visningsdata",
+  "displayCalibrationAdjustDescription": "Ange en känd längd, justera sedan linjen tills avståndet mellan dess slutmärken matchar din linjal eller referensobjekt. Använd en kortare längd om den inte passar på skärmen.",
+  "knownLength": "Känd längd",
+  "displayCalibrationDataDescription": "Ange displayens fysiska pixeldensitet. Den aktuella vyns pixelförhållande detekteras automatiskt.",
+  "physicalPixelDensity": "Fysisk pixeldensitet",
+  "devicePixelRatio": "Enhetens pixelförhållande",
+  "displayCalibrationSettingsDescription": "Matcha en känd längd, mäta en referens eller ange PPI. Sparad för denna display och skalning. Omkalibrera efter byte av skärmar.",
   "strokeWidth": "Stroke bredd",
   "strokeStyle": "Stroke stil",
   "dashLength": "Dash längd",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Välj när rotationsraden visas ovanför zoom. Detta ändrar inte rotationsgester eller genvägar.",
   "whenRotated": "Vid rotering",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotera duk genom att dra"
+  "rotateCanvasByDragging": "Rotera duk genom att dra",
+  "proportionalResizing": "Proportionell storleksändring",
+  "currentView": "Nuvarande vy",
+  "images": "Images",
+  "exportAs": "Exportera som",
+  "moreOptions": "Fler alternativ",
+  "saveExportSelection": "Spara aktuellt val…",
+  "managePresets": "Hantera förinställningar…",
+  "addExport": "Lägg till export",
+  "noExportItems": "Lägg till sidor eller områden att exportera.",
+  "collapsePreview": "Komprimera förhandsgranskning",
+  "expandPreview": "Expandera förhandsgranskning",
+  "exportRegion": "Region",
+  "exportItems": "Exportera objekt",
+  "vectorAndPdf": "Vektor & PDF",
+  "otherImages": "Andra bilder",
+  "applySettingsToAll": "Tillämpa inställningar för alla",
+  "allPagesInNote": "Alla sidor i not",
+  "allAreasOnPage": "Alla områden på aktuell sida",
+  "allAreasInNote": "Alla områden i anteckning",
+  "iconExportSize": "ICO och CUR kräver en pixel bredd och höjd på högst 256. Minska storlek eller kvalitet.",
+  "pvrExportSize": "PVR kräver en fyrkantig bild med effekt-av-två pixeldimensioner, minst 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 sida · En PDF} other{{count} sidor · En PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

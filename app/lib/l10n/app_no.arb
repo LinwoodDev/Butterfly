@@ -44,6 +44,22 @@
   "zoomIn": "Zoom inn",
   "zoomOut": "Zoom ut",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Kalibrert zoom",
+  "calibratedZoomDescription": "Bruk visningskalibreringen din slik at 100% zoom matcher dokumentets størrelse som er skrevet ut.",
+  "calibrateDisplay": "Kalibrer skjerm",
+  "displayCalibrationDescription": "Mål linjen mellom de to sluttmerkene med en linjal og skriv inn lengden i millimeter for å kalibrere denne visningen. Kalibrer igjen etter at skjermen eller skaleringen er endret.",
+  "measuredLength": "Målt lengde",
+  "displayCalibrationInvalid": "Skriv inn en positiv lengde innenfor det støttede zoomområdet.",
+  "displayCalibrationQuestion": "Hvordan ønsker du å kalibrere skjermen?",
+  "matchKnownLength": "Velg en kjent lengde",
+  "measureReference": "Mål linjen",
+  "enterDisplayData": "Angi visnings data",
+  "displayCalibrationAdjustDescription": "Sett en kjent lengde, deretter juster linjen til avstanden mellom sluttmerket samsvarer med linjeobjektet eller referanseobjektet. Bruk en kortere lengde hvis den ikke passer på skjermen.",
+  "knownLength": "Kjent lengde",
+  "displayCalibrationDataDescription": "Skriv inn visningens fysiske pikseltetthet. Gjeldende grense for pikselforhold blir oppdaget automatisk.",
+  "physicalPixelDensity": "Fysisk pikseltetthet",
+  "devicePixelRatio": "Pikselforhold for enhet",
+  "displayCalibrationSettingsDescription": "Velg en kjent lengde, mål en referanse eller angi PPI. Lagret for denne visningen og skalering. Rekalibrere etter å ha endret visning.",
   "strokeWidth": "Bredde på slagbredde",
   "strokeStyle": "Stil for stripe",
   "dashLength": "Punkt lengde",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Velg når rotasjonsraden vises over zoom. Dette endrer ikke rotasjonsbevegelser eller snarveier.",
   "whenRotated": "Når rotert",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Roter lerret ved å dra"
+  "rotateCanvasByDragging": "Roter lerret ved å dra",
+  "proportionalResizing": "Proporsjonal endring",
+  "currentView": "Gjeldende visning",
+  "images": "Images",
+  "exportAs": "Eksporter som",
+  "moreOptions": "Flere alternativer",
+  "saveExportSelection": "Lagre gjeldende utvalg…",
+  "managePresets": "Behandle forhåndsinnstillinger…",
+  "addExport": "Legg til eksport",
+  "noExportItems": "Legg til sider eller områder for eksport.",
+  "collapsePreview": "Minimer forhåndsvisning",
+  "expandPreview": "Utvid forhåndsvisning",
+  "exportRegion": "Fylke",
+  "exportItems": "Eksporter produkter",
+  "vectorAndPdf": "Vektor & PDF",
+  "otherImages": "Andre bilder",
+  "applySettingsToAll": "Bruk innstillingene på alle",
+  "allPagesInNote": "Alle sider i notat",
+  "allAreasOnPage": "Alle områder på gjeldende side",
+  "allAreasInNote": "Alle områder i note",
+  "iconExportSize": "ICO og CUR krever pikselbredde og høyde maksimalt 256. Reduser størrelsen eller kvaliteten.",
+  "pvrExportSize": "PVR krever et firkantet bilde med en ”power-of-two pixel-dimensjoner”, minst 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 side · En PDF} other{{count} sider · En PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

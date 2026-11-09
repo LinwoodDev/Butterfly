@@ -44,6 +44,22 @@
   "zoomIn": "Powiększ",
   "zoomOut": "Pomniejsz",
   "resetZoom": "Resetuj powiększenie",
+  "calibratedZoom": "Skalibrowane powiększenie",
+  "calibratedZoomDescription": "Użyj kalibracji wyświetlacza, aby 100% powiększenie odpowiadało wydrukowanemu rozmiarowi dokumentu.",
+  "calibrateDisplay": "Kalibracja wyświetlacza",
+  "displayCalibrationDescription": "Zmierzyć linię między dwoma znakami końcowymi linią i wprowadzić jej długość w milimetrach w celu skalibrowania tego wyświetlacza. Skalibruj ponownie po zmianie wyświetlacza lub jego skalowania.",
+  "measuredLength": "Zmierzona długość",
+  "displayCalibrationInvalid": "Wprowadź dodatnią długość w obsługiwanym zakresie powiększenia.",
+  "displayCalibrationQuestion": "Jak chcesz skalibrować ekran?",
+  "matchKnownLength": "Dopasuj znaną długość",
+  "measureReference": "Pomiar linii",
+  "enterDisplayData": "Wprowadź dane wyświetlane",
+  "displayCalibrationAdjustDescription": "Ustaw znaną długość, a następnie dostosuj linię aż do momentu, gdy odległość między punktami końcowymi będzie odpowiadała Twojemu linijce lub obiektowi odniesienia. Użyj krótszej długości, jeśli nie pasuje do ekranu.",
+  "knownLength": "Znana długość",
+  "displayCalibrationDataDescription": "Wprowadź fizyczną gęstość pikseli. Wskaźnik pikseli bieżącego widoku jest wykrywany automatycznie.",
+  "physicalPixelDensity": "Fizyczna gęstość pikseli",
+  "devicePixelRatio": "Stosunek pikseli urządzenia",
+  "displayCalibrationSettingsDescription": "Dopasuj znaną długość, mierz odniesienie lub wprowadź PPI. Zapisane dla tego wyświetlacza i skalowania. Ponownie skalibruj po zmianie wyświetlaczy.",
   "strokeWidth": "Szerokość obrysu",
   "strokeStyle": "Styl obrysu",
   "dashLength": "Długość kreski",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Wybierz, kiedy wiersz obrotu pojawi się nad powiększeniem. Nie zmienia to gestów obrotu ani skrótów.",
   "whenRotated": "Po obracaniu",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Obróć płótno przeciągając"
+  "rotateCanvasByDragging": "Obróć płótno przeciągając",
+  "proportionalResizing": "Proporcjonalny rozmiar",
+  "currentView": "Bieżący widok",
+  "images": "Images",
+  "exportAs": "Eksportuj jako",
+  "moreOptions": "Więcej opcji",
+  "saveExportSelection": "Zapisz bieżący wybór…",
+  "managePresets": "Zarządzaj ustawieniami…",
+  "addExport": "Dodaj eksport",
+  "noExportItems": "Dodaj strony lub obszary do eksportu.",
+  "collapsePreview": "Zwiń podgląd",
+  "expandPreview": "Rozwiń podgląd",
+  "exportRegion": "Region",
+  "exportItems": "Eksportuj elementy",
+  "vectorAndPdf": "Wektor i PDF",
+  "otherImages": "Inne obrazy",
+  "applySettingsToAll": "Zastosuj ustawienia do wszystkich",
+  "allPagesInNote": "Wszystkie strony w notatki",
+  "allAreasOnPage": "Wszystkie obszary na bieżącej stronie",
+  "allAreasInNote": "Wszystkie obszary z uwagą",
+  "iconExportSize": "ICO i CUR wymagają szerokości i wysokości piksela nie więcej niż 256. Zmniejsz rozmiar lub jakość.",
+  "pvrExportSize": "PVR wymaga kwadratowego obrazu o mocy dwóch pikseli, co najmniej 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 strona · Jeden PDF} other{{count} Strony · Jeden PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

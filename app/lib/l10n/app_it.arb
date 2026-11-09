@@ -44,6 +44,22 @@
   "zoomIn": "Aumenta zoom",
   "zoomOut": "Riduci zoom",
   "resetZoom": "Reimposta zoom",
+  "calibratedZoom": "Zoom calibrato",
+  "calibratedZoomDescription": "Utilizzare la calibrazione del display in modo che lo zoom 100% corrisponde alla dimensione stampata del documento.",
+  "calibrateDisplay": "Calibra display",
+  "displayCalibrationDescription": "Misurare la linea tra le due estremità con un righello e immettere la sua lunghezza in millimetri per calibrare questo display. Calibrare nuovamente dopo aver cambiato il display o il suo ridimensionamento.",
+  "measuredLength": "Lunghezza misurata",
+  "displayCalibrationInvalid": "Inserisci una lunghezza positiva nell'intervallo di zoom supportato.",
+  "displayCalibrationQuestion": "Come vuoi calibrare il tuo display?",
+  "matchKnownLength": "Corrisponde a una lunghezza nota",
+  "measureReference": "Misurare la linea",
+  "enterDisplayData": "Inserisci i dati del display",
+  "displayCalibrationAdjustDescription": "Impostare una lunghezza nota, quindi regolare la linea fino a quando la distanza tra i suoi segni finali corrisponde al righello o all'oggetto di riferimento. Utilizzare una lunghezza più breve se non si adatta allo schermo.",
+  "knownLength": "Lunghezza nota",
+  "displayCalibrationDataDescription": "Inserisci la densità fisica dei pixel del display. Il rapporto pixel del dispositivo corrente viene rilevato automaticamente.",
+  "physicalPixelDensity": "Densità fisica dei pixel",
+  "devicePixelRatio": "Rapporto pixel dispositivo",
+  "displayCalibrationSettingsDescription": "Corrisponde a una lunghezza conosciuta, misura un riferimento o inserisci un PPI. Salvato per questo display e ridimensionamento. Ricarica dopo aver cambiato i display.",
   "strokeWidth": "Spessore tratto",
   "strokeStyle": "Stile tratto",
   "dashLength": "Lunghezza tratteggiatura",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Scegli quando la riga di rotazione appare sopra lo zoom. Ciò non cambia i gesti di rotazione o le scorciatoie.",
   "whenRotated": "Quando ruotato",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Ruota superficie trascinando"
+  "rotateCanvasByDragging": "Ruota superficie trascinando",
+  "proportionalResizing": "Ridimensionamento proporzionale",
+  "currentView": "Vista corrente",
+  "images": "Images",
+  "exportAs": "Esporta come",
+  "moreOptions": "Altre opzioni",
+  "saveExportSelection": "Salva la selezione corrente…",
+  "managePresets": "Gestisci preimpostazioni…",
+  "addExport": "Aggiungi esportazione",
+  "noExportItems": "Aggiungi pagine o aree da esportare.",
+  "collapsePreview": "Comprimi anteprima",
+  "expandPreview": "Espandi anteprima",
+  "exportRegion": "Regione",
+  "exportItems": "Esporta elementi",
+  "vectorAndPdf": "Vettoriale E Pdf",
+  "otherImages": "Altre immagini",
+  "applySettingsToAll": "Applica le impostazioni a tutti",
+  "allPagesInNote": "Tutte le pagine nella nota",
+  "allAreasOnPage": "Tutte le aree della pagina corrente",
+  "allAreasInNote": "Tutte le aree in nota",
+  "iconExportSize": "ICO e CUR richiedono una larghezza di pixel e altezza al massimo 256. Ridurre la dimensione o la qualità.",
+  "pvrExportSize": "Il PVR richiede un'immagine quadrata con una potenza di due pixel, almeno 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 pagina · Un PDF} other{{count} pagine · Un PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -44,6 +44,22 @@
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "Zoom calibrat",
+  "calibratedZoomDescription": "Utilizați calibrarea afișajului astfel încât 100% zoom să se potrivească cu dimensiunea tipărită a documentului.",
+  "calibrateDisplay": "Calibrează afișajul",
+  "displayCalibrationDescription": "Măsurați linia dintre cele două marcaje finale cu o riglă și introduceți lungimea în milimetri, pentru a calibra acest ecran. Calibrați din nou după schimbarea ecranului sau a scalării acestuia.",
+  "measuredLength": "Lungime măsurată",
+  "displayCalibrationInvalid": "Introduceți o lungime pozitivă în intervalul de zoom acceptat.",
+  "displayCalibrationQuestion": "Cum doriţi să vă calibraţi afişajul?",
+  "matchKnownLength": "Potrivește o lungime cunoscută",
+  "measureReference": "Măsuraţi linia",
+  "enterDisplayData": "Introduceţi datele de afişare",
+  "displayCalibrationAdjustDescription": "Setați o lungime cunoscută, apoi reglați linia până când distanța dintre semnele de sfârșit se potrivește cu rigla sau cu obiectul de referință. Utilizaţi o lungime mai scurtă dacă nu se potriveşte pe ecran.",
+  "knownLength": "Lungime cunoscută",
+  "displayCalibrationDataDescription": "Introdu densitatea fizică a pixelilor afișajului tău. Raportul pixel al dispozitivului curent este detectat automat.",
+  "physicalPixelDensity": "Densitatea fizică a pixelului",
+  "devicePixelRatio": "Raport pixel dispozitiv",
+  "displayCalibrationSettingsDescription": "Potriviți o lungime cunoscută, măsurați o referință sau introduceți PPI. Salvat pentru afișare și scalare. Recalibrați după schimbarea afișajelor.",
   "strokeWidth": "Lățimea conturului",
   "strokeStyle": "Stil stâlp",
   "dashLength": "Lungime defrișare",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Alegeți când rândul de rotație apare deasupra micșorării. Acest lucru nu schimbă gesturile de rotație sau scurtăturile.",
   "whenRotated": "Când este rotit",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotiți pânza prin tragere"
+  "rotateCanvasByDragging": "Rotiți pânza prin tragere",
+  "proportionalResizing": "Redimensionare proporțională",
+  "currentView": "Vizualizare curentă",
+  "images": "Images",
+  "exportAs": "Exportă ca",
+  "moreOptions": "Mai multe opțiuni",
+  "saveExportSelection": "Salvează selecția curentă…",
+  "managePresets": "Gestionează presetările…",
+  "addExport": "Adaugă export",
+  "noExportItems": "Adaugă pagini sau zone la export.",
+  "collapsePreview": "Restrânge previzualizarea",
+  "expandPreview": "Extinde previzualizarea",
+  "exportRegion": "Regiune",
+  "exportItems": "Exportă produsele",
+  "vectorAndPdf": "Vector & PDF",
+  "otherImages": "Alte imagini",
+  "applySettingsToAll": "Aplică setările tuturor",
+  "allPagesInNote": "Toate paginile în notă",
+  "allAreasOnPage": "Toate zonele de pe pagina curentă",
+  "allAreasInNote": "Toate zonele în notă",
+  "iconExportSize": "ICO și CUR necesită o lățime și înălțime de cel mult 256 pixeli. Reduceți dimensiunea sau calitatea.",
+  "pvrExportSize": "RVP necesită o imagine pătrată cu dimensiuni de cel puțin 8 × 8 pixeli,",
+  "pdfExportSummary": "{count, plural, =1{1 pagină · Un PDF} other{{count} pagini · Un PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

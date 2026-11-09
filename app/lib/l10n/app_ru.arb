@@ -44,6 +44,22 @@
   "zoomIn": "Увеличить",
   "zoomOut": "Уменьшить",
   "resetZoom": "Сбросить",
+  "calibratedZoom": "Калиброванный зум",
+  "calibratedZoomDescription": "Используйте свою калибровку дисплея, чтобы 100% масштаб соответствовал размеру печатного документа.",
+  "calibrateDisplay": "Калибровка дисплея",
+  "displayCalibrationDescription": "Измерьте линию между двумя концевыми метками с линейкой и введите ее длину в миллиметрах для калибровки этого дисплея. Калибровка снова после изменения масштабирования дисплея.",
+  "measuredLength": "Измеренная длина",
+  "displayCalibrationInvalid": "Введите положительную длину в поддерживаемом диапазоне.",
+  "displayCalibrationQuestion": "Как бы вы хотели калибровать дисплей?",
+  "matchKnownLength": "Совпадение с указанной длиной",
+  "measureReference": "Измерьте линию",
+  "enterDisplayData": "Введите данные отображения",
+  "displayCalibrationAdjustDescription": "Задайте известную длину, затем отрегулируйте линию до тех пор, пока расстояние между ее конечными метками не совпадает с вашим линейным или ссылочным объектом. Используйте более короткую длину, если она не помещается на экран.",
+  "knownLength": "Известная длина",
+  "displayCalibrationDataDescription": "Введите физическую плотность пиксела дисплея. Пиксельное соотношение текущего экрана определяется автоматически.",
+  "physicalPixelDensity": "Плотность физического пикселя",
+  "devicePixelRatio": "Соотношение пикселей устройства",
+  "displayCalibrationSettingsDescription": "Сопоставьте известную длину, замерьте ссылку или введите PPI. Сохранено для этого дисплея и масштабирования. Повторите после изменения дисплея.",
   "strokeWidth": "Толщина линии",
   "strokeStyle": "Стиль обводки",
   "dashLength": "Длина тире",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Выберите, когда линия вращения появляется над масштабом. Это не изменяет жесты или ярлыки.",
   "whenRotated": "При повернутом",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Повернуть холст перетаскиванием"
+  "rotateCanvasByDragging": "Повернуть холст перетаскиванием",
+  "proportionalResizing": "Пропорциональное изменение размеров",
+  "currentView": "Текущий вид",
+  "images": "Images",
+  "exportAs": "Экспортировать как",
+  "moreOptions": "Больше опций",
+  "saveExportSelection": "Сохранить текущую выборку…",
+  "managePresets": "Управление пресетами…",
+  "addExport": "Добавить экспорт",
+  "noExportItems": "Добавьте страницы или области для экспорта.",
+  "collapsePreview": "Свернуть предпросмотр",
+  "expandPreview": "Развернуть предпросмотр",
+  "exportRegion": "Регион",
+  "exportItems": "Экспорт элементов",
+  "vectorAndPdf": "Вектор и PDF",
+  "otherImages": "Другие изображения",
+  "applySettingsToAll": "Применить настройки ко всем",
+  "allPagesInNote": "Все страницы заметки",
+  "allAreasOnPage": "Все области на текущей странице",
+  "allAreasInNote": "Все области заметки",
+  "iconExportSize": "ICO и CUR требуют ширины и высоты пикселей максимум 256. Уменьшите размер или качество.",
+  "pvrExportSize": "PVR требует квадратное изображение с мощностью в два пиксела размера, по крайней мере 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 страница · Один PDF} other{{count} страницы · Один PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

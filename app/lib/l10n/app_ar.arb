@@ -44,6 +44,22 @@
   "zoomIn": "تقريب",
   "zoomOut": "تصغير",
   "resetZoom": "إعادة ضبط التكبير",
+  "calibratedZoom": "تكبير معايرة",
+  "calibratedZoomDescription": "استخدم معايرة العرض الخاصة بك حتى يتطابق التكبير بنسبة 100% مع حجم الوثيقة المطبوعة.",
+  "calibrateDisplay": "معايرة العرض",
+  "displayCalibrationDescription": "قم بقياس الخط بين العلامتين النهائيتين بحاكم وأدخل طوله بملليمترات لمعايرة هذا العرض. معايرة مرة أخرى بعد تغيير العرض أو قياسه.",
+  "measuredLength": "الطول المقاس",
+  "displayCalibrationInvalid": "أدخل طول إيجابي ضمن نطاق التكبير المدعوم.",
+  "displayCalibrationQuestion": "كيف ترغب في معايرة العرض الخاص بك؟",
+  "matchKnownLength": "طابق طول معروف",
+  "measureReference": "قياس السطر",
+  "enterDisplayData": "أدخل بيانات العرض",
+  "displayCalibrationAdjustDescription": "تعيين طول معروف، ثم ضبط الخط حتى تطابق المسافة بين علامات النهاية الخاصة بك الحاكمة أو الكائن المرجعي. استخدام طول أقصر إذا كان لا يتناسب مع الشاشة.",
+  "knownLength": "طول معروف",
+  "displayCalibrationDataDescription": "أدخل كثافة البكسل الفيزيائية الخاصة بك. يتم الكشف تلقائياً عن نسبة البكسل الخاصة بجهاز العرض الحالي.",
+  "physicalPixelDensity": "كثافة البكسل الفيزيائية",
+  "devicePixelRatio": "نسبة البكسل للجهاز",
+  "displayCalibrationSettingsDescription": "طابق طول معروف، وقياس مرجع أو أدخل PPI. محفوظ لهذا العرض والتحسيس. معايرة بعد تغيير العرض.",
   "strokeWidth": "عرض الخط",
   "strokeStyle": "نمط الخط",
   "dashLength": "طول الشَّرْطة",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "اختر عندما يظهر صف الدوران فوق التصغير. هذا لا يغير إيماءات الدوران أو الاختصار.",
   "whenRotated": "عند الدوران",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "تدوير القماش عن طريق السحب"
+  "rotateCanvasByDragging": "تدوير القماش عن طريق السحب",
+  "proportionalResizing": "تغيير الحجم التناسبي",
+  "currentView": "العرض الحالي",
+  "images": "Images",
+  "exportAs": "تصدير كـ",
+  "moreOptions": "المزيد من الخيارات",
+  "saveExportSelection": "حفظ التحديد الحالي…",
+  "managePresets": "إدارة الإعدادات المسبقة…",
+  "addExport": "إضافة تصدير",
+  "noExportItems": "إضافة صفحات أو مناطق للتصدير.",
+  "collapsePreview": "طي المعاينة",
+  "expandPreview": "توسيع المعاينة",
+  "exportRegion": "المنطقة",
+  "exportItems": "تصدير العناصر",
+  "vectorAndPdf": "Vector & PDF",
+  "otherImages": "صور أخرى",
+  "applySettingsToAll": "تطبيق الإعدادات على الجميع",
+  "allPagesInNote": "جميع الصفحات في الملاحظة",
+  "allAreasOnPage": "جميع المجالات في الصفحة الحالية",
+  "allAreasInNote": "جميع المجالات المشار إليها",
+  "iconExportSize": "يتطلب ICO و CUR عرض بكسل وارتفاعه 256 كحد أقصى. تقليل الحجم أو النوعية.",
+  "pvrExportSize": "يتطلب PVR صورة مربعة ذات بعدين بقوة بكسل، على الأقل 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{صفحة 1 · ملف PDF واحد} other{{count} صفحات · ملف PDF واحد !}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

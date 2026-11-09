@@ -44,6 +44,22 @@
   "zoomIn": "הגדלה",
   "zoomOut": "הקטנה",
   "resetZoom": "איפוס זום",
+  "calibratedZoom": "Calibrated zoom",
+  "calibratedZoomDescription": "Use your display calibration so 100% zoom matches the document’s printed size.",
+  "calibrateDisplay": "Calibrate display",
+  "displayCalibrationDescription": "Measure the line between the two end marks with a ruler and enter its length in millimeters to calibrate this display. Calibrate again after changing the display or its scaling.",
+  "measuredLength": "Measured length",
+  "displayCalibrationInvalid": "Enter a positive length within the supported zoom range.",
+  "displayCalibrationQuestion": "How would you like to calibrate your display?",
+  "matchKnownLength": "Match a known length",
+  "measureReference": "Measure the line",
+  "enterDisplayData": "Enter display data",
+  "displayCalibrationAdjustDescription": "Set a known length, then adjust the line until the distance between its end marks matches your ruler or reference object. Use a shorter length if it does not fit on screen.",
+  "knownLength": "Known length",
+  "displayCalibrationDataDescription": "Enter your display’s physical pixel density. The current view’s device pixel ratio is detected automatically.",
+  "physicalPixelDensity": "Physical pixel density",
+  "devicePixelRatio": "Device pixel ratio",
+  "displayCalibrationSettingsDescription": "Match a known length, measure a reference or enter PPI. Saved for this display and scaling. Recalibrate after changing displays.",
   "strokeWidth": "עובי קו",
   "strokeStyle": "Stroke style",
   "dashLength": "Dash length",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "Choose when the rotation row appears above zoom. This does not change rotation gestures or shortcuts.",
   "whenRotated": "When rotated",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "Rotate canvas by dragging"
+  "rotateCanvasByDragging": "Rotate canvas by dragging",
+  "proportionalResizing": "Proportional resizing",
+  "currentView": "Current view",
+  "images": "Images",
+  "exportAs": "Export as",
+  "moreOptions": "More options",
+  "saveExportSelection": "Save current selection…",
+  "managePresets": "Manage presets…",
+  "addExport": "Add export",
+  "noExportItems": "Add pages or areas to export.",
+  "collapsePreview": "Collapse preview",
+  "expandPreview": "Expand preview",
+  "exportRegion": "Region",
+  "exportItems": "Export items",
+  "vectorAndPdf": "Vector & PDF",
+  "otherImages": "Other images",
+  "applySettingsToAll": "Apply settings to all",
+  "allPagesInNote": "All pages in note",
+  "allAreasOnPage": "All areas on current page",
+  "allAreasInNote": "All areas in note",
+  "iconExportSize": "ICO and CUR require a pixel width and height of at most 256. Reduce the size or quality.",
+  "pvrExportSize": "PVR requires a square image with power-of-two pixel dimensions, at least 8 × 8.",
+  "pdfExportSummary": "{count, plural, =1{1 page · One PDF} other{{count} pages · One PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }

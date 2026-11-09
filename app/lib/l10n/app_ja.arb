@@ -44,6 +44,22 @@
   "zoomIn": "拡大",
   "zoomOut": "ズームアウト",
   "resetZoom": "Reset zoom",
+  "calibratedZoom": "ズーム調整",
+  "calibratedZoomDescription": "ディスプレイのキャリブレーションを使用すると、100%ズームがドキュメントの印刷サイズと一致します。",
+  "calibrateDisplay": "ディスプレイを調整する",
+  "displayCalibrationDescription": "この表示を調整するには、ルーラーを持つ2つの端点間の線を測定し、ミリメートル単位でその長さを入力します。 ディスプレイまたはそのスケーリングを変更した後、再びキャリブレーションします。",
+  "measuredLength": "測定した長さ",
+  "displayCalibrationInvalid": "サポートされているズーム範囲内に正の長さを入力します。",
+  "displayCalibrationQuestion": "ディスプレイをどのように調整しますか？",
+  "matchKnownLength": "既知の長さと一致",
+  "measureReference": "線を測定する",
+  "enterDisplayData": "ディスプレイデータを入力",
+  "displayCalibrationAdjustDescription": "既知の長さを設定し、ルーラーまたは参照オブジェクトの端点間の距離が一致するまで線を調整します。 画面に収まらない場合は、短い長さを使用してください。",
+  "knownLength": "既知の長さ",
+  "displayCalibrationDataDescription": "ディスプレイの物理ピクセル密度を入力します。現在のビューのデバイスピクセル比は自動的に検出されます。",
+  "physicalPixelDensity": "物理ピクセルの密度：",
+  "devicePixelRatio": "端末のピクセル比",
+  "displayCalibrationSettingsDescription": "既知の長さと一致し、参照を測定するか、PPIを入力します。この表示とスケーリングのために保存されます。ディスプレイを変更した後に再校正します。",
   "strokeWidth": "ストロークの幅",
   "strokeStyle": "ストロークのスタイル",
   "dashLength": "ダッシュの長さ",
@@ -1733,5 +1749,45 @@
   "rotationDisplayDescription": "回転行がズームの上に表示されるときに選択します。これは回転ジェスチャーやショートカットを変更しません。",
   "whenRotated": "回転時",
   "hidden": "Hidden",
-  "rotateCanvasByDragging": "ドラッグしてキャンバスを回転させる"
+  "rotateCanvasByDragging": "ドラッグしてキャンバスを回転させる",
+  "proportionalResizing": "比例サイズの変更",
+  "currentView": "現在のビュー",
+  "images": "Images",
+  "exportAs": "としてエクスポート",
+  "moreOptions": "その他のオプション",
+  "saveExportSelection": "Save current selection…",
+  "managePresets": "Manage presets…",
+  "addExport": "エクスポートを追加",
+  "noExportItems": "エクスポートするページまたはエリアを追加します。",
+  "collapsePreview": "プレビューを閉じる",
+  "expandPreview": "プレビューを展開",
+  "exportRegion": "地域",
+  "exportItems": "アイテムをエクスポート",
+  "vectorAndPdf": "ベクトルとPDF",
+  "otherImages": "その他の画像",
+  "applySettingsToAll": "すべてに設定を適用する",
+  "allPagesInNote": "ノートにあるすべてのページ",
+  "allAreasOnPage": "現在のページのすべてのエリア",
+  "allAreasInNote": "ノート内のすべてのエリア",
+  "iconExportSize": "ICOとCURは、最大256ピクセル幅と高さを必要とします。",
+  "pvrExportSize": "PVRは、少なくとも8×8の2ピクセルの次元の正方形の画像を必要とします。",
+  "pdfExportSummary": "{count, plural, =1{1 page · One PDF} other{{count} pages · One PDF}}",
+  "@pdfExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imageExportSummary": "{count, plural, =1{1 {format} image} other{{count} {format} images}}",
+  "@imageExportSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  }
 }
