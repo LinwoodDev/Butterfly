@@ -82,6 +82,7 @@ class const AreaPreset({
   final String name = '',
   final double quality = 1,
   final Area? area,
+  final ExportOptions? options,
 }) with _$AreaPreset {
   static AreaPreset fromJson(Map json) =>
       _$AreaPresetFromJson(Map<String, dynamic>.from(json));

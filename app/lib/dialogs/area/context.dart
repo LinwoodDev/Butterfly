@@ -13,9 +13,8 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../export/general.dart';
+import '../export/batch.dart';
 import '../packs/asset.dart';
-import '../export/pdf.dart';
 
 ContextMenuBuilder buildAreaContextMenu(
   DocumentBloc bloc,
@@ -191,19 +190,11 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
-              showDialog<void>(
-                builder: (context) => BlocProvider.value(
-                  value: bloc,
-                  child: GeneralExportDialog(
-                    options: SvgExportOptions(
-                      width: area.width,
-                      height: area.height,
-                      x: area.position.x,
-                      y: area.position.y,
-                    ),
-                  ),
-                ),
-                context: context,
+              showExportDialog(
+                context,
+                bloc: bloc,
+                format: .svg,
+                areas: [AreaPreset(area: area, name: area.name)],
               );
             },
             child: Text(AppLocalizations.of(context).svg),
@@ -215,20 +206,11 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
-              showDialog<void>(
-                builder: (context) => BlocProvider.value(
-                  value: bloc,
-                  child: GeneralExportDialog(
-                    options: ImageExportOptions(
-                      width: area.width,
-                      height: area.height,
-                      x: area.position.x,
-                      y: area.position.y,
-                      scale: 1,
-                    ),
-                  ),
-                ),
-                context: context,
+              showExportDialog(
+                context,
+                bloc: bloc,
+                format: .png,
+                areas: [AreaPreset(area: area, name: area.name)],
               );
             },
             child: Text(AppLocalizations.of(context).image),
@@ -240,14 +222,11 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
-              showDialog<void>(
-                builder: (context) => BlocProvider.value(
-                  value: bloc,
-                  child: PdfExportDialog(
-                    areas: [AreaPreset(area: area, name: area.name)],
-                  ),
-                ),
-                context: context,
+              showExportDialog(
+                context,
+                bloc: bloc,
+                format: .pdf,
+                areas: [AreaPreset(area: area, name: area.name)],
               );
             },
             child: Text(AppLocalizations.of(context).pdf),

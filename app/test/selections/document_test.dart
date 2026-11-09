@@ -65,6 +65,8 @@ void main() {
           providers: [
             BlocProvider.value(value: bloc),
             BlocProvider.value(value: transformCubit),
+            BlocProvider.value(value: editorController.viewCubit),
+            BlocProvider<SettingsCubit>.value(value: settingsCubit),
           ],
           child: MaterialApp(
             locale: const Locale('en'),
@@ -152,6 +154,8 @@ void main() {
           providers: [
             BlocProvider.value(value: bloc),
             BlocProvider.value(value: transformCubit),
+            BlocProvider.value(value: editorController.viewCubit),
+            BlocProvider<SettingsCubit>.value(value: settingsCubit),
           ],
           child: MaterialApp(
             locale: const Locale('en'),

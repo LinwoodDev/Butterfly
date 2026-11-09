@@ -14,6 +14,10 @@ const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = 1 / sqrt2;
 const double _kLandscapeRatio = sqrt2;
 
+/// Canvas units use the standard screen density of 96 units per inch.
+const kCanvasUnitsPerInch = 96.0;
+const _kCanvasUnitsPerMillimeter = kCanvasUnitsPerInch / 25.4;
+
 enum AspectRatioPreset { square, portrait, landscape }
 
 extension RatioPresetExtension on AspectRatioPreset {
@@ -24,20 +28,47 @@ extension RatioPresetExtension on AspectRatioPreset {
   };
 }
 
-/// Paper and photo dimensions in canvas units, exported as millimeters.
+/// Paper and photo dimensions in canvas units at 96 units per inch.
 enum AreaSizePreset({
   required final double width,
   required final double height,
 }) {
-  a3(width: 297, height: 420),
-  a4(width: 210, height: 297),
-  a5(width: 148, height: 210),
-  letter(width: 215.9, height: 279.4),
-  legal(width: 215.9, height: 355.6),
-  ledger(width: 431.8, height: 279.4),
-  photo4x6(width: 101.6, height: 152.4),
-  photo5x7(width: 127, height: 177.8),
-  photo8x10(width: 203.2, height: 254),
+  a3(
+    width: 297 * _kCanvasUnitsPerMillimeter,
+    height: 420 * _kCanvasUnitsPerMillimeter,
+  ),
+  a4(
+    width: 210 * _kCanvasUnitsPerMillimeter,
+    height: 297 * _kCanvasUnitsPerMillimeter,
+  ),
+  a5(
+    width: 148 * _kCanvasUnitsPerMillimeter,
+    height: 210 * _kCanvasUnitsPerMillimeter,
+  ),
+  letter(
+    width: 215.9 * _kCanvasUnitsPerMillimeter,
+    height: 279.4 * _kCanvasUnitsPerMillimeter,
+  ),
+  legal(
+    width: 215.9 * _kCanvasUnitsPerMillimeter,
+    height: 355.6 * _kCanvasUnitsPerMillimeter,
+  ),
+  ledger(
+    width: 431.8 * _kCanvasUnitsPerMillimeter,
+    height: 279.4 * _kCanvasUnitsPerMillimeter,
+  ),
+  photo4x6(
+    width: 101.6 * _kCanvasUnitsPerMillimeter,
+    height: 152.4 * _kCanvasUnitsPerMillimeter,
+  ),
+  photo5x7(
+    width: 127 * _kCanvasUnitsPerMillimeter,
+    height: 177.8 * _kCanvasUnitsPerMillimeter,
+  ),
+  photo8x10(
+    width: 203.2 * _kCanvasUnitsPerMillimeter,
+    height: 254 * _kCanvasUnitsPerMillimeter,
+  ),
   screenHd(width: 1280, height: 720),
   screenFullHd(width: 1920, height: 1080),
   screenQhd(width: 2560, height: 1440),

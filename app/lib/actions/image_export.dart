@@ -1,9 +1,6 @@
-import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/export/general.dart';
+import 'package:butterfly/dialogs/export/batch.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
 
 class ImageExportIntent extends Intent {
@@ -27,18 +24,5 @@ class ImageExportAction extends Action<ImageExportIntent> {
   ImageExportAction(this.context);
 
   @override
-  Future<void> invoke(ImageExportIntent intent) async {
-    var bloc = context.read<DocumentBloc>();
-    var transform = context.read<TransformCubit>().state;
-    return showDialog<void>(
-      builder: (context) => BlocProvider.value(
-        value: bloc,
-        child: GeneralExportDialog(
-          preset: ExportTransformPreset.view,
-          options: getDefaultImageExportOptions(context, transform: transform),
-        ),
-      ),
-      context: context,
-    );
-  }
+  Future<void> invoke(ImageExportIntent intent) => showExportDialog(context);
 }

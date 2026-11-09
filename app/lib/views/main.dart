@@ -15,6 +15,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/document_state.dart';
+import 'package:butterfly/services/display_calibration.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/services/import.dart';
@@ -113,18 +114,57 @@ class _ProjectDocumentRuntime {
   }
 }
 
-class _ProjectPageState extends State<ProjectPage> {
+class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
   _ProjectDocumentRuntime? _runtime;
   final SearchController _searchController = .new();
   late final CloseSubscription _closeSubscription;
   final GlobalKey<MainViewViewportState> _viewportKey = GlobalKey();
   int _loadGeneration = 0;
+  int _calibrationGeneration = 0;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) => _load());
     _closeSubscription = onPreventClose(context, _preventClose);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _refreshDisplayCalibration();
+  }
+
+  void _refreshDisplayCalibration() => unawaited(_updateDisplayCalibration());
+
+  Future<void> _updateDisplayCalibration() async {
+    final runtime = _runtime;
+    final generation = ++_calibrationGeneration;
+    if (runtime == null ||
+        !mounted ||
+        !context.read<SettingsCubit>().state.hasFlag('calibratedZoom')) {
+      return;
+    }
+    final profile = await readDisplayCalibrationProfile(context);
+    if (mounted &&
+        identical(runtime, _runtime) &&
+        !runtime.transformCubit.isClosed &&
+        generation == _calibrationGeneration) {
+      runtime.editorController.viewCubit.setDisplayCalibration(profile);
+    }
+  }
+
+  @override
+  void didChangeMetrics() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _refreshDisplayCalibration();
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _refreshDisplayCalibration();
   }
 
   @override
@@ -624,6 +664,7 @@ class _ProjectPageState extends State<ProjectPage> {
       });
       runtimeCommitted = true;
     }
+    _refreshDisplayCalibration();
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
       if (!isCurrentLoad()) return;
       _runtime?.bloc.load();
@@ -637,6 +678,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _closeSubscription.dispose();
     unawaited(_disposeDocumentState());
     _searchController.dispose();
@@ -645,6 +687,9 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
+    context.select<SettingsCubit, bool>(
+      (cubit) => cubit.state.hasFlag('calibratedZoom'),
+    );
     final runtime = _runtime;
     if (runtime == null) {
       return const Material(child: Center(child: CircularProgressIndicator()));

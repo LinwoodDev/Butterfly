@@ -70,12 +70,12 @@ dependencies:
   settings_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 0d1b58a521304eae0985269801da068444e5dc7b
+      ref: 52d42f7834b50140282ed23b88d43da421217ec0
       path: packages/settings_leap
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 24c9a64f187aa396493a4953c80bd3fdb77ff6b9
+      ref: a2250830a0eec50683f3e484b1b2b12b4c155f67
       path: packages/material_leap
   lw_sysapi:
     git:

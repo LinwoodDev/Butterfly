@@ -15,7 +15,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 import '../../../bloc/document_bloc.dart';
-import '../../../dialogs/export/pdf.dart';
+import '../../../dialogs/export/batch.dart';
 import '../../../handlers/handler.dart';
 import 'timeline.dart';
 
@@ -947,49 +947,41 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 child: Text(AppLocalizations.of(context).pdf),
                                 onPressed: () {
                                   final size = MediaQuery.sizeOf(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (ctx) => BlocProvider.value(
-                                      value: context.read<DocumentBloc>(),
-                                      child: PdfExportDialog(
-                                        areas:
-                                            {
-                                              0,
-                                              ..._animation!.keys.entries
-                                                  .where(
-                                                    (element) => element
-                                                        .value
-                                                        .breakpoint,
-                                                  )
-                                                  .map((e) => e.key)
-                                                  .sorted(
-                                                    (a, b) => a.compareTo(b),
-                                                  ),
-                                            }.map((e) {
-                                              final zoom =
-                                                  _animation!
-                                                      .interpolateCameraZoom(
-                                                        e,
-                                                      ) ??
-                                                  transform.size;
-                                              final position =
-                                                  _animation!
-                                                      .interpolateCameraPosition(
-                                                        e,
-                                                      ) ??
-                                                  transform.position.toPoint();
-                                              return AreaPreset(
-                                                name: e.toString(),
-                                                area: Area(
-                                                  position: position,
-                                                  height: size.height / zoom,
-                                                  width: size.width / zoom,
-                                                ),
-                                                quality: zoom,
-                                              );
-                                            }).toList(),
-                                      ),
-                                    ),
+                                  showExportDialog(
+                                    context,
+                                    format: .pdf,
+                                    areas:
+                                        {
+                                          0,
+                                          ..._animation!.keys.entries
+                                              .where(
+                                                (element) =>
+                                                    element.value.breakpoint,
+                                              )
+                                              .map((e) => e.key)
+                                              .sorted((a, b) => a.compareTo(b)),
+                                        }.map((e) {
+                                          final zoom =
+                                              _animation!.interpolateCameraZoom(
+                                                e,
+                                              ) ??
+                                              transform.size;
+                                          final position =
+                                              _animation!
+                                                  .interpolateCameraPosition(
+                                                    e,
+                                                  ) ??
+                                              transform.position.toPoint();
+                                          return AreaPreset(
+                                            name: e.toString(),
+                                            area: Area(
+                                              position: position,
+                                              height: size.height / zoom,
+                                              width: size.width / zoom,
+                                            ),
+                                            quality: zoom,
+                                          );
+                                        }).toList(),
                                   );
                                 },
                               ),

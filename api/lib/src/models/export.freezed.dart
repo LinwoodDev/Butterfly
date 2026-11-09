@@ -554,20 +554,20 @@ $AreaPresetCopyWith<AreaPreset> get copyWith => _$AreaPresetCopyWithImpl<AreaPre
 @override
 bool operator ==(Object other) {
   final _this = this as AreaPreset;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaPreset&&(identical(other.page, _this.page) || other.page == _this.page)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.quality, _this.quality) || other.quality == _this.quality)&&(identical(other.area, _this.area) || other.area == _this.area));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaPreset&&(identical(other.page, _this.page) || other.page == _this.page)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.quality, _this.quality) || other.quality == _this.quality)&&(identical(other.area, _this.area) || other.area == _this.area)&&(identical(other.options, _this.options) || other.options == _this.options));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AreaPreset;
-  return Object.hash(runtimeType,_this.page,_this.name,_this.quality,_this.area);
+  return Object.hash(runtimeType,_this.page,_this.name,_this.quality,_this.area,_this.options);
 }
 
 @override
 String toString() {
   final _this = this as AreaPreset;
-  return 'AreaPreset(page: ${_this.page}, name: ${_this.name}, quality: ${_this.quality}, area: ${_this.area})';
+  return 'AreaPreset(page: ${_this.page}, name: ${_this.name}, quality: ${_this.quality}, area: ${_this.area}, options: ${_this.options})';
 }
 
 
@@ -578,11 +578,11 @@ abstract mixin class $AreaPresetCopyWith<$Res>  {
   factory $AreaPresetCopyWith(AreaPreset value, $Res Function(AreaPreset) _then) = _$AreaPresetCopyWithImpl;
 @useResult
 $Res call({
- String page, String name, double quality, Area? area
+ String page, String name, double quality, Area? area, ExportOptions? options
 });
 
 
-$AreaCopyWith<$Res>? get area;
+$AreaCopyWith<$Res>? get area;$ExportOptionsCopyWith<$Res>? get options;
 
 }
 /// @nodoc
@@ -595,13 +595,14 @@ class _$AreaPresetCopyWithImpl<$Res>
 
 /// Create a copy of AreaPreset
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? name = null,Object? quality = null,Object? area = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? name = null,Object? quality = null,Object? area = freezed,Object? options = freezed,}) {
   return _then(AreaPreset(
 page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
 as double,area: freezed == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
-as Area?,
+as Area?,options: freezed == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as ExportOptions?,
   ));
 }
 /// Create a copy of AreaPreset
@@ -615,6 +616,18 @@ $AreaCopyWith<$Res>? get area {
 
   return $AreaCopyWith<$Res>(_self.area!, (value) {
     return _then(_self.copyWith(area: value));
+  });
+}/// Create a copy of AreaPreset
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ExportOptionsCopyWith<$Res>? get options {
+    if (_self.options == null) {
+    return null;
+  }
+
+  return $ExportOptionsCopyWith<$Res>(_self.options!, (value) {
+    return _then(_self.copyWith(options: value));
   });
 }
 }

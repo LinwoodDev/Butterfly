@@ -119,6 +119,11 @@ class PointerShortcutManager({
     return (consumed: true, releasedEvents: const []);
   }
 
+  List<PointerEvent> cancelPendingClickShortcut() {
+    _resetRepeatedTap();
+    return _takeBufferedRepeatedTapEvents();
+  }
+
   PointerShortcutEventResult pointerUp(
     PointerUpEvent event, {
     required InputConfiguration Function() getConfiguration,

@@ -57,34 +57,6 @@ Future<void> exportSvg(
   label: AppLocalizations.of(context).export,
 );
 
-Future<void> exportImage(
-  BuildContext context,
-  Uint8List bytes, [
-  bool share = false,
-]) => exportFile(
-  context: context,
-  bytes: bytes,
-  mimeType: 'image/png',
-  uniformTypeIdentifier: 'public.image',
-  share: share,
-  fileName: 'output.png',
-  label: AppLocalizations.of(context).export,
-);
-
-Future<void> exportPdf(
-  BuildContext context,
-  Uint8List bytes, [
-  bool share = false,
-]) => exportFile(
-  context: context,
-  bytes: bytes,
-  mimeType: 'application/pdf',
-  uniformTypeIdentifier: 'com.adobe.pdf',
-  share: share,
-  fileName: 'output.pdf',
-  label: AppLocalizations.of(context).export,
-);
-
 Future<void> exportXopp(
   BuildContext context,
   Uint8List bytes, {

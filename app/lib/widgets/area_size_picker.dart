@@ -1,6 +1,7 @@
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart' show precisionErrorTolerance;
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -58,7 +59,8 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
   void _updateSelectedPreset(double width, double height) {
     _selectedPreset = null;
     for (final preset in AreaSizePreset.values) {
-      if (preset.width == width && preset.height == height) {
+      if ((preset.width - width).abs() < precisionErrorTolerance &&
+          (preset.height - height).abs() < precisionErrorTolerance) {
         _selectedPreset = preset;
         break;
       }

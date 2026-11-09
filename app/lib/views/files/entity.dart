@@ -173,6 +173,14 @@ class _FileEntityItemState extends State<FileEntityItem> {
       setState(() => _editable = value);
     }
 
+    void onOpen({bool preview = false}) {
+      if (_editable) onEdit(false);
+      final callback = preview
+          ? widget.onPreview ?? widget.onTap
+          : widget.onTap;
+      callback();
+    }
+
     void onDelete() => deleteEntities(
       context: context,
       isMobile: widget.isMobile,
@@ -224,7 +232,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
         onDelete: onDelete,
         onReload: widget.onReload,
         documentSystem: documentSystem,
-        onOpen: widget.onPreview != null ? widget.onTap : null,
+        onOpen: widget.onPreview != null ? onOpen : null,
         onSelect: widget.selected == null
             ? () => widget.onSelected(true)
             : null,
@@ -233,7 +241,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 modifiedText: modifiedText,
                 createdText: createdText,
                 icon: icon,
-                onTap: widget.onPreview ?? widget.onTap,
+                onTap: () => onOpen(preview: true),
                 onDelete: onDelete,
                 onEdit: onEdit,
                 onRename: onRename,
@@ -251,7 +259,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 modifiedText: modifiedText,
                 createdText: createdText,
                 icon: icon,
-                onTap: widget.onPreview ?? widget.onTap,
+                onTap: () => onOpen(preview: true),
                 onDelete: onDelete,
                 onReload: widget.onReload,
                 onEdit: onEdit,

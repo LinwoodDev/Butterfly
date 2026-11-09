@@ -33,9 +33,8 @@ import 'package:path/path.dart' as p;
 
 import '../api/save.dart';
 import '../cubits/settings.dart';
-import '../dialogs/export/general.dart';
+import '../dialogs/export/batch.dart';
 import '../dialogs/import/pages.dart';
-import '../dialogs/export/pdf.dart';
 import '../helpers/element.dart';
 import '../helpers/rect.dart';
 import 'onenote.dart';
@@ -1327,46 +1326,35 @@ class ImportService(
         exportData(context, await state.saveData());
         break;
       case .image:
-        return showDialog<void>(
-          context: context,
-          builder: (context) => BlocProvider.value(
-            value: bloc,
-            child: GeneralExportDialog(
-              options: ImageExportOptions(
-                height: viewport.height?.toDouble() ?? 1000.0,
-                width: viewport.width?.toDouble() ?? 1000.0,
-                scale: viewport.scale,
-                x: viewport.x,
-                y: viewport.y,
-              ),
-            ),
+        return showExportDialog(
+          context,
+          bloc: bloc,
+          options: ImageExportOptions(
+            height: viewport.height?.toDouble() ?? 1000.0,
+            width: viewport.width?.toDouble() ?? 1000.0,
+            scale: viewport.scale,
+            x: viewport.x,
+            y: viewport.y,
           ),
         );
       case .pdf:
-        return showDialog<void>(
-          context: context,
-          builder: (context) => BlocProvider.value(
-            value: bloc,
-            child: PdfExportDialog(
-              areas: state.page.areas
-                  .map((e) => AreaPreset(name: e.name, area: e))
-                  .toList(),
-            ),
-          ),
+        return showExportDialog(
+          context,
+          bloc: bloc,
+          format: .pdf,
+          areas: state.page.areas
+              .map((e) => AreaPreset(name: e.name, area: e))
+              .toList(),
         );
       case .svg:
-        return showDialog<void>(
-          context: context,
-          builder: (context) => BlocProvider.value(
-            value: bloc,
-            child: GeneralExportDialog(
-              options: SvgExportOptions(
-                width: (viewport.width ?? 1000) / viewport.scale,
-                height: (viewport.height ?? 1000) / viewport.scale,
-                x: viewport.x,
-                y: viewport.y,
-              ),
-            ),
+        return showExportDialog(
+          context,
+          bloc: bloc,
+          options: SvgExportOptions(
+            width: (viewport.width ?? 1000) / viewport.scale,
+            height: (viewport.height ?? 1000) / viewport.scale,
+            x: viewport.x,
+            y: viewport.y,
           ),
         );
       default:

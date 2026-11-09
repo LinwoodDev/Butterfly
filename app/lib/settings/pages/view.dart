@@ -11,6 +11,7 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
       rotationDisplay: defaults.rotationDisplay,
       zoomPanelControls: defaults.zoomPanelControls,
       zoomPosition: defaults.zoomPosition,
+      useCalibratedZoom: defaults.useCalibratedZoom,
       propertyPosition: defaults.propertyPosition,
       toolbarPosition: defaults.toolbarPosition,
       toolbarSize: defaults.toolbarSize,
@@ -27,6 +28,13 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   sections: {
     'interface': SettingsLeapSection(
       settings: [
+        SettingsLeapCustomSetting(
+          id: 'displayCalibration',
+          enabled: (context, state) => state.hasFlag('calibratedZoom'),
+          displayName: (context) =>
+              AppLocalizations.of(context).calibrateDisplay,
+          builder: (context, state) => const DisplayCalibrationSetting(),
+        ),
         SettingsLeapEnumSetting(
           id: 'zoomControl',
           displayName: (context) => AppLocalizations.of(context).zoomControl,

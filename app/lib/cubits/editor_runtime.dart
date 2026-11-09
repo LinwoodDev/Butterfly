@@ -3,13 +3,12 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/async.dart';
-import 'package:butterfly/helpers/pdf.dart';
+import 'package:butterfly/helpers/actual_size.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/selections/selection.dart';
@@ -38,7 +37,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image/image.dart' as img;
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/helpers.dart';
-import 'package:pdfrx/pdfrx.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:xml/xml.dart';
 
