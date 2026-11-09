@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.3-rc.1 (2026-11-09)
+
+* Add unified batch export for images, SVG, and PDF ([#1267](https://github.com/LinwoodDev/Butterfly/issues/1267))
+* Add proportional resizing with stroke-width scaling to the select tool ([#1342](https://github.com/LinwoodDev/Butterfly/pull/1342))
+* Add experimental display calibration and calibrated zoom for camera controls ([#1310](https://github.com/LinwoodDev/Butterfly/issues/1310))
+* Fix Select tool gestures with touch shortcuts and clear stale selection previews ([#1346](https://github.com/LinwoodDev/Butterfly/pull/1346))
+* Fix selection grid snapping and constrain movement in proportional mode ([#1340](https://github.com/LinwoodDev/Butterfly/issues/1340))
+* Fix scrolling limits making drawings unreachable when the canvas is rotated ([#1347](https://github.com/LinwoodDev/Butterfly/issues/1347))
+* Expand shape settings by default to make fill options visible ([#1343](https://github.com/LinwoodDev/Butterfly/issues/1343))
+* Use 96 canvas units per inch for PDF imports and paper presets while preserving PDF page sizes on export
+* Fix unfinished file renames remaining active after opening a note ([#1350](https://github.com/LinwoodDev/Butterfly/issues/1350))
+
+Read more here: https://linwood.dev/butterfly/2.6.3-rc.1
+
 ## 2.6.3-rc.0 (2026-11-04)
 
 * Add drag and drop imports from files and browser images ([#1314](https://github.com/LinwoodDev/Butterfly/issues/1314))
