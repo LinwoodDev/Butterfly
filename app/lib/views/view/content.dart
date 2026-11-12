@@ -47,6 +47,7 @@ class _LoadedViewport extends StatelessWidget {
     required this.bloc,
     required this.state,
     required this.viewportSize,
+    required this.touchBottom,
     required this.input,
     required this.canvasKey,
     required this.bake,
@@ -56,6 +57,7 @@ class _LoadedViewport extends StatelessWidget {
   final DocumentBloc bloc;
   final DocumentLoaded state;
   final Size viewportSize;
+  final double touchBottom;
   final _ViewportInputCoordinator input;
   final GlobalKey<_ViewportCanvasState> canvasKey;
   final VoidCallback bake;
@@ -79,19 +81,6 @@ class _LoadedViewport extends StatelessWidget {
       delayBake: delayBake,
     );
 
-    final androidFullScreen =
-        !kIsWeb &&
-        defaultTargetPlatform == .android &&
-        context.select<WindowCubit?, bool>(
-          (window) => window?.state.fullScreen ?? false,
-        );
-    final bottomGestureInset = androidFullScreen
-        ? MediaQuery.systemGestureInsetsOf(context).bottom
-        : 0.0;
-    // Android can deliver the navigation-bar swipe to the app as well.
-    final touchBottom = bottomGestureInset > 0
-        ? MediaQuery.sizeOf(context).height - bottomGestureInset
-        : double.infinity;
     bool handlePointer(PointerEvent event) =>
         input.handlePointer(event, pointerInput, touchBottom: touchBottom);
 

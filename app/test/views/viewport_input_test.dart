@@ -15,7 +15,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -135,7 +134,7 @@ void main() {
     bool limitViewportPositive = false,
     InputMapping touch = const InputMapping(InputMapping.handToolValue),
     InputMapping invertedPen = InputMappingDefault.invertedPen,
-    bool fullScreen = false,
+    bool reserveBottomSystemGestures = false,
   }) async {
     when(() => settings.state).thenReturn(
       ButterflySettings(
@@ -151,8 +150,6 @@ void main() {
         ),
       ),
     );
-    final window = WindowCubit(fullScreen: fullScreen);
-    addTearDown(window.close);
     await tester.pumpWidget(
       MultiRepositoryProvider(
         providers: [
@@ -161,7 +158,6 @@ void main() {
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider<WindowCubit>.value(value: window),
             BlocProvider<SettingsCubit>.value(value: settings),
             BlocProvider<DocumentBloc>.value(value: bloc),
             BlocProvider<TransformCubit>.value(value: transform),
@@ -170,7 +166,11 @@ void main() {
             BlocProvider<EditorViewCubit>.value(value: view),
             BlocProvider<RendererCubit>.value(value: renderer),
           ],
-          child: MaterialApp(home: const MainViewViewport()),
+          child: MaterialApp(
+            home: MainViewViewport(
+              reserveBottomSystemGestures: reserveBottomSystemGestures,
+            ),
+          ),
         ),
       ),
     );
@@ -274,39 +274,37 @@ void main() {
     );
   }
 
-  testWidgets(
-    'Android fullscreen reserves the bottom system gesture region for touch',
-    (tester) async {
-      tester.view.systemGestureInsets = FakeViewPadding(
-        bottom: 24 * tester.view.devicePixelRatio,
-      );
-      addTearDown(tester.view.resetSystemGestureInsets);
-      usePen();
-      await pumpViewport(
-        tester,
-        fullScreen: true,
-        touch: InputMappingDefault.touch,
-      );
+  testWidgets('the bottom system gesture region can be reserved for touch', (
+    tester,
+  ) async {
+    tester.view.systemGestureInsets = FakeViewPadding(
+      bottom: 24 * tester.view.devicePixelRatio,
+    );
+    addTearDown(tester.view.resetSystemGestureInsets);
+    usePen();
+    await pumpViewport(
+      tester,
+      reserveBottomSystemGestures: true,
+      touch: InputMappingDefault.touch,
+    );
 
-      const edge = Offset(250, 595);
-      const swipe = Offset(0, -145);
-      await tester.dragFrom(edge, swipe);
-      await tester.pump();
-      verifyNever(() => bloc.add(any()));
+    const edge = Offset(250, 595);
+    const swipe = Offset(0, -145);
+    await tester.dragFrom(edge, swipe);
+    await tester.pump();
+    verifyNever(() => bloc.add(any()));
 
-      const intoEdge = Offset(0, 30);
-      await tester.dragFrom(edge - intoEdge, intoEdge);
-      await tester.pump();
-      verify(() => bloc.add(any())).called(1);
+    const intoEdge = Offset(0, 30);
+    await tester.dragFrom(edge - intoEdge, intoEdge);
+    await tester.pump();
+    verify(() => bloc.add(any())).called(1);
 
-      await tester.dragFrom(edge, swipe, kind: .stylus);
-      await tester.pump();
-      verify(() => bloc.add(any())).called(1);
-      expect(input.state.pointers, isEmpty);
-      await tester.pumpWidget(const SizedBox.shrink());
-    },
-    variant: TargetPlatformVariant({TargetPlatform.android}),
-  );
+    await tester.dragFrom(edge, swipe, kind: .stylus);
+    await tester.pump();
+    verify(() => bloc.add(any())).called(1);
+    expect(input.state.pointers, isEmpty);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
 
   for (final positive in [false, true]) {
     testWidgets('touch panning reaches rotated content (positive: $positive)', (
