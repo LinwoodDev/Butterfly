@@ -7,6 +7,7 @@ class _ViewportInputCoordinator {
 
   final void Function(TransformCubit transformCubit) _settleSlide;
   final BuildContext _context;
+  final Map<int, PointerDeviceKind> _activePointers = {};
   final Map<int, PointerDeviceKind> _pointerKinds = {};
   final PointerShortcutManager _shortcutManager = .new();
   int? _heldShortcutKeyId;
@@ -40,6 +41,7 @@ class _ViewportInputCoordinator {
     _inputGeneration++;
     _inputLock = .new();
     _shortcutManager.reset();
+    _activePointers.clear();
     _pointerKinds.clear();
     _rotationDrag = null;
     _cameraRotationGesture = false;
@@ -114,10 +116,41 @@ class _ViewportInputCoordinator {
     callback();
   });
 
-  Future<void> handlePointerDown(
-    PointerDownEvent event,
-    _PointerInputContext input,
-  ) => _withInputLock(() => _handlePointerDown(event, input));
+  bool handlePointer(
+    PointerEvent event,
+    _PointerInputContext input, {
+    required double touchBottom,
+  }) {
+    final pointer = event.pointer;
+    if (event is PointerDownEvent) {
+      if (event.kind == .touch &&
+          (event.position.dy >= touchBottom ||
+              _activePointers.values.any(
+                (kind) => kind == .stylus || kind == .invertedStylus,
+              ))) {
+        return false;
+      }
+      _activePointers[pointer] = event.kind;
+    } else if (!_activePointers.containsKey(pointer)) {
+      // Ignore the rest of a sequence if its down was filtered out.
+      return false;
+    } else if (event is PointerUpEvent || event is PointerCancelEvent) {
+      _activePointers.remove(pointer);
+    }
+
+    unawaited(
+      _withInputLock(
+        () => switch (event) {
+          PointerDownEvent() => _handlePointerDown(event, input),
+          PointerMoveEvent() => _handlePointerMove(event, input),
+          PointerUpEvent() => _handlePointerUp(event, input),
+          PointerCancelEvent() => _handlePointerCancel(event, input.cubit),
+          _ => null,
+        },
+      ),
+    );
+    return true;
+  }
 
   Future<void> _handlePointerDown(
     PointerDownEvent event,
@@ -194,11 +227,6 @@ class _ViewportInputCoordinator {
     }
   }
 
-  Future<void> handlePointerMove(
-    PointerMoveEvent event,
-    _PointerInputContext input,
-  ) => _withInputLock(() => _handlePointerMove(event, input));
-
   Future<void> _handlePointerMove(
     PointerMoveEvent event,
     _PointerInputContext input, {
@@ -260,11 +288,6 @@ class _ViewportInputCoordinator {
       await input.getHandler().onPointerMove(event, input.getEventContext());
     }
   }
-
-  Future<void> handlePointerUp(
-    PointerUpEvent event,
-    _PointerInputContext input,
-  ) => _withInputLock(() => _handlePointerUp(event, input));
 
   Future<void> _handlePointerUp(
     PointerUpEvent event,
@@ -348,10 +371,7 @@ class _ViewportInputCoordinator {
     }
   }
 
-  Future<void> handlePointerCancel(
-    PointerCancelEvent event,
-    EditorController cubit,
-  ) => _withInputLock(() {
+  void _handlePointerCancel(PointerCancelEvent event, EditorController cubit) {
     if (_cameraRotationGesture) {
       if (_rotationDrag?.pointer == event.pointer) _rotationDrag = null;
       cubit.inputCubit.removePointer(event.pointer);
@@ -373,7 +393,7 @@ class _ViewportInputCoordinator {
         cubit.rendererCubit,
       );
     }
-  });
+  }
 
   void _resetRulerInteraction() {
     _ruler?.endTransform();

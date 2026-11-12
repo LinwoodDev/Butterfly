@@ -79,49 +79,108 @@ class _LoadedViewport extends StatelessWidget {
       delayBake: delayBake,
     );
 
-    return GestureDetector(
-      onTapUp: (details) => input.handleGesture(() {
-        getHandler().onTapUp(details, getEventContext());
-        cubit.inputCubit.removeButtons();
-      }),
-      onTapDown: (details) => input.handleGesture(() {
-        getHandler().onTapDown(details, getEventContext());
-      }),
-      onSecondaryTapUp: (details) => input.handleGesture(() {
-        getHandler().onSecondaryTapUp(details, getEventContext());
-      }),
-      onScaleStart: (details) => input.handleScaleStart(details, pointerInput),
-      onScaleUpdate: (details) =>
-          input.handleScaleUpdate(details, pointerInput),
-      onScaleEnd: (details) => input.handleScaleEnd(details, pointerInput),
-      onLongPressDown: (details) => input.handleGesture(() {
-        getHandler().onLongPressDown(details, getEventContext());
-      }),
-      onLongPressStart: (details) => input.handleGesture(() {
-        getHandler().onLongPressStart(details, getEventContext());
-      }),
-      onLongPressEnd: (details) => input.handleGesture(() {
-        getHandler().onLongPressEnd(details, getEventContext());
-      }),
-      child: Listener(
-        behavior: .translucent,
-        onPointerSignal: (event) =>
-            input.handlePointerSignal(event, pointerInput),
-        onPointerPanZoomStart: (_) => input.beginTrackpadGesture(),
-        onPointerDown: (event) => input.handlePointerDown(event, pointerInput),
-        onPointerMove: (event) => input.handlePointerMove(event, pointerInput),
-        onPointerUp: (event) => input.handlePointerUp(event, pointerInput),
-        onPointerCancel: (event) => input.handlePointerCancel(event, cubit),
-        onPointerHover: (event) {
-          cubit.inputCubit.updateLastPosition(event.localPosition);
-          getHandler().onPointerHover(event, getEventContext());
-        },
-        child: _ViewportCanvas(
-          key: canvasKey,
-          rendererState: rendererState,
-          documentState: state,
-          delayBake: delayBake,
-        ),
+    final androidFullScreen =
+        !kIsWeb &&
+        defaultTargetPlatform == .android &&
+        context.select<WindowCubit?, bool>(
+          (window) => window?.state.fullScreen ?? false,
+        );
+    final bottomGestureInset = androidFullScreen
+        ? MediaQuery.systemGestureInsetsOf(context).bottom
+        : 0.0;
+    // Android can deliver the navigation-bar swipe to the app as well.
+    final touchBottom = bottomGestureInset > 0
+        ? MediaQuery.sizeOf(context).height - bottomGestureInset
+        : double.infinity;
+    bool handlePointer(PointerEvent event) =>
+        input.handlePointer(event, pointerInput, touchBottom: touchBottom);
+
+    final gestureSettings = MediaQuery.maybeGestureSettingsOf(context);
+    final recognizers = <GestureRecognizer>[];
+    GestureRecognizerFactory bind<T extends GestureRecognizer>(
+      T Function() create,
+      void Function(T) configure,
+    ) => GestureRecognizerFactoryWithHandlers<T>(create, (recognizer) {
+      recognizers.add(recognizer..gestureSettings = gestureSettings);
+      configure(recognizer);
+    });
+
+    // Manage the stock recognizers and their semantics without hit testing
+    // them directly. The listener admits pointers before they enter the arena.
+    final gestures = RawGestureDetector(
+      behavior: .deferToChild,
+      gestures: {
+        TapGestureRecognizer: bind(TapGestureRecognizer.new, (recognizer) {
+          recognizer.onTapDown = (details) => input.handleGesture(() {
+            getHandler().onTapDown(details, getEventContext());
+          });
+          recognizer.onTapUp = (details) => input.handleGesture(() {
+            getHandler().onTapUp(details, getEventContext());
+            cubit.inputCubit.removeButtons();
+          });
+          recognizer.onSecondaryTapUp = (details) => input.handleGesture(() {
+            getHandler().onSecondaryTapUp(details, getEventContext());
+          });
+        }),
+        LongPressGestureRecognizer: bind(LongPressGestureRecognizer.new, (
+          recognizer,
+        ) {
+          recognizer.onLongPressDown = (details) => input.handleGesture(() {
+            getHandler().onLongPressDown(details, getEventContext());
+          });
+          recognizer.onLongPressStart = (details) => input.handleGesture(() {
+            getHandler().onLongPressStart(details, getEventContext());
+          });
+          recognizer.onLongPressEnd = (details) => input.handleGesture(() {
+            getHandler().onLongPressEnd(details, getEventContext());
+          });
+        }),
+        ScaleGestureRecognizer: bind(ScaleGestureRecognizer.new, (recognizer) {
+          recognizer.dragStartBehavior = .start;
+          recognizer.onStart = (details) =>
+              input.handleScaleStart(details, pointerInput);
+          recognizer.onUpdate = (details) =>
+              input.handleScaleUpdate(details, pointerInput);
+          recognizer.onEnd = (details) =>
+              input.handleScaleEnd(details, pointerInput);
+        }),
+      },
+    );
+
+    return Listener(
+      behavior: .translucent,
+      onPointerSignal: (event) =>
+          input.handlePointerSignal(event, pointerInput),
+      onPointerPanZoomStart: (event) {
+        input.beginTrackpadGesture();
+        for (final recognizer in recognizers) {
+          recognizer.addPointerPanZoom(event);
+        }
+      },
+      onPointerDown: (event) {
+        if (!handlePointer(event)) return;
+        for (final recognizer in recognizers) {
+          recognizer.addPointer(event);
+        }
+      },
+      onPointerMove: handlePointer,
+      onPointerUp: handlePointer,
+      onPointerCancel: handlePointer,
+      onPointerHover: (event) {
+        cubit.inputCubit.updateLastPosition(event.localPosition);
+        getHandler().onPointerHover(event, getEventContext());
+      },
+      child: Stack(
+        fit: .expand,
+        children: [
+          _ViewportCanvas(
+            key: canvasKey,
+            rendererState: rendererState,
+            documentState: state,
+            delayBake: delayBake,
+          ),
+          gestures,
+        ],
       ),
     );
   }
