@@ -128,7 +128,7 @@ class RendererCubit(
   );
   EditorController? _controller;
   StreamSubscription<CameraTransform>? _transformSubscription;
-  Timer? _transformDebounceTimer;
+  Timer? _transformVisibilityTimer;
   _RendererSpatialIndex? _spatialIndex;
   List<Renderer<PadElement>>? _indexedRenderers;
   Set<Renderer<PadElement>>? _indexedUnbaked;
@@ -141,8 +141,9 @@ class RendererCubit(
     _controller = controller;
     _transformSubscription?.cancel();
     _transformSubscription = controller.transformCubit.stream.listen((_) {
-      _transformDebounceTimer?.cancel();
-      _transformDebounceTimer = Timer(const Duration(milliseconds: 16), () {
+      // Update visibility even while the camera is moving continuously.
+      _transformVisibilityTimer ??= Timer(const Duration(milliseconds: 16), () {
+        _transformVisibilityTimer = null;
         if (!controller.isClosed) {
           updateVisibleElements(controller, controller.activeDocumentBloc);
         }
@@ -368,6 +369,30 @@ class RendererCubit(
     final visible = visibleRenderers(rect);
     final visibleUnbaked = visible.where(_indexedUnbaked!.contains).toList();
 
+    final viewport = state.cameraViewport;
+    final docState = bloc?.state;
+    if (viewport.baked && bloc != null && docState is DocumentLoaded) {
+      final size = viewport.viewportSize ?? viewport.toRealSize();
+      final screen = controller.transformCubit.state.localToGlobalRect(
+        Offset.zero & size,
+      );
+      final cache = viewport.toRect();
+      if (!rectContains(cache, screen) &&
+          visible.any((renderer) {
+            if (_indexedUnbaked!.contains(renderer) ||
+                viewport.invisibleLayers.contains(renderer.layer) ||
+                viewport.rendererStates[renderer.id] == .hidden) {
+              return false;
+            }
+            final exposed = (renderer.expandedRect ?? screen).intersect(screen);
+            return !exposed.isEmpty && !rectContains(cache, exposed);
+          })) {
+        await unbake(controller, docState, unbakedElements: _indexedRenderers);
+        if (!controller.isClosed && !bloc.isClosed) bloc.delayedBake();
+        return;
+      }
+    }
+
     if (sameRendererList(visible, currentVisible) &&
         sameRendererList(visibleUnbaked, currentVisibleUnbaked)) {
       return;
@@ -381,7 +406,6 @@ class RendererCubit(
 
     setViewport(newViewport);
 
-    final docState = bloc?.state;
     if (docState is DocumentLoaded) {
       await updateOnVisible(controller, newViewport, docState);
       if (!controller.isClosed && bloc != null && !bloc.isClosed) {
@@ -644,6 +668,11 @@ class RendererCubit(
 
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
+    // Unbaking can dispose the source of an incremental bake.
+    if (!reset &&
+        !identical(rendererCubit.state.cameraViewport.image, cachedImage)) {
+      return;
+    }
 
     talker.verbose(
       'Baking viewport (reset: $reset, viewChanged: $viewChanged, '
@@ -1131,14 +1160,11 @@ class RendererCubit(
     final transformCubit = controller.transformCubit;
     rendererCubit._invalidateSpatialIndex();
     final elementsToCheck = unbakedElements ?? rendererCubit.renderers;
+    final rect = rendererCubit.getViewportRect(transformCubit);
     final oldViewport = rendererCubit.state.cameraViewport;
     final newViewport = oldViewport.unbake(
       unbakedElements: unbakedElements,
-      visibleElements: elementsToCheck
-          .where(
-            (e) => e.isVisible(rendererCubit.getViewportRect(transformCubit)),
-          )
-          .toList(),
+      visibleElements: elementsToCheck.where((e) => e.isVisible(rect)).toList(),
       backgrounds: backgrounds,
     );
     rendererCubit.setViewport(newViewport);
@@ -1286,8 +1312,8 @@ class RendererCubit(
   Future<void> disposeRuntime() async {
     await _transformSubscription?.cancel();
     _transformSubscription = null;
-    _transformDebounceTimer?.cancel();
-    _transformDebounceTimer = null;
+    _transformVisibilityTimer?.cancel();
+    _transformVisibilityTimer = null;
     _controller = null;
     delayedBakeRunner.cancel();
     await delayedBakeRunner.disposeAndWait();
@@ -1303,8 +1329,8 @@ class RendererCubit(
   Future<void> close() async {
     await _transformSubscription?.cancel();
     _transformSubscription = null;
-    _transformDebounceTimer?.cancel();
-    _transformDebounceTimer = null;
+    _transformVisibilityTimer?.cancel();
+    _transformVisibilityTimer = null;
     _controller = null;
     _repaint.dispose();
     return super.close();
