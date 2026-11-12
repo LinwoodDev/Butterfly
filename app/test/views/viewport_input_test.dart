@@ -15,6 +15,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -55,6 +56,11 @@ void main() {
   late DocumentSaveCubit save;
   late TransformCubit transform;
   late ChangeNotifier repaint;
+
+  setUpAll(() {
+    registerFallbackValue(Offset.zero);
+    registerFallbackValue(ElementsCreated([]));
+  });
 
   setUp(() {
     settings = _Settings();
@@ -123,24 +129,30 @@ void main() {
   Future<void> pumpViewport(
     WidgetTester tester, {
     bool gestures = true,
+    bool penOnlyInput = false,
     bool repeatedTap = false,
     double? limitViewportMultiplier,
     bool limitViewportPositive = false,
     InputMapping touch = const InputMapping(InputMapping.handToolValue),
+    InputMapping invertedPen = InputMappingDefault.invertedPen,
+    bool fullScreen = false,
   }) async {
     when(() => settings.state).thenReturn(
       ButterflySettings(
         inputGestures: gestures,
-        penOnlyInput: false,
+        penOnlyInput: penOnlyInput,
         limitViewportMultiplier: limitViewportMultiplier,
         limitViewportPositive: limitViewportPositive,
         flags: ['smoothNavigation'],
         inputConfiguration: InputConfiguration(
           touch: touch,
+          invertedPen: invertedPen,
           doubleTouchShortcut: repeatedTap ? 'undo' : null,
         ),
       ),
     );
+    final window = WindowCubit(fullScreen: fullScreen);
+    addTearDown(window.close);
     await tester.pumpWidget(
       MultiRepositoryProvider(
         providers: [
@@ -149,6 +161,7 @@ void main() {
         ],
         child: MultiBlocProvider(
           providers: [
+            BlocProvider<WindowCubit>.value(value: window),
             BlocProvider<SettingsCubit>.value(value: settings),
             BlocProvider<DocumentBloc>.value(value: bloc),
             BlocProvider<TransformCubit>.value(value: transform),
@@ -162,6 +175,138 @@ void main() {
       ),
     );
   }
+
+  void usePen() {
+    tools.replace(ToolRuntimeState(handler: PenHandler(PenTool())));
+    when(() => bloc.isInBounds(any())).thenReturn(true);
+    when(() => bloc.delayedRefreshForegrounds()).thenAnswer((_) async {});
+    when(() => loaded.currentCollection).thenReturn('');
+    when(() => loaded.pageName).thenReturn('page');
+    when(() => loaded.currentLayer).thenReturn('');
+  }
+
+  for (final (touch, gestures, kind) in [
+    (
+      const InputMapping(InputMapping.handToolValue),
+      true,
+      PointerDeviceKind.stylus,
+    ),
+    (InputMappingDefault.touch, true, PointerDeviceKind.stylus),
+    (InputMappingDefault.touch, false, PointerDeviceKind.stylus),
+    (InputMappingDefault.touch, true, PointerDeviceKind.invertedStylus),
+  ]) {
+    testWidgets(
+      'touch during $kind preserves the stroke (mapping: $touch, gestures: $gestures)',
+      (tester) async {
+        usePen();
+        final handMapping = touch.getCategory() == .handTool;
+        await pumpViewport(
+          tester,
+          gestures: gestures,
+          penOnlyInput: !handMapping,
+          touch: touch,
+          invertedPen: InputMappingDefault.pen,
+        );
+
+        final stylus = await tester.startGesture(
+          const Offset(200, 200),
+          kind: kind,
+        );
+        await stylus.moveTo(const Offset(250, 210));
+        final finger = await tester.startGesture(const Offset(470, 210));
+        const contactDuration = Duration(milliseconds: 3);
+        await tester.pump(contactDuration);
+        await finger.up(timeStamp: contactDuration);
+        await stylus.moveTo(const Offset(300, 260));
+        await stylus.moveTo(const Offset(350, 240));
+        await stylus.up();
+        await tester.pump();
+
+        final events = verify(() => bloc.add(captureAny())).captured;
+        final stroke =
+            (events.whereType<ElementsCreated>().single.elements.single
+                as PenElement);
+        expect(stroke.points.map((point) => (point.x, point.y)), [
+          (200, 200),
+          (250, 210),
+          (300, 260),
+          (350, 240),
+        ]);
+        expect(transform.state.position, Offset.zero);
+        expect(input.state.pointers, isEmpty);
+        await tester.pumpWidget(const SizedBox.shrink());
+      },
+    );
+  }
+
+  for (final cancel in [false, true]) {
+    testWidgets(
+      'only a new touch can pan after stylus release (cancel: $cancel)',
+      (tester) async {
+        final handler = _TapHandler();
+        tools.replace(ToolRuntimeState(handler: handler));
+        await pumpViewport(tester);
+        final stylus = TestPointer(1, .stylus);
+        final finger = TestPointer(2);
+        final send = tester.binding.handlePointerEvent;
+        send(stylus.down(const Offset(200, 200)));
+        send(finger.down(const Offset(450, 200)));
+        await tester.pump();
+        expect(input.state.pointers, [1]);
+
+        send(cancel ? const PointerCancelEvent(pointer: 1) : stylus.up());
+        send(finger.move(const Offset(530, 200)));
+        send(finger.up());
+        await tester.pump();
+        expect(input.state.pointers, isEmpty);
+        expect(transform.state.position, Offset.zero);
+        expect(handler.taps, cancel ? isEmpty : ['down', 'up']);
+
+        await tester.timedDragFrom(
+          const Offset(200, 200),
+          const Offset(80, 0),
+          const Duration(milliseconds: 100),
+        );
+        await tester.pump();
+        expect(transform.state.position.dx, lessThan(0));
+        await tester.pumpWidget(const SizedBox.shrink());
+      },
+    );
+  }
+
+  testWidgets(
+    'Android fullscreen reserves the bottom system gesture region for touch',
+    (tester) async {
+      tester.view.systemGestureInsets = FakeViewPadding(
+        bottom: 24 * tester.view.devicePixelRatio,
+      );
+      addTearDown(tester.view.resetSystemGestureInsets);
+      usePen();
+      await pumpViewport(
+        tester,
+        fullScreen: true,
+        touch: InputMappingDefault.touch,
+      );
+
+      const edge = Offset(250, 595);
+      const swipe = Offset(0, -145);
+      await tester.dragFrom(edge, swipe);
+      await tester.pump();
+      verifyNever(() => bloc.add(any()));
+
+      const intoEdge = Offset(0, 30);
+      await tester.dragFrom(edge - intoEdge, intoEdge);
+      await tester.pump();
+      verify(() => bloc.add(any())).called(1);
+
+      await tester.dragFrom(edge, swipe, kind: .stylus);
+      await tester.pump();
+      verify(() => bloc.add(any())).called(1);
+      expect(input.state.pointers, isEmpty);
+      await tester.pumpWidget(const SizedBox.shrink());
+    },
+    variant: TargetPlatformVariant({TargetPlatform.android}),
+  );
 
   for (final positive in [false, true]) {
     testWidgets('touch panning reaches rotated content (positive: $positive)', (

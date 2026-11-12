@@ -17,6 +17,7 @@ import 'package:flutter/gestures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart' show WindowCubit;
 import 'package:synchronized/synchronized.dart';
 
 import '../view_painter.dart';
