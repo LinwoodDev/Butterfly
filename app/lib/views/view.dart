@@ -17,7 +17,6 @@ import 'package:flutter/gestures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_leap/material_leap.dart' show WindowCubit;
 import 'package:synchronized/synchronized.dart';
 
 import '../view_painter.dart';
@@ -27,7 +26,9 @@ part 'view/content.dart';
 part 'view/input.dart';
 
 class MainViewViewport extends StatefulWidget {
-  const MainViewViewport({super.key});
+  const MainViewViewport({super.key, this.reserveBottomSystemGestures = false});
+
+  final bool reserveBottomSystemGestures;
 
   @override
   MainViewViewportState createState() => MainViewViewportState();
@@ -128,6 +129,12 @@ class MainViewViewportState extends State<MainViewViewport>
 
   @override
   Widget build(BuildContext context) {
+    final bottomInset = widget.reserveBottomSystemGestures
+        ? MediaQuery.systemGestureInsetsOf(context).bottom
+        : 0.0;
+    final touchBottom = bottomInset > 0
+        ? MediaQuery.sizeOf(context).height - bottomInset
+        : double.infinity;
     return SizedBox.expand(
       child: RepaintBoundary(
         child: LayoutBuilder(
@@ -144,6 +151,7 @@ class MainViewViewportState extends State<MainViewViewport>
                   bloc: bloc,
                   state: state,
                   viewportSize: viewportSize,
+                  touchBottom: touchBottom,
                   input: _input,
                   canvasKey: _canvasKey,
                   bake: () => _scheduleInitialBake(viewportSize),
