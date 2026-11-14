@@ -27,10 +27,12 @@
   },
   "packageManager": "pnpm@12.18.0",
   "devDependencies": {
-    "@vite-pwa/astro": "github:CodeDoctorDE/vite-pwa-astro#a54ef9843b39b34820300a0bd5d08879563f6f04",
+    "@unplugin-pwa/core": "^0.0.5",
+    "@unplugin-pwa/vite": "^0.0.5",
+    "@vite-pwa/astro": "^2.0.2",
+    "@vite-pwa/workbox-window": "^8.0.15",
+    "magicast": "^0.5.2",
     "sass": "^1.108.1",
-    "sharp": "^0.35.5",
-    "vite-plugin-pwa": "^2.0.0",
-    "workbox-window": "^7.4.1"
+    "sharp": "^0.35.5"
   }
 }

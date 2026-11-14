@@ -3,7 +3,7 @@ import starlight from "@astrojs/starlight";
 import linwoodStarlight from "@linwooddev/starlight-style";
 import react from "@astrojs/react";
 import { createI18n } from "@linwooddev/starlight-style/translations";
-import AstroPWA from "@vite-pwa/astro";
+import { AstroPWAIntegration } from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 
 const { config: i18n, getSidebarTranslatedLabel } = createI18n(
@@ -151,8 +151,10 @@ export default defineConfig({
       ],
       ...i18n,
     }),
-    AstroPWA({
-      workbox: {
+    AstroPWAIntegration({
+      // The PNG glob below already includes all manifest icons.
+      includeManifestIcons: false,
+      generateSW: {
         skipWaiting: true,
         clientsClaim: true,
         navigateFallback: "/404",
