@@ -2,6 +2,11 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.3 (2026-11-16)
+
+This is a stable release, it includes all the changes from the 2.6.3 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.6.3
+
 ## 2.6.3-rc.1 (2026-11-09)
 
 * Add unified batch export for images, SVG, and PDF ([#1267](https://github.com/LinwoodDev/Butterfly/issues/1267))
