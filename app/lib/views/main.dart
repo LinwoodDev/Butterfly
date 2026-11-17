@@ -1134,7 +1134,10 @@ class _MainBody extends StatelessWidget {
 
     return Stack(
       children: [
-        MainViewViewport(key: viewportKey),
+        MainViewViewport(
+          key: viewportKey,
+          reserveBottomSystemGestures: windowState.fullScreen,
+        ),
         _buildSelectionListener(context, toolState),
         SafeArea(
           child: Row(

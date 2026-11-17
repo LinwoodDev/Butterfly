@@ -622,6 +622,47 @@ void main() {
     },
   );
 
+  test('zooming out exposes the full stroke before rebaking', () async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(
+        autosave: false,
+        renderResolution: RenderResolution.performance,
+      ),
+    );
+    const size = Size(100, 100);
+    final state = bloc.state as DocumentLoadSuccess;
+    final cubit = editorController.rendererCubit;
+    final stroke = _SolidRectRenderer(
+      ShapeElement(
+        firstPosition: const Point(20, 40),
+        secondPosition: const Point(80, 60),
+      ),
+      const Color(0xff00b8cc),
+      state.currentLayer,
+    );
+    cubit.setViewport(CameraViewport.unbaked(unbakedElements: [stroke]));
+    final transform = editorController.transformCubit;
+    transform.teleport(const Offset(50, 0), 1);
+    await cubit.bake(editorController, state, viewportSize: size);
+    final cache = cubit.state.cameraViewport.image;
+    expect(cache, isNotNull);
+
+    transform.teleport(const Offset(52, 0), 1);
+    await cubit.updateVisibleElements(editorController, bloc);
+    expect(cubit.state.cameraViewport.image, same(cache));
+
+    transform.teleport(const Offset(25, 0), 0.8);
+    await cubit.updateVisibleElements(editorController, bloc);
+    cubit.cancelDelayedBake();
+    expect(cubit.state.cameraViewport.baked, isFalse);
+    final pixels = await _renderViewportPixels(state, editorController, size);
+    expect(pixels[(40 * 100 + 8) * 4], 0);
+    expect(pixels[(40 * 100 + 30) * 4], 0);
+
+    await cubit.bake(editorController, state, viewportSize: size);
+    expect(cubit.state.cameraViewport.image, isNotNull);
+  });
+
   test('slow visibility update cannot discard a new stroke', () async {
     final renderer = _DelayedVisibleRenderer(ShapeElement(id: 'pdf'));
     final cubit = editorController.rendererCubit;
