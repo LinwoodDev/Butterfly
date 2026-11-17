@@ -13,6 +13,15 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
 }
 
 _flutter.loader.load({
+  config: {
+    wasmAllowList: {
+      blink: true,
+      webkit: true,
+      // Firefox copies Skwasm frames back from the GPU for ImageBitmap
+      // presentation. CanvasKit renders directly to on-screen surfaces.
+      gecko: false,
+    },
+  },
   onEntrypointLoaded: async function(engineInitializer) {
     const appRunner = await engineInitializer.initializeEngine();
 

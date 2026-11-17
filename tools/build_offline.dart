@@ -133,16 +133,26 @@ class _ButterflyBuild extends FlutterBuild {
     if (!original.existsSync()) {
       File('${pdfium.path}/hook/build.dart').copySync(original.path);
     }
-    final source = original.readAsStringSync();
+    final source = File(
+      '${pdfium.path}/lib/src/pdfium_archive_integrity.dart',
+    ).readAsStringSync();
     final release = RegExp(
-      r"const _pdfiumRelease = '(chromium%2F[0-9]+)';",
+      r"const pdfiumRelease = '(chromium%2F[0-9]+)';",
     ).firstMatch(source)?.group(1);
     if (release == null ||
-        !source.contains("const _assetName = 'libpdfium';")) {
+        !original.readAsStringSync().contains(
+          "const _assetName = 'libpdfium';",
+        )) {
       throw StateError(
         'The pdfium_dart hook changed. Update the offline adapter.',
       );
     }
+    final pinnedHashes = {
+      for (final match in RegExp(
+        r"'([^']+\.tgz)'\s*:\s*'([a-f0-9]{64})'",
+      ).allMatches(source))
+        match.group(1)!: match.group(2)!,
+    };
     final local = options.option('pdfium-dir');
     final directory = Directory(
       local ?? '${cache.path}/pdfium/${release.replaceAll('%2F', '_')}',
@@ -152,6 +162,10 @@ class _ButterflyBuild extends FlutterBuild {
     for (final platform in platforms) {
       if (_targets[platform]!.archive.isEmpty) continue;
       final name = 'pdfium-${_targets[platform]!.archive}.tgz';
+      final expectedHash = pinnedHashes[name];
+      if (expectedHash == null) {
+        throw StateError('Missing pinned PDFium archive hash: $name.');
+      }
       final archive = File('${archives.path}/$name');
       if (!archive.existsSync()) {
         if (local != null) {
@@ -162,10 +176,16 @@ class _ButterflyBuild extends FlutterBuild {
           '$release/$name',
         );
         stdout.writeln('Downloading $uri');
-        await _download(uri, archive, platform);
+        await _download(uri, archive, platform, expectedHash);
       }
       _validateArchive(archive, platform);
-      hashes[name] = await digest(archive);
+      final hash = await digest(archive);
+      if (hash != expectedHash) {
+        throw StateError(
+          'SHA-256 mismatch for PDFium archive: ${archive.path}.',
+        );
+      }
+      hashes[name] = hash;
     }
     writeIfChanged(
       File('${pdfium.path}/hook/build.dart'),
@@ -365,7 +385,12 @@ void _validateArchive(File file, String platform) {
   }
 }
 
-Future<void> _download(Uri uri, File destination, String platform) async {
+Future<void> _download(
+  Uri uri,
+  File destination,
+  String platform,
+  String expectedHash,
+) async {
   final temporary = File('${destination.path}.part');
   final client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 120)
@@ -376,6 +401,9 @@ Future<void> _download(Uri uri, File destination, String platform) async {
       throw HttpException('HTTP ${response.statusCode}', uri: uri);
     }
     await response.pipe(temporary.openWrite());
+    if (await digest(temporary) != expectedHash) {
+      throw StateError('SHA-256 mismatch for PDFium archive: $uri.');
+    }
     _validateArchive(temporary, platform);
     temporary.renameSync(destination.path);
   } finally {

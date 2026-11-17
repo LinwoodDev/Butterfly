@@ -87,6 +87,7 @@ class _ContextMenuState extends State<ContextMenu>
 
   @override
   Widget build(BuildContext context) {
+    final reduceMotion = MediaQuery.reduceMotionOf(context);
     final isMobile = context.read<SettingsCubit>().state.platformTheme.isMobile(
       context,
     );
@@ -97,23 +98,28 @@ class _ContextMenuState extends State<ContextMenu>
       ),
       child: SlideTransition(
         position: Tween<Offset>(
-          begin: const Offset(0, -.5),
+          begin: reduceMotion ? Offset.zero : const Offset(0, -.5),
           end: .zero,
         ).animate(_animation),
         transformHitTests: false,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: max(widget.maxWidth, isMobile ? double.infinity : 60),
-            maxHeight: min(widget.maxHeight, isMobile ? 60 : double.infinity),
-          ),
-          child: Material(
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
-            child: ListView(
-              scrollDirection: isMobile ? Axis.horizontal : .vertical,
-              shrinkWrap: true,
-              children: entries
-                  .map((entry) => buildMenuItem(context, entry, isMobile, true))
-                  .toList(),
+        child: FadeTransition(
+          opacity: reduceMotion ? _animation : const AlwaysStoppedAnimation(1),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: max(widget.maxWidth, isMobile ? double.infinity : 60),
+              maxHeight: min(widget.maxHeight, isMobile ? 60 : double.infinity),
+            ),
+            child: Material(
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+              child: ListView(
+                scrollDirection: isMobile ? Axis.horizontal : .vertical,
+                shrinkWrap: true,
+                children: entries
+                    .map(
+                      (entry) => buildMenuItem(context, entry, isMobile, true),
+                    )
+                    .toList(),
+              ),
             ),
           ),
         ),

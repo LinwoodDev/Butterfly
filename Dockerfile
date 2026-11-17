@@ -28,7 +28,7 @@ RUN if [ "$BUILD_FLAVOR" = "nightly" ] || [ "$BUILD_FLAVOR" = "development" ] ||
 # Resolve helper and app Git dependencies in the same layer so Git's local
 # clones do not hardlink cached objects from a lower OverlayFS layer.
 RUN dart pub get -C ../tools --enforce-lockfile \
-    && flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor="$BUILD_FLAVOR" \
+    && flutter build web --wasm --no-deprecated-js-interop --release --no-web-resources-cdn --dart-define=flavor="$BUILD_FLAVOR" \
     && dart run ../tools/build_web_service_worker.dart
 
 # Nginx Container

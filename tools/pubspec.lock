@@ -61,8 +61,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/generate_leap"
-      ref: "4dab0155e5cb812c5ea26089a55d07a8a4cb4658"
-      resolved-ref: "4dab0155e5cb812c5ea26089a55d07a8a4cb4658"
+      ref: d7e3392018e20fbc19927af0e0cd015bc04a08b2
+      resolved-ref: d7e3392018e20fbc19927af0e0cd015bc04a08b2
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"

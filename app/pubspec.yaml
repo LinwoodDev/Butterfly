@@ -16,8 +16,8 @@ publish_to: none
 version: 2.6.4-rc.0+208
 
 environment:
-  sdk: ">=3.13.0 <4.0.0"
-  flutter: 3.47.9
+  sdk: ">=3.14.0 <4.0.0"
+  flutter: 3.50.0
 
 dependencies:
   async: ^2.13.1
@@ -80,7 +80,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 0624d6d50d49e16d831e1c1a68875dfa54b9afe0
+      ref: 3eeb76062c5291c315383ed90c4f8ec8cde32939
       path: packages/lw_sysapi
   networker:
     git:
@@ -143,7 +143,7 @@ dependencies:
   talker_bloc_logger: ^5.1.20
   html: ^0.15.7
   #flutter_native_splash: ^2.4.7
-  material_ui: ^1.6.0
+  material_ui: ^1.8.0
 dev_dependencies:
   integration_test:
     sdk: flutter
