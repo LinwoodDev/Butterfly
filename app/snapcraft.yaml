@@ -2,7 +2,7 @@ name: butterfly
 grade: stable
 adopt-info: butterfly
 icon: linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
-base: core24
+base: core26
 confinement: strict
 compression: lzo
 title: 'Linwood Butterfly' #For future, if changes needed, it can be easily done from here
@@ -54,9 +54,8 @@ parts:
     plugin: nil
     #plugin: flutter
     source: .
-    build-snaps:
-      - cmake
     build-packages:
+      - cmake
       - curl
       - libgtk-3-dev
       - libsecret-1-dev
@@ -89,5 +88,5 @@ parts:
       cp -a linux/debian/usr/share/icons/hicolor "$CRAFT_PART_INSTALL/usr/share/icons/"
     stage-packages:
       - libsecret-1-0
-      - libjsoncpp25
+      - libjsoncpp26
     parse-info: [ metainfo/dev.linwood.butterfly.appdata.xml ]

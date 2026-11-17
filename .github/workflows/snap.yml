@@ -37,14 +37,14 @@ jobs:
       fail-fast: false
       matrix:
         arch:
-          - image: ubuntu-24.04
+          - image: ubuntu-26.04
             name: x86_64
-          - image: ubuntu-24.04-arm
+          - image: ubuntu-26.04-arm
             name: arm64
     runs-on: ${{ matrix.arch.image }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
       - name: Add snapcraft directory
         run: |
           mkdir -p snap
@@ -57,14 +57,16 @@ jobs:
           cp app/linux/branding/nightly-256.png app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
           sed -i 's/Name=Linwood Butterfly/Name=Linwood Butterfly Nightly/' app/linux/debian/usr/share/applications/dev.linwood.butterfly.desktop
           sed -i 's/<name>Linwood Butterfly<\/name>/<name>Linwood Butterfly Nightly<\/name>/' app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml
-      - uses: CodeDoctorDE/snap-build@0e1537890a9bbcae5a95505fc604ce13e1840f85 # deps/node24
+      - uses: CodeDoctorDE/snap-build@d58a0cbf6a491a03927bdd22b6630397f8295cf5 # deps/node24
         id: build
-      - uses: actions/upload-artifact@v7
+        with:
+          snapcraft-args: pack
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: linux-${{ matrix.arch.name }}-snap
           path: ${{ steps.build.outputs.snap }}
           if-no-files-found: error
-      - uses: CodeDoctorDE/snap-publish@9ddf6f996828a8ca9da92b57ca098ea65c318763 # deps/node24
+      - uses: CodeDoctorDE/snap-publish@91246301c8af376f4314530520e7ceb8db7b1e0f # deps/node24
         name: Publish Snap to Store
         if: >-
           ${{ github.event_name != 'workflow_dispatch' &&
