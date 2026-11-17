@@ -47,6 +47,13 @@ import 'view.dart';
 import 'zoom.dart';
 
 class ProjectPage extends StatefulWidget {
+  // Route exit callbacks run above the page, outside its widget context.
+  static final Map<(GoRouter, LocalKey), FutureOr<bool> Function()>
+  _exitChecks = {};
+
+  static FutureOr<bool> onExit(BuildContext context, GoRouterState state) =>
+      _exitChecks[(GoRouter.of(context), state.pageKey)]?.call() ?? true;
+
   final bool absolute;
   final bool isNewDocument;
   final AssetLocation? location;
@@ -116,6 +123,8 @@ class _ProjectDocumentRuntime {
 
 class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
   _ProjectDocumentRuntime? _runtime;
+  (GoRouter, LocalKey)? _exitKey;
+  Future<bool>? _exitConfirmation;
   final SearchController _searchController = .new();
   late final CloseSubscription _closeSubscription;
   final GlobalKey<MainViewViewportState> _viewportKey = GlobalKey();
@@ -133,7 +142,18 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    if (_exitKey == null) _registerExitCheck();
     _refreshDisplayCalibration();
+  }
+
+  void _registerExitCheck() {
+    if (widget.embedding != null) return;
+    final settings = ModalRoute.of(context)?.settings;
+    final key = settings is Page ? settings.key : null;
+    if (key == null) return;
+    final exitKey = (GoRouter.of(context), key);
+    _exitKey = exitKey;
+    ProjectPage._exitChecks[exitKey] = _confirmExit;
   }
 
   void _refreshDisplayCalibration() => unawaited(_updateDisplayCalibration());
@@ -679,6 +699,10 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    final exitKey = _exitKey;
+    if (ProjectPage._exitChecks[exitKey] == _confirmExit) {
+      ProjectPage._exitChecks.remove(exitKey);
+    }
     _closeSubscription.dispose();
     unawaited(_disposeDocumentState());
     _searchController.dispose();
@@ -855,6 +879,22 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
         },
       ),
     );
+  }
+
+  FutureOr<bool> _confirmExit() {
+    if (_runtime == null) return true;
+    final request = _preventClose();
+    if (request == null) return true;
+    return _exitConfirmation ??= confirmClose(
+      context,
+      request,
+      onSaveFailed: (error) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error?.toString() ?? request.message)),
+        );
+      },
+    ).whenComplete(() => _exitConfirmation = null);
   }
 
   CloseRequest? _preventClose() {

@@ -194,6 +194,7 @@ class ButterflyApp extends StatelessWidget {
           GoRoute(
             name: 'new',
             path: 'new',
+            onExit: kIsWeb ? ProjectPage.onExit : null,
             builder: (context, state) {
               final defaultRemote = context
                   .read<SettingsCubit>()
@@ -230,6 +231,7 @@ class ButterflyApp extends StatelessWidget {
           GoRoute(
             name: 'local',
             path: 'local/:path(.*)',
+            onExit: kIsWeb ? ProjectPage.onExit : null,
             builder: (context, state) {
               final path = state.pathParameters['path'];
               return ProjectPage(
@@ -242,6 +244,7 @@ class ButterflyApp extends StatelessWidget {
           GoRoute(
             name: 'remote',
             path: 'remote/:remote/:path(.*)',
+            onExit: kIsWeb ? ProjectPage.onExit : null,
             builder: (context, state) {
               final remote = Uri.decodeComponent(
                 state.pathParameters['remote'] ?? '',

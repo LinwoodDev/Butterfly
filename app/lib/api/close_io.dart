@@ -4,11 +4,8 @@ import 'dart:io';
 import 'package:butterfly/api/close.dart';
 import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:window_manager/window_manager.dart';
-
-enum _CloseDialogResult { save, discard }
 
 CloseSubscription onPreventClose(
   BuildContext context,
@@ -50,52 +47,12 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
     }
     _isClosing = true;
     final request = await _onClose();
-    if (request == null) {
-      await _closeWindow();
-      return;
-    }
-    final result = await showDialog<_CloseDialogResult>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).sureClose),
-        content: Text(request.message),
-        actions: [
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(_CloseDialogResult.save),
-            child: Text(MaterialLocalizations.of(context).saveButtonLabel),
-          ),
-          TextButton(
-            onPressed: () =>
-                Navigator.of(context).pop(_CloseDialogResult.discard),
-            child: const Text('Discard'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-          ),
-        ],
-      ),
-    );
-    if (result == _CloseDialogResult.save) {
-      final saved = await _save(request);
-      if (saved) {
-        await _closeWindow();
-        return;
-      }
-    } else if (result == _CloseDialogResult.discard) {
+    if (request == null || await confirmClose(context, request)) {
       await _closeWindow();
       return;
     }
     if (!_isDisposed) {
       _isClosing = false;
-    }
-  }
-
-  Future<bool> _save(CloseRequest request) async {
-    try {
-      return await request.onSave?.call() ?? true;
-    } catch (_) {
-      return false;
     }
   }
 

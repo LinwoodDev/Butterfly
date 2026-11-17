@@ -48,7 +48,7 @@ void main() {
     final source = _UntitledSource();
     when(() => source.documentName).thenReturn('Note');
     when(() => source.presets).thenReturn([]);
-    when(() => source.pages).thenReturn([('', '0.')]);
+    when(() => source.pages).thenReturn([('', '0.'), ('Page 2', '1.Page 2')]);
     when(() => source.canPin).thenReturn(false);
     when(() => source.renderPng(any(), preview: true))
         .thenAnswer((_) async => null);
@@ -67,6 +67,17 @@ void main() {
         const ImageExportOptions(width: 80.123456, height: 60),
         region: .page,
       ),
+    );
+    when(() => source.items(ExportScope.allPages)).thenAnswer(
+      (_) async => [
+        await source.page('0.'),
+        ExportItem(
+          'Page 2',
+          '1.Page 2',
+          const ImageExportOptions(width: 100, height: 100),
+          region: .page,
+        ),
+      ],
     );
     await tester.pumpWidget(
       MaterialApp(
@@ -90,7 +101,7 @@ void main() {
     );
     await tester.tap(find.byTooltip('Current page'));
     await tester.pumpAndSettle();
-    expect(find.text('Current page'), findsOneWidget);
+    expect(find.text('Untitled'), findsOneWidget);
     expect(find.text('Custom'), findsNothing);
     expect(
       tester
@@ -136,6 +147,13 @@ void main() {
         1,
       ),
     );
+    await tester.tap(find.byTooltip('Add export'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('All pages in note'));
+    await tester.pumpAndSettle();
+    expect(find.widgetWithText(ListTile, 'Untitled'), findsOneWidget);
+    expect(find.widgetWithText(ListTile, 'Page 2'), findsOneWidget);
+    expect(find.widgetWithText(ListTile, 'Current page'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 

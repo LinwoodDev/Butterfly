@@ -1,3 +1,4 @@
+* Fix browser navigation closing documents with unsaved changes without confirmation
 * Upgrade to flutter 3.50
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.0

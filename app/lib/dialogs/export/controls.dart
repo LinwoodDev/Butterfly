@@ -435,7 +435,7 @@ extension _ExportItemVisualizer on ExportItem {
       : name.isNotEmpty
       ? name
       : region == .page
-      ? AppLocalizations.of(context).currentPage
+      ? AppLocalizations.of(context).untitled
       : AppLocalizations.of(context).custom;
 }
 

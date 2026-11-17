@@ -148,6 +148,7 @@ void main() {
     EmbedFullScreen embedFullScreen = EmbedFullScreen.enabled,
     Object? importData,
     bool readLocalFile = false,
+    bool guardDocumentExit = false,
   }) {
     final document =
         embedDocument ??
@@ -179,6 +180,7 @@ void main() {
             GoRoute(
               name: 'local',
               path: 'local/:path(.*)',
+              onExit: guardDocumentExit ? ProjectPage.onExit : null,
               builder: (context, state) {
                 final path = state.pathParameters['path'] ?? '';
                 return ProjectPage(
@@ -1807,6 +1809,57 @@ void main() {
 
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
+  });
+
+  testWidgets('browser history navigation guards and saves unsaved edits', (
+    tester,
+  ) async {
+    when(() => settingsCubit.state).thenReturn(
+      const ButterflySettings(defaultTemplate: 'default', autosave: false),
+    );
+    final system = fileSystem.buildDocumentSystem();
+    await system.updateFile(
+      'lifecycle.bfly',
+      DocumentDefaults.createDocument(name: 'Lifecycle test').toFile(),
+    );
+    await tester.pumpWidget(
+      buildApp(readLocalFile: true, guardDocumentExit: true),
+    );
+    await tester.tap(find.byKey(const ValueKey('open-document')));
+    await pumpUntil(
+      tester,
+      () => observer.lastDocumentBloc?.state is DocumentLoadSuccess,
+      'document open',
+    );
+    await tester.pumpAndSettle();
+    final bloc = observer.lastDocumentBloc!;
+    bloc.add(ElementsCreated([PenElement()]));
+    await pumpUntil(
+      tester,
+      () => observer.lastSaveCubit?.state.saved == SaveState.unsaved,
+      'unsaved edit',
+    );
+    expect((bloc.state as DocumentLoadSuccess).page.content, hasLength(1));
+
+    await tester.binding.handlePushRoute('/');
+    await tester.pumpAndSettle();
+    expect(find.text('There are unsaved changes'), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(find.byType(ProjectPage), findsOneWidget);
+    expect((bloc.state as DocumentLoadSuccess).page.content, hasLength(1));
+
+    await tester.binding.handlePushRoute('/');
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Save'));
+    await pumpUntil(
+      tester,
+      () => find.byKey(const ValueKey('open-document')).evaluate().isNotEmpty,
+      'return home after saving',
+    );
+    final saved = await system.getAsset('lifecycle.bfly');
+    final note = (saved as FileSystemFile<NoteFile>).data!.load()!;
+    expect(note.getPage(note.getPages(true).single)?.content, hasLength(1));
   });
 
   testWidgets('extensionless notes autosave as bfly in their parent', (
