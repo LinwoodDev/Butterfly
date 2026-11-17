@@ -58,6 +58,7 @@ parts:
       - cmake
     build-packages:
       - curl
+      - libgtk-3-dev
       - libsecret-1-dev
       - libjsoncpp-dev
       - clang
@@ -70,6 +71,8 @@ parts:
       set -eux
       craftctl default
       cd "$CRAFT_PART_SRC_WORK/app"
+      version=$(awk '/^version:/ { print $2; exit }' pubspec.yaml)
+      craftctl set version="${version%%+*}"
       flutter pub get
       flutter build linux --release --verbose --target lib/main.dart
       bundle_dir=$(find build/linux -type f -path '*/release/bundle/butterfly' -printf '%h\n' -quit)
@@ -88,4 +91,3 @@ parts:
       - libsecret-1-0
       - libjsoncpp25
     parse-info: [ metainfo/dev.linwood.butterfly.appdata.xml ]
-  

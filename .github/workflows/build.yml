@@ -467,51 +467,6 @@ jobs:
           name: linux-x86_64-size-analysis
           path: app/build/size-analysis/linux-x86_64/
           if-no-files-found: error
-  build-snap:
-    name: build-snap
-    strategy:
-      fail-fast: false
-      matrix:
-        arch:
-          - image: ubuntu-24.04
-            name: x86_64
-            dir: x64
-            appimage: x86_64
-          - image: ubuntu-24.04-arm
-            name: arm64
-            dir: arm64
-            appimage: aarch64
-    runs-on: ${{ matrix.arch.image }}
-    steps:
-      - name: ⬆️ Checkout
-        uses: actions/checkout@v7
-      - name: Add snapcraft directory
-        run: |
-          mkdir -p snap
-          cp app/snapcraft.yaml snap/snapcraft.yaml
-      - name: 🎨 Apply native branding
-        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
-        run: |
-          sed -i "s/flutter build linux --release --verbose --target lib\/main.dart/flutter build linux --release --verbose --target lib\/main.dart --flavor nightly/" snap/snapcraft.yaml
-          sed -i "s/title: 'Linwood Butterfly'/title: 'Linwood Butterfly Nightly'/" snap/snapcraft.yaml
-          cp app/linux/branding/nightly-256.png app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
-          sed -i 's/Name=Linwood Butterfly/Name=Linwood Butterfly Nightly/' app/linux/debian/usr/share/applications/dev.linwood.butterfly.desktop
-          sed -i 's/<name>Linwood Butterfly<\/name>/<name>Linwood Butterfly Nightly<\/name>/' app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml
-      - uses: snapcore/action-build@v1
-        id: build
-      - uses: snapcore/action-publish@v1
-        continue-on-error: true
-        name: Publish Snap to Store
-        if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
-        env:
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_CREDENTIALS }}
-        with:
-          snap: ${{ steps.build.outputs.snap }}
-          release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
-      - uses: actions/upload-artifact@v7
-        with:
-          name: linux-${{ matrix.arch.name }}-snap
-          path: ${{ steps.build.outputs.snap }}
   build-macos:
     runs-on: macos-26
     defaults:
