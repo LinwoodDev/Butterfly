@@ -64,6 +64,12 @@ ThemeData getThemeData(
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: defaultDropdownInputDecorationTheme(),
     ),
+    // Let mouse drags grab the thumb at the edge of a desktop viewport.
+    scrollbarTheme: switch (theme.platform) {
+      TargetPlatform.linux || TargetPlatform.macOS || TargetPlatform.windows =>
+        theme.scrollbarTheme.copyWith(crossAxisMargin: 0),
+      _ => null,
+    },
     sliderTheme: theme.sliderTheme.copyWith(year2023: false),
     progressIndicatorTheme: theme.progressIndicatorTheme.copyWith(
       year2023: false,
