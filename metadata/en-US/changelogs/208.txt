@@ -1,4 +1,7 @@
 * Fix browser navigation closing documents with unsaved changes without confirmation
 * Upgrade to flutter 3.50
+* Fix touch contacts interrupting an active stylus stroke ([#1354](https://github.com/LinwoodDev/Butterfly/issues/1354))
+* Prevent Android navigation-bar swipes from drawing in fullscreen ([#1353](https://github.com/LinwoodDev/Butterfly/issues/1353))
+* Fix clipped strokes when moving the canvas beyond the cached viewport
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.0
