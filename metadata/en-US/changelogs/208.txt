@@ -3,5 +3,6 @@
 * Fix touch contacts interrupting an active stylus stroke ([#1354](https://github.com/LinwoodDev/Butterfly/issues/1354))
 * Prevent Android navigation-bar swipes from drawing in fullscreen ([#1353](https://github.com/LinwoodDev/Butterfly/issues/1353))
 * Fix clipped strokes when moving the canvas beyond the cached viewport
+* Fix blurred pen strokes and fills erasing content behind them when Combine paths is enabled ([#1356](https://github.com/LinwoodDev/Butterfly/issues/1356))
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.0

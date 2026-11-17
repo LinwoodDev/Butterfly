@@ -41,13 +41,17 @@ void _paintRenderer(
   if (transformed) canvas.restore();
 }
 
-Rect? _rendererBounds(Renderer renderer) => renderer.expandedRect;
-
-Rect? _groupBounds(Iterable<Renderer> renderers) {
+Rect? _groupBounds(Iterable<PenRenderer> renderers) {
   Rect? bounds;
   for (final renderer in renderers) {
-    final rect = _rendererBounds(renderer);
-    if (rect == null) return null;
+    final rect = renderer.expandedRect;
+    final property = renderer.element.property;
+    // Let the canvas determine the layer bounds when blur extends past them.
+    if (rect.isEmpty ||
+        property.paint.blur > 0 ||
+        property.fillPaint.blur > 0) {
+      return null;
+    }
     bounds = bounds?.expandToInclude(rect) ?? rect;
   }
   return bounds;
@@ -111,7 +115,7 @@ void _paintRenderers(
     }
     if (!paintedGroups.add(combineId)) continue;
     final group = groups[combineId]!;
-    if (group.length == 1) {
+    if (group.length == 1 && !group.single.hasStrokeAndFill) {
       _paintRenderer(
         canvas,
         size,
@@ -122,7 +126,6 @@ void _paintRenderers(
         colorScheme,
         group.first,
         foreground: foreground,
-        combined: true,
       );
       continue;
     }

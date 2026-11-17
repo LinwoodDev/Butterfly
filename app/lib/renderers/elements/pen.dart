@@ -26,6 +26,10 @@ class PenRenderer extends Renderer<PenElement> {
   Rect expandedRect;
   Rect _localExpandedRect;
 
+  bool get hasStrokeAndFill =>
+      element.property.paint.previewColor.a > 0 &&
+      element.property.fillPaint.previewColor.a > 0;
+
   Path? _cachedFillPath;
   Path? _cachedStrokePath;
   PathHitCalculator? _cachedHitCalculator;
@@ -189,10 +193,10 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   void buildCombined(Canvas canvas) {
-    _build(canvas, BlendMode.src);
+    _build(canvas, combined: true);
   }
 
-  void _build(Canvas canvas, [BlendMode? blendMode]) {
+  void _build(Canvas canvas, {bool combined = false}) {
     final points = element.points;
     if (points.isEmpty) return;
     final property = element.property;
@@ -203,17 +207,43 @@ class PenRenderer extends Renderer<PenElement> {
 
     if (property.fillPaint.previewColor.a > 0 && _cachedFillPath != null) {
       final paint = _fillPaint.build(property.fillPaint, rect, style: .fill)
-        ..strokeCap = StrokeCap.round
-        ..blendMode = blendMode ?? BlendMode.srcOver;
-      canvas.drawPath(_cachedFillPath!, paint);
+        ..strokeCap = StrokeCap.round;
+      _drawPath(canvas, _cachedFillPath!, paint, combined: combined);
     }
     if (property.paint.previewColor.a > 0 && _cachedStrokePath != null) {
-      final paint =
-          _strokePaint.build(property.paint, expandedRect, style: .fill)
-            ..strokeCap = StrokeCap.round
-            ..blendMode = blendMode ?? BlendMode.srcOver;
-      canvas.drawPath(_cachedStrokePath!, paint);
+      final paint = _strokePaint.build(
+        property.paint,
+        expandedRect,
+        style: .fill,
+      )..strokeCap = StrokeCap.round;
+      _drawPath(canvas, _cachedStrokePath!, paint, combined: combined);
     }
+  }
+
+  void _drawPath(
+    Canvas canvas,
+    Path path,
+    Paint paint, {
+    required bool combined,
+  }) {
+    if (combined) {
+      final blur = paint.maskFilter;
+      if (blur == null) {
+        paint.blendMode = BlendMode.src;
+      } else {
+        // Impeller draws the blurred mask as a rectangle, so src would also
+        // replace pixels with zero coverage. Remove the destination by the
+        // mask's coverage, then add the blurred source at its original opacity.
+        canvas.drawPath(
+          path,
+          Paint()
+            ..maskFilter = blur
+            ..blendMode = BlendMode.dstOut,
+        );
+        paint.blendMode = BlendMode.plus;
+      }
+    }
+    canvas.drawPath(path, paint);
   }
 
   List<Offset> _getOutlinePoints() {
