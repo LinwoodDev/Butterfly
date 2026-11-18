@@ -538,6 +538,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Επιλογή σελίδων",
   "recentFiles": "Πρόσφατα αρχεία",
   "start": "Έναρξη",
@@ -1191,6 +1205,7 @@
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
   "imageScale": "Κλίμακα εικόνας",
+  "pdfScale": "PDF scale",
   "svgScale": "Κλίμακα SVG",
   "noImageSelected": "Δεν επιλέχθηκε εικόνα",
   "noSvgSelected": "Δεν επιλέχθηκε SVG",
@@ -1675,7 +1690,7 @@
   "persistentStateCleanupInProgress": "Εκκαθάριση ...",
   "persistentStateDefaultLocks": "Προεπιλεγμένες κλειδαριές",
   "persistentStateDefaultLocksDescription": "Εφαρμογή αυτών των κλειδαριών όταν ένα έγγραφο δεν έχει αποθηκευμένη κατάσταση",
-  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκαν {records} εγγραφές}}.",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Καθαρίστηκε 1 θέση αποθήκευσης} other{Καθαρίστηκε {locations} θέσεις αποθήκευσης}}; {records, plural, =1{αφαιρέθηκε 1 εγγραφή} other{αφαιρέθηκε } other{ αφαιρέθηκε {records} καταγράφει}}.",
   "@persistentStateCleanupFeedback": {
     "placeholders": {
       "locations": {
