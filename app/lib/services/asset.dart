@@ -56,7 +56,10 @@ class AssetService() {
   Future<ui.Image?> _importImage(String path, NoteData document) async {
     var data = await compute(_getDataFromSource, (document, path));
     if (data == null) return null;
-    if (path.toLowerCase().endsWith('.svg')) {
+    final isSvg = path.startsWith('data:')
+        ? Uri.tryParse(path)?.data?.isMimeType('image/svg+xml') ?? false
+        : path.toLowerCase().endsWith('.svg');
+    if (isSvg) {
       return _importSvgImage(data);
     }
     final codec = await ui.instantiateImageCodec(data);

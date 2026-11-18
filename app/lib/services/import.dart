@@ -539,7 +539,9 @@ class ImportService(
     Offset? position,
   }) async {
     try {
-      final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
+      final page = DocumentPageDataExtension.fromDataJson(
+        json.decode(utf8.decode(bytes)),
+      );
       return await _importPage(page, document, position);
     } catch (e) {
       await showDialog(

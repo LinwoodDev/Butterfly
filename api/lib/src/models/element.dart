@@ -8,6 +8,8 @@ import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/id.dart';
+import 'archive.dart';
+import 'asset.dart';
 import 'pack.dart';
 import 'point.dart';
 import 'property.dart';
@@ -127,6 +129,68 @@ sealed class PadElement with _$PadElement {
     TableElement() ||
     MarkdownElement() => const [],
   };
+
+  /// Rewrites the asset references while retaining the element's other data.
+  PadElement mapSources(
+    String Function(String source, AssetFileType type, String directory) map,
+  ) {
+    ElementPaint mapPaint(ElementPaint paint) => switch (paint) {
+      ImageElementPaint(:final source) => paint.copyWith(
+        source: map(source, .image, kTexturesArchiveDirectory),
+      ),
+      SvgElementPaint(:final source) => paint.copyWith(
+        source: map(source, .svg, kTexturesArchiveDirectory),
+      ),
+      SolidElementPaint() || GradientElementPaint() => paint,
+    };
+
+    PathShape mapShape(PathShape shape) => switch (shape) {
+      CircleShape(:final fillPaint) => shape.copyWith(
+        fillPaint: mapPaint(fillPaint),
+      ),
+      RectangleShape(:final fillPaint) => shape.copyWith(
+        fillPaint: mapPaint(fillPaint),
+      ),
+      TriangleShape(:final fillPaint) => shape.copyWith(
+        fillPaint: mapPaint(fillPaint),
+      ),
+      LineShape() => shape,
+    };
+
+    return switch (this) {
+      ImageElement e => e.copyWith(
+        source: map(e.source, .image, kImagesArchiveDirectory),
+      ),
+      SvgElement e => e.copyWith(
+        source: map(e.source, .svg, kImagesArchiveDirectory),
+      ),
+      PdfElement e => e.copyWith(
+        source: map(e.source, .pdf, kPdfArchiveDirectory),
+      ),
+      PenElement e => e.copyWith(
+        property: e.property.copyWith(
+          paint: mapPaint(e.property.paint),
+          fillPaint: mapPaint(e.property.fillPaint),
+        ),
+      ),
+      PolygonElement e => e.copyWith(
+        property: e.property.copyWith(
+          paint: mapPaint(e.property.paint),
+          fillPaint: mapPaint(e.property.fillPaint),
+        ),
+      ),
+      ShapeElement e => e.copyWith(
+        property: e.property.copyWith(
+          paint: mapPaint(e.property.paint),
+          shape: mapShape(e.property.shape),
+        ),
+      ),
+      TextElement() ||
+      TextureElement() ||
+      TableElement() ||
+      MarkdownElement() => this,
+    };
+  }
 
   @Implements<PathElement>()
   factory PadElement.pen({

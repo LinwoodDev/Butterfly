@@ -1,16 +1,71 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:archive/archive.dart';
+import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image/image.dart' as img;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../helpers/mocks.dart';
 
+class _Clipboard extends Mock implements ClipboardManager {}
+
 void main() {
+  testWidgets('pasting a copied image imports it into a different note', (
+    tester,
+  ) async {
+    final png = img.encodePng(img.Image(width: 2, height: 3));
+    final (source, path) = DocumentDefaults.createDocument().importImage(
+      png,
+      'png',
+    );
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(
+          content: [ImageElement(source: path, width: 2, height: 3)],
+        ),
+      ],
+    );
+    final clipboard = _Clipboard();
+    when(() => clipboard.getContent(types: any(named: 'types'))).thenReturn((
+      type: AssetFileType.page.getMimeTypes().first,
+      data: utf8.encode(jsonEncode(page.toDataJson(source))),
+    ));
+    late BuildContext context;
+    await tester.pumpWidget(
+      RepositoryProvider<ClipboardManager>.value(
+        value: clipboard,
+        child: Builder(
+          builder: (value) {
+            context = value;
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+
+    final destination = DocumentDefaults.createDocument();
+    expect(destination.getAsset(path), isNull);
+    final pasted = await tester.runAsync(() async {
+      final result = await ImportService(context)
+          .importClipboard(destination, position: const Offset(15, 20));
+      return result!.export();
+    });
+    final image = pasted!.getPage()!.content.single as ImageElement;
+    expect(image.position, const Point<double>(15, 20));
+    expect(pasted.getAsset(image.source), png);
+  });
+
   testWidgets(
     'imported document titles cannot choose the destination directory',
     (tester) async {

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:butterfly_api/butterfly_api.dart';
@@ -74,27 +75,36 @@ extension ImageElementDataExtension on SourcedElement {
       getUriDataFromSource(document, source, mimeType);
 }
 
-extension PadElementDataExtension on PadElement {
-  Map<String, dynamic> toDataJson(NoteData document) {
-    String getUriData(String source, String mimeType) => UriData.fromBytes(
-      getDataFromSource(document, source) ?? [],
-      mimeType: mimeType,
-    ).toString();
-
-    return {
-      ...toJson(),
-      ...switch (this) {
-        ImageElement e => {'source': getUriData(e.source, 'image/png')},
-        SvgElement e => {'source': getUriData(e.source, 'image/svg+xml')},
-        _ => {},
-      },
-    };
-  }
-}
-
 extension DocumentPageDataExtension on DocumentPage {
-  Map<String, dynamic> toDataJson(NoteData document) => {
-    ...toJson(),
-    'content': content.map((e) => e.toDataJson(document)).toList(),
-  };
+  Map<String, dynamic> toDataJson(NoteData document) {
+    final assets = <String, String>{};
+    for (final source in content.expand((e) => e.sources).toSet()) {
+      if (source.startsWith('data:')) continue;
+      final bytes = getDataFromSource(document, source);
+      if (bytes != null) assets[source] = base64Encode(bytes);
+    }
+    return {...toJson(), if (assets.isNotEmpty) 'assets': assets};
+  }
+
+  static DocumentPage fromDataJson(Map<String, dynamic> json) {
+    final page = DocumentPage.fromJson(json);
+    final assets = json['assets'];
+    if (assets is! Map<String, dynamic>) return page;
+
+    final embeddedSources = <(String, AssetFileType), String>{};
+    String embedSource(String source, AssetFileType type, String _) {
+      final data = assets[source];
+      if (data is! String) return source;
+      return embeddedSources.putIfAbsent((
+        source,
+        type,
+      ), () => 'data:${type.getMimeTypes().first};base64,$data');
+    }
+
+    return page.mapLayers(
+      (layer) => layer.copyWith(
+        content: layer.content.map((e) => e.mapSources(embedSource)).toList(),
+      ),
+    );
+  }
 }
