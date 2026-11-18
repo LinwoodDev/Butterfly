@@ -1,8 +1,12 @@
+* Redesign the PDF import dialog and add a scale slider from 10% to 1000% ([#1359](https://github.com/LinwoodDev/Butterfly/issues/1359))
+* Fix the first canvas click failing to place a PDF imported from the Add dialog
 * Fix browser navigation closing documents with unsaved changes without confirmation
 * Upgrade to flutter 3.50
 * Fix touch contacts interrupting an active stylus stroke ([#1354](https://github.com/LinwoodDev/Butterfly/issues/1354))
 * Prevent Android navigation-bar swipes from drawing in fullscreen ([#1353](https://github.com/LinwoodDev/Butterfly/issues/1353))
 * Fix clipped strokes when moving the canvas beyond the cached viewport
 * Fix blurred pen strokes and fills erasing content behind them when Combine paths is enabled ([#1356](https://github.com/LinwoodDev/Butterfly/issues/1356))
+* Fix desktop scrollbar edge dragging ([#1348](https://github.com/LinwoodDev/Butterfly/issues/1348)) 
+* Upgrade snap from core24 to core26
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.0

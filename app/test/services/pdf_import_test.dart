@@ -15,6 +15,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pdfrx/pdfrx.dart';
 
@@ -25,6 +26,8 @@ class _Engine extends Mock implements PdfrxEntryFunctions {}
 class _Document extends Mock implements PdfDocument {}
 
 class _Page extends Mock implements PdfPage {}
+
+class _Raster extends Mock implements PdfImage {}
 
 void main() {
   late PdfrxEntryFunctions originalEngine;
@@ -58,7 +61,10 @@ void main() {
       BlocProvider<SettingsCubit>.value(
         value: settings,
         child: MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          localizationsDelegates: [
+            ...AppLocalizations.localizationsDelegates,
+            LeapLocalizations.delegate,
+          ],
           supportedLocales: AppLocalizations.supportedLocales,
           home: Builder(
             builder: (context) {
@@ -132,6 +138,135 @@ void main() {
   });
 
   for (final spreadPages in [false, true]) {
+    testWidgets(
+      'PDF import scales pages and areas with spreadPages=$spreadPages',
+      (tester) async {
+        if (spreadPages) {
+          await tester.binding.setSurfaceSize(const Size(360, 420));
+          addTearDown(() => tester.binding.setSurfaceSize(null));
+        }
+        await mount(tester, spreadPages: spreadPages);
+        when(() => pdf.pages).thenReturn([page, page]);
+        when(() => page.width).thenReturn(144);
+        when(() => page.height).thenReturn(72);
+        final raster = _Raster();
+        when(() => raster.width).thenReturn(2);
+        when(() => raster.height).thenReturn(1);
+        when(() => raster.pixels).thenReturn(Uint8List(8));
+        late Completer<void> previewsReady;
+        var completedPreviews = 0;
+        when(() => raster.dispose()).thenAnswer((_) {
+          if (++completedPreviews == 2) previewsReady.complete();
+        });
+        when(
+          () => page.render(
+            width: 144,
+            height: 72,
+            fullWidth: 144,
+            fullHeight: 72,
+          ),
+        ).thenAnswer((_) async => raster);
+
+        late Future<ImportResult?> importing;
+        await tester.runAsync(() async {
+          previewsReady = Completer<void>();
+          importing = service.importPdf(
+            bytes,
+            DocumentDefaults.createDocument(),
+            position: const Offset(12, 34),
+          );
+          await previewsReady.future.timeout(const Duration(seconds: 10));
+        });
+        await tester.pumpAndSettle();
+        final importButton = find.widgetWithText(FilledButton, 'Import');
+        expect(find.text('Import PDF'), findsOneWidget);
+        expect(find.text('2 of 2 pages selected'), findsOneWidget);
+        expect(find.text('Create areas'), findsNothing);
+
+        await tester.tap(find.byTooltip('Deselect'));
+        await tester.pumpAndSettle();
+        expect(tester.widget<FilledButton>(importButton).onPressed, isNull);
+        await tester.tap(find.byTooltip('Select all'));
+        await tester.pumpAndSettle();
+        final firstPage = find.text('Page 1');
+        await tester.tap(firstPage);
+        await tester.pumpAndSettle();
+        expect(find.text('1 of 2 pages selected'), findsOneWidget);
+        await tester.tap(
+          find.descendant(
+            of: find.ancestor(of: firstPage, matching: find.byType(Card)),
+            matching: find.byType(Checkbox),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final scaleControl = find.ancestor(
+          of: find.text('PDF scale'),
+          matching: find.byType(ExactSlider),
+        );
+        await tester.ensureVisible(scaleControl);
+        await tester.pumpAndSettle();
+        final slider = tester.widget<Slider>(
+          find.descendant(of: scaleControl, matching: find.byType(Slider)),
+        );
+        expect(slider.value, 100);
+        expect(slider.min, 10);
+        expect(slider.max, 1000);
+
+        final percent = spreadPages ? 10 : 1000;
+        await tester.enterText(
+          find.descendant(of: scaleControl, matching: find.byType(TextField)),
+          '$percent',
+        );
+        await tester.pump();
+        if (!spreadPages) {
+          await tester.tap(find.text('More options'));
+          await tester.pumpAndSettle();
+          await tester.tap(find.text('Create export preset'));
+          await tester.ensureVisible(find.text('Invert'));
+          await tester.tap(find.text('Invert'));
+          await tester.pumpAndSettle();
+          await tester.ensureVisible(find.text('More options'));
+          await tester.tap(find.text('More options'));
+          await tester.pumpAndSettle();
+        }
+        await tester.tap(importButton);
+        await tester.pumpAndSettle();
+        final result = (await tester.runAsync(
+          () => importing.timeout(const Duration(seconds: 10)),
+        ))!;
+        await tester.pumpAndSettle();
+
+        final importedPages = result.pages.map((entry) => entry.$2);
+        final elements =
+            (spreadPages
+                    ? importedPages.expand((page) => page.content)
+                    : result.elements)
+                .cast<PdfElement>()
+                .toList();
+        final areas = spreadPages
+            ? importedPages.expand((page) => page.areas).toList()
+            : result.areas;
+        expect(elements.map((element) => element.page), [0, 1]);
+        expect(areas.length, elements.length);
+        for (final (index, element) in elements.indexed) {
+          final area = areas[index];
+          expect(element.width, closeTo(192 * percent / 100, 1e-9));
+          expect(element.height, closeTo(96 * percent / 100, 1e-9));
+          expect(area.width, element.width);
+          expect(area.height, element.height);
+          expect(area.position, element.position);
+          expect(element.invert, !spreadPages);
+          expect(result.assets[element.source], bytes);
+        }
+        expect(result.exportPresets.length, spreadPages ? 1 : 0);
+        expect(elements.first.position, const Point(12.0, 34.0));
+        if (!spreadPages) {
+          expect(elements.last.position.y, 34 + elements.first.height);
+        }
+      },
+    );
+
     testWidgets(
       'A4 PDF pages import at 96 units per inch with spreadPages=$spreadPages',
       (tester) async {

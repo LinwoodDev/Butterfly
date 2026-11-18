@@ -171,11 +171,13 @@ class ImportResult {
     if (choosePosition &&
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
-      service.editorController?.toolCubit.changeTemporaryHandler(
+      final controller = bloc!.editorController;
+      controller.toolCubit.resetSelection();
+      controller.toolCubit.changeTemporaryHandler(
         context,
-        service.editorController!,
+        controller,
         ImportTool(elements: elements, areas: areas, assets: _importAssets),
-        bloc: bloc!,
+        bloc: bloc,
         temporaryState: .removeAfterRelease,
       );
     } else {
@@ -201,13 +203,15 @@ class ImportResult {
           ),
         );
     }
-    bloc?.add(
-      PagesAdded(
-        pages
-            .map((e) => PageAddedDetails(page: e.$2, name: e.$1 ?? ''))
-            .toList(),
-      ),
-    );
+    if (pages.isNotEmpty) {
+      bloc?.add(
+        PagesAdded(
+          pages
+              .map((e) => PageAddedDetails(page: e.$2, name: e.$1 ?? ''))
+              .toList(),
+        ),
+      );
+    }
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
     }
@@ -1157,6 +1161,7 @@ class ImportService(
           createAreas = true,
           createExportPreset = true,
           invert = false;
+      var importScale = 1.0;
       SRGBColor background = BasicColors.whiteTransparent;
       if (advanced) {
         for (int i = 0; i < elements.length; i++) {
@@ -1196,6 +1201,7 @@ class ImportService(
         invert = callback.invert;
         background = callback.background;
         name = callback.name;
+        importScale = callback.scale;
       }
       String getPageName(int index) {
         if (name?.isEmpty ?? true) return localizations.pageIndex(index + 1);
@@ -1223,8 +1229,8 @@ class ImportService(
           await Future.delayed(const Duration(milliseconds: 1));
           dialog?.setProgress(current / pages.length);
           current++;
-          final height = pdfPointsToCanvasUnits(raster.height);
-          final width = pdfPointsToCanvasUnits(raster.width);
+          final height = pdfPointsToCanvasUnits(raster.height) * importScale;
+          final width = pdfPointsToCanvasUnits(raster.width) * importScale;
           final pageName = getPageName(i);
           final element = PdfElement(
             height: height,

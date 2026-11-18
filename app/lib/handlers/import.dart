@@ -11,6 +11,10 @@ class ImportHandler extends Handler<ImportTool> {
           .toList();
 
   @override
+  bool canChange(PointerDownEvent event, EventContext context) =>
+      event.buttons != kPrimaryButton;
+
+  @override
   void dispose(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;

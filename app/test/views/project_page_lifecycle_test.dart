@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:butterfly/actions/shortcuts.dart';
@@ -8,15 +9,19 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/display_calibration.dart';
+import 'package:butterfly/dialogs/import/add.dart';
+import 'package:butterfly/dialogs/import/pages.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/app_bar.dart';
+import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/toolbar/color.dart';
@@ -35,9 +40,16 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:pdfrx/pdfrx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/mocks.dart';
+
+class _PdfEngine extends Mock implements PdfrxEntryFunctions {}
+
+class _PdfDocument extends Mock implements PdfDocument {}
+
+class _PdfPage extends Mock implements PdfPage {}
 
 class _ReleaseTrackingHandler extends Handler<HandTool> {
   bool pointerUpCalled = false;
@@ -2849,6 +2861,139 @@ void main() {
     expect(editorController.toolCubit.state.temporaryHandler, isNull);
     await tester.pump(const Duration(seconds: 4));
   });
+
+  testWidgets(
+    'Add dialog places a PDF on the first click with properties open',
+    (tester) async {
+      const filesChannel = MethodChannel('linwood.dev/lw_sysapi');
+      final bytes = Uint8List.fromList([1, 2, 3]);
+      final directory = Directory.systemTemp.createTempSync(
+        'butterfly-pdf-test',
+      );
+      addTearDown(() => directory.deleteSync(recursive: true));
+      final file = File('${directory.path}/sample.pdf')
+        ..writeAsBytesSync(bytes);
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(
+        filesChannel,
+        (call) async => switch (call.method) {
+          'pickFiles' => [
+            {'name': 'sample.pdf', 'path': file.path},
+          ],
+          'readFile' => bytes,
+          _ => null,
+        },
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(filesChannel, null));
+
+      final originalEngine = PdfrxEntryFunctions.instance;
+      final engine = _PdfEngine();
+      final pdf = _PdfDocument();
+      final page = _PdfPage();
+      PdfrxEntryFunctions.instance = engine;
+      addTearDown(() => PdfrxEntryFunctions.instance = originalEngine);
+      registerFallbackValue(Uint8List(0));
+      when(() => engine.openData(any())).thenAnswer((_) async => pdf);
+      when(() => pdf.pages).thenReturn([page]);
+      when(() => pdf.dispose()).thenAnswer((_) async {});
+      when(() => page.width).thenReturn(144);
+      when(() => page.height).thenReturn(72);
+      when(
+        () => page.render(
+          width: any(named: 'width'),
+          height: any(named: 'height'),
+          fullWidth: any(named: 'fullWidth'),
+          fullHeight: any(named: 'fullHeight'),
+        ),
+      ).thenAnswer(
+        (_) async =>
+            PdfImage.createFromBgraData(Uint8List(8), width: 2, height: 1),
+      );
+
+      final editor = await openEditor(tester);
+      final bloc = observer.lastDocumentBloc!;
+      await tester.scrollUntilVisible(
+        find.byKey(const ObjectKey('add-button')),
+        200,
+        scrollable: find.descendant(
+          of: find.byType(EditToolbar),
+          matching: find.byType(Scrollable),
+        ),
+      );
+      await tester.tap(find.byTooltip('Add'));
+      final importTile = find.descendant(
+        of: find.byType(AddDialog),
+        matching: find.widgetWithText(BoxTile, 'Import'),
+      );
+      await pumpUntil(
+        tester,
+        () => importTile.evaluate().isNotEmpty,
+        'Add dialog import tile',
+      );
+      await tester.pumpAndSettle();
+      editor.toolCubit.changeSelection(editor.toolCubit.state.handler.data);
+      await tester.pumpAndSettle();
+      expect(editor.toolCubit.state.selection, isNotNull);
+      await tester.tap(importTile);
+      final dialog = find.byType(ImportPagesDialog);
+      await pumpUntil(
+        tester,
+        () => dialog.evaluate().isNotEmpty,
+        'PDF import dialog',
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(FilledButton, 'Import'));
+      await tester.pumpAndSettle();
+
+      expect((bloc.state as DocumentLoadSuccess).page.content, isEmpty);
+      expect(observer.events, isNot(contains('PagesAdded')));
+      expect(editor.toolCubit.state.temporaryHandler, isA<ImportHandler>());
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          inputConfiguration: InputConfiguration(leftMouse: InputMapping(1)),
+        ),
+      );
+      final viewport = find.byType(MainViewViewport);
+      final target = tester.getCenter(viewport);
+      final position = editor.transformCubit.state.localToGlobal(
+        target - tester.getTopLeft(viewport),
+      );
+      final click = await tester.startGesture(
+        target,
+        kind: PointerDeviceKind.mouse,
+      );
+      await tester.pump();
+      expect(editor.toolCubit.state.temporaryHandler, isA<ImportHandler>());
+      await click.up();
+      await pumpUntil(
+        tester,
+        () => (bloc.state as DocumentLoadSuccess).page.content.isNotEmpty,
+        'PDF placed on canvas',
+      );
+      await pumpUntil(
+        tester,
+        () => editor.toolCubit.state.temporaryHandler == null,
+        'PDF placement tool dismissed',
+      );
+      await pumpUntil(
+        tester,
+        () => editor.rendererCubit.renderers.whereType<PdfRenderer>().any(
+          (renderer) => renderer.image != null,
+        ),
+        'PDF rendered on canvas',
+      );
+
+      final state = bloc.state as DocumentLoadSuccess;
+      final element = state.page.content.single as PdfElement;
+      expect(element.position, Point(position.dx, position.dy));
+      expect(state.page.areas.single.position, element.position);
+      expect(state.data.getAsset(Uri.parse(element.source).path), bytes);
+      expect(editor.toolCubit.state.temporaryHandler, isNull);
+      await tester.pump(const Duration(seconds: 4));
+    },
+  );
 
   testWidgets('select tool manipulates a ruler enabled after viewport build', (
     tester,
