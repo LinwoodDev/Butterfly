@@ -538,6 +538,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Sélectionner les pages",
   "recentFiles": "Fichiers récents",
   "start": "Début",
@@ -1191,6 +1205,7 @@
   "ascending": "Ascendant",
   "descending": "Descendant",
   "imageScale": "Echelle de l'image",
+  "pdfScale": "PDF scale",
   "svgScale": "Échelle SVG",
   "noImageSelected": "Aucune image sélectionnée",
   "noSvgSelected": "Aucun SVG sélectionné",
