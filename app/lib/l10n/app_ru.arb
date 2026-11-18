@@ -538,6 +538,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Выберите страницы",
   "recentFiles": "Последние файлы",
   "start": "Начальный экран",
@@ -1191,6 +1205,7 @@
   "ascending": "По возрастанию",
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
+  "pdfScale": "PDF scale",
   "svgScale": "SVG масштаб",
   "noImageSelected": "Изображение не выбрано",
   "noSvgSelected": "Не выбран SVG",
