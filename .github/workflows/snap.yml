@@ -1,0 +1,78 @@
+name: Snap build
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - stable
+      - nightly
+  release:
+    types: [published]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: snap-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The release tag determines branding even if GitHub's prerelease flag is wrong.
+  # main is the stable development branch; develop and PRs use nightly branding.
+  BUILD_FLAVOR: >-
+    ${{ (github.ref == 'refs/heads/main' ||
+         github.ref == 'refs/tags/stable' ||
+         (startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')))
+        && 'production' || 'nightly' }}
+
+jobs:
+  build-snap:
+    name: build-snap
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - image: ubuntu-26.04
+            name: x86_64
+          - image: ubuntu-26.04-arm
+            name: arm64
+    runs-on: ${{ matrix.arch.image }}
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v7.0.1
+      - name: Add snapcraft directory
+        run: |
+          mkdir -p snap
+          cp app/snapcraft.yaml snap/snapcraft.yaml
+      - name: 🎨 Apply native branding
+        if: ${{ env.BUILD_FLAVOR == 'nightly' }}
+        run: |
+          sed -i "s/flutter build linux --release --verbose --target lib\/main.dart/flutter build linux --release --verbose --target lib\/main.dart --flavor nightly/" snap/snapcraft.yaml
+          sed -i "s/title: 'Linwood Butterfly'/title: 'Linwood Butterfly Nightly'/" snap/snapcraft.yaml
+          cp app/linux/branding/nightly-256.png app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
+          sed -i 's/Name=Linwood Butterfly/Name=Linwood Butterfly Nightly/' app/linux/debian/usr/share/applications/dev.linwood.butterfly.desktop
+          sed -i 's/<name>Linwood Butterfly<\/name>/<name>Linwood Butterfly Nightly<\/name>/' app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml
+      - uses: CodeDoctorDE/snap-build@d58a0cbf6a491a03927bdd22b6630397f8295cf5 # deps/node24
+        id: build
+        with:
+          snapcraft-args: pack
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: linux-${{ matrix.arch.name }}-snap
+          path: ${{ steps.build.outputs.snap }}
+          if-no-files-found: error
+      - uses: CodeDoctorDE/snap-publish@91246301c8af376f4314530520e7ceb8db7b1e0f # deps/node24
+        name: Publish Snap to Store
+        if: >-
+          ${{ github.event_name != 'workflow_dispatch' &&
+              (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' ||
+               github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable') }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_CREDENTIALS }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
