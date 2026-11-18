@@ -538,6 +538,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "选择页面",
   "recentFiles": "最近的文件",
   "start": "开始",
@@ -1191,6 +1205,7 @@
   "ascending": "升序",
   "descending": "降序",
   "imageScale": "图像缩放",
+  "pdfScale": "PDF scale",
   "svgScale": "SVG 缩放",
   "noImageSelected": "未选择图像",
   "noSvgSelected": "未选择 SVG",
