@@ -137,7 +137,7 @@ dependencies:
   network_info_plus: ^8.2.2
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.2
-  pdfrx: ^2.6.5
+  pdfrx: ^3.0.2
   talker_flutter: ^5.1.20
   talker: ^5.1.20
   talker_bloc_logger: ^5.1.20

@@ -11,28 +11,28 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
-    "@astrojs/markdown-satteri": "^0.4.7",
-    "@astrojs/react": "^7.1.4",
-    "@astrojs/starlight": "^0.42.10",
+    "@astrojs/markdown-satteri": "^0.4.10",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/starlight": "^0.42.11",
     "@fontsource-variable/inter": "^5.3.0",
     "@linwooddev/starlight-style": "github:LinwoodDev/style#de5749c966ee2761072116cc587ed26f570fb003&path:/packages/starlight",
     "@linwooddev/style": "github:LinwoodDev/style#de5749c966ee2761072116cc587ed26f570fb003&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.4.7",
+    "astro": "^7.4.12",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@12.18.0",
+  "packageManager": "pnpm@12.21.0",
   "devDependencies": {
     "@unplugin-pwa/core": "^0.0.5",
     "@unplugin-pwa/vite": "^0.0.5",
     "@vite-pwa/astro": "^2.0.2",
     "@vite-pwa/workbox-window": "^8.0.15",
-    "magicast": "^0.5.2",
-    "sass": "^1.108.1",
+    "magicast": "^0.5.5",
+    "sass": "^1.108.2",
     "sharp": "^0.35.5"
   }
 }
