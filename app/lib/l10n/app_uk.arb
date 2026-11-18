@@ -538,6 +538,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Вибрати сторінки",
   "recentFiles": "Останні файли",
   "start": "Старт",
@@ -1191,6 +1205,7 @@
   "ascending": "За зростанням",
   "descending": "За спаданням",
   "imageScale": "Масштаб зображення",
+  "pdfScale": "PDF scale",
   "svgScale": "Шкала SVG",
   "noImageSelected": "Не вибрано зображення",
   "noSvgSelected": "Не вибрано SVG",
