@@ -103,10 +103,11 @@ Future<void> exportData(
   label: AppLocalizations.of(context).export,
 );
 
-Future<void> writeClipboardData(
+Future<bool> writeClipboardData(
   ClipboardManager clipboardManager,
   AssetFileType type,
   Uint8List data,
-) async {
-  clipboardManager.setContent((data: data, type: type.getMimeTypes().first));
-}
+) async => await clipboardManager.setContent((
+  data: data,
+  type: type.getMimeTypes().first,
+));

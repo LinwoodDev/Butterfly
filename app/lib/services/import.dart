@@ -228,6 +228,10 @@ class ImportService(
   final String? path,
   final bool useDefaultStorage = true,
 }) {
+  static final clipboardTypes = List<String>.unmodifiable(
+    AssetFileType.values.expand((type) => type.getMimeTypes()).toSet(),
+  );
+
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
@@ -421,9 +425,7 @@ class ImportService(
     bool advanced = true,
   }) async {
     final clipboard = context.read<ClipboardManager>();
-    final content = await clipboard.getContent(
-      types: AssetFileType.values.expand((e) => e.getMimeTypes()).toList(),
-    );
+    final content = await clipboard.getContent(types: clipboardTypes);
     if (content == null) return null;
     return importContents(
       [(name: null, content: content)],
@@ -1098,7 +1100,12 @@ class ImportService(
   }) async {
     try {
       final firstPos = position ?? Offset.zero;
-      final contentString = String.fromCharCodes(bytes);
+      String contentString;
+      try {
+        contentString = utf8.decode(bytes);
+      } on FormatException {
+        contentString = String.fromCharCodes(bytes);
+      }
       final state = _getState();
       final background =
           state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
@@ -1118,6 +1125,7 @@ class ImportService(
                   styleSheet: styleSheet,
                 )
               : TextElement(
+                  position: firstPos.toPoint(),
                   area: text.TextArea(
                     paragraph: text.TextParagraph(
                       textSpans: [text.TextSpan(text: contentString)],

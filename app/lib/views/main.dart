@@ -35,6 +35,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:lw_sysapi/lw_sysapi.dart' show isBrowserPasteShortcut;
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -987,7 +988,8 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
     }
     return {
       for (final entry in shortcuts.entries)
-        _EditorShortcutActivator(entry.key, controller): entry.value,
+        if (entry.value is! PasteIntent || !isBrowserPasteShortcut(entry.key))
+          _EditorShortcutActivator(entry.key, controller): entry.value,
     };
   }
 }

@@ -624,41 +624,39 @@ class SelectHandler extends Handler<SelectTool> {
   ]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
+    final point = getSelectionRect()?.topLeft;
+    if (point == null) return;
+    final selection = _selected.toList();
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(
+          id: createUniqueId(),
+          content: selection
+              .map(
+                (renderer) =>
+                    (renderer.transform(position: -point, relative: true) ??
+                            renderer)
+                        .element,
+              )
+              .toList(),
+        ),
+      ],
+    );
+    final copied = await writeClipboardData(
+      clipboardManager,
+      AssetFileType.page,
+      utf8.encode(json.encode(page.toDataJson(state.data))),
+    );
+    if (!copied || bloc.isClosed) return;
     if (cut) {
       bloc.add(
         ElementsRemoved(
-          _selected.map((r) => r.element.id).nonNulls.toList(),
-          pageName: bloc.state.pageName,
+          selection.map((renderer) => renderer.element.id).nonNulls.toList(),
+          pageName: state.pageName,
         ),
       );
     }
-    final point = getSelectionRect()?.topLeft;
-    if (point == null) return;
-    writeClipboardData(
-      clipboardManager,
-      AssetFileType.page,
-      Uint8List.fromList(
-        utf8.encode(
-          json.encode(
-            DocumentPage(
-              layers: [
-                DocumentLayer(
-                  id: createUniqueId(),
-                  content: _selected
-                      .map(
-                        (e) =>
-                            (e.transform(position: -point, relative: true) ?? e)
-                                .element,
-                      )
-                      .toList(),
-                ),
-              ],
-            ).toDataJson(state.data),
-          ),
-        ),
-      ),
-    );
-    _selected.clear();
+    _selected.removeWhere(selection.contains);
     bloc.refresh();
   }
 

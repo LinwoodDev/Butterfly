@@ -10,7 +10,7 @@ Future<void> _importDroppedContent(
   final position = bloc.transformCubit.state.localToGlobal(
     details.localPosition,
   );
-  // The user explicitly dropped this content; allow bounded remote reads.
+  // Drops can resolve remote content. Pasted text stays as clipboard data.
   final imported = await details.readContents(safeMode: false);
   if (!context.mounted || bloc.isClosed) return;
   final errors = [...imported.errors];
@@ -204,14 +204,22 @@ class _LoadedViewport extends StatelessWidget {
                 bake();
               }
 
+              final actions = getHandler().getActions(context);
+              if (kIsWeb) actions.remove(PasteTextIntent);
               return Actions(
-                actions: getHandler().getActions(context),
+                actions: actions,
                 child: DefaultTextEditingShortcuts(
                   child: Focus(
                     child: MouseRegion(
                       cursor: toolState.currentCursor,
                       child: SystemDropTarget(
                         showFeedback: true,
+                        paste: (
+                          types: ImportService.clipboardTypes,
+                          enabled: () => !cubit.isEditingText,
+                          localPosition: () =>
+                              cubit.inputCubit.state.lastPosition,
+                        ),
                         onDrop: (details) =>
                             _importDroppedContent(context, details),
                         onError: (error, stack) =>
