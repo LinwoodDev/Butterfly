@@ -405,6 +405,8 @@
   "createTemplate": "Criar modelo",
   "createTemplateContent": "Você realmente quer criar um modelo a partir dos elementos selecionados? O arquivo original será excluído.",
   "fileName": "Nome do arquivo",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Nome de arquivo padrão",
   "templateFileNameDescription": "Os documentos abertos do seletor de modelos são salvos automaticamente com este nome. Os modelos sem nome usam o padrão configurado nas configurações de dados. Combine seu próprio texto com {dateExample} e {timeExample}. Caracteres que não são permitidos em nomes de arquivos serão rejeitados.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Selecionar páginas",
   "recentFiles": "Arquivos recentes",
   "start": "Iniciar",
@@ -1191,6 +1207,7 @@
   "ascending": "Ascendente",
   "descending": "Descendente",
   "imageScale": "Escala de imagem",
+  "pdfScale": "PDF scale",
   "svgScale": "Escala SVG",
   "noImageSelected": "Nenhuma imagem selecionada",
   "noSvgSelected": "Nenhum SVG selecionado",

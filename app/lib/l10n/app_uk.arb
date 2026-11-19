@@ -405,6 +405,8 @@
   "createTemplate": "Створити шаблон",
   "createTemplateContent": "Ви дійсно хочете створити шаблон з цього документа? Оригінальний документ буде видалено.",
   "fileName": "Ім'я файлу",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Усталена назва файлу",
   "templateFileNameDescription": "Документи, які відкриваються з вибору шаблону, зберігаються автоматично з такою назвою. В налаштуваннях даних використовуються стандартні шаблони. Об'єднайте свій текст з {dateExample} та {timeExample}. Символи, які не допускаються в іменах файлів, будуть відхилені.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Вибрати сторінки",
   "recentFiles": "Останні файли",
   "start": "Старт",
@@ -1191,6 +1207,7 @@
   "ascending": "За зростанням",
   "descending": "За спаданням",
   "imageScale": "Масштаб зображення",
+  "pdfScale": "PDF scale",
   "svgScale": "Шкала SVG",
   "noImageSelected": "Не вибрано зображення",
   "noSvgSelected": "Не вибрано SVG",

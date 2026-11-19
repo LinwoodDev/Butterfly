@@ -405,6 +405,8 @@
   "createTemplate": "Şablon oluştur",
   "createTemplateContent": "Bu belgeyi şablon haline getirmek istediğinizden emin misiniz? Orijinal belge silinecektir.",
   "fileName": "File name",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Default file name",
   "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Sayfaları seçin",
   "recentFiles": "Son kullanılanlar",
   "start": "Başlat",
@@ -1191,6 +1207,7 @@
   "ascending": "Artan",
   "descending": "Azalan",
   "imageScale": "Görsel ölçeği",
+  "pdfScale": "PDF scale",
   "svgScale": "SVG scale",
   "noImageSelected": "No image selected",
   "noSvgSelected": "No SVG selected",

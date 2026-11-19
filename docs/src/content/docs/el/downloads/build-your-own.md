@@ -8,7 +8,7 @@ title: "Φτιάξτε το δικό σας"
 4. Χρησιμοποιήστε το εργαλείο πτερυγισμού για να μεταγλωττίσετε την εφαρμογή
    - `flutter build apk`
    - `flutter build appbundle`
-   - `flutter build web --wasm --release --no-web-resources-cdn`, then
+   - `flutter build web --wasm --no-deprecated-js-interop --release --no-web-resources-cdn`, then
      `dart pub get -C ../tools` and `dart run ../tools/build_web_service_worker.dart` to enable offline loading
    - `flutter build linux`
    - `flutter build windows`

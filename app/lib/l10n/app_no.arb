@@ -405,6 +405,8 @@
   "createTemplate": "Opprett mal",
   "createTemplateContent": "Vil du virkelig opprette en mal fra dette dokumentet? Det opprinnelige dokumentet vil bli slettet.",
   "fileName": "Fil navn",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Standard filnavn",
   "templateFileNameDescription": "Dokumenter åpnet fra malvelgeren lagres automatisk med dette navnet. Maler uten navn kan benyttes som standard konfigurert i datainnstillinger. Kombiner din egen tekst med {dateExample} og {timeExample}. Tegn som ikke er tillatt i filnavn vil bli avvist.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Import PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Create export preset",
   "selectPages": "Velg sider",
   "recentFiles": "Siste filer",
   "start": "Begynn",
@@ -1191,6 +1207,7 @@
   "ascending": "Stigende",
   "descending": "Synkende",
   "imageScale": "Bilde skalering",
+  "pdfScale": "PDF scale",
   "svgScale": "SVG skala",
   "noImageSelected": "Ingen bilde valgt",
   "noSvgSelected": "Ingen SVG valgt",
