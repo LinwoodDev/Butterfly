@@ -405,6 +405,8 @@
   "createTemplate": "Utwórz szablon",
   "createTemplateContent": "Czy na pewno chcesz utworzyć szablon z tego dokumentu? Oryginalny dokument zostanie usunięty.",
   "fileName": "Nazwa pliku",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Domyślna nazwa pliku",
   "templateFileNameDescription": "Dokumenty otwarte z wyboru szablonu są zapisywane automatycznie z tą nazwą. Szablony bez nazwy używają domyślnej konfiguracji w ustawieniach danych. Połącz swój własny tekst z {dateExample} i {timeExample}. Znaki, które nie są dozwolone w nazwach plików, zostaną odrzucone.",
   "@templateFileNameDescription": {
