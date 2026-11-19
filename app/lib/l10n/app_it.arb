@@ -405,6 +405,8 @@
   "createTemplate": "Crea template",
   "createTemplateContent": "Vuoi davvero creare un template da questo documento? Il documento originale verrà eliminato.",
   "fileName": "Nome file",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Nome file predefinito",
   "templateFileNameDescription": "I documenti aperti dal selettore del modello vengono salvati automaticamente con questo nome. I modelli senza un nome usano il valore predefinito configurato nelle impostazioni dei dati. Combina il tuo testo con {dateExample} e {timeExample}. I caratteri che non sono ammessi nei nomi dei file saranno rifiutati.",
   "@templateFileNameDescription": {
