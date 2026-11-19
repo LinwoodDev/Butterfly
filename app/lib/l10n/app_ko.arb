@@ -405,6 +405,8 @@
   "createTemplate": "템플릿 만들기",
   "createTemplateContent": "이 문서로 템플릿을 만드시겠습니까? 원본 문서는 삭제됩니다.",
   "fileName": "File name",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Default file name",
   "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
   "@templateFileNameDescription": {
