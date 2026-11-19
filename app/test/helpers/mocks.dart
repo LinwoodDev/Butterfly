@@ -97,6 +97,27 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   ]) => findPack((pack) => pack.getNamedPalettes().firstOrNull, storage);
 
   @override
+  Future<Tool?> getToolPreset(PackAssetLocation location) async {
+    final system = buildDefaultPackSystem();
+    await system.initialize();
+    var pack = await system.getFile(location.namespace);
+    if (location.namespace == kCorePackFileName) {
+      pack = NoteData(
+        pack?.archive ?? Archive(),
+        parent: await DocumentDefaults.getCorePack(),
+      );
+    }
+    return pack?.getToolPreset(location.key);
+  }
+
+  @override
+  void invalidateToolPresets() {}
+
+  @override
+  String getToolPresetPackName(PackAssetLocation location) =>
+      getPackDisplayName(null, location.namespace);
+
+  @override
   Future<PackItem<TextStyleSheet>?> findDefaultStyleSheet([
     ExternalStorage? storage,
   ]) => findPack((pack) => pack.getNamedStyles().firstOrNull, storage);

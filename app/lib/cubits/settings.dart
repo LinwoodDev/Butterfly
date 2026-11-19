@@ -204,7 +204,7 @@ enum SyncMode { always, noMobile, manual }
 
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
-enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
+enum InputMappingCategory { activeTool, handTool, toolOnToolbar, preset }
 
 @freezed
 sealed class FavoriteLocation with _$FavoriteLocation {
@@ -230,19 +230,32 @@ class const InputMappingDefault._() {
   static const InputMapping middleMouse = .new(InputMapping.handToolValue);
   static const InputMapping rightMouse = .new(1);
   static const InputMapping pen = .new(InputMapping.activeToolValue);
-  static const InputMapping invertedPen = .new(3);
+  static const eraserPreset = PackAssetLocation(
+    kCorePackFileName,
+    'eraser-path',
+  );
+  static const InputMapping invertedPen = .preset(eraserPreset);
   static const InputMapping firstPenButton = .new(2);
   static const InputMapping secondPenButton = .new(1);
   static const InputMapping touch = .new(InputMapping.activeToolValue);
 }
 
-extension type const InputMapping(int value) {
+@immutable
+class InputMapping {
+  final int value;
+  final PackAssetLocation? preset;
+
+  const InputMapping(this.value) : preset = null;
+  const InputMapping.preset(PackAssetLocation this.preset)
+    : value = activeToolValue;
+
   static const int activeToolValue = -2;
   static const int handToolValue = -1;
 
   factory InputMapping.fromUIData(
     InputMappingCategory category, [
     int? toolNumber, // 1-indexed
+    PackAssetLocation? preset,
   ]) {
     switch (category) {
       case .activeTool:
@@ -251,10 +264,14 @@ extension type const InputMapping(int value) {
         return InputMapping(handToolValue);
       case .toolOnToolbar:
         return InputMapping(toolNumber?.clamp(1, 99).subtract(1) ?? 0);
+      case .preset:
+        if (preset == null) throw ArgumentError.notNull('preset');
+        return InputMapping.preset(preset);
     }
   }
 
   InputMappingCategory getCategory() {
+    if (preset != null) return .preset;
     switch (value) {
       case activeToolValue:
         return InputMappingCategory.activeTool;
@@ -276,6 +293,9 @@ extension type const InputMapping(int value) {
   }
 
   String getDescription(BuildContext context) {
+    if (preset case final preset?) {
+      return '${AppLocalizations.of(context).presets}: ${preset.namespace}/${preset.key}';
+    }
     switch (value) {
       case activeToolValue:
         return AppLocalizations.of(context).activeTool;
@@ -286,13 +306,25 @@ extension type const InputMapping(int value) {
     }
   }
 
-  factory InputMapping.fromJson(int json) {
-    return InputMapping(json);
+  factory InputMapping.fromJson(Object json) {
+    if (json is Map) {
+      return InputMapping.preset(
+        normalizeToolPresetLocation(PackAssetLocation.fromJson(json)),
+      );
+    }
+    return InputMapping((json as num).toInt());
   }
 
-  int toJson() {
-    return value;
+  Object toJson() {
+    return preset?.toJson() ?? value;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is InputMapping && other.value == value && other.preset == preset;
+
+  @override
+  int get hashCode => Object.hash(value, preset);
 }
 
 @freezed
@@ -1053,7 +1085,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               .getStringList('favorite_tools')
               ?.map((e) {
                 try {
-                  return PackAssetLocation.fromJson(json.decode(e));
+                  return normalizeToolPresetLocation(
+                    PackAssetLocation.fromJson(json.decode(e)),
+                  );
                 } catch (e) {
                   return null;
                 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -17,6 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../helpers/mocks.dart';
 
 class _Controller extends Mock implements EditorController {}
 
@@ -55,6 +58,7 @@ void main() {
   late DocumentSaveCubit save;
   late TransformCubit transform;
   late ChangeNotifier repaint;
+  late ButterflyFileSystem fileSystem;
 
   setUpAll(() {
     registerFallbackValue(Offset.zero);
@@ -75,6 +79,7 @@ void main() {
     save = DocumentSaveCubit(settings);
     transform = TransformCubit(1);
     repaint = ChangeNotifier();
+    fileSystem = MockButterflyFileSystem();
     when(() => controller.inputCubit).thenReturn(input);
     when(() => controller.toolCubit).thenReturn(tools);
     when(() => controller.rendererCubit).thenReturn(renderer);
@@ -155,6 +160,7 @@ void main() {
         providers: [
           RepositoryProvider<EditorController>.value(value: controller),
           RepositoryProvider<ClipboardManager>.value(value: _Clipboard()),
+          RepositoryProvider<ButterflyFileSystem>.value(value: fileSystem),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -184,6 +190,91 @@ void main() {
     when(() => loaded.pageName).thenReturn('page');
     when(() => loaded.currentLayer).thenReturn('');
   }
+
+  testWidgets(
+    'preset activators work without a toolbar entry and restore the active tool',
+    (tester) async {
+      const location = PackAssetLocation('navigation.bfly', 'hand');
+      final system = fileSystem.buildDefaultPackSystem();
+      await system.initialize();
+      await system.createFile(
+        location.namespace,
+        NoteData(Archive()).setToolPreset(location.key, HandTool()),
+      );
+      usePen();
+      final active = tools.state.handler;
+      await pumpViewport(
+        tester,
+        invertedPen: const InputMapping.preset(location),
+      );
+      final inverted = TestPointer(1, PointerDeviceKind.invertedStylus);
+      tester.binding.handlePointerEvent(inverted.down(const Offset(200, 200)));
+      await tester.pumpAndSettle();
+      expect(tools.state.temporaryHandler, isA<HandHandler>());
+      expect(tools.state.temporaryIndex, isNull);
+      expect(tools.state.handler, same(active));
+      tester.binding.handlePointerEvent(inverted.up());
+      await tester.pumpAndSettle();
+      final stylus = TestPointer(2, PointerDeviceKind.stylus);
+      tester.binding.handlePointerEvent(stylus.down(const Offset(200, 200)));
+      await tester.pumpAndSettle();
+      expect(tools.state.temporaryHandler, isNull);
+      expect(tools.getHandler(), same(active));
+      tester.binding.handlePointerEvent(stylus.cancel());
+      await tester.pumpAndSettle();
+      await tester.pumpWidget(const SizedBox.shrink());
+    },
+  );
+
+  testWidgets('a missing preset leaves the active tool usable', (tester) async {
+    usePen();
+    final active = tools.state.handler;
+    await pumpViewport(
+      tester,
+      invertedPen: const InputMapping.preset(
+        PackAssetLocation('missing.bfly', 'eraser'),
+      ),
+    );
+    final pointer = TestPointer(1, PointerDeviceKind.invertedStylus);
+    tester.binding.handlePointerEvent(pointer.down(const Offset(200, 200)));
+    await tester.pumpAndSettle();
+    expect(tools.state.temporaryHandler, isNull);
+    expect(tools.getHandler(), same(active));
+    tester.binding.handlePointerEvent(pointer.cancel());
+    await tester.pumpAndSettle();
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets(
+    'inverted stylus uses the default eraser without a toolbar eraser',
+    (tester) async {
+      when(
+        () => bloc.rayCast(
+          any(),
+          any(),
+          useCollection: false,
+          useLayer: false,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+      ).thenAnswer((_) async => <Renderer<PadElement>>{});
+      usePen();
+      final active = tools.state.handler;
+      await pumpViewport(tester);
+      final pointer = TestPointer(1, PointerDeviceKind.invertedStylus);
+      tester.binding.handlePointerEvent(pointer.down(const Offset(200, 200)));
+      await tester.pumpAndSettle();
+      expect(tools.state.temporaryHandler, isA<EraserHandler>());
+      expect(
+        (tools.state.temporaryHandler as EraserHandler).data.mode,
+        EraserMode.path,
+      );
+      expect(tools.state.handler, same(active));
+      tester.binding.handlePointerEvent(pointer.up());
+      await tester.pumpAndSettle();
+      expect(input.state.pointers, isEmpty);
+      await tester.pumpWidget(const SizedBox.shrink());
+    },
+  );
 
   for (final (touch, gestures, kind) in [
     (

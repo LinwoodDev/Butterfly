@@ -154,9 +154,8 @@ class _PropertyCardState extends State<_PropertyCard> {
   }
 
   Future<void> _saveToolPreset(BuildContext context, Tool tool) async {
-    final packSystem = context
-        .read<ButterflyFileSystem>()
-        .buildDefaultPackSystem();
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final packSystem = fileSystem.buildDefaultPackSystem();
     final bloc = context.read<DocumentBloc>();
     final result = await showDialog<PackAssetLocation>(
       context: context,
@@ -169,7 +168,7 @@ class _PropertyCardState extends State<_PropertyCard> {
     var pack = await packSystem.getFile(result.namespace);
     if (pack == null) return;
     pack = pack.setToolPreset(result.key, tool.copyWith(id: null));
-    await packSystem.updateFile(result.namespace, pack);
+    await fileSystem.updatePack(result, pack);
   }
 
   @override

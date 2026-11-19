@@ -161,8 +161,16 @@ Future<FileSystemEntity<NoteFile>?> renameDocumentAsset(
 
 const kCorePackFileName = 'Core.bfly';
 
-String getPackDisplayName(NoteData pack, String fileName) {
-  final displayName = pack.name ?? pack.getMetadata()?.name;
+PackAssetLocation normalizeToolPresetLocation(PackAssetLocation location) =>
+    location.namespace == kCorePackFileName
+    ? PackAssetLocation(
+        location.namespace,
+        DocumentDefaults.normalizeToolPresetKey(location.key),
+      )
+    : location;
+
+String getPackDisplayName(NoteData? pack, String fileName) {
+  final displayName = pack?.name ?? pack?.getMetadata()?.name;
   if (displayName?.trim().isNotEmpty ?? false) return displayName!.trim();
   final normalized = fileName.split('/').last;
   return normalized.endsWith('.bfly')
@@ -204,6 +212,9 @@ class ButterflyFileSystem {
   final _documentCache = <String, DocumentFileSystem>{};
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
+  final _toolPresetCache =
+      <PackFileSystem, Map<PackAssetLocation, FutureOr<Tool?>>>{};
+  final _toolPresetPackNames = <PackFileSystem, Map<String, String>>{};
   final _documentStateCache = <String, DocumentStateFileSystem>{};
   final _backupCache = <String, DirectoryFileSystem>{};
   StreamSubscription<ButterflySettings>? _settingsSubscription;
@@ -284,6 +295,11 @@ class ButterflyFileSystem {
       if (previousState.documentPath != state.documentPath) {
         removeCachedFileSystem(null);
       }
+      if (previousState.inputConfiguration != state.inputConfiguration ||
+          previousState.defaultRemote != state.defaultRemote ||
+          previousState.connections != state.connections) {
+        invalidateToolPresets();
+      }
       previousState = state;
     });
   }
@@ -294,6 +310,7 @@ class ButterflyFileSystem {
     _documentCache.clear();
     _templateCache.clear();
     _packCache.clear();
+    invalidateToolPresets();
     _documentStateCache.clear();
     _backupCache.clear();
   }
@@ -528,6 +545,7 @@ class ButterflyFileSystem {
     final fileSystem = buildPackSystem(storage);
     await fileSystem.initialize();
     await fileSystem.createFile(fileName, pack);
+    invalidateToolPresets();
     final files = await fileSystem.getFiles();
     return files
             .where((file) => file.pathWithoutLeadingSlash == fileName)
@@ -570,7 +588,13 @@ class ButterflyFileSystem {
       final pack = file.data!;
       final item = (file.pathWithoutLeadingSlash, pack);
       if (item.$1 == kCorePackFileName) {
-        userCorePack = (item.$1, NoteData(pack.archive, parent: corePack));
+        userCorePack = (
+          item.$1,
+          NoteData(
+            DocumentDefaults.migrateCoreToolPresets(pack).archive,
+            parent: corePack,
+          ),
+        );
       } else {
         packs.add(item);
       }
@@ -584,6 +608,7 @@ class ButterflyFileSystem {
   Future<PackItem<text.TextStyleSheet>?> findDefaultStyleSheet([
     ExternalStorage? storage,
   ]) => findPack((pack) => pack.getNamedStyles().firstOrNull, storage);
+
   Future<PackItem<ColorPalette>?> findDefaultPalette([
     ExternalStorage? storage,
   ]) => findPack((pack) => pack.getNamedPalettes().firstOrNull, storage);
@@ -594,9 +619,68 @@ class ButterflyFileSystem {
     final existing = await system.getFile(location.namespace);
     if (existing == null) {
       await system.createFile(location.namespace, newPack);
-      return;
+    } else {
+      await system.updateFile(location.namespace, newPack);
     }
-    await system.updateFile(location.namespace, newPack);
+    invalidateToolPresets();
+  }
+
+  /// Returns loaded presets synchronously and shares pending loads.
+  FutureOr<Tool?> getToolPreset(PackAssetLocation location) {
+    location = normalizeToolPresetLocation(location);
+    final system = buildDefaultPackSystem();
+    final cache = _toolPresetCache.putIfAbsent(system, () => {});
+    if (cache.containsKey(location)) return cache[location];
+
+    late final Future<Tool?> loading;
+    loading = _loadToolPreset(system, location).then(
+      (result) {
+        if (identical(_toolPresetCache[system], cache) &&
+            identical(cache[location], loading)) {
+          cache[location] = result.$1;
+          _toolPresetPackNames.putIfAbsent(
+            system,
+            () => {},
+          )[location.namespace] = result.$2;
+        }
+        return result.$1;
+      },
+      onError: (Object error, StackTrace stack) {
+        if (identical(cache[location], loading)) cache.remove(location);
+        Error.throwWithStackTrace(error, stack);
+      },
+    );
+    cache[location] = loading;
+    return loading;
+  }
+
+  String getToolPresetPackName(PackAssetLocation location) =>
+      _toolPresetPackNames[buildDefaultPackSystem()]?[location.namespace] ??
+      getPackDisplayName(null, location.namespace);
+
+  Future<(Tool?, String)> _loadToolPreset(
+    PackFileSystem system,
+    PackAssetLocation location,
+  ) async {
+    await system.initialize();
+    var pack = await system.getFile(location.namespace);
+    if (location.namespace == kCorePackFileName) {
+      pack = NoteData(
+        pack == null
+            ? Archive()
+            : DocumentDefaults.migrateCoreToolPresets(pack).archive,
+        parent: await DocumentDefaults.getCorePack(),
+      );
+    }
+    return (
+      pack?.getToolPreset(location.key),
+      getPackDisplayName(pack, location.namespace),
+    );
+  }
+
+  void invalidateToolPresets() {
+    _toolPresetCache.clear();
+    _toolPresetPackNames.clear();
   }
 
   void removeCachedDocumentSystem(ExternalStorage? storage) {
@@ -612,6 +696,7 @@ class ButterflyFileSystem {
   void removeCachedPackSystem(ExternalStorage? storage) {
     final key = _cacheKey(storage);
     _packCache.remove(key);
+    invalidateToolPresets();
   }
 
   void removeCachedDocumentStateSystem(ExternalStorage? storage) {

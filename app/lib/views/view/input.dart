@@ -633,33 +633,39 @@ class _ViewportInputCoordinator {
     }
     _heldShortcutKeyId = holdShortcutKeyId;
 
-    switch (mapping?.getCategory()) {
-      case null:
-      case .activeTool:
-        return;
-      case .handTool:
+    switch (mapping) {
+      case InputMapping(preset: final preset?):
+        final tool = await context.read<ButterflyFileSystem>().getToolPreset(
+          preset,
+        );
+        if (!_isCurrentInput(generation) || tool == null) return;
+        await cubit.toolCubit.changeTemporaryHandler(
+          context,
+          cubit,
+          tool,
+          temporaryState: TemporaryState.removeAfterClick,
+        );
+      case InputMapping(value: InputMapping.handToolValue):
         cubit.toolCubit.changeTemporaryHandlerMove(cubit.rendererCubit);
         return;
+      case InputMapping(value: final index) when index >= 0:
+        await cubit.toolCubit.changeTemporaryHandlerIndex(
+          context,
+          cubit,
+          index,
+          temporaryState: TemporaryState.removeAfterClick,
+        );
       default:
-        final index = mapping?.getToolPositionIndex();
-        if (index != null) {
-          await cubit.toolCubit.changeTemporaryHandlerIndex(
-            context,
-            cubit,
-            index,
-            temporaryState: TemporaryState.removeAfterClick,
-          );
-
-          if (!_isCurrentInput(generation)) return;
-          if (holdShortcutKeyId != null &&
-              !HardwareKeyboard.instance.logicalKeysPressed.contains(
-                LogicalKeyboardKey(holdShortcutKeyId),
-              ) &&
-              (_heldShortcutKeyId == null ||
-                  _heldShortcutKeyId == holdShortcutKeyId)) {
-            _releaseHoldShortcut();
-          }
-        }
+        return;
+    }
+    if (!_isCurrentInput(generation)) return;
+    if (holdShortcutKeyId != null &&
+        !HardwareKeyboard.instance.logicalKeysPressed.contains(
+          LogicalKeyboardKey(holdShortcutKeyId),
+        ) &&
+        (_heldShortcutKeyId == null ||
+            _heldShortcutKeyId == holdShortcutKeyId)) {
+      _releaseHoldShortcut();
     }
   }
 }

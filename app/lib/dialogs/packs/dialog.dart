@@ -323,6 +323,7 @@ class _PacksDialogState extends State<PacksDialog> {
           onPressed: () async {
             final system = _packSystem;
             await system.deleteFile(file.path);
+            _fileSystem.invalidateToolPresets();
             _refresh();
           },
           child: Text(loc.delete),
@@ -403,6 +404,7 @@ class _PacksDialogState extends State<PacksDialog> {
     );
     if (pack == null) return;
     await system.updateFile(file.path, pack);
+    _fileSystem.invalidateToolPresets();
     _refresh();
   }
 

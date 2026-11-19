@@ -16,7 +16,7 @@ Map<String, dynamic> _$FavoriteLocationToJson(_FavoriteLocation instance) =>
 
 _HoldShortcut _$HoldShortcutFromJson(Map json) => _HoldShortcut(
   keyId: (json['keyId'] as num).toInt(),
-  mapping: InputMapping.fromJson((json['mapping'] as num).toInt()),
+  mapping: InputMapping.fromJson(json['mapping'] as Object),
 );
 
 Map<String, dynamic> _$HoldShortcutToJson(_HoldShortcut instance) =>
@@ -30,34 +30,34 @@ _InputConfiguration _$InputConfigurationFromJson(
 ) => _InputConfiguration(
   leftMouse: json['leftMouse'] == null
       ? InputMappingDefault.leftMouse
-      : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
+      : InputMapping.fromJson(json['leftMouse'] as Object),
   middleMouse: json['middleMouse'] == null
       ? InputMappingDefault.middleMouse
-      : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
+      : InputMapping.fromJson(json['middleMouse'] as Object),
   rightMouse: json['rightMouse'] == null
       ? InputMappingDefault.rightMouse
-      : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
+      : InputMapping.fromJson(json['rightMouse'] as Object),
   backMouse: json['backMouse'] == null
       ? null
-      : InputMapping.fromJson((json['backMouse'] as num).toInt()),
+      : InputMapping.fromJson(json['backMouse'] as Object),
   forwardMouse: json['forwardMouse'] == null
       ? null
-      : InputMapping.fromJson((json['forwardMouse'] as num).toInt()),
+      : InputMapping.fromJson(json['forwardMouse'] as Object),
   pen: json['pen'] == null
       ? InputMappingDefault.pen
-      : InputMapping.fromJson((json['pen'] as num).toInt()),
+      : InputMapping.fromJson(json['pen'] as Object),
   invertedPen: json['invertedPen'] == null
       ? InputMappingDefault.invertedPen
-      : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
+      : InputMapping.fromJson(json['invertedPen'] as Object),
   firstPenButton: json['firstPenButton'] == null
       ? InputMappingDefault.firstPenButton
-      : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
+      : InputMapping.fromJson(json['firstPenButton'] as Object),
   secondPenButton: json['secondPenButton'] == null
       ? InputMappingDefault.secondPenButton
-      : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
+      : InputMapping.fromJson(json['secondPenButton'] as Object),
   touch: json['touch'] == null
       ? InputMappingDefault.touch
-      : InputMapping.fromJson((json['touch'] as num).toInt()),
+      : InputMapping.fromJson(json['touch'] as Object),
   holdShortcuts:
       (json['holdShortcuts'] as List<dynamic>?)
           ?.map(

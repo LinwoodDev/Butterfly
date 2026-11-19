@@ -51,40 +51,101 @@ class DocumentDefaults {
           )
           .toList();
 
-  static List<Tool> createToolPresets() => [
-    Tool.hand(),
-    ...SelectMode.values.map((e) => Tool.select(mode: e)),
-    Tool.pen(),
-    Tool.laser(),
-    Tool.label(),
-    ...EraserMode.values.map((e) => Tool.eraser(mode: e)),
-    Tool.area(),
-    Tool.presentation(),
-    Tool.polygon(),
-    ...Axis2D.values.map((e) => Tool.spacer(axis: e)),
-    Tool.stamp(),
-    ...[
-      PathShape.circle,
-      PathShape.rectangle,
-      PathShape.line,
-      PathShape.triangle,
-    ].map((e) => Tool.shape(property: ShapeProperty(shape: e()))),
-    ...[SurfaceTexture.pattern].map((e) => TextureTool(texture: e())),
-    Tool.undo(),
-    Tool.redo(),
-    Tool.fullScreen(),
-    Tool.collection(),
-    Tool.eyeDropper(),
-    Tool.ruler(),
-    Tool.grid(),
-    ...BarcodeType.values.map((e) => Tool.barcode(barcodeType: e)),
-    Tool.table(),
+  static Map<String, Tool> createToolPresets() => {
+    'hand': Tool.hand(),
+    for (final mode in SelectMode.values)
+      'select-${mode.name}': Tool.select(mode: mode),
+    'pen': Tool.pen(),
+    'laser': Tool.laser(),
+    'label': Tool.label(),
+    for (final mode in EraserMode.values)
+      'eraser-${mode.name}': Tool.eraser(mode: mode),
+    'area': Tool.area(),
+    'presentation': Tool.presentation(),
+    'polygon': Tool.polygon(),
+    for (final axis in Axis2D.values)
+      'spacer-${axis.name}': Tool.spacer(axis: axis),
+    'stamp': Tool.stamp(),
+    'shape-circle': Tool.shape(
+      property: ShapeProperty(shape: PathShape.circle()),
+    ),
+    'shape-rectangle': Tool.shape(
+      property: ShapeProperty(shape: PathShape.rectangle()),
+    ),
+    'shape-line': Tool.shape(property: ShapeProperty(shape: PathShape.line())),
+    'shape-triangle': Tool.shape(
+      property: ShapeProperty(shape: PathShape.triangle()),
+    ),
+    'texture-pattern': TextureTool(texture: SurfaceTexture.pattern()),
+    'undo': Tool.undo(),
+    'redo': Tool.redo(),
+    'full-screen': Tool.fullScreen(),
+    'collection': Tool.collection(),
+    'eye-dropper': Tool.eyeDropper(),
+    'ruler': Tool.ruler(),
+    'grid': Tool.grid(),
+    for (final type in BarcodeType.values)
+      'barcode-${type.name}': Tool.barcode(barcodeType: type),
+    'table': Tool.table(),
+  };
+
+  // The original preset order is kept here only for reading existing paths.
+  static const _legacyToolPresetKeys = [
+    'hand',
+    'select-rectangle',
+    'select-lasso',
+    'pen',
+    'laser',
+    'label',
+    'eraser-stroke',
+    'eraser-path',
+    'area',
+    'presentation',
+    'polygon',
+    'spacer-horizontal',
+    'spacer-vertical',
+    'stamp',
+    'shape-circle',
+    'shape-rectangle',
+    'shape-line',
+    'shape-triangle',
+    'texture-pattern',
+    'undo',
+    'redo',
+    'full-screen',
+    'collection',
+    'eye-dropper',
+    'ruler',
+    'grid',
+    'barcode-qrCode',
+    'barcode-dataMatrix',
+    'barcode-code128',
+    'table',
   ];
 
+  static String normalizeToolPresetKey(String key) {
+    final match = RegExp(r'^core-(\d+)$').firstMatch(key);
+    final index = int.tryParse(match?.group(1) ?? '');
+    return index != null && index < _legacyToolPresetKeys.length
+        ? _legacyToolPresetKeys[index]
+        : key;
+  }
+
+  static NoteData migrateCoreToolPresets(NoteData pack) {
+    for (final (index, key) in _legacyToolPresetKeys.indexed) {
+      final legacyKey = 'core-$index';
+      final tool = pack.getToolPreset(legacyKey);
+      if (tool == null) continue;
+      if (pack.getToolPreset(key) == null) pack = pack.setToolPreset(key, tool);
+      pack = pack.removeToolPreset(legacyKey);
+    }
+    return pack;
+  }
+
   static NoteData _addCoreToolPresets(NoteData pack) {
-    final presets = createToolPresets();
-    for (final (index, tool) in presets.indexed) {
-      pack = pack.setToolPreset('core-$index', tool);
+    pack = migrateCoreToolPresets(pack);
+    for (final entry in createToolPresets().entries) {
+      pack = pack.setToolPreset(entry.key, entry.value);
     }
     return pack;
   }

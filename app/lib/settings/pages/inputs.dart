@@ -772,105 +772,53 @@ String _getIgnorePressureName(
   .always => AppLocalizations.of(context).always,
 };
 
-SettingsLeapListSetting<ButterflySettings, InputMapping> _inputMappingSetting({
+SettingsLeapCustomSetting<ButterflySettings> _inputMappingSetting({
   required String id,
   required SettingsLeapDisplayName displayName,
   required IconData icon,
   required _InputConfigurationRead<InputMapping> read,
   required _InputConfigurationWrite<InputMapping> write,
-}) {
-  return SettingsLeapListSetting<ButterflySettings, InputMapping>(
-    id: id,
-    disableOptionSearch: true,
-    displayName: displayName,
-    icon: icon,
-    options: [
-      SettingsLeapOption(
-        id: 'activeTool',
-        value: const InputMapping(InputMapping.activeToolValue),
-        displayName: (context) => AppLocalizations.of(context).activeTool,
-        descriptionBuilder: (context) =>
-            AppLocalizations.of(context).activeToolDescription,
-      ),
-      SettingsLeapOption(
-        id: 'handTool',
-        value: const InputMapping(InputMapping.handToolValue),
-        displayName: (context) => AppLocalizations.of(context).handTool,
-        descriptionBuilder: (context) =>
-            AppLocalizations.of(context).handToolDescription,
-      ),
-      for (var index = 0; index < 99; index++)
-        SettingsLeapOption(
-          id: 'tool${index + 1}',
-          value: InputMapping(index),
-          displayName: (context) =>
-              AppLocalizations.of(context).toolOnToolbarShort(index + 1),
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).toolOnToolbarDescription,
-        ),
-    ],
-    read: (state) => read(state.inputConfiguration),
-    write: (context, value) {
-      final cubit = context.read<SettingsCubit>();
-      cubit.changeInputConfiguration(
-        write(cubit.state.inputConfiguration, value),
-      );
-    },
-  );
-}
+}) => _optionalInputMappingSetting(
+  id: id,
+  displayName: displayName,
+  icon: icon,
+  read: read,
+  write: (config, value) => value == null ? config : write(config, value),
+  allowNone: false,
+);
 
-SettingsLeapListSetting<ButterflySettings, InputMapping?>
-_optionalInputMappingSetting({
+SettingsLeapCustomSetting<ButterflySettings> _optionalInputMappingSetting({
   required String id,
   required SettingsLeapDisplayName displayName,
   required IconData icon,
   required _InputConfigurationRead<InputMapping?> read,
   required _InputConfigurationWrite<InputMapping?> write,
-}) {
-  return SettingsLeapListSetting<ButterflySettings, InputMapping?>(
-    id: id,
-    disableOptionSearch: true,
-    displayName: displayName,
-    icon: icon,
-    options: [
-      SettingsLeapOption<InputMapping?>(
-        id: 'none',
-        value: null,
-        displayName: (context) => AppLocalizations.of(context).none,
+  bool allowNone = true,
+}) => SettingsLeapCustomSetting<ButterflySettings>(
+  id: id,
+  displayName: displayName,
+  icon: icon,
+  builder: (context, state) {
+    final mapping = read(state.inputConfiguration);
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(displayName(context)),
+      subtitle: InputMappingDescription(mapping: mapping),
+      onTap: () => openInputMappingModal(
+        context,
+        displayName(context),
+        mapping,
+        (value) {
+          final cubit = context.read<SettingsCubit>();
+          cubit.changeInputConfiguration(
+            write(cubit.state.inputConfiguration, value),
+          );
+        },
+        allowNone: allowNone,
       ),
-      SettingsLeapOption<InputMapping?>(
-        id: 'activeTool',
-        value: const InputMapping(InputMapping.activeToolValue),
-        displayName: (context) => AppLocalizations.of(context).activeTool,
-        descriptionBuilder: (context) =>
-            AppLocalizations.of(context).activeToolDescription,
-      ),
-      SettingsLeapOption<InputMapping?>(
-        id: 'handTool',
-        value: const InputMapping(InputMapping.handToolValue),
-        displayName: (context) => AppLocalizations.of(context).handTool,
-        descriptionBuilder: (context) =>
-            AppLocalizations.of(context).handToolDescription,
-      ),
-      for (var index = 0; index < 99; index++)
-        SettingsLeapOption<InputMapping?>(
-          id: 'tool${index + 1}',
-          value: InputMapping(index),
-          displayName: (context) =>
-              AppLocalizations.of(context).toolOnToolbarShort(index + 1),
-          descriptionBuilder: (context) =>
-              AppLocalizations.of(context).toolOnToolbarDescription,
-        ),
-    ],
-    read: (state) => read(state.inputConfiguration),
-    write: (context, value) {
-      final cubit = context.read<SettingsCubit>();
-      cubit.changeInputConfiguration(
-        write(cubit.state.inputConfiguration, value),
-      );
-    },
-  );
-}
+    );
+  },
+);
 
 SettingsLeapListSetting<ButterflySettings, String?> _inputShortcutSetting({
   required String id,
@@ -994,7 +942,7 @@ Widget _buildHoldShortcutsSection(
               children: [
                 Expanded(
                   child: ListTile(
-                    title: Text(shortcut.mapping.getDescription(context)),
+                    title: InputMappingDescription(mapping: shortcut.mapping),
                     subtitle: Text(AppLocalizations.of(context).action),
                     onTap: () {
                       openInputMappingModal(
@@ -1002,6 +950,7 @@ Widget _buildHoldShortcutsSection(
                         AppLocalizations.of(context).action,
                         shortcut.mapping,
                         (mapping) {
+                          if (mapping == null) return;
                           final newShortcuts = List<HoldShortcut>.from(
                             config.holdShortcuts,
                           );

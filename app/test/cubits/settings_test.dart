@@ -13,6 +13,81 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  group('input preset mappings', () {
+    test(
+      'preserves legacy mappings and stores only preset locations',
+      () async {
+        SharedPreferences.setMockInitialValues({
+          'input_configuration':
+              '{"invertedPen":3,"leftMouse":-2,"backMouse":null}',
+        });
+        final prefs = await SharedPreferences.getInstance();
+        final cubit = SettingsCubit(prefs);
+        addTearDown(cubit.close);
+        expect(
+          cubit.state.inputConfiguration.invertedPen,
+          const InputMapping(3),
+        );
+        expect(
+          cubit.state.inputConfiguration.leftMouse,
+          InputMappingDefault.leftMouse,
+        );
+        expect(cubit.state.inputConfiguration.backMouse, isNull);
+        const mapping = InputMapping.preset(
+          PackAssetLocation('erasers.bfly', 'Soft eraser'),
+        );
+        await cubit.changeInputConfiguration(
+          cubit.state.inputConfiguration.copyWith(
+            invertedPen: mapping,
+            backMouse: mapping,
+            holdShortcuts: [HoldShortcut(keyId: 42, mapping: mapping)],
+          ),
+        );
+        expect(mapping.toJson(), {
+          'namespace': 'erasers.bfly',
+          'key': 'Soft eraser',
+        });
+        final restored = ButterflySettings.fromPrefs(prefs).inputConfiguration;
+        expect(restored.invertedPen, mapping);
+        expect(restored.backMouse, mapping);
+        expect(restored.holdShortcuts.single.mapping, mapping);
+        expect(restored.getShortcuts(), contains(mapping));
+        expect(mapping.getCategory(), InputMappingCategory.preset);
+        expect(mapping.getToolPositionIndex(), isNull);
+        expect(mapping.getToolDisplayPosition(), isNull);
+        expect(const InputMapping(3).toJson(), 3);
+        expect(const InputMapping(3).getToolDisplayPosition(), 4);
+      },
+    );
+
+    test('migrates numbered core preset mappings and favorites', () async {
+      SharedPreferences.setMockInitialValues({
+        'input_configuration':
+            '{"invertedPen":{"namespace":"Core.bfly","key":"core-7"}}',
+        'favorite_tools': ['{"namespace":"Core.bfly","key":"core-3"}'],
+      });
+      final prefs = await SharedPreferences.getInstance();
+      final settings = ButterflySettings.fromPrefs(prefs);
+      expect(
+        settings.inputConfiguration.invertedPen,
+        InputMappingDefault.invertedPen,
+      );
+      expect(settings.favoriteTools, [
+        const PackAssetLocation(kCorePackFileName, 'pen'),
+      ]);
+      expect(
+        () => InputMapping.fromUIData(InputMappingCategory.preset),
+        throwsArgumentError,
+      );
+    });
+
+    test('defaults inverted stylus to a preset', () {
+      final config = InputConfiguration.fromJson({});
+      expect(config.invertedPen, InputMappingDefault.invertedPen);
+      expect(config.invertedPen.getCategory(), InputMappingCategory.preset);
+    });
+  });
+
   group('display calibration', () {
     test('persists per display, preserves legacy sizing and resets', () async {
       SharedPreferences.setMockInitialValues({
