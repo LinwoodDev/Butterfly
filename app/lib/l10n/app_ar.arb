@@ -405,6 +405,8 @@
   "createTemplate": "إنشاء قالب",
   "createTemplateContent": "هل تريد حقاً إنشاء قالب من هذا المستند؟ سيتم حذف المستند الأصلي.",
   "fileName": "اسم الملف",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "اسم الملف الافتراضي",
   "templateFileNameDescription": "يتم حفظ المستندات التي يتم فتحها من أداة اختيار القوالب تلقائيًا بهذا الاسم. أما القوالب التي لا تحمل اسمًا، فتستخدم الاسم الافتراضي المُعد في إعدادات البيانات. ادمج النص الخاص بك مع {dateExample} و{timeExample}. سيتم رفض الأحرف غير المسموح بها في أسماء الملفات.",
   "@templateFileNameDescription": {
