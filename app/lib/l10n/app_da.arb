@@ -405,6 +405,8 @@
   "createTemplate": "Opret skabelon",
   "createTemplateContent": "Vil du virkelig oprette en skabelon fra dette dokument? Originaldokumentet vil blive slettet.",
   "fileName": "Fil navn",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Standard filnavn",
   "templateFileNameDescription": "Dokumenter åbnet fra skabelonvælgeren gemmes automatisk med dette navn. Skabeloner uden et navn bruger standard konfigureret i Dataindstillinger. Kombiner din egen tekst med {dateExample} og {timeExample}. Tegn som ikke er tilladt i filnavne vil blive afvist.",
   "@templateFileNameDescription": {
