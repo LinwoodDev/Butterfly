@@ -405,6 +405,8 @@
   "createTemplate": "Vorlage erstellen",
   "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus diesem Dokument erstellen? Das Originaldokument wird gelöscht.",
   "fileName": "Dateiname",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Standard-Dateiname",
   "templateFileNameDescription": "Dokumente, die aus dem Template-Picker geöffnet werden, werden automatisch mit diesem Namen gespeichert. Vorlagen ohne Namen verwenden die Standardeinstellung in den Dateneinstellungen. Kombinieren Sie Ihren eigenen Text mit {dateExample} und {timeExample}. Zeichen, die in Dateinamen nicht erlaubt sind, werden abgelehnt.",
   "@templateFileNameDescription": {
