@@ -405,6 +405,8 @@
   "createTemplate": "Criar modelo",
   "createTemplateContent": "Você realmente quer criar um modelo a partir dos elementos selecionados? O arquivo original será excluído.",
   "fileName": "Nome do arquivo",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Nome de arquivo padrão",
   "templateFileNameDescription": "Os documentos abertos do seletor de modelos são salvos automaticamente com este nome. Os modelos sem nome usam o padrão configurado nas configurações de dados. Combine seu próprio texto com {dateExample} e {timeExample}. Caracteres que não são permitidos em nomes de arquivos serão rejeitados.",
   "@templateFileNameDescription": {
