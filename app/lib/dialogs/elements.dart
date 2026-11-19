@@ -20,7 +20,7 @@ ContextMenuBuilder buildElementsContextMenu(
   ImportService importService,
   ExportService exportService,
   ClipboardManager clipboardManager,
-  Offset position,
+  Offset documentPosition,
   List<Renderer<PadElement>> renderers,
   Rect? rect,
 ) {
@@ -45,10 +45,7 @@ ContextMenuBuilder buildElementsContextMenu(
             Navigator.of(context).pop(true);
             try {
               importService
-                  .importClipboard(
-                    state.data,
-                    position: bloc.transformCubit.state.localToGlobal(position),
-                  )
+                  .importClipboard(state.data, position: documentPosition)
                   .then((e) => e?.submit());
             } catch (_) {}
           },

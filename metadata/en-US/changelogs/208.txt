@@ -8,6 +8,7 @@
 * Fix blurred pen strokes and fills erasing content behind them when Combine paths is enabled ([#1356](https://github.com/LinwoodDev/Butterfly/issues/1356))
 * Fix images, SVGs, PDF pages, and textured strokes and fills losing their assets when pasted between documents ([#1361](https://github.com/LinwoodDev/Butterfly/issues/1361))
 * Fix copying and pasting canvas content in web browsers ([#1362](https://github.com/LinwoodDev/Butterfly/issues/1362))
+* Preserve paste positions while the context menu is open and clear invisible selection targets after copying ([#1363](https://github.com/LinwoodDev/Butterfly/issues/1363))
 * Fix desktop scrollbar edge dragging ([#1348](https://github.com/LinwoodDev/Butterfly/issues/1348)) 
 * Upgrade snap from core24 to core26
 

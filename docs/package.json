@@ -20,7 +20,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.4.12",
+    "astro": "^7.4.13",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "typescript": "^6.0.3"
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@unplugin-pwa/core": "^0.0.5",
     "@unplugin-pwa/vite": "^0.0.5",
-    "@vite-pwa/astro": "^2.0.2",
+    "@vite-pwa/astro": "^2.0.3",
     "@vite-pwa/workbox-window": "^8.0.15",
     "magicast": "^0.5.5",
     "sass": "^1.108.2",

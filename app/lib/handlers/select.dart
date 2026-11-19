@@ -137,6 +137,7 @@ class SelectHandler extends Handler<SelectTool> {
 
     if (_selected.isEmpty) {
       _selectionManager.reset();
+      _pendingTransform = null;
     }
 
     _selectionManager.select(bounds, rotation: angle);
@@ -406,13 +407,14 @@ class SelectHandler extends Handler<SelectTool> {
           context.getImportService(),
           context.getExportService(),
           context.getClipboardManager(),
-          localPosition,
+          position,
           _selected,
           getSelectionRect(),
         ),
       );
       if (result ?? false) {
         _selected.clear();
+        _updateSelectionRect();
       }
     }
     context.refresh();
@@ -657,6 +659,7 @@ class SelectHandler extends Handler<SelectTool> {
       );
     }
     _selected.removeWhere(selection.contains);
+    _updateSelectionRect();
     bloc.refresh();
   }
 

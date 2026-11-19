@@ -15,6 +15,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 
 class _Context extends Mock implements EventContext {}
 
@@ -24,11 +25,57 @@ class _Settings extends Mock implements SettingsCubit {}
 
 class _Bloc extends Mock implements DocumentBloc {}
 
+class _State extends Mock implements DocumentLoadSuccess {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() {
     registerFallbackValue(Rect.zero);
     registerFallbackValue(Offset.zero);
+  });
+
+  test('copying clears invisible selection hit targets', () async {
+    final context = _Context();
+    final controller = _Controller();
+    final bloc = _Bloc();
+    final state = _State();
+    final transform = TransformCubit(1);
+    addTearDown(transform.close);
+    final handler = SelectHandler(SelectTool());
+    final stroke = PenRenderer(
+      PenElement(points: const [PathPoint(100, 100), PathPoint(200, 200)]),
+      '',
+      const Rect.fromLTWH(100, 100, 100, 100),
+      const Rect.fromLTWH(98, 98, 104, 104),
+    );
+    when(() => bloc.state).thenReturn(state);
+    when(() => bloc.isClosed).thenReturn(false);
+    when(() => state.data).thenReturn(NoteData(Archive()));
+    when(() => bloc.editorController).thenReturn(controller);
+    when(() => controller.transformCubit).thenReturn(transform);
+    when(() => bloc.refresh()).thenAnswer((_) async {});
+    when(() => context.getDocumentBloc()).thenReturn(bloc);
+    when(() => context.getCameraTransform()).thenReturn(transform.state);
+    when(() => context.getSettings()).thenReturn(const ButterflySettings());
+    when(() => context.getViewState()).thenReturn(const EditorViewState());
+    when(() => context.isCtrlPressed).thenReturn(false);
+    when(() => context.refresh()).thenAnswer((_) async {});
+    when(
+      () => bloc.rayCast(any(), any(), useCollection: false, useLayer: false),
+    ).thenAnswer((_) async => {stroke});
+    handler.onTapUp(
+      TapUpDetails(localPosition: const Offset(150, 150), kind: .touch),
+      context,
+    );
+    await pumpEventQueue();
+    const down = PointerDownEvent(position: Offset(150, 150));
+    expect(handler.getSelectionRect(), isNotNull);
+    expect(handler.canChange(down, context), isFalse);
+
+    await handler.copySelection(bloc, InternalClipboardManager());
+
+    expect(handler.getSelectionRect(), isNull);
+    expect(handler.canChange(down, context), isTrue);
   });
 
   group('issue #1340: selection grid snapping', () {
