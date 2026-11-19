@@ -405,6 +405,8 @@
   "createTemplate": "สร้างแม่แบบ",
   "createTemplateContent": "คุณต้องการสร้างแม่แบบจากเอกสารนี้จริงๆ หรือไม่ เอกสารต้นฉบับจะถูกลบ",
   "fileName": "File name",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Default file name",
   "templateFileNameDescription": "Documents opened from the template picker are saved automatically with this name. Templates without a name use the default configured in Data settings. Combine your own text with {dateExample} and {timeExample}. Characters that are not allowed in file names will be rejected.",
   "@templateFileNameDescription": {
