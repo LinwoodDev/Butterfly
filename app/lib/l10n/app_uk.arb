@@ -405,6 +405,8 @@
   "createTemplate": "Створити шаблон",
   "createTemplateContent": "Ви дійсно хочете створити шаблон з цього документа? Оригінальний документ буде видалено.",
   "fileName": "Ім'я файлу",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Усталена назва файлу",
   "templateFileNameDescription": "Документи, які відкриваються з вибору шаблону, зберігаються автоматично з такою назвою. В налаштуваннях даних використовуються стандартні шаблони. Об'єднайте свій текст з {dateExample} та {timeExample}. Символи, які не допускаються в іменах файлів, будуть відхилені.",
   "@templateFileNameDescription": {
