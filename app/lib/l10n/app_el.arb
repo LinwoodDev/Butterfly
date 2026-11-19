@@ -405,6 +405,8 @@
   "createTemplate": "Δημιουργία προτύπου",
   "createTemplateContent": "Θέλετε πραγματικά να δημιουργήσετε ένα πρότυπο από αυτό το έγγραφο? Το αρχικό έγγραφο θα διαγραφεί.",
   "fileName": "Όνομα αρχείου",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "Προεπιλεγμένο όνομα αρχείου",
   "templateFileNameDescription": "Τα έγγραφα που ανοίγονται από τον επιλογέα προτύπων αποθηκεύονται αυτόματα με αυτό το όνομα. Τα πρότυπα χωρίς όνομα χρησιμοποιούν το προκαθορισμένο ρυθμισμένο στις ρυθμίσεις δεδομένων. Συνδυάστε το δικό σας κείμενο με το {dateExample} και το {timeExample}. Χαρακτήρες που δεν επιτρέπονται στα ονόματα αρχείων θα απορριφθούν.",
   "@templateFileNameDescription": {
