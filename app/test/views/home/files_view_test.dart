@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/file_system/create_note.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -56,8 +58,17 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
   }
 }
 
+class _MockTemplateSystem extends Mock implements TemplateFileSystem {}
+
 class _TrackingFileSystem extends MockButterflyFileSystem {
   final documents = _TrackingDocumentSystem();
+  TemplateFileSystem? templates;
+
+  @override
+  TemplateFileSystem buildTemplateSystem([
+    ExternalStorage? storage,
+    bool forceRecreate = false,
+  ]) => templates ?? super.buildTemplateSystem(storage, forceRecreate);
 
   @override
   DocumentFileSystem buildDocumentSystem([
@@ -234,6 +245,84 @@ void main() {
     expect(tester.state(item('Beta')), same(betaState));
     expect(renameText(tester, 'Beta'), 'Unsubmitted edit');
   });
+
+  for (final isTextBased in [false, true]) {
+    testWidgets(
+      'creating a ${isTextBased ? 'text' : 'binary'} note preserves its title and previews a safe filename',
+      (tester) async {
+        final suffix = isTextBased ? '.tbfly' : '.bfly';
+        const title = 'This / That: "What?"';
+        const safeName = 'This _ That_ _What__';
+        final template = await DocumentDefaults.createTemplate(
+          name: 'Test template',
+        );
+        final templates = _MockTemplateSystem();
+        fileSystem.templates = templates;
+        when(() => templates.initialize()).thenAnswer((_) async {});
+        when(() => templates.getFiles()).thenAnswer(
+          (_) async => [
+            FileSystemFile(
+              const AssetLocation(path: 'template.bfly'),
+              data: template,
+            ),
+          ],
+        );
+        when(() => templates.getDefaultFile(any()))
+            .thenAnswer((_) async => template);
+        final existing = await createTestNote(
+          fileSystem.documents,
+          '/notes/$safeName$suffix',
+        );
+        await pumpFiles(tester);
+        await tester.tap(find.byTooltip('Create'));
+        await tester.pumpAndSettle();
+        if (isTextBased) {
+          await tester.tap(find.text('Create raw note'));
+          await tester.pumpAndSettle();
+          await tester.tap(find.text('Test template'));
+        } else {
+          await tester.tap(find.text('New note'));
+        }
+        await tester.pumpAndSettle();
+        final dialog = find.byType(CreateNoteDialog);
+        final field = find.descendant(
+          of: dialog,
+          matching: find.byType(TextFormField),
+        );
+        await tester.enterText(field, title);
+        await tester.pumpAndSettle();
+        expect(find.textContaining('$safeName$suffix'), findsOneWidget);
+        expect(
+          find.textContaining('replaced with underscores'),
+          findsOneWidget,
+        );
+
+        await tester.enterText(field, 'Valid title');
+        await tester.pumpAndSettle();
+        expect(
+          find.textContaining('replaced with underscores'),
+          findsOneWidget,
+        );
+        expect(find.text('Valid title$suffix'), findsOneWidget);
+        await tester.enterText(field, title);
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+        await tester.pumpAndSettle();
+
+        expect(dialog, findsNothing);
+        final created = await fileSystem.documents.getAsset(
+          '/notes/$safeName (1)$suffix',
+        ) as FileSystemFile<NoteFile>?;
+        expect(created?.data?.display()?.name, title);
+        expect(asset('$safeName (1)$suffix'), findsOneWidget);
+        final unchanged = await fileSystem.documents.getAsset(
+          existing.path,
+        ) as FileSystemFile<NoteFile>?;
+        expect(unchanged?.data?.data, existing.data!.data);
+        expect(fileSystem.documents.directoryFetches, 1);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
 
   testWidgets(
     'navigation clears selection and does not show the old folder while loading',

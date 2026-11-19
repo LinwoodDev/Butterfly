@@ -5,6 +5,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
+import 'package:butterfly/dialogs/file_system/create_note.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
@@ -208,10 +209,10 @@ class FilesViewState extends State<FilesView> {
   }) async {
     template ??= await DocumentDefaults.createTemplate();
     if (!mounted) return;
+    final suffix = isTextBased ? '.tbfly' : '.bfly';
     final name = await showDialog<String>(
       context: context,
-      builder: (context) =>
-          NameDialog(validator: defaultFileNameValidator(context)),
+      builder: (context) => CreateNoteDialog(suffix: suffix),
     );
     if (name == null) return;
     final path = _locationController.text;
@@ -219,7 +220,7 @@ class FilesViewState extends State<FilesView> {
     final file = await _documentSystem.createFileWithName(
       directory: path,
       name: name,
-      suffix: isTextBased ? '.tbfly' : '.bfly',
+      suffix: suffix,
       template.createDocument(name: name).toFile(isTextBased: isTextBased),
     );
     final pathKey = documentStatePathKeyOrNull(file.location);
