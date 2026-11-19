@@ -405,6 +405,8 @@
   "createTemplate": "テンプレートを作成",
   "createTemplateContent": "このドキュメントからテンプレートを作成してもよろしいですか？元のドキュメントが削除されます。",
   "fileName": "ファイル名",
+  "noteTitle": "Note title",
+  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
   "defaultFileName": "デフォルトのファイル名",
   "templateFileNameDescription": "テンプレートピッカーから開かれたドキュメントは、この名前で自動的に保存されます。名前のないテンプレートは、format@@0で設定されたデフォルトを使用します。 独自のテキストを {dateExample} と {timeExample}と結合します。ファイル名に許可されていない文字は拒否されます。",
   "@templateFileNameDescription": {
