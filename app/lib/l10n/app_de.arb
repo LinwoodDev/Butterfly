@@ -405,8 +405,8 @@
   "createTemplate": "Vorlage erstellen",
   "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus diesem Dokument erstellen? Das Originaldokument wird gelöscht.",
   "fileName": "Dateiname",
-  "noteTitle": "Note title",
-  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
+  "noteTitle": "Notiztitel",
+  "fileNameHint": "Zeichen, die in Dateinamen nicht verwendet werden können, werden durch Unterstriche ersetzt.",
   "defaultFileName": "Standard-Dateiname",
   "templateFileNameDescription": "Dokumente, die aus dem Template-Picker geöffnet werden, werden automatisch mit diesem Namen gespeichert. Vorlagen ohne Namen verwenden die Standardeinstellung in den Dateneinstellungen. Kombinieren Sie Ihren eigenen Text mit {dateExample} und {timeExample}. Zeichen, die in Dateinamen nicht erlaubt sind, werden abgelehnt.",
   "@templateFileNameDescription": {
@@ -540,8 +540,8 @@
   "@pdf": {
     "description": "PDF format"
   },
-  "importPdf": "Import PDF",
-  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "importPdf": "PDF importieren",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} von 1 Seite ausgewählt} other{{selected} von {total} Seiten ausgewählt}}",
   "@pdfImportSelectionCount": {
     "description": "Number of selected pages out of the total in the PDF import dialog",
     "placeholders": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "pdfImportCreateExportPreset": "Create export preset",
+  "pdfImportCreateExportPreset": "Exportvorlage erstellen",
   "selectPages": "Seiten auswählen",
   "recentFiles": "Letzte Dateien",
   "start": "Start",
@@ -1207,7 +1207,7 @@
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
   "imageScale": "Bildskala",
-  "pdfScale": "PDF scale",
+  "pdfScale": "PDF-Skala",
   "svgScale": "SVG-Skala",
   "noImageSelected": "Kein Bild ausgewählt",
   "noSvgSelected": "Keine SVG ausgewählt",
