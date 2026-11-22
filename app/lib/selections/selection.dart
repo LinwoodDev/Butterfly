@@ -6,6 +6,7 @@ import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/constraints.dart';
+import 'package:butterfly/dialogs/area/thumbnail.dart';
 import 'package:butterfly/dialogs/password.dart';
 import 'package:butterfly/dialogs/texture.dart';
 import 'package:butterfly/dialogs/export/thumbnail.dart';

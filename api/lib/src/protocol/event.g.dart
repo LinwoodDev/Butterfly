@@ -102,6 +102,17 @@ Map<String, dynamic> _$ThumbnailCapturedToJson(ThumbnailCaptured instance) =>
       'type': instance.$type,
     };
 
+ThumbnailUpdated _$ThumbnailUpdatedFromJson(Map json) => ThumbnailUpdated(
+  const Uint8ListJsonConverter().fromJson(json['data'] as String),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ThumbnailUpdatedToJson(ThumbnailUpdated instance) =>
+    <String, dynamic>{
+      'data': const Uint8ListJsonConverter().toJson(instance.data),
+      'type': instance.$type,
+    };
+
 ElementsCreated _$ElementsCreatedFromJson(Map json) => ElementsCreated(
   (json['elements'] as List<dynamic>)
       .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))

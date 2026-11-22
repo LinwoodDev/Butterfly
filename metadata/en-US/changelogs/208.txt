@@ -1,3 +1,4 @@
+* Set an area as the note thumbnail with Fit, Fill, crop alignment, and persistent automatic updates ([#1358](https://github.com/LinwoodDev/Butterfly/issues/1358))
 * Allow input shortcuts to use tool presets and default the inverted stylus to the core eraser ([#1307](https://github.com/LinwoodDev/Butterfly/issues/1307))
 * Redesign the PDF import dialog and add a scale slider from 10% to 1000% ([#1359](https://github.com/LinwoodDev/Butterfly/issues/1359))
 * Accept note titles with invalid file name characters and preview the converted file name when creating notes ([#1349](https://github.com/LinwoodDev/Butterfly/issues/1349))

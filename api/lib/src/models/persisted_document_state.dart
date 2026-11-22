@@ -130,6 +130,39 @@ class const PersistedAreaNavigatorState({
   Map<String, dynamic> toJson() => _$PersistedAreaNavigatorStateToJson(this);
 }
 
+enum ThumbnailAreaFit { fit, fill }
+
+/// Alignment within the area when filling a thumbnail crops its edges.
+enum ThumbnailAreaAlignment {
+  topLeft,
+  topCenter,
+  topRight,
+  middleLeft,
+  center,
+  middleRight,
+  bottomLeft,
+  bottomCenter,
+  bottomRight;
+
+  double get x => (index % 3) / 2;
+  double get y => (index ~/ 3) / 2;
+}
+
+@freezed
+@JsonSerializable()
+class const PersistedThumbnailArea({
+  required final String pageName,
+  required final String areaName,
+  final ThumbnailAreaFit fit = ThumbnailAreaFit.fit,
+  final ThumbnailAreaAlignment alignment = ThumbnailAreaAlignment.center,
+  final bool clip = true,
+}) with _$PersistedThumbnailArea {
+  static PersistedThumbnailArea fromJson(Map json) =>
+      _$PersistedThumbnailAreaFromJson(Map<String, dynamic>.from(json));
+
+  Map<String, dynamic> toJson() => _$PersistedThumbnailAreaToJson(this);
+}
+
 @freezed
 sealed class PersistedDocumentState with _$PersistedDocumentState {
   const PersistedDocumentState._();
@@ -148,6 +181,7 @@ sealed class PersistedDocumentState with _$PersistedDocumentState {
     @Default(PersistedAreaNavigatorState())
     PersistedAreaNavigatorState areaNavigator,
     @Default(false) bool autoThumbnail,
+    PersistedThumbnailArea? thumbnailArea,
     DateTime? updatedAt,
   }) = _PersistedDocumentState;
 

@@ -204,6 +204,10 @@ DocumentEvent _$DocumentEventFromJson(
           return ThumbnailCaptured.fromJson(
             json
           );
+                case 'thumbnailUpdated':
+          return ThumbnailUpdated.fromJson(
+            json
+          );
                 case 'elementsCreated':
           return ElementsCreated.fromJson(
             json
@@ -838,10 +842,11 @@ as String,
 @JsonSerializable()
 
 class ThumbnailCaptured extends DocumentEvent {
-  const ThumbnailCaptured(@Uint8ListJsonConverter() this.data, { String? $type}): $type = $type ?? 'thumbnailCaptured',super._();
+  const ThumbnailCaptured(@Uint8ListJsonConverter() this.data, {@JsonKey(includeFromJson: false, includeToJson: false) this.area,  String? $type}): $type = $type ?? 'thumbnailCaptured',super._();
   factory ThumbnailCaptured.fromJson(Map<String, dynamic> json) => _$ThumbnailCapturedFromJson(json);
 
 @Uint8ListJsonConverter() final  Uint8List data;
+@JsonKey(includeFromJson: false, includeToJson: false) final  PersistedThumbnailArea? area;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -860,18 +865,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is ThumbnailCaptured&&const DeepCollectionEquality().equals(other.data, data));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ThumbnailCaptured&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.area, area) || other.area == area));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(data),area);
 }
 
 @override
 String toString() {
-    return 'DocumentEvent.thumbnailCaptured(data: $data)';
+    return 'DocumentEvent.thumbnailCaptured(data: $data, area: $area)';
 }
 
 
@@ -882,11 +887,11 @@ abstract mixin class $ThumbnailCapturedCopyWith<$Res> implements $DocumentEventC
   factory $ThumbnailCapturedCopyWith(ThumbnailCaptured value, $Res Function(ThumbnailCaptured) _then) = _$ThumbnailCapturedCopyWithImpl;
 @useResult
 $Res call({
-@Uint8ListJsonConverter() Uint8List data
+@Uint8ListJsonConverter() Uint8List data,@JsonKey(includeFromJson: false, includeToJson: false) PersistedThumbnailArea? area
 });
 
 
-
+$PersistedThumbnailAreaCopyWith<$Res>? get area;
 
 }
 /// @nodoc
@@ -899,8 +904,96 @@ class _$ThumbnailCapturedCopyWithImpl<$Res>
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? data = null,Object? area = freezed,}) {
   return _then(ThumbnailCaptured(
+null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Uint8List,area: freezed == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
+as PersistedThumbnailArea?,
+  ));
+}
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PersistedThumbnailAreaCopyWith<$Res>? get area {
+    if (_self.area == null) {
+    return null;
+  }
+
+  return $PersistedThumbnailAreaCopyWith<$Res>(_self.area!, (value) {
+    return _then(_self.copyWith(area: value));
+  });
+}
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class ThumbnailUpdated extends DocumentEvent {
+  const ThumbnailUpdated(@Uint8ListJsonConverter() this.data, { String? $type}): $type = $type ?? 'thumbnailUpdated',super._();
+  factory ThumbnailUpdated.fromJson(Map<String, dynamic> json) => _$ThumbnailUpdatedFromJson(json);
+
+@Uint8ListJsonConverter() final  Uint8List data;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ThumbnailUpdatedCopyWith<ThumbnailUpdated> get copyWith => _$ThumbnailUpdatedCopyWithImpl<ThumbnailUpdated>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ThumbnailUpdatedToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ThumbnailUpdated&&const DeepCollectionEquality().equals(other.data, data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+}
+
+@override
+String toString() {
+    return 'DocumentEvent.thumbnailUpdated(data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ThumbnailUpdatedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
+  factory $ThumbnailUpdatedCopyWith(ThumbnailUpdated value, $Res Function(ThumbnailUpdated) _then) = _$ThumbnailUpdatedCopyWithImpl;
+@useResult
+$Res call({
+@Uint8ListJsonConverter() Uint8List data
+});
+
+
+
+
+}
+/// @nodoc
+class _$ThumbnailUpdatedCopyWithImpl<$Res>
+    implements $ThumbnailUpdatedCopyWith<$Res> {
+  _$ThumbnailUpdatedCopyWithImpl(this._self, this._then);
+
+  final ThumbnailUpdated _self;
+  final $Res Function(ThumbnailUpdated) _then;
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
+  return _then(ThumbnailUpdated(
 null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as Uint8List,
   ));

@@ -6,6 +6,8 @@ import 'dart:ui' as ui;
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/cubits/editor_session.dart';
+import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
@@ -2690,6 +2692,226 @@ void main() {
       expect(frame.image.height, kThumbnailHeight);
     },
   );
+
+  test(
+    'area thumbnail clips pixels outside the area and supports Fill alignment',
+    () async {
+      final data = (bloc.state as DocumentLoadSuccess).data;
+      await bloc.close();
+      await editorController.close();
+      const area = Area(
+        name: 'Cover',
+        position: Point(0, 0),
+        width: 100,
+        height: 300,
+      );
+      final red = ShapeElement(
+        id: 'inside',
+        firstPosition: const Point(0, 0),
+        secondPosition: const Point(100, 300),
+      );
+      final blue = ShapeElement(
+        id: 'outside',
+        firstPosition: const Point(-200, 0),
+        secondPosition: const Point(0, 300),
+      );
+      final green = ShapeElement(
+        id: 'bottom',
+        firstPosition: const Point(0, 200),
+        secondPosition: const Point(100, 300),
+      );
+      final renderers = <Renderer<PadElement>>[
+        _SolidRectRenderer(red, const Color(0xFFFF0000), 'visible'),
+        _SolidRectRenderer(blue, const Color(0xFF0000FF), 'visible'),
+        _SolidRectRenderer(green, const Color(0xFF00FF00), 'visible'),
+      ];
+      final page = DocumentPage(
+        areas: [area],
+        layers: [
+          DocumentLayer(id: 'visible', content: [red, blue, green]),
+        ],
+      );
+      final (nextData, pageName) = data.setPage(page, 'Cover page');
+      editorController = EditorController(
+        settingsCubit,
+        TransformCubit(1),
+        CameraViewport.unbaked(unbakedElements: renderers),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        nextData,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      final source = PersistedThumbnailArea(
+        pageName: pageName,
+        areaName: 'Cover',
+      );
+      Future<List<int>> pixel(
+        PersistedThumbnailArea settings,
+        double x,
+        double y,
+      ) async {
+        final bytes = await bloc.renderAreaThumbnail(settings);
+        expect(bytes, isNotNull);
+        final codec = await ui.instantiateImageCodec(bytes!);
+        try {
+          final image = (await codec.getNextFrame()).image;
+          try {
+            expect(image.width, kThumbnailWidth);
+            expect(image.height, kThumbnailHeight);
+            final pixels = (await image.toByteData(
+              format: ui.ImageByteFormat.rawRgba,
+            ))!.buffer.asUint8List();
+            final offset =
+                ((y * (image.height - 1)).round() * image.width +
+                    (x * (image.width - 1)).round()) *
+                4;
+            return pixels.sublist(offset, offset + 4);
+          } finally {
+            image.dispose();
+          }
+        } finally {
+          codec.dispose();
+        }
+      }
+
+      expect(await pixel(source, 0.5, 0.5), [255, 0, 0, 255]);
+      expect(await pixel(source, 0.25, 0.5), [0, 0, 0, 0]);
+      expect(await pixel(source.copyWith(clip: false), 0.25, 0.5), [
+        0,
+        0,
+        255,
+        255,
+      ]);
+      expect(
+        await pixel(
+          source.copyWith(
+            fit: ThumbnailAreaFit.fill,
+            alignment: ThumbnailAreaAlignment.topCenter,
+          ),
+          0.5,
+          0.5,
+        ),
+        [255, 0, 0, 255],
+      );
+      expect(
+        await pixel(
+          source.copyWith(
+            fit: ThumbnailAreaFit.fill,
+            alignment: ThumbnailAreaAlignment.bottomCenter,
+          ),
+          0.5,
+          0.5,
+        ),
+        [0, 255, 0, 255],
+      );
+      expect(
+        await bloc.renderAreaThumbnail(source.copyWith(areaName: 'Deleted')),
+        isNull,
+      );
+    },
+  );
+
+  test('automatic area thumbnail uses its saved page, background and current area size', () async {
+    final current = bloc.state as DocumentLoadSuccess;
+    final data = current.data;
+    await bloc.close();
+    await editorController.close();
+    const area = Area(
+      name: 'Cover',
+      position: Point(-100, -200),
+      width: 200,
+      height: 100,
+    );
+    final page = DocumentPage(
+      areas: [area],
+      backgrounds: [
+        Background.texture(
+          texture: const PatternTexture(boxColor: SRGBColor(0xFFFF0000)),
+        ),
+      ],
+      layers: const [DocumentLayer(id: 'cover')],
+    );
+    final (nextData, pageName) = data.setPage(page, 'Cover page');
+    final transform = TransformCubit(1);
+    final session = EditorSessionCubit(
+      service: DocumentStateService(buildMockDocumentStateFileSystem()),
+      transformCubit: transform,
+      initialState: PersistedDocumentState(
+        autoThumbnail: true,
+        thumbnailArea: PersistedThumbnailArea(
+          pageName: pageName,
+          areaName: 'Cover',
+        ),
+      ),
+    );
+    addTearDown(session.close);
+    editorController = EditorController(
+      settingsCubit,
+      transform,
+      CameraViewport.unbaked(),
+      editorSessionCubit: session,
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      nextData,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      current.page,
+      current.pageName,
+    );
+    final bytes = await bloc.renderAutomaticThumbnail();
+    final codec = await ui.instantiateImageCodec(bytes!);
+    addTearDown(codec.dispose);
+    final image = (await codec.getNextFrame()).image;
+    addTearDown(image.dispose);
+    final pixels = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!
+        .buffer
+        .asUint8List();
+    final center = ((image.height ~/ 2) * image.width + image.width ~/ 2) * 4;
+    expect(pixels.sublist(center, center + 4), [255, 0, 0, 255]);
+    expect(bloc.state.pageName, current.pageName);
+    expect(
+      await bloc.captureAreaThumbnail(session.state.thumbnailArea!),
+      isTrue,
+    );
+    expect(bloc.state.data?.getThumbnail(), isNotNull);
+    expect(session.state.autoThumbnail, isTrue);
+    final renamed = area.copyWith(name: 'Renamed', width: 400);
+    bloc.add(AreaChanged('Cover', renamed, false, pageName));
+    await _settleBlocEvents();
+    expect(session.state.thumbnailArea?.areaName, 'Renamed');
+    final resizedCodec = await ui.instantiateImageCodec(
+      (await bloc.renderAutomaticThumbnail())!,
+    );
+    addTearDown(resizedCodec.dispose);
+    final resized = (await resizedCodec.getNextFrame()).image;
+    addTearDown(resized.dispose);
+    final resizedPixels = (await resized.toByteData(
+      format: ui.ImageByteFormat.rawRgba,
+    ))!.buffer.asUint8List();
+    final quarter =
+        ((resized.height ~/ 4) * resized.width + resized.width ~/ 2) * 4;
+    expect(resizedPixels[quarter + 3], 0);
+    expect(pixels[quarter + 3], 255);
+    bloc.add(AreasRemoved([AreaPreset(page: pageName, name: 'Renamed')]));
+    await _settleBlocEvents();
+    expect(session.state.thumbnailArea, isNull);
+    session.updateThumbnailArea(
+      PersistedThumbnailArea(pageName: pageName, areaName: 'Renamed'),
+    );
+    bloc.add(ThumbnailCaptured(bytes));
+    await _settleBlocEvents();
+    expect(session.state.thumbnailArea, isNull);
+    expect(session.state.autoThumbnail, isFalse);
+  });
 
   test('renderImage does not hide already tracked visible renderers', () async {
     await bloc.close();

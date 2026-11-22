@@ -10,6 +10,7 @@ import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/async.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/helpers/thumbnail.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -469,11 +470,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       editorController.editorSessionCubit?.removePage(event.page);
     });
     on<ThumbnailCaptured>((event, emit) {
+      if (state is! DocumentLoadSuccess) return;
+      editorController.editorSessionCubit?.updateAutoThumbnail(
+        event.area != null,
+      );
+      editorController.editorSessionCubit?.updateThumbnailArea(event.area);
+      add(ThumbnailUpdated(event.data));
+    });
+    on<ThumbnailUpdated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      editorController.editorSessionCubit?.updateAutoThumbnail(false);
-      final newData = current.data.setThumbnail(event.data);
-      _saveState(emit, state: current.copyWith(data: newData));
+      // Only the image is shared. Thumbnail framing belongs to each session.
+      editorController.saveCubit.setSaveState(saved: SaveState.unsaved);
+      emit(current.copyWith(data: current.data.setThumbnail(event.data)));
+      if (editorController.saveCubit.hasAutosave(
+        editorController.networkingService,
+      )) {
+        await save(isAutosave: true);
+      }
     });
     on<ElementsCreated>((event, emit) async {
       final current = _getPageState(event.pageName);
@@ -1458,6 +1472,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       for (final entry in areasByPage.entries) {
         final page = data.getPage(entry.key);
         if (page == null) continue;
+        editorController.editorSessionCubit?.removeThumbnailArea(
+          entry.key,
+          entry.value,
+        );
         final areas = List<Area>.from(page.areas)
           ..removeWhere((e) => entry.value.contains(e.name));
         final updatedPage = page.copyWith(areas: areas);
@@ -1521,6 +1539,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }).toList();
         var currentDocument = current.page.copyWith(areas: areas);
         final oldArea = previousArea;
+        if (oldArea != null) {
+          editorController.editorSessionCubit?.renameArea(
+            current.pageName,
+            event.name,
+            event.area.name,
+          );
+        }
         final movedElements = <String, PadElement>{};
         if (event.moveContents && oldArea != null) {
           final delta = Offset(
@@ -2126,7 +2151,95 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return thumbnail?.buffer.asUint8List();
   }
 
+  Future<Uint8List?> renderAreaThumbnail(
+    PersistedThumbnailArea settings,
+  ) async {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return null;
+    final page = settings.pageName == current.pageName
+        ? current.page
+        : current.data.getPage(settings.pageName);
+    final area = page?.getAreaByName(settings.areaName);
+    if (page == null || area == null) return null;
+    final bounds = thumbnailAreaBounds(area.rect, settings);
+    if (bounds == null) return null;
+    final offscreen = settings.pageName != current.pageName;
+    final pageState = current.copyWith(page: page, pageName: settings.pageName);
+    final viewport = offscreen
+        ? await CameraViewport.build(
+            transformCubit,
+            current.data,
+            current.assetService,
+            page,
+          )
+        : null;
+    try {
+      final thumbnail = await editorController.rendererCubit.render(
+        editorController,
+        current.data,
+        page,
+        current.info,
+        ImageExportOptions(
+          width: kThumbnailWidth.toDouble(),
+          height: kThumbnailHeight.toDouble(),
+          scale: kThumbnailWidth / bounds.width,
+          x: bounds.left,
+          y: bounds.top,
+        ),
+        cameraViewport: viewport,
+        // Layer visibility belongs to the active page only.
+        invisibleLayers: offscreen ? const {} : current.invisibleLayers,
+        docState: pageState,
+        clipRect: settings.clip ? area.rect : null,
+      );
+      return thumbnail?.buffer.asUint8List();
+    } finally {
+      for (final renderer in [
+        ...?viewport?.backgrounds,
+        ...?viewport?.unbakedElements,
+      ]) {
+        renderer.dispose();
+      }
+      viewport?.disposeImages();
+    }
+  }
+
+  Future<bool> _updateThumbnail(
+    Uint8List bytes, {
+    PersistedThumbnailArea? area,
+  }) async {
+    if (isClosed || state is! DocumentLoadSuccess) return false;
+    final updated = stream.firstWhere(
+      (state) =>
+          state is DocumentLoadSuccess &&
+          listEquals(state.data.getThumbnail(), bytes),
+    );
+    add(
+      area == null
+          ? ThumbnailUpdated(bytes)
+          : ThumbnailCaptured(bytes, area: area),
+    );
+    await updated;
+    return true;
+  }
+
+  Future<bool> captureAreaThumbnail(PersistedThumbnailArea settings) async {
+    final bytes = await renderAreaThumbnail(settings);
+    final current = state;
+    if (bytes == null || current is! DocumentLoadSuccess || isClosed) {
+      return false;
+    }
+    return _updateThumbnail(bytes, area: settings);
+  }
+
   Future<Uint8List?> renderAutomaticThumbnail() async {
+    final source = editorController.editorSessionCubit?.state.thumbnailArea;
+    if (source != null) {
+      final bytes = await renderAreaThumbnail(source);
+      if (bytes != null) return bytes;
+      // Deleted or invalid areas fall back to normal automatic framing.
+      editorController.editorSessionCubit?.updateThumbnailArea(null);
+    }
     final controller = editorController;
     final framing = controller
         .settingsCubit
@@ -2189,9 +2302,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final bytes = await renderAutomaticThumbnail();
     final current = state;
     if (bytes == null || current is! DocumentLoadSuccess || isClosed) return;
-    emit(current.copyWith(data: current.data.setThumbnail(bytes)));
-    editorController.saveCubit.setSaveState(saved: SaveState.unsaved);
-    await save(force: true);
+    if (await _updateThumbnail(bytes)) {
+      await save(force: true);
+    }
   }
 
   void _scheduleHistoryReload() =>

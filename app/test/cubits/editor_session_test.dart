@@ -49,6 +49,28 @@ void main() {
         isTrue,
       );
     });
+    test(
+      'area thumbnail choices survive encoding and older state has no source',
+      () {
+        const source = PersistedThumbnailArea(
+          pageName: 'Cover page',
+          areaName: 'Cover',
+          fit: ThumbnailAreaFit.fill,
+          alignment: ThumbnailAreaAlignment.bottomRight,
+          clip: false,
+        );
+        const state = PersistedDocumentState(
+          autoThumbnail: true,
+          thumbnailArea: source,
+        );
+        expect(
+          decodePersistedDocumentState(encodePersistedDocumentState(state)),
+          state,
+        );
+        expect(PersistedDocumentState.fromJson({}).thumbnailArea, isNull);
+      },
+    );
+
     test('remote state keys do not depend on local connection names', () {
       const first = AssetLocation(
         remote: 'Laptop Nextcloud',
@@ -143,6 +165,83 @@ void main() {
     setUp(() {
       fileSystem = buildMockDocumentStateFileSystem();
     });
+
+    test(
+      'thumbnail source follows renames and is removed with its area or page',
+      () async {
+        final transform = TransformCubit(1);
+        final session = EditorSessionCubit(
+          service: DocumentStateService(fileSystem),
+          transformCubit: transform,
+          initialState: const PersistedDocumentState(),
+          pathKey: 'path/thumbnail',
+        );
+        const source = PersistedThumbnailArea(
+          pageName: 'First',
+          areaName: 'Cover',
+        );
+        session.updateThumbnailArea(source);
+        session.updateAutoThumbnail(true);
+        session.updatePage('Other');
+        session.renamePages({'First': 'Renamed'});
+        session.renameArea('Other', 'Cover', 'Wrong');
+        session.renameArea('Renamed', 'Cover', 'New cover');
+        await session.saveNow();
+        final restored = await DocumentStateService(fileSystem)
+            .load(pathKey: 'path/thumbnail');
+        expect(
+          restored?.thumbnailArea,
+          source.copyWith(pageName: 'Renamed', areaName: 'New cover'),
+        );
+        expect(restored?.autoThumbnail, isTrue);
+        session.removeThumbnailArea('Other', {'New cover'});
+        expect(session.state.thumbnailArea, isNotNull);
+        session.removeThumbnailArea('Renamed', {'New cover'});
+        expect(session.state.thumbnailArea, isNull);
+        session.updateThumbnailArea(source);
+        session.removePage('First');
+        expect(session.state.thumbnailArea, isNull);
+        await session.close();
+        await transform.close();
+      },
+    );
+
+    test(
+      'disabling automatic thumbnail persistence preserves the stored source',
+      () async {
+        const source = PersistedThumbnailArea(
+          pageName: 'Page',
+          areaName: 'Cover',
+        );
+        final service = DocumentStateService(fileSystem);
+        await service.save(
+          const PersistedDocumentState(
+            autoThumbnail: true,
+            thumbnailArea: source,
+          ),
+          pathKey: 'path/thumbnail',
+          persistentChanged: true,
+        );
+        final disabled = DocumentStateService(
+          fileSystem,
+          settingsProvider: () =>
+              const DocumentStatePersistenceSettings(autoThumbnail: false),
+        );
+        expect(
+          (await disabled.load(pathKey: 'path/thumbnail'))?.thumbnailArea,
+          isNull,
+        );
+        await disabled.save(
+          const PersistedDocumentState(),
+          pathKey: 'path/thumbnail',
+          persistentChanged: true,
+        );
+        expect(
+          (await service.load(pathKey: 'path/thumbnail'))?.thumbnailArea,
+          source,
+        );
+      },
+    );
 
     test('path match wins over content hash match', () async {
       const byContent = PersistedDocumentState(pageName: 'Content Page');

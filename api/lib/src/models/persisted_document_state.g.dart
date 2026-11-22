@@ -82,6 +82,49 @@ Map<String, dynamic> _$PersistedAreaNavigatorStateToJson(
   'ask': instance.ask,
 };
 
+PersistedThumbnailArea _$PersistedThumbnailAreaFromJson(Map json) =>
+    PersistedThumbnailArea(
+      pageName: json['pageName'] as String,
+      areaName: json['areaName'] as String,
+      fit:
+          $enumDecodeNullable(_$ThumbnailAreaFitEnumMap, json['fit']) ??
+          ThumbnailAreaFit.fit,
+      alignment:
+          $enumDecodeNullable(
+            _$ThumbnailAreaAlignmentEnumMap,
+            json['alignment'],
+          ) ??
+          ThumbnailAreaAlignment.center,
+      clip: json['clip'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$PersistedThumbnailAreaToJson(
+  PersistedThumbnailArea instance,
+) => <String, dynamic>{
+  'pageName': instance.pageName,
+  'areaName': instance.areaName,
+  'fit': _$ThumbnailAreaFitEnumMap[instance.fit]!,
+  'alignment': _$ThumbnailAreaAlignmentEnumMap[instance.alignment]!,
+  'clip': instance.clip,
+};
+
+const _$ThumbnailAreaFitEnumMap = {
+  ThumbnailAreaFit.fit: 'fit',
+  ThumbnailAreaFit.fill: 'fill',
+};
+
+const _$ThumbnailAreaAlignmentEnumMap = {
+  ThumbnailAreaAlignment.topLeft: 'topLeft',
+  ThumbnailAreaAlignment.topCenter: 'topCenter',
+  ThumbnailAreaAlignment.topRight: 'topRight',
+  ThumbnailAreaAlignment.middleLeft: 'middleLeft',
+  ThumbnailAreaAlignment.center: 'center',
+  ThumbnailAreaAlignment.middleRight: 'middleRight',
+  ThumbnailAreaAlignment.bottomLeft: 'bottomLeft',
+  ThumbnailAreaAlignment.bottomCenter: 'bottomCenter',
+  ThumbnailAreaAlignment.bottomRight: 'bottomRight',
+};
+
 _PersistedLayerState _$PersistedLayerStateFromJson(Map json) =>
     _PersistedLayerState(
       currentLayer: json['currentLayer'] as String? ?? '',
@@ -133,6 +176,9 @@ _PersistedDocumentState _$PersistedDocumentStateFromJson(Map json) =>
           ? const PersistedAreaNavigatorState()
           : PersistedAreaNavigatorState.fromJson(json['areaNavigator'] as Map),
       autoThumbnail: json['autoThumbnail'] as bool? ?? false,
+      thumbnailArea: json['thumbnailArea'] == null
+          ? null
+          : PersistedThumbnailArea.fromJson(json['thumbnailArea'] as Map),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
@@ -151,5 +197,6 @@ Map<String, dynamic> _$PersistedDocumentStateToJson(
   'layers': instance.layers.toJson(),
   'areaNavigator': instance.areaNavigator.toJson(),
   'autoThumbnail': instance.autoThumbnail,
+  'thumbnailArea': instance.thumbnailArea?.toJson(),
   'updatedAt': instance.updatedAt?.toIso8601String(),
 };

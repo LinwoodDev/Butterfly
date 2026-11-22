@@ -14,6 +14,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../export/batch.dart';
+import 'thumbnail.dart';
 import '../packs/asset.dart';
 
 ContextMenuBuilder buildAreaContextMenu(
@@ -74,6 +75,21 @@ ContextMenuBuilder buildAreaContextMenu(
         },
       ),
     ],
+    ContextMenuItem(
+      icon: const PhosphorIcon(PhosphorIconsLight.image),
+      label: AppLocalizations.of(context).setAreaAsThumbnail,
+      onPressed: () {
+        if (pop) Navigator.of(context).pop();
+        showDialog<void>(
+          context: context,
+          builder: (context) => AreaThumbnailDialog(
+            bloc: bloc,
+            pageName: areaPageName,
+            area: area,
+          ),
+        );
+      },
+    ),
     ContextMenuItem(
       icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
       label: AppLocalizations.of(context).duplicate,

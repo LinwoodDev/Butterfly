@@ -96,6 +96,27 @@ class EditorSessionCubit({
     scheduleSave();
   }
 
+  void updateThumbnailArea(PersistedThumbnailArea? area) {
+    if (state.thumbnailArea == area) return;
+    emit(state.copyWith(thumbnailArea: area));
+    _dirty = true;
+    scheduleSave();
+  }
+
+  void renameArea(String pageName, String oldName, String newName) {
+    final area = state.thumbnailArea;
+    if (area?.pageName == pageName && area?.areaName == oldName) {
+      updateThumbnailArea(area!.copyWith(areaName: newName));
+    }
+  }
+
+  void removeThumbnailArea(String pageName, Set<String> names) {
+    final area = state.thumbnailArea;
+    if (area?.pageName == pageName && names.contains(area?.areaName)) {
+      updateThumbnailArea(null);
+    }
+  }
+
   CameraTransform get cameraTransform => CameraTransform(
     _transformCubit.state.pixelRatio,
     Offset(state.camera.positionX, state.camera.positionY),
@@ -173,6 +194,13 @@ class EditorSessionCubit({
     emit(
       state.copyWith(
         pageName: names[state.pageName] ?? state.pageName,
+        thumbnailArea: state.thumbnailArea == null
+            ? null
+            : state.thumbnailArea!.copyWith(
+                pageName:
+                    names[state.thumbnailArea!.pageName] ??
+                    state.thumbnailArea!.pageName,
+              ),
         pageCameras: {
           for (final entry in state.pageCameras.entries)
             names[entry.key] ?? entry.key: entry.value,
@@ -183,7 +211,14 @@ class EditorSessionCubit({
   }
 
   void removePage(String pageName) {
-    emit(state.copyWith(pageCameras: {...state.pageCameras}..remove(pageName)));
+    emit(
+      state.copyWith(
+        pageCameras: {...state.pageCameras}..remove(pageName),
+        thumbnailArea: state.thumbnailArea?.pageName == pageName
+            ? null
+            : state.thumbnailArea,
+      ),
+    );
     _dirty = true;
   }
 

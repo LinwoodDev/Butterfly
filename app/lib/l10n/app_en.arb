@@ -1125,7 +1125,7 @@
   "visibility": "Visibility",
   "captureThumbnail": "Capture thumbnail",
   "autoThumbnail": "Update thumbnail on close",
-  "autoThumbnailDescription": "Capture the last active page when you close this document. Manually capturing a thumbnail turns this off.",
+  "autoThumbnailDescription": "Capture the selected thumbnail area, or the last active page, when you close this document. Manually capturing a thumbnail turns this off.",
   "automaticThumbnailFraming": "Automatic thumbnail framing",
   "wholePageContent": "Whole page content",
   "lastViewport": "Last viewport",
@@ -1788,5 +1788,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "setAreaAsThumbnail": "Set as thumbnail",
+  "thumbnailFit": "Fit whole area",
+  "thumbnailFill": "Fill thumbnail",
+  "thumbnailAlignment": "Crop alignment",
+  "thumbnailClipArea": "Hide content outside the area",
+  "thumbnailAreaSource": "Thumbnail area",
+  "areaThumbnailDescription": "Capture this area now and use it for automatic thumbnail updates. Updates follow your document state persistence settings.",
+  "areaThumbnailUnavailable": "This area is no longer available or has an invalid size.",
+  "topCenter": "Top center",
+  "middleLeft": "Middle left",
+  "middleRight": "Middle right",
+  "bottomCenter": "Bottom center"
 }
