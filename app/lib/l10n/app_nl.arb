@@ -405,8 +405,8 @@
   "createTemplate": "Sjabloon aanmaken",
   "createTemplateContent": "Wilt u echt een template van dit document aanmaken? Het oorspronkelijke document zal worden verwijderd.",
   "fileName": "Bestandsnaam is vereist",
-  "noteTitle": "Note title",
-  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
+  "noteTitle": "Notitie titel",
+  "fileNameHint": "Karakters die niet kunnen worden gebruikt in bestandsnamen worden vervangen door onderstrepingstekens.",
   "defaultFileName": "Standaard bestandsnaam",
   "templateFileNameDescription": "Documenten die worden geopend vanuit de sjabloonkiezer worden automatisch opgeslagen met deze naam. Sjablonen zonder een naam gebruiken de standaard geconfigureerde in gegevensinstellingen. Combineer je eigen tekst met {dateExample} en {timeExample}. Karakters die niet zijn toegestaan in bestandsnamen worden afgewezen.",
   "@templateFileNameDescription": {
@@ -540,8 +540,8 @@
   "@pdf": {
     "description": "PDF format"
   },
-  "importPdf": "Import PDF",
-  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "importPdf": "PDF importeren",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} van 1 pagina geselecteerd} other{{selected} van {total} pagina's geselecteerd}}",
   "@pdfImportSelectionCount": {
     "description": "Number of selected pages out of the total in the PDF import dialog",
     "placeholders": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "pdfImportCreateExportPreset": "Create export preset",
+  "pdfImportCreateExportPreset": "Exportvoorinstelling aanmaken",
   "selectPages": "Pagina's selecteren",
   "recentFiles": "Recente bestanden",
   "start": "Beginnen",
@@ -1207,7 +1207,7 @@
   "ascending": "Oplopend",
   "descending": "Aflopend",
   "imageScale": "Afbeelding schaal",
-  "pdfScale": "PDF scale",
+  "pdfScale": "PDF schaal",
   "svgScale": "SVG schaal",
   "noImageSelected": "Geen afbeelding geselecteerd",
   "noSvgSelected": "Geen SVG geselecteerd",
