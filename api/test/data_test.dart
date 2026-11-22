@@ -111,6 +111,56 @@ void main() {
     });
   });
 
+  test('legacy compressed PDFs are stored byte for byte when saved', () {
+    final bytes = Uint8List.fromList(List.filled(2048, 42));
+    const path = '$kPdfArchiveDirectory/study.pdf';
+    final legacyZip = ZipEncoder().encodeBytes(
+      Archive()..addFile(ArchiveFile.bytes(path, bytes)),
+    );
+    final legacyArchive = ZipDecoder().decodeBytes(legacyZip);
+    expect(legacyArchive.findFile(path)?.compression, CompressionType.deflate);
+
+    final saved = NoteData(legacyArchive).exportAsBytes();
+    final pdf = ZipDecoder().decodeBytes(saved).findFile(path)!;
+    expect(pdf.compression, CompressionType.none);
+    expect(pdf.content, bytes);
+  });
+
+  test('binary note streams yield large PDF assets in chunks', () async {
+    final pdf = Uint8List(2 * 1024 * 1024)..[42] = 42;
+    final (note, path) = NoteData(Archive()).importPdf(pdf);
+    final archive = BytesBuilder(copy: false);
+    final chunkSizes = <int>[];
+    await for (final chunk in note.exportAsStream()) {
+      chunkSizes.add(chunk.length);
+      archive.add(chunk);
+    }
+    expect(chunkSizes, hasLength(3));
+    expect(chunkSizes.every((size) => size < pdf.length), isTrue);
+    final restored = ZipDecoder().decodeBytes(
+      archive.takeBytes(),
+      verify: true,
+    );
+    expect(restored.findFile(path)?.content, pdf);
+  });
+
+  test('binary note streams preserve password protection', () async {
+    final pdf = Uint8List.fromList([1, 2, 3]);
+    final (note, path) = NoteData(Archive()).importPdf(pdf);
+    final archive = BytesBuilder(copy: false);
+    await for (final chunk in note.changePassword('test').exportAsStream()) {
+      archive.add(chunk);
+    }
+    final bytes = archive.takeBytes();
+    expect(NoteFile(bytes).isEncrypted(), isTrue);
+    final restored = ZipDecoder().decodeBytes(
+      bytes,
+      password: 'test',
+      verify: true,
+    );
+    expect(restored.findFile(path)?.content, pdf);
+  });
+
   group('NoteData page operations', () {
     test('getFirstPage returns a named first page from a custom template', () {
       final page = DocumentPage(

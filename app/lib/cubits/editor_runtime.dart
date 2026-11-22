@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -22,6 +23,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:collection/collection.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart'
     show
         compute,
@@ -47,10 +49,7 @@ part 'editor_input.dart';
 part 'document_save.dart';
 part 'editor_view.dart';
 
-Future<(NoteFile, String)> _toFileWithContentHash((NoteData, bool) args) async {
-  final file = args.$1.toFile(isTextBased: args.$2);
-  return (file, documentStateContentHash(file.data));
-}
+Uint8List _exportTextNote(NoteData note) => note.exportAsTextBytes();
 
 void _sendNetworkingState(
   EditorController controller, {

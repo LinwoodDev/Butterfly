@@ -135,6 +135,7 @@ void main() {
         expect(controller.saveCubit.state.saved, SaveState.saved);
         final bytes = await File('${directory.path}${saved.path}')
             .readAsBytes();
+        expect(bytes.first, (extension == '.tbfly' ? '{' : 'P').codeUnitAt(0));
         expect(NoteData.fromData(bytes).name, 'Edited important note');
         expect(await directory.list().length, extension.isEmpty ? 2 : 1);
       },

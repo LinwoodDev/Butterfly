@@ -29,6 +29,16 @@ String getAssetFileName(String fileExtension, Uint8List data) {
   return '$name.$fileExtension';
 }
 
+class _ZipChunks implements Sink<List<int>> {
+  final bytes = BytesBuilder(copy: false);
+
+  @override
+  void add(List<int> data) => bytes.add(data);
+
+  @override
+  void close() {}
+}
+
 final class NoteFile(final Uint8List data) {
   bool isEncrypted() => isZipEncrypted(data);
 
@@ -154,6 +164,70 @@ final class NoteData extends NoteDisplay<NoteData> {
 
   factory NoteData.fromJson(dynamic json, {String? password}) =>
       NoteData.fromData(base64Decode(json as String), password: password);
+
+  @override
+  Uint8List exportAsBytes() {
+    if (isEncrypted) return super.exportAsBytes();
+    final archive = _exportArchive();
+    return ZipEncoder().encodeBytes(
+      archive,
+      output: archive.any((file) => file.compression == CompressionType.none)
+          ? OutputMemoryStream(size: _zipCapacity(archive))
+          : null,
+      autoClose: true,
+    );
+  }
+
+  Stream<Uint8List> exportAsStream() async* {
+    // Batch ZIP pieces to avoid a write for every encoder step.
+    const writeSize = 1024 * 1024;
+    final archive = _exportArchive();
+    final chunks = _ZipChunks();
+    final output = SinkOutputStream(chunks);
+    final encoder = ZipEncoder(password: password, streamed: true)
+      ..startEncode(output, level: DeflateLevel.bestSpeed);
+    for (final file in archive) {
+      final body = encoder.addHeader(file);
+      if (body != null) {
+        while (body.step()) {
+          if (chunks.bytes.length >= writeSize) yield chunks.bytes.takeBytes();
+        }
+        body.finish();
+      }
+      if (chunks.bytes.length >= writeSize) yield chunks.bytes.takeBytes();
+    }
+    encoder.endEncode(comment: archive.comment);
+    output.flush();
+    if (chunks.bytes.isNotEmpty) yield chunks.bytes.takeBytes();
+  }
+
+  Archive _exportArchive() {
+    final archive = export();
+    if (isEncrypted) return archive;
+    final pdfs = archive.where(
+      (file) => file.isFile && file.name.startsWith('$kPdfArchiveDirectory/'),
+    );
+    // PDFs usually compress their own streams. Store them directly to avoid
+    // buffering a second copy during deflate.
+    for (final pdf in pdfs) {
+      pdf.compression = CompressionType.none;
+    }
+    return archive;
+  }
+
+  // Include metadata in the estimate so writing it after a large PDF does
+  // not double the output buffer.
+  static int _zipCapacity(Archive archive) {
+    const endOfCentralDirectorySize = 22;
+    const entryHeaderAllowance = 160;
+    return archive.fold(endOfCentralDirectorySize, (size, file) {
+      final headers = entryHeaderAllowance + 6 * file.name.length;
+      final deflateOverhead = file.compression == CompressionType.none
+          ? 0
+          : (file.size >> 6) + 64;
+      return size + headers + file.size + deflateOverhead;
+    });
+  }
 
   NoteData setName(String? value) {
     final meta = getMetadata();

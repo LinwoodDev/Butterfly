@@ -84,54 +84,6 @@ typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 typedef DocumentStateFileSystem = TypedKeyFileSystem<PersistedDocumentState>;
 
-Never _disabledStorage([Object? data]) =>
-    throw StateError('This storage directory is disabled');
-
-class _DisabledDocumentFileSystem extends DocumentFileSystem {
-  _DisabledDocumentFileSystem(FileSystemConfig config)
-    : super.raw(
-        MockFileSystem(config: config),
-        config: config,
-        onEncode: _disabledStorage,
-        onDecode: decodeNoteFile,
-      );
-
-  @override
-  Future<FileSystemDirectory<NoteFile>> createDirectory(String path) async =>
-      _disabledStorage();
-
-  @override
-  Future<void> deleteAsset(String path) async => _disabledStorage();
-
-  @override
-  Future<FileSystemEntity<NoteFile>?> moveAsset(
-    String path,
-    String newPath, {
-    bool forceSync = false,
-  }) async => _disabledStorage();
-
-  @override
-  Future<void> saveAbsolute(String path, Uint8List bytes) async =>
-      _disabledStorage();
-}
-
-class _DisabledKeyFileSystem extends TypedKeyFileSystem<NoteData> {
-  _DisabledKeyFileSystem(FileSystemConfig config)
-    : super.raw(
-        MockKeyFileSystem(config: config),
-        config: config,
-        onEncode: _disabledStorage,
-        onDecode: decodeNoteData,
-      );
-
-  @override
-  Future<void> deleteFile(String key) async => _disabledStorage();
-
-  @override
-  Future<void> saveAbsolute(String path, Uint8List bytes) async =>
-      _disabledStorage();
-}
-
 Future<FileSystemEntity<NoteFile>?> renameDocumentAsset(
   DocumentFileSystem fileSystem,
   SettingsCubit settingsCubit,
@@ -388,20 +340,22 @@ class ButterflyFileSystem {
     bool forceRecreate = false,
   ]) {
     if (storage?.paths[_documentConfig.currentPathVariant] == '') {
-      return _DisabledDocumentFileSystem(_documentConfig);
+      return DocumentFileSystem.disabled(_documentConfig);
     }
     final key = _cacheKey(storage);
     if (!forceRecreate) {
       final cached = _documentCache[key];
       if (cached != null) return cached;
     }
-    final system = TypedDirectoryFileSystem.build(
+    final system = TypedDirectoryFileSystem<NoteFile>.build(
       _documentConfig,
       onEncode: encodeNoteFile,
       onDecode: decodeNoteFile,
-      onCreate: (data) => addConnectionPasswordToNoteFile(storage, data),
+      onCreate:
+          storage is RemoteStorage && storage.isConnectionEncryptionEnabled
+          ? (data) => addConnectionPasswordToNoteFile(storage, data)
+          : null,
       storage: storage,
-      useIsolates: true,
       useAndroidSaf: true,
     );
     _documentCache[key] = system;
@@ -420,7 +374,7 @@ class ButterflyFileSystem {
     bool forceRecreate = false,
   ]) {
     if (storage?.paths[_templateConfig.currentPathVariant] == '') {
-      return _DisabledKeyFileSystem(_templateConfig);
+      return TemplateFileSystem.disabled(_templateConfig);
     }
     final key = _cacheKey(storage);
     if (!forceRecreate) {
@@ -444,7 +398,7 @@ class ButterflyFileSystem {
     bool forceRecreate = false,
   ]) {
     if (storage?.paths[_packConfig.currentPathVariant] == '') {
-      return _DisabledKeyFileSystem(_packConfig);
+      return PackFileSystem.disabled(_packConfig);
     }
     final key = _cacheKey(storage);
     if (!forceRecreate) {

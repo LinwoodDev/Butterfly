@@ -17,7 +17,7 @@ version: 2.6.4-rc.0+208
 
 environment:
   sdk: ">=3.14.0 <4.0.0"
-  flutter: 3.50.0
+  flutter: 3.50.1
 
 dependencies:
   async: ^2.13.1
@@ -80,7 +80,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: e2b9d04f0ef1e66ad0c01b27e5179dc820eb2153
+      ref: 4f5af6e673796dd6ddfa7c06ef5c72d302626c21
       path: packages/lw_sysapi
   networker:
     git:
@@ -105,7 +105,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ab5e6d74cb9ebbd4f5694274c076cb8fb4d0cd06
+      ref: 4f5af6e673796dd6ddfa7c06ef5c72d302626c21
       path: packages/lw_file_system
   keybinder:
     git:

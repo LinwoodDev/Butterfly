@@ -139,30 +139,42 @@ class DocumentSaveCubit(
         final needsNewNote =
             (absolute && !writeAbsolute && location == null) ||
             !(current.fileType?.isNote() ?? false);
-        final (file, contentHash) = await compute(_toFileWithContentHash, (
-          currentData,
-          !needsNewNote && current.fileType == .textNote,
-        ));
-        if (writeAbsolute) {
-          await fileSystem.saveAbsolute(current.path, file.data);
-        } else if (needsNewNote) {
-          final document = await fileSystem.createFileWithName(
-            name: currentData.name,
-            suffix: '.bfly',
-            directory: absolute
-                ? null
-                : current.isEmpty
-                ? initialDirectory
-                : current.parent,
-            file,
-          );
-          current = document.location;
-        } else if (location != null && current != previousLocation) {
-          final document = await fileSystem.createFile(current.path, file);
-          current = document.location;
-        } else {
-          await fileSystem.updateFile(current.path, file);
-        }
+        final create =
+            !writeAbsolute &&
+            (needsNewNote || (location != null && current != previousLocation));
+        final destination = needsNewNote
+            ? AssetLocation(
+                remote: current.remote,
+                path: fileSystem.convertNameToFileSystem(
+                  name: currentData.name,
+                  suffix: '.bfly',
+                  directory: absolute
+                      ? null
+                      : current.isEmpty
+                      ? initialDirectory
+                      : current.parent,
+                ),
+              )
+            : current;
+        final bytes = destination.fileType == .textNote
+            ? Stream.fromFuture(compute(_exportTextNote, currentData))
+            : currentData.exportAsStream();
+        late Digest digest;
+        final hash = sha512256.startChunkedConversion(
+          ChunkedConversionSink<Digest>.withCallback(
+            (values) => digest = values.single,
+          ),
+        );
+        final saved = await fileSystem.saveFileStream(
+          destination.copyWith(absolute: writeAbsolute),
+          bytes.map((chunk) {
+            hash.add(chunk);
+            return chunk;
+          }),
+          create: create,
+        );
+        hash.close();
+        current = saved.copyWith(absolute: destination.absolute);
         documentWritten = true;
         if (isClosed) return current;
         setSaveState(location: current);
@@ -172,7 +184,7 @@ class DocumentSaveCubit(
             current,
             remoteStorage: storage is RemoteStorage,
           ),
-          contentHash: contentHash,
+          contentHash: digest.toString(),
         );
         if (isClosed) {
           return current;

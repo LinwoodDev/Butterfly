@@ -1,32 +1,21 @@
-import 'dart:async';
-
-import 'package:butterfly/main.dart';
 import 'package:flutter/services.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 
-(Uint8List, String)? _nativeData;
+const _intentChannel = MethodChannel('linwood.dev/butterfly');
 
-void setNativeData(Uint8List? data, [String? type]) {
-  if (data != null) {
-    _nativeData = (data, type ?? '');
-  } else {
-    _nativeData = null;
-  }
-}
-
-String getNativeType() {
-  return _nativeData?.$2 ?? '';
-}
-
-Uint8List? getNativeData() {
-  return _nativeData?.$1;
-}
-
-Future<String?> getIntentType() async {
-  final String? result = await platform.invokeMethod('getIntentType');
-  return result;
-}
-
-Future<Uint8List?> getIntentData() async {
-  final Uint8List? result = await platform.invokeMethod('getIntentData');
-  return result;
+Future<(String, Uint8List)?> getImportIntent() async {
+  final intent = await _intentChannel.invokeMapMethod<String, Object?>(
+    'getImportIntent',
+  );
+  return switch (intent) {
+    {'type': final String type, 'source': final String uri} => (
+      type,
+      await SystemFileDialogs.readFile(uri),
+    ),
+    {'type': final String type, 'source': final Uint8List bytes} => (
+      type,
+      bytes,
+    ),
+    _ => null,
+  };
 }

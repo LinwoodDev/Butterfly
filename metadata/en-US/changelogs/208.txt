@@ -1,6 +1,7 @@
 * Allow input shortcuts to use tool presets and default the inverted stylus to the core eraser ([#1307](https://github.com/LinwoodDev/Butterfly/issues/1307))
 * Redesign the PDF import dialog and add a scale slider from 10% to 1000% ([#1359](https://github.com/LinwoodDev/Butterfly/issues/1359))
 * Fix the first canvas click failing to place a PDF imported from the Add dialog
+* Fix crashes when importing, saving, and reopening large PDFs on Android
 * Fix browser navigation closing documents with unsaved changes without confirmation
 * Upgrade to flutter 3.50
 * Fix touch contacts interrupting an active stylus stroke ([#1354](https://github.com/LinwoodDev/Butterfly/issues/1354))

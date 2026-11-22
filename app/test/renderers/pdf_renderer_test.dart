@@ -19,6 +19,8 @@ class _State extends Mock implements DocumentLoaded {}
 
 class _Controller extends Mock implements EditorController {}
 
+class _Engine extends Mock implements PdfrxEntryFunctions {}
+
 class _Pdf extends Mock implements PdfDocument {}
 
 class _Page extends Mock implements PdfPage {}
@@ -27,6 +29,24 @@ class _Raster extends Mock implements PdfImage {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('opens an embedded PDF without copying its asset bytes', () async {
+    final originalEngine = PdfrxEntryFunctions.instance;
+    final engine = _Engine();
+    PdfrxEntryFunctions.instance = engine;
+    addTearDown(() => PdfrxEntryFunctions.instance = originalEngine);
+    final pdf = _Pdf();
+    final bytes = Uint8List.fromList([1, 2, 3]);
+    registerFallbackValue(Uint8List(0));
+    when(() => engine.openData(any(that: same(bytes))))
+        .thenAnswer((_) async => pdf);
+    when(() => pdf.dispose()).thenAnswer((_) async {});
+    final (note, source) = NoteData(Archive()).importPdf(bytes);
+    final assets = AssetService();
+    addTearDown(assets.dispose);
+
+    expect(await assets.getPdfDocument(source, note), same(pdf));
+  });
 
   test('PDF raster finishing after hiding is released', () async {
     final document = NoteData(Archive());

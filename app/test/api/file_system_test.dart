@@ -14,8 +14,94 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class _Context extends Fake implements BuildContext {}
 
+class _ByteDocumentSystem extends DocumentFileSystem {
+  _ByteDocumentSystem(MockFileSystem super.storage)
+    : super.raw(
+        config: storage.config,
+        onDecode: decodeNoteFile,
+        onEncode: encodeNoteFile,
+        onCreate: (file) => NoteFile(Uint8List.fromList([...file.data, 3])),
+      );
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test(
+    'local archive saves keep unique names and can overwrite a note',
+    () async {
+      final temp = await Directory.systemTemp.createTemp('butterfly_save_');
+      addTearDown(() => temp.delete(recursive: true));
+      SharedPreferences.setMockInitialValues({'document_path': temp.path});
+      final settings = SettingsCubit(await SharedPreferences.getInstance());
+      addTearDown(settings.close);
+      final service = ButterflyFileSystem(_Context(), settings);
+      addTearDown(service.dispose);
+      final documents = service.buildDocumentSystem();
+      final (note, pdf) = DocumentDefaults.createDocument(name: 'Study')
+          .importPdf(Uint8List.fromList([1, 2, 3]));
+
+      final first = await documents.createFileStreamWithName(
+        note.exportAsStream(),
+        name: 'Study',
+        suffix: '.bfly',
+      );
+      final second = await documents.createFileStreamWithName(
+        note.exportAsStream(),
+        name: 'Study',
+        suffix: '.bfly',
+      );
+      expect(second.path, isNot(first.path));
+      final saved = await documents.saveFileStream(
+        first.location,
+        note.setName('Edited').exportAsStream(),
+      );
+      final file = await documents.getAsset(saved.path);
+      final bytes = (file! as FileSystemFile<NoteFile>).data!.data;
+      final restored = NoteData.fromData(bytes);
+      expect(restored.name, 'Edited');
+      expect(restored.getAsset(pdf), [1, 2, 3]);
+      expect(
+        (await Directory(
+          '${temp.path}/Documents',
+        ).list().toList()).whereType<Directory>(),
+        isEmpty,
+      );
+    },
+  );
+
+  test(
+    'stream saves preserve the byte backend and typed creation hook',
+    () async {
+      final storage = MockFileSystem();
+      final documents = _ByteDocumentSystem(storage);
+      final file = await documents.createFileStreamWithName(
+        Stream.fromIterable([
+          [1],
+          [2],
+        ]),
+        name: 'Study',
+        suffix: '.bfly',
+      );
+      expect((await storage.readAsset(file.path) as RawFileSystemFile).data, [
+        1,
+        2,
+        3,
+      ]);
+
+      await documents.saveFileStream(
+        file.location,
+        Stream.fromIterable([
+          [4],
+          [5],
+        ]),
+      );
+      expect((await storage.readAsset(file.path) as RawFileSystemFile).data, [
+        4,
+        5,
+      ]);
+    },
+  );
 
   test('local backups are written inside the connection folder', () async {
     final temp = await Directory.systemTemp.createTemp('butterfly_backup_');
@@ -69,6 +155,17 @@ void main() {
     );
     await expectLater(documents.createDirectory('/folder'), throwsStateError);
     await expectLater(documents.deleteAsset('/note.bfly'), throwsStateError);
+    var listened = false;
+    Stream<List<int>> noteStream() async* {
+      listened = true;
+      yield [1];
+    }
+
+    await expectLater(
+      documents.createFileStreamWithName(noteStream(), name: 'note'),
+      throwsStateError,
+    );
+    expect(listened, isFalse);
     for (final system in [
       service.buildTemplateSystem(storage),
       service.buildPackSystem(storage),

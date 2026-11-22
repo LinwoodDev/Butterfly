@@ -151,10 +151,14 @@ class AssetService() {
     String source,
     NoteData document,
   ) async {
-    final data = await computeDataFromSource(source, document);
+    final uri = Uri.tryParse(source);
+    // Embedded PDFs can be much larger than other assets. Read their bytes
+    // directly so neither the note archive nor the PDF is copied to an isolate.
+    final data = uri != null && (!uri.hasScheme || uri.isScheme('file'))
+        ? document.getAsset(uri.path)
+        : await computeDataFromSource(source, document);
     if (data == null) return null;
-    final pdfDocument = await PdfDocument.openData(data);
-    return pdfDocument;
+    return PdfDocument.openData(data);
   }
 
   Future<void> invalidatePdfDocument(String source) async {

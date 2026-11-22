@@ -64,7 +64,7 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   );
 }
 
-Future<(Uint8List, String, String)> _readSelectedFile(SelectedFile file) async {
+Future<(Uint8List, String, String)> readImportFile(SelectedFile file) async {
   final data = await file.readAsBytes();
   final fileName = file.name;
   final nameWithoutExtension = fileName.contains('.')
@@ -90,6 +90,12 @@ Future<List<(Uint8List, String, String)>> importFiles(
   multiple: multiple,
 );
 
+Future<List<SelectedFile>> pickImportFiles() => SystemFileDialogs.pickFiles(
+  extensions: AssetFileType.values
+      .expand((e) => e.getFileExtensions())
+      .toList(),
+);
+
 Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
   List<String> extensions, {
   bool multiple = true,
@@ -100,7 +106,7 @@ Future<List<(Uint8List, String, String)>> importFilesWithExtensions(
   );
   final files = <(Uint8List, String, String)>[];
   for (final file in result) {
-    files.add(await _readSelectedFile(file));
+    files.add(await readImportFile(file));
   }
   return files;
 }

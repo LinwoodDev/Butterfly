@@ -37,8 +37,6 @@ import 'views/main.dart';
 import 'services/logger.dart';
 import 'services/font.dart';
 
-const platform = MethodChannel('linwood.dev/butterfly');
-
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
   initLogger();
@@ -261,14 +259,13 @@ class ButterflyApp extends StatelessWidget {
             path: 'native',
             name: 'native',
             builder: (context, state) {
-              final type = state.uri.queryParameters['type'] ?? '';
-              final path = state.uri.queryParameters['path'] ?? getNativeType();
-              final data = state.extra ?? getNativeData();
               return ProjectPage(
-                location: AssetLocation.local(path),
+                location: AssetLocation.local(
+                  state.uri.queryParameters['path'] ?? '',
+                ),
                 absolute: true,
-                type: type,
-                data: data,
+                type: state.uri.queryParameters['type'] ?? '',
+                data: state.extra,
               );
             },
           ),
@@ -300,17 +297,8 @@ class ButterflyApp extends StatelessWidget {
       GoRoute(
         path: '/intent',
         builder: (context, state) {
-          Future<(String, Object)?>? intent;
-          if (!kIsWeb && Platform.isAndroid) {
-            intent = () async {
-              final type = await getIntentType();
-              final data = await getIntentData();
-              if (type == null || data == null) return null;
-              return (type, data);
-            }();
-          }
-          return FutureBuilder<(String, Object)?>(
-            future: intent,
+          return FutureBuilder<(String, Uint8List)?>(
+            future: !kIsWeb && Platform.isAndroid ? getImportIntent() : null,
             builder: (context, snapshot) {
               if (snapshot.connectionState == .done) {
                 final type = snapshot.data?.$1;

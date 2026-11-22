@@ -173,10 +173,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: b5e0a2a8e63f2788139379926a9abc3a64eed5e309c1384e5db25b74f15b7307
+      sha256: daefacb4c2c575426772a83ac312b93e2c49c003224962cddab904426dc04dbc
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.6+1"
+    version: "0.7.6+2"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -229,10 +229,10 @@ packages:
     dependency: transitive
     description:
       name: cli_util
-      sha256: "89b8801ba49f8b593fbf2d3e59efd0f566c46cd4ba6837ae2610c72b52a0f899"
+      sha256: da2a2b22f919995eb427edab07725e2be0b1281ef26770f6ce3a213355565262
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "0.6.1"
   clock:
     dependency: transitive
     description:
@@ -557,10 +557,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "48a28bb254e4b9f2570493bd771a3058757b2fb3f4bd57c359cae9b717587fd0"
+      sha256: "4565a66f0a968f2e1ab4197854686990258aadab9572eb80a7655053a01dc302"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.5.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -810,8 +810,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: ab5e6d74cb9ebbd4f5694274c076cb8fb4d0cd06
-      resolved-ref: ab5e6d74cb9ebbd4f5694274c076cb8fb4d0cd06
+      ref: "4f5af6e673796dd6ddfa7c06ef5c72d302626c21"
+      resolved-ref: "4f5af6e673796dd6ddfa7c06ef5c72d302626c21"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -828,8 +828,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: e2b9d04f0ef1e66ad0c01b27e5179dc820eb2153
-      resolved-ref: e2b9d04f0ef1e66ad0c01b27e5179dc820eb2153
+      ref: "4f5af6e673796dd6ddfa7c06ef5c72d302626c21"
+      resolved-ref: "4f5af6e673796dd6ddfa7c06ef5c72d302626c21"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1778,4 +1778,4 @@ packages:
     version: "3.1.4"
 sdks:
   dart: ">=3.14.0 <4.0.0"
-  flutter: "3.50.0"
+  flutter: "3.50.1"

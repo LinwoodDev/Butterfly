@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/create_note.dart';
@@ -751,7 +750,7 @@ class FilesViewState extends State<FilesView> {
                           PhosphorIconsLight.arrowSquareIn,
                         ),
                         onPressed: () async {
-                          final files = await importFiles(context);
+                          final files = await pickImportFiles();
                           if (files.isEmpty) return;
 
                           final defaultTemplate =
@@ -760,9 +759,9 @@ class FilesViewState extends State<FilesView> {
                               .getDefaultFile(defaultTemplate);
 
                           for (final file in files) {
-                            var result = file.$1;
-                            var fileExtension = file.$2;
-                            final nameWithoutExtension = file.$3;
+                            final (result, extension, nameWithoutExtension) =
+                                await readImportFile(file);
+                            var fileExtension = extension;
 
                             if (fileExtension == 'bin') {
                               // see https://github.com/LinwoodDev/Butterfly/issues/839
@@ -790,10 +789,13 @@ class FilesViewState extends State<FilesView> {
                             if (importResult == null) {
                               continue;
                             }
-                            final noteFile = await importResult.exportFile();
-                            setNativeData(result, fileExtension);
+                            final noteFile = importResult.file;
+                            final note = noteFile == null
+                                ? await importResult.export()
+                                : null;
 
-                            var docName = noteFile.display()?.name;
+                            var docName =
+                                note?.name ?? noteFile?.display()?.name;
                             if (docName == null || docName.trim().isEmpty) {
                               docName = nameWithoutExtension;
                             }
@@ -803,12 +805,15 @@ class FilesViewState extends State<FilesView> {
                               docName = sanitizeExportFileName(docName);
                             }
 
+                            final bytes = noteFile == null
+                                ? note!.exportAsStream()
+                                : Stream.value(noteFile.data);
                             final newFile = await _documentSystem
-                                .createFileWithName(
+                                .createFileStreamWithName(
+                                  bytes,
                                   directory: _locationController.text,
                                   name: docName,
                                   suffix: '.bfly',
-                                  noteFile,
                                 );
 
                             if (files.length == 1 && context.mounted) {
