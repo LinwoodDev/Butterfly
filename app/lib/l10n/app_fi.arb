@@ -405,8 +405,8 @@
   "createTemplate": "Luo malli",
   "createTemplateContent": "Haluatko varmasti luoda mallin tästä asiakirjasta? Alkuperäinen asiakirja poistetaan.",
   "fileName": "Tiedoston nimi",
-  "noteTitle": "Note title",
-  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
+  "noteTitle": "Huomautuksen otsikko",
+  "fileNameHint": "Merkkejä, joita ei voida käyttää tiedostonimissä, korvataan alaviivoilla.",
   "defaultFileName": "Oletustiedoston nimi",
   "templateFileNameDescription": "Sivupohjan poimijalta avatut asiakirjat tallennetaan automaattisesti tällä nimellä. Mallit ilman nimeä käyttävät oletusasetuksia, jotka on määritetty Data asetuksissa. Yhdistä oma tekstisi {dateExample} ja {timeExample}. Merkkejä, jotka eivät ole sallittuja tiedostojen nimissä, hylätään.",
   "@templateFileNameDescription": {
@@ -540,8 +540,8 @@
   "@pdf": {
     "description": "PDF format"
   },
-  "importPdf": "Import PDF",
-  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "importPdf": "Tuo PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} yhden sivun valittu} other{{selected} / {total} sivua valittu}}",
   "@pdfImportSelectionCount": {
     "description": "Number of selected pages out of the total in the PDF import dialog",
     "placeholders": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "pdfImportCreateExportPreset": "Create export preset",
+  "pdfImportCreateExportPreset": "Luo viennin esiasetus",
   "selectPages": "Valitse sivut",
   "recentFiles": "Viimeisimmät tiedostot",
   "start": "Aloita",
@@ -1207,7 +1207,7 @@
   "ascending": "Nouseva",
   "descending": "Laskeva",
   "imageScale": "Kuvan mittakaava",
-  "pdfScale": "PDF scale",
+  "pdfScale": "PDF mittakaava",
   "svgScale": "SVG mittakaava",
   "noImageSelected": "Kuvaa ei ole valittu",
   "noSvgSelected": "SVG:tä ei ole valittu",
