@@ -65,4 +65,26 @@ void main() {
     expect(page.usesSource('paint.svg'), isTrue);
     expect(page.usesSource('unused.pdf'), isFalse);
   });
+
+  test('tools expose their asset sources', () {
+    const source = 'paint.png';
+    final tools = <Tool>[
+      Tool.pen(
+        property: PenProperty(paint: ElementPaint.image(source: source)),
+      ),
+      Tool.polygon(
+        property: PolygonProperty(paint: ElementPaint.image(source: source)),
+      ),
+      Tool.shape(
+        property: ShapeProperty(
+          paint: ElementPaint.image(source: source),
+          shape: LineShape(),
+        ),
+      ),
+    ];
+
+    for (final tool in tools) {
+      expect(tool.sources, [source]);
+    }
+  });
 }

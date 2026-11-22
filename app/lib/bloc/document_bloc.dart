@@ -133,6 +133,29 @@ String getInitialArea(DocumentPage? page) {
   return page?.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '';
 }
 
+NoteData _removeUnusedAssets(
+  NoteData data,
+  DocumentPage newPage,
+  DocumentInfo info,
+  AssetService assetService,
+  Iterable<String> sources,
+) {
+  final toolSources = info.tools.expand((tool) => tool.sources).toSet();
+  final unusedAssets = <String>{};
+  for (final source in sources) {
+    final uri = Uri.tryParse(source);
+    if (uri?.scheme == '' &&
+        !newPage.usesSource(source) &&
+        !toolSources.contains(source)) {
+      unusedAssets.add(source);
+    }
+  }
+  for (final source in unusedAssets) {
+    assetService.invalidate(source);
+  }
+  return data.removeAssets(unusedAssets.toList());
+}
+
 Area _createDuplicatedArea(Area area, List<Area> existingAreas) {
   final baseName = area.name.isEmpty ? 'Area' : area.name;
   final existingNames = existingAreas.map((e) => e.name).toSet();
@@ -552,20 +575,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
 
-      final unusedAssets = <String>{};
-      for (final oldElement in current.page.content) {
-        if (elements.containsKey(oldElement.id)) {
-          for (final source in oldElement.sources) {
-            final uri = Uri.tryParse(source);
-            if (uri?.scheme == '' &&
-                !newPage.usesSource(source) &&
-                unusedAssets.add(source)) {
-              current.assetService.invalidate(source);
-            }
-          }
-        }
-      }
-      data = data.removeAssets(unusedAssets.toList());
+      data = _removeUnusedAssets(
+        data,
+        newPage,
+        current.info,
+        current.assetService,
+        current.page.content
+            .where((element) => elements.containsKey(element.id))
+            .expand((element) => element.sources),
+      );
 
       if (!isOffscreen) {
         cubit.toolCubit.changeSelection(
@@ -721,29 +739,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!isOffscreen) {
         editorController.toolCubit.removeSelection(event.elements);
       }
-      final unusedAssets = <String>{};
       final removedRenderers =
           (isOffscreen
                   ? <Renderer<PadElement>>[]
                   : editorController.rendererCubit.renderers)
               .where((e) => event.elements.contains(e.element.id))
               .toList();
-      for (final element in current.page.content.where(
-        (element) => event.elements.contains(element.id),
-      )) {
-        for (final source in element.sources) {
-          final uri = Uri.tryParse(source);
-          if (uri?.scheme == '' &&
-              !newPage.usesSource(source) &&
-              unusedAssets.add(source)) {
-            current.assetService.invalidate(source);
-          }
-        }
-      }
       for (final renderer in removedRenderers) {
         renderer.dispose();
       }
-      final data = current.data.removeAssets(unusedAssets.toList());
+      final data = _removeUnusedAssets(
+        current.data,
+        newPage,
+        current.info,
+        current.assetService,
+        current.page.content
+            .where((element) => event.elements.contains(element.id))
+            .expand((element) => element.sources),
+      );
       return _savePageState(
         emit,
         state: current.copyWith(page: newPage, data: data),
@@ -872,14 +885,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
+      final tools = current.info.tools
+          .where((element) => !event.tools.contains(element.id))
+          .toList();
+      final data = _removeUnusedAssets(
+        current.data,
+        current.page,
+        current.info.copyWith(tools: tools),
+        current.assetService,
+        current.info.tools
+            .where((element) => event.tools.contains(element.id))
+            .expand((tool) => tool.sources),
+      );
       _saveState(
         emit,
         state: current.copyWith(
-          info: current.info.copyWith(
-            tools: current.info.tools
-                .where((element) => !event.tools.contains(element.id))
-                .toList(),
-          ),
+          data: data,
+          info: current.info.copyWith(tools: tools),
         ),
         updateIndex: true,
       );
@@ -943,17 +965,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ? []
           : event.backgrounds.map(Renderer.fromInstance).toList();
       final newPage = current.page.copyWith(backgrounds: event.backgrounds);
-      // Remove unused assets
-      final unusedAssets = <String>{};
-      for (final source in current.page.backgrounds.expand((e) => e.sources)) {
-        final uri = Uri.tryParse(source);
-        if (uri?.scheme == '' &&
-            !newPage.usesSource(source) &&
-            unusedAssets.add(source)) {
-          current.assetService.invalidate(source);
-        }
-      }
-      final data = current.data.removeAssets(unusedAssets.toList());
+      final data = _removeUnusedAssets(
+        current.data,
+        newPage,
+        current.info,
+        current.assetService,
+        current.page.backgrounds.expand((background) => background.sources),
+      );
       if (!isOffscreen) {
         for (final bg
             in editorController

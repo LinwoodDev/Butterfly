@@ -301,6 +301,17 @@ sealed class Tool extends PackAsset with _$Tool {
 
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
+  /// Asset sources referenced by this tool.
+  Iterable<String> get sources => switch (this) {
+    ImportTool(:final elements) => elements.expand(
+      (element) => element.sources,
+    ),
+    PenTool(:final property) => property.sources,
+    PolygonTool(:final property) => property.sources,
+    ShapeTool(:final property) => property.sources,
+    _ => const [],
+  };
+
   ToolCategory get category => switch (this) {
     SelectTool() => .normal,
     HandTool() => .view,
