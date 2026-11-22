@@ -405,8 +405,8 @@
   "createTemplate": "Δημιουργία προτύπου",
   "createTemplateContent": "Θέλετε πραγματικά να δημιουργήσετε ένα πρότυπο από αυτό το έγγραφο? Το αρχικό έγγραφο θα διαγραφεί.",
   "fileName": "Όνομα αρχείου",
-  "noteTitle": "Note title",
-  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
+  "noteTitle": "Τίτλος σημείωσης",
+  "fileNameHint": "Χαρακτήρες που δεν μπορούν να χρησιμοποιηθούν στα ονόματα αρχείων αντικαθίστανται με κάτω παύλες.",
   "defaultFileName": "Προεπιλεγμένο όνομα αρχείου",
   "templateFileNameDescription": "Τα έγγραφα που ανοίγονται από τον επιλογέα προτύπων αποθηκεύονται αυτόματα με αυτό το όνομα. Τα πρότυπα χωρίς όνομα χρησιμοποιούν το προκαθορισμένο ρυθμισμένο στις ρυθμίσεις δεδομένων. Συνδυάστε το δικό σας κείμενο με το {dateExample} και το {timeExample}. Χαρακτήρες που δεν επιτρέπονται στα ονόματα αρχείων θα απορριφθούν.",
   "@templateFileNameDescription": {
@@ -540,8 +540,8 @@
   "@pdf": {
     "description": "PDF format"
   },
-  "importPdf": "Import PDF",
-  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "importPdf": "Εισαγωγή PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} από 1 σελίδα επέλεξε} other{{selected} από {total} Οι σελίδες επέλεξαν}}",
   "@pdfImportSelectionCount": {
     "description": "Number of selected pages out of the total in the PDF import dialog",
     "placeholders": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "pdfImportCreateExportPreset": "Create export preset",
+  "pdfImportCreateExportPreset": "Δημιουργία προκαθορισμένης εξαγωγής",
   "selectPages": "Επιλογή σελίδων",
   "recentFiles": "Πρόσφατα αρχεία",
   "start": "Έναρξη",
@@ -1207,7 +1207,7 @@
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
   "imageScale": "Κλίμακα εικόνας",
-  "pdfScale": "PDF scale",
+  "pdfScale": "Κλίμακα PDF",
   "svgScale": "Κλίμακα SVG",
   "noImageSelected": "Δεν επιλέχθηκε εικόνα",
   "noSvgSelected": "Δεν επιλέχθηκε SVG",
