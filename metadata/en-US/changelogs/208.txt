@@ -4,6 +4,7 @@
 * Fix crashes when importing, saving, and reopening large PDFs on Android
 * Fix browser navigation closing documents with unsaved changes without confirmation
 * Upgrade to flutter 3.50
+* Fix negative label sizing causing freezes ([#1365](https://github.com/LinwoodDev/Butterfly/issues/1365))
 * Fix touch contacts interrupting an active stylus stroke ([#1354](https://github.com/LinwoodDev/Butterfly/issues/1354))
 * Prevent Android navigation-bar swipes from drawing in fullscreen ([#1353](https://github.com/LinwoodDev/Butterfly/issues/1353))
 * Accept note titles with invalid file name characters and preview the converted file name when creating notes ([#1349](https://github.com/LinwoodDev/Butterfly/issues/1349))
