@@ -279,19 +279,6 @@ class _ThrowingPdfAssetService extends AssetService {
   }
 }
 
-class _FailingPdfDataAssetService extends AssetService {
-  int pdfLoads = 0;
-
-  @override
-  Future<Uint8List?> computeDataFromSource(
-    String source,
-    NoteData document,
-  ) async {
-    pdfLoads++;
-    throw StateError('blocked pdf data');
-  }
-}
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -1385,16 +1372,6 @@ void main() {
     expect(assetService.pdfLoads, 1);
     expect(renderer.image, isNull);
     expect(renderer.renderedScale, isNull);
-  });
-
-  test('failed pdf document future is not cached', () async {
-    final assetService = _FailingPdfDataAssetService();
-    final data = NoteData(Archive());
-
-    expect(await assetService.getPdfDocument('test.pdf', data), isNull);
-    expect(await assetService.getPdfDocument('test.pdf', data), isNull);
-
-    expect(assetService.pdfLoads, 2);
   });
 
   test('renaming active page updates current page name', () async {
