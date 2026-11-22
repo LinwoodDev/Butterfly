@@ -405,8 +405,8 @@
   "createTemplate": "Crear plantilla",
   "createTemplateContent": "¿Realmente desea crear una plantilla de este documento? Se eliminará el documento original.",
   "fileName": "Nombre del archivo",
-  "noteTitle": "Note title",
-  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
+  "noteTitle": "Título de nota",
+  "fileNameHint": "Los caracteres que no se pueden utilizar en los nombres de archivo se reemplazan con guiones bajos.",
   "defaultFileName": "Nombre de archivo por defecto",
   "templateFileNameDescription": "Los documentos abiertos desde el selector de plantillas se guardan automáticamente con este nombre. Las plantillas sin nombre utilizan la configuración predeterminada en la configuración de datos. Combina tu propio texto con {dateExample} y {timeExample}. Los caracteres que no estén permitidos en los nombres de archivo serán rechazados.",
   "@templateFileNameDescription": {
@@ -540,8 +540,8 @@
   "@pdf": {
     "description": "PDF format"
   },
-  "importPdf": "Import PDF",
-  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "importPdf": "Importar PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} de 1 página seleccionada} other{{selected} de {total} páginas seleccionadas}}",
   "@pdfImportSelectionCount": {
     "description": "Number of selected pages out of the total in the PDF import dialog",
     "placeholders": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "pdfImportCreateExportPreset": "Create export preset",
+  "pdfImportCreateExportPreset": "Crear preset de exportación",
   "selectPages": "Seleccionar páginas",
   "recentFiles": "Archivos recientes",
   "start": "Comenzar",
@@ -1207,7 +1207,7 @@
   "ascending": "Ascendente",
   "descending": "Descendente",
   "imageScale": "Escala de imagen",
-  "pdfScale": "PDF scale",
+  "pdfScale": "Escala PDF",
   "svgScale": "Escala SVG",
   "noImageSelected": "Ninguna imagen seleccionada",
   "noSvgSelected": "Ningún SVG seleccionado",
