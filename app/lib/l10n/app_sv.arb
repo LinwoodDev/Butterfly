@@ -405,6 +405,8 @@
   "createTemplate": "Skapa mall",
   "createTemplateContent": "Vill du verkligen skapa en mall från detta dokument? Det ursprungliga dokumentet kommer att raderas.",
   "fileName": "Filnamn",
+  "noteTitle": "Titel på anteckningar",
+  "fileNameHint": "Tecken som inte kan användas i filnamn ersätts med understreck.",
   "defaultFileName": "Standard filnamn",
   "templateFileNameDescription": "Dokument som öppnas från mallväljaren sparas automatiskt med detta namn. Mallar utan ett namn använder standardinställningarna i datainställningarna. Kombinera din egen text med {dateExample} och {timeExample}. Tecken som inte är tillåtna i filnamn kommer att avvisas.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Importera PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Skapa exportförval",
   "selectPages": "Välj sidor",
   "recentFiles": "Senaste filer",
   "start": "Starta",
@@ -1191,6 +1207,7 @@
   "ascending": "Stigande",
   "descending": "Fallande",
   "imageScale": "Skala bild",
+  "pdfScale": "PDF skala",
   "svgScale": "SVG skala",
   "noImageSelected": "Ingen bild vald",
   "noSvgSelected": "Ingen SVG vald",

@@ -32,6 +32,9 @@ the Label tool, and the Area tool.
 - `Active Tool`: The input will act as the currently selected tool on the toolbar.
 - `Hand Tool`: The input will use the hand tool as a [temporary tool](../tools#temporary-tools),
   allowing you to move around the canvas.
+- `Presets`: Choose a tool preset from a core or user pack to use as a
+  [temporary tool](../tools#temporary-tools), independently of the toolbar. Shortcut labels show the tool name followed by the pack name. Settings
+  store only the pack and preset path, so updates to the preset also apply to the input.
 - `Specific Tool on Toolbar`: The input will use the specified tool on the toolbar as
   a [temporary tool](../tools#temporary-tools), based on the position you specify. Positions are
   counted
@@ -191,7 +194,7 @@ By default, the stylus is configured to function with the
 following **tool activators**:
 
 - `Stylus`: Using the stylus normally. Defaults to `Active Tool`
-- `Inverted Stylus`: Using the stylus in inverted mode. Defaults to `Toolbar Position 4`
+- `Inverted Stylus`: Using the stylus in inverted mode. Defaults to the core path eraser preset (existing saved mappings are preserved)
 - `First`: While holding its primary button, if supported. Defaults to  `Toolbar Position 3` (often
   path-eraser)
 - `Second`: While holding its secondary button, if supported. Defaults to `Toolbar Position 2`

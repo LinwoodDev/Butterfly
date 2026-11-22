@@ -405,6 +405,8 @@
   "createTemplate": "Создать шаблон",
   "createTemplateContent": "Вы действительно хотите создать шаблон из этого документа? Оригинальный документ будет удален.",
   "fileName": "Имя файла",
+  "noteTitle": "Заголовок заметки",
+  "fileNameHint": "Символы, которые не могут быть использованы в именах файлов, заменяются знаком подчеркивания.",
   "defaultFileName": "Имя файла по умолчанию",
   "templateFileNameDescription": "Документы, открытые из средства выбора шаблонов, сохраняются автоматически с этим именем. Шаблоны без имени будут использоваться в настройках данных по умолчанию. Объедините свой текст с {dateExample} и {timeExample}. Символы, которые не допускаются в именах файлов, будут отклонены.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Импорт PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} 1 страница выбрана} other{{selected} Aconstruction@@ {total} страниц выбрано}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Создать шаблон экспорта",
   "selectPages": "Выберите страницы",
   "recentFiles": "Последние файлы",
   "start": "Начальный экран",
@@ -1191,6 +1207,7 @@
   "ascending": "По возрастанию",
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
+  "pdfScale": "Шкала PDF",
   "svgScale": "SVG масштаб",
   "noImageSelected": "Изображение не выбрано",
   "noSvgSelected": "Не выбран SVG",

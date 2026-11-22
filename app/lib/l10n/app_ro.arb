@@ -405,6 +405,8 @@
   "createTemplate": "Creează șablon",
   "createTemplateContent": "Sigur doriți să creați un șablon din acest document? Documentul original va fi șters.",
   "fileName": "Nume fișier",
+  "noteTitle": "Titlul notei",
+  "fileNameHint": "Caracterele care nu pot fi folosite în numele fișierelor sunt înlocuite cu underscore-uri.",
   "defaultFileName": "Nume fișier implicit",
   "templateFileNameDescription": "Documentele deschise din selectorul de șabloane sunt salvate automat cu acest nume. Șabloanele fără nume utilizează implicit configurat în setările de date. Combinați propriul text cu {dateExample} și {timeExample}. Caracterele care nu sunt permise în numele fișierelor vor fi respinse.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Importă PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} dintr-o pagină selectată} other{{selected} din {total} paginile selectate}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Creare presetare export",
   "selectPages": "Selecteaza pagini",
   "recentFiles": "Fișiere recente",
   "start": "Pornire",
@@ -1191,6 +1207,7 @@
   "ascending": "Crescător",
   "descending": "Descrescător",
   "imageScale": "Scala imaginii",
+  "pdfScale": "Scară PDF",
   "svgScale": "Scala SVG",
   "noImageSelected": "Nicio imagine selectată",
   "noSvgSelected": "Niciun SVG selectat",

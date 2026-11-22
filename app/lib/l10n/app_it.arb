@@ -405,6 +405,8 @@
   "createTemplate": "Crea template",
   "createTemplateContent": "Vuoi davvero creare un template da questo documento? Il documento originale verrà eliminato.",
   "fileName": "Nome file",
+  "noteTitle": "Titolo della nota",
+  "fileNameHint": "I caratteri che non possono essere usati nei nomi dei file sono sostituiti da trattini bassi.",
   "defaultFileName": "Nome file predefinito",
   "templateFileNameDescription": "I documenti aperti dal selettore del modello vengono salvati automaticamente con questo nome. I modelli senza un nome usano il valore predefinito configurato nelle impostazioni dei dati. Combina il tuo testo con {dateExample} e {timeExample}. I caratteri che non sono ammessi nei nomi dei file saranno rifiutati.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Importa PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} di 1 pagina selezionata} other{{selected} di {total} pagine selezionate}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Crea preset di esportazione",
   "selectPages": "Seleziona pagine",
   "recentFiles": "File recenti",
   "start": "Inizia",
@@ -1191,6 +1207,7 @@
   "ascending": "Crescente",
   "descending": "Decrescente",
   "imageScale": "Scala immagine",
+  "pdfScale": "Scala PDF",
   "svgScale": "Scala SVG",
   "noImageSelected": "Nessuna immagine selezionata",
   "noSvgSelected": "Nessun SVG selezionato",

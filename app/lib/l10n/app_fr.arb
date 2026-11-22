@@ -405,6 +405,8 @@
   "createTemplate": "Créer un modèle",
   "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir de ce document ? Le document original sera supprimé.",
   "fileName": "Nom du fichier",
+  "noteTitle": "Titre de la note",
+  "fileNameHint": "Les caractères qui ne peuvent pas être utilisés dans les noms de fichiers sont remplacés par des tirets bas.",
   "defaultFileName": "Nom du fichier par défaut",
   "templateFileNameDescription": "Les documents ouverts depuis le sélecteur de modèle sont enregistrés automatiquement avec ce nom. Les modèles sans nom utilisent la configuration par défaut dans les paramètres de données. Combine votre propre texte avec {dateExample} et {timeExample}. Les caractères qui ne sont pas autorisés dans les noms de fichiers seront rejetés.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Importer un PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} sur 1 page sélectionnée} other{{selected} de {total} pages sélectionnées}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Créer un préréglage d'export",
   "selectPages": "Sélectionner les pages",
   "recentFiles": "Fichiers récents",
   "start": "Début",
@@ -1191,6 +1207,7 @@
   "ascending": "Ascendant",
   "descending": "Descendant",
   "imageScale": "Echelle de l'image",
+  "pdfScale": "Échelle PDF",
   "svgScale": "Échelle SVG",
   "noImageSelected": "Aucune image sélectionnée",
   "noSvgSelected": "Aucun SVG sélectionné",

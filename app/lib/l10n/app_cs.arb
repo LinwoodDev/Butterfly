@@ -405,6 +405,8 @@
   "createTemplate": "Vytvořit šablonu",
   "createTemplateContent": "Opravdu chcete vytvořit šablonu z tohoto dokumentu? Původní dokument bude smazán.",
   "fileName": "Název souboru",
+  "noteTitle": "Název poznámky",
+  "fileNameHint": "Znaky, které nelze použít pro názvy souborů, jsou nahrazeny podtržítky.",
   "defaultFileName": "Výchozí název souboru",
   "templateFileNameDescription": "Dokumenty otevřené ze výběru šablony jsou automaticky uloženy s tímto názvem. Šablony bez názvu používají výchozí nastavení v nastavení dat. Kombinujte svůj vlastní text s {dateExample} a {timeExample}. Znaky, které nejsou povoleny v názvech souborů, budou zamítnuty.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Importovat PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} vybráno 1 stránku} other{{selected} z {total} stránky byly vybrány}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Vytvořit předvolbu exportu",
   "selectPages": "Vybrat stránky",
   "recentFiles": "Nedávné soubory",
   "start": "Začít",
@@ -1191,6 +1207,7 @@
   "ascending": "Vzestupně",
   "descending": "Sestupně",
   "imageScale": "Měřítko obrázku",
+  "pdfScale": "Měřítko PDF",
   "svgScale": "SVG měřítko",
   "noImageSelected": "Nebyl vybrán žádný obrázek",
   "noSvgSelected": "Není vybrána žádná SVG",

@@ -405,6 +405,8 @@
   "createTemplate": "Opret skabelon",
   "createTemplateContent": "Vil du virkelig oprette en skabelon fra dette dokument? Originaldokumentet vil blive slettet.",
   "fileName": "Fil navn",
+  "noteTitle": "Titel på note",
+  "fileNameHint": "Tegn som ikke kan bruges i filnavne erstattes med understregninger.",
   "defaultFileName": "Standard filnavn",
   "templateFileNameDescription": "Dokumenter åbnet fra skabelonvælgeren gemmes automatisk med dette navn. Skabeloner uden et navn bruger standard konfigureret i Dataindstillinger. Kombiner din egen tekst med {dateExample} og {timeExample}. Tegn som ikke er tilladt i filnavne vil blive afvist.",
   "@templateFileNameDescription": {
@@ -538,6 +540,20 @@
   "@pdf": {
     "description": "PDF format"
   },
+  "importPdf": "Importér PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} af 1 side valgt} other{{selected} af {total} sider valgt}}",
+  "@pdfImportSelectionCount": {
+    "description": "Number of selected pages out of the total in the PDF import dialog",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfImportCreateExportPreset": "Opret forudindstilling for eksport",
   "selectPages": "Vælg sider",
   "recentFiles": "Seneste filer",
   "start": "Start",
@@ -1191,6 +1207,7 @@
   "ascending": "Stigende",
   "descending": "Faldende",
   "imageScale": "Billed skala",
+  "pdfScale": "PDF skala",
   "svgScale": "SVG skala",
   "noImageSelected": "Intet billede valgt",
   "noSvgSelected": "Ingen SVG valgt",
