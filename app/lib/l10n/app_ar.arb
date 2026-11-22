@@ -405,8 +405,8 @@
   "createTemplate": "إنشاء قالب",
   "createTemplateContent": "هل تريد حقاً إنشاء قالب من هذا المستند؟ سيتم حذف المستند الأصلي.",
   "fileName": "اسم الملف",
-  "noteTitle": "Note title",
-  "fileNameHint": "Characters that cannot be used in file names are replaced with underscores.",
+  "noteTitle": "عنوان الملاحظة",
+  "fileNameHint": "يتم استبدال الأحرف التي لا يمكن استخدامها في أسماء الملفات بالشرط.",
   "defaultFileName": "اسم الملف الافتراضي",
   "templateFileNameDescription": "يتم حفظ المستندات التي يتم فتحها من أداة اختيار القوالب تلقائيًا بهذا الاسم. أما القوالب التي لا تحمل اسمًا، فتستخدم الاسم الافتراضي المُعد في إعدادات البيانات. ادمج النص الخاص بك مع {dateExample} و{timeExample}. سيتم رفض الأحرف غير المسموح بها في أسماء الملفات.",
   "@templateFileNameDescription": {
@@ -540,8 +540,8 @@
   "@pdf": {
     "description": "PDF format"
   },
-  "importPdf": "Import PDF",
-  "pdfImportSelectionCount": "{total, plural, =1{{selected} of 1 page selected} other{{selected} of {total} pages selected}}",
+  "importPdf": "استيراد PDF",
+  "pdfImportSelectionCount": "{total, plural, =1{{selected} من صفحة واحدة تم اختيارها} other{{selected} من {total} تم تحديد صفحات}}",
   "@pdfImportSelectionCount": {
     "description": "Number of selected pages out of the total in the PDF import dialog",
     "placeholders": {
@@ -553,7 +553,7 @@
       }
     }
   },
-  "pdfImportCreateExportPreset": "Create export preset",
+  "pdfImportCreateExportPreset": "إنشاء تصدير مسبق",
   "selectPages": "حدد صفحات",
   "recentFiles": "الملفات الأخيرة",
   "start": "ابدأ",
@@ -1207,7 +1207,7 @@
   "ascending": "تصاعدي",
   "descending": "تنازلي",
   "imageScale": "حجم الصورة",
-  "pdfScale": "PDF scale",
+  "pdfScale": "مقياس PDF",
   "svgScale": "مقاس SVG",
   "noImageSelected": "لم يتم تحديد صورة",
   "noSvgSelected": "لم يتم تحديد SVG",
