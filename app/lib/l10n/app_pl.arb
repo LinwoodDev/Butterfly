@@ -75,7 +75,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "stroke": "Udar",
+  "stroke": "Grubość linii",
   "label": "Etykieta",
   "@label": {
     "description": "Label tool"
