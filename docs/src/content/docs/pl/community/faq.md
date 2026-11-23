@@ -42,13 +42,13 @@ If these steps dont help, please dont hesitate to complain in Matrix (recommende
 ### Butterfly restarts in the background
 
 Disable battery optimization for Butterfly.  
-Battery optimizations prevent apps from running normally in the background to save power.
+By zaoszczędzić energię, optymalizacja baterii uniemożliwia normalne działanie aplikacji w tle.
 
-Samsung, among other brands, usually put heavy battery restrictions on apps that crash frequently or overheat the device.
+Samsung, tak jak inne marki, zazwyczaj nakłada poważne ograniczenia baterii na aplikacje, które często się zawieszają lub przegrzewają urządzenie.
 
-If you dont know how to disable battery optimization for Butterfly, this website may help: [Dont kill my app!](https://dontkillmyapp.com/)
+Jeśli nie wiesz jak wyłączyć optymalizację baterii dla Linwood Butterfly, ta strona może pomóc: [Dont kill my app!](https://dontkillmyapp.com/)
 
-### iOS support
+### Wsparcie dla iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
