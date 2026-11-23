@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/create_note.dart';
@@ -18,6 +19,8 @@ import '../../helpers/mocks.dart';
 
 class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
   int directoryFetches = 0;
+  final reads = <(String, bool)>[];
+  Completer<void>? beforeFileContents;
   Completer<void>? beforeNextFetch;
   Completer<void>? afterNextSnapshot;
 
@@ -28,6 +31,18 @@ class _TrackingDocumentSystem extends TypedDirectoryFileSystem<NoteFile> {
         onDecode: decodeNoteFile,
         config: const MockFileSystemConfig(),
       );
+
+  @override
+  Future<FileSystemEntity<NoteFile>?> readAsset(
+    String path, {
+    bool readData = true,
+    bool forceRemote = false,
+  }) async {
+    reads.add((normalizePath(path), readData));
+    final barrier = beforeFileContents;
+    if (readData && barrier != null) await barrier.future;
+    return super.readAsset(path, readData: readData, forceRemote: forceRemote);
+  }
 
   @override
   Stream<FileSystemEntity<NoteFile>?> fetchAsset(
@@ -134,6 +149,106 @@ void main() {
     );
     await tester.pumpAndSettle();
   }
+
+  Future<void> pumpFilesPage(
+    WidgetTester tester, {
+    required SortBy sortBy,
+    bool grid = false,
+  }) async {
+    await tester.binding.setSurfaceSize(const Size(400, 750));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    when(() => settings.state).thenReturn(
+      ButterflySettings(
+        sortBy: sortBy,
+        sortOrder: SortOrder.ascending,
+        gridView: grid,
+        showThumbnails: true,
+      ),
+    );
+    await tester.pumpWidget(
+      buildFileSystemTestApp(
+        fileSystem: fileSystem,
+        child: FilesView(
+          key: viewKey,
+          initialPath: '/notes',
+          isMobile: true,
+          isPage: true,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+  }
+
+  for (final grid in [false, true]) {
+    testWidgets(
+      '${grid ? 'grid' : 'list'} page shows filenames while file contents load',
+      (tester) async {
+        final documents = fileSystem.documents;
+        for (var index = 0; index < 100; index++) {
+          final name = index.toString().padLeft(3, '0');
+          await createTestNote(documents, '/notes/Note-$name.bfly');
+        }
+        await createTestNote(documents, '/notes/child/Nested.bfly');
+        documents.reads.clear();
+        final contents = Completer<void>();
+        documents.beforeFileContents = contents;
+        await pumpFilesPage(tester, sortBy: SortBy.name, grid: grid);
+
+        expect(item('Alpha'), findsOneWidget);
+        expect(item('Note-099'), findsNothing);
+        expect(documents.reads.first, ('/notes', false));
+        expect(
+          documents.reads.map((read) => read.$1),
+          isNot(contains('/notes/child')),
+        );
+        expect(documents.reads.any((read) => read.$2), isTrue);
+        contents.complete();
+        await tester.pumpAndSettle();
+        expect(documents.reads.length, lessThan(25));
+        expect(
+          documents.reads,
+          isNot(contains(('/notes/Note-099.bfly', true))),
+        );
+
+        final initialReads = documents.reads.length;
+        await tester.drag(find.byType(CustomScrollView), const Offset(0, -550));
+        await tester.pumpAndSettle();
+        expect(documents.reads.length, greaterThan(initialReads));
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+
+  testWidgets('date sorting uses note metadata after showing filenames', (
+    tester,
+  ) async {
+    final documents = fileSystem.documents;
+    for (final (name, day) in [('Alpha', 1), ('Beta', 2)]) {
+      final note = NoteData(Archive()).setMetadata(
+        FileMetadata(
+          name: name,
+          type: NoteFileType.document,
+          fileVersion: kFileVersion,
+          updatedAt: DateTime.utc(2026, 1, day),
+        ),
+      );
+      await documents.updateFile('/notes/$name.bfly', note.toFile());
+    }
+    final contents = Completer<void>();
+    documents.beforeFileContents = contents;
+    await pumpFilesPage(tester, sortBy: SortBy.modified);
+    expect(
+      tester.getTopLeft(item('Alpha')).dy,
+      lessThan(tester.getTopLeft(item('Beta')).dy),
+    );
+
+    contents.complete();
+    await tester.pumpAndSettle();
+    expect(
+      tester.getTopLeft(item('Beta')).dy,
+      lessThan(tester.getTopLeft(item('Alpha')).dy),
+    );
+  });
 
   for (final grid in [false, true]) {
     testWidgets(

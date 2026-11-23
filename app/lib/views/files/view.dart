@@ -10,6 +10,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly/views/files/entity.dart';
+import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -20,6 +21,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:synchronized/synchronized.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
@@ -68,6 +70,15 @@ class FilesViewState extends State<FilesView> {
   BehaviorSubject<FileSystemEntity<NoteFile>?>? _filesStream;
   StreamSubscription<FileSystemEntity<NoteFile>?>? _filesSubscription;
   final Set<String> _selectedFiles = {};
+  final _fileReadLock = Lock();
+  FileSystemDirectory<NoteFile>? _dateDirectory;
+  Map<FileSystemFile<NoteFile>, FileMetadata?> _fileDates = {};
+
+  bool get _loadFileDetailsOnDemand =>
+      widget.isPage &&
+      _remote is! RemoteStorage &&
+      widget.onPreview == null &&
+      widget.onTap == null;
 
   @override
   void initState() {
@@ -121,7 +132,11 @@ class FilesViewState extends State<FilesView> {
   void _setFilesStream({FileSystemEntity<NoteFile>? initialData}) {
     _filesSubscription?.cancel();
     _filesStream?.close();
-    if (initialData == null) _selectedFiles.clear();
+    if (initialData == null) {
+      _selectedFiles.clear();
+      _dateDirectory = null;
+      _fileDates = {};
+    }
     _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
     final files = initialData == null
@@ -132,15 +147,17 @@ class FilesViewState extends State<FilesView> {
     _filesSubscription = _documentSystem
         .fetchAsset(
           _locationController.text,
+          // The storage backend already returns the directory's direct children.
+          listLevel: noListLevel,
           readData:
-              widget.onPreview != null || _settingsCubit.state.showThumbnails,
+              !_loadFileDetailsOnDemand &&
+              (widget.onPreview != null || _settingsCubit.state.showThumbnails),
         )
         .listen(
           (asset) => latest = asset,
           onError: files.addError,
           cancelOnError: true,
           onDone: () {
-            // fetchAsset emits partial directories before the complete listing.
             if (files.isClosed) return;
             final entity = latest;
             if (_selectedFiles.isNotEmpty) {
@@ -153,11 +170,64 @@ class FilesViewState extends State<FilesView> {
               );
             }
             files.add(entity);
+            if (entity is FileSystemDirectory<NoteFile>) {
+              _loadFileDates(entity);
+            }
           },
         );
     _templatesFuture = _templateSystem.initialize().then(
       (_) => _templateSystem.getFiles(),
     );
+  }
+
+  void _changeSortBy(SortBy sortBy) {
+    setState(() => _sortBy = sortBy);
+    _settingsCubit.changeSortBy(sortBy);
+    final directory = _filesStream?.valueOrNull;
+    if (directory is FileSystemDirectory<NoteFile>) _loadFileDates(directory);
+  }
+
+  Future<void> _loadFileDates(FileSystemDirectory<NoteFile> directory) async {
+    if (!_loadFileDetailsOnDemand ||
+        !_settingsCubit.state.showThumbnails ||
+        _sortBy == .name ||
+        identical(_dateDirectory, directory)) {
+      return;
+    }
+    _dateDirectory = directory;
+    final files = _filesStream;
+    final system = _documentSystem;
+    final remote = _remote;
+    bool isCurrent() =>
+        mounted &&
+        identical(_filesStream, files) &&
+        identical(files?.valueOrNull, directory);
+
+    // Give the viewport a chance to display names and request its thumbnails.
+    await WidgetsBinding.instance.endOfFrame;
+    final dates = <FileSystemFile<NoteFile>, FileMetadata?>{};
+    for (final file in directory.assets.whereType<FileSystemFile<NoteFile>>()) {
+      if (!isCurrent()) return;
+      if (_fileDates.containsKey(file)) {
+        dates[file] = _fileDates[file];
+        continue;
+      }
+      try {
+        dates[file] = await _fileReadLock.synchronized(() async {
+          if (!isCurrent()) return null;
+          final loaded = file.data != null
+              ? file
+              : await system.readAsset(file.path);
+          if (loaded is! FileSystemFile<NoteFile> || loaded.data == null) {
+            return null;
+          }
+          return displayConnectionNoteFile(remote, loaded.data!)?.getMetadata();
+        });
+      } catch (_) {
+        // A missing or unreadable note can still use its filesystem timestamps.
+      }
+    }
+    if (isCurrent()) setState(() => _fileDates = dates);
   }
 
   void reloadFileSystem() {
@@ -199,7 +269,9 @@ class FilesViewState extends State<FilesView> {
         if (replacement != null) _selectedFiles.add(replacement.path);
       });
     }
-    _filesStream!.add(directory.withAssets(assets));
+    final updated = directory.withAssets(assets);
+    _filesStream!.add(updated);
+    _loadFileDates(updated);
   }
 
   Future<void> _createFile(
@@ -372,10 +444,7 @@ class FilesViewState extends State<FilesView> {
                         )
                         .toList(),
                     initialSelection: _sortBy,
-                    onSelected: (value) => setState(() {
-                      _sortBy = value ?? _sortBy;
-                      _settingsCubit.changeSortBy(_sortBy);
-                    }),
+                    onSelected: (value) => _changeSortBy(value ?? _sortBy),
                   ),
                 ],
               );
@@ -412,10 +481,7 @@ class FilesViewState extends State<FilesView> {
                                 ? TextStyle(color: primary)
                                 : null,
                           ),
-                          onPressed: () => setState(() {
-                            _sortBy = e;
-                            _settingsCubit.changeSortBy(_sortBy);
-                          }),
+                          onPressed: () => _changeSortBy(e),
                         ),
                       )
                       .toList(),
@@ -443,7 +509,7 @@ class FilesViewState extends State<FilesView> {
                 ],
               );
               final locationBar = _buildLocationBar(parent);
-              final content = Column(
+              final header = Column(
                 crossAxisAlignment: .stretch,
                 children: [
                   if (!widget.isPage) ...[
@@ -500,129 +566,163 @@ class FilesViewState extends State<FilesView> {
                           ],
                         ),
                   const SizedBox(height: 8),
-                  BlocBuilder<SettingsCubit, ButterflySettings>(
-                    buildWhen: (previous, current) =>
-                        previous.starred != current.starred,
-                    builder: (context, settings) =>
-                        StreamBuilder<FileSystemEntity<NoteFile>?>(
-                          stream: _filesStream?.stream,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Text(snapshot.error.toString());
-                            }
-                            if (snapshot.connectionState ==
-                                    ConnectionState.waiting &&
-                                !(_filesStream?.hasValue ?? false)) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: Text(
-                                  AppLocalizations.of(context).noElements,
-                                ),
-                              );
-                            }
-                            final entity = snapshot.data;
-                            if (entity is! FileSystemDirectory<NoteFile>) {
-                              return Container();
-                            }
-                            final assets = entity.assets.where((e) {
-                              if (_search.isNotEmpty) {
-                                return e.fileName.toLowerCase().contains(
-                                  _search.toLowerCase(),
-                                );
-                              }
-                              return true;
-                            }).toList();
-                            final metadata = <NoteFile, FileMetadata?>{};
-                            assets.sort((a, b) => _sortAssets(a, b, metadata));
-                            if (assets.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  AppLocalizations.of(context).noElements,
-                                ),
-                              );
-                            }
-
-                            Widget buildItem(
-                              FileSystemEntity<NoteFile> asset,
-                            ) => FileEntityItem(
-                              key: ValueKey(asset.location),
-                              entity: asset,
-                              active: widget.activeAsset == asset.location,
-                              collapsed: widget.collapsed,
-                              gridView: state.gridView && !widget.collapsed,
-                              isMobile: widget.isMobile,
-                              selected: _selectedFiles.isEmpty
-                                  ? null
-                                  : _selectedFiles.contains(asset.path),
-                              onTap: () => _onFileTap(asset),
-                              onPreview: widget.onPreview == null
-                                  ? null
-                                  : () {
-                                      if (asset is FileSystemFile<NoteFile>) {
-                                        widget.onPreview!(asset);
-                                      } else {
-                                        _onFileTap(asset);
-                                      }
-                                    },
-                              onSelected: _updateSelection(asset.path),
-                              onChanged: (updated) =>
-                                  _updateAsset(asset.location, updated),
-                              onReload: reloadFileSystem,
-                            );
-                            if (state.gridView && !widget.collapsed) {
-                              return Center(
-                                child: Wrap(
-                                  spacing: 4,
-                                  runSpacing: 4,
-                                  crossAxisAlignment: .start,
-                                  children: assets.map(buildItem).toList(),
-                                ),
-                              );
-                            }
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: assets.length,
-                              findChildIndexCallback: (key) {
-                                final index = assets.indexWhere(
-                                  (asset) => ValueKey(asset.location) == key,
-                                );
-                                return index < 0 ? null : index;
-                              },
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (_, index) =>
-                                  buildItem(assets[index]),
-                            );
-                          },
-                        ),
-                  ),
-                  const SizedBox(height: 32),
                 ],
               );
+              final listing = _buildFileListing(
+                state.gridView && !widget.collapsed,
+              );
+              const bottomSpacing = SizedBox(height: 32);
               if (widget.isPage) {
                 return Scaffold(
                   appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
                     title: Text(AppLocalizations.of(context).files),
                     actions: actionsChildren,
                   ),
-                  body: SingleChildScrollView(
-                    child: Padding(
-                      padding: .symmetric(horizontal: 8),
-                      child: content,
+                  body: Padding(
+                    padding: .symmetric(horizontal: 8),
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(child: header),
+                        listing,
+                        const SliverToBoxAdapter(child: bottomSpacing),
+                      ],
                     ),
                   ),
                 );
               }
-              return content;
+              return Column(
+                crossAxisAlignment: .stretch,
+                children: [header, listing, bottomSpacing],
+              );
             },
           );
         },
       ),
     );
   }
+
+  Widget _buildFileListing(
+    bool gridView,
+  ) => BlocBuilder<SettingsCubit, ButterflySettings>(
+    buildWhen: (previous, current) => previous.starred != current.starred,
+    builder: (context, settings) => StreamBuilder<FileSystemEntity<NoteFile>?>(
+      stream: _filesStream?.stream,
+      builder: (context, snapshot) {
+        Widget box(Widget child) =>
+            widget.isPage ? SliverToBoxAdapter(child: child) : child;
+        if (snapshot.hasError) {
+          return box(Text(snapshot.error.toString()));
+        }
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            !(_filesStream?.hasValue ?? false)) {
+          return box(const Center(child: CircularProgressIndicator()));
+        }
+        final entity = snapshot.data;
+        if (entity != null && entity is! FileSystemDirectory<NoteFile>) {
+          return box(const SizedBox.shrink());
+        }
+        final search = _search.toLowerCase();
+        final assets = (entity as FileSystemDirectory<NoteFile>?)?.assets
+            .where((asset) => asset.fileName.toLowerCase().contains(search))
+            .toList();
+        if (assets == null || assets.isEmpty) {
+          return box(
+            Center(child: Text(AppLocalizations.of(context).noElements)),
+          );
+        }
+        final metadata = <NoteFile, FileMetadata?>{};
+        assets.sort((a, b) => _sortAssets(a, b, metadata));
+
+        final system = _documentSystem;
+        Widget buildItem(FileSystemEntity<NoteFile> asset) => FileEntityItem(
+          key: ValueKey(asset.location),
+          entity: asset,
+          active: widget.activeAsset == asset.location,
+          collapsed: widget.collapsed,
+          gridView: gridView,
+          isMobile: widget.isMobile,
+          selected: _selectedFiles.isEmpty
+              ? null
+              : _selectedFiles.contains(asset.path),
+          onTap: () => _onFileTap(asset),
+          onPreview: widget.onPreview == null
+              ? null
+              : () {
+                  if (asset is FileSystemFile<NoteFile>) {
+                    widget.onPreview!(asset);
+                  } else {
+                    _onFileTap(asset);
+                  }
+                },
+          loadDetails:
+              _loadFileDetailsOnDemand &&
+                  _settingsCubit.state.showThumbnails &&
+                  asset is FileSystemFile<NoteFile> &&
+                  asset.data == null
+              ? (isCurrent) => _fileReadLock.synchronized(() async {
+                  if (!isCurrent()) return null;
+                  final file = await system.readAsset(asset.path);
+                  return file is FileSystemFile<NoteFile> ? file.data : null;
+                })
+              : null,
+          onSelected: _updateSelection(asset.path),
+          onChanged: (updated) => _updateAsset(asset.location, updated),
+          onReload: reloadFileSystem,
+        );
+        final indices = {
+          for (var index = 0; index < assets.length; index++)
+            ValueKey(assets[index].location): index,
+        };
+        final delegate = SliverChildBuilderDelegate(
+          (_, index) => buildItem(assets[index]),
+          childCount: assets.length,
+          findChildIndexCallback: (key) => indices[key],
+        );
+        if (widget.isPage) {
+          if (!gridView) return SliverList(delegate: delegate);
+          return SliverLayoutBuilder(
+            builder: (context, constraints) {
+              const spacing = 4.0;
+              const cardWidth = FileEntityGridItem.width + 8;
+              final width = constraints.crossAxisExtent;
+              final columns = ((width + spacing) / (cardWidth + spacing))
+                  .floor()
+                  .clamp(1, assets.length);
+              final padding =
+                  ((width - columns * cardWidth - (columns - 1) * spacing) / 2)
+                      .clamp(0.0, double.infinity);
+              return SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                sliver: SliverGrid(
+                  delegate: delegate,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: columns,
+                    mainAxisExtent: FileEntityGridItem.height + 8,
+                    crossAxisSpacing: spacing,
+                    mainAxisSpacing: spacing,
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        if (gridView) {
+          return Center(
+            child: Wrap(
+              spacing: 4,
+              runSpacing: 4,
+              children: assets.map(buildItem).toList(),
+            ),
+          );
+        }
+        return ListView.custom(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          childrenDelegate: delegate,
+        );
+      },
+    ),
+  );
 
   SizedBox _buildLocationBar(String parent) {
     return SizedBox(
@@ -1124,7 +1224,9 @@ class FilesViewState extends State<FilesView> {
         return 1;
       }
       if (a is FileSystemDirectory<NoteFile>) {
-        return -1;
+        return b is FileSystemDirectory<NoteFile>
+            ? a.fileName.compareTo(b.fileName)
+            : -1;
       }
       if (b is FileSystemDirectory<NoteFile>) {
         return 1;
@@ -1133,7 +1235,9 @@ class FilesViewState extends State<FilesView> {
       final bFile = b as FileSystemFile<NoteFile>;
       FileMetadata? metadata(FileSystemFile<NoteFile> file) {
         final data = file.data;
-        if (data == null) return null;
+        if (data == null) {
+          return settings.showThumbnails ? _fileDates[file] : null;
+        }
         return metadataCache.putIfAbsent(
           data,
           () => displayConnectionNoteFile(_remote, data)?.getMetadata(),

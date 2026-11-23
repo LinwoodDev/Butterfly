@@ -11,6 +11,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/widgets/file_name_display.dart';
 
 class FileEntityGridItem extends StatelessWidget {
+  static const width = 160.0;
+  static const height = 192.0;
+
   final String? modifiedText, createdText;
   final bool active, editable, collapsed;
   final bool? selected;
@@ -71,8 +74,8 @@ class FileEntityGridItem extends StatelessWidget {
         onTap: onTap,
         highlightColor: active ? colorScheme.primaryContainer : null,
         child: SizedBox(
-          width: 160,
-          height: 192,
+          width: width,
+          height: height,
           child: Column(
             crossAxisAlignment: .stretch,
             children: [

@@ -1,0 +1,3 @@
+* Show filenames sooner in large local folders on Android and load thumbnails as you scroll
+
+Read more here: https://linwood.dev/butterfly/2.6.4-rc.1

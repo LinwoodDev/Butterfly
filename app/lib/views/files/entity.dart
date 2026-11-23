@@ -25,6 +25,7 @@ class FileEntityItem extends StatefulWidget {
   final bool? selected;
   final VoidCallback onTap, onReload;
   final VoidCallback? onPreview;
+  final Future<NoteFile?> Function(bool Function() isCurrent)? loadDetails;
   final ValueChanged<bool> onSelected;
   final ValueChanged<FileSystemEntity<NoteFile>?> onChanged;
   final bool isMobile;
@@ -42,6 +43,7 @@ class FileEntityItem extends StatefulWidget {
     required this.onSelected,
     required this.onChanged,
     this.onPreview,
+    this.loadDetails,
   });
 
   @override
@@ -110,10 +112,48 @@ void deleteEntities({
   );
 }
 
-class _FileEntityItemState extends State<FileEntityItem> {
+class _FileEntityItemState extends State<FileEntityItem>
+    with AutomaticKeepAliveClientMixin<FileEntityItem> {
   final TextEditingController _nameController = .new();
   bool _editable = false;
   bool _renaming = false;
+  Future<_FileDetails?>? _details;
+
+  @override
+  bool get wantKeepAlive => _editable;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDetails();
+  }
+
+  @override
+  void didUpdateWidget(covariant FileEntityItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.entity, widget.entity) ||
+        (oldWidget.loadDetails == null) != (widget.loadDetails == null)) {
+      _loadDetails();
+    }
+  }
+
+  void _loadDetails() {
+    final load = widget.loadDetails;
+    _details = load == null ? null : _readDetails(load);
+  }
+
+  Future<_FileDetails?> _readDetails(
+    Future<NoteFile?> Function(bool Function()) load,
+  ) async {
+    final entity = widget.entity;
+    final remote = context.read<SettingsCubit>().getRemote(entity.remote);
+    bool isCurrent() =>
+        mounted &&
+        identical(widget.entity, entity) &&
+        widget.loadDetails != null;
+    final data = await load(isCurrent);
+    return isCurrent() ? _getFileDetails(data, remote, true) : null;
+  }
 
   @override
   void dispose() {
@@ -123,6 +163,19 @@ class _FileEntityItemState extends State<FileEntityItem> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    final details = _details;
+    if (details == null) return _buildItem(context);
+    return FutureBuilder<_FileDetails?>(
+      future: details,
+      builder: (context, snapshot) => _buildItem(
+        context,
+        snapshot.connectionState == ConnectionState.done ? snapshot.data : null,
+      ),
+    );
+  }
+
+  Widget _buildItem(BuildContext context, [_FileDetails? details]) {
     final fileSystem = context.read<ButterflyFileSystem>();
     final remote = fileSystem.settingsCubit.getRemote(
       widget.entity.location.remote,
@@ -135,23 +188,16 @@ class _FileEntityItemState extends State<FileEntityItem> {
     final entity = widget.entity;
     try {
       if (entity is FileSystemFile<NoteFile>) {
-        final encrypted = entity.data?.isEncrypted() ?? false;
-        final password = readConnectionEncryptionPassword(remote);
-        final shouldLoadDisplay =
-            context.read<SettingsCubit>().state.showThumbnails ||
-            encrypted && password != null;
-        final data = shouldLoadDisplay && entity.data != null
-            ? displayConnectionNoteFile(remote, entity.data!)
-            : null;
-        icon = entity.location.fileType.icon();
-        if (encrypted && !(data?.isValid ?? false)) {
-          icon = PhosphorIconsLight.lock;
-        }
-        if (data?.isValid ?? false) {
-          thumbnail = data!.getThumbnail();
-          if (thumbnail?.isEmpty ?? false) thumbnail = null;
-          metadata = data.getMetadata();
-        }
+        details ??= _getFileDetails(
+          entity.data,
+          remote,
+          context.read<SettingsCubit>().state.showThumbnails,
+        );
+        icon = details?.locked == true
+            ? PhosphorIconsLight.lock
+            : entity.location.fileType.icon();
+        thumbnail = details?.thumbnail;
+        metadata = details?.metadata;
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
@@ -171,6 +217,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
             : entity.fileName;
       }
       setState(() => _editable = value);
+      updateKeepAlive();
     }
 
     void onOpen({bool preview = false}) {
@@ -306,6 +353,33 @@ class _FileEntityItemState extends State<FileEntityItem> {
     }
     return draggable;
   }
+}
+
+typedef _FileDetails = ({
+  FileMetadata? metadata,
+  Uint8List? thumbnail,
+  bool locked,
+});
+
+_FileDetails? _getFileDetails(
+  NoteFile? file,
+  ExternalStorage? remote,
+  bool showThumbnails,
+) {
+  if (file == null) return null;
+  final encrypted = file.isEncrypted();
+  final display =
+      showThumbnails ||
+          encrypted && readConnectionEncryptionPassword(remote) != null
+      ? displayConnectionNoteFile(remote, file)
+      : null;
+  final metadata = display?.getMetadata();
+  final thumbnail = metadata == null ? null : display?.getThumbnail();
+  return (
+    metadata: metadata,
+    thumbnail: thumbnail?.isNotEmpty == true ? thumbnail : null,
+    locked: encrypted && metadata == null,
+  );
 }
 
 class ContextFileRegion extends StatelessWidget {
