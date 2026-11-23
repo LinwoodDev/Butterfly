@@ -329,7 +329,8 @@ class SelectHandler extends Handler<SelectTool> {
       useCollection: locks.lockCollection,
       useLayer: locks.lockLayer,
     );
-    if (hits.isEmpty) {
+    final hit = hits.lastOrNull;
+    if (hit == null) {
       if (!context.isCtrlPressed) {
         _selected.clear();
         _updateSelectionRect();
@@ -337,7 +338,6 @@ class SelectHandler extends Handler<SelectTool> {
       }
       return;
     }
-    final hit = hits.first;
     if (context.isCtrlPressed || forceAdd) {
       if (_selected.contains(hit)) {
         _selected.remove(hit);
@@ -384,7 +384,7 @@ class SelectHandler extends Handler<SelectTool> {
       useCollection: locks.lockCollection,
       useLayer: locks.lockLayer,
     );
-    final hit = hits.firstOrNull;
+    final hit = hits.lastOrNull;
     final rect = hit?.expandedRect;
     final hitSelection = _isSelectionHit(
       position,

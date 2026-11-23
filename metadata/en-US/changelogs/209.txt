@@ -1,4 +1,5 @@
 * Show filenames sooner in large local folders on Android and load thumbnails as you scroll
+* Fix click selection to pick the frontmost overlapping element ([#1369](https://github.com/LinwoodDev/Butterfly/issues/1369))
 * Fix paragraph formatting and first-click Bold, apply fonts to selected text, and list Windows system fonts by family ([#1368](https://github.com/LinwoodDev/Butterfly/issues/1368))
 * Fix caret placement and drag selection in labels, and double-tap to select a word
 * Autosave and sync text and Markdown labels as you type, with undo and redo available during editing

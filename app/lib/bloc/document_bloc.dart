@@ -2347,6 +2347,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return area.rect.contains(globalPosition);
   }
 
+  /// Returns hits in canvas paint order, from back to front.
   Future<Set<Renderer<PadElement>>> rayCast(
     Offset globalPosition,
     double radius, {

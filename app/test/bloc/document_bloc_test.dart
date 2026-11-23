@@ -402,6 +402,57 @@ void main() {
     ]);
   });
 
+  test('clicking overlapping elements selects the frontmost one', () async {
+    bloc.add(
+      ElementsCreated([
+        ShapeElement(
+          id: 'back',
+          firstPosition: const Point(50, 50),
+          secondPosition: const Point(150, 150),
+        ),
+        ShapeElement(
+          id: 'front',
+          firstPosition: const Point(75, 75),
+          secondPosition: const Point(125, 125),
+        ),
+      ]),
+    );
+    await _settleBlocEvents();
+
+    final context = _ToolEventContext();
+    final camera = editorController.transformCubit.state;
+    when(() => context.getDocumentBloc()).thenReturn(bloc);
+    when(() => context.getCameraTransform()).thenReturn(camera);
+    when(() => context.getViewState()).thenReturn(const EditorViewState());
+    when(() => context.getSettings()).thenReturn(const ButterflySettings());
+    when(() => context.isCtrlPressed).thenReturn(false);
+    when(() => context.refresh()).thenAnswer((_) async {});
+
+    Future<Rect?> selectAtOverlap() async {
+      final handler = SelectHandler(SelectTool());
+      handler.onTapUp(
+        TapUpDetails(
+          localPosition: camera.globalToLocal(const Offset(100, 100)),
+          kind: PointerDeviceKind.mouse,
+        ),
+        context,
+      );
+      await _settleBlocEvents();
+      return handler.getSelectionRect();
+    }
+
+    expect(
+      await selectAtOverlap(),
+      editorController.rendererCubit.renderers.last.expandedRect,
+    );
+
+    bloc.add(const ElementsArranged(Arrangement.front, ['back']));
+    await _settleBlocEvents();
+    final renderers = editorController.rendererCubit.renderers;
+    expect(renderers.last.id, 'back');
+    expect(await selectAtOverlap(), renderers.last.expandedRect);
+  });
+
   test(
     'spacer moves the viewport-facing side along its rotated axis',
     () async {
