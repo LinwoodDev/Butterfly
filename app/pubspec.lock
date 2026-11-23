@@ -828,8 +828,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: "4f5af6e673796dd6ddfa7c06ef5c72d302626c21"
-      resolved-ref: "4f5af6e673796dd6ddfa7c06ef5c72d302626c21"
+      ref: "2d7125970fbb336802f47feac32fc6b16cfdb8bd"
+      resolved-ref: "2d7125970fbb336802f47feac32fc6b16cfdb8bd"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
