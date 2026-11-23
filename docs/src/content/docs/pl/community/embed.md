@@ -21,24 +21,24 @@ Dodaj następujący kod do swojej strony internetowej:
 | ---------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | zapisz     | Boolean (true, false)                                                                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
 | editable   | Boolean (true, false)                                                                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
-| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                         | enabled  | Configure full-screen behavior. Embeds never enter browser or system full screen automatically                                                               |
+| fullScreen | String (enabled, layoutOnly, startInLayout, forced, disabled)                         | enabled  | Skonfiguruj zachowanie w trybie pełnoekranowym. Zawartość osadzona nigdy nie pojawia się w przeglądarce lub systemie automatycznie w trybie pełnoekranowym   |
 | język      | Ciąg znaków (..., system, użytkownik) | user     | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
-| fileName   | String                                                                                                   |          | Display this file name in the embed title. It is visual only and does not change the document metadata                                                       |
+| fileName   | String                                                                                                   |          | Wyświetl nazwę tego pliku w tytule zawartości osadzonej. Jest to zmiana tylko wizualna i nie zmienia metadanych dokumentu                                    |
 
-### Full-screen modes
+### Tryb pełnoekranowy
 
-| Wartość       | Initial layout | Toggle | Browser/system full screen |
-| ------------- | -------------- | ------ | -------------------------- |
-| enabled       | Normalny       | Tak    | When enabled by the user   |
-| layoutOnly    | Normalny       | Tak    | Nigdy                      |
-| startInLayout | Pełny ekran    | Tak    | Nigdy                      |
-| forced        | Pełny ekran    | Nie    | Nigdy                      |
-| disabled      | Normalny       | Nie    | Nigdy                      |
+| Wartość       | Układ początkowy | Przełącznik | Przeglądarka/system w trybie pełnoekranowym |
+| ------------- | ---------------- | ----------- | ------------------------------------------- |
+| enabled       | Normalny         | Tak         | Po włączeniu przez użytkownika              |
+| layoutOnly    | Normalny         | Tak         | Nigdy                                       |
+| startInLayout | Pełny ekran      | Tak         | Nigdy                                       |
+| forced        | Pełny ekran      | Nie         | Nigdy                                       |
+| disabled      | Normalny         | Nie         | Nigdy                                       |
 
-## Messaging
+## Wiadomości
 
-The embed uses browser `postMessage` events. Only the direct parent window can
-send commands. Butterfly pins the parent's HTTP(S) origin from the referrer or,
+Zawartość osadzona używa eventów `postMessage` przeglądarki. Tylko bezpośrednie okno nadrzędne może
+wysyłać polecenia. Butterfly pins the parent's HTTP(S) origin from the referrer or,
 when the referrer is unavailable, the first parent message. With no referrer,
 send a command such as `getViewState` before expecting automatic notifications.
 Messages from other windows, changed parent origins, and opaque origins are
@@ -47,8 +47,7 @@ ignored. Send messages to the iframe with
 messages back to the parent window with the same shape:
 `{ type: string, message?: unknown }`.
 
-See the [embedding example](/community/embed-example/) for a live page that sends
-messages to the iframe and listens for messages from it.
+Zobacz [przykład zawartości osadzonej] (/community/embed-example/), aby zobaczyć stronę na żywo, która wysyła i nasłuchuje wiadomości od iframe.
 
 ```html
 <iframe
