@@ -4,7 +4,7 @@ title: Często zadawane pytania
 
 Tutaj często zadawane są pytania.
 
-## Web
+## Przeglądarka
 
 ### Jak zainstalować wersję sieciową?
 
@@ -19,29 +19,29 @@ Spróbuj zaktualizować przeglądarkę do najnowszej wersji.
 
 ## Komórka
 
-### S-Pen won't be recognized
+### S-Pen nie jest wykrywany
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-See [Stylus support](/docs/v2/stylus-support/) for current behavior and workarounds.
+Zobacz [Wsparcie rysika](/docs/v2/stylus-support/), aby zobaczyć bieżące zachowanie i obejścia błedu.
 
 Używam danych wejściowych dostarczanych przez ramę wytrząsania.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Link do śledzenia błędu:  [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### Butterfly is slow
+### Linwood Butterfly działa wolno
 
-Butterfly is optimized every update, but sometimes the problem could be from your device.
+Linwood Butterfly jest optymalizowany z każdą aktualizacją, więc czasem problem może wynikać z twojego urządzenia
 
-1. First, turn off your device's power saver mode.
-2. Then, set your screen refresh rate to its highest available (if supported by your device)
+1. Najpierw spróbuj wyłączyć tryb oszczędzania energii.
+2. Później, ustaw odświeżanie ekranu na najwyższą wartość (jeżeli Twoje urządzenie ma taką opcję).
 
-This allows Butterfly to refresh faster and feel more responsive.
+Pomoże to aplikacji odświeżać się częściej i zacznie działać sprawniej.
 
-If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
+Jeśli te kroki nie pomogły, nie wahaj się złożyć skargi na Matrix (zalecane), Discordzie lub Githubie.
 
-### Butterfly restarts in the background
+### Aplikacja restartuje się w tle
 
-Disable battery optimization for Butterfly.  
+Wyłącz optymalizację baterii dla Linwood Butterfly.  
 By zaoszczędzić energię, optymalizacja baterii uniemożliwia normalne działanie aplikacji w tle.
 
 Samsung, tak jak inne marki, zazwyczaj nakłada poważne ograniczenia baterii na aplikacje, które często się zawieszają lub przegrzewają urządzenie.
@@ -50,9 +50,9 @@ Jeśli nie wiesz jak wyłączyć optymalizację baterii dla Linwood Butterfly, t
 
 ### Wsparcie dla iOS
 
-> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+> [#244] (https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Linwood Butterfly jest dostępny na iOS w wersji poglądowej (testowej). Kliknij w [link](https://butterfly.linwood.dev/downloads/ios), by ją pobrać. Zobacz [tutaj](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) dlaczego nie jest ona dostępna w App Store.
 
 ## Pulpit
 
@@ -60,10 +60,9 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-See [Stylus support](/docs/v2/stylus-support/) for current behavior, settings, and issue links.
+Zobacz [Wsparcie rysika](/docs/v2/stylus-support/), aby zobaczyć bieżące zachowanie, ustawienia i odnośniki do zgłoszenia.
 
 Używam danych wejściowych dostarczanych przez ramę wytrząsania.
-There are already issues to track it:
-Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+Link do śledzenia błędu: Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Te kwestie są nieco starsze. Na razie wersja internetowa powinna działać dobrze.
