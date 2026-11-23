@@ -2,6 +2,29 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.6.4-rc.0 (2026-11-23)
+
+* Allow input shortcuts to use tool presets and default the inverted stylus to the core eraser ([#1307](https://github.com/LinwoodDev/Butterfly/issues/1307))
+* Redesign the PDF import dialog and add a scale slider from 10% to 1000% ([#1359](https://github.com/LinwoodDev/Butterfly/issues/1359))
+* Accept note titles with invalid file name characters and preview the converted file name when creating notes ([#1349](https://github.com/LinwoodDev/Butterfly/issues/1349))
+* Preserve paste positions while the context menu is open and clear invisible selection targets after copying ([#1363](https://github.com/LinwoodDev/Butterfly/issues/1363))
+* Fix the first canvas click failing to place a PDF imported from the Add dialog
+* Fix crashes when importing, saving, and reopening large PDFs on Android
+* Fix browser navigation closing documents with unsaved changes without confirmation
+* Fix negative label sizing causing freezes ([#1365](https://github.com/LinwoodDev/Butterfly/issues/1365))
+* Fix touch contacts interrupting an active stylus stroke ([#1354](https://github.com/LinwoodDev/Butterfly/issues/1354))
+* Prevent Android navigation-bar swipes from drawing in fullscreen ([#1353](https://github.com/LinwoodDev/Butterfly/issues/1353))
+* Fix clipped strokes when moving the canvas beyond the cached viewport
+* Fix blurred pen strokes and fills erasing content behind them when Combine paths is enabled ([#1356](https://github.com/LinwoodDev/Butterfly/issues/1356))
+* Fix images, SVGs, PDF pages, and textured strokes and fills losing their assets when pasted between documents ([#1361](https://github.com/LinwoodDev/Butterfly/issues/1361))
+* Fix image painter assets being deleted when all strokes using the tool are removed ([#1364](https://github.com/LinwoodDev/Butterfly/issues/1364))
+* Fix copying and pasting canvas content in web browsers ([#1362](https://github.com/LinwoodDev/Butterfly/issues/1362))
+* Fix desktop scrollbar edge dragging ([#1348](https://github.com/LinwoodDev/Butterfly/issues/1348)) 
+* Upgrade to flutter 3.50
+* Upgrade snap from core24 to core26
+
+Read more here: https://linwood.dev/butterfly/2.6.4-rc.0
+
 ## 2.6.3 (2026-11-16)
 
 This is a stable release, it includes all the changes from the 2.6.3 nightly releases.

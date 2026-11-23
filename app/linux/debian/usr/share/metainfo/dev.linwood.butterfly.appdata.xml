@@ -63,6 +63,23 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.6.4-rc.0" type="development" date="2026-11-23">
+			<description>
+				<ul>
+					<li>Allow input shortcuts to use tool presets and default the inverted stylus to the core eraser (#1307)</li>
+					<li>Redesign the PDF import dialog and add a scale slider from 10% to 1000% (#1359)</li>
+					<li>Accept note titles with invalid file name characters and preview the converted file name when creating notes (#1349)</li>
+					<li>Preserve paste positions while the context menu is open and clear invisible selection targets after copying (#1363)</li>
+					<li>Fix the first canvas click failing to place a PDF imported from the Add dialog</li>
+					<li>Fix crashes when importing, saving, and reopening large PDFs on Android</li>
+					<li>Fix browser navigation closing documents with unsaved changes without confirmation</li>
+					<li>Fix negative label sizing causing freezes (#1365)</li>
+					<li>Fix touch contacts interrupting an active stylus stroke (#1354)</li>
+					<li>Prevent Android navigation-bar swipes from drawing in fullscreen (#1353)</li>
+				</ul>
+			</description>
+			<url type="details">https://linwood.dev/butterfly/2.6.4-rc.0</url>
+		</release>
 		<release version="2.6.3" type="stable" date="2026-11-16">
 
 			<url type="details">https://linwood.dev/butterfly/2.6.3</url>
