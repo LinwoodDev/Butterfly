@@ -77,10 +77,20 @@ $SpanPropertyCopyWith(SpanProperty _, $Res Function(SpanProperty) __);
 @JsonSerializable()
 
 class DefinedSpanProperty implements SpanProperty {
-  const DefinedSpanProperty({this.size, @ColorJsonConverter() this.color, this.fontWeight, this.lineThrough, this.underline, this.overline, this.italic, this.letterSpacing, @ColorJsonConverter() this.decorationColor, this.decorationStyle, this.decorationThickness, @ColorJsonConverter() this.backgroundColor,  String? $type}): $type = $type ?? 'defined';
+  const DefinedSpanProperty({this.size, this.fontFamily,  List<String>? fontFamilyFallback, @ColorJsonConverter() this.color, this.fontWeight, this.lineThrough, this.underline, this.overline, this.italic, this.letterSpacing, @ColorJsonConverter() this.decorationColor, this.decorationStyle, this.decorationThickness, @ColorJsonConverter() this.backgroundColor,  String? $type}): _fontFamilyFallback = fontFamilyFallback,$type = $type ?? 'defined';
   factory DefinedSpanProperty.fromJson(Map<String, dynamic> json) => _$DefinedSpanPropertyFromJson(json);
 
  final  double? size;
+ final  String? fontFamily;
+ final  List<String>? _fontFamilyFallback;
+ List<String>? get fontFamilyFallback {
+  final value = _fontFamilyFallback;
+  if (value == null) return null;
+  if (_fontFamilyFallback is EqualUnmodifiableListView) return _fontFamilyFallback;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 @ColorJsonConverter() final  SRGBColor? color;
  final  int? fontWeight;
  final  bool? lineThrough;
@@ -110,18 +120,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is DefinedSpanProperty&&(identical(other.size, size) || other.size == size)&&(identical(other.color, color) || other.color == color)&&(identical(other.fontWeight, fontWeight) || other.fontWeight == fontWeight)&&(identical(other.lineThrough, lineThrough) || other.lineThrough == lineThrough)&&(identical(other.underline, underline) || other.underline == underline)&&(identical(other.overline, overline) || other.overline == overline)&&(identical(other.italic, italic) || other.italic == italic)&&(identical(other.letterSpacing, letterSpacing) || other.letterSpacing == letterSpacing)&&(identical(other.decorationColor, decorationColor) || other.decorationColor == decorationColor)&&(identical(other.decorationStyle, decorationStyle) || other.decorationStyle == decorationStyle)&&(identical(other.decorationThickness, decorationThickness) || other.decorationThickness == decorationThickness)&&(identical(other.backgroundColor, backgroundColor) || other.backgroundColor == backgroundColor));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DefinedSpanProperty&&(identical(other.size, size) || other.size == size)&&(identical(other.fontFamily, fontFamily) || other.fontFamily == fontFamily)&&const DeepCollectionEquality().equals(other.fontFamilyFallback, _fontFamilyFallback)&&(identical(other.color, color) || other.color == color)&&(identical(other.fontWeight, fontWeight) || other.fontWeight == fontWeight)&&(identical(other.lineThrough, lineThrough) || other.lineThrough == lineThrough)&&(identical(other.underline, underline) || other.underline == underline)&&(identical(other.overline, overline) || other.overline == overline)&&(identical(other.italic, italic) || other.italic == italic)&&(identical(other.letterSpacing, letterSpacing) || other.letterSpacing == letterSpacing)&&(identical(other.decorationColor, decorationColor) || other.decorationColor == decorationColor)&&(identical(other.decorationStyle, decorationStyle) || other.decorationStyle == decorationStyle)&&(identical(other.decorationThickness, decorationThickness) || other.decorationThickness == decorationThickness)&&(identical(other.backgroundColor, backgroundColor) || other.backgroundColor == backgroundColor));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,size,color,fontWeight,lineThrough,underline,overline,italic,letterSpacing,decorationColor,decorationStyle,decorationThickness,backgroundColor);
+    return Object.hash(runtimeType,size,fontFamily,const DeepCollectionEquality().hash(_fontFamilyFallback),color,fontWeight,lineThrough,underline,overline,italic,letterSpacing,decorationColor,decorationStyle,decorationThickness,backgroundColor);
 }
 
 @override
 String toString() {
-    return 'SpanProperty.defined(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, backgroundColor: $backgroundColor)';
+    return 'SpanProperty.defined(size: $size, fontFamily: $fontFamily, fontFamilyFallback: $fontFamilyFallback, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, backgroundColor: $backgroundColor)';
 }
 
 
@@ -132,7 +142,7 @@ abstract mixin class $DefinedSpanPropertyCopyWith<$Res> implements $SpanProperty
   factory $DefinedSpanPropertyCopyWith(DefinedSpanProperty value, $Res Function(DefinedSpanProperty) _then) = _$DefinedSpanPropertyCopyWithImpl;
 @useResult
 $Res call({
- double? size,@ColorJsonConverter() SRGBColor? color, int? fontWeight, bool? lineThrough, bool? underline, bool? overline, bool? italic, double? letterSpacing,@ColorJsonConverter() SRGBColor? decorationColor, TextDecorationStyle? decorationStyle, double? decorationThickness,@ColorJsonConverter() SRGBColor? backgroundColor
+ double? size, String? fontFamily, List<String>? fontFamilyFallback,@ColorJsonConverter() SRGBColor? color, int? fontWeight, bool? lineThrough, bool? underline, bool? overline, bool? italic, double? letterSpacing,@ColorJsonConverter() SRGBColor? decorationColor, TextDecorationStyle? decorationStyle, double? decorationThickness,@ColorJsonConverter() SRGBColor? backgroundColor
 });
 
 
@@ -149,10 +159,12 @@ class _$DefinedSpanPropertyCopyWithImpl<$Res>
 
 /// Create a copy of SpanProperty
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? size = freezed,Object? color = freezed,Object? fontWeight = freezed,Object? lineThrough = freezed,Object? underline = freezed,Object? overline = freezed,Object? italic = freezed,Object? letterSpacing = freezed,Object? decorationColor = freezed,Object? decorationStyle = freezed,Object? decorationThickness = freezed,Object? backgroundColor = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? size = freezed,Object? fontFamily = freezed,Object? fontFamilyFallback = freezed,Object? color = freezed,Object? fontWeight = freezed,Object? lineThrough = freezed,Object? underline = freezed,Object? overline = freezed,Object? italic = freezed,Object? letterSpacing = freezed,Object? decorationColor = freezed,Object? decorationStyle = freezed,Object? decorationThickness = freezed,Object? backgroundColor = freezed,}) {
   return _then(DefinedSpanProperty(
 size: freezed == size ? _self.size : size // ignore: cast_nullable_to_non_nullable
-as double?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as double?,fontFamily: freezed == fontFamily ? _self.fontFamily : fontFamily // ignore: cast_nullable_to_non_nullable
+as String?,fontFamilyFallback: freezed == fontFamilyFallback ? _self._fontFamilyFallback : fontFamilyFallback // ignore: cast_nullable_to_non_nullable
+as List<String>?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as SRGBColor?,fontWeight: freezed == fontWeight ? _self.fontWeight : fontWeight // ignore: cast_nullable_to_non_nullable
 as int?,lineThrough: freezed == lineThrough ? _self.lineThrough : lineThrough // ignore: cast_nullable_to_non_nullable
 as bool?,underline: freezed == underline ? _self.underline : underline // ignore: cast_nullable_to_non_nullable

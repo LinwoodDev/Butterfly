@@ -55,15 +55,17 @@ class PointerShortcutManager({
 
   PointerShortcutEventResult pointerDown(
     PointerDownEvent event,
-    InputConfiguration configuration,
-  ) {
-    final hasRepeatedTapShortcut = configuration.hasRepeatedTapShortcut(
-      event.kind,
-      event.buttons,
-    );
+    InputConfiguration configuration, {
+    bool allowRepeatedTap = true,
+  }) {
+    final hasRepeatedTapShortcut =
+        allowRepeatedTap &&
+        configuration.hasRepeatedTapShortcut(event.kind, event.buttons);
     final isContinuation = _isRepeatedTapContinuation(event);
     var releasedEvents = const <PointerEvent>[];
-    if (hasRepeatedTapShortcut &&
+    if (!allowRepeatedTap) {
+      releasedEvents = cancelPendingClickShortcut();
+    } else if (hasRepeatedTapShortcut &&
         _bufferedRepeatedTapEvents.isNotEmpty &&
         (_bufferedRepeatedTapStartPositions.isNotEmpty || !isContinuation)) {
       releasedEvents = _takeBufferedRepeatedTapEvents();
@@ -79,7 +81,7 @@ class PointerShortcutManager({
       }
     }
 
-    if (configuration.hasRepeatedTapShortcut(event.kind, event.buttons) &&
+    if (hasRepeatedTapShortcut &&
         (event.kind != .touch || touchPointerCount == 1)) {
       _trackedRepeatedPointers.add(event.pointer);
       _repeatedDownPositions[event.pointer] = event.localPosition;

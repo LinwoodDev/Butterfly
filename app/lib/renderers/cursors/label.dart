@@ -67,6 +67,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
       canvas,
       -Offset(iconPainter.width / 2, iconPainter.height / 2),
     );
+    iconPainter.dispose();
     canvas.restore();
   }
 }
@@ -109,11 +110,11 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
     }
     // Paint cursor
     final cursorBox = element.textPainter.getOffsetForCaret(
-      selection.base,
+      selection.extent,
       Rect.zero,
     );
     final height = element.textPainter.getFullHeightForCaret(
-      selection.base,
+      selection.extent,
       Rect.zero,
     );
     canvas.drawRect(

@@ -1171,6 +1171,51 @@ class RendererCubit(
     await rendererCubit.updateOnVisible(controller, newViewport, blocState);
   }
 
+  Future<bool> replaceInViewport(
+    EditorController controller,
+    DocumentLoaded blocState,
+    Map<Renderer<PadElement>, List<Renderer<PadElement>>> replacements,
+  ) async {
+    final viewport = state.cameraViewport;
+    final baked = viewport.bakedElements.toSet();
+    final updated = <Renderer<PadElement>, Renderer<PadElement>>{};
+    for (final MapEntry(key: old, value: next) in replacements.entries) {
+      // A hidden renderer in the cached image contributed no pixels. Its
+      // replacement can occupy the same slot without invalidating the image.
+      if (next.length != 1 ||
+          next.single.element.id != old.element.id ||
+          (baked.contains(old) && viewport.rendererStates[old.id] != .hidden)) {
+        return false;
+      }
+      updated[old] = next.single;
+    }
+
+    if (updated.isEmpty) return true;
+    List<Renderer<PadElement>> replace(List<Renderer<PadElement>> elements) =>
+        elements.map((renderer) => updated[renderer] ?? renderer).toList();
+    final nextBaked = replace(viewport.bakedElements);
+    final nextUnbaked = replace(viewport.unbakedElements);
+    final oldVisible = viewport.visibleElements.toSet();
+    final changed = updated.values.toSet();
+    final rect = getViewportRect(controller.transformCubit);
+    final next = viewport
+        .withUnbaked(
+          nextUnbaked,
+          visibleElements: [
+            for (final renderer in [...nextBaked, ...nextUnbaked])
+              if (changed.contains(renderer)
+                  ? renderer.isVisible(rect)
+                  : oldVisible.contains(renderer))
+                renderer,
+          ],
+        )
+        .copyWith(bakedElements: nextBaked);
+    _invalidateSpatialIndex();
+    setViewport(next);
+    await updateOnVisible(controller, next, blocState);
+    return true;
+  }
+
   Future<void> replaceUnbaked(
     EditorController controller,
     DocumentLoaded blocState,

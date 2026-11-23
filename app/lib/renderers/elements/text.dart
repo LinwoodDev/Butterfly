@@ -18,11 +18,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   text.TextParagraph getParagraph(NoteData document);
 
-  void _createTool(
-    text.TextParagraph paragraph,
-    NoteData document,
-    DocumentPage page,
-  ) {
+  void _createTool(text.TextParagraph paragraph) {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.textDirection = TextDirection.ltr;
     _tp?.textScaler = TextScaler.linear(scale.abs());
@@ -34,9 +30,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     _tp?.text = switch (paragraph) {
       text.TextParagraph p => TextSpan(
         children: p.textSpans
-            .mapIndexed(
-              (i, e) => _createSpan(document, dimensions, i, e, style),
-            )
+            .mapIndexed((i, e) => _createSpan(dimensions, i, e, style))
             .toList(),
         style: style.span.toFlutter(
           null,
@@ -54,7 +48,6 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   text.TextStyleSheet? _getStyle() => element.styleSheet?.item;
 
   InlineSpan _createSpan(
-    NoteData document,
     List<PlaceholderDimensions> dimensions,
     int index,
     text.InlineSpan span, [
@@ -110,20 +103,31 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   ) async {
     final paragraph = getParagraph(document);
     await super.setup(transformCubit, document, assetService, page);
-    _createTool(paragraph, document, page);
-    _updateRect(document);
+    _createTool(paragraph);
+    _updateRect();
     _specialPlaceholders = _getSpecialPlaceholders(paragraph);
+  }
+
+  void layoutForEditing(NoteData document, DocumentPage page) {
+    _updateArea(page);
+    _createTool(getParagraph(document));
+  }
+
+  void useEditingLayout(NoteData document) {
+    _tp = context!.textPainter;
+    _updateRect();
+    _specialPlaceholders = _getSpecialPlaceholders(getParagraph(document));
   }
 
   @override
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     super.onAreaUpdate(document, page, area);
     _tp?.layout(maxWidth: element.getMaxWidth(area));
-    _updateRect(document);
+    _updateRect();
     return true;
   }
 
-  void _updateRect(NoteData document) {
+  void _updateRect() {
     rect = Rect.fromLTWH(
       element.position.x,
       element.position.y,
@@ -189,7 +193,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   ]) {
     final tp = _tp;
     if (tp == null || tp.text == null) return;
-    tp.layout(maxWidth: rect.width);
+    if (context == null) tp.layout(maxWidth: rect.width);
     tp.paint(canvas, element.getOffset(rect.height).toOffset());
     final placeholders = tp.inlinePlaceholderBoxes ?? [];
     final orderedRendered = _renderedLatex.entries
@@ -291,12 +295,14 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     textElement.setAttribute('text-anchor', paragraphStyle?.alignment.name);
     // Add spans as html elements
     for (final span in paragraph.textSpans) {
-      final style = styles.resolveSpanProperty(span.property);
+      final style =
+          styles.resolveSpanProperty(span.property) ??
+          const text.DefinedSpanProperty();
       textElement.createElement('tspan')
         ..setAttribute(
           'style',
-          style?.toCss(
-            null,
+          style.toCss(
+            paragraphStyle,
             styles?.fontFamily ?? kDefaultFontFamily,
             styles?.fontFamilyFallback ?? const [],
           ),
@@ -313,11 +319,9 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     ui.Size size,
   ) async {
     final paragraph = getParagraph(blocState.data);
-    final document = blocState.data;
-    final page = blocState.page;
     await _renderLatex(paragraph, renderTransform);
-    _createTool(paragraph, document, page);
-    _updateRect(document);
+    _createTool(paragraph);
+    _updateRect();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:butterfly/dialogs/packs/color_pick.dart';
 import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly/visualizer/element.dart';
+import 'package:butterfly/visualizer/text.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:material_ui/material_ui.dart';
@@ -40,6 +41,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
 
   final TextEditingController _sizeController = .new(),
       _scaleController = TextEditingController();
+  String? _lastScaleText, _lastSizeText;
 
   final GlobalKey _paragraphKey = .new(), _spanKey = GlobalKey();
 
@@ -49,15 +51,6 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     _sizeController.dispose();
     _scaleController.dispose();
     super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(covariant LabelToolbarView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.value != oldWidget.value) {
-      _scrollController.jumpTo(0);
-      setState(() {});
-    }
   }
 
   @override
@@ -107,7 +100,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         } ??
         const text.DefinedParagraphProperty();
     final property = switch (value) {
-      TextContext e => e.getDefinedForcedSpanProperty(document),
+      TextContext e =>
+        e.isParagraph()
+            ? paragraph.span
+            : e.getDefinedForcedSpanProperty(document),
       _ => null,
     };
     final named = value.getNamedStyleSheet(document);
@@ -117,10 +113,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         name: named?.name ?? '',
         item: style,
       );
-      var newValue = value.copyWith(
-        tool: value.tool.copyWith(styleSheet: updated),
-      );
-      newValue = switch (value) {
+      final value = widget.value;
+      final newValue = switch (value) {
+        _ when value.element == null => value.copyWith(
+          tool: value.tool.copyWith(styleSheet: updated),
+        ),
         TextContext e => e.copyWith(
           element: e.element?.copyWith(styleSheet: updated),
         ),
@@ -131,11 +128,21 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       widget.onChanged(newValue);
     }
 
-    _scaleController.text = (value.labelElement?.scale ?? value.tool.scale)
+    final scaleText = (value.labelElement?.scale ?? value.tool.scale)
         .toString();
-    _sizeController.text = property?.getSize(paragraph).toString() ?? '';
-    var paragraphSelection = switch (paragraph) {
-      text.NamedParagraphProperty e => e.name,
+    final sizeText = property?.getSize(paragraph).toString() ?? '';
+    if (_scaleController.text != scaleText && scaleText != _lastScaleText) {
+      _scaleController.text = scaleText;
+    }
+    if (_sizeController.text != sizeText && sizeText != _lastSizeText) {
+      _sizeController.text = sizeText;
+    }
+    _lastScaleText = scaleText;
+    _lastSizeText = sizeText;
+    var paragraphSelection = switch (value is TextContext
+        ? value.getProperty()
+        : null) {
+      text.NamedParagraphProperty(:final name) => name,
       _ => null,
     };
     final paragraphSelections = [
@@ -168,55 +175,87 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     }
 
     void updateSpan(
-      text.DefinedSpanProperty Function(text.DefinedSpanProperty) update,
-    ) {
+      text.DefinedSpanProperty Function(text.DefinedSpanProperty) update, {
+      bool? paragraphMode,
+    }) {
       final value = widget.value;
       if (value is! TextContext) return;
       final selection = value.selection;
-      var element = value.element;
-      if (element == null) {
-        final newSpan = update(property!);
+      final element = value.element;
+      if (paragraphMode ?? value.isParagraph()) {
+        final currentParagraph = value.getDefinedProperty(document);
+        final updated = currentParagraph.copyWith(
+          span: update(currentParagraph.span),
+        );
         widget.onChanged(
           value.copyWith(
-            forcedProperty: text.ParagraphProperty.defined(span: newSpan),
-            forcedSpanProperty: newSpan,
+            forcedProperty: element == null ? updated : value.forcedProperty,
+            element: element?.copyWith.area.paragraph(property: updated),
+            forcedSpanProperty: null,
           ),
         );
         return;
       }
-      if (value.isParagraph()) {
-        final currentParagraphProperty = styleSheet.resolveParagraphProperty(
-          element.area.paragraph.property,
-        );
-        element = element.copyWith(
-          area: element.area.copyWith(
-            paragraph: element.area.paragraph.copyWith(
-              property:
-                  currentParagraphProperty?.copyWith(
-                    span: update(currentParagraphProperty.span),
-                  ) ??
-                  element.area.paragraph.property,
-            ),
-          ),
-        );
-      } else {
-        element = element.copyWith(
-          area: element.area.copyWith(
-            paragraph: element.area.paragraph.updateSpans(
-              (span) => span.copyWith(
-                property: update(
-                  styleSheet.resolveSpanProperty(span.property) ??
-                      const text.DefinedSpanProperty(),
-                ),
-              ),
-              selection.start,
-              selection.end - selection.start,
-            ),
-          ),
-        );
-      }
       widget.onChanged(
-        value.copyWith(element: element, forcedSpanProperty: update(property!)),
+        value.copyWith(
+          element: selection.isCollapsed
+              ? element
+              : element?.copyWith.area(
+                  paragraph: element.area.paragraph.mapSpans(
+                    (span) => span.copyWith(
+                      property: update(
+                        styleSheet.resolveSpanProperty(span.property) ??
+                            const text.DefinedSpanProperty(),
+                      ),
+                    ),
+                    selection.start,
+                    selection.end - selection.start,
+                  ),
+                ),
+          forcedSpanProperty: update(
+            value.getDefinedForcedSpanProperty(document),
+          ),
+        ),
+      );
+    }
+
+    final fontParagraph =
+        value is TextContext &&
+        (value.forceParagraph ??
+            (value.selection.isCollapsed && value.isParagraph()));
+    final fontProperty = value is TextContext && !fontParagraph
+        ? value.getDefinedForcedSpanProperty(document)
+        : paragraph.span;
+    final defaultFonts = styleSheet ?? const text.TextStyleSheet();
+    final fontFamily = fontProperty.getFontFamily(
+      paragraph,
+      defaultFonts.fontFamily,
+    );
+    final fontFallback = fontProperty.getFontFamilyFallback(
+      paragraph,
+      defaultFonts.fontFamilyFallback,
+    );
+
+    void updateFont({String? family, List<String>? fallback}) {
+      if (value.element == null) {
+        updateStyleSheet(
+          defaultFonts.copyWith(
+            fontFamily: family ?? defaultFonts.fontFamily,
+            fontFamilyFallback:
+                fallback ??
+                fontFallback.where((font) => font != family).toList(),
+          ),
+        );
+        return;
+      }
+      updateSpan(
+        (span) => span.copyWith(
+          fontFamily: family ?? span.fontFamily,
+          fontFamilyFallback:
+              fallback ??
+              span.fontFamilyFallback?.where((font) => font != family).toList(),
+        ),
+        paragraphMode: fontParagraph,
       );
     }
 
@@ -604,28 +643,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         ),
                         const SizedBox(width: 16),
                         FontStyleField(
-                          fontFamily: styleSheet?.fontFamily ?? 'Roboto',
-                          fontFamilyFallback:
-                              styleSheet?.fontFamilyFallback ?? const [],
-                          onFontFamilyChanged: (fontFamily) => updateStyleSheet(
-                            (styleSheet ?? const text.TextStyleSheet())
-                                .copyWith(
-                                  fontFamily: fontFamily,
-                                  fontFamilyFallback:
-                                      styleSheet?.fontFamilyFallback
-                                          .where(
-                                            (fallback) =>
-                                                fallback != fontFamily,
-                                          )
-                                          .toList() ??
-                                      const [],
-                                ),
-                          ),
+                          fontFamily: fontFamily,
+                          fontFamilyFallback: fontFallback
+                              .where((font) => font != fontFamily)
+                              .toList(),
+                          onFontFamilyChanged: (font) =>
+                              updateFont(family: font),
                           onFontFamilyFallbackChanged: (fallback) =>
-                              updateStyleSheet(
-                                (styleSheet ?? const text.TextStyleSheet())
-                                    .copyWith(fontFamilyFallback: fallback),
-                              ),
+                              updateFont(fallback: fallback),
                           compact: true,
                         ),
                         const SizedBox(width: 8),
@@ -776,7 +801,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               0 => updateSpan(
                                 (value) => value.copyWith(
                                   fontWeight:
-                                      property.fontWeight ==
+                                      property.getFontWeight(paragraph) ==
                                           text.kFontWeightNormal
                                       ? text.kFontWeightBold
                                       : text.kFontWeightNormal,

@@ -989,7 +989,12 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
     return {
       for (final entry in shortcuts.entries)
         if (entry.value is! PasteIntent || !isBrowserPasteShortcut(entry.key))
-          _EditorShortcutActivator(entry.key, controller): entry.value,
+          _EditorShortcutActivator(
+            entry.key,
+            entry.value is UndoIntent || entry.value is RedoIntent
+                ? () => controller.hasFocusedTextField
+                : () => controller.isEditingText,
+          ): entry.value,
     };
   }
 }
@@ -997,17 +1002,17 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
 /// Checks text input when a key arrives, without requiring a focus change or
 /// a rebuild of the project's shortcuts.
 class _EditorShortcutActivator extends ShortcutActivator {
-  const _EditorShortcutActivator(this.activator, this.controller);
+  const _EditorShortcutActivator(this.activator, this.isBlocked);
 
   final ShortcutActivator activator;
-  final EditorController controller;
+  final bool Function() isBlocked;
 
   @override
   Iterable<LogicalKeyboardKey>? get triggers => activator.triggers;
 
   @override
   bool accepts(KeyEvent event, HardwareKeyboard state) =>
-      activator.accepts(event, state) && !controller.isEditingText;
+      activator.accepts(event, state) && !isBlocked();
 
   @override
   String debugDescribeKeys() => activator.debugDescribeKeys();

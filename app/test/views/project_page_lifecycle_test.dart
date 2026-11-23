@@ -16,6 +16,7 @@ import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/renderers/cursors/label.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/services/font.dart';
@@ -699,19 +700,57 @@ void main() {
   });
 
   for (final mode in LabelMode.values) {
-    testWidgets('label $mode keeps Space and Shift+Space as text input', (
+    testWidgets('label $mode uses live document history and autosave', (
       tester,
     ) async {
-      final editor = await openEditor(tester);
-      final bloc = observer.lastDocumentBloc!;
-      await tester.runAsync(
-        () => editor.toolCubit.changeTool(
-          editor,
-          bloc,
-          handler: LabelHandler(LabelTool(mode: mode)),
-          allowBake: false,
+      final redoKey = mode == LabelMode.text
+          ? LogicalKeyboardKey.keyY
+          : LogicalKeyboardKey.keyR;
+      if (mode == LabelMode.markdown) {
+        await tester.runAsync(
+          () => keybinder.updateBinding(
+            redoShortcut.id,
+            SingleActivator(redoKey, control: true),
+          ),
+        );
+        addTearDown(() => keybinder.resetBinding(redoShortcut.id));
+      }
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          defaultTemplate: 'default',
+          delayedAutosave: false,
         ),
       );
+      final document =
+          DocumentDefaults.createDocument(
+            name: 'Live labels',
+            page: DocumentPage(
+              layers: [
+                DocumentLayer(
+                  id: '',
+                  content: [
+                    PenElement(
+                      id: 'existing',
+                      points: [PathPoint(20, 20), PathPoint(50, 50)],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ).setInfo(
+            DocumentInfo(
+              tools: [
+                LabelTool(id: 'label', mode: mode),
+                HandTool(id: 'hand'),
+              ],
+            ),
+          );
+      final editor = await openEditor(tester, document: document);
+      final bloc = observer.lastDocumentBloc!;
+      String? documentText(DocumentPage? page) =>
+          page?.content.whereType<LabelElement>().singleOrNull?.text;
+      String? liveText() =>
+          documentText((bloc.state as DocumentLoadSuccess).page);
       await tester.pumpAndSettle();
       final viewport = find.byType(MainViewViewport);
       final center = tester.getCenter(viewport);
@@ -727,6 +766,10 @@ void main() {
       expect(tester.testTextInput.hasAnyClients, isTrue);
       tester.testTextInput.enterText('hello');
       await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+      final cachedImage = editor.rendererCubit.state.cameraViewport.image;
+      expect(cachedImage, isNotNull);
 
       // Flutter only sends text input after an unhandled hardware key.
       final handled = await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
@@ -734,6 +777,10 @@ void main() {
       expect(handled, isFalse);
       tester.testTextInput.enterText('hello ');
       await tester.pumpAndSettle();
+      expect(
+        editor.rendererCubit.state.cameraViewport.image,
+        same(cachedImage),
+      );
       await tester.sendKeyDownEvent(LogicalKeyboardKey.shiftLeft);
       final shiftHandled = await tester.sendKeyDownEvent(
         LogicalKeyboardKey.space,
@@ -754,24 +801,109 @@ void main() {
       await tester.pumpAndSettle();
       expect(editor.transformCubit.state.rotation, 0);
       expect(label.currentTextEditingValue.text, 'hello  world');
+      expect(liveText(), 'hello  world');
+      await tester.sendKeyEvent(LogicalKeyboardKey.end);
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowLeft);
+      await tester.pumpAndSettle();
+      final caret = editor.toolCubit.state.foregrounds
+          .whereType<LabelSelectionCursor>()
+          .single
+          .element
+          .selection;
+      expect(caret, const TextSelection.collapsed(offset: 11));
+      await pressControlKey(tester, LogicalKeyboardKey.keyA);
+      final selection = editor.toolCubit.state.foregrounds
+          .whereType<LabelSelectionCursor>()
+          .single
+          .element
+          .selection;
+      expect(selection.start, 0);
+      expect(selection.end, 12);
+      await pumpUntil(
+        tester,
+        () => editor.saveCubit.state.saved == SaveState.saved,
+        'autosave while the label is still editing',
+      );
+      final saved = await fileSystem.buildDocumentSystem().getAsset(
+        editor.saveCubit.state.location.path,
+      );
+      final note = (saved as FileSystemFile<NoteFile>).data!.load()!;
+      expect(
+        documentText(note.getPage(note.getPages(true).first)),
+        'hello  world',
+      );
 
-      // Committing the label restores the canvas shortcuts immediately.
+      expect(bloc.canSendUndo, isTrue);
+      await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+      expect(label.currentTextEditingValue.text, 'hello ');
+      expect(liveText(), 'hello ');
+      expect(bloc.canSendRedo, isTrue);
+      await pressControlKey(tester, redoKey);
+      expect(label.currentTextEditingValue.text, 'hello  world');
+      expect(liveText(), 'hello  world');
+
+      // Undo a queued input update before the document event has run.
+      tester.testTextInput.enterText('hello  world!');
+      bloc.sendUndo();
+      await tester.pumpAndSettle();
+      expect(liveText(), 'hello  world');
+      expect(label.currentTextEditingValue.text, 'hello  world');
+
+      tester.testTextInput.enterText('');
+      await tester.pumpAndSettle();
+      expect(liveText(), isNull);
+      await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+      expect(label.currentTextEditingValue.text, 'hello  world');
+      expect(liveText(), 'hello  world');
+
+      // Leaving the editor restores canvas shortcuts without a history entry.
       await editor.toolCubit.changeTool(
         editor,
         bloc,
-        handler: HandHandler(),
+        index: 1,
         allowBake: false,
       );
       await tester.pumpAndSettle();
       expect(tester.testTextInput.hasAnyClients, isFalse);
       expect(await tester.sendKeyDownEvent(LogicalKeyboardKey.space), isTrue);
       await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
-      final element = (bloc.state as DocumentLoadSuccess).page.content.single;
+      final element = (bloc.state as DocumentLoadSuccess).page.content
+          .whereType<LabelElement>()
+          .single;
       expect(switch (element) {
         TextElement e => e.area.paragraph.text,
         MarkdownElement e => e.text,
         _ => null,
       }, 'hello  world');
+      await pressControlKey(tester, LogicalKeyboardKey.keyZ);
+      expect(liveText(), 'hello ');
+      await pressControlKey(tester, redoKey);
+      expect(liveText(), 'hello  world');
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      await tester.runAsync(
+        () => editor.toolCubit.changeTool(
+          editor,
+          bloc,
+          index: 0,
+          allowBake: false,
+        ),
+      );
+      await tester.pumpAndSettle();
+      final bounds = editor.rendererCubit.renderers
+          .firstWhere((renderer) => renderer.element is LabelElement)
+          .rect!;
+      final click =
+          tester.getTopLeft(viewport) +
+          editor.transformCubit.state.globalToLocal(
+            Offset(bounds.right - 1, bounds.center.dy),
+          );
+      expect(tester.getRect(viewport).contains(click), isTrue);
+      await tester.tapAt(click, kind: PointerDeviceKind.mouse);
+      final reopened = editor.toolCubit.getHandler() as LabelHandler;
+      await pumpUntil(tester, () => reopened.isEditingText, 'label reopen');
+      expect(reopened.currentTextEditingValue.selection.extentOffset, 12);
       await tester.pump(const Duration(seconds: 4));
       expect(tester.takeException(), isNull);
     });

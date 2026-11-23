@@ -1,10 +1,11 @@
 import 'package:butterfly/services/font.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class FontStyleField extends StatelessWidget {
+class FontStyleField extends StatefulWidget {
   final String fontFamily;
   final List<String> fontFamilyFallback;
   final ValueChanged<String> onFontFamilyChanged;
@@ -19,6 +20,36 @@ class FontStyleField extends StatelessWidget {
     required this.onFontFamilyFallbackChanged,
     this.compact = false,
   });
+
+  @override
+  State<FontStyleField> createState() => _FontStyleFieldState();
+}
+
+class _FontStyleFieldState extends State<FontStyleField> {
+  List<AvailableFontFamily>? _loadedFonts;
+  Widget? _controls;
+  Key _menuKey = UniqueKey();
+
+  String get fontFamily => widget.fontFamily;
+  List<String> get fontFamilyFallback => widget.fontFamilyFallback;
+  bool get compact => widget.compact;
+
+  @override
+  void didUpdateWidget(covariant FontStyleField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (fontFamily != oldWidget.fontFamily ||
+        !listEquals(fontFamilyFallback, oldWidget.fontFamilyFallback) ||
+        compact != oldWidget.compact) {
+      _menuKey = UniqueKey();
+      _controls = null;
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _controls = null;
+  }
 
   List<AvailableFontFamily> _availableFonts(
     List<AvailableFontFamily> loadedFonts,
@@ -35,7 +66,7 @@ class FontStyleField extends StatelessWidget {
 
   void _selectFont(String? font) {
     if (font == null) return;
-    onFontFamilyChanged(font);
+    widget.onFontFamilyChanged(font);
   }
 
   Widget? _sourceIcon(AvailableFontFamily font) {
@@ -52,7 +83,7 @@ class FontStyleField extends StatelessWidget {
     BuildContext context,
     List<AvailableFontFamily> fonts,
   ) => DropdownMenu<String>(
-    key: ValueKey(('font', fontFamily, fontFamilyFallback, fonts)),
+    key: _menuKey,
     width: compact ? 260 : null,
     initialSelection: fontFamily,
     enableFilter: true,
@@ -86,7 +117,7 @@ class FontStyleField extends StatelessWidget {
   void _toggleFallback(String font, bool selected) {
     final fallback = fontFamilyFallback.where((item) => item != font).toList();
     if (selected) fallback.add(font);
-    onFontFamilyFallbackChanged(fallback);
+    widget.onFontFamilyFallbackChanged(fallback);
   }
 
   Widget _buildFallbackMenu(List<AvailableFontFamily> fonts) => MenuAnchor(
@@ -135,26 +166,26 @@ class FontStyleField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<AvailableFontFamily>>(
       future: context.read<FontService>().getFonts(),
-      builder: (context, snapshot) {
-        final fonts = _availableFonts(snapshot.data ?? const []);
-        if (compact) {
-          return Row(
-            mainAxisSize: .min,
-            children: [
-              _buildFontMenu(context, fonts),
-              _buildFallbackMenu(fonts),
-            ],
-          );
+      builder: (_, snapshot) {
+        if (_loadedFonts != snapshot.data) {
+          _loadedFonts = snapshot.data;
+          _controls = null;
         }
-        return Column(
-          crossAxisAlignment: .stretch,
-          children: [
-            _buildFontMenu(context, fonts),
-            const SizedBox(height: 8),
-            _buildFallbackMenu(fonts),
-          ],
+        return _controls ??= _buildControls(
+          _availableFonts(_loadedFonts ?? const []),
         );
       },
     );
+  }
+
+  Widget _buildControls(List<AvailableFontFamily> fonts) {
+    final menu = _buildFontMenu(context, fonts);
+    final fallback = _buildFallbackMenu(fonts);
+    return compact
+        ? Row(mainAxisSize: .min, children: [menu, fallback])
+        : Column(
+            crossAxisAlignment: .stretch,
+            children: [menu, const SizedBox(height: 8), fallback],
+          );
   }
 }

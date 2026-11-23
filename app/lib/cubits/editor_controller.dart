@@ -97,15 +97,16 @@ class EditorController(
 
   bool get isClosed => _closed;
 
-  /// Whether a focused widget or canvas handler owns text input.
-  bool get isEditingText {
+  bool get hasFocusedTextField {
     final focusContext = FocusManager.instance.primaryFocus?.context;
-    if (focusContext?.widget is EditableText ||
-        focusContext?.findAncestorWidgetOfExactType<EditableText>() != null) {
-      return true;
-    }
-    return focusNode.hasFocus && toolCubit.getHandler().isEditingText;
+    return focusContext?.widget is EditableText ||
+        focusContext?.findAncestorWidgetOfExactType<EditableText>() != null;
   }
+
+  /// Whether a focused widget or canvas handler owns text input.
+  bool get isEditingText =>
+      hasFocusedTextField ||
+      (focusNode.hasFocus && toolCubit.getHandler().isEditingText);
 
   DocumentBloc? get activeDocumentBloc {
     final bloc = _documentBloc?.target;
@@ -248,6 +249,7 @@ class EditorController(
     DocumentLoadSuccess? oldState,
     List<Renderer<PadElement>> addedElements = const [],
     List<Renderer<PadElement>>? replacedElements,
+    Map<Renderer<PadElement>, List<Renderer<PadElement>>>? rendererReplacements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool unbake = false,
@@ -259,7 +261,10 @@ class EditorController(
     rendererCubit.cancelDelayedBake();
     for (var renderer in {
       ...?backgrounds,
-      ...?replacedElements,
+      if (rendererReplacements != null)
+        ...rendererReplacements.values.expand((renderers) => renderers)
+      else
+        ...?replacedElements,
       ...addedElements,
     }) {
       await renderer.setup(
@@ -277,9 +282,24 @@ class EditorController(
       (renderer) =>
           renderer is PenRenderer && renderer.element.combineId != null,
     );
-    if (replacedElements != null) {
+    final keptCache =
+        rendererReplacements != null &&
+        await rendererCubit.replaceInViewport(
+          this,
+          blocState,
+          rendererReplacements,
+        );
+    final replacements = rendererReplacements != null && !keptCache
+        ? orderRenderersByPage(
+            blocState.page,
+            rendererCubit.renderers.expand(
+              (renderer) => rendererReplacements[renderer] ?? [renderer],
+            ),
+          )
+        : replacedElements;
+    if (replacements != null) {
       await rendererCubit.replaceUnbaked(this, blocState, [
-        ...replacedElements,
+        ...replacements,
         ...addedElements,
       ], backgrounds: backgrounds);
     } else if (addsCombinedHighlight) {
@@ -292,11 +312,17 @@ class EditorController(
       await rendererCubit.unbake(this, blocState, backgrounds: backgrounds);
     } else if (backgrounds != null) {
       await rendererCubit.unbake(this, blocState, backgrounds: backgrounds);
-    } else if (!reset) {
+    } else if (!reset && !keptCache) {
       // Reload replaces the viewport below; avoid loading outgoing renderers.
       await rendererCubit.addUnbaked(this, blocState, addedElements);
     }
 
+    if (rendererReplacements != null) {
+      rendererCubit.invalidateRenderers(rendererReplacements.keys);
+      for (final renderer in rendererReplacements.keys) {
+        renderer.dispose();
+      }
+    }
     if (documentChanged) {
       saveCubit.setSaveState(saved: SaveState.unsaved);
     }
@@ -308,7 +334,7 @@ class EditorController(
         if (refreshRequested) {
           await toolCubit.refresh(this, current, allowBake: false);
         }
-        if (replacedElements != null) {
+        if (replacements != null) {
           await rendererCubit.bake(
             this,
             blocState,
@@ -328,10 +354,10 @@ class EditorController(
         await toolCubit.refresh(
           this,
           current,
-          allowBake: replacedElements == null,
+          allowBake: replacements == null && !keptCache,
         );
       }
-      if (replacedElements != null) {
+      if (replacements != null) {
         await rendererCubit.bake(
           this,
           blocState,
@@ -343,7 +369,17 @@ class EditorController(
     if (updateIndex) {
       await toolCubit.updateIndex(this, bloc);
     }
-    if (documentChanged && saveCubit.hasAutosave(networkingService)) {
+    if (documentChanged) _scheduleAutosave(bloc);
+  }
+
+  void markDocumentChanged(DocumentBloc bloc) {
+    if (isClosed) return;
+    saveCubit.setSaveState(saved: SaveState.unsaved);
+    _scheduleAutosave(bloc);
+  }
+
+  void _scheduleAutosave(DocumentBloc bloc) {
+    if (saveCubit.hasAutosave(networkingService)) {
       saveCubit.save(
         bloc,
         networkingService,

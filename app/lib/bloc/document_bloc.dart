@@ -17,6 +17,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:replay_bloc/replay_bloc.dart';
+import 'package:synchronized/synchronized.dart';
 
 import '../cubits/settings.dart';
 import '../cubits/transform.dart';
@@ -153,7 +154,7 @@ NoteData _removeUnusedAssets(
   for (final source in unusedAssets) {
     assetService.invalidate(source);
   }
-  return data.removeAssets(unusedAssets.toList());
+  return unusedAssets.isEmpty ? data : data.removeAssets(unusedAssets.toList());
 }
 
 Area _createDuplicatedArea(Area area, List<Area> existingAreas) {
@@ -168,6 +169,7 @@ Area _createDuplicatedArea(Area area, List<Area> existingAreas) {
 }
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
+  final _elementEdits = Lock();
   final _historyReloadRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 50),
   );
@@ -475,7 +477,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final newData = current.data.setThumbnail(event.data);
       _saveState(emit, state: current.copyWith(data: newData));
     });
-    on<ElementsCreated>((event, emit) async {
+    Future<void> createElements(
+      ElementsCreated event,
+      Emitter<DocumentState> emit,
+    ) async {
       final current = _getPageState(event.pageName);
       if (current is! DocumentLoadSuccess) return;
       final isOffscreen = current.pageName != state.pageName;
@@ -511,17 +516,25 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             )
             .onRenderersCreated(current.page, renderers),
       );
-    });
-    on<ElementsChanged>((event, emit) async {
+    }
+
+    Future<void> changeElements(
+      ElementsChanged event,
+      Emitter<DocumentState> emit,
+    ) async {
       final current = _getPageState(event.pageName);
       if (current is! DocumentLoadSuccess) return;
       final isOffscreen = current.pageName != state.pageName;
       if (!(embedding?.editable ?? true)) return;
       final cubit = editorController;
-      final renderers = <Renderer<PadElement>>[];
       final selection = cubit.toolCubit.state.selection;
       final selected = isOffscreen ? null : selection?.selected.toList();
       final page = current.page;
+      final originals = {
+        for (final layer in page.layers)
+          for (final element in layer.content)
+            if (event.elements.containsKey(element.id)) element.id!: element,
+      };
       final oldRenderers = (isOffscreen
           ? <Renderer<PadElement>>[]
           : editorController.rendererCubit.renderers);
@@ -529,29 +542,39 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final imported = <String, String>{};
       final elements = <String, List<PadElement>>{};
       for (final entry in event.elements.entries) {
+        final original = originals[entry.key];
+        if (original == null ||
+            (entry.value.length == 1 && entry.value.single == original)) {
+          continue;
+        }
         final sourceElements = entry.value
             .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
             .toList();
-        List<PadElement> importedElements;
-        (data, importedElements) = await importAssetsAsync(
-          data,
-          sourceElements,
-          alreadyImported: imported,
-          onInvalidate: current.assetService.invalidate,
-        );
-        elements[entry.key] = importedElements;
+        if (sourceElements.every(
+          (element) => element.sources.isEmpty && element is! SourcedElement,
+        )) {
+          elements[entry.key] = sourceElements;
+        } else {
+          final (importedData, importedElements) = await importAssetsAsync(
+            data,
+            sourceElements,
+            alreadyImported: imported,
+            onInvalidate: current.assetService.invalidate,
+          );
+          data = importedData;
+          elements[entry.key] = importedElements;
+        }
       }
+      if (elements.isEmpty) return;
       final replacedRenderers =
           <Renderer<PadElement>, List<Renderer<PadElement>>>{};
       for (final renderer in oldRenderers) {
         final id = renderer.element.id;
         final updated = elements[id];
         if (updated != null) {
-          renderer.dispose();
           final updatedRenderers = <Renderer<PadElement>>[];
           for (var element in updated) {
             final newRenderer = Renderer.fromInstance(element, renderer.layer);
-            renderers.add(newRenderer);
             updatedRenderers.add(newRenderer);
             final exists = selected?.remove(renderer);
             if (exists == true) {
@@ -559,20 +582,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             }
           }
           replacedRenderers[renderer] = updatedRenderers;
-        } else {
-          renderers.add(renderer);
         }
       }
       final newPage = current.page.mapLayers(
-        (e) => e.copyWith(
-          content: e.content.expand((e) {
-            final updated = elements[e.id];
-            if (updated != null) {
-              return updated;
-            }
-            return [e];
-          }).toList(),
-        ),
+        (layer) =>
+            layer.content.any((element) => elements.containsKey(element.id))
+            ? layer.copyWith(
+                content: [
+                  for (final element in layer.content)
+                    ...elements[element.id] ?? [element],
+                ],
+              )
+            : layer,
       );
 
       data = _removeUnusedAssets(
@@ -580,21 +601,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         newPage,
         current.info,
         current.assetService,
-        current.page.content
-            .where((element) => elements.containsKey(element.id))
-            .expand((element) => element.sources),
+        elements.keys.expand((id) => originals[id]!.sources),
       );
 
-      if (!isOffscreen) {
+      if (!isOffscreen && selection != null) {
         cubit.toolCubit.changeSelection(
-          selection?.replaceSelected(selected),
+          selection.replaceSelected(selected),
           false,
         );
       }
       return _savePageState(
         emit,
         state: current.copyWith(page: newPage, data: data),
-        replacedElements: orderRenderersByPage(newPage, renderers),
+        rendererReplacements: replacedRenderers,
+        resetAllLayers: replacedRenderers.keys.any(
+          (renderer) => renderer.layer != current.currentLayer,
+        ),
         shouldRefresh: () => replacedRenderers.entries
             .map(
               (element) => cubit.toolCubit
@@ -607,7 +629,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             .toList()
             .any((e) => e),
       );
-    }, transformer: sequential());
+    }
+
     on<ElementsArranged>((event, emit) async {
       final current = _getPageState(event.pageName);
       if (current is! DocumentLoadSuccess) return;
@@ -723,7 +746,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       }
     }, transformer: sequential());
-    on<ElementsRemoved>((event, emit) async {
+    Future<void> removeElements(
+      ElementsRemoved event,
+      Emitter<DocumentState> emit,
+    ) async {
       final current = _getPageState(event.pageName);
       if (current is! DocumentLoadSuccess) return;
       final isOffscreen = current.pageName != state.pageName;
@@ -770,7 +796,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           (renderer) => renderer.layer != current.currentLayer,
         ),
       );
-    }, transformer: sequential());
+    }
+
+    on<ElementsCreated>(
+      (event, emit) =>
+          _elementEdits.synchronized(() => createElements(event, emit)),
+    );
+    on<ElementsChanged>(
+      (event, emit) =>
+          _elementEdits.synchronized(() => changeElements(event, emit)),
+    );
+    on<ElementsRemoved>(
+      (event, emit) =>
+          _elementEdits.synchronized(() => removeElements(event, emit)),
+    );
     on<DocumentDescriptionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -1845,6 +1884,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
         resetAll: true,
       );
+      editorController.toolCubit.state.handler.onDocumentRestored(this);
     });
   }
 
@@ -1863,6 +1903,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     required DocumentLoadSuccess state,
     List<Renderer<PadElement>> addedElements = const [],
     List<Renderer<PadElement>>? replacedElements,
+    Map<Renderer<PadElement>, List<Renderer<PadElement>>>? rendererReplacements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool resetAllLayers = false,
@@ -1893,6 +1934,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       state: state,
       addedElements: addedElements,
       replacedElements: replacedElements,
+      rendererReplacements: rendererReplacements,
       backgrounds: backgrounds,
       reset: reset,
       resetAllLayers: resetAllLayers,
@@ -1935,6 +1977,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     DocumentLoadSuccess? state,
     List<Renderer<PadElement>> addedElements = const [],
     List<Renderer<PadElement>>? replacedElements,
+    Map<Renderer<PadElement>, List<Renderer<PadElement>>>? rendererReplacements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
     bool unbake = false,
@@ -1976,6 +2019,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       oldState: oldState,
       addedElements: addedElements,
       replacedElements: replacedElements,
+      rendererReplacements: rendererReplacements,
       backgrounds: backgrounds,
       reset: reset,
       unbake: unbake,
@@ -2416,22 +2460,45 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   bool get canSendRedo =>
       networkingService?.state is ClientNetworkState || canRedo;
 
-  void sendUndo() {
-    final networking = networkingService;
-    if (!canSendUndo) return;
-    if (!(networking?.sendUndo() ?? false)) {
-      undo();
-      _scheduleHistoryReload();
-    }
+  void sendUndo() => _afterElementEdits(() {
+    if (canSendUndo && !(networkingService?.sendUndo() ?? false)) undo();
+  });
+
+  void sendRedo() => _afterElementEdits(() {
+    if (canSendRedo && !(networkingService?.sendRedo() ?? false)) redo();
+  });
+
+  void _afterElementEdits(VoidCallback action) {
+    // Let the bloc deliver element events submitted in the current turn.
+    Timer.run(
+      () => unawaited(
+        _elementEdits.synchronized(() {
+          if (!isClosed) action();
+        }),
+      ),
+    );
   }
 
-  void sendRedo() {
-    final networking = networkingService;
-    if (!canSendRedo) return;
-    if (!(networking?.sendRedo() ?? false)) {
-      redo();
-      _scheduleHistoryReload();
-    }
+  @override
+  void undo() {
+    final previous = state;
+    super.undo();
+    _onHistoryRestored(previous);
+  }
+
+  @override
+  void redo() {
+    final previous = state;
+    super.redo();
+    _onHistoryRestored(previous);
+  }
+
+  void _onHistoryRestored(DocumentState previous) {
+    final controller = _editorController;
+    if (identical(previous, state) || controller == null) return;
+    controller.toolCubit.state.handler.onDocumentRestored(this);
+    _scheduleHistoryReload();
+    controller.markDocumentChanged(this);
   }
 }
 

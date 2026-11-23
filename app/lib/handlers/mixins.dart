@@ -78,13 +78,20 @@ mixin HandlerWithCursor<T> on Handler<T> {
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     _currentPos = event.localPosition;
-    context.refreshForegrounds();
+    context.getDocumentBloc().delayedRefreshForegrounds();
   }
 
   @mustCallSuper
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     _currentPos = event.localPosition;
+    context.getDocumentBloc().delayedRefreshForegrounds();
+  }
+
+  @override
+  void onPointerExit(PointerExitEvent event, EventContext context) {
+    if (_currentPos == null) return;
+    _currentPos = null;
     context.refreshForegrounds();
   }
 }

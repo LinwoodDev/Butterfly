@@ -148,9 +148,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
       textOffset += converted.fold<int>(0, (sum, span) => sum + span.length);
     }
     return text.TextParagraph(
-      textSpans: context != null
-          ? [text.InlineSpan.text(text: element.text)]
-          : spans,
+      textSpans: spans,
       property: style ?? const text.ParagraphProperty.undefined(),
     );
   }
@@ -382,8 +380,15 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
 
   @override
   text.TextParagraph getParagraph(NoteData document) {
-    final parsed = _parse();
     final styleSheet = element.styleSheet?.item;
-    return _convertToParagraph(parsed, styleSheet);
+    if (context != null) {
+      return text.TextParagraph(
+        textSpans: [text.InlineSpan.text(text: element.text)],
+        property:
+            styleSheet?.getParagraphProperty('p') ??
+            const text.ParagraphProperty.undefined(),
+      );
+    }
+    return _convertToParagraph(_parse(), styleSheet);
   }
 }

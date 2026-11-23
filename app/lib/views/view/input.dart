@@ -194,6 +194,10 @@ class _ViewportInputCoordinator {
       final result = _shortcutManager.pointerDown(
         event,
         input.context.read<SettingsCubit>().state.inputConfiguration,
+        allowRepeatedTap: !getHandler().handlesRepeatedTap(
+          event,
+          getEventContext(),
+        ),
       );
       if (result.releasedEvents.isNotEmpty) {
         await _replayPointerEvents(result.releasedEvents, input);

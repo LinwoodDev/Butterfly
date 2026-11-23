@@ -553,6 +553,110 @@ void main() {
     expect(service.sendRedo(), isFalse);
   });
 
+  test(
+    'label updates and client undo and redo synchronize with drawing',
+    () async {
+      final (data, pageName) = NoteData(Archive()).setPage(
+        const DocumentPage(layers: [DocumentLayer(id: 'layer')]),
+        'Shared',
+      );
+      final host = await _createPeer(data, pageName);
+      addTearDown(host.close);
+      final hostService = host.controller.networkingService;
+      await hostService.createSocketServer(
+        InternetAddress.loopbackIPv4.address,
+        0,
+      );
+      final clientService = NetworkingService();
+      final bytes = await clientService.createSocketClient(
+        hostService.state!.connection.address,
+      );
+      final client = await _createPeer(
+        NoteData.fromData(bytes!),
+        pageName,
+        clientService,
+      );
+      addTearDown(client.close);
+
+      String? labelText(DocumentState state) =>
+          state.page?.content.whereType<MarkdownElement>().singleOrNull?.text;
+      Future<void> waitForText(DocumentBloc bloc, String text) async {
+        if (labelText(bloc.state) == text) return;
+        await bloc.stream
+            .firstWhere((state) => labelText(state) == text)
+            .timeout(const Duration(seconds: 2));
+      }
+
+      final label = MarkdownElement(id: 'label', text: 'One');
+      client.bloc.add(
+        ElementsCreated([label], pageName: pageName, layer: 'layer'),
+      );
+      client.bloc.add(
+        ElementsChanged({
+          'label': [label.copyWith(text: 'One two')],
+        }, pageName: pageName),
+      );
+      final drawingReceived = client.bloc.stream.firstWhere(
+        (state) =>
+            state.page?.content.any((element) => element.id == 'drawing') ==
+            true,
+      );
+      host.bloc.add(
+        ElementsCreated(
+          [PenElement(id: 'drawing')],
+          pageName: pageName,
+          layer: 'layer',
+        ),
+      );
+      await Future.wait([
+        waitForText(host.bloc, 'One two'),
+        drawingReceived.timeout(const Duration(seconds: 2)),
+      ]);
+
+      final preview = PenElement(
+        id: 'drawing',
+        points: [const PathPoint(5, 5)],
+      );
+      final sharedPreview = hostService.usersStream.firstWhere(
+        (users) => users.values.any((user) => user.name == 'Writer'),
+      );
+      clientService.sendUser(
+        NetworkingUser(
+          name: 'Writer',
+          foreground: [
+            label.copyWith(text: 'One two'),
+            preview,
+          ],
+        ),
+      );
+      final users = await sharedPreview.timeout(const Duration(seconds: 2));
+      expect(
+        users.values.singleWhere((user) => user.name == 'Writer').foreground,
+        [preview],
+      );
+
+      client.bloc.add(
+        ElementsChanged({
+          'label': [label.copyWith(text: 'One two three')],
+        }, pageName: pageName),
+      );
+      await waitForText(host.bloc, 'One two three');
+      await waitForText(client.bloc, 'One two three');
+
+      client.bloc.sendUndo();
+      await waitForText(host.bloc, 'One two');
+      await waitForText(client.bloc, 'One two');
+      expect(
+        client.bloc.state.page!.content.map((element) => element.id),
+        contains('drawing'),
+      );
+
+      client.bloc.sendRedo();
+      await waitForText(host.bloc, 'One two three');
+      await waitForText(client.bloc, 'One two three');
+    },
+  );
+
   test('a new client can undo and redo host history', () async {
     TestWidgetsFlutterBinding.ensureInitialized();
     final settings = MockSettingsCubit();

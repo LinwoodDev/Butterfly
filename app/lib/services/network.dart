@@ -417,17 +417,11 @@ class NetworkingService extends Cubit<NetworkState?> {
         );
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {
       if (state is! ServerNetworkState) return;
-      if (_bloc?.canUndo != true) return;
-      _needsInit = true;
-      _bloc?.undo();
-      _bloc?.reload();
+      _bloc?.sendUndo();
     });
     rpc.getNamedFunction(NetworkEvent.redo)?.read.listen((_) {
       if (state is! ServerNetworkState) return;
-      if (_bloc?.canRedo != true) return;
-      _needsInit = true;
-      _bloc?.redo();
-      _bloc?.reload();
+      _bloc?.sendRedo();
     });
   }
 
@@ -460,13 +454,30 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   void sendUser(NetworkingUser user) {
+    final document = _bloc?.state;
+    final foreground = user.foreground;
+    final page = document?.page;
+    final ids = foreground?.map((element) => element.id).nonNulls.toSet();
+    if (page != null && foreground != null && ids != null && ids.isNotEmpty) {
+      final committed = {
+        for (final layer in page.layers)
+          for (final element in layer.content)
+            if (ids.contains(element.id)) element.id: element,
+      };
+      user = user.copyWith(
+        foreground: [
+          for (final element in foreground)
+            if (committed[element.id] != element) element,
+        ],
+      );
+    }
     _localUser = user;
     final state = this.state;
     if (state == null || state is DisconnectedNetworkState) return;
     state.pipe.sendNamedFunction(
       NetworkEvent.user,
       utf8.encode(
-        jsonEncode(user.copyWith(pageName: _bloc?.state.pageName).toJson()),
+        jsonEncode(user.copyWith(pageName: document?.pageName).toJson()),
       ),
     );
   }

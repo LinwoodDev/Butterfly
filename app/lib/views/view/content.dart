@@ -212,6 +212,10 @@ class _LoadedViewport extends StatelessWidget {
                   child: Focus(
                     child: MouseRegion(
                       cursor: toolState.currentCursor,
+                      onExit: (event) => getHandler().onPointerExit(
+                        event,
+                        input.createEventContext(context, viewportSize),
+                      ),
                       child: SystemDropTarget(
                         showFeedback: true,
                         paste: (

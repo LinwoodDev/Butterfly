@@ -248,6 +248,8 @@ abstract class Handler<T> {
     DocumentLoadSuccess? oldState,
   ) {}
 
+  void onDocumentRestored(DocumentBloc bloc) {}
+
   FutureOr<void> onPointerDown(PointerDownEvent event, EventContext context) {}
 
   FutureOr<void> onPointerMove(PointerMoveEvent event, EventContext context) {}
@@ -255,6 +257,8 @@ abstract class Handler<T> {
   FutureOr<void> onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
+
+  void onPointerExit(PointerExitEvent event, EventContext context) {}
 
   void onTapUp(TapUpDetails details, EventContext context) {}
 
@@ -293,6 +297,9 @@ abstract class Handler<T> {
   void onLongPressDown(LongPressDownDetails details, EventContext context) {}
 
   bool canChange(PointerDownEvent event, EventContext context) => true;
+
+  bool handlesRepeatedTap(PointerDownEvent event, EventContext context) =>
+      false;
 
   FutureOr<void> resetInput(DocumentBloc bloc) {}
 

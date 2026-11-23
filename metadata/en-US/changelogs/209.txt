@@ -1,3 +1,7 @@
 * Show filenames sooner in large local folders on Android and load thumbnails as you scroll
+* Fix paragraph formatting and first-click Bold, and apply font changes to selected text ([#1368](https://github.com/LinwoodDev/Butterfly/issues/1368))
+* Fix caret placement and drag selection in labels, and double-tap to select a word
+* Autosave and sync text and Markdown labels as you type, with undo and redo available during editing
+* Speed up label editing and frequent canvas updates
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.1

@@ -21,13 +21,18 @@ class const AvailableFontFamily({
 
 class FontService(final ButterflyFileSystem _fileSystem) {
   Future<List<String>>? _systemFonts;
+  Future<List<AvailableFontFamily>>? _availableFonts;
+  Future<void>? _initialFontLoad;
   final Map<String, Future<void>> _loadedFonts = {};
   final Set<String> _customFonts = {};
 
   Future<List<String>> getSystemFonts() => _systemFonts ??= _fetchSystemFonts();
 
-  Future<List<AvailableFontFamily>> getFonts() async {
-    await loadFonts();
+  Future<List<AvailableFontFamily>> getFonts() =>
+      _availableFonts ??= _listFonts();
+
+  Future<List<AvailableFontFamily>> _listFonts() async {
+    await (_initialFontLoad ??= loadFonts());
     final systemFonts = (await getSystemFonts()).toSet();
     final bundledFonts = {...kBundledFontFamilies, ..._customFonts};
     final names = {...systemFonts, ...bundledFonts}.toList()..sort();
@@ -87,7 +92,7 @@ class FontService(final ButterflyFileSystem _fileSystem) {
     });
     try {
       await loading;
-      _customFonts.add(family);
+      if (_customFonts.add(family)) _availableFonts = null;
       return family;
     } catch (_) {
       _loadedFonts.remove(family);

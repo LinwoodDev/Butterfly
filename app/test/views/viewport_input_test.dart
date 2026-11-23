@@ -9,10 +9,13 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
+import 'package:butterfly/renderers/cursors/label.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
@@ -190,6 +193,155 @@ void main() {
     when(() => loaded.pageName).thenReturn('page');
     when(() => loaded.currentLayer).thenReturn('');
   }
+
+  testWidgets('label editing refreshes the foreground and keeps spans merged', (
+    tester,
+  ) async {
+    final handler = LabelHandler(
+      LabelTool(
+        styleSheet: const NamedItem(name: 'test', item: text.TextStyleSheet()),
+      ),
+    );
+    tools.replace(ToolRuntimeState(handler: handler));
+    when(() => loaded.currentCollection).thenReturn('');
+    when(() => loaded.pageName).thenReturn('page');
+    when(() => loaded.currentLayer).thenReturn('');
+    when(() => bloc.refreshToolbar()).thenAnswer((_) async {});
+    when(() => bloc.delayedRefreshForegrounds()).thenAnswer((_) async {});
+    when(() => bloc.delayedBake()).thenAnswer((_) async {});
+    when(() => bloc.rayCast(any(), 0)).thenAnswer((_) async => {});
+    await pumpViewport(tester, repeatedTap: true);
+
+    await tester.tapAt(const Offset(200, 200), kind: PointerDeviceKind.mouse);
+    await tester.pumpAndSettle();
+    expect(handler.isEditingText, isTrue);
+    tester.testTextInput.enterText('a');
+    tester.testTextInput.enterText('ab');
+    await tester.pump();
+    expect(handler.currentTextEditingValue.text, 'ab');
+    verifyNever(() => bloc.refresh());
+
+    final events = verify(() => bloc.add(captureAny())).captured;
+    final created = events[0] as ElementsCreated;
+    final changed = events[1] as ElementsChanged;
+    final label =
+        changed.elements[created.elements.single.id]!.single as TextElement;
+    expect(label.area.paragraph.textSpans.single.text, 'ab');
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowLeft);
+    expect(handler.currentTextEditingValue.selection.extentOffset, 1);
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.shiftLeft);
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowLeft);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.shiftLeft);
+    expect(
+      handler.currentTextEditingValue.selection,
+      const TextSelection(baseOffset: 1, extentOffset: 0),
+    );
+
+    final bounds = handler
+        .createForegrounds(controller, loaded.data, loaded.page, loaded.info)
+        .whereType<LabelSelectionCursor>()
+        .single
+        .rect!;
+    final start = Offset(bounds.left + 1, bounds.center.dy);
+    await tester.tapAt(start, kind: PointerDeviceKind.mouse);
+    await tester.pumpAndSettle();
+    expect(
+      handler.currentTextEditingValue.selection,
+      const TextSelection.collapsed(offset: 0),
+    );
+
+    final drag = await tester.startGesture(
+      start,
+      kind: PointerDeviceKind.mouse,
+    );
+    await drag.moveTo(Offset(bounds.right + 30, bounds.center.dy));
+    await drag.up();
+    await tester.pumpAndSettle();
+    expect(
+      handler.currentTextEditingValue.selection,
+      const TextSelection(baseOffset: 0, extentOffset: 2),
+    );
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.home);
+    await tester.sendKeyEvent(LogicalKeyboardKey.end);
+    expect(
+      handler.currentTextEditingValue.selection,
+      const TextSelection.collapsed(offset: 2),
+    );
+
+    tester.testTextInput.enterText('hello world');
+    await tester.pump();
+    verify(() => bloc.add(any())).called(1);
+    final word = start + const Offset(16, 0);
+    for (final kind in [PointerDeviceKind.mouse, PointerDeviceKind.touch]) {
+      final first = await tester.createGesture(kind: kind);
+      await first.down(word, timeStamp: const Duration(seconds: 1));
+      await first.up(timeStamp: const Duration(milliseconds: 1020));
+      await tester.pump(const Duration(milliseconds: 80));
+      final second = await tester.createGesture(kind: kind);
+      await second.down(word, timeStamp: const Duration(milliseconds: 1100));
+      await second.up(timeStamp: const Duration(milliseconds: 1120));
+      await tester.pumpAndSettle();
+      expect(handler.currentTextEditingValue.text, 'hello world');
+      expect(
+        handler.currentTextEditingValue.selection,
+        const TextSelection(baseOffset: 0, extentOffset: 5),
+      );
+    }
+
+    handler.dispose(bloc);
+    verifyNever(() => bloc.add(any()));
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('pending label placement respects a tool change', (tester) async {
+    final handler = LabelHandler(
+      LabelTool(
+        styleSheet: const NamedItem(name: 'test', item: text.TextStyleSheet()),
+      ),
+    );
+    tools.replace(ToolRuntimeState(handler: handler));
+    final hitTest = Completer<Set<Renderer<PadElement>>>();
+    when(() => bloc.rayCast(any(), 0)).thenAnswer((_) => hitTest.future);
+    await pumpViewport(tester);
+
+    await tester.tapAt(const Offset(200, 200), kind: PointerDeviceKind.mouse);
+    await tester.pump();
+    verify(() => bloc.rayCast(any(), 0)).called(1);
+    handler.dispose(bloc);
+    tools.replace(ToolRuntimeState(handler: HandHandler()));
+    hitTest.complete({});
+    await tester.pumpAndSettle();
+
+    expect(handler.isCurrentlyEditing, isFalse);
+    expect(tester.testTextInput.hasAnyClients, isFalse);
+    verifyNever(() => bloc.add(any()));
+  });
+
+  testWidgets('label pointer cursor disappears when the mouse leaves', (
+    tester,
+  ) async {
+    final handler = LabelHandler(LabelTool());
+    tools.replace(ToolRuntimeState(handler: handler));
+    when(() => bloc.delayedRefreshForegrounds()).thenAnswer((_) async {});
+    await pumpViewport(tester);
+    final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+    await mouse.addPointer(location: const Offset(100, 100));
+    await mouse.moveTo(const Offset(200, 200));
+    await tester.pump();
+
+    Iterable<LabelCursor> cursors() => handler
+        .createForegrounds(controller, loaded.data, loaded.page, loaded.info)
+        .whereType<LabelCursor>();
+    expect(cursors(), hasLength(1));
+
+    await mouse.moveTo(const Offset(100, -10));
+    await tester.pump();
+    expect(cursors(), isEmpty);
+    await mouse.removePointer();
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
 
   testWidgets(
     'preset activators work without a toolbar entry and restore the active tool',

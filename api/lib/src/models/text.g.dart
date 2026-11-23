@@ -26,6 +26,10 @@ const _$VerticalAlignmentEnumMap = {
 DefinedSpanProperty _$DefinedSpanPropertyFromJson(Map json) =>
     DefinedSpanProperty(
       size: (json['size'] as num?)?.toDouble(),
+      fontFamily: json['fontFamily'] as String?,
+      fontFamilyFallback: (json['fontFamilyFallback'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       color: _$JsonConverterFromJson<int, SRGBColor>(
         json['color'],
         const ColorJsonConverter().fromJson,
@@ -56,6 +60,8 @@ Map<String, dynamic> _$DefinedSpanPropertyToJson(
   DefinedSpanProperty instance,
 ) => <String, dynamic>{
   'size': instance.size,
+  'fontFamily': instance.fontFamily,
+  'fontFamilyFallback': instance.fontFamilyFallback,
   'color': _$JsonConverterToJson<int, SRGBColor>(
     instance.color,
     const ColorJsonConverter().toJson,

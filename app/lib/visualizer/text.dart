@@ -32,6 +32,17 @@ extension TextDecorationStyleFlutterConverter on text.TextDecorationStyle {
 }
 
 extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
+  String getFontFamily([
+    text.DefinedParagraphProperty? parent,
+    String defaultFamily = kDefaultFontFamily,
+  ]) => fontFamily ?? parent?.span.fontFamily ?? defaultFamily;
+
+  List<String> getFontFamilyFallback([
+    text.DefinedParagraphProperty? parent,
+    List<String> defaultFallback = const [],
+  ]) =>
+      fontFamilyFallback ?? parent?.span.fontFamilyFallback ?? defaultFallback;
+
   TextStyle toFlutter([
     text.DefinedParagraphProperty? parent,
     SRGBColor? foreground,
@@ -41,8 +52,8 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
     return TextStyle(
       fontSize: getSize(parent),
       color: getColor(parent, foreground).toColor(),
-      fontFamily: fontFamily,
-      fontFamilyFallback: fontFamilyFallback,
+      fontFamily: getFontFamily(parent, fontFamily),
+      fontFamilyFallback: getFontFamilyFallback(parent, fontFamilyFallback),
       fontStyle: getItalic(parent) ? FontStyle.italic : FontStyle.normal,
       fontWeight: FontWeight.values[getFontWeight(parent)],
       letterSpacing: getLetterSpacing(parent),
@@ -64,7 +75,7 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
     List<String> fontFamilyFallback = const [],
   ]) =>
       """
-      font-family: ${_fontFamiliesToCss(fontFamily, fontFamilyFallback)};
+      font-family: ${_fontFamiliesToCss(getFontFamily(parent, fontFamily), getFontFamilyFallback(parent, fontFamilyFallback))};
       font-weight: ${getFontWeight(parent)};
       font-style: ${getItalic(parent) ? 'italic' : 'normal'};
       font-size: ${getSize(parent)}px;

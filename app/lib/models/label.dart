@@ -92,8 +92,6 @@ sealed class LabelContext with _$LabelContext {
     }
   }
 
-  bool get isCreating => true;
-
   String? get text => labelElement?.text;
 
   LabelElement? get labelElement => element as LabelElement?;
@@ -221,8 +219,8 @@ extension TextContextHelper on TextContext {
   TextParagraph? get paragraph => area?.paragraph;
 
   ParagraphProperty getProperty() {
-    return forcedProperty ??
-        paragraph?.property ??
+    return paragraph?.property ??
+        forcedProperty ??
         const ParagraphProperty.undefined();
   }
 
@@ -236,7 +234,7 @@ extension TextContextHelper on TextContext {
   }
 
   SpanProperty? getSpanProperty(NoteData document) {
-    final index = selection.start;
+    final index = selection.start.clamp(0, length > 0 ? length - 1 : 0);
     return switch (paragraph?.getSpan(index)?.property) {
       DefinedSpanProperty e => e,
       NamedSpanProperty e => e,
@@ -281,10 +279,6 @@ extension TextContextHelper on TextContext {
             ? getDefinedSpanProperty(document)
             : const DefinedSpanProperty());
   }
-
-  bool shouldNewSpan(NoteData document) =>
-      getDefinedSpanProperty(document) !=
-      getDefinedForcedSpanProperty(document);
 
   bool paragraphModified() => switch (getProperty()) {
     NamedParagraphProperty _ => false,

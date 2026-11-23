@@ -25,6 +25,8 @@ enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 sealed class SpanProperty with _$SpanProperty {
   const factory SpanProperty.defined({
     double? size,
+    String? fontFamily,
+    List<String>? fontFamilyFallback,
     @ColorJsonConverter() SRGBColor? color,
     int? fontWeight,
     bool? lineThrough,
@@ -247,7 +249,7 @@ sealed class TextParagraph with _$TextParagraph {
 
     if (startSpans.lastOrNull?.property == span.property &&
         span is TextSpan &&
-        endSpans.lastOrNull is TextSpan) {
+        startSpans.lastOrNull is TextSpan) {
       final lastSpan = startSpans.removeLast();
       span = lastSpan.copyWith(text: lastSpan.text + span.text);
     }
@@ -319,6 +321,18 @@ sealed class TextParagraph with _$TextParagraph {
       length,
     );
   }
+
+  TextParagraph mapSpans(
+    InlineSpan Function(InlineSpan) update,
+    int start,
+    int length,
+  ) => copyWith(
+    textSpans: [
+      ...getSpans(0, start, true),
+      ...getSpans(start, length, true).map(update),
+      ...getSpans(start + length, null, true),
+    ],
+  );
 }
 
 @freezed
