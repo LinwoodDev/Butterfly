@@ -327,34 +327,16 @@ class EditorController(
       saveCubit.setSaveState(saved: SaveState.unsaved);
     }
     final refreshRequested = shouldRefresh?.call() == true;
-    if (saveCubit.state.embedding != null) {
-      if (reset) {
-        await reload(bloc, current);
-      } else {
-        if (refreshRequested) {
-          await toolCubit.refresh(this, current, allowBake: false);
-        }
-        if (replacements != null) {
-          await rendererCubit.bake(
-            this,
-            blocState,
-            reset: true,
-            resetAllLayers: resetAllLayers,
-          );
-        }
-      }
-      return;
-    }
+    final embedded = saveCubit.state.embedding != null;
     if (reset) {
       await reload(bloc, current);
     } else {
       if (refreshRequested) {
-        // For replacement updates we force a reset bake below, so avoid
-        // scheduling an extra delayed bake from refresh().
+        // Replacements that discard the cache already trigger a bake below.
         await toolCubit.refresh(
           this,
           current,
-          allowBake: replacements == null && !keptCache,
+          allowBake: embedded ? keptCache : replacements == null,
         );
       }
       if (replacements != null) {
@@ -366,6 +348,7 @@ class EditorController(
         );
       }
     }
+    if (embedded) return;
     if (updateIndex) {
       await toolCubit.updateIndex(this, bloc);
     }

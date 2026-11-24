@@ -4,5 +4,6 @@
 * Fix caret placement and drag selection in labels, and double-tap to select a word
 * Autosave and sync text and Markdown labels as you type, with undo and redo available during editing
 * Speed up label editing and frequent canvas updates
+* Fix elements flashing after moving them ([#1374](https://github.com/LinwoodDev/Butterfly/issues/1374))
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.1

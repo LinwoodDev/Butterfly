@@ -9,8 +9,13 @@ class SelectHandler extends Handler<SelectTool> {
   double _rectangleSelectionRotation = 0;
   List<Offset>? _lassoFreeSelection;
   ({Offset position, SelectionTransformCorner? corner})? _pendingTransform;
+  final _submittedTransforms =
+      <String, List<Renderer<PadElement> Function()>>{};
 
   SelectHandler(super.data);
+
+  bool get _isMovingSelection =>
+      _selectionManager.isTransforming && !_duplicate;
 
   void transform(
     DocumentBloc bloc,
@@ -29,12 +34,11 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  Map<String, RendererState> get rendererStates =>
-      _selectionManager.isTransforming && !_duplicate
-      ? Map.fromEntries(
-          _selected.map((e) => MapEntry(e.id, RendererState.hidden)),
-        )
-      : {};
+  Map<String, RendererState> get rendererStates => {
+    for (final id in _submittedTransforms.keys) id: RendererState.hidden,
+    if (_isMovingSelection)
+      for (final renderer in _selected) renderer.id: RendererState.hidden,
+  };
 
   @override
   Future<void> resetInput(DocumentBloc bloc) async {
@@ -70,6 +74,7 @@ class SelectHandler extends Handler<SelectTool> {
     DocumentPage page,
     List<Renderer<PadElement>> renderers,
   ) {
+    _submittedTransforms.clear();
     final renderersById = <String, Renderer<PadElement>>{};
     for (final renderer in renderers) {
       final id = renderer.element.id;
@@ -88,16 +93,22 @@ class SelectHandler extends Handler<SelectTool> {
     Renderer old,
     List<Renderer> updated,
   ) {
-    bool changed = false;
-    if (old is Renderer<PadElement> &&
-        _selected.any((e) => e.id == old.id) &&
-        updated is List<Renderer<PadElement>>) {
-      _selected.removeWhere((e) => e.id == old.id);
-      _selected.addAll(updated);
-      changed = true;
-      _updateSelectionRect();
+    if (old is! Renderer<PadElement>) return false;
+    final id = old.id;
+    final submitted = _submittedTransforms[id];
+    if (submitted != null) {
+      submitted.removeAt(0);
+      if (submitted.isNotEmpty) return true;
+      _submittedTransforms.remove(id);
     }
-    return changed;
+    if (updated is! List<Renderer<PadElement>> ||
+        !_selected.any((e) => e.id == id)) {
+      return submitted != null;
+    }
+    _selected.removeWhere((e) => e.id == id);
+    _selected.addAll(updated);
+    _updateSelectionRect();
+    return true;
   }
 
   Rect? getSelectionRect() {
@@ -164,7 +175,7 @@ class SelectHandler extends Handler<SelectTool> {
       _selectionManager.isValid &&
       _selectionManager.shouldTransform(position, transform.size, sensitivity);
 
-  List<Renderer<PadElement>>? _getTransformed() {
+  List<Renderer<PadElement> Function()>? _getTransformPreviews() {
     final selectionRect = _selectionManager.selection;
     final pivot = _selectionManager.pivot;
     final transform = _selectionManager.getTransform();
@@ -181,7 +192,8 @@ class SelectHandler extends Handler<SelectTool> {
           .scalePoint(center, selectionRect)
           .rotate(transformedPivot, transform.rotation * pi / 180)
           .rotate(Offset.zero, angle);
-      return renderer.transform(
+      return () =>
+          renderer.transform(
             center: target,
             scaleX: transform.scaleX,
             scaleY: transform.scaleY,
@@ -204,13 +216,17 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager.setForceProportional(data.proportionalResizing);
 
     _syncSelectionRotation(editorController.transformCubit.state);
-    final foregrounds = <Renderer>[];
-    // When transform just started but the pointer hasn't moved yet,
-    // _getTransformed() returns null. Show originals as foregrounds
-    // since rendererStates already hides them from the main layer.
+    final isMoving = _isMovingSelection;
+    final movingIds = isMoving ? _selected.map((e) => e.id).toSet() : null;
+    final foregrounds = <Renderer>[
+      for (final entry in _submittedTransforms.entries)
+        if (movingIds?.contains(entry.key) != true) entry.value.last(),
+    ];
+    // At the start of a drag, draw the originals in the foreground until
+    // the pointer moves. The main layer already hides them.
     foregrounds.addAll(
-      _getTransformed() ??
-          (_selectionManager.isTransforming && !_duplicate ? _selected : []),
+      _getTransformPreviews()?.map((build) => build()) ??
+          (isMoving ? _selected : []),
     );
     final selectionRect = getSelectionRect();
     final settings = editorController.settingsCubit.state;
@@ -233,9 +249,10 @@ class SelectHandler extends Handler<SelectTool> {
     if (!_selectionManager.isTransforming) return null;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return null;
-    final current = _getTransformed();
+    final previews = _getTransformPreviews();
     _selectionManager.deselect();
-    if (current == null) return null;
+    if (previews == null || bloc.embedding?.editable == false) return null;
+    final current = previews.map((build) => build()).toList();
     if (_duplicate) {
       final elements = current
           .map((e) => e.element.copyWith(id: createUniqueId()))
@@ -259,18 +276,18 @@ class SelectHandler extends Handler<SelectTool> {
         ),
       );
     }
-    bloc.add(
-      ElementsChanged(
-        Map.fromEntries(
-          current.mapIndexed((i, e) {
-            final id = _selected[i].element.id;
-            if (id == null) return null;
-            return MapEntry(id, [e.element]);
-          }).nonNulls,
-        ),
-        pageName: bloc.state.pageName,
-      ),
-    );
+    final changes = <String, List<PadElement>>{};
+    for (final (index, renderer) in current.indexed) {
+      final original = _selected[index].element;
+      final id = original.id;
+      if (id == null || original == renderer.element) continue;
+      changes[id] = [renderer.element];
+      // Keep drawing the moved element until its replacement is ready.
+      (_submittedTransforms[id] ??= []).add(previews[index]);
+    }
+    if (changes.isNotEmpty) {
+      bloc.add(ElementsChanged(changes, pageName: bloc.state.pageName));
+    }
     return current;
   }
 
@@ -282,6 +299,8 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       _updateTransformPosition(globalPos, context);
       _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
+      _updateSelectionRect();
+      context.refreshForegrounds();
       return;
     }
     await _onSelectionAdd(context, details.localPosition, false);
@@ -557,15 +576,15 @@ class SelectHandler extends Handler<SelectTool> {
     final transformed = _submitTransform(context.getDocumentBloc());
 
     _clearFreeSelection();
-    context.refreshForegrounds();
-
     if (transformed != null) {
       _selected.clear();
       _selected.addAll(transformed);
       _updateSelectionRect();
+      context.refreshForegrounds();
       return;
     }
 
+    context.refreshForegrounds();
     if (!context.isCtrlPressed) {
       _selected.clear();
     }

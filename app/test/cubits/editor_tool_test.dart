@@ -61,12 +61,6 @@ void main() {
               ),
             ),
           );
-          when(
-            () => rendererCubit.rendererStateChangesAffectBaked(
-              const {},
-              const {},
-            ),
-          ).thenReturn(false);
           when(() => rendererCubit.delayedBake(controller, loaded))
               .thenAnswer((_) => bake.future);
 

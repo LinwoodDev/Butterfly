@@ -198,12 +198,40 @@ class RendererCubit(
         )) {
       return;
     }
-    emit(
-      state.copyWith(
-        rendererStates: nextRendererStates,
-        temporaryRendererStates: nextTemporaryRendererStates,
-      ),
+    final next = state.copyWith(
+      rendererStates: nextRendererStates,
+      temporaryRendererStates: nextTemporaryRendererStates,
     );
+    var viewport = next.cameraViewport;
+    final states = next.allRendererStates;
+    if (equality.equals(viewport.rendererStates, states)) {
+      emit(next);
+      return;
+    }
+    final cacheInvalidated = viewport.bakedElements.any((renderer) {
+      final id = renderer.id;
+      return (viewport.rendererStates[id] == .hidden) !=
+          (states[id] == .hidden);
+    });
+    if (cacheInvalidated) {
+      // Draw the live renderers while the cache rebuilds.
+      var elements = renderers;
+      final page = _controller?.activeDocumentState?.page;
+      if (page != null) {
+        final ordered = orderRenderersByPage(page, elements);
+        if (ordered.length == elements.length) elements = ordered;
+      }
+      final visible = viewport.visibleElements.toSet();
+      _retainSpatialIndex(elements, elements);
+      viewport = viewport.unbake(
+        unbakedElements: elements,
+        visibleElements: elements.where(visible.contains).toList(),
+        rendererStates: states,
+      );
+    } else {
+      viewport = viewport.copyWith(rendererStates: states);
+    }
+    emit(next.copyWith(cameraViewport: viewport));
   }
 
   List<Renderer<PadElement>> get renderers =>
@@ -256,21 +284,6 @@ class RendererCubit(
 
   void invalidateRenderers(Iterable<Renderer<PadElement>> renderers) {
     initializedElements.removeAll(renderers);
-  }
-
-  bool rendererStateChangesAffectBaked(
-    Map<String, RendererState> current,
-    Map<String, RendererState> next,
-  ) {
-    final changedIds = {
-      ...current.keys,
-      ...next.keys,
-    }.where((id) => current[id] != next[id]);
-    if (changedIds.isEmpty) return false;
-    final bakedIds = state.cameraViewport.bakedElements
-        .map((renderer) => renderer.id)
-        .toSet();
-    return changedIds.any(bakedIds.contains);
   }
 
   Rect getViewportRect(TransformCubit transformCubit, {Size? viewportSize}) {

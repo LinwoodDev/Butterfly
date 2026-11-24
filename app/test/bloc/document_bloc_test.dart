@@ -36,8 +36,9 @@ Future<void> _settleBlocEvents() async {
 Future<Uint8List> _renderViewportPixels(
   DocumentLoadSuccess state,
   EditorController controller,
-  Size size,
-) async {
+  Size size, {
+  List<Renderer> foregrounds = const [],
+}) async {
   final recorder = ui.PictureRecorder();
   final canvas = Canvas(recorder);
   ViewPainter(
@@ -46,6 +47,14 @@ Future<Uint8List> _renderViewportPixels(
     state.info,
     cameraViewport: controller.rendererCubit.state.cameraViewport,
     transform: controller.transformCubit.state,
+  ).paint(canvas, size);
+  ForegroundPainter(
+    foregrounds,
+    state.data,
+    state.page,
+    state.info,
+    const ColorScheme.light(),
+    controller.transformCubit.state,
   ).paint(canvas, size);
   final picture = recorder.endRecording();
   ui.Image? image;
@@ -451,6 +460,103 @@ void main() {
     final renderers = editorController.rendererCubit.renderers;
     expect(renderers.last.id, 'back');
     expect(await selectAtOverlap(), renderers.last.expandedRect);
+  });
+
+  test('issue #1374: a moved element stays visible while the viewport cache rebuilds', () async {
+    const size = Size(200, 200);
+    final element = ShapeElement(
+      id: 'moved',
+      firstPosition: const Point(20, 20),
+      secondPosition: const Point(60, 60),
+      property: const ShapeProperty(
+        strokeWidth: 0,
+        shape: RectangleShape(
+          fillPaint: ElementPaint.solid(color: SRGBColor(0xFFF44336)),
+        ),
+      ),
+    );
+    final controller = editorController;
+    final cubit = controller.rendererCubit;
+    final toolCubit = controller.toolCubit;
+    final handler = SelectHandler(SelectTool());
+    await toolCubit.changeTool(
+      controller,
+      bloc,
+      handler: handler,
+      allowBake: false,
+    );
+    bloc.add(ElementsCreated([element]));
+    await _settleBlocEvents();
+    await cubit.bake(
+      controller,
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: size,
+      reset: true,
+    );
+    final context = _ToolEventContext();
+    final transform = controller.transformCubit.state;
+    when(() => context.getDocumentBloc()).thenReturn(bloc);
+    when(() => context.getCameraTransform()).thenReturn(transform);
+    when(() => context.getToolState()).thenAnswer((_) => toolCubit.state);
+    when(() => context.getViewState()).thenReturn(const EditorViewState());
+    when(() => context.isShiftPressed).thenReturn(false);
+    when(() => context.isAltPressed).thenReturn(false);
+    when(() => context.viewportSize).thenReturn(size);
+    when(() => context.refreshForegrounds())
+        .thenAnswer((_) => bloc.refreshForegrounds());
+
+    const start = Offset(40, 40);
+    const destination = Offset(120, 40);
+    handler.transform(bloc, null, next: cubit.renderers, position: start);
+    await bloc.refresh();
+    await cubit.bakeLock.synchronized(() async {});
+    expect(cubit.state.cameraViewport.baked, isTrue);
+    expect(
+      cubit.state.cameraViewport.rendererStates[element.id],
+      RendererState.hidden,
+    );
+    handler.onScaleUpdate(
+      ScaleUpdateDetails(
+        localFocalPoint: transform.globalToLocal(destination),
+        pointerCount: 1,
+      ),
+      context,
+    );
+    await bloc.refreshForegrounds();
+
+    Future<List<int>> pixelAt(Offset position) async {
+      final state = bloc.state as DocumentLoadSuccess;
+      final bytes = await _renderViewportPixels(
+        state,
+        controller,
+        size,
+        foregrounds: toolCubit.state.foregrounds
+            .whereType<ShapeRenderer>()
+            .toList(),
+      );
+      final point = transform.globalToLocal(position);
+      final index =
+          (point.dy.toInt() * size.width.toInt() + point.dx.toInt()) * 4;
+      return bytes.sublist(index, index + 4);
+    }
+
+    const red = [244, 67, 54, 255];
+    const white = [255, 255, 255, 255];
+    expect(await pixelAt(destination), red);
+    await cubit.bakeLock.synchronized(() async {
+      await handler.onScaleEnd(ScaleEndDetails(), context);
+      await _settleBlocEvents();
+      expect(
+        (cubit.renderers.single.element as ShapeElement).firstPosition.x,
+        100,
+      );
+      expect(await pixelAt(destination), red);
+      expect(await pixelAt(start), white);
+    });
+    await cubit.bakeLock.synchronized(() async {});
+    expect(cubit.state.cameraViewport.baked, isTrue);
+    expect(toolCubit.state.foregrounds.whereType<ShapeRenderer>(), isEmpty);
+    expect(await pixelAt(destination), red);
   });
 
   test(

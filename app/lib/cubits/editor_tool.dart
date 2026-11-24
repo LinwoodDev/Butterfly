@@ -768,7 +768,6 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
     final info = blocState.info;
     final assetService = blocState.assetService;
     final currentArea = blocState.currentArea;
-    const mapEq = MapEquality();
     if (!controller.isClosed) {
       disposeAllForegrounds();
       final temporaryForegrounds = state.temporaryHandler?.createForegrounds(
@@ -835,31 +834,6 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
         }
         toggleableForegrounds[index] = foregrounds;
       }
-      final rendererStates = state.handler.rendererStates;
-      final currentTemporaryRendererStates =
-          controller.rendererCubit.state.temporaryRendererStates ??
-          const <String, RendererState>{};
-      final temporaryRendererStates =
-          state.temporaryHandler?.rendererStates ??
-          const <String, RendererState>{};
-      final statesChanged = !mapEq.equals(
-        controller.rendererCubit.state.rendererStates,
-        rendererStates,
-      );
-      final temporaryStatesChanged = !mapEq.equals(
-        currentTemporaryRendererStates,
-        temporaryRendererStates,
-      );
-      final shouldBake = statesChanged || temporaryStatesChanged;
-      final resetBake =
-          controller.rendererCubit.rendererStateChangesAffectBaked(
-            controller.rendererCubit.state.rendererStates,
-            rendererStates,
-          ) ||
-          controller.rendererCubit.rendererStateChangesAffectBaked(
-            currentTemporaryRendererStates,
-            temporaryRendererStates,
-          );
       setForegrounds(
         temporaryForegrounds: temporaryForegrounds,
         toggleableForegrounds: toggleableForegrounds,
@@ -867,29 +841,15 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
         cursor: state.handler.cursor ?? MouseCursor.defer,
         temporaryCursor: state.temporaryHandler?.cursor,
       );
-      controller.rendererCubit.setRendererStates(
-        rendererStates: statesChanged
-            ? rendererStates
-            : controller.rendererCubit.state.rendererStates,
-        temporaryRendererStates: temporaryStatesChanged
-            ? temporaryRendererStates
-            : currentTemporaryRendererStates,
-      );
+      final rendererCubit = controller.rendererCubit;
+      final cacheInvalidated = _updateRendererStates(rendererCubit);
       if (allowBake) {
-        if (shouldBake && resetBake) {
-          return controller.rendererCubit.bake(
-            controller,
-            blocState,
-            reset: true,
-          );
-        } else if (!controller.rendererCubit.state.cameraViewport.baked ||
-            controller
-                .rendererCubit
-                .state
-                .cameraViewport
-                .unbakedElements
-                .isNotEmpty) {
-          return controller.rendererCubit.delayedBake(controller, blocState);
+        if (cacheInvalidated) {
+          return rendererCubit.bake(controller, blocState, reset: true);
+        }
+        final viewport = rendererCubit.state.cameraViewport;
+        if (!viewport.baked || viewport.unbakedElements.isNotEmpty) {
+          return rendererCubit.delayedBake(controller, blocState);
         }
       }
     }
@@ -974,60 +934,33 @@ class ToolCubit([ToolRuntimeState? initial]) extends Cubit<ToolRuntimeState> {
       );
     }
 
-    const mapEq = MapEquality<String, RendererState>();
-    final rendererStates = state.handler.rendererStates;
-    final currentTemporaryRendererStates =
-        controller.rendererCubit.state.temporaryRendererStates ??
-        const <String, RendererState>{};
-    final temporaryRendererStates =
-        state.temporaryHandler?.rendererStates ??
-        const <String, RendererState>{};
-    final statesChanged = !mapEq.equals(
-      controller.rendererCubit.state.rendererStates,
-      rendererStates,
-    );
-    final temporaryStatesChanged = !mapEq.equals(
-      currentTemporaryRendererStates,
-      temporaryRendererStates,
-    );
-    final resetBake =
-        controller.rendererCubit.rendererStateChangesAffectBaked(
-          controller.rendererCubit.state.rendererStates,
-          rendererStates,
-        ) ||
-        controller.rendererCubit.rendererStateChangesAffectBaked(
-          currentTemporaryRendererStates,
-          temporaryRendererStates,
-        );
-
     setForegrounds(
       foregrounds: foregrounds,
       temporaryForegrounds: temporaryForegrounds,
       cursor: state.handler.cursor ?? MouseCursor.defer,
       temporaryCursor: state.temporaryHandler?.cursor,
     );
-    controller.rendererCubit.setRendererStates(
-      rendererStates: statesChanged
-          ? rendererStates
-          : controller.rendererCubit.state.rendererStates,
-      temporaryRendererStates: temporaryStatesChanged
-          ? temporaryRendererStates
-          : currentTemporaryRendererStates,
-    );
-
-    if ((statesChanged || temporaryStatesChanged) && resetBake) {
-      await controller.rendererCubit.bake(controller, blocState, reset: true);
-    } else if (!controller.rendererCubit.state.cameraViewport.baked ||
-        controller
-            .rendererCubit
-            .state
-            .cameraViewport
-            .unbakedElements
-            .isNotEmpty) {
+    final rendererCubit = controller.rendererCubit;
+    final cacheInvalidated = _updateRendererStates(rendererCubit);
+    if (cacheInvalidated) {
+      return rendererCubit.bake(controller, blocState, reset: true);
+    }
+    final viewport = rendererCubit.state.cameraViewport;
+    if (!viewport.baked || viewport.unbakedElements.isNotEmpty) {
       // Keep the serial preview runner free for the next input frame while
       // the canvas cache waits for its delayed bake.
-      unawaited(controller.rendererCubit.delayedBake(controller, blocState));
+      unawaited(rendererCubit.delayedBake(controller, blocState));
     }
+  }
+
+  bool _updateRendererStates(RendererCubit rendererCubit) {
+    final wasBaked = rendererCubit.state.cameraViewport.baked;
+    rendererCubit.setRendererStates(
+      rendererStates: state.handler.rendererStates,
+      temporaryRendererStates:
+          state.temporaryHandler?.rendererStates ?? const {},
+    );
+    return wasBaked && !rendererCubit.state.cameraViewport.baked;
   }
 
   Future<void> updateIndex(
