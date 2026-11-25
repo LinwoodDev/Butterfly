@@ -220,10 +220,26 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     Rect viewportRect,
   ) {
     if (!rect.overlaps(viewportRect)) return;
+    final svg = xml.getElement('svg');
+    if (svg == null) return;
+
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final drawRect = rect.inflate(-strokeWidth);
-    final dashArray = _getSvgDashArray();
+    final paintAttributes = {
+      if (shape is LineShape)
+        'fill': 'none'
+      else
+        ..._svgPaintAttributes(svg, 'fill', _shapeFillPaint, rect),
+      ..._svgPaintAttributes(
+        svg,
+        'stroke',
+        element.property.paint,
+        expandedRect,
+      ),
+      'stroke-width': '${strokeWidth}px',
+      'stroke-dasharray': ?_getSvgDashArray(),
+    };
 
     if (shape is RectangleShape) {
       final topLeftRadius =
@@ -253,82 +269,36 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       d += 'A$topLeftRadius $topLeftRadius 0 0 1 ';
       d += '${drawRect.left + topLeftRadius} ${drawRect.top} ';
       d += 'Z';
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'path',
-            attributes: {
-              'd': d,
-              'fill': shape.fillPaint.previewColor.toHexString(alpha: false),
-              'fill-opacity': '${shape.fillPaint.previewColor.a / 255}',
-              'stroke': element.property.paint.previewColor.toHexString(
-                alpha: false,
-              ),
-              'stroke-opacity':
-                  '${element.property.paint.previewColor.a / 255}',
-              'stroke-width': '${element.property.strokeWidth}px',
-              'stroke-dasharray': ?dashArray,
-            },
-          );
+      svg.createElement('path', attributes: {'d': d, ...paintAttributes});
     } else if (shape is CircleShape) {
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'ellipse',
-            attributes: {
-              'cx': '${drawRect.center.dx}',
-              'cy': '${drawRect.center.dy}',
-              'rx': '${(drawRect.width / 2).abs()}',
-              'ry': '${(drawRect.height / 2).abs()}',
-              'fill': shape.fillPaint.previewColor.toHexString(alpha: false),
-              'fill-opacity': '${shape.fillPaint.previewColor.a / 255}',
-              'stroke': element.property.paint.previewColor.toHexString(
-                alpha: false,
-              ),
-              'stroke-opacity':
-                  '${element.property.paint.previewColor.a / 255}',
-              'stroke-width': '${element.property.strokeWidth}px',
-              'stroke-dasharray': ?dashArray,
-            },
-          );
+      svg.createElement(
+        'ellipse',
+        attributes: {
+          'cx': '${drawRect.center.dx}',
+          'cy': '${drawRect.center.dy}',
+          'rx': '${(drawRect.width / 2).abs()}',
+          'ry': '${(drawRect.height / 2).abs()}',
+          ...paintAttributes,
+        },
+      );
     } else if (shape is LineShape) {
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'line',
-            attributes: {
-              'x1': '${element.firstPosition.x}px',
-              'y1': '${element.firstPosition.y}px',
-              'x2': '${element.secondPosition.x}px',
-              'y2': '${element.secondPosition.y}px',
-              'stroke-width': '${element.property.strokeWidth}px',
-              'stroke': element.property.paint.previewColor.toHexString(
-                alpha: false,
-              ),
-              'stroke-opacity':
-                  '${element.property.paint.previewColor.a / 255}',
-              'fill': 'none',
-              'stroke-dasharray': ?dashArray,
-            },
-          );
+      svg.createElement(
+        'line',
+        attributes: {
+          'x1': '${element.firstPosition.x}px',
+          'y1': '${element.firstPosition.y}px',
+          'x2': '${element.secondPosition.x}px',
+          'y2': '${element.secondPosition.y}px',
+          ...paintAttributes,
+        },
+      );
     } else if (shape is TriangleShape) {
       final points = _trianglePoints(drawRect, element);
       final d =
           'M${points.tip.dx} ${points.tip.dy} '
           'L${points.right.dx} ${points.right.dy} '
           'L${points.left.dx} ${points.left.dy} Z';
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'path',
-            attributes: {
-              'd': d,
-              'fill': shape.fillPaint.previewColor.toHexString(),
-              'stroke': element.property.paint.previewColor.toHexString(),
-              'stroke-width': '${element.property.strokeWidth}px',
-              'stroke-dasharray': ?dashArray,
-            },
-          );
+      svg.createElement('path', attributes: {'d': d, ...paintAttributes});
     }
   }
 

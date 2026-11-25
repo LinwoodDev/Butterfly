@@ -1078,12 +1078,13 @@ class RendererCubit(
       attributes: {
         'xmlns': 'http://www.w3.org/2000/svg',
         'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-        'version': '1.1',
         'width': '${exportSize.width}px',
         'height': '${exportSize.height}px',
         'viewBox': '0 0 ${exportSize.width} ${exportSize.height}',
       },
     );
+    // Reserve the first child for definitions outside the transform groups.
+    final defs = svg.createElement('defs');
 
     final transform = _exportTransform(options, pixelRatio: 1);
     final rect = transform.localToGlobalRect(Offset.zero & exportSize);
@@ -1118,7 +1119,8 @@ class RendererCubit(
         _wrapSvgChildren(svg, firstChild, elementTransform.toString());
       }
     }
-    _wrapSvgChildren(svg, 0, _svgCameraTransform(transform));
+    _wrapSvgChildren(svg, 1, _svgCameraTransform(transform));
+    if (defs.children.isEmpty) defs.remove();
     return xml;
   }
 

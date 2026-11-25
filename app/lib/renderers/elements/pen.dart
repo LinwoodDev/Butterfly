@@ -280,24 +280,28 @@ class PenRenderer extends Renderer<PenElement> {
     final points = element.points;
     final property = element.property;
     if (points.isEmpty) return;
-    final fill = property.fillPaint.previewColor;
-    final color = property.paint.previewColor;
-    if (fill.a > 0) {
+    final svg = xml.getElement('svg');
+    if (svg == null) return;
+
+    if (property.fillPaint.previewColor.a > 0) {
       final first = points.first;
       final path = StringBuffer('M ${first.x} ${first.y}');
       for (var i = 1; i < points.length; i++) {
         final point = points[i];
         path.write(' L ${point.x} ${point.y}');
       }
-      xml.getElement('svg')?.createElement('path')
-        ?..setAttribute('d', path.toString())
-        ..setAttribute('fill', fill.toHexString(alpha: false))
-        ..setAttribute('fill-opacity', '${fill.a / 255}')
-        ..setAttribute('stroke', 'none')
-        ..setAttribute('stroke-linecap', 'round')
-        ..setAttribute('stroke-linejoin', 'round');
+      svg.createElement(
+        'path',
+        attributes: {
+          'd': path.toString(),
+          ..._svgPaintAttributes(svg, 'fill', property.fillPaint, rect),
+          'stroke': 'none',
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+        },
+      );
     }
-    if (color.a > 0) {
+    if (property.paint.previewColor.a > 0) {
       // 1. Get the outline points from the input points
       var outlinePoints = _getOutlinePoints();
 
@@ -315,13 +319,16 @@ class PenRenderer extends Renderer<PenElement> {
       }
       path.write(' Z');
 
-      xml.getElement('svg')?.createElement('path')
-        ?..setAttribute('d', path.toString())
-        ..setAttribute('fill', color.toHexString(alpha: false))
-        ..setAttribute('fill-opacity', '${color.a / 255}')
-        ..setAttribute('stroke', 'none')
-        ..setAttribute('stroke-linecap', 'round')
-        ..setAttribute('stroke-linejoin', 'round');
+      svg.createElement(
+        'path',
+        attributes: {
+          'd': path.toString(),
+          ..._svgPaintAttributes(svg, 'fill', property.paint, expandedRect),
+          'stroke': 'none',
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+        },
+      );
     }
   }
 

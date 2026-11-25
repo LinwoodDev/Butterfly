@@ -56,6 +56,83 @@ part 'elements/shape.dart';
 part 'elements/table.dart';
 part 'elements/svg.dart';
 
+Offset _gradientPoint(Rect bounds, Point<double> point) => Offset(
+  bounds.left + point.x * bounds.width,
+  bounds.top + point.y * bounds.height,
+);
+
+double _radialGradientScale(Rect bounds) =>
+    Offset(bounds.width, bounds.height).distance / 2;
+
+Map<String, String> _svgPaintAttributes(
+  XmlElement svg,
+  String attribute,
+  ElementPaint paint,
+  Rect bounds,
+) {
+  if (paint is! GradientElementPaint) {
+    final color = paint.previewColor;
+    return {
+      attribute: color.toHexString(alpha: false),
+      '$attribute-opacity': '${color.a / 255}',
+    };
+  }
+
+  final id = 'gradient-${createUniqueId()}';
+  final attributes = {'id': id, 'gradientUnits': 'userSpaceOnUse'};
+  final gradient = paint.gradient;
+  final String tag;
+  switch (gradient) {
+    case LinearElementGradient(:final start, :final end):
+      tag = 'linearGradient';
+      final from = _gradientPoint(bounds, start);
+      final to = _gradientPoint(bounds, end);
+      attributes.addAll({
+        'x1': '${from.dx}',
+        'y1': '${from.dy}',
+        'x2': '${to.dx}',
+        'y2': '${to.dy}',
+      });
+    case RadialElementGradient(
+      :final center,
+      :final radius,
+      :final focal,
+      :final focalRadius,
+    ):
+      tag = 'radialGradient';
+      final origin = _gradientPoint(bounds, center);
+      final scale = _radialGradientScale(bounds);
+      attributes.addAll({
+        'cx': '${origin.dx}',
+        'cy': '${origin.dy}',
+        'r': '${radius * scale}',
+      });
+      if (focal != null) {
+        final focus = _gradientPoint(bounds, focal);
+        attributes['fx'] = '${focus.dx}';
+        attributes['fy'] = '${focus.dy}';
+        if (focalRadius != null && focalRadius != 0) {
+          attributes['fr'] = '${focalRadius * scale}';
+        }
+      }
+  }
+
+  final definition = svg
+      .getOrCreateElement('defs')
+      .createElement(tag, attributes: attributes);
+  for (final stop in gradient.stops) {
+    definition.createElement(
+      'stop',
+      attributes: {
+        'offset': '${stop.offset}',
+        'stop-color': stop.color.toHexString(alpha: false),
+        'stop-opacity': '${stop.color.a / 255}',
+      },
+    );
+  }
+  return {attribute: 'url(#$id)'};
+}
+
 class ElementPaintRenderer {
   final _imageResource = AsyncResource<ui.Image>(
     disposeValue: (image) => image.dispose(),
@@ -105,23 +182,9 @@ class ElementPaintRenderer {
         late final ui.Shader shader;
         switch (gradient) {
           case LinearElementGradient(:final start, :final end, :final stops):
-            final startOffset = Offset(
-              bounds.left + start.x * bounds.width,
-              bounds.top + start.y * bounds.height,
-            );
-            final endOffset = Offset(
-              bounds.left + end.x * bounds.width,
-              bounds.top + end.y * bounds.height,
-            );
-            final centerOffset = Offset(
-              bounds.left + bounds.width / 2,
-              bounds.top + bounds.height / 2,
-            );
-            final scaledStart = centerOffset + (startOffset - centerOffset);
-            final scaledEnd = centerOffset + (endOffset - centerOffset);
             shader = ui.Gradient.linear(
-              scaledStart,
-              scaledEnd,
+              _gradientPoint(bounds, start),
+              _gradientPoint(bounds, end),
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
               tileMode,
@@ -133,24 +196,15 @@ class ElementPaintRenderer {
             :final focalRadius,
             :final stops,
           ):
-            final radiusScale =
-                sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2;
+            final radiusScale = _radialGradientScale(bounds);
             shader = ui.Gradient.radial(
-              Offset(
-                bounds.left + center.x * bounds.width,
-                bounds.top + center.y * bounds.height,
-              ),
+              _gradientPoint(bounds, center),
               radius * radiusScale,
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
               tileMode,
               null,
-              focal == null
-                  ? null
-                  : Offset(
-                      bounds.left + focal.x * bounds.width,
-                      bounds.top + focal.y * bounds.height,
-                    ),
+              focal == null ? null : _gradientPoint(bounds, focal),
               (focalRadius ?? 0) * radiusScale,
             );
         }

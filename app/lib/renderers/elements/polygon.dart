@@ -193,17 +193,14 @@ class PolygonRenderer extends Renderer<PolygonElement> {
       path.write(' Z');
     }
 
-    final stroke = element.property.paint.previewColor;
-    final fill = element.property.fillPaint.previewColor;
+    final property = element.property;
     svg.createElement(
       'path',
       attributes: {
         'd': path.toString(),
-        'fill': fill.a > 0 ? fill.toHexString(alpha: false) : 'none',
-        'fill-opacity': '${fill.a / 255}',
-        'stroke': stroke.a > 0 ? stroke.toHexString(alpha: false) : 'none',
-        'stroke-opacity': '${stroke.a / 255}',
-        'stroke-width': '${element.property.strokeWidth}',
+        ..._svgPaintAttributes(svg, 'fill', property.fillPaint, rect),
+        ..._svgPaintAttributes(svg, 'stroke', property.paint, expandedRect),
+        'stroke-width': '${property.strokeWidth}',
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round',
       },
