@@ -14,6 +14,7 @@ const _rotationButtonDistance = cornerSize * 1.5;
 
 class LassoSelectionForegroundRenderer extends Renderer<List<Offset>> {
   final ColorScheme scheme;
+
   LassoSelectionForegroundRenderer(super.element, this.scheme);
 
   @override
@@ -71,7 +72,6 @@ class RectSelectionForegroundManager {
   SelectionScaleMode _scaleMode = .scale;
   bool _proportionalModifier = false;
   bool _centeredModifier = false;
-  bool _forceProportional = false;
   double _viewportRotation = 0;
   double rotation = 0;
 
@@ -105,10 +105,6 @@ class RectSelectionForegroundManager {
       current = start + _toLocal(snapPosition(target)) - anchor;
     }
     _currentPosition = current;
-  }
-
-  void setForceProportional(bool value) {
-    _forceProportional = value;
   }
 
   void updateCursor(double scale, double sensitivity, [double rotation = 0]) {
@@ -195,8 +191,7 @@ class RectSelectionForegroundManager {
   }
 
   SelectionScaleMode get _effectiveScaleMode =>
-      _forceProportional ||
-          ((_scaleMode == .scaleProp) != _proportionalModifier)
+      ((_scaleMode == .scaleProp) != _proportionalModifier)
       ? SelectionScaleMode.scaleProp
       : SelectionScaleMode.scale;
 
@@ -362,7 +357,7 @@ class RectSelectionForegroundManager {
     return RectSelectionForegroundRenderer(
       rect.shift(rect.center.rotate(Offset.zero, rotation) - rect.center),
       rotation: rotation * 180 / pi,
-      transformMode: _forceProportional ? _scaleMode : _effectiveScaleMode,
+      transformMode: _effectiveScaleMode,
       transformCorner: _corner,
       enableRotation: enableRotation,
       isTransforming: isTransforming,

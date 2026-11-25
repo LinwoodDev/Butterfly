@@ -213,8 +213,6 @@ class SelectHandler extends Handler<SelectTool> {
     DocumentInfo info, [
     Area? currentArea,
   ]) {
-    _selectionManager.setForceProportional(data.proportionalResizing);
-
     _syncSelectionRotation(editorController.transformCubit.state);
     final isMoving = _isMovingSelection;
     final movingIds = isMoving ? _selected.map((e) => e.id).toSet() : null;
