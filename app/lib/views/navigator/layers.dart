@@ -27,6 +27,12 @@ class _LayersViewState extends State<LayersView> {
 
   @override
   Widget build(BuildContext context) {
+    const createButtonMargin = 8.0;
+    final createButtonHeight =
+        FloatingActionButtonTheme.of(context)
+            .extendedSizeConstraints
+            ?.minHeight ??
+        56.0;
     final contentPadding =
         ListTileTheme.of(context).contentPadding ?? EdgeInsets.zero;
     return BlocBuilder<DocumentBloc, DocumentState>(
@@ -101,8 +107,9 @@ class _LayersViewState extends State<LayersView> {
           builder: (context, controller, child) => Stack(
             children: [
               ReorderableListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
+                padding: EdgeInsets.only(
+                  bottom: createButtonHeight + 2 * createButtonMargin,
+                ),
                 itemCount: layers.length,
                 buildDefaultDragHandles: false,
                 // Workaround for https://github.com/flutter/flutter/issues/187162. Remove once the issue is fixed.
@@ -315,7 +322,7 @@ class _LayersViewState extends State<LayersView> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(createButtonMargin),
                   child: FloatingActionButton.extended(
                     label: Text(LeapLocalizations.of(context).create),
                     icon: const PhosphorIcon(PhosphorIconsLight.plus),

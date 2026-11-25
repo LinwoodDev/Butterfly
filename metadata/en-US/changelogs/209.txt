@@ -6,5 +6,6 @@
 * Speed up label editing and frequent canvas updates
 * Fix elements flashing after moving them ([#1374](https://github.com/LinwoodDev/Butterfly/issues/1374))
 * Preserve gradient fills and strokes when exporting SVG ([#1380](https://github.com/LinwoodDev/Butterfly/issues/1380))
+* Fix scrolling in the Layers list so bottom layers can be selected ([#1379](https://github.com/LinwoodDev/Butterfly/issues/1379))
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.1

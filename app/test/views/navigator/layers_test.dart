@@ -10,6 +10,7 @@ import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/navigator/layers.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -69,6 +70,7 @@ void main() {
         height: 100,
       ),
     );
+    editorController.rendererCubit.enableDirectRendering();
     final windowCubit = WindowCubit(fullScreen: false);
     final (data, pageName) = NoteData(Archive()).setPage(page, 'Page');
     final bloc = DocumentBloc(
@@ -91,6 +93,7 @@ void main() {
       BlocProvider.value(
         value: bloc,
         child: MaterialApp(
+          theme: ThemeData(platform: TargetPlatform.android),
           locale: const Locale('en'),
           localizationsDelegates: const [
             ...AppLocalizations.localizationsDelegates,
@@ -167,5 +170,37 @@ void main() {
       'new',
     ]);
     expect(find.byKey(const ValueKey('middle')), findsNothing);
+
+    for (var i = 0; i < 9; i++) {
+      bloc.add(LayerCreated(id: 'extra-$i', name: 'Extra $i'));
+    }
+    await tester.pumpAndSettle();
+    bloc.add(const CurrentLayerChanged('new'));
+    await tester.pumpAndSettle();
+    state = bloc.state as DocumentLoadSuccess;
+    expect(state.page.layers, hasLength(12));
+    expect(state.currentLayer, 'new');
+
+    final lowestLayer = find.byKey(const ValueKey('top')).hitTestable();
+    expect(lowestLayer, findsNothing);
+
+    final list = find.byType(ReorderableListView);
+    final createButton = find.byType(FloatingActionButton);
+    final createButtonBounds = tester.getRect(createButton);
+    expect(tester.getRect(list).overlaps(createButtonBounds), isTrue);
+
+    await tester.drag(list, const Offset(0, -500));
+    await tester.pumpAndSettle();
+
+    expect(tester.getRect(createButton), createButtonBounds);
+    expect(lowestLayer, findsOneWidget);
+    expect(
+      tester.getRect(lowestLayer).bottom,
+      lessThan(createButtonBounds.top),
+    );
+    await tester.tap(lowestLayer);
+    await tester.pump(kDoubleTapTimeout);
+    await tester.pumpAndSettle();
+    expect((bloc.state as DocumentLoadSuccess).currentLayer, 'top');
   });
 }
