@@ -318,9 +318,7 @@ class RectSelectionForegroundManager {
       };
     }
 
-    // The tool's proportional resizing option must not constrain movement.
-    if (_corner == null &&
-        (_scaleMode == .scaleProp) != _proportionalModifier) {
+    if (_corner == null && _effectiveScaleMode == .scaleProp) {
       final direction = (moved.direction / (pi / 4)).round() * pi / 4;
       final axis = Offset(cos(direction), sin(direction));
       moved = axis * (moved.dx * axis.dx + moved.dy * axis.dy);
@@ -352,8 +350,11 @@ class RectSelectionForegroundManager {
     return transform.scaleRect(_selection, _selection);
   }
 
-  RectSelectionForegroundRenderer get renderer {
+  RectSelectionForegroundRenderer createRenderer({
+    bool showMovementGuide = false,
+  }) {
     final rect = getTransformedSelection();
+    final movement = rect.center - _selection.center;
     return RectSelectionForegroundRenderer(
       rect.shift(rect.center.rotate(Offset.zero, rotation) - rect.center),
       rotation: rotation * 180 / pi,
@@ -361,6 +362,13 @@ class RectSelectionForegroundManager {
       transformCorner: _corner,
       enableRotation: enableRotation,
       isTransforming: isTransforming,
+      movementGuide:
+          showMovementGuide &&
+              isMoving &&
+              _effectiveScaleMode == .scaleProp &&
+              movement != Offset.zero
+          ? movement
+          : null,
     );
   }
 }
@@ -369,6 +377,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
   final SelectionScaleMode? transformMode;
   final SelectionTransformCorner? transformCorner;
   final bool enableRotation, isTransforming;
+  final Offset? movementGuide;
 
   @override
   final double rotation;
@@ -389,8 +398,57 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
     this.transformCorner,
     this.enableRotation = true,
     this.isTransforming = false,
+    this.movementGuide,
     this.rotation = 0,
   });
+
+  void _drawMovementGuide(
+    Canvas canvas,
+    Size size,
+    CameraTransform transform,
+    Offset movement,
+  ) {
+    final center = rect.center;
+    final radians = rotation * pi / 180;
+    final viewport = Offset.zero & size;
+    // The canvas already includes both the camera and selection rotations.
+    Offset toLocal(Offset point) =>
+        transform.localToGlobal(point).rotate(center, -radians);
+
+    final axis = movement / movement.distance;
+    final delta = toLocal(viewport.center) - center;
+    // Center the dash range on the visible viewport, even for offscreen selections.
+    final midpoint = center + axis * (delta.dx * axis.dx + delta.dy * axis.dy);
+    final dash = 6 / transform.size;
+    final step = 14 / transform.size;
+    final dashCount = (size.longestSide / 14).ceil();
+    final paint = Paint()
+      ..color = Colors.grey.shade600.withValues(alpha: 0.8)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3 / transform.size
+      ..strokeCap = StrokeCap.round;
+
+    final path = Path();
+    for (var index = -dashCount; index <= dashCount; index++) {
+      final distance = index * step;
+      final start = midpoint + axis * (distance - dash / 2);
+      final end = midpoint + axis * (distance + dash / 2);
+      path
+        ..moveTo(start.dx, start.dy)
+        ..lineTo(end.dx, end.dy);
+    }
+    canvas.save();
+    canvas.clipPath(
+      Path()..addPolygon([
+        toLocal(viewport.topLeft),
+        toLocal(viewport.topRight),
+        toLocal(viewport.bottomRight),
+        toLocal(viewport.bottomLeft),
+      ], true),
+    );
+    canvas.drawPath(path, paint);
+    canvas.restore();
+  }
 
   @override
   void build(
@@ -403,6 +461,8 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
+    final guide = movementGuide;
+    if (guide != null) _drawMovementGuide(canvas, size, transform, guide);
     final rect = Rect.fromLTRB(
       min(element.left, element.right),
       min(element.top, element.bottom),

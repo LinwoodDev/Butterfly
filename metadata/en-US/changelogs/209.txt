@@ -1,11 +1,13 @@
 * Show filenames sooner in large local folders on Android and load thumbnails as you scroll
+* Autosave and sync text and Markdown labels as you type, with undo and redo available during editing
+* Speed up label editing and frequent canvas updates
+* Show a dashed guide along the active direction when dragging a selection with constrained movement ([#1373](https://github.com/LinwoodDev/Butterfly/issues/1373))
 * Fix click selection to pick the frontmost overlapping element ([#1369](https://github.com/LinwoodDev/Butterfly/issues/1369))
 * Fix paragraph formatting and first-click Bold, apply fonts to selected text, and list Windows system fonts by family ([#1368](https://github.com/LinwoodDev/Butterfly/issues/1368))
 * Fix caret placement and drag selection in labels, and double-tap to select a word
-* Autosave and sync text and Markdown labels as you type, with undo and redo available during editing
-* Speed up label editing and frequent canvas updates
 * Fix elements flashing after moving them ([#1374](https://github.com/LinwoodDev/Butterfly/issues/1374))
 * Preserve gradient fills and strokes when exporting SVG ([#1380](https://github.com/LinwoodDev/Butterfly/issues/1380))
 * Fix scrolling in the Layers list so bottom layers can be selected ([#1379](https://github.com/LinwoodDev/Butterfly/issues/1379))
+* Fix aspect ratio lock toggling when proportional resizing is enabled ([#1375](https://github.com/LinwoodDev/Butterfly/issues/1375))
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.1

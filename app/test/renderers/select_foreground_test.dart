@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:archive/archive.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -172,8 +175,16 @@ void main() {
       expect(manager.getTransform()!.position, target - const Offset(50, 50));
       manager.updateModifiers(proportional: true, centered: false);
       expect(manager.getTransform()!.position, offsetCloseTo(expected));
+      expect(
+        manager.createRenderer(showMovementGuide: true).movementGuide,
+        offsetCloseTo(expected),
+      );
       manager.toggleTransformMode();
       expect(manager.getTransform()!.position, target - const Offset(50, 50));
+      expect(
+        manager.createRenderer(showMovementGuide: true).movementGuide,
+        isNull,
+      );
       manager.updateModifiers(proportional: false, centered: false);
       expect(manager.getTransform()!.position, offsetCloseTo(expected));
     }
@@ -201,6 +212,37 @@ void main() {
     }
   });
 
+  test(
+    'movement guide is visible only during a displaced, constrained move',
+    () {
+      const start = Offset(50, 50);
+      final manager = RectSelectionForegroundManager()
+        ..select(const Rect.fromLTWH(0, 0, 100, 100))
+        ..toggleTransformMode()
+        ..startTransformWithCorner(null, start);
+
+      RectSelectionForegroundRenderer renderer() =>
+          manager.createRenderer(showMovementGuide: true);
+
+      expect(renderer().movementGuide, isNull);
+      manager.updateCurrentPosition(start + const Offset(40, 16));
+      expect(renderer().movementGuide, offsetCloseTo(const Offset(40, 0)));
+      manager.updateCurrentPosition(start + const Offset(40, 18));
+      expect(renderer().movementGuide, offsetCloseTo(const Offset(29, 29)));
+      manager.updateCurrentPosition(start);
+      expect(renderer().movementGuide, isNull);
+
+      manager.updateCurrentPosition(start + const Offset(40, 18));
+      manager.resetTransform();
+      expect(renderer().movementGuide, isNull);
+
+      manager
+        ..startTransformWithCorner(SelectionTransformCorner.bottomRight)
+        ..updateCurrentPosition(const Offset(140, 120));
+      expect(renderer().movementGuide, isNull);
+    },
+  );
+
   test('rotation ignores positional snapping and proportional scaling', () {
     final manager = RectSelectionForegroundManager()
       ..select(const Rect.fromLTWH(0, 0, 100, 100))
@@ -216,6 +258,47 @@ void main() {
     expect(manager.getTransform()!.rotation, closeTo(90, 1e-9));
     expect(manager.getTransform()!.position, Offset.zero);
   });
+
+  test(
+    'movement guide paints dashes along the selection axis at rotated zoom',
+    () {
+      const camera = CameraTransform(1, Offset.zero, 2, pi / 2);
+      final manager = RectSelectionForegroundManager()
+        ..select(const Rect.fromLTWH(20, 40, 100, 100), rotation: -pi / 2)
+        ..toggleTransformMode()
+        ..startTransformWithCorner(null, const Offset(90, -70))
+        ..updateCurrentPosition(const Offset(128, -110));
+      final renderer = manager.createRenderer(showMovementGuide: true);
+      final canvas = TestRecordingCanvas();
+      renderer.build(
+        canvas,
+        const Size(400, 300),
+        NoteData(Archive()),
+        DocumentPage(),
+        DocumentInfo(),
+        camera,
+      );
+
+      final path =
+          canvas.invocations
+                  .map((entry) => entry.invocation)
+                  .singleWhere((call) => call.memberName == #drawPath)
+                  .positionalArguments
+                  .first
+              as Path;
+      final dashes = path.computeMetrics().toList();
+      expect(dashes.length, greaterThan(1));
+      final dash = dashes[dashes.length ~/ 2];
+      expect(dash.length * camera.size, closeTo(6, 1e-4));
+
+      final tangent = dash.getTangentForOffset(dash.length / 2)!;
+      final position = camera.globalToLocal(
+        renderer.transformPoint(tangent.position),
+      );
+      final center = camera.globalToLocal(renderer.rect.center);
+      expect(position.dx - center.dx, closeTo(position.dy - center.dy, 1e-4));
+    },
+  );
 
   test('negative scale uses the opposite element corner for placement', () {
     const selection = Rect.fromLTWH(0, 0, 200, 100);

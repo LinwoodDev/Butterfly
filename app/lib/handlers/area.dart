@@ -96,7 +96,7 @@ class AreaHandler extends Handler<AreaTool> {
             color: data.color,
           ),
         ),
-      _selectionManager.renderer,
+      _selectionManager.createRenderer(),
     ];
   }
 

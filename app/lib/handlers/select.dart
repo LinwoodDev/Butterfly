@@ -230,7 +230,9 @@ class SelectHandler extends Handler<SelectTool> {
     final settings = editorController.settingsCubit.state;
     final scheme = getThemeData(settings.design, false).colorScheme;
     if (selectionRect != null) {
-      foregrounds.add(_selectionManager.renderer);
+      foregrounds.add(
+        _selectionManager.createRenderer(showMovementGuide: true),
+      );
     }
     if (_rectangleFreeSelection != null) {
       foregrounds.add(_rectangleFreeSelection!);
