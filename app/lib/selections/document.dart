@@ -196,7 +196,26 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             PersistedDocumentState
                           >(
                             bloc: session,
-                            builder: (context, persistedState) =>
+                            builder: (context, persistedState) => Column(
+                              children: [
+                                if (persistedState.thumbnailArea
+                                    case final area?)
+                                  ListTile(
+                                    title: Text(
+                                      AppLocalizations.of(context)
+                                          .thumbnailAreaSource,
+                                    ),
+                                    subtitle: Text(
+                                      '${area.pageName} / ${area.areaName}',
+                                    ),
+                                    trailing: IconButton(
+                                      tooltip: LeapLocalizations.of(context)
+                                          .reset,
+                                      icon: const Icon(PhosphorIconsLight.x),
+                                      onPressed: () =>
+                                          session.updateThumbnailArea(null),
+                                    ),
+                                  ),
                                 SwitchListTile(
                                   title: Text(
                                     AppLocalizations.of(context).autoThumbnail,
@@ -208,6 +227,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                   value: persistedState.autoThumbnail,
                                   onChanged: session.updateAutoThumbnail,
                                 ),
+                              ],
+                            ),
                           )
                         : const SizedBox.shrink(),
                   ),

@@ -6,12 +6,14 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/services/network.dart';
+import 'package:butterfly/services/document_state.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -20,6 +22,7 @@ import 'package:networker/networker.dart';
 import 'package:networker_socket/client.dart';
 import 'package:networker_socket/server.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/mocks.dart';
@@ -29,6 +32,158 @@ void main() {
   setUpAll(() {
     registerFallbackValue(const AssetLocation(path: 'fallback.bfly'));
   });
+
+  test('only thumbnail image updates cross the collaboration protocol', () {
+    final bytes = Uint8List.fromList([1, 2, 3]);
+    final event = ThumbnailUpdated(bytes);
+    expect(event.isAllowed(DocumentPermission.write), isTrue);
+    expect(
+      ThumbnailCaptured(bytes).isAllowed(DocumentPermission.write),
+      isFalse,
+    );
+    expect(DocumentEvent.fromJson(event.toJson()), event);
+    expect(event.toJson().keys, unorderedEquals(['data', 'type']));
+    const area = PersistedThumbnailArea(pageName: 'Page', areaName: 'Cover');
+    final capture = ThumbnailCaptured(bytes, area: area);
+    expect(capture.area, area);
+    expect(capture.toJson().containsKey('area'), isFalse);
+    expect(
+      (DocumentEvent.fromJson(capture.toJson()) as ThumbnailCaptured).area,
+      isNull,
+    );
+  });
+
+  for (final clientCaptures in [false, true]) {
+    test(
+      'thumbnail capture from ${clientCaptures ? 'client' : 'host'} shares images and keeps preferences local',
+      () async {
+        const area = Area(
+          name: 'Host cover',
+          position: Point(0, 0),
+          width: 200,
+          height: 100,
+        );
+        const otherArea = Area(
+          name: 'Client cover',
+          position: Point(300, 0),
+          width: 100,
+          height: 200,
+        );
+        final page = DocumentPage(
+          layers: const [DocumentLayer(id: 'layer')],
+          areas: const [area, otherArea],
+          backgrounds: [
+            Background.texture(
+              texture: const PatternTexture(boxColor: SRGBColor(0xFFFF0000)),
+            ),
+          ],
+        );
+        final original = Uint8List.fromList([1, 2, 3]);
+        final (data, pageName) = NoteData(Archive())
+            .setThumbnail(original)
+            .setPage(page, 'Page');
+        final hostSource = PersistedThumbnailArea(
+          pageName: pageName,
+          areaName: area.name,
+        );
+        final clientSource = PersistedThumbnailArea(
+          pageName: pageName,
+          areaName: otherArea.name,
+          fit: ThumbnailAreaFit.fill,
+          alignment: ThumbnailAreaAlignment.bottomRight,
+          clip: false,
+        );
+        final host = await _createPeer(
+          data,
+          pageName,
+          null,
+          PersistedDocumentState(
+            autoThumbnail: true,
+            thumbnailArea: hostSource,
+          ),
+        );
+        addTearDown(host.close);
+        await host.controller.networkingService.createSocketServer(
+          InternetAddress.loopbackIPv4.address,
+          0,
+        );
+        final clientService = NetworkingService();
+        final snapshot = await clientService.createSocketClient(
+          host.controller.networkingService.state!.connection.address,
+        );
+        final client = await _createPeer(
+          NoteData.fromData(snapshot!),
+          pageName,
+          clientService,
+          PersistedDocumentState(
+            autoThumbnail: false,
+            thumbnailArea: clientSource,
+          ),
+        );
+        addTearDown(client.close);
+        final sender = clientCaptures ? client : host;
+        final receiver = clientCaptures ? host : client;
+        final session = sender.controller.editorSessionCubit!;
+        final remoteSession = receiver.controller.editorSessionCubit!;
+        final source = session.state.thumbnailArea!;
+        final remoteSource = remoteSession.state.thumbnailArea;
+        final remoteAutomatic = remoteSession.state.autoThumbnail;
+        Future<DocumentState> received(_Peer peer, Uint8List bytes) => peer
+            .bloc
+            .stream
+            .firstWhere(
+              (state) => listEquals(state.data?.getThumbnail(), bytes),
+            )
+            .timeout(const Duration(seconds: 3));
+        void preferencesUnchanged() {
+          expect(remoteSession.state.thumbnailArea, remoteSource);
+          expect(remoteSession.state.autoThumbnail, remoteAutomatic);
+        }
+
+        final expected = (await sender.bloc.renderAreaThumbnail(source))!;
+        final areaReceived = received(receiver, expected);
+        expect(await sender.bloc.captureAreaThumbnail(source), isTrue);
+        await areaReceived;
+        expect(sender.bloc.state.data?.getThumbnail(), expected);
+        expect(session.state.thumbnailArea, source);
+        expect(session.state.autoThumbnail, isTrue);
+        preferencesUnchanged();
+        expect(host.bloc.canUndo, isTrue);
+
+        // Both the image update and its undo/redo use the shared history.
+        final undone = received(client, original);
+        host.bloc.sendUndo();
+        await undone;
+        expect(host.bloc.state.data?.getThumbnail(), original);
+        expect(session.state.thumbnailArea, source);
+        preferencesUnchanged();
+        final redone = received(client, expected);
+        host.bloc.sendRedo();
+        await redone;
+        expect(host.bloc.state.data?.getThumbnail(), expected);
+        preferencesUnchanged();
+
+        final manual = Uint8List.fromList([4, 5, 6]);
+        final manualReceived = received(receiver, manual);
+        sender.bloc.add(ThumbnailCaptured(manual));
+        await manualReceived;
+        expect(session.state.thumbnailArea, isNull);
+        expect(session.state.autoThumbnail, isFalse);
+        preferencesUnchanged();
+
+        // Closing a document must also publish its automatic area thumbnail.
+        session.updateThumbnailArea(source);
+        session.updateAutoThumbnail(true);
+        sender.controller.saveCubit.setSaveState(saved: SaveState.saved);
+        final automaticReceived = received(receiver, expected);
+        await sender.bloc.captureAutomaticThumbnail();
+        await automaticReceived;
+        expect(session.state.thumbnailArea, source);
+        expect(session.state.autoThumbnail, isTrue);
+        preferencesUnchanged();
+      },
+    );
+  }
 
   test('connection technology recognizes websocket schemes', () {
     expect(
@@ -789,6 +944,7 @@ class _Peer {
 
   Future<void> close() async {
     await bloc.close();
+    await controller.editorSessionCubit?.close();
     await window.close();
   }
 }
@@ -797,17 +953,27 @@ Future<_Peer> _createPeer(
   NoteData data,
   String pageName, [
   NetworkingService? service,
+  PersistedDocumentState? persistedState,
 ]) async {
   final settings = MockSettingsCubit();
   when(() => settings.state)
       .thenReturn(const ButterflySettings(autosave: false));
   when(() => settings.stream).thenAnswer((_) => const Stream.empty());
   when(() => settings.addRecentHistory(any())).thenAnswer((_) async {});
+  final transform = TransformCubit(1);
+  final session = persistedState == null
+      ? null
+      : EditorSessionCubit(
+          service: DocumentStateService(buildMockDocumentStateFileSystem()),
+          transformCubit: transform,
+          initialState: persistedState,
+        );
   final controller = EditorController(
     settings,
-    TransformCubit(1),
+    transform,
     CameraViewport.unbaked(),
     networkingService: service,
+    editorSessionCubit: session,
   );
   final window = WindowCubit(fullScreen: false);
   final bloc = DocumentBloc(

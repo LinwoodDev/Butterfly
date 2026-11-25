@@ -82,9 +82,16 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.pageRemoved(String page) = PageRemoved;
 
+  // A local capture action; preferences are never sent to peers.
   const factory DocumentEvent.thumbnailCaptured(
+    @Uint8ListJsonConverter() Uint8List data, {
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    PersistedThumbnailArea? area,
+  }) = ThumbnailCaptured;
+
+  const factory DocumentEvent.thumbnailUpdated(
     @Uint8ListJsonConverter() Uint8List data,
-  ) = ThumbnailCaptured;
+  ) = ThumbnailUpdated;
 
   const factory DocumentEvent.elementsCreated(
     List<PadElement> elements, {
@@ -305,6 +312,7 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   bool isAllowed(DocumentPermission permission) {
     if (permission == .read) return false;
     return switch (this) {
+      ThumbnailCaptured() ||
       CurrentCollectionChanged() ||
       LayerVisibilityChanged() ||
       PresentationModeEntered() ||

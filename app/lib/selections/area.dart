@@ -15,6 +15,23 @@ class AreaSelection extends Selection<Area> {
   List<Widget> buildProperties(BuildContext context) {
     return [
       ...super.buildProperties(context),
+      ListTile(
+        leading: const Icon(PhosphorIconsLight.image),
+        title: Text(AppLocalizations.of(context).setAreaAsThumbnail),
+        onTap: () {
+          final bloc = context.read<DocumentBloc>();
+          final pageName = bloc.state.pageName;
+          if (pageName == null) return;
+          showDialog<void>(
+            context: context,
+            builder: (context) => AreaThumbnailDialog(
+              bloc: bloc,
+              pageName: pageName,
+              area: selected.first,
+            ),
+          );
+        },
+      ),
       ColorField(
         title: Text(LeapLocalizations.of(context).color),
         value:

@@ -877,6 +877,7 @@ class RendererCubit(
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
     DocumentLoaded? docState,
+    Rect? clipRect,
     @visibleForTesting
     Future<ui.Image> Function(ui.Picture picture, int width, int height)?
     pictureToImage,
@@ -939,6 +940,9 @@ class RendererCubit(
         recorder,
         Offset.zero & Size(rasterWidth.toDouble(), rasterHeight.toDouble()),
       )..scale(rasterQuality);
+      if (clipRect != null) {
+        canvas.clipRect(transform.globalToLocalRect(clipRect));
+      }
       ViewPainter(
         document,
         page,
@@ -1035,6 +1039,7 @@ class RendererCubit(
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
     DocumentLoaded? docState,
+    Rect? clipRect,
     @visibleForTesting
     Future<ui.Image> Function(ui.Picture picture, int width, int height)?
     pictureToImage,
@@ -1051,6 +1056,7 @@ class RendererCubit(
       invisibleLayers: invisibleLayers,
       docState: docState,
       pictureToImage: pictureToImage,
+      clipRect: clipRect,
     );
     if (image == null) return null;
     try {
