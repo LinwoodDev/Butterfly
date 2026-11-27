@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -48,8 +49,6 @@ part 'editor_tool.dart';
 part 'editor_input.dart';
 part 'document_save.dart';
 part 'editor_view.dart';
-
-Uint8List _exportTextNote(NoteData note) => note.exportAsTextBytes();
 
 void _sendNetworkingState(
   EditorController controller, {

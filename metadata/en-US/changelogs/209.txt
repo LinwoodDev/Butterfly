@@ -1,5 +1,6 @@
 * Show filenames sooner in large local folders on Android and load thumbnails as you scroll
 * Autosave and sync text and Markdown labels as you type, with undo and redo available during editing
+* Keep stylus strokes responsive while saving and wait until drawing stops before starting delayed autosave
 * Speed up label editing and frequent canvas updates
 * Show a dashed guide along the active direction when dragging a selection with constrained movement ([#1373](https://github.com/LinwoodDev/Butterfly/issues/1373))
 * Fix click selection to pick the frontmost overlapping element ([#1369](https://github.com/LinwoodDev/Butterfly/issues/1369))

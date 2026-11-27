@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -154,6 +156,46 @@ void main() {
       isFalse,
     );
   });
+
+  test(
+    'a streamed note preserves a large asset and its content hash',
+    () async {
+      final asset = Uint8List(3 * 1024 * 1024)..[2 * 1024 * 1024] = 42;
+      final (note, assetPath) = DocumentDefaults.createDocument(
+        name: 'Note with PDF',
+      ).importPdf(asset);
+      bloc = DocumentBloc(
+        fileSystem,
+        controller,
+        windowCubit,
+        note,
+        AssetLocation.empty,
+      );
+      final session = _MockEditorSessionCubit();
+      when(
+        () => session.saveNow(
+          pathKey: any(named: 'pathKey'),
+          contentHash: any(named: 'contentHash'),
+        ),
+      ).thenAnswer((_) async {});
+
+      final saved = await controller.saveCubit.save(
+        bloc!,
+        controller.networkingService,
+        force: true,
+        editorSessionCubit: session,
+      );
+
+      final bytes = await File('${directory.path}${saved.path}').readAsBytes();
+      expect(NoteData.fromData(bytes).getAsset(assetPath), asset);
+      verify(
+        () => session.saveNow(
+          pathKey: any(named: 'pathKey'),
+          contentHash: sha512256.convert(bytes).toString(),
+        ),
+      ).called(1);
+    },
+  );
 
   test('creates a new note inside an extensionless directory', () async {
     await documentSystem.createDirectory('/notebook');

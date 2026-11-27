@@ -24,6 +24,71 @@ class DocumentSaveCubit(
   this : super(initial);
 
   final savingLock = Lock();
+  bool _canvasInputActive = false;
+  Timer? _autosaveTimer;
+  ({Completer<AssetLocation> result, Future<AssetLocation> Function() write})?
+  _pendingAutosave;
+
+  void setCanvasInputActive(bool active) {
+    if (isClosed || _canvasInputActive == active) return;
+    _canvasInputActive = active;
+    _armAutosave();
+  }
+
+  void _armAutosave() {
+    _autosaveTimer?.cancel();
+    _autosaveTimer = null;
+    if (_pendingAutosave == null) return;
+    final settings = settingsCubit.state;
+    _setDelayed(_canvasInputActive || settings.delayedAutosave);
+    if (_canvasInputActive) return;
+    final delay = settings.delayedAutosave ? settings.autosaveDelaySeconds : 0;
+    late final Timer timer;
+    timer = _autosaveTimer = Timer(
+      Duration(seconds: max(0, delay)),
+      () => unawaited(_runAutosave(timer)),
+    );
+  }
+
+  Future<void> _runAutosave(Timer timer) => savingLock.synchronized(() async {
+    // Input or a manual save can invalidate a timer queued on the lock.
+    final pending = _pendingAutosave;
+    if (_autosaveTimer != timer || pending == null) return;
+    _clearAutosave();
+    try {
+      pending.result.complete(await pending.write());
+    } catch (error, stackTrace) {
+      pending.result.completeError(error, stackTrace);
+    }
+  });
+
+  void _clearAutosave() {
+    _autosaveTimer?.cancel();
+    _autosaveTimer = null;
+    _pendingAutosave = null;
+    if (!isClosed) _setDelayed(false);
+  }
+
+  Future<AssetLocation> _scheduleAutosave(
+    Future<AssetLocation> Function() write,
+  ) {
+    if (_pendingAutosave != null) return Future.value(state.location);
+    final result = Completer<AssetLocation>();
+    _pendingAutosave = (result: result, write: write);
+    _armAutosave();
+    return result.future;
+  }
+
+  void _cancelAutosave() {
+    _pendingAutosave?.result.complete(state.location);
+    _clearAutosave();
+  }
+
+  @override
+  Future<void> close() {
+    _cancelAutosave();
+    return super.close();
+  }
 
   void replace(DocumentSaveState state) => emit(state);
 
@@ -43,7 +108,8 @@ class DocumentSaveCubit(
     ),
   );
 
-  void setDelayed(bool delayed) => emit(state.copyWith(isSaveDelayed: delayed));
+  void _setDelayed(bool delayed) =>
+      emit(state.copyWith(isSaveDelayed: delayed));
 
   void changeFullScreen(bool value) => emit(state.copyWith(fullScreen: value));
 
@@ -75,33 +141,24 @@ class DocumentSaveCubit(
     bool isAutosave = false,
     EditorSessionCubit? editorSessionCubit,
   }) async {
-    if (location == null &&
-        name == null &&
-        !force &&
-        (state.saved == .saved || state.saved == .absoluteRead)) {
+    bool needsDocumentWrite() =>
+        location != null ||
+        name != null ||
+        force ||
+        (state.saved != .saved && state.saved != .absoluteRead);
+
+    if (isClosed) return location ?? state.location;
+    if (!needsDocumentWrite()) {
       await editorSessionCubit?.saveNow();
       return state.location;
     }
     if (networkingService.isClient) {
       return AssetLocation.empty;
     }
-    if (state.isSaveDelayed && isAutosave) {
-      return state.location;
-    }
-    final isDelayed = settingsCubit.state.delayedAutosave;
-    if (isDelayed && isAutosave) {
-      final seconds = max(0, settingsCubit.state.autosaveDelaySeconds);
-      setDelayed(true);
-      await Future.delayed(Duration(seconds: seconds));
-      if (!state.isSaveDelayed) {
-        return state.location;
-      }
-    }
-    return savingLock.synchronized(() async {
-      if (location == null &&
-          name == null &&
-          !force &&
-          (state.saved == .saved || state.saved == .absoluteRead)) {
+    Future<AssetLocation> write() async {
+      if (isClosed) return location ?? state.location;
+      if (isAutosave && !hasAutosave(networkingService)) return state.location;
+      if (!needsDocumentWrite()) {
         await editorSessionCubit?.saveNow();
         return state.location;
       }
@@ -116,11 +173,8 @@ class DocumentSaveCubit(
         );
       }
       final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
-      if (isClosed) {
-        return current;
-      }
+      if (!isAutosave) _cancelAutosave();
       setSaveState(saved: SaveState.saving);
-      setDelayed(false);
       var documentWritten = false;
       try {
         final blocState = bloc.state;
@@ -156,24 +210,17 @@ class DocumentSaveCubit(
                 ),
               )
             : current;
-        final bytes = destination.fileType == .textNote
-            ? Stream.fromFuture(compute(_exportTextNote, currentData))
-            : currentData.exportAsStream();
         late Digest digest;
-        final hash = sha512256.startChunkedConversion(
-          ChunkedConversionSink<Digest>.withCallback(
-            (values) => digest = values.single,
-          ),
+        final bytes = _exportNoteStream(
+          currentData,
+          text: destination.fileType == .textNote,
+          onDigest: (value) => digest = value,
         );
         final saved = await fileSystem.saveFileStream(
           destination.copyWith(absolute: writeAbsolute),
-          bytes.map((chunk) {
-            hash.add(chunk);
-            return chunk;
-          }),
+          bytes,
           create: create,
         );
-        hash.close();
         current = saved.copyWith(absolute: destination.absolute);
         documentWritten = true;
         if (isClosed) return current;
@@ -204,6 +251,89 @@ class DocumentSaveCubit(
         }
         rethrow;
       }
-    });
+    }
+
+    if (isAutosave) return _scheduleAutosave(write);
+    return savingLock.synchronized(write);
   }
+}
+
+(Uint8List, Digest) _encodeTextNote(NoteData note) {
+  final bytes = note.exportAsTextBytes();
+  return (bytes, sha512256.convert(bytes));
+}
+
+Stream<Uint8List> _zipChunks(
+  NoteData note,
+  void Function(Digest) onDigest,
+) async* {
+  final hash = sha512256.startChunkedConversion(
+    ChunkedConversionSink<Digest>.withCallback(
+      (digests) => onDigest(digests.single),
+    ),
+  );
+  await for (final chunk in note.exportAsStream()) {
+    hash.add(chunk);
+    yield chunk;
+  }
+  hash.close();
+}
+
+Stream<Uint8List> _exportNoteStream(
+  NoteData note, {
+  required bool text,
+  required void Function(Digest) onDigest,
+}) async* {
+  if (text) {
+    final (bytes, digest) = await compute(_encodeTextNote, note);
+    onDigest(digest);
+    yield bytes;
+    return;
+  }
+  if (kIsWeb) {
+    yield* _zipChunks(note, onDigest);
+    return;
+  }
+
+  final messages = ReceivePort();
+  Isolate? worker;
+  try {
+    worker = await Isolate.spawn(
+      _encodeZipNote,
+      (note, messages.sendPort),
+      onError: messages.sendPort,
+      onExit: messages.sendPort,
+    );
+    await for (final message in messages) {
+      switch (message) {
+        case (final TransferableTypedData data, final SendPort ack):
+          yield data.materialize().asUint8List();
+          ack.send(null);
+        case final Digest digest:
+          onDigest(digest);
+          return;
+        case [final String error, final String stack]:
+          throw RemoteError(error, stack);
+        default:
+          throw StateError('The note encoder exited before finishing');
+      }
+    }
+  } finally {
+    worker?.kill(priority: Isolate.immediate);
+    messages.close();
+  }
+}
+
+Future<void> _encodeZipNote((NoteData, SendPort) request) async {
+  final (note, output) = request;
+  final acknowledgments = ReceivePort();
+  final ack = acknowledgments.sendPort;
+  final ready = StreamIterator(acknowledgments);
+  late Digest digest;
+  await for (final chunk in _zipChunks(note, (value) => digest = value)) {
+    // Wait for the consumer before producing another chunk.
+    output.send((TransferableTypedData.fromList([chunk]), ack));
+    await ready.moveNext();
+  }
+  Isolate.exit(output, digest);
 }

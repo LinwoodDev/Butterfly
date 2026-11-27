@@ -8,6 +8,9 @@ class _ViewportInputCoordinator {
   final void Function(TransformCubit transformCubit) _settleSlide;
   final BuildContext _context;
   final Map<int, PointerDeviceKind> _activePointers = {};
+  DocumentSaveCubit? _inputSaveCubit;
+  // A pointer remains unsettled until its queued up or cancel handler finishes.
+  int _unsettledPointers = 0;
   final Map<int, PointerDeviceKind> _pointerKinds = {};
   final PointerShortcutManager _shortcutManager = .new();
   int? _heldShortcutKeyId;
@@ -42,6 +45,9 @@ class _ViewportInputCoordinator {
     _inputLock = .new();
     _shortcutManager.reset();
     _activePointers.clear();
+    _unsettledPointers = 0;
+    _inputSaveCubit?.setCanvasInputActive(false);
+    _inputSaveCubit = null;
     _pointerKinds.clear();
     _rotationDrag = null;
     _cameraRotationGesture = false;
@@ -122,6 +128,8 @@ class _ViewportInputCoordinator {
     required double touchBottom,
   }) {
     final pointer = event.pointer;
+    final releasesPointer =
+        event is PointerUpEvent || event is PointerCancelEvent;
     if (event is PointerDownEvent) {
       if (event.kind == .touch &&
           (event.position.dy >= touchBottom ||
@@ -131,23 +139,36 @@ class _ViewportInputCoordinator {
         return false;
       }
       _activePointers[pointer] = event.kind;
+      if (_unsettledPointers++ == 0) {
+        final saveCubit = _inputSaveCubit = input.cubit.saveCubit;
+        saveCubit.setCanvasInputActive(true);
+      }
     } else if (!_activePointers.containsKey(pointer)) {
       // Ignore the rest of a sequence if its down was filtered out.
       return false;
-    } else if (event is PointerUpEvent || event is PointerCancelEvent) {
+    } else if (releasesPointer) {
       _activePointers.remove(pointer);
     }
 
+    final generation = _inputGeneration;
+    final handled = _withInputLock(
+      () => switch (event) {
+        PointerDownEvent() => _handlePointerDown(event, input),
+        PointerMoveEvent() => _handlePointerMove(event, input),
+        PointerUpEvent() => _handlePointerUp(event, input),
+        PointerCancelEvent() => _handlePointerCancel(event, input.cubit),
+        _ => null,
+      },
+    );
     unawaited(
-      _withInputLock(
-        () => switch (event) {
-          PointerDownEvent() => _handlePointerDown(event, input),
-          PointerMoveEvent() => _handlePointerMove(event, input),
-          PointerUpEvent() => _handlePointerUp(event, input),
-          PointerCancelEvent() => _handlePointerCancel(event, input.cubit),
-          _ => null,
-        },
-      ),
+      releasesPointer
+          ? handled.whenComplete(() {
+              if (_isCurrentInput(generation) && --_unsettledPointers == 0) {
+                _inputSaveCubit?.setCanvasInputActive(false);
+                _inputSaveCubit = null;
+              }
+            })
+          : handled,
     );
     return true;
   }

@@ -7,10 +7,12 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/cursors/label.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -35,6 +37,8 @@ class _Loaded extends Mock implements DocumentLoadSuccess {}
 class _Renderer extends Mock implements RendererCubit {}
 
 class _Clipboard extends Mock implements ClipboardManager {}
+
+class _Networking extends Mock implements NetworkingService {}
 
 class _TapHandler extends SelectHandler {
   _TapHandler() : super(SelectTool(mode: .lasso));
@@ -192,6 +196,69 @@ void main() {
     when(() => loaded.currentCollection).thenReturn('');
     when(() => loaded.pageName).thenReturn('page');
     when(() => loaded.currentLayer).thenReturn('');
+  }
+
+  for (final (seconds, cancel, waitsForLock) in [
+    (1, false, false),
+    (3, true, false),
+    (1, false, true),
+  ]) {
+    final description = waitsForLock ? ' while queued behind a save' : '';
+    testWidgets(
+      'autosave waits for a stylus stroke with a ${seconds}s delay$description',
+      (tester) async {
+        await pumpViewport(tester);
+        usePen();
+        final config = settings.state.copyWith(
+          autosave: true,
+          delayedAutosave: true,
+          autosaveDelaySeconds: seconds,
+        );
+        when(() => settings.state).thenReturn(config);
+        when(() => loaded.fileSystem).thenReturn(fileSystem);
+        when(() => loaded.saveData()).thenAnswer((_) async => loaded.data);
+        final networking = _Networking();
+        when(() => networking.isClient).thenReturn(false);
+        when(() => networking.isActive).thenReturn(false);
+        save.replace(
+          DocumentSaveState(
+            saved: .unsaved,
+            embedding: Embedding(save: false, internal: true),
+          ),
+        );
+
+        final releaseLock = Completer<void>();
+        final earlierSave = waitsForLock
+            ? save.savingLock.synchronized(() => releaseLock.future)
+            : null;
+        final pending = save.save(bloc, networking, isAutosave: true);
+        final delay = Duration(seconds: seconds);
+        await tester.pump(
+          waitsForLock ? delay : delay - const Duration(milliseconds: 100),
+        );
+        final stylus = await tester.startGesture(
+          const Offset(200, 200),
+          kind: .stylus,
+        );
+        await stylus.moveTo(const Offset(250, 220));
+        releaseLock.complete();
+        await earlierSave;
+        await tester.pump(delay);
+        verifyNever(() => loaded.saveData());
+
+        if (cancel) {
+          await stylus.cancel();
+        } else {
+          await stylus.up();
+        }
+        await tester.pump();
+        await tester.pump(delay - const Duration(milliseconds: 1));
+        verifyNever(() => loaded.saveData());
+        await tester.pump(const Duration(milliseconds: 1));
+        await pending;
+        verify(() => loaded.saveData()).called(1);
+      },
+    );
   }
 
   testWidgets('label editing refreshes the foreground and keeps spans merged', (
