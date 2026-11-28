@@ -1581,6 +1581,10 @@
   "rawFile": "କଚ୍ଚା ଫାଇଲ୍",
   "webSocketDescription": "ତୁମର ଡିଭାଇସ୍ ସର୍ବର୍ ହୋଷ୍ଟ୍ କରିଥାଏ, ସହଯୋଗୀମାନେ ଏକେଇ ନେଟୱର୍କ୍ ପାଇଁ କିମ୍ବା ପୋର୍ଟ୍ ଫରୱାର୍ଡ କଲେ ଯେଉଁଠାରୁ ଯୋଡିପାରିବେ।",
   "swampDescription": "ତୁମର ମେସେଜ୍ ଏକ ସୁରକ୍ଷିତ ମଞ୍ଜିଲ୍ ସର୍ଭର୍ ମାଧ୍ୟମରେ ଗତି କରେ। ସେସନ୍ ସୃଷ୍ଟି ପାଇଁ swamp ସର୍ବର୍ ଠିକଣା ଆବଶ୍ୟକ।",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "କଚ୍ଚା ଟିପ୍ପଣୀ ତିଆରି କରନ୍ତୁ",
   "polygon": "ବহୁଭୁଜ",
   "@polygon": {
