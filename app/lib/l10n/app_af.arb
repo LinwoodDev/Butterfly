@@ -1581,6 +1581,10 @@
   "rawFile": "Rou lêer",
   "webSocketDescription": "Jou toestel huisves die bediener, so medewerkers kan slegs oor dieselfde netwerk aansluit of van enige plek af as jy die poort op jou roeteerder aanstuur.",
   "swampDescription": "Jou boodskappe word deur 'n veilige aflosbediener met end-tot-end-enkripsie gestuur. 'n Swamp-bedieneradres word vereis om 'n sessie te skep.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Skep rou nota",
   "polygon": "Poligoon",
   "@polygon": {
