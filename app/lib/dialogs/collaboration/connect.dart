@@ -1,6 +1,7 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/collaboration/options.dart';
+import 'package:butterfly/services/network.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -85,7 +86,14 @@ class ConnectCollaborationDialogState
                   return LeapLocalizations.of(context).shouldNotEmpty;
                 }
                 final uri = Uri.tryParse(raw);
-                if (uri == null || parseConnectUri(uri).isEmpty) {
+                final address = uri == null
+                    ? null
+                    : Uri.tryParse(parseConnectUri(uri));
+                if (address == null ||
+                    address.toString().isEmpty ||
+                    (ConnectionTechnology.fromScheme(address.scheme) ==
+                            .swamp &&
+                        address.fragment.isEmpty)) {
                   return AppLocalizations.of(context).urlNotValid;
                 }
                 return null;

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:butterfly/api/swamp.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -259,6 +260,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     _setupRpc(rpc, client);
     final initialData = Completer<Uint8List?>();
     final disconnected = Completer<Never>();
+    disconnected.future.ignore();
     void disconnect([Object? error, StackTrace? stackTrace]) {
       if (!disconnected.isCompleted) {
         disconnected.completeError(
@@ -288,7 +290,9 @@ class NetworkingService extends Cubit<NetworkState?> {
     try {
       await Future.any<void>([
         initialize().timeout(timeout),
-        disconnected.future,
+        // Swamp handles closure during its room handshake so it can report
+        // a protocol rejection before falling back to a disconnect error.
+        if (client is! SwampConnection) disconnected.future,
       ]);
       emit(ClientNetworkState(connection: client, pipe: rpc));
       final data = await Future.any<Uint8List?>([
@@ -532,29 +536,64 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   Cipher _buildCipher() => AesGcm.with256bits();
 
-  Future<SwampConnection> _createSwamp(Uri uri) {
-    if (!uri.hasAuthority) {
-      uri = Uri.parse('wss://${uri.toString()}');
-    }
+  Future<SwampConnection> _createSwamp(Uri uri, String? accessToken) {
     final cipher = _buildCipher();
-    return SwampConnection.buildSecure(uri, cipher);
+    return SwampConnection.buildSecure(
+      normalizeSwampAddress(uri),
+      cipher,
+      accessToken: accessToken?.isEmpty == true ? null : accessToken,
+    );
   }
 
-  Future<Uint8List?> createSwampClient(Uri uri) async {
+  Future<void> _initializeSwampRoom(SwampConnection connection) async {
+    final room = MergeStream<RoomInfo>([
+      connection.onRoomInfo,
+      // A server can also reject the room request when no token was sent.
+      connection.read
+          .where(
+            (packet) =>
+                packet.data.function == SwampEvent.authenticationFailed.index,
+          )
+          .map<RoomInfo>((_) => throw const SwampAuthenticationException()),
+      connection.onCreationFailed.map<RoomInfo>(
+        (reason) =>
+            throw StateError('Swamp room creation failed: ${reason.name}'),
+      ),
+      connection.onJoinFailed.map<RoomInfo>(
+        (reason) => throw StateError('Swamp room join failed: ${reason.name}'),
+      ),
+      connection.onClosed.map<RoomInfo>(
+        (_) => throw StateError('The Swamp connection was closed.'),
+      ),
+    ]).first;
+    await Future.wait([room, connection.init()], eagerError: true);
+  }
+
+  Future<Uint8List?> createSwampClient(Uri uri, {String? accessToken}) async {
+    if (uri.fragment.isEmpty) {
+      throw const FormatException('A Swamp invite link is required to join.');
+    }
     await closeNetworking(resetSettings: false);
-    final connection = await _createSwamp(uri);
+    final connection = await _createSwamp(uri, accessToken);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
       config: RpcConfig(channelField: false),
     );
     connection.messagePipe.connect(rpc);
-    return _initializeClient(rpc, connection, () async {
-      await Future.wait([connection.init(), connection.onRoomInfo.first]);
-    });
+    return _initializeClient(
+      rpc,
+      connection,
+      () => _initializeSwampRoom(connection),
+    );
   }
 
-  Future<void> createSwampServer(Uri uri) async {
+  Future<void> createSwampServer(Uri uri, {String? accessToken}) async {
+    if (uri.hasFragment) {
+      throw const FormatException(
+        'Enter a Swamp server address without a room.',
+      );
+    }
     await closeNetworking(resetSettings: false);
-    final connection = await _createSwamp(uri);
+    final connection = await _createSwamp(uri, accessToken);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
       config: RpcConfig(channelField: false),
     );
@@ -562,8 +601,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     _setupRpc(rpc, connection);
     connection.messagePipe.connect(rpc);
     try {
-      await Future.wait([connection.init(), connection.onRoomInfo.first])
-          .timeout(timeout);
+      await _initializeSwampRoom(connection).timeout(timeout);
       emit(ServerNetworkState(connection: connection, pipe: rpc));
     } catch (_) {
       await connection.close();

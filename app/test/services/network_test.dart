@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly/api/swamp.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -20,7 +22,9 @@ import 'package:networker/networker.dart';
 import 'package:networker_socket/client.dart';
 import 'package:networker_socket/server.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swamp_api/connection.dart';
 
 import '../helpers/mocks.dart';
 
@@ -43,6 +47,155 @@ void main() {
       ConnectionTechnology.fromScheme('https'),
       ConnectionTechnology.swamp,
     );
+  });
+
+  test('Swamp tokens are remembered separately by server and role', () async {
+    FlutterSecureStorage.setMockInitialValues({});
+    final server = Uri.parse('example.com');
+    final invite = Uri.parse('swamp+wss://example.com:443/#room:key');
+    final otherServer = Uri.parse('wss://other.example.com');
+    final host = SwampTokenStorage.host;
+    final join = SwampTokenStorage.join;
+
+    expect(
+      await host.save(server, (value: 'host-token', remember: true)),
+      true,
+    );
+    expect(await host.read(invite), 'host-token');
+    expect(await host.read(otherServer), isNull);
+    expect(await join.read(invite), isNull);
+
+    expect(
+      await join.save(invite, (value: 'join-token', remember: true)),
+      true,
+    );
+    expect(await join.read(server), 'join-token');
+    expect(
+      await join.save(invite, (value: 'join-token', remember: false)),
+      true,
+    );
+    expect(await join.read(invite), isNull);
+    expect(await host.read(server), 'host-token');
+  });
+
+  test('joining Swamp requires a room instead of creating one', () async {
+    final service = NetworkingService();
+    addTearDown(service.close);
+    await expectLater(
+      service.createSwampClient(Uri.parse('swamp+wss://example.com')),
+      throwsFormatException,
+    );
+    await expectLater(
+      service.createSwampServer(Uri.parse('wss://example.com#room:key')),
+      throwsFormatException,
+    );
+  });
+
+  test('Swamp can require a hosting token and allow guest joins', () async {
+    final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+    addTearDown(() => server.close(force: true));
+    final address = Uri(
+      scheme: 'ws',
+      host: server.address.address,
+      port: server.port,
+    );
+    const token = 'test-access-token';
+    final commands = <SwampCommand>[];
+    final roomId = Uint8List.fromList([1, 2, 3]);
+    final document = Uint8List.fromList([4, 5, 6]);
+    late SwampConnection hostConnection;
+    var allowGuest = false;
+    server.listen((request) async {
+      final socket = await WebSocketTransformer.upgrade(
+        request,
+        protocolSelector: (protocols) => swampSubprotocol(),
+      );
+      final config = RpcConfig(channelField: false);
+      void send(SwampEvent event, Uint8List data) => socket.add(
+        RpcNetworkerPacket.named(name: event, data: data).toBytes(config),
+      );
+
+      var authenticated = false;
+      await for (final message in socket) {
+        final packet = RpcNetworkerPacket.fromBytes(
+          config,
+          Uint8List.fromList(message as List<int>),
+        );
+        final command = SwampCommand.values[packet.function];
+        commands.add(command);
+        if (command == SwampCommand.authenticate &&
+            utf8.decode(packet.data) == token) {
+          authenticated = true;
+          send(SwampEvent.authenticated, Uint8List(0));
+        } else if (authenticated && command == SwampCommand.createRoom) {
+          final room = RoomInfo(
+            flags: 0,
+            maxPlayers: 2,
+            currentId: kAuthorityChannel,
+            roomId: roomId,
+          );
+          send(SwampEvent.roomInfo, room.toBytes());
+        } else if ((allowGuest || authenticated) &&
+            command == SwampCommand.joinRoom) {
+          expect(packet.data, roomId);
+          final room = RoomInfo(
+            flags: 0,
+            maxPlayers: 2,
+            currentId: 2,
+            roomId: roomId,
+          );
+          send(SwampEvent.roomInfo, room.toBytes());
+          final initialData = RpcNetworkerPacket.named(
+            name: NetworkEvent.init,
+            data: document,
+          ).toBytes(config);
+          final encrypted = await hostConnection.e2eePipe!.encode(initialData);
+          send(
+            SwampEvent.message,
+            Uint8List.fromList([0, kAuthorityChannel, ...encrypted]),
+          );
+        } else {
+          send(SwampEvent.authenticationFailed, Uint8List(0));
+          await socket.close();
+        }
+      }
+    });
+
+    final host = NetworkingService();
+    addTearDown(host.close);
+    await host.createSwampServer(
+      address.replace(scheme: 'swamp+ws'),
+      accessToken: token,
+    );
+    expect(host.state, isA<ServerNetworkState>());
+    hostConnection = host.state!.connection as SwampConnection;
+    final invite = await host.state!.getShareAddress();
+    expect(invite.scheme, 'swamp+ws');
+    expect(invite.toString(), isNot(contains(token)));
+
+    final guest = NetworkingService();
+    addTearDown(guest.close);
+    await expectLater(
+      guest.createClient(invite),
+      throwsA(isA<SwampAuthenticationException>()),
+    );
+    await expectLater(
+      guest.createSwampClient(invite, accessToken: 'invalid'),
+      throwsA(isA<SwampAuthenticationException>()),
+    );
+    expect(await guest.createSwampClient(invite, accessToken: token), document);
+    allowGuest = true;
+    expect(await guest.createClient(invite), document);
+    expect(guest.state, isA<ClientNetworkState>());
+    expect(commands, [
+      SwampCommand.authenticate,
+      SwampCommand.createRoom,
+      SwampCommand.joinRoom,
+      SwampCommand.authenticate,
+      SwampCommand.authenticate,
+      SwampCommand.joinRoom,
+      SwampCommand.joinRoom,
+    ]);
   });
 
   test('session options override defaults until the session stops', () async {

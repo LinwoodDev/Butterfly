@@ -21,6 +21,10 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
         text: kDefaultPort.toString(),
       );
   late final TextEditingController _swampAddressController;
+  final _swampAccessTokenController = TextEditingController();
+  bool _rememberSwampToken = false;
+  Future<void>? _pendingSwampToken;
+  int _swampTokenRevision = 0;
   bool _isStarting = false;
 
   @override
@@ -29,6 +33,19 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
     _settingsCubit = context.read<SettingsCubit>();
     _defaultSwamp = _settingsCubit.state.swamps.firstOrNull ?? '';
     _swampAddressController = TextEditingController(text: _defaultSwamp);
+    _pendingSwampToken = _loadSwampToken(_defaultSwamp);
+  }
+
+  Future<void> _loadSwampToken(String address) async {
+    final revision = ++_swampTokenRevision;
+    final uri = Uri.tryParse(address.trim());
+    if (uri == null || address.trim().isEmpty || uri.hasFragment) return;
+    final token = await SwampTokenStorage.host.read(uri);
+    if (!mounted || revision != _swampTokenRevision || token == null) return;
+    setState(() {
+      _swampAccessTokenController.text = token;
+      _rememberSwampToken = true;
+    });
   }
 
   Future<void> _start() async {
@@ -39,7 +56,21 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
           final swamp = _swampAddressController.text.trim();
           final uri = Uri.tryParse(swamp);
           if (uri == null) return;
-          await widget.service.createSwampServer(uri);
+          await _pendingSwampToken;
+          if (!mounted) return;
+          final messenger = ScaffoldMessenger.of(context);
+          final localizations = AppLocalizations.of(context);
+          final token = (
+            value: _swampAccessTokenController.text,
+            remember: _rememberSwampToken,
+          );
+          await widget.service.createSwampServer(uri, accessToken: token.value);
+          final saved = await SwampTokenStorage.host.save(uri, token);
+          if (!saved && messenger.mounted) {
+            messenger.showSnackBar(
+              SnackBar(content: Text(localizations.swampTokenStorageFailed)),
+            );
+          }
           if (swamp != _defaultSwamp) {
             await _settingsCubit.changeSwamp(swamp);
             _defaultSwamp = swamp;
@@ -69,6 +100,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
     _webSocketAddressController.dispose();
     _webSocketPortController.dispose();
     _swampAddressController.dispose();
+    _swampAccessTokenController.dispose();
     super.dispose();
   }
 
@@ -169,7 +201,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                 ),
               ),
               const SizedBox(height: 8),
-              if (_connectionTechnology == .swamp)
+              if (_connectionTechnology == .swamp) ...[
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).address,
@@ -177,18 +209,46 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                     filled: true,
                   ),
                   controller: _swampAddressController,
+                  enabled: !_isStarting,
+                  onChanged: (address) {
+                    _swampAccessTokenController.clear();
+                    setState(() => _rememberSwampToken = false);
+                    _pendingSwampToken = _loadSwampToken(address);
+                  },
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
                       return LeapLocalizations.of(context).shouldNotEmpty;
                     }
-                    final uri = Uri.tryParse(value!);
-                    if (uri == null) {
+                    final uri = Uri.tryParse(value!.trim());
+                    if (uri == null || uri.hasFragment) {
                       return AppLocalizations.of(context).urlNotValid;
                     }
                     return null;
                   },
-                )
-              else
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _swampAccessTokenController,
+                  enabled: !_isStarting,
+                  obscureText: true,
+                  onChanged: (_) => _swampTokenRevision++,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).swampAccessToken,
+                    filled: true,
+                  ),
+                ),
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(AppLocalizations.of(context).swampRememberToken),
+                  value: _rememberSwampToken,
+                  onChanged: _isStarting
+                      ? null
+                      : (value) {
+                          _swampTokenRevision++;
+                          setState(() => _rememberSwampToken = value ?? false);
+                        },
+                ),
+              ] else
                 kIsWeb
                     ? Text(
                         AppLocalizations.of(context).webNotSupported,

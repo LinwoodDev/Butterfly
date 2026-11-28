@@ -1483,11 +1483,11 @@ packages:
     dependency: "direct main"
     description:
       path: api
-      ref: "7ac51e6e369070cb0dbabe16364bef4ec52bda35"
-      resolved-ref: "7ac51e6e369070cb0dbabe16364bef4ec52bda35"
+      ref: e532412a7388d2da30e33b2423e3904f30e1c4bc
+      resolved-ref: e532412a7388d2da30e33b2423e3904f30e1c4bc
       url: "https://github.com/LinwoodDev/Swamp.git"
     source: git
-    version: "0.1.1"
+    version: "0.3.0"
   sync_http:
     dependency: transitive
     description:

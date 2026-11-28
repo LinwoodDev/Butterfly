@@ -4,11 +4,13 @@ import 'dart:ui';
 import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/swamp.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/collaboration/swamp_token.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/embed/view_state.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -38,6 +40,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart' show isBrowserPasteShortcut;
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:swamp_api/connection.dart' show SwampAuthenticationException;
 
 import '../actions/color_palette.dart';
 import '../models/viewport.dart';
@@ -247,6 +250,7 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
     AssetService? pendingAssetService;
     TransformCubit? pendingTransformCubit;
     var runtimeCommitted = false;
+    var swampTokenStorageFailed = false;
 
     Future<void> disposePendingRuntime({
       bool closeNetworkingService = true,
@@ -323,7 +327,40 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
         final connectionTechnology = ConnectionTechnology.values.byNameOrNull(
           type,
         );
-        data = await networkingService.createClient(uri, connectionTechnology);
+        try {
+          data = await networkingService.createClient(
+            uri,
+            connectionTechnology,
+          );
+        } on SwampAuthenticationException {
+          final savedToken = await SwampTokenStorage.join.read(uri);
+          if (!isCurrentLoad()) rethrow;
+          final token = await showSwampJoinTokenDialog(
+            context,
+            savedToken: savedToken,
+          );
+          if (!isCurrentLoad()) rethrow;
+          if (token == null) {
+            final router = GoRouter.of(context);
+            if (router.canPop()) {
+              router.pop();
+            } else {
+              router.goNamed('home');
+            }
+            await disposePendingRuntime();
+            return;
+          }
+          data = await networkingService.createSwampClient(
+            uri,
+            accessToken: token.value,
+          );
+          if (isCurrentLoad()) {
+            swampTokenStorageFailed = !await SwampTokenStorage.join.save(
+              uri,
+              token,
+            );
+          }
+        }
         type = '';
       }
       final name = absolute ? location!.fileNameWithoutExtension : '';
@@ -692,6 +729,15 @@ class _ProjectPageState extends State<ProjectPage> with WidgetsBindingObserver {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (isCurrentLoad()) {
           _runtime?.editorController.focusNode.requestFocus();
+          if (swampTokenStorageFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  AppLocalizations.of(context).swampTokenStorageFailed,
+                ),
+              ),
+            );
+          }
         }
       });
     });
