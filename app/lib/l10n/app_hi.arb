@@ -1581,6 +1581,10 @@
   "rawFile": "रॉ फ़ाइल",
   "webSocketDescription": "आपका डिवाइस सर्वर को होस्ट करता है, इसलिए सहयोगी केवल उसी नेटवर्क पर शामिल हो सकते हैं या कहीं से भी यदि आप अपने राउटर पर पोर्ट फॉरवर्ड करते हैं।",
   "swampDescription": "आपके संदेश एंड-टू-एंड एन्क्रिप्शन के साथ एक सुरक्षित रिले सर्वर के माध्यम से रूट किए जाते हैं। सत्र बनाने के लिए एक स्वैम्प सर्वर पते की आवश्यकता होती है।",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "रॉ नोट बनाएं",
   "polygon": "बहुभुज",
   "@polygon": {
