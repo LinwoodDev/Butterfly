@@ -1581,6 +1581,10 @@
   "rawFile": "Fișier brut",
   "webSocketDescription": "Dispozitivul tău găzduiește serverul, astfel încât colaboratorii se pot alătura doar prin aceeași rețea sau de oriunde ai înainta portul de pe router.",
   "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Creați o notă brută",
   "polygon": "Poligon",
   "@polygon": {
