@@ -392,7 +392,8 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       return;
     }
-    final position = context.getCameraTransform().localToGlobal(localPosition);
+    final camera = context.getCameraTransform();
+    final position = camera.localToGlobal(localPosition);
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -427,6 +428,7 @@ class SelectHandler extends Handler<SelectTool> {
           context.getExportService(),
           context.getClipboardManager(),
           position,
+          camera.rotation,
           _selected,
           getSelectionRect(),
         ),
@@ -647,18 +649,23 @@ class SelectHandler extends Handler<SelectTool> {
     if (state is! DocumentLoadSuccess) return;
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
+    final camera = bloc.editorController.transformCubit.state;
+    if (camera.rotation != 0) _updateSelectionRect(-camera.rotation);
+    final placement = camera.rotation == 0
+        ? CameraTransform(1, -point)
+        : CameraTransform(
+            1,
+            -_selectionManager.selection.topLeft,
+            1,
+            -camera.rotation,
+          );
     final selection = _selected.toList();
     final page = DocumentPage(
       layers: [
         DocumentLayer(
           id: createUniqueId(),
           content: selection
-              .map(
-                (renderer) =>
-                    (renderer.transform(position: -point, relative: true) ??
-                            renderer)
-                        .element,
-              )
+              .map((renderer) => placeImportedElement(renderer, placement))
               .toList(),
         ),
       ],

@@ -10,6 +10,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly/helpers/svg.dart';
 import 'package:butterfly/helpers/pdf.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -42,6 +43,55 @@ import 'onenote.dart';
 enum _OneNoteXpsFallback { manual, skipAll }
 
 enum _OneNoteManualXpsAction { selectPdf, exportAgain, skipFile, skipAll }
+
+Renderer<PadElement> placeImportedRenderer(
+  Renderer<PadElement> renderer,
+  CameraTransform placement,
+) =>
+    (placement.rotation == 0
+        ? renderer.transform(position: placement.position)
+        : renderer.transform(
+            center: placement.localToGlobal(
+              renderer.rect?.center ?? Offset.zero,
+            ),
+            rotation: -placement.rotation * 180 / pi,
+          )) ??
+    renderer;
+
+PadElement placeImportedElement(
+  Renderer<PadElement> renderer,
+  CameraTransform placement,
+) {
+  final placed = placeImportedRenderer(renderer, placement);
+  final element = placed.element;
+  if (placed != renderer) placed.dispose();
+  return element;
+}
+
+Area placeImportedArea(Area area, CameraTransform placement) {
+  if (placement.rotation == 0) {
+    return area.copyWith(
+      position: area.position + placement.position.toPoint(),
+    );
+  }
+  final bounds = placement.localToGlobalRect(area.rect);
+  return area.copyWith(
+    position: bounds.topLeft.toPoint(),
+    width: bounds.width,
+    height: bounds.height,
+  );
+}
+
+Future<void> prepareImportedRenderers(
+  Iterable<Renderer<PadElement>> renderers,
+  DocumentLoadSuccess state,
+  TransformCubit camera,
+) => Future.wait(
+  renderers.whereType<GenericTextRenderer>().map(
+    (renderer) =>
+        renderer.setup(camera, state.data, state.assetService, state.page),
+  ),
+);
 
 class ImportResult {
   final ImportService service;
@@ -160,7 +210,13 @@ class ImportResult {
 
   Future<NoteFile> exportFile() async => file ?? (await export()).toFile();
 
-  void submit({bool? choosePosition, String? pageName, String? layer}) {
+  Future<void> submit({
+    bool? choosePosition,
+    String? pageName,
+    String? layer,
+    Offset? position,
+    double viewportRotation = 0,
+  }) async {
     choosePosition ??= this.choosePosition;
     final state = service._getState();
     final context = service.context;
@@ -173,18 +229,65 @@ class ImportResult {
         (elements.isNotEmpty || areas.isNotEmpty)) {
       final controller = bloc!.editorController;
       controller.toolCubit.resetSelection();
-      controller.toolCubit.changeTemporaryHandler(
+      final tool = ImportTool(
+        elements: elements,
+        areas: areas,
+        assets: _importAssets,
+      );
+      final handler = ImportHandler(tool);
+      await handler.prepare(state, controller.transformCubit);
+      if (bloc.isClosed) {
+        handler.dispose(bloc);
+        return;
+      }
+      await controller.toolCubit.changeTemporaryHandler(
         context,
         controller,
-        ImportTool(elements: elements, areas: areas, assets: _importAssets),
+        tool,
+        handler: handler,
         bloc: bloc,
         temporaryState: .removeAfterRelease,
       );
     } else {
+      var placedElements = elements;
+      var placedAreas = areas;
+      if (position != null &&
+          viewportRotation != 0 &&
+          state != null &&
+          bloc != null) {
+        // Explicit-position imports already have their origin at the pointer.
+        final placement = const CameraTransform().withRotation(
+          viewportRotation,
+          position,
+        );
+        final renderers = elements
+            .map(Renderer<PadElement>.fromInstance)
+            .toList();
+        try {
+          if (renderers.any((renderer) => renderer is GenericTextRenderer)) {
+            await prepareImportedRenderers(
+              renderers,
+              state,
+              bloc.transformCubit,
+            );
+          }
+          placedElements = renderers
+              .map((renderer) => placeImportedElement(renderer, placement))
+              .toList();
+        } finally {
+          for (final renderer in renderers) {
+            renderer.dispose();
+          }
+        }
+        placedAreas = areas
+            .map((area) => placeImportedArea(area, placement))
+            .toList();
+        if (bloc.isClosed) return;
+      }
       bloc
         ?..add(
           AreasCreated(
-            areas
+            placedAreas
                 .map(
                   (e) => AreaPreset(
                     page: pageName ?? state?.pageName ?? '',
@@ -196,7 +299,7 @@ class ImportResult {
         )
         ..add(
           ElementsCreated(
-            elements,
+            placedElements,
             assets: _importAssets,
             pageName: pageName ?? state?.pageName,
             layer: layer ?? state?.currentLayer,

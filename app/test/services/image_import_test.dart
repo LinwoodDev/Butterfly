@@ -119,23 +119,53 @@ void main() {
     final bloc = _RecordingBloc();
     final state = _State();
     when(() => bloc.state).thenReturn(state);
+    when(() => bloc.isClosed).thenReturn(false);
     when(() => state.pageName).thenReturn('page-after-navigation');
     when(() => state.currentLayer).thenReturn('layer-after-navigation');
     final service = ImportService(await mount(tester), bloc: bloc);
-    ImportResult(
+    const anchor = Offset(50, 80);
+    await ImportResult(
       service: service,
       document: document,
-      elements: [ImageElement(source: '', width: 20, height: 30)],
-      areas: [
-        Area(name: 'drop', width: 20, height: 30, position: const Point(0, 0)),
+      elements: [
+        ImageElement(
+          source: '',
+          width: 20,
+          height: 30,
+          position: const Point(50, 80),
+        ),
       ],
-    ).submit(pageName: 'drop-page', layer: 'drop-layer');
+      areas: [
+        const Area(
+          name: 'drop',
+          width: 20,
+          height: 30,
+          position: Point(50, 80),
+        ),
+      ],
+    ).submit(
+      pageName: 'drop-page',
+      layer: 'drop-layer',
+      position: anchor,
+      viewportRotation: pi / 2,
+    );
 
     final created = bloc.events.whereType<ElementsCreated>().single;
     expect(created.pageName, 'drop-page');
     expect(created.layer, 'drop-layer');
+    final renderer = ImageRenderer(created.elements.single as ImageElement);
+    expect(
+      renderer.transformPoint(renderer.rect.topLeft),
+      offsetMoreOrLessEquals(anchor),
+    );
+    expect(renderer.rotation, closeTo(270, 1e-7));
     final area = bloc.events.whereType<AreasCreated>().single.areas.single;
     expect(area.page, 'drop-page');
+    final placedArea = area.area!;
+    expect(placedArea.position.x, closeTo(50, 1e-7));
+    expect(placedArea.position.y, closeTo(60, 1e-7));
+    expect(placedArea.width, closeTo(30, 1e-7));
+    expect(placedArea.height, closeTo(20, 1e-7));
   });
 
   testWidgets('image group spacing uses the scaled height', (tester) async {

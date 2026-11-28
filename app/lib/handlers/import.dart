@@ -2,7 +2,7 @@ part of 'handler.dart';
 
 class ImportHandler extends Handler<ImportTool> {
   final List<Renderer<PadElement>> _renderers;
-  Offset _offset = .zero;
+  Offset? _localPosition;
 
   ImportHandler(super.data)
     : _renderers = data.elements
@@ -10,12 +10,18 @@ class ImportHandler extends Handler<ImportTool> {
           .whereType<Renderer<PadElement>>()
           .toList();
 
+  Future<void> prepare(DocumentLoadSuccess state, TransformCubit camera) =>
+      prepareImportedRenderers(_renderers, state, camera);
+
   @override
   bool canChange(PointerDownEvent event, EventContext context) =>
       event.buttons != kPrimaryButton;
 
   @override
   void dispose(DocumentBloc bloc) {
+    for (final renderer in _renderers) {
+      renderer.dispose();
+    }
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     final assetService = state.assetService;
@@ -40,22 +46,33 @@ class ImportHandler extends Handler<ImportTool> {
       _updatePosition(event.localPosition, context);
 
   void _updatePosition(Offset localPosition, EventContext context) {
-    final transform = context.getCameraTransform();
-    _offset = transform.localToGlobal(localPosition);
+    _localPosition = localPosition;
     context.refreshForegrounds();
   }
+
+  CameraTransform _placement(CameraTransform camera, Offset? position) =>
+      CameraTransform(
+        1,
+        position == null ? Offset.zero : camera.localToGlobal(position),
+        1,
+        camera.rotation,
+      );
 
   @override
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
+    final placement = _placement(
+      context.getCameraTransform(),
+      event.localPosition,
+    );
     context.addDocumentEvent(
       AreasCreated(
         data.areas
             .map(
               (e) => AreaPreset(
                 page: state.pageName,
-                area: e.copyWith(position: e.position + _offset.toPoint()),
+                area: placeImportedArea(e, placement),
               ),
             )
             .toList(),
@@ -65,12 +82,11 @@ class ImportHandler extends Handler<ImportTool> {
       ElementsCreated(
         _renderers
             .map(
-              (e) => e
-                  .transform(position: _offset, relative: true)
-                  ?.element
-                  .copyWith(id: createUniqueId()),
+              (renderer) => placeImportedElement(
+                renderer,
+                placement,
+              ).copyWith(id: createUniqueId()),
             )
-            .nonNulls
             .toList(),
         assets: data.assets,
         pageName: state.pageName,
@@ -88,9 +104,15 @@ class ImportHandler extends Handler<ImportTool> {
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
-  ]) => _renderers
-      .map((e) => e.transform(position: _offset, relative: true) ?? e)
-      .toList();
+  ]) {
+    final placement = _placement(
+      editorController.transformCubit.state,
+      _localPosition,
+    );
+    return _renderers
+        .map((renderer) => placeImportedRenderer(renderer, placement))
+        .toList();
+  }
 
   @override
   MouseCursor get cursor => SystemMouseCursors.grabbing;

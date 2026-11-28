@@ -7,9 +7,8 @@ Future<void> _importDroppedContent(
   final bloc = context.read<DocumentBloc>();
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return;
-  final position = bloc.transformCubit.state.localToGlobal(
-    details.localPosition,
-  );
+  final camera = bloc.transformCubit.state;
+  final position = camera.localToGlobal(details.localPosition);
   // Drops can resolve remote content. Pasted text stays as clipboard data.
   final imported = await details.readContents(safeMode: false);
   if (!context.mounted || bloc.isClosed) return;
@@ -21,7 +20,12 @@ Future<void> _importDroppedContent(
     onError: errors.add,
   );
   if (!context.mounted || bloc.isClosed) return;
-  result?.submit(pageName: state.pageName, layer: state.currentLayer);
+  await result?.submit(
+    pageName: state.pageName,
+    layer: state.currentLayer,
+    position: position,
+    viewportRotation: camera.rotation,
+  );
   if (errors.isNotEmpty) throw errors.first;
 }
 

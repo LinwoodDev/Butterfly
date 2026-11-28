@@ -21,6 +21,7 @@ ContextMenuBuilder buildElementsContextMenu(
   ExportService exportService,
   ClipboardManager clipboardManager,
   Offset documentPosition,
+  double viewportRotation,
   List<Renderer<PadElement>> renderers,
   Rect? rect,
 ) {
@@ -46,7 +47,12 @@ ContextMenuBuilder buildElementsContextMenu(
             try {
               importService
                   .importClipboard(state.data, position: documentPosition)
-                  .then((e) => e?.submit());
+                  .then(
+                    (e) => e?.submit(
+                      position: documentPosition,
+                      viewportRotation: viewportRotation,
+                    ),
+                  );
             } catch (_) {}
           },
           icon: const PhosphorIcon(PhosphorIconsLight.clipboard),

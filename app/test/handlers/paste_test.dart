@@ -8,6 +8,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -34,6 +35,49 @@ void main() {
   setUpAll(() {
     registerFallbackValue(Offset.zero);
     registerFallbackValue(ElementsCreated([]));
+  });
+
+  test('copy serializes the orientation shown on a rotated canvas', () async {
+    final controller = _Controller();
+    final bloc = _Bloc();
+    final state = _State();
+    final camera = TransformCubit(1)
+      ..teleport(const Offset(35, -22), 2, pi / 6);
+    addTearDown(camera.close);
+    final handler = SelectHandler(SelectTool());
+    final clipboard = InternalClipboardManager();
+    when(() => controller.transformCubit).thenReturn(camera);
+    when(() => bloc.editorController).thenReturn(controller);
+    when(() => bloc.state).thenReturn(state);
+    when(() => bloc.isClosed).thenReturn(false);
+    when(() => bloc.refresh()).thenAnswer((_) async {});
+    when(() => state.data).thenReturn(DocumentDefaults.createDocument());
+    final original = ShapeRenderer(
+      ShapeElement(
+        firstPosition: const Point(70, 80),
+        secondPosition: const Point(170, 130),
+        rotation: 330,
+      ),
+    );
+    addTearDown(original.dispose);
+    handler.transform(bloc, null, next: [original]);
+    await handler.copySelection(bloc, clipboard);
+    final content = clipboard.getContent(
+      types: AssetFileType.page.getMimeTypes(),
+    );
+    final page = DocumentPageDataExtension.fromDataJson(
+      jsonDecode(utf8.decode(content!.data)),
+    );
+    final copied = ShapeRenderer(page.content.single as ShapeElement);
+    addTearDown(copied.dispose);
+    expect(
+      copied.transformPoint(copied.rect.topLeft),
+      offsetMoreOrLessEquals(Offset.zero),
+    );
+    expect(
+      copied.transformPoint(copied.rect.bottomRight),
+      offsetMoreOrLessEquals(const Offset(100, 50)),
+    );
   });
 
   for (final rotation in [0.0, pi / 6]) {
@@ -73,6 +117,7 @@ void main() {
         when(() => state.pageName).thenReturn('page');
         when(() => state.currentLayer).thenReturn('layer');
         when(() => bloc.state).thenReturn(state);
+        when(() => bloc.isClosed).thenReturn(false);
         when(() => bloc.editorController).thenReturn(controller);
         when(() => bloc.transformCubit).thenReturn(transform);
         when(() => context.getDocumentBloc()).thenReturn(bloc);
@@ -116,7 +161,8 @@ void main() {
           (start, true),
           (start + const Offset(-30, 20), false),
         ]) {
-          final expected = transform.state.localToGlobal(end);
+          final camera = transform.state;
+          final expected = camera.localToGlobal(end);
           handler.onLongPressStart(
             const LongPressStartDetails(localPosition: start),
             context,
@@ -127,7 +173,7 @@ void main() {
           );
           await tester.pumpAndSettle();
           if (moveCamera) {
-            transform.teleport(const Offset(-50, 80), .5, rotation);
+            transform.teleport(const Offset(-50, 80), .5, rotation - pi / 4);
           }
           await tester.tap(find.byTooltip('Paste'));
           await tester.pumpAndSettle();
@@ -135,9 +181,16 @@ void main() {
           final pasted =
               events.whereType<ElementsCreated>().single.elements.single
                   as PenElement;
+          final renderer = PenRenderer(pasted);
+          final points = pasted.points
+              .map((point) => renderer.transformPoint(Offset(point.x, point.y)))
+              .toList();
+          expect(points.first, offsetMoreOrLessEquals(expected));
           expect(
-            Offset(pasted.points.first.x, pasted.points.first.y),
-            offsetMoreOrLessEquals(expected),
+            points.last - points.first,
+            offsetMoreOrLessEquals(
+              camera.localToGlobalDelta(const Offset(50, 100) * camera.size),
+            ),
           );
         }
       },

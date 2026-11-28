@@ -27,6 +27,10 @@ Future<void> showImportAssetWizard(
   Offset? position,
   bool advanced = true,
 }) async {
+  final viewportRotation = position == null
+      ? 0.0
+      : bloc.transformCubit.state.rotation;
+
   Future<void> importAsset(
     AssetFileType type,
     Uint8List bytes, {
@@ -43,7 +47,10 @@ Future<void> showImportAssetWizard(
           advanced: advanced,
           name: name,
         )
-        .then((e) => e?.submit());
+        .then(
+          (e) =>
+              e?.submit(position: position, viewportRotation: viewportRotation),
+        );
   }
 
   Future<void> importWithDialog(
@@ -65,7 +72,10 @@ Future<void> showImportAssetWizard(
       position: position,
       advanced: advanced,
     );
-    result?.submit();
+    await result?.submit(
+      position: position,
+      viewportRotation: viewportRotation,
+    );
   }
 
   if (!await type.isAvailable()) return;
