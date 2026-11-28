@@ -1581,6 +1581,10 @@
   "rawFile": "Raw file",
   "webSocketDescription": "デバイスはサーバーをホストしているため、コラボレーターは同じネットワーク上またはルーターのポートを転送する場合にのみ、どこからでも参加できます。",
   "swampDescription": "メッセージは、エンドツーエンド暗号化されたセキュアなリレーサーバーを介してルーティングされます。セッションを作成するには、swampサーバーアドレスが必要です。",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "未加工のノートを作成",
   "polygon": "多角形（多角形）",
   "@polygon": {
