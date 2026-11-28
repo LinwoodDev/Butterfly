@@ -1581,6 +1581,10 @@
   "rawFile": "Ham dosya",
   "webSocketDescription": "Cihazınız sunucu olarak hizmet veriyor, bu nedenle işbirlikçiler yalnızca aynı ağ üzerinden veya yönlendiricinizdeki portu yönlendirirseniz her yerden bağlanabilir.",
   "swampDescription": "Mesajlarınız uçtan uca şifrelemeli güvenli bir röle sunucusu üzerinden yönlendirilir. Bir swamp sunucu adresi oturum oluşturmak için gereklidir.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Ham not oluştur",
   "polygon": "Çokgen",
   "@polygon": {
