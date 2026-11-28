@@ -1581,6 +1581,10 @@
   "rawFile": "Berkas mentah",
   "webSocketDescription": "Perangkat Anda menjadi host server, sehingga kolaborator hanya dapat bergabung melalui jaringan yang sama atau dari mana saja jika Anda meneruskan port di router.",
   "swampDescription": "Pesan Anda dirutekan melalui server relai aman dengan enkripsi end-to-end. Alamat server swamp diperlukan untuk membuat sesi.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Buat catatan mentah",
   "polygon": "Poligon",
   "@polygon": {
