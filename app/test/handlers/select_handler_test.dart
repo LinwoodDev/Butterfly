@@ -12,6 +12,7 @@ import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/painting.dart' show Axis;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:material_leap/material_leap.dart';
@@ -77,6 +78,45 @@ void main() {
     expect(handler.getSelectionRect(), isNull);
     expect(handler.canChange(down, context), isTrue);
   });
+
+  for (final axis in Axis.values) {
+    test('issue #1382: SVG stays visible and selected after $axis flip', () {
+      final controller = _Controller();
+      final bloc = _Bloc();
+      final camera = TransformCubit(1);
+      addTearDown(camera.close);
+      when(() => bloc.editorController).thenReturn(controller);
+      when(() => bloc.refresh()).thenAnswer((_) async {});
+      when(() => controller.transformCubit).thenReturn(camera);
+
+      const bounds = Rect.fromLTWH(100, 150, 120, 80);
+      final handler = SelectHandler(SelectTool());
+      final original = SvgRenderer(
+        SvgElement(
+          id: 'svg',
+          source: 'test.svg',
+          position: const Point(100, 150),
+          width: bounds.width,
+          height: bounds.height,
+        ),
+      );
+      addTearDown(original.dispose);
+      handler.transform(bloc, null, next: [original]);
+
+      final flipped = original.flip(axis: axis, selectionRect: bounds)!;
+      addTearDown(flipped.dispose);
+      expect(
+        handler.onRendererUpdated(
+          const DocumentPage(),
+          original,
+          <Renderer<PadElement>>[flipped],
+        ),
+        isTrue,
+      );
+      expect(flipped.isVisible(bounds), isTrue);
+      expect(handler.getSelectionRect(), bounds);
+    });
+  }
 
   group('issue #1340: selection grid snapping', () {
     for (final rotation in [0.0, pi / 2]) {

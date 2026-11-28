@@ -12,6 +12,7 @@ import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/painting.dart' show Axis;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -199,6 +200,41 @@ void main() {
       -1,
     );
   });
+
+  for (final axis in Axis.values) {
+    for (final flipWithOperation in [false, true]) {
+      test(
+        'moving an image after flipping $axis (operation: $flipWithOperation)',
+        () {
+          final renderer = ImageRenderer(
+            ImageElement(source: 'test.png', width: 100, height: 50),
+          );
+          final bounds = renderer.rect;
+          final mirrored = flipWithOperation
+              ? renderer.flip(axis: axis, selectionRect: bounds)!
+              : renderer.transform(
+                  center: bounds.center,
+                  scaleX: axis == Axis.horizontal ? -1 : 1,
+                  scaleY: axis == Axis.vertical ? -1 : 1,
+                )!;
+          const delta = ui.Offset(17, 29);
+          final moved = mirrored.transform(center: bounds.center + delta)!;
+
+          expect(mirrored.rect, bounds);
+          expect(moved.rect, bounds.shift(delta));
+          expect(moved.element.constraints, mirrored.element.constraints);
+          expect(
+            mirrored.transform(position: delta)!.rect,
+            bounds.shift(delta),
+          );
+          expect(
+            moved.flip(axis: axis, selectionRect: moved.rect!)!.rect,
+            bounds.shift(delta),
+          );
+        },
+      );
+    }
+  }
 
   test('flipped rotated image stays in the target bounds', () {
     final renderer = ImageRenderer(

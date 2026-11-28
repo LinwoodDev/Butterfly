@@ -116,31 +116,16 @@ class PdfRenderer extends Renderer<PdfElement> {
     DocumentPage page,
     Rect viewportRect,
   ) {
-    if (!rect.overlaps(viewportRect)) return;
-    // Create data url
-    final data = element.getUriData(document, 'image/png').toString();
+    final bounds = rect;
+    if (!bounds.overlaps(viewportRect)) return;
     final signedSize = _signedSize;
-    final flipX = signedSize.dx < 0;
-    final flipY = signedSize.dy < 0;
-    final svgTransform = flipX || flipY
-        ? 'translate(${flipX ? rect.left + rect.right : 0} '
-              '${flipY ? rect.top + rect.bottom : 0}) '
-              'scale(${flipX ? -1 : 1} ${flipY ? -1 : 1})'
-        : null;
-    // Create image
-    xml
-        .getElement('svg')
-        ?.createElement(
-          'image',
-          attributes: {
-            'x': '${rect.left}px',
-            'y': '${rect.top}px',
-            'width': '${rect.width}px',
-            'height': '${rect.height}px',
-            'xlink:href': data,
-            'transform': ?svgTransform,
-          },
-        );
+    addSvgImage(
+      xml,
+      bounds,
+      element.getUriData(document, 'image/png').toString(),
+      flipX: signedSize.dx < 0,
+      flipY: signedSize.dy < 0,
+    );
   }
 
   @override
@@ -276,7 +261,13 @@ class PdfRenderer extends Renderer<PdfElement> {
   }) {
     return PdfRenderer(
       element.copyWith(
-        position: position.toPoint(),
+        position: transformAssetPosition(
+          element.position,
+          rect,
+          position,
+          scaleX,
+          scaleY,
+        ),
         rotation: rotation,
         shear: shear,
         constraints: element.constraints.scale(scaleX, scaleY),

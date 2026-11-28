@@ -169,10 +169,15 @@ void main() {
     );
 
     final mirrored = renderer.transform(scaleX: -1)!;
+    const delta = Offset(17, 29);
+    final moved = mirrored.transform(center: mirrored.rect!.center + delta)!;
+    expect(moved.rect, mirrored.rect!.shift(delta));
+    expect(moved.element.constraints, mirrored.element.constraints);
+
     final resized = mirrored.transform(scaleX: 2)!;
 
     expect(resized.rotation, 0);
-    expect(resized.rect, const Rect.fromLTWH(-300, 0, 200, 50));
+    expect(resized.rect, const Rect.fromLTWH(-100, 0, 200, 50));
     expect(
       (resized.element.constraints as ScaledElementConstraints).scaleX,
       -2,

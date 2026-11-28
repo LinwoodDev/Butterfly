@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -31,6 +32,18 @@ double calculateImportAssetScale({
       : 1.0;
   return fitScale / zoom;
 }
+
+/// Preserves the stored origin on the far edge of each flipped axis.
+Point<double> transformAssetPosition(
+  Point<double> origin,
+  Rect bounds,
+  Offset position,
+  double scaleX,
+  double scaleY,
+) => Point(
+  position.dx + (origin.x - bounds.left) * scaleX,
+  position.dy + (origin.y - bounds.top) * scaleY,
+);
 
 Uint8List? getDataFromSource(NoteData document, String source) {
   if (source.isEmpty) {

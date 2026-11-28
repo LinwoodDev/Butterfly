@@ -39,13 +39,15 @@ class SvgRenderer extends Renderer<SvgElement> {
     canvas.save();
     canvas.translate(element.position.x, element.position.y);
     final picture = pictureInfo!.picture;
-    final sx = rect.width / pictureInfo!.size.width;
-    final sy = rect.height / pictureInfo!.size.height;
-    canvas.scale(sx, sy);
+    canvas.scale(
+      rect.width /
+          pictureInfo!.size.width *
+          (element.width.isNegative ? -1 : 1),
+      rect.height /
+          pictureInfo!.size.height *
+          (element.height.isNegative ? -1 : 1),
+    );
     canvas.drawPicture(picture);
-    canvas.scale(1 / sx, 1 / sy);
-
-    canvas.translate(-element.position.x, -element.position.x);
     canvas.restore();
   }
 
@@ -56,20 +58,15 @@ class SvgRenderer extends Renderer<SvgElement> {
     DocumentPage page,
     Rect viewportRect,
   ) {
-    if (!rect.overlaps(viewportRect)) return;
-    final data = element.getUriData(document, 'image/svg+xml').toString();
-    xml
-        .getElement('svg')
-        ?.createElement(
-          'image',
-          attributes: {
-            'x': '${rect.left}px',
-            'y': '${rect.top}px',
-            'width': '${rect.width}px',
-            'height': '${rect.height}px',
-            'xlink:href': data,
-          },
-        );
+    final bounds = rect;
+    if (!bounds.overlaps(viewportRect)) return;
+    addSvgImage(
+      xml,
+      bounds,
+      element.getUriData(document, 'image/svg+xml').toString(),
+      flipX: element.width.isNegative,
+      flipY: element.height.isNegative,
+    );
   }
 
   @override
@@ -95,30 +92,20 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   Rect get rect {
     final constraints = element.constraints;
-    final size = Size(element.width, element.height);
+    final size = Size(element.width.abs(), element.height.abs());
+    var width = size.width;
+    var height = size.height;
     if (constraints is ScaledElementConstraints) {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        (size.width * scaleX).toDouble(),
-        (size.height * scaleY).toDouble(),
-      );
+      width *= scaleX;
+      height *= scaleY;
     } else if (constraints is FixedElementConstraints) {
-      var height = constraints.height;
-      var width = constraints.width;
-      if (height <= 0) height = size.height.toDouble();
-      if (width <= 0) width = size.width.toDouble();
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        width,
-        height,
-      );
+      if (constraints.width > 0) width = constraints.width;
+      if (constraints.height > 0) height = constraints.height;
     } else if (constraints is DynamicElementConstraints) {
-      var width = constraints.width;
-      var height = constraints.height;
+      width = constraints.width;
+      height = constraints.height;
       final ratio = constraints.aspectRatio;
       if (ratio != 0) {
         if (width <= 0) width = height * ratio;
@@ -127,28 +114,23 @@ class SvgRenderer extends Renderer<SvgElement> {
       if (constraints.includeArea) {
         final areaRect = area?.rect;
         final rightArea = areaRect?.right ?? 0;
-        final right = element.position.x + element.width;
+        final right = element.position.x + size.width;
         width = min(rightArea, right) - element.position.x;
         final bottomArea = areaRect?.bottom ?? 0;
         final bottom = element.position.y + size.height;
         height = min(bottomArea, bottom) - element.position.y;
       }
-      if (height <= 0) height = size.height.toDouble();
-      if (width <= 0) width = size.width.toDouble();
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        width,
-        height,
-      );
-    } else {
-      return Rect.fromLTWH(
-        element.position.x,
-        element.position.y,
-        size.width.toDouble(),
-        size.height.toDouble(),
-      );
+      if (height <= 0) height = size.height;
+      if (width <= 0) width = size.width;
     }
+    final position = element.position.toOffset();
+    return Rect.fromPoints(
+      position,
+      position.translate(
+        element.width.isNegative ? -width : width,
+        element.height.isNegative ? -height : height,
+      ),
+    );
   }
 
   @override
@@ -168,7 +150,13 @@ class SvgRenderer extends Renderer<SvgElement> {
   }) {
     return SvgRenderer(
       element.copyWith(
-        position: position.toPoint(),
+        position: transformAssetPosition(
+          element.position,
+          rect,
+          position,
+          scaleX,
+          scaleY,
+        ),
         rotation: rotation,
         shear: shear,
         width: element.width * scaleX,

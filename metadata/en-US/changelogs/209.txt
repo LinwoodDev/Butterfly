@@ -10,5 +10,7 @@
 * Preserve gradient fills and strokes when exporting SVG ([#1380](https://github.com/LinwoodDev/Butterfly/issues/1380))
 * Fix scrolling in the Layers list so bottom layers can be selected ([#1379](https://github.com/LinwoodDev/Butterfly/issues/1379))
 * Fix aspect ratio lock toggling when proportional resizing is enabled ([#1375](https://github.com/LinwoodDev/Butterfly/issues/1375))
+* Fix flipped images and PDF pages jumping when moved ([#1381](https://github.com/LinwoodDev/Butterfly/issues/1381))
+* Keep flipped SVGs and their selection outlines visible and correctly positioned ([#1382](https://github.com/LinwoodDev/Butterfly/issues/1382))
 
 Read more here: https://linwood.dev/butterfly/2.6.4-rc.1
