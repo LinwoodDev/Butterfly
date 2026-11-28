@@ -1581,6 +1581,10 @@
   "rawFile": "Fitxer brut",
   "webSocketDescription": "El teu dispositiu allotja el servidor, així que els col·laboradors només poden unir-se per la mateixa xarxa o des de qualsevol lloc si reenvies el port al teu router.",
   "swampDescription": "Els teus missatges es redirigeixen a través d'un servidor de relé segur amb xifrat de punta a punta. Es requereix una adreça de servidor swamp per crear una sessió.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Crea nota bruta",
   "polygon": "Polígon",
   "@polygon": {

@@ -1581,6 +1581,10 @@
   "rawFile": "Surový soubor",
   "webSocketDescription": "Vaše zařízení hostí server, takže se spolupracovníci mohou připojit přes stejnou síť nebo odkudkoliv pouze tehdy, pokud přeposíláte port na váš router.",
   "swampDescription": "Vaše zprávy jsou směrovány přes bezpečný server s koncovým šifrováním. Pro vytvoření relace je nutná adresa swamp serveru.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Vytvořit surovou poznámku",
   "polygon": "Polygon",
   "@polygon": {

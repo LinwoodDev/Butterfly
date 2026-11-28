@@ -1581,6 +1581,10 @@
   "rawFile": "Raw bestand",
   "webSocketDescription": "Uw apparaat organiseert de server, zodat collaborateurs zich alleen via hetzelfde netwerk of vanaf waar dan ook kunnen aanmelden als u de poort op uw router doorstuurt.",
   "swampDescription": "Je berichten worden doorgestuurd via een beveiligde relaisserver met end-to-end versleuteling. Een wamp serveradres is vereist om een sessie te maken.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Ruw notitie maken",
   "polygon": "Veelhoek",
   "@polygon": {

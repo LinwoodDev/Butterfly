@@ -1581,6 +1581,10 @@
   "rawFile": "Raaka tiedosto",
   "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
   "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Luo raaka merkintä",
   "polygon": "Monikulmio",
   "@polygon": {

@@ -1581,6 +1581,10 @@
   "rawFile": "원본 파일",
   "webSocketDescription": "장치가 서버를 호스팅하므로 협업자는 동일한 네트워크를 통해서만 참여하거나 라우터에서 포트를 전달하는 경우 어디서든 참여할 수 있습니다.",
   "swampDescription": "메시지는 종단 간 암호화가 적용된 보안 릴레이 서버를 통해 라우팅됩니다. 세션을 생성하려면 스웜프 서버 주소가 필요합니다.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "원본 노트 만들기",
   "polygon": "다각형",
   "@polygon": {

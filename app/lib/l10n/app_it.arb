@@ -1581,6 +1581,10 @@
   "rawFile": "File grezzo",
   "webSocketDescription": "Il tuo dispositivo ospita il server, in modo che i collaboratori possano entrare nella stessa rete o da qualsiasi luogo inoltrando la porta sul router.",
   "swampDescription": "I messaggi vengono instradati attraverso un server relè sicuro con crittografia end-to-end. Per creare una sessione è necessario un indirizzo del server swamp.",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "Crea nota grezza",
   "polygon": "Poligono",
   "@polygon": {

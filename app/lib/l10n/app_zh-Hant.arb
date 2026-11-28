@@ -1581,6 +1581,10 @@
   "rawFile": "原始檔案",
   "webSocketDescription": "您的裝置會自行架設伺服器，因此協作者只能在同一網路中加入，或是在您於路由器上轉發連接埠後，才能從任何位置加入。",
   "swampDescription": "您的訊息會通過具備端對端加密的安全中繼伺服器路由。建立會議需要提供 Swamp 伺服器位址。",
+  "swampAccessToken": "Swamp access token",
+  "swampTokenRequired": "Swamp access token required",
+  "swampRememberToken": "Remember token for this server",
+  "swampTokenStorageFailed": "Could not update the saved Swamp access token.",
   "createRawNote": "建立原始筆記",
   "polygon": "多邊形",
   "@polygon": {
