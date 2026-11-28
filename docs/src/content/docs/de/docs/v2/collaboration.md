@@ -35,6 +35,12 @@ Gib nun die URL des Servers in der Zusammenarbeitsansicht ein. Die URL sollte so
 
 Nun können Sie einfach auf `Start` klicken, um den Server zu starten. Mit dem angegebenen Link können Sie das Dokument mit anderen Personen teilen. Sie können den Link einfach in den Verbindungsdialog eingeben und auf `Verbinden` klicken. Dadurch werden sie mit dem Server verbunden und können das Dokument bearbeiten.
 
+Butterfly tries to join as a guest when you click **Connect** or open an invite link. If the server requires authentication, Butterfly opens a dialog for your access token.
+
+Hosting can require a token with permission to create rooms. To require a token for hosting and allow guests to join, configure an authentication source and set `SWAMP_AUTH_REQUIRE_CONNECTION=false` and `SWAMP_AUTH_REQUIRE_CREATE=true`. See the [Swamp authentication settings](https://swamp.linwood.dev/docs/v1/setup/#authentication).
+
+Use **Remember token for this server** to keep a token in secure storage after a successful connection. Butterfly remembers hosting and joining tokens separately. To forget a token, clear the checkbox the next time you connect with it. Invite links do not include access tokens.
+
 ## WebSocket
 
 Butterfly verwendet einen WebSocket-Server, der auf Ihrem Computer gehostet wird. Dieser Server muss aus dem Internet oder Ihrem lokalen Netzwerk erreichbar sein. Der Client verbindet sich mit diesem Server. Der Server synchronisiert alle Änderungen und Ereignisse mit allen Clients.
